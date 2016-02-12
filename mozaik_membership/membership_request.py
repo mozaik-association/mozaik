@@ -93,14 +93,16 @@ class membership_request(orm.Model):
         return [('birth_date', operator, computed_birth_date)]
 
     @api.one
-    @api.depends('birth_date')
+    @api.depends('is_company', 'birth_date')
     def _compute_age(self):
         """
         age computed depending of the birth date of the
         membership request
         """
-        if self.birth_date:
+        if not self.is_company and self.birth_date:
             self.age = get_age(self.birth_date)
+        else:
+            self.age = 0
 
     def _pop_related(self, cr, uid, vals, context=None):
         vals.pop('local_zip', None)
@@ -386,7 +388,8 @@ class membership_request(orm.Model):
                                      'identifier',
                                      string='Identifier',
                                      type='integer'),
-        'lastname': fields.char('Lastname', required=True,
+        'is_company': fields.boolean('Is a Company'),
+        'lastname': fields.char('Name', required=True,
                                 track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
 
@@ -490,6 +493,7 @@ class membership_request(orm.Model):
         string='Age', compute='_compute_age', search='_search_age')
 
     _defaults = {
+        'is_company': False,
         'is_update': False,
         'state': 'draft',
     }
@@ -571,7 +575,8 @@ class membership_request(orm.Model):
             }
         }
 
-    def onchange_partner_component(self, cr, uid, ids, day, month, year,
+    def onchange_partner_component(self, cr, uid, ids, is_company,
+                                   day, month, year,
                                    lastname, firstname, email, is_update,
                                    context=None):
         """
@@ -579,8 +584,10 @@ class membership_request(orm.Model):
         birth_date, lastname, firstname, email
         """
         uid = SUPERUSER_ID
-        birth_date = self.get_birth_date(cr, uid, day, month, year,
-                                         context=context)
+        birth_date = False
+        if not is_company:
+            birth_date = self.get_birth_date(cr, uid, day, month, year,
+                                             context=context)
         email = self.get_format_email(cr, uid, email, context=context)
         values = {
             'value': {
@@ -591,14 +598,16 @@ class membership_request(orm.Model):
         if is_update:
             return values
 
-        partner_id = self.get_partner_id(cr, uid, birth_date, lastname,
-                                         firstname, email, context=context)
+        partner_id = self.get_partner_id(cr, uid, is_company, birth_date,
+                                         lastname, firstname, email,
+                                         context=context)
         values['value'].update({
             'partner_id': partner_id,
         })
         return values
 
-    def onchange_partner_id(self, cr, uid, ids, request_type, partner_id,
+    def onchange_partner_id(self, cr, uid, ids,
+                            is_company, request_type, partner_id,
                             technical_name, context=None):
         """
         Take current
@@ -639,9 +648,15 @@ class membership_request(orm.Model):
         else:
             partner_status_id = self.pool['membership.state'].\
                 _state_default_get(cr, uid, context=context)
-        # (status,partner_id)
-        result_type_id = self.get_partner_preview(
-            cr, uid, request_type, partner_id, context=context)
+
+        result_type_id = False
+        if not is_company:
+            result_type_id = self.get_partner_preview(
+                cr, uid, request_type, partner_id, context=context)
+        elif request_type:
+            res.update({
+                'request_type': False,
+            })
 
         res.update({
             'membership_state_id': partner_status_id,
@@ -653,7 +668,6 @@ class membership_request(orm.Model):
         mobile = self.get_format_phone_number(cr, uid, mobile, context=context)
         mobile_id = self.get_phone_id(cr, uid, mobile, 'mobile',
                                       context=context)
-        uid = SUPERUSER_ID
         return {
             'value': {
                 'mobile_id': mobile_id,
@@ -664,7 +678,6 @@ class membership_request(orm.Model):
     def onchange_phone(self, cr, uid, ids, phone, context=None):
         phone = self.get_format_phone_number(cr, uid, phone, context=context)
         phone_id = self.get_phone_id(cr, uid, phone, 'fix', context=context)
-        uid = SUPERUSER_ID
         return {
             'value': {
                 'phone_id': phone_id,
@@ -760,7 +773,8 @@ class membership_request(orm.Model):
                 _logger.info('Reset `birth_date`: Invalid Date')
         return birth_date
 
-    def get_partner_id(self, cr, uid, birth_date, lastname, firstname, email,
+    def get_partner_id(self, cr, uid, is_company, birth_date,
+                       lastname, firstname, email,
                        context=None):
         """
         Make special combinations of domains to try to find
@@ -769,12 +783,7 @@ class membership_request(orm.Model):
         partner_obj = self.pool['virtual.custom.partner']
         partner_domains = []
 
-        if birth_date and email:
-            partner_domains.append(
-                "[('membership_state_id', '!=', False),"
-                "('is_company', '=', False),('birth_date'"
-                ",'=', '%s'),('email', '=', '%s')]" % (birth_date, email))
-        if birth_date and email and firstname and lastname:
+        if not is_company and birth_date and email and firstname and lastname:
             partner_domains.append(
                 "[('membership_state_id', '!=', False),"
                 "('is_company', '=', False),"
@@ -783,22 +792,36 @@ class membership_request(orm.Model):
                 "(\"firstname\", 'ilike', \"%s\"),"
                 "(\"lastname\", 'ilike', \"%s\")]"
                 % (birth_date, email, firstname, lastname))
-        if email:
+        if not is_company and birth_date and email:
+            partner_domains.append(
+                "[('membership_state_id', '!=', False),"
+                "('is_company', '=', False),"
+                "('birth_date','=', '%s'),"
+                "('email', '=', '%s')]" % (birth_date, email))
+        if not is_company and email:
             partner_domains.append(
                 "[('membership_state_id', '!=', False),"
                 "('is_company', '=', False),"
                 "('email', '=','%s')]" % (email))
+        if is_company and email:
+            partner_domains.append(
+                "[('is_company', '=', True),"
+                "('email', '=','%s')]" % (email))
         if lastname:
-            if firstname:
+            if not is_company and firstname:
                 partner_domains.append(
                     "[('membership_state_id','!=',False),"
                     "('is_company', '=', False),"
                     "(\"firstname\", 'ilike', \"%s\"),"
                     "(\"lastname\", 'ilike', \"%s\")]" % (firstname, lastname))
-            else:
+            elif not is_company:
                 partner_domains.append(
                     "[('membership_state_id', '!=', False),"
                     "('is_company', '=', False),"
+                    "(\"lastname\", 'ilike', \"%s\")]" % (lastname))
+            else:
+                partner_domains.append(
+                    "[('is_company', '=', False),"
                     "(\"lastname\", 'ilike', \"%s\")]" % (lastname))
 
         partner_id = False
@@ -811,6 +834,32 @@ class membership_request(orm.Model):
                                           ['partner_id'])[0]
             partner_id = partner_id['partner_id'][0]
         return partner_id
+
+    def persist_search(self, cr, uid, model_obj, domains, context=None):
+        """
+        This method will make a search with a list of domain and return result
+        only if it is a single result
+        :type model_obj: model object into odoo (ex: res.partner)
+        :param model_obj: used to make the research
+        :type domains: []
+        :param domains: contains a list of domains
+        :rparam: result of the search
+        """
+        def rec_search(loop_counter):
+            if loop_counter >= len(domains):
+                return False
+            else:
+                try:
+                    domain = eval(domains[loop_counter])
+                except:
+                    raise orm.except_orm(_('Error'), _('Invalid Data'))
+                model_ids = model_obj.search(cr, uid, domain, context=context)
+                if len(model_ids) == 1:
+                    return model_ids[0]
+                else:
+                    return rec_search(loop_counter + 1)
+
+        return rec_search(0)
 
     def get_technical_name(self, cr, uid, address_local_street_id,
                            address_local_zip_id, number, box, town_man,
@@ -909,14 +958,16 @@ class membership_request(orm.Model):
         mobile_id = False
         phone_id = False
 
-        firstname = vals.get('firstname', False)
+        is_company = vals.get('is_company', False)
+        firstname = False if is_company else vals.get('firstname', False)
         lastname = vals.get('lastname', False)
-        birth_date = vals.get('birth_date', False)
-        day = vals.get('day', False)
-        month = vals.get('month', False)
-        year = vals.get('year', False)
+        birth_date = False if is_company else vals.get('birth_date', False)
+        day = False if is_company else vals.get('day', False)
+        month = False if is_company else vals.get('month', False)
+        year = False if is_company else vals.get('year', False)
+        gender = False if is_company else vals.get('gender', False)
         email = vals.get('email', False)
-        mobile = vals.get('mobile', False)
+        mobile = False if is_company else vals.get('mobile', False)
         phone = vals.get('phone', False)
         address_id = vals.get('address_id', False)
         address_local_street_id = vals.get('address_local_street_id', False)
@@ -948,26 +999,27 @@ class membership_request(orm.Model):
                     town_man = False
                     zip_man = False
 
-        if not birth_date:
+        if not is_company and not birth_date:
             birth_date = self.get_birth_date(cr, uid, day, month, year,
                                              context=context)
 
-        if mobile or phone:
-            if mobile:
-                mobile = self.get_format_phone_number(cr, uid, mobile,
-                                                      context=context)
-                mobile_id = self.get_phone_id(cr, uid, mobile, 'mobile',
-                                              context=context)
-            if phone:
-                phone = self.get_format_phone_number(cr, uid, phone,
-                                                     context=context)
-                phone_id = self.get_phone_id(cr, uid, phone, 'fix',
-                                             context=context)
+        if mobile:
+            mobile = self.get_format_phone_number(cr, uid, mobile,
+                                                  context=context)
+            mobile_id = self.get_phone_id(cr, uid, mobile, 'mobile',
+                                          context=context)
+        if phone:
+            phone = self.get_format_phone_number(cr, uid, phone,
+                                                 context=context)
+            phone_id = self.get_phone_id(cr, uid, phone, 'fix',
+                                         context=context)
         if email:
             email = self.get_format_email(cr, uid, email, context=context)
+
         if not partner_id:
-            partner_id = self.get_partner_id(cr, uid, birth_date, lastname,
-                                             firstname, email, context=context)
+            partner_id = self.get_partner_id(cr, uid, is_company, birth_date,
+                                             lastname, firstname, email,
+                                             context=context)
 
         technical_name = self.get_technical_name(
             cr, uid, address_local_street_id, address_local_zip_id, number,
@@ -980,14 +1032,16 @@ class membership_request(orm.Model):
             cr, uid, address_local_zip_id, context=context)
 
         res = self.onchange_partner_id(
-            cr, uid, [], request_type, partner_id, technical_name,
+            cr, uid, [], is_company, request_type, partner_id, technical_name,
             context=None)['value']
         vals.update(res)
 
         # update vals dictionary because some inputs may have changed
         # (and new values too)
         vals.update({
+            'is_company': is_company,
             'partner_id': partner_id,
+
             'lastname': lastname,
             'firstname': firstname,
             'birth_date': birth_date,
@@ -997,6 +1051,7 @@ class membership_request(orm.Model):
             'day': day,
             'month': month,
             'year': year,
+            'gender': gender,
 
             'mobile': mobile,
             'phone': phone,
@@ -1016,32 +1071,6 @@ class membership_request(orm.Model):
 
         return vals
 
-    def persist_search(self, cr, uid, model_obj, domains, context=None):
-        """
-        This method will make a search with a list of domain and return result
-        only if it is a single result
-        :type model_obj: model object into odoo (ex: res.partner)
-        :param model_obj: used to make the research
-        :type domains: []
-        :param domains: contains a list of domains
-        :rparam: result of the search
-        """
-        def rec_search(loop_counter):
-            if loop_counter >= len(domains):
-                return False
-            else:
-                try:
-                    domain = eval(domains[loop_counter])
-                except:
-                    raise orm.except_orm(_('Error'), _('Invalid Data'))
-                model_ids = model_obj.search(cr, uid, domain, context=context)
-                if len(model_ids) == 1:
-                    return model_ids[0]
-                else:
-                    return rec_search(loop_counter + 1)
-
-        return rec_search(0)
-
     def confirm_request(self, cr, uid, ids, context=None):
         vals = {
             'state': 'confirm'
@@ -1058,16 +1087,18 @@ class membership_request(orm.Model):
         mr_vals = {}
         partner_obj = self.pool['res.partner']
         for mr in self.browse(cr, uid, ids, context=context):
-            # partner
             partner_values = {
                 'lastname': mr.lastname,
-                'firstname': mr.firstname,
-                'gender': mr.gender,
-                'birth_date': mr.birth_date,
             }
+            if not mr.is_company:
+                partner_values.update({
+                    'firstname': mr.firstname,
+                    'gender': mr.gender,
+                    'birth_date': mr.birth_date,
+                })
             result_id = mr.result_type_id and mr.result_type_id.id or False
 
-            if mr.membership_state_id.id != result_id:
+            if mr.is_company or mr.membership_state_id.id != result_id:
                 partner_values['int_instance_id'] = mr.int_instance_id.id
 
             partner_id = False
@@ -1082,8 +1113,10 @@ class membership_request(orm.Model):
             partner = partner_obj.browse(
                 cr, uid, [partner_id], context=context)[0]
 
-            new_interests_ids = mr.interests_m2m_ids and \
-                ([interest.id for interest in mr.interests_m2m_ids]) or []
+            new_interests_ids = False
+            if not mr.is_company:
+                new_interests_ids = mr.interests_m2m_ids and \
+                    ([interest.id for interest in mr.interests_m2m_ids]) or []
             new_competencies_ids = mr.competencies_m2m_ids and \
                 ([competence.id for competence in mr.competencies_m2m_ids]) \
                 or []
@@ -1134,9 +1167,11 @@ class membership_request(orm.Model):
             mr_vals['phone_id'] = self.change_main_phone(
                 cr, uid, partner_id, mr.phone_id and mr.phone_id.id or False,
                 mr.phone, 'fix', context=context)
-            mr_vals['mobile_id'] = self.change_main_phone(
-                cr, uid, partner_id, mr.mobile_id and mr.mobile_id.id or False,
-                mr.mobile, 'mobile', context=context)
+            if not mr.is_company:
+                mr_vals['mobile_id'] = self.change_main_phone(
+                    cr, uid, partner_id,
+                    mr.mobile_id and mr.mobile_id.id or False,
+                    mr.mobile, 'mobile', context=context)
 
             # case of email
             if mr.email:

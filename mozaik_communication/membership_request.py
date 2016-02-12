@@ -58,3 +58,19 @@ class MembershipRequest(models.Model):
             if vals:
                 self.partner_id.write(vals)
         return True
+
+    def onchange_partner_id(self, cr, uid, ids,
+                            is_company, request_type, partner_id,
+                            technical_name, context=None):
+        """
+        Keep Newsletter when the partner is a company
+        """
+        res = super(MembershipRequest, self).onchange_partner_id(
+            cr, uid, ids,
+            is_company, request_type, partner_id,
+            technical_name, context=context)
+
+        if is_company and request_type == 'n':
+            res['value']['request_type'] = 'n'
+
+        return res

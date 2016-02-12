@@ -9,7 +9,7 @@
             <field name="name">membership.request.search</field>
             <field name="model">membership.request</field>
             <field name="arch" type="xml">
-                <search string="Membership Requests" version="7.0">
+                <search string="Membership Requests">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="address_id" />
@@ -17,6 +17,10 @@
                     <field name="phone_id" domain="[('type','=','fix')]"/>
                     <field string="Age >= ..." name="age" filter_domain="[('age','>=', self)]"/>
                     <field string="Age &lt; ..." name="age" filter_domain="[('age','&lt;', self)]"/>
+
+                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
+                    <separator />
                     <filter name="member" string="Member"
                         domain="[('request_type', '=', 'm')]" />
                     <filter name="supporter" string="Supporter"
@@ -59,6 +63,7 @@
                     <field name="request_type" />
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="is_company" />
                     <field name="state" />
 
                     <field name="expire_date"
@@ -110,7 +115,10 @@
                                 NEW
                             </span>
                             <span
-                                attrs="{'invisible':[('result_type_id', '=', False),
+                                attrs="{'invisible':['|',
+                                                     ('is_company', '=', True),
+                                                     '&amp;',
+                                                     ('result_type_id', '=', False),
                                                      ('membership_state_id', '=', False)]}">
                                 (
                                 <field name="membership_state_id"
@@ -129,36 +137,39 @@
 
                         <group name="partner">
                             <group name="partner_info1">
+                                <field name="is_company"
+                                    attrs="{'invisible':[('is_update', '=', True)]}" />
                                 <field name="lastname"
-                                    on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                    on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)" />
                                 <field name="firstname"
-                                    on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                    on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)"
+                                    attrs="{'invisible':[('is_company', '=', True)]}" />
                             </group>
                             <group name="request_info">
                                 <field name="request_type"
-                                    on_change="onchange_partner_id(request_type, partner_id, technical_name)" />
+                                    on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name)" />
                             </group>
                         </group>
 
                         <group name="partner_more_info">
-                            <group name="gender_bdate">
+                            <group name="gender_bdate" attrs="{'invisible':[('is_company', '=', True)]}">
                                 <label for="day" string="Birth Date"/>
                                 <div>
                                     <field name="day" widget="char" style="width: 25%" placeholder="DD"
-                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                           on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)"/>
                                     <label string=" / "/>
                                     <field name="month" widget="char" style="width: 25%" placeholder="MM"
-                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                           on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)"/>
                                     <label string=" / "/>
                                     <field name="year" widget="char" style="width: 40%" placeholder="YYYY"
-                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                           on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)"/>
                                 </div>
                                 <field name="gender"/>
                             </group>
                             <group name="coordinates">
                                 <field name="phone" on_change="onchange_phone(phone)"/>
-                                <field name="mobile" on_change="onchange_mobile(mobile)"/>
-                                <field name="email" on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                <field name="mobile" on_change="onchange_mobile(mobile)" attrs="{'invisible':[('is_company', '=', True)]}"/>
+                                <field name="email" on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)"/>
                             </group>
                         </group>
 
@@ -212,9 +223,9 @@
 
                         <group name="comp_int">
                             <group name="competencies">
-                                <field name="competencies" />
+                                <field name="competencies" string="Competencies &amp; Topics" />
                             </group>
-                            <group name="interests">
+                            <group name="interests" attrs="{'invisible':[('is_company', '=', True)]}">
                                 <field name="interests" />
                             </group>
                         </group>
@@ -227,21 +238,20 @@
                             <page string="Partner" name="partner">
                                 <group>
                                     <field name="partner_id"
-                                        domain="[('is_company','=', False),('identifier','!=',0)]"
+                                        domain="[('is_company','=', is_company),('identifier','!=',0)]"
                                         attrs="{'readonly':[('is_update', '=', True)],
-                                                   'required':[('is_update', '=', True)]}"
+                                                'required':[('is_update', '=', True)]}"
                                         on_change="onchange_partner_id(request_type, partner_id, technical_name)" />
-                                    <field name="birth_date" />
-                                    <field name="age" attrs="{'invisible': [('birth_date', '=', False)]}"/>
-                                    <field name="int_instance_id"
-                                        readonly="1" />
+                                    <field name="birth_date" attrs="{'invisible':[('is_company', '=', True)]}" />
+                                    <field name="age" attrs="{'invisible': ['|',('birth_date', '=', False),('is_company', '=', True)]}" />
+                                    <field name="int_instance_id" readonly="1" />
                                 </group>
                             </page>
                             <page string="Indexation" name="indexation">
-                                <separator string="Competencies"/>
+                                <separator string="Competencies &amp; Topics" />
                                 <field name="competencies_m2m_ids"/>
-                                <separator string="Interests"/>
-                                <field name="interests_m2m_ids"/>
+                                <separator string="Interests" attrs="{'invisible':[('is_company', '=', True)]}"/>
+                                <field name="interests_m2m_ids" attrs="{'invisible':[('is_company', '=', True)]}"/>
                             </page>
                             <page string="Coordinates" name="coordinates">
                                 <group>
@@ -249,13 +259,13 @@
                                 </group>
                                 <group>
                                     <field name="phone_id" />
-                                    <field name="mobile_id" />
+                                    <field name="mobile_id" attrs="{'invisible':[('is_company', '=', True)]}"/>
                                 </group>
                             </page>
                             <page string="Changes" name="changes">
                                 <group name='buttons'>
-	                                <button name="update_changes" attrs="{'invisible': [('active', '=', False)]}"
-	                                        string="Refresh" type="object"/>
+                                  <button name="update_changes" attrs="{'invisible': [('active', '=', False)]}"
+                                          string="Refresh" type="object"/>
                                 </group>
                                 <group attrs="{'invisible': [('partner_id', '=', False)]}">
                                     <field name="change_ids" readonly='1' nolabel="1" attrs="{'invisible': [('active', '=', False)]}">
@@ -276,6 +286,7 @@
                             </page>
                         </notebook>
                     </sheet>
+
                     <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>

@@ -90,11 +90,9 @@ class custom_webservice(orm.Model):
                            zip_code, town, status, day=False, month=False,
                            year=False, email=False, mobile=False, phone=False,
                            interest=False, note=False, code=False,
+                           company=False, competencies=False,
                            context=None):
         """
-        ==================
-        membership_request
-        ==================
         Create a `membership.request` with the giving values
         """
         uuid = uid
@@ -104,7 +102,14 @@ class custom_webservice(orm.Model):
         membership_request = self.pool['membership.request']
         distribution_list = self.pool['distribution.list']
         town = town.strip()
+        is_company = False
+        if isinstance(company, (int, long, bool)) and company:
+            is_company = True
+        else:
+            is_company = company.lower() in ['true', 'y', 'yes', '1']
         vals = {
+            'is_company': is_company,
+
             'lastname': lastname,
             'firstname': firstname,
             'state': 'confirm',
@@ -124,6 +129,8 @@ class custom_webservice(orm.Model):
             'email': email,
 
             'interests': interest,
+            'competencies': competencies,
+
             'note': note,
         }
         context['mode'] = 'ws'
