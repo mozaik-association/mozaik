@@ -291,11 +291,11 @@ class test_membership(SharedSetupTransactionCase):
         self.mro.write(cr, uid, request.id, {'lastname': 'Test'})
         request = self.mro.browse(cr, uid, request.id)
         changes = get_changes()
-        self.assertIn('Lastname', changes)
+        self.assertIn('Name', changes)
         self.assertIn('City', changes)
         self.assertIn('Reference Street', changes)
-        self.assertEquals(changes['Lastname'][0], 'MAROIS')
-        self.assertEquals(changes['Lastname'][1], 'Test')
+        self.assertEquals(changes['Name'][0], 'MAROIS')
+        self.assertEquals(changes['Name'][1], 'Test')
         self.assertEquals(changes['City'][0], 'Test Valley')
         self.assertEquals(changes['City'][1], 'Oreye')
         self.assertEquals(changes['Reference Street'][0], 'Street Sample')
@@ -347,7 +347,7 @@ class test_membership(SharedSetupTransactionCase):
             'year': d.year,
         }
         oc = mr.onchange_partner_component(
-            d.day, d.month, d.year, name, name, None, False)
+            False, d.day, d.month, d.year, name, name, None, False)
         vals['birth_date'] = oc['value'].get('birth_date', False)
         mr.write(vals)
         mr.validate_request()
