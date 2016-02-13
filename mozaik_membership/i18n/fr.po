@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 09:31+0000\n"
-"PO-Revision-Date: 2016-02-01 09:31+0000\n"
+"POT-Creation-Date: 2016-02-13 01:56+0000\n"
+"PO-Revision-Date: 2016-02-13 01:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -207,11 +207,15 @@ msgid "Company"
 msgstr "Société"
 
 #. module: mozaik_membership
-#: view:membership.request:mozaik_membership.membership_request_form_view
 #: field:membership.request,competencies:0
 #: field:membership.request,competencies_m2m_ids:0
 msgid "Competencies"
 msgstr "Compétences"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Competencies & Topics"
+msgstr "Compétences & thèmes"
 
 #. module: mozaik_membership
 #: field:pass.former.member,concerned_members:0
@@ -382,7 +386,7 @@ msgid "Email is Main"
 msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:1036
+#: code:addons/mozaik_membership/membership_request.py:855
 #: code:addons/mozaik_membership/res_partner.py:359
 #: code:addons/mozaik_membership/res_partner.py:448
 #: code:addons/mozaik_membership/res_partner.py:556
@@ -720,7 +724,7 @@ msgid "Internal Mandate"
 msgstr "Mandat interne"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:1036
+#: code:addons/mozaik_membership/membership_request.py:855
 #, python-format
 msgid "Invalid Data"
 msgstr "Données invalides"
@@ -772,6 +776,11 @@ msgstr "Principale"
 #: field:membership.request,is_update:0
 msgid "Is Update"
 msgstr "Mise à jour"
+
+#. module: mozaik_membership
+#: field:membership.request,is_company:0
+msgid "Is a Company"
+msgstr "Est une personne morale"
 
 #. module: mozaik_membership
 #: field:membership.line,message_is_follower:0
@@ -829,11 +838,15 @@ msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
 
 #. module: mozaik_membership
-#: field:membership.request,lastname:0
 #: field:virtual.custom.partner,lastname:0
 #: field:virtual.master.partner,lastname:0
 msgid "Lastname"
 msgstr "Nom de famille"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+msgid "Legal Persons"
+msgstr "Personnes légales"
 
 #. module: mozaik_membership
 #: field:membership.request,local_zip:0
@@ -1062,6 +1075,12 @@ msgid "NEW"
 msgstr "NOUVEAU"
 
 #. module: mozaik_membership
+#: field:membership.request,lastname:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
 #: field:waiting.member.report,partner_id:0
 msgid "Natural Persons"
 msgstr "Personnes physiques"
@@ -1646,11 +1665,6 @@ msgstr ""
 #: view:product.template:mozaik_membership.product_template_form_view
 #: view:product.template:mozaik_membership.product_template_only_form_view
 msgid "{'invisible': [('membership', '=', True)]}"
-msgstr ""
-
-#. module: mozaik_membership
-#: view:membership.request:mozaik_membership.membership_request_form_view
-msgid "⇒"
 msgstr ""
 
 #. module: mozaik_membership
