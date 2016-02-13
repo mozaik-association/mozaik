@@ -63,7 +63,7 @@ class MembershipRequest(models.Model):
                             is_company, request_type, partner_id,
                             technical_name, context=None):
         """
-        Keep Newsletter when the partner is a company
+        Keep Newsletter as request type when the partner is a company
         """
         res = super(MembershipRequest, self).onchange_partner_id(
             cr, uid, ids,

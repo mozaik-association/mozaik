@@ -821,7 +821,7 @@ class membership_request(orm.Model):
                     "(\"lastname\", 'ilike', \"%s\")]" % (lastname))
             else:
                 partner_domains.append(
-                    "[('is_company', '=', False),"
+                    "[('is_company', '=', True),"
                     "(\"lastname\", 'ilike', \"%s\")]" % (lastname))
 
         partner_id = False
@@ -967,7 +967,7 @@ class membership_request(orm.Model):
         year = False if is_company else vals.get('year', False)
         gender = False if is_company else vals.get('gender', False)
         email = vals.get('email', False)
-        mobile = False if is_company else vals.get('mobile', False)
+        mobile = vals.get('mobile', False)
         phone = vals.get('phone', False)
         address_id = vals.get('address_id', False)
         address_local_street_id = vals.get('address_local_street_id', False)
@@ -1088,6 +1088,7 @@ class membership_request(orm.Model):
         partner_obj = self.pool['res.partner']
         for mr in self.browse(cr, uid, ids, context=context):
             partner_values = {
+                'is_company': mr.is_company,
                 'lastname': mr.lastname,
             }
             if not mr.is_company:
@@ -1113,7 +1114,7 @@ class membership_request(orm.Model):
             partner = partner_obj.browse(
                 cr, uid, [partner_id], context=context)[0]
 
-            new_interests_ids = False
+            new_interests_ids = []
             if not mr.is_company:
                 new_interests_ids = mr.interests_m2m_ids and \
                     ([interest.id for interest in mr.interests_m2m_ids]) or []
@@ -1121,10 +1122,17 @@ class membership_request(orm.Model):
                 ([competence.id for competence in mr.competencies_m2m_ids]) \
                 or []
 
+            notes = []
+            if mr.note:
+                notes.append(mr.note)
+            if partner.comment:
+                notes.append(partner.comment)
+
             partner_values.update(self._get_status_values(mr.request_type))
             partner_values.update({
                 'competencies_m2m_ids': [[6, False, new_competencies_ids]],
                 'interests_m2m_ids': [[6, False, new_interests_ids]],
+                'comment': '\n'.join(notes),
             })
 
             # update_partner values
@@ -1167,11 +1175,10 @@ class membership_request(orm.Model):
             mr_vals['phone_id'] = self.change_main_phone(
                 cr, uid, partner_id, mr.phone_id and mr.phone_id.id or False,
                 mr.phone, 'fix', context=context)
-            if not mr.is_company:
-                mr_vals['mobile_id'] = self.change_main_phone(
-                    cr, uid, partner_id,
-                    mr.mobile_id and mr.mobile_id.id or False,
-                    mr.mobile, 'mobile', context=context)
+            mr_vals['mobile_id'] = self.change_main_phone(
+                cr, uid, partner_id,
+                mr.mobile_id and mr.mobile_id.id or False,
+                mr.mobile, 'mobile', context=context)
 
             # case of email
             if mr.email:

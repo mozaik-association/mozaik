@@ -168,7 +168,7 @@
                             </group>
                             <group name="coordinates">
                                 <field name="phone" on_change="onchange_phone(phone)"/>
-                                <field name="mobile" on_change="onchange_mobile(mobile)" attrs="{'invisible':[('is_company', '=', True)]}"/>
+                                <field name="mobile" on_change="onchange_mobile(mobile)" />
                                 <field name="email" on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)"/>
                             </group>
                         </group>
@@ -241,7 +241,7 @@
                                         domain="[('is_company','=', is_company),('identifier','!=',0)]"
                                         attrs="{'readonly':[('is_update', '=', True)],
                                                 'required':[('is_update', '=', True)]}"
-                                        on_change="onchange_partner_id(request_type, partner_id, technical_name)" />
+                                        on_change="onchange_partner_id(is_company,request_type, partner_id, technical_name)" />
                                     <field name="birth_date" attrs="{'invisible':[('is_company', '=', True)]}" />
                                     <field name="age" attrs="{'invisible': ['|',('birth_date', '=', False),('is_company', '=', True)]}" />
                                     <field name="int_instance_id" readonly="1" />
@@ -259,7 +259,7 @@
                                 </group>
                                 <group>
                                     <field name="phone_id" />
-                                    <field name="mobile_id" attrs="{'invisible':[('is_company', '=', True)]}"/>
+                                    <field name="mobile_id" />
                                 </group>
                             </page>
                             <page string="Changes" name="changes">
