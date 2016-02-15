@@ -22,7 +22,7 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api
+from openerp import models
 from __builtin__ import int
 
 
@@ -32,7 +32,8 @@ class AbstractTermFinder(models.AbstractModel):
     _description = 'Abstract Term Finder'
     _terms = []
 
-    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
+    def search(self, cr, user, args,
+               offset=0, limit=None, order=None, context=None, count=False):
         if self._terms:
             args = [[
                 arg[0], 'in', self.pool['thesaurus.term'].browse(
@@ -41,4 +42,6 @@ class AbstractTermFinder(models.AbstractModel):
                 isinstance(arg[2], int) else arg for arg in args
             ]
         return super(AbstractTermFinder, self).search(
-            cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
+            cr, user, args,
+            offset=offset, limit=limit, order=order,
+            context=context, count=count)
