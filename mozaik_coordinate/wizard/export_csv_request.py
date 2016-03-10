@@ -17,7 +17,7 @@ SELECT
  p.secondary_website,
  p.technical_name,
  CASE
-  WHEN cc IS NOT NULL
+  WHEN cc.line IS NOT NULL
   THEN cc.line
   ELSE p.printable_name
  END AS printable_name,
@@ -29,60 +29,24 @@ SELECT
  pc.is_main as adr_main,
  pc.unauthorized as adr_unauthorized,
  pc.vip as adr_vip,
- CASE
-  WHEN pc.vip = True
-  THEN 'VIP'
-  ELSE address.street2
- END AS street2,
- CASE
-  WHEN pc.vip = True
-  THEN 'VIP'
-  ELSE address.street
- END AS street,
- CASE
-  WHEN pc.vip = True
-  THEN 'VIP'
-  ELSE address.zip
- END AS final_zip,
- CASE
-  WHEN pc.vip = True
-  THEN 'VIP'
-  ELSE address.city
- END AS city,
- CASE
-  WHEN pc.vip = True
-  THEN 'VIP'
-  ELSE country.name
- END AS country_name,
- CASE
-  WHEN pc.vip = True
-  THEN 'VIP'
-  ELSE country.code
- END AS country_code,
+ address.street2 as street2,
+ address.street as street,
+ address.zip as final_zip,
+ address.city as city,
+ country.name as country_name,
+ country.code as country_code,
  fix.is_main as fix_main,
  fix.unauthorized as fix_unauthorized,
  fix.vip as fix_vip,
- CASE
-  WHEN fix.vip = True
-  THEN 'VIP'
-  ELSE fix_phone.name
- END AS fix,
+ fix_phone.name as fix,
  mobile.is_main as mobile_main,
  mobile.unauthorized as mobile_unauthorized,
  mobile.vip as mobile_vip,
- CASE
-  WHEN mobile.vip = True
-  THEN 'VIP'
-  ELSE mobile_phone.name
- END AS mobile,
+ mobile_phone.name as mobile,
  fax.is_main as fax_main,
  fax.unauthorized as fax_unauthorized,
  fax.vip as fax_vip,
- CASE
-  WHEN fax.vip = True
-  THEN 'VIP'
-  ELSE fax_phone.name
- END AS fax,
+ fax_phone.name as fax,
  ec.is_main as email_main,
  ec.unauthorized as email_unauthorized,
  ec.vip as email_vip,

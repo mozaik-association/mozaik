@@ -108,10 +108,10 @@ class export_csv(orm.TransientModel):
                     "ORDER BY country_name, final_zip, p.technical_name"
         return r_order_by
 
-    def get_csv_values(self, cr, uid, model, obj, context=None):
+    def get_csv_values(self, cr, uid, model, obj, obfuscation, context=None):
         """
-        Get the values of the specified obj, which should be an instance
-        of the specified model, either an email or a postal coordinate.
+        Get the values of the specified obj taking into account the VIP
+        obfuscation principle
         """
         def _get_utf8(data):
             if not data:
@@ -137,28 +137,36 @@ class export_csv(orm.TransientModel):
             ('adr_main', obj.get('adr_main')),
             ('adr_unauthorized', obj.get('adr_unauthorized')),
             ('adr_vip', obj.get('adr_vip')),
-            ('street2', _get_utf8(obj.get('street2'))),
-            ('street', _get_utf8(obj.get('street'))),
-            ('zip', obj.get('final_zip')),
-            ('city', _get_utf8(obj.get('city'))),
+            ('street2', obj.get('adr_vip') and obfuscation or
+                _get_utf8(obj.get('street2'))),
+            ('street', obj.get('adr_vip') and obfuscation or
+                _get_utf8(obj.get('street'))),
+            ('zip', obj.get('adr_vip') and obfuscation or
+                obj.get('final_zip')),
+            ('city', obj.get('adr_vip') and obfuscation or
+                _get_utf8(obj.get('city'))),
             ('country_code', obj.get('country_code')),
             ('country_name', _get_utf8(obj.get('country_name'))),
             ('fix_main', obj.get('fix_main')),
             ('fix_unauthorized', obj.get('fix_unauthorized')),
             ('fix_vip', obj.get('fix_vip')),
-            ('fix', _get_utf8(obj.get('fix'))),
+            ('fix', obj.get('fix_vip') and obfuscation or
+                _get_utf8(obj.get('fix'))),
             ('mobile_main', obj.get('mobile_main')),
             ('mobile_unauthorized', obj.get('mobile_unauthorized')),
             ('mobile_vip', obj.get('mobile_vip')),
-            ('mobile', _get_utf8(obj.get('mobile'))),
+            ('mobile', obj.get('mobile_vip') and obfuscation or
+                _get_utf8(obj.get('mobile'))),
             ('fax_main', obj.get('fax_main')),
             ('fax_unauthorized', obj.get('fax_unauthorized')),
             ('fax_vip', obj.get('fax_vip')),
-            ('fax', _get_utf8(obj.get('fax'))),
+            ('fax', obj.get('fax_vip') and obfuscation or
+                _get_utf8(obj.get('fax'))),
             ('email_main', obj.get('email_main')),
             ('email_unauthorized', obj.get('email_unauthorized')),
             ('email_vip', obj.get('email_vip')),
-            ('email', _get_utf8(obj.get('email'))),
+            ('email', obj.get('email_vip') and obfuscation or
+                _get_utf8(obj.get('email'))),
             ('website', _get_utf8(obj.get('website'))),
             ('secondary_website', _get_utf8(obj.get('secondary_website'))),
         ])
@@ -200,16 +208,20 @@ class export_csv(orm.TransientModel):
         writer.writerow(self.get_csv_rows(cr, uid, model, context=context))
         co_residencies = []
         if model_ids:
+            viper = self.pool['res.users'].has_group(
+                cr, uid, 'mozaik_base.mozaik_res_groups_vip_reader')
+            obfuscation = False if viper else 'VIP'
             for data in self._prefetch_csv_datas(
                     cr, uid, model, model_ids, context=context):
-                if model == 'postal.coordinate':
+                if model == 'postal.coordinate' and group_by:
                     # when grouping by co_residency, output only one row
                     # by co_residency
-                    if group_by and data.get(
-                            'co_residency_id') in co_residencies:
+                    co_id = data.get('co_residency_id')
+                    if co_id and co_id in co_residencies:
                         continue
-                    co_residencies.append(data.get('co_residency_id'))
-                export_values = self.get_csv_values(cr, uid, model, data)
+                    co_residencies.append(co_id)
+                export_values = self.get_csv_values(
+                    cr, uid, model, data, obfuscation, context=context)
                 if not export_values:
                     continue
                 writer.writerow(export_values.values())
