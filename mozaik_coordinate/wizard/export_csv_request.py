@@ -1,4 +1,7 @@
-COMMON_REQUEST = """
+# -*- coding: utf-8 -*-
+# © 2016  Jonathan Nemry, Acsone SA/NV (http://www.acsone.eu)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+_COMMON_REQUEST = """
 SELECT
  p.identifier,
  p.name,
@@ -76,7 +79,7 @@ SELECT
  fax.unauthorized as fax_unauthorized,
  fax.vip as fax_vip,
  CASE
-  WHEN mobile.vip = True
+  WHEN fax.vip = True
   THEN 'VIP'
   ELSE fax_phone.name
  END AS fax,
@@ -85,14 +88,8 @@ SELECT
  ec.vip as email_vip,
  ec.email
 """
-VIRTUAL_TARGET_REQUEST = """
-%s
-FROM
-virtual_target vt
 
-JOIN res_partner p
- ON p.id = vt.partner_id
-
+_COMMON_JOINS = """
 LEFT OUTER JOIN int_instance instance
  ON instance.id = p.int_instance_id
 
@@ -100,11 +97,7 @@ LEFT OUTER JOIN membership_state ms
  ON ms.id = p.membership_state_id
 
 LEFT OUTER JOIN int_power_level ipl
- ON instance.power_level_id = ipl.id
-
-LEFT OUTER JOIN postal_coordinate pc
- ON pc.id = vt.postal_coordinate_id AND
- pc.active = True
+ ON ipl.id = instance.power_level_id
 
 LEFT OUTER JOIN address_address address
  ON address.id = pc.address_id
@@ -122,7 +115,7 @@ LEFT OUTER JOIN phone_coordinate fix
  fix.active = True
 
 LEFT OUTER JOIN phone_phone fix_phone
- ON fix_phone.id = fix.id
+ ON fix_phone.id = fix.phone_id
 
 LEFT OUTER JOIN phone_coordinate mobile
  ON mobile.partner_id = p.id AND
@@ -131,22 +124,35 @@ LEFT OUTER JOIN phone_coordinate mobile
  mobile.active = True
 
 LEFT OUTER JOIN phone_phone mobile_phone
- ON mobile_phone.id = mobile.id
+ ON mobile_phone.id = mobile.phone_id
 
 LEFT OUTER JOIN phone_coordinate fax
  ON fax.partner_id = p.id AND
  fax.is_main = True AND
- fax.coordinate_type = 'fix' AND
+ fax.coordinate_type = 'fax' AND
  fax.active = True
 
 LEFT OUTER JOIN phone_phone fax_phone
- ON fax_phone.id = fax.id
+ ON fax_phone.id = fax.phone_id
+"""
+
+VIRTUAL_TARGET_REQUEST = """
+%s
+FROM virtual_target vt
+
+JOIN res_partner p
+ ON p.id = vt.partner_id
 
 LEFT OUTER JOIN email_coordinate ec
  ON ec.id = vt.email_coordinate_id AND
  ec.active = True
 
-""" % COMMON_REQUEST
+LEFT OUTER JOIN postal_coordinate pc
+ ON pc.id = vt.postal_coordinate_id AND
+ pc.active = True
+
+%s
+""" % (_COMMON_REQUEST, _COMMON_JOINS)
 
 EMAIL_COORDINATE_REQUEST = """
 %s
@@ -155,113 +161,25 @@ FROM email_coordinate ec
 JOIN res_partner p
  ON p.id = ec.partner_id
 
-LEFT OUTER JOIN int_instance instance
- ON instance.id = p.int_instance_id
-
-LEFT OUTER JOIN membership_state ms
- ON ms.id = p.membership_state_id
-
-LEFT OUTER JOIN int_power_level ipl
- ON instance.power_level_id = ipl.id
-
 LEFT OUTER JOIN postal_coordinate pc
  ON pc.partner_id = p.id AND
  pc.is_main = True AND
  pc.active = True
 
-LEFT OUTER JOIN address_address address
- ON address.id = pc.address_id
-
-LEFT OUTER JOIN res_country country
- ON country.id = address.country_id
-
-LEFT OUTER JOIN co_residency cc
- ON cc.id = pc.co_residency_id
-
-LEFT OUTER JOIN phone_coordinate fix
- ON fix.partner_id = p.id AND
- fix.is_main = True AND
- fix.coordinate_type= 'fix' AND
- fix.active = True
-
-LEFT OUTER JOIN phone_phone fix_phone
- ON fix_phone.id = fix.id
-
-LEFT OUTER JOIN phone_coordinate mobile
- ON mobile.partner_id = p.id AND
- mobile.is_main = True AND
- mobile.coordinate_type = 'mobile' AND
- mobile.active = True
-
-LEFT OUTER JOIN phone_phone mobile_phone
- ON mobile_phone.id = mobile.id
-
-LEFT OUTER JOIN phone_coordinate fax
- ON fax.partner_id = p.id AND
- fax.is_main = True AND
- fax.coordinate_type = 'fix' AND
- fax.active = True
-
-LEFT OUTER JOIN phone_phone fax_phone
- ON fax_phone.id = fax.id
-""" % COMMON_REQUEST
+%s
+""" % (_COMMON_REQUEST, _COMMON_JOINS)
 
 POSTAL_COORDINATE_REQUEST = """
 %s
-
 FROM postal_coordinate pc
 
 JOIN res_partner p
  ON p.id = pc.partner_id
-
-LEFT OUTER JOIN int_instance instance
- ON instance.id = p.int_instance_id
-
-LEFT OUTER JOIN membership_state ms
- ON ms.id = p.membership_state_id
-
-LEFT OUTER JOIN int_power_level ipl
- ON instance.power_level_id = ipl.id
-
-LEFT OUTER JOIN address_address address
- ON address.id = pc.address_id
-
-LEFT OUTER JOIN res_country country
- ON country.id = address.country_id
-
-LEFT OUTER JOIN co_residency cc
- ON cc.id = pc.co_residency_id
-
-LEFT OUTER JOIN phone_coordinate fix
- ON fix.partner_id = p.id AND
- fix.is_main = True AND
- fix.coordinate_type= 'fix' AND
- fix.active = True
-
-LEFT OUTER JOIN phone_phone fix_phone
- ON fix_phone.id = fix.id
-
-LEFT OUTER JOIN phone_coordinate mobile
- ON mobile.partner_id = p.id AND
- mobile.is_main = True AND
- mobile.coordinate_type = 'mobile' AND
- mobile.active = True
-
-LEFT OUTER JOIN phone_phone mobile_phone
- ON mobile_phone.id = mobile.id
-
-LEFT OUTER JOIN phone_coordinate fax
- ON fax.partner_id = p.id AND
- fax.is_main = True AND
- fax.coordinate_type = 'fix' AND
- fax.active = True
-
-LEFT OUTER JOIN phone_phone fax_phone
- ON fax_phone.id = fax.id
 
 LEFT OUTER JOIN email_coordinate ec
  ON ec.partner_id = p.id AND
  ec.is_main = True AND
  ec.active = True
 
-""" % COMMON_REQUEST
+%s
+""" % (_COMMON_REQUEST, _COMMON_JOINS)

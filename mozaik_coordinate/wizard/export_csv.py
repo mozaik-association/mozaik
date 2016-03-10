@@ -99,7 +99,7 @@ class export_csv(orm.TransientModel):
         return HEADER_ROW
 
     def _get_order_by(self, order_by):
-        r_order_by = False
+        r_order_by = "ORDER BY p.id"
         if order_by:
             if order_by == "identifier" or order_by == "technical_name":
                 r_order_by = "ORDER BY p.%s" % order_by
@@ -184,8 +184,7 @@ class export_csv(orm.TransientModel):
                 _('Error'),
                 _('Model %s Not supported for csv generation!') % model)
         order_by = self._get_order_by(context.get('sort_by'))
-        if order_by:
-            query = "%s %s" % (query, order_by)
+        query = "%s %s" % (query, order_by)
         cr.execute(query, (tuple(model_ids),))
         for row in cr.dictfetchall():
             yield row
