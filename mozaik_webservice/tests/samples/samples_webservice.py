@@ -137,7 +137,7 @@ elif sys.argv[2] == '6':
         False,
         'demande newsletter etopia',
         'ETOPIA',
-        True,
+        'YES',
         'Bières & Fromages')
 else:
     raise Exception('Unavailable option')

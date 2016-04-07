@@ -102,11 +102,10 @@ class custom_webservice(orm.Model):
         membership_request = self.pool['membership.request']
         distribution_list = self.pool['distribution.list']
         town = town.strip()
-        is_company = False
-        if isinstance(company, (int, long, bool)) and company:
-            is_company = True
-        else:
+        if isinstance(company, str):
             is_company = company.lower() in ['true', 'y', 'yes', '1']
+        else:
+            is_company = bool(company)
         vals = {
             'is_company': is_company,
 
