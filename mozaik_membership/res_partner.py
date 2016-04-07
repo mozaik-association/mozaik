@@ -250,17 +250,17 @@ class res_partner(orm.Model):
     }
     _columns = {
         'int_instance_id': fields.many2one(
-            'int.instance', 'Internal Instance', select=True,
+            'int.instance', string='Internal Instance', select=True,
             track_visibility='onchange'),
         'int_instance_m2m_ids': fields.many2many(
             'int.instance', 'res_partner_int_instance_rel', id1='partner_id',
             id2='int_instance_id', string='Internal Instances'),
         # membership fields: tracking is done into membership history model
         'membership_line_ids': fields.one2many(
-            'membership.line', 'partner_id', 'Memberships'),
+            'membership.line', 'partner_id', string='Memberships'),
         'free_member': fields.boolean('Free Member'),
         'membership_state_id': fields.many2one(
-            'membership.state', string='Membership State',
+            'membership.state', string='Membership State', select=True,
             track_visibility='onchange'),
         'membership_state_code': fields.related('membership_state_id', 'code',
                                                 string='Membership State Code',
