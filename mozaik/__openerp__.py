@@ -45,6 +45,7 @@ Loads all applicative modules
     'data': [
         'security/security.xml',
         'data/res_users_data.xml',
+        'views/mail_followers.xml',
     ],
     'qweb': [
     ],
