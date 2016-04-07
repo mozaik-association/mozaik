@@ -196,11 +196,11 @@
                                 confirm="Reject member candidate: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member_committee'])]}" />
 
-                            <button name="exclude_former" string="Exclude" type="object"
+                            <button id="exclude_former" name="exclude" string="Exclude" type="object"
                                 confirm="Exclude former member: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['former_member', 'former_member_committee'])]}" />
 
-                            <button name="exclude_member" string="Exclude" type="object"
+                            <button id="exclude_member" name="exclude" string="Exclude" type="object"
                                 confirm="Exclude member: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['member'])]}" />
 
