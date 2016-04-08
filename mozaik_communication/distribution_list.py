@@ -185,48 +185,46 @@ class distribution_list(orm.Model):
         user_id = False
         is_partner_allowed = False
         has_visibility = False
-        noway = 'No unique coordinate found with address: %s' % \
+        noway = _('No unique coordinate found with address: %s') % \
             msg['email_from']
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
         if len(coordinate_ids) == 1:
             coo_obj = self.pool['email.coordinate'].browse(
-               cr, uid, coordinate_ids[0], context=context)
-            noway = 'Coordinate [%s] is not main' % coordinate_ids[0]
-            if coo_obj and coo_obj.is_main:
-                noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
-                partner_id = coo_obj.partner_id and coo_obj.partner_id.id or\
-                    False
+                cr, uid, coordinate_ids[0], context=context)
+            noway = _('Coordinate %s(%s) of %s is not main') % (
+                coo_obj.email, coo_obj.id, coo_obj.partner_id.display_name)
+            if coo_obj.is_main:
+                partner_id = coo_obj.partner_id
         if partner_id:
-            noway = 'Partner [%s] is not an owner nor ' \
-                'an allowed partner' % partner_id
+            noway = _('Partner %s is not an owner nor '
+                      'an allowed partner') % partner_id.display_name
             dl = self.browse(cr, uid, dl_id, context=context)
-            if partner_id in [p.id for p in dl.res_partner_m2m_ids]:
+            if partner_id.id in [p.id for p in dl.res_partner_m2m_ids]:
                 is_partner_allowed = True
             if not is_partner_allowed:
-                if partner_id in\
+                if partner_id.id in\
                         [p.partner_id.id for p in dl.res_users_ids]:
                     is_partner_allowed = True
         if is_partner_allowed:
-            noway = 'Partner [%s] is not a user' % partner_id
-            partner = self.pool['res.partner'].browse(
-                cr, uid, partner_id, context=context)
+            noway = _('Partner %s is not a user') % partner_id.display_name
             res_users_model = self.pool['res.users']
-            if partner.is_company and partner.responsible_user_id:
-                user_id = partner.responsible_user_id.id
+            if partner_id.is_company and partner_id.responsible_user_id:
+                user_id = partner_id.responsible_user_id.id
             else:
-                domain = [('partner_id', '=', partner_id)]
+                domain = [('partner_id', '=', partner_id.id)]
                 user_id = res_users_model.search(
                     cr, uid, domain, context=context)
-                user_id = user_id and user_id[0] or False
+                user_id = res_users_model.browse(
+                    cr, uid, user_id and user_id[0] or [], context=context)
         if user_id:
             try:
                 self.check_access_rule(
-                    cr, user_id, [dl_id], 'read', context=context)
+                    cr, user_id.id, [dl_id], 'read', context=context)
                 has_visibility = True
             except except_orm:
-                noway = 'User [%s] has no visibility on list [%s]' % \
-                    (user_id, dl_id)
+                noway = _('User %s(%s) has no visibility on list %s(%s)') % \
+                    (user_id.name, user_id.id, dl.name, dl.id)
         if has_visibility:
             ctx = dict(context or {},
                        email_coordinate_path='email',
@@ -238,8 +236,47 @@ class distribution_list(orm.Model):
                 ctx['additional_res_ids'] = res_ids
             return super(distribution_list, self).\
                 distribution_list_forwarding(
-                cr, user_id, msg, dl_id, context=ctx)
+                cr, user_id.id, msg, dl_id, context=ctx)
         _logger.info('Mail forwarding aborted. Reason: %s' % noway)
+        self._reply_error_to_owners(
+            cr, uid, [dl_id], msg, noway, context=context)
+
+    @api.multi
+    def _reply_error_to_owners(self, msg, reason):
+        """
+        Send an email to distribution list owners to explain
+        the forwarding no way
+        """
+        self.ensure_one()
+
+        # Remove navigation history: maybe we're coming from partner
+        ctx = dict(self.env.context or {})
+        for key in ('active_model', 'active_id', 'active_ids'):
+            ctx.pop(key, None)
+
+        composer_mod = self.env['mail.compose.message'].with_context(ctx)
+        sender = msg['email_from']
+        vals = {
+            'parent_id': False,
+            'use_active_domain': False,
+            'partner_ids': [[6, 0, [
+                owner.partner_id.id for owner in self.res_users_ids]]],
+            'notify': False,
+            'model': self._name,
+            'record_name': self.name,
+            'res_id': self.id,
+            'email_from': composer_mod._get_default_from(),
+            'subject': _('Forwarding Failure: %s') % msg.get('subject', False),
+            'body':
+                _('<p>Distribution List: %s</p>'
+                  '<p>Sender: %s</p>'
+                  '<p>Failure Reason: %s</p>') % (
+                    self.name,
+                    sender.replace('<', '&lt;').replace('>', '&gt;'),
+                    reason),
+        }
+        composer = composer_mod.create(vals)
+        composer.send_mail()
 
     def _register_hook(self, cr):
         super(distribution_list, self)._register_hook(cr)
