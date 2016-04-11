@@ -422,7 +422,7 @@ class distribution_list_line(orm.Model):
             uid,
             ids,
             context=context)
-        res['name'] = _('Result of %s Filter without coordinate')\
+        res['name'] = _('Result of %s filter without coordinate')\
             % current_filter.name
         no_coord_domain = [('active', '=', False)]
         domain = eval(res['domain'])

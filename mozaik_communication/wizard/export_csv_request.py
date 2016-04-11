@@ -24,7 +24,7 @@ SELECT
  cc.id as co_residency_id,
  cc.line2 as co_residency,
  instance.name as instance,
- ms.name as status,
+ p.membership_state_id as state_id,
  ipl.name as power_name,
  pc.is_main as adr_main,
  pc.unauthorized as adr_unauthorized,
@@ -56,9 +56,6 @@ SELECT
 _COMMON_JOINS = """
 LEFT OUTER JOIN int_instance instance
  ON instance.id = p.int_instance_id
-
-LEFT OUTER JOIN membership_state ms
- ON ms.id = p.membership_state_id
 
 LEFT OUTER JOIN int_power_level ipl
  ON ipl.id = instance.power_level_id

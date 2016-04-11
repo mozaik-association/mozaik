@@ -37,50 +37,11 @@ from export_csv_request import VIRTUAL_TARGET_REQUEST
 from export_csv_request import EMAIL_COORDINATE_REQUEST
 from export_csv_request import POSTAL_COORDINATE_REQUEST
 
-HEADER_ROW = [
-    'Internal Identifier',
-    'Name',
-    'Lastname',
-    'Firstname',
-    'Usual Lastname',
-    'Usual Firstname',
-    'Co-residency Line 1',
-    'Co-residency Line 2',
-    'Internal Instance',
-    'Power Level',
-    'Status',
-    'Reference',
-    'Birthdate',
-    'Gender',
-    'Tongue',
-    'Main Address',
-    'Unauthorized Address',
-    'Vip Address',
-    'Street2',
-    'Street',
-    'Zip',
-    'City',
-    'Country Code',
-    'Country Name',
-    'Main Phone',
-    'Unauthorized Phone',
-    'Vip Phone',
-    'Phone',
-    'Main Mobile',
-    'Unauthorized Mobile',
-    'Vip Mobile',
-    'Mobile',
-    'Main Fax',
-    'Unauthorized Fax',
-    'Vip Fax',
-    'Fax',
-    'Main Email',
-    'Unauthorized Email',
-    'Vip Email',
-    'Email',
-    'Website',
-    'Secondary Website',
-]
+
+def _get_utf8(data):
+    if not data:
+        return None
+    return unicode(data).encode('utf-8', 'ignore')
 
 
 class export_csv(orm.TransientModel):
@@ -88,15 +49,60 @@ class export_csv(orm.TransientModel):
     _description = 'Export CSV Wizard'
 
     _columns = {
-        'export_file': fields.binary('Vcf', readonly=True),
-        'export_filename': fields.char('Export VCF Filename', size=128),
+        'export_file': fields.binary('Csv', readonly=True),
+        'export_filename': fields.char('Export CSV Filename', size=128),
     }
 
-    def get_csv_rows(self, cr, uid, model, context=None):
+    def _get_csv_rows(self, cr, uid, model, context=None):
         """
         Get the rows (header) for the specified model.
         """
-        return HEADER_ROW
+        hdr = [
+            _('Number'),
+            _('Name'),
+            _('Lastname'),
+            _('Firstname'),
+            _('Usual Lastname'),
+            _('Usual Firstname'),
+            _('Co-residency Line 1'),
+            _('Co-residency Line 2'),
+            _('Internal Instance'),
+            _('Power Level'),
+            _('State'),
+            _('Reference'),
+            _('Birth Date'),
+            _('Gender'),
+            _('Tongue'),
+            _('Main Address'),
+            _('Unauthorized Address'),
+            _('Vip Address'),
+            _('Street2'),
+            _('Street'),
+            _('Zip'),
+            _('City'),
+            _('Country Code'),
+            _('Country'),
+            _('Main Phone'),
+            _('Unauthorized Phone'),
+            _('Vip Phone'),
+            _('Phone'),
+            _('Main Mobile'),
+            _('Unauthorized Mobile'),
+            _('Vip Mobile'),
+            _('Mobile'),
+            _('Main Fax'),
+            _('Unauthorized Fax'),
+            _('Vip Fax'),
+            _('Fax'),
+            _('Main Email'),
+            _('Unauthorized Email'),
+            _('Vip Email'),
+            _('Email'),
+            _('Website'),
+            _('Secondary Website'),
+        ]
+
+        return [_get_utf8(col) for col in hdr]
 
     def _get_order_by(self, order_by):
         r_order_by = "ORDER BY p.id"
@@ -113,10 +119,6 @@ class export_csv(orm.TransientModel):
         Get the values of the specified obj taking into account the VIP
         obfuscation principle
         """
-        def _get_utf8(data):
-            if not data:
-                return None
-            return unicode(data).encode('utf-8', 'ignore')
 
         export_values = OrderedDict([
             ('identifier', obj.get('identifier')),
@@ -129,7 +131,7 @@ class export_csv(orm.TransientModel):
             ('co_residency', _get_utf8(obj.get('co_residency'))),
             ('instance', _get_utf8(obj.get('instance'))),
             ('power_name', _get_utf8(obj.get('power_name'))),
-            ('status', _get_utf8(obj.get('status'))),
+            ('state', _get_utf8(obj.get('status'))),
             ('reference', _get_utf8(obj.get('reference'))),
             ('birth_date', obj.get('birth_date')),
             ('gender', available_genders.get(obj.get('gender'))),
@@ -190,7 +192,7 @@ class export_csv(orm.TransientModel):
         else:
             raise orm.except_orm(
                 _('Error'),
-                _('Model %s Not supported for csv generation!') % model)
+                _('Model %s not supported for csv export!') % model)
         order_by = self._get_order_by(context.get('sort_by'))
         query = "%s %s" % (query, order_by)
         cr.execute(query, (tuple(model_ids),))
@@ -205,14 +207,21 @@ class export_csv(orm.TransientModel):
             prefix='Extract', suffix=".csv", delete=False)
         f = open(tmp.name, "r+")
         writer = csv.writer(f)
-        writer.writerow(self.get_csv_rows(cr, uid, model, context=context))
+        writer.writerow(self._get_csv_rows(cr, uid, model, context=context))
         co_residencies = []
         if model_ids:
+            state_ids = self.pool['membership.state'].search(
+                cr, uid, [], context=context)
+            states = self.pool['membership.state'].browse(
+                cr, uid, state_ids, context=context)
+            states = {st.id: st.name for st in states}
             viper = self.pool['res.users'].has_group(
                 cr, uid, 'mozaik_base.mozaik_res_groups_vip_reader')
             obfuscation = False if viper else 'VIP'
             for data in self._prefetch_csv_datas(
                     cr, uid, model, model_ids, context=context):
+                if data.get('state_id'):
+                    data['state'] = states[data['state_id']]
                 if model == 'postal.coordinate' and group_by:
                     # when grouping by co_residency, output only one row
                     # by co_residency

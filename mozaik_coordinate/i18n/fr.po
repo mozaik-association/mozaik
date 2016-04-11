@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-24 17:58+0000\n"
-"PO-Revision-Date: 2015-04-24 17:58+0000\n"
+"POT-Creation-Date: 2016-04-11 15:46+0000\n"
+"PO-Revision-Date: 2016-04-11 15:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -72,7 +72,6 @@ msgstr "Editeur d'échecs"
 #. module: mozaik_coordinate
 #: view:bounce.editor:mozaik_coordinate.bounce_editor_wizard
 #: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
-#: view:export.csv:mozaik_coordinate.export_csv_wizard
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -140,14 +139,12 @@ msgstr "Coordonnées"
 #: field:bounce.editor,create_uid:0
 #: field:change.main.coordinate,create_uid:0
 #: field:coordinate.category,create_uid:0
-#: field:export.csv,create_uid:0
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_coordinate
 #: field:bounce.editor,create_date:0
 #: field:change.main.coordinate,create_date:0
-#: field:export.csv,create_date:0
 msgid "Created on"
 msgstr "Créé le"
 
@@ -214,21 +211,6 @@ msgid "Expired Coordinates"
 msgstr "Coordonnées expirées"
 
 #. module: mozaik_coordinate
-#: view:export.csv:mozaik_coordinate.export_csv_wizard
-msgid "Export CSV"
-msgstr "Export CSV"
-
-#. module: mozaik_coordinate
-#: model:ir.model,name:mozaik_coordinate.model_export_csv
-msgid "Export CSV Wizard"
-msgstr "Assistant d'exportation CSV"
-
-#. module: mozaik_coordinate
-#: field:export.csv,export_filename:0
-msgid "Export VCF Filename"
-msgstr "Fichier d'export VCF"
-
-#. module: mozaik_coordinate
 #: model:ir.actions.act_window,name:mozaik_coordinate.bounce_editor_action
 msgid "Failure Editor"
 msgstr "Editeur d'échecs"
@@ -265,7 +247,6 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:bounce.editor,id:0
 #: field:change.main.coordinate,id:0
 #: field:coordinate.category,id:0
-#: field:export.csv,id:0
 msgid "ID"
 msgstr ""
 
@@ -342,7 +323,6 @@ msgstr "Date du dernier message"
 #: field:bounce.editor,write_uid:0
 #: field:change.main.coordinate,write_uid:0
 #: field:coordinate.category,write_uid:0
-#: field:export.csv,write_uid:0
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
@@ -350,14 +330,8 @@ msgstr "Dernière mise à jour par"
 #: field:bounce.editor,write_date:0
 #: field:change.main.coordinate,write_date:0
 #: field:coordinate.category,write_date:0
-#: field:export.csv,write_date:0
 msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
-
-#. module: mozaik_coordinate
-#: view:export.csv:mozaik_coordinate.export_csv_wizard
-msgid "Launch"
-msgstr "Exécuter"
 
 #. module: mozaik_coordinate
 #: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
@@ -471,11 +445,6 @@ msgid "This action is not allowed on inactive documents!"
 msgstr "Cette action n'est pas admise sur les documents inactifs !"
 
 #. module: mozaik_coordinate
-#: view:export.csv:mozaik_coordinate.export_csv_wizard
-msgid "This will export the selected coordinates to a CSV file"
-msgstr "Cet assistant exportera les coordonnées sélectionnées dans un fichier CSV"
-
-#. module: mozaik_coordinate
 #: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
 #: field:abstract.coordinate,unauthorized:0
 msgid "Unauthorized"
@@ -511,11 +480,6 @@ msgid "Validate"
 msgstr "Valider"
 
 #. module: mozaik_coordinate
-#: field:export.csv,export_file:0
-msgid "Vcf"
-msgstr ""
-
-#. module: mozaik_coordinate
 #: field:abstract.coordinate,website_message_ids:0
 #: field:coordinate.category,website_message_ids:0
 msgid "Website Messages"
@@ -540,7 +504,6 @@ msgstr ""
 #. module: mozaik_coordinate
 #: view:bounce.editor:mozaik_coordinate.bounce_editor_wizard
 #: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
-#: view:export.csv:mozaik_coordinate.export_csv_wizard
 msgid "or"
 msgstr "ou"
 

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 15:34+0000\n"
-"PO-Revision-Date: 2015-10-28 15:34+0000\n"
+"POT-Creation-Date: 2016-04-11 14:58+0000\n"
+"PO-Revision-Date: 2016-04-11 14:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -275,11 +275,6 @@ msgstr "Erreur"
 #: field:postal.coordinate,expire_date:0
 msgid "Expiration Date"
 msgstr "Date d'expiration"
-
-#. module: mozaik_address
-#: model:ir.actions.act_window,name:mozaik_address.export_csv_postal_action
-msgid "Export CSV"
-msgstr ""
 
 #. module: mozaik_address
 #: field:postal.coordinate,bounce_counter:0
