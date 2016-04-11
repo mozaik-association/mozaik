@@ -229,7 +229,8 @@ class distribution_list(orm.Model):
             ctx = dict(context or {},
                        email_coordinate_path='email',
                        main_object_field='email_coordinate_id',
-                       main_target_model='email.coordinate')
+                       main_target_model='email.coordinate',
+                       main_object_domain=[('email_unauthorized', '=', False)])
             res_ids = self._get_mailing_object(
                 cr, uid, dl_id, msg['email_from'], context=context)
             if res_ids:
