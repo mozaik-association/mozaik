@@ -131,7 +131,7 @@ class export_csv(orm.TransientModel):
             ('co_residency', _get_utf8(obj.get('co_residency'))),
             ('instance', _get_utf8(obj.get('instance'))),
             ('power_name', _get_utf8(obj.get('power_name'))),
-            ('state', _get_utf8(obj.get('status'))),
+            ('state', _get_utf8(obj.get('state'))),
             ('reference', _get_utf8(obj.get('reference'))),
             ('birth_date', obj.get('birth_date')),
             ('gender', available_genders.get(obj.get('gender'))),
