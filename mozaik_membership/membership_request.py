@@ -351,7 +351,7 @@ class membership_request(orm.Model):
                 partner_value = attrgetter(partner_path)(request.partner_id)
                 field = fields_def[field]
 
-                if (request_value and request_value != partner_value):
+                if request_value and request_value != partner_value:
                     if 'selection' in field:
                         selection = dict(field['selection'])
                         request_value = selection.get(request_value)
@@ -1092,11 +1092,11 @@ class membership_request(orm.Model):
                 'lastname': mr.lastname,
             }
             if not mr.is_company:
-                partner_values.update({
-                    'firstname': mr.firstname,
-                    'gender': mr.gender,
-                    'birth_date': mr.birth_date,
-                })
+                partner_values['firstname'] = mr.firstname
+                if mr.gender:
+                    partner_values['gender'] = mr.gender
+                if mr.birth_date:
+                    partner_values['birth_date'] = mr.birth_date
             result_id = mr.result_type_id and mr.result_type_id.id or False
 
             if mr.is_company or mr.membership_state_id.id != result_id:

@@ -37,7 +37,6 @@
         <record id="res_partner_pauline" model="res.partner">
             <field name="usual_lastname"></field>
             <field name="usual_firstname"></field>
-            <field name="birth_date">1949-03-29</field>
             <field name="tongue">f</field>
             <field name="gender">f</field>
             <field name="secondary_website">http://www.acsone.eu</field>

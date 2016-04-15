@@ -158,13 +158,11 @@ class test_membership(SharedSetupTransactionCase):
 
     def test_validate_request(self):
         """
-        =====================
-        test_validate_request
-        =====================
-        * Test the validate process with an update and check that
+        * Test the validate process with an update and check for
         ** firstname
-        ** email_coordinate
-        ** new mobile
+        ** email
+        ** mobile
+        ** not loss of original birthdate (mr do never reset fields)
         * Test the validate process with a create and check that
             relations are created
         """
@@ -187,6 +185,8 @@ class test_membership(SharedSetupTransactionCase):
         self.assertEqual(self.rec_mr_update.mobile, modified_partner.
                          mobile_coordinate_id.phone_id.name, "Mobile should \
                          be created with same value of the membership request")
+        self.assertTrue(modified_partner.birth_date,
+                        "Partner's birth date should remain non empty")
         # validation to create
         self.mro.write(
             cr, uid, [self.rec_mr_create.id],
@@ -268,7 +268,7 @@ class test_membership(SharedSetupTransactionCase):
         self.assertIn('Mobile', changes)
         self.assertIn('Gender', changes)
         self.assertIn('Email', changes)
-        self.assertIn('Birth Date', changes)
+        self.assertNotIn('Birth Date', changes)
 
         self.assertEquals(changes['Firstname'][0], 'Pauline')
         self.assertEquals(changes['Firstname'][1], 'Paulinne')
@@ -278,8 +278,6 @@ class test_membership(SharedSetupTransactionCase):
         self.assertEquals(changes['Gender'][1], 'Female')
         self.assertFalse(changes['Email'][0])
         self.assertEquals(changes['Email'][1], 'pauline_marois@gmail.com')
-        self.assertFalse(changes['Birth Date'][0])
-        self.assertEquals(changes['Birth Date'][1], '1949-03-29')
 
         address_id = request.partner_id.postal_coordinate_id.address_id.id
 
