@@ -48,6 +48,11 @@ msgid "A new membership line has been created"
 msgstr "Un nouvel historique d'adhésion a été créé"
 
 #. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.no_state_change_notification
+msgid "A new membership line has been created without change of state"
+msgstr "Un nouvel historique d'adhésion a été créé sans changement de statut"
+
+#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_sub_abstract_coordinate
 msgid "Abstract Coordinate"
 msgstr "Coordonnée abstraite"

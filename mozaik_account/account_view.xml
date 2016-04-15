@@ -44,7 +44,7 @@
       
 
         <record id="view_account_chart_template_form" model="ir.ui.view">
-            <field name="name">account.chart.template.form (mozaik_retrocession)</field>
+            <field name="name">account.chart.template.form (mozaik_account)</field>
             <field name="model">account.chart.template</field>
             <field name="inherit_id" ref="account.view_account_chart_template_form" />
             <field name="arch" type="xml">

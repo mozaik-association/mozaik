@@ -9,5 +9,12 @@
             <field name="description">A new membership line has been created</field>
         </record>
 
+        <record id="no_state_change_notification" model="mail.message.subtype">
+            <field name="name">Membership Line Notification without Change of State</field>
+            <field name="res_model">res.partner</field>
+            <field name="default" eval="False"/>
+            <field name="description">A new membership line has been created without change of state</field>
+        </record>
+
     </data>
 </openerp>
