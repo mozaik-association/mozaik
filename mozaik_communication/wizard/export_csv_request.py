@@ -33,6 +33,7 @@ SELECT
  address.street as street,
  address.zip as final_zip,
  address.city as city,
+ country.id as country_id,
  country.name as country_name,
  country.code as country_code,
  fix.is_main as fix_main,

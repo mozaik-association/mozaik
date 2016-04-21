@@ -31,8 +31,6 @@ from collections import OrderedDict
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
-from openerp.addons.mozaik_person.res_partner import available_genders, \
-    available_tongues
 from export_csv_request import VIRTUAL_TARGET_REQUEST
 from export_csv_request import EMAIL_COORDINATE_REQUEST
 from export_csv_request import POSTAL_COORDINATE_REQUEST
@@ -134,8 +132,8 @@ class export_csv(orm.TransientModel):
             ('state', _get_utf8(obj.get('state'))),
             ('reference', _get_utf8(obj.get('reference'))),
             ('birth_date', obj.get('birth_date')),
-            ('gender', available_genders.get(obj.get('gender'))),
-            ('tongue', available_tongues.get(obj.get('tongue'))),
+            ('gender', _get_utf8(obj.get('gender'))),
+            ('tongue', _get_utf8(obj.get('tongue'))),
             ('adr_main', obj.get('adr_main')),
             ('adr_unauthorized', obj.get('adr_unauthorized')),
             ('adr_vip', obj.get('adr_vip')),
@@ -215,6 +213,15 @@ class export_csv(orm.TransientModel):
             states = self.pool['membership.state'].browse(
                 cr, uid, state_ids, context=context)
             states = {st.id: st.name for st in states}
+            country_ids = self.pool['res.country'].search(
+                cr, uid, [], context=context)
+            countries = self.pool['res.country'].browse(
+                cr, uid, country_ids, context=context)
+            countries = {cnt.id: cnt.name for cnt in countries}
+            selections = self.pool['res.partner'].fields_get(
+                cr, uid, allfields=['gender', 'tongue'], context=context)
+            genders = {k: v for k, v in selections['gender']['selection']}
+            tongues = {k: v for k, v in selections['tongue']['selection']}
             viper = self.pool['res.users'].has_group(
                 cr, uid, 'mozaik_base.mozaik_res_groups_vip_reader')
             obfuscation = False if viper else 'VIP'
@@ -222,6 +229,12 @@ class export_csv(orm.TransientModel):
                     cr, uid, model, model_ids, context=context):
                 if data.get('state_id'):
                     data['state'] = states[data['state_id']]
+                if data.get('country_id'):
+                    data['country_name'] = countries[data['country_id']]
+                if data.get('gender'):
+                    data['gender'] = genders.get(data['gender'])
+                if data.get('tongue'):
+                    data['tongue'] = tongues.get(data['tongue'])
                 if model == 'postal.coordinate' and group_by:
                     # when grouping by co_residency, output only one row
                     # by co_residency
