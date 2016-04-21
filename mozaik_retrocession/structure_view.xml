@@ -6,15 +6,15 @@
             <field name="name">sta.assembly.search (mozaik_retrocession)</field>
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="mozaik_structure.abstract_assembly_search_view"/>
-            <field name="groups_id" eval="[(6,0,[
-                ref('mozaik_base.mozaik_res_groups_financial_user'),
-            ])]"/>
+            <field name="groups_id" eval="[(5,0,0)]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='instance_id']" position="after">
                     <field name="calculation_method_id"/>
+                    <field name="fractionation_id"/>
                 </xpath>
                 <xpath expr="//group[@name='group_by']" position="inside">
                     <filter name="calculation_method" string="Calculation Method" context="{'group_by':'calculation_method_id'}"/>
+                    <filter name="fractionation" string="Fractionation" context="{'group_by':'fractionation_id'}"/>
                 </xpath>
             </field>
         </record>
@@ -23,47 +23,15 @@
             <field name="search_view_id" ref="sta_assembly_search_view" />
         </record>
 
-        <record id="sta_assembly_fin_search_view" model="ir.ui.view">
-            <field name="name">sta.assembly.fin.search (mozaik_retrocession)</field>
-            <field name="model">sta.assembly</field>
-            <field name="inherit_id" ref="sta_assembly_search_view"/>
-            <field name="groups_id" eval="[(6,0,[
-                ref('mozaik_base.mozaik_res_groups_financial_manager'),
-            ])]"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='calculation_method_id']" position="after">
-                    <field name="fractionation_id"/>
-                </xpath>
-                <xpath expr="//group[@name='group_by']" position="inside">
-                    <filter name="fractionation" string="Fractionation" context="{'group_by':'fractionation_id'}"/>
-                </xpath>
-            </field>
-        </record>
-
         <record id="sta_assembly_form_view" model="ir.ui.view">
             <field name="name">sta.assembly.form (mozaik_retrocession)</field>
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="mozaik_structure.sta_assembly_form_view" />
-            <field name="groups_id" eval="[(6,0,[
-                ref('mozaik_base.mozaik_res_groups_financial_user'),
-            ])]"/>
+            <field name="groups_id" eval="[(5,0,0)]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
                     <field name="retro_instance_id" required="1"/>
                     <field name="calculation_method_id"/>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="sta_assembly_fin_form_view" model="ir.ui.view">
-            <field name="name">sta.assembly.fin.form (mozaik_retrocession)</field>
-            <field name="model">sta.assembly</field>
-            <field name="inherit_id" ref="sta_assembly_form_view" />
-            <field name="groups_id" eval="[(6,0,[
-                ref('mozaik_base.mozaik_res_groups_financial_manager'),
-            ])]"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='calculation_method_id']" position="after">
                     <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"/>
                 </xpath>
             </field>
@@ -73,31 +41,14 @@
             <field name="name">ext.assembly.search (mozaik_retrocession)</field>
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="mozaik_structure.ext_assembly_search_view"/>
-            <field name="groups_id" eval="[(6,0,[
-                ref('mozaik_base.mozaik_res_groups_financial_user'),
-            ])]"/>
+            <field name="groups_id" eval="[(5,0,0)]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='instance_id']" position="after">
                     <field name="calculation_method_id"/>
-                </xpath>
-                <xpath expr="//group[@name='group_by']" position="inside">
-                    <filter name="calculation_method" string="Calculation Method" context="{'group_by':'calculation_method_id'}"/>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="ext_assembly_fin_search_view" model="ir.ui.view">
-            <field name="name">ext.assembly.fin.search (mozaik_retrocession)</field>
-            <field name="model">ext.assembly</field>
-            <field name="inherit_id" ref="ext_assembly_search_view"/>
-            <field name="groups_id" eval="[(6,0,[
-                ref('mozaik_base.mozaik_res_groups_financial_manager'),
-            ])]"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='calculation_method_id']" position="after">
                     <field name="fractionation_id"/>
                 </xpath>
                 <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter name="calculation_method" string="Calculation Method" context="{'group_by':'calculation_method_id'}"/>
                     <filter name="fractionation" string="Fractionation" context="{'group_by':'fractionation_id'}"/>
                 </xpath>
             </field>
@@ -107,26 +58,11 @@
             <field name="name">ext.assembly.form (mozaik_retrocession)</field>
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="mozaik_structure.ext_assembly_form_view" />
-            <field name="groups_id" eval="[(6,0,[
-                ref('mozaik_base.mozaik_res_groups_financial_user'),
-            ])]"/>
+            <field name="groups_id" eval="[(5,0,0)]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
                     <field name="retro_instance_id" required="1"/>
                     <field name="calculation_method_id"/>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="ext_assembly_fin_form_view" model="ir.ui.view">
-            <field name="name">ext.assembly.fin.form (mozaik_retrocession)</field>
-            <field name="model">ext.assembly</field>
-            <field name="inherit_id" ref="ext_assembly_form_view" />
-            <field name="groups_id" eval="[(6,0,[
-                ref('mozaik_base.mozaik_res_groups_financial_manager'),
-            ])]"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='calculation_method_id']" position="after">
                     <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"/>
                 </xpath>
             </field>
