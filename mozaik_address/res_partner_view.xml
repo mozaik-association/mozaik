@@ -52,6 +52,7 @@
                             <field name="is_main" />
                             <field name="unauthorized" />
                             <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                            <field name="bounce_counter" attrs="{'invisible': [('bounce_counter','=',0)]}" />
                             <field name="is_duplicate_detected" invisible="1"/>
                             <field name="co_residency_id"/>
                         </tree>
@@ -64,6 +65,7 @@
                             <field name="is_main" />
                             <field name="unauthorized" />
                             <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                            <field name="bounce_counter" attrs="{'invisible': [('bounce_counter','=',0)]}" />
                         </tree>
                     </field>
                 </xpath>
