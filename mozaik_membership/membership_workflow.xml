@@ -235,15 +235,6 @@
             </field>
         </record>
 
-        <!-- Former Member To Former Member -->
-        <record id="membership_trans_fm_fm" model="workflow.transition">
-            <field name="act_from" ref="partner_act_former_member" />
-            <field name="act_to" ref="partner_act_former_member" />
-            <field name="condition">
-                accepted_date != False
-            </field>
-        </record>
-
         <!-- Former Member To Inappropriate Former Member -->
         <record id="membership_trans_om_iom" model="workflow.transition">
             <field name="act_from" ref="partner_act_former_member" />

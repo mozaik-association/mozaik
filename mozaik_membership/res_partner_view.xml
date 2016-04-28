@@ -211,6 +211,10 @@
                             <button name="reset" string="Reset"
                                 confirm="Reset membership state: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['former_supporter', 'resignation_former_member', 'break_former_member', 'inappropriate_former_member', 'expulsion_former_member'])]}" />
+
+                            <button name="%(mozaik_membership.membership_request_action)d" string="Membership Requests" type="action" class="oe_right"
+                                    context="{'search_default_partner_id': active_id, 'search_default_all': True}"
+                                    groups="mozaik_base.mozaik_res_groups_configurator"/>
                         </div>
                         <group name="membership_data">
                             <group name="membership_subscription">

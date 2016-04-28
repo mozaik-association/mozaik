@@ -497,6 +497,7 @@ class membership_request(orm.Model):
         'is_update': False,
         'state': 'draft',
     }
+    _order = 'id desc'
 
 # constraints
 
@@ -1097,22 +1098,11 @@ class membership_request(orm.Model):
                     partner_values['gender'] = mr.gender
                 if mr.birth_date:
                     partner_values['birth_date'] = mr.birth_date
+
             result_id = mr.result_type_id and mr.result_type_id.id or False
 
             if mr.is_company or mr.membership_state_id.id != result_id:
                 partner_values['int_instance_id'] = mr.int_instance_id.id
-
-            partner_id = False
-            if mr.partner_id:
-                partner_id = mr.partner_id.id
-            else:
-                partner_id = partner_obj.create(cr, uid, partner_values,
-                                                context=context)
-                mr_vals['partner_id'] = partner_id
-                partner_values = {}
-
-            partner = partner_obj.browse(
-                cr, uid, [partner_id], context=context)[0]
 
             new_interests_ids = []
             if not mr.is_company:
@@ -1125,14 +1115,13 @@ class membership_request(orm.Model):
             notes = []
             if mr.note:
                 notes.append(mr.note)
-            if partner.comment:
-                notes.append(partner.comment)
+            if mr.partner_id and mr.partner_id.comment:
+                notes.append(mr.partner_id.comment)
 
-            partner_values.update(self._get_status_values(mr.request_type))
             partner_values.update({
                 'competencies_m2m_ids': [[6, False, new_competencies_ids]],
                 'interests_m2m_ids': [[6, False, new_interests_ids]],
-                'comment': '\n'.join(notes),
+                'comment': notes and '\n'.join(notes) or False,
             })
 
             # update_partner values
@@ -1141,8 +1130,22 @@ class membership_request(orm.Model):
             # the second one out of workflow not (when context will be
             # pass through workflow this solution will not work anymore)
             ctx = dict(context or {}, do_not_track_twice=True)
-            partner_obj.write(
-                cr, uid, [partner.id], partner_values, context=ctx)
+
+            if mr.partner_id:
+                partner_id = mr.partner_id.id
+            else:
+                partner_id = partner_obj.create(cr, uid, partner_values,
+                                                context=context)
+                mr_vals['partner_id'] = partner_id
+                partner_values = {}
+
+            if not mr.is_company:
+                partner_values.update(
+                    self._get_status_values(mr.request_type))
+            if partner_values:
+                partner_obj.write(
+                    cr, uid, [partner_id], partner_values, context=ctx)
+
             # address if technical name is empty then means that no address
             # required
             address_id = mr.address_id and mr.address_id.id or False
@@ -1184,6 +1187,7 @@ class membership_request(orm.Model):
             if mr.email:
                 self.pool['email.coordinate'].change_main_coordinate(
                     cr, uid, [partner_id], mr.email, context=context)
+
         # if request `validate` then object should be invalidate
         mr_vals.update({'state': 'validate'})
         # superuser_id because of record rules
