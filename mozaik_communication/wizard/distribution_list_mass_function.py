@@ -24,7 +24,6 @@
 ##############################################################################
 
 import base64
-from datetime import datetime
 
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
@@ -34,11 +33,6 @@ SORT_BY = [
     ('identifier', 'Identification Number'),
     ('technical_name', 'Name'),
     ('country_id, zip, technical_name', 'Zip Code'),
-]
-E_MASS_FUNCTION = [
-    ('email_coordinate_id', 'Mass Mailing'),
-    ('csv', 'CSV Extraction'),
-    ('vcard', 'VCARD Extraction'),
 ]
 P_MASS_FUNCTION = [
     ('postal_coordinate_id', 'Label Printing'),
@@ -55,11 +49,25 @@ class distribution_list_mass_function(orm.TransientModel):
     _name = 'distribution.list.mass.function'
     _description = 'Mass Function'
 
+    def _get_e_mass_function(self, cr, uid, context=None):
+        """
+        Get available mass functions for mode=email.coordinate
+        """
+        funcs = [
+            ('email_coordinate_id', _('Mass Mailing')),
+            ('csv', _('CSV Extraction')),
+            ('vcard', _('VCARD Extraction')),
+        ]
+        if not context.get('in_mozaik_user'):
+            return funcs[1:]
+        return funcs
+
     _columns = {
         'trg_model': fields.selection(
             TRG_MODEL, string='Sending Mode', required=True),
         'e_mass_function': fields.selection(
-            E_MASS_FUNCTION, string='Mass Function'),
+            lambda s, c, u, **kwargs: s._get_e_mass_function(c, u, **kwargs),
+            string='Mass Function'),
         'p_mass_function': fields.selection(
             P_MASS_FUNCTION, string='Mass Function'),
 

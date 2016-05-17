@@ -48,7 +48,8 @@
                         </page>
                         <page name="mass_mailing" string="Mass Mailing"
                             attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
-                                                       ('e_mass_function','!=','email_coordinate_id')]}">
+                                                       ('e_mass_function','!=','email_coordinate_id')]}"
+                            groups="mozaik_base.mozaik_res_groups_user">
                             <group>
                                 <group>
                                     <field name="mass_mailing_name" />
@@ -70,7 +71,8 @@
                                     <field name="include_without_coordinate"
                                         attrs="{'invisible':[('p_mass_function','=','postal_coordinate_id')]}" />
                                     <field name="postal_mail_name"
-                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
+                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}"
+                                        groups="mozaik_base.mozaik_res_groups_user"/>
                                     <field name="groupby_coresidency"
                                         attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
                                 </group>
@@ -108,17 +110,6 @@
             <field name="multi" eval="0" />
             <field name="target">new</field>
             <field name="view_id" ref="distribution_list_mass_function_wizard" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
-
-        <record id="add_filter_from_involvement_value" model="ir.values">
-            <field name="name">Mass Function</field>
-            <field name="model">distribution.list</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_relate</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('distribution_list_mass_function_action')" />
         </record>
 
     </data>
