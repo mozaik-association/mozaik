@@ -212,14 +212,23 @@ class test_distribution_list(SharedSetupTransactionCase):
         self.assertFalse(a_alternative_ids)
         self.assertEqual(set(a_main_ids), set(a_search_ids))
 
+        dom = [
+            '&',
+            '|',
+            ('email', '=', False),
+            ('email', '!=', 'VIP'),
+            '|',
+            ('postal', '=', False),
+            ('postal', '!=', 'VIP'),
+        ]
+
         # virtual_target, other user
         u_main_ids = \
             self.dl_obj.get_complex_distribution_list_ids(
                 cr, oid, [dl_id], context=context)[0]
         u_search_ids = self.virtrg_obj.search(
-            cr, oid, [], context=context)
+            cr, oid, dom, context=context)
         self.assertEqual(set(u_main_ids), set(u_search_ids))
-        self.assertEqual(set(a_main_ids), set(u_main_ids))
 
         context = dict(
             main_object_field='email_coordinate_id',
