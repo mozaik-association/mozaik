@@ -290,6 +290,14 @@ class membership_request(orm.Model):
                 partner_address_path + '.sequence',
                 ''
             ),
+            (
+                15,
+                'int_instance_id',
+                'expr: request.force_int_instance_id.name or '
+                'request.int_instance_id.name',
+                'int_instance_id.name',
+                ''
+            ),
         ]
 
     def _clean_stored_changes(self, cr, uid, ids, context):
@@ -347,7 +355,10 @@ class membership_request(orm.Model):
                 seq, field, request_path, partner_path, label = element
                 if label and label not in label_to_process:
                     continue
-                request_value = attrgetter(request_path)(request)
+                if request_path.startswith('expr: '):
+                    request_value = eval(request_path[6:])
+                else:
+                    request_value = attrgetter(request_path)(request)
                 partner_value = attrgetter(partner_path)(request.partner_id)
                 field = fields_def[field]
 
@@ -465,9 +476,17 @@ class membership_request(orm.Model):
             'res.partner', string='Partner', ondelete='cascade',
             domain="[('membership_state_id', '!=', False)]"),
 
-        'int_instance_id': fields.many2one('int.instance',
-                                           string='Internal Instance',
-                                           ondelete='cascade'),
+        'int_instance_id': fields.many2one(
+            'int.instance',
+            string='Internal Instance',
+            ondelete='cascade'
+        ),
+        'force_int_instance_id': fields.many2one(
+            'int.instance',
+            string='Internal Instance (to Force)',
+            ondelete='cascade',
+            track_visibility='onchange',
+        ),
 
         'address_id': fields.many2one('address.address',
                                       string='Address',
@@ -505,9 +524,8 @@ class membership_request(orm.Model):
 
 # view methods: onchange, button
 
-    def onchange_country_id(self, cr, uid, ids, address_local_street_id,
-                            address_local_zip_id, number, box, town_man,
-                            street_man, zip_man, country_id, context=None):
+    def onchange_country_id(self, cr, uid, ids, country_id, zip_man, town_man,
+                            street_man, number, box, context=None):
         uid = SUPERUSER_ID
         return {
             'value': {
@@ -516,17 +534,17 @@ class membership_request(orm.Model):
                     context=context)[0]['code'] if country_id else False,
                 'address_local_zip_id': False,
                 'technical_name': self.get_technical_name(
-                    cr, uid, address_local_street_id, address_local_zip_id,
+                    cr, uid, False, False,
                     number, box, town_man, street_man, zip_man, country_id,
                     context=context),
                 'int_instance_id': self.get_int_instance_id(
-                    cr, uid, address_local_zip_id, context=context)
+                    cr, uid, False, context=context)
             }
         }
 
-    def onchange_local_zip_id(self, cr, uid, ids, address_local_street_id,
-                              address_local_zip_id, number, box, town_man,
-                              street_man, zip_man, country_id, context=None):
+    def onchange_local_zip_id(self, cr, uid, ids, country_id,
+                              address_local_zip_id, zip_man, town_man,
+                              street_man, number, box, context=None):
         uid = SUPERUSER_ID
         # local_zip used for domain
         local_zip = False
@@ -540,7 +558,7 @@ class membership_request(orm.Model):
             'value': {
                 'address_local_street_id': False,
                 'technical_name': self.get_technical_name(
-                    cr, uid, address_local_street_id, address_local_zip_id,
+                    cr, uid, False, address_local_zip_id,
                     number, box, town_man, street_man, zip_man,
                     country_id=country_id, context=context),
                 'local_zip': local_zip,
@@ -550,10 +568,10 @@ class membership_request(orm.Model):
         }
 
     def onchange_other_address_componants(self, cr, uid, ids,
-                                          address_local_street_id,
-                                          address_local_zip_id,
-                                          number, box, town_man, street_man,
-                                          zip_man, country_id, context=None):
+                                          country_id, address_local_zip_id,
+                                          zip_man, town_man,
+                                          address_local_street_id, street_man,
+                                          number, box, context=None):
         uid = SUPERUSER_ID
         return {
             'value': {
@@ -1085,6 +1103,7 @@ class membership_request(orm.Model):
         content
         In Other cases then create missing required data
         """
+        context = dict(context or {})
         mr_vals = {}
         partner_obj = self.pool['res.partner']
         for mr in self.browse(cr, uid, ids, context=context):
@@ -1101,8 +1120,14 @@ class membership_request(orm.Model):
 
             result_id = mr.result_type_id and mr.result_type_id.id or False
 
+            new_instance_id = \
+                mr.force_int_instance_id.id or mr.int_instance_id.id
             if mr.is_company or mr.membership_state_id.id != result_id:
-                partner_values['int_instance_id'] = mr.int_instance_id.id
+                partner_values['int_instance_id'] = new_instance_id
+            if mr.force_int_instance_id and \
+                    mr.force_int_instance_id.id != mr.int_instance_id.id:
+                partner_values['int_instance_id'] = new_instance_id
+                context['keep_current_instance'] = True
 
             new_interests_ids = []
             if not mr.is_company:
@@ -1129,10 +1154,16 @@ class membership_request(orm.Model):
             # evaluation through workflow will produce a notification
             # the second one out of workflow not (when context will be
             # pass through workflow this solution will not work anymore)
-            ctx = dict(context or {}, do_not_track_twice=True)
+            ctx = dict(context, do_not_track_twice=True)
 
+            upd_folw = False
             if mr.partner_id:
                 partner_id = mr.partner_id.id
+                if mr.partner_id.int_instance_id.id != new_instance_id:
+                    context['new_instance_id'] = new_instance_id
+                    partner_obj._subscribe_assemblies(
+                        cr, uid, partner_id, context=context)
+                    upd_folw = True
             else:
                 partner_id = partner_obj.create(cr, uid, partner_values,
                                                 context=context)
@@ -1145,6 +1176,12 @@ class membership_request(orm.Model):
             if partner_values:
                 partner_obj.write(
                     cr, uid, [partner_id], partner_values, context=ctx)
+            if upd_folw:
+                if mr.membership_state_id.id == result_id:
+                    partner_obj.update_membership_line(
+                        cr, uid, [partner_id], context=context)
+                partner_obj._update_followers(
+                    cr, SUPERUSER_ID, [partner_id], context=context)
 
             # address if technical name is empty then means that no address
             # required

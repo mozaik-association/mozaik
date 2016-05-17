@@ -341,10 +341,8 @@ class test_partner(SharedSetupTransactionCase):
             day = datas[2]
             month = datas[1]
             year = datas[0]
-        self.assertEqual(mr.membership_state_id,
-                         partner.membership_state_id,
-                         '[memb.req.]membership_state_id should be the same \
-                         that [partner]membership_state_id ')
+        self.assertEqual(mr.membership_state_id, partner.membership_state_id)
+        self.assertEqual(mr.result_type_id, partner.membership_state_id)
         self.assertEqual(mr.identifier, partner.identifier, '[memb.req.]\
         identifier should be the same that [partner]identifier ')
         self.assertEqual(mr.lastname, partner.lastname, '[memb.req.]lastname\

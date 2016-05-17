@@ -24,6 +24,7 @@
             <field name="number">6</field>
             <field name="box">2B</field>
             <field name="int_instance_id" ref="int_instance_06" />
+            <field name="force_int_instance_id" ref="int_instance_07" />
             <field name="phone_id" ref="fix_for_test_update_1" />
 
             <field name="phone">061458978</field>

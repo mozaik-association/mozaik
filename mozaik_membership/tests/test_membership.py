@@ -187,6 +187,8 @@ class test_membership(SharedSetupTransactionCase):
                          be created with same value of the membership request")
         self.assertTrue(modified_partner.birth_date,
                         "Partner's birth date should remain non empty")
+        self.assertEqual(self.rec_mr_update.force_int_instance_id.id,
+                         modified_partner.int_instance_id.id)
         # validation to create
         self.mro.write(
             cr, uid, [self.rec_mr_create.id],
