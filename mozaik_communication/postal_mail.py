@@ -23,8 +23,6 @@
 #
 ##############################################################################
 
-import datetime
-
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
@@ -48,7 +46,7 @@ class postal_mail(orm.Model):
         }
 
     _columns = {
-        'name': fields.char('Name', size=256, required=True,
+        'name': fields.char('Name', required=True,
                             track_visibility='onchange'),
         'sent_date': fields.date('Sent Date', required=True,
                                  track_visibility='onchange'),
@@ -76,7 +74,7 @@ class postal_mail(orm.Model):
         """
         default = default or {}
         default.update({
-            'sent_date': datetime.date.today(),
+            'sent_date': fields.date.today(),
         })
         res = super(postal_mail, self).copy_data(
             cr, uid, ids, default=default, context=context)
@@ -208,7 +206,7 @@ class postal_mail_log(orm.Model):
         """
         default = default or {}
         default.update({
-            'sent_date': datetime.date.today(),
+            'sent_date': fields.date.today(),
         })
         res = super(postal_mail_log, self).copy_data(
             cr, uid, ids, default=default, context=context)

@@ -368,21 +368,28 @@ class distribution_list_mass_function(orm.TransientModel):
         """
         if not postal_coordinate_ids:
             return True
-        now = datetime.now()
-        postal_mail_log_obj = self.pool['postal.mail.log']
-        postal_mail_id = self.pool['postal.mail'].create(cr, uid, {
-            'name': postal_mail_name,
-            'sent_date': now,
-        }, context=context)
+        today = fields.date.today()
+        postal_mail_obj = self.pool['postal.mail']
+        postal_mail_id = postal_mail_obj.search(cr, uid, [
+            ('name', '=', postal_mail_name),
+            ('sent_date', '=', today),
+        ], context=context)
+        if not postal_mail_id:
+            postal_mail_id = postal_mail_obj.create(cr, uid, {
+                'name': postal_mail_name,
+                'sent_date': today,
+            }, context=context)
+        else:
+            postal_mail_id = postal_mail_id[0]
 
         coords = self.pool['postal.coordinate'].browse(
             cr, uid, postal_coordinate_ids, context=context)
         for coord in coords:
-            postal_mail_log_obj.create(cr, uid, {
+            self.pool['postal.mail.log'].create(cr, uid, {
                 'postal_mail_id': postal_mail_id,
                 'postal_coordinate_id': coord.id,
                 'partner_id': coord.partner_id.id,
-                'sent_date': now,
+                'sent_date': today,
             }, context=context)
 
         return True
