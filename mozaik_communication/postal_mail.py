@@ -65,7 +65,7 @@ class postal_mail(orm.Model):
 
 # constraints
 
-    _unicity_keys = 'name'
+    _unicity_keys = 'sent_date, name'
 
 # orm methods
 
