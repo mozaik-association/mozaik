@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-13 01:56+0000\n"
-"PO-Revision-Date: 2016-02-13 01:56+0000\n"
+"POT-Creation-Date: 2016-05-17 22:33+0000\n"
+"PO-Revision-Date: 2016-05-17 22:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,13 +31,13 @@ msgid "2017"
 msgstr ""
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:449
+#: code:addons/mozaik_membership/res_partner.py:448
 #, python-format
 msgid "A Partner is required for a Modification Request"
 msgstr "Un partenaire est requis pour faire une demande de modification"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:360
+#: code:addons/mozaik_membership/res_partner.py:359
 #, python-format
 msgid "A natural person with membership history cannot be transformed to a legal person"
 msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
@@ -391,9 +391,9 @@ msgid "Email is Main"
 msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:855
-#: code:addons/mozaik_membership/res_partner.py:359
-#: code:addons/mozaik_membership/res_partner.py:448
+#: code:addons/mozaik_membership/membership_request.py:874
+#: code:addons/mozaik_membership/res_partner.py:358
+#: code:addons/mozaik_membership/res_partner.py:447
 #: code:addons/mozaik_membership/res_partner.py:556
 #, python-format
 msgid "Error"
@@ -718,6 +718,11 @@ msgid "Internal Instance"
 msgstr "Instance interne"
 
 #. module: mozaik_membership
+#: field:membership.request,force_int_instance_id:0
+msgid "Internal Instance (to Force)"
+msgstr "Instance interne (à forcer)"
+
+#. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_3_form
 #: field:res.partner,int_instance_m2m_ids:0
 msgid "Internal Instances"
@@ -729,7 +734,7 @@ msgid "Internal Mandate"
 msgstr "Mandat interne"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:855
+#: code:addons/mozaik_membership/membership_request.py:874
 #, python-format
 msgid "Invalid Data"
 msgstr "Données invalides"
@@ -959,6 +964,11 @@ msgid "Membership Line Notification"
 msgstr "Notification d'historique d'adhésion"
 
 #. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.no_state_change_notification
+msgid "Membership Line Notification without Change of State"
+msgstr "Notification d'historique d'adhésion sans changement de statut"
+
+#. module: mozaik_membership
 #: model:ir.actions.act_window,name:mozaik_membership.membership_line_action
 #: model:ir.ui.menu,name:mozaik_membership.membership_line_submenu
 #: view:membership.line:mozaik_membership.membership_line_search_view
@@ -984,6 +994,7 @@ msgstr "Champ modifié d'une demande d'adhésion"
 #: model:ir.ui.menu,name:mozaik_membership.membership_request_menu
 #: view:membership.request:mozaik_membership.membership_request_search_view
 #: view:membership.request:mozaik_membership.membership_request_tree_view
+#: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "Membership Requests"
 msgstr "Demandes d'adhésion"
 
@@ -1670,6 +1681,21 @@ msgstr ""
 #: view:product.template:mozaik_membership.product_template_form_view
 #: view:product.template:mozaik_membership.product_template_only_form_view
 msgid "{'invisible': [('membership', '=', True)]}"
+msgstr ""
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_officer_form_view
+msgid "{'invisible': [('state', 'not in', ['draft','confirm'])]}"
+msgstr ""
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_officer_form_view
+msgid "{'readonly':[('is_update', '=', True)], 'required':[('is_update', '=', True)]}"
+msgstr ""
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "⇒"
 msgstr ""
 
 #. module: mozaik_membership
