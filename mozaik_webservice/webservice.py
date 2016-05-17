@@ -87,7 +87,9 @@ class custom_webservice(orm.Model):
 
     @web_service
     def membership_request(self, cr, uid, lastname, firstname, gender, street,
-                           zip_code, town, status, day=False, month=False,
+                           zip_code, town, status,
+                           street_number=False, box_number=False,
+                           day=False, month=False,
                            year=False, email=False, mobile=False, phone=False,
                            interest=False, note=False, code=False,
                            company=False, competencies=False,
@@ -120,6 +122,8 @@ class custom_webservice(orm.Model):
 
             'request_type': status,
             'street_man': street,
+            'number': street_number,
+            'box': box_number,
             'zip_man': zip_code,
             'town_man': town,
 
