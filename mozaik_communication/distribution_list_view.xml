@@ -56,6 +56,7 @@
             <field name="inherit_id" ref="mass_mailing_distribution_list.distribution_list_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace">
+                    <field name="partner_id"/>
                     <field name="dst_model_id" invisible="1"/>
                     <field name="int_instance_id"/>
                     <field name="active" invisible="1"/>

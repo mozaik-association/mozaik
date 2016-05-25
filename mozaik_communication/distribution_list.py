@@ -54,6 +54,8 @@ class distribution_list(orm.Model):
         res = super(distribution_list, self)._get_mail_compose_message_vals(
             cr, uid, msg, dl_id, mailing_model='email.coordinate',
             context=context)
+        if res.get('mass_mailing_name') and res.get('subject'):
+            res['mass_mailing_name'] = res.get('subject')
         dl = self.browse(cr, uid, dl_id, context=context)
         if dl.partner_id and dl.partner_id.email:
             res['email_from'] = formataddr(

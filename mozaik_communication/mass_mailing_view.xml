@@ -37,6 +37,42 @@
                 <xpath expr="//field[@name='mailing_model']" position="attributes">
                     <attribute name="attrs"/>
                 </xpath>
+                <xpath expr="//field[@name='replied_ratio']" position="replace">
+                    <field name="bounced_ratio"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_mail_mail_statistics_search" model="ir.ui.view">
+            <field name="name">view.mail.mail.statistics.search (mozaik_communication)</field>
+            <field name="model">mail.mail.statistics</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mail_statistics_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="before">
+                    <filter string="Bounced" name="filter_bounced" domain="[('bounced', '!=', False)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_mail_mass_mailing_distribution_list_form" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing_distribution_list)</field>
+            <field name="model">mail.mass_mailing</field>
+            <field name="inherit_id" ref="mass_mailing_distribution_list.view_mail_mass_mailing_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='distribution_list_id']" position="attributes">
+                    <attribute name="attrs">{'required': [('mailing_model', '=','email.coordinate')],'invisible': [('mailing_model', '!=','email.coordinate')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mailing_model']" position="attributes">
+                    <attribute name="attrs"/>
+                </xpath>
+                <xpath expr="//field[@name='replied_ratio']/parent::button" position="attributes">
+                    <attribute name="context">
+                        {'search_default_filter_bounced': True}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='replied_ratio']" position="replace">
+                    <field name="bounced_ratio" string="Bounced" widget="percentpie"/>
+                </xpath>
             </field>
         </record>
     </data>

@@ -23,8 +23,25 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
+from openerp.osv import orm, fields
 from openerp.tools.translate import _
+
+
+class MailMassMailing(orm.Model):
+    _inherit = 'mail.mass_mailing'
+
+    def _get_statistics(self, cr, uid, ids, name, arg, context=None):
+        res = super(MailMassMailing, self)._get_statistics(
+            cr, uid, ids, name, arg, context=context)
+        res['bounced_ratio'] = 100.0 * res['bounced'] / res['total']
+        return res
+
+    _columns = {
+        'bounced_ratio': fields.function(
+            _get_statistics, string='Bounced Ratio',
+            type='integer', multi='_get_statistics',
+        ),
+    }
 
 
 class MailMailStats(orm.Model):
