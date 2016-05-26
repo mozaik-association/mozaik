@@ -35,10 +35,11 @@
 
         <menuitem id="mailings_submenu" name="Mailings"
                   sequence="30" parent="mozaik_base.communication_root_menu"
-                  groups="mozaik_base.mozaik_res_groups_user" />
+                  groups="mozaik_base.mozaik_res_groups_reader" />
 
         <menuitem id="templates_menu" action="email_template.action_email_template_tree_all"
-                  sequence="10" parent="mailings_submenu"/>
+                  sequence="10" parent="mailings_submenu"
+                  groups="mozaik_base.mozaik_res_groups_user"/>
 
         <record id="mass_mailing.menu_email_mass_mailings" model="ir.ui.menu">
             <field name="sequence">20</field>
