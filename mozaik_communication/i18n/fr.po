@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-17 12:53+0000\n"
-"PO-Revision-Date: 2016-05-17 12:53+0000\n"
+"POT-Creation-Date: 2016-06-01 11:49+0000\n"
+"PO-Revision-Date: 2016-06-01 11:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,13 +23,13 @@ msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:344
+#: code:addons/mozaik_communication/distribution_list.py:346
 #, python-format
 msgid "<b>New alias</b>: %s"
 msgstr "<b>Nouveau pseudonyme</b>: %s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:273
+#: code:addons/mozaik_communication/distribution_list.py:275
 #, python-format
 msgid "<p>Distribution List: %s</p><p>Sender: %s</p><p>Failure Reason: %s</p>"
 msgstr "<p>Liste de distribution: %s</p><p>Émetteur: %s</p><p>Raison de l'échec: %s</p>"
@@ -91,7 +91,7 @@ msgid "Add Registrations"
 msgstr "Ajouter des inscriptions"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:335
+#: code:addons/mozaik_communication/distribution_list.py:337
 #, python-format
 msgid "Alias modified on distribution list %s"
 msgstr "Pseudonyme modifié pour la liste de distribution %s"
@@ -235,6 +235,12 @@ msgid "Birth Date > ..."
 msgstr "Date de naissance > ..."
 
 #. module: mozaik_communication
+#: view:mail.mail.statistics:mozaik_communication.view_mail_mail_statistics_search
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
+msgid "Bounced"
+msgstr "Rebond"
+
+#. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:58
 #: selection:distribution.list.mass.function,p_mass_function:0
 #, python-format
@@ -334,7 +340,7 @@ msgid "Confirm"
 msgstr "Confirmer"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:196
+#: code:addons/mozaik_communication/distribution_list.py:198
 #, python-format
 msgid "Coordinate %s(%s) of %s is not main"
 msgstr "La coordonnée %s(%s) de %s n'est pas principale"
@@ -755,13 +761,13 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:343
+#: code:addons/mozaik_communication/distribution_list.py:345
 #, python-format
 msgid "Former alias: %s"
 msgstr "Ancien pseudonyme: %s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:271
+#: code:addons/mozaik_communication/distribution_list.py:273
 #, python-format
 msgid "Forwarding Failure: %s"
 msgstr "Échec de transfert: %s"
@@ -845,7 +851,7 @@ msgid "Group by Co-Residency"
 msgstr "Grouper par Co-Résidence"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:340
+#: code:addons/mozaik_communication/distribution_list.py:342
 #, python-format
 msgid "Hello"
 msgstr "Bonjour"
@@ -895,6 +901,7 @@ msgstr "Si coché, de nouveaux messages requièrent votre attention."
 
 #. module: mozaik_communication
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,in_progress:0
 msgid "In Progress"
 msgstr "En cours"
 
@@ -1414,7 +1421,7 @@ msgid "Newsletter"
 msgstr "Lettre d'information"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:189
+#: code:addons/mozaik_communication/distribution_list.py:191
 #, python-format
 msgid "No unique coordinate found with address: %s"
 msgstr "Pas de coordonnée unique trouvée avec l'email: %s"
@@ -1521,13 +1528,13 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:211
+#: code:addons/mozaik_communication/distribution_list.py:213
 #, python-format
 msgid "Partner %s is not a user"
 msgstr "Le contact %s n'est pas un utilisateur"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:201
+#: code:addons/mozaik_communication/distribution_list.py:203
 #, python-format
 msgid "Partner %s is not an owner nor an allowed partner"
 msgstr "Le contact %s n'est ni un propriétaire ni un émetteur autorisé"
@@ -1789,13 +1796,13 @@ msgid "Result"
 msgstr "Résultat"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:303
+#: code:addons/mozaik_communication/distribution_list.py:305
 #, python-format
 msgid "Result of %s"
 msgstr "Résultat de %s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:426
+#: code:addons/mozaik_communication/distribution_list.py:428
 #, python-format
 msgid "Result of %s filter without coordinate"
 msgstr "Résultat du filtre %s (injoignables)"
@@ -1849,6 +1856,12 @@ msgstr "Voir le résultat du filtre"
 #: view:distribution.list.line:mozaik_communication.distribution_list_line_tree
 msgid "See Result Without Coordinate"
 msgstr "Voir les injoignables"
+
+#. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_search
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_tree
+msgid "Sender"
+msgstr "Émetteur"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,trg_model:0
@@ -2000,7 +2013,7 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:341
+#: code:addons/mozaik_communication/distribution_list.py:343
 #, python-format
 msgid "The alias of the distribution list %s has been changed by %s."
 msgstr "Le pseudonyme de la liste de distribution %s a été modifié par %s."
@@ -2120,7 +2133,7 @@ msgid "Unread Messages"
 msgstr "Messages non lus"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:227
+#: code:addons/mozaik_communication/distribution_list.py:229
 #, python-format
 msgid "User %s(%s) has no visibility on list %s(%s)"
 msgstr "L'utilisateur %s(%s) n'a aucune visibilité sur la liste %s(%s)"
@@ -2331,6 +2344,11 @@ msgstr ""
 #: view:export.csv:mozaik_communication.export_csv_wizard
 msgid "or"
 msgstr "ou"
+
+#. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_tree
+msgid "red:bounced"
+msgstr ""
 
 #. module: mozaik_communication
 #: view:distribution.list.line:mozaik_communication.distribution_list_line_form

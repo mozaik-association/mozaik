@@ -43,7 +43,7 @@
                     <field name="distribution_list_id" />
                 </xpath>
                 <xpath expr="//filter[@string='Sent By']" position="replace">
-                    <filter string="Sent By" name="sent_by" context="{'group_by':'create_uid'}"/>
+                    <filter string="Sender" name="by_sender" context="{'group_by':'create_uid'}"/>
                 </xpath>
             </field>
         </record>
