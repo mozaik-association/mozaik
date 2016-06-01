@@ -553,6 +553,7 @@ class virtual_partner_mandate(orm.Model):
             'int.instance', 'Mandate Instance'),
         'sta_instance_id': fields.many2one(
             'sta.instance', string='State Instance'),
+        'in_progress': fields.boolean("In Progress"),
         'active': fields.boolean("Active")
     }
 
@@ -606,16 +607,19 @@ class virtual_partner_mandate(orm.Model):
                 WHEN ec2.id IS NULL
                 THEN ec1.id
                 ELSE ec2.id
-            END
-            AS email_coordinate_id,
+            END AS email_coordinate_id,
             CASE
                 WHEN pc2.id IS NULL
                 THEN pc1.id
                 ELSE pc2.id
-            END
-            AS postal_coordinate_id,
+            END AS postal_coordinate_id,
             %s as mandate_instance_id,
             %s as sta_instance_id,
+            CASE
+                WHEN start_date <= current_date
+                THEN True
+                ELSE False
+            END AS in_progress,
             CASE
                 WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
                 THEN True
