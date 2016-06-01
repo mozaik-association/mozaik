@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data>
-        <!-- MASS MAILING FORM from mass_mailing-->
+
         <record id="view_mail_mass_mailing_form" model="ir.ui.view">
             <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing)</field>
             <field name="model">mail.mass_mailing</field>
@@ -23,9 +23,50 @@
                 <xpath expr="//button[@name='action_edit_html']/following-sibling::button[1]" position="attributes">
                     <attribute name="groups">mozaik_base.res_groups_developper</attribute>
                 </xpath>
+                <xpath expr="//field[@name='replied_ratio']/parent::button" position="replace">
+                    <button name="%(mass_mailing.action_view_mail_mail_statistics_mailing)d" context="{'search_default_filter_bounced': True}" type="action" class="oe_stat_button" icon="fa-medkit">
+                        <field name="bounced" string="Bounced" widget="statinfo" />
+                    </button>
+                </xpath>
             </field>
         </record>
-        <!-- MASS MAILING FORM (from mass_mailing_distribution_list) -->
+
+        <record id="view_mail_mass_mailing_search" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.search (mozaik_communication mass_mailing)</field>
+            <field name="model">mail.mass_mailing</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="create_uid" string="Sender" />
+                </xpath>
+                <xpath expr="//field[@name='mass_mailing_campaign_id']" position="replace">
+                    <field name="distribution_list_id" />
+                </xpath>
+                <xpath expr="//filter[@string='Sent By']" position="replace">
+                    <filter string="Sent By" name="sent_by" context="{'group_by':'create_uid'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_mail_mass_mailing_tree" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.tree (mozaik_communication mass_mailing)</field>
+            <field name="model">mail.mass_mailing</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="distribution_list_id" />
+                    <field name="create_uid" string="Sender" />
+                    <field name="create_date" />
+                </xpath>
+                <xpath expr="//field[@name='replied']" position="replace">
+                    <field name="bounced" />
+                </xpath>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">red:bounced</attribute>
+                </xpath>
+            </field>
+        </record>
+
         <record id="view_mail_mass_mailing_distribution_list_form" model="ir.ui.view">
             <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing_distribution_list)</field>
             <field name="model">mail.mass_mailing</field>
@@ -37,43 +78,8 @@
                 <xpath expr="//field[@name='mailing_model']" position="attributes">
                     <attribute name="attrs"/>
                 </xpath>
-                <xpath expr="//field[@name='replied_ratio']" position="replace">
-                    <field name="bounced_ratio"/>
-                </xpath>
             </field>
         </record>
 
-        <record id="view_mail_mail_statistics_search" model="ir.ui.view">
-            <field name="name">view.mail.mail.statistics.search (mozaik_communication)</field>
-            <field name="model">mail.mail.statistics</field>
-            <field name="inherit_id" ref="mass_mailing.view_mail_mail_statistics_search" />
-            <field name="arch" type="xml">
-                <xpath expr="//group" position="before">
-                    <filter string="Bounced" name="filter_bounced" domain="[('bounced', '!=', False)]"/>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="view_mail_mass_mailing_distribution_list_form" model="ir.ui.view">
-            <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing_distribution_list)</field>
-            <field name="model">mail.mass_mailing</field>
-            <field name="inherit_id" ref="mass_mailing_distribution_list.view_mail_mass_mailing_form" />
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='distribution_list_id']" position="attributes">
-                    <attribute name="attrs">{'required': [('mailing_model', '=','email.coordinate')],'invisible': [('mailing_model', '!=','email.coordinate')]}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='mailing_model']" position="attributes">
-                    <attribute name="attrs"/>
-                </xpath>
-                <xpath expr="//field[@name='replied_ratio']/parent::button" position="attributes">
-                    <attribute name="context">
-                        {'search_default_filter_bounced': True}
-                    </attribute>
-                </xpath>
-                <xpath expr="//field[@name='replied_ratio']" position="replace">
-                    <field name="bounced_ratio" string="Bounced" widget="percentpie"/>
-                </xpath>
-            </field>
-        </record>
     </data>
 </openerp>
