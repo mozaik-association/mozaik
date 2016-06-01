@@ -52,11 +52,12 @@
                             groups="mozaik_base.mozaik_res_groups_user">
                             <group>
                                 <group>
-                                    <field name="mass_mailing_name" />
                                     <field name="email_template_id"
                                         domain="[('model_id.model','=','email.coordinate')]"
                                         attrs="{'required':[('e_mass_function','=','email_coordinate_id'),
-                                                               ('trg_model','=','email.coordinate')]}" />
+                                                               ('trg_model','=','email.coordinate')]}" 
+                                        on_change="onchange_template_id(email_template_id, mass_mailing_name)"/>
+                                    <field name="mass_mailing_name" />
                                 </group>
                                 <group>
                                     <field name="extract_csv" />

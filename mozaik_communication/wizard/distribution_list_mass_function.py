@@ -131,6 +131,23 @@ class distribution_list_mass_function(orm.TransientModel):
             }
         }
 
+    def onchange_template_id(
+            self, cr, uid, ids,
+            email_template_id, mass_mailing_name,
+            context=None):
+        """
+        Propose a default value for the mass mailing name
+        """
+        if mass_mailing_name or not email_template_id:
+            return
+        tmpl = self.pool['email.template'].browse(
+            cr, uid, email_template_id, context=context)
+        return {
+            'value': {
+                'mass_mailing_name': tmpl.subject,
+            }
+        }
+
 # public methods
 
     def mass_function(self, cr, uid, ids, context=None):
@@ -201,8 +218,6 @@ class distribution_list_mass_function(orm.TransientModel):
                         'parent_id': False,
                         'use_active_domain': False,
                         'composition_mode': 'mass_mail',
-                        'same_thread': True,
-                        'post': False,
                         'partner_ids': [[6, False, []]],
                         'notify': False,
                         'template_id': template_id,
