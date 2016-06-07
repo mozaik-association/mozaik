@@ -62,17 +62,6 @@ class distribution_list(orm.Model):
                 (dl.partner_id.name, dl.partner_id.email))
         return res
 
-    def _notify_changes_to_owners(self, subject, message):
-        recipient_ids = [user.partner_id.id for user in self.res_users_ids
-                         if user.id != self.env.uid]
-        recipient_ids += self.res_partner_m2m_ids.ids
-        mail_vals = {
-            'subject': subject,
-            'body_html': message,
-            'recipient_ids': [[6, False, recipient_ids]],
-        }
-        self.env['mail.mail'].create(mail_vals)
-
     def _get_computed_ids(
             self, cr, uid, dl_id, bridge_field, to_be_computed_ids,
             in_mode, context=None):
@@ -326,27 +315,35 @@ class distribution_list(orm.Model):
 
         return True
 
-    @api.one
+    @api.multi
     def write(self, vals):
-        old_alias = self.alias_name
-        new_alias = vals.get('alias_name', False)
-        old_alias_name = self.alias_id.name_get()[0][1]
-        res = super(distribution_list, self).write(vals)
-        if new_alias and new_alias != old_alias:
-            user = self.env['res.users'].browse(self.env.uid)
-            subject = _(
-                'Alias modified on distribution list %s') % self.name
-
-            msg = "<p>%s,</p><p>%s</p><p>%s<br/>%s</p>"
-            parts = (
-                _('Hello'),
-                _('The alias of the distribution list %s '
-                  'has been changed by %s.') % (self.name, user.name),
-                _('Former alias: %s') % old_alias_name,
-                _('<b>New alias</b>: %s') % self.alias_id.name_get()[0][1],
-            )
-            self._notify_changes_to_owners(subject, msg % parts)
-        return res
+        if 'alias_name' in vals:
+            self.ensure_one()
+            old_alias = self.alias_name
+            new_alias = vals.get('alias_name', False)
+            domain = self.alias_id.alias_domain
+            if new_alias and new_alias != old_alias:
+                subject = _(
+                    'Alias modified on distribution list %s') % self.name
+                msg = "<p>%s,</p><p>%s</p><p>%s<br/>%s</p>"
+                parts = (
+                    _('Hello'),
+                    _('The alias of the distribution list %s '
+                      'has been changed by %s.') % (
+                        self.name, self.env.user.name),
+                    _('Former alias: %s@%s') % (old_alias, domain),
+                    _('<b>New alias</b>: %s@%s') % (new_alias, domain),
+                )
+                recipient_ids = [
+                    user.partner_id.id
+                    for user in self.res_users_ids
+                    if user.id != self.env.uid
+                ]
+                recipient_ids += self.res_partner_m2m_ids.ids
+                self.message_post(
+                    body=msg % parts, subject=subject,
+                    partner_ids=recipient_ids)
+        return super(distribution_list, self).write(vals)
 
 
 class distribution_list_line(orm.Model):

@@ -170,6 +170,13 @@ class test_distribution_list(SharedSetupTransactionCase):
         dl_name = '%s' % uuid4()
         default_instance_id = self.usr.int_instance_m2m_ids.ids[0]
 
+        # set email after to avoid MailDeliveryException
+        vals = {
+            'partner_id': self.usr.partner_id.id,
+            'email': 'sacha.distel@example.com',
+        }
+        self.ec_obj.create(cr, uid, vals, context=context)
+
         vals = {
             'name': dl_name,
             'int_instance_id': default_instance_id,
