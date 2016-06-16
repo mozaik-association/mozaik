@@ -124,7 +124,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "supporter"')
 
         # supporter -> former_supporter
-        partner.write({'resignation_date': today})
+        partner_obj.resign(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'former_supporter', 'Should be "former_supporter"')
@@ -207,7 +207,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "former_member_committee"')
 
         # former_member_committee -> inappropriate_former_member
-        partner.write({'exclusion_date': today})
+        partner_obj.exclude(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'inappropriate_former_member',
@@ -221,7 +221,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "former_member"')
 
         # former_member -> inappropriate_former_member
-        partner.write({'exclusion_date': today})
+        partner_obj.exclude(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'inappropriate_former_member',
@@ -232,7 +232,7 @@ class test_partner(SharedSetupTransactionCase):
         nbl += 1
 
         # former_member -> break_former_member
-        partner.write({'resignation_date': today})
+        partner_obj.resign(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'break_former_member',
@@ -257,7 +257,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "member"')
 
         # member -> resignation_former_member
-        partner.write({'resignation_date': today})
+        partner_obj.resign(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'resignation_former_member',
@@ -299,7 +299,7 @@ class test_partner(SharedSetupTransactionCase):
                           free_prd_id)
 
         # member -> expulsion_former_member
-        partner.write({'exclusion_date': today})
+        partner_obj.exclude(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'expulsion_former_member',

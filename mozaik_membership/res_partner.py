@@ -24,6 +24,7 @@
 ##############################################################################
 from datetime import date
 
+from openerp import api
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
@@ -415,17 +416,27 @@ class res_partner(orm.Model):
         return self.write(cr, uid, ids, {'rejected_date': today},
                           context=ctx)
 
+    @api.multi
+    def _exclude_or_resign(self, field):
+        this = self.with_context(do_not_track_twice=True)
+        vals = {field: fields.date.today()}
+        this.write(vals)
+        res = None
+        if self.ids and len(self.ids) == 1:
+            # go directly to the co-residency form if any
+            coord = self.postal_coordinate_id
+            if coord and coord.co_residency_id:
+                res = coord.co_residency_id.get_formview_action()
+                res = res and res[0] or None
+        return res
+
     def exclude(self, cr, uid, ids, context=None):
-        ctx = dict(context or {}, do_not_track_twice=True)
-        today = fields.date.today()
-        return self.write(cr, uid, ids, {'exclusion_date': today},
-                          context=ctx)
+        return self._exclude_or_resign(
+            cr, uid, ids, 'exclusion_date', context=context)
 
     def resign(self, cr, uid, ids, context=None):
-        ctx = dict(context or {}, do_not_track_twice=True)
-        today = fields.date.today()
-        return self.write(cr, uid, ids, {'resignation_date': today},
-                          context=ctx)
+        return self._exclude_or_resign(
+            cr, uid, ids, 'resignation_date', context=context)
 
     def button_modification_request(self, cr, uid, ids, context=None):
         """

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 14:58+0000\n"
-"PO-Revision-Date: 2016-04-11 14:58+0000\n"
+"POT-Creation-Date: 2016-06-16 17:22+0000\n"
+"PO-Revision-Date: 2016-06-16 17:22+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -155,7 +155,7 @@ msgid "Co-Residency"
 msgstr "Co-Résidence"
 
 #. module: mozaik_address
-#: code:addons/mozaik_address/address_address.py:476
+#: code:addons/mozaik_address/address_address.py:491
 #, python-format
 msgid "Co-Residency to complete"
 msgstr "Co-Résidence à compléter"
@@ -698,6 +698,12 @@ msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_address
+#: code:addons/mozaik_address/address_address.py:409
+#, python-format
+msgid "Unauthorizing a coordinate usually involves a change in its co-residency."
+msgstr "Interdire une coordonnée implique généralement une modification de sa co-résidence."
+
+#. module: mozaik_address
 #: selection:bounce.editor,reason:0
 msgid "Unclaimed"
 msgstr "Non réclamé"
@@ -729,6 +735,12 @@ msgstr "Utilisation permise"
 #: field:postal.coordinate,vip:0
 msgid "VIP"
 msgstr ""
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/address_address.py:408
+#, python-format
+msgid "Warning"
+msgstr "Avertissement"
 
 #. module: mozaik_address
 #: field:address.address,website_message_ids:0
@@ -777,6 +789,11 @@ msgstr "Code postal"
 #: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
 msgid "address"
 msgstr "adresse"
+
+#. module: mozaik_address
+#: view:postal.coordinate:mozaik_address.postal_coordinate_form_view
+msgid "onchange_unauthorized(unauthorized, co_residency_id, context)"
+msgstr ""
 
 #. module: mozaik_address
 #: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
