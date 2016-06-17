@@ -1186,7 +1186,8 @@ class membership_request(orm.Model):
             # address if technical name is empty then means that no address
             # required
             address_id = mr.address_id and mr.address_id.id or False
-            if not address_id and mr.technical_name != EMPTY_ADDRESS:
+            if not address_id and \
+                    mr.technical_name and mr.technical_name != EMPTY_ADDRESS:
                 address_values = {
                     'country_id': mr.country_id.id,
                     'street_man': False if mr.address_local_street_id else

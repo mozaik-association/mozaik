@@ -135,6 +135,7 @@ class res_partner(orm.Model):
 
         return True
 
+    @api.cr_uid_id_context
     def _change_instance(self, cr, uid, pid, new_instance_id, context=None):
         """
         Update instance of partner
