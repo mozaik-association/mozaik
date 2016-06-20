@@ -268,6 +268,10 @@ class distribution_list_mass_function(orm.TransientModel):
                         csv_model = 'postal.coordinate'
                         active_ids = alternative_ids
 
+                    if wizard.mass_mailing_name:
+                        self.post_processing(
+                            cr, uid, wizard, active_ids, context=context)
+
                 elif fct == 'vcard':
                     #
                     # Get VCARD containing email coordinates

@@ -15,7 +15,7 @@
                             <field name="distribution_list_id" readonly="1" options='{"no_open":True}' />
                         </h1>
                     </div>
-                    <group>
+                    <group name="function">
                         <field name="trg_model" on_change="onchange_trg_model()" widget="radio" />
                         <field name="e_mass_function" on_change="onchange_mass_function()"
                             attrs="{'invisible':[('trg_model','!=','email.coordinate')],
@@ -26,12 +26,10 @@
                                     'required':[('trg_model','=','postal.coordinate')]}"
                             widget="radio" />
                     </group>
-                    <group>
-                        <group>
-                            <field name="include_unauthorized" />
-                            <field name="bounce_counter" />
-                            <field name="internal_instance_id" />
-                        </group>
+                    <group name="modifiers">
+                        <field name="include_unauthorized" />
+                        <field name="bounce_counter" />
+                        <field name="internal_instance_id" />
                     </group>
 
                     <notebook>
