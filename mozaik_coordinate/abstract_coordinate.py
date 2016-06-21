@@ -360,34 +360,32 @@ class abstract_coordinate(orm.AbstractModel):
 
         return res
 
-    def change_main_coordinate(self, cr, uid, partner_ids, field_id,
+    def change_main_coordinate(self, cr, uid, partner_ids, value,
                                context=None):
         """
-        ========================
-        change_main_coordinate
-        ========================
         :param partner_ids: list of partner id
         :type partner_ids: [integer]
-        :param field_id: id of the new main object selected
-        :type field_id: integer
-        :rparam: list of coordinate ids created
+        :param value: discriminant field value
+        :type value: integer or string
+        :rparam: list of created coordinates
         :rtype: list of integer
         """
         return_ids = []
         for partner_id in partner_ids:
             res_ids = self.search(
                 cr, uid, [('partner_id', '=', partner_id),
-                          (self._discriminant_field, '=', field_id)],
+                          (self._discriminant_field, '=', value)],
                 context=context)
             if not res_ids:
-                # must be create
-                return_ids.append(
-                    self.create(cr, uid, {'partner_id': partner_id,
-                                          self._discriminant_field: field_id,
-                                          'is_main': True,
-                                          }, context=context))
+                # create it
+                vals = {
+                    'partner_id': partner_id,
+                    self._discriminant_field: value,
+                    'is_main': True,
+                }
+                return_ids.append(self.create(cr, uid, vals, context=context))
             else:
-                # If the coordinate is not already ``main``, set it as main
+                # set it as main if any
                 if not self.read(
                         cr, uid, res_ids[0], ['is_main'],
                         context=context)['is_main']:

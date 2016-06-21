@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-17 22:33+0000\n"
-"PO-Revision-Date: 2016-05-17 22:33+0000\n"
+"POT-Creation-Date: 2016-06-21 14:29+0000\n"
+"PO-Revision-Date: 2016-06-21 14:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,13 +31,13 @@ msgid "2017"
 msgstr ""
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:448
+#: code:addons/mozaik_membership/res_partner.py:460
 #, python-format
 msgid "A Partner is required for a Modification Request"
 msgstr "Un partenaire est requis pour faire une demande de modification"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:359
+#: code:addons/mozaik_membership/res_partner.py:361
 #, python-format
 msgid "A natural person with membership history cannot be transformed to a legal person"
 msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
@@ -391,10 +391,10 @@ msgid "Email is Main"
 msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:874
-#: code:addons/mozaik_membership/res_partner.py:358
-#: code:addons/mozaik_membership/res_partner.py:447
-#: code:addons/mozaik_membership/res_partner.py:556
+#: code:addons/mozaik_membership/membership_request.py:877
+#: code:addons/mozaik_membership/res_partner.py:360
+#: code:addons/mozaik_membership/res_partner.py:459
+#: code:addons/mozaik_membership/res_partner.py:568
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -734,7 +734,7 @@ msgid "Internal Mandate"
 msgstr "Mandat interne"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:874
+#: code:addons/mozaik_membership/membership_request.py:877
 #, python-format
 msgid "Invalid Data"
 msgstr "Données invalides"
@@ -1317,6 +1317,11 @@ msgid "Rejected Date"
 msgstr "Date d'exclusion"
 
 #. module: mozaik_membership
+#: field:membership.request,replace_coordinates:0
+msgid "Replace Coordinates"
+msgstr "Remplacer les coordonnées actuelles"
+
+#. module: mozaik_membership
 #: field:membership.request,request_type:0
 msgid "Request Type"
 msgstr "Type de demande"
@@ -1454,7 +1459,7 @@ msgid "Technical Name"
 msgstr "Nom technique"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:78
+#: code:addons/mozaik_membership/membership_request.py:79
 #, python-format
 msgid "The required age for a membership request is %s"
 msgstr "L'âge requis pour une demande d'adhésion est de %s ans"
@@ -1526,7 +1531,7 @@ msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:557
+#: code:addons/mozaik_membership/res_partner.py:569
 #, python-format
 msgid "Undefined Membership State: %s"
 msgstr "Statut d'adhésion inconnu: %s"

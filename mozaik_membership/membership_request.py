@@ -267,28 +267,28 @@ class membership_request(orm.Model):
                 'number',
                 'number',
                 partner_address_path + '.number',
-                ''
+                'NUMBER'
             ),
             (
                 12,
                 'street2',
                 'street2',
                 partner_address_path + '.street2',
-                ''
+                'STREET2'
             ),
             (
                 13,
                 'box',
                 'box',
                 partner_address_path + '.box',
-                ''
+                'BOX'
             ),
             (
                 14,
                 'sequence',
                 'sequence',
                 partner_address_path + '.sequence',
-                ''
+                'SEQUENCE'
             ),
             (
                 15,
@@ -311,7 +311,9 @@ class membership_request(orm.Model):
         return False
 
     def _get_labels_to_process(self, request):
-        label_path = []
+        if not request.country_id:
+            return []
+        label_path = ['NUMBER', 'STREET2', 'BOX', 'SEQUENCE']
         partner_adr = request.partner_id.postal_coordinate_id.address_id
         if (request.address_local_zip_id and partner_adr.address_local_zip_id):
             label_path.append('ZIP_REQUEST_PARTNER')
@@ -362,7 +364,7 @@ class membership_request(orm.Model):
                 partner_value = attrgetter(partner_path)(request.partner_id)
                 field = fields_def[field]
 
-                if request_value and request_value != partner_value:
+                if (request_value or label) and request_value != partner_value:
                     if 'selection' in field:
                         selection = dict(field['selection'])
                         request_value = selection.get(request_value)
@@ -510,12 +512,15 @@ class membership_request(orm.Model):
 
     age = new_fields.Integer(
         string='Age', compute='_compute_age', search='_search_age')
+    replace_coordinates = new_fields.Boolean(
+        string='Replace Coordinates', default=True)
 
     _defaults = {
         'is_company': False,
         'is_update': False,
         'state': 'draft',
     }
+
     _order = 'id desc'
 
 # constraints
@@ -549,18 +554,15 @@ class membership_request(orm.Model):
         # local_zip used for domain
         local_zip = False
         if address_local_zip_id:
-            local_zip = self.pool['address.local.zip'].read(
-                cr, uid, [address_local_zip_id], ['local_zip'],
-                context=context)
-        if local_zip:
-            local_zip = local_zip[0]['local_zip']
+            local_zip = self.pool['address.local.zip'].browse(
+                cr, uid, [address_local_zip_id], context=context)[0].local_zip
         return {
             'value': {
                 'address_local_street_id': False,
                 'technical_name': self.get_technical_name(
                     cr, uid, False, address_local_zip_id,
                     number, box, town_man, street_man, zip_man,
-                    country_id=country_id, context=context),
+                    country_id, context=context),
                 'local_zip': local_zip,
                 'int_instance_id': self.get_int_instance_id(
                     cr, uid, address_local_zip_id, context=context)
@@ -882,19 +884,20 @@ class membership_request(orm.Model):
 
     def get_technical_name(self, cr, uid, address_local_street_id,
                            address_local_zip_id, number, box, town_man,
-                           street_man, zip_man, country_id=False,
+                           street_man, zip_man, country_id,
                            context=None):
+        if not country_id:
+            return EMPTY_ADDRESS
+        local_zip = False
         if address_local_zip_id:
             zip_man, town_man = False, False
+            local_zip = self.pool['address.local.zip'].browse(
+                cr, uid, [address_local_zip_id], context=context)[0].local_zip
         if address_local_street_id:
             street_man = False
-        address_local_zip = address_local_zip_id and \
-            self.pool['address.local.zip'].browse(cr, uid,
-                                                  [address_local_zip_id],
-                                                  context=context)[0].local_zip
         values = OrderedDict([
             ('country_id', country_id),
-            ('address_local_zip', address_local_zip),
+            ('address_local_zip', local_zip),
             ('zip_man', zip_man),
             ('town_man', town_man),
             ('address_local_street_id', address_local_street_id),
@@ -1042,7 +1045,7 @@ class membership_request(orm.Model):
 
         technical_name = self.get_technical_name(
             cr, uid, address_local_street_id, address_local_zip_id, number,
-            box, town_man, street_man, zip_man, country_id=country_id,
+            box, town_man, street_man, zip_man, country_id,
             context=context)
         address_id = address_id or self.onchange_technical_name(
             cr, uid, False, technical_name,
@@ -1103,10 +1106,11 @@ class membership_request(orm.Model):
         content
         In Other cases then create missing required data
         """
-        context = dict(context or {})
+        cntx = context
         mr_vals = {}
         partner_obj = self.pool['res.partner']
         for mr in self.browse(cr, uid, ids, context=context):
+            context = dict(cntx or {})
             partner_values = {
                 'is_company': mr.is_company,
                 'lastname': mr.lastname,
@@ -1208,6 +1212,9 @@ class membership_request(orm.Model):
                 address_id = self.pool['address.address'].create(
                     cr, uid, address_values, context=context)
                 mr_vals['address_id'] = address_id
+
+            context['invalidate'] = mr.replace_coordinates
+
             if address_id:
                 self.pool['postal.coordinate'].change_main_coordinate(
                     cr, uid, [partner_id], address_id, context=context)
