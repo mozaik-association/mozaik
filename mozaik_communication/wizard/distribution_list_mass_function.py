@@ -270,7 +270,7 @@ class distribution_list_mass_function(orm.TransientModel):
 
                     if wizard.mass_mailing_name:
                         self.post_processing(
-                            cr, uid, wizard, active_ids, context=context)
+                            cr, uid, [wizard.id], active_ids, context=context)
 
                 elif fct == 'vcard':
                     #
@@ -308,7 +308,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     if wizard.postal_mail_name and \
                             not wizard.include_without_coordinate:
                         self.post_processing(
-                            cr, uid, wizard, active_ids, context=context)
+                            cr, uid, [wizard.id], active_ids, context=context)
                         self._generate_postal_log(
                             cr, uid, wizard.postal_mail_name, active_ids,
                             context=context)
@@ -324,7 +324,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     if wizard.postal_mail_name and \
                             not wizard.include_without_coordinate:
                         self.post_processing(
-                            cr, uid, wizard, active_ids, context=context)
+                            cr, uid, [wizard.id], active_ids, context=context)
                     ctx = context.copy()
                     if wizard.groupby_coresidency:
                         to_print_ids = []
@@ -457,5 +457,5 @@ class distribution_list_mass_function(orm.TransientModel):
 
         return True
 
-    def post_processing(self, cr, uid, wizard, active_ids, context=None):
+    def post_processing(self, cr, uid, ids, active_ids, context=None):
         pass
