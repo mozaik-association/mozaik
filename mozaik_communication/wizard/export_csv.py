@@ -26,8 +26,8 @@
 import tempfile
 import csv
 import base64
-from collections import OrderedDict
 
+from openerp import api
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -51,7 +51,7 @@ class export_csv(orm.TransientModel):
         'export_filename': fields.char('Export CSV Filename', size=128),
     }
 
-    def _get_csv_rows(self, cr, uid, model, context=None):
+    def _get_csv_rows(self, cr, uid, context=None):
         """
         Get the rows (header) for the specified model.
         """
@@ -112,64 +112,60 @@ class export_csv(orm.TransientModel):
                     "ORDER BY country_name, final_zip, p.technical_name"
         return r_order_by
 
-    def get_csv_values(self, cr, uid, model, obj, obfuscation, context=None):
+    @api.cr_uid_context
+    def _get_csv_values(self, cr, uid, obj, obfuscation, context=None):
         """
         Get the values of the specified obj taking into account the VIP
         obfuscation principle
         """
 
-        export_values = OrderedDict([
-            ('identifier', obj.get('identifier')),
-            ('name', _get_utf8(obj.get('name'))),
-            ('lastname', _get_utf8(obj.get('lastname'))),
-            ('firstname', _get_utf8(obj.get('firstname'))),
-            ('usual_lastname', _get_utf8(obj.get('usual_lastname'))),
-            ('usual_firstname', _get_utf8(obj.get('usual_firstname'))),
-            ('printable_name', _get_utf8(obj.get('printable_name'))),
-            ('co_residency', _get_utf8(obj.get('co_residency'))),
-            ('instance', _get_utf8(obj.get('instance'))),
-            ('power_name', _get_utf8(obj.get('power_name'))),
-            ('state', _get_utf8(obj.get('state'))),
-            ('reference', _get_utf8(obj.get('reference'))),
-            ('birth_date', obj.get('birth_date')),
-            ('gender', _get_utf8(obj.get('gender'))),
-            ('tongue', _get_utf8(obj.get('tongue'))),
-            ('adr_main', obj.get('adr_main')),
-            ('adr_unauthorized', obj.get('adr_unauthorized')),
-            ('adr_vip', obj.get('adr_vip')),
-            ('street2', obj.get('adr_vip') and obfuscation or
-                _get_utf8(obj.get('street2'))),
-            ('street', obj.get('adr_vip') and obfuscation or
-                _get_utf8(obj.get('street'))),
-            ('zip', obj.get('adr_vip') and obfuscation or
-                obj.get('final_zip')),
-            ('city', obj.get('adr_vip') and obfuscation or
-                _get_utf8(obj.get('city'))),
-            ('country_code', obj.get('country_code')),
-            ('country_name', _get_utf8(obj.get('country_name'))),
-            ('fix_main', obj.get('fix_main')),
-            ('fix_unauthorized', obj.get('fix_unauthorized')),
-            ('fix_vip', obj.get('fix_vip')),
-            ('fix', obj.get('fix_vip') and obfuscation or
-                _get_utf8(obj.get('fix'))),
-            ('mobile_main', obj.get('mobile_main')),
-            ('mobile_unauthorized', obj.get('mobile_unauthorized')),
-            ('mobile_vip', obj.get('mobile_vip')),
-            ('mobile', obj.get('mobile_vip') and obfuscation or
-                _get_utf8(obj.get('mobile'))),
-            ('fax_main', obj.get('fax_main')),
-            ('fax_unauthorized', obj.get('fax_unauthorized')),
-            ('fax_vip', obj.get('fax_vip')),
-            ('fax', obj.get('fax_vip') and obfuscation or
-                _get_utf8(obj.get('fax'))),
-            ('email_main', obj.get('email_main')),
-            ('email_unauthorized', obj.get('email_unauthorized')),
-            ('email_vip', obj.get('email_vip')),
-            ('email', obj.get('email_vip') and obfuscation or
-                _get_utf8(obj.get('email'))),
-            ('website', _get_utf8(obj.get('website'))),
-            ('secondary_website', _get_utf8(obj.get('secondary_website'))),
-        ])
+        export_values = [
+            obj.get('identifier'),
+            _get_utf8(obj.get('name')),
+            _get_utf8(obj.get('lastname')),
+            _get_utf8(obj.get('firstname')),
+            _get_utf8(obj.get('usual_lastname')),
+            _get_utf8(obj.get('usual_firstname')),
+            _get_utf8(obj.get('printable_name')),
+            _get_utf8(obj.get('co_residency')),
+            _get_utf8(obj.get('instance')),
+            _get_utf8(obj.get('power_name')),
+            _get_utf8(obj.get('state')),
+            _get_utf8(obj.get('reference')),
+            obj.get('birth_date'),
+            _get_utf8(obj.get('gender')),
+            _get_utf8(obj.get('tongue')),
+            obj.get('adr_main'),
+            obj.get('adr_unauthorized'),
+            obj.get('adr_vip'),
+            obj.get('adr_vip') and obfuscation or _get_utf8(
+                obj.get('street2')),
+            obj.get('adr_vip') and obfuscation or _get_utf8(obj.get('street')),
+            obj.get('adr_vip') and obfuscation or obj.get('final_zip'),
+            obj.get('adr_vip') and obfuscation or _get_utf8(obj.get('city')),
+            obj.get('country_code'),
+            _get_utf8(obj.get('country_name')),
+            obj.get('fix_main'),
+            obj.get('fix_unauthorized'),
+            obj.get('fix_vip'),
+            obj.get('fix_vip') and obfuscation or _get_utf8(obj.get('fix')),
+            obj.get('mobile_main'),
+            obj.get('mobile_unauthorized'),
+            obj.get('mobile_vip'),
+            obj.get('mobile_vip') and obfuscation or _get_utf8(obj.get(
+                'mobile')),
+            obj.get('fax_main'),
+            obj.get('fax_unauthorized'),
+            obj.get('fax_vip'),
+            obj.get('fax_vip') and obfuscation or _get_utf8(obj.get('fax')),
+            obj.get('email_main'),
+            obj.get('email_unauthorized'),
+            obj.get('email_vip'),
+            obj.get('email_vip') and obfuscation or _get_utf8(obj.get(
+                'email')),
+            _get_utf8(obj.get('website')),
+            _get_utf8(obj.get('secondary_website')),
+        ]
         return export_values
 
     def _prefetch_csv_datas(self, cr, uid, model, model_ids, context=None):
@@ -205,7 +201,8 @@ class export_csv(orm.TransientModel):
             prefix='Extract', suffix=".csv", delete=False)
         f = open(tmp.name, "r+")
         writer = csv.writer(f)
-        writer.writerow(self._get_csv_rows(cr, uid, model, context=context))
+        hdr = self._get_csv_rows(cr, uid, context=context)
+        writer.writerow(hdr)
         co_residencies = []
         if model_ids:
             state_ids = self.pool['membership.state'].search(
@@ -242,11 +239,10 @@ class export_csv(orm.TransientModel):
                     if co_id and co_id in co_residencies:
                         continue
                     co_residencies.append(co_id)
-                export_values = self.get_csv_values(
-                    cr, uid, model, data, obfuscation, context=context)
-                if not export_values:
-                    continue
-                writer.writerow(export_values.values())
+                export_values = self._get_csv_values(
+                    cr, uid, data, obfuscation, context=context)
+                assert len(hdr) == len(export_values)
+                writer.writerow(export_values)
         f.close()
         f = open(tmp.name, "r")
         csv_content = f.read()

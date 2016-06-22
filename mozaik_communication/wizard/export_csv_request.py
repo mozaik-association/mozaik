@@ -9,6 +9,7 @@ SELECT
  p.firstname,
  p.usual_lastname,
  p.usual_firstname,
+ p.int_instance_id,
  p.reference,
  p.birth_date,
  p.gender,
