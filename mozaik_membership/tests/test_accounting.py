@@ -120,10 +120,8 @@ class test_accounting_with_product(object):
         property_obj = self.registry('ir.property')
         res = []
         subscription_account = property_obj.get(
-            self.cr,
-            self.uid,
-            'property_subscription_account',
-            'product.template')
+            self.cr, self.uid,
+            'property_subscription_account', 'product.template')
         other_account = property_obj.get(
             self.cr,
             self.uid,

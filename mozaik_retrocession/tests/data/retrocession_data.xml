@@ -211,30 +211,31 @@
             <field name="fractionation_id" ref ="f_sample_01"/>
         </record>
 
+        <!-- Update mandates -->
+
+        <record id="extm_paul_membre_ag" model="ext.mandate">
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
+            <field name="retrocession_mode">month</field>
+        </record>
+
         <!-- Create mandates -->
 
         <record id="extm_jacques_membre_ag" model="ext.mandate">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="ext_assembly_id" ref="ext_assembly_02"/>
-            <field name="start_date">2013-12-01</field>
-            <field name="deadline_date">2018-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
             <field name="partner_id" ref="res_partner_jacques"/>
             <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
-        </record>
-
-        <record id="extm_paul_membre_ag" model="ext.mandate">
-            <field name="start_date">2013-12-01</field>
-            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
-            <field name="retrocession_mode">month</field>
         </record>
 
         <record id="extm_marc_membre_ag" model="ext.mandate">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="ext_assembly_id" ref="ext_assembly_02"/>
-            <field name="start_date">2013-12-01</field>
-            <field name="deadline_date">2018-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
             <field name="partner_id" ref="res_partner_marc"/>
             <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
         </record>
@@ -243,8 +244,8 @@
             <field name="mandate_category_id" ref="mc_administrateur"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="ext_assembly_id" ref="ext_assembly_01"/>
-            <field name="start_date">2013-12-01</field>
-            <field name="deadline_date">2018-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
             <field name="partner_id" ref="res_partner_paul"/>
             <field name="retro_instance_id" ref ="int_instance_02"/>
         </record>
@@ -253,8 +254,8 @@
             <field name="mandate_category_id" ref="mc_bourgmestre"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="legislature_id" ref="legislature_01"/>
-            <field name="start_date">2018-12-03</field>
-            <field name="deadline_date">2024-12-02</field>
+            <field name="start_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"/>
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_jacques"/>
             <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
@@ -264,8 +265,8 @@
             <field name="mandate_category_id" ref="mc_gouverneur"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="legislature_id" ref="legislature_02"/>
-            <field name="start_date">2018-10-26</field>
-            <field name="deadline_date">2024-10-25</field>
+            <field name="start_date" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-10-01')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=7)).strftime('%Y-09-30')"/>
             <field name="sta_assembly_id" ref="sta_assembly_02"/>
             <field name="partner_id" ref="res_partner_paul"/>
             <field name="retro_instance_id" ref ="int_instance_02"/>
@@ -273,56 +274,56 @@
 
         <!-- Create retrocessions -->
 
-        <record id="retro_paul_ag_january_2014" model="retrocession">
+        <record id="retro_paul_ag_january_20xx" model="retrocession">
             <field name="ext_mandate_id" ref ="extm_paul_membre_ag"/>
             <field name="month">01</field>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
         </record>
 
-        <record id="retro_marc_ag_january_2014" model="retrocession">
+        <record id="retro_marc_ag_january_20xx" model="retrocession">
             <field name="ext_mandate_id" ref ="extm_marc_membre_ag"/>
             <field name="month">01</field>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
         </record>
 
-        <record id="retro_jacques_ag_january_2014" model="retrocession">
+        <record id="retro_jacques_ag_january_20xx" model="retrocession">
             <field name="ext_mandate_id" ref ="extm_jacques_membre_ag"/>
             <field name="month">01</field>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
         </record>
 
-        <record id="retro_paul_ag_mai_2014" model="retrocession">
+        <record id="retro_paul_ag_mai_20xx" model="retrocession">
             <field name="ext_mandate_id" ref ="extm_paul_membre_ag"/>
             <field name="month">05</field>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
         </record>
 
-        <record id="retro_paul_adm_mai_2014" model="retrocession">
+        <record id="retro_paul_adm_mai_20xx" model="retrocession">
             <field name="ext_mandate_id" ref ="extm_paul_adm"/>
             <field name="month">05</field>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
         </record>
 
-        <record id="retro_jacques_ag_mai_2014" model="retrocession">
+        <record id="retro_jacques_ag_mai_20xx" model="retrocession">
             <field name="ext_mandate_id" ref ="extm_jacques_membre_ag"/>
             <field name="month">05</field>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
         </record>
 
-        <record id="retro_jacques_bourg_2014" model="retrocession">
+        <record id="retro_jacques_bourg_20xx" model="retrocession">
             <field name="sta_mandate_id" ref ="stam_jacques_bourgmestre"/>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
         </record>
 
-        <record id="retro_paul_gouv_2014" model="retrocession">
+        <record id="retro_paul_gouv_20xx" model="retrocession">
             <field name="sta_mandate_id" ref ="stam_paul_gouverneur"/>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
         </record>
         
-        <record id="retro_paul_december_2014" model="retrocession">
+        <record id="retro_paul_december_20xx" model="retrocession">
             <field name="ext_mandate_id" ref ="extm_paul_membre_ag"/>
             <field name="month">12</field>
-            <field name="year">2014</field>
+            <field name="year" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
             <field name="is_regulation" eval="1"/>
         </record>
     </data>

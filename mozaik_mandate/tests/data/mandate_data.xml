@@ -40,6 +40,12 @@
             <field name="int_assembly_category_id" ref="int_assembly_category_05"/>
         </record>
 
+        <record id="mc_treasurer_local" model="mandate.category">
+            <field name="type">int</field>
+            <field name="name">Trésorier local</field>
+            <field name="int_assembly_category_id" ref="int_assembly_category_04"/>
+        </record>
+
         <record id="mc_membre_assemblee_regionale" model="mandate.category">
             <field name="type">int</field>
             <field name="name">Membre de l'assemblée régionale</field>
@@ -77,9 +83,9 @@
             <field name="electoral_district_id" ref="electoral_district_01"/>
             <field name="assembly_id" ref="sta_assembly_01"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
-            <field name="mandate_start_date">2018-12-03</field>
-            <field name="mandate_deadline_date">2024-12-02</field>
-            <field name="decision_date">2014-04-01</field>
+            <field name="mandate_start_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"/>
+            <field name="mandate_deadline_date" eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"/>
+            <field name="decision_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-08-01')"/>
         </record>
 
         <record id="sc_bourgmestre_huy" model="sta.selection.committee">
@@ -88,8 +94,8 @@
             <field name="legislature_id" ref="legislature_01"/>
             <field name="assembly_id" ref="sta_assembly_03"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
-            <field name="mandate_start_date">2018-12-03</field>
-            <field name="mandate_deadline_date">2024-12-02</field>
+            <field name="mandate_start_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"/>
+            <field name="mandate_deadline_date" eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"/>
             <field name="auto_mandate" eval="1"/>
         </record>
 
@@ -100,8 +106,8 @@
             <field name="legislature_id" ref="legislature_02"/>
             <field name="assembly_id" ref="sta_assembly_02"/>
             <field name="designation_int_assembly_id" ref="int_assembly_04"/>
-            <field name="mandate_start_date">2018-12-03</field>
-            <field name="mandate_deadline_date">2024-12-02</field>
+            <field name="mandate_start_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"/>
+            <field name="mandate_deadline_date" eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"/>
             <field name="auto_mandate" eval="1"/>
         </record>
 
@@ -111,8 +117,8 @@
             <field name="legislature_id" ref="legislature_02"/>
             <field name="assembly_id" ref="sta_assembly_04"/>
             <field name="designation_int_assembly_id" ref="int_assembly_04"/>
-            <field name="mandate_start_date">2018-12-03</field>
-            <field name="mandate_deadline_date">2024-12-02</field>
+            <field name="mandate_start_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"/>
+            <field name="mandate_deadline_date" eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"/>
         </record>
 
         <record id="sc_secretaire_regional" model="int.selection.committee">
@@ -120,8 +126,8 @@
             <field name="name">Designation secrétaire régional Huy-Waremme</field>
             <field name="assembly_id" ref="int_assembly_03"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
-            <field name="mandate_start_date">2014-12-12</field>
-            <field name="mandate_deadline_date">2020-12-02</field>
+            <field name="mandate_start_date" eval="(DateTime.today() + relativedelta(months=2)).strftime('%Y-%m-%d')"/>
+            <field name="mandate_deadline_date" eval="(DateTime.today() + relativedelta(days=-1,months=2,years=5)).strftime('%Y-%m-%d')"/>
             <field name="auto_mandate" eval="1"/>
         </record>
 
@@ -130,8 +136,8 @@
             <field name="name">Designation membres de l'AG</field>
             <field name="assembly_id" ref="ext_assembly_01"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
-            <field name="mandate_start_date">2014-12-12</field>
-            <field name="mandate_deadline_date">2020-12-02</field>
+            <field name="mandate_start_date" eval="(DateTime.today() + relativedelta(months=2)).strftime('%Y-%m-%d')"/>
+            <field name="mandate_deadline_date" eval="(DateTime.today() + relativedelta(days=-1,months=2,years=5)).strftime('%Y-%m-%d')"/>
             <field name="auto_mandate" eval="1"/>
         </record>
 
@@ -238,8 +244,8 @@
             <field name="mandate_category_id" ref="mc_conseiller_communal"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="legislature_id" ref="legislature_closed_01"/>
-            <field name="start_date">2012-12-03</field>
-            <field name="deadline_date">2014-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=7)).strftime('%Y-10-01')"/>
+            <field name="deadline_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-09-30')"/>
             <field name="sta_assembly_id" ref="sta_assembly_01"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
@@ -248,8 +254,8 @@
             <field name="mandate_category_id" ref="mc_bourgmestre"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="legislature_id" ref="legislature_closed_01"/>
-            <field name="start_date">2012-12-03</field>
-            <field name="deadline_date">2014-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=7)).strftime('%Y-10-01')"/>
+            <field name="deadline_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-09-30')"/>
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
@@ -258,8 +264,8 @@
             <field name="mandate_category_id" ref="mc_bourgmestre"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="legislature_id" ref="legislature_01"/>
-            <field name="start_date">2018-12-03</field>
-            <field name="deadline_date">2024-12-02</field>
+            <field name="start_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"/>
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_pauline"/>
         </record>
@@ -268,20 +274,30 @@
             <field name="mandate_category_id" ref="mc_bourgmestre"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="legislature_id" ref="legislature_03_opened"/>
-            <field name="start_date">2014-10-26</field>
-            <field name="deadline_date">2024-10-25</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-10-01')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-09-30')"/>
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
         <!-- Create Internal mandates -->
 
+        <record id="intm_thierry_secretaire_done" model="int.mandate">
+            <field name="mandate_category_id" ref="mc_secretaire_regional"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="int_assembly_id" ref="int_assembly_03"/>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=8)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-12-31')"/>
+            <field name="end_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-12-31')"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
+
         <record id="intm_thierry_secretaire" model="int.mandate">
             <field name="mandate_category_id" ref="mc_secretaire_regional"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="int_assembly_id" ref="int_assembly_03"/>
-            <field name="start_date">2013-12-01</field>
-            <field name="deadline_date">2014-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
@@ -289,19 +305,47 @@
             <field name="mandate_category_id" ref="mc_membre_assemblee_regionale"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="int_assembly_id" ref="int_assembly_04"/>
-            <field name="start_date">2014-12-01</field>
-            <field name="deadline_date">2018-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
 
+        <record id="intm_thierry_treasurer_local" model="int.mandate">
+            <field name="mandate_category_id" ref="mc_treasurer_local"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="int_assembly_id" ref="int_assembly_02"/>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
+
+        <record id="intm_marc_treasurer_local" model="int.mandate">
+            <field name="mandate_category_id" ref="mc_treasurer_local"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="int_assembly_id" ref="int_assembly_02"/>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
+            <field name="partner_id" ref="res_partner_marc"/>
+        </record>
+
         <!-- Create External mandates -->
+
+        <record id="extm_thierry_membre_ag_done" model="ext.mandate">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_01"/>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=8)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-12-31')"/>
+            <field name="end_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-12-31')"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
 
         <record id="extm_thierry_membre_ag" model="ext.mandate">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="ext_assembly_id" ref="ext_assembly_01"/>
-            <field name="start_date">2013-12-01</field>
-            <field name="deadline_date">2014-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
@@ -309,8 +353,8 @@
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="ext_assembly_id" ref="ext_assembly_01"/>
-            <field name="start_date">2014-12-01</field>
-            <field name="deadline_date">2018-04-15</field>
+            <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
+            <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
 

@@ -22,6 +22,9 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
 import psycopg2
 import logging
 from openerp.osv import orm
@@ -46,6 +49,7 @@ class test_retrocession(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_retrocession, self).setUp()
+        self.year = (datetime.today() - relativedelta(years=1)).strftime('%Y')
 
     def test_fractionation_invalidate(self):
         '''
@@ -136,7 +140,7 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
         mandate_id = self.ref('%s.extm_paul_membre_ag' % self._module_ns)
         method_id = self.ref('%s.cm_sample_01' % self._module_ns)
-        retro_id = self.ref('%s.retro_paul_ag_mai_2014' % self._module_ns)
+        retro_id = self.ref('%s.retro_paul_ag_mai_20xx' % self._module_ns)
         partner_id = self.ref('%s.res_partner_paul' % self._module_ns)
         today = fields.date.today()
 
@@ -291,7 +295,7 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
         data = dict(ext_mandate_id=mandate_id,
-                    month='05', year=2014,
+                    month='05', year=int(self.year),
                     )
         self.assertRaises(
             orm.except_orm,
@@ -302,7 +306,7 @@ class test_retrocession(SharedSetupTransactionCase):
 
         mandate_id = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
         data = dict(sta_mandate_id=mandate_id,
-                    year=2014,
+                    year=int(self.year),
                     )
         self.assertRaises(
             orm.except_orm,
@@ -320,7 +324,7 @@ class test_retrocession(SharedSetupTransactionCase):
         # Try to create a regulation retrocession for May
         data = {'ext_mandate_id': mandate_id,
                 'month': '05',
-                'year': 2014
+                'year': int(self.year)
                 }
         self.assertRaises(
             orm.except_orm,
@@ -332,7 +336,7 @@ class test_retrocession(SharedSetupTransactionCase):
         # Create a regulation retrocession for December
         data = {'ext_mandate_id': mandate_id,
                 'month': '12',
-                'year': 2014
+                'year': int(self.year)
                 }
 
         self.registry('retrocession').create(self.cr, self.uid, data)

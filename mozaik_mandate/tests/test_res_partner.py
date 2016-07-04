@@ -46,7 +46,7 @@ class test_res_partner(SharedSetupTransactionCase):
         """
         legal_person = self.env.ref('%s.res_partner_rtbf' % self._module_ns)
         mandate_count = legal_person.ext_mandate_count
-        self.assertEquals(mandate_count, 2, 'Should have 2 mandates')
+        self.assertEquals(mandate_count, 3)
 
     def test_assembly_count(self):
         """

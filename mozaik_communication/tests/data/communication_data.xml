@@ -20,6 +20,7 @@
             <field name="code">NEWS</field>
             <field name="newsletter" eval="1"/>
             <field name="company_id" ref='base.main_company'/>
+            <field name="to_include_distribution_list_line_ids" eval="[(6, 0, [ref('filter_all_nat_pers')])]"/>
             <field name="opt_out_ids" eval="[(6, 0, [ref('res_partner_paul')])]"/>
         </record>
 

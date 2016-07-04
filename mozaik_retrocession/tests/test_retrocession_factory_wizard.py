@@ -22,6 +22,9 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
 from anybox.testing.openerp import SharedSetupTransactionCase
 
 
@@ -36,6 +39,10 @@ class test_retrocession(SharedSetupTransactionCase):
 
     _module_ns = 'mozaik_retrocession'
 
+    def setUp(self):
+        super(test_retrocession, self).setUp()
+        self.year = (datetime.today() - relativedelta(years=1)).strftime('%Y')
+
     def test_monthly_retrocession_factory_wizard(self):
 
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
@@ -45,7 +52,7 @@ class test_retrocession(SharedSetupTransactionCase):
                        active_ids=[mandate_id])
 
         data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
-        data.update({'month': '05', 'year': 2014})
+        data.update({'month': '05', 'year': int(self.year)})
 
         wiz_id = wizard_pool.create(self.cr, self.uid, data, context=context)
         res = wizard_pool.mandate_selection_analysis(
@@ -98,7 +105,7 @@ class test_retrocession(SharedSetupTransactionCase):
                        active_ids=[mandate_id])
 
         data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
-        data.update({'year': 2014})
+        data.update({'year': int(self.year)})
 
         wiz_id = wizard_pool.create(self.cr, self.uid, data, context=context)
         res = wizard_pool.mandate_selection_analysis(
@@ -116,7 +123,7 @@ class test_retrocession(SharedSetupTransactionCase):
         self.assertEqual(res['yearly_duplicates'], 1)
         self.assertEqual(res['total_retrocession'], 0)
 
-        data.update({'year': 2015})
+        data.update({'year': int(self.year)+1})
         wizard_pool.write(self.cr, self.uid, [wiz_id], data, context=context)
         res = wizard_pool.mandate_selection_analysis(
             self.cr,
@@ -124,8 +131,7 @@ class test_retrocession(SharedSetupTransactionCase):
             data['month'],
             data['year'],
             data['model'],
-            eval(
-                data['mandate_ids']))
+            eval(data['mandate_ids']))
 
         self.assertEqual(res['monthly_count'], 0)
         self.assertEqual(res['yearly_count'], 1)
