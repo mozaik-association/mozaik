@@ -118,7 +118,10 @@ class test_partner(SharedSetupTransactionCase):
 
         # without_status -> supporter
         partner = self.get_partner()
-        partner.write({'accepted_date': today, 'free_member': True})
+        partner.write({
+            'accepted_date': today, 'free_member': True,
+            'del_doc_date': today,
+        })
         nbl += 1
         self.assertEquals(partner.membership_state_id.code, 'supporter',
                           'Should be "supporter"')
@@ -138,6 +141,7 @@ class test_partner(SharedSetupTransactionCase):
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'member_candidate', 'Should be "member_candidate"')
+        self.assertFalse(partner.del_doc_date)
 
         # member_candidate -> supporter
         partner.write({'decline_payment_date': today, 'free_member': True})

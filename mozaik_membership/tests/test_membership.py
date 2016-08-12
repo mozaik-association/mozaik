@@ -57,6 +57,7 @@ class test_membership(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_membership, self).setUp()
+        self.env.clear()
         self.partner_obj = self.registry['res.partner']
 
         self.mro = self.registry('membership.request')

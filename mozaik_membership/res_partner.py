@@ -279,8 +279,8 @@ class res_partner(orm.Model):
         'resignation_date': fields.date('Resignation Date'),
         'exclusion_date': fields.date('Exclusion Date'),
 
-        'del_doc_date': fields.date('Welcome Documents Sent Date',
-                                    track_visibility='onchange'),
+        'del_doc_date': fields.date(
+            'Welcome Documents Sent Date', track_visibility='onchange'),
         'del_mem_card_date': fields.date('Member Card Sent Date',
                                          track_visibility='onchange'),
         'reference': fields.char('Reference'),
@@ -550,12 +550,12 @@ class res_partner(orm.Model):
 
     def update_state(self, cr, uid, ids, membership_state_code, context=None):
         """
-        Partner membership_state_id is updated with the `membership.state`\
-        having the `code` `membership_state_code`
+        Field `membership_state_id` is updated with the `membership.state`
+        having the code `membership_state_code`
 
         :type membership_state_code: char
         :param membership_state_code: code of `membership.state`
-        :raise orm.except_orm: If no membership_state_id found with \
+        :raise orm.except_orm: If no `membership_state_id` found with
         `membership_state_code`
         """
 
@@ -587,6 +587,9 @@ class res_partner(orm.Model):
 
         if membership_state_code == 'supporter':
             vals['free_member'] = True
+
+        if membership_state_code == 'member_candidate':
+            vals['del_doc_date'] = False
 
         current_reference = self.read(
             cr, uid, ids, ['reference'], context=context)[0]['reference']
