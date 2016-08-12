@@ -266,7 +266,7 @@ class distribution_list(orm.Model):
                   '<p>Failure Reason: %s</p>') % (
                     self.name,
                     sender.replace('<', '&lt;').replace('>', '&gt;'),
-                    reason),
+                    reason.replace('<', '&lt;').replace('>', '&gt;')),
         }
         composer = composer_mod.create(vals)
         composer.send_mail()
