@@ -208,8 +208,8 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         Try to renew an internal mandate
         '''
         mandate_pool = self.registry('int.mandate')
-        stam_thierry_secretaire_id = self.ref('%s.intm_thierry_secretaire' %
-                                              self._module_ns)
+        stam_thierry_secretaire_id = self.ref(
+            '%s.intm_thierry_secretaire_done' % self._module_ns)
 
         context = {
             'active_ids': [stam_thierry_secretaire_id],
@@ -297,8 +297,8 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         Try to renew an external mandate
         '''
         mandate_pool = self.registry('ext.mandate')
-        extm_thierry_membre_ag_id = self.ref('%s.extm_thierry_membre_ag' %
-                                             self._module_ns)
+        extm_thierry_membre_ag_id = self.ref(
+            '%s.extm_thierry_membre_ag_done' % self._module_ns)
 
         context = {
             'active_ids': [extm_thierry_membre_ag_id],

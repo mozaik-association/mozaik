@@ -9,6 +9,16 @@
             <field name="type">fix</field>
         </record>
 
+        <record id="fix_two" model="phone.phone">
+            <field name="name">063458688</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="fix_three" model="phone.phone">
+            <field name="name">063458978</field>
+            <field name="type">fix</field>
+        </record>
+
         <record id="mobile_one" model="phone.phone">
             <field name="name">+32 478 85 25 25</field>
             <field name="type">mobile</field>
@@ -39,14 +49,9 @@
             <field name="type">fax</field>
         </record>
 
-        <record id="fix_one" model="phone.phone">
-            <field name="name">063458978</field>
-            <field name="type">fix</field>
-        </record>
-
-        <record id="fix_two" model="phone.phone">
-            <field name="name">063458688</field>
-            <field name="type">fix</field>
+        <record id="fax_two" model="phone.phone">
+            <field name="name">061900009</field>
+            <field name="type">fax</field>
         </record>
 
         <record id="fix_for_test_update_1" model="phone.phone">
@@ -136,5 +141,11 @@
             <field name="phone_id" ref="fix_two" />
             <field name="partner_id" ref="res_partner_jacques" />
         </record>
+
+        <record id="fax_coordinate_for_jacques_1" model="phone.coordinate">
+            <field name="phone_id" ref="fax_one" />
+            <field name="partner_id" ref="res_partner_jacques" />
+        </record>
+
     </data>
 </openerp>

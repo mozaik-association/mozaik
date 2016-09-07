@@ -87,14 +87,14 @@ class custom_webservice(orm.Model):
 
     @web_service
     def membership_request(self, cr, uid, lastname, firstname, gender, street,
-                           zip_code, town, status, day=False, month=False,
+                           zip_code, town, status,
+                           street_number=False, box_number=False,
+                           day=False, month=False,
                            year=False, email=False, mobile=False, phone=False,
                            interest=False, note=False, code=False,
+                           company=False, competencies=False,
                            context=None):
         """
-        ==================
-        membership_request
-        ==================
         Create a `membership.request` with the giving values
         """
         uuid = uid
@@ -104,7 +104,13 @@ class custom_webservice(orm.Model):
         membership_request = self.pool['membership.request']
         distribution_list = self.pool['distribution.list']
         town = town.strip()
+        if isinstance(company, str):
+            is_company = company.lower() in ['true', 'y', 'yes', '1']
+        else:
+            is_company = bool(company)
         vals = {
+            'is_company': is_company,
+
             'lastname': lastname,
             'firstname': firstname,
             'state': 'confirm',
@@ -116,6 +122,8 @@ class custom_webservice(orm.Model):
 
             'request_type': status,
             'street_man': street,
+            'number': street_number,
+            'box': box_number,
             'zip_man': zip_code,
             'town_man': town,
 
@@ -124,6 +132,8 @@ class custom_webservice(orm.Model):
             'email': email,
 
             'interests': interest,
+            'competencies': competencies,
+
             'note': note,
         }
         context['mode'] = 'ws'

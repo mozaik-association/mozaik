@@ -118,13 +118,16 @@ class test_partner(SharedSetupTransactionCase):
 
         # without_status -> supporter
         partner = self.get_partner()
-        partner.write({'accepted_date': today, 'free_member': True})
+        partner.write({
+            'accepted_date': today, 'free_member': True,
+            'del_doc_date': today,
+        })
         nbl += 1
         self.assertEquals(partner.membership_state_id.code, 'supporter',
                           'Should be "supporter"')
 
         # supporter -> former_supporter
-        partner.write({'resignation_date': today})
+        partner_obj.resign(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'former_supporter', 'Should be "former_supporter"')
@@ -138,6 +141,7 @@ class test_partner(SharedSetupTransactionCase):
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'member_candidate', 'Should be "member_candidate"')
+        self.assertFalse(partner.del_doc_date)
 
         # member_candidate -> supporter
         partner.write({'decline_payment_date': today, 'free_member': True})
@@ -207,7 +211,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "former_member_committee"')
 
         # former_member_committee -> inappropriate_former_member
-        partner.write({'exclusion_date': today})
+        partner_obj.exclude(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'inappropriate_former_member',
@@ -221,7 +225,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "former_member"')
 
         # former_member -> inappropriate_former_member
-        partner.write({'exclusion_date': today})
+        partner_obj.exclude(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'inappropriate_former_member',
@@ -232,7 +236,7 @@ class test_partner(SharedSetupTransactionCase):
         nbl += 1
 
         # former_member -> break_former_member
-        partner.write({'resignation_date': today})
+        partner_obj.resign(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'break_former_member',
@@ -257,7 +261,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "member"')
 
         # member -> resignation_former_member
-        partner.write({'resignation_date': today})
+        partner_obj.resign(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'resignation_former_member',
@@ -299,7 +303,7 @@ class test_partner(SharedSetupTransactionCase):
                           free_prd_id)
 
         # member -> expulsion_former_member
-        partner.write({'exclusion_date': today})
+        partner_obj.exclude(cr, uid, [partner.id])
         nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'expulsion_former_member',
@@ -341,10 +345,8 @@ class test_partner(SharedSetupTransactionCase):
             day = datas[2]
             month = datas[1]
             year = datas[0]
-        self.assertEqual(mr.membership_state_id,
-                         partner.membership_state_id,
-                         '[memb.req.]membership_state_id should be the same \
-                         that [partner]membership_state_id ')
+        self.assertEqual(mr.membership_state_id, partner.membership_state_id)
+        self.assertEqual(mr.result_type_id, partner.membership_state_id)
         self.assertEqual(mr.identifier, partner.identifier, '[memb.req.]\
         identifier should be the same that [partner]identifier ')
         self.assertEqual(mr.lastname, partner.lastname, '[memb.req.]lastname\

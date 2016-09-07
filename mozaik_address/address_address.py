@@ -398,6 +398,21 @@ class postal_coordinate(orm.Model):
 
     _unicity_keys = 'partner_id, %s' % _discriminant_field
 
+# view methods: onchange, button
+
+    def onchange_unauthorized(
+            self, cr, uid, ids, unauthorized, co_residency_id, context=None):
+        if unauthorized and co_residency_id:
+            return {
+                'warning': {
+                    'title': _('Warning'),
+                    'message': _(
+                        'Unauthorizing a coordinate usually involves '
+                        'a change in its co-residency.'
+                    )
+                }
+            }
+
 # public methods
 
     def name_get(self, cr, uid, ids, context=None):

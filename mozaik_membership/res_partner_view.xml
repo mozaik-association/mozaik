@@ -189,28 +189,37 @@
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member', 'supporter', 'former_member']),]}" />
 
                             <button name="decline_payment" string="Decline Payment" type="object"
+                                groups="mozaik_base.mozaik_res_groups_officer"
                                 confirm="Decline membership payment request: proceed anyway?"
                                 attrs="{'invisible': ['|', ('membership_state_code', 'not in', ['member_candidate', 'member']), ('reference', '=', False)]}" />
 
                             <button name="reject" string="Reject" type="object"
+                                groups="mozaik_base.mozaik_res_groups_officer"
                                 confirm="Reject member candidate: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member_committee'])]}" />
 
-                            <button name="exclude_former" string="Exclude" type="object"
+                            <button id="exclude_former" name="exclude" string="Exclude" type="object"
+                                groups="mozaik_base.mozaik_res_groups_officer"
                                 confirm="Exclude former member: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['former_member', 'former_member_committee'])]}" />
 
-                            <button name="exclude_member" string="Exclude" type="object"
+                            <button id="exclude_member" name="exclude" string="Exclude" type="object"
+                                groups="mozaik_base.mozaik_res_groups_officer"
                                 confirm="Exclude member: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['member'])]}" />
 
                             <button name="resign" string="Resign" type="object"
+                                groups="mozaik_base.mozaik_res_groups_officer"
                                 confirm="Resign person: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['member', 'former_member', 'supporter'])]}" />
 
                             <button name="reset" string="Reset"
+                                groups="mozaik_base.mozaik_res_groups_officer"
                                 confirm="Reset membership state: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['former_supporter', 'resignation_former_member', 'break_former_member', 'inappropriate_former_member', 'expulsion_former_member'])]}" />
+
+                            <button name="%(mozaik_membership.membership_request_action)d" string="Membership Requests" type="action" class="oe_right"
+                                    context="{'search_default_partner_id': active_id, 'search_default_all': True}"/>
                         </div>
                         <group name="membership_data">
                             <group name="membership_subscription">

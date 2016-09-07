@@ -24,6 +24,7 @@
 ##############################################################################
 from datetime import date
 
+from openerp import api
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
@@ -134,6 +135,7 @@ class res_partner(orm.Model):
 
         return True
 
+    @api.cr_uid_id_context
     def _change_instance(self, cr, uid, pid, new_instance_id, context=None):
         """
         Update instance of partner
@@ -144,8 +146,7 @@ class res_partner(orm.Model):
         )
         # subscribe related assemblies before updating partner
         # followers list will be entirely reinitialize later
-        self._subscribe_assemblies(
-            cr, uid, pid, context=ctx)
+        self._subscribe_assemblies(cr, uid, pid, context=ctx)
         # update partner and send changing instance notification
         vals = {
             'int_instance_id': new_instance_id,
@@ -250,17 +251,17 @@ class res_partner(orm.Model):
     }
     _columns = {
         'int_instance_id': fields.many2one(
-            'int.instance', 'Internal Instance', select=True,
+            'int.instance', string='Internal Instance', select=True,
             track_visibility='onchange'),
         'int_instance_m2m_ids': fields.many2many(
             'int.instance', 'res_partner_int_instance_rel', id1='partner_id',
             id2='int_instance_id', string='Internal Instances'),
         # membership fields: tracking is done into membership history model
         'membership_line_ids': fields.one2many(
-            'membership.line', 'partner_id', 'Memberships'),
+            'membership.line', 'partner_id', string='Memberships'),
         'free_member': fields.boolean('Free Member'),
         'membership_state_id': fields.many2one(
-            'membership.state', string='Membership State',
+            'membership.state', string='Membership State', select=True,
             track_visibility='onchange'),
         'membership_state_code': fields.related('membership_state_id', 'code',
                                                 string='Membership State Code',
@@ -278,8 +279,8 @@ class res_partner(orm.Model):
         'resignation_date': fields.date('Resignation Date'),
         'exclusion_date': fields.date('Exclusion Date'),
 
-        'del_doc_date': fields.date('Welcome Documents Sent Date',
-                                    track_visibility='onchange'),
+        'del_doc_date': fields.date(
+            'Welcome Documents Sent Date', track_visibility='onchange'),
         'del_mem_card_date': fields.date('Member Card Sent Date',
                                          track_visibility='onchange'),
         'reference': fields.char('Reference'),
@@ -416,17 +417,27 @@ class res_partner(orm.Model):
         return self.write(cr, uid, ids, {'rejected_date': today},
                           context=ctx)
 
+    @api.multi
+    def _exclude_or_resign(self, field):
+        this = self.with_context(do_not_track_twice=True)
+        vals = {field: fields.date.today()}
+        this.write(vals)
+        res = None
+        if self.ids and len(self.ids) == 1:
+            # go directly to the co-residency form if any
+            coord = self.postal_coordinate_id
+            if coord and coord.co_residency_id:
+                res = coord.co_residency_id.get_formview_action()
+                res = res and res[0] or None
+        return res
+
     def exclude(self, cr, uid, ids, context=None):
-        ctx = dict(context or {}, do_not_track_twice=True)
-        today = fields.date.today()
-        return self.write(cr, uid, ids, {'exclusion_date': today},
-                          context=ctx)
+        return self._exclude_or_resign(
+            cr, uid, ids, 'exclusion_date', context=context)
 
     def resign(self, cr, uid, ids, context=None):
-        ctx = dict(context or {}, do_not_track_twice=True)
-        today = fields.date.today()
-        return self.write(cr, uid, ids, {'resignation_date': today},
-                          context=ctx)
+        return self._exclude_or_resign(
+            cr, uid, ids, 'resignation_date', context=context)
 
     def button_modification_request(self, cr, uid, ids, context=None):
         """
@@ -462,9 +473,11 @@ class res_partner(orm.Model):
                 month = datas[1]
                 year = datas[0]
 
+            state_id = partner.membership_state_id and \
+                partner.membership_state_id.id or False
             values = {
-                'membership_state_id': partner.membership_state_id and
-                partner.membership_state_id.id or False,
+                'membership_state_id': state_id,
+                'result_type_id': state_id,
                 'identifier': partner.identifier,
                 'lastname': partner.lastname,
                 'firstname': partner.firstname,
@@ -514,7 +527,6 @@ class res_partner(orm.Model):
                                            partner.competencies_m2m_ids] or
                                           []]],
             }
-            context['mode'] = 'ws'
             # create mr in sudo mode for portal user allowing to avoid create
             # rights on this model for these users
             u = 'default_open_partner_user' in context and SUPERUSER_ID or uid
@@ -538,12 +550,12 @@ class res_partner(orm.Model):
 
     def update_state(self, cr, uid, ids, membership_state_code, context=None):
         """
-        Partner membership_state_id is updated with the `membership.state`\
-        having the `code` `membership_state_code`
+        Field `membership_state_id` is updated with the `membership.state`
+        having the code `membership_state_code`
 
         :type membership_state_code: char
         :param membership_state_code: code of `membership.state`
-        :raise orm.except_orm: If no membership_state_id found with \
+        :raise orm.except_orm: If no `membership_state_id` found with
         `membership_state_code`
         """
 
@@ -575,6 +587,9 @@ class res_partner(orm.Model):
 
         if membership_state_code == 'supporter':
             vals['free_member'] = True
+
+        if membership_state_code == 'member_candidate':
+            vals['del_doc_date'] = False
 
         current_reference = self.read(
             cr, uid, ids, ['reference'], context=context)[0]['reference']

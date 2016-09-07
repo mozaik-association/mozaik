@@ -23,6 +23,7 @@
 #
 ##############################################################################
 
+from openerp import api
 from openerp.osv import orm, fields
 import logging
 
@@ -159,6 +160,21 @@ class int_instance(orm.Model):
             cr, SUPERUSER_ID, 'mozaik_structure.int_instance_01')
         return res_id
 
+    @api.multi
+    def get_secretariat(self):
+        '''
+        Return the secretariat associated to an instance
+        '''
+        self.ensure_one()
+        assembly_ids = self.env['int.assembly'].search([
+            ('instance_id', '=', self.id), ('is_secretariat', '=', True),
+        ])
+        if assembly_ids:
+            return assembly_ids[0]
+        _logger.warning('No secretariat found for internal instance %s',
+                        self.name)
+        return False
+
 
 class int_assembly(orm.Model):
 
@@ -245,20 +261,14 @@ class int_assembly(orm.Model):
 
     def get_secretariat_assembly_id(self, cr, uid, assembly_id, context=None):
         '''
-        Return id of secretariat assembly depending on the same instance
-        of given assembly
+        Return the secretariat related to the same instance as
+        the given assembly
         '''
         instance_id = self.read(cr, uid, assembly_id, ['instance_id'],
                                 context=context)['instance_id'][0]
-        assembly_ids = self.search(cr, uid, [('instance_id', '=', instance_id),
-                                             ('is_secretariat', '=', True)],
-                                   context=context)
-        if assembly_ids:
-            return assembly_ids[0]
-        else:
-            _logger.warning('No secretariat found for internal assembly %s',
-                            assembly_id)
-            return False
+        secretariat_id = self.pool['int.instance'].get_secretariat(
+            cr, uid, [instance_id], context=context)
+        return secretariat_id
 
     def get_followers_assemblies(self, cr, uid, int_instance_id, context=None):
         '''

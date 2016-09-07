@@ -170,6 +170,13 @@ class test_distribution_list(SharedSetupTransactionCase):
         dl_name = '%s' % uuid4()
         default_instance_id = self.usr.int_instance_m2m_ids.ids[0]
 
+        # set email after to avoid MailDeliveryException
+        vals = {
+            'partner_id': self.usr.partner_id.id,
+            'email': 'sacha.distel@example.com',
+        }
+        self.ec_obj.create(cr, uid, vals, context=context)
+
         vals = {
             'name': dl_name,
             'int_instance_id': default_instance_id,
@@ -212,14 +219,23 @@ class test_distribution_list(SharedSetupTransactionCase):
         self.assertFalse(a_alternative_ids)
         self.assertEqual(set(a_main_ids), set(a_search_ids))
 
+        dom = [
+            '&',
+            '|',
+            ('email', '=', False),
+            ('email', '!=', 'VIP'),
+            '|',
+            ('postal', '=', False),
+            ('postal', '!=', 'VIP'),
+        ]
+
         # virtual_target, other user
         u_main_ids = \
             self.dl_obj.get_complex_distribution_list_ids(
                 cr, oid, [dl_id], context=context)[0]
         u_search_ids = self.virtrg_obj.search(
-            cr, oid, [], context=context)
+            cr, oid, dom, context=context)
         self.assertEqual(set(u_main_ids), set(u_search_ids))
-        self.assertEqual(set(a_main_ids), set(u_main_ids))
 
         context = dict(
             main_object_field='email_coordinate_id',

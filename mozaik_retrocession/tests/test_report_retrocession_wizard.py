@@ -22,6 +22,9 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
 from anybox.testing.openerp import SharedSetupTransactionCase
 
 
@@ -41,12 +44,13 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_report_retrocession_wizard, self).setUp()
+        self.year = (datetime.today() - relativedelta(years=1)).strftime('%Y')
 
     def test_report_payment_certificate_ext_mandate(self):
 
         mandate_id1 = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
         mandate_id2 = self.ref('%s.extm_paul_adm' % self._module_ns)
-        retro_id = self.ref('%s.retro_paul_adm_mai_2014' % self._module_ns)
+        retro_id = self.ref('%s.retro_paul_adm_mai_20xx' % self._module_ns)
         retro_pool = self.registry('retrocession')
         rule_pool = self.registry('calculation.rule')
 
@@ -60,7 +64,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
                        active_ids=[mandate_id1, mandate_id2])
 
         data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
-        data['year'] = '2014'
+        data['year'] = self.year
         data['report'] = 'certificates'
         wizard_pool.create(self.cr, self.uid, data, context=context)
         res = wizard_pool.mandate_selection_analysis(self.cr,
@@ -96,7 +100,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
 
         mandate_id1 = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
         mandate_id2 = self.ref('%s.stam_paul_gouverneur' % self._module_ns)
-        retro_id = self.ref('%s.retro_paul_gouv_2014' % self._module_ns)
+        retro_id = self.ref('%s.retro_paul_gouv_20xx' % self._module_ns)
         retro_pool = self.registry('retrocession')
         rule_pool = self.registry('calculation.rule')
 
@@ -110,7 +114,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
                        active_ids=[mandate_id1, mandate_id2])
 
         data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
-        data['year'] = '2014'
+        data['year'] = self.year
         data['report'] = 'certificates'
         wizard_pool.create(self.cr, self.uid, data, context=context)
         res = wizard_pool.mandate_selection_analysis(self.cr,
@@ -176,15 +180,13 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
                        active_ids=mandate_ids)
 
         data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
-        data['year'] = '2014'
+        data['year'] = self.year
         data['report'] = 'fractionations'
         wizard_pool.create(self.cr, self.uid, data, context=context)
 
-        res = wizard_pool.mandate_selection_analysis(self.cr,
-                                                     self.uid,
-                                                     data['year'],
-                                                     data['model'],
-                                                     eval(data['mandate_ids']))
+        res = wizard_pool.mandate_selection_analysis(
+            self.cr, self.uid,
+            data['year'], data['model'], eval(data['mandate_ids']))
         self.assertEqual(res['monthly_count'], 3)
         self.assertEqual(res['yearly_count'], 0)
         self.assertEqual(res['monthly_print'], 0)
@@ -193,13 +195,13 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
 
         helper_pool = self.registry('retrocession.helper')
         retro_ids = []
-        retro_ids.append(self.ref('%s.retro_paul_ag_january_2014'
+        retro_ids.append(self.ref('%s.retro_paul_ag_january_20xx'
                                   % self._module_ns))
-        retro_ids.append(self.ref('%s.retro_marc_ag_january_2014'
+        retro_ids.append(self.ref('%s.retro_marc_ag_january_20xx'
                                   % self._module_ns))
-        retro_ids.append(self.ref('%s.retro_jacques_ag_january_2014'
+        retro_ids.append(self.ref('%s.retro_jacques_ag_january_20xx'
                                   % self._module_ns))
-        helper_pool.create_fiscal_year(self.cr, self.uid, '2014')
+        helper_pool.create_fiscal_year(self.cr, self.uid, self.year)
         helper_pool.validate_retrocession_with_accounting(
             self.cr,
             self.uid,
@@ -222,7 +224,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
             mandate_ids,
             'ext.mandate',
             'ext.assembly',
-            2014, {})
+            int(self.year), {})
 
         expected_result = {
             'Unfractioned': {
@@ -374,7 +376,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
                        active_ids=mandate_ids)
 
         data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
-        data['year'] = '2014'
+        data['year'] = self.year
         data['report'] = 'fractionations'
         wizard_pool.create(self.cr, self.uid, data, context=context)
 
@@ -391,9 +393,9 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
 
         helper_pool = self.registry('retrocession.helper')
         retro_ids = []
-        retro_ids.append(self.ref('%s.retro_jacques_bourg_2014'
+        retro_ids.append(self.ref('%s.retro_jacques_bourg_20xx'
                                   % self._module_ns))
-        helper_pool.create_fiscal_year(self.cr, self.uid, '2014')
+        helper_pool.create_fiscal_year(self.cr, self.uid, self.year)
         helper_pool.validate_retrocession_with_accounting(
             self.cr,
             self.uid,
@@ -416,7 +418,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
             mandate_ids,
             'sta.mandate',
             'sta.assembly',
-            2014, {})
+            int(self.year), {})
 
         expected_result = {
             'Unfractioned': {

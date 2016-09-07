@@ -22,7 +22,7 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api
+from openerp import models
 from __builtin__ import int
 
 
@@ -32,19 +32,16 @@ class AbstractTermFinder(models.AbstractModel):
     _description = 'Abstract Term Finder'
     _terms = []
 
-    @api.model
-    @api.returns(
-        'self', upgrade=lambda self, value, args, offset=0, limit=None,
-        order=None, count=False: value if count else self.browse(value),
-        downgrade=lambda self, value, args, offset=0, limit=None,
-        order=None, count=False: value if count else value.ids)
-    def search(self, args, offset=0, limit=None, order=None, count=False):
+    def search(self, cr, user, args,
+               offset=0, limit=None, order=None, context=None, count=False):
         if self._terms:
             args = [[
-                arg[0], 'in', self.env['thesaurus.term'].browse(
-                    arg[2]).get_children_term()
+                arg[0], 'in', self.pool['thesaurus.term'].browse(
+                    cr, user, arg[2], context=context).get_children_term()
                 ] if hasattr(arg, '__iter__') and arg[0] in self._terms and
                 isinstance(arg[2], int) else arg for arg in args
             ]
         return super(AbstractTermFinder, self).search(
-            args, offset=offset, limit=limit, order=order, count=count)
+            cr, user, args,
+            offset=offset, limit=limit, order=order,
+            context=context, count=count)

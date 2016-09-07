@@ -24,7 +24,6 @@
 ##############################################################################
 
 import base64
-from datetime import datetime
 
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
@@ -34,11 +33,6 @@ SORT_BY = [
     ('identifier', 'Identification Number'),
     ('technical_name', 'Name'),
     ('country_id, zip, technical_name', 'Zip Code'),
-]
-E_MASS_FUNCTION = [
-    ('email_coordinate_id', 'Mass Mailing'),
-    ('csv', 'CSV Extraction'),
-    ('vcard', 'VCARD Extraction'),
 ]
 P_MASS_FUNCTION = [
     ('postal_coordinate_id', 'Label Printing'),
@@ -55,11 +49,25 @@ class distribution_list_mass_function(orm.TransientModel):
     _name = 'distribution.list.mass.function'
     _description = 'Mass Function'
 
+    def _get_e_mass_function(self, cr, uid, context=None):
+        """
+        Get available mass functions for mode=email.coordinate
+        """
+        funcs = [
+            ('email_coordinate_id', _('Mass Mailing')),
+            ('csv', _('CSV Extraction')),
+            ('vcard', _('VCARD Extraction')),
+        ]
+        if not context.get('in_mozaik_user'):
+            return funcs[1:]
+        return funcs
+
     _columns = {
         'trg_model': fields.selection(
             TRG_MODEL, string='Sending Mode', required=True),
         'e_mass_function': fields.selection(
-            E_MASS_FUNCTION, string='Mass Function'),
+            lambda s, c, u, **kwargs: s._get_e_mass_function(c, u, **kwargs),
+            string='Mass Function'),
         'p_mass_function': fields.selection(
             P_MASS_FUNCTION, string='Mass Function'),
 
@@ -120,6 +128,23 @@ class distribution_list_mass_function(orm.TransientModel):
             'value': {
                 'p_mass_function': False,
                 'e_mass_function': False,
+            }
+        }
+
+    def onchange_template_id(
+            self, cr, uid, ids,
+            email_template_id, mass_mailing_name,
+            context=None):
+        """
+        Propose a default value for the mass mailing name
+        """
+        if mass_mailing_name or not email_template_id:
+            return
+        tmpl = self.pool['email.template'].browse(
+            cr, uid, email_template_id, context=context)
+        return {
+            'value': {
+                'mass_mailing_name': tmpl.subject,
             }
         }
 
@@ -193,8 +218,6 @@ class distribution_list_mass_function(orm.TransientModel):
                         'parent_id': False,
                         'use_active_domain': False,
                         'composition_mode': 'mass_mail',
-                        'same_thread': True,
-                        'post': False,
                         'partner_ids': [[6, False, []]],
                         'notify': False,
                         'template_id': template_id,
@@ -245,6 +268,10 @@ class distribution_list_mass_function(orm.TransientModel):
                         csv_model = 'postal.coordinate'
                         active_ids = alternative_ids
 
+                    if wizard.mass_mailing_name:
+                        self.post_processing(
+                            cr, uid, [wizard.id], active_ids, context=context)
+
                 elif fct == 'vcard':
                     #
                     # Get VCARD containing email coordinates
@@ -281,7 +308,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     if wizard.postal_mail_name and \
                             not wizard.include_without_coordinate:
                         self.post_processing(
-                            cr, uid, wizard, active_ids, context=context)
+                            cr, uid, [wizard.id], active_ids, context=context)
                         self._generate_postal_log(
                             cr, uid, wizard.postal_mail_name, active_ids,
                             context=context)
@@ -297,7 +324,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     if wizard.postal_mail_name and \
                             not wizard.include_without_coordinate:
                         self.post_processing(
-                            cr, uid, wizard, active_ids, context=context)
+                            cr, uid, [wizard.id], active_ids, context=context)
                     ctx = context.copy()
                     if wizard.groupby_coresidency:
                         to_print_ids = []
@@ -368,21 +395,28 @@ class distribution_list_mass_function(orm.TransientModel):
         """
         if not postal_coordinate_ids:
             return True
-        now = datetime.now()
-        postal_mail_log_obj = self.pool['postal.mail.log']
-        postal_mail_id = self.pool['postal.mail'].create(cr, uid, {
-            'name': postal_mail_name,
-            'sent_date': now,
-        }, context=context)
+        today = fields.date.today()
+        postal_mail_obj = self.pool['postal.mail']
+        postal_mail_id = postal_mail_obj.search(cr, uid, [
+            ('name', '=', postal_mail_name),
+            ('sent_date', '=', today),
+        ], context=context)
+        if not postal_mail_id:
+            postal_mail_id = postal_mail_obj.create(cr, uid, {
+                'name': postal_mail_name,
+                'sent_date': today,
+            }, context=context)
+        else:
+            postal_mail_id = postal_mail_id[0]
 
         coords = self.pool['postal.coordinate'].browse(
             cr, uid, postal_coordinate_ids, context=context)
         for coord in coords:
-            postal_mail_log_obj.create(cr, uid, {
+            self.pool['postal.mail.log'].create(cr, uid, {
                 'postal_mail_id': postal_mail_id,
                 'postal_coordinate_id': coord.id,
                 'partner_id': coord.partner_id.id,
-                'sent_date': now,
+                'sent_date': today,
             }, context=context)
 
         return True
@@ -423,5 +457,5 @@ class distribution_list_mass_function(orm.TransientModel):
 
         return True
 
-    def post_processing(self, cr, uid, wizard, active_ids, context=None):
+    def post_processing(self, cr, uid, ids, active_ids, context=None):
         pass

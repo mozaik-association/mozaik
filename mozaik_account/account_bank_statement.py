@@ -212,13 +212,11 @@ class account_bank_statement_line(orm.Model):
 
         partner = partner_obj.browse(cr, uid, partner_id, context)
 
-        # if the partner is already member then its states will not change
-        # so we have to force notification ()
-        force_notify = partner.\
-            membership_state_id.code == 'member'
-
+        # save current state to be able to compare it later
+        current_state = partner.membership_state_id.code
         partner_obj.signal_workflow(
             cr, uid, [partner_id], 'paid')
+        next_state = partner.membership_state_id.code
 
         vals = {
             'product_id': prod_id,
@@ -230,8 +228,9 @@ class account_bank_statement_line(orm.Model):
         if ml_ids:
             self.pool['membership.line'].write(
                 cr, uid, ml_ids, vals, context=context)
-            if force_notify:
-                subtype = 'mozaik_membership.membership_line_notification'
+            # if state does not change after payment force a notification
+            if next_state == current_state:
+                subtype = 'mozaik_membership.no_state_change_notification'
                 partner_obj._message_post(
                     cr, uid, partner_id, subtype=subtype, context=context)
 

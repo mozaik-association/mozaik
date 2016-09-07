@@ -23,7 +23,7 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
+from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 
@@ -79,6 +79,10 @@ class MailMailStats(orm.Model):
 class MassMailing(orm.Model):
 
     _inherit = 'mail.mass_mailing'
+
+    _columns = {
+        'create_uid':  fields.many2one('res.users', readonly=True),
+    }
 
     _defaults = {
         'mailing_model': 'email.coordinate',

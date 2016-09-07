@@ -5,7 +5,7 @@
         <!-- Create Terms -->
 
         <record id="term_confirmed_one" model="thesaurus.term">
-            <field name="name">Sport</field>
+            <field name="name">Sport &amp; Loisirs</field>
             <field name="ext_identifier">ID5623</field>
             <field name="state">confirm</field>
         </record>

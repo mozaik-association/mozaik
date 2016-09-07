@@ -16,7 +16,7 @@
             <field name="name">fractionation.search</field>
             <field name="model">fractionation</field>
             <field name="arch" type="xml">
-                <search string="Fractionations" version="7.0">
+                <search string="Fractionations">
                     <field name="name"/>
                     <filter name="diff100" string="Uncomplete"
                             domain="[('total_percentage', '!=', 100.0)]" help="Non 100% Fractionations" />
@@ -35,7 +35,7 @@
             <field name="name">fractionation.tree</field>
             <field name="model">fractionation</field>
             <field name="arch" type="xml">
-                <tree string="Fractionations" version="7.0" colors="red:total_percentage &lt;&gt; 100.0">
+                <tree string="Fractionations" colors="red:total_percentage &lt;&gt; 100.0">
                     <field name="name"/>
                     <field name="total_percentage" attrs="{'invisible': [('total_percentage', '=', 100.0)]}"/>
                     <field name="expire_date"
@@ -48,7 +48,7 @@
             <field name="name">fractionation.line.search</field>
             <field name="model">fractionation.line</field>
             <field name="arch" type="xml">
-                <search string="Fractionation Lines" version="7.0">
+                <search string="Fractionation Lines">
                     <field name="fractionation_id"/>
                     <field name="power_level_id"/>
                     <filter name="expired" string="Expired"
@@ -69,7 +69,7 @@
             <field name="name">fractionation.line.tree</field>
             <field name="model">fractionation.line</field>
             <field name="arch" type="xml">
-                <tree string="Fractionation Lines" version="7.0" create="0">
+                <tree string="Fractionation Lines" create="0">
                     <field name="fractionation_id"/>
                     <field name="power_level_id"/>
                     <field name="percentage"/>
@@ -83,7 +83,7 @@
             <field name="name">calculation.method.search</field>
             <field name="model">calculation.method</field>
             <field name="arch" type="xml">
-                <search string="Calculation Methods" version="7.0">
+                <search string="Calculation Methods">
                     <field name="name"/>
                     <filter name="fixed" string="Fixed"
                             domain="[('type', '=', 'fixed')]" help="Fixed Calculation Methods" />
@@ -109,7 +109,7 @@
             <field name="name">calculation.method.tree</field>
             <field name="model">calculation.method</field>
             <field name="arch" type="xml">
-                <tree string="Calculation Methods" version="7.0">
+                <tree string="Calculation Methods">
                     <field name="name"/>
                     <field name="type"/>
                     <field name="expire_date"
@@ -122,7 +122,7 @@
             <field name="name">calculation.rule.search</field>
             <field name="model">calculation.rule</field>
             <field name="arch" type="xml">
-                <search string="Calculation Rules" version="7.0">
+                <search string="Calculation Rules">
                     <field name="name"/>
                     <field name="calculation_method_id" invisible="not context.get('show_calculation_method_id')"/>
                     <field name="sta_mandate_id" invisible="1"/>
@@ -156,7 +156,7 @@
             <field name="name">calculation.rule.tree</field>
             <field name="model">calculation.rule</field>
             <field name="arch" type="xml">
-                <tree string="Calculation Rules" version="7.0">
+                <tree string="Calculation Rules">
                     <field name="calculation_method_id"
                            invisible="not context.get('show_calculation_method_id')"/>
                     <field name="name"/>
@@ -172,7 +172,7 @@
             <field name="name">retrocession.search</field>
             <field name="model">retrocession</field>
             <field name="arch" type="xml">
-                <search string="Retrocessions" version="7.0">
+                <search string="Retrocessions">
                     <field name="unique_id"/>
                     <field name="year"/>
                     <field name="sta_mandate_id"/>
@@ -208,7 +208,7 @@
             <field name="name">retrocession.tree</field>
             <field name="model">retrocession</field>
             <field name="arch" type="xml">
-                <tree string="Retrocessions" version="7.0">
+                <tree string="Retrocessions">
                     <field name="unique_id"/>
                     <field name="year"/>
                     <field name="month"/>
@@ -286,7 +286,7 @@
             <field name="name">fractionation.form</field>
             <field name="model">fractionation</field>
             <field name="arch" type="xml">
-                <form string="Fractionation" version="7.0">
+                <form string="Fractionation">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -323,13 +323,13 @@
                                                   'default_fractionation_id': active_id,
                                                   'search_default_all': True}" />
                                 <field name="fractionation_line_ids" attrs="{'invisible': [('active', '=', False)]}">
-                                    <tree version="7.0" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="power_level_id"/>
                                         <field name="percentage" sum="1"/>
                                     </tree>
                                 </field>
                                 <field name="fractionation_line_inactive_ids" attrs="{'invisible': [('active', '=', True)]}">
-                                    <tree version="7.0" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="power_level_id"/>
                                         <field name="percentage" sum="1"/>
                                     </tree>
@@ -342,7 +342,7 @@
                                                   'default_fractionation_id': active_id,
                                                   'search_default_all': True}" />
                                 <field name="mandate_category_ids" readonly="1" attrs="{'invisible': [('active', '=', False)]}">
-                                    <tree version="7.0" >
+                                    <tree>
                                         <field name="name"/>
                                     </tree>
                                 </field>
@@ -375,7 +375,7 @@
             <field name="name">fractionation.line.form</field>
             <field name="model">fractionation.line</field>
             <field name="arch" type="xml">
-                <form string="Fractionation Line" version="7.0">
+                <form string="Fractionation Line">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -426,7 +426,7 @@
             <field name="name">calculation.method.form</field>
             <field name="model">calculation.method</field>
             <field name="arch" type="xml">
-                <form string="Calculation Method" version="7.0">
+                <form string="Calculation Method">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -465,7 +465,7 @@
                                                   'default_calculation_method_id': active_id,
                                                   'search_default_all': True}" />
                                <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}">
-                                   <tree version="7.0" editable="bottom">
+                                   <tree editable="bottom">
                                        <field name="sequence" widget="handle"/>
                                        <field name="name"/>
                                        <field name="type"/>
@@ -481,7 +481,7 @@
                                                   'default_calculation_method_id': active_id,
                                                   'search_default_all': True}" />
                                <field name="mandate_category_ids" readonly="1" attrs="{'invisible': [('active', '=', False)]}">
-                                   <tree version="7.0">
+                                   <tree>
                                        <field name="name"/>
                                    </tree>
                                </field>
@@ -513,7 +513,7 @@
             <field name="name">calculation.rule.form</field>
             <field name="model">calculation.rule</field>
             <field name="arch" type="xml">
-                <form string="Calculation Rule" version="7.0">
+                <form string="Calculation Rule">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -575,7 +575,7 @@
             <field name="name">retrocession.form</field>
             <field name="model">retrocession</field>
             <field name="arch" type="xml">
-                <form string="Retrocession" version="7.0">
+                <form string="Retrocession">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')" name="invalidate">
@@ -644,7 +644,7 @@
                                 <field name="rule_ids" attrs="{'invisible': [('active', '=', False)],
                                                                        'readonly': [('state','not in', ['draft'])]}"
                                                                 context="{'default_is_deductible': False}">
-                                    <tree version="7.0" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
@@ -654,7 +654,7 @@
                                 </field>
                                 <field name="rule_inactive_ids" sum="1" attrs="{'invisible': [('active', '=', True)],
                                                                                 'readonly': [('state','not in', ['draft'])]}">
-                                    <tree version="7.0" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
@@ -671,7 +671,7 @@
                                 <field name="deductible_rule_ids" attrs="{'invisible': ['|', ('active', '=', False), ('is_regulation', '=', True)],
                                                                         'readonly': [('state','not in', ['draft'])]}"
                                                                 context="{'default_is_deductible': True}">
-                                    <tree version="7.0" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
@@ -680,7 +680,7 @@
                                     </tree>
                                 </field>
                                 <field name="deductible_rule_inactive_ids" attrs="{'invisible': ['|', ('active', '=', True), ('is_regulation', '=', True)]}" readonly="1">
-                                    <tree version="7.0" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
@@ -747,7 +747,7 @@
                   sequence="10" parent="retrocession_submenu" />
 
         <menuitem id="retrocession_cfg_submenu" name="Retrocessions"
-                  sequence="20" parent="mozaik_mandate.configuration_submenu" />
+                  sequence="20" parent="mozaik_mandate.configuration_submenu"/>
 
         <menuitem id="calculation_method_submenu" action="calculation_method_action"
                   sequence="10" parent="retrocession_cfg_submenu" />

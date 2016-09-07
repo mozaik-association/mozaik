@@ -29,15 +29,12 @@ import xmlrpclib
 URL = 'http://localhost:8069/'
 
 """
-To test membership web-service by running this script
-options
-* `1` test membership request
-* `2` test get uid
+Test mozaik web-service by running this script.
 """
 if len(sys.argv) != 3:
     raise Exception(
         'Two arguments are required to launch this sample: '
-        '"db {1 | 2 | 3 | 4 | 5}"')
+        '"db {1 | 2 | 3 | 4 | 5 | 6}"')
 
 DBNAME = sys.argv[1]
 USERNAME = 'ws'
@@ -60,10 +57,12 @@ if sys.argv[2] == '1':
         'LHERMITTE',
         'Thierry',
         'm',
-        'Rue Louis Maréchal 6/2B',
+        'Rue Louis Maréchal',
         '4360',
         'Oreye',
         'm',
+        '6',
+        '2B',
         01,
         04,
         1985,
@@ -71,6 +70,8 @@ if sys.argv[2] == '1':
         '0465000000',
         '061412002',
         'Foot, Snowboard',
+        False,
+        False,
         False)
 elif sys.argv[2] == '2':
     METHOD = 'get_login'
@@ -93,10 +94,12 @@ elif sys.argv[2] == '3':
         'MARCEAU',
         'Sophie',
         'f',
-        'Rue Louis Maréhal 6/2B',
+        'Rue Louis Maréchal',
         '4360',
         'Oreye',
         'n',
+        '6',
+        '2B',
         False,
         False,
         False,
@@ -105,14 +108,44 @@ elif sys.argv[2] == '3':
         False,
         False,
         'demande newsletter etopia',
-        'ETOPIA')
+        'ETOPIA',
+        False,
+        False)
 elif sys.argv[2] == '4':
     METHOD = 'get_distribution_list'
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 1)
 elif sys.argv[2] == '5':
     METHOD = 'update_partner_ldap'
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 7, 456, 'new name')
+elif sys.argv[2] == '6':
+    METHOD = 'membership_request'
+    res = sock.execute(
+        DBNAME,
+        UID,
+        PWD,
+        OBJECT,
+        METHOD,
+        'Couvent des Ursulines',
+        False,
+        False,
+        'Rue du presbytère',
+        '4360',
+        'Oreye',
+        False,
+        '14',
+        False,
+        False,
+        False,
+        False,
+        'soeur.sourire@yeye.np',
+        False,
+        False,
+        False,
+        'demande newsletter etopia',
+        'ETOPIA',
+        'YES',
+        'Bières & Fromages')
 else:
-    raise Exception('1, 2, 3, 4 or 5 for available options')
+    raise Exception('Unavailable option')
 
 print res

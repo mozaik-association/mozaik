@@ -22,6 +22,9 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
 import logging
 from anybox.testing.openerp import SharedSetupTransactionCase
 
@@ -44,13 +47,12 @@ class test_retrocession_with_accounting(object):
 
     def setUp(self):
         super(test_retrocession_with_accounting, self).setUp()
+        self.year = (datetime.today() - relativedelta(years=1)).strftime('%Y')
         wiz_id = self.ref('%s.pcmn_mozaik' % self._module_ns)
         self.registry('wizard.multi.charts.accounts').auto_execute(
             self.cr, self.uid, [wiz_id])
         self.registry('retrocession.helper').create_fiscal_year(
-            self.cr,
-            self.uid,
-            '2014')
+            self.cr, self.uid, self.year)
         # members to instanciate by real test
         self.retro = None
 
@@ -304,7 +306,7 @@ class test_retrocession_with_accounting(object):
             self.uid,
             self.retro.id,
             ['move_id'])['move_id']
-        self.assertNotEqual(move_id, False)
+        self.assertTrue(move_id)
 
         # Account move should have 2 lines
         line_ids = self.registry('account.move.line').search(
@@ -382,8 +384,7 @@ class test_retrocession_ext_mandate_process(
         super(test_retrocession_ext_mandate_process, self).setUp()
 
         self.retro = self.browse_ref(
-            '%s.retro_jacques_ag_mai_2014' %
-            self._module_ns)
+            '%s.retro_jacques_ag_mai_20xx' % self._module_ns)
 
     def test_negative_retrocession(self):
         return
@@ -397,8 +398,7 @@ class test_retrocession_sta_mandate_process(
         super(test_retrocession_sta_mandate_process, self).setUp()
 
         self.retro = self.browse_ref(
-            '%s.retro_jacques_bourg_2014' %
-            self._module_ns)
+            '%s.retro_jacques_bourg_20xx' % self._module_ns)
 
     def test_negative_retrocession(self):
         return
@@ -412,8 +412,7 @@ class test_retrocession_ext_mandate_negative_process(
         super(test_retrocession_ext_mandate_negative_process, self).setUp()
 
         self.retro = self.browse_ref(
-            '%s.retro_paul_december_2014' %
-            self._module_ns)
+            '%s.retro_paul_december_20xx' % self._module_ns)
 
     def test_retrocession_process(self):
         return

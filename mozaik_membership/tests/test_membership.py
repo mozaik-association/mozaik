@@ -57,6 +57,7 @@ class test_membership(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_membership, self).setUp()
+        self.env.clear()
         self.partner_obj = self.registry['res.partner']
 
         self.mro = self.registry('membership.request')
@@ -158,35 +159,53 @@ class test_membership(SharedSetupTransactionCase):
 
     def test_validate_request(self):
         """
-        =====================
-        test_validate_request
-        =====================
-        * Test the validate process with an update and check that
+        * Test the validate process with an update and check for
         ** firstname
-        ** email_coordinate
-        ** new mobile
+        ** email
+        ** mobile
+        ** not loss of original birthdate (mr do never reset fields)
         * Test the validate process with a create and check that
             relations are created
         """
         cr, uid = self.cr, self.uid
         partner_obj = self.registry['res.partner']
 
-        to_update_partner_id = self.rec_mr_update.partner_id.id
+        mr = self.rec_mr_update
+        partner = mr.partner_id
+        postal = partner.postal_coordinate_id
+        fix = partner.fix_coordinate_id
 
+        # change fix & address
+        vals = {
+            'phone': '444719',
+            'number': '007',
+            'box': 'jb',
+        }
+        vals.update(self.mro.onchange_other_address_componants(
+            cr, uid, False,
+            mr.country_id.id, mr.address_local_zip_id.id,
+            mr.zip_man, mr.town_man,
+            mr.address_local_street_id.id, mr.street_man,
+            vals['number'], vals['box'])['value'])
+        vals.update(self.mro.onchange_technical_name(
+            cr, uid, False,
+            vals['technical_name'])['value'])
+        vals.update(self.mro.onchange_phone(
+            cr, uid, False,
+            vals['phone'])['value'])
+        self.mro.write(cr, uid, [mr.id], vals)
         # validate the membership request
-        self.mro.validate_request(
-            cr, uid, [self.rec_mr_update.id])
-        modified_partner = partner_obj.browse(cr, uid, to_update_partner_id)
+        self.mro.validate_request(cr, uid, [mr.id])
 
-        self.assertEqual(self.rec_mr_update.firstname, modified_partner.
-                         firstname, "First name should be updated with same \
-                         value of the membership request")
-        self.assertEqual(self.rec_mr_update.email, modified_partner.
-                         email_coordinate_id.email, "Email should be updated \
-                         with same value of the membership request")
-        self.assertEqual(self.rec_mr_update.mobile, modified_partner.
-                         mobile_coordinate_id.phone_id.name, "Mobile should \
-                         be created with same value of the membership request")
+        self.assertEqual(mr.firstname, partner.firstname)
+        self.assertEqual(mr.email, partner.email_coordinate_id.email,)
+        self.assertEqual(mr.mobile, partner.mobile_coordinate_id.phone_id.name)
+        self.assertTrue(partner.birth_date)
+        self.assertEqual(
+            mr.force_int_instance_id.id, partner.int_instance_id.id)
+        self.assertFalse(postal.active)
+        self.assertFalse(fix.active)
+
         # validation to create
         self.mro.write(
             cr, uid, [self.rec_mr_create.id],
@@ -268,7 +287,7 @@ class test_membership(SharedSetupTransactionCase):
         self.assertIn('Mobile', changes)
         self.assertIn('Gender', changes)
         self.assertIn('Email', changes)
-        self.assertIn('Birth Date', changes)
+        self.assertNotIn('Birth Date', changes)
 
         self.assertEquals(changes['Firstname'][0], 'Pauline')
         self.assertEquals(changes['Firstname'][1], 'Paulinne')
@@ -278,29 +297,41 @@ class test_membership(SharedSetupTransactionCase):
         self.assertEquals(changes['Gender'][1], 'Female')
         self.assertFalse(changes['Email'][0])
         self.assertEquals(changes['Email'][1], 'pauline_marois@gmail.com')
-        self.assertFalse(changes['Birth Date'][0])
-        self.assertEquals(changes['Birth Date'][1], '1949-03-29')
 
         address_id = request.partner_id.postal_coordinate_id.address_id.id
 
-        self.registry['address.address'].write(cr, uid, address_id,
-                                               {'address_local_zip_id': False,
-                                                'street_man': 'Street Sample',
-                                                'town_man': 'Test Valley'},
-                                               context=context)
+        vals = {
+            'address_local_zip_id': False,
+            'street_man': 'Street Sample',
+            'town_man': 'Test Valley',
+        }
+        self.registry['address.address'].write(
+            cr, uid, address_id, vals, context=context)
         self.mro.write(cr, uid, request.id, {'lastname': 'Test'})
         request = self.mro.browse(cr, uid, request.id)
         changes = get_changes()
-        self.assertIn('Lastname', changes)
+        self.assertIn('Name', changes)
         self.assertIn('City', changes)
         self.assertIn('Reference Street', changes)
-        self.assertEquals(changes['Lastname'][0], 'MAROIS')
-        self.assertEquals(changes['Lastname'][1], 'Test')
+        self.assertEquals(changes['Name'][0], 'MAROIS')
+        self.assertEquals(changes['Name'][1], 'Test')
         self.assertEquals(changes['City'][0], 'Test Valley')
         self.assertEquals(changes['City'][1], 'Oreye')
         self.assertEquals(changes['Reference Street'][0], 'Street Sample')
         self.assertEquals(changes['Reference Street'][1],
                           u'Rue Louis Maréchal')
+        self.mro.write(cr, uid, request.id, {'country_id': False})
+        request = self.mro.browse(cr, uid, request.id)
+        changes = get_changes()
+        self.assertNotIn('City', changes)
+        self.assertNotIn('Zip', changes)
+        self.assertNotIn('Town', changes)
+        self.assertNotIn('Reference Street', changes)
+        self.assertNotIn('Street', changes)
+        self.assertNotIn('Street2', changes)
+        self.assertNotIn('Number', changes)
+        self.assertNotIn('Box', changes)
+        self.assertNotIn('Sequence', changes)
 
     def test_age_computation(self):
         """
@@ -347,7 +378,7 @@ class test_membership(SharedSetupTransactionCase):
             'year': d.year,
         }
         oc = mr.onchange_partner_component(
-            d.day, d.month, d.year, name, name, None, False)
+            False, d.day, d.month, d.year, name, name, None, False)
         vals['birth_date'] = oc['value'].get('birth_date', False)
         mr.write(vals)
         mr.validate_request()

@@ -36,6 +36,7 @@
         'product',
         # from https://github.com/acsone/acsone-addons
         'asynchronous_batch_mailings',
+        'asynchronous_batch_mailings_unique_campaign',
         'mass_mailing_distribution_list',
         'event_mass_mailing',
         'settings_improvement',

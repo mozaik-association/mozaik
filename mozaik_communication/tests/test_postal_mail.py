@@ -51,6 +51,8 @@ class test_postal_mail(SharedSetupTransactionCase):
         self.test_postal_mail = self.ref('%s.postal_mail_1' % self._module_ns)
         self.test_distribution_list = self.ref(
             '%s.everybody_list' % self._module_ns)
+        self.coordinate_3 = self.ref(
+            '%s.postal_coordinate_3' % self._module_ns)
 
     def test_unique_postal_mail(self):
         '''
@@ -70,16 +72,22 @@ class test_postal_mail(SharedSetupTransactionCase):
             linking a postal mail.
         '''
         mass_function_obj = self.registry['distribution.list.mass.function']
+        postal_mail_name = '%s' % uuid4()
         wiz_id = mass_function_obj.create(self.cr, self.uid, {
             'trg_model': 'postal.coordinate',
             'p_mass_function': 'csv',
-            'postal_mail_name': '%s' % uuid4(),
+            'postal_mail_name': postal_mail_name,
             'distribution_list_id': self.test_distribution_list,
         })
         postal_mail_logs_before = self._postal_mail_log_pool.search_count(
             self.cr, self.uid, [])
-        mass_function_obj.mass_function(
-            self.cr, self.uid, [wiz_id], context={})
+        mass_function_obj.mass_function(self.cr, self.uid, [wiz_id])
         postal_mail_logs_after = self._postal_mail_log_pool.search_count(
             self.cr, self.uid, [])
         self.assertTrue(postal_mail_logs_after - postal_mail_logs_before > 0)
+        # add a new mail to the newly created mailing
+        mass_function_obj._generate_postal_log(
+            self.cr, self.uid, postal_mail_name, [self.coordinate_3])
+        postal_mail_logs_add_one = self._postal_mail_log_pool.search_count(
+            self.cr, self.uid, [])
+        self.assertEqual(postal_mail_logs_after + 1, postal_mail_logs_add_one)

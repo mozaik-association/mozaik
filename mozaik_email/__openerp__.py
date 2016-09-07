@@ -49,7 +49,6 @@ This module manages email coordinates.
         'wizard/allow_duplicate_view.xml',
         'wizard/bounce_editor_view.xml',
         'wizard/export_vcard_view.xml',
-        'wizard/export_csv_view.xml',
         'data/email_data.xml',
     ],
     'qweb': [

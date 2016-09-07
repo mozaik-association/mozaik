@@ -11,8 +11,12 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='invalidate_previous_coordinate']" position="before">
-                    <field name="old_email" options='{"no_open":True}' readonly='1'/>
+                    <field name="old_email" options='{"no_open":True}' readonly='1' attrs="{'invisible': [('old_email','=',False)]}"/>
                     <field name="email" readonly="context.get('mode', '') == 'switch'"/>
+                </xpath>
+
+                <xpath expr="//field[@name='invalidate_previous_coordinate']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('old_email','=',False)]}</attribute>
                 </xpath>
 
             </field>

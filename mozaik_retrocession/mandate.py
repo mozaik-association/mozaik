@@ -24,6 +24,7 @@
 ##############################################################################
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
+from openerp.exceptions import except_orm
 from openerp.tools import SUPERUSER_ID
 from .structure import sta_assembly, ext_assembly
 from openerp.addons.mozaik_retrocession.common import \
@@ -161,9 +162,6 @@ class abstract_mandate_retrocession(orm.AbstractModel):
     def _has_retrocessions_linked(self, cr, uid, ids, fname, arg,
                                   context=None):
         """
-        =========================
-        has_retrocessions_linked
-        =========================
         Return whether retrocessions are linked to mandate or not
         :rparam: True if this is the case else False
         :rtype: Boolean
@@ -172,31 +170,45 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         for mandate_id in ids:
             nb_retro = len(
                 self.pool.get('retrocession').search(
-                    cr, uid, [
+                    cr, SUPERUSER_ID, [
                         (self._retrocession_foreign_key, '=', mandate_id)],
                     context=context))
             res[mandate_id] = True if nb_retro > 0 else False
         return res
 
+    def _can_modify_retro_instance(self, cr, uid, ids, fname, arg,
+                                   context=None):
+        """
+        Return the ability to modify the retrocession instance on the mandate
+        :rparam: True if this is the case else False
+        :rtype: Boolean
+        """
+        instance_obj = self.pool['int.instance']
+        res = {mandate_id: False for mandate_id in ids}
+        for mandate in self.browse(cr, SUPERUSER_ID, ids, context=context):
+            try:
+                if mandate.retro_instance_id:
+                    instance_obj.check_access_rule(
+                        cr, uid, [mandate.retro_instance_id.id],
+                        'read', context=context)
+                res[mandate.id] = True
+            except except_orm:
+                pass
+        return res
+
     def _need_account_management(self, cr, uid, ids, fname, arg, context=None):
         """
-        ========================
-        _need_account_management
-        ========================
         Determine whether retrocession of mandate need account management or
         not
         :rparam: True if accounting management needed otherwise False
         :rtype: Boolean
         """
-        res = {}
+        default = self.pool['int.instance'].get_default(
+            cr, SUPERUSER_ID, context=context)
+        res = {mandate_id: False for mandate_id in ids}
         for mandate in self.browse(cr, uid, ids, context=context):
-            val = False
             if mandate.retrocession_mode != 'none':
-                default = self.pool['int.instance'].get_default(
-                    cr, uid, context=context)
-                val = mandate.retro_instance_id.id == default
-            res[mandate.id] = val
-
+                res[mandate.id] = mandate.retro_instance_id.id == default
         return res
 
     _columns = {
@@ -227,6 +239,11 @@ class abstract_mandate_retrocession(orm.AbstractModel):
             'Retrocessions Management Instance',
             select=True,
             track_visibility='onchange'),
+        'can_modify_retro_instance': fields.function(
+            _can_modify_retro_instance,
+            string='Can modify Retrocessions Management Instance',
+            type='boolean',
+            store=False),
         'reference': fields.char(
             'Communication',
             size=64,
@@ -445,18 +462,6 @@ class sta_mandate(orm.Model):
             arg,
             context=context)
 
-    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg,
-                                  context=None):
-        return super(
-            sta_mandate,
-            self)._has_retrocessions_linked(
-            cr,
-            uid,
-            ids,
-            fname,
-            arg,
-            context=context)
-
     _method_id_store_trigger = {
         'sta.mandate': (
             lambda self, cr, uid, ids, context=None: ids, [
@@ -598,18 +603,6 @@ class ext_mandate(orm.Model):
         return super(
             ext_mandate,
             self)._get_method_id(
-            cr,
-            uid,
-            ids,
-            fname,
-            arg,
-            context=context)
-
-    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg,
-                                  context=None):
-        return super(
-            ext_mandate,
-            self)._has_retrocessions_linked(
             cr,
             uid,
             ids,

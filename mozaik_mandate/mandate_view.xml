@@ -63,7 +63,7 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="sta_assembly_id"/>
                     <field name="electoral_district_id"/>
-                    <field name="legislature_id"/>
+                    <field name="legislature_id" domain="[('active', '&lt;=', 1)]"/>
                 </xpath>
                 <xpath expr="//filter[@name='partner']" position="after">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'sta_assembly_id'}" />
@@ -163,7 +163,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="sta_assembly_id"/>
-                    <field name="legislature_id"/>
+                    <field name="legislature_id" domain="[('active', '&lt;=', 1)]"/>
                     <field name="competencies_m2m_ids" widget="many2one" />
                 </xpath>
                 <xpath expr="//filter[@name='partner']" position="after">
@@ -270,7 +270,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='assembly_id']" position="after">
                    <field name="electoral_district_id"/>
-                   <field name="legislature_id"/>
+                   <field name="legislature_id" domain="[('active', '&lt;=', 1)]"/>
                 </xpath>
                 <xpath expr="//filter[@name='assembly']" position="after">
                    <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'electoral_district_id'}" />

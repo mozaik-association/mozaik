@@ -15,7 +15,7 @@
                             <field name="distribution_list_id" readonly="1" options='{"no_open":True}' />
                         </h1>
                     </div>
-                    <group>
+                    <group name="function">
                         <field name="trg_model" on_change="onchange_trg_model()" widget="radio" />
                         <field name="e_mass_function" on_change="onchange_mass_function()"
                             attrs="{'invisible':[('trg_model','!=','email.coordinate')],
@@ -26,12 +26,10 @@
                                     'required':[('trg_model','=','postal.coordinate')]}"
                             widget="radio" />
                     </group>
-                    <group>
-                        <group>
-                            <field name="include_unauthorized" />
-                            <field name="bounce_counter" />
-                            <field name="internal_instance_id" />
-                        </group>
+                    <group name="modifiers">
+                        <field name="include_unauthorized" />
+                        <field name="bounce_counter" />
+                        <field name="internal_instance_id" />
                     </group>
 
                     <notebook>
@@ -48,14 +46,16 @@
                         </page>
                         <page name="mass_mailing" string="Mass Mailing"
                             attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
-                                                       ('e_mass_function','!=','email_coordinate_id')]}">
+                                                       ('e_mass_function','!=','email_coordinate_id')]}"
+                            groups="mozaik_base.mozaik_res_groups_user">
                             <group>
                                 <group>
-                                    <field name="mass_mailing_name" />
                                     <field name="email_template_id"
                                         domain="[('model_id.model','=','email.coordinate')]"
                                         attrs="{'required':[('e_mass_function','=','email_coordinate_id'),
-                                                               ('trg_model','=','email.coordinate')]}" />
+                                                               ('trg_model','=','email.coordinate')]}" 
+                                        on_change="onchange_template_id(email_template_id, mass_mailing_name)"/>
+                                    <field name="mass_mailing_name" />
                                 </group>
                                 <group>
                                     <field name="extract_csv" />
@@ -70,7 +70,8 @@
                                     <field name="include_without_coordinate"
                                         attrs="{'invisible':[('p_mass_function','=','postal_coordinate_id')]}" />
                                     <field name="postal_mail_name"
-                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
+                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}"
+                                        groups="mozaik_base.mozaik_res_groups_user"/>
                                     <field name="groupby_coresidency"
                                         attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
                                 </group>
@@ -108,17 +109,6 @@
             <field name="multi" eval="0" />
             <field name="target">new</field>
             <field name="view_id" ref="distribution_list_mass_function_wizard" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
-
-        <record id="add_filter_from_involvement_value" model="ir.values">
-            <field name="name">Mass Function</field>
-            <field name="model">distribution.list</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_relate</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('distribution_list_mass_function_action')" />
         </record>
 
     </data>

@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <search string="Partner">
                     <field name="identifier" string="Number"/>
+                    <field name="name" invisible="1" operator="="/>
                     <field name="display_name" filter_domain="['|',('select_name','ilike',self),('technical_name','ilike',self)]"/>
                     <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />

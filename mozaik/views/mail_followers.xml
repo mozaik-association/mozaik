@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Mail followers -->
+
+        <record model="ir.ui.view" id="mail_followers_search_view">
+            <field name="name">mail.followers.search</field>
+            <field name="model">mail.followers</field>
+            <field name="arch" type="xml">
+                <search string="Followers">
+                    <field name="res_model"/>
+                    <field name="partner_id"/>
+                    <field name="res_id"/>
+                    <field name="subtype_ids" widget="many2one"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Model" name="model" domain="[]" context="{'group_by':'res_model'}"/>
+                        <filter string="Partner" name="partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</openerp>

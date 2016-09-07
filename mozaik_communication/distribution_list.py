@@ -54,22 +54,13 @@ class distribution_list(orm.Model):
         res = super(distribution_list, self)._get_mail_compose_message_vals(
             cr, uid, msg, dl_id, mailing_model='email.coordinate',
             context=context)
+        if res.get('mass_mailing_name') and res.get('subject'):
+            res['mass_mailing_name'] = res.get('subject')
         dl = self.browse(cr, uid, dl_id, context=context)
         if dl.partner_id and dl.partner_id.email:
             res['email_from'] = formataddr(
                 (dl.partner_id.name, dl.partner_id.email))
         return res
-
-    def _notify_changes_to_owners(self, subject, message):
-        recipient_ids = [user.partner_id.id for user in self.res_users_ids
-                         if user.id != self.env.uid]
-        recipient_ids += self.res_partner_m2m_ids.ids
-        mail_vals = {
-            'subject': subject,
-            'body_html': message,
-            'recipient_ids': [[6, False, recipient_ids]],
-        }
-        self.env['mail.mail'].create(mail_vals)
 
     def _get_computed_ids(
             self, cr, uid, dl_id, bridge_field, to_be_computed_ids,
@@ -162,6 +153,7 @@ class distribution_list(orm.Model):
             self, cr, uid, model_name, domain, in_mode, context=None):
         if in_mode:
             domain.append(('email_is_main', '=', True))
+            domain.append(('postal_is_main', '=', True))
         opt_ids = super(distribution_list, self)._get_opt_res_ids(
             cr, uid, model_name, domain, in_mode, context=context)
         return opt_ids
@@ -185,61 +177,99 @@ class distribution_list(orm.Model):
         user_id = False
         is_partner_allowed = False
         has_visibility = False
-        noway = 'No unique coordinate found with address: %s' % \
+        noway = _('No unique coordinate found with address: %s') % \
             msg['email_from']
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
         if len(coordinate_ids) == 1:
             coo_obj = self.pool['email.coordinate'].browse(
-               cr, uid, coordinate_ids[0], context=context)
-            noway = 'Coordinate [%s] is not main' % coordinate_ids[0]
-            if coo_obj and coo_obj.is_main:
-                noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
-                partner_id = coo_obj.partner_id and coo_obj.partner_id.id or\
-                    False
+                cr, uid, coordinate_ids[0], context=context)
+            noway = _('Coordinate %s(%s) of %s is not main') % (
+                coo_obj.email, coo_obj.id, coo_obj.partner_id.display_name)
+            if coo_obj.is_main:
+                partner_id = coo_obj.partner_id
         if partner_id:
-            noway = 'Partner [%s] is not an owner nor ' \
-                'an allowed partner' % partner_id
+            noway = _('Partner %s is not an owner nor '
+                      'an allowed partner') % partner_id.display_name
             dl = self.browse(cr, uid, dl_id, context=context)
-            if partner_id in [p.id for p in dl.res_partner_m2m_ids]:
+            if partner_id.id in [p.id for p in dl.res_partner_m2m_ids]:
                 is_partner_allowed = True
             if not is_partner_allowed:
-                if partner_id in\
+                if partner_id.id in\
                         [p.partner_id.id for p in dl.res_users_ids]:
                     is_partner_allowed = True
         if is_partner_allowed:
-            noway = 'Partner [%s] is not a user' % partner_id
-            partner = self.pool['res.partner'].browse(
-                cr, uid, partner_id, context=context)
+            noway = _('Partner %s is not a user') % partner_id.display_name
             res_users_model = self.pool['res.users']
-            if partner.is_company and partner.responsible_user_id:
-                user_id = partner.responsible_user_id.id
+            if partner_id.is_company and partner_id.responsible_user_id:
+                user_id = partner_id.responsible_user_id.id
             else:
-                domain = [('partner_id', '=', partner_id)]
+                domain = [('partner_id', '=', partner_id.id)]
                 user_id = res_users_model.search(
                     cr, uid, domain, context=context)
-                user_id = user_id and user_id[0] or False
+                user_id = res_users_model.browse(
+                    cr, uid, user_id and user_id[0] or [], context=context)
         if user_id:
             try:
                 self.check_access_rule(
-                    cr, user_id, [dl_id], 'read', context=context)
+                    cr, user_id.id, [dl_id], 'read', context=context)
                 has_visibility = True
             except except_orm:
-                noway = 'User [%s] has no visibility on list [%s]' % \
-                    (user_id, dl_id)
+                noway = _('User %s(%s) has no visibility on list %s(%s)') % \
+                    (user_id.name, user_id.id, dl.name, dl.id)
         if has_visibility:
             ctx = dict(context or {},
                        email_coordinate_path='email',
                        main_object_field='email_coordinate_id',
-                       main_target_model='email.coordinate')
+                       main_target_model='email.coordinate',
+                       main_object_domain=[('email_unauthorized', '=', False)])
             res_ids = self._get_mailing_object(
                 cr, uid, dl_id, msg['email_from'], context=context)
             if res_ids:
                 ctx['additional_res_ids'] = res_ids
             return super(distribution_list, self).\
                 distribution_list_forwarding(
-                cr, user_id, msg, dl_id, context=ctx)
+                cr, user_id.id, msg, dl_id, context=ctx)
         _logger.info('Mail forwarding aborted. Reason: %s' % noway)
+        self._reply_error_to_owners(
+            cr, uid, [dl_id], msg, noway, context=context)
+
+    @api.multi
+    def _reply_error_to_owners(self, msg, reason):
+        """
+        Send an email to distribution list owners to explain
+        the forwarding no way
+        """
+        self.ensure_one()
+
+        # Remove navigation history: maybe we're coming from partner
+        ctx = dict(self.env.context or {})
+        for key in ('active_model', 'active_id', 'active_ids'):
+            ctx.pop(key, None)
+
+        composer_mod = self.env['mail.compose.message'].with_context(ctx)
+        sender = msg['email_from']
+        vals = {
+            'parent_id': False,
+            'use_active_domain': False,
+            'partner_ids': [[6, 0, [
+                owner.partner_id.id for owner in self.res_users_ids]]],
+            'notify': False,
+            'model': self._name,
+            'record_name': self.name,
+            'res_id': self.id,
+            'email_from': composer_mod._get_default_from(),
+            'subject': _('Forwarding Failure: %s') % msg.get('subject', False),
+            'body':
+                _('<p>Distribution List: %s</p>'
+                  '<p>Sender: %s</p>'
+                  '<p>Failure Reason: %s</p>') % (
+                    self.name,
+                    sender.replace('<', '&lt;').replace('>', '&gt;'),
+                    reason.replace('<', '&lt;').replace('>', '&gt;')),
+        }
+        composer = composer_mod.create(vals)
+        composer.send_mail()
 
     def _register_hook(self, cr):
         super(distribution_list, self)._register_hook(cr)
@@ -285,27 +315,35 @@ class distribution_list(orm.Model):
 
         return True
 
-    @api.one
+    @api.multi
     def write(self, vals):
-        old_alias = self.alias_name
-        new_alias = vals.get('alias_name', False)
-        old_alias_name = self.alias_id.name_get()[0][1]
-        res = super(distribution_list, self).write(vals)
-        if new_alias and new_alias != old_alias:
-            user = self.env['res.users'].browse(self.env.uid)
-            subject = _(
-                'Alias modified on distribution list %s') % self.name
-
-            msg = "<p>%s,</p><p>%s</p><p>%s<br/>%s</p>"
-            parts = (
-                _('Hello'),
-                _('The alias of the distribution list %s '
-                  'has been changed by %s.') % (self.name, user.name),
-                _('Former alias: %s') % old_alias_name,
-                _('<b>New alias</b>: %s') % self.alias_id.name_get()[0][1],
-            )
-            self._notify_changes_to_owners(subject, msg % parts)
-        return res
+        if 'alias_name' in vals:
+            self.ensure_one()
+            old_alias = self.alias_name
+            new_alias = vals.get('alias_name', False)
+            domain = self.alias_id.alias_domain
+            if new_alias and new_alias != old_alias:
+                subject = _(
+                    'Alias modified on distribution list %s') % self.name
+                msg = "<p>%s,</p><p>%s</p><p>%s<br/>%s</p>"
+                parts = (
+                    _('Hello'),
+                    _('The alias of the distribution list %s '
+                      'has been changed by %s.') % (
+                        self.name, self.env.user.name),
+                    _('Former alias: %s@%s') % (old_alias, domain),
+                    _('<b>New alias</b>: %s@%s') % (new_alias, domain),
+                )
+                recipient_ids = [
+                    user.partner_id.id
+                    for user in self.res_users_ids
+                    if user.id != self.env.uid
+                ]
+                recipient_ids += self.res_partner_m2m_ids.ids
+                self.message_post(
+                    body=msg % parts, subject=subject,
+                    partner_ids=recipient_ids)
+        return super(distribution_list, self).write(vals)
 
 
 class distribution_list_line(orm.Model):
@@ -384,7 +422,7 @@ class distribution_list_line(orm.Model):
             uid,
             ids,
             context=context)
-        res['name'] = _('Result of %s Filter without coordinate')\
+        res['name'] = _('Result of %s filter without coordinate')\
             % current_filter.name
         no_coord_domain = [('active', '=', False)]
         domain = eval(res['domain'])

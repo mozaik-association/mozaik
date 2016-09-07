@@ -917,18 +917,18 @@ msgstr "Type de méthode"
 #: selection:ext.mandate,method_type:0
 #: selection:sta.mandate,method_type:0
 msgid "Mixed"
-msgstr "Mixe"
+msgstr "Mixte"
 
 #. module: mozaik_retrocession
 #: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
 #: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
 msgid "Mixed Calculation Method"
-msgstr "Méthode de calcul mixe"
+msgstr "Méthode de calcul mixte"
 
 #. module: mozaik_retrocession
 #: view:calculation.method:mozaik_retrocession.calculation_method_search_view
 msgid "Mixed Calculation Methods"
-msgstr "Méthodes de calcul mixes"
+msgstr "Méthodes de calcul mixtes"
 
 #. module: mozaik_retrocession
 #: field:report.retrocession.wizard,model:0
