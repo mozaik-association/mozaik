@@ -179,6 +179,16 @@ class custom_webservice(orm.Model):
         self.check_access_rights(cr, uid, 'read')
         list_obj = self.pool['distribution.list']
         partner_obj = self.pool['res.partner']
+        flds = [
+            'identifier',
+            'lastname',
+            'firstname',
+            'usual_lastname',
+            'usual_firstname',
+            'id',
+            'ldap_id',
+            'ldap_name',
+        ]
         res = []
         ctx = dict(context or {},
                    active_test=False,
@@ -189,24 +199,19 @@ class custom_webservice(orm.Model):
                 cr, SUPERUSER_ID, [distribution_list_id],
                 context=ctx)[0]
 
-            res = partner_obj.read(cr,
-                                   SUPERUSER_ID,
-                                   active_ids,
-                                   ['identifier',
-                                    'lastname',
-                                    'firstname',
-                                    'usual_lastname',
-                                    'usual_firstname',
-                                    'email',
-                                    'ldap_id',
-                                    'ldap_name'],
-                                   context=context)
-            for data in res:
-                for key in data.keys():
-                    if not data[key]:
-                        data.pop(key)
-                    elif isinstance(data[key], (list, tuple)):
-                        data[key] = data[key][1]
+            partners = partner_obj.browse(
+                cr, SUPERUSER_ID, active_ids, context=context)
+            for partner in partners:
+                vals = {
+                    key: partner[key]
+                    for key in flds
+                    if partner[key]
+                }
+                # force to produce a real email address instead of
+                # a potential 'VIP' mention
+                if partner.email_coordinate_id:
+                    vals['email'] = partner.email_coordinate_id.email
+                res.append(vals)
 
         except Exception as e:
             raise WebServiceException(
