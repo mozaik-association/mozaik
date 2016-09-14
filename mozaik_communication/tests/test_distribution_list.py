@@ -116,8 +116,7 @@ class test_distribution_list(SharedSetupTransactionCase):
             cr, uid, msg, dl_id, context=context)
         mail_ids = self.mail_obj.search(
             cr, uid,
-            [('res_id', '=', self.usr.partner_id.id),
-             ('model', '=', 'res.partner')],
+            [('res_id', '=', e_id), ('model', '=', 'email.coordinate')],
             context=context)
         self.assertFalse(mail_ids, 'Partner of the mailing object is not into '
                          'the owner of the distribution list so it should not '
@@ -136,6 +135,7 @@ class test_distribution_list(SharedSetupTransactionCase):
         self.assertTrue(mail_ids, 'Partner of the mailing object is into '
                         'the owner of the distribution list so it should '
                         'be possible to make a mail forwarding')
+        self.mail_obj.unlink(cr, uid, mail_ids, context=context)
         vals = {
             'res_users_ids': [(3, self.usr.id, False)],
             'res_partner_m2m_ids': [(6, 0, [self.usr.partner_id.id])],
@@ -149,6 +149,44 @@ class test_distribution_list(SharedSetupTransactionCase):
             context=context)
         self.assertTrue(mail_ids, 'Partner of the mailing object is into '
                         'the allowed partner of the distribution list so'
+                        'it should be possible to make a mail forwarding')
+        self.mail_obj.unlink(cr, uid, mail_ids, context=context)
+
+        # take a legal person
+        partner_id = self.ref('%s.res_partner_nouvelobs' % self._module_ns)
+        # add it an email coordinate
+        vals = {
+            'partner_id': partner_id,
+            'email': 'emmanuel.vals.noway@nouvelobs.eu',
+        }
+        # use it as a sender
+        msg['email_from'] = vals['email']
+        self.ec_obj.create(cr, uid, vals, context=context)
+        # make the legal person an allowed partner of the DL
+        vals = {
+            'res_partner_m2m_ids': [(4, partner_id)],
+        }
+        self.dl_obj.write(cr, uid, [dl_id], vals, context=context)
+        self.dl_obj.distribution_list_forwarding(
+            cr, uid, msg, dl_id, context=context)
+        mail_ids = self.mail_obj.search(
+            cr, uid,
+            [('res_id', '=', e_id), ('model', '=', 'email.coordinate')],
+            context=context)
+        self.assertFalse(mail_ids, 'Without a responsible user '
+                         'a legal person cannot use the mail forwarding')
+        # add it a responsible user
+        vals = {
+            'responsible_user_id': self.usr.id,
+        }
+        self.partner_obj.write(cr, uid, [partner_id], vals, context=context)
+        self.dl_obj.distribution_list_forwarding(
+            cr, uid, msg, dl_id, context=context)
+        mail_ids = self.mail_obj.search(
+            cr, uid,
+            [('res_id', '=', e_id), ('model', '=', 'email.coordinate')],
+            context=context)
+        self.assertTrue(mail_ids, 'Legal person has a responsible user so'
                         'it should be possible to make a mail forwarding')
 
     def test_newsletter_code_unique(self):
