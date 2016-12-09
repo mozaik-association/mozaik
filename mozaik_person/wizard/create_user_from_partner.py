@@ -80,9 +80,9 @@ class create_user_from_partner(orm.TransientModel):
             nok = 'user'
         elif not partner.active:
             nok = 'active'
-        elif partner.is_company:
+        elif partner.is_company and not partner.is_assembly:
             nok = 'company'
-        elif not partner.birth_date:
+        elif not partner.birth_date and not partner.is_company:
             nok = 'birthdate'
         elif not partner.email:
             nok = 'email'

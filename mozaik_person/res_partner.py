@@ -476,7 +476,7 @@ class res_partner(orm.Model):
                 _('The partner %s is already a user!') %
                 partner.display_name)
 
-        if partner.is_company:
+        if partner.is_company and not partner.is_assembly:
             raise orm.except_orm(
                 _('Error'),
                 _('The partner %s cannot be a company to be associated to a'
