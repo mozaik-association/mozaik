@@ -102,7 +102,7 @@ class email_coordinate(orm.Model):
     def check_mail_message_access(self, cr, uid, mids, operation,
                                   model_obj=None, context=None):
         if context.get('active_model', False) == 'distribution.list'\
-           and context.get('target_model', False) == 'email.coordinate':
+           and (context.get('main_target_model', False) == 'email.coordinate'):
             pass
         else:
             super(email_coordinate, self).check_mail_message_access(
