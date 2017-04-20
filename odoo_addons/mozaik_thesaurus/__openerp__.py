@@ -24,7 +24,7 @@
 ##############################################################################
 {
     'name': 'MOZAIK: Thesaurus',
-    'version': '1.0.1',
+    'version': '8.0.1.0.1',
     'author': 'ACSONE SA/NV',
     'maintainer': 'ACSONE SA/NV',
     'license': 'AGPL-3',

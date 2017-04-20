@@ -24,7 +24,7 @@
 ##############################################################################
 {
     'name': 'MOZAIK: Coordinate',
-    'version': '1.0',
+    'version': '8.0.1.0.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
