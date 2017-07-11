@@ -253,11 +253,12 @@ class test_distribution_list(SharedSetupTransactionCase):
             self.dl_obj.get_complex_distribution_list_ids(
                 cr, uid, [dl_id], context=context)
         a_search_ids = self.virtrg_obj.search(
-            cr, uid, [], context=context)
+            cr, uid, [('identifier', '!=', 0)], context=context)
         self.assertFalse(a_alternative_ids)
         self.assertEqual(set(a_main_ids), set(a_search_ids))
 
         dom = [
+            ('identifier', '!=', 0),
             '&',
             '|',
             ('email', '=', False),
@@ -289,13 +290,15 @@ class test_distribution_list(SharedSetupTransactionCase):
             self.dl_obj.get_complex_distribution_list_ids(
                 cr, uid, [dl_id], context=context)
         self.assertTrue(ec_id in ac_main_ids)
+        dom = [('identifier', '!=', 0), ('email_coordinate_id', '!=', False)]
         vals = self.virtrg_obj.search_read(
-            cr, uid, domain=[('email_coordinate_id', '!=', False)],
+            cr, uid, domain=dom,
             fields=['email_coordinate_id'], context=context)
         ac_search_ids = [d['email_coordinate_id'][0] for d in vals]
         self.assertEqual(set(ac_main_ids), set(ac_search_ids))
         vals = self.virtrg_obj.search_read(
-            cr, uid, domain=[('email_coordinate_id', '=', False),
+            cr, uid, domain=[('identifier', '!=', 0),
+                             ('email_coordinate_id', '=', False),
                              ('postal_coordinate_id', '!=', False)],
             fields=['postal_coordinate_id'], context=context)
         acp_search_ids = [d['postal_coordinate_id'][0] for d in vals]
@@ -321,12 +324,14 @@ class test_distribution_list(SharedSetupTransactionCase):
                 cr, oid, [dl_id], context=context)
         self.assertFalse(ec_id in uc_main_ids)
         vals = self.virtrg_obj.search_read(
-            cr, oid, domain=[('email_coordinate_id', '!=', False)],
+            cr, oid, domain=[('identifier', '!=', 0),
+                             ('email_coordinate_id', '!=', False)],
             fields=['email_coordinate_id'], context=context)
         uc_search_ids = [d['email_coordinate_id'][0] for d in vals]
         self.assertEqual(set(uc_main_ids), set(uc_search_ids) - set(e_vip_ids))
         vals = self.virtrg_obj.search_read(
-            cr, oid, domain=[('email_coordinate_id', '=', False),
+            cr, oid, domain=[('identifier', '!=', 0),
+                             ('email_coordinate_id', '=', False),
                              ('postal_coordinate_id', '!=', False)],
             fields=['postal_coordinate_id'], context=context)
         ucp_search_ids = [d['postal_coordinate_id'][0] for d in vals]
