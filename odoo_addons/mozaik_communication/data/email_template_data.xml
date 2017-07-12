@@ -2,9 +2,10 @@
 <openerp>
     <data noupdate="1">
 
-        <record id="mozaik_email_template" model="email.template">
+        <record forcecreate="True" id="mozaik_email_template" model="email.template">
             <field name="name">Mozaik Mass Mailing</field>
             <field name="auto_delete" eval="1"/>
+            <field name="subject">Mass Mailing Subject</field>    
         </record>
 
     </data>

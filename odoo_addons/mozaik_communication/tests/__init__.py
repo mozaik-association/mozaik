@@ -26,3 +26,4 @@ from . import test_postal_mail
 from . import test_event
 from . import test_distribution_list
 from . import test_membership_request
+from . import test_mass_function
