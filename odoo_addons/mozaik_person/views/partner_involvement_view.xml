@@ -1,4 +1,7 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Acsone Sa/Nv
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
 <openerp>
     <data noupdate="0">
 
@@ -9,9 +12,9 @@
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
                 <search string="Partner Involvements">
-                    <field name="note"/>
                     <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
+                    <field name="note"/>
 
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
@@ -115,6 +118,7 @@
             <field name="arch" type="xml">
                 <search string="Partner Involvement Categories">
                     <field name="name"/>
+                    <field name="code"/>
                     <field name="note"/>
 
                     <filter name="expired" string="Expired"
@@ -143,6 +147,7 @@
             <field name="arch" type="xml">
                 <tree string="Partner Involvement Categories" version="7.0">
                     <field name="name"/>
+                    <field name="code"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
@@ -182,6 +187,13 @@
                                     context="{'search_default_partner_involvement_category_id': active_id,
                                               'default_partner_involvement_category_id': active_id}"/>
                         </div>
+                        <group name="country_zip" >
+                            <group name="data1">
+                                <field name="code" />
+                            </group>
+                            <group name="data2">
+                            </group>
+                        </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />

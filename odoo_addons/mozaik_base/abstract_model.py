@@ -203,10 +203,11 @@ class mozaik_abstract_model(orm.AbstractModel):
         if self._unicity_keys == 'N/A':
             return
 
+        unicity = " ".join(self._unicity_keys.split())
         createit = True
-        index_def = """CREATE UNIQUE INDEX %s_unique_idx ON %s
-                      USING btree (%s) WHERE (active IS TRUE)""" % \
-                    (self._table, self._table, self._unicity_keys)
+        index_def = "CREATE UNIQUE INDEX %s_unique_idx ON %s " \
+                    "USING btree (%s) WHERE (active IS TRUE)" % \
+                    (self._table, self._table, unicity)
         cr.execute("""SELECT indexdef
                       FROM pg_indexes
                       WHERE tablename = '%s' and indexname = '%s_unique_idx'
@@ -214,6 +215,9 @@ class mozaik_abstract_model(orm.AbstractModel):
         sql_res = cr.dictfetchone()
         if sql_res:
             if sql_res['indexdef'] != index_def:
+                _logger.info(
+                    'Rebuild index %s_unique_idx:\n%s\n%s',
+                    self._name, sql_res['indexdef'], index_def)
                 cr.execute("DROP INDEX %s_unique_idx" % (self._table,))
             else:
                 createit = False
@@ -441,6 +445,7 @@ class mozaik_abstract_model(orm.AbstractModel):
             limit=1, context=context)
         return view_ids[0] if view_ids else False
 
+    @api.cr_uid_id_context
     def display_object_in_form_view(self, cr, uid, object_id, context=None):
         """
         Return the object (with given id) in the default form view

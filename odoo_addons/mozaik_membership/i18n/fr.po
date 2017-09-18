@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_membership
+#   * mozaik_membership
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-21 14:29+0000\n"
-"PO-Revision-Date: 2016-06-21 14:29+0000\n"
+"POT-Creation-Date: 2017-09-18 23:21+0000\n"
+"PO-Revision-Date: 2017-09-18 23:21+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,19 +22,13 @@ msgstr "#Jours"
 
 #. module: mozaik_membership
 #: selection:generate.reference,reference_date:0
-msgid "2016"
-msgstr ""
+msgid "2017"
+msgstr "2017"
 
 #. module: mozaik_membership
 #: selection:generate.reference,reference_date:0
-msgid "2017"
-msgstr ""
-
-#. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:460
-#, python-format
-msgid "A Partner is required for a Modification Request"
-msgstr "Un partenaire est requis pour faire une demande de modification"
+msgid "2018"
+msgstr "2018"
 
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/res_partner.py:361
@@ -45,12 +39,12 @@ msgstr "Une personne physique avec un historique d'ahésions ne peut être trans
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.membership_line_notification
 msgid "A new membership line has been created"
-msgstr "Un nouvel historique d'adhésion a été créé"
+msgstr "<p>Bonjour,</p><p>Nous venons d'enregistrer dans notre base de données un changement de statut d'adhésion à Ecolo pour la personne mentionnée dans l'objet de ce mail.</p><p>Ce changement peut être décrit de la façon suivante:</p>"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.no_state_change_notification
 msgid "A new membership line has been created without change of state"
-msgstr "Un nouvel historique d'adhésion a été créé sans changement de statut"
+msgstr "<p>Bonjour,</p><p>Nous venons d'enregistrer dans notre base de données un renouvellement de cotisation pour la personne mentionnée dans l'objet de ce mail.</p>"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_sub_abstract_coordinate
@@ -63,9 +57,18 @@ msgid "Accept"
 msgstr "Accepter"
 
 #. module: mozaik_membership
+#: field:ext.assembly,accepted_date:0
+#: field:int.assembly,accepted_date:0
 #: field:res.partner,accepted_date:0
+#: field:res.users,accepted_date:0
+#: field:sta.assembly,accepted_date:0
 msgid "Accepted Date"
 msgstr "Date d'acceptation"
+
+#. module: mozaik_membership
+#: field:res.users,acronym:0
+msgid "Acronym"
+msgstr "Acronyme"
 
 #. module: mozaik_membership
 #: view:membership.line:mozaik_membership.membership_line_search_view
@@ -86,8 +89,16 @@ msgstr "Adhésions actives"
 
 #. module: mozaik_membership
 #: field:membership.request,address_id:0
+#: field:res.users,address:0
+#: field:res.users,postal_coordinate_id:0
 msgid "Address"
 msgstr "Adresse"
+
+#. module: mozaik_membership
+#: field:membership.request,age:0
+#: field:res.users,age:0
+msgid "Age"
+msgstr "Age"
 
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_search_view
@@ -130,6 +141,7 @@ msgstr "En attente de paiement"
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_form_view
 #: field:membership.request,birth_date:0
+#: field:res.users,birth_date:0
 #: field:virtual.custom.partner,birth_date:0
 #: field:virtual.master.partner,birth_date:0
 msgid "Birth Date"
@@ -189,9 +201,22 @@ msgid "Check if the product is eligible for membership."
 msgstr "Cochez si l'article est éligible pour une adhésion."
 
 #. module: mozaik_membership
+#: help:ext.assembly,unauthorized:0
+#: help:int.assembly,unauthorized:0
+#: help:res.users,unauthorized:0
+#: help:sta.assembly,unauthorized:0
+msgid "Checked if one or more main coordinates are unauthorized"
+msgstr "Coché si une ou plusieurs coordonnées principales sont non autorisées"
+
+#. module: mozaik_membership
 #: field:membership.request,address_local_zip_id:0
 msgid "City"
 msgstr "Ville"
+
+#. module: mozaik_membership
+#: field:res.users,civil_status:0
+msgid "Civil Status"
+msgstr "État civil"
 
 #. module: mozaik_membership
 #: field:membership.state,code:0
@@ -214,6 +239,7 @@ msgstr "Société"
 #. module: mozaik_membership
 #: field:membership.request,competencies:0
 #: field:membership.request,competencies_m2m_ids:0
+#: field:res.users,competencies_m2m_ids:0
 msgid "Competencies"
 msgstr "Compétences"
 
@@ -327,7 +353,11 @@ msgid "Decline Payment"
 msgstr "Decliner le paiement"
 
 #. module: mozaik_membership
+#: field:ext.assembly,decline_payment_date:0
+#: field:int.assembly,decline_payment_date:0
 #: field:res.partner,decline_payment_date:0
+#: field:res.users,decline_payment_date:0
+#: field:sta.assembly,decline_payment_date:0
 msgid "Decline Payment Date"
 msgstr "Date de refus de paiement"
 
@@ -337,8 +367,17 @@ msgid "Decline membership payment request: proceed anyway?"
 msgstr "Poursuivre le refus de paiement ?"
 
 #. module: mozaik_membership
+#: field:force.int.instance,display_name:0
+#: field:generate.reference,display_name:0
+#: field:membership.line,display_name:0
+#: field:membership.request,display_name:0
+#: field:membership.request.change,display_name:0
+#: field:membership.state,display_name:0
+#: field:pass.former.member,display_name:0
+#: field:sub.abstract.coordinate,display_name:0
 #: field:virtual.custom.partner,display_name:0
 #: field:virtual.master.partner,display_name:0
+#: field:waiting.member.report,display_name:0
 msgid "Display Name"
 msgstr "Nom à afficher"
 
@@ -356,6 +395,7 @@ msgstr "Brouillon"
 
 #. module: mozaik_membership
 #: field:membership.request,email:0
+#: field:res.users,email_coordinate_id:0
 msgid "Email"
 msgstr "Adresse électronique"
 
@@ -379,6 +419,12 @@ msgid "Email Coordinate ID"
 msgstr "ID de coordonnée électronique"
 
 #. module: mozaik_membership
+#: field:res.users,email_coordinate_ids:0
+#: field:res.users,email_coordinate_inactive_ids:0
+msgid "Email Coordinates"
+msgstr "Coordonnées électroniques"
+
+#. module: mozaik_membership
 #: field:virtual.custom.partner,email_unauthorized:0
 #: field:virtual.master.partner,email_unauthorized:0
 msgid "Email Unauthorized"
@@ -391,10 +437,14 @@ msgid "Email is Main"
 msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:877
+#: field:res.users,enterprise_identifier:0
+msgid "Enterprise Number"
+msgstr "Numéro d'entreprise"
+
+#. module: mozaik_membership
+#: code:addons/mozaik_membership/membership_request.py:876
 #: code:addons/mozaik_membership/res_partner.py:360
-#: code:addons/mozaik_membership/res_partner.py:459
-#: code:addons/mozaik_membership/res_partner.py:568
+#: code:addons/mozaik_membership/res_partner.py:473
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -415,7 +465,11 @@ msgid "Exclude member: proceed anyway?"
 msgstr "Poursuivre l'exclusion du membre ?"
 
 #. module: mozaik_membership
+#: field:ext.assembly,exclusion_date:0
+#: field:int.assembly,exclusion_date:0
 #: field:res.partner,exclusion_date:0
+#: field:res.users,exclusion_date:0
+#: field:sta.assembly,exclusion_date:0
 msgid "Exclusion Date"
 msgstr "Date d'exclusion"
 
@@ -434,6 +488,7 @@ msgstr "Statut demandé"
 #: field:membership.request,expire_date:0
 #: field:membership.request.change,expire_date:0
 #: field:membership.state,expire_date:0
+#: field:res.users,expire_date:0
 #: field:sub.abstract.coordinate,expire_date:0
 msgid "Expiration Date"
 msgstr "Date d'expiration"
@@ -455,6 +510,11 @@ msgid "Expired Requests"
 msgstr "Demandes expirées"
 
 #. module: mozaik_membership
+#: field:res.users,ext_assembly_count:0
+msgid "External Assemblies"
+msgstr "Assemblées externes"
+
+#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_ext_assembly
 msgid "External Assembly"
 msgstr "Assemblée externe"
@@ -465,14 +525,37 @@ msgid "External Candidature"
 msgstr "Candidature externe"
 
 #. module: mozaik_membership
+#: field:res.users,ext_candidature_ids:0
+#: field:res.users,ext_candidature_inactive_ids:0
+msgid "External Candidatures"
+msgstr "Candidatures externe"
+
+#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_ext_mandate
 msgid "External Mandate"
 msgstr "Mandat externe"
 
 #. module: mozaik_membership
+#: field:res.users,ext_mandate_count:0
+#: field:res.users,ext_mandate_ids:0
+#: field:res.users,ext_mandate_inactive_ids:0
+msgid "External Mandates"
+msgstr "Mandats externes"
+
+#. module: mozaik_membership
+#: field:res.users,facebook:0
+msgid "Facebook"
+msgstr "Facebook"
+
+#. module: mozaik_membership
 #: field:sub.abstract.coordinate,bounce_counter:0
 msgid "Failures Counter"
 msgstr "Compteur d'échecs"
+
+#. module: mozaik_membership
+#: field:res.users,fax_coordinate_id:0
+msgid "Fax"
+msgstr "Fax"
 
 #. module: mozaik_membership
 #: selection:membership.request,gender:0
@@ -561,7 +644,11 @@ msgid "Former Supporter"
 msgstr "Ancien sympathisant"
 
 #. module: mozaik_membership
+#: field:ext.assembly,free_member:0
+#: field:int.assembly,free_member:0
 #: field:res.partner,free_member:0
+#: field:res.users,free_member:0
+#: field:sta.assembly,free_member:0
 msgid "Free Member"
 msgstr "Membre non payant"
 
@@ -592,6 +679,7 @@ msgstr "Á partir de > ..."
 
 #. module: mozaik_membership
 #: field:membership.request,gender:0
+#: field:res.users,gender:0
 msgid "Gender"
 msgstr "Genre"
 
@@ -616,7 +704,7 @@ msgstr "Mandat générique"
 #: field:generate.reference,go:0
 #: field:pass.former.member,go:0
 msgid "Go"
-msgstr ""
+msgstr "Go"
 
 #. module: mozaik_membership
 #: view:membership.line:mozaik_membership.membership_line_search_view
@@ -647,13 +735,18 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:virtual.master.partner,id:0
 #: field:waiting.member.report,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
+
+#. module: mozaik_membership
+#: help:res.users,ldap_id:0
+msgid "ID of the user in the LDAP"
+msgstr "ID de l'utilisateur au LDAP"
 
 #. module: mozaik_membership
 #: field:generate.reference,partner_ids:0
 #: field:pass.former.member,concerned_partner_ids:0
 msgid "IDS"
-msgstr ""
+msgstr "IDS"
 
 #. module: mozaik_membership
 #: field:membership.request,identifier:0
@@ -691,6 +784,7 @@ msgstr "Instances..."
 #: view:membership.request:mozaik_membership.membership_request_form_view
 #: field:membership.request,interests:0
 #: field:membership.request,interests_m2m_ids:0
+#: field:res.users,interests_m2m_ids:0
 msgid "Interests"
 msgstr "Intérêts"
 
@@ -705,13 +799,23 @@ msgid "Internal Candidature"
 msgstr "Candidature interne"
 
 #. module: mozaik_membership
+#: field:res.users,int_candidature_ids:0
+#: field:res.users,int_candidature_inactive_ids:0
+msgid "Internal Candidatures"
+msgstr "Candidatures internes"
+
+#. module: mozaik_membership
 #: field:address.local.zip,int_instance_id:0
+#: field:ext.assembly,int_instance_id:0
 #: field:force.int.instance,int_instance_id:0
+#: field:int.assembly,int_instance_id:0
 #: model:ir.model,name:mozaik_membership.model_int_instance
 #: field:membership.line,int_instance_id:0
 #: field:membership.request,int_instance_id:0
 #: view:res.partner:mozaik_membership.res_partner_search_view
 #: field:res.partner,int_instance_id:0
+#: field:res.users,int_instance_id:0
+#: field:sta.assembly,int_instance_id:0
 #: field:virtual.custom.partner,int_instance_id:0
 #: field:virtual.master.partner,int_instance_id:0
 msgid "Internal Instance"
@@ -723,10 +827,14 @@ msgid "Internal Instance (to Force)"
 msgstr "Instance interne (à forcer)"
 
 #. module: mozaik_membership
+#: field:ext.assembly,int_instance_m2m_ids:0
+#: field:int.assembly,int_instance_m2m_ids:0
 #: view:res.partner:mozaik_membership.view_partner_3_form
 #: field:res.partner,int_instance_m2m_ids:0
+#: field:res.users,int_instance_m2m_ids:0
+#: field:sta.assembly,int_instance_m2m_ids:0
 msgid "Internal Instances"
-msgstr "Instances internes"
+msgstr "Droits sur les instances"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_int_mandate
@@ -734,7 +842,13 @@ msgid "Internal Mandate"
 msgstr "Mandat interne"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:877
+#: field:res.users,int_mandate_ids:0
+#: field:res.users,int_mandate_inactive_ids:0
+msgid "Internal Mandates"
+msgstr "Mandats internes"
+
+#. module: mozaik_membership
+#: code:addons/mozaik_membership/membership_request.py:876
 #, python-format
 msgid "Invalid Data"
 msgstr "Données invalides"
@@ -762,17 +876,29 @@ msgid "Invalidate contact: proceed anyway?"
 msgstr "Poursuivre l'invalidation du partenaire ?"
 
 #. module: mozaik_membership
+#: field:membership.request,involvement_category_ids:0
+msgid "Involvement Categories"
+msgstr "Catégories de participations"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Involvements"
+msgstr "Participations"
+
+#. module: mozaik_membership
 #: field:virtual.custom.partner,is_company:0
 #: field:virtual.master.partner,is_company:0
 msgid "Is Company"
 msgstr "Personne morale"
 
 #. module: mozaik_membership
+#: field:res.users,is_duplicate_allowed:0
 #: field:sub.abstract.coordinate,is_duplicate_allowed:0
 msgid "Is Duplicate Allowed"
 msgstr "Doublon autorisé"
 
 #. module: mozaik_membership
+#: field:res.users,is_duplicate_detected:0
 #: field:sub.abstract.coordinate,is_duplicate_detected:0
 msgid "Is Duplicate Detected"
 msgstr "Doublon détecté"
@@ -802,9 +928,24 @@ msgid "Is a Follower"
 msgstr "Est abonné"
 
 #. module: mozaik_membership
+#: field:res.users,is_assembly:0
+msgid "Is an Assembly"
+msgstr "Est une assemblée"
+
+#. module: mozaik_membership
 #: field:change.main.address,keep_instance:0
 msgid "Keep Previous Internal Instance?"
 msgstr "Conserver l'instance interne précédente ?"
+
+#. module: mozaik_membership
+#: field:res.users,ldap_id:0
+msgid "LDAP Id"
+msgstr "Identifiant LDAP"
+
+#. module: mozaik_membership
+#: field:res.users,ldap_name:0
+msgid "LDAP Name"
+msgstr "LDAP Name"
 
 #. module: mozaik_membership
 #: field:sub.abstract.coordinate,bounce_date:0
@@ -824,6 +965,21 @@ msgstr "Description du dernier échec"
 #: field:sub.abstract.coordinate,message_last_post:0
 msgid "Last Message Date"
 msgstr "Date du dernier message"
+
+#. module: mozaik_membership
+#: field:force.int.instance,__last_update:0
+#: field:generate.reference,__last_update:0
+#: field:membership.line,__last_update:0
+#: field:membership.request,__last_update:0
+#: field:membership.request.change,__last_update:0
+#: field:membership.state,__last_update:0
+#: field:pass.former.member,__last_update:0
+#: field:sub.abstract.coordinate,__last_update:0
+#: field:virtual.custom.partner,__last_update:0
+#: field:virtual.master.partner,__last_update:0
+#: field:waiting.member.report,__last_update:0
+msgid "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: mozaik_membership
 #: field:force.int.instance,write_uid:0
@@ -922,7 +1078,11 @@ msgid "Member Candidates"
 msgstr "Candidats membre"
 
 #. module: mozaik_membership
+#: field:ext.assembly,del_mem_card_date:0
+#: field:int.assembly,del_mem_card_date:0
 #: field:res.partner,del_mem_card_date:0
+#: field:res.users,del_mem_card_date:0
+#: field:sta.assembly,del_mem_card_date:0
 msgid "Member Card Sent Date"
 msgstr "Date d'envoi de la carte de membre"
 
@@ -939,6 +1099,7 @@ msgstr "Date d'envoi de la carte de membre > ..."
 #. module: mozaik_membership
 #: field:generate.reference,nb_member_concerned:0
 #: view:int.instance:mozaik_membership.abstract_instance_form_view
+#: field:int.instance,member_count:0
 msgid "Members"
 msgstr "Membres"
 
@@ -999,12 +1160,16 @@ msgid "Membership Requests"
 msgstr "Demandes d'adhésion"
 
 #. module: mozaik_membership
+#: field:ext.assembly,membership_state_id:0
+#: field:int.assembly,membership_state_id:0
 #: model:ir.model,name:mozaik_membership.model_membership_state
 #: view:membership.line:mozaik_membership.membership_line_search_view
 #: view:membership.state:mozaik_membership.membership_state_view
 #: field:membership.state,name:0
 #: view:res.partner:mozaik_membership.res_partner_search_view
 #: field:res.partner,membership_state_id:0
+#: field:res.users,membership_state_id:0
+#: field:sta.assembly,membership_state_id:0
 #: field:virtual.custom.partner,membership_state_id:0
 #: field:virtual.master.partner,membership_state_id:0
 #: field:waiting.member.report,membership_state_id:0
@@ -1012,7 +1177,11 @@ msgid "Membership State"
 msgstr "Statut d'adhésion"
 
 #. module: mozaik_membership
+#: field:ext.assembly,membership_state_code:0
+#: field:int.assembly,membership_state_code:0
 #: field:res.partner,membership_state_code:0
+#: field:res.users,membership_state_code:0
+#: field:sta.assembly,membership_state_code:0
 msgid "Membership State Code"
 msgstr "Code de statut d'adhésion"
 
@@ -1025,10 +1194,14 @@ msgid "Membership States"
 msgstr "Statuts d'adhésion"
 
 #. module: mozaik_membership
+#: field:ext.assembly,membership_line_ids:0
+#: field:int.assembly,membership_line_ids:0
 #: model:ir.ui.menu,name:mozaik_membership.membership_menu
 #: model:ir.ui.menu,name:mozaik_membership.membership_submenu
 #: view:res.partner:mozaik_membership.view_partner_form_membership
 #: field:res.partner,membership_line_ids:0
+#: field:res.users,membership_line_ids:0
+#: field:sta.assembly,membership_line_ids:0
 msgid "Memberships"
 msgstr "Adhésions"
 
@@ -1053,6 +1226,7 @@ msgstr "Historique des messages et communications"
 #. module: mozaik_membership
 #: field:membership.request,mobile:0
 #: field:membership.request,mobile_id:0
+#: field:res.users,mobile_coordinate_id:0
 msgid "Mobile"
 msgstr "Mobile"
 
@@ -1096,6 +1270,11 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: mozaik_membership
+#: help:res.users,ldap_name:0
+msgid "Name of the user in the LDAP"
+msgstr "Nom de l'utilisateur au LDAP"
+
+#. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_search_view
 #: field:waiting.member.report,partner_id:0
 msgid "Natural Persons"
@@ -1123,6 +1302,7 @@ msgstr "Notes"
 
 #. module: mozaik_membership
 #: field:membership.request,number:0
+#: field:res.users,identifier:0
 #: field:virtual.custom.partner,identifier:0
 #: field:virtual.master.partner,identifier:0
 msgid "Number"
@@ -1132,6 +1312,18 @@ msgstr "Numéro"
 #: field:partner.relation,object_instance_id:0
 msgid "Object Internal Instance"
 msgstr "Instance interne de l'objet de la relation"
+
+#. module: mozaik_membership
+#: field:ext.assembly,partner_is_object_relation_ids:0
+#: field:ext.assembly,partner_is_object_relation_inactive_ids:0
+#: field:int.assembly,partner_is_object_relation_ids:0
+#: field:int.assembly,partner_is_object_relation_inactive_ids:0
+#: field:res.users,partner_is_object_relation_ids:0
+#: field:res.users,partner_is_object_relation_inactive_ids:0
+#: field:sta.assembly,partner_is_object_relation_ids:0
+#: field:sta.assembly,partner_is_object_relation_inactive_ids:0
+msgid "Object Relations"
+msgstr "Relations"
 
 #. module: mozaik_membership
 #: field:membership.request.change,old_value:0
@@ -1187,10 +1379,20 @@ msgid "Partner Involvement"
 msgstr "Participation de partenaire"
 
 #. module: mozaik_membership
+#: field:res.users,partner_involvement_ids:0
+#: field:res.users,partner_involvement_inactive_ids:0
+msgid "Partner Involvements"
+msgstr "Participations de partenaire"
+
+#. module: mozaik_membership
 #: field:email.coordinate,partner_kind:0
+#: field:ext.assembly,kind:0
+#: field:int.assembly,kind:0
 #: field:phone.coordinate,partner_kind:0
 #: field:postal.coordinate,partner_kind:0
 #: field:res.partner,kind:0
+#: field:res.users,kind:0
+#: field:sta.assembly,kind:0
 msgid "Partner Kind"
 msgstr "Type de partenaire"
 
@@ -1202,6 +1404,7 @@ msgstr "Relation de partenaires"
 #. module: mozaik_membership
 #: field:membership.request,phone:0
 #: field:membership.request,phone_id:0
+#: field:res.users,fix_coordinate_id:0
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -1209,6 +1412,12 @@ msgstr "Téléphone"
 #: model:ir.model,name:mozaik_membership.model_phone_coordinate
 msgid "Phone Coordinate"
 msgstr "Coordonnée téléphonique"
+
+#. module: mozaik_membership
+#: field:res.users,phone_coordinate_ids:0
+#: field:res.users,phone_coordinate_inactive_ids:0
+msgid "Phone Coordinates"
+msgstr "Coordonnées téléphoniques"
 
 #. module: mozaik_membership
 #: field:virtual.custom.partner,postal_bounce_counter:0
@@ -1228,6 +1437,12 @@ msgstr "Coordonnée postale"
 #: field:virtual.master.partner,postal_coordinate_id:0
 msgid "Postal Coordinate ID"
 msgstr "ID de coordonnée postale"
+
+#. module: mozaik_membership
+#: field:res.users,postal_coordinate_ids:0
+#: field:res.users,postal_coordinate_inactive_ids:0
+msgid "Postal Coordinates"
+msgstr "Coordonnées postales"
 
 #. module: mozaik_membership
 #: field:virtual.custom.partner,postal_unauthorized:0
@@ -1250,6 +1465,11 @@ msgstr "Instance interne précédente"
 #: field:membership.line,price:0
 msgid "Price"
 msgstr "Montant"
+
+#. module: mozaik_membership
+#: field:res.users,printable_name:0
+msgid "Printable Name"
+msgstr "Nom imprimable"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_product_template
@@ -1276,8 +1496,12 @@ msgid "Reduced Subscription"
 msgstr "Cotisation réduite"
 
 #. module: mozaik_membership
+#: field:ext.assembly,reference:0
+#: field:int.assembly,reference:0
 #: field:membership.line,reference:0
 #: field:res.partner,reference:0
+#: field:res.users,reference:0
+#: field:sta.assembly,reference:0
 msgid "Reference"
 msgstr "Référence"
 
@@ -1312,7 +1536,11 @@ msgid "Reject member candidate: proceed anyway?"
 msgstr "Poursuivre le rejet du candidat membre?"
 
 #. module: mozaik_membership
+#: field:ext.assembly,rejected_date:0
+#: field:int.assembly,rejected_date:0
 #: field:res.partner,rejected_date:0
+#: field:res.users,rejected_date:0
+#: field:sta.assembly,rejected_date:0
 msgid "Rejected Date"
 msgstr "Date d'exclusion"
 
@@ -1352,9 +1580,28 @@ msgid "Resign person: proceed anyway?"
 msgstr "Confirmer la démission de la personne ?"
 
 #. module: mozaik_membership
+#: field:ext.assembly,resignation_date:0
+#: field:int.assembly,resignation_date:0
 #: field:res.partner,resignation_date:0
+#: field:res.users,resignation_date:0
+#: field:sta.assembly,resignation_date:0
 msgid "Resignation Date"
 msgstr "Date de démission"
+
+#. module: mozaik_membership
+#: field:res.users,secondary_website:0
+msgid "Secondary Website"
+msgstr "Second site web"
+
+#. module: mozaik_membership
+#: help:res.users,secondary_website:0
+msgid "Secondary Website of Partner or Company"
+msgstr "Secondary Website of Partner or Company"
+
+#. module: mozaik_membership
+#: field:res.users,select_name:0
+msgid "Select Name"
+msgstr "Select Name"
 
 #. module: mozaik_membership
 #: field:generate.reference,nb_selected:0
@@ -1387,6 +1634,12 @@ msgid "State Candidature"
 msgstr "Candidature politique"
 
 #. module: mozaik_membership
+#: field:res.users,sta_candidature_ids:0
+#: field:res.users,sta_candidature_inactive_ids:0
+msgid "State Candidatures"
+msgstr "Candidatures politiques"
+
+#. module: mozaik_membership
 #: field:membership.line,state_code:0
 msgid "State Code"
 msgstr "Code du statut"
@@ -1395,6 +1648,12 @@ msgstr "Code du statut"
 #: model:ir.model,name:mozaik_membership.model_sta_mandate
 msgid "State Mandate"
 msgstr "Mandat politique"
+
+#. module: mozaik_membership
+#: field:res.users,sta_mandate_ids:0
+#: field:res.users,sta_mandate_inactive_ids:0
+msgid "State Mandates"
+msgstr "Mandats politiques"
 
 #. module: mozaik_membership
 #: field:membership.request,street_man:0
@@ -1412,12 +1671,28 @@ msgid "Subject Internal Instance"
 msgstr "Instance interne du sujet de la relation"
 
 #. module: mozaik_membership
+#: field:ext.assembly,partner_is_subject_relation_ids:0
+#: field:ext.assembly,partner_is_subject_relation_inactive_ids:0
+#: field:int.assembly,partner_is_subject_relation_ids:0
+#: field:int.assembly,partner_is_subject_relation_inactive_ids:0
+#: field:res.users,partner_is_subject_relation_ids:0
+#: field:res.users,partner_is_subject_relation_inactive_ids:0
+#: field:sta.assembly,partner_is_subject_relation_ids:0
+#: field:sta.assembly,partner_is_subject_relation_inactive_ids:0
+msgid "Subject Relations"
+msgstr "Relations sujet"
+
+#. module: mozaik_membership
+#: field:ext.assembly,subscription_product_id:0
+#: field:int.assembly,subscription_product_id:0
 #: view:membership.line:mozaik_membership.membership_line_search_view
 #: field:membership.line,product_id:0
 #: model:product.category,name:mozaik_membership.membership_product_category
 #: field:product.template,membership:0
 #: view:res.partner:mozaik_membership.res_partner_search_view
 #: field:res.partner,subscription_product_id:0
+#: field:res.users,subscription_product_id:0
+#: field:sta.assembly,subscription_product_id:0
 msgid "Subscription"
 msgstr "Cotisation"
 
@@ -1453,13 +1728,14 @@ msgstr "Technique"
 
 #. module: mozaik_membership
 #: field:membership.request,technical_name:0
+#: field:res.users,technical_name:0
 #: field:virtual.custom.partner,technical_name:0
 #: field:virtual.master.partner,technical_name:0
 msgid "Technical Name"
 msgstr "Nom technique"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:79
+#: code:addons/mozaik_membership/membership_request.py:78
 #, python-format
 msgid "The required age for a membership request is %s"
 msgstr "L'âge requis pour une demande d'adhésion est de %s ans"
@@ -1467,32 +1743,32 @@ msgstr "L'âge requis pour une demande d'adhésion est de %s ans"
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.main_email_notification
 msgid "This Email Coordinate is \"Main\""
-msgstr "L'adresse électronique en sujet est maintenant principale"
+msgstr "<p>Bonjour,</p><p>Pour la personne mentionnée dans l'objet de ce mail, nous venons d'enregistrer un changement de son adresse email de contact principale.</p><p>La nouvelle adresse est également précisée dans l'objet de ce mail.</p>"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.former_email_notification
 msgid "This Email Coordinate is no \"Main\" any longer"
-msgstr "L'adresse électronique en sujet n'est plus principale"
+msgstr "<p>Bonjour,</p><p>Pour la personne mentionnée dans l'objet de ce mail, nous venons d'enregistrer un changement de son adresse email de contact principale.</p><p>L'ancienne adresse est également précisée dans l'objet de ce mail.</p>"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.main_phone_id_notification
 msgid "This Phone Coordinate is \"Main\""
-msgstr "Le téléphone en sujet est maintenant principal"
+msgstr "<p>Bonjour,</p><p>Pour la personne mentionnée dans l'objet de ce mail, nous venons d'enregistrer que son numéro de téléphone également indiqué dans l'objet de ce mail est maintenant son numéro de téléphone de contact principal, pour le type de coordonnée téléphonique précisé (fixe ou gsm).</p>"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.former_phone_id_notification
 msgid "This Phone Coordinate is no \"Main\" any longer"
-msgstr "Le téléphone en sujet n'est plus principal"
+msgstr "<p>Bonjour,</p><p>Pour la personne mentionnée dans l'objet de ce mail, nous venons d'enregistrer que son numéro de téléphone également indiqué dans l'objet de ce mail n'est plus son numéro de téléphone de contact principal, pour le type de coordonnée téléphonique précisé (fixe ou gsm).</p>"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.main_address_id_notification
 msgid "This Postal Coordinate is \"Main\""
-msgstr "L'adresse en sujet est maintenant principale"
+msgstr "<p>Bonjour,</p><p>Pour la personne mentionnée dans l'objet de ce mail, nous venons d'enregistrer une nouvelle adresse postale.</p><p>Cette nouvelle adresse est également précisée dans l'objet de ce mail.</p><p>Cette adresse a pu changer suite a un déménagement ou une simple correction de notre base de données.</p>"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.former_address_id_notification
 msgid "This Postal Coordinate is no \"Main\" any longer"
-msgstr "L'adresse en sujet n'est plus principale"
+msgstr "<p>Bonjour,</p><p>Pour la personne mentionnée dans l'objet de ce mail, nous venons d'enregistrer que son adresse postale également indiquée dans l'objet de ce mail n'est plus son adresse de contact principale.</p>"
 
 #. module: mozaik_membership
 #: view:pass.former.member:mozaik_membership.pass_former_member_view
@@ -1515,6 +1791,11 @@ msgid "To > ..."
 msgstr "Jusqu'à > ..."
 
 #. module: mozaik_membership
+#: field:res.users,tongue:0
+msgid "Tongue"
+msgstr "Langue"
+
+#. module: mozaik_membership
 #: field:membership.request,town_man:0
 msgid "Town"
 msgstr "Ville"
@@ -1526,12 +1807,21 @@ msgid "Transform Members to Former Members"
 msgstr "Transformer des membres en anciens membres"
 
 #. module: mozaik_membership
+#: field:res.users,twitter:0
+msgid "Twitter"
+msgstr "Twitter"
+
+#. module: mozaik_membership
+#: field:ext.assembly,unauthorized:0
+#: field:int.assembly,unauthorized:0
+#: field:res.users,unauthorized:0
+#: field:sta.assembly,unauthorized:0
 #: field:sub.abstract.coordinate,unauthorized:0
 msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:569
+#: code:addons/mozaik_membership/res_partner.py:474
 #, python-format
 msgid "Undefined Membership State: %s"
 msgstr "Statut d'adhésion inconnu: %s"
@@ -1566,6 +1856,16 @@ msgid "Users"
 msgstr "Utilisateurs"
 
 #. module: mozaik_membership
+#: field:res.users,usual_firstname:0
+msgid "Usual Firstname"
+msgstr "Prénom usuel"
+
+#. module: mozaik_membership
+#: field:res.users,usual_lastname:0
+msgid "Usual Lastname"
+msgstr "Usual Lastname"
+
+#. module: mozaik_membership
 #: model:product.template,name:mozaik_membership.membership_product_isolated_product_template
 msgid "Usual Subscription"
 msgstr "Cotisation normale"
@@ -1588,18 +1888,19 @@ msgstr "Poursuivre la validation de la demande ?"
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_virtual_custom_partner
 msgid "Virtual Custom Partner"
-msgstr ""
+msgstr "Virtual Custom Partner"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_virtual_master_partner
 msgid "Virtual Master Partner"
-msgstr ""
+msgstr "Virtual Master Partner"
 
 #. module: mozaik_membership
 #: field:membership.line,website_message_ids:0
 #: field:membership.request,website_message_ids:0
 #: field:membership.request.change,website_message_ids:0
 #: field:membership.state,website_message_ids:0
+#: field:res.users,website_message_ids:0
 #: field:sub.abstract.coordinate,website_message_ids:0
 msgid "Website Messages"
 msgstr "Messages de site web"
@@ -1609,12 +1910,17 @@ msgstr "Messages de site web"
 #: help:membership.request,website_message_ids:0
 #: help:membership.request.change,website_message_ids:0
 #: help:membership.state,website_message_ids:0
+#: help:res.users,website_message_ids:0
 #: help:sub.abstract.coordinate,website_message_ids:0
 msgid "Website communication history"
 msgstr "Historique de communication de site web"
 
 #. module: mozaik_membership
+#: field:ext.assembly,del_doc_date:0
+#: field:int.assembly,del_doc_date:0
 #: field:res.partner,del_doc_date:0
+#: field:res.users,del_doc_date:0
+#: field:sta.assembly,del_doc_date:0
 msgid "Welcome Documents Sent Date"
 msgstr "Date d'envoi des documents de bienvenue"
 
@@ -1641,7 +1947,7 @@ msgstr "Assistant de transformation des membres en anciens membres"
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_form_view
 msgid "YYYY"
-msgstr ""
+msgstr "YYYY"
 
 #. module: mozaik_membership
 #: field:generate.reference,reference_date:0
@@ -1651,6 +1957,7 @@ msgstr "Année"
 
 #. module: mozaik_membership
 #: field:membership.request,zip_man:0
+#: field:res.users,zip_id:0
 msgid "Zip"
 msgstr "Code postal"
 
@@ -1663,12 +1970,12 @@ msgstr "Code postal"
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_2_form
 msgid "mozaik_base.mozaik_res_groups_officer"
-msgstr ""
+msgstr "mozaik_base.mozaik_res_groups_officer"
 
 #. module: mozaik_membership
 #: view:change.main.address:mozaik_membership.change_main_address_wizard
 msgid "onchange_address_id(address_id, old_int_instance_id)"
-msgstr ""
+msgstr "onchange_address_id(address_id, old_int_instance_id)"
 
 #. module: mozaik_membership
 #: view:force.int.instance:mozaik_membership.force_int_instance_form
@@ -1680,28 +1987,23 @@ msgstr "ou"
 #. module: mozaik_membership
 #: view:product.template:mozaik_membership.product_template_only_form_view
 msgid "{'invisible': ['|',('product_variant_count', '>', 1),('membership', '=', True)]}"
-msgstr ""
+msgstr "{'invisible': ['|',('product_variant_count', '>', 1),('membership', '=', True)]}"
 
 #. module: mozaik_membership
 #: view:product.template:mozaik_membership.product_template_form_view
 #: view:product.template:mozaik_membership.product_template_only_form_view
 msgid "{'invisible': [('membership', '=', True)]}"
-msgstr ""
+msgstr "{'invisible': [('membership', '=', True)]}"
 
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_officer_form_view
 msgid "{'invisible': [('state', 'not in', ['draft','confirm'])]}"
-msgstr ""
+msgstr "{'invisible': [('state', 'not in', ['draft','confirm'])]}"
 
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_officer_form_view
 msgid "{'readonly':[('is_update', '=', True)], 'required':[('is_update', '=', True)]}"
-msgstr ""
-
-#. module: mozaik_membership
-#: view:membership.request:mozaik_membership.membership_request_form_view
-msgid "⇒"
-msgstr ""
+msgstr "{'readonly':[('is_update', '=', True)], 'required':[('is_update', '=', True)]}"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_2_form
@@ -1712,4 +2014,3 @@ msgstr "⇒ Précaution à prendre"
 #: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "⇒ Reset"
 msgstr "⇒ Réinitialiser"
-
