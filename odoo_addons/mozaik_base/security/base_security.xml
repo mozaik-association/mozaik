@@ -12,11 +12,6 @@
 
         <!-- Extra technical groups not belonging to Political Association application -->
 
-        <record model="res.groups" id="res_groups_ws">
-            <field name="name">Ws (Mozaik)</field>
-            <field name="category_id" ref="base.module_category_usability"/>
-        </record>
-
         <record model="res.groups" id="res_groups_base">
             <field name="name">Base (Mozaik)</field>
             <field name="category_id" ref="base.module_category_usability"/>
@@ -109,45 +104,18 @@
             ])]" />
         </record>
 
-        <!-- Admin is a Configurator and a ws user -->
+        <!-- Admin is a Configurator -->
 
         <record model="res.users" id="base.user_root">
             <field name="groups_id" eval="[
                 (4, ref('mozaik_res_groups_configurator')),
-                (4, ref('res_groups_ws')),
             ]" />
-        </record>
-
-        <!-- Add a webservice User -->
-
-        <record id="res_partner_ws_user" model="res.partner">
-            <field name="lastname">Web Service User</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="active" eval="0"/>
-        </record>
-
-        <record id="res_users_ws" model="res.users">
-            <field name="partner_id" ref="res_partner_ws_user"/>
-            <field name="login">ws</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[(6, 0, [
-                ref('res_groups_ws'),
-            ])]"/>
         </record>
 
         <!-- Inactivate Sharing Group -->
 
         <record model="res.groups" id="share.group_share_user">
             <field name="users" eval="[(5, 0, 0)]" />
-        </record>
-
-    </data>
-
-    <data noupdate="1">
-
-        <record id="res_users_ws" model="res.users">
-            <field name="password">ws%123</field>
-            <field name="signature">ws</field>
         </record>
 
     </data>
