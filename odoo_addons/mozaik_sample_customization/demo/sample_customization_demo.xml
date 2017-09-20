@@ -281,6 +281,7 @@
 
         <record id="involvement_category" model="partner.involvement.category">
             <field name="name">Assemblée Générale 2013</field>
+            <field name="code">AG2013</field>
         </record>
 
         <record id="involvement_jacques" model="partner.involvement">
@@ -292,6 +293,10 @@
         <record id="involvement_nouvelobs" model="partner.involvement">
             <field name="partner_id" ref="res_partner_nouvelobs"/>
             <field name="partner_involvement_category_id" ref="involvement_category"/>
+        </record>
+
+        <record id="involvement_category_tb2017" model="partner.involvement.category">
+            <field name="name">Tournoi de belotte de Marchienne-au-Pont (oct. 2017)</field>
         </record>
 
     </data>
