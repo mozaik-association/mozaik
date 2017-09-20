@@ -30,3 +30,4 @@ from . import test_waiting_member_report
 from . import test_force_int_instance
 from . import test_accounting
 from . import test_postal_coordinate
+from . import test_involvement
