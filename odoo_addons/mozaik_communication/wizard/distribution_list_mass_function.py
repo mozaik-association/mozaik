@@ -79,6 +79,8 @@ class distribution_list_mass_function(orm.TransientModel):
         'subject': fields.char(string='Subject'),
         'body': fields.html(
             string='Contents', help='Automatically sanitized HTML contents'),
+        'attachment_ids': fields.many2many('ir.attachment', 'message_attachment_rel',
+            'message_id', 'attachment_id', 'Attachments'),
         'email_template_id': fields.many2one(
             'email.template', string='Email Template', ondelete='cascade'),
         'mass_mailing_name': fields.char(string='Mass Mailing Name'),
