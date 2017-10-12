@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
@@ -44,7 +45,7 @@ TRG_MODEL = [
 ]
 
 
-class distribution_list_mass_function(orm.TransientModel):
+class DistributionListMassFunction(orm.TransientModel):
 
     _name = 'distribution.list.mass.function'
     _description = 'Mass Function'
@@ -75,6 +76,13 @@ class distribution_list_mass_function(orm.TransientModel):
             'distribution.list', string='Distribution List',
             required=True, ondelete='cascade'),
 
+        'subject': fields.char(string='Subject'),
+        'body': fields.html(
+            string='Contents', help='Automatically sanitized HTML contents'),
+        'attachment_ids': fields.many2many(
+            'ir.attachment',
+            rel='distribution_list_mass_function_ir_attachment_rel',
+            id1='wizard_id', id2='attachment_id', string='Attachments'),
         'email_template_id': fields.many2one(
             'email.template', string='Email Template', ondelete='cascade'),
         'mass_mailing_name': fields.char(string='Mass Mailing Name'),
@@ -100,8 +108,7 @@ class distribution_list_mass_function(orm.TransientModel):
 
     _defaults = {
         'trg_model': 'email.coordinate',
-        'distribution_list_id': lambda self, cr, uid, context:
-            context.get('active_id', False),
+        'distribution_list_id': lambda s, cr, u, c: c.get('active_id', False),
         'include_unauthorized': False,
         'extract_csv': False,
         'include_without_coordinate': False,
@@ -133,18 +140,41 @@ class distribution_list_mass_function(orm.TransientModel):
 
     def onchange_template_id(
             self, cr, uid, ids,
-            email_template_id, mass_mailing_name,
+            email_template_id,
+            context=None):
+        """
+        Propagate subject and body from template to wizard
+        """
+        if not email_template_id:
+            return
+        tmpl = self.pool['email.template'].browse(
+            cr, uid, email_template_id, context=context)
+
+        flds = ['subject', 'body_html']
+        values = {
+            field: getattr(tmpl, field)
+            for field in flds
+            if getattr(tmpl, field)
+        }
+        if values.get('body_html'):
+            values['body'] = values.pop('body_html')
+
+        return {
+            'value': values
+        }
+
+    def onchange_subject(
+            self, cr, uid, ids,
+            subject, mass_mailing_name,
             context=None):
         """
         Propose a default value for the mass mailing name
         """
-        if mass_mailing_name or not email_template_id:
+        if mass_mailing_name:
             return
-        tmpl = self.pool['email.template'].browse(
-            cr, uid, email_template_id, context=context)
         return {
             'value': {
-                'mass_mailing_name': tmpl.subject,
+                'mass_mailing_name': subject,
             }
         }
 
@@ -228,11 +258,16 @@ class distribution_list_mass_function(orm.TransientModel):
                     value = composer.onchange_template_id(
                         cr, uid, ids, template_id, 'mass_mail', '', 0,
                         context=context)['value']
-                    if value.get('attachment_ids'):
+                    attachments = value.get('attachment_ids', [])
+                    if wizard.attachment_ids:
+                        attachments += wizard.attachment_ids.ids
+                    if attachments:
                         value['attachment_ids'] = [
-                            [6, False, value['attachment_ids']]
+                            [6, False, attachments]
                         ]
                     mail_composer_vals.update(value)
+                    vals = {'subject': wizard.subject, 'body': wizard.body}
+                    mail_composer_vals.update(vals)
                     mail_composer_id = composer.create(
                         cr, uid, mail_composer_vals, context=context)
 
