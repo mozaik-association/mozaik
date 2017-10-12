@@ -45,7 +45,7 @@ TRG_MODEL = [
 ]
 
 
-class distribution_list_mass_function(orm.TransientModel):
+class DistributionListMassFunction(orm.TransientModel):
 
     _name = 'distribution.list.mass.function'
     _description = 'Mass Function'
@@ -108,8 +108,7 @@ class distribution_list_mass_function(orm.TransientModel):
 
     _defaults = {
         'trg_model': 'email.coordinate',
-        'distribution_list_id': lambda self, cr, uid, context:
-            context.get('active_id', False),
+        'distribution_list_id': lambda s, cr, u, c: c.get('active_id', False),
         'include_unauthorized': False,
         'extract_csv': False,
         'include_without_coordinate': False,
@@ -151,10 +150,10 @@ class distribution_list_mass_function(orm.TransientModel):
         tmpl = self.pool['email.template'].browse(
             cr, uid, email_template_id, context=context)
 
-        fields = ['subject', 'body_html']
+        flds = ['subject', 'body_html']
         values = {
             field: getattr(tmpl, field)
-            for field in fields
+            for field in flds
             if getattr(tmpl, field)
         }
         if values.get('body_html'):
@@ -495,4 +494,3 @@ class distribution_list_mass_function(orm.TransientModel):
 
     def post_processing(self, cr, uid, ids, active_ids, context=None):
         pass
-

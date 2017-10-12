@@ -49,10 +49,10 @@
                                                        ('e_mass_function','!=','email_coordinate_id')]}"
                             groups="mozaik_base.mozaik_res_groups_user">
                             <group>
-                            	<field name="subject" placeholder="Subject..." 
-                            	attrs="{'required':[('e_mass_function','=','email_coordinate_id'), 
-                            	('trg_model','=','email.coordinate')]}" 
-                                on_change="onchange_subject(subject, mass_mailing_name)"/>
+                                <field name="subject" placeholder="Subject..." 
+                                    attrs="{'required':[('e_mass_function','=','email_coordinate_id'), 
+                                    ('trg_model','=','email.coordinate')]}" 
+                                    on_change="onchange_subject(subject, mass_mailing_name)"/>
                             </group>
                             <field name="body"/>
                             <field name="attachment_ids" widget="many2many_binary" string="Attach a file"/>

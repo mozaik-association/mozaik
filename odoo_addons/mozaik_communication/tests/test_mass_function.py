@@ -5,6 +5,7 @@
 
 from anybox.testing.openerp import SharedSetupTransactionCase
 
+
 class TestMassFunction(SharedSetupTransactionCase):
 
     _data_files = (
@@ -35,4 +36,3 @@ class TestMassFunction(SharedSetupTransactionCase):
             cr, uid, [wiz_id], 'La guerre des étoiles', wiz.mass_mailing_name)
         self.assertFalse(values)
         return
-
