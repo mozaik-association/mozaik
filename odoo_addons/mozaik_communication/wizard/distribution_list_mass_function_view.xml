@@ -54,9 +54,9 @@
                             	('trg_model','=','email.coordinate')]}" 
                                 on_change="onchange_subject(subject, mass_mailing_name)"/>
                             </group>
+                            <field name="body"/>
+                            <field name="attachment_ids" widget="many2many_binary" string="Attach a file"/>
                             <group>
-                            	<field name="body"/>
-                            	<field name="attachment_ids" widget="many2many_binary" string="Attach a file"/>
                                 <group>
                                     <field name="email_template_id"
                                         domain="[('model_id.model','=','email.coordinate')]"

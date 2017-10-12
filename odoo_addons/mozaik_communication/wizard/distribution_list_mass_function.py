@@ -79,8 +79,10 @@ class distribution_list_mass_function(orm.TransientModel):
         'subject': fields.char(string='Subject'),
         'body': fields.html(
             string='Contents', help='Automatically sanitized HTML contents'),
-        'attachment_ids': fields.many2many('ir.attachment', 'message_attachment_rel',
-            'message_id', 'attachment_id', 'Attachments'),
+        'attachment_ids': fields.many2many(
+            'ir.attachment',
+            rel='distribution_list_mass_function_ir_attachment_rel',
+            id1='wizard_id', id2='attachment_id', string='Attachments'),
         'email_template_id': fields.many2one(
             'email.template', string='Email Template', ondelete='cascade'),
         'mass_mailing_name': fields.char(string='Mass Mailing Name'),
@@ -257,9 +259,12 @@ class distribution_list_mass_function(orm.TransientModel):
                     value = composer.onchange_template_id(
                         cr, uid, ids, template_id, 'mass_mail', '', 0,
                         context=context)['value']
-                    if value.get('attachment_ids'):
+                    attachments = value.get('attachment_ids', [])
+                    if wizard.attachment_ids:
+                        attachments += wizard.attachment_ids.ids
+                    if attachments:
                         value['attachment_ids'] = [
-                            [6, False, value['attachment_ids']]
+                            [6, False, attachments]
                         ]
                     mail_composer_vals.update(value)
                     vals = {'subject': wizard.subject, 'body': wizard.body}
