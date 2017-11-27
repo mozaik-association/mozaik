@@ -460,9 +460,6 @@ class membership_request(orm.Model):
         'technical_name': fields.char(string='Technical Name'),
 
         # indexes
-        'interests': fields.text(string='Interests'),
-        'competencies': fields.text(string='Competencies'),
-
         'interests_m2m_ids': fields.many2many(
             'thesaurus.term', 'membership_request_interests_rel',
             id1='membership_id', id2='thesaurus_term_id', string='Interests'),
@@ -1055,7 +1052,7 @@ class membership_request(orm.Model):
 
         res = self.onchange_partner_id(
             cr, uid, [], is_company, request_type, partner_id, technical_name,
-            context=None)['value']
+            context=context)['value']
         vals.update(res)
 
         # update vals dictionary because some inputs may have changed
