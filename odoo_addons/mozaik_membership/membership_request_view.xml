@@ -147,7 +147,7 @@
                             </group>
                             <group name="request_info">
                                 <field name="request_type"
-                                    on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name)" />
+                                    on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name, context)" />
                             </group>
                         </group>
 
@@ -219,15 +219,6 @@
                             </group>
                         </group>
 
-                        <group name="comp_int">
-                            <group name="competencies">
-                                <field name="competencies" string="Competencies &amp; Topics" />
-                            </group>
-                            <group name="interests" attrs="{'invisible':[('is_company', '=', True)]}">
-                                <field name="interests" />
-                            </group>
-                        </group>
-
                         <group name="note">
                             <field name="note" />
                         </group>
@@ -238,7 +229,7 @@
                                     <field name="partner_id"
                                         domain="[('is_company','=', is_company),('identifier','!=',0)]"
                                         readonly="1"
-                                        on_change="onchange_partner_id(is_company,request_type, partner_id, technical_name)" />
+                                        on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name, context)" />
                                     <field name="birth_date" attrs="{'invisible':[('is_company', '=', True)]}" readonly="1"/>
                                     <field name="age" attrs="{'invisible': ['|',('birth_date', '=', False),('is_company', '=', True)]}" />
                                     <field name="int_instance_id" readonly="1" />
