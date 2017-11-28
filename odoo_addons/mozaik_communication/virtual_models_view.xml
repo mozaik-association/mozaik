@@ -81,7 +81,6 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
@@ -204,7 +203,6 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
@@ -328,7 +326,6 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <field name="email_category_id" />
                     <field name="postal_category_id" />
@@ -614,7 +611,6 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Candidature"
                         domain="[('model','=','sta.candidature')]" />
@@ -738,7 +734,6 @@
                     <field name="int_power_level_id" string="Internal Power Level" />
 
                     <field name="competencies_m2m_ids" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Assembly"
                         domain="[('model','=','sta.assembly')]" />
@@ -852,7 +847,6 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Mandate"
                         domain="[('sta_mandate_id','!=',False)]" />
@@ -978,7 +972,6 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
@@ -1114,7 +1107,6 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />

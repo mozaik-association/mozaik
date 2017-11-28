@@ -134,11 +134,6 @@ class virtual_partner_involvement(orm.Model):
         'email_vip': fields.boolean('Email VIP'),
         'email_unauthorized': fields.boolean('Email Unauthorized'),
 
-        'category_id': fields.related(
-            'partner_id', 'category_id', type='many2many',
-            obj='res.partner.category',
-            rel='res_partner_res_partner_category_rel', id1='partner_id',
-            id2='category_id', string='Tags'),
         'competencies_m2m_ids': fields.related(
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term', rel='res_partner_term_competencies_rel',
@@ -236,11 +231,6 @@ class virtual_partner_relation(orm.Model):
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
 
-        'category_id': fields.related(
-            'partner_id', 'category_id', type='many2many',
-            obj='res.partner.category',
-            rel='res_partner_res_partner_category_rel',
-            id1='partner_id', id2='category_id', string='Tags'),
         'competencies_m2m_ids': fields.related(
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term',
@@ -389,11 +379,6 @@ class virtual_partner_instance(orm.Model):
         'main_email': fields.boolean('Main Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
-        'category_id': fields.related(
-            'partner_id', 'category_id', type='many2many',
-            obj='res.partner.category',
-            rel='res_partner_res_partner_category_rel',
-            id1='partner_id', id2='category_id', string='Tags'),
         'competencies_m2m_ids': fields.related(
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term',
@@ -724,11 +709,6 @@ class virtual_partner_candidature(orm.Model):
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
-        'category_id': fields.related(
-            'partner_id', 'category_id', type='many2many',
-            obj='res.partner.category',
-            rel='res_partner_res_partner_category_rel',
-            id1='partner_id', id2='category_id', string='Tags'),
         'competencies_m2m_ids': fields.related(
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term',
@@ -861,11 +841,6 @@ class virtual_assembly_instance(orm.Model):
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
-        'category_id': fields.related(
-            'partner_id', 'category_id', type='many2many',
-            obj='res.partner.category',
-            rel='res_partner_res_partner_category_rel',
-            id1='partner_id', id2='category_id', string='Tags'),
         'competencies_m2m_ids': fields.related(
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term',
@@ -1031,11 +1006,6 @@ class virtual_partner_retrocession(orm.Model):
             'email_coordinate_id', 'unauthorized', string='Unauthorized Email',
             type='boolean', relation='email.coordinate'),
 
-        'category_id': fields.related(
-            'partner_id', 'category_id', type='many2many',
-            obj='res.partner.category',
-            rel='res_partner_res_partner_category_rel',
-            id1='partner_id', id2='category_id', string='Tags'),
         'competencies_m2m_ids': fields.related(
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term',
@@ -1237,11 +1207,6 @@ class virtual_partner_membership(orm.Model):
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
-        'category_id': fields.related(
-            'partner_id', 'category_id', type='many2many',
-            obj='res.partner.category',
-            rel='res_partner_res_partner_category_rel', id1='partner_id',
-            id2='category_id', string='Tags'),
         'competencies_m2m_ids': fields.related(
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term', rel='res_partner_term_competencies_rel',
@@ -1339,11 +1304,6 @@ class virtual_partner_event(orm.Model):
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
-        'category_id': fields.related(
-            'partner_id', 'category_id', type='many2many',
-            obj='res.partner.category',
-            rel='res_partner_res_partner_category_rel', id1='partner_id',
-            id2='category_id', string='Tags'),
         'competencies_m2m_ids': fields.related(
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term', rel='res_partner_term_competencies_rel',
