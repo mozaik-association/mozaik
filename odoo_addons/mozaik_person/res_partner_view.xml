@@ -172,8 +172,6 @@
                     </div>
                 </xpath>
 
-                <xpath expr="//field[@name='category_id']" position="replace"/>
-
                 <xpath expr="//div[@name='buttons']" position="after">
                     <group name="firstlast" attrs="{'invisible': [('is_company', '=', True)]}">
                         <group name="official">
@@ -267,8 +265,6 @@
                         <field name="competencies_m2m_ids"/>
                         <separator string="Interests" attrs="{'invisible': [('is_company','=',True)]}" />
                         <field name="interests_m2m_ids" attrs="{'invisible': [('is_company','=',True)]}"/>
-                        <separator string="Tags" />
-                        <field name="category_id" />
                     </page>
                     <page name="involvement" string="Involvements" invisible="context.get('popup')" attrs="{'invisible': [('is_assembly','=',True)]}">
                         <span class="oe_horizontal_separator oe_clear oe_inline">
