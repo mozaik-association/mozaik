@@ -37,8 +37,9 @@ class AbstractTermFinder(models.AbstractModel):
         if self._terms:
             args = [[
                 arg[0], 'in', self.pool['thesaurus.term'].browse(
-                    cr, user, arg[2], context=context).get_children_term()
+                    cr, user, arg[2], context=context).get_children_term().ids
                 ] if hasattr(arg, '__iter__') and arg[0] in self._terms and
+                arg[1] == '=' and
                 isinstance(arg[2], int) else arg for arg in args
             ]
         return super(AbstractTermFinder, self).search(

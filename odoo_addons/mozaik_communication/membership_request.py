@@ -27,43 +27,45 @@ from openerp.addons.mozaik_membership import membership_request
 
 
 MEMBERSHIP_REQUEST_TYPE = membership_request.MEMBERSHIP_REQUEST_TYPE.append(
-    ('n', 'Newsletter'))
+    ('n', 'Other'))
 
 
 class MembershipRequest(models.Model):
     _name = 'membership.request'
     _inherit = ['membership.request']
 
+    @api.model
     def _get_status_values(self, request_type):
         vals = super(MembershipRequest, self)._get_status_values(request_type)
         if request_type == 'n':
-            vals.pop('accepted_date')
+            vals.pop('accepted_date', None)
         return vals
 
-    distribution_list_id = fields.Many2one(comodel_name='distribution.list',
-                                           string='Distribution List',
-                                           domain=[('newsletter', '=', True)]
-                                           )
+    distribution_list_ids = fields.Many2many(
+        comodel_name='distribution.list',
+        relation='membership_request_distribution_list_rel',
+        column1='request_id', column2='list_id',
+        string='Newsletters',
+        domain=[('newsletter', '=', True)],
+    )
+
     request_type = fields.Selection(MEMBERSHIP_REQUEST_TYPE)
 
-    @api.one
+    @api.multi
     def validate_request(self):
+        self.ensure_one()
         super(MembershipRequest, self).validate_request()
-        if self.request_type == 'n':
-            vals = {}
-            if self.partner_id not in self.distribution_list_id.opt_in_ids:
-                vals['opt_in_ids'] = [(4, self.distribution_list_id.id)]
-            if self.partner_id in self.distribution_list_id.opt_out_ids:
-                vals['opt_out_ids'] = [(3, self.distribution_list_id.id)]
-            if vals:
-                self.partner_id.write(vals)
+        self.distribution_list_ids.write({
+            'opt_in_ids': [(4, self.partner_id.id)],
+            'opt_out_ids': [(3, self.partner_id.id)],
+        })
         return True
 
     def onchange_partner_id(self, cr, uid, ids,
                             is_company, request_type, partner_id,
                             technical_name, context=None):
         """
-        Keep Newsletter as request type when the partner is a company
+        Keep Other as request type when the partner is a company
         """
         res = super(MembershipRequest, self).onchange_partner_id(
             cr, uid, ids,

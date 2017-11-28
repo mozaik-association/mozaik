@@ -68,12 +68,14 @@ class membership_request(orm.Model):
     _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
 
     @api.multi
-    @api.constrains('birth_date', 'age', 'state')
+    @api.constrains('birth_date', 'is_company', 'state')
     def _check_age(self):
         required_age = int(self.env['ir.config_parameter'].get_param(
             MR_REQUIRED_AGE_KEY, default=16))
-        if self.request_type and self.state == 'validate':
-            if self.birth_date and self.age < required_age:
+        for mr in self.filtered(
+                lambda s: not s.is_company and s.birth_date and
+                s.request_type and s.state == 'validate'):
+            if mr.age < required_age:
                 raise ValidationError(
                     _('The required age for a membership request is %s') %
                     required_age)
@@ -92,17 +94,18 @@ class membership_request(orm.Model):
             operator = '>'
         return [('birth_date', operator, computed_birth_date)]
 
-    @api.one
+    @api.multi
     @api.depends('is_company', 'birth_date')
     def _compute_age(self):
         """
         age computed depending of the birth date of the
         membership request
         """
-        if not self.is_company and self.birth_date:
-            self.age = get_age(self.birth_date)
-        else:
-            self.age = 0
+        for mr in self:
+            if not mr.is_company and mr.birth_date:
+                mr.age = get_age(mr.birth_date)
+            else:
+                mr.age = 0
 
     def _pop_related(self, cr, uid, vals, context=None):
         vals.pop('local_zip', None)
@@ -377,24 +380,6 @@ class membership_request(orm.Model):
                         'new_value': request_value,
                     }
                     chg_obj.create(cr, uid, vals, context=context)
-
-    def _get_status_values(self, request_type):
-        """
-        :type request_type: char
-        :param request_type: m or s for member or supporter.
-            `False` if not defined
-        :rtype: dict
-        :rparam: affected date resulting of the `request_type`
-            and the `status`
-        """
-        vals = {}
-        if request_type:
-            vals['accepted_date'] = date.today().strftime('%Y-%m-%d')
-            if request_type == 'm':
-                vals['free_member'] = False
-            elif request_type == 's':
-                vals['free_member'] = True
-        return vals
 
     _columns = {
         'identifier': fields.related('partner_id',
@@ -758,7 +743,7 @@ class membership_request(orm.Model):
             status_id = partner_obj.read(
                 cr, uid, partner_id, ['membership_state_id'],
                 context=context)['membership_state_id'][0]
-            vals = self._get_status_values(request_type)
+            vals = self._get_status_values(cr, uid, request_type)
             if vals:
                 with self.protect_v8_cache():
                     # safe mode is here mandatory
@@ -1173,7 +1158,7 @@ class membership_request(orm.Model):
 
             if not mr.is_company:
                 partner_values.update(
-                    self._get_status_values(mr.request_type))
+                    self._get_status_values(cr, uid, mr.request_type))
             if partner_values:
                 partner_obj.write(
                     cr, uid, [partner_id], partner_values, context=ctx)

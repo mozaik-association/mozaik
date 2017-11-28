@@ -187,12 +187,12 @@ class ThesaurusTerm(models.Model):
 
     @api.multi
     def get_children_term(self):
-        self.ensure_one()
-        children_terms = []
-        for t in self.children_m2m_ids:
-            children_terms += t.get_children_term()
-        children_terms.append(self.id)
-        return list(set(children_terms))
+        children = self.mapped('children_m2m_ids')
+        terms = self.env[self._name]
+        if children:
+            terms |= children.get_children_term()
+        terms |= self
+        return terms
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
