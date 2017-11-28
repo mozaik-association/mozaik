@@ -41,7 +41,7 @@ class test_membership_request(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_membership_request, self).setUp()
-        self.test_distribution_list_id = self.ref(
+        self.test_distribution_list_id = self.browse_ref(
             '%s.distribution_list_newsletter' % self._module_ns)
         self.paul = self.browse_ref(
             '%s.res_partner_paul' % self._module_ns)
@@ -53,14 +53,19 @@ class test_membership_request(SharedSetupTransactionCase):
             'firstname': 'Anonymous',
             'state': 'confirm',
             'request_type': 'n',
-            'distribution_list_id': self.test_distribution_list_id
+            'distribution_list_ids': [
+                (6, 0, [self.test_distribution_list_id.id])],
         }
         vals = mr_obj.pre_process(vals)
         mr1 = mr_obj.create(vals)
         mr1.validate_request()
         self.env.invalidate_all()
-        self.assertTrue(self.test_distribution_list_id
-                        in mr1.partner_id.opt_in_ids.ids)
+        self.assertIn(
+            self.test_distribution_list_id,
+            mr1.partner_id.opt_in_ids)
+        self.assertNotIn(
+            self.test_distribution_list_id,
+            mr1.partner_id.opt_out_ids)
 
     def test_newsletter_from_opt_out_to_opt_in(self):
         mr_obj = self.env['membership.request']
@@ -69,14 +74,17 @@ class test_membership_request(SharedSetupTransactionCase):
             'firstname': self.paul.firstname,
             'state': 'confirm',
             'request_type': 'n',
-            'distribution_list_id': self.test_distribution_list_id,
+            'distribution_list_ids': [
+                (6, 0, [self.test_distribution_list_id.id])],
             'partner_id': self.paul.id,
         }
         vals = mr_obj.pre_process(vals)
         mr1 = mr_obj.create(vals)
         mr1.validate_request()
         self.env.invalidate_all()
-        self.assertTrue(self.test_distribution_list_id
-                        in mr1.partner_id.opt_in_ids.ids)
-        self.assertTrue(self.test_distribution_list_id
-                        not in mr1.partner_id.opt_out_ids.ids)
+        self.assertIn(
+            self.test_distribution_list_id,
+            mr1.partner_id.opt_in_ids)
+        self.assertNotIn(
+            self.test_distribution_list_id,
+            mr1.partner_id.opt_out_ids)

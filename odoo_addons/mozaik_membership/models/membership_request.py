@@ -9,6 +9,25 @@ class MembershipRequest(models.Model):
 
     _inherit = 'membership.request'
 
+    @api.model
+    def _get_status_values(self, request_type):
+        """
+        :type request_type: char
+        :param request_type: m or s for member or supporter.
+            `False` if not defined
+        :rtype: dict
+        :rparam: affected date resulting of the `request_type`
+            and the `status`
+        """
+        vals = {}
+        if request_type:
+            vals['accepted_date'] = fields.Date.today()
+            if request_type == 'm':
+                vals['free_member'] = False
+            elif request_type == 's':
+                vals['free_member'] = True
+        return vals
+
     involvement_category_ids = fields.Many2many(
         'partner.involvement.category',
         relation='membership_request_involvement_category_rel',

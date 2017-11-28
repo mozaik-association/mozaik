@@ -1,13 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data>
+
         <record id="membership_request_search_view" model="ir.ui.view">
             <field name="name">membership.request.search (mozaik_communication)</field>
             <field name="model">membership.request</field>
             <field name="inherit_id" ref="mozaik_membership.membership_request_search_view" />
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='supporter']" position="after">
-                    <filter name="newsletter" string="Newsletter"
+                    <filter name="other" string="Other"
                         domain="[('request_type', '=', 'n')]" />
                 </xpath>
             </field>
@@ -19,11 +20,10 @@
             <field name="inherit_id" ref="mozaik_membership.membership_request_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='request_type']" position="after">
-                    <field name="distribution_list_id" 
-                           attrs="{'invisible': [('request_type', '!=', 'n')],
-                                   'required': [('request_type', '=', 'n')]}"/>
+                    <field name="distribution_list_ids" widget="many2many_tags" />
                 </xpath>
             </field>
         </record>
+
     </data>
 </openerp>
