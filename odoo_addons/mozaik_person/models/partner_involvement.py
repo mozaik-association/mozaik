@@ -7,6 +7,12 @@ import logging
 from openerp import api, fields, models, _
 from openerp.exceptions import ValidationError
 
+CATEGORY_TYPE = [
+    ('petition', 'Petition'),
+    ('donation', 'Donations Campaign'),
+    ('voluntary', 'Voluntary Work'),
+]
+
 _logger = logging.getLogger(__name__)
 
 
@@ -26,11 +32,21 @@ class PartnerInvolvementCategory(models.Model):
     code = fields.Char(copy=False,
                        track_visibility='onchange')
     note = fields.Text(string='Notes', track_visibility='onchange')
+    involvement_type = fields.Selection(
+        selection=CATEGORY_TYPE, index=True, string='Type')
+
     res_users_ids = fields.Many2many(
-        'res.users', relation='involvement_category_res_users_rel',
+        comodel_name='res.users',
+        relation='involvement_category_res_users_rel',
         column1='category_id', column2='user_id',
         string='Owners', required=True, copy=False,
         default=lambda s: s._default_res_users_ids())
+    interests_m2m_ids = fields.Many2many(
+        comodel_name='thesaurus.term',
+        relation='involvement_category_term_interests_rel',
+        column1='category_id', column2='term_id',
+        string='Interests',
+    )
 
     _unicity_keys = 'name'
 
@@ -77,14 +93,33 @@ class PartnerInvolvement(models.Model):
     partner_id = fields.Many2one(
         'res.partner', string='Partner',
         required=True, index=True, track_visibility='onchange')
-    partner_involvement_category_id = fields.Many2one(
+    involvement_category_id = fields.Many2one(
         'partner.involvement.category', string='Involvement Category',
+        oldname='partner_involvement_category_id',
         required=True, index=True, track_visibility='onchange')
     note = fields.Text(string='Notes', track_visibility='onchange')
-    code = fields.Char(related='partner_involvement_category_id.code')
+    involvement_type = fields.Selection(
+        related='involvement_category_id.involvement_type',
+        store=True, index=True)
 
-    _rec_name = 'partner_involvement_category_id'
-    _unicity_keys = 'partner_id, partner_involvement_category_id'
+    _rec_name = 'involvement_category_id'
+    _unicity_keys = 'partner_id, involvement_category_id'
+
+    @api.model
+    @api.returns('self', lambda value: value.id)
+    def create(self, vals):
+        '''
+        Add interests to partner when creating an involvement
+        '''
+        res = super(PartnerInvolvement, self).create(vals)
+        terms = res.involvement_category_id.interests_m2m_ids
+        if terms:
+            interests = [
+                (4, term.id) for term in terms
+            ]
+            res.partner_id.suspend_security().write(
+                {'interests_m2m_ids': interests})
+        return res
 
     @api.multi
     def copy(self, default=None):

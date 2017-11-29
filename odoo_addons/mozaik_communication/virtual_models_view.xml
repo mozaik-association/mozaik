@@ -78,6 +78,7 @@
                     <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
                     <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="involvement_category_id" />
+                    <field name="involvement_type"/>
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
@@ -121,6 +122,7 @@
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
                         <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
                         <filter name="involvement_category" string="Involvement Category" context="{'group_by':'involvement_category_id'}" />
+                        <filter name="involvement_type" string="Involvement Type" context="{'group_by': 'involvement_type'}"/>
                     </group>
                 </search>
             </field>
@@ -135,6 +137,7 @@
                     <field name="int_instance_id" />
 
                     <field name="involvement_category_id" />
+                    <field name="involvement_type"/>
 
                     <field name="birth_date" />
                     <field name="gender" />

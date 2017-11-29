@@ -38,7 +38,7 @@ class ResPartner(models.Model):
 
             state_id = self.membership_state_id.id or False
             categories = self.partner_involvement_ids.mapped(
-                'partner_involvement_category_id').filtered(lambda s: s.code)
+                'involvement_category_id').filtered(lambda s: s.code)
             competencies = self.competencies_m2m_ids
             values = {
                 'membership_state_id': state_id,

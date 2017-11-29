@@ -27,10 +27,12 @@ from openerp.osv import orm, fields
 
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_TONGUES
-from openerp.addons.mozaik_retrocession.retrocession import \
-    RETROCESSION_AVAILABLE_STATES
-from openerp.addons.mozaik_mandate.mandate import \
-    mandate_category_available_types
+from openerp.addons.mozaik_retrocession.retrocession \
+    import RETROCESSION_AVAILABLE_STATES
+from openerp.addons.mozaik_person.models.partner_involvement \
+    import CATEGORY_TYPE
+from openerp.addons.mozaik_mandate.mandate \
+    import mandate_category_available_types
 from lxml import etree
 
 
@@ -120,6 +122,7 @@ class virtual_partner_involvement(orm.Model):
 
         'involvement_category_id': fields.many2one(
             'partner.involvement.category', 'Involvement Category'),
+        'involvement_type': fields.selection(CATEGORY_TYPE, 'Involvement Type'),
 
         'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number', group_operator='min'),
@@ -157,6 +160,7 @@ class virtual_partner_involvement(orm.Model):
             concat(pi.partner_id, '/', pc.id, '/', e.id) as common_id,
             pi.partner_id as partner_id,
             pic.id as involvement_category_id,
+            pic.involvement_type as involvement_type,
             p.int_instance_id as int_instance_id,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
@@ -183,7 +187,7 @@ class virtual_partner_involvement(orm.Model):
             AND p.identifier > 0)
 
         JOIN partner_involvement_category AS pic
-            ON (pic.id = pi.partner_involvement_category_id
+            ON (pic.id = pi.involvement_category_id
             AND pic.active = TRUE)
 
         LEFT OUTER JOIN postal_coordinate AS pc

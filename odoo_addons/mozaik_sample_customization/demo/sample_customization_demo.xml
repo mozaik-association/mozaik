@@ -286,13 +286,13 @@
 
         <record id="involvement_jacques" model="partner.involvement">
             <field name="partner_id" ref="res_partner_jacques"/>
-            <field name="partner_involvement_category_id" ref="involvement_category"/>
+            <field name="involvement_category_id" ref="involvement_category"/>
             <field name="note">Orateur - Présentation: L'écologie de demain</field>
         </record>
 
         <record id="involvement_nouvelobs" model="partner.involvement">
             <field name="partner_id" ref="res_partner_nouvelobs"/>
-            <field name="partner_involvement_category_id" ref="involvement_category"/>
+            <field name="involvement_category_id" ref="involvement_category"/>
         </record>
 
         <record id="involvement_category_tb2017" model="partner.involvement.category">
