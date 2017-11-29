@@ -31,13 +31,13 @@ class TestInvolvement(TransactionCase):
         self.assertEqual('Mars', partner.partner_involvement_ids.code)
         self.assertEqual(
             cat,
-            partner.partner_involvement_ids.partner_involvement_category_id)
+            partner.partner_involvement_ids.involvement_category_id)
         # make another membership request
         mrid = partner.button_modification_request()['res_id']
         mr = self.env['membership.request'].browse(mrid)
         # involvement categories are initialized with those of the partner
         self.assertEqual(
-            partner.partner_involvement_ids.partner_involvement_category_id,
+            partner.partner_involvement_ids.involvement_category_id,
             mr.involvement_category_ids)
         # create an involvement category
         cat = self.env['partner.involvement.category'].create({
@@ -53,6 +53,5 @@ class TestInvolvement(TransactionCase):
         codes.sort()
         self.assertEqual(['Mars', 'Venus'], codes)
         self.assertEqual(
-            partner.partner_involvement_ids.mapped(
-                'partner_involvement_category_id'),
+            partner.partner_involvement_ids.mapped('involvement_category_id'),
             mr.involvement_category_ids)

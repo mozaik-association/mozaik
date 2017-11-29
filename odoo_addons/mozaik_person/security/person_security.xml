@@ -36,7 +36,7 @@
         <record id="partner_involvement_base_cud_user_rule" model="ir.rule">
             <field name="name">Partner Involvement (CUD) for Mozaik User</field>
             <field name="model_id" ref="mozaik_person.model_partner_involvement" />
-            <field name="domain_force">[('partner_involvement_category_id.res_users_ids', 'in', [user.id])]</field>
+            <field name="domain_force">[('involvement_category_id.res_users_ids', 'in', [user.id])]</field>
             <field name="groups" eval="[(6, 0, [
                 ref('mozaik_base.mozaik_res_groups_user'),
             ])]"/>

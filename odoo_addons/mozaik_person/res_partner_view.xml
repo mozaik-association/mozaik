@@ -278,14 +278,16 @@
                         <field name="partner_involvement_ids" context="{'default_partner_id': active_id}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
-                                <field name="partner_involvement_category_id" />
-                                <field name="code" />
+                                <field name="involvement_category_id" />
+                                <field name="involvement_type" />
+                                <field name="create_date" />
                             </tree>
                         </field>
                         <field name="partner_involvement_inactive_ids" context="{'default_partner_id': active_id}"
                                readonly="1" attrs="{'invisible': [('active','=',True)]}">
                             <tree>
-                                <field name="partner_involvement_category_id" />
+                                <field name="involvement_category_id" />
+                                <field name="involvement_type" />
                             </tree>
                         </field>
                     </page>

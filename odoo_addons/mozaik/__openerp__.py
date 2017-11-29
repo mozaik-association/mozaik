@@ -34,6 +34,7 @@
         'mozaik_help',
         'mozaik_mobile',
         'mozaik_portal',
+        'mozaik_person',
     ],
     'description': """
 MOZAIK

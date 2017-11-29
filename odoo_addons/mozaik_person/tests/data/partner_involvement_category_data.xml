@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="partner_involvement_category_euro2000" model="partner.involvement.category">
+            <field name="name">Organisation Euro 2000</field>
+            <field name="code">EUR2000</field>
+            <field name="involvement_type">voluntary</field>
+            <field name="interests_m2m_ids" eval="[(4, ref('term_confirmed_one'))]"/>
+        </record>
+
+    </data>
+</openerp>

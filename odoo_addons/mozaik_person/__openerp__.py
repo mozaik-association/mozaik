@@ -9,6 +9,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'base_suspend_security',
         'mozaik_duplicate',
         'mozaik_thesaurus',
         'mozaik_partner_assembly',

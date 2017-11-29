@@ -44,7 +44,7 @@ class MembershipRequest(models.Model):
         self.ensure_one()
         res = super(MembershipRequest, self).validate_request()
         current_categories = self.partner_id.partner_involvement_ids.mapped(
-            'partner_involvement_category_id')
+            'involvement_category_id')
         new_categories = [
             ic.id
             for ic in self.involvement_category_ids
@@ -52,6 +52,6 @@ class MembershipRequest(models.Model):
         ]
         vals = {'partner_id': self.partner_id.id}
         for ic_id in new_categories:
-            vals['partner_involvement_category_id'] = ic_id
+            vals['involvement_category_id'] = ic_id
             self.env['partner.involvement'].create(vals)
         return res
