@@ -28,7 +28,9 @@ class TestInvolvement(TransactionCase):
         mr.validate_request()
         partner = mr.partner_id
         # an involvement related to the choosen category is created
-        self.assertEqual('Mars', partner.partner_involvement_ids.code)
+        self.assertEqual(
+            'Mars',
+            partner.partner_involvement_ids.involvement_category_id.code)
         self.assertEqual(
             cat,
             partner.partner_involvement_ids.involvement_category_id)
@@ -49,7 +51,8 @@ class TestInvolvement(TransactionCase):
         # validate the request
         mr.validate_request()
         # partner has now 2 involvements
-        codes = partner.partner_involvement_ids.mapped('code')
+        codes = partner.partner_involvement_ids.mapped(
+            'involvement_category_id.code')
         codes.sort()
         self.assertEqual(['Mars', 'Venus'], codes)
         self.assertEqual(
