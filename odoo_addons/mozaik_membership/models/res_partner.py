@@ -4,7 +4,7 @@
 
 import logging
 
-from openerp import api, models
+from openerp import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -13,11 +13,14 @@ class ResPartner(models.Model):
 
     _inherit = 'res.partner'
 
+    local_voluntary = fields.Boolean(track_visibility='onchange')
+    regional_voluntary = fields.Boolean(track_visibility='onchange')
+    national_voluntary = fields.Boolean(track_visibility='onchange')
+
     @api.multi
     def button_modification_request(self):
         """
-        Create a `membership.request` based on current partner and
-        open its form
+        Create a `membership.request` from a partner
         """
         self.ensure_one()
         membership_request = self.env['membership.request']
@@ -74,6 +77,9 @@ class ResPartner(models.Model):
                 'interests_m2m_ids': [(6, 0, self.interests_m2m_ids.ids)],
                 'competencies_m2m_ids': [(6, 0, competencies.ids)],
                 'involvement_category_ids': [(6, 0, categories.ids)],
+                'local_voluntary': self.local_voluntary,
+                'regional_voluntary': self.regional_voluntary,
+                'national_voluntary': self.national_voluntary,
             }
             # create mr in sudo mode for portal user allowing to avoid create
             # rights on this model for these users

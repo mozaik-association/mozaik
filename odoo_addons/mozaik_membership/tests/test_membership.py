@@ -180,6 +180,8 @@ class test_membership(SharedSetupTransactionCase):
             'phone': '444719',
             'number': '007',
             'box': 'jb',
+            'regional_voluntary': True,
+            'national_voluntary': False,
         }
         vals.update(self.mro.onchange_other_address_componants(
             cr, uid, False,
@@ -239,6 +241,9 @@ class test_membership(SharedSetupTransactionCase):
         # test that we have as well a phone.coordinate
         self.assertEqual(len(phone_coordinate_ids), 1,
                          "Should have one and only one phone_coordinate_id id")
+        partner = partner_obj.browse(cr, uid, created_partner_id)
+        self.assertEqual(partner.regional_voluntary, True)
+        self.assertEqual(partner.national_voluntary, False)
 
     def test_state_default_get(self):
         """

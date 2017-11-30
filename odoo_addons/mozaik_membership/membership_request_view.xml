@@ -4,7 +4,6 @@
 
         <!-- Membership Request -->
 
-        <!-- SEARCH -->
         <record id="membership_request_search_view" model="ir.ui.view">
             <field name="name">membership.request.search</field>
             <field name="model">membership.request</field>
@@ -41,6 +40,16 @@
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False, 'active_test': False}"
                         domain="[]" help="All Requests, expired or not" />
+                    <separator/>
+                    <filter string="Local Voluntary"
+                        name="local_voluntary"
+                        domain="[('local_voluntary','=', True)]" />
+                    <filter string="Regional Voluntary"
+                        name="regional_voluntary"
+                        domain="[('regional_voluntary','=', True)]" />
+                    <filter string="National Voluntary"
+                        name="national_voluntary"
+                        domain="[('national_voluntary','=', True)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="instance" string="Instance" domain="[]"
@@ -52,7 +61,6 @@
             </field>
         </record>
 
-        <!-- TREE -->
         <record id="membership_request_tree_view" model="ir.ui.view">
             <field name="name">membership.request.tree</field>
             <field name="model">membership.request</field>
@@ -72,7 +80,6 @@
             </field>
         </record>
 
-        <!-- FORM -->
         <record id="membership_request_form_view" model="ir.ui.view">
             <field name="name">membership.request.form</field>
             <field name="model">membership.request</field>
@@ -237,18 +244,26 @@
                                     <field name="replace_coordinates"/>
                                 </group>
                             </page>
-                            <page string="Indexation" name="indexation" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
-                                <separator string="Competencies &amp; Topics" />
-                                <field name="competencies_m2m_ids"/>
-                                <separator string="Interests" attrs="{'invisible':[('is_company', '=', True)]}"/>
-                                <field name="interests_m2m_ids" attrs="{'invisible':[('is_company', '=', True)]}"/>
-                                <separator string="Involvements" attrs="{'invisible':[('is_company', '=', True)]}"/>
+                            <page string="Involvements" name="involvement" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
+                                <separator string="Voluntary" attrs="{'invisible': [('is_company', '=', True)]}" />
+                                <group name="voluntary" attrs="{'invisible': [('is_company', '=', True)]}">
+                                    <field name="local_voluntary"/>
+                                    <field name="regional_voluntary"/>
+                                    <field name="national_voluntary"/>
+                                </group>
+                                <separator string="Involvements" />
                                 <field name="involvement_category_ids">
                                     <tree>
                                         <field name="name" />
                                         <field name="code" />
                                     </tree>
                                 </field>
+                            </page>
+                            <page string="Indexation" name="indexation" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
+                                <separator string="Competencies &amp; Topics" />
+                                <field name="competencies_m2m_ids"/>
+                                <separator string="Interests" attrs="{'invisible':[('is_company', '=', True)]}"/>
+                                <field name="interests_m2m_ids" attrs="{'invisible':[('is_company', '=', True)]}"/>
                             </page>
                             <page string="Coordinates" name="coordinates" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
                                 <group>

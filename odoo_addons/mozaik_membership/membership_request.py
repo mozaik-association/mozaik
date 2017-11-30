@@ -1133,6 +1133,9 @@ class membership_request(orm.Model):
                 'competencies_m2m_ids': [[6, False, new_competencies_ids]],
                 'interests_m2m_ids': [[6, False, new_interests_ids]],
                 'comment': notes and '\n'.join(notes) or False,
+                'local_voluntary': mr.local_voluntary,
+                'regional_voluntary': mr.regional_voluntary,
+                'national_voluntary': mr.national_voluntary,
             })
 
             # update_partner values

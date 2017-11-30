@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from . import distribution_list
 from . import virtual_models
 from . import wizard

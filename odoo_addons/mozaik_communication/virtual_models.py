@@ -29,8 +29,6 @@ from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_TONGUES
 from openerp.addons.mozaik_retrocession.retrocession \
     import RETROCESSION_AVAILABLE_STATES
-from openerp.addons.mozaik_person.models.partner_involvement \
-    import CATEGORY_TYPE
 from openerp.addons.mozaik_mandate.mandate \
     import mandate_category_available_types
 from lxml import etree
@@ -122,7 +120,6 @@ class virtual_partner_involvement(orm.Model):
 
         'involvement_category_id': fields.many2one(
             'partner.involvement.category', 'Involvement Category'),
-        'involvement_type': fields.selection(CATEGORY_TYPE, 'Involvement Type'),
 
         'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number', group_operator='min'),
@@ -162,6 +159,9 @@ class virtual_partner_involvement(orm.Model):
             pic.id as involvement_category_id,
             pic.involvement_type as involvement_type,
             p.int_instance_id as int_instance_id,
+            p.local_voluntary,
+            p.regional_voluntary,
+            p.national_voluntary,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             p.is_company as is_company,
@@ -419,6 +419,9 @@ class virtual_partner_instance(orm.Model):
                 p.gender as gender,
                 p.tongue as tongue,
                 p.employee as employee,
+                p.local_voluntary,
+                p.regional_voluntary,
+                p.national_voluntary,
                 pc.unauthorized as postal_unauthorized,
                 pc.vip as postal_vip,
                 pc.is_main as main_postal,

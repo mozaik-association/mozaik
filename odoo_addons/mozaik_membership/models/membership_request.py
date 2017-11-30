@@ -28,6 +28,10 @@ class MembershipRequest(models.Model):
                 vals['free_member'] = True
         return vals
 
+    local_voluntary = fields.Boolean(track_visibility='onchange')
+    regional_voluntary = fields.Boolean(track_visibility='onchange')
+    national_voluntary = fields.Boolean(track_visibility='onchange')
+
     involvement_category_ids = fields.Many2many(
         'partner.involvement.category',
         relation='membership_request_involvement_category_rel',

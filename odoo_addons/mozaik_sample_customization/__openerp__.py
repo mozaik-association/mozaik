@@ -63,7 +63,6 @@ MOZAIK Sample Customization
         'demo/company_demo.xml',
         'demo/users_demo.xml',
         'demo/sample_customization_demo.xml',
-        'demo/res_lang_install.xml',
     ],
     'qweb': [
     ],

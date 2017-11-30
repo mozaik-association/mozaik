@@ -26,6 +26,19 @@
                         filter_domain="[('del_mem_card_date','&lt;',self)]"
                         invisible="'default_is_company' not in context or context.get('default_is_company')" />
 
+                    <filter string="Local Voluntary"
+                        name="local_voluntary"
+                        domain="[('local_voluntary','=', True)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <filter string="Regional Voluntary"
+                        name="regional_voluntary"
+                        domain="[('regional_voluntary','=', True)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <filter string="National Voluntary"
+                        name="national_voluntary"
+                        domain="[('national_voluntary','=', True)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <separator/>
                     <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
                         domain="[('del_doc_date','=', False),
@@ -104,6 +117,7 @@
                         </span>
                     </span>
                 </xpath>
+
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="kind" />
                     <field name="free_member" />
@@ -133,6 +147,17 @@
                             type="object" confirm="Invalidate contact: proceed anyway?"
                             attrs="{'invisible': [('kind', '!=', 'p')]}"
                             invisible="context.get('in_mozaik_officer') or not context.get('in_mozaik_user')"/>
+                </xpath>
+
+                <xpath expr="//page[@name='involvement']/span[1]" position="before">
+                    <span class="oe_horizontal_separator oe_clear oe_inline" attrs="{'invisible': [('is_company', '=', True)]}">
+                        Voluntary
+                    </span>
+                    <group name="voluntary" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="local_voluntary"/>
+                        <field name="regional_voluntary"/>
+                        <field name="national_voluntary"/>
+                    </group>
                 </xpath>
 
             </field>
