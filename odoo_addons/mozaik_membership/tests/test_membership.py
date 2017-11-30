@@ -163,6 +163,7 @@ class test_membership(SharedSetupTransactionCase):
         ** firstname
         ** email
         ** mobile
+        ** regional_voluntary, national_voluntary
         ** not loss of original birthdate (mr do never reset fields)
         * Test the validate process with a create and check that
             relations are created
@@ -174,6 +175,10 @@ class test_membership(SharedSetupTransactionCase):
         partner = mr.partner_id
         postal = partner.postal_coordinate_id
         fix = partner.fix_coordinate_id
+        partner.write({
+            'regional_voluntary': False,
+            'national_voluntary': True,
+        })
 
         # change fix & address
         vals = {
@@ -207,6 +212,8 @@ class test_membership(SharedSetupTransactionCase):
             mr.force_int_instance_id.id, partner.int_instance_id.id)
         self.assertFalse(postal.active)
         self.assertFalse(fix.active)
+        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.national_voluntary)
 
         # validation to create
         self.mro.write(
@@ -241,9 +248,6 @@ class test_membership(SharedSetupTransactionCase):
         # test that we have as well a phone.coordinate
         self.assertEqual(len(phone_coordinate_ids), 1,
                          "Should have one and only one phone_coordinate_id id")
-        partner = partner_obj.browse(cr, uid, created_partner_id)
-        self.assertEqual(partner.regional_voluntary, True)
-        self.assertEqual(partner.national_voluntary, False)
 
     def test_state_default_get(self):
         """

@@ -617,6 +617,7 @@ class membership_request(orm.Model):
             * membership_state_id
             * interests_m2m_ids
             * competencies_m2m_ids
+            * voluntaries
         of ``partner_id``
         And set corresponding fields into the ``membership.request``
 
@@ -648,6 +649,11 @@ class membership_request(orm.Model):
 
             if technical_name == EMPTY_ADDRESS:
                 res['int_instance_id'] = partner.int_instance_id.id
+
+            res['local_voluntary'] = partner.local_voluntary
+            res['regional_voluntary'] = partner.regional_voluntary
+            res['national_voluntary'] = partner.national_voluntary
+
         else:
             partner_status_id = self.pool['membership.state'].\
                 _state_default_get(cr, uid, context=context)
@@ -659,6 +665,9 @@ class membership_request(orm.Model):
         elif request_type:
             res.update({
                 'request_type': False,
+                'local_voluntary': False,
+                'regional_voluntary': False,
+                'national_voluntary': False,
             })
 
         res.update({
