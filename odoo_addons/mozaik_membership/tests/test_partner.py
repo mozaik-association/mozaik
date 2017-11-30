@@ -327,6 +327,7 @@ class test_partner(SharedSetupTransactionCase):
         """
         mr_obj, partner, cr, uid, context = self.mr_obj,\
             self.partner1, self.cr, self.uid, {}
+        partner.regional_voluntary = True
         res = self.partner_obj.button_modification_request(cr, uid,
                                                            [partner.id],
                                                            context=context)
@@ -447,6 +448,9 @@ class test_partner(SharedSetupTransactionCase):
                             partner.competencies_m2m_ids] or []]],
                          '[memb.req.]competencies_m2m_ids should be the same \
                          that [partner]competencies_m2m_ids ')
+        self.assertEqual(mr.local_voluntary, partner.local_voluntary)
+        self.assertEqual(mr.regional_voluntary, True)
+        self.assertEqual(mr.national_voluntary, partner.national_voluntary)
 
     def test_update_membership_line(self):
         """

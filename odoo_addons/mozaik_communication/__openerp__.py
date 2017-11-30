@@ -51,7 +51,6 @@ MOZAIK Communication
     'data': [
         'security/ir.model.access.csv',
         'security/communication_security.xml',
-        'views/mail_mail_statistics_view.xml',
         'wizard/distribution_list_mass_function_view.xml',
         'wizard/add_registrations_view.xml',
         'wizard/distribution_list_add_filter_view.xml',
@@ -60,11 +59,12 @@ MOZAIK Communication
         'postal_mail_view.xml',
         'res_partner_view.xml',
         'communication_view.xml',
-        'virtual_models_view.xml',
         'mass_mailing_view.xml',
         'email_template_view.xml',
         'event_view.xml',
         'membership_request_view.xml',
+        'views/mail_mail_statistics_view.xml',
+        'views/virtual_models_view.xml',
     ],
     'qweb': [
     ],

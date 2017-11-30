@@ -102,6 +102,16 @@
                         domain="[('employee','!=',0)]" />
                     <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
+                    <separator/>
+                    <filter string="Local Voluntary"
+                        name="local_voluntary"
+                        domain="[('local_voluntary','=', True)]" />
+                    <filter string="Regional Voluntary"
+                        name="regional_voluntary"
+                        domain="[('regional_voluntary','=', True)]" />
+                    <filter string="National Voluntary"
+                        name="national_voluntary"
+                        domain="[('national_voluntary','=', True)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
@@ -358,6 +368,16 @@
                         domain="[('employee','!=',0)]" />
                     <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
+                    <separator/>
+                    <filter string="Local Voluntary"
+                        name="local_voluntary"
+                        domain="[('local_voluntary','=', True)]" />
+                    <filter string="Regional Voluntary"
+                        name="regional_voluntary"
+                        domain="[('regional_voluntary','=', True)]" />
+                    <filter string="National Voluntary"
+                        name="national_voluntary"
+                        domain="[('national_voluntary','=', True)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
