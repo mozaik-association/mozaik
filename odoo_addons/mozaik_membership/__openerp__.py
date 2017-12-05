@@ -41,7 +41,6 @@ local zip, default instance otherwise. This field is added to all views
         'product_view.xml',
         'membership_view.xml',
         'address_local_zip_view.xml',
-        'res_partner_view.xml',
         'coordinate_view.xml',
         'partner_involvement_view.xml',
         'partner_relation_view.xml',
@@ -53,6 +52,7 @@ local zip, default instance otherwise. This field is added to all views
         'report/waiting_member_report_view.xml',
         'views/structure_view.xml',
         'views/membership_request_view.xml',
+        'views/res_partner_view.xml',
     ],
     'qweb': [
     ],

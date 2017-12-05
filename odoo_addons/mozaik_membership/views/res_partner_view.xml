@@ -258,7 +258,7 @@
                                     attrs="{'invisible': [('reference', '=', False)]}"
                                     readonly="1" />
                                 <field name="amount"
-                                    attrs="{'invisible': [('amount', '=', False)]}"/>
+                                    attrs="{'invisible': [('amount', '=', 0.0)]}"/>
                             </group>
                             <group name="membership_dates">
                                 <label for="del_doc_date" attrs="{'invisible': [('del_doc_date','=',False)]}"/>
