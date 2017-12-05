@@ -4,6 +4,8 @@
 
 from openerp import api, fields, models
 
+import openerp.addons.decimal_precision as dp
+
 
 class MembershipRequest(models.Model):
 
@@ -38,12 +40,15 @@ class MembershipRequest(models.Model):
         column1='request_id', column2='category_id',
         string='Involvement Categories')
 
+    amount = fields.Float(
+        digits=dp.get_precision('Product Price'), readonly=True)
+    reference = fields.Char(readonly=True)
+
     @api.multi
     def validate_request(self):
         """
-        First check if the relations are set. For those try to update
-        content
-        In Other cases then create missing required data
+        * create additional involvements
+        * for new member, if any, save also its reference0
         """
         self.ensure_one()
         res = super(MembershipRequest, self).validate_request()
@@ -58,4 +63,9 @@ class MembershipRequest(models.Model):
         for ic_id in new_categories:
             vals['involvement_category_id'] = ic_id
             self.env['partner.involvement'].create(vals)
+        if (self.membership_state_id.code == 'without_membership' and
+                self.partner_id.membership_state_code == 'member_candidate' and
+                self.amount > 0.0 and self.reference):
+            self.partner_id.reference = self.reference
+            self.partner_id.amount = self.amount
         return res

@@ -68,12 +68,9 @@ class account_bank_statement(orm.Model):
         if line_count > 0:
             # do not auto reconcile if reference has been used previously
             return
-        product_id, price, credit_account = bsl_obj.get_membership_prod_info(
-            cr,
-            uid,
-            bank_line.amount,
-            bank_line.partner_id.id,
-            reference,
+        partner_obj = self.pool.get('res.partner')
+        product_id, price, credit_account = partner_obj._get_membership_prod_info(
+            cr, uid, bank_line.partner_id.id, bank_line.amount, reference,
             context=context)
 
         if credit_account:
@@ -107,50 +104,6 @@ class account_bank_statement(orm.Model):
 
 class account_bank_statement_line(orm.Model):
     _inherit = 'account.bank.statement.line'
-
-    def _check_first_membership(self, cr, uid, partner_id, reference,
-                                context=None):
-        modeldata_obj = self.pool.get('ir.model.data')
-        partner_obj = self.pool.get('res.partner')
-        first_id = modeldata_obj.get_object_reference(
-            cr, uid, 'mozaik_membership', 'member_candidate')[1]
-
-        domain = [('id', '=', partner_id),
-                  ('reference', '=', reference),
-                  ('membership_state_id', '=', first_id)]
-
-        p_ids = partner_obj.search(cr, uid, domain, context=context)
-
-        return len(p_ids) == 1
-
-    def get_membership_prod_info(self, cr, uid,
-                                 amount, partner_id, reference, context=None):
-        prod_obj = self.pool.get('product.product')
-        modeldata_obj = self.pool.get('ir.model.data')
-        first_id = modeldata_obj.get_object_reference(
-            cr, uid, 'mozaik_membership', 'membership_product_first')[1]
-
-        domain = [('membership', '=', True),
-                  ('list_price', '>', 0)]
-
-        prod_ids = prod_obj.search(cr, uid, domain, context=context)
-
-        credit_account = False
-        product_id = False
-        price = False
-        for prod in prod_obj.browse(cr, uid, prod_ids, context=context):
-            if prod.list_price == amount:
-                if prod.id == first_id:
-                    if not self._check_first_membership(
-                            cr, uid, partner_id, reference,
-                            context=context):
-                        continue
-                credit_account = prod.property_subscription_account
-                product_id = prod.id
-                price = prod.list_price
-                break
-
-        return product_id, price, credit_account
 
     def process_reconciliation(self, cr, uid, line_id, mv_line_dicts,
                                context=None, prod_id=None, price=None):
@@ -193,12 +146,8 @@ class account_bank_statement_line(orm.Model):
 
         price = amount_paid
         if not prod_id:
-            res = self.get_membership_prod_info(cr,
-                                                uid,
-                                                amount_paid,
-                                                partner_id,
-                                                reference,
-                                                context=context)
+            res = partner_obj._get_membership_prod_info(
+                cr, uid, partner_id, amount_paid, reference, context=context)
             prod_id, price = res[0], res[1]
 
         if not prod_id:
@@ -233,6 +182,8 @@ class account_bank_statement_line(orm.Model):
                 subtype = 'mozaik_membership.no_state_change_notification'
                 partner_obj._message_post(
                     cr, uid, partner_id, subtype=subtype, context=context)
+        if partner.amount:
+            partner.amount = False
 
     def search_partner_id_with_reference(self, cr, uid, reference,
                                          context=None):

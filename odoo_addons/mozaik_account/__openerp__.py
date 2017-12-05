@@ -30,10 +30,12 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'product',
         'account_accountant',
         'account_cancel',
         'account_auto_installer',
         'mozaik_mandate',
+        'mozaik_membership',
     ],
     'description': """
 MOZAIK Account
@@ -45,6 +47,7 @@ Manage accounting features
     'data': [
         'security/account_security.xml',
         'account_view.xml',
+        'views/product_view.xml',
     ],
     'qweb': [
     ],

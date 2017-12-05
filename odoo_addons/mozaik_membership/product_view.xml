@@ -27,12 +27,6 @@
                     <field name="membership" readonly="0" attrs="{'invisible': [('type', '!=', 'service')]}"/>
                 </field>
 
-                <xpath expr="//group[@name='properties']" position="inside">
-                    <group>
-                        <field name="property_subscription_account" domain="[('type','=','other')]" groups="account.group_account_user"/>
-                    </group>
-                </xpath>
-
                 <!-- Procurement -->
                 <xpath expr="//page[descendant::field[@name='standard_price']]" position="attributes">
                     <attribute name="attrs">{'invisible': [('membership', '=', True)]}</attribute>

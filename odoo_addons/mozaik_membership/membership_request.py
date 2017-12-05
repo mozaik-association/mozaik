@@ -1169,8 +1169,8 @@ class membership_request(orm.Model):
                 partner_values = {}
 
             if not mr.is_company:
-                partner_values.update(
-                    self._get_status_values(cr, uid, mr.request_type))
+                partner_values.update(self._get_status_values(
+                    cr, uid, mr.request_type))
             if partner_values:
                 partner_obj.write(
                     cr, uid, [partner_id], partner_values, context=ctx)
