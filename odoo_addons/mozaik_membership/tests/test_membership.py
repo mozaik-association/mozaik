@@ -187,6 +187,8 @@ class test_membership(SharedSetupTransactionCase):
             'box': 'jb',
             'regional_voluntary': True,
             'national_voluntary': False,
+            'amount': 7.0,
+            'reference': '+++555/2017/00055+++',
         }
         vals.update(self.mro.onchange_other_address_componants(
             cr, uid, False,
@@ -200,6 +202,8 @@ class test_membership(SharedSetupTransactionCase):
         vals.update(self.mro.onchange_phone(
             cr, uid, False,
             vals['phone'])['value'])
+
+        # update the membership request
         self.mro.write(cr, uid, [mr.id], vals)
         # validate the membership request
         self.mro.validate_request(cr, uid, [mr.id])
@@ -214,6 +218,8 @@ class test_membership(SharedSetupTransactionCase):
         self.assertFalse(fix.active)
         self.assertTrue(partner.regional_voluntary)
         self.assertFalse(partner.national_voluntary)
+        self.assertEqual(mr.reference, partner.reference)
+        self.assertEqual(mr.amount, partner.amount)
 
         # validation to create
         self.mro.write(
@@ -222,6 +228,7 @@ class test_membership(SharedSetupTransactionCase):
              _country_default_get(cr, uid, COUNTRY_CODE)})
         self.mro.validate_request(
             cr, uid, [self.rec_mr_create.id])
+
         created_partner_ids = partner_obj.search(
             cr, uid, [('firstname', '=', self.rec_mr_create.firstname),
                       ('lastname', '=', self.rec_mr_create.lastname),

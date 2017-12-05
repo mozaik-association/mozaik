@@ -6,6 +6,8 @@ import logging
 
 from openerp import api, fields, models
 
+import openerp.addons.decimal_precision as dp
+
 _logger = logging.getLogger(__name__)
 
 
@@ -16,6 +18,8 @@ class ResPartner(models.Model):
     local_voluntary = fields.Boolean(track_visibility='onchange')
     regional_voluntary = fields.Boolean(track_visibility='onchange')
     national_voluntary = fields.Boolean(track_visibility='onchange')
+    amount = fields.Float(
+        digits=dp.get_precision('Product Price'), readonly=True)
 
     @api.multi
     def button_modification_request(self):

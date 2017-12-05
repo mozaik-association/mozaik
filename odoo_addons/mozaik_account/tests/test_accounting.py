@@ -59,44 +59,28 @@ class test_accounting_with_product(object):
         self.bsl_obj = self.registry('account.bank.statement.line')
         self.ml_obj = self.registry('membership.line')
         self.partner_obj = self.registry('res.partner')
-        self.partner = self.get_partner()
-        self.partner_2 = self.get_partner()
-        for partner_rec in [self.partner, self.partner_2]:
-            self.assertEquals(partner_rec.membership_state_id.code,
-                              'without_membership',
-                              'Create: should be "without_status"')
-            partner_rec.write(
-                {'accepted_date': date.today().strftime('%Y-%m-%d'),
-                 'free_member': False})
-        self.partner = self.get_partner(self.partner.id)
-        self.partner_2 = self.get_partner(self.partner_2.id)
-        self.assertEquals(self.partner.membership_state_id.code,
-                          'member_candidate', 'Should be "member_candidate"')
-        self.assertEquals(self.partner_2.membership_state_id.code,
-                          'member_candidate', 'Should be "member_candidate"')
+        self.partner = self._get_partner()
+        self.partner.write({
+            'accepted_date': date.today().strftime('%Y-%m-%d'),
+            'free_member': False,
+        })
 
-    def get_partner(self, partner_id=False):
+    def _get_partner(self):
         """
         return a new browse record of partner
         """
-        if not partner_id:
-            name = uuid.uuid4()
-            partner_values = {
-                'lastname': name,
-            }
-            partner_id = self.partner_obj.create(self.cr, self.uid,
-                                                 partner_values)
-        # check each time the current state change
+        name = uuid.uuid4()
+        partner_values = {
+            'lastname': name,
+        }
+        partner_id = self.partner_obj.create(
+            self.cr, self.uid, partner_values)
         return self.partner_obj.browse(self.cr, self.uid, partner_id)
 
     def _generate_payment(self, additional_amount=0, with_partner=True):
-        wiz_obj = self.registry('generate.reference')
-        wiz_id = wiz_obj.create(self.cr, self.uid, {}, context={
-            'active_ids':
-            [self.partner.id,
-             self.partner_2.id]})
-        wiz_obj.generate_reference(self.cr, self.uid, wiz_id)
-        self.partner = self.get_partner(self.partner.id)
+        pobj = self.partner_obj
+        self.partner.reference = pobj._generate_membership_reference(
+            self.cr, self.uid, self.partner.id)
         b_statement_id = self.bs_obj.create(self.cr,
                                             self.uid,
                                             {},
@@ -157,41 +141,38 @@ class test_accounting_with_product(object):
         if not self._with_coda:
             self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
 
-        for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
-            for line in bank_s.line_ids:
-                self.assertNotEqual(line.journal_entry_id.id, False)
+        bank_s = self.bs_obj.browse(self.cr, self.uid, b_statement_id)
+        for line in bank_s.line_ids:
+            self.assertNotEqual(line.journal_entry_id.id, False)
 
-        partner = self.get_partner(self.partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'member_committee',
-                          'Should be "member_committee"')
-        self.assertEquals(partner.subscription_product_id.id,
-                          self.product.id,
-                          'Wrong product affected')
-        ml_data = self.ml_obj.search_read(self.cr,
-                                          self.uid,
-                                          [('partner_id', '=', partner.id),
-                                           ('active', '=', True)],
-                                          ['price'])[0]
+        self.assertEqual(
+            self.partner.membership_state_id.code, 'member_committee')
+        self.assertEqual(
+            self.partner.subscription_product_id.id, self.product.id)
+        ml_data = self.ml_obj.search_read(
+            self.cr, self.uid,
+            [('partner_id', '=', self.partner.id), ('active', '=', True)],
+            ['price'])[0]
 
-        self.assertEqual(ml_data['price'], self.product.list_price,
-                         'Wrong price specified')
+        self.assertEqual(ml_data['price'], bank_s.line_ids.amount)
+        self.assertFalse(self.partner.amount)
 
     def test_accounting_manual_reconcile(self):
         additional_amount = 1999.99
         b_statement_id = self._generate_payment(
             additional_amount=additional_amount)
         self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
-        for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
-            for line in bank_s.line_ids:
-                self.assertFalse(line.journal_entry_id)
+        bank_s = self.bs_obj.browse(self.cr, self.uid, b_statement_id)
+        for line in bank_s.line_ids:
+            self.assertFalse(line.journal_entry_id)
 
         move_dicts = self._get_manual_move_dict(additional_amount)
 
         self.bsl_obj.process_reconciliation(
             self.cr, self.uid, bank_s.line_ids[0].id, move_dicts)
-        partner = self.get_partner(self.partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'member_committee',
-                          'Should be "member_committee"')
+
+        self.assertEqual(
+            self.partner.membership_state_id.code, 'member_committee')
 
         if not self.product:
             prod_id = self.ref('%s.membership_product_undefined'
@@ -199,23 +180,21 @@ class test_accounting_with_product(object):
         else:
             prod_id = self.product.id
 
-        self.assertEquals(partner.subscription_product_id.id,
-                          prod_id,
-                          'Wrong product affected')
+        self.assertEqual(
+            self.partner.subscription_product_id.id, prod_id)
 
-        ml_data = self.ml_obj.search_read(self.cr,
-                                          self.uid,
-                                          [('partner_id', '=', partner.id),
-                                           ('active', '=', True)],
-                                          ['price'])[0]
+        ml_data = self.ml_obj.search_read(
+            self.cr, self.uid,
+            [('partner_id', '=', self.partner.id), ('active', '=', True)],
+            ['price'])[0]
         price = 0.0
         if self.product:
             price = self.product.list_price
         else:
             price = additional_amount
 
-        self.assertEqual(ml_data['price'], price,
-                         'Wrong price specified')
+        self.assertEqual(ml_data['price'], price)
+        self.assertFalse(self.partner.amount)
 
     def test_accounting_manual_reconcile_without_partner(self):
         additional_amount = 1999.99
@@ -242,6 +221,29 @@ class test_accounting_first_membership_accepted (test_accounting_with_product,
         super(test_accounting_first_membership_accepted, self).setUp()
 
 
+class test_accounting_first_membership_accepted_with_another_amount(
+        test_accounting_with_product, SharedSetupTransactionCase):
+
+    def setUp(self):
+        self.product = self.browse_ref(
+            '%s.membership_product_first' % self._module_ns)
+        super(test_accounting_first_membership_accepted_with_another_amount,
+              self).setUp()
+        self.partner.amount = 7.0
+
+    def _generate_payment(self, additional_amount=0, with_partner=True):
+        b_statement_id = super(
+            test_accounting_first_membership_accepted_with_another_amount,
+            self)._generate_payment(
+                additional_amount=additional_amount, with_partner=with_partner)
+        if with_partner and not additional_amount:
+            bs = self.bs_obj.browse(self.cr, self.uid, b_statement_id)
+            bs.line_ids.amount = self.partner.amount
+        return b_statement_id
+
+    def test_accounting_manual_reconcile_without_partner(self):
+        return
+
 class test_accounting_first_membership_refused (test_accounting_with_product,
                                                 SharedSetupTransactionCase):
 
@@ -255,8 +257,7 @@ class test_accounting_first_membership_refused (test_accounting_with_product,
               self).test_accounting_auto_reconcile()
         self.partner_obj.signal_workflow(self.cr, self.uid,
                                          [self.partner.id], 'accept')
-        self.partner = self.get_partner(self.partner.id)
-        self.assertEquals(self.partner.membership_state_id.code, 'member',
+        self.assertEqual(self.partner.membership_state_id.code, 'member',
                           'Should be "member"')
 
         b_statement_id = self._generate_payment()
@@ -313,6 +314,11 @@ class test_accounting_grouped_payment(test_accounting_with_product,
         self.product = self.browse_ref('%s.membership_product_live_together'
                                        % self._module_ns)
         super(test_accounting_grouped_payment, self).setUp()
+        self.partner_2 = self._get_partner()
+        self.partner_2.write({
+            'accepted_date': date.today().strftime('%Y-%m-%d'),
+            'free_member': False,
+        })
 
     def _get_manual_move_dict(self, additional_amount):
         property_obj = self.registry('ir.property')
@@ -348,9 +354,12 @@ class test_accounting_grouped_payment(test_accounting_with_product,
         return
 
     def test_accounting_manual_reconcile(self):
+        pobj = self.partner_obj
         additional_amount = self.product.list_price
         b_statement_id = self._generate_payment(
             additional_amount=additional_amount)
+        self.partner_2.reference = pobj._generate_membership_reference(
+            self.cr, self.uid, self.partner_2.id)
         references = {self.partner.id: self.partner.reference,
                       self.partner_2.id: self.partner_2.reference}
         self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
@@ -363,9 +372,8 @@ class test_accounting_grouped_payment(test_accounting_with_product,
         self.bsl_obj.process_reconciliation(
             self.cr, self.uid, bank_s.line_ids[0].id, move_dicts)
 
-        for partner in [self.get_partner(self.partner.id),
-                        self.get_partner(self.partner_2.id)]:
-            self.assertEquals(partner.membership_state_id.code,
+        for partner in [self.partner, self.partner_2]:
+            self.assertEqual(partner.membership_state_id.code,
                               'member_committee',
                               'Should be "member_committee"')
 
@@ -375,7 +383,7 @@ class test_accounting_grouped_payment(test_accounting_with_product,
             else:
                 prod_id = self.product.id
 
-            self.assertEquals(partner.subscription_product_id.id,
+            self.assertEqual(partner.subscription_product_id.id,
                               prod_id,
                               'Wrong product affected')
 

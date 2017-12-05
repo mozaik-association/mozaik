@@ -274,6 +274,14 @@
                                     <field name="mobile_id" />
                                 </group>
                             </page>
+                            <page string="Subscription" name="amount" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader"
+                                   attrs="{'invisible': ['|', '|', ('is_company', '=', True), ('request_type', '!=', 'm')]}">
+                                <group>
+                                    <field name="amount"/>
+                                    <field name="reference" attrs="{'invisible': [('amount', '&lt;=', 0.0)]}"/>
+                                </group>
+                                <group/>
+                            </page>
                             <page string="Changes" name="changes">
                                 <group name='buttons' groups="mozaik_base.mozaik_res_groups_user">
                                     <button name="update_changes" attrs="{'invisible': [('state', 'not in', ['draft'])]}"
