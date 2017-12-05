@@ -241,9 +241,6 @@
         <menuitem id="membership_menu" name="Memberships"
                   sequence="15" parent="mozaik_base.persons_root_menu" />
 
-        <menuitem id="membership_request_menu" action="membership_request_action"
-                  sequence="10" parent="membership_menu" />
-
         <menuitem id="membership_line_submenu" action="membership_line_action"
                   sequence="15" parent="membership_menu"/>
 

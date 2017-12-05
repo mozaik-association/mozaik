@@ -182,8 +182,6 @@ class account_bank_statement_line(orm.Model):
                 subtype = 'mozaik_membership.no_state_change_notification'
                 partner_obj._message_post(
                     cr, uid, partner_id, subtype=subtype, context=context)
-        if partner.amount:
-            partner.amount = False
 
     def search_partner_id_with_reference(self, cr, uid, reference,
                                          context=None):

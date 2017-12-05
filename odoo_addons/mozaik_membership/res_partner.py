@@ -492,6 +492,7 @@ class res_partner(orm.Model):
                 'former_member_committee',
             ],
             'reference': False,
+            'amount': False,
         }
 
         if membership_state_code == 'supporter':
