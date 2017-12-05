@@ -2,8 +2,6 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Membership Request -->
-
         <record id="membership_request_search_view" model="ir.ui.view">
             <field name="name">membership.request.search</field>
             <field name="model">membership.request</field>
@@ -361,8 +359,6 @@
             </field>
         </record>
 
-        <!-- Action -->
-
         <record id="membership_request_action" model="ir.actions.act_window">
             <field name="name">Membership Requests</field>
             <field name="res_model">membership.request</field>
@@ -370,6 +366,13 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="membership_request_tree_view" />
             <field name="search_view_id" ref="membership_request_search_view" />
+        </record>
+
+        <record model="ir.ui.menu" id="membership_request_menu">
+            <field name="name">Membership Requests</field>
+            <field name="parent_id" ref="membership_menu"/>
+            <field name="action" ref="membership_request_action"/>
+            <field name="sequence" eval="10"/>
         </record>
 
     </data>
