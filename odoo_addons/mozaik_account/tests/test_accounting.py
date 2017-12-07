@@ -244,8 +244,9 @@ class test_accounting_first_membership_accepted_with_another_amount(
     def test_accounting_manual_reconcile_without_partner(self):
         return
 
-class test_accounting_first_membership_refused (test_accounting_with_product,
-                                                SharedSetupTransactionCase):
+
+class test_accounting_first_membership_refused(
+        test_accounting_with_product, SharedSetupTransactionCase):
 
     def setUp(self):
         self.product = self.browse_ref('%s.membership_product_first'
@@ -257,8 +258,7 @@ class test_accounting_first_membership_refused (test_accounting_with_product,
               self).test_accounting_auto_reconcile()
         self.partner_obj.signal_workflow(self.cr, self.uid,
                                          [self.partner.id], 'accept')
-        self.assertEqual(self.partner.membership_state_id.code, 'member',
-                          'Should be "member"')
+        self.assertEqual(self.partner.membership_state_id.code, 'member')
 
         b_statement_id = self._generate_payment()
         self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
@@ -373,9 +373,8 @@ class test_accounting_grouped_payment(test_accounting_with_product,
             self.cr, self.uid, bank_s.line_ids[0].id, move_dicts)
 
         for partner in [self.partner, self.partner_2]:
-            self.assertEqual(partner.membership_state_id.code,
-                              'member_committee',
-                              'Should be "member_committee"')
+            self.assertEqual(
+                partner.membership_state_id.code, 'member_committee')
 
             if not self.product:
                 prod_id = self.ref('%s.membership_product_undefined'
@@ -383,9 +382,8 @@ class test_accounting_grouped_payment(test_accounting_with_product,
             else:
                 prod_id = self.product.id
 
-            self.assertEqual(partner.subscription_product_id.id,
-                              prod_id,
-                              'Wrong product affected')
+            self.assertEqual(
+                partner.subscription_product_id.id, prod_id)
 
             ml_data = self.ml_obj.search_read(self.cr,
                                               self.uid,
