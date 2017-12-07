@@ -68,8 +68,8 @@ class account_bank_statement(orm.Model):
         if line_count > 0:
             # do not auto reconcile if reference has been used previously
             return
-        partner_obj = self.pool.get('res.partner')
-        product_id, price, credit_account = partner_obj._get_membership_prod_info(
+        pobj = self.pool.get('res.partner')
+        product_id, price, credit_account = pobj._get_membership_prod_info(
             cr, uid, bank_line.partner_id.id, bank_line.amount, reference,
             context=context)
 

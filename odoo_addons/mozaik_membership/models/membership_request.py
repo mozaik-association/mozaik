@@ -41,14 +41,15 @@ class MembershipRequest(models.Model):
         string='Involvement Categories')
 
     amount = fields.Float(
-        digits=dp.get_precision('Product Price'), readonly=True)
-    reference = fields.Char(readonly=True)
+        digits=dp.get_precision('Product Price'),
+        readonly=True, copy=False)
+    reference = fields.Char(readonly=True, copy=False)
 
     @api.multi
     def validate_request(self):
         """
         * create additional involvements
-        * for new member, if any, save also its reference0
+        * for new member, if any, save also its reference
         """
         self.ensure_one()
         res = super(MembershipRequest, self).validate_request()
@@ -66,6 +67,8 @@ class MembershipRequest(models.Model):
         if (self.membership_state_id.code == 'without_membership' and
                 self.partner_id.membership_state_code == 'member_candidate' and
                 self.amount > 0.0 and self.reference):
-            self.partner_id.reference = self.reference
-            self.partner_id.amount = self.amount
+            self.partner_id.write({
+                'reference': self.reference,
+                'amount': self.amount,
+            })
         return res

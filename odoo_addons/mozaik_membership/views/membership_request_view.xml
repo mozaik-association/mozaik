@@ -273,10 +273,10 @@
                                 </group>
                             </page>
                             <page string="Subscription" name="amount" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader"
-                                   attrs="{'invisible': ['|', '|', ('is_company', '=', True), ('request_type', '!=', 'm')]}">
+                                   attrs="{'invisible': ['|', '|', '|', ('is_company', '=', True), ('request_type', '!=', 'm'), ('amount', '&lt;=', 0.0)]}">
                                 <group>
                                     <field name="amount"/>
-                                    <field name="reference" attrs="{'invisible': [('amount', '&lt;=', 0.0)]}"/>
+                                    <field name="reference"/>
                                 </group>
                                 <group/>
                             </page>
