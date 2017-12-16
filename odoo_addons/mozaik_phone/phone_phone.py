@@ -35,10 +35,6 @@ try:
 except (ImportError, IOError) as err:
     _logger.debug(err)
 
-"""
-Available Types for 'phone.phone':
-Fix - Mobile - Fax
-"""
 PHONE_AVAILABLE_TYPES = [
     ('fix', 'Fix'),
     ('mobile', 'Mobile'),
