@@ -40,17 +40,14 @@ class test_retrocession_with_accounting(object):
         '../../mozaik_base/tests/data/res_partner_data.xml',
         '../../mozaik_structure/tests/data/structure_data.xml',
         '../../mozaik_mandate/tests/data/mandate_data.xml',
-        'data/retrocession_data.xml',
+        '../../mozaik_retrocession/tests/data/retrocession_data.xml',
     )
 
-    _module_ns = 'mozaik_retrocession'
+    _module_ns = 'mozaik_account'
 
     def setUp(self):
         super(test_retrocession_with_accounting, self).setUp()
         self.year = (datetime.today() - relativedelta(years=1)).strftime('%Y')
-        wiz_id = self.ref('%s.pcmn_mozaik' % self._module_ns)
-        self.registry('wizard.multi.charts.accounts').auto_execute(
-            self.cr, self.uid, [wiz_id])
         self.registry('retrocession.helper').create_fiscal_year(
             self.cr, self.uid, self.year)
         # members to instanciate by real test

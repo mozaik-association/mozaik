@@ -42,7 +42,7 @@ local zip, default instance otherwise. This field is added to all views
         'membership_view.xml',
         'address_local_zip_view.xml',
         'coordinate_view.xml',
-        'partner_involvement_view.xml',
+        'views/partner_involvement_view.xml',
         'partner_relation_view.xml',
         'mandate_view.xml',
         'wizard/change_main_address.xml',

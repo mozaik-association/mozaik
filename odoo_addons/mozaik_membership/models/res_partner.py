@@ -44,8 +44,6 @@ class ResPartner(models.Model):
                 year = dt[0]
 
             state_id = self.membership_state_id.id or False
-            categories = self.partner_involvement_ids.mapped(
-                'involvement_category_id').filtered(lambda s: s.code)
             competencies = self.competencies_m2m_ids
             values = {
                 'membership_state_id': state_id,
@@ -80,7 +78,6 @@ class ResPartner(models.Model):
                 'int_instance_id': self.int_instance_id.id or False,
                 'interests_m2m_ids': [(6, 0, self.interests_m2m_ids.ids)],
                 'competencies_m2m_ids': [(6, 0, competencies.ids)],
-                'involvement_category_ids': [(6, 0, categories.ids)],
                 'local_voluntary': self.local_voluntary,
                 'regional_voluntary': self.regional_voluntary,
                 'national_voluntary': self.national_voluntary,

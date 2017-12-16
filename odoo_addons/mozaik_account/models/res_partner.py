@@ -17,7 +17,7 @@ class ResPartner(models.Model):
         if (self.membership_state_code == 'member_candidate' and
                 self.reference == reference and
                 self.amount == amount):
-            return first.id, amount, first.property_subscription_account
+            return first.id, first.property_subscription_account
 
         domain = [
             ('membership', '=', True),
@@ -30,6 +30,6 @@ class ResPartner(models.Model):
                 if not (self.membership_state_code == 'member_candidate' and
                         self.reference == reference):
                     continue
-            return prod.id, amount, prod.property_subscription_account
+            return prod.id, prod.property_subscription_account
 
-        return False, False, False
+        return False, False

@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+import psycopg2
+from datetime import datetime, timedelta
 
 from anybox.testing.openerp import SharedSetupTransactionCase
+
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
+from openerp.exceptions import ValidationError
+
+from openerp.addons.mozaik_base import testtool
 
 
 class TestPartnerInvolvement(SharedSetupTransactionCase):
@@ -30,7 +37,7 @@ class TestPartnerInvolvement(SharedSetupTransactionCase):
         '''
         for term in self.euro2000.interests_m2m_ids:
             self.assertNotIn(term, self.paul.interests_m2m_ids)
-        involvement = self.env['partner.involvement'].create({
+        self.env['partner.involvement'].create({
             'partner_id': self.paul.id,
             'involvement_category_id': self.euro2000.id,
         })
@@ -38,3 +45,45 @@ class TestPartnerInvolvement(SharedSetupTransactionCase):
             self.assertIn(term, self.paul.interests_m2m_ids)
         return
 
+    def test_multi(self):
+        """
+        Check for multiple involvements
+        """
+        # create an involvement category
+        cat = self.env['partner.involvement.category'].create({
+            'name': 'Buvons un coup ma serpette...',
+        })
+        # create an involvement
+        involvement = self.env['partner.involvement'].create({
+            'partner_id': self.paul.id,
+            'involvement_category_id': cat.id,
+        })
+        # check for effective_time
+        self.assertFalse(involvement.effective_time)
+        # copy it: NOK
+        self.assertRaises(ValidationError, involvement.copy)
+        # allow miltiple involvements
+        cat.allow_multi = True
+        # check for effective_time
+        self.assertTrue(involvement.effective_time)
+        involvement.unlink()
+        # create a new involvement
+        now = (datetime.now() + timedelta(hours=-1)).strftime(DATETIME_FORMAT)
+        involvement = self.env['partner.involvement'].create({
+            'partner_id': self.paul.id,
+            'involvement_category_id': cat.id,
+            'effective_time': now,
+        })
+        # copy it: OK
+        involvement.copy()
+        # create an already existing involvement: NOK
+        with testtool.disable_log_error(self.cr):
+            self.assertRaises(
+                psycopg2.IntegrityError,
+                self.env['partner.involvement'].create,
+                {
+                    'partner_id': self.paul.id,
+                    'involvement_category_id': cat.id,
+                    'effective_time': now,
+                })
+        return

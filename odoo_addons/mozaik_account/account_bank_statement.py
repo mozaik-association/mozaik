@@ -25,6 +25,8 @@
 from openerp.osv import orm
 from openerp.tools.translate import _
 
+from openerp import api
+
 
 class account_bank_statement(orm.Model):
     _inherit = 'account.bank.statement'
@@ -69,7 +71,7 @@ class account_bank_statement(orm.Model):
             # do not auto reconcile if reference has been used previously
             return
         pobj = self.pool.get('res.partner')
-        product_id, price, credit_account = pobj._get_membership_prod_info(
+        product_id, credit_account = pobj._get_membership_prod_info(
             cr, uid, bank_line.partner_id.id, bank_line.amount, reference,
             context=context)
 
@@ -82,136 +84,31 @@ class account_bank_statement(orm.Model):
             }]
             bsl_obj.process_reconciliation(
                 cr, uid, bank_line.id, move_dicts, context=context,
-                prod_id=product_id, price=price)
-
-    def auto_reconcile(self, cr, uid, ids, context=None):
-        bsl_obj = self.pool.get('account.bank.statement.line')
-        for bank_s in self.browse(cr, uid, ids, context=context):
-            for bank_line in bank_s.line_ids:
-                if not bank_line.partner_id or bank_line.journal_entry_id.id:
-                    continue
-
-                mode, _, reference = bsl_obj.search_partner_id_with_reference(
-                    cr, uid, bank_line.name, context=context)
-
-                if mode == 'membership':
-                    self._create_membership_move(
-                        cr, uid, bank_line, reference, context=context)
-                elif mode == 'retrocession':
-                    self._reconcile_statement_line(
-                        cr, uid, bank_line, reference, context=context)
+                prod_id=product_id)
 
 
 class account_bank_statement_line(orm.Model):
     _inherit = 'account.bank.statement.line'
 
+    @api.cr_uid_id_context
     def process_reconciliation(self, cr, uid, line_id, mv_line_dicts,
-                               context=None, prod_id=None, price=None):
+                               context=None, prod_id=None):
 
         bank_line = self.browse(cr, uid, line_id, context=context)
+        if not bank_line.partner_id.id:
+            raise orm.except_orm(_('No Partner Defined!'),
+                                 _("You must first select a partner!"))
+
         for line in mv_line_dicts:
-            mode, partner_id = self.search_partner_id_with_reference(
+            mode, partner_id = self._get_info_from_reference(
                 cr, uid, line.get('name', False), context=context)[0:2]
             if mode == "membership" and partner_id:
                 line['partner_id'] = partner_id
 
-        if not bank_line.partner_id.id:
-            raise orm.except_orm(_('No Partner Defined!'),
-                                 _("You must first select a partner!"))
         super(account_bank_statement_line, self).process_reconciliation(
             cr, uid, line_id, mv_line_dicts, context=context)
 
         for data in mv_line_dicts:
-            self.manage_membership_payment(cr,
-                                           uid,
-                                           bank_line.partner_id.id,
-                                           data.get('name', False),
-                                           prod_id,
-                                           data['credit'],
-                                           context)
-
-    def manage_membership_payment(self, cr, uid, partner_id,
-                                  reference, prod_id, amount_paid,
-                                  context=None):
-        context = context or {}
-        ml_obj = self.pool.get('membership.line')
-        mdata_obj = self.pool.get('ir.model.data')
-        partner_obj = self.pool.get('res.partner')
-
-        mode, partner_id, reference = self.search_partner_id_with_reference(
-            cr, uid, reference, context=context)
-
-        if mode != 'membership':
-            return
-
-        price = amount_paid
-        if not prod_id:
-            res = partner_obj._get_membership_prod_info(
-                cr, uid, partner_id, amount_paid, reference, context=context)
-            prod_id, price = res[0], res[1]
-
-        if not prod_id:
-            # no matching price found
-            prod_id = mdata_obj.get_object_reference(
-                cr,
-                uid,
-                'mozaik_membership',
-                'membership_product_undefined')[1]
-            price = amount_paid
-
-        partner = partner_obj.browse(cr, uid, partner_id, context)
-
-        # save current state to be able to compare it later
-        current_state = partner.membership_state_id.code
-        partner_obj.signal_workflow(
-            cr, uid, [partner_id], 'paid')
-        next_state = partner.membership_state_id.code
-
-        vals = {
-            'product_id': prod_id,
-            'price': price,
-        }
-        ml_ids = ml_obj.search(
-            cr, uid, [('partner_id', '=', partner_id),
-                      ('active', '=', True)])
-        if ml_ids:
-            self.pool['membership.line'].write(
-                cr, uid, ml_ids, vals, context=context)
-            # if state does not change after payment force a notification
-            if next_state == current_state:
-                subtype = 'mozaik_membership.no_state_change_notification'
-                partner_obj._message_post(
-                    cr, uid, partner_id, subtype=subtype, context=context)
-
-    def search_partner_id_with_reference(self, cr, uid, reference,
-                                         context=None):
-        '''
-        Get the mode and the partner id associated to a given reference
-        '''
-        if not reference:
-            return False, False, False
-
-        models = []
-        if self.pool.get('membership.line'):
-            models += ['res.partner', 'membership.line', ]
-        if self.pool.get('retrocession'):
-            models += ['ext.mandate', 'sta.mandate', ]
-        domain = [
-            ('reference', '=', reference),
-            ('active', '<=', True),
-        ]
-
-        for model in models:
-            column = 'id' if model == 'res.partner' else 'partner_id'
-
-            data = self.pool.get(model).search_read(
-                cr, uid, domain, [column], context=context)
-            if data:
-                res = data[0][column]
-                if isinstance(res, (list, tuple)):
-                    res = res[0]
-                mode = model.endswith('mandate') and \
-                    'retrocession' or 'membership'
-                return mode, res, reference
-
-        return False, False, False
+            self._propagate_payment(
+                cr, uid, [line_id], prod_id, data['credit'],
+                data.get('name', False), context=context)

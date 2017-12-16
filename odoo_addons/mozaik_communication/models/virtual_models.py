@@ -16,8 +16,8 @@ class VirtualPartnerInvolvement(models.Model):
     regional_voluntary = fields.Boolean()
     national_voluntary = fields.Boolean()
 
-    involvement_type = fields.Selection(
-        selection=CATEGORY_TYPE, string='Involvement Type')
+    involvement_type = fields.Selection(selection=CATEGORY_TYPE)
+    pay_date = fields.Date()
 
 
 class VirtualPartnerInstance(models.Model):

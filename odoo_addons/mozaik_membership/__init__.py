@@ -12,7 +12,6 @@ from . import sub_abstract_coordinate
 from . import email_coordinate
 from . import address_address
 from . import phone_phone
-from . import partner_involvement
 from . import partner_relation
 from . import mandate
 from . import models
