@@ -133,6 +133,7 @@ class PartnerInvolvement(models.Model):
         compute='_compute_creation_time', store=True)
 
     _rec_name = 'involvement_category_id'
+    _order = 'partner_id, id desc'
 
     _sql_constraints = [
         (
