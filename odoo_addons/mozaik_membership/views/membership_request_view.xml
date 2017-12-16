@@ -231,29 +231,36 @@
                         <notebook groups="mozaik_base.mozaik_res_groups_user,mozaik_base.mozaik_res_groups_reader">
                             <page string="Partner" name="partner">
                                 <group>
-                                    <field name="partner_id"
-                                        domain="[('is_company','=', is_company),('identifier','!=',0)]"
-                                        readonly="1"
-                                        on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name, context)" />
-                                    <field name="birth_date" attrs="{'invisible':[('is_company', '=', True)]}" readonly="1"/>
-                                    <field name="age" attrs="{'invisible': ['|',('birth_date', '=', False),('is_company', '=', True)]}" />
-                                    <field name="int_instance_id" readonly="1" />
-                                    <field name="force_int_instance_id" domain="[('id','!=',int_instance_id)]"/>
-                                    <field name="replace_coordinates"/>
+                                    <group>
+                                        <field name="partner_id"
+                                            domain="[('is_company','=', is_company),('identifier','!=',0)]"
+                                            readonly="1"
+                                            on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name, context)" />
+                                        <field name="birth_date" attrs="{'invisible':[('is_company', '=', True)]}" readonly="1"/>
+                                        <field name="age" attrs="{'invisible': ['|',('birth_date', '=', False),('is_company', '=', True)]}" />
+                                        <field name="replace_coordinates"/>
+                                    </group>
+                                    <group>
+                                        <field name="int_instance_id" readonly="1" />
+                                        <field name="force_int_instance_id" domain="[('id','!=',int_instance_id)]"/>
+                                    </group>
                                 </group>
                             </page>
                             <page string="Involvements" name="involvement" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
-                                <separator string="Voluntary" attrs="{'invisible': [('is_company', '=', True)]}" />
-                                <group name="voluntary" attrs="{'invisible': [('is_company', '=', True)]}">
+                                <group name="voluntary" string="Voluntary" attrs="{'invisible': [('is_company', '=', True)]}">
                                     <field name="local_voluntary"/>
                                     <field name="regional_voluntary"/>
                                     <field name="national_voluntary"/>
                                 </group>
-                                <separator string="Involvements" />
-                                <field name="involvement_category_ids">
+                                <group name="involvements" string="Involvements">
+                                    <field name="effective_time"/>
+                                </group>
+                                <field name="involvement_category_ids" nolabel="1">
                                     <tree>
-                                        <field name="name" />
-                                        <field name="code" />
+                                        <field name="name"/>
+                                        <field name="involvement_type" />
+                                        <field name="allow_multi" />
+                                        <field name="code"/>
                                     </tree>
                                 </field>
                             </page>
@@ -265,20 +272,24 @@
                             </page>
                             <page string="Coordinates" name="coordinates" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
                                 <group>
-                                    <field name="address_id" />
-                                </group>
-                                <group>
-                                    <field name="phone_id" />
-                                    <field name="mobile_id" />
+                                    <group>
+                                        <field name="address_id" />
+                                    </group>
+                                    <group>
+                                        <field name="phone_id" />
+                                        <field name="mobile_id" />
+                                    </group>
                                 </group>
                             </page>
-                            <page string="Subscription" name="amount" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader"
-                                   attrs="{'invisible': ['|', '|', '|', ('is_company', '=', True), ('request_type', '!=', 'm'), ('amount', '&lt;=', 0.0)]}">
+                            <page string="Payment" name="payment" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
                                 <group>
-                                    <field name="amount"/>
-                                    <field name="reference"/>
+                                    <group name="payment1">
+                                        <field name="amount"/>
+                                    </group>
+                                    <group name="payment2">
+                                        <field name="reference"/>
+                                    </group>
                                 </group>
-                                <group/>
                             </page>
                             <page string="Changes" name="changes">
                                 <group name='buttons' groups="mozaik_base.mozaik_res_groups_user">

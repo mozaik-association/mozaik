@@ -35,7 +35,7 @@ class test_accounting_with_product(object):
         '../../l10n_mozaik/data/account_installer.xml',
     )
 
-    _module_ns = 'mozaik_membership'
+    _module_ns = 'mozaik_account'
     _account_wizard = 'pcmn_mozaik'
     _with_coda = False
 
@@ -49,11 +49,6 @@ class test_accounting_with_product(object):
 
     def setUp(self):
         super(test_accounting_with_product, self).setUp()
-        if self._account_wizard:
-            wiz_id = self.ref(
-                '%s.%s' % (self._module_ns, self._account_wizard))
-            self.registry('wizard.multi.charts.accounts').auto_execute(
-                self.cr, self.uid, [wiz_id])
 
         self.bs_obj = self.registry('account.bank.statement')
         self.bsl_obj = self.registry('account.bank.statement.line')
@@ -175,8 +170,8 @@ class test_accounting_with_product(object):
             self.partner.membership_state_id.code, 'member_committee')
 
         if not self.product:
-            prod_id = self.ref('%s.membership_product_undefined'
-                               % self._module_ns)
+            prod_id = self.ref(
+                'mozaik_membership.membership_product_undefined')
         else:
             prod_id = self.product.id
 
@@ -216,8 +211,8 @@ class test_accounting_first_membership_accepted (test_accounting_with_product,
                                                  SharedSetupTransactionCase):
 
     def setUp(self):
-        self.product = self.browse_ref('%s.membership_product_first'
-                                       % self._module_ns)
+        self.product = self.browse_ref(
+            'mozaik_membership.membership_product_first')
         super(test_accounting_first_membership_accepted, self).setUp()
 
 
@@ -226,7 +221,7 @@ class test_accounting_first_membership_accepted_with_another_amount(
 
     def setUp(self):
         self.product = self.browse_ref(
-            '%s.membership_product_first' % self._module_ns)
+            'mozaik_membership.membership_product_first')
         super(test_accounting_first_membership_accepted_with_another_amount,
               self).setUp()
         self.partner.amount = 7.0
@@ -249,8 +244,8 @@ class test_accounting_first_membership_refused(
         test_accounting_with_product, SharedSetupTransactionCase):
 
     def setUp(self):
-        self.product = self.browse_ref('%s.membership_product_first'
-                                       % self._module_ns)
+        self.product = self.browse_ref(
+            'mozaik_membership.membership_product_first')
         super(test_accounting_first_membership_refused, self).setUp()
 
     def test_accounting_auto_reconcile(self):
@@ -274,8 +269,8 @@ class test_accounting_isolated (test_accounting_with_product,
                                 SharedSetupTransactionCase):
 
     def setUp(self):
-        self.product = self.browse_ref('%s.membership_product_isolated'
-                                       % self._module_ns)
+        self.product = self.browse_ref(
+            'mozaik_membership.membership_product_isolated')
         super(test_accounting_isolated, self).setUp()
 
 
@@ -283,8 +278,8 @@ class test_accounting_live_together (test_accounting_with_product,
                                      SharedSetupTransactionCase):
 
     def setUp(self):
-        self.product = self.browse_ref('%s.membership_product_live_together'
-                                       % self._module_ns)
+        self.product = self.browse_ref(
+            'mozaik_membership.membership_product_live_together')
         super(test_accounting_live_together, self).setUp()
 
 
@@ -292,8 +287,8 @@ class test_accounting_other (test_accounting_with_product,
                              SharedSetupTransactionCase):
 
     def setUp(self):
-        self.product = self.browse_ref('%s.membership_product_other'
-                                       % self._module_ns)
+        self.product = self.browse_ref(
+            'mozaik_membership.membership_product_other')
         super(test_accounting_other, self).setUp()
 
 
@@ -311,8 +306,8 @@ class test_accounting_grouped_payment(test_accounting_with_product,
                                       SharedSetupTransactionCase):
 
     def setUp(self):
-        self.product = self.browse_ref('%s.membership_product_live_together'
-                                       % self._module_ns)
+        self.product = self.browse_ref(
+            'mozaik_membership.membership_product_live_together')
         super(test_accounting_grouped_payment, self).setUp()
         self.partner_2 = self._get_partner()
         self.partner_2.write({
@@ -377,8 +372,8 @@ class test_accounting_grouped_payment(test_accounting_with_product,
                 partner.membership_state_id.code, 'member_committee')
 
             if not self.product:
-                prod_id = self.ref('%s.membership_product_undefined'
-                                   % self._module_ns)
+                prod_id = self.ref(
+                    'mozaik_membership.membership_product_undefined')
             else:
                 prod_id = self.product.id
 
@@ -411,8 +406,8 @@ class test_accounting_protect_auto_reconcile(test_accounting_with_product,
                                              SharedSetupTransactionCase):
 
     def setUp(self):
-        self.product = self.browse_ref('%s.membership_product_live_together'
-                                       % self._module_ns)
+        self.product = self.browse_ref(
+            'mozaik_membership.membership_product_live_together')
         super(test_accounting_protect_auto_reconcile, self).setUp()
 
     def test_accounting_auto_reconcile(self):

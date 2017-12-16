@@ -41,34 +41,46 @@ class MembershipRequest(models.Model):
         string='Involvement Categories')
 
     amount = fields.Float(
-        digits=dp.get_precision('Product Price'),
-        readonly=True, copy=False)
-    reference = fields.Char(readonly=True, copy=False)
+        digits=dp.get_precision('Product Price'), copy=False)
+    reference = fields.Char(copy=False)
+    effective_time = fields.Datetime(copy=False, string='Involvement Date')
 
     @api.multi
     def validate_request(self):
         """
         * create additional involvements
-        * for new member, if any, save also its reference
+        * for new member, if any, save also its reference and amount
+        * for donation, if any, save also its reference and amount
         """
         self.ensure_one()
         res = super(MembershipRequest, self).validate_request()
+
+        # create new involvements
         current_categories = self.partner_id.partner_involvement_ids.mapped(
             'involvement_category_id')
-        new_categories = [
-            ic.id
-            for ic in self.involvement_category_ids
-            if ic not in current_categories
-        ]
-        vals = {'partner_id': self.partner_id.id}
-        for ic_id in new_categories:
-            vals['involvement_category_id'] = ic_id
+        new_categories = self.involvement_category_ids.filtered(
+            lambda s, cc=current_categories:
+            s not in cc or s.allow_multi)
+        for ic in new_categories:
+            vals = {
+                'partner_id': self.partner_id.id,
+                'effective_time': self.effective_time,
+                'involvement_category_id': ic.id,
+            }
+            if ic.involvement_type == 'donation':
+                vals.update({
+                    'reference': self.reference,
+                    'amount': self.amount,
+                })
             self.env['partner.involvement'].create(vals)
-        if (self.membership_state_id.code == 'without_membership' and
-                self.partner_id.membership_state_code == 'member_candidate' and
-                self.amount > 0.0 and self.reference):
-            self.partner_id.write({
-                'reference': self.reference,
-                'amount': self.amount,
-            })
+
+        # save membership amount
+        if self.amount > 0.0 and self.reference:
+            partner = self.partner_id
+            if (self.membership_state_id.code == 'without_membership' and
+                    partner.membership_state_code == 'member_candidate'):
+                partner.write({
+                    'reference': self.reference,
+                    'amount': self.amount,
+                })
         return res

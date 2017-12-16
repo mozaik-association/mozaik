@@ -31,11 +31,15 @@
     'category': 'Political Association',
     'depends': [
         'product',
+        'account',
         'account_accountant',
         'account_cancel',
         'account_auto_installer',
+        'mozaik_person',
         'mozaik_mandate',
+        'mozaik_chart_account',
         'mozaik_membership',
+        'mozaik_retrocession',
     ],
     'description': """
 MOZAIK Account
@@ -45,6 +49,7 @@ Manage accounting features
     'images': [
     ],
     'data': [
+        'data/product_data.xml',
         'security/account_security.xml',
         'account_view.xml',
         'views/product_view.xml',

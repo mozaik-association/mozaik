@@ -30,10 +30,12 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'account',
+        'account_auto_installer',
+        'mozaik_base',
         'mozaik_structure',
         'mozaik_mandate',
-        'mozaik_membership',
-        'mozaik_account',
+        'mozaik_chart_account',
     ],
     'description': """
 MOZAIK Retrocession

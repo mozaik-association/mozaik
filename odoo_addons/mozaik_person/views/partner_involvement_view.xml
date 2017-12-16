@@ -16,7 +16,18 @@
                     <field name="involvement_category_id"/>
                     <field name="involvement_type"/>
                     <field name="note"/>
+                    <field string="Creation Date > ..." name="creation_time"
+                        filter_domain="[('creation_time','>',self)]" />
+                    <field string="Creation Date &lt; ..." name="creation_time"
+                        filter_domain="[('creation_time','&lt;',self)]" />
 
+                    <filter name="my_involvements" string="My Involvements"
+                        domain="[('involvement_category_id.res_users_ids', 'in', [uid])]"
+                        help="Involvements of which I am one of the owners of the category" />
+                    <separator/>
+                    <filter name="without_type" string="Without Type"
+                        domain="[('involvement_type', '=', False)]"/>
+                    <separator/>
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Involvements" />
@@ -24,15 +35,13 @@
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]"
                         help="All Involvements, expired or not" />
-                    <separator/>
-                    <filter name="my_involvements" string="My Involvements"
-                        domain="[('involvement_category_id.res_users_ids', 'in', [uid])]"
-                        help="Involvements of which I am one of the owners of the category" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
                         <filter name="category" string="Category" context="{'group_by': 'involvement_category_id'}"/>
                         <filter name="involvement_type" string="Type" context="{'group_by': 'involvement_type'}"/>
+                        <filter name="creation_time_month" string="Creation Months" context="{'group_by': 'creation_time'}"/>
+                        <filter name="creation_time_year" string="Creation Years" context="{'group_by': 'creation_time:year'}"/>
                     </group>
                </search>
             </field>
@@ -46,7 +55,7 @@
                     <field name="partner_id"/>
                     <field name="involvement_category_id"/>
                     <field name="involvement_type" />
-                    <field name="create_date" />
+                    <field name="creation_time" />
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
@@ -59,6 +68,18 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" eval="partner_involvement_tree_view"/>
             <field name="search_view_id" ref="partner_involvement_search_view" />
+        </record>
+
+        <record id="partner_involvement_donation_action" model="ir.actions.act_window">
+            <field name="name">Donations</field>
+            <field name="res_model">partner.involvement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="partner_involvement_tree_view"/>
+            <field name="search_view_id" ref="partner_involvement_search_view" />
+            <field name="domain">[('involvement_type', '=', 'donation')]</field>
+            <field name="context">{'default_partner_id': active_id, 'search_default_partner_id': active_id}</field>
+            <field name="context">{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1, 'search_default_involvement_type': 'donation'}</field>
         </record>
 
         <record id="partner_involvement_form_view" model="ir.ui.view">
@@ -81,18 +102,27 @@
                             <label for="involvement_category_id" class="oe_edit_only"/>
                             <h1><field name="involvement_category_id" context="{'apply_for_read': 'write'}" /></h1>
                         </div>
-                        <group name="note">
-                            <field name="involvement_type" />
-                            <field name="note" />
+                        <group>
+                            <group name="data1">
+                                <field name="involvement_type" />
+                                <field name="allow_multi" invisible="1"/>
+                            </group>
+                            <group name="data2">
+                                <field name="effective_time" />
+                            </group>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
-                            <group name="other">
-                            </group>
+                            <group name="other"/>
                         </group>
+                        <notebook>
+                            <page name="note" string="Note">
+                                <field name="note" />
+                            </page>
+                        </notebook>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
@@ -128,6 +158,16 @@
                     <field name="note"/>
                     <field name="interests_m2m_ids" widget="many2one" />
 
+                    <filter name="without_type" string="Without Type"
+                        domain="[('involvement_type', '=', False)]"/>
+                    <separator/>
+                    <filter name="allow_multi" string="Allow Multiple Involvements"
+                        domain="[('allow_multi', '=', True)]"/>
+                    <separator/>
+                    <filter name="my_categories" string="My Categories"
+                        domain="[('res_users_ids', 'in', [uid])]"
+                        help="Categories of which I am an owner" />
+                    <separator/>
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Categories" />
@@ -135,10 +175,6 @@
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]"
                         help="All Categories, expired or not" />
-                    <separator/>
-                    <filter name="my_categories" string="My Categories"
-                        domain="[('res_users_ids', 'in', [uid])]"
-                        help="Categories of which I am an owner" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="involvement_type" string="Type" context="{'group_by': 'involvement_type'}"/>
@@ -154,6 +190,7 @@
                 <tree>
                     <field name="name"/>
                     <field name="involvement_type" />
+                    <field name="allow_multi" />
                     <field name="code"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
@@ -197,6 +234,7 @@
                         <group name="data" >
                             <group name="data1">
                                 <field name="involvement_type" />
+                                <field name="allow_multi" />
                                 <field name="code" />
                             </group>
                             <group name="data2">
