@@ -39,6 +39,11 @@ This module manages phone numbers and phone coordinates.
 It covers three types of phone: fix, mobile and fax.
 Numbers are normalized regarding the external python library: phonenumbers
 """,
+    'external_dependencies': {
+        'python': [
+            'phonenumbers',
+        ],
+    },
     'images': [
     ],
     'data': [

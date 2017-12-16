@@ -24,13 +24,16 @@
 ##############################################################################
 
 import logging
-import phonenumbers as pn
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
 
+try:
+    import phonenumbers as pn
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 """
 Available Types for 'phone.phone':

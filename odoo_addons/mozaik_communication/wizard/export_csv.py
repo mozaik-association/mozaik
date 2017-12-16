@@ -31,9 +31,9 @@ from openerp import api
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
-from export_csv_request import VIRTUAL_TARGET_REQUEST
-from export_csv_request import EMAIL_COORDINATE_REQUEST
-from export_csv_request import POSTAL_COORDINATE_REQUEST
+from .export_csv_request import VIRTUAL_TARGET_REQUEST
+from .export_csv_request import EMAIL_COORDINATE_REQUEST
+from .export_csv_request import POSTAL_COORDINATE_REQUEST
 
 
 def _get_utf8(data):
