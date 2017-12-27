@@ -6,6 +6,8 @@ from openerp import api, fields, models
 
 import openerp.addons.decimal_precision as dp
 
+from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+
 
 class MembershipRequest(models.Model):
 
@@ -44,6 +46,126 @@ class MembershipRequest(models.Model):
         digits=dp.get_precision('Product Price'), copy=False)
     reference = fields.Char(copy=False)
     effective_time = fields.Datetime(copy=False, string='Involvement Date')
+
+    @api.model
+    def _pre_process(self, vals):
+        """
+        * Try:
+        ** to find a zipcode and a country
+        ** to build a birth_date
+        ** to find an existing partner
+        ** to find phone coordinates
+
+        :rparam vals: updated input values dictionary ready
+                      to create a ``membership_request``
+        """
+        mobile_id = False
+        phone_id = False
+
+        is_company = vals.get('is_company', False)
+        firstname = False if is_company else vals.get('firstname', False)
+        lastname = vals.get('lastname', False)
+        birth_date = False if is_company else vals.get('birth_date', False)
+        day = False if is_company else vals.get('day', False)
+        month = False if is_company else vals.get('month', False)
+        year = False if is_company else vals.get('year', False)
+        gender = False if is_company else vals.get('gender', False)
+        email = vals.get('email', False)
+        mobile = vals.get('mobile', False)
+        phone = vals.get('phone', False)
+        address_id = vals.get('address_id', False)
+        address_local_street_id = vals.get('address_local_street_id', False)
+        address_local_zip_id = vals.get('address_local_zip_id', False)
+        number = vals.get('number', False)
+        box = vals.get('box', False)
+        town_man = vals.get('town_man', False)
+        country_id = vals.get('country_id', False)
+        zip_man = vals.get('zip_man', False)
+        street_man = vals.get('street_man', False)
+
+        partner_id = vals.get('partner_id', False)
+
+        request_type = vals.get('request_type', False)
+
+        zids = False
+        if zip_man and town_man:
+            domain = [
+                ('local_zip', '=', zip_man),
+                ('town', 'ilike', town_man),
+            ]
+            zids = self.env['address.local.zip'].search(domain, limit=1)
+        if not zids and zip_man and not town_man and not country_id:
+            domain = [
+                ('local_zip', '=', zip_man),
+            ]
+            zids = self.env['address.local.zip'].search(domain, limit=1)
+        if zids:
+            cnty_id = self.env['res.country']._country_default_get(
+                COUNTRY_CODE)
+            if not country_id or cnty_id == country_id:
+                country_id = cnty_id
+                address_local_zip_id = zids.id
+                town_man = False
+                zip_man = False
+
+        if not is_company and not birth_date:
+            birth_date = self.get_birth_date(day, month, year)
+        if mobile:
+            mobile = self.get_format_phone_number(mobile)
+            mobile_id = self.get_phone_id(mobile, 'mobile')
+        if phone:
+            phone = self.get_format_phone_number(phone)
+            phone_id = self.get_phone_id(phone, 'fix')
+        if email:
+            email = self.get_format_email(email)
+
+        if not partner_id:
+            partner_id = self.get_partner_id(
+                is_company, birth_date, lastname, firstname, email)
+
+        technical_name = self.get_technical_name(
+            address_local_street_id, address_local_zip_id, number,
+            box, town_man, street_man, zip_man, country_id)
+        address_id = address_id or self.onchange_technical_name(
+            technical_name)['value']['address_id']
+        int_instance_id = self.get_int_instance_id(address_local_zip_id)
+
+        res = self.onchange_partner_id(
+            is_company, request_type, partner_id, technical_name)['value']
+        vals.update(res)
+
+        vals.update({
+            'is_company': is_company,
+            'partner_id': partner_id,
+
+            'lastname': lastname,
+            'firstname': firstname,
+            'birth_date': birth_date,
+
+            'int_instance_id': int_instance_id,
+
+            'day': day,
+            'month': month,
+            'year': year,
+            'gender': gender,
+
+            'mobile': mobile,
+            'phone': phone,
+            'email': email,
+
+            'mobile_id': mobile_id,
+            'phone_id': phone_id,
+
+            'address_id': address_id,
+            'address_local_zip_id': address_local_zip_id,
+            'country_id': country_id,
+            'zip_man': zip_man,
+            'town_man': town_man,
+
+            'technical_name': technical_name,
+        })
+
+        return vals
 
     @api.multi
     def validate_request(self):

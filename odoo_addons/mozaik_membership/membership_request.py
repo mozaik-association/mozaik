@@ -29,7 +29,6 @@ from operator import attrgetter
 from uuid import uuid4, uuid1
 from dateutil.relativedelta import relativedelta
 
-from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
 from openerp.addons.mozaik_base.base_tools import format_email, check_email
 from openerp.addons.mozaik_base.base_tools import get_age
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
@@ -950,140 +949,6 @@ class membership_request(orm.Model):
                 cr, uid, number, context=ctx)
         return number
 
-    def pre_process(self, cr, uid, vals, context=None):
-        """
-        * Try to create a birth_date if all the components are there.
-        (day/month/year)
-        * Next step is to find partner by different way:
-        ** birth_date + email
-        ** birth_date + lastname + firstname
-        ** email + firstname + lastname
-        ** email
-        ** firstname + lastname
-        * Case of partner found: search email coordinate and phone coordinate
-        for this partner
-
-        :rparam vals: dictionary used to create ``membership_request``
-        """
-        if context is None:
-            context = {}
-
-        mobile_id = False
-        phone_id = False
-
-        is_company = vals.get('is_company', False)
-        firstname = False if is_company else vals.get('firstname', False)
-        lastname = vals.get('lastname', False)
-        birth_date = False if is_company else vals.get('birth_date', False)
-        day = False if is_company else vals.get('day', False)
-        month = False if is_company else vals.get('month', False)
-        year = False if is_company else vals.get('year', False)
-        gender = False if is_company else vals.get('gender', False)
-        email = vals.get('email', False)
-        mobile = vals.get('mobile', False)
-        phone = vals.get('phone', False)
-        address_id = vals.get('address_id', False)
-        address_local_street_id = vals.get('address_local_street_id', False)
-        address_local_zip_id = vals.get('address_local_zip_id', False)
-        number = vals.get('number', False)
-        box = vals.get('box', False)
-        town_man = vals.get('town_man', False)
-        country_id = vals.get('country_id', False)
-        zip_man = vals.get('zip_man', False)
-        street_man = vals.get('street_man', False)
-
-        partner_id = vals.get('partner_id', False)
-
-        request_type = vals.get('request_type', False)
-
-        if zip_man and town_man:
-            domain = [
-                ('local_zip', '=', zip_man),
-                ('town', 'ilike', town_man),
-            ]
-            zids = self.pool['address.local.zip'].search(
-                cr, uid, domain, context=context)
-            if zids:
-                cnty_id = self.pool['res.country']._country_default_get(
-                    cr, uid, COUNTRY_CODE, context=context)
-                if not country_id or cnty_id == country_id:
-                    country_id = cnty_id
-                    address_local_zip_id = zids[0]
-                    town_man = False
-                    zip_man = False
-
-        if not is_company and not birth_date:
-            birth_date = self.get_birth_date(cr, uid, day, month, year,
-                                             context=context)
-
-        if mobile:
-            mobile = self.get_format_phone_number(cr, uid, mobile,
-                                                  context=context)
-            mobile_id = self.get_phone_id(cr, uid, mobile, 'mobile',
-                                          context=context)
-        if phone:
-            phone = self.get_format_phone_number(cr, uid, phone,
-                                                 context=context)
-            phone_id = self.get_phone_id(cr, uid, phone, 'fix',
-                                         context=context)
-        if email:
-            email = self.get_format_email(cr, uid, email, context=context)
-
-        if not partner_id:
-            partner_id = self.get_partner_id(cr, uid, is_company, birth_date,
-                                             lastname, firstname, email,
-                                             context=context)
-
-        technical_name = self.get_technical_name(
-            cr, uid, address_local_street_id, address_local_zip_id, number,
-            box, town_man, street_man, zip_man, country_id,
-            context=context)
-        address_id = address_id or self.onchange_technical_name(
-            cr, uid, False, technical_name,
-            context=context)['value']['address_id']
-        int_instance_id = self.get_int_instance_id(
-            cr, uid, address_local_zip_id, context=context)
-
-        res = self.onchange_partner_id(
-            cr, uid, [], is_company, request_type, partner_id, technical_name,
-            context=context)['value']
-        vals.update(res)
-
-        # update vals dictionary because some inputs may have changed
-        # (and new values too)
-        vals.update({
-            'is_company': is_company,
-            'partner_id': partner_id,
-
-            'lastname': lastname,
-            'firstname': firstname,
-            'birth_date': birth_date,
-
-            'int_instance_id': int_instance_id,
-
-            'day': day,
-            'month': month,
-            'year': year,
-            'gender': gender,
-
-            'mobile': mobile,
-            'phone': phone,
-            'email': email,
-
-            'mobile_id': mobile_id,
-            'phone_id': phone_id,
-
-            'address_id': address_id,
-            'address_local_zip_id': address_local_zip_id,
-            'country_id': country_id,
-            'zip_man': zip_man,
-            'town_man': town_man,
-
-            'technical_name': technical_name,
-        })
-
-        return vals
-
     def confirm_request(self, cr, uid, ids, context=None):
         vals = {
             'state': 'confirm'
@@ -1279,7 +1144,7 @@ class membership_request(orm.Model):
 
         if context.get('install_mode', False) or \
                 context.get('mode', True) == 'ws':
-            self.pre_process(cr, uid, vals, context=context)
+            self._pre_process(cr, uid, vals, context=context)
 
         self._pop_related(cr, uid, vals, context=context)
         request_id = super(membership_request, self).create(cr, uid, vals,
