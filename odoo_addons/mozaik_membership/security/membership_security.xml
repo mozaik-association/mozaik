@@ -240,7 +240,7 @@
         <record id="partner_involvement_base_rule" model="ir.rule">
             <field name="name">Partner Involvement for Mozaik</field>
             <field name="model_id" ref="mozaik_person.model_partner_involvement"/>
-            <field name="domain_force">[('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="domain_force">['|',('partner_instance_id','=',False),('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>

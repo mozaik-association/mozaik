@@ -13,7 +13,7 @@ class PartnerInvolvement(models.Model):
 
     partner_instance_id = fields.Many2one(
         comodel_name='int.instance', string='Partner Internal Instance',
-        related='partner_id.int_instance_id', store=True)
+        related='partner_id.int_instance_id', store=True, readonly=True)
 
     amount = fields.Float(
         digits=dp.get_precision('Product Price'),
