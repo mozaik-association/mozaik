@@ -115,7 +115,7 @@ class test_membership(SharedSetupTransactionCase):
         }
         all_values.update(base_values)
 
-        output_values = self.mro.pre_process(
+        output_values = self.mro._pre_process(
             cr, uid, all_values, context=context)
         self.assertEqual(output_values.get('mobile_id', False),
                          self.rec_phone.phone_id.id,
@@ -130,7 +130,7 @@ class test_membership(SharedSetupTransactionCase):
             output_values.get('int_instance_id', False),
             self.rec_postal.address_id.address_local_zip_id.int_instance_id.id,
             'Instance should be the instance of the address local zip')
-        output_values = self.mro.pre_process(
+        output_values = self.mro._pre_process(
             cr, uid, base_values, context=context)
         self.assertEqual(
             output_values.get('int_instance_id', False),
@@ -421,7 +421,7 @@ class test_membership(SharedSetupTransactionCase):
             'phone': self.mobile_five.name,
             'partner_id': self.rec_partner_jacques.id
         }
-        vals = mr_obj.pre_process(vals)
+        vals = mr_obj._pre_process(vals)
         mr1 = mr_obj.create(vals)
         mr1.validate_request()
         self.env.invalidate_all()

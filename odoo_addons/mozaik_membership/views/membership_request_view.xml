@@ -186,19 +186,20 @@
                             </group>
                             <group name="city">
                                 <field name="address_local_zip_id"
-                                    on_change="onchange_local_zip_id(country_id, address_local_zip_id,
-                                                                     zip_man, town_man, street_man, number, box)"
-                                    attrs="{'invisible': ['|',('country_id', '=', False),('country_code','!=', 'BE')],
-                                            'required': [('country_code','=', 'BE')]}"
+                                    on_change="onchange_local_zip_id(
+                                        country_id, address_local_zip_id, zip_man, town_man, street_man, number, box)"
+                                    attrs="{'invisible': ['|', ('country_id', '=', False), ('country_code', '!=', 'BE')], 'required': [('country_code', '=', 'BE')]}"
                                     options='{"no_open":True, "no_create":True}' />
                                 <field name="zip_man"
-                                    on_change="onchange_other_address_componants(country_id, address_local_zip_id, zip_man, town_man,
-                                                                                 address_local_street_id, street_man, number, box)"
-                                    attrs="{'invisible': ['|',('country_id', '=', False),('country_code','=', 'BE')]}" />
+                                    on_change="onchange_other_address_componants(
+                                        country_id, address_local_zip_id, zip_man, town_man, address_local_street_id, street_man, number, box)"
+                                    attrs="{'invisible': ['|', ('address_local_zip_id', '!=', False), '&amp;', ('zip_man', '=', False), ('country_code', '=', 'BE')],
+                                            'readonly': ['|', ('country_id', '=', False), '&amp;', ('address_local_zip_id', '=', False), ('country_code', '=', 'BE')]}" />
                                 <field name="town_man"
-                                    on_change="onchange_other_address_componants(country_id, address_local_zip_id, zip_man, town_man,
-                                                                                 address_local_street_id, street_man, number, box)"
-                                    attrs="{'invisible': ['|',('country_id', '=', False),('country_code','=', 'BE')]}" />
+                                    on_change="onchange_other_address_componants(
+                                        country_id, address_local_zip_id, zip_man, town_man, address_local_street_id, street_man, number, box)"
+                                    attrs="{'invisible': ['|', ('address_local_zip_id', '!=', False), '&amp;', ('town_man', '=', False), ('country_code', '=', 'BE')],
+                                            'readonly': ['|', ('country_id', '=', False), '&amp;', ('address_local_zip_id', '=', False), ('country_code', '=', 'BE')]}" />
                             </group>
                             <group name="streets" attrs="{'invisible': [('country_id', '=', False)]}">
                                 <field name="address_local_street_id"

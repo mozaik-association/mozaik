@@ -56,7 +56,7 @@ class test_membership_request(SharedSetupTransactionCase):
             'distribution_list_ids': [
                 (6, 0, [self.test_distribution_list_id.id])],
         }
-        vals = mr_obj.pre_process(vals)
+        vals = mr_obj._pre_process(vals)
         mr1 = mr_obj.create(vals)
         mr1.validate_request()
         self.env.invalidate_all()
@@ -78,7 +78,7 @@ class test_membership_request(SharedSetupTransactionCase):
                 (6, 0, [self.test_distribution_list_id.id])],
             'partner_id': self.paul.id,
         }
-        vals = mr_obj.pre_process(vals)
+        vals = mr_obj._pre_process(vals)
         mr1 = mr_obj.create(vals)
         mr1.validate_request()
         self.env.invalidate_all()
