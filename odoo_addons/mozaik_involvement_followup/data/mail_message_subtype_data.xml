@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="partner_involvement_to_follow_mms" model="mail.message.subtype">
+        <field name="name">Involvement To Follow</field>
+        <field name="res_model">partner.involvement</field>
+        <field name="default" eval="True"/>
+        <field name="description">A follow-up is required for this involvement</field>
+    </record>
+
+    <record id="partner_involvement_late_mms" model="mail.message.subtype">
+        <field name="name">Follow-up reminder: Deadline reached</field>
+        <field name="res_model">partner.involvement</field>
+        <field name="default" eval="True"/>
+        <field name="description">The follow-up of this involvement is not yet done.</field>
+    </record>
+
+</data>
+</openerp>

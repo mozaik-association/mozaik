@@ -245,7 +245,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         Do not add creator to followers nor track message on create
         Disable tracking if possible: when testing, installing, migrating, ...
         """
-        ctx = dict(self.env.context, mail_no_autosubscribe=True)
+        ctx = dict(self.env.context)
         if ctx.get('install_mode') or self.env.all.mode:
             ctx['tracking_disable'] = True
         if not ctx.get('tracking_disable'):
@@ -272,7 +272,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         """
         Disable tracking if possible: when testing, installing, migrating, ...
         """
-        ctx = dict(self.env.context, mail_no_autosubscribe=True)
+        ctx = dict(self.env.context)
         if ctx.get('install_mode') or self.env.all.mode:
             ctx['tracking_disable'] = True
         self = self.with_context(ctx)
@@ -309,24 +309,20 @@ class mozaik_abstract_model(orm.AbstractModel):
                   'or due to some undefined names while evaluating:\n%s') %
                 (self._description, 'read', s[1]))
 
-    def message_auto_subscribe(self, cr, uid, ids, updated_fields,
-                               context=None, values=None):
-        ctx = context or {}
-        if ctx.get('mail_no_autosubscribe'):
-            return True
-        res = super(mozaik_abstract_model, self).message_auto_subscribe(
-            cr, uid, ids, updated_fields, context=ctx, values=values)
-        return res
+    @api.model
+    def _message_get_auto_subscribe_fields(
+            self, vals, auto_follow_fields=None):
+        """ Disable auto subscribe by field """
+        return []
 
+    @api.multi
     def message_subscribe(
-            self, cr, uid, ids, partner_ids, subtype_ids=None, context=None):
+            self, partner_ids, subtype_ids=None):
         """
         Update followers with sudo rights to avoid security issues
-        (!! Thanks odoo for this nice implementation !!)
         """
-        uid = SUPERUSER_ID
-        res = super(mozaik_abstract_model, self).message_subscribe(
-            cr, uid, ids, partner_ids, subtype_ids, context=context)
+        res = super(mozaik_abstract_model, self.sudo()).message_subscribe(
+            partner_ids, subtype_ids=subtype_ids)
         return res
 
     def reset_followers(
