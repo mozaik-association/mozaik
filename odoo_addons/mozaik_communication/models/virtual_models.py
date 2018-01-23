@@ -17,7 +17,7 @@ class VirtualPartnerInvolvement(models.Model):
     national_voluntary = fields.Boolean()
 
     involvement_type = fields.Selection(selection=CATEGORY_TYPE)
-    pay_date = fields.Date()
+    effective_time = fields.Datetime(string='Involvement Date')
 
 
 class VirtualPartnerInstance(models.Model):

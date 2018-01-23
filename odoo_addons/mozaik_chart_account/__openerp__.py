@@ -10,6 +10,7 @@
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',
+    'category': 'Political Association',
     'depends': [
         'account',
     ],

@@ -30,12 +30,15 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'mozaik_communication',
         'mozaik_help',
         'mozaik_mobile',
         'mozaik_portal',
         'mozaik_person',
         'mozaik_involvement_followup',
+        'mozaik_chart_account',
+        'mozaik_retrocession',
+        'mozaik_account',
+        'mozaik_communication',
     ],
     'description': """
 MOZAIK
