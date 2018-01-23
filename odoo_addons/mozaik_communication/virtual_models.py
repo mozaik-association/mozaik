@@ -29,8 +29,6 @@ from openerp.osv import orm, fields
 
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_TONGUES
-from openerp.addons.mozaik_person.models.partner_involvement \
-    import CATEGORY_TYPE
 from openerp.addons.mozaik_retrocession.retrocession \
     import RETROCESSION_AVAILABLE_STATES
 from openerp.addons.mozaik_mandate.mandate \
@@ -123,9 +121,6 @@ class virtual_partner_involvement(orm.Model):
 
         'involvement_category_id': fields.many2one(
             'partner.involvement.category', 'Involvement Category'),
-        'involvement_type': fields.selection(
-            CATEGORY_TYPE, string='Involvement Type'),
-        'effective_time': fields.datetime(string='Involvement Date'),
 
         'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number', group_operator='min'),
