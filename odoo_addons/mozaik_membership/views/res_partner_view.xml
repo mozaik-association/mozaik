@@ -160,6 +160,15 @@
                     </group>
                 </xpath>
 
+                <xpath expr="//field[@name='partner_involvement_ids']/tree" position="inside">
+                    <field name="amount" sum="1"/>
+                    <field name="promise" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_involvement_ids']/tree" position="attributes">
+                    <attribute name="colors" translation="off">red:promise==True</attribute>
+                </xpath>
+
             </field>
         </record>
 
