@@ -138,8 +138,8 @@ class PartnerInvolvement(models.Model):
     _sql_constraints = [
         (
             'multi_or_not',
-            'CHECK (allow_multi IS TRUE AND effective_time IS NOT NULL '
-            'OR allow_multi IS FALSE)',
+            "CHECK (active IS FALSE OR allow_multi IS FALSE OR "
+            "involvement_type IN ('donation') OR effective_time IS NOT NULL)",
             'Effective time is mandatory '
             'for this kind of involvement category !',
         ),
@@ -182,7 +182,9 @@ class PartnerInvolvement(models.Model):
         index2 = "CREATE UNIQUE INDEX %s_unique_2_idx " \
             "ON %s USING btree " \
             "(partner_id, involvement_category_id, effective_time) " \
-            "WHERE active IS TRUE AND allow_multi IS TRUE" \
+            "WHERE active IS TRUE AND allow_multi IS TRUE " \
+            "AND (involvement_type NOT IN ('donation') OR " \
+            "involvement_type IS NULL)" \
             % (self._table, self._table)
         create_index(2, index2)
 
@@ -196,7 +198,7 @@ class PartnerInvolvement(models.Model):
         if not vals.get('effective_time'):
             ic = self.env['partner.involvement.category'].browse(
                 vals['involvement_category_id'])
-            if ic.allow_multi:
+            if ic.allow_multi and ic.involvement_type not in ['donation']:
                 vals['effective_time'] = fields.Datetime.now()
         res = super(PartnerInvolvement, self).create(vals)
         terms = res.involvement_category_id.interests_m2m_ids
@@ -219,5 +221,6 @@ class PartnerInvolvement(models.Model):
 
     @api.onchange('allow_multi')
     def _onchange_allow_multi(self):
-        if self.allow_multi and not not self.effective_time:
+        if self.allow_multi and self.involvement_type not in ['donation'] \
+                and not self.effective_time:
             self.effective_time = fields.Datetime.now()

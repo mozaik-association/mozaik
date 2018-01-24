@@ -2,6 +2,21 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="partner_involvement_search_view" model="ir.ui.view">
+            <field name="name">partner.involvement.search (mozaik_membership)</field>
+            <field name="model">partner.involvement</field>
+            <field name="inherit_id" ref="mozaik_person.partner_involvement_search_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='without_type']" position="after">
+                    <separator/>
+                    <filter name="promise" string="Donation Promise"
+                        domain="[('promise', '=', True)]"/>
+                    <filter name="donation" string="Real Donation"
+                        domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="partner_involvement_form_view" model="ir.ui.view">
             <field name="name">partner.involvement.form (mozaik_membership)</field>
             <field name="model">partner.involvement</field>
@@ -27,12 +42,29 @@
                         <group>
                             <group name="payment1">
                                 <field name="amount"/>
+                                <field name="promise"/>
                             </group>
                             <group name="payment2">
                                 <field name="reference"/>
                             </group>
                         </group>
                     </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="partner_involvement_tree_view" model="ir.ui.view">
+            <field name="name">partner.involvement.tree (mozaik_membership)</field>
+            <field name="model">partner.involvement</field>
+            <field name="inherit_id" ref="mozaik_person.partner_involvement_tree_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='creation_time']" position="after">
+                    <field name="amount" sum="1"/>
+                    <field name="promise" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors" translation="off">red:promise==True</attribute>
                 </xpath>
             </field>
         </record>
