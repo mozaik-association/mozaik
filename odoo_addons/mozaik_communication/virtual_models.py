@@ -158,6 +158,7 @@ class virtual_partner_involvement(orm.Model):
             concat(pi.partner_id, '/', pc.id, '/', e.id) as common_id,
             pi.partner_id as partner_id,
             pi.effective_time as effective_time,
+            pi.promise as promise,
             pic.id as involvement_category_id,
             pic.involvement_type as involvement_type,
             p.int_instance_id as int_instance_id,

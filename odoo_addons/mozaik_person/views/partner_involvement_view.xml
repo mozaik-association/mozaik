@@ -78,8 +78,7 @@
             <field name="view_id" eval="partner_involvement_tree_view"/>
             <field name="search_view_id" ref="partner_involvement_search_view" />
             <field name="domain">[('involvement_type', '=', 'donation')]</field>
-            <field name="context">{'default_partner_id': active_id, 'search_default_partner_id': active_id}</field>
-            <field name="context">{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1, 'search_default_involvement_type': 'donation'}</field>
+            <field name="context">{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1}</field>
         </record>
 
         <record id="partner_involvement_form_view" model="ir.ui.view">
