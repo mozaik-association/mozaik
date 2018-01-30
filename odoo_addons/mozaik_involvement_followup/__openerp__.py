@@ -12,6 +12,7 @@
     'website': 'https://acsone.eu/',
     'category': 'Political Association',
     'depends': [
+        'mail_restrict_follower_selection',
         'mail',
         'mozaik_base',
         'mozaik_person',
@@ -22,6 +23,7 @@
     'data': [
         'data/mail_message_subtype_data.xml',
         'data/ir_cron_data.xml',
+        'data/ir_config_parameter.xml',
         'views/partner_involvement.xml',
         'views/partner_involvement_category.xml',
     ],
