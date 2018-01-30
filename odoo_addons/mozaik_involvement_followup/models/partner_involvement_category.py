@@ -36,3 +36,19 @@ class PartnerInvolvementCategory(models.Model):
     def _onchange_nb_deadline_days(self):
         if not self.nb_deadline_days:
             self.mandate_category_id = False
+
+    @api.model
+    def read_followers_data(self, follower_ids):
+        '''
+        Disable security for this method but recompute is_uid properties
+        '''
+        result = super(
+            PartnerInvolvementCategory, self.sudo()).read_followers_data(
+                follower_ids)
+        is_editable = self.user_has_groups(
+            'mozaik_base.mozaik_res_groups_configurator')
+        uid = self.env.user.partner_id.id
+        for res in result:
+            res[2]['is_editable'] = is_editable
+            res[2]['is_uid'] = uid == res[0]
+        return result

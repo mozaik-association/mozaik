@@ -88,3 +88,18 @@ class PartnerInvolvement(models.Model):
     @api.multi
     def action_followup_done(self):
         self.write({'state': 'done'})
+
+    @api.model
+    def read_followers_data(self, follower_ids):
+        '''
+        Disable security for this method but recompute is_uid properties
+        '''
+        result = super(PartnerInvolvement, self.sudo()).read_followers_data(
+            follower_ids)
+        is_editable = self.user_has_groups(
+            'mozaik_base.mozaik_res_groups_configurator')
+        uid = self.env.user.partner_id.id
+        for res in result:
+            res[2]['is_editable'] = is_editable
+            res[2]['is_uid'] = uid == res[0]
+        return result
