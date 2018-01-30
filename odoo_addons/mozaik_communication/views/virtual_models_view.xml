@@ -110,6 +110,11 @@
                     <filter name="without_type" string="Without Involvement Type"
                         domain="[('involvement_type', '=', False)]"/>
                     <separator/>
+                    <filter name="promise" string="Donation Promise"
+                        domain="[('promise', '=', True)]"/>
+                    <filter name="donation" string="Real Donation"
+                        domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"/>
+                    <separator/>
                     <filter string="Local Voluntary"
                         name="local_voluntary"
                         domain="[('local_voluntary','=', True)]" />

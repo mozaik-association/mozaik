@@ -18,6 +18,7 @@ class VirtualPartnerInvolvement(models.Model):
 
     involvement_type = fields.Selection(selection=CATEGORY_TYPE)
     effective_time = fields.Datetime(string='Involvement Date')
+    promise = fields.Boolean()
 
 
 class VirtualPartnerInstance(models.Model):
