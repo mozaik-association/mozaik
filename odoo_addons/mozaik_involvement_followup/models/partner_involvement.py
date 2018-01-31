@@ -38,8 +38,10 @@ class PartnerInvolvement(models.Model):
         index=True, copy=False, store=True,
         compute='_compute_deadline')
 
+    from_date = fields.Date(copy=False)  # only to trigger a recompute
+
     @api.multi
-    @api.depends("involvement_category_id")
+    @api.depends('involvement_category_id', 'from_date')
     def _compute_deadline(self):
         for involvement in self:
             if involvement.involvement_category_id.nb_deadline_days:
@@ -84,10 +86,6 @@ class PartnerInvolvement(models.Model):
         ])
         invs.write({'state': 'late'})
         return True
-
-    @api.multi
-    def action_followup_done(self):
-        self.write({'state': 'done'})
 
     @api.model
     def read_followers_data(self, follower_ids):

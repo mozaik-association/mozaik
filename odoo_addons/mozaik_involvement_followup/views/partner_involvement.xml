@@ -11,18 +11,18 @@
         <field name="inherit_id" ref="mozaik_person.partner_involvement_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//header/div" position="inside">
-                <button name="action_followup_done" string="Followed" type="object" attrs="{'invisible': [('state', 'not in', ['followup', 'late'])]}"/>
-                <field name="state" widget="statusbar" statusbar_visible="followup,late"/>
+                <button name="%(mozaik_involvement_followup.partner_involvement_followup_wizard_act_window)d" string="Follow-up" type="action" attrs="{'invisible': [('state', 'in', ['nofollowup', 'done'])]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="followup,late" attrs="{'invisible': [('state', '=', 'nofollowup')]}"/>
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page name="followup" string="Follow-up" attrs="{'invisible': [('state', '=', 'nofollowup')]}">
                     <group>
                         <group>
                             <field name="deadline"/>
-                        </group>    
+                        </group>
                         <group>
-                        </group>    
-                    </group>    
+                        </group>
+                    </group>
                 </page>
             </xpath>
             <xpath expr="//field[@name='message_follower_ids']" position="attributes">
