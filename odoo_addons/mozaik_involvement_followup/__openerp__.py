@@ -24,6 +24,7 @@
         'data/mail_message_subtype_data.xml',
         'data/ir_cron_data.xml',
         'data/ir_config_parameter.xml',
+        'wizards/partner_involvement_followup_wizard.xml',
         'views/partner_involvement.xml',
         'views/partner_involvement_category.xml',
     ],
