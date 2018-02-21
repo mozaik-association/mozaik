@@ -664,7 +664,7 @@ class res_partner(orm.Model):
             return user_obj.read(
                 cr,
                 uid,
-                res_uid,
+                [res_uid],
                 ['login'],
-                context=context)['login']
+                context=context)[0]['login']
         return ''

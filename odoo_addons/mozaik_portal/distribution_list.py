@@ -34,8 +34,8 @@ class distribution_list(orm.Model):
     def _get_partner(self, cr, uid, context=None):
         user_obj = self.pool['res.users']
         return user_obj.read(
-            cr, SUPERUSER_ID, uid, ['partner_id'],
-            context=context)['partner_id'][0]
+            cr, SUPERUSER_ID, [uid], ['partner_id'],
+            context=context)[0]['partner_id'][0]
 
     def _update_opt(self, cr, uid, ids, mode, context=None):
         partner_id = self._get_partner(cr, uid, context=context)

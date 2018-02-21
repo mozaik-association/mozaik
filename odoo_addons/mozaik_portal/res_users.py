@@ -35,4 +35,5 @@ class res_users(orm.Model):
         :raparam: partner_id of the current user
         '''
         return self.read(
-            cr, uid, uid, ['partner_id'], context=context)['partner_id'][0]
+            cr, uid, [uid], ['partner_id'],
+            context=context)[0]['partner_id'][0]

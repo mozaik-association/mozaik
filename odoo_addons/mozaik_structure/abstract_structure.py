@@ -211,7 +211,7 @@ class abstract_assembly(orm.AbstractModel):
                 not vals.get('assembly_category_id'):
             return False
         instance = self.pool[model].read(
-            cr, uid, vals.get(field), ['name'], context=context)
+            cr, uid, [vals.get(field)], ['name'], context=context)[0]
         category = self.pool['%s.assembly.category' % kind].read(
             cr, uid, vals.get('assembly_category_id'), ['name'],
             context=context)

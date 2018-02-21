@@ -749,8 +749,8 @@ class membership_request(orm.Model):
                     partner_id = partner_obj.create(
                         cr, uid, partner_datas, context=context)
             status_id = partner_obj.read(
-                cr, uid, partner_id, ['membership_state_id'],
-                context=context)['membership_state_id'][0]
+                cr, uid, [partner_id], ['membership_state_id'],
+                context=context)[0]['membership_state_id'][0]
             vals = self._get_status_values(cr, uid, request_type)
             if vals:
                 with self.protect_v8_cache():
@@ -758,8 +758,8 @@ class membership_request(orm.Model):
                     partner_obj.write(
                         cr, uid, partner_id, vals, context=context)
                 status_id = partner_obj.read(
-                    cr, uid, partner_id, ['membership_state_id'],
-                    context=context)['membership_state_id'][0]
+                    cr, uid, [partner_id], ['membership_state_id'],
+                    context=context)[0]['membership_state_id'][0]
         except:
             pass
         finally:

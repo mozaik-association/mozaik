@@ -89,9 +89,8 @@ class res_partner(orm.Model):
         ia_obj = self.pool['int.assembly']
         int_instance_id = context.get('new_instance_id')
         if not int_instance_id:
-            int_instance_id = self.read(
-            cr, uid, pid, ['int_instance_id'],
-            context=context, load='_classic_write')['int_instance_id']
+            int_instance_id = self.browse(
+                cr, uid, pid, context=context).int_instance_id.id
         if not int_instance_id:
             return False
         fol_ids = ia_obj.get_followers_assemblies(
