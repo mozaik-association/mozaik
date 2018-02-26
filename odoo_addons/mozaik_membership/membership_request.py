@@ -1035,13 +1035,13 @@ class membership_request(orm.Model):
 
             if not mr.is_company:
                 partner_values.update(self._get_status_values(
-                    cr, uid, mr.request_type))
+                    cr, uid, mr.request_type, date_from=mr.effective_time))
             if partner_values:
                 partner_obj.write(
                     cr, uid, [partner_id], partner_values, context=ctx)
             if upd_folw:
                 if mr.membership_state_id.id == result_id:
-                    partner_obj.update_membership_line(
+                    partner_obj._update_membership_line(
                         cr, uid, [partner_id], context=context)
                 partner_obj._update_followers(
                     cr, SUPERUSER_ID, [partner_id], context=context)

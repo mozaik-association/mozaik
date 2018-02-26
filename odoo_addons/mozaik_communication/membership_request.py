@@ -34,13 +34,6 @@ class MembershipRequest(models.Model):
     _name = 'membership.request'
     _inherit = ['membership.request']
 
-    @api.model
-    def _get_status_values(self, request_type):
-        vals = super(MembershipRequest, self)._get_status_values(request_type)
-        if request_type == 'n':
-            vals.pop('accepted_date', None)
-        return vals
-
     distribution_list_ids = fields.Many2many(
         comodel_name='distribution.list',
         relation='membership_request_distribution_list_rel',

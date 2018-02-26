@@ -14,7 +14,7 @@ class MembershipRequest(models.Model):
     _inherit = 'membership.request'
 
     @api.model
-    def _get_status_values(self, request_type):
+    def _get_status_values(self, request_type, date_from=False):
         """
         :type request_type: char
         :param request_type: m or s for member or supporter.
@@ -24,12 +24,9 @@ class MembershipRequest(models.Model):
             and the `status`
         """
         vals = {}
-        if request_type:
-            vals['accepted_date'] = fields.Date.today()
-            if request_type == 'm':
-                vals['free_member'] = False
-            elif request_type == 's':
-                vals['free_member'] = True
+        if request_type in ['m', 's']:
+            vals['accepted_date'] = date_from or fields.Date.today()
+            vals['free_member'] = (request_type == 's')
         return vals
 
     local_voluntary = fields.Boolean(track_visibility='onchange')
