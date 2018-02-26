@@ -380,11 +380,9 @@ class report_retrocession_wizard(orm.TransientModel):
             if not assembly_ids:
                 secretariat_name = False
             else:
-                secretariat_name = int_ass_pool.read(cr,
-                                                     uid,
-                                                     assembly_ids[0],
-                                                     ['name'],
-                                                     context=context)['name']
+                secretariat_name = int_ass_pool.read(
+                    cr, uid, [assembly_ids[0]], ['name'],
+                    context=context)[0]['name']
 
             secretariat_dict[mandate['id']] = secretariat_name
 

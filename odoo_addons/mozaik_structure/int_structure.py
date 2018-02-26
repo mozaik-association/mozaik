@@ -264,8 +264,8 @@ class int_assembly(orm.Model):
         Return the secretariat related to the same instance as
         the given assembly
         '''
-        instance_id = self.read(cr, uid, assembly_id, ['instance_id'],
-                                context=context)['instance_id'][0]
+        instance_id = self.read(cr, uid, [assembly_id], ['instance_id'],
+                                context=context)[0]['instance_id'][0]
         secretariat_id = self.pool['int.instance'].get_secretariat(
             cr, uid, [instance_id], context=context)
         return secretariat_id

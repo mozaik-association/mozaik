@@ -98,7 +98,7 @@ class event_registration(orm.Model):
         p_obj = self.pool['res.partner']
         p_id = vals['partner_id']
 
-        p_value = p_obj.read(cr, uid, p_id, r_fields, context=context)
+        p_value = p_obj.read(cr, uid, [p_id], r_fields, context=context)[0]
         vals['name'] = p_value['display_name']
         # select mobile id or fix id of no phone
         phone_id = p_value['mobile_coordinate_id'] and \

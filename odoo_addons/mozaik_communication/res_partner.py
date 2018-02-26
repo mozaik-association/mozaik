@@ -22,7 +22,7 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from openerp import SUPERUSER_ID, api, models, fields
 
 
 class ResPartner(models.Model):
@@ -44,3 +44,16 @@ class ResPartner(models.Model):
                                   domain=[('newsletter', '=', True)])
     responsible_user_id = fields.Many2one(
         comodel_name='res.users', string='Responsible User', index=True)
+
+    @api.multi
+    def read(self, fields=None, load='_classic_read'):
+        """
+        Bypass security for some fields
+        """
+        if self.env.user.id != SUPERUSER_ID:
+            flds = set(fields or self._fields) - set(
+                ['__last_update', 'image_medium', 'image_small'])
+            if not flds:
+                return super(ResPartner, self.sudo()).read(
+                    fields=fields, load=load)
+        return super(ResPartner, self).read(fields=fields, load=load)
