@@ -23,11 +23,12 @@
 #
 ##############################################################################
 
-from datetime import date
-from anybox.testing.openerp import SharedSetupTransactionCase
 import uuid
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 from openerp.osv import orm
+from anybox.testing.openerp import SharedSetupTransactionCase
 
 
 class test_partner(SharedSetupTransactionCase):
@@ -454,65 +455,52 @@ class test_partner(SharedSetupTransactionCase):
 
     def test_update_membership_line(self):
         """
-        Check that calling this method will first create a membership_line
-        for a giving partner and then call it a second time to check that an
-        update is made for the first membership line and a new creation
-        Process One:
-            * date from = today
+        This method does not create a membership_line if partner has no status
+        Otherwise a membership_line is created:
+        First time:
+            * date from = today - 3 days
             * membership_state = partner status
             * date_to = False
             * active = True
-        Process two:
-            * update first:
+        Second time:
+            * the first membership_line is updated:
                  * date_to = today
                  * active = False
-            * new_one:
+            * a new one is created:
                  * date from = today
                  * membership_state = partner status
                  * date_to = False
                  * active = True
-        change status of the partner: this action will automatically launch
-        `update_membership_line`
-        and then the second process will be executed
         """
         partner, partner_obj = self.partner1, self.partner_obj
-        cr, uid, context = self.cr, self.uid, {'active_test': True}
-        partner_obj.update_membership_line(cr, uid, [partner.id],
-                                           context=context)
+        cr, uid, context = self.cr, self.uid, {'active_test': False}
         partner = partner_obj.browse(cr, uid, partner.id, context=context)
-        today = date.today().strftime('%Y-%m-%d')
-        membership_state_id = partner.membership_state_id and \
-            partner.membership_state_id.id or False
 
-        for membership_line in partner.membership_line_ids:
-            if membership_line.active:
-                self.assertFalse(membership_line.date_to, 'Should not have a \
-                    date_to because this is the current membership')
-                self.assertEqual(membership_line.membership_state_id.id,
-                                 membership_state_id, 'State of membership \
-                                 must be the same that state of partner')
-            self.assertEqual(membership_line.date_from, today,
-                             'Date From should be: today')
+        partner_obj._update_membership_line(cr, uid, [partner.id])
+        self.assertFalse(partner.membership_line_ids)
+
+        today = (date.today() - relativedelta(days=3)).strftime('%Y-%m-%d')
         partner.write({'accepted_date': today})
-        partner = partner_obj.browse(cr, uid, partner.id, context=context)
-        self.assertTrue(len(partner.membership_line_ids) >= 1, "Sould have "
-                        "one member lines: previous first call "
-                        "(without_membership) should not create lines "
-                        "and another for the current update of status")
-        one_current = False
-        for membership_line in partner.membership_line_ids:
-            if membership_line.active:
-                one_current = True
-                self.assertTrue(membership_line.state_id ==
-                                partner.membership_state_id,
-                                'State Should be the same than partner')
-            else:
-                self.assertTrue(membership_line.state_id.id ==
-                                membership_state_id,
-                                'State Should be the same than before')
-                self.assertTrue(membership_line.date_to,
-                                '`date_to` should has been set')
-        self.assertTrue(one_current, 'Should at least have one current')
+        self.assertEqual(1, len(partner.membership_line_ids))
+        membership_line = partner.membership_line_ids[0]
+        self.assertTrue(membership_line.active)
+        self.assertEqual(membership_line.date_from, today)
+        self.assertFalse(membership_line.date_to)
+        self.assertEqual(
+            membership_line.state_id, partner.membership_state_id)
+
+        today = date.today().strftime('%Y-%m-%d')
+        partner_obj._update_membership_line(cr, uid, [partner.id])
+        self.assertEqual(2, len(partner.membership_line_ids))
+        self.assertFalse(membership_line.active)
+        self.assertEqual(membership_line.date_to, today)
+
+        membership_line = partner.membership_line_ids.filtered(
+            lambda s: s.id != membership_line.id)
+        self.assertTrue(membership_line.active)
+        self.assertEqual(membership_line.date_from, today)
+        self.assertFalse(membership_line.date_to)
+        return
 
     def test_update_is_company(self):
         """

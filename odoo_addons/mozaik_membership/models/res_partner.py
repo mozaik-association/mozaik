@@ -22,6 +22,95 @@ class ResPartner(models.Model):
         digits=dp.get_precision('Product Price'), readonly=True)
 
     @api.multi
+    def update_state(self, membership_state_code):
+        """
+        Update state of partner. Called by workflow.
+
+        :type membership_state_code: char
+        :param membership_state_code: code of `membership.state`
+        """
+        self.ensure_one()
+        membership_state_obj = self.env['membership.state']
+        state = membership_state_obj.search(
+            [('code', '=', membership_state_code)])
+        state.ensure_one()
+
+        vals = {
+            'membership_state_id': state.id,
+            'accepted_date': False,
+            'decline_payment_date': False,
+            'rejected_date': False,
+            'resignation_date': False,
+            'exclusion_date': False,
+            'customer': membership_state_code in [
+                'member_candidate',
+                'member_committee',
+                'member',
+                'former_member',
+                'former_member_committee',
+            ],
+            'reference': False,
+            'amount': False,
+        }
+
+        if membership_state_code == 'supporter':
+            vals['free_member'] = True
+
+        if membership_state_code == 'member_candidate':
+            vals['del_doc_date'] = False
+
+        current_reference = self.reference
+        date_from = self.accepted_date
+
+        res = self.write(vals)
+
+        state_id = membership_state_obj._state_default_get()
+        state = membership_state_obj.browse([state_id])
+
+        if membership_state_code != state.code:
+            self._update_membership_line(
+                ref=current_reference, date_from=date_from)
+
+        return res
+
+    @api.multi
+    def _update_membership_line(self, ref=False, date_from=False):
+        """
+        Search for a `membership.membership_line` for each partner
+        If no membership_line exist:
+        * then create one
+        * else invalidate it updating its `date_to` and duplicate it
+          with the right state
+        """
+        date_from = date_from or fields.Date.today()
+        values = {
+            'date_from': date_from,
+            'date_to': False,
+        }
+        membership_line_obj = self.env['membership.line']
+        membership_state_obj = self.env['membership.state']
+        def_state_id = membership_state_obj._state_default_get()
+        for partner in self.filtered(lambda s: not s.is_company):
+            values['partner_id'] = partner.id
+            values['state_id'] = partner.membership_state_id.id
+            if values['state_id'] != def_state_id:
+                values['int_instance_id'] = partner.int_instance_id and \
+                    partner.int_instance_id.id or False,
+                values['reference'] = ref
+                current_membership_line_id = membership_line_obj.search(
+                    [('partner_id', '=', partner.id), ('active', '=', True)],
+                    limit=1)
+
+                if current_membership_line_id:
+                    # update and copy it
+                    current_membership_line_id.action_invalidate(
+                        vals={'date_to': date_from})
+                    current_membership_line_id.copy(default=values)
+                else:
+                    # create first membership_line
+                    membership_line_obj.create(values)
+
+    @api.multi
     def button_modification_request(self):
         """
         Create a `membership.request` from a partner

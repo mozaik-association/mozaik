@@ -156,7 +156,7 @@ class res_partner(orm.Model):
         }
         self.write(cr, uid, [pid], vals, context=context)
         # add a membership line
-        self.update_membership_line(
+        self._update_membership_line(
             cr, uid, [pid], context=context)
 
     def _generate_membership_reference(self, cr, uid, partner_id,
@@ -454,66 +454,6 @@ class res_partner(orm.Model):
         }
         self.write(cr, uid, ids, vals, context=context)
 
-# workflow
-
-    def update_state(self, cr, uid, ids, membership_state_code, context=None):
-        """
-        Field `membership_state_id` is updated with the `membership.state`
-        having the code `membership_state_code`
-
-        :type membership_state_code: char
-        :param membership_state_code: code of `membership.state`
-        :raise orm.except_orm: If no `membership_state_id` found with
-        `membership_state_code`
-        """
-
-        membership_state_obj = self.pool['membership.state']
-        membership_state_ids = membership_state_obj.search(
-            cr, uid, [('code', '=', membership_state_code)], context=context)
-
-        if not membership_state_ids:
-            raise orm.except_orm(
-                _('Error'),
-                _('Undefined Membership State: %s') % membership_state_code)
-
-        vals = {
-            'membership_state_id': membership_state_ids[0],
-            'accepted_date': False,
-            'decline_payment_date': False,
-            'rejected_date': False,
-            'resignation_date': False,
-            'exclusion_date': False,
-            'customer': membership_state_code in [
-                'member_candidate',
-                'member_committee',
-                'member',
-                'former_member',
-                'former_member_committee',
-            ],
-            'reference': False,
-            'amount': False,
-        }
-
-        if membership_state_code == 'supporter':
-            vals['free_member'] = True
-
-        if membership_state_code == 'member_candidate':
-            vals['del_doc_date'] = False
-
-        current_reference = self.read(
-            cr, uid, ids, ['reference'], context=context)[0]['reference']
-        res = self.write(cr, uid, ids, vals, context=context)
-        state_id = membership_state_obj._state_default_get(
-            cr, uid, context=context)
-        default_code = membership_state_obj.read(
-            cr, uid, state_id, ['code'], context=context)['code']
-
-        if membership_state_code != default_code:
-            self.update_membership_line(
-                cr, uid, ids, ref=current_reference, context=context)
-
-        return res
-
     def message_track(self, cr, uid, ids,
                       tracked_fields, initial_values, context=None):
         """
@@ -526,50 +466,6 @@ class res_partner(orm.Model):
             tracked_fields.pop('membership_state_id', False)
         super(res_partner, self).message_track(
             cr, uid, ids, tracked_fields, initial_values, context=context)
-
-    def update_membership_line(self, cr, uid, ids, ref=False, context=None):
-        """
-        Search for a `membership.membership_line` for each partner
-        If no membership_line exist:
-        * then create one
-        * else invalidate it updating its `date_to` and duplicate it
-          with the right state
-        """
-        today = fields.date.today()
-        values = {
-            'date_from': today,
-            'date_to': False,
-        }
-        membership_line_obj = self.pool['membership.line']
-        membership_state_obj = self.pool['membership.state']
-        def_state = membership_state_obj._state_default_get(cr, uid)
-        for partner in self.browse(cr, uid, ids, context=context):
-            if partner.is_company:
-                continue
-            values['partner_id'] = partner.id
-            values['state_id'] = partner.membership_state_id.id
-            if values['state_id'] != def_state:
-                values['int_instance_id'] = partner.int_instance_id and \
-                    partner.int_instance_id.id or False,
-                values['reference'] = ref
-                current_membership_line_ids = membership_line_obj.search(
-                    cr, uid, [('partner_id', '=', partner.id),
-                              ('active', '=', True)],
-                    context=context)
-                current_membership_line_id = current_membership_line_ids and \
-                    current_membership_line_ids[0] or False
-
-                if current_membership_line_id:
-                    # update and copy it
-                    membership_line_obj.action_invalidate(
-                        cr, uid, [current_membership_line_id], context=context)
-                    membership_line_obj.copy(
-                        cr, uid, current_membership_line_id, default=values,
-                        context=context)
-                else:
-                    # create first membership_line
-                    membership_line_obj.create(
-                        cr, uid, values, context=context)
 
     def update_membership_reference(self, cr, uid, ids, context=None):
         '''

@@ -134,15 +134,13 @@
             <field name="name">membership.line.tree</field>
             <field name="model">membership.line</field>
             <field name="arch" type="xml">
-                <tree colors="gray:active==False;green:state_id[0]==%(mozaik_membership.member)d;red:state_id[0] in [%(mozaik_membership.former_supporter)d, %(mozaik_membership.refused_member_candidate)d, %(mozaik_membership.expulsion_former_member)d, %(mozaik_membership.resignation_former_member)d, %(mozaik_membership.inappropriate_former_member)d, %(mozaik_membership.break_former_member)d]"
-                      string="Membership Lines" create="0" delete="0" version="7.0">
+                <tree colors="gray:active==False;green:state_code=='member';red:state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']"
+                      create="0" delete="0">
                     <field name="partner_id"/>
                     <field name="int_instance_id"/>
                     <field name="state_id"/>
                     <field name="product_id"
-                        attrs="{'invisible': [('state_code', '!=', 'member'),
-                        ('state_code', '!=', 'former_member_committee'),
-                        ('state_code', '!=', 'member_committee')]}"/>
+                        attrs="{'invisible': [('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
                     <field name="reference" />
                     <field name="date_from"/>
                     <field name="date_to"/>
@@ -157,7 +155,7 @@
             <field name="name">membership.line.form</field>
             <field name="model">membership.line</field>
             <field name="arch" type="xml">
-                <form string="Membership Line" edit="0" create="0" delete="0" version="7.0">
+                <form edit="0" create="0" delete="0">
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -167,25 +165,27 @@
                     <sheet>
                         <div class="oe_title" name="title">
                             <label for="partner_id"/>
-                            <h1><field name="partner_id" readonly="not context.get('is_developper')" /></h1>
+                            <h1><field name="partner_id" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
 
                         <group name="data">
                             <group name="main">
-                               <field name="state_id" readonly="not context.get('is_developper')" />
+                               <field name="state_id" />
                                <field name="product_id"
                                     attrs="{'invisible': ['|',
                                                     ('product_id','=',False),
                                                     ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
                                 <field name="price" readonly="not context.get('in_mozaik_configurator')"
-                                       attrs="{'invisible': [('product_id','=',False)]}" />
-                                <field name="reference" readonly="not context.get('is_developper')"
+                                       attrs="{'invisible': ['|',
+                                                    ('product_id','=',False),
+                                                    ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}" />
+                                <field name="reference"
                                        attrs="{'invisible': [('reference','=',False)]}" />
                             </group>
                             <group name="other">
-                                <field name="int_instance_id" readonly="not context.get('is_developper')" />
+                                <field name="int_instance_id" />
                             </group>
                         </group>
 
