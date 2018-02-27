@@ -72,13 +72,13 @@ class test_membership(SharedSetupTransactionCase):
             * Check that `ir.config_parameter` key `nb_days` exists
             * `date_from` (membership line of Pauline)
               = today - (parameter value - 5)
-            * launch `process_accept_members` and check that Pauline is not
+            * launch `_process_accept_members` and check that Pauline is not
               a `member`
             * Update parameter value with string value 'blabla'
             * Import DEFAULT_NB_DAYS
             * `date_from` (membership line of Pauline)
               = today - (DEFAULT_NB_DAYS + 5)
-            * launch `process_accept_members` and check that Pauline now
+            * launch `_process_accept_members` and check that Pauline now
               `member`
         """
         def update_memberlines_date_from(member_lines, new_date_from):
@@ -98,7 +98,7 @@ class test_membership(SharedSetupTransactionCase):
         new_date_from = date.today() - timedelta(days=to_substract)
         update_memberlines_date_from(self.pauline.membership_line_ids,
                                      new_date_from)
-        self.wmr.process_accept_members(cr, uid)
+        self.wmr._process_accept_members(cr, uid)
         self.pauline = self.partner_obj.browse(cr, uid, self.pauline.id,
                                                context=context)
         self.assertTrue(self.pauline.membership_state_id.code != 'member',
@@ -110,7 +110,7 @@ class test_membership(SharedSetupTransactionCase):
         new_date_from = date.today() - timedelta(days=to_substract)
         update_memberlines_date_from(self.pauline.membership_line_ids,
                                      new_date_from)
-        self.wmr.process_accept_members(cr, uid, context=context)
+        self.wmr._process_accept_members(cr, uid, context=context)
         self.pauline = self.partner_obj.browse(cr, uid, self.pauline.id,
                                                context=context)
         self.assertTrue(self.pauline.membership_state_id.code == 'member',
