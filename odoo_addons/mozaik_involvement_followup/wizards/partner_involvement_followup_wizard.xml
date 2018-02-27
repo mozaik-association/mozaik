@@ -13,9 +13,16 @@
                 <group>
                     <field name="followup" widget="radio"/>
                     <field name="current_category_id" invisible="1"/>
-                    <field name="next_category_id" attrs="{'required': [('followup', '=', 'continue')], 'invisible': [('followup', '!=', 'continue')]}"
-                           options="{'no_create': 1, 'no_open': 1}"/>
+                    <field name="next_category_ids" attrs="{'required': [('followup', '=', 'continue')], 'invisible': [('followup', '!=', 'continue')]}"
+                           options="{'no_create': 1, 'no_open': 1}"
+                           widget="many2many_tags"/>
                 </group>
+                <div class="oe_clear">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
                 <footer>
                     <button name="doit"
                             string="OK"

@@ -25,7 +25,7 @@ class PartnerInvolvementCategory(models.Model):
         relation='partner_involvement_category_followup_rel',
         column1='partner_id', column2='followup_category_id',
         string='Follow-up Categories',
-        domain=[('involvement_type', '=', False)])
+        domain=[('involvement_type', 'in', [False, 'voluntary'])])
 
     parent_involvement_category_ids = fields.Many2many(
         'partner.involvement.category',
@@ -64,11 +64,11 @@ class PartnerInvolvementCategory(models.Model):
         :raise ValidationError: when a typed category is used
                                 as followup category
         """
-        for ic in self.filtered(lambda s: s.involvement_type):
+        for ic in self.filtered(
+                lambda s: s.involvement_type not in [False, 'voluntary']):
             if ic.parent_involvement_category_ids:
                 raise ValidationError(
-                    _('Error! You cannot specify '
-                      'an involvement type on followup categories'))
+                    _('Error! Followup category cannot be of this type'))
         return True
 
     @api.onchange('nb_deadline_days')
