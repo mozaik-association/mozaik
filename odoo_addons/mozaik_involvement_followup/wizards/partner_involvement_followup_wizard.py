@@ -9,8 +9,8 @@ FOLLOWUP_TYPE = [
      'please just increase the deadline'),
     ('done', 'Follow-up is done, I added details in '
      'the note or in the history'),
-    ('continue', 'Follow-up here is now done, but please create '
-     'another involvement to start a new followup'),
+    ('continue', 'Follow-up here is now done, it continues '
+     'by starting next follow-up'),
 ]
 
 
@@ -34,21 +34,23 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
         string='Current Follow-up Category',
         default=lambda s: s._default_current_category_id())
 
-    next_category_id = fields.Many2one(
+    next_category_ids = fields.Many2many(
         'partner.involvement.category',
+        relation='followup_wizard_partner_involvement_category_rel',
+        column1='followup_wizard_id', column2='partner_category_id',
         string='Next Follow-up Categories')
 
     @api.onchange('current_category_id')
     def _onchange_current_category_id(self):
         '''
-        Compute domain for next_category_id m2o
+        Compute domain for next_category_ids m2m
         '''
         domain = [
             ('id', 'in', self.current_category_id.involvement_category_ids.ids)
         ]
         return {
             'domain': {
-                'next_category_id': domain
+                'next_category_ids': domain
             }
         }
 
@@ -76,11 +78,12 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
             # mark involvement as done
             inv.write({'state': 'done', 'effective_time': now})
             if self.followup == 'continue':
-                vals = {
-                    'partner_id': inv.partner_id.id,
-                    'involvement_category_id': self.next_category_id.id,
-                }
-                new_inv = inv.create(vals)
+                for cat in self.next_category_ids:
+                    vals = {
+                        'partner_id': inv.partner_id.id,
+                        'involvement_category_id': cat.id,
+                    }
+                    new_inv = inv.create(vals)
                 action = {
                     'type': 'ir.actions.act_window',
                     'name': 'Follow-up: Next Involvement',
@@ -89,7 +92,3 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
                     'view_mode': 'form,tree',
                 }
         return action
-
-    @api.multi
-    def action_followup(self):
-        self.write({'state': 'done'})

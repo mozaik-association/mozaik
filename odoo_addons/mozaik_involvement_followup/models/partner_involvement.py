@@ -78,7 +78,7 @@ class PartnerInvolvement(models.Model):
         Effect is a tracking notification to subscribed followers to the
         corresponding subtype
         '''
-        today = fields.date.today()
+        today = fields.Date.today()
         invs = self.search([
             ('deadline', '!=', False),
             ('deadline', '<=', today),
