@@ -300,5 +300,14 @@
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="0"/>
         </record>
 
+        <record id="waiting_member_report_base_rule" model="ir.rule">
+            <field name="name">Members Committee for Mozaik</field>
+            <field name="model_id" ref="mozaik_membership.model_waiting_member_report"/>
+            <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
     </data>
 </openerp>

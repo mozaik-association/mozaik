@@ -1,53 +1,33 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_membership, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_membership is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_membership is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_membership.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 import logging
 
 from openerp import tools
-from openerp.osv import orm, fields
+from openerp import api, fields, models
 
 DEFAULT_NB_DAYS = 30
+
 _logger = logging.getLogger(__name__)
 
 
-class waiting_member_report(orm.Model):
+class waiting_member_report(models.Model):
 
     _name = "waiting.member.report"
     _description = 'Members Committee'
     _auto = False
 
-    _columns = {
-        'partner_id': fields.many2one('res.partner', 'Natural Persons'),
-        'identifier': fields.integer('Identifier'),
-        'membership_state_id': fields.many2one('membership.state',
-                                               'Membership State'),
-        'nb_days': fields.integer('#Days')
-    }
+    partner_id = fields.Many2one(
+        comodel_name='res.partner', string='Member')
+    membership_state_id = fields.Many2one(
+        comodel_name='membership.state', string='Status')
+    int_instance_id = fields.Many2one(
+        comodel_name='int.instance', string='Internal Instance')
+    identifier = fields.Integer(group_operator='min')
+    nb_days = fields.Integer(string='#Days', group_operator='max')
 
     _order = "nb_days desc, partner_id"
-
-# orm methods
 
     def init(self, cr):
         """
@@ -62,6 +42,7 @@ class waiting_member_report(orm.Model):
                     p.id as partner_id,
                     p.identifier as identifier,
                     ms.id as membership_state_id,
+                    ml.int_instance_id as int_instance_id,
                     ABS(EXTRACT
                         (year FROM age(ml.date_from))*365 +
                     EXTRACT
@@ -83,33 +64,26 @@ class waiting_member_report(orm.Model):
             )
         """)
 
-# public methods
-
-    def process_accept_members(self, cr, uid, ids=None, context=None):
+    @api.model
+    def _process_accept_members(self):
         """
         Advance the workflow with the signal `accept`
         for all partners found
         """
-        nb_days = self.pool['ir.config_parameter'].get_param(
-            cr, uid, 'nb_days', default=DEFAULT_NB_DAYS, context=context)
+        nb_days = self.env['ir.config_parameter'].get_param(
+            'nb_days', default=DEFAULT_NB_DAYS)
 
         try:
             nb_days = int(nb_days)
-        except:
+        except ValueError:
             nb_days = DEFAULT_NB_DAYS
             _logger.info('It seems the ir.config_parameter(nb_days) '
                          'is not a valid number. DEFAULT_NB_DAYS=%s days '
                          'is used instead.' % DEFAULT_NB_DAYS)
 
-        ids = self.search(
-            cr, uid, [('nb_days', '>=', nb_days)], context=context)
+        member_ids = self.search([('nb_days', '>=', nb_days)])
+        partner_ids = member_ids.mapped('partner_id')
 
-        pids = [
-            pid['id']
-            for pid in self.read(cr, uid, ids, ['partner_id'], context=context)
-        ]
-
-        self.pool['res.partner'].signal_workflow(
-            cr, uid, set(pids), 'accept', context=context)
+        partner_ids.signal_workflow('accept')
 
         return True

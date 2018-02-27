@@ -10,7 +10,7 @@
             <field name="doall" eval="False"/>
             <field name="nextcall" eval="(DateTime.today() + relativedelta(days=1)).strftime('%Y-%m-%d 01:00:00')"/>
             <field name="model" eval="'waiting.member.report'"/>
-            <field name="function" eval="'process_accept_members'"/>
+            <field name="function" eval="'_process_accept_members'"/>
             <field name="args">()</field>
         </record>
 

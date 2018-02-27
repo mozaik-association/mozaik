@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-18 23:21+0000\n"
-"PO-Revision-Date: 2017-09-18 23:21+0000\n"
+"POT-Creation-Date: 2018-02-27 18:42+0000\n"
+"PO-Revision-Date: 2018-02-27 18:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,16 +22,16 @@ msgstr "#Jours"
 
 #. module: mozaik_membership
 #: selection:generate.reference,reference_date:0
-msgid "2017"
-msgstr "2017"
-
-#. module: mozaik_membership
-#: selection:generate.reference,reference_date:0
 msgid "2018"
 msgstr "2018"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:361
+#: selection:generate.reference,reference_date:0
+msgid "2019"
+msgstr "2019"
+
+#. module: mozaik_membership
+#: code:addons/mozaik_membership/res_partner.py:364
 #, python-format
 msgid "A natural person with membership history cannot be transformed to a legal person"
 msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
@@ -119,6 +119,17 @@ msgstr "Tous"
 #: view:membership.request:mozaik_membership.membership_request_search_view
 msgid "All Requests, expired or not"
 msgstr "Toutes les demandes, expirées ou non"
+
+#. module: mozaik_membership
+#: field:ext.assembly,amount:0
+#: field:int.assembly,amount:0
+#: field:membership.request,amount:0
+#: field:partner.involvement,amount:0
+#: field:res.partner,amount:0
+#: field:res.users,amount:0
+#: field:sta.assembly,amount:0
+msgid "Amount"
+msgstr "Montant"
 
 #. module: mozaik_membership
 #: help:membership.line,price:0
@@ -382,6 +393,11 @@ msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: mozaik_membership
+#: view:partner.involvement:mozaik_membership.partner_involvement_search_view
+msgid "Donation Promise"
+msgstr "Promesse de don"
+
+#. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_search_view
 #: selection:membership.request,state:0
 msgid "Done"
@@ -442,9 +458,8 @@ msgid "Enterprise Number"
 msgstr "Numéro d'entreprise"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:876
-#: code:addons/mozaik_membership/res_partner.py:360
-#: code:addons/mozaik_membership/res_partner.py:473
+#: code:addons/mozaik_membership/membership_request.py:866
+#: code:addons/mozaik_membership/res_partner.py:363
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -587,6 +602,11 @@ msgstr "Prénom"
 #: field:sub.abstract.coordinate,message_follower_ids:0
 msgid "Followers"
 msgstr "Abonnés"
+
+#. module: mozaik_membership
+#: sql_constraint:partner.involvement:0
+msgid "For a donation amount must be positive !"
+msgstr "Pour un don le montant doit être positif !"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,name:mozaik_membership.former_email_notification
@@ -772,6 +792,7 @@ msgstr "Indexation"
 #: view:address.local.zip:mozaik_membership.address_local_zip_search_view
 #: view:membership.line:mozaik_membership.membership_line_search_view
 #: view:membership.request:mozaik_membership.membership_request_search_view
+#: view:waiting.member.report:mozaik_membership.waiting_member_report_search_view
 msgid "Instance"
 msgstr "Instance"
 
@@ -818,6 +839,7 @@ msgstr "Candidatures internes"
 #: field:sta.assembly,int_instance_id:0
 #: field:virtual.custom.partner,int_instance_id:0
 #: field:virtual.master.partner,int_instance_id:0
+#: field:waiting.member.report,int_instance_id:0
 msgid "Internal Instance"
 msgstr "Instance interne"
 
@@ -848,7 +870,7 @@ msgid "Internal Mandates"
 msgstr "Mandats internes"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:876
+#: code:addons/mozaik_membership/membership_request.py:866
 #, python-format
 msgid "Invalid Data"
 msgstr "Données invalides"
@@ -879,6 +901,11 @@ msgstr "Poursuivre l'invalidation du partenaire ?"
 #: field:membership.request,involvement_category_ids:0
 msgid "Involvement Categories"
 msgstr "Catégories de participations"
+
+#. module: mozaik_membership
+#: field:membership.request,effective_time:0
+msgid "Involvement Date"
+msgstr "Date effective de la participation"
 
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_form_view
@@ -931,6 +958,11 @@ msgstr "Est abonné"
 #: field:res.users,is_assembly:0
 msgid "Is an Assembly"
 msgstr "Est une assemblée"
+
+#. module: mozaik_membership
+#: field:partner.involvement,promise:0
+msgid "Just a promise"
+msgstr "Juste une promesse"
 
 #. module: mozaik_membership
 #: field:change.main.address,keep_instance:0
@@ -1015,6 +1047,12 @@ msgid "Legal Persons"
 msgstr "Personnes légales"
 
 #. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Local Voluntary"
+msgstr "Actif pol. niv. Local"
+
+#. module: mozaik_membership
 #: field:membership.request,local_zip:0
 msgid "Local Zip"
 msgstr "Code postal"
@@ -1028,6 +1066,16 @@ msgstr "Code postal local"
 #: model:ir.ui.menu,name:mozaik_membership.structure_address_menu
 msgid "Local Zip Codes"
 msgstr "Codes postaux locaux"
+
+#. module: mozaik_membership
+#: field:ext.assembly,local_voluntary:0
+#: field:int.assembly,local_voluntary:0
+#: field:membership.request,local_voluntary:0
+#: field:res.partner,local_voluntary:0
+#: field:res.users,local_voluntary:0
+#: field:sta.assembly,local_voluntary:0
+msgid "Local voluntary"
+msgstr "Actif pol. niv. Local"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,name:mozaik_membership.main_email_notification
@@ -1064,6 +1112,7 @@ msgstr "Instance interne du mandat"
 #: selection:phone.coordinate,partner_kind:0
 #: selection:postal.coordinate,partner_kind:0
 #: selection:res.partner,kind:0
+#: field:waiting.member.report,partner_id:0
 msgid "Member"
 msgstr "Membre"
 
@@ -1115,7 +1164,6 @@ msgstr "Commission des membres"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_membership_line
-#: view:membership.line:mozaik_membership.membership_line_form_view
 msgid "Membership Line"
 msgstr "Historique d'adhésion"
 
@@ -1133,7 +1181,6 @@ msgstr "Notification d'historique d'adhésion sans changement de statut"
 #: model:ir.actions.act_window,name:mozaik_membership.membership_line_action
 #: model:ir.ui.menu,name:mozaik_membership.membership_line_submenu
 #: view:membership.line:mozaik_membership.membership_line_search_view
-#: view:membership.line:mozaik_membership.membership_line_tree_view
 msgid "Membership Lines"
 msgstr "Historiques d'adhésion"
 
@@ -1172,7 +1219,6 @@ msgstr "Demandes d'adhésion"
 #: field:sta.assembly,membership_state_id:0
 #: field:virtual.custom.partner,membership_state_id:0
 #: field:virtual.master.partner,membership_state_id:0
-#: field:waiting.member.report,membership_state_id:0
 msgid "Membership State"
 msgstr "Statut d'adhésion"
 
@@ -1276,7 +1322,22 @@ msgstr "Nom de l'utilisateur au LDAP"
 
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_search_view
-#: field:waiting.member.report,partner_id:0
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "National Voluntary"
+msgstr "Actif pol. niv. National"
+
+#. module: mozaik_membership
+#: field:ext.assembly,national_voluntary:0
+#: field:int.assembly,national_voluntary:0
+#: field:membership.request,national_voluntary:0
+#: field:res.partner,national_voluntary:0
+#: field:res.users,national_voluntary:0
+#: field:sta.assembly,national_voluntary:0
+msgid "National voluntary"
+msgstr "Actif pol. niv. National"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
 msgid "Natural Persons"
 msgstr "Personnes physiques"
 
@@ -1289,11 +1350,6 @@ msgstr "Nouvelle instance interne"
 #: field:membership.request.change,new_value:0
 msgid "New Value"
 msgstr "Nouvelle valeur"
-
-#. module: mozaik_membership
-#: selection:membership.request,request_type:0
-msgid "Newsletter"
-msgstr "Lettre d'information"
 
 #. module: mozaik_membership
 #: field:membership.request,note:0
@@ -1329,6 +1385,11 @@ msgstr "Relations"
 #: field:membership.request.change,old_value:0
 msgid "Old Value"
 msgstr "Value actuelle"
+
+#. module: mozaik_membership
+#: selection:membership.request,request_type:0
+msgid "Other"
+msgstr "Autre"
 
 #. module: mozaik_membership
 #: view:generate.reference:mozaik_membership.generate_reference_view
@@ -1400,6 +1461,12 @@ msgstr "Type de partenaire"
 #: model:ir.model,name:mozaik_membership.model_partner_relation
 msgid "Partners Relation"
 msgstr "Relation de partenaires"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: view:partner.involvement:mozaik_membership.partner_involvement_2_form_view
+msgid "Payment"
+msgstr "Paiement"
 
 #. module: mozaik_membership
 #: field:membership.request,phone:0
@@ -1491,6 +1558,11 @@ msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_membership
+#: view:partner.involvement:mozaik_membership.partner_involvement_search_view
+msgid "Donation"
+msgstr "Don"
+
+#. module: mozaik_membership
 #: model:product.template,name:mozaik_membership.membership_product_other_product_template
 msgid "Reduced Subscription"
 msgstr "Cotisation réduite"
@@ -1499,6 +1571,8 @@ msgstr "Cotisation réduite"
 #: field:ext.assembly,reference:0
 #: field:int.assembly,reference:0
 #: field:membership.line,reference:0
+#: field:membership.request,reference:0
+#: field:partner.involvement,reference:0
 #: field:res.partner,reference:0
 #: field:res.users,reference:0
 #: field:sta.assembly,reference:0
@@ -1519,6 +1593,22 @@ msgstr "Rafraîchir"
 #: model:membership.state,name:mozaik_membership.refused_member_candidate
 msgid "Refused Member Candidate"
 msgstr "Candidat membre refusé"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Regional Voluntary"
+msgstr "Actif pol. niv. Régional"
+
+#. module: mozaik_membership
+#: field:ext.assembly,regional_voluntary:0
+#: field:int.assembly,regional_voluntary:0
+#: field:membership.request,regional_voluntary:0
+#: field:res.partner,regional_voluntary:0
+#: field:res.users,regional_voluntary:0
+#: field:sta.assembly,regional_voluntary:0
+msgid "Regional voluntary"
+msgstr "Actif pol. niv. Régional"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_form_membership
@@ -1656,6 +1746,11 @@ msgid "State Mandates"
 msgstr "Mandats politiques"
 
 #. module: mozaik_membership
+#: field:waiting.member.report,membership_state_id:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: mozaik_membership
 #: field:membership.request,street_man:0
 msgid "Street"
 msgstr "Rue"
@@ -1735,7 +1830,7 @@ msgid "Technical Name"
 msgstr "Nom technique"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:78
+#: code:addons/mozaik_membership/membership_request.py:79
 #, python-format
 msgid "The required age for a membership request is %s"
 msgstr "L'âge requis pour une demande d'adhésion est de %s ans"
@@ -1821,12 +1916,6 @@ msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:474
-#, python-format
-msgid "Undefined Membership State: %s"
-msgstr "Statut d'adhésion inconnu: %s"
-
-#. module: mozaik_membership
 #: model:product.template,name:mozaik_membership.membership_product_undefined_product_template
 msgid "Undefined Subscription"
 msgstr "Cotisation inconnue"
@@ -1894,6 +1983,12 @@ msgstr "Virtual Custom Partner"
 #: model:ir.model,name:mozaik_membership.model_virtual_master_partner
 msgid "Virtual Master Partner"
 msgstr "Virtual Master Partner"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: view:res.partner:mozaik_membership.view_partner_2_form
+msgid "Voluntary"
+msgstr "Volontariat"
 
 #. module: mozaik_membership
 #: field:membership.line,website_message_ids:0
