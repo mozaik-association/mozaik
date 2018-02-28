@@ -9,9 +9,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='without_type']" position="after">
                     <separator/>
-                    <filter name="promise" string="Donation Promise"
+                    <filter name="promise" string="Promise"
                         domain="[('promise', '=', True)]"/>
-                    <filter name="donation" string="Real Donation"
+                    <filter name="donation" string="Donation"
                         domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"/>
                 </xpath>
             </field>

@@ -1384,7 +1384,7 @@ msgstr "Relations"
 #. module: mozaik_membership
 #: field:membership.request.change,old_value:0
 msgid "Old Value"
-msgstr "Value actuelle"
+msgstr "Valeur actuelle"
 
 #. module: mozaik_membership
 #: selection:membership.request,request_type:0

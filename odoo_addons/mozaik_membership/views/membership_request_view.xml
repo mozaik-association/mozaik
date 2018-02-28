@@ -48,6 +48,15 @@
                     <filter string="National Voluntary"
                         name="national_voluntary"
                         domain="[('national_voluntary','=', True)]" />
+                    <filter string="Non Local Voluntary"
+                        name="non_local_voluntary"
+                        domain="[('local_voluntary','=', False)]" />
+                    <filter string="Non Regional Voluntary"
+                        name="non_regional_voluntary"
+                        domain="[('regional_voluntary','=', False)]" />
+                    <filter string="Non National Voluntary"
+                        name="non_national_voluntary"
+                        domain="[('national_voluntary','=', False)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="instance" string="Instance" domain="[]"
@@ -93,7 +102,6 @@
                                 string="Confirm" type="object"
                                 confirm="Confirm Membership Request: proceed anyway?" />
 
-                            <!-- Validate or Cancel State -->
                             <button name="validate_request"
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 string="Validate" type="object"
@@ -115,8 +123,7 @@
                             <field name="identifier" readonly="1"
                                 attrs="{'invisible': [('identifier', '=', 0)]}"
                                 class="oe_inline" />
-                            <span
-                                attrs="{'invisible':[('partner_id', '!=', False)]}">
+                            <span attrs="{'invisible':[('partner_id', '!=', False)]}">
                                 NEW
                             </span>
                             <span
@@ -143,7 +150,8 @@
                         <group name="partner">
                             <group name="partner_info1">
                                 <field name="is_company"
-                                    attrs="{'invisible':[('is_update', '=', True)]}" />
+                                    attrs="{'invisible':[('is_update', '=', True)]}"
+                                    on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name, context)" />
                                 <field name="lastname"
                                     on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)" />
                                 <field name="firstname"
@@ -248,7 +256,7 @@
                                 </group>
                             </page>
                             <page string="Involvements" name="involvement" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
-                                <group name="voluntary" string="Voluntary" attrs="{'invisible': [('is_company', '=', True)]}">
+                                <group name="voluntary" string="Voluntary" attrs="{'invisible': [('result_type_id', 'in', [False, %(mozaik_membership.without_membership)d])]}" col="6">
                                     <field name="local_voluntary"/>
                                     <field name="regional_voluntary"/>
                                     <field name="national_voluntary"/>

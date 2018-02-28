@@ -124,6 +124,15 @@
                     <filter string="National Voluntary"
                         name="national_voluntary"
                         domain="[('national_voluntary','=', True)]" />
+                    <filter string="Non Local Voluntary"
+                        name="non_local_voluntary"
+                        domain="[('local_voluntary','=', False)]" />
+                    <filter string="Non Regional Voluntary"
+                        name="non_regional_voluntary"
+                        domain="[('regional_voluntary','=', False)]" />
+                    <filter string="Non National Voluntary"
+                        name="non_national_voluntary"
+                        domain="[('national_voluntary','=', False)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
@@ -392,6 +401,15 @@
                     <filter string="National Voluntary"
                         name="national_voluntary"
                         domain="[('national_voluntary','=', True)]" />
+                    <filter string="Non Local Voluntary"
+                        name="non_local_voluntary"
+                        domain="[('local_voluntary','=', False)]" />
+                    <filter string="Non Regional Voluntary"
+                        name="non_regional_voluntary"
+                        domain="[('regional_voluntary','=', False)]" />
+                    <filter string="Non National Voluntary"
+                        name="non_national_voluntary"
+                        domain="[('national_voluntary','=', False)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />

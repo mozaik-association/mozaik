@@ -38,6 +38,18 @@
                         name="national_voluntary"
                         domain="[('national_voluntary','=', True)]"
                         invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <filter string="Non Local Voluntary"
+                        name="non_local_voluntary"
+                        domain="[('local_voluntary','=', False)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <filter string="Non Regional Voluntary"
+                        name="non_regional_voluntary"
+                        domain="[('regional_voluntary','=', False)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <filter string="Non National Voluntary"
+                        name="non_national_voluntary"
+                        domain="[('national_voluntary','=', False)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <separator/>
                     <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
@@ -147,17 +159,6 @@
                             type="object" confirm="Invalidate contact: proceed anyway?"
                             attrs="{'invisible': [('kind', '!=', 'p')]}"
                             invisible="context.get('in_mozaik_officer') or not context.get('in_mozaik_user')"/>
-                </xpath>
-
-                <xpath expr="//page[@name='involvement']/span[1]" position="before">
-                    <span class="oe_horizontal_separator oe_clear oe_inline" attrs="{'invisible': [('is_company', '=', True)]}">
-                        Voluntary
-                    </span>
-                    <group name="voluntary" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="local_voluntary"/>
-                        <field name="regional_voluntary"/>
-                        <field name="national_voluntary"/>
-                    </group>
                 </xpath>
 
                 <xpath expr="//field[@name='partner_involvement_ids']/tree" position="inside">
@@ -287,6 +288,11 @@
                                         confirm="Reset Date: proceed anyway?"/>
                                 </div>
                             </group>
+                        </group>
+                        <group name="voluntary" string="Voluntary" col="6">
+                            <field name="local_voluntary"/>
+                            <field name="regional_voluntary"/>
+                            <field name="national_voluntary"/>
                         </group>
                         <field name="membership_line_ids" readonly="1">
                             <tree colors="gray:active==False;green:state_id[0]==%(mozaik_membership.member)d;red:state_id[0] in [%(mozaik_membership.former_supporter)d, %(mozaik_membership.refused_member_candidate)d, %(mozaik_membership.expulsion_former_member)d, %(mozaik_membership.resignation_former_member)d, %(mozaik_membership.inappropriate_former_member)d, %(mozaik_membership.break_former_member)d]">
