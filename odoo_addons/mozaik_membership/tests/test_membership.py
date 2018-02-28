@@ -290,6 +290,7 @@ class test_membership(SharedSetupTransactionCase):
         cr, uid, context = self.cr, self.uid, {}
 
         request = self.rec_mr_update
+        request.regional_voluntary = True
 
         def get_changes():
             changes = {}
@@ -304,15 +305,18 @@ class test_membership(SharedSetupTransactionCase):
         self.assertIn('Gender', changes)
         self.assertIn('Email', changes)
         self.assertNotIn('Birth Date', changes)
+        self.assertIn('Regional voluntary', changes)
 
-        self.assertEquals(changes['Firstname'][0], 'Pauline')
-        self.assertEquals(changes['Firstname'][1], 'Paulinne')
+        self.assertEqual(changes['Firstname'][0], 'Pauline')
+        self.assertEqual(changes['Firstname'][1], 'Paulinne')
         self.assertFalse(changes['Mobile'][0])
-        self.assertEquals(changes['Mobile'][1], '+32 475 45 12 32')
+        self.assertEqual(changes['Mobile'][1], '+32 475 45 12 32')
         self.assertFalse(changes['Gender'][0])
-        self.assertEquals(changes['Gender'][1], 'Female')
+        self.assertEqual(changes['Gender'][1], 'Female')
         self.assertFalse(changes['Email'][0])
-        self.assertEquals(changes['Email'][1], 'pauline_marois@gmail.com')
+        self.assertEqual(changes['Email'][1], 'pauline_marois@gmail.com')
+        self.assertEqual(changes['Regional voluntary'][0], 'No')
+        self.assertEqual(changes['Regional voluntary'][1], 'Yes')
 
         address_id = request.partner_id.postal_coordinate_id.address_id.id
 

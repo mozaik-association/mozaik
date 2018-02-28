@@ -36,9 +36,8 @@ from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools import logging
 from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
-from openerp.tools.translate import _
 from openerp.exceptions import ValidationError
-from openerp import api, fields as new_fields
+from openerp import _, api, fields as new_fields
 
 
 _logger = logging.getLogger(__name__)
@@ -300,6 +299,27 @@ class membership_request(orm.Model):
                 'int_instance_id.name',
                 ''
             ),
+            (
+                16,
+                'local_voluntary',
+                'local_voluntary',
+                'local_voluntary',
+                'LOCAL'
+            ),
+            (
+                17,
+                'regional_voluntary',
+                'regional_voluntary',
+                'regional_voluntary',
+                'REGIONAL'
+            ),
+            (
+                18,
+                'national_voluntary',
+                'national_voluntary',
+                'national_voluntary',
+                'NATIONAL'
+            ),
         ]
 
     def _clean_stored_changes(self, cr, uid, ids, context):
@@ -315,7 +335,10 @@ class membership_request(orm.Model):
     def _get_labels_to_process(self, request):
         if not request.country_id:
             return []
-        label_path = ['NUMBER', 'STREET2', 'BOX', 'SEQUENCE']
+        label_path = [
+            'NUMBER', 'STREET2', 'BOX', 'SEQUENCE',
+            'LOCAL', 'REGIONAL', 'NATIONAL',
+        ]
         partner_adr = request.partner_id.postal_coordinate_id.address_id
         if (request.address_local_zip_id and partner_adr.address_local_zip_id):
             label_path.append('ZIP_REQUEST_PARTNER')
@@ -371,6 +394,12 @@ class membership_request(orm.Model):
                         selection = dict(field['selection'])
                         request_value = selection.get(request_value)
                         partner_value = selection.get(partner_value)
+                    if isinstance(request_value, bool) and \
+                            isinstance(partner_value, bool):
+                        request_value = request_value and \
+                            _('Yes') or _('No')
+                        partner_value = partner_value and \
+                            _('Yes') or _('No')
                     vals = {
                         'membership_request_id': request.id,
                         'sequence': seq,
@@ -629,6 +658,9 @@ class membership_request(orm.Model):
             'competencies_m2m_ids': False,
             'identifier': False,
         }
+        def_status_id = self.pool['membership.state'].\
+            _state_default_get(cr, uid, context=context)
+        partner_status_id = False
         if partner_id:
             res_partner_obj = self.pool['res.partner']
             partner = res_partner_obj.browse(cr, uid, partner_id,
@@ -653,17 +685,19 @@ class membership_request(orm.Model):
             res['regional_voluntary'] = partner.regional_voluntary
             res['national_voluntary'] = partner.national_voluntary
 
-        else:
-            partner_status_id = self.pool['membership.state'].\
-                _state_default_get(cr, uid, context=context)
+        elif not is_company:
+            partner_status_id = def_status_id
 
         result_type_id = False
         if not is_company:
             result_type_id = self.get_partner_preview(
                 cr, uid, request_type, partner_id, context=context)
-        elif request_type:
+        else:
             res.update({
                 'request_type': False,
+            })
+        if not result_type_id or result_type_id == def_status_id:
+            res.update({
                 'local_voluntary': False,
                 'regional_voluntary': False,
                 'national_voluntary': False,
@@ -1007,10 +1041,17 @@ class membership_request(orm.Model):
                 'competencies_m2m_ids': [[6, False, new_competencies_ids]],
                 'interests_m2m_ids': [[6, False, new_interests_ids]],
                 'comment': notes and '\n'.join(notes) or False,
-                'local_voluntary': mr.local_voluntary,
-                'regional_voluntary': mr.regional_voluntary,
-                'national_voluntary': mr.national_voluntary,
+                'local_voluntary': False,
+                'regional_voluntary': False,
+                'national_voluntary': False,
             })
+            if result_id and mr.result_type_id.code != 'without_membership':
+                # propagate voluntaries only for members
+                partner_values.update({
+                    'local_voluntary': mr.local_voluntary,
+                    'regional_voluntary': mr.regional_voluntary,
+                    'national_voluntary': mr.national_voluntary,
+                })
 
             # update_partner values
             # Passing do_not_track_twice in context the first tracking
