@@ -48,20 +48,14 @@ class mozaik_abstract_model(orm.AbstractModel):
     _allowed_inactive_link_models = []
     _inactive_cascade = False
 
-    def _format_message(self, cr, uid, message_description='', context=None):
-        message = ''
-        if message_description:
-            message = '<span>%s</span>' % message_description
-        return message
-
-    def _message_post(self, cr, uid, object_id, subtype='', context=None):
-        subtype_rec = self.pool.get('ir.model.data').xmlid_to_object(
-            cr, uid, subtype, context=context)
+    @api.multi
+    def _message_post(self, subtype):
+        subtype_rec = self.env.ref(subtype)
         description = subtype_rec and subtype_rec.description or ''
-        message = self._format_message(
-            cr, uid, message_description=description, context=context)
-        self.message_post(
-            cr, uid, object_id, body=message, subtype=subtype, context=context)
+        message = ''
+        if description:
+            message = '<span>%s</span>' % description
+        self.message_post(body=message, subtype=subtype)
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
