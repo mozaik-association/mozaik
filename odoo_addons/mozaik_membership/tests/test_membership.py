@@ -178,6 +178,7 @@ class test_membership(SharedSetupTransactionCase):
         partner.write({
             'regional_voluntary': False,
             'national_voluntary': True,
+            'local_only': True,
         })
 
         # change fix & address
@@ -187,6 +188,7 @@ class test_membership(SharedSetupTransactionCase):
             'box': 'jb',
             'regional_voluntary': True,
             'national_voluntary': False,
+            'local_only': False,
             'amount': 7.0,
             'reference': '+++555/2017/00055+++',
         }
@@ -218,6 +220,7 @@ class test_membership(SharedSetupTransactionCase):
         self.assertFalse(fix.active)
         self.assertTrue(partner.regional_voluntary)
         self.assertFalse(partner.national_voluntary)
+        self.assertFalse(partner.local_only)
         self.assertEqual(mr.reference, partner.reference)
         self.assertEqual(mr.amount, partner.amount)
 
@@ -290,7 +293,10 @@ class test_membership(SharedSetupTransactionCase):
         cr, uid, context = self.cr, self.uid, {}
 
         request = self.rec_mr_update
-        request.regional_voluntary = True
+        request.write({
+            'regional_voluntary': True,
+            'local_only': True,
+        })
 
         def get_changes():
             changes = {}
@@ -317,6 +323,8 @@ class test_membership(SharedSetupTransactionCase):
         self.assertEqual(changes['Email'][1], 'pauline_marois@gmail.com')
         self.assertEqual(changes['Regional voluntary'][0], 'No')
         self.assertEqual(changes['Regional voluntary'][1], 'Yes')
+        self.assertEqual(changes['Local only'][0], 'No')
+        self.assertEqual(changes['Local only'][1], 'Yes')
 
         address_id = request.partner_id.postal_coordinate_id.address_id.id
 

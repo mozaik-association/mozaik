@@ -57,6 +57,13 @@
                     <filter string="Non National Voluntary"
                         name="non_national_voluntary"
                         domain="[('national_voluntary','=', False)]" />
+                    <separator/>
+                    <filter string="Local Only"
+                        name="local_only"
+                        domain="[('local_only','=', True)]" />
+                    <filter string="Not Local Only"
+                        name="not_local_only"
+                        domain="[('local_only','=', False)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="instance" string="Instance" domain="[]"
@@ -150,8 +157,10 @@
                         <group name="partner">
                             <group name="partner_info1">
                                 <field name="is_company"
-                                    attrs="{'invisible':[('is_update', '=', True)]}"
+                                    attrs="{'invisible':['|', ('is_update', '=', True), ('result_type_id', 'not in', [False, %(mozaik_membership.without_membership)d])]}"
                                     on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name, context)" />
+                                <field name="local_only"
+                                    attrs="{'invisible': [('result_type_id', 'not in', [False, %(mozaik_membership.without_membership)d])]}" />
                                 <field name="lastname"
                                     on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)" />
                                 <field name="firstname"

@@ -18,6 +18,7 @@ class ResPartner(models.Model):
     local_voluntary = fields.Boolean(track_visibility='onchange')
     regional_voluntary = fields.Boolean(track_visibility='onchange')
     national_voluntary = fields.Boolean(track_visibility='onchange')
+    local_only = fields.Boolean(track_visibility='onchange')
     amount = fields.Float(
         digits=dp.get_precision('Product Price'), readonly=True)
 
@@ -170,6 +171,7 @@ class ResPartner(models.Model):
                 'local_voluntary': self.local_voluntary,
                 'regional_voluntary': self.regional_voluntary,
                 'national_voluntary': self.national_voluntary,
+                'local_only': self.local_only,
             }
             # create mr in sudo mode for portal user allowing to avoid create
             # rights on this model for these users

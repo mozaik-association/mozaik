@@ -51,6 +51,13 @@
                         domain="[('national_voluntary','=', False)]"
                         invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <separator/>
+                    <filter string="Local Only"
+                        name="local_only"
+                        domain="[('local_only','=', True)]" />
+                    <filter string="Not Local Only"
+                        name="not_local_only"
+                        domain="[('local_only','=', False)]" />
+                    <separator/>
                     <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
                         domain="[('del_doc_date','=', False),
@@ -89,6 +96,7 @@
                     <field name="membership_state_id"
                         invisible="context.get('default_is_company')" />
                     <field name="int_instance_id" />
+                    <field name="local_only"/>
                 </xpath>
 
             </field>
@@ -100,11 +108,10 @@
             <field name="inherit_id" ref="mozaik_address.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='postal_coordinate_id']"
-                    position="after">
+                <xpath expr="//field[@name='postal_coordinate_id']" position="after">
                     <field name="int_instance_id"
-                        attrs="{'readonly': ['|', ('is_assembly','=',True),
-                                            ('id','!=', False)]}" />
+                        attrs="{'readonly': ['|', ('is_assembly','=',True), ('id','!=', False)]}" />
+                    <field name="local_only" attrs="{'invisible': ['|', ('is_assembly','=',True), ('membership_state_code', 'not in', [False, 'without_membership'])]}"/>
                 </xpath>
 
             </field>
