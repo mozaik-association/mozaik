@@ -320,6 +320,13 @@ class membership_request(orm.Model):
                 'national_voluntary',
                 'NATIONAL'
             ),
+            (
+                19,
+                'local_only',
+                'local_only',
+                'local_only',
+                'LOCAL-ONLY'
+            ),
         ]
 
     def _clean_stored_changes(self, cr, uid, ids, context):
@@ -338,6 +345,7 @@ class membership_request(orm.Model):
         label_path = [
             'NUMBER', 'STREET2', 'BOX', 'SEQUENCE',
             'LOCAL', 'REGIONAL', 'NATIONAL',
+            'LOCAL-ONLY',
         ]
         partner_adr = request.partner_id.postal_coordinate_id.address_id
         if (request.address_local_zip_id and partner_adr.address_local_zip_id):
@@ -684,6 +692,7 @@ class membership_request(orm.Model):
             res['local_voluntary'] = partner.local_voluntary
             res['regional_voluntary'] = partner.regional_voluntary
             res['national_voluntary'] = partner.national_voluntary
+            res['local_only'] = partner.local_only
 
         elif not is_company:
             partner_status_id = def_status_id
@@ -702,6 +711,8 @@ class membership_request(orm.Model):
                 'regional_voluntary': False,
                 'national_voluntary': False,
             })
+        else:
+            res['local_only'] = False
 
         res.update({
             'membership_state_id': partner_status_id,
@@ -742,7 +753,7 @@ class membership_request(orm.Model):
         self.pool.pure_function_fields = []
         try:
             yield
-        except:
+        except Exception:
             raise
         finally:
             self.pool.pure_function_fields = orig_pure_fct_fields
@@ -794,7 +805,7 @@ class membership_request(orm.Model):
                 status_id = partner_obj.read(
                     cr, uid, [partner_id], ['membership_state_id'],
                     context=context)[0]['membership_state_id'][0]
-        except:
+        except Exception:
             pass
         finally:
             cr.execute('ROLLBACK TO SAVEPOINT "%s"' % name)
@@ -814,7 +825,7 @@ class membership_request(orm.Model):
             try:
                 birth_date = date(
                     int(year), int(month), int(day)).strftime('%Y-%m-%d')
-            except:
+            except Exception:
                 _logger.info('Reset `birth_date`: Invalid Date')
         return birth_date
 
@@ -896,7 +907,7 @@ class membership_request(orm.Model):
             else:
                 try:
                     domain = eval(domains[loop_counter])
-                except:
+                except Exception:
                     raise orm.except_orm(_('Error'), _('Invalid Data'))
                 model_ids = model_obj.search(cr, uid, domain, context=context)
                 if len(model_ids) == 1:
@@ -1044,6 +1055,7 @@ class membership_request(orm.Model):
                 'local_voluntary': False,
                 'regional_voluntary': False,
                 'national_voluntary': False,
+                'local_only': mr.local_only,
             })
             if result_id and mr.result_type_id.code != 'without_membership':
                 # propagate voluntaries only for members
@@ -1052,6 +1064,8 @@ class membership_request(orm.Model):
                     'regional_voluntary': mr.regional_voluntary,
                     'national_voluntary': mr.national_voluntary,
                 })
+            else:
+                partner_values['local_only'] = False
 
             # update_partner values
             # Passing do_not_track_twice in context the first tracking

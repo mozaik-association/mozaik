@@ -328,10 +328,12 @@ class test_partner(SharedSetupTransactionCase):
         """
         mr_obj, partner, cr, uid, context = self.mr_obj,\
             self.partner1, self.cr, self.uid, {}
-        partner.regional_voluntary = True
-        res = self.partner_obj.button_modification_request(cr, uid,
-                                                           [partner.id],
-                                                           context=context)
+        partner.write({
+            'regional_voluntary': True,
+            'local_only': True,
+        })
+        res = self.partner_obj.button_modification_request(
+            cr, uid, [partner.id], context=context)
         mr = mr_obj.browse(cr, uid, res['res_id'], context=context)
         postal_coordinate_id = partner.postal_coordinate_id or False
         mobile_coordinate_id = partner.mobile_coordinate_id or False
@@ -451,6 +453,7 @@ class test_partner(SharedSetupTransactionCase):
                          that [partner]competencies_m2m_ids ')
         self.assertEqual(mr.local_voluntary, partner.local_voluntary)
         self.assertEqual(mr.regional_voluntary, True)
+        self.assertEqual(mr.local_only, True)
         self.assertEqual(mr.national_voluntary, partner.national_voluntary)
 
     def test_update_membership_line(self):

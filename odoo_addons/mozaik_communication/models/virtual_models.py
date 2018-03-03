@@ -15,6 +15,7 @@ class VirtualPartnerInvolvement(models.Model):
     local_voluntary = fields.Boolean()
     regional_voluntary = fields.Boolean()
     national_voluntary = fields.Boolean()
+    local_only = fields.Boolean()
 
     involvement_type = fields.Selection(selection=CATEGORY_TYPE)
     effective_time = fields.Datetime(string='Involvement Date')
@@ -28,3 +29,4 @@ class VirtualPartnerInstance(models.Model):
     local_voluntary = fields.Boolean()
     regional_voluntary = fields.Boolean()
     national_voluntary = fields.Boolean()
+    local_only = fields.Boolean()
