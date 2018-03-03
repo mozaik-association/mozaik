@@ -96,7 +96,7 @@ class AccountBankStatementLine(models.Model):
                 # if state does not change after payment force a notification
                 if next_state == current_state:
                     subtype = 'mozaik_membership.no_state_change_notification'
-                    partner._message_post(subtype=subtype)
+                    partner._message_post(subtype)
 
         if mode == 'donation':
             inv_ids = self.env['partner.involvement'].search([

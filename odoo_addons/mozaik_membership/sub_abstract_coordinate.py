@@ -59,7 +59,7 @@ class sub_abstract_coordinate(orm.AbstractModel):
             self._discriminant_field
         for i in ids:
             self._message_post(
-                cr, uid, i, subtype=subtype, context=context)
+                cr, uid, i, subtype, context=context)
 
     _track = {}
     _update_track = {}
