@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_communication
+#   * mozaik_communication
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-01 11:49+0000\n"
-"PO-Revision-Date: 2016-06-01 11:49+0000\n"
+"POT-Creation-Date: 2018-03-03 14:13+0000\n"
+"PO-Revision-Date: 2018-03-03 14:13+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,13 +23,13 @@ msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:346
+#: code:addons/mozaik_communication/distribution_list.py:335
 #, python-format
-msgid "<b>New alias</b>: %s"
-msgstr "<b>Nouveau pseudonyme</b>: %s"
+msgid "<b>New alias</b>: %s@%s"
+msgstr "<b>Nouveau pseudonyme</b>: %s@%s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:275
+#: code:addons/mozaik_communication/distribution_list.py:264
 #, python-format
 msgid "<p>Distribution List: %s</p><p>Sender: %s</p><p>Failure Reason: %s</p>"
 msgstr "<p>Liste de distribution: %s</p><p>Émetteur: %s</p><p>Raison de l'échec: %s</p>"
@@ -91,7 +91,7 @@ msgid "Add Registrations"
 msgstr "Ajouter des inscriptions"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:337
+#: code:addons/mozaik_communication/distribution_list.py:326
 #, python-format
 msgid "Alias modified on distribution list %s"
 msgstr "Pseudonyme modifié pour la liste de distribution %s"
@@ -179,6 +179,16 @@ msgid "Assembly/Instance"
 msgstr "Assemblée/Instance"
 
 #. module: mozaik_communication
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "Attach a file"
+msgstr "Joindre un fichier"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,attachment_ids:0
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#. module: mozaik_communication
 #: view:event.registration:mozaik_communication.view_event_registration_form
 msgid "Attended"
 msgstr "Présent"
@@ -187,6 +197,11 @@ msgstr "Présent"
 #: selection:virtual.partner.retrocession,month:0
 msgid "August"
 msgstr "Août"
+
+#. module: mozaik_communication
+#: help:distribution.list.mass.function,body:0
+msgid "Automatically sanitized HTML contents"
+msgstr "Contenu HTML automatiquement assaini"
 
 #. module: mozaik_communication
 #: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
@@ -241,7 +256,7 @@ msgid "Bounced"
 msgstr "Rebond"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:58
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:59
 #: selection:distribution.list.mass.function,p_mass_function:0
 #, python-format
 msgid "CSV Extraction"
@@ -340,7 +355,12 @@ msgid "Confirm"
 msgstr "Confirmer"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:198
+#: field:distribution.list.mass.function,body:0
+msgid "Contents"
+msgstr "Contenu"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:187
 #, python-format
 msgid "Coordinate %s(%s) of %s is not main"
 msgstr "La coordonnée %s(%s) de %s n'est pas principale"
@@ -361,6 +381,7 @@ msgstr "Code pays"
 #. module: mozaik_communication
 #: field:add.registration,create_uid:0
 #: field:distribution.list.mass.function,create_uid:0
+#: field:export.csv,create_uid:0
 #: field:postal.mail,create_uid:0
 #: field:postal.mail.log,create_uid:0
 msgid "Created by"
@@ -369,6 +390,7 @@ msgstr "Créé par"
 #. module: mozaik_communication
 #: field:add.registration,create_date:0
 #: field:distribution.list.mass.function,create_date:0
+#: field:export.csv,create_date:0
 msgid "Created on"
 msgstr "Créé le"
 
@@ -377,6 +399,11 @@ msgstr "Créé le"
 #: field:postal.mail.log,create_date:0
 msgid "Creation Date"
 msgstr "Date de création"
+
+#. module: mozaik_communication
+#: field:export.csv,export_file:0
+msgid "Csv"
+msgstr "Csv"
 
 #. module: mozaik_communication
 #: help:distribution.list.line,message_last_post:0
@@ -441,6 +468,21 @@ msgid "Direct Mass Mailing"
 msgstr "Courriel de masse direct"
 
 #. module: mozaik_communication
+#: field:abstract.virtual.target,display_name:0
+#: field:add.registration,display_name:0
+#: field:distribution.list.mass.function,display_name:0
+#: field:export.csv,display_name:0
+#: field:postal.mail,display_name:0
+#: field:postal.mail.log,display_name:0
+#: field:virtual.assembly.instance,display_name:0
+#: field:virtual.partner.candidature,display_name:0
+#: field:virtual.partner.event,display_name:0
+#: field:virtual.partner.instance,display_name:0
+#: field:virtual.partner.involvement,display_name:0
+#: field:virtual.partner.mandate,display_name:0
+#: field:virtual.partner.membership,display_name:0
+#: field:virtual.partner.relation,display_name:0
+#: field:virtual.partner.retrocession,display_name:0
 #: field:virtual.target,display_name:0
 msgid "Display Name"
 msgstr "Nom à afficher"
@@ -449,7 +491,6 @@ msgstr "Nom à afficher"
 #: field:add.registration,distribution_list_id:0
 #: field:distribution.list.mass.function,distribution_list_id:0
 #: model:ir.model,name:mozaik_communication.model_distribution_list
-#: field:membership.request,distribution_list_id:0
 msgid "Distribution List"
 msgstr "Liste de distribution"
 
@@ -467,6 +508,16 @@ msgstr "Listes de distribution"
 #: view:distribution.list:mozaik_communication.distribution_list_search
 msgid "Distribution Lists of which I am an owner"
 msgstr "Listes de distribution dont je suis propriétaire"
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Promise"
+msgstr "Promesse"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.involvement,involvement_type:0
+msgid "Donations Campaign"
+msgstr "Campagne de dons"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.retrocession,state:0
@@ -488,6 +539,8 @@ msgstr "Compteur d'échecs de courriel"
 #: selection:distribution.list.mass.function,trg_model:0
 #: field:event.registration,email_coordinate_id:0
 #: model:ir.model,name:mozaik_communication.model_email_coordinate
+#: view:mail.mail.statistics:mozaik_communication.view_mail_mail_statistics_search
+#: field:mail.mail.statistics,email_coordinate_id:0
 #: field:virtual.assembly.instance,email_coordinate_id:0
 #: field:virtual.partner.candidature,email_coordinate_id:0
 #: field:virtual.partner.event,email_coordinate_id:0
@@ -576,8 +629,8 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:196
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:245
-#: code:addons/mozaik_communication/wizard/export_csv.py:192
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:295
+#: code:addons/mozaik_communication/wizard/export_csv.py:188
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -670,7 +723,12 @@ msgstr "Inscriptions expirées"
 #: model:ir.actions.act_window,name:mozaik_communication.export_csv_email_action
 #: model:ir.actions.act_window,name:mozaik_communication.export_csv_postal_action
 msgid "Export CSV"
-msgstr ""
+msgstr "Export CSV"
+
+#. module: mozaik_communication
+#: field:export.csv,export_filename:0
+msgid "Export CSV Filename"
+msgstr "Fichier d'export CSV"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_export_csv
@@ -715,7 +773,7 @@ msgstr "Attributions de mandat externe"
 #: code:addons/mozaik_communication/wizard/export_csv.py:94
 #, python-format
 msgid "Fax"
-msgstr ""
+msgstr "Fax"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.retrocession,month:0
@@ -761,13 +819,13 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:345
+#: code:addons/mozaik_communication/distribution_list.py:334
 #, python-format
-msgid "Former alias: %s"
-msgstr "Ancien pseudonyme: %s"
+msgid "Former alias: %s@%s"
+msgstr "Ancien pseudonyme: %s@%s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:273
+#: code:addons/mozaik_communication/distribution_list.py:262
 #, python-format
 msgid "Forwarding Failure: %s"
 msgstr "Échec de transfert: %s"
@@ -851,7 +909,7 @@ msgid "Group by Co-Residency"
 msgstr "Grouper par Co-Résidence"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:342
+#: code:addons/mozaik_communication/distribution_list.py:330
 #, python-format
 msgid "Hello"
 msgstr "Bonjour"
@@ -872,6 +930,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:abstract.virtual.target,id:0
 #: field:add.registration,id:0
 #: field:distribution.list.mass.function,id:0
+#: field:export.csv,id:0
 #: field:postal.mail,id:0
 #: field:postal.mail.log,id:0
 #: field:virtual.assembly.instance,id:0
@@ -885,7 +944,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:virtual.partner.retrocession,id:0
 #: field:virtual.target,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_communication
 #: selection:distribution.list.mass.function,sort_by:0
@@ -1067,6 +1126,41 @@ msgid "Involvement Category"
 msgstr "Catégorie de participation"
 
 #. module: mozaik_communication
+#: field:virtual.partner.involvement,effective_time:0
+msgid "Involvement Date"
+msgstr "Date de participation"
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Involvement Date < ..."
+msgstr "Date de participation < ..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Involvement Date > ..."
+msgstr "Date de participation > ..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Involvement Months"
+msgstr "Mois de participation"
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Involvement Type"
+msgstr "Type de participation"
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Involvement Years"
+msgstr "Année de participation"
+
+#. module: mozaik_communication
+#: field:virtual.partner.involvement,involvement_type:0
+msgid "Involvement type"
+msgstr "Type de participation"
+
+#. module: mozaik_communication
 #: field:virtual.target,is_company:0
 msgid "Is Company"
 msgstr "Personne morale"
@@ -1118,8 +1212,29 @@ msgid "Last Message Date"
 msgstr "Date du dernier message"
 
 #. module: mozaik_communication
+#: field:abstract.virtual.target,__last_update:0
+#: field:add.registration,__last_update:0
+#: field:distribution.list.mass.function,__last_update:0
+#: field:export.csv,__last_update:0
+#: field:postal.mail,__last_update:0
+#: field:postal.mail.log,__last_update:0
+#: field:virtual.assembly.instance,__last_update:0
+#: field:virtual.partner.candidature,__last_update:0
+#: field:virtual.partner.event,__last_update:0
+#: field:virtual.partner.instance,__last_update:0
+#: field:virtual.partner.involvement,__last_update:0
+#: field:virtual.partner.mandate,__last_update:0
+#: field:virtual.partner.membership,__last_update:0
+#: field:virtual.partner.relation,__last_update:0
+#: field:virtual.partner.retrocession,__last_update:0
+#: field:virtual.target,__last_update:0
+msgid "Last Modified on"
+msgstr "Modifié le"
+
+#. module: mozaik_communication
 #: field:add.registration,write_uid:0
 #: field:distribution.list.mass.function,write_uid:0
+#: field:export.csv,write_uid:0
 #: field:postal.mail,write_uid:0
 #: field:postal.mail.log,write_uid:0
 msgid "Last Updated by"
@@ -1128,6 +1243,7 @@ msgstr "Dernière mise à jour par"
 #. module: mozaik_communication
 #: field:add.registration,write_date:0
 #: field:distribution.list.mass.function,write_date:0
+#: field:export.csv,write_date:0
 #: field:postal.mail,write_date:0
 #: field:postal.mail.log,write_date:0
 msgid "Last Updated on"
@@ -1153,6 +1269,30 @@ msgstr "Exécuter"
 #: view:virtual.target:mozaik_communication.virtual_target_search_view
 msgid "Legal Persons"
 msgstr "Personnes morales"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Local Only"
+msgstr "Est contact local"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Local Voluntary"
+msgstr "Actif pol. niv. Local"
+
+#. module: mozaik_communication
+#: field:virtual.partner.instance,local_only:0
+#: field:virtual.partner.involvement,local_only:0
+msgid "Local only"
+msgstr "Contact local"
+
+#. module: mozaik_communication
+#: field:virtual.partner.instance,local_voluntary:0
+#: field:virtual.partner.involvement,local_voluntary:0
+msgid "Local voluntary"
+msgstr "Actif pol. niv. Local"
 
 #. module: mozaik_communication
 #: field:event.event,postal_coordinate_id:0
@@ -1274,7 +1414,7 @@ msgid "Mass Action"
 msgstr "Fonctionnalité de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:359
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:413
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 #: field:distribution.list.mass.function,e_mass_function:0
 #: field:distribution.list.mass.function,p_mass_function:0
@@ -1285,7 +1425,7 @@ msgid "Mass Function"
 msgstr "Fonctionnalité de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:57
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:58
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 #: model:ir.model,name:mozaik_communication.model_mail_mass_mailing
 #, python-format
@@ -1365,7 +1505,7 @@ msgid "Model"
 msgstr "Modèle"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:193
+#: code:addons/mozaik_communication/wizard/export_csv.py:189
 #, python-format
 msgid "Model %s not supported for csv export!"
 msgstr "Modèle %s non supporté pour l'epxortation csv!"
@@ -1410,21 +1550,51 @@ msgstr "Nom"
 #. module: mozaik_communication
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "National Voluntary"
+msgstr "Actif pol. niv. national"
+
+#. module: mozaik_communication
+#: field:virtual.partner.instance,national_voluntary:0
+#: field:virtual.partner.involvement,national_voluntary:0
+msgid "National voluntary"
+msgstr "Actif pol. niv. national"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
 #: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
 #: view:virtual.target:mozaik_communication.virtual_target_search_view
 msgid "Natural Persons"
 msgstr "Personnes physiques"
 
 #. module: mozaik_communication
-#: view:membership.request:mozaik_communication.membership_request_search_view
-msgid "Newsletter"
-msgstr "Lettre d'information"
+#: field:membership.request,distribution_list_ids:0
+msgid "Newsletters"
+msgstr "Lettres d'information"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:191
+#: code:addons/mozaik_communication/distribution_list.py:180
 #, python-format
 msgid "No unique coordinate found with address: %s"
 msgstr "Pas de coordonnée unique trouvée avec l'email: %s"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Non Local Voluntary"
+msgstr "Pas actif pol. niv. local"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Non National Voluntary"
+msgstr "Pas actif pol. niv. national"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Non Regional Voluntary"
+msgstr "Pas actif pol. niv. régional"
 
 #. module: mozaik_communication
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
@@ -1436,6 +1606,12 @@ msgstr "Pas de coordonnée unique trouvée avec l'email: %s"
 #: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
 msgid "Not Employee"
 msgstr "Non employé"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Not Local Only"
+msgstr "N'est pas contact local"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.retrocession,month:0
@@ -1482,13 +1658,18 @@ msgstr "Á valider"
 #: view:res.partner:mozaik_communication.view_partner_form
 #: field:res.partner,opt_in_ids:0
 msgid "Opt-In"
-msgstr ""
+msgstr "Opt-In"
 
 #. module: mozaik_communication
 #: view:res.partner:mozaik_communication.view_partner_form
 #: field:res.partner,opt_out_ids:0
 msgid "Opt-Out"
-msgstr ""
+msgstr "Opt-Out"
+
+#. module: mozaik_communication
+#: view:membership.request:mozaik_communication.membership_request_search_view
+msgid "Other"
+msgstr "Autre"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_mail_mail
@@ -1528,13 +1709,13 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:213
+#: code:addons/mozaik_communication/distribution_list.py:202
 #, python-format
 msgid "Partner %s is not a user"
 msgstr "Le contact %s n'est pas un utilisateur"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:203
+#: code:addons/mozaik_communication/distribution_list.py:192
 #, python-format
 msgid "Partner %s is not an owner nor an allowed partner"
 msgstr "Le contact %s n'est ni un propriétaire ni un émetteur autorisé"
@@ -1655,6 +1836,11 @@ msgid "Partners/Retrocessions"
 msgstr "Partenaires/Rétrocessions"
 
 #. module: mozaik_communication
+#: selection:virtual.partner.involvement,involvement_type:0
+msgid "Petition"
+msgstr "Pétition"
+
+#. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:86
 #, python-format
 msgid "Phone"
@@ -1755,6 +1941,11 @@ msgid "Power Level"
 msgstr "Niveau de pouvoir"
 
 #. module: mozaik_communication
+#: field:virtual.partner.involvement,promise:0
+msgid "Promise"
+msgstr "Promesse"
+
+#. module: mozaik_communication
 #: field:distribution.list,public:0
 msgid "Public"
 msgstr "Public"
@@ -1773,11 +1964,28 @@ msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Donation"
+msgstr "Don"
+
+#. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:70
 #: field:virtual.partner.membership,reference:0
 #, python-format
 msgid "Reference"
 msgstr "Référence"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Regional Voluntary"
+msgstr "Actif pol. niv. régional"
+
+#. module: mozaik_communication
+#: field:virtual.partner.instance,regional_voluntary:0
+#: field:virtual.partner.involvement,regional_voluntary:0
+msgid "Regional voluntary"
+msgstr "Actif pol. niv. régional"
 
 #. module: mozaik_communication
 #: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
@@ -1796,13 +2004,13 @@ msgid "Result"
 msgstr "Résultat"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:305
+#: code:addons/mozaik_communication/distribution_list.py:294
 #, python-format
 msgid "Result of %s"
 msgstr "Résultat de %s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:428
+#: code:addons/mozaik_communication/distribution_list.py:425
 #, python-format
 msgid "Result of %s filter without coordinate"
 msgstr "Résultat du filtre %s (injoignables)"
@@ -1967,9 +2175,15 @@ msgid "Street2"
 msgstr "Rue (suite)"
 
 #. module: mozaik_communication
+#: field:distribution.list.mass.function,subject:0
 #: field:virtual.partner.relation,partner_id:0
 msgid "Subject"
 msgstr "Sujet"
+
+#. module: mozaik_communication
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "Subject..."
+msgstr "Sujet..."
 
 #. module: mozaik_communication
 #: field:distribution.list.line,message_summary:0
@@ -1977,30 +2191,6 @@ msgstr "Sujet"
 #: field:postal.mail.log,message_summary:0
 msgid "Summary"
 msgstr "Résumé"
-
-#. module: mozaik_communication
-#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
-#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
-#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
-#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
-#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
-#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
-msgid "Tag"
-msgstr "Étiquette"
-
-#. module: mozaik_communication
-#: field:virtual.assembly.instance,category_id:0
-#: field:virtual.partner.candidature,category_id:0
-#: field:virtual.partner.event,category_id:0
-#: field:virtual.partner.instance,category_id:0
-#: field:virtual.partner.involvement,category_id:0
-#: field:virtual.partner.membership,category_id:0
-#: field:virtual.partner.relation,category_id:0
-#: field:virtual.partner.retrocession,category_id:0
-msgid "Tags"
-msgstr "Étiquettes"
 
 #. module: mozaik_communication
 #: field:virtual.target,technical_name:0
@@ -2013,13 +2203,13 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:343
+#: code:addons/mozaik_communication/distribution_list.py:331
 #, python-format
 msgid "The alias of the distribution list %s has been changed by %s."
 msgstr "Le pseudonyme de la liste de distribution %s a été modifié par %s."
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:245
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:295
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"
@@ -2133,7 +2323,7 @@ msgid "Unread Messages"
 msgstr "Messages non lus"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:229
+#: code:addons/mozaik_communication/distribution_list.py:218
 #, python-format
 msgid "User %s(%s) has no visibility on list %s(%s)"
 msgstr "L'utilisateur %s(%s) n'a aucune visibilité sur la liste %s(%s)"
@@ -2151,7 +2341,7 @@ msgid "Usual Lastname"
 msgstr "Nom usuel"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:59
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:60
 #, python-format
 msgid "VCARD Extraction"
 msgstr "Extraction VCARD"
@@ -2248,6 +2438,11 @@ msgid "Virtual Target"
 msgstr "Destination virtuelle"
 
 #. module: mozaik_communication
+#: selection:virtual.partner.involvement,involvement_type:0
+msgid "Voluntary Work"
+msgstr "Volontariat"
+
+#. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:99
 #, python-format
 msgid "Website"
@@ -2304,6 +2499,11 @@ msgstr "Date d'envoi des documents de bienvenue > ..."
 #: view:virtual.target:mozaik_communication.virtual_target_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Involvement Without Type"
+msgstr "Participation sans type"
 
 #. module: mozaik_communication
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view

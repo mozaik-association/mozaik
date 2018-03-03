@@ -141,7 +141,7 @@ class PartnerInvolvement(models.Model):
             "CHECK (active IS FALSE OR allow_multi IS FALSE OR "
             "involvement_type IN ('donation') OR effective_time IS NOT NULL)",
             'Effective time is mandatory '
-            'for this kind of involvement category !',
+            'for this kind of involvement !',
         ),
     ]
 

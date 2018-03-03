@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-18 23:13+0000\n"
-"PO-Revision-Date: 2017-09-18 23:13+0000\n"
+"POT-Creation-Date: 2018-03-03 14:03+0000\n"
+"PO-Revision-Date: 2018-03-03 14:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/partner_involvement.py:64
+#: code:addons/mozaik_person/models/partner_involvement.py:101
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
@@ -98,12 +98,19 @@ msgid "Allow Duplicates"
 msgstr "Autoriser les doublons"
 
 #. module: mozaik_person
+#: field:partner.involvement,allow_multi:0
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
+#: field:partner.involvement.category,allow_multi:0
+msgid "Allow Multiple Involvements"
+msgstr "Permettre plusieurs participations"
+
+#. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/partner_involvement.py:94
+#: code:addons/mozaik_person/models/partner_involvement.py:218
 #, python-format
 msgid "An active involvement cannot be duplicated."
 msgstr "Une participation active ne peut être dupliquée."
@@ -151,7 +158,6 @@ msgstr "Catégories dont je suis propriétaire"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
 msgid "Category"
 msgstr "Catégorie"
 
@@ -161,7 +167,6 @@ msgid "Civil Status"
 msgstr "État civil"
 
 #. module: mozaik_person
-#: field:partner.involvement,code:0
 #: field:partner.involvement.category,code:0
 msgid "Code"
 msgstr "Code"
@@ -211,6 +216,26 @@ msgid "Creation Date"
 msgstr "Date de création"
 
 #. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+msgid "Creation Date < ..."
+msgstr "Date de création < ..."
+
+#. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+msgid "Creation Date > ..."
+msgstr "Date de création  > ..."
+
+#. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+msgid "Creation Months"
+msgstr "Mois de création"
+
+#. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+msgid "Creation Years"
+msgstr "Années de création"
+
+#. module: mozaik_person
 #: help:partner.involvement,message_last_post:0
 #: help:partner.involvement.category,message_last_post:0
 msgid "Date of the last message posted on the record."
@@ -229,9 +254,25 @@ msgid "Divorced"
 msgstr "Divorcé(e)"
 
 #. module: mozaik_person
+#: model:ir.actions.act_window,name:mozaik_person.partner_involvement_donation_action
+#: view:res.partner:mozaik_person.view_partner_form
+msgid "Donations"
+msgstr "Dos"
+
+#. module: mozaik_person
+#: selection:partner.involvement.category,involvement_type:0
+msgid "Donations Campaign"
+msgstr "Compagne de dons"
+
+#. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Duplicates"
 msgstr "Doublons"
+
+#. module: mozaik_person
+#: sql_constraint:partner.involvement:0
+msgid "Effective time is mandatory for this kind of involvement category !"
+msgstr "L'heure effective est obligatoire pour ce type de particpation !"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
@@ -355,6 +396,7 @@ msgid "Indexation"
 msgstr "Indexation"
 
 #. module: mozaik_person
+#: field:partner.involvement.category,interests_m2m_ids:0
 #: view:res.partner:mozaik_person.view_partner_form
 #: field:res.partner,interests_m2m_ids:0
 msgid "Interests"
@@ -389,16 +431,23 @@ msgid "Involvement Categories"
 msgstr "Catégories de participation"
 
 #. module: mozaik_person
-#: field:partner.involvement,partner_involvement_category_id:0
+#: field:partner.involvement,involvement_category_id:0
 #: field:partner.involvement.category,name:0
 msgid "Involvement Category"
 msgstr "Catégorie de participation"
+
+#. module: mozaik_person
+#: field:partner.involvement,creation_time:0
+#: field:partner.involvement,effective_time:0
+msgid "Involvement Date"
+msgstr "Date de participation"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.partner_involvement_action
 #: model:ir.ui.menu,name:mozaik_person.involvements_submenu
 #: model:ir.ui.menu,name:mozaik_person.partner_involvement_menu
 #: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
+#: field:partner.involvement.category,involvement_ids:0
 #: view:res.partner:mozaik_person.view_partner_form
 msgid "Involvements"
 msgstr "Participations"
@@ -542,6 +591,11 @@ msgid "Not User"
 msgstr "Non utilisateur"
 
 #. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_form_view
+msgid "Note"
+msgstr "Note"
+
+#. module: mozaik_person
 #: field:partner.involvement,note:0
 #: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
 #: field:partner.involvement.category,note:0
@@ -563,7 +617,6 @@ msgstr "Propriétaires"
 #: model:ir.model,name:mozaik_person.model_res_partner
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
 #: field:partner.involvement,partner_id:0
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Partner"
 msgstr "Partenaire"
@@ -576,7 +629,6 @@ msgstr "Participation de partenaire"
 
 #. module: mozaik_person
 #: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_tree_view
 msgid "Partner Involvement Categories"
 msgstr "Catégories de participation de partenaire"
 
@@ -588,7 +640,6 @@ msgstr "Catégorie de participation de partenaire"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: view:partner.involvement:mozaik_person.partner_involvement_tree_view
 #: field:res.partner,partner_involvement_ids:0
 #: field:res.partner,partner_involvement_inactive_ids:0
 msgid "Partner Involvements"
@@ -598,6 +649,11 @@ msgstr "Participations de partenaire"
 #: model:ir.ui.menu,name:mozaik_person.persons_menu
 msgid "Persons"
 msgstr "Personnes"
+
+#. module: mozaik_person
+#: selection:partner.involvement.category,involvement_type:0
+msgid "Petition"
+msgstr "Pétition"
 
 #. module: mozaik_person
 #: field:create.user.from.partner,portal_only:0
@@ -661,11 +717,6 @@ msgstr "Résumé"
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Tag"
 msgstr "Étiquette"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "Tags"
-msgstr "Étiquettes"
 
 #. module: mozaik_person
 #: field:res.partner,technical_name:0
@@ -744,6 +795,14 @@ msgid "Twitter"
 msgstr "Twitter"
 
 #. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+#: field:partner.involvement,involvement_type:0
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
+#: field:partner.involvement.category,involvement_type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: mozaik_person
 #: view:res.partner:mozaik_person.view_partner_form
 #: view:res.partner:mozaik_person.view_partner_tree
 msgid "Undo Allow Duplicate"
@@ -794,6 +853,11 @@ msgid "Validate"
 msgstr "Valider"
 
 #. module: mozaik_person
+#: selection:partner.involvement.category,involvement_type:0
+msgid "Voluntary Work"
+msgstr "Volontariat"
+
+#. module: mozaik_person
 #: field:partner.involvement,website_message_ids:0
 #: field:partner.involvement.category,website_message_ids:0
 #: field:res.partner,website_message_ids:0
@@ -811,6 +875,12 @@ msgstr "Historique de communication de site web"
 #: selection:res.partner,civil_status:0
 msgid "Widowed"
 msgstr "Veuf(ve)"
+
+#. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
+msgid "Without Type"
+msgstr "Sans type"
 
 #. module: mozaik_person
 #: model:ir.model,name:mozaik_person.model_create_user_from_partner
@@ -841,3 +911,4 @@ msgstr "{'readonly': ['|',('is_company', '=', False),('is_assembly', '=', True)]
 #: view:res.partner:mozaik_person.view_partner_form
 msgid "⇒ Show all duplicates"
 msgstr "⇒ Voir tous les doublons"
+

@@ -183,7 +183,7 @@
                     </div>
                 </xpath>
                 <xpath expr="//field[@name='alias_id']" position="attributes">
-                    <attribute name="options">{'no_open':True}</attribute>
+                    <attribute name="options" translation="off">{'no_open':True}</attribute>
                 </xpath>
             </field>
         </record>
@@ -255,16 +255,16 @@
                 </xpath>
 
                 <xpath expr="//button[@name='action_partner_selection']" position="attributes">
-                    <attribute name="attrs">{'invisible':[('active', '=', False)]}</attribute>
-                    <attribute name="groups">mozaik_base.mozaik_res_groups_user</attribute>
+                    <attribute name="attrs" translation="off">{'invisible':[('active', '=', False)]}</attribute>
+                    <attribute name="groups" translation="off">mozaik_base.mozaik_res_groups_user</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='src_model_id']" position="attributes">
-                    <attribute name="widget">selection</attribute>
+                    <attribute name="widget" translation="off">selection</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='domain']" position="attributes">
-                    <attribute name="readonly">not context.get('is_developper')</attribute>
+                    <attribute name="readonly" translation="off">not context.get('is_developper')</attribute>
                 </xpath>
 
                 <xpath expr="//sheet" position="inside">

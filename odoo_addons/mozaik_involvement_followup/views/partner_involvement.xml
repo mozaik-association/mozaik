@@ -26,7 +26,7 @@
                 </page>
             </xpath>
             <xpath expr="//field[@name='message_follower_ids']" position="attributes">
-                <attribute name="groups">mozaik_base.mozaik_res_groups_officer</attribute>
+                <attribute name="groups" translation="off">mozaik_base.mozaik_res_groups_officer</attribute>
             </xpath>
         </field>
     </record>

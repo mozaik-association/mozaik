@@ -107,12 +107,12 @@
                     <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
                     <separator/>
-                    <filter name="without_type" string="Without Involvement Type"
+                    <filter name="without_type" string="Involvement Without Type"
                         domain="[('involvement_type', '=', False)]"/>
                     <separator/>
-                    <filter name="promise" string="Donation Promise"
+                    <filter name="promise" string="Promise"
                         domain="[('promise', '=', True)]"/>
-                    <filter name="donation" string="Real Donation"
+                    <filter name="donation" string="Donation"
                         domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"/>
                     <separator/>
                     <filter string="Local Voluntary"
