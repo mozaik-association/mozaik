@@ -1064,7 +1064,7 @@ class membership_request(orm.Model):
                     'regional_voluntary': mr.regional_voluntary,
                     'national_voluntary': mr.national_voluntary,
                 })
-            else:
+                # force local only to False for members
                 partner_values['local_only'] = False
 
             # update_partner values
