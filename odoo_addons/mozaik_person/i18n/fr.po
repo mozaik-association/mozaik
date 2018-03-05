@@ -257,7 +257,7 @@ msgstr "Divorcé(e)"
 #: model:ir.actions.act_window,name:mozaik_person.partner_involvement_donation_action
 #: view:res.partner:mozaik_person.view_partner_form
 msgid "Donations"
-msgstr "Dos"
+msgstr "Dons"
 
 #. module: mozaik_person
 #: selection:partner.involvement.category,involvement_type:0

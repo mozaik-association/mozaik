@@ -157,13 +157,51 @@ class test_membership(SharedSetupTransactionCase):
         self.assertEqual(adrs.id, waiting_adrs_id,
                          'Address id Should be the same')
 
+    def test_voluntaries(self):
+        """
+        * Test the validate processand check for
+        ** regional_voluntary, national_voluntary, local_only
+        """
+        mr_obj = self.env['membership.request']
+
+        vals = {
+            'firstname': 'Virginie',
+            'lastname': 'EFIRA',
+            'local_only': True,
+        }
+
+        # create and validate membership request
+        mr = mr_obj.create(vals)
+        mr.validate_request()
+        partner = mr.partner_id
+        self.assertTrue(partner.local_only)
+
+        # create membership request from the partner
+        mr_id = mr.partner_id.button_modification_request()['res_id']
+        mr = mr_obj.browse([mr_id])
+
+        vals = {
+            'request_type': 's',
+        }
+        vals.update(mr.onchange_partner_id(
+            mr.is_company, 's', partner.id, mr.technical_name)['value'])
+        mr.write(vals)
+        self.assertFalse(mr.regional_voluntary)
+        self.assertFalse(mr.local_only)
+
+        # update and validate membership request from the partner
+        mr.regional_voluntary = True
+        mr.validate_request()
+        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.local_only)
+
     def test_validate_request(self):
         """
         * Test the validate process with an update and check for
         ** firstname
         ** email
         ** mobile
-        ** regional_voluntary, national_voluntary
+        ** amount and reference
         ** not loss of original birthdate (mr do never reset fields)
         * Test the validate process with a create and check that
             relations are created
@@ -171,24 +209,17 @@ class test_membership(SharedSetupTransactionCase):
         cr, uid = self.cr, self.uid
         partner_obj = self.registry['res.partner']
 
+        # 1. partner to update
         mr = self.rec_mr_update
         partner = mr.partner_id
         postal = partner.postal_coordinate_id
         fix = partner.fix_coordinate_id
-        partner.write({
-            'regional_voluntary': False,
-            'national_voluntary': True,
-            'local_only': True,
-        })
 
-        # change fix & address
+        # change some properties
         vals = {
             'phone': '444719',
             'number': '007',
             'box': 'jb',
-            'regional_voluntary': True,
-            'national_voluntary': False,
-            'local_only': False,
             'amount': 7.0,
             'reference': '+++555/2017/00055+++',
         }
@@ -218,46 +249,31 @@ class test_membership(SharedSetupTransactionCase):
             mr.force_int_instance_id.id, partner.int_instance_id.id)
         self.assertFalse(postal.active)
         self.assertFalse(fix.active)
-        self.assertTrue(partner.regional_voluntary)
-        self.assertFalse(partner.national_voluntary)
-        self.assertFalse(partner.local_only)
         self.assertEqual(mr.reference, partner.reference)
         self.assertEqual(mr.amount, partner.amount)
 
-        # validation to create
-        self.mro.write(
-            cr, uid, [self.rec_mr_create.id],
-            {'country_id': self.registry('res.country').
-             _country_default_get(cr, uid, COUNTRY_CODE)})
-        self.mro.validate_request(
-            cr, uid, [self.rec_mr_create.id])
+        # 2. partner to create
+        mr = self.rec_mr_create
+        self.mro.validate_request(cr, uid, [mr.id])
 
         created_partner_ids = partner_obj.search(
-            cr, uid, [('firstname', '=', self.rec_mr_create.firstname),
-                      ('lastname', '=', self.rec_mr_create.lastname),
-                      ('birth_date', '=', self.rec_mr_create.birth_date), ])
-        self.assertEqual(len(created_partner_ids), 1, "Should have one and \
-            only one partner")
-        created_partner_id = created_partner_ids[0]
-        # now test relations
+            cr, uid, [('firstname', '=', mr.firstname),
+                      ('lastname', '=', mr.lastname),
+                      ('birth_date', '=', mr.birth_date), ])
+        self.assertEqual(len(created_partner_ids), 1)
+        # test address and phone
         address_ids = self.registry['address.address'].search(
-            cr, uid, [('technical_name', '=',
-                       self.rec_mr_create.technical_name)])
+            cr, uid, [('technical_name', '=', mr.technical_name)])
         phone_ids = self.registry['phone.phone'].search(
-            cr, uid, [('name', '=', self.rec_mr_create.phone),
-                      ('type', '=', 'fix')])
-        # test address and a phone
-        self.assertEqual(len(address_ids), 1, "Should have one and only one \
-            address id")
-        self.assertEqual(len(phone_ids), 1, "Should have one and only one \
-            phone id")
+            cr, uid, [('name', '=', mr.phone), ('type', '=', 'fix')])
+        self.assertEqual(len(address_ids), 1)
+        self.assertEqual(len(phone_ids), 1)
 
+        # test phone.coordinate
         phone_coordinate_ids = self.registry['phone.coordinate'].search(
-            cr, uid, [('partner_id', '=', created_partner_id),
+            cr, uid, [('partner_id', '=', mr.partner_id.id),
                       ('phone_id', '=', phone_ids[0])])
-        # test that we have as well a phone.coordinate
-        self.assertEqual(len(phone_coordinate_ids), 1,
-                         "Should have one and only one phone_coordinate_id id")
+        self.assertEqual(len(phone_coordinate_ids), 1)
 
     def test_state_default_get(self):
         """
