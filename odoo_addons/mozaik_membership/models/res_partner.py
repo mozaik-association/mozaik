@@ -33,8 +33,7 @@ class ResPartner(models.Model):
         self.ensure_one()
         membership_state_obj = self.env['membership.state']
         state = membership_state_obj.search(
-            [('code', '=', membership_state_code)])
-        state.ensure_one()
+            [('code', '=', membership_state_code)], limit=1)
 
         vals = {
             'membership_state_id': state.id,
@@ -60,15 +59,39 @@ class ResPartner(models.Model):
         if membership_state_code == 'member_candidate':
             vals['del_doc_date'] = False
 
+        # force voluntaries fields if any
+        if membership_state_code in [
+                'without_membership', 'supporter', 'former_supporter']:
+            vals.update({
+                'local_voluntary': False,
+                'regional_voluntary': False,
+                'national_voluntary': False,
+            })
+        elif any([
+            membership_state_code == 'member_candidate' and
+            self.membership_state_code in [
+                'without_membership', 'supporter'],
+            membership_state_code == 'member_committee' and
+                self.membership_state_code == 'supporter']):
+            vals.update({
+                'local_voluntary': True,
+                'regional_voluntary': True,
+                'national_voluntary': True,
+            })
+
+        # force local only field if any
+        if membership_state_code in [
+                'supporter', 'former_supporter', 'member_candidate',
+                'member_committee', 'member', 'former_member',
+                'former_member_committee']:
+            vals['local_only'] = False
+
         current_reference = self.reference
         date_from = self.accepted_date
 
         res = self.write(vals)
 
-        state_id = membership_state_obj._state_default_get()
-        state = membership_state_obj.browse([state_id])
-
-        if membership_state_code != state.code:
+        if membership_state_code != 'without_membership':
             self._update_membership_line(
                 ref=current_reference, date_from=date_from)
 

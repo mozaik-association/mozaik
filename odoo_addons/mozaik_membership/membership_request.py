@@ -669,6 +669,7 @@ class membership_request(orm.Model):
         def_status_id = self.pool['membership.state'].\
             _state_default_get(cr, uid, context=context)
         partner_status_id = False
+        membership_state_code = False
         if partner_id:
             res_partner_obj = self.pool['res.partner']
             partner = res_partner_obj.browse(cr, uid, partner_id,
@@ -676,6 +677,7 @@ class membership_request(orm.Model):
             # take current status of partner
             partner_status_id = partner.membership_state_id and \
                 partner.membership_state_id.id or False
+            membership_state_code = partner.membership_state_code
             interests_ids = [term.id for term in partner.interests_m2m_ids]
             res['interests_m2m_ids'] = interests_ids and \
                 [[6, False, interests_ids]] or \
@@ -698,20 +700,39 @@ class membership_request(orm.Model):
             partner_status_id = def_status_id
 
         result_type_id = False
+        result_code = False
         if not is_company:
             result_type_id = self.get_partner_preview(
                 cr, uid, request_type, partner_id, context=context)
+            result_code = self.pool['membership.state'].browse(
+                cr, uid, [result_type_id], context=context).code
         else:
             res.update({
                 'request_type': False,
             })
-        if not result_type_id or result_type_id == def_status_id:
+        if result_code in [
+                False, 'without_membership',
+                'supporter', 'former_supporter']:
             res.update({
                 'local_voluntary': False,
                 'regional_voluntary': False,
                 'national_voluntary': False,
             })
-        else:
+        elif any([
+            result_code == 'member_candidate' and
+            membership_state_code in [
+                False, 'without_membership', 'supporter'],
+            result_code == 'member_committee' and
+                membership_state_code == 'supporter']):
+            res.update({
+                'local_voluntary': True,
+                'regional_voluntary': True,
+                'national_voluntary': True,
+            })
+        if result_code in [
+                'supporter', 'former_supporter', 'member_candidate',
+                'member_committee', 'member', 'former_member',
+                'former_member_committee']:
             res['local_only'] = False
 
         res.update({
@@ -1052,20 +1073,7 @@ class membership_request(orm.Model):
                 'competencies_m2m_ids': [[6, False, new_competencies_ids]],
                 'interests_m2m_ids': [[6, False, new_interests_ids]],
                 'comment': notes and '\n'.join(notes) or False,
-                'local_voluntary': False,
-                'regional_voluntary': False,
-                'national_voluntary': False,
-                'local_only': mr.local_only,
             })
-            if result_id and mr.result_type_id.code != 'without_membership':
-                # propagate voluntaries only for members
-                partner_values.update({
-                    'local_voluntary': mr.local_voluntary,
-                    'regional_voluntary': mr.regional_voluntary,
-                    'national_voluntary': mr.national_voluntary,
-                })
-                # force local only to False for members
-                partner_values['local_only'] = False
 
             # update_partner values
             # Passing do_not_track_twice in context the first tracking
@@ -1094,6 +1102,7 @@ class membership_request(orm.Model):
             if partner_values:
                 partner_obj.write(
                     cr, uid, [partner_id], partner_values, context=ctx)
+
             if upd_folw:
                 if mr.membership_state_id.id == result_id:
                     partner_obj._update_membership_line(

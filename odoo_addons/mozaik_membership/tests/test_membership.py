@@ -159,25 +159,38 @@ class test_membership(SharedSetupTransactionCase):
 
     def test_voluntaries(self):
         """
-        * Test the validate processand check for
-        ** regional_voluntary, national_voluntary, local_only
+        * Test the validate process and check for
+        ** regional_voluntary and local_only
         """
         mr_obj = self.env['membership.request']
 
         vals = {
             'firstname': 'Virginie',
             'lastname': 'EFIRA',
-            'local_only': True,
         }
 
-        # create and validate membership request
+        # create and validate a membership request
         mr = mr_obj.create(vals)
         mr.validate_request()
         partner = mr.partner_id
+        self.assertFalse(partner.local_only)
+
+        # create membership request from the partner
+        mr_id = partner.button_modification_request()['res_id']
+        mr = mr_obj.browse([mr_id])
+
+        vals = {
+            'local_only': True,
+        }
+        mr.write(vals)
+        self.assertTrue(mr.local_only)
+
+        # validate the request
+        mr.validate_request()
         self.assertTrue(partner.local_only)
 
         # create membership request from the partner
-        mr_id = mr.partner_id.button_modification_request()['res_id']
+        mr_id = partner.button_modification_request()['res_id']
         mr = mr_obj.browse([mr_id])
 
         vals = {
@@ -186,14 +199,30 @@ class test_membership(SharedSetupTransactionCase):
         vals.update(mr.onchange_partner_id(
             mr.is_company, 's', partner.id, mr.technical_name)['value'])
         mr.write(vals)
-        self.assertFalse(mr.regional_voluntary)
         self.assertFalse(mr.local_only)
 
-        # update and validate membership request from the partner
-        mr.regional_voluntary = True
+        # validate the request
+        mr.validate_request()
+        self.assertFalse(partner.local_only)
+
+        # create membership request from the partner
+        mr_id = partner.button_modification_request()['res_id']
+        mr = mr_obj.browse([mr_id])
+
+        vals = {
+            'request_type': 'm',
+        }
+        vals.update(mr.onchange_partner_id(
+            mr.is_company, 'm', partner.id, mr.technical_name)['value'])
+        vals['regional_voluntary'] = True
+        mr.write(vals)
+        self.assertTrue(mr.regional_voluntary)
+
+        # validate the request
         mr.validate_request()
         self.assertTrue(partner.regional_voluntary)
-        self.assertFalse(partner.local_only)
+
+        return
 
     def test_validate_request(self):
         """
