@@ -97,6 +97,10 @@
                             or
                         </span>
                         <button string="Cancel" class="oe_link" special="cancel" />
+
+                        <button type="object" name="save_as_template" string="Save as new template" class="pull-right"
+                            attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
+                                                     ('e_mass_function','!=','email_coordinate_id')]}"/>
                     </footer>
 
                 </form>

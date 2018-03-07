@@ -36,3 +36,20 @@ class TestMassFunction(SharedSetupTransactionCase):
             cr, uid, [wiz_id], 'La guerre des étoiles', wiz.mass_mailing_name)
         self.assertFalse(values)
         return
+
+    def test_save_as_template(self):
+        mfct_obj = self.env['distribution.list.mass.function']
+        evr_lst_id = self.ref('%s.everybody_list' % self._module_ns)
+        vals = {
+            'trg_model': 'email.coordinate',
+            'e_mass_function': 'email_coordinate_id',
+            'distribution_list_id': evr_lst_id,
+            'subject': 'TEST1',
+            'body': '<p>hello</p>',
+        }
+        wizard = mfct_obj.with_context({'in_mozaik_user': True}).create(vals)
+        wizard.save_as_template()
+        self.assertTrue(bool(wizard.email_template_id))
+        self.assertEqual(wizard.email_template_id.subject, vals['subject'])
+        self.assertEqual(wizard.email_template_id.body_html, vals['body'])
+        self.assertEqual(wizard.email_template_id.model_id.model, 'email.coordinate')
