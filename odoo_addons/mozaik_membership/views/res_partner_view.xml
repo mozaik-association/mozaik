@@ -206,7 +206,6 @@
             </field>
         </record>
 
-        <!-- Membership -->
         <record id="view_partner_form_membership" model="ir.ui.view">
             <field name="name">res.partner.form.inherit (mozaik_membership)</field>
             <field name="model">res.partner</field>
@@ -296,7 +295,7 @@
                                 </div>
                             </group>
                         </group>
-                        <group name="voluntary" string="Voluntary" col="6">
+                        <group name="voluntary" col="6">
                             <field name="local_voluntary"/>
                             <field name="regional_voluntary"/>
                             <field name="national_voluntary"/>
