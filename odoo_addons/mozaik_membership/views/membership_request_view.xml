@@ -160,7 +160,7 @@
                                     attrs="{'invisible':['|', ('is_update', '=', True), ('result_type_id', 'not in', [False, %(mozaik_membership.without_membership)d])]}"
                                     on_change="onchange_partner_id(is_company, request_type, partner_id, technical_name, context)" />
                                 <field name="local_only"
-                                    attrs="{'invisible': [('result_type_id', 'not in', [False, %(mozaik_membership.without_membership)d])]}" />
+                                    attrs="{'invisible': [('result_type_id', 'not in', [False, %(mozaik_membership.without_membership)d, %(mozaik_membership.former_supporter)d, %(mozaik_membership.break_former_member)d, %(mozaik_membership.resignation_former_member)d])]}" />
                                 <field name="lastname"
                                     on_change="onchange_partner_component(is_company,day,month,year,lastname,firstname,email,is_update)" />
                                 <field name="firstname"
@@ -265,7 +265,8 @@
                                 </group>
                             </page>
                             <page string="Involvements" name="involvement" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
-                                <group name="voluntary" string="Voluntary" attrs="{'invisible': [('result_type_id', 'in', [False, %(mozaik_membership.without_membership)d])]}" col="6">
+                                <group name="voluntary" string="Voluntary" col="6"
+                                     attrs="{'invisible': [('result_type_id', 'in', [False, %(mozaik_membership.without_membership)d, %(mozaik_membership.supporter)d, %(mozaik_membership.former_supporter)d])]}">
                                     <field name="local_voluntary"/>
                                     <field name="regional_voluntary"/>
                                     <field name="national_voluntary"/>

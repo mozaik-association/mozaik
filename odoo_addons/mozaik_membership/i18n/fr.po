@@ -2031,9 +2031,8 @@ msgstr "Virtual Master Partner"
 
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_form_view
-#: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "Voluntary"
-msgstr "Volontariat"
+msgstr "Membre"
 
 #. module: mozaik_membership
 #: field:membership.line,website_message_ids:0

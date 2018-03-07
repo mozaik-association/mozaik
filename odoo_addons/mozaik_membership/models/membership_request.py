@@ -171,9 +171,15 @@ class MembershipRequest(models.Model):
         * create additional involvements
         * for new member, if any, save also its reference and amount
         * for donation, if any, save also its reference and amount
+        * update voluntaries and local only fields
         """
         self.ensure_one()
+        former_code = False
+        if self.partner_id:
+            former_code = self.partner_id.membership_state_code
         res = super(MembershipRequest, self).validate_request()
+        partner = self.partner_id
+        new_code = partner.membership_state_code
 
         # create new involvements
         current_categories = self.partner_id.partner_involvement_ids.mapped(
@@ -194,13 +200,39 @@ class MembershipRequest(models.Model):
                 })
             self.env['partner.involvement'].create(vals)
 
+        vals = {}
         # save membership amount
         if self.amount > 0.0 and self.reference:
-            partner = self.partner_id
             if (self.membership_state_id.code == 'without_membership' and
                     partner.membership_state_code == 'member_candidate'):
-                partner.write({
+                vals.update({
                     'reference': self.reference,
                     'amount': self.amount,
                 })
+
+        # save voluntaries
+        if new_code not in [
+                False, 'without_membership',
+                'supporter', 'former_supporter'] and not any([
+                new_code == 'member_candidate' and
+                former_code in [
+                    False, 'without_membership', 'supporter'],
+                new_code == 'member_committee' and
+                    former_code == 'supporter']):
+            vals.update({
+                'local_voluntary': self.local_voluntary,
+                'regional_voluntary': self.regional_voluntary,
+                'national_voluntary': self.national_voluntary,
+            })
+
+        # save local only
+        if new_code not in [
+                'supporter', 'former_supporter', 'member_candidate',
+                'member_committee', 'member', 'former_member',
+                'former_member_committee']:
+            vals['local_only'] = self.local_only
+
+        # update the partner
+        partner.write(vals)
+
         return res

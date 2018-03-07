@@ -208,10 +208,11 @@ class mozaik_abstract_model(orm.AbstractModel):
                     """ % (self._table, self._table))
         sql_res = cr.dictfetchone()
         if sql_res:
-            if sql_res['indexdef'] != index_def:
+            previous = sql_res['indexdef'].replace(' ON public.', ' ON ')
+            if previous != index_def:
                 _logger.info(
                     'Rebuild index %s_unique_idx:\n%s\n%s',
-                    self._name, sql_res['indexdef'], index_def)
+                    self._name, previous, index_def)
                 cr.execute("DROP INDEX %s_unique_idx" % (self._table,))
             else:
                 createit = False

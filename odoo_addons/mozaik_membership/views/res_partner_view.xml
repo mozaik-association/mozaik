@@ -107,13 +107,11 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mozaik_address.view_partner_form" />
             <field name="arch" type="xml">
-
                 <xpath expr="//field[@name='postal_coordinate_id']" position="after">
                     <field name="int_instance_id"
                         attrs="{'readonly': ['|', ('is_assembly','=',True), ('id','!=', False)]}" />
-                    <field name="local_only" attrs="{'invisible': ['|', ('is_assembly','=',True), ('membership_state_code', 'not in', [False, 'without_membership'])]}"/>
+                    <field name="local_only" attrs="{'invisible': ['|', ('is_assembly','=',True), ('membership_state_code', 'not in', [False, 'without_membership', 'former_supporter', 'break_former_member', 'resignation_former_member'])]}"/>
                 </xpath>
-
             </field>
         </record>
 
@@ -295,13 +293,13 @@
                                 </div>
                             </group>
                         </group>
-                        <group name="voluntary" col="6">
+                        <group name="voluntary" col="6" attrs="{'invisible': [('membership_state_code', 'in', ['supporter', 'former_supporter'])]}">
                             <field name="local_voluntary"/>
                             <field name="regional_voluntary"/>
                             <field name="national_voluntary"/>
                         </group>
                         <field name="membership_line_ids" readonly="1">
-                            <tree colors="gray:active==False;green:state_id[0]==%(mozaik_membership.member)d;red:state_id[0] in [%(mozaik_membership.former_supporter)d, %(mozaik_membership.refused_member_candidate)d, %(mozaik_membership.expulsion_former_member)d, %(mozaik_membership.resignation_former_member)d, %(mozaik_membership.inappropriate_former_member)d, %(mozaik_membership.break_former_member)d]">
+                            <tree colors="gray:active==False;green:state_code=='member';red:state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']">
                                 <field name="int_instance_id" />
                                 <field name="state_id" />
                                 <field name="product_id"
