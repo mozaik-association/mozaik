@@ -241,7 +241,7 @@
                             <field name="facebook"/>
                         </group>
                     </group>
-                    <group name="partner" attrs="{'invisible': [('is_company','=', True)]}">
+                    <group name="partner">
                         <group name="partner1">
                             <field name="title" domain="[('domain', '=', is_company and 'partner' or 'contact')]" widget="selection" />
                         </group>
