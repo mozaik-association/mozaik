@@ -237,6 +237,7 @@ class test_membership(SharedSetupTransactionCase):
         """
         cr, uid = self.cr, self.uid
         partner_obj = self.registry['res.partner']
+        congo = self.ref('base.cd')
 
         # 1. partner to update
         mr = self.rec_mr_update
@@ -251,6 +252,7 @@ class test_membership(SharedSetupTransactionCase):
             'box': 'jb',
             'amount': 7.0,
             'reference': '+++555/2017/00055+++',
+            'nationality_id': congo,
         }
         vals.update(self.mro.onchange_other_address_componants(
             cr, uid, False,
@@ -280,6 +282,7 @@ class test_membership(SharedSetupTransactionCase):
         self.assertFalse(fix.active)
         self.assertEqual(mr.reference, partner.reference)
         self.assertEqual(mr.amount, partner.amount)
+        self.assertEqual(mr.nationality_id, partner.nationality_id)
 
         # 2. partner to create
         mr = self.rec_mr_create

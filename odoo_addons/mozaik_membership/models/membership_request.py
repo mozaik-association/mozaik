@@ -45,6 +45,10 @@ class MembershipRequest(models.Model):
     reference = fields.Char(copy=False)
     effective_time = fields.Datetime(copy=False, string='Involvement Date')
 
+    nationality_id = fields.Many2one(
+        comodel_name='res.country', string='Nationality',
+        track_visibility='onchange')
+
     @api.model
     def _pre_process(self, vals):
         """
@@ -52,7 +56,7 @@ class MembershipRequest(models.Model):
         ** to find a zipcode and a country
         ** to build a birth_date
         ** to find an existing partner
-        ** to find phone coordinates
+        ** to find coordinates
 
         :rparam vals: updated input values dictionary ready
                       to create a ``membership_request``

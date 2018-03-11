@@ -327,6 +327,13 @@ class membership_request(orm.Model):
                 'local_only',
                 'LOCAL-ONLY'
             ),
+            (
+                20,
+                'nationality_id',
+                'nationality_id.name',
+                'nationality_id.name',
+                ''
+            ),
         ]
 
     def _clean_stored_changes(self, cr, uid, ids, context):
@@ -1054,6 +1061,8 @@ class membership_request(orm.Model):
                     mr.force_int_instance_id.id != mr.int_instance_id.id:
                 partner_values['int_instance_id'] = new_instance_id
                 context['keep_current_instance'] = True
+            if mr.nationality_id:
+                partner_values['nationality_id'] = mr.nationality_id.id
 
             new_interests_ids = []
             if not mr.is_company:

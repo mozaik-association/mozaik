@@ -20,6 +20,7 @@
                     <field name="interests_m2m_ids" invisible="'default_is_company' not in context or context.get('default_is_company')" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one"/>
                     <field name="partner_involvement_ids"/>
+                    <field name="nationality_id" />
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]" invisible="'default_is_company' in context"/>
@@ -52,6 +53,7 @@
                         <filter name="gender" string="Gender" context="{'group_by': 'gender'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                         <filter name="tongue" string="Tongue" context="{'group_by': 'tongue'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                         <filter name="country" string="Country" context="{'group_by': 'country_id'}"/>
+                        <filter name="nationality" string="Nationality" context="{'group_by': 'nationality_id'}"/>
                     </group>
                </search>
             </field>
@@ -239,8 +241,11 @@
                             <field name="facebook"/>
                         </group>
                     </group>
-                    <group name="partner_title">
-                        <field name="title" domain="[('domain', '=', is_company and 'partner' or 'contact')]" widget="selection" />
+                    <group name="partner">
+                        <group name="partner1">
+                            <field name="title" domain="[('domain', '=', is_company and 'partner' or 'contact')]" widget="selection" />
+                        </group>
+                        <group name="partner2"/>
                     </group>
                     <group name="contact" attrs="{'invisible': [('is_company','=', True)]}">
                         <group name="status">
