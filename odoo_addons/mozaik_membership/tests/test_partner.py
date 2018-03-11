@@ -314,9 +314,11 @@ class test_partner(SharedSetupTransactionCase):
         """
         mr_obj, partner, cr, uid, context = self.mr_obj,\
             self.partner1, self.cr, self.uid, {}
+        fr = self.ref('base.fr')
         partner.write({
             'regional_voluntary': True,
             'local_only': True,
+            'nationality_id': fr,
         })
         res = self.partner_obj.button_modification_request(
             cr, uid, [partner.id], context=context)
@@ -441,6 +443,7 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEqual(mr.regional_voluntary, True)
         self.assertEqual(mr.local_only, True)
         self.assertEqual(mr.national_voluntary, partner.national_voluntary)
+        self.assertEqual(mr.nationality_id, partner.nationality_id)
 
     def test_update_membership_line(self):
         """

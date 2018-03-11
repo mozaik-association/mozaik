@@ -10,6 +10,7 @@
     'category': 'Political Association',
     'depends': [
         'base_suspend_security',
+        'partner_contact_nationality',
         'mozaik_duplicate',
         'mozaik_thesaurus',
         'mozaik_partner_assembly',
