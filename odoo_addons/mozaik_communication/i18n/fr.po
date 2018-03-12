@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * mozaik_communication
+#	* mozaik_communication
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-03 14:13+0000\n"
-"PO-Revision-Date: 2018-03-03 14:13+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -511,8 +511,8 @@ msgstr "Listes de distribution dont je suis propriétaire"
 
 #. module: mozaik_communication
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
-msgid "Promise"
-msgstr "Promesse"
+msgid "Donation"
+msgstr "Don"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.involvement,involvement_type:0
@@ -1152,6 +1152,11 @@ msgstr "Type de participation"
 
 #. module: mozaik_communication
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Involvement Without Type"
+msgstr "Participation sans type"
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
 msgid "Involvement Years"
 msgstr "Année de participation"
 
@@ -1561,6 +1566,14 @@ msgstr "Actif pol. niv. national"
 
 #. module: mozaik_communication
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,nationality_id:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: field:virtual.partner.involvement,nationality_id:0
+msgid "Nationality"
+msgstr "Nationalité"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
 #: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
 #: view:virtual.target:mozaik_communication.virtual_target_search_view
@@ -1941,6 +1954,7 @@ msgid "Power Level"
 msgstr "Niveau de pouvoir"
 
 #. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
 #: field:virtual.partner.involvement,promise:0
 msgid "Promise"
 msgstr "Promesse"
@@ -1962,11 +1976,6 @@ msgstr "Lettres d'information publiques"
 #: view:event.registration:mozaik_communication.view_event_registration_form
 msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
-
-#. module: mozaik_communication
-#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
-msgid "Donation"
-msgstr "Don"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:70
@@ -2019,6 +2028,11 @@ msgstr "Résultat du filtre %s (injoignables)"
 #: field:virtual.partner.retrocession,retro_instance_id:0
 msgid "Retrocessions Management Instance"
 msgstr "Instance de gestion des rétrocessions"
+
+#. module: mozaik_communication
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "Save as new template"
+msgstr "Enregistrer comme un nouveau modèle"
 
 #. module: mozaik_communication
 #: model:ir.ui.menu,name:mozaik_communication.virtual_models_submenu
@@ -2501,11 +2515,6 @@ msgid "Without Coordinate"
 msgstr "Injoignable"
 
 #. module: mozaik_communication
-#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
-msgid "Involvement Without Type"
-msgstr "Participation sans type"
-
-#. module: mozaik_communication
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 #: field:virtual.partner.retrocession,year:0
 msgid "Year"
@@ -2524,58 +2533,8 @@ msgid "Zip Code"
 msgstr "Code postal"
 
 #. module: mozaik_communication
-#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
-msgid "mozaik_base.mozaik_res_groups_user"
-msgstr ""
-
-#. module: mozaik_communication
-#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
-msgid "mozaik_base.res_groups_developper"
-msgstr ""
-
-#. module: mozaik_communication
-#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
-msgid "not context.get('is_developper')"
-msgstr ""
-
-#. module: mozaik_communication
 #: view:add.registration:mozaik_communication.add_registration_wizard
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 #: view:export.csv:mozaik_communication.export_csv_wizard
 msgid "or"
 msgstr "ou"
-
-#. module: mozaik_communication
-#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_tree
-msgid "red:bounced"
-msgstr ""
-
-#. module: mozaik_communication
-#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
-msgid "selection"
-msgstr ""
-
-#. module: mozaik_communication
-#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
-msgid "{'invisible':[('active', '=', False)]}"
-msgstr ""
-
-#. module: mozaik_communication
-#: view:distribution.list:mozaik_communication.distribution_list_form
-msgid "{'no_open':True}"
-msgstr ""
-
-#. module: mozaik_communication
-#: view:event.registration:mozaik_communication.view_event_registration_form
-msgid "{'readonly': [('id', '!=', False)]}"
-msgstr ""
-
-#. module: mozaik_communication
-#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
-msgid "{'required': [('mailing_model', '!=','email.coordinate')],'invisible': [('mailing_model', '=','email.coordinate')]}"
-msgstr ""
-
-#. module: mozaik_communication
-#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_distribution_list_form
-msgid "{'required': [('mailing_model', '=','email.coordinate')],'invisible': [('mailing_model', '!=','email.coordinate')]}"
-msgstr ""

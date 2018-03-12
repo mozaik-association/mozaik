@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 09:09+0000\n"
-"PO-Revision-Date: 2016-02-01 09:09+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Un thésaurus ne peut être dupliqué !"
 #. module: mozaik_thesaurus
 #: model:ir.model,name:mozaik_thesaurus.model_abstract_term_finder
 msgid "Abstract Term Finder"
-msgstr ""
+msgstr "Abstract Term Finder"
 
 #. module: mozaik_thesaurus
 #: field:thesaurus,active:0
@@ -100,6 +100,14 @@ msgid "Date of the last message posted on the record."
 msgstr "Date du dernier message posté sur l'enregistrement."
 
 #. module: mozaik_thesaurus
+#: field:abstract.term.finder,display_name:0
+#: field:thesaurus,display_name:0
+#: field:thesaurus.term,display_name:0
+#: field:thesaurus.terms.loader,display_name:0
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: mozaik_thesaurus
 #: field:thesaurus,expire_date:0
 #: field:thesaurus.term,expire_date:0
 msgid "Expiration Date"
@@ -148,7 +156,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:thesaurus.term,id:0
 #: field:thesaurus.terms.loader,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_thesaurus
 #: help:thesaurus,message_unread:0
@@ -177,6 +185,14 @@ msgstr "Est abonné"
 #: field:thesaurus.term,message_last_post:0
 msgid "Last Message Date"
 msgstr "Date du dernier message"
+
+#. module: mozaik_thesaurus
+#: field:abstract.term.finder,__last_update:0
+#: field:thesaurus,__last_update:0
+#: field:thesaurus.term,__last_update:0
+#: field:thesaurus.terms.loader,__last_update:0
+msgid "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: mozaik_thesaurus
 #: field:thesaurus,write_uid:0

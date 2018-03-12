@@ -2,18 +2,12 @@
 # This file contains the translation of the following modules:
 #	* mozaik_retrocession
 #
-# CAUTION
-# =======
-# Due to an unfixed odoo issue (opw 665734):
-# Exclude from PO files terms of translatable fields of protected records (i.e. nonupdadable=True),
-# typically subject and body of mail templates, to avoid to loose custom translations.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-23 17:54+0000\n"
-"PO-Revision-Date: 2015-10-23 17:54+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -273,6 +267,13 @@ msgid "Calculation Rules"
 msgstr "Règles de calcul"
 
 #. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,can_modify_retro_instance:0
+#: field:ext.mandate,can_modify_retro_instance:0
+#: field:sta.mandate,can_modify_retro_instance:0
+msgid "Can modify Retrocessions Management Instance"
+msgstr "Peut modifier l'instance de gestion des rétrocessions"
+
+#. module: mozaik_retrocession
 #: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
 #: view:retrocession:mozaik_retrocession.retrocession_form_view
 #: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
@@ -408,6 +409,21 @@ msgid "Details"
 msgstr "Détails"
 
 #. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,display_name:0
+#: field:calculation.method,display_name:0
+#: field:calculation.rule,display_name:0
+#: field:fractionation,display_name:0
+#: field:fractionation.line,display_name:0
+#: field:report.mozaik_retrocession.report_payment_certificate,display_name:0
+#: field:report.mozaik_retrocession.report_payment_request,display_name:0
+#: field:report.retrocession.wizard,display_name:0
+#: field:retrocession,display_name:0
+#: field:retrocession.factory.wizard,display_name:0
+#: field:retrocession.helper,display_name:0
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: mozaik_retrocession
 #: view:retrocession:mozaik_retrocession.retrocession_search_view
 #: selection:retrocession,state:0
 msgid "Done"
@@ -420,7 +436,7 @@ msgid "Email Coordinate"
 msgstr "Coordonnée électronique"
 
 #. module: mozaik_retrocession
-#: code:addons/mozaik_retrocession/mandate.py:391
+#: code:addons/mozaik_retrocession/mandate.py:409
 #: code:addons/mozaik_retrocession/retrocession.py:1457
 #, python-format
 msgid "Email template %s not found!"
@@ -434,7 +450,7 @@ msgid "End Date"
 msgstr "Date de fin"
 
 #. module: mozaik_retrocession
-#: code:addons/mozaik_retrocession/mandate.py:390
+#: code:addons/mozaik_retrocession/mandate.py:408
 #: code:addons/mozaik_retrocession/retrocession.py:1321
 #: code:addons/mozaik_retrocession/retrocession.py:1449
 #: code:addons/mozaik_retrocession/retrocession.py:1456
@@ -558,7 +574,7 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_retrocession
-#: view:ext.assembly:mozaik_retrocession.ext_assembly_fin_search_view
+#: view:ext.assembly:mozaik_retrocession.ext_assembly_search_view
 #: field:ext.assembly,fractionation_id:0
 #: view:fractionation:mozaik_retrocession.fractionation_form_view
 #: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
@@ -566,7 +582,7 @@ msgstr "Abonnés"
 #: model:ir.model,name:mozaik_retrocession.model_fractionation
 #: view:mandate.category:mozaik_retrocession.mandate_category_search_view
 #: field:mandate.category,fractionation_id:0
-#: view:sta.assembly:mozaik_retrocession.sta_assembly_fin_search_view
+#: view:sta.assembly:mozaik_retrocession.sta_assembly_search_view
 #: field:sta.assembly,fractionation_id:0
 msgid "Fractionation"
 msgstr "Répartition"
@@ -588,7 +604,7 @@ msgid "Fractionation Lines"
 msgstr "Lignes de répartition"
 
 #. module: mozaik_retrocession
-#: code:addons/mozaik_retrocession/wizard/report_retrocession_wizard.py:531
+#: code:addons/mozaik_retrocession/wizard/report_retrocession_wizard.py:529
 #: view:fractionation:mozaik_retrocession.fractionation_search_view
 #: view:fractionation:mozaik_retrocession.fractionation_tree_view
 #: model:ir.actions.act_window,name:mozaik_retrocession.fractionation_action
@@ -651,13 +667,13 @@ msgstr "Je certifie par la présente que"
 #: field:retrocession.factory.wizard,id:0
 #: field:retrocession.helper,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_retrocession
 #: field:report.retrocession.wizard,mandate_ids:0
 #: field:retrocession.factory.wizard,mandate_ids:0
 msgid "IDS"
-msgstr ""
+msgstr "IDS"
 
 #. module: mozaik_retrocession
 #: help:abstract.mandate.retrocession,message_unread:0
@@ -696,7 +712,7 @@ msgid "Instance"
 msgstr "Instance"
 
 #. module: mozaik_retrocession
-#: code:addons/mozaik_retrocession/wizard/report_retrocession_wizard.py:510
+#: code:addons/mozaik_retrocession/wizard/report_retrocession_wizard.py:508
 #, python-format
 msgid "Instances"
 msgstr "Instances"
@@ -756,8 +772,8 @@ msgid "January"
 msgstr "Janvier"
 
 #. module: mozaik_retrocession
-#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
-#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_fin_form_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_fin_form_view
 msgid "Journal Entries"
 msgstr "Pièces comptables"
 
@@ -793,6 +809,21 @@ msgstr "Juin"
 #: field:retrocession,message_last_post:0
 msgid "Last Message Date"
 msgstr "Date du dernier message"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,__last_update:0
+#: field:calculation.method,__last_update:0
+#: field:calculation.rule,__last_update:0
+#: field:fractionation,__last_update:0
+#: field:fractionation.line,__last_update:0
+#: field:report.mozaik_retrocession.report_payment_certificate,__last_update:0
+#: field:report.mozaik_retrocession.report_payment_request,__last_update:0
+#: field:report.retrocession.wizard,__last_update:0
+#: field:retrocession,__last_update:0
+#: field:retrocession.factory.wizard,__last_update:0
+#: field:retrocession.helper,__last_update:0
+msgid "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: mozaik_retrocession
 #: field:calculation.method,write_uid:0
@@ -857,7 +888,7 @@ msgid "Mandate:"
 msgstr "Mandat:"
 
 #. module: mozaik_retrocession
-#: code:addons/mozaik_retrocession/wizard/report_retrocession_wizard.py:450
+#: code:addons/mozaik_retrocession/wizard/report_retrocession_wizard.py:448
 #, python-format
 msgid "Mandates"
 msgstr "Mandats"
@@ -1263,6 +1294,7 @@ msgid "Retrocession_${(object.unique_id or '').replace('/','_')}"
 msgstr ""
 
 #. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_fin_form_view
 #: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
 #: model:ir.actions.act_window,name:mozaik_retrocession.retrocession_action
 #: model:ir.ui.menu,name:mozaik_retrocession.retrocession_action_submenu
@@ -1271,6 +1303,7 @@ msgstr ""
 #: view:mandate.category:mozaik_retrocession.mandate_category_form_view
 #: view:retrocession:mozaik_retrocession.retrocession_search_view
 #: view:retrocession:mozaik_retrocession.retrocession_tree_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_fin_form_view
 #: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
 msgid "Retrocessions"
 msgstr "Rétrocessions"
@@ -1362,7 +1395,7 @@ msgid "Sequence"
 msgstr "Sequence"
 
 #. module: mozaik_retrocession
-#: code:addons/mozaik_retrocession/mandate.py:120
+#: code:addons/mozaik_retrocession/mandate.py:121
 #: constraint:mandate.category:0
 #, python-format
 msgid "Some impacted assemblies has no retrocessions management instance!"
@@ -1597,7 +1630,7 @@ msgstr "Avec déclaration de rémunérations"
 #. module: mozaik_retrocession
 #: field:report.retrocession.wizard,data:0
 msgid "XLS"
-msgstr ""
+msgstr "XLS"
 
 #. module: mozaik_retrocession
 #: field:report.retrocession.wizard,year:0
@@ -1677,10 +1710,3 @@ msgstr "a payé"
 #: view:website:mozaik_retrocession.report_payment_certificate_document
 msgid "to"
 msgstr "à"
-
-#. module: mozaik_retrocession
-#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
-#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
-msgid "{'readonly': [('has_retrocessions_linked', '=', True)]}"
-msgstr ""
-

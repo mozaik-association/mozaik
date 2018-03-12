@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-23 17:54+0000\n"
-"PO-Revision-Date: 2015-10-23 17:54+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -93,6 +93,13 @@ msgstr "Date de création"
 #: help:partner.relation.category,message_last_post:0
 msgid "Date of the last message posted on the record."
 msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_person_coordinate
+#: field:duplicate.analysis.report,display_name:0
+#: field:partner.relation,display_name:0
+#: field:partner.relation.category,display_name:0
+msgid "Display Name"
+msgstr "Nom affiché"
 
 #. module: mozaik_person_coordinate
 #: view:duplicate.analysis.report:mozaik_person_coordinate.duplicate_analysis_report_search_view
@@ -190,7 +197,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:partner.relation,id:0
 #: field:partner.relation.category,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_person_coordinate
 #: help:partner.relation,message_unread:0
@@ -227,6 +234,13 @@ msgstr "Est abonné"
 #: field:partner.relation.category,message_last_post:0
 msgid "Last Message Date"
 msgstr "Date du dernier message"
+
+#. module: mozaik_person_coordinate
+#: field:duplicate.analysis.report,__last_update:0
+#: field:partner.relation,__last_update:0
+#: field:partner.relation.category,__last_update:0
+msgid "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: mozaik_person_coordinate
 #: field:partner.relation,write_uid:0
@@ -523,15 +537,3 @@ msgstr "Avec Coordonnées Principales Interdites"
 #: view:res.partner:mozaik_person_coordinate.res_partner_search_view
 msgid "Without Coordinates"
 msgstr "Injoignables"
-
-#. module: mozaik_person_coordinate
-#: view:res.partner:mozaik_person_coordinate.view_partner_tree
-msgid "grey:active==False;darkorange:is_duplicate_detected==True;red:unauthorized==True"
-msgstr ""
-
-#. module: mozaik_person_coordinate
-#: view:res.partner:mozaik_person_coordinate.view_partner_tree
-#: view:res.partner:mozaik_person_coordinate.view_partner_tree_2
-msgid "{'invisible': [('unauthorized', '=', True)]}"
-msgstr ""
-

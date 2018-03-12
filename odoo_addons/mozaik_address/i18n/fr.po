@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * mozaik_address
+#	* mozaik_address
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-16 17:22+0000\n"
-"PO-Revision-Date: 2016-06-16 17:22+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "1040, 4000,..."
 #. module: mozaik_address
 #: view:address.local.zip:mozaik_address.address_local_zip_form_view
 msgid "1050, 4000..."
-msgstr ""
+msgstr "1050, 4000..."
 
 #. module: mozaik_address
 #: field:address.address,active:0
@@ -252,6 +252,20 @@ msgid "Disabled"
 msgstr "Obsolète"
 
 #. module: mozaik_address
+#: field:address.address,display_name:0
+#: field:address.local.street,display_name:0
+#: field:address.local.zip,display_name:0
+#: field:allow.duplicate.address.wizard,display_name:0
+#: field:change.co.residency.address,display_name:0
+#: field:change.main.address,display_name:0
+#: field:co.residency,display_name:0
+#: field:postal.coordinate,display_name:0
+#: field:print.postal.from.partner.wizard,display_name:0
+#: field:report.mozaik_address.report_postal_coordinate_label,display_name:0
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: mozaik_address
 #: code:addons/mozaik_address/wizard/change_main_address.py:88
 #, python-format
 msgid "Due to security restrictions you are not allowed to move all co-residency members !"
@@ -316,7 +330,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:print.postal.from.partner.wizard,id:0
 #: field:report.mozaik_address.report_postal_coordinate_label,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_address
 #: field:address.local.street,identifier:0
@@ -407,6 +421,20 @@ msgstr "Description du dernier échec"
 #: field:postal.coordinate,message_last_post:0
 msgid "Last Message Date"
 msgstr "Date du dernier message"
+
+#. module: mozaik_address
+#: field:address.address,__last_update:0
+#: field:address.local.street,__last_update:0
+#: field:address.local.zip,__last_update:0
+#: field:allow.duplicate.address.wizard,__last_update:0
+#: field:change.co.residency.address,__last_update:0
+#: field:change.main.address,__last_update:0
+#: field:co.residency,__last_update:0
+#: field:postal.coordinate,__last_update:0
+#: field:print.postal.from.partner.wizard,__last_update:0
+#: field:report.mozaik_address.report_postal_coordinate_label,__last_update:0
+msgid "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: mozaik_address
 #: field:address.local.street,write_date:0
@@ -672,7 +700,7 @@ msgstr "Nom technique"
 #. module: mozaik_address
 #: model:mail.message.subtype,description:mozaik_address.address_failure_notification
 msgid "This Postal Coordinate seems to be down"
-msgstr "Cette coordonnée postal semble obsolète"
+msgstr "Cette coordonnée postale semble obsolète"
 
 #. module: mozaik_address
 #: code:addons/mozaik_address/address_local_street.py:55
@@ -734,7 +762,7 @@ msgstr "Utilisation permise"
 #. module: mozaik_address
 #: field:postal.coordinate,vip:0
 msgid "VIP"
-msgstr ""
+msgstr "VIP"
 
 #. module: mozaik_address
 #: code:addons/mozaik_address/address_address.py:408
@@ -791,25 +819,7 @@ msgid "address"
 msgstr "adresse"
 
 #. module: mozaik_address
-#: view:postal.coordinate:mozaik_address.postal_coordinate_form_view
-msgid "onchange_unauthorized(unauthorized, co_residency_id, context)"
-msgstr ""
-
-#. module: mozaik_address
 #: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
 #: view:print.postal.from.partner.wizard:mozaik_address.print_postal_from_partner_wizard
 msgid "or"
 msgstr "ou"
-
-#. module: mozaik_address
-#: view:change.main.address:mozaik_address.change_main_address_wizard
-msgid "{'invisible': [('old_address_id', '=', False)]}"
-msgstr ""
-
-#. module: mozaik_address
-#: view:postal.coordinate:mozaik_address.postal_coordinate_form_view
-msgid "{'search_default_duplicate': True,\n"
-"                                               'search_default_address_id': address_id,\n"
-"                                               'default_address_id': address_id}"
-msgstr ""
-

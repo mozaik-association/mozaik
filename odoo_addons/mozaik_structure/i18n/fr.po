@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-23 17:54+0000\n"
-"PO-Revision-Date: 2015-10-23 17:54+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -262,11 +262,31 @@ msgid "Designation Assembly"
 msgstr "Assemblée de désignation"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,display_name:0
+#: field:abstract.assembly.category,display_name:0
+#: field:abstract.instance,display_name:0
+#: field:abstract.power.level,display_name:0
+#: field:electoral.district,display_name:0
+#: field:ext.assembly,display_name:0
+#: field:ext.assembly.category,display_name:0
+#: field:int.assembly,display_name:0
+#: field:int.assembly.category,display_name:0
+#: field:int.instance,display_name:0
+#: field:int.power.level,display_name:0
+#: field:legislature,display_name:0
+#: field:sta.assembly,display_name:0
+#: field:sta.assembly.category,display_name:0
+#: field:sta.instance,display_name:0
+#: field:sta.power.level,display_name:0
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: mozaik_structure
 #: field:ext.assembly,dummy:0
 #: field:int.assembly,dummy:0
 #: field:sta.assembly,dummy:0
 msgid "Dummy"
-msgstr ""
+msgstr "Fantôme"
 
 #. module: mozaik_structure
 #: field:abstract.assembly.category,duration:0
@@ -465,7 +485,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:sta.instance,id:0
 #: field:sta.power.level,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_structure
 #: help:abstract.assembly,message_unread:0
@@ -663,6 +683,27 @@ msgid "Last Message Date"
 msgstr "Date du dernier message"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,__last_update:0
+#: field:abstract.assembly.category,__last_update:0
+#: field:abstract.instance,__last_update:0
+#: field:abstract.power.level,__last_update:0
+#: field:electoral.district,__last_update:0
+#: field:ext.assembly,__last_update:0
+#: field:ext.assembly.category,__last_update:0
+#: field:int.assembly,__last_update:0
+#: field:int.assembly.category,__last_update:0
+#: field:int.instance,__last_update:0
+#: field:int.power.level,__last_update:0
+#: field:legislature,__last_update:0
+#: field:sta.assembly,__last_update:0
+#: field:sta.assembly.category,__last_update:0
+#: field:sta.instance,__last_update:0
+#: field:sta.power.level,__last_update:0
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,write_uid:0
 #: field:electoral.district,write_uid:0
 #: field:ext.assembly,write_uid:0
 #: field:ext.assembly.category,write_uid:0
@@ -679,6 +720,7 @@ msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,write_date:0
 #: field:electoral.district,write_date:0
 #: field:ext.assembly,write_date:0
 #: field:ext.assembly.category,write_date:0
@@ -795,15 +837,19 @@ msgid "Multi-Instances"
 msgstr "Multi-Instances"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,name:0
 #: field:abstract.assembly.category,name:0
 #: field:abstract.instance,name:0
 #: field:abstract.power.level,name:0
 #: field:electoral.district,name:0
+#: field:ext.assembly,name:0
 #: field:ext.assembly.category,name:0
+#: field:int.assembly,name:0
 #: field:int.assembly.category,name:0
 #: field:int.instance,name:0
 #: field:int.power.level,name:0
 #: field:legislature,name:0
+#: field:sta.assembly,name:0
 #: field:sta.assembly.category,name:0
 #: field:sta.instance,name:0
 #: field:sta.power.level,name:0
@@ -1081,26 +1127,4 @@ msgstr "Année"
 #, python-format
 msgid "You can not create recursive instances"
 msgstr "Vous ne pouvez pas créer d'instances récursives"
-
-#. module: mozaik_structure
-#: view:ext.assembly:mozaik_structure.ext_assembly_form_view
-#: view:int.assembly:mozaik_structure.int_assembly_form_view
-msgid "onchange_assembly_category_id(assembly_category_id)"
-msgstr ""
-
-#. module: mozaik_structure
-#: view:sta.instance:mozaik_structure.sta_instance_form_view
-msgid "{'default_instance_id': active_id}"
-msgstr ""
-
-#. module: mozaik_structure
-#: view:int.power.level:mozaik_structure.int_power_level_form_view
-#: view:sta.power.level:mozaik_structure.sta_power_level_form_view
-msgid "{'default_power_level_id': active_id}"
-msgstr ""
-
-#. module: mozaik_structure
-#: view:int.assembly:mozaik_structure.int_assembly_form_view
-msgid "{'invisible': [('designation_int_assembly_id', '=', False)]}"
-msgstr ""
 

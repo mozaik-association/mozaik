@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-05 18:58+0000\n"
-"PO-Revision-Date: 2015-03-05 18:58+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr "Ajouter une langue..."
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:113
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:112
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Civil Status:"
@@ -30,15 +30,20 @@ msgstr "État civil:"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:271
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:270
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
 msgid "Complete List"
 msgstr "Liste complète"
 
 #. module: mozaik_mobile
+#: field:virtual.mobile.partner,display_name:0
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:257
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:256
 #: field:virtual.mobile.partner,email:0
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
@@ -47,7 +52,7 @@ msgstr "Adresse électronique"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:134
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:133
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Email Coordinates"
@@ -55,7 +60,7 @@ msgstr "Coordonnées électroniques"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:191
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:190
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "External Mandates"
@@ -63,7 +68,7 @@ msgstr "Mandats externes"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:108
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:107
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Gender:"
@@ -72,7 +77,7 @@ msgstr "Genre:"
 #. module: mozaik_mobile
 #: field:virtual.mobile.partner,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_mobile
 #: field:virtual.mobile.partner,int_instance_id:0
@@ -81,15 +86,20 @@ msgstr "Instance interne"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:174
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:173
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Internal Mandates"
 msgstr "Mandats internes"
 
 #. module: mozaik_mobile
+#: field:virtual.mobile.partner,__last_update:0
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:95
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:94
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Main Address:"
@@ -97,7 +107,7 @@ msgstr "Adresse principale:"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:90
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:89
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Main Email:"
@@ -105,7 +115,7 @@ msgstr "Adresse principale principale:"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:85
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:84
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Main Fax:"
@@ -113,7 +123,7 @@ msgstr "Fax principal:"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:80
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:79
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Main Mobile:"
@@ -121,7 +131,7 @@ msgstr "Mobile principal:"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:75
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:74
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Main Phone:"
@@ -131,11 +141,11 @@ msgstr "Téléphone principal:"
 #: model:ir.actions.act_url,name:mozaik_mobile.partner_mobile_action
 #: model:ir.ui.menu,name:mozaik_mobile.partner_mobile_menu
 msgid "Mozaik Mobile"
-msgstr ""
+msgstr "Mozaik Mobile"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:255
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:254
 #: field:virtual.mobile.partner,name:0
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
@@ -145,7 +155,7 @@ msgstr "Nom"
 #. module: mozaik_mobile
 #. openerp-web
 #: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:23
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:52
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:51
 #: view:website:mozaik_mobile.mobile_index
 #: view:website:mozaik_mobile.show_partner
 #, python-format
@@ -162,7 +172,7 @@ msgstr "Liste de partenaires"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:249
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:248
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
 msgid "Partners Search"
@@ -170,7 +180,7 @@ msgstr "Recherche de partenaires"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:256
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:255
 #: field:virtual.mobile.partner,phone:0
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
@@ -179,7 +189,7 @@ msgstr "Téléphone"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:122
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:121
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Phone Coordinates"
@@ -187,7 +197,7 @@ msgstr "Coordonnées téléphoniques"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:144
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:143
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Postal Coordinates"
@@ -195,7 +205,7 @@ msgstr "Coordonnées postales"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:223
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:222
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Relation (Object)"
@@ -203,7 +213,7 @@ msgstr "Relation (Objet)"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:208
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:207
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Relation (Subject)"
@@ -211,7 +221,7 @@ msgstr "Relation (Sujet)"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:267
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:266
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
 msgid "Search"
@@ -219,7 +229,7 @@ msgstr "Rechercher"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:251
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:250
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
 msgid "Search on"
@@ -227,7 +237,7 @@ msgstr "Rechercher sur"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:261
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:260
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
 msgid "Search value"
@@ -235,7 +245,7 @@ msgstr "Critère de recherche"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:157
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:156
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "State Mandates"
@@ -243,16 +253,16 @@ msgstr "Mandats politiques"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:165
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:182
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:199
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:164
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:181
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:198
 #, python-format
 msgid "To"
 msgstr "Á"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:103
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:102
 #: view:website:mozaik_mobile.show_partner
 #, python-format
 msgid "Tongue:"
@@ -260,7 +270,7 @@ msgstr "Langue:"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:265
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:264
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
 msgid "Value"
@@ -268,14 +278,14 @@ msgstr "Valeur"
 
 #. module: mozaik_mobile
 #: model:ir.model,name:mozaik_mobile.model_virtual_mobile_partner
-msgid "Virtual Mobile Partner"
-msgstr ""
+msgid "Virtual Partner for Mobile"
+msgstr "Contact virtuel pour mobile"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:40
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:39
 #: view:website:mozaik_mobile.mobile_index
 #, python-format
 msgid "pull-right"
-msgstr ""
+msgstr "pull-right"
 

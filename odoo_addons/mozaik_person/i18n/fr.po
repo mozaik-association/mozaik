@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * mozaik_person
+#	* mozaik_person
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-03 14:03+0000\n"
-"PO-Revision-Date: 2018-03-03 14:03+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -271,7 +271,7 @@ msgstr "Doublons"
 
 #. module: mozaik_person
 #: sql_constraint:partner.involvement:0
-msgid "Effective time is mandatory for this kind of involvement category !"
+msgid "Effective time is mandatory for this kind of involvement !"
 msgstr "L'heure effective est obligatoire pour ce type de particpation !"
 
 #. module: mozaik_person
@@ -572,6 +572,11 @@ msgstr "Mes participations"
 #: help:res.partner,ldap_name:0
 msgid "Name of the user in the LDAP"
 msgstr "Nom LDAP de l'utilisateur"
+
+#. module: mozaik_person
+#: view:res.partner:mozaik_person.res_partner_search_view
+msgid "Nationality"
+msgstr "Nationalité"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.natural_res_partner_action

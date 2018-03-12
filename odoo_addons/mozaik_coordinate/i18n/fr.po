@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 15:46+0000\n"
-"PO-Revision-Date: 2016-04-11 15:46+0000\n"
+"POT-Creation-Date: 2018-03-12 21:15+0000\n"
+"PO-Revision-Date: 2018-03-12 21:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -166,6 +166,14 @@ msgid "Description"
 msgstr "Description"
 
 #. module: mozaik_coordinate
+#: field:abstract.coordinate,display_name:0
+#: field:bounce.editor,display_name:0
+#: field:change.main.coordinate,display_name:0
+#: field:coordinate.category,display_name:0
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: mozaik_coordinate
 #: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Duplicates"
 msgstr "Doublons"
@@ -248,7 +256,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:change.main.coordinate,id:0
 #: field:coordinate.category,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_coordinate
 #: help:abstract.coordinate,message_unread:0
@@ -318,6 +326,14 @@ msgstr "Description du dernier échec"
 #: field:coordinate.category,message_last_post:0
 msgid "Last Message Date"
 msgstr "Date du dernier message"
+
+#. module: mozaik_coordinate
+#: field:abstract.coordinate,__last_update:0
+#: field:bounce.editor,__last_update:0
+#: field:change.main.coordinate,__last_update:0
+#: field:coordinate.category,__last_update:0
+msgid "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: mozaik_coordinate
 #: field:bounce.editor,write_uid:0
@@ -495,11 +511,6 @@ msgstr "Historique de communication de site web"
 #: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
 msgid "With Failures"
 msgstr "Avec échecs"
-
-#. module: mozaik_coordinate
-#: view:res.partner:mozaik_coordinate.view_partner_form
-msgid "autofocus"
-msgstr ""
 
 #. module: mozaik_coordinate
 #: view:bounce.editor:mozaik_coordinate.bounce_editor_wizard
