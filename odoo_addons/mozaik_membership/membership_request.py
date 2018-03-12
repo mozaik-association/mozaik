@@ -347,13 +347,15 @@ class membership_request(orm.Model):
         return False
 
     def _get_labels_to_process(self, request):
-        if not request.country_id:
-            return []
         label_path = [
-            'NUMBER', 'STREET2', 'BOX', 'SEQUENCE',
             'LOCAL', 'REGIONAL', 'NATIONAL',
             'LOCAL-ONLY',
         ]
+        if not request.country_id:
+            return label_path
+        label_path = [
+            'NUMBER', 'STREET2', 'BOX', 'SEQUENCE',
+        ] + label_path
         partner_adr = request.partner_id.postal_coordinate_id.address_id
         if (request.address_local_zip_id and partner_adr.address_local_zip_id):
             label_path.append('ZIP_REQUEST_PARTNER')
