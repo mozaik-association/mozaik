@@ -17,6 +17,8 @@ class VirtualPartnerInvolvement(models.Model):
     national_voluntary = fields.Boolean()
     local_only = fields.Boolean()
 
+    nationality_id = fields.Many2one(
+        comodel_name='res.country', string='Nationality')
     involvement_type = fields.Selection(selection=CATEGORY_TYPE)
     effective_time = fields.Datetime(string='Involvement Date')
     promise = fields.Boolean()
@@ -30,3 +32,5 @@ class VirtualPartnerInstance(models.Model):
     regional_voluntary = fields.Boolean()
     national_voluntary = fields.Boolean()
     local_only = fields.Boolean()
+    nationality_id = fields.Many2one(
+        comodel_name='res.country', string='Nationality')

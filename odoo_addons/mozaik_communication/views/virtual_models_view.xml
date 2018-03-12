@@ -86,6 +86,7 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="nationality_id"/>
 
                     <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
@@ -163,6 +164,7 @@
                         <filter name="involvement_type" string="Involvement Type" context="{'group_by': 'involvement_type'}"/>
                         <filter name="involvement_month" string="Involvement Months" context="{'group_by': 'effective_time'}"/>
                         <filter name="involvment_year" string="Involvement Years" context="{'group_by': 'effective_time:year'}"/>
+                        <filter name="nationality" string="Nationality" context="{'group_by': 'nationality_id'}"/>
                     </group>
                 </search>
             </field>
@@ -372,6 +374,7 @@
 
                     <field name="email_category_id" />
                     <field name="postal_category_id" />
+                    <field name="nationality_id"/>
 
                     <filter string="Main Address" name="main_postal"
                         domain="[('main_postal','=',1)]" />
@@ -443,6 +446,7 @@
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
                         <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
                         <filter name="state" string="State" context="{'group_by':'membership_state_id'}" />
+                        <filter name="nationality" string="Nationality" context="{'group_by': 'nationality_id'}"/>
                     </group>
                 </search>
             </field>
