@@ -806,7 +806,7 @@ class membership_request(orm.Model):
         :param partner_id: id of partner
         :rparam: next status in partner's workflow depending on `request_type`
         """
-        context = context or {}
+        context = dict(context or {}, tracking_disable=True)
 
         partner_obj = self.pool['res.partner']
 

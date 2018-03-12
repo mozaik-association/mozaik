@@ -389,13 +389,13 @@ class test_membership(SharedSetupTransactionCase):
         self.assertIn('Name', changes)
         self.assertIn('City', changes)
         self.assertIn('Reference Street', changes)
-        self.assertEquals(changes['Name'][0], 'MAROIS')
-        self.assertEquals(changes['Name'][1], 'Test')
-        self.assertEquals(changes['City'][0], 'Test Valley')
-        self.assertEquals(changes['City'][1], 'Oreye')
-        self.assertEquals(changes['Reference Street'][0], 'Street Sample')
-        self.assertEquals(changes['Reference Street'][1],
-                          u'Rue Louis Maréchal')
+        self.assertEqual(changes['Name'][0], 'MAROIS')
+        self.assertEqual(changes['Name'][1], 'Test')
+        self.assertEqual(changes['City'][0], 'Test Valley')
+        self.assertEqual(changes['City'][1], 'Oreye')
+        self.assertEqual(changes['Reference Street'][0], 'Street Sample')
+        self.assertEqual(
+            changes['Reference Street'][1], u'Rue Louis Maréchal')
         self.mro.write(cr, uid, request.id, {'country_id': False})
         request = self.mro.browse(cr, uid, request.id)
         changes = get_changes()
@@ -426,7 +426,7 @@ class test_membership(SharedSetupTransactionCase):
         mr = self.mro.browse(cr, uid, clone_id, context=context)
         self.mro.write(cr, uid, [mr.id], vals, context=context)
         mr = self.mro.browse(cr, uid, mr.id, context=context)
-        self.assertEquals(mr.age, age, 'Should be the same age')
+        self.assertEqual(mr.age, age, 'Should be the same age')
 
     def test_required_age(self):
         mr_obj = self.env['membership.request']
@@ -458,7 +458,7 @@ class test_membership(SharedSetupTransactionCase):
         vals['birth_date'] = oc['value'].get('birth_date', False)
         mr.write(vals)
         mr.validate_request()
-        self.assertEquals(mr.state, 'validate', 'Validation should work')
+        self.assertEqual(mr.state, 'validate', 'Validation should work')
 
     def test_phone_auto_change_type(self):
         '''
