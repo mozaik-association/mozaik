@@ -202,13 +202,13 @@
                     <field name="calculation_method_id"/>
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='sta_assembly_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -330,13 +330,13 @@
                     <field name="calculation_method_id"/>
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='ext_assembly_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
                 </xpath>
             </field>
         </record>

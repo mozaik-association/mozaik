@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//page[@name='internal_notes']" position="attributes">
-                    <attribute name="autofocus">autofocus</attribute>
+                    <attribute name="autofocus" translation="off">autofocus</attribute>
                 </xpath>
 
                 <xpath expr="//page[@name='internal_notes']" position="after">

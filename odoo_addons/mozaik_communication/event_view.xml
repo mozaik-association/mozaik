@@ -150,7 +150,7 @@
                 <!-- partner_id is required -->
                 <xpath expr="//field[@name='partner_id']" position="attributes">
                     <attribute name="required">1</attribute>
-                    <attribute name="attrs">{'readonly': [('id', '!=', False)]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('id', '!=', False)]}</attribute>
                 </xpath>
                 <!-- Add date -->
                 <xpath expr="//field[@name='create_date']" position="replace">

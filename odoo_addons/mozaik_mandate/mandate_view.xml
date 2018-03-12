@@ -510,7 +510,7 @@
                                     attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                    <attribute name="attrs">{'invisible': ['|', '|', ('state','not in', ['elected', 'non-elected']),
+                    <attribute name="attrs" translation="off">{'invisible': ['|', '|', ('state','not in', ['elected', 'non-elected']),
                                                            '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)
                                                            , ('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
@@ -557,7 +557,7 @@
                      <field name="mandate_start_date" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                     <attribute name="attrs">{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}</attribute>
+                     <attribute name="attrs" translation="off">{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -572,7 +572,7 @@
                      <field name="mandate_start_date" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                     <attribute name="attrs">{'invisible': ['|', ('state','!=', 'elected'), ('mandate_ids', '!=', [])]}</attribute>
+                     <attribute name="attrs" translation="off">{'invisible': ['|', ('state','!=', 'elected'), ('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -594,8 +594,8 @@
                 </xpath>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                    <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
-                    <attribute name="context">{'default_type': 'sta'}</attribute>
+                    <attribute name="on_change" translation="off">onchange_mandate_category_id(mandate_category_id)</attribute>
+                    <attribute name="context" translation="off">{'default_type': 'sta'}</attribute>
                 </xpath>
 
                 <xpath expr="//group[@name='data']" position="after">
@@ -630,8 +630,8 @@
                 <xpath expr="//field[@name='is_submission_assets']" position="replace"/>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                    <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
-                    <attribute name="context">{'default_type': 'int'}</attribute>
+                    <attribute name="on_change" translation="off">onchange_mandate_category_id(mandate_category_id)</attribute>
+                    <attribute name="context" translation="off">{'default_type': 'int'}</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='end_date']" position="after">
@@ -659,8 +659,8 @@
                 </xpath>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                    <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
-                    <attribute name="context">{'default_type': 'ext'}</attribute>
+                    <attribute name="on_change" translation="off">onchange_mandate_category_id(mandate_category_id)</attribute>
+                    <attribute name="context" translation="off">{'default_type': 'ext'}</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='end_date']" position="after">
@@ -688,8 +688,8 @@
             <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='assembly_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False)]}</attribute>
-                    <attribute name="domain">[('is_legislative', '=', False)]</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('electoral_district_id','!=', False)]}</attribute>
+                    <attribute name="domain" translation="off">[('is_legislative', '=', False)]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_id']" position="before">
                        <field name="electoral_district_id"
@@ -714,7 +714,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False),]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly': [('electoral_district_id','!=', False),]}</attribute>
                 </xpath>
 
                 <xpath expr="//page[@name='candidatures']" position="inside">
@@ -795,7 +795,7 @@
                     <field name="is_virtual"/>
                 </xpath>
                 <xpath expr="//field[@name='assembly_id']" position="attributes">
-                    <attribute name="domain">[('assembly_category_id', '=', assembly_category_id)]</attribute>
+                    <attribute name="domain" translation="off">[('assembly_category_id', '=', assembly_category_id)]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_id']" position="before">
                         <field name="mandate_category_id"
@@ -863,8 +863,8 @@
                 <xpath expr="//field[@name='auto_mandate']" position="before">
                     <field name="is_virtual"/>
                 </xpath>
-                 <xpath expr="//field[@name='assembly_id']" position="attributes">
-                    <attribute name="domain">[('assembly_category_id', '=', assembly_category_id)]</attribute>
+                <xpath expr="//field[@name='assembly_id']" position="attributes">
+                    <attribute name="domain" translation="off">[('assembly_category_id', '=', assembly_category_id)]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_id']" position="before">
                         <field name="mandate_category_id"

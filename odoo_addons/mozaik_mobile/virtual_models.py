@@ -28,7 +28,7 @@ from openerp import tools
 
 class virtual_mobile_partner(orm.Model):
     _name = "virtual.mobile.partner"
-    _description = "Virtual Mobile Partner"
+    _description = "Virtual Partner for Mobile"
     _auto = False
 
     _columns = {

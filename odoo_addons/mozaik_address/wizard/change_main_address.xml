@@ -17,7 +17,7 @@
                 </xpath>
                 
                 <xpath expr="//field[@name='invalidate_previous_coordinate']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('old_address_id', '=', False)]}</attribute>
+                    <attribute name="attrs" translation="off">{'invisible': [('old_address_id', '=', False)]}</attribute>
                 </xpath>
 
                 <xpath expr="//group[@name='data']" position="after">

@@ -369,7 +369,7 @@
                                           'default_power_level_id': active_id}" />
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="attributes">
-                    <attribute name="context">{'default_power_level_id': active_id}</attribute>
+                    <attribute name="context" translation="off">{'default_power_level_id': active_id}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="before">
                     <button string="All Details"
@@ -433,7 +433,7 @@
                     </page>
                 </xpath>
                 <xpath expr="//field[@name='assembly_ids']" position="attributes">
-                    <attribute name="context">{'default_instance_id': active_id}</attribute>
+                    <attribute name="context" translation="off">{'default_instance_id': active_id}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_ids']" position="before">
                     <button string="All Details"
@@ -615,7 +615,7 @@
                      <field name="designation_int_assembly_id" required="1"/>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_id']" position="attributes">
-                     <attribute name="on_change">onchange_assembly_category_id(assembly_category_id)</attribute>
+                     <attribute name="on_change" translation="off">onchange_assembly_category_id(assembly_category_id)</attribute>
                 </xpath>
             </field>
         </record>
@@ -635,7 +635,7 @@
                     <field name="level_for_followers"/>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="attributes">
-                    <attribute name="context">{'default_power_level_id': active_id}</attribute>
+                    <attribute name="context" translation="off">{'default_power_level_id': active_id}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="before">
                     <button string="All Details"
@@ -675,10 +675,10 @@
                      <field name="designation_int_assembly_id" domain="[('is_designation_assembly', '=', True), ('id','!=',active_id)]"/>
                 </xpath>
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="attributes">
-                     <attribute name="attrs">{'invisible': [('designation_int_assembly_id', '=', False)]}</attribute>
+                     <attribute name="attrs" translation="off">{'invisible': [('designation_int_assembly_id', '=', False)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_id']" position="attributes">
-                     <attribute name="on_change">onchange_assembly_category_id(assembly_category_id)</attribute>
+                     <attribute name="on_change" translation="off">onchange_assembly_category_id(assembly_category_id)</attribute>
                 </xpath>
             </field>
         </record>

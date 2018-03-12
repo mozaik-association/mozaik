@@ -67,9 +67,10 @@
 
                 <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
                     <attribute name="name">%(phone_coordinate_action)d</attribute>
-                    <attribute name="context">{'search_default_duplicate': True,
-                                               'search_default_phone_id': phone_id,
-                                               'default_phone_id': phone_id}</attribute>
+                    <attribute name="context" translation="off">
+                        {'search_default_duplicate': True,
+                         'search_default_phone_id': phone_id,
+                         'default_phone_id': phone_id}</attribute>
                 </xpath>
 
                 <xpath expr="//group[@name='moreinfo']" position="inside">

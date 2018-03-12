@@ -66,10 +66,10 @@
                     <field name="unauthorized" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='phone']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('unauthorized', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'invisible': [('unauthorized', '=', True)]}</attribute>
                 </xpath>
                 <xpath expr="//tree" position="attributes">
-                    <attribute name="colors">grey:active==False;darkorange:is_duplicate_detected==True;red:unauthorized==True</attribute>
+                    <attribute name="colors" translation="off">grey:active==False;darkorange:is_duplicate_detected==True;red:unauthorized==True</attribute>
                 </xpath>
 
             </field>
@@ -82,10 +82,10 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='mobile']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('unauthorized', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'invisible': [('unauthorized', '=', True)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='fax']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('unauthorized', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'invisible': [('unauthorized', '=', True)]}</attribute>
                 </xpath>
 
             </field>

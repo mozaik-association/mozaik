@@ -67,14 +67,15 @@
                 </xpath>
 
                 <xpath expr="//field[@name='unauthorized']" position="attributes">
-                    <attribute name="on_change">onchange_unauthorized(unauthorized, co_residency_id, context)</attribute>
+                    <attribute name="on_change" translation="off">onchange_unauthorized(unauthorized, co_residency_id, context)</attribute>
                 </xpath>
 
                 <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
                     <attribute name="name">%(postal_coordinate_action)d</attribute>
-                    <attribute name="context">{'search_default_duplicate': True,
-                                               'search_default_address_id': address_id,
-                                               'default_address_id': address_id}</attribute>
+                    <attribute name="context" translation="off">
+                        {'search_default_duplicate': True,
+                         'search_default_address_id': address_id,
+                         'default_address_id': address_id}</attribute>
                 </xpath>
 
                 <xpath expr="//group[@name='moreinfo']" position="inside">
