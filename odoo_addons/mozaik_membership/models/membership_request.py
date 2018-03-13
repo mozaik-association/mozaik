@@ -32,7 +32,9 @@ class MembershipRequest(models.Model):
     local_voluntary = fields.Boolean(track_visibility='onchange')
     regional_voluntary = fields.Boolean(track_visibility='onchange')
     national_voluntary = fields.Boolean(track_visibility='onchange')
-    local_only = fields.Boolean(track_visibility='onchange')
+    local_only = fields.Boolean(
+        track_visibility='onchange',
+        help='Partner wishing to be contacted only by the local')
 
     involvement_category_ids = fields.Many2many(
         'partner.involvement.category',
