@@ -4,15 +4,6 @@
 
 from openerp import api, fields, models, _
 
-FOLLOWUP_TYPE = [
-    ('delay', 'I added some other followers, follow-up continue, '
-     'the deadline is postponed (by number of days defined on the category)'),
-    ('done', 'Follow-up is done, I added details in '
-     'the note or in the history'),
-    ('continue', 'This follow-up is done, '
-     'but it continues by starting next follow-up'),
-]
-
 
 class PartnerInvolvementFollowupWizard(models.TransientModel):
 
@@ -26,8 +17,30 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
                 inv_id).involvement_category_id
         return False
 
+    @api.model
+    def _get_followup(self):
+        types = [
+            ('delay', _('I added some other followers, follow-up continue, '
+                        'the deadline is postponed (by number of '
+                        'days defined on the category)')),
+            ('done', _('Follow-up is done, I added details in '
+                       'the note or in the history')),
+            ('continue', _('This follow-up is done, '
+                           'but it continues by starting next follow-up')),
+        ]
+        cat_id = self._default_current_category_id()
+        if cat_id and cat_id.involvement_category_ids:
+            return types
+        return types[:-1]
+
+    @api.model
+    def _default_followup(self):
+        choices = self._get_followup()
+        return choices[-1][0]
+
     followup = fields.Selection(
-        selection=FOLLOWUP_TYPE, default='continue')
+        selection='_get_followup',
+        default=lambda s: s._default_followup())
 
     current_category_id = fields.Many2one(
         'partner.involvement.category',
@@ -83,12 +96,5 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
                         'partner_id': inv.partner_id.id,
                         'involvement_category_id': cat.id,
                     }
-                    new_inv = inv.create(vals)
-                action = {
-                    'type': 'ir.actions.act_window',
-                    'name': 'Follow-up: Next Involvement',
-                    'res_model': 'partner.involvement',
-                    'res_id': new_inv.id,
-                    'view_mode': 'form,tree',
-                }
+                    inv.create(vals)
         return action
