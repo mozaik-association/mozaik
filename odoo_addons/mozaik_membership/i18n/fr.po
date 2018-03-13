@@ -1511,6 +1511,16 @@ msgid "Partner Kind"
 msgstr "Type de partenaire"
 
 #. module: mozaik_membership
+#: help:ext.assembly,local_only:0
+#: help:int.assembly,local_only:0
+#: help:membership.request,local_only:0
+#: help:res.partner,local_only:0
+#: help:res.users,local_only:0
+#: help:sta.assembly,local_only:0
+msgid "Partner wishing to be contacted only by the local"
+msgstr "Personne ne désirant être contactée que par la locale"
+
+#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_partner_relation
 msgid "Partners Relation"
 msgstr "Relation de partenaires"
