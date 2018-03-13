@@ -6,11 +6,11 @@ from openerp import api, fields, models, _
 
 FOLLOWUP_TYPE = [
     ('delay', 'I added some other followers, follow-up continue, '
-     'please just increase the deadline'),
+     'the deadline is postponed (by number of days defined on the category)'),
     ('done', 'Follow-up is done, I added details in '
      'the note or in the history'),
-    ('continue', 'Follow-up here is now done, it continues '
-     'by starting next follow-up'),
+    ('continue', 'This follow-up is done, '
+     'but it continues by starting next follow-up'),
 ]
 
 

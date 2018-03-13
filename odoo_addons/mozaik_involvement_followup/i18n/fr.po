@@ -91,19 +91,9 @@ msgid "Follow-up Categories"
 msgstr "Catégories de suivi"
 
 #. module: mozaik_involvement_followup
-#: view:partner.involvement.category:mozaik_involvement_followup.partner_involvement_category_form_view
-msgid "Follow-up Category of..."
-msgstr "Catégorie de suivi..."
-
-#. module: mozaik_involvement_followup
-#: selection:partner.involvement.followup.wizard,followup:0
-msgid "Follow-up here is now done, it continues by starting next follow-up"
-msgstr "Ici le suivi est terminé, il continue en débutant les suivis suivants"
-
-#. module: mozaik_involvement_followup
 #: selection:partner.involvement.followup.wizard,followup:0
 msgid "Follow-up is done, I added details in the note or in the history"
-msgstr "Le suivi est terminé, j'ai ajouté des détails dans la noteou dans l'historique"
+msgstr "Le suivi est terminé, j'ai ajouté des détails dans la note ou dans l'historique"
 
 #. module: mozaik_involvement_followup
 #: model:mail.message.subtype,name:mozaik_involvement_followup.partner_involvement_late_mms
@@ -127,8 +117,8 @@ msgstr "Date de début"
 
 #. module: mozaik_involvement_followup
 #: selection:partner.involvement.followup.wizard,followup:0
-msgid "I added some other followers, follow-up continue, please just increase the deadline"
-msgstr "J'ai ajouté certains autres followers, le suivi continue, merci d'ajuster l'échéance"
+msgid "I added some other followers, follow-up continue, the deadline is postponed (by number of days defined on the category)"
+msgstr "J'ai ajouté certains autres followers, le suivi continue, l'échéance est postposée (du nombre de jours spécifiés sur la catégorie)"
 
 #. module: mozaik_involvement_followup
 #: field:partner.involvement.followup.wizard,id:0
@@ -139,6 +129,11 @@ msgstr "ID"
 #: model:mail.message.subtype,name:mozaik_involvement_followup.partner_involvement_to_follow_mms
 msgid "Involvement To Follow"
 msgstr "Participations à suivre"
+
+#. module: mozaik_involvement_followup
+#: view:partner.involvement.category:mozaik_involvement_followup.partner_involvement_category_form_view
+msgid "Is follow-up category for"
+msgstr "Est une catégorie de suivi pour"
 
 #. module: mozaik_involvement_followup
 #: field:partner.involvement.followup.wizard,__last_update:0
@@ -223,6 +218,11 @@ msgstr "État"
 #: model:mail.message.subtype,description:mozaik_involvement_followup.partner_involvement_late_mms
 msgid "The follow-up of this involvement is not yet done."
 msgstr "Le suivi de cette participation n'est pas encore terminé."
+
+#. module: mozaik_involvement_followup
+#: selection:partner.involvement.followup.wizard,followup:0
+msgid "This follow-up is done, but it continues by starting next follow-up"
+msgstr "Ce suivi-ci est terminé, mais il continue en débutant les suivis suivants"
 
 #. module: mozaik_involvement_followup
 #: view:partner.involvement:mozaik_involvement_followup.partner_involvement_search_view
