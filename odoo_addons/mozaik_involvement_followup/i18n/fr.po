@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 21:15+0000\n"
-"PO-Revision-Date: 2018-03-12 21:15+0000\n"
+"POT-Creation-Date: 2018-03-13 01:42+0000\n"
+"PO-Revision-Date: 2018-03-13 01:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "A follow-up is required for this involvement"
 msgstr "Un suivi est requis pour cette participation"
 
 #. module: mozaik_involvement_followup
-#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:74
+#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:87
 #, python-format
 msgid "Additionnal follow-up delay: %s => %s"
 msgstr "Délai de suivi supplémentaire: %s => %s"
@@ -91,7 +91,8 @@ msgid "Follow-up Categories"
 msgstr "Catégories de suivi"
 
 #. module: mozaik_involvement_followup
-#: selection:partner.involvement.followup.wizard,followup:0
+#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:26
+#, python-format
 msgid "Follow-up is done, I added details in the note or in the history"
 msgstr "Le suivi est terminé, j'ai ajouté des détails dans la note ou dans l'historique"
 
@@ -116,7 +117,8 @@ msgid "From date"
 msgstr "Date de début"
 
 #. module: mozaik_involvement_followup
-#: selection:partner.involvement.followup.wizard,followup:0
+#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:23
+#, python-format
 msgid "I added some other followers, follow-up continue, the deadline is postponed (by number of days defined on the category)"
 msgstr "J'ai ajouté certains autres followers, le suivi continue, l'échéance est postposée (du nombre de jours spécifiés sur la catégorie)"
 
@@ -220,7 +222,8 @@ msgid "The follow-up of this involvement is not yet done."
 msgstr "Le suivi de cette participation n'est pas encore terminé."
 
 #. module: mozaik_involvement_followup
-#: selection:partner.involvement.followup.wizard,followup:0
+#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:28
+#, python-format
 msgid "This follow-up is done, but it continues by starting next follow-up"
 msgstr "Ce suivi-ci est terminé, mais il continue en débutant les suivis suivants"
 
