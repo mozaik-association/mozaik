@@ -68,6 +68,17 @@
                                 </group>
                             </group>
                         </page>
+                        <page name="configured_placeholders" string="Configured Placeholders"
+                            attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
+                                                       ('e_mass_function','!=','email_coordinate_id')]}"
+                            groups="mozaik_base.mozaik_res_groups_user">
+                            <group>
+                                <field name="placeholder_id"
+                                       domain="[('model_id','=','email.coordinate')]"
+                                       options="{'no_quick_create':True,'no_create_edit':True}"/>
+                                <field name="placeholder_value"/>
+                            </group>
+                        </page>
                         <page name="postal_mailing" string="Postal Mailing"
                             attrs="{'invisible':['|',('trg_model','!=','postal.coordinate'),('p_mass_function','=',False),('extract_csv','=',False),('e_mass_function','!=','csv')]}">
                             <group>

@@ -34,6 +34,8 @@
         'mozaik_person',
         'mozaik_membership',
         'mozaik_retrocession',
+        # from https://github.com/OCA/crm
+        'email_template_configurator',
     ],
     'description': """
 MOZAIK Communication

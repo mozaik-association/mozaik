@@ -10,6 +10,11 @@
             <field name="group_id" eval="ref('mozaik_base.mozaik_res_groups_user')"/>
         </record>
 
+        <record model="res.groups" id="mozaik_base.mozaik_res_groups_configurator">
+            <field name="implied_ids"
+                   eval="[(4, ref('email_template_configurator.group_email_template_placeholders_manager'))]"/>
+        </record>
+
         <!-- Pyramidal Confidentiality -->
 
         <record id="distribution_list_base_cud_rule" model="ir.rule">

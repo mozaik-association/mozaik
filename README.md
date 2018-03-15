@@ -52,6 +52,7 @@ Some more generic modules have been move to other repositories:
 - [OCA/connector](https://github.com/OCA/connector)
 - [OCA/partner-contact](https://github.com/OCA/partner-contact)
 - [OCA/social](https://github.com/OCA/social)
+- [OCA/crm](https://github.com/OCA/crm)
 
 A special module is provided to quickly build a non empty sandbox database: ```mozaik_sample_accounting```.
 
