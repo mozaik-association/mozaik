@@ -4,7 +4,8 @@
 
 import logging
 
-from openerp import api, fields, models
+from openerp import _, api, fields, models
+from openerp.exceptions import ValidationError
 
 import openerp.addons.decimal_precision as dp
 
@@ -14,6 +15,10 @@ _logger = logging.getLogger(__name__)
 class ResPartner(models.Model):
 
     _inherit = 'res.partner'
+
+    current_membership_line_id = fields.Many2one(
+        comodel_name='membership.line', string='Current Membership',
+        compute='_compute_current_membership_line_id')
 
     local_voluntary = fields.Boolean(track_visibility='onchange')
     regional_voluntary = fields.Boolean(track_visibility='onchange')
@@ -25,6 +30,14 @@ class ResPartner(models.Model):
         digits=dp.get_precision('Product Price'), readonly=True)
 
     @api.multi
+    @api.depends('membership_line_ids', 'membership_line_ids.active')
+    def _compute_current_membership_line_id(self):
+        for partner in self:
+            current_membership_line_id = partner.membership_line_ids.filtered(
+                lambda s: s.active) or False
+            partner.current_membership_line_id = current_membership_line_id
+
+    @api.multi
     def update_state(self, membership_state_code):
         """
         Update state of partner. Called by workflow.
@@ -33,6 +46,8 @@ class ResPartner(models.Model):
         :param membership_state_code: code of `membership.state`
         """
         self.ensure_one()
+        if not self.env.context.get('lang'):
+            self = self.with_context(lang=self.lang)
         membership_state_obj = self.env['membership.state']
         state = membership_state_obj.search(
             [('code', '=', membership_state_code)], limit=1)
@@ -88,14 +103,7 @@ class ResPartner(models.Model):
                 'former_member_committee']:
             vals['local_only'] = False
 
-        current_reference = self.reference
-        date_from = self.accepted_date
-
         res = self.write(vals)
-
-        if membership_state_code != 'without_membership':
-            self._update_membership_line(
-                ref=current_reference, date_from=date_from)
 
         return res
 
@@ -205,4 +213,74 @@ class ResPartner(models.Model):
                 membership_request = membership_request.sudo()
             mr = membership_request.create(values)
         res = mr.display_object_in_form_view()[0]
+        return res
+
+    @api.multi
+    def create_workflow(self):
+        '''
+        Create workflow only for natural persons
+        '''
+        naturals = self.filtered(lambda s: not s.is_company)
+        res = super(ResPartner, naturals).create_workflow()
+        return res
+
+    @api.multi
+    def write(self, vals):
+        """
+        Create or Delete workflow if necessary (according to the new
+        is_company value)
+        Update followers when changing internal instance
+        Add membership line when changing internal instance or state
+        Invalidate some caches when changing set of instances related to
+        the user
+        """
+        if 'is_company' in vals:
+            is_company = vals['is_company']
+            p2d = self.filtered(lambda s, c=is_company: not s.is_company and c)
+            if p2d.mapped('membership_line_ids'):
+                raise ValidationError(
+                    _('A natural person with membership history '
+                      'cannot be transformed to a legal person')
+                )
+            p2c = self.filtered(lambda s, c=is_company: s.is_company and not c)
+            super(ResPartner, p2c).create_workflow()
+            p2d.delete_workflow()
+
+            if is_company:
+                # reset state for a company
+                vals['membership_state_id'] = None
+
+        p_upd_fol = self.env['res.partner']
+        p_add_line = self.env['res.partner']
+        if vals.get('int_instance_id'):
+            int_instance_id = vals['int_instance_id']
+            p_upd_fol = self.filtered(
+                lambda s, ii=int_instance_id: s.int_instance_id.id != ii)
+            p_add_line |= p_upd_fol
+            # subscribe related assemblies before updating partner
+            # followers list will be entirely reinitialize later
+            p_upd_fol._subscribe_assemblies(int_instance_id=int_instance_id)
+
+        previous_data = {}
+        if vals.get('membership_state_id'):
+            p_add_line |= self
+            previous_data = self.read(['accepted_date', 'reference'])
+            previous_data = {data['id']: data for data in previous_data}
+
+        res = super(ResPartner, self).write(vals)
+
+        # add a membership lines if any
+        for partner in p_add_line:
+            data = previous_data.get(partner.id, {})
+            partner._update_membership_line(
+                ref=data.get('reference'),
+                date_from=data.get('accepted_date'))
+
+        # update partners followers
+        p_upd_fol.sudo()._update_followers()
+
+        if 'int_instance_m2m_ids' in vals:
+            rule_obj = self.env['ir.rule']
+            rule_obj.clear_cache()
+
         return res

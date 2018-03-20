@@ -1093,14 +1093,8 @@ class membership_request(orm.Model):
             # pass through workflow this solution will not work anymore)
             ctx = dict(context, do_not_track_twice=True)
 
-            upd_folw = False
             if mr.partner_id:
                 partner_id = mr.partner_id.id
-                if mr.partner_id.int_instance_id.id != new_instance_id:
-                    context['new_instance_id'] = new_instance_id
-                    partner_obj._subscribe_assemblies(
-                        cr, uid, partner_id, context=context)
-                    upd_folw = True
             else:
                 partner_id = partner_obj.create(cr, uid, partner_values,
                                                 context=context)
@@ -1113,13 +1107,6 @@ class membership_request(orm.Model):
             if partner_values:
                 partner_obj.write(
                     cr, uid, [partner_id], partner_values, context=ctx)
-
-            if upd_folw:
-                if mr.membership_state_id.id == result_id:
-                    partner_obj._update_membership_line(
-                        cr, uid, [partner_id], context=context)
-                partner_obj._update_followers(
-                    cr, SUPERUSER_ID, [partner_id], context=context)
 
             # address if technical name is empty then means that no address
             # required
