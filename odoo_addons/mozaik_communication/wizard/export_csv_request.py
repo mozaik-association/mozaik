@@ -17,6 +17,10 @@ SELECT
  p.website,
  p.secondary_website,
  p.technical_name,
+ p.local_voluntary,
+ p.regional_voluntary,
+ p.national_voluntary,
+ p.local_only,
  CASE
   WHEN cc.line IS NOT NULL
   THEN cc.line
