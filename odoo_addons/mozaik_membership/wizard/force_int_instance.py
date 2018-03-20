@@ -54,7 +54,5 @@ class force_int_instance(orm.TransientModel):
                 partner_obj._change_instance(
                     cr, uid, partner_id, wiz.int_instance_id.id,
                     context=context)
-                partner_obj._update_followers(
-                    cr, SUPERUSER_ID, [partner_id], context=context)
 
         return True

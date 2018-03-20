@@ -338,7 +338,7 @@ class test_membership(SharedSetupTransactionCase):
             Test to valid tracks changes method to detect differences
             between modification request and partner data
         '''
-        cr, uid, context = self.cr, self.uid, {}
+        cr, uid = self.cr, self.uid
 
         request = self.rec_mr_update
         request.write({
@@ -374,30 +374,92 @@ class test_membership(SharedSetupTransactionCase):
         self.assertEqual(changes['Local only'][0], 'No')
         self.assertEqual(changes['Local only'][1], 'Yes')
 
-        address_id = request.partner_id.postal_coordinate_id.address_id.id
-
+        # change main address of the partner
         vals = {
-            'address_local_zip_id': False,
-            'street_man': 'Street Sample',
-            'town_man': 'Test Valley',
+            'country_id': self.ref("base.be"),
+            'zip_man': '4000',
+            'town_man': u'Liège',
+            'street_man': 'Place St Lambert',
+            'number': '7',
         }
-        self.registry['address.address'].write(
-            cr, uid, address_id, vals, context=context)
+        adr_id = self.registry['address.address'].create(cr, uid, vals)
+        vals = {
+            'partner_id': request.partner_id.id,
+            'address_id': adr_id,
+            'is_main': True,
+        }
+        self.registry['postal.coordinate'].create(cr, uid, vals)
+
         self.mro.write(cr, uid, request.id, {'lastname': 'Test'})
-        request = self.mro.browse(cr, uid, request.id)
         changes = get_changes()
         self.assertIn('Name', changes)
         self.assertIn('City', changes)
         self.assertIn('Reference Street', changes)
+        self.assertIn('Number', changes)
         self.assertEqual(changes['Name'][0], 'MAROIS')
         self.assertEqual(changes['Name'][1], 'Test')
-        self.assertEqual(changes['City'][0], 'Test Valley')
+        self.assertEqual(changes['City'][0], u'Liège')
         self.assertEqual(changes['City'][1], 'Oreye')
-        self.assertEqual(changes['Reference Street'][0], 'Street Sample')
+        self.assertEqual(changes['Reference Street'][0], 'Place St Lambert')
         self.assertEqual(
             changes['Reference Street'][1], u'Rue Louis Maréchal')
+        self.assertEqual(changes['Number'][0], '7')
+        self.assertEqual(changes['Number'][1], '6')
+
+        # change address components of the request
+        vals = {
+            'country_id': self.ref('base.ma'),
+            'zip_man': '45000',
+            'town_man': 'Ouarzazate',
+            'street_man': 'rue du souk',
+            'number': '47',
+            'box': False,
+        }
+        vals.update(
+            self.mro.onchange_country_id(
+                cr, uid, [],
+                vals['country_id'], vals['zip_man'], vals['town_man'],
+                vals['street_man'], vals['number'], vals['box'])['value']
+        )
+        vals.update(
+            self.mro.onchange_local_zip_id(
+                cr, uid, [],
+                vals['country_id'], vals['address_local_zip_id'],
+                vals['zip_man'], vals['town_man'],
+                vals['street_man'], vals['number'], vals['box'])['value']
+        )
+        vals.update(
+            self.mro.onchange_other_address_componants(
+                cr, uid, [],
+                vals['country_id'], vals['address_local_zip_id'],
+                vals['zip_man'], vals['town_man'],
+                vals['address_local_street_id'],
+                vals['street_man'], vals['number'], vals['box'])['value']
+        )
+        vals.update(
+            self.mro.onchange_technical_name(
+                cr, uid, [], vals['technical_name'])['value']
+        )
+        self.mro.write(cr, uid, request.id, vals)
+        changes = get_changes()
+        self.assertIn('Country', changes)
+        self.assertIn('Zip', changes)
+        self.assertIn('Town', changes)
+        self.assertIn('Street', changes)
+        self.assertIn('Number', changes)
+        self.assertEqual(changes['Country'][0], 'Belgium')
+        self.assertEqual(changes['Country'][1], 'Morocco')
+        self.assertEqual(changes['Zip'][0], '4000')
+        self.assertEqual(changes['Zip'][1], '45000')
+        self.assertEqual(changes['Town'][0], u'Liège')
+        self.assertEqual(changes['Town'][1], 'Ouarzazate')
+        self.assertEqual(changes['Street'][0], 'Place St Lambert')
+        self.assertEqual(changes['Street'][1], 'rue du souk')
+        self.assertEqual(changes['Number'][0], '7')
+        self.assertEqual(changes['Number'][1], '47')
+
+        # reset country on request
         self.mro.write(cr, uid, request.id, {'country_id': False})
-        request = self.mro.browse(cr, uid, request.id)
         changes = get_changes()
         self.assertNotIn('City', changes)
         self.assertNotIn('Zip', changes)

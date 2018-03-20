@@ -273,7 +273,7 @@ class test_partner(SharedSetupTransactionCase):
         # former_member -> former_member_committee -> member (already tested)
         partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         nbl += 1
-        ml = partner_obj._get_active_membership_line(cr, uid, partner.id)
+        ml = partner.current_membership_line_id
         def_prd_id = prd_obj._get_default_subscription(cr, uid)
         ml.write({
             'product_id': def_prd_id,
@@ -287,7 +287,7 @@ class test_partner(SharedSetupTransactionCase):
         partner_obj.register_free_membership(cr, uid, [partner.id])
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'member')
-        ml = partner_obj._get_active_membership_line(cr, uid, partner.id)
+        ml = partner.current_membership_line_id
         self.assertEqual(ml.price, 0.0)
         free_prd_id = imd_obj.xmlid_to_res_id(
             cr, uid, 'mozaik_membership.membership_product_free')
@@ -603,9 +603,8 @@ class test_partner(SharedSetupTransactionCase):
         }
         postal_id = postal_obj.create(cr, uid, vals, context=context)
         postal_rec = postal_obj.browse(cr, uid, postal_id, context=context)
-        self.assertEqual(int_instance_id,
-                          postal_rec.partner_id.int_instance_id.id,
-                          'Instance should be the same')
+        self.assertEqual(
+            int_instance_id, postal_rec.partner_id.int_instance_id.id)
 
     def test_generate_membership_reference(self):
         """
@@ -623,8 +622,7 @@ class test_partner(SharedSetupTransactionCase):
             cr, uid, partner_id, year, context=context)
 
         ref = 'MS: %s/%s' % (year, partner_id)
-        self.assertEqual(genref, ref,
-                          'Reference should be equal to %s' % ref)
+        self.assertEqual(genref, ref)
 
     def test_create_user_from_partner(self):
         """

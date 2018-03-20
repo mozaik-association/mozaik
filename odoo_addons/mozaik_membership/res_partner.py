@@ -98,29 +98,34 @@ class res_partner(orm.Model):
         return fol_ids or False
 
     def _subscribe_assemblies(
-            self, cr, uid, pid, context=None):
+            self, cr, uid, ids, int_instance_id=None, context=None):
         # compute list of new followers
-        fol_ids = self._get_followers_assemblies(
-            cr, uid, pid, context=context)
-        # subscribe assemblies
-        subtype_ids = self._get_subtype_ids(
-            cr, uid, 'partners', context=context)
-        self.message_subscribe(
-            cr, uid, [pid], fol_ids,
-            subtype_ids=subtype_ids, context=context)
+        ctx = dict(
+            context or {},
+            new_instance_id=int_instance_id
+        )
+        fol_ids = []
+        for pid in ids:
+            fol_ids = self._get_followers_assemblies(
+                cr, uid, pid, context=ctx)
+            # subscribe assemblies
+            subtype_ids = self._get_subtype_ids(
+                cr, uid, 'partners', context=context)
+            self.message_subscribe(
+                cr, uid, [pid], fol_ids,
+                subtype_ids=subtype_ids, context=context)
         return fol_ids
 
-    def _update_followers(
-            self, cr, uid, partner_ids, context=None):
+    def _update_followers(self, cr, uid, ids, context=None):
         '''
         Update followers list for each partner
         '''
-        for partner_id in partner_ids:
+        for partner_id in ids:
             # reset former followers
             self.reset_followers(cr, uid, [partner_id], context=context)
             # subscribe assemblies on partner
             f_partner_ids = self._subscribe_assemblies(
-                cr, uid, partner_id, context=context)
+                cr, uid, [partner_id], context=context)
 
             # subscribe assemblies on coordinates
             domain = [('partner_id', '=', partner_id)]
@@ -143,21 +148,11 @@ class res_partner(orm.Model):
         """
         Update instance of partner
         """
-        ctx = dict(
-            context or {},
-            new_instance_id=new_instance_id
-        )
-        # subscribe related assemblies before updating partner
-        # followers list will be entirely reinitialize later
-        self._subscribe_assemblies(cr, uid, pid, context=ctx)
         # update partner and send changing instance notification
         vals = {
             'int_instance_id': new_instance_id,
         }
         self.write(cr, uid, [pid], vals, context=context)
-        # add a membership line
-        self._update_membership_line(
-            cr, uid, [pid], context=context)
 
     def _generate_membership_reference(self, cr, uid, partner_id,
                                        ref_date=None, context=None):
@@ -179,18 +174,6 @@ class res_partner(orm.Model):
         vals['int_instance_m2m_ids'] = [(6, 0, [partner.int_instance_id.id])]
         super(res_partner, self)._update_user_partner(
             cr, uid, partner, vals, context=context)
-
-    def _get_active_membership_line(self, cr, uid, pid, context=None):
-        """
-        Return the browse record related to the active membership line
-        False otherwise
-        """
-        ml_obj = self.pool['membership.line']
-        line_ids = ml_obj.search(
-            cr, uid, [('partner_id', '=', pid), ('active', '=', True)],
-            context=context)
-        line = line_ids and ml_obj.browse(cr, uid, line_ids[0]) or False
-        return line
 
     def _get_product_id(self, cr, uid, ids, name, arg, context=None):
         res = {}
@@ -308,16 +291,6 @@ class res_partner(orm.Model):
                                                  context=context)
         return res
 
-    def create_workflow(self, cr, uid, ids, context=None):
-        '''
-        Create workflow only for natural persons
-        '''
-        dom = [('id', 'in', ids), ('is_company', '=', False)]
-        pids = self.search(cr, uid, dom, context=context)
-        res = super(res_partner, self).create_workflow(
-            cr, uid, pids, context=context)
-        return res
-
     def create(self, cr, uid, vals, context=None):
         '''
         If partner has an identifier then update its followers
@@ -338,53 +311,6 @@ class res_partner(orm.Model):
             self._update_followers(cr, SUPERUSER_ID, [res], context=context)
         return res
 
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        Create or Delete workflow if necessary (according to the new
-        is_company value)
-        Invalidate some caches when changing set of instances related to
-        the user
-        """
-        ids = isinstance(ids, (long, int)) and [ids] or ids
-        if 'is_company' in vals:
-            is_company = vals['is_company']
-            data = self.read(cr, uid, ids, ['is_company'], context=context)
-            p2d_ids = [
-                # wkfs to delete
-                d['id'] for d in data if not d['is_company'] and is_company
-            ]
-            if p2d_ids:
-                ml_obj = self.pool['membership.line']
-                ml_ids = ml_obj.search(
-                    cr, uid, [('partner_id', 'in', p2d_ids)],
-                    context=context)
-                if ml_ids:
-                    raise orm.except_orm(
-                        _('Error'),
-                        _('A natural person with membership history '
-                          'cannot be transformed to a legal person')
-                    )
-            p2c_ids = [
-                # wkfs to create
-                d['id'] for d in data if d['is_company'] and not is_company
-            ]
-            super(res_partner, self).create_workflow(
-                cr, uid, p2c_ids, context=context)
-            self.delete_workflow(
-                cr, uid, p2d_ids, context=context)
-
-            if is_company:
-                vals['membership_state_id'] = None
-
-        res = super(res_partner, self).write(
-            cr, uid, ids, vals, context=context)
-
-        if 'int_instance_m2m_ids' in vals:
-            rule_obj = self.pool['ir.rule']
-            rule_obj.clear_cache(cr, uid)
-
-        return res
-
 # view methods: onchange, button
 
     def register_free_membership(self, cr, uid, ids, context=None):
@@ -403,10 +329,8 @@ class res_partner(orm.Model):
             'price': 0.0,
         }
         # Force free subscription
-        for pid in ids:
-            ml = self._get_active_membership_line(
-                cr, uid, pid, context=context)
-            ml.write(vals)
+        for partner in self.browse(cr, uid, ids, context=context):
+            partner.current_membership_line_id.write(vals)
 
     def decline_payment(self, cr, uid, ids, context=None):
         ctx = dict(context or {}, do_not_track_twice=True)
