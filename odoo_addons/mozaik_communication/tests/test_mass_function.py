@@ -52,4 +52,5 @@ class TestMassFunction(SharedSetupTransactionCase):
         self.assertTrue(bool(wizard.email_template_id))
         self.assertEqual(wizard.email_template_id.subject, vals['subject'])
         self.assertEqual(wizard.email_template_id.body_html, vals['body'])
-        self.assertEqual(wizard.email_template_id.model_id.model, 'email.coordinate')
+        self.assertEqual(
+            wizard.email_template_id.model_id.model, 'email.coordinate')

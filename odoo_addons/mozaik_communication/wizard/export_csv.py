@@ -1,27 +1,6 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_coordinate, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_coordinate is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_coordinate is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_coordinate.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2018 Acsone Sa/Nv
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import tempfile
 import csv
@@ -98,6 +77,10 @@ class export_csv(orm.TransientModel):
             _('Email'),
             _('Website'),
             _('Secondary Website'),
+            _('Local voluntary'),
+            _('Regional voluntary'),
+            _('National voluntary'),
+            _('Local only'),
         ]
 
         return [_get_utf8(col) for col in hdr]
@@ -165,6 +148,10 @@ class export_csv(orm.TransientModel):
                 'email')),
             _get_utf8(obj.get('website')),
             _get_utf8(obj.get('secondary_website')),
+            _get_utf8(obj.get('local_voluntary')),
+            _get_utf8(obj.get('regional_voluntary')),
+            _get_utf8(obj.get('national_voluntary')),
+            _get_utf8(obj.get('local_only')),
         ]
         return export_values
 
