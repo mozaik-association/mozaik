@@ -21,4 +21,3 @@ server-tools
 connector
 partner-contact
 social
-crm

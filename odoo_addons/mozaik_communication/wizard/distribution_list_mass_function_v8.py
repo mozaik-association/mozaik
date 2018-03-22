@@ -12,14 +12,15 @@ class DistributionListMassFunction(models.TransientModel):
         'email.template.placeholder', string="Placeholder",
         domain=[('model_id', '=', 'email.coordinate')])
     placeholder_value = fields.Char(
-        'Placeholder Value')
+        help="Copy this text to the email body. "
+             "It'll be replaced by the value from the document")
 
     @api.onchange('placeholder_id')
     def _onchange_placeholder_id(self):
-        for tmpl in self:
-            if tmpl.placeholder_id:
-                tmpl.placeholder_value = tmpl.placeholder_id.placeholder
-                tmpl.placeholder_id = False
+        for wizard in self:
+            if wizard.placeholder_id:
+                wizard.placeholder_value = wizard.placeholder_id.placeholder
+                wizard.placeholder_id = False
 
     @api.multi
     def save_as_template(self):
