@@ -22,7 +22,8 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import api, models
+from openerp import api, models, _
+from openerp.exceptions import Warning
 
 
 class EmailCoordinate(models.Model):
@@ -44,3 +45,15 @@ class EmailCoordinate(models.Model):
                 [('partner_id', 'in', partner_ids)])
         return mailing_contacts
 
+    @api.model
+    def get_url(self, path):
+        base_url = self.env['ir.config_parameter'].get_param(
+            'ecolo_website.base_url')
+        if not base_url:
+            raise Warning(
+                _('Please configure the base URL for the Ecolo website'))
+        if base_url.endswith('/'):
+            base_url = base_url[:-1]
+        if not path.startswith('/'):
+            path = '/' + path
+        return base_url + path
