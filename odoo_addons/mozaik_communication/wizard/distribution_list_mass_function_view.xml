@@ -55,6 +55,12 @@
                                     on_change="onchange_subject(subject, mass_mailing_name)"/>
                             </group>
                             <field name="body"/>
+                            <group>
+                                <field name="placeholder_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True}"/>
+                                <field name="placeholder_value"/>
+                            </group>
+                            <separator/>
                             <field name="attachment_ids" widget="many2many_binary" string="Attach a file"/>
                             <group>
                                 <group>
