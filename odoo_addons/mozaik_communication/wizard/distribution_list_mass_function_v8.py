@@ -29,7 +29,7 @@ class DistributionListMassFunction(models.TransientModel):
             'view_mode': 'form',
             'view_type': 'form',
             'res_id': record.id,
-            'res_model': 'email.coordinate',
+            'res_model': self._name,
             'target': 'new',
             'context': dict(self.env.context),
         }
