@@ -22,22 +22,25 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp import api, models
 
 
-class email_coordinate(orm.Model):
+class EmailCoordinate(models.Model):
 
-    def _get_linked_mailing(self, cr, uid, ids, context=None):
+    _inherit = 'email.coordinate'
+
+    @api.multi
+    @api.returns('mail.mass_mailing.contact')
+    def _get_linked_mailing(self):
         '''
         :rtype: [integer]
         :rparam: list of `mail.mass_mailing.contact` associated with a partner
             id into `ids`
         '''
-        mailing_ids = []
-        partner_ids = self.get_linked_partners(cr, uid, ids, context=context)
+        mailing_contacts = []
+        partner_ids = self.get_linked_partners()
         if partner_ids:
-            mailing_ids = self.pool['mail.mass_mailing.contact'].search(
-                cr, uid, [('partner_id', 'in', partner_ids)], context=context)
-        return mailing_ids
+            mailing_contacts = self.env['mail.mass_mailing.contact'].search(
+                [('partner_id', 'in', partner_ids)])
+        return mailing_contacts
 
-    _inherit = 'email.coordinate'
