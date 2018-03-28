@@ -67,6 +67,7 @@ MOZAIK Communication
         'membership_request_view.xml',
         'views/mail_mail_statistics_view.xml',
         'views/virtual_models_view.xml',
+        'views/email_template_view.xml',
     ],
     'qweb': [
     ],
