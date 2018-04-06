@@ -103,6 +103,12 @@
                     <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
                     <separator />
+                    <filter string="Donor" name="donor"
+                        domain="[('is_donor','=',True)]" />
+                    <separator />
+                    <filter string="Volunteer" name="volunteer"
+                        domain="[('is_volunteer','=',True)]" />
+                    <separator />
                     <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
                     <filter string="Not Employee" name="not_employee"
@@ -184,6 +190,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="is_donor" />
+                    <field name="is_volunteer" />
                     <field name="postal_unauthorized" invisible="1" />
                     <field name="email_unauthorized" invisible="1" />
                 </tree>
@@ -397,6 +405,12 @@
                     <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
                     <separator />
+                    <filter string="Donor" name="donor"
+                        domain="[('is_donor','=',True)]" />
+                    <separator />
+                    <filter string="Volunteer" name="volunteer"
+                        domain="[('is_volunteer','=',True)]" />
+                    <separator />
                     <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
                     <filter string="Not Employee" name="not_employee"
@@ -465,6 +479,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="is_donor" />
+                    <field name="is_volunteer" />
                     <field name="postal_unauthorized" invisible="1" />
                     <field name="email_unauthorized" invisible="1" />
                 </tree>
@@ -1073,6 +1089,12 @@
                     <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
                     <separator />
+                    <filter string="Donor" name="donor"
+                        domain="[('is_donor','=',True)]" />
+                    <separator />
+                    <filter string="Volunteer" name="volunteer"
+                        domain="[('is_volunteer','=',True)]" />
+                    <separator />
                     <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
                     <filter string="Not Employee" name="not_employee"
@@ -1116,6 +1138,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="is_donor" />
+                    <field name="is_volunteer" />
                     <field name="postal_unauthorized" invisible="1" />
                     <field name="email_unauthorized" invisible="1" />
                 </tree>
