@@ -10,10 +10,6 @@ from openerp import api
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
-from .export_csv_request import VIRTUAL_TARGET_REQUEST
-from .export_csv_request import EMAIL_COORDINATE_REQUEST
-from .export_csv_request import POSTAL_COORDINATE_REQUEST
-
 
 def _get_utf8(data):
     if not data:
@@ -156,20 +152,21 @@ class export_csv(orm.TransientModel):
         return export_values
 
     def _prefetch_csv_datas(self, cr, uid, model, model_ids, context=None):
+        queries_obj = self.pool['export.csv.queries']
         if not model_ids:
             return
         if model == 'email.coordinate':
             query = """
             %s WHERE ec.id IN %%s
-            """ % EMAIL_COORDINATE_REQUEST
+            """ % queries_obj.email_coordinate_request(cr, uid)
         elif model == 'postal.coordinate':
             query = """
             %s WHERE pc.id IN %%s
-            """ % POSTAL_COORDINATE_REQUEST
+            """ % queries_obj.postal_coordinate_request(cr, uid)
         elif model == 'virtual.target':
             query = """
             %s WHERE vt.id IN %%s
-            """ % VIRTUAL_TARGET_REQUEST
+            """ % queries_obj.virtual_target_request(cr, uid)
         else:
             raise orm.except_orm(
                 _('Error'),
