@@ -1,7 +1,17 @@
 # -*- coding: utf-8 -*-
 # © 2016  Jonathan Nemry, Acsone SA/NV (http://www.acsone.eu)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-_COMMON_REQUEST = """
+
+from openerp import models, api
+
+
+class ExportCSVQueries(models.AbstractModel):
+    _name = 'export.csv.queries'
+    _auto = False
+
+    @api.model
+    def _common_request(self):
+        return """
 SELECT
  p.identifier,
  p.name,
@@ -59,7 +69,9 @@ SELECT
  ec.email
 """
 
-_COMMON_JOINS = """
+    @api.model
+    def _common_joins(self):
+        return """
 LEFT OUTER JOIN int_instance instance
  ON instance.id = p.int_instance_id
 
@@ -103,7 +115,9 @@ LEFT OUTER JOIN phone_phone fax_phone
  ON fax_phone.id = fax.phone_id
 """
 
-VIRTUAL_TARGET_REQUEST = """
+    @api.model
+    def virtual_target_request(self):
+        return """
 %s
 FROM virtual_target vt
 
@@ -119,9 +133,11 @@ LEFT OUTER JOIN postal_coordinate pc
  pc.active = True
 
 %s
-""" % (_COMMON_REQUEST, _COMMON_JOINS)
+""" % (self._common_request(), self._common_joins())
 
-EMAIL_COORDINATE_REQUEST = """
+    @api.model
+    def email_coordinate_request(self):
+        return """
 %s
 FROM email_coordinate ec
 
@@ -134,9 +150,11 @@ LEFT OUTER JOIN postal_coordinate pc
  pc.active = True
 
 %s
-""" % (_COMMON_REQUEST, _COMMON_JOINS)
+""" % (self._common_request(), self._common_joins())
 
-POSTAL_COORDINATE_REQUEST = """
+    @api.model
+    def postal_coordinate_request(self):
+        return """
 %s
 FROM postal_coordinate pc
 
@@ -149,4 +167,4 @@ LEFT OUTER JOIN email_coordinate ec
  ec.active = True
 
 %s
-""" % (_COMMON_REQUEST, _COMMON_JOINS)
+""" % (self._common_request(), self._common_joins())
