@@ -30,21 +30,6 @@ class EmailCoordinate(models.Model):
 
     _inherit = 'email.coordinate'
 
-    @api.multi
-    @api.returns('mail.mass_mailing.contact')
-    def _get_linked_mailing(self):
-        '''
-        :rtype: [integer]
-        :rparam: list of `mail.mass_mailing.contact` associated with a partner
-            id into `ids`
-        '''
-        mailing_contacts = []
-        partner_ids = self.get_linked_partners()
-        if partner_ids:
-            mailing_contacts = self.env['mail.mass_mailing.contact'].search(
-                [('partner_id', 'in', partner_ids)])
-        return mailing_contacts
-
     @api.model
     def get_url(self, path):
         base_url = self.env['ir.config_parameter'].get_param(
