@@ -32,6 +32,10 @@
                     <filter string="French" name="french" domain="[('tongue','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <filter string="German" name="german" domain="[('tongue','=','g')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <separator />
+                    <filter string="Donor" name="donor" domain="[('is_donor','=',True)]"/>
+                    <separator />
+                    <filter string="Volunteer" name="volunteer" domain="[('is_volunteer','=',True)]"/>
+                    <separator />
                     <filter string="Employee" name="employee" domain="[('employee','!=',0)]" invisible="context.get('default_is_company')"/>
                     <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" invisible="context.get('default_is_company')"/>
                     <separator />
@@ -282,6 +286,10 @@
                                           'search_default_all': True}" />
                         <button class="oe_right" string="Donations" name="%(partner_involvement_donation_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}" />
+                        <group>
+                            <field name="is_donor" />
+                            <field name="is_volunteer" />
+                        </group>
                         <field name="partner_involvement_ids" context="{'default_partner_id': active_id}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>

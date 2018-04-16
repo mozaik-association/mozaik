@@ -145,6 +145,8 @@ class virtual_partner_involvement(orm.Model):
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'active': fields.boolean("Active"),
+        'is_donor': fields.boolean("Is a donor"),
+        'is_volunteer': fields.boolean("Is a volunteer"),
     }
 
 # orm methods
@@ -183,7 +185,9 @@ class virtual_partner_involvement(orm.Model):
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
-            END AS active
+            END AS active,
+            p.is_donor,
+            p.is_volunteer
         FROM partner_involvement AS pi
 
         JOIN res_partner AS p
@@ -399,6 +403,8 @@ class virtual_partner_instance(orm.Model):
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'active': fields.boolean("Active"),
+        'is_donor': fields.boolean("Is a donor"),
+        'is_volunteer': fields.boolean("Is a volunteer"),
     }
 
 # orm methods
@@ -441,8 +447,9 @@ class virtual_partner_instance(orm.Model):
                     WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                     THEN True
                     ELSE False
-                END AS active
-
+                END AS active,
+                p.is_donor,
+                p.is_volunteer
             FROM res_partner AS p
 
             LEFT OUTER JOIN membership_state AS ms
@@ -1231,6 +1238,8 @@ class virtual_partner_membership(orm.Model):
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'active': fields.boolean('Active'),
+        'is_donor': fields.boolean("Is a donor"),
+        'is_volunteer': fields.boolean("Is a volunteer"),
     }
 
 # orm methods
@@ -1263,7 +1272,9 @@ class virtual_partner_membership(orm.Model):
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
-            END AS active
+            END AS active,
+            p.is_donor,
+            p.is_volunteer
         FROM res_partner AS p
         JOIN membership_line AS m
             ON (m.partner_id = p.id
