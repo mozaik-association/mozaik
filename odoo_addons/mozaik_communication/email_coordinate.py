@@ -22,22 +22,23 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp import api, models, _
+from openerp.exceptions import Warning
 
 
-class email_coordinate(orm.Model):
-
-    def _get_linked_mailing(self, cr, uid, ids, context=None):
-        '''
-        :rtype: [integer]
-        :rparam: list of `mail.mass_mailing.contact` associated with a partner
-            id into `ids`
-        '''
-        mailing_ids = []
-        partner_ids = self.get_linked_partners(cr, uid, ids, context=context)
-        if partner_ids:
-            mailing_ids = self.pool['mail.mass_mailing.contact'].search(
-                cr, uid, [('partner_id', 'in', partner_ids)], context=context)
-        return mailing_ids
+class EmailCoordinate(models.Model):
 
     _inherit = 'email.coordinate'
+
+    @api.model
+    def get_url(self, path):
+        base_url = self.env['ir.config_parameter'].get_param(
+            'ecolo_website.base_url')
+        if not base_url:
+            raise Warning(
+                _('Please configure the base URL for the Ecolo website'))
+        if base_url.endswith('/'):
+            base_url = base_url[:-1]
+        if not path.startswith('/'):
+            path = '/' + path
+        return base_url + path

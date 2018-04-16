@@ -14,13 +14,21 @@ class DistributionListMassFunction(models.TransientModel):
     placeholder_value = fields.Char(
         help="Copy this text to the email body. "
              "It'll be replaced by the value from the document")
+    involvement_category_id = fields.Many2one(
+        'partner.involvement.category', string='Involvement Category',
+        domain=[('code', '!=', False)])
 
-    @api.onchange('placeholder_id')
+    @api.onchange('placeholder_id', 'involvement_category_id')
     def _onchange_placeholder_id(self):
         for wizard in self:
             if wizard.placeholder_id:
-                wizard.placeholder_value = wizard.placeholder_id.placeholder
+                placeholder_value = wizard.placeholder_id.placeholder
                 wizard.placeholder_id = False
+                if '{{CODE}}' in placeholder_value \
+                   and wizard.involvement_category_id:
+                    placeholder_value = placeholder_value.replace(
+                        '{{CODE}}', wizard.involvement_category_id.code)
+                wizard.placeholder_value = placeholder_value
 
     @api.multi
     def save_as_template(self):

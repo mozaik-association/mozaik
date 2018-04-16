@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="email_template_form_view">
+        <field name="name">email.template.form (in mozaik_communication)</field>
+        <field name="model">email.template</field>
+        <field name="inherit_id" ref="email_template_configurator.email_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="placeholder_id" position="before">
+                <field name="involvement_category_id"/>
+            </field>
+        </field>
+    </record>
+
+</data>
+</openerp>
