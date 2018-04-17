@@ -39,6 +39,22 @@ INVALIDATE_ERROR = _(
     'Invalidation impossible, at least one dependency is still active')
 
 
+def _patch_get_followers(self, cr, uid, ids, name, arg, context=None):
+    '''
+    Monkey patch _get_followers() to reapply security on result followers
+    '''
+    res = self._get_followers(cr, uid, ids, name, arg, context=context)
+    ids = []
+    for v in res.itervalues():
+        ids += v['message_follower_ids']
+    # reapply security to avoid to prefetch later unauthorized followers
+    ids = set(self.pool['res.partner'].search(
+        cr, uid, [('id', 'in', ids)], context=context))
+    for v in res.itervalues():
+        v['message_follower_ids'] = list(set(v['message_follower_ids']) & ids)
+    return res
+
+
 class mozaik_abstract_model(orm.AbstractModel):
 
     _name = 'mozaik.abstract.model'
@@ -219,6 +235,15 @@ class mozaik_abstract_model(orm.AbstractModel):
 
         if createit:
             cr.execute(index_def)
+
+    def _register_hook(self, cr):
+        """
+        Change function pointer of non heritable compute method
+        """
+        init_res = super(mozaik_abstract_model, self)._register_hook(cr)
+        self._columns['message_is_follower']._fnct = _patch_get_followers
+        self._columns['message_follower_ids']._fnct = _patch_get_followers
+        return init_res
 
 # orm methods
 
@@ -425,7 +450,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         return super(mozaik_abstract_model, self).message_post(
             cr, uid, thread_id, context=ctx, **kwargs)
 
-    def get_formview_id(self, cr, uid, id, context=None):
+    def get_formview_id(self, cr, uid, _id, context=None):
         """ Return a view id to open the document with.
 
             :param int id: id of the document to open
@@ -446,6 +471,7 @@ class mozaik_abstract_model(orm.AbstractModel):
     def get_relation_column_name(self, cr, uid, relation_model, context=None):
         return self.pool['ir.model']._get_relation_column_name(
             cr, uid, self._name, relation_model, context=context)
+
 
 # Replace the orm.transfer_node_to_modifiers functions.
 
@@ -502,5 +528,6 @@ def transfer_node_to_modifiers(node, modifiers, context=None,
                 node.get('name'), attrs_str, attrs)
 
     return fct_src(node, modifiers, context=context, in_tree_view=in_tree_view)
+
 
 orm.transfer_node_to_modifiers = transfer_node_to_modifiers

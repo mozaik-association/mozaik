@@ -75,6 +75,8 @@ def get_age(birth_date):
     """
     compute age depending of the birth_date and today
     """
+    if not birth_date:
+        return False
     born = datetime.strptime(birth_date, DEFAULT_SERVER_DATE_FORMAT)
     today = date.today()
     return today.year - born.year -\

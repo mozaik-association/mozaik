@@ -51,8 +51,9 @@ class ResPartner(models.Model):
         Bypass security for some fields
         """
         if self.env.user.id != SUPERUSER_ID:
-            flds = set(fields or self._fields) - set(
-                ['__last_update', 'image_medium', 'image_small'])
+            flds = set(fields or self._fields) - set([
+                '__last_update', 'image_medium', 'image_small',
+            ])
             if not flds:
                 return super(ResPartner, self.sudo()).read(
                     fields=fields, load=load)
