@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-13 01:42+0000\n"
-"PO-Revision-Date: 2018-03-13 01:42+0000\n"
+"POT-Creation-Date: 2018-04-17 21:54+0000\n"
+"PO-Revision-Date: 2018-04-17 21:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "A follow-up is required for this involvement"
 msgstr "Un suivi est requis pour cette participation"
 
 #. module: mozaik_involvement_followup
-#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:87
+#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:85
 #, python-format
 msgid "Additionnal follow-up delay: %s => %s"
 msgstr "Délai de suivi supplémentaire: %s => %s"
@@ -50,11 +50,6 @@ msgstr "Créé par"
 #: field:partner.involvement.followup.wizard,create_date:0
 msgid "Created on"
 msgstr "Créé le"
-
-#. module: mozaik_involvement_followup
-#: field:partner.involvement.followup.wizard,current_category_id:0
-msgid "Current Follow-up Category"
-msgstr "Catégorie de suivi actuelle"
 
 #. module: mozaik_involvement_followup
 #: field:partner.involvement,deadline:0
@@ -91,7 +86,7 @@ msgid "Follow-up Categories"
 msgstr "Catégories de suivi"
 
 #. module: mozaik_involvement_followup
-#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:26
+#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:38
 #, python-format
 msgid "Follow-up is done, I added details in the note or in the history"
 msgstr "Le suivi est terminé, j'ai ajouté des détails dans la note ou dans l'historique"
@@ -117,7 +112,7 @@ msgid "From date"
 msgstr "Date de début"
 
 #. module: mozaik_involvement_followup
-#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:23
+#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:35
 #, python-format
 msgid "I added some other followers, follow-up continue, the deadline is postponed (by number of days defined on the category)"
 msgstr "J'ai ajouté certains autres followers, le suivi continue, l'échéance est postposée (du nombre de jours spécifiés sur la catégorie)"
@@ -222,7 +217,7 @@ msgid "The follow-up of this involvement is not yet done."
 msgstr "Le suivi de cette participation n'est pas encore terminé."
 
 #. module: mozaik_involvement_followup
-#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:28
+#: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:40
 #, python-format
 msgid "This follow-up is done, but it continues by starting next follow-up"
 msgstr "Ce suivi-ci est terminé, mais il continue en débutant les suivis suivants"

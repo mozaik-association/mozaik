@@ -10,12 +10,24 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
     _name = 'partner.involvement.followup.wizard'
 
     @api.model
-    def _default_current_category_id(self):
-        inv_id = self.env.context.get('active_id') or False
-        if inv_id:
-            return self.env['partner.involvement'].browse(
-                inv_id).involvement_category_id
-        return False
+    def _next_category_ids_domain(self):
+        '''
+        Compute domain for next_category_ids
+        '''
+        domain = []
+        inv_ids = self.env.context.get(
+            'active_ids') or [self.env.context.get('active_id')] or []
+        if inv_ids:
+            current_fols = self.env['partner.involvement'].browse(
+                inv_ids).mapped('involvement_category_id')
+            next_fols = current_fols and \
+                current_fols[0].involvement_category_ids or \
+                self.env['partner.involvement.category']
+            for fol in current_fols:
+                next_fols &= fol.involvement_category_ids
+            if next_fols:
+                domain = [('id', 'in', next_fols.ids)]
+        return domain
 
     @api.model
     def _get_followup(self):
@@ -28,8 +40,8 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
             ('continue', _('This follow-up is done, '
                            'but it continues by starting next follow-up')),
         ]
-        cat_id = self._default_current_category_id()
-        if cat_id and cat_id.involvement_category_ids:
+        dom = self._next_category_ids_domain()
+        if dom:
             return types
         return types[:-1]
 
@@ -42,59 +54,45 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
         selection='_get_followup',
         default=lambda s: s._default_followup())
 
-    current_category_id = fields.Many2one(
-        'partner.involvement.category',
-        string='Current Follow-up Category',
-        default=lambda s: s._default_current_category_id())
-
     next_category_ids = fields.Many2many(
         'partner.involvement.category',
         relation='followup_wizard_partner_involvement_category_rel',
         column1='followup_wizard_id', column2='partner_category_id',
-        string='Next Follow-up Categories')
-
-    @api.onchange('current_category_id')
-    def _onchange_current_category_id(self):
-        '''
-        Compute domain for next_category_ids m2m
-        '''
-        domain = [
-            ('id', 'in', self.current_category_id.involvement_category_ids.ids)
-        ]
-        return {
-            'domain': {
-                'next_category_ids': domain
-            }
-        }
+        string='Next Follow-up Categories',
+        domain=lambda s: s._next_category_ids_domain())
 
     @api.multi
     def doit(self):
         self.ensure_one()
-        inv_id = self.env.context.get('active_id') or False
+        inv_ids = self.env.context.get(
+            'active_ids') or [self.env.context.get('active_id')] or []
 
         action = {'type': 'ir.actions.act_window_close'}
 
-        if not inv_id:
+        if not inv_ids:
             return action
-        inv = self.env['partner.involvement'].browse(inv_id)
+
+        invs = self.env['partner.involvement'].browse(inv_ids)
+        today = fields.Date.today()
         now = fields.Datetime.now()
-        if self.followup == 'delay':
-            # just update the deadline and log a message
-            deadline = inv.deadline
-            inv.write({'from_date': fields.Date.today()})
-            if deadline != inv.deadline:
-                inv.message_post(
-                    body=_('Additionnal follow-up delay: %s => %s') % (
-                        deadline, inv.deadline),
-                    type='comment')
-        else:
-            # mark involvement as done
-            inv.write({'state': 'done', 'effective_time': now})
-            if self.followup == 'continue':
-                for cat in self.next_category_ids:
-                    vals = {
-                        'partner_id': inv.partner_id.id,
-                        'involvement_category_id': cat.id,
-                    }
-                    inv.create(vals)
+        for inv in invs:
+            if self.followup == 'delay':
+                # just update the deadline and log a message
+                deadline = inv.deadline
+                inv.write({'from_date': today})
+                if deadline != inv.deadline:
+                    inv.message_post(
+                        body=_('Additionnal follow-up delay: %s => %s') % (
+                            deadline, inv.deadline),
+                        type='comment')
+            else:
+                # mark involvement as done
+                inv.write({'state': 'done', 'effective_time': now})
+                if self.followup == 'continue':
+                    for cat in self.next_category_ids:
+                        vals = {
+                            'partner_id': inv.partner_id.id,
+                            'involvement_category_id': cat.id,
+                        }
+                        inv.create(vals)
         return action

@@ -132,7 +132,9 @@ class TestPartnerInvolvementCategory(SharedSetupTransactionCase):
         # 1. just finish the followup
         wiz = wizard.with_context(active_id=involvement.id).create(
             {'followup': 'done'})
-        self.assertEqual(ic1, wiz.current_category_id)
+        # test domain of next_category_ids field
+        dom = wiz._next_category_ids_domain()
+        self.assertEqual(set([ic3.id, ic2.id]), set(dom[0][2]))
         wiz.doit()
         self.assertTrue(involvement.effective_time)
         self.assertEqual('done', involvement.state)
