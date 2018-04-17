@@ -107,15 +107,15 @@ class res_partner(orm.Model):
 
 # private methods
 
-    @api.one
+    @api.multi
     @api.depends('birth_date')
     def _compute_age(self):
         """
         age computed depending of the birth date of the
         membership request
         """
-        if self.birth_date:
-            self.age = get_age(self.birth_date)
+        for partner in self:
+            partner.age = get_age(partner.birth_date)
 
     def _search_age(self, operator, value):
         """
