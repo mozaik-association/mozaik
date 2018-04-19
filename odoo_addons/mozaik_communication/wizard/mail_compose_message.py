@@ -22,13 +22,17 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 
 
 class mail_compose_message(orm.TransientModel):
 
     _inherit = 'mail.compose.message'
+
+    _columns = {
+        'contact_ab_pc': fields.integer(),
+    }
 
     def get_mail_values(self, cr, uid, wizard, res_ids, context=None):
         """
@@ -37,6 +41,17 @@ class mail_compose_message(orm.TransientModel):
         """
         values = super(mail_compose_message, self).get_mail_values(
             cr, uid, wizard, res_ids, context=context)
+        mailing_ids = set(r['mailing_id']
+                          for r in values.itervalues()
+                          if r.get('mailing_id'))
+        if mailing_ids:
+            mailing_values = {
+                'contact_ab_pc': wizard.contact_ab_pc,
+            }
+            if context.get('mailing_group_id'):
+                mailing_values['group_id'] = context['mailing_group_id']
+            self.pool['mail.mass_mailing'].write(
+                cr, uid, list(mailing_ids), mailing_values, context=context)
         email_path = context.get('email_coordinate_path', False)
         if email_path:
             for model_obj in self.pool[wizard.model].browse(

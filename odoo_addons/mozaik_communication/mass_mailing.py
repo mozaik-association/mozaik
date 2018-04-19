@@ -82,6 +82,8 @@ class MassMailing(orm.Model):
 
     _columns = {
         'create_uid':  fields.many2one('res.users', readonly=True),
+        'group_id': fields.many2one(
+            'mail.mass_mailing.group', string='Mass Mailing Group'),
     }
 
     _defaults = {

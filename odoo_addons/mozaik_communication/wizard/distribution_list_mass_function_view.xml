@@ -16,10 +16,12 @@
                         </h1>
                     </div>
                     <group name="function">
-                        <field name="trg_model" on_change="onchange_trg_model()" widget="radio" />
+                        <field name="trg_model" on_change="onchange_trg_model()" widget="radio"
+                            readonly="bool(context.get('mailing_group_id'))"/>
                         <field name="e_mass_function" on_change="onchange_mass_function()"
                             attrs="{'invisible':[('trg_model','!=','email.coordinate')],
                                     'required':[('trg_model','=','email.coordinate')]}"
+                            readonly="bool(context.get('mailing_group_id'))"
                             widget="radio" />
                         <field name="p_mass_function" on_change="onchange_mass_function()"
                             attrs="{'invisible':[('trg_model','!=','postal.coordinate')],
@@ -27,9 +29,11 @@
                             widget="radio" />
                     </group>
                     <group name="modifiers">
-                        <field name="include_unauthorized" />
+                        <field name="include_unauthorized"
+                            readonly="bool(context.get('mailing_group_id'))" />
                         <field name="bounce_counter" />
-                        <field name="internal_instance_id" />
+                        <field name="internal_instance_id"
+                            readonly="bool(context.get('mailing_group_id'))" />
                     </group>
 
                     <notebook>
@@ -72,6 +76,7 @@
                                 </group>
                                 <group>
                                     <field name="extract_csv" />
+                                    <field name="contact_ab_pc" />
                                 </group>
                             </group>
                         </page>
