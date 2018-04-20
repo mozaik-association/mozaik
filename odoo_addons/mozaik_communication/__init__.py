@@ -1,7 +1,6 @@
 from . import distribution_list
 from . import virtual_models
 from . import wizard
-from . import email_template
 from . import mass_mailing
 from . import postal_mail
 from . import email_coordinate

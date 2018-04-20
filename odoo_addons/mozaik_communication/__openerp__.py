@@ -32,6 +32,7 @@
     'depends': [
         'mass_mailing_distribution_list',
         'mozaik_person',
+        'mozaik_structure',
         'mozaik_membership',
         'mozaik_retrocession',
         # from https://github.com/OCA/social

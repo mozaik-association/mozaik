@@ -7,10 +7,35 @@ from openerp import api, fields, models
 class EmailTemplate(models.Model):
     _inherit = 'email.template'
 
+    @api.model
+    def _get_default_model_id(self):
+        return self.env['ir.model'].search(
+            [('model', '=', 'email.coordinate')])
+
+    @api.model
+    def _get_default_res_users_ids(self):
+        return self.env.user
+
+    @api.model
+    def _get_default_instance_id(self):
+        instances = self.env.user.partner_id.int_instance_m2m_ids
+        return instances and instances[0] or False
+
     # Fake field for auto-completing placeholder
     involvement_category_id = fields.Many2one(
         'partner.involvement.category', string='Involvement Category',
         domain=[('code', '!=', False)])
+
+    res_users_ids = fields.Many2many(
+        comodel_name='res.users', relation='email_template_res_users_rel',
+        column1='template_id', column2='user_id',
+        string='Owners', required=True,
+        default=lambda s: s._get_default_res_users_ids())
+    int_instance_id = fields.Many2one(
+        comodel_name='int.instance', string='Internal Instance', index=True,
+        default=lambda s: s._get_default_instance_id())
+    model_id = fields.Many2one(
+        default=lambda s: s._get_default_model_id())
 
     @api.onchange('placeholder_id', 'involvement_category_id')
     def _onchange_placeholder_id(self):
