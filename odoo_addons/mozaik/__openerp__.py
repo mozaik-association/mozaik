@@ -39,6 +39,7 @@
         'mozaik_retrocession',
         'mozaik_account',
         'mozaik_communication',
+        'connector_support',
     ],
     'description': """
 MOZAIK
