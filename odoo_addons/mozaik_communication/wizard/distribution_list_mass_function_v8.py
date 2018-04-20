@@ -34,13 +34,10 @@ class DistributionListMassFunction(models.TransientModel):
     def save_as_template(self):
         self.ensure_one()
         template_name = u"Mass Function: {subject}"
-        model = self.env['ir.model'].search(
-            [('model', '=', 'email.coordinate')], limit=1)
         values = {
             'name': template_name.format(subject=self.subject),
             'subject': self.subject or False,
             'body_html': self.body or False,
-            'model_id': model.id,
         }
         template = self.env['email.template'].create(values)
         new_values = self.onchange_template_id(template.id)['value']
