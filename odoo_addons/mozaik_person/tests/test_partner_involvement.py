@@ -87,3 +87,20 @@ class TestPartnerInvolvement(SharedSetupTransactionCase):
                     'effective_time': now,
                 })
         return
+
+    def test_onchange_type(self):
+        """
+        Check for allow_multiple when changing involvment type
+        """
+        # create an involvement category
+        cat = self.env['partner.involvement.category'].new({
+            'name': 'Semeur, vaillants du rêve...',
+        })
+        # Change type to donation
+        cat.involvement_type = 'donation'
+        cat._onchange_involvement_type()
+        self.assertTrue(cat.allow_multi)
+        # Change type to another type
+        cat.involvement_type = 'voluntary'
+        cat._onchange_involvement_type()
+        self.assertFalse(cat.allow_multi)

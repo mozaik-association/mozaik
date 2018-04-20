@@ -104,6 +104,10 @@ class PartnerInvolvementCategory(models.Model):
         res = super(PartnerInvolvementCategory, self).copy(default=default)
         return res
 
+    @api.onchange('involvement_type')
+    def _onchange_involvement_type(self):
+        self.allow_multi = (self.involvement_type == 'donation')
+
 
 class PartnerInvolvement(models.Model):
 
