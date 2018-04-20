@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="group_connector_support" model="res.groups">
+        <field name="name">Connector Support</field>
+        <field name="category_id" ref="connector.module_category_connector"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="implied_ids" eval="[(6, 0, [
+            ref('connector.group_connector_manager'),
+        ])]" />
+    </record>
+
+</data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+    <record model="ir.ui.menu" id="connector.menu_connector_root">
+        <field name="sequence" eval="350"/>
+        <field name="groups_id" eval="[(6, 0, [
+            ref('connector_support.group_connector_support'),
+        ])]" />
+    </record>
+
+</data>
+</openerp>

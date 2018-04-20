@@ -20,6 +20,6 @@ def migrate(cr, version):
             WHERE  distribution_list_id IS NOT NULL
             """
 
-        cr.execute(q)
+        env.cr.execute(q)
 
         pass
