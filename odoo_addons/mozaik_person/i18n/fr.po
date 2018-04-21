@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 21:15+0000\n"
-"PO-Revision-Date: 2018-03-12 21:15+0000\n"
+"POT-Creation-Date: 2018-04-20 22:00+0000\n"
+"PO-Revision-Date: 2018-04-20 22:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/partner_involvement.py:218
+#: code:addons/mozaik_person/models/partner_involvement.py:222
 #, python-format
 msgid "An active involvement cannot be duplicated."
 msgstr "Une participation active ne peut être dupliquée."
@@ -263,6 +263,11 @@ msgstr "Dons"
 #: selection:partner.involvement.category,involvement_type:0
 msgid "Donations Campaign"
 msgstr "Compagne de dons"
+
+#. module: mozaik_person
+#: view:res.partner:mozaik_person.res_partner_search_view
+msgid "Donor"
+msgstr "Donateur"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
@@ -477,6 +482,16 @@ msgstr "Est une société ?"
 #: field:partner.involvement.category,message_is_follower:0
 msgid "Is a Follower"
 msgstr "Est abonné"
+
+#. module: mozaik_person
+#: field:res.partner,is_donor:0
+msgid "Is a donor"
+msgstr "Est un donateur"
+
+#. module: mozaik_person
+#: field:res.partner,is_volunteer:0
+msgid "Is a volunteer"
+msgstr "Est un volontaire"
 
 #. module: mozaik_person
 #: field:res.partner,ldap_id:0
@@ -861,6 +876,11 @@ msgstr "Valider"
 #: selection:partner.involvement.category,involvement_type:0
 msgid "Voluntary Work"
 msgstr "Volontariat"
+
+#. module: mozaik_person
+#: view:res.partner:mozaik_person.res_partner_search_view
+msgid "Volunteer"
+msgstr "Volontaire"
 
 #. module: mozaik_person
 #: field:partner.involvement,website_message_ids:0

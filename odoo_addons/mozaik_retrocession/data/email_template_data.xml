@@ -9,7 +9,7 @@
             <field name="partner_to"></field>
             <field name="subject">Retrocession ${object.unique_id}: Request for payment</field>
             <field name="model_id" ref="mozaik_retrocession.model_retrocession"/>
-             <field name="report_template" ref="action_report_payment_request"/>
+            <field name="report_template" ref="action_report_payment_request"/>
             <field name="report_name">Retrocession_${(object.unique_id or '').replace('/','_')}</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[

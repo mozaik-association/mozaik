@@ -71,25 +71,25 @@
                        options='{"no_open":True}'/>
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                    <attribute name="domain">[('type', '=', 'sta')]</attribute>
+                    <attribute name="domain" translation="off">[('type', '=', 'sta')]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
-                    <attribute name="domain">[('id', '!=', mandate_category_id),('type', '=', 'sta')]</attribute>
+                    <attribute name="domain" translation="off">[('id', '!=', mandate_category_id),('type', '=', 'sta')]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='new_assembly_id']" position="attributes">
-                    <attribute name="domain">[('instance_id', '=', instance_id), ('is_legislative', '=', False)]</attribute>
+                    <attribute name="domain" translation="off">[('instance_id', '=', instance_id), ('is_legislative', '=', False)]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='instance_id']" position="before">
                     <field name="is_legislative"/>
                 </xpath>
                 <xpath expr="//button[@name='renew_mandate']" position="attributes">
-                    <attribute name="attrs">{'invisible':['|', ('action', '!=', 'renew'), ('is_legislative', '=', True)]}</attribute>
+                    <attribute name="attrs" translation="off">{'invisible':['|', ('action', '!=', 'renew'), ('is_legislative', '=', True)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='start_date']" position="attributes">
-                    <attribute name="attrs">{'readonly':[('action', '!=', 'renew')]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly':[('action', '!=', 'renew')]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='deadline_date']" position="attributes">
-                    <attribute name="attrs">{'readonly':[('action', '!=', 'renew')]}</attribute>
+                    <attribute name="attrs" translation="off">{'readonly':[('action', '!=', 'renew')]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -100,10 +100,10 @@
             <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                    <attribute name="domain">[('type', '=', 'int')]</attribute>
+                    <attribute name="domain" translation="off">[('type', '=', 'int')]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
-                    <attribute name="domain">[('id', '!=', mandate_category_id),('type', '=', 'int')]</attribute>
+                    <attribute name="domain" translation="off">[('id', '!=', mandate_category_id),('type', '=', 'int')]</attribute>
                 </xpath>
             </field>
         </record>
@@ -114,10 +114,10 @@
             <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                    <attribute name="domain">[('type', '=', 'ext')]</attribute>
+                    <attribute name="domain" translation="off">[('type', '=', 'ext')]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
-                    <attribute name="domain">[('id', '!=', mandate_category_id),('type', '=', 'ext')]</attribute>
+                    <attribute name="domain" translation="off">[('id', '!=', mandate_category_id),('type', '=', 'ext')]</attribute>
                 </xpath>
             </field>
         </record>

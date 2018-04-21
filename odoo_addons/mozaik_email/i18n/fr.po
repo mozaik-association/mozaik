@@ -330,3 +330,4 @@ msgstr "Historique de communication de site web"
 #: view:export.vcard:mozaik_email.export_vcard_wizard
 msgid "or"
 msgstr "ou"
+

@@ -33,10 +33,10 @@ class EmailCoordinate(models.Model):
     @api.model
     def get_url(self, path):
         base_url = self.env['ir.config_parameter'].get_param(
-            'ecolo_website.base_url')
+            'external_website.base_url')
         if not base_url:
             raise Warning(
-                _('Please configure the base URL for the Ecolo website'))
+                _('Please configure the base URL for the website'))
         if base_url.endswith('/'):
             base_url = base_url[:-1]
         if not path.startswith('/'):

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 21:15+0000\n"
-"PO-Revision-Date: 2018-03-12 21:15+0000\n"
+"POT-Creation-Date: 2018-04-21 00:24+0000\n"
+"PO-Revision-Date: 2018-04-21 00:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,30 @@ msgid "Abstract Power Level"
 msgstr "Niveau de pouvoir abstrait"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,property_account_payable:0
+#: field:ext.assembly,property_account_payable:0
+#: field:int.assembly,property_account_payable:0
+#: field:sta.assembly,property_account_payable:0
+msgid "Account Payable"
+msgstr "Compte fournisseur"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,property_account_receivable:0
+#: field:ext.assembly,property_account_receivable:0
+#: field:int.assembly,property_account_receivable:0
+#: field:sta.assembly,property_account_receivable:0
+msgid "Account Receivable"
+msgstr "Compte client"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,acronym:0
+#: field:ext.assembly,acronym:0
+#: field:int.assembly,acronym:0
+#: field:sta.assembly,acronym:0
+msgid "Acronym"
+msgstr "Acronyme"
+
+#. module: mozaik_structure
 #: field:abstract.assembly,active:0
 #: field:abstract.assembly.category,active:0
 #: field:abstract.instance,active:0
@@ -59,6 +83,22 @@ msgstr "Niveau de pouvoir abstrait"
 #: field:sta.power.level,active:0
 msgid "Active"
 msgstr "Actif"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,type:0
+#: field:ext.assembly,type:0
+#: field:int.assembly,type:0
+#: field:sta.assembly,type:0
+msgid "Address Type"
+msgstr "Type d'adresse"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,age:0
+#: field:ext.assembly,age:0
+#: field:int.assembly,age:0
+#: field:sta.assembly,age:0
+msgid "Age"
+msgstr "Age"
 
 #. module: mozaik_structure
 #: field:abstract.assembly,months_before_end_of_mandate:0
@@ -160,10 +200,82 @@ msgid "Associated Partner"
 msgstr "Partenaire associé"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,bank_ids:0
+#: field:ext.assembly,bank_ids:0
+#: field:int.assembly,bank_ids:0
+#: field:sta.assembly,bank_ids:0
+msgid "Banks"
+msgstr "Banques"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,birth_date:0
+#: field:ext.assembly,birth_date:0
+#: field:int.assembly,birth_date:0
+#: field:sta.assembly,birth_date:0
+msgid "Birth Date"
+msgstr "Naissance"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,birthdate:0
+#: field:ext.assembly,birthdate:0
+#: field:int.assembly,birthdate:0
+#: field:sta.assembly,birthdate:0
+msgid "Birthdate"
+msgstr "Date de Naissance"
+
+#. module: mozaik_structure
 #: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
 #: field:abstract.assembly,assembly_category_id:0
 msgid "Category"
 msgstr "Catégorie"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,is_company:0
+#: help:ext.assembly,is_company:0
+#: help:int.assembly,is_company:0
+#: help:sta.assembly,is_company:0
+msgid "Check if the contact is a company, otherwise it is a person"
+msgstr "Cochez si ce contact est une société, sinon il s'agit d'un particulier"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,vat_subjected:0
+#: help:ext.assembly,vat_subjected:0
+#: help:int.assembly,vat_subjected:0
+#: help:sta.assembly,vat_subjected:0
+msgid "Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement."
+msgstr "Cochez cette case si le partenaire est assujetti à la TVA. Ceci sera utilisé lors des déclarations légales de TVA."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,customer:0
+#: help:ext.assembly,customer:0
+#: help:int.assembly,customer:0
+#: help:sta.assembly,customer:0
+msgid "Check this box if this contact is a customer."
+msgstr "Cochez cette case si le contact est un client."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,speaker:0
+#: help:ext.assembly,speaker:0
+#: help:int.assembly,speaker:0
+#: help:sta.assembly,speaker:0
+msgid "Check this box if this contact is a speaker."
+msgstr "Cocher cette case si le contact est un intervenant"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,supplier:0
+#: help:ext.assembly,supplier:0
+#: help:int.assembly,supplier:0
+#: help:sta.assembly,supplier:0
+msgid "Check this box if this contact is a supplier. If it's not checked, purchase people will not see it when encoding a purchase order."
+msgstr "Cochez cette case si le contact est un fournisseur. Si elle n'est pas cochée, les personnels du service des achats ne le verront pas lorsqu'il créeront une commande d'achat."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,employee:0
+#: help:ext.assembly,employee:0
+#: help:int.assembly,employee:0
+#: help:sta.assembly,employee:0
+msgid "Check this box if this contact is an Employee."
+msgstr "Cochez cette case si ce contact est un employé."
 
 #. module: mozaik_structure
 #: view:abstract.instance:mozaik_structure.abstract_instance_form_view
@@ -177,6 +289,86 @@ msgid "Children State Instances"
 msgstr "Instances de l'État enfants"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,city:0
+#: field:ext.assembly,city:0
+#: field:int.assembly,city:0
+#: field:sta.assembly,city:0
+msgid "City"
+msgstr "Ville"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,civil_status:0
+#: field:ext.assembly,civil_status:0
+#: field:int.assembly,civil_status:0
+#: field:sta.assembly,civil_status:0
+msgid "Civil Status"
+msgstr "État civil"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,color:0
+#: field:ext.assembly,color:0
+#: field:int.assembly,color:0
+#: field:sta.assembly,color:0
+msgid "Color Index"
+msgstr "Couleur"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,commercial_partner_id:0
+#: field:ext.assembly,commercial_partner_id:0
+#: field:int.assembly,commercial_partner_id:0
+#: field:sta.assembly,commercial_partner_id:0
+msgid "Commercial Entity"
+msgstr "Entité commerciale"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,out_inv_comm_algorithm:0
+#: field:ext.assembly,out_inv_comm_algorithm:0
+#: field:int.assembly,out_inv_comm_algorithm:0
+#: field:sta.assembly,out_inv_comm_algorithm:0
+msgid "Communication Algorithm"
+msgstr "Type de communication"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,out_inv_comm_type:0
+#: field:ext.assembly,out_inv_comm_type:0
+#: field:int.assembly,out_inv_comm_type:0
+#: field:sta.assembly,out_inv_comm_type:0
+msgid "Communication Type"
+msgstr "Type de communication"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,ref_companies:0
+#: field:ext.assembly,ref_companies:0
+#: field:int.assembly,ref_companies:0
+#: field:sta.assembly,ref_companies:0
+msgid "Companies that refers to partner"
+msgstr "Sociétés qui font réference au partenaire"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,company_id:0
+#: field:ext.assembly,company_id:0
+#: field:int.assembly,company_id:0
+#: field:sta.assembly,company_id:0
+msgid "Company"
+msgstr "Société"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,competencies_m2m_ids:0
+#: field:ext.assembly,competencies_m2m_ids:0
+#: field:int.assembly,competencies_m2m_ids:0
+#: field:sta.assembly,competencies_m2m_ids:0
+msgid "Competencies"
+msgstr "Compétences"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,contact_address:0
+#: field:ext.assembly,contact_address:0
+#: field:int.assembly,contact_address:0
+#: field:sta.assembly,contact_address:0
+msgid "Complete Address"
+msgstr "Adresse complète"
+
+#. module: mozaik_structure
 #: view:int.instance:mozaik_structure.int_instance_form_view
 msgid "Composition"
 msgstr "Composition"
@@ -187,6 +379,43 @@ msgid "Configuration"
 msgstr "Configuration"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,ref:0
+#: field:ext.assembly,ref:0
+#: field:int.assembly,ref:0
+#: field:sta.assembly,ref:0
+msgid "Contact Reference"
+msgstr "Référence du Contact"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,child_ids:0
+#: field:ext.assembly,child_ids:0
+#: field:int.assembly,child_ids:0
+#: field:sta.assembly,child_ids:0
+msgid "Contacts"
+msgstr "Contacts"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,contract_ids:0
+#: field:abstract.assembly,contracts_count:0
+#: field:ext.assembly,contract_ids:0
+#: field:ext.assembly,contracts_count:0
+#: field:int.assembly,contract_ids:0
+#: field:int.assembly,contracts_count:0
+#: field:sta.assembly,contract_ids:0
+#: field:sta.assembly,contracts_count:0
+msgid "Contracts"
+msgstr "Contrats"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,country_id:0
+#: field:ext.assembly,country_id:0
+#: field:int.assembly,country_id:0
+#: field:sta.assembly,country_id:0
+msgid "Country"
+msgstr "Pays"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,create_uid:0
 #: field:electoral.district,create_uid:0
 #: field:ext.assembly,create_uid:0
 #: field:ext.assembly.category,create_uid:0
@@ -223,6 +452,38 @@ msgid "Creation Date"
 msgstr "Date de création"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,credit_limit:0
+#: field:ext.assembly,credit_limit:0
+#: field:int.assembly,credit_limit:0
+#: field:sta.assembly,credit_limit:0
+msgid "Credit Limit"
+msgstr "Limite de crédit"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,customer:0
+#: field:ext.assembly,customer:0
+#: field:int.assembly,customer:0
+#: field:sta.assembly,customer:0
+msgid "Customer"
+msgstr "Client"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,property_payment_term:0
+#: field:ext.assembly,property_payment_term:0
+#: field:int.assembly,property_payment_term:0
+#: field:sta.assembly,property_payment_term:0
+msgid "Customer Payment Term"
+msgstr "Conditions de paiement client"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,date:0
+#: field:ext.assembly,date:0
+#: field:int.assembly,date:0
+#: field:sta.assembly,date:0
+msgid "Date"
+msgstr "Date"
+
+#. module: mozaik_structure
 #: help:abstract.assembly,message_last_post:0
 #: help:abstract.assembly.category,message_last_post:0
 #: help:abstract.instance,message_last_post:0
@@ -241,6 +502,14 @@ msgstr "Date de création"
 #: help:sta.power.level,message_last_post:0
 msgid "Date of the last message posted on the record."
 msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,last_reconciliation_date:0
+#: help:ext.assembly,last_reconciliation_date:0
+#: help:int.assembly,last_reconciliation_date:0
+#: help:sta.assembly,last_reconciliation_date:0
+msgid "Date on which the partner accounting entries were fully reconciled last time. It differs from the last date where a reconciliation has been made for this partner, as here we depict the fact that nothing more was to be reconciled at this date. This can be achieved in 2 different ways: either the last unreconciled debit/credit entry of this partner was reconciled, either the user pressed the button \"Nothing more to reconcile\" during the manual reconciliation process."
+msgstr "Date à laquelle les écritures comptables du partenaire ont été complètement léttrées la dernière fois. Cela peut être effectué de deux façons: soit la dernière écriture en attente de léttrage a été léttrée, soit l'utilisateur a appuyé sur le bouton \"Rien de plus à léttrer\" durant la procédure manuelle de réconciliation."
 
 #. module: mozaik_structure
 #: field:legislature,deadline_date:0
@@ -297,6 +566,14 @@ msgid "Duration of Mandates"
 msgstr "Durée des mandats"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,ean13:0
+#: field:ext.assembly,ean13:0
+#: field:int.assembly,ean13:0
+#: field:sta.assembly,ean13:0
+msgid "EAN13"
+msgstr "EAN13"
+
+#. module: mozaik_structure
 #: field:legislature,election_date:0
 msgid "Election Date"
 msgstr "Date électorale"
@@ -322,6 +599,30 @@ msgstr "Circonscription électorale"
 #: field:sta.instance,electoral_district_inactive_ids:0
 msgid "Electoral Districts"
 msgstr "Circonscriptions électorales"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,email:0
+#: field:ext.assembly,email:0
+#: field:int.assembly,email:0
+#: field:sta.assembly,email:0
+msgid "Email"
+msgstr "Courriel"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,employee:0
+#: field:ext.assembly,employee:0
+#: field:int.assembly,employee:0
+#: field:sta.assembly,employee:0
+msgid "Employee"
+msgstr "Employé"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,enterprise_identifier:0
+#: field:ext.assembly,enterprise_identifier:0
+#: field:int.assembly,enterprise_identifier:0
+#: field:sta.assembly,enterprise_identifier:0
+msgid "Enterprise Number"
+msgstr "Numéro d'entreprise"
 
 #. module: mozaik_structure
 #: view:int.assembly:mozaik_structure.int_assembly_search_view
@@ -418,6 +719,38 @@ msgid "External Identifier (INS)"
 msgstr "Identifiant externe (INS)"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,facebook:0
+#: field:ext.assembly,facebook:0
+#: field:int.assembly,facebook:0
+#: field:sta.assembly,facebook:0
+msgid "Facebook"
+msgstr "Facebook"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,fax:0
+#: field:ext.assembly,fax:0
+#: field:int.assembly,fax:0
+#: field:sta.assembly,fax:0
+msgid "Fax"
+msgstr "Fax"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,firstname:0
+#: field:ext.assembly,firstname:0
+#: field:int.assembly,firstname:0
+#: field:sta.assembly,firstname:0
+msgid "Firstname"
+msgstr "Prénom"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,property_account_position:0
+#: field:ext.assembly,property_account_position:0
+#: field:int.assembly,property_account_position:0
+#: field:sta.assembly,property_account_position:0
+msgid "Fiscal Position"
+msgstr "Position fiscale"
+
+#. module: mozaik_structure
 #: field:abstract.assembly,message_follower_ids:0
 #: field:abstract.assembly.category,message_follower_ids:0
 #: field:abstract.instance,message_follower_ids:0
@@ -436,6 +769,14 @@ msgstr "Identifiant externe (INS)"
 #: field:sta.power.level,message_follower_ids:0
 msgid "Followers"
 msgstr "Abonnés"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,gender:0
+#: field:ext.assembly,gender:0
+#: field:int.assembly,gender:0
+#: field:sta.assembly,gender:0
+msgid "Gender"
+msgstr "Genre"
 
 #. module: mozaik_structure
 #: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
@@ -488,6 +829,14 @@ msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_structure
+#: help:abstract.assembly,ldap_id:0
+#: help:ext.assembly,ldap_id:0
+#: help:int.assembly,ldap_id:0
+#: help:sta.assembly,ldap_id:0
+msgid "ID of the user in the LDAP"
+msgstr "ID LDAP de l'utilisateur"
+
+#. module: mozaik_structure
 #: help:abstract.assembly,message_unread:0
 #: help:abstract.assembly.category,message_unread:0
 #: help:abstract.instance,message_unread:0
@@ -508,6 +857,30 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages requièrent votre attention."
 
 #. module: mozaik_structure
+#: help:abstract.assembly,opt_out:0
+#: help:ext.assembly,opt_out:0
+#: help:int.assembly,opt_out:0
+#: help:sta.assembly,opt_out:0
+msgid "If opt-out is checked, this contact has refused to receive emails for mass mailing and marketing campaign. Filter 'Available for Mass Mailing' allows users to filter the partners when performing mass mailing."
+msgstr "Si l’option de retrait est cochée, ce contact a refusé de recevoir des e-mails pour l'envoi de masse et de la campagne de commercialisation. Le filtre « Disponible pour l'envoi de masse » permet aux utilisateurs de filtrer les partenaires lors de l'exécution de l'envoi de masse"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,lang:0
+#: help:ext.assembly,lang:0
+#: help:int.assembly,lang:0
+#: help:sta.assembly,lang:0
+msgid "If the selected language is loaded in the system, all documents related to this contact will be printed in this language. If not, it will be English."
+msgstr "Si la langue sélectionnée est chargée dans le système, tous les documents pour ce contact seront imprimés dans cette langue. Dans le cas contraire, ils le seront en anglais."
+
+#. module: mozaik_structure
+#: field:abstract.assembly,image:0
+#: field:ext.assembly,image:0
+#: field:int.assembly,image:0
+#: field:sta.assembly,image:0
+msgid "Image"
+msgstr "Image"
+
+#. module: mozaik_structure
 #: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
 #: field:abstract.assembly,instance_id:0
 #: view:abstract.instance:mozaik_structure.abstract_instance_form_view
@@ -522,6 +895,14 @@ msgstr "Instance"
 #: view:sta.power.level:mozaik_structure.sta_power_level_form_view
 msgid "Instances"
 msgstr "Instances"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,interests_m2m_ids:0
+#: field:ext.assembly,interests_m2m_ids:0
+#: field:int.assembly,interests_m2m_ids:0
+#: field:sta.assembly,interests_m2m_ids:0
+msgid "Interests"
+msgstr "Intérêts"
 
 #. module: mozaik_structure
 #: model:ir.ui.menu,name:mozaik_structure.internal_configuration_submenu
@@ -627,9 +1008,33 @@ msgid "Invalidate level: proceed anyway?"
 msgstr "Poursuivre l'invalidation du niveau de pouvoir ?"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,invoice_ids:0
+#: field:ext.assembly,invoice_ids:0
+#: field:int.assembly,invoice_ids:0
+#: field:sta.assembly,invoice_ids:0
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: mozaik_structure
 #: field:int.assembly,is_designation_assembly:0
 msgid "Is Designation Assembly"
 msgstr "Assemblée de désignation"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,is_duplicate_allowed:0
+#: field:ext.assembly,is_duplicate_allowed:0
+#: field:int.assembly,is_duplicate_allowed:0
+#: field:sta.assembly,is_duplicate_allowed:0
+msgid "Is Duplicate Allowed"
+msgstr "Doublon autorisé"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,is_duplicate_detected:0
+#: field:ext.assembly,is_duplicate_detected:0
+#: field:int.assembly,is_duplicate_detected:0
+#: field:sta.assembly,is_duplicate_detected:0
+msgid "Is Duplicate Detected"
+msgstr "Doublon détecté"
 
 #. module: mozaik_structure
 #: field:sta.assembly,is_legislative:0
@@ -641,6 +1046,14 @@ msgstr "Assemblée législative"
 #: field:int.assembly.category,is_secretariat:0
 msgid "Is Secretariat"
 msgstr "Secrétariat"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,is_company:0
+#: field:ext.assembly,is_company:0
+#: field:int.assembly,is_company:0
+#: field:sta.assembly,is_company:0
+msgid "Is a Company"
+msgstr "Personne morale"
 
 #. module: mozaik_structure
 #: field:abstract.assembly,message_is_follower:0
@@ -661,6 +1074,70 @@ msgstr "Secrétariat"
 #: field:sta.power.level,message_is_follower:0
 msgid "Is a Follower"
 msgstr "Est abonné"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,is_donor:0
+#: field:ext.assembly,is_donor:0
+#: field:int.assembly,is_donor:0
+#: field:sta.assembly,is_donor:0
+msgid "Is a donor"
+msgstr "Est un donateur"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,is_volunteer:0
+#: field:ext.assembly,is_volunteer:0
+#: field:int.assembly,is_volunteer:0
+#: field:sta.assembly,is_volunteer:0
+msgid "Is a volunteer"
+msgstr "Est un volontaire"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,is_assembly:0
+#: field:ext.assembly,is_assembly:0
+#: field:int.assembly,is_assembly:0
+#: field:sta.assembly,is_assembly:0
+msgid "Is an Assembly"
+msgstr "Est une assemblée"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,function:0
+#: field:ext.assembly,function:0
+#: field:int.assembly,function:0
+#: field:sta.assembly,function:0
+msgid "Job Position"
+msgstr "Poste occupé"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,journal_item_count:0
+#: field:ext.assembly,journal_item_count:0
+#: field:int.assembly,journal_item_count:0
+#: field:sta.assembly,journal_item_count:0
+msgid "Journal Items"
+msgstr "Écritures comptables"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,ldap_id:0
+#: field:ext.assembly,ldap_id:0
+#: field:int.assembly,ldap_id:0
+#: field:sta.assembly,ldap_id:0
+msgid "LDAP Id"
+msgstr "Id LDAP"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,ldap_name:0
+#: field:ext.assembly,ldap_name:0
+#: field:int.assembly,ldap_name:0
+#: field:sta.assembly,ldap_name:0
+msgid "LDAP Name"
+msgstr "Nom LDAP"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,lang:0
+#: field:ext.assembly,lang:0
+#: field:int.assembly,lang:0
+#: field:sta.assembly,lang:0
+msgid "Language"
+msgstr "Langue"
 
 #. module: mozaik_structure
 #: field:abstract.assembly,message_last_post:0
@@ -737,6 +1214,22 @@ msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,lastname:0
+#: field:ext.assembly,lastname:0
+#: field:int.assembly,lastname:0
+#: field:sta.assembly,lastname:0
+msgid "Lastname"
+msgstr "Nom de famille"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,last_reconciliation_date:0
+#: field:ext.assembly,last_reconciliation_date:0
+#: field:int.assembly,last_reconciliation_date:0
+#: field:sta.assembly,last_reconciliation_date:0
+msgid "Latest Full Reconciliation Date"
+msgstr "Dernière date de lettrage total"
+
+#. module: mozaik_structure
 #: field:abstract.instance,parent_left:0
 #: field:int.instance,parent_left:0
 #: field:sta.instance,parent_left:0
@@ -773,6 +1266,38 @@ msgstr "Législatures"
 #: field:int.power.level,level_for_followers:0
 msgid "Level For Followers"
 msgstr "Niveau à abonner"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,website:0
+#: field:ext.assembly,website:0
+#: field:int.assembly,website:0
+#: field:sta.assembly,website:0
+msgid "Main Website"
+msgstr "Site web principal"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,website:0
+#: help:ext.assembly,website:0
+#: help:int.assembly,website:0
+#: help:sta.assembly,website:0
+msgid "Main Website of Partner or Company"
+msgstr "Site web principal de la personne physique ou morale"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,image_medium:0
+#: field:ext.assembly,image_medium:0
+#: field:int.assembly,image_medium:0
+#: field:sta.assembly,image_medium:0
+msgid "Medium-sized image"
+msgstr "Image de taille moyenne"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,image_medium:0
+#: help:ext.assembly,image_medium:0
+#: help:int.assembly,image_medium:0
+#: help:sta.assembly,image_medium:0
+msgid "Medium-sized image of this contact. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+msgstr "Image de taille moyenne de ce contact. Elle est automatiquement redimensionnée en 128x128px, avec un ratio d'aspect préservé. Utiliser ce champ dans les vues formulaires ou dans certaines les vues kanban."
 
 #. module: mozaik_structure
 #: view:int.instance:mozaik_structure.int_instance_form_view
@@ -820,6 +1345,14 @@ msgid "Messages and communication history"
 msgstr "Historique des messages et communications"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,mobile:0
+#: field:ext.assembly,mobile:0
+#: field:int.assembly,mobile:0
+#: field:sta.assembly,mobile:0
+msgid "Mobile"
+msgstr "Tél. portable"
+
+#. module: mozaik_structure
 #: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
 #: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
 #: view:abstract.instance:mozaik_structure.abstract_instance_form_view
@@ -857,6 +1390,43 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: mozaik_structure
+#: help:abstract.assembly,ldap_name:0
+#: help:ext.assembly,ldap_name:0
+#: help:int.assembly,ldap_name:0
+#: help:sta.assembly,ldap_name:0
+msgid "Name of the user in the LDAP"
+msgstr "Nom LDAP de l'utilisateur"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,nationality_id:0
+msgid "Nationality"
+msgstr "Nationalité"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,comment:0
+#: field:ext.assembly,comment:0
+#: field:int.assembly,comment:0
+#: field:sta.assembly,comment:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,identifier:0
+#: field:ext.assembly,identifier:0
+#: field:int.assembly,identifier:0
+#: field:sta.assembly,identifier:0
+msgid "Number"
+msgstr "Numéro"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,opt_out:0
+#: field:ext.assembly,opt_out:0
+#: field:int.assembly,opt_out:0
+#: field:sta.assembly,opt_out:0
+msgid "Opt-Out"
+msgstr "Retirer des campagnes marketing"
+
+#. module: mozaik_structure
 #: view:abstract.instance:mozaik_structure.abstract_instance_search_view
 msgid "Parent"
 msgstr "Parent"
@@ -877,9 +1447,57 @@ msgid "Parent State Instance"
 msgstr "Instance de l'État parent"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,parent_name:0
+#: field:ext.assembly,parent_name:0
+#: field:int.assembly,parent_name:0
+#: field:sta.assembly,parent_name:0
+msgid "Parent name"
+msgstr "Nom du parent"
+
+#. module: mozaik_structure
 #: view:ext.assembly:mozaik_structure.ext_assembly_search_view
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,partner_involvement_ids:0
+#: field:abstract.assembly,partner_involvement_inactive_ids:0
+#: field:ext.assembly,partner_involvement_ids:0
+#: field:ext.assembly,partner_involvement_inactive_ids:0
+#: field:int.assembly,partner_involvement_ids:0
+#: field:int.assembly,partner_involvement_inactive_ids:0
+#: field:sta.assembly,partner_involvement_ids:0
+#: field:sta.assembly,partner_involvement_inactive_ids:0
+msgid "Partner Involvements"
+msgstr "Participations de partenaire"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,debit_limit:0
+#: field:ext.assembly,debit_limit:0
+#: field:int.assembly,debit_limit:0
+#: field:sta.assembly,debit_limit:0
+msgid "Payable Limit"
+msgstr "Plafond autorisé"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,phone:0
+#: field:ext.assembly,phone:0
+#: field:int.assembly,phone:0
+#: field:sta.assembly,phone:0
+msgid "Phone"
+msgstr "Téléphone"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,notify_email:0
+#: help:ext.assembly,notify_email:0
+#: help:int.assembly,notify_email:0
+#: help:sta.assembly,notify_email:0
+msgid "Policy to receive emails for new messages pushed to your personal Inbox:\n"
+"- Never: no emails are sent\n"
+"- All Messages: for every notification you receive in your Inbox"
+msgstr "Politique de réception d'emails pour des nouveaux messages envoyé à votre boite de réception personnelle:\n"
+"- Jamais: aucuns emails ne seront envoyés\n"
+"- Tous les message: pour chaque notofocation, vous la recevez dans votre boite de réception"
 
 #. module: mozaik_structure
 #: field:abstract.assembly.category,power_level_id:0
@@ -907,6 +1525,14 @@ msgid "Power level of category and instance are inconsistent"
 msgstr "Le niveau de pouvoir de la catégorie et de l'instance sont incompatibles"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,printable_name:0
+#: field:ext.assembly,printable_name:0
+#: field:int.assembly,printable_name:0
+#: field:sta.assembly,printable_name:0
+msgid "Printable Name"
+msgstr "Nom imprimable"
+
+#. module: mozaik_structure
 #: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
 #: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
 #: view:abstract.instance:mozaik_structure.abstract_instance_form_view
@@ -917,11 +1543,51 @@ msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,notify_email:0
+#: field:ext.assembly,notify_email:0
+#: field:int.assembly,notify_email:0
+#: field:sta.assembly,notify_email:0
+msgid "Receive Inbox Notifications by Email"
+msgstr "Recevoir les notifications par courriel"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,parent_id:0
+#: field:ext.assembly,parent_id:0
+#: field:int.assembly,parent_id:0
+#: field:sta.assembly,parent_id:0
+msgid "Related Company"
+msgstr "Société parente"
+
+#. module: mozaik_structure
 #: field:abstract.instance,parent_right:0
 #: field:int.instance,parent_right:0
 #: field:sta.instance,parent_right:0
 msgid "Right Parent"
 msgstr "Parent droit"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,property_product_pricelist:0
+#: field:ext.assembly,property_product_pricelist:0
+#: field:int.assembly,property_product_pricelist:0
+#: field:sta.assembly,property_product_pricelist:0
+msgid "Sale Pricelist"
+msgstr "Liste de prix de vente"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,section_id:0
+#: field:ext.assembly,section_id:0
+#: field:int.assembly,section_id:0
+#: field:sta.assembly,section_id:0
+msgid "Sales Team"
+msgstr "Équipe commerciale"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,user_id:0
+#: field:ext.assembly,user_id:0
+#: field:int.assembly,user_id:0
+#: field:sta.assembly,user_id:0
+msgid "Salesperson"
+msgstr "Vendeur"
 
 #. module: mozaik_structure
 #: view:sta.instance:mozaik_structure.sta_instance_search_view
@@ -934,6 +1600,54 @@ msgid "Secondary Parent State Instance"
 msgstr "Instance de l'État parent secondaire"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,secondary_website:0
+#: field:ext.assembly,secondary_website:0
+#: field:int.assembly,secondary_website:0
+#: field:sta.assembly,secondary_website:0
+msgid "Secondary Website"
+msgstr "Second site web"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,secondary_website:0
+#: help:ext.assembly,secondary_website:0
+#: help:int.assembly,secondary_website:0
+#: help:sta.assembly,secondary_website:0
+msgid "Secondary Website of Partner or Company"
+msgstr "Second site web de la personne physique ou morale"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,out_inv_comm_algorithm:0
+#: help:ext.assembly,out_inv_comm_algorithm:0
+#: help:int.assembly,out_inv_comm_algorithm:0
+#: help:sta.assembly,out_inv_comm_algorithm:0
+msgid "Select Algorithm to generate the Structured Communication on Outgoing Invoices."
+msgstr "Sélectionnez le mode de génération de la communication structurée pour les factures clients."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,out_inv_comm_type:0
+#: help:ext.assembly,out_inv_comm_type:0
+#: help:int.assembly,out_inv_comm_type:0
+#: help:sta.assembly,out_inv_comm_type:0
+msgid "Select Default Communication Type for Outgoing Invoices."
+msgstr "Sélectionnez le type de communication par défaut pour les factures clients."
+
+#. module: mozaik_structure
+#: field:abstract.assembly,select_name:0
+#: field:ext.assembly,select_name:0
+#: field:int.assembly,select_name:0
+#: field:sta.assembly,select_name:0
+msgid "Select Name"
+msgstr "Nom"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,use_parent_address:0
+#: help:ext.assembly,use_parent_address:0
+#: help:int.assembly,use_parent_address:0
+#: help:sta.assembly,use_parent_address:0
+msgid "Select this if you want to set company's address information  for this contact"
+msgstr "Sélecionnez ceci si vous voulez indiquer l'adresse de la société de ce contact."
+
+#. module: mozaik_structure
 #: field:abstract.power.level,sequence:0
 #: field:int.power.level,sequence:0
 #: field:sta.power.level,sequence:0
@@ -941,13 +1655,81 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,signup_expiration:0
+#: field:ext.assembly,signup_expiration:0
+#: field:int.assembly,signup_expiration:0
+#: field:sta.assembly,signup_expiration:0
+msgid "Signup Expiration"
+msgstr "Expiration de la session de connexion"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,signup_token:0
+#: field:ext.assembly,signup_token:0
+#: field:int.assembly,signup_token:0
+#: field:sta.assembly,signup_token:0
+msgid "Signup Token"
+msgstr "Session de connexion"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,signup_type:0
+#: field:ext.assembly,signup_type:0
+#: field:int.assembly,signup_type:0
+#: field:sta.assembly,signup_type:0
+msgid "Signup Token Type"
+msgstr "Type de jeton de connexion"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,signup_valid:0
+#: field:ext.assembly,signup_valid:0
+#: field:int.assembly,signup_valid:0
+#: field:sta.assembly,signup_valid:0
+msgid "Signup Token is Valid"
+msgstr "La session d'authentification est valide"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,signup_url:0
+#: field:ext.assembly,signup_url:0
+#: field:int.assembly,signup_url:0
+#: field:sta.assembly,signup_url:0
+msgid "Signup URL"
+msgstr "Url d'authentification"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,image_small:0
+#: field:ext.assembly,image_small:0
+#: field:int.assembly,image_small:0
+#: field:sta.assembly,image_small:0
+msgid "Small-sized image"
+msgstr "Vignette de l'image"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,image_small:0
+#: help:ext.assembly,image_small:0
+#: help:int.assembly,image_small:0
+#: help:sta.assembly,image_small:0
+msgid "Small-sized image of this contact. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr "La miniature de l'image de ce contact. Elle est automatiquement retaillée en 64x64px tout en conservant le ratio. Utilisez ce champ à chaque fois qu'une miniature est nécessaire."
+
+#. module: mozaik_structure
+#: field:abstract.assembly,speaker:0
+#: field:ext.assembly,speaker:0
+#: field:int.assembly,speaker:0
+#: field:sta.assembly,speaker:0
+msgid "Speaker"
+msgstr "Orateur"
+
+#. module: mozaik_structure
 #: field:legislature,start_date:0
 msgid "Start Date"
 msgstr "Date de début"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,state_id:0
+#: field:ext.assembly,state_id:0
+#: field:int.assembly,state_id:0
 #: model:ir.ui.menu,name:mozaik_structure.state_configuration_submenu
 #: model:ir.ui.menu,name:mozaik_structure.state_submenu
+#: field:sta.assembly,state_id:0
 msgid "State"
 msgstr "De l'État"
 
@@ -1004,6 +1786,22 @@ msgid "State Power Levels"
 msgstr "Niveaux de pouvoir de l'État"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,street:0
+#: field:ext.assembly,street:0
+#: field:int.assembly,street:0
+#: field:sta.assembly,street:0
+msgid "Street"
+msgstr "Rue"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,street2:0
+#: field:ext.assembly,street2:0
+#: field:int.assembly,street2:0
+#: field:sta.assembly,street2:0
+msgid "Street2"
+msgstr "Rue (suite)"
+
+#. module: mozaik_structure
 #: field:abstract.assembly,message_summary:0
 #: field:abstract.assembly.category,message_summary:0
 #: field:abstract.instance,message_summary:0
@@ -1024,6 +1822,54 @@ msgid "Summary"
 msgstr "Résumé"
 
 #. module: mozaik_structure
+#: field:abstract.assembly,supplier:0
+#: field:ext.assembly,supplier:0
+#: field:int.assembly,supplier:0
+#: field:sta.assembly,supplier:0
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,property_supplier_payment_term:0
+#: field:ext.assembly,property_supplier_payment_term:0
+#: field:int.assembly,property_supplier_payment_term:0
+#: field:sta.assembly,property_supplier_payment_term:0
+msgid "Supplier Payment Term"
+msgstr "Conditions de paiement fournisseur"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,vat:0
+#: field:ext.assembly,vat:0
+#: field:int.assembly,vat:0
+#: field:sta.assembly,vat:0
+msgid "TIN"
+msgstr "Numéro fiscal"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,category_id:0
+#: field:ext.assembly,category_id:0
+#: field:int.assembly,category_id:0
+#: field:sta.assembly,category_id:0
+msgid "Tags"
+msgstr "Étiquettes"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,vat:0
+#: help:ext.assembly,vat:0
+#: help:int.assembly,vat:0
+#: help:sta.assembly,vat:0
+msgid "Tax Identification Number. Check the box if this contact is subjected to taxes. Used by the some of the legal statements."
+msgstr "Numéro fiscal. Cochez cette case si ce contact est soumis au paiement de taxe. Utilisé dans certains documents légaux."
+
+#. module: mozaik_structure
+#: field:abstract.assembly,technical_name:0
+#: field:ext.assembly,technical_name:0
+#: field:int.assembly,technical_name:0
+#: field:sta.assembly,technical_name:0
+msgid "Technical Name"
+msgstr "Nom technique"
+
+#. module: mozaik_structure
 #: sql_constraint:legislature:0
 msgid "The election date must be anterior to the start date."
 msgstr "La date électorale doit être antérieure à la date de début."
@@ -1034,14 +1880,166 @@ msgid "The external identifier (INS) must be unique."
 msgstr "L'identifiant externe (INS) doit être unique."
 
 #. module: mozaik_structure
+#: help:abstract.assembly,property_account_position:0
+#: help:ext.assembly,property_account_position:0
+#: help:int.assembly,property_account_position:0
+#: help:sta.assembly,property_account_position:0
+msgid "The fiscal position will determine taxes and accounts used for the partner."
+msgstr "La position fiscale déterminera les taxes et les comptes comptables utilisés par le partneraire"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,user_id:0
+#: help:ext.assembly,user_id:0
+#: help:int.assembly,user_id:0
+#: help:sta.assembly,user_id:0
+msgid "The internal user that is in charge of communicating with this contact if any."
+msgstr "L'utilisateur interne qui est en charge de la communication avec ce contact, le cas échéant."
+
+#. module: mozaik_structure
 #: sql_constraint:electoral.district:0
 msgid "The name must be unique."
 msgstr "Le nom doit être unique."
 
 #. module: mozaik_structure
+#: help:abstract.assembly,tz:0
+#: help:ext.assembly,tz:0
+#: help:int.assembly,tz:0
+#: help:sta.assembly,tz:0
+msgid "The partner's timezone, used to output proper date and time values inside printed reports. It is important to set a value for this field. You should use the same timezone that is otherwise used to pick and render date and time values: your computer's timezone."
+msgstr "Le fuseau horaire du partenaire, utilisé pour les valeurs de sortie de date et d'heure correcte à l'intérieur de rapports imprimés. Il est important de définir une valeur pour ce champ. Vous devez utiliser le même fuseau horaire qui est par ailleurs utilisé pour sélectionner et afficher les  valeurs date et heure: le fuseau horaire de votre ordinateur."
+
+#. module: mozaik_structure
 #: sql_constraint:legislature:0
 msgid "The start date must be anterior to the deadline date."
 msgstr "La date de début doit être antérieure à la date d'échéance."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,property_account_payable:0
+#: help:ext.assembly,property_account_payable:0
+#: help:int.assembly,property_account_payable:0
+#: help:sta.assembly,property_account_payable:0
+msgid "This account will be used instead of the default one as the payable account for the current partner"
+msgstr "Ce compte de tiers remplacera le compte par défaut."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,property_account_receivable:0
+#: help:ext.assembly,property_account_receivable:0
+#: help:int.assembly,property_account_receivable:0
+#: help:sta.assembly,property_account_receivable:0
+msgid "This account will be used instead of the default one as the receivable account for the current partner"
+msgstr "Ce compte remplacera le compte de tiers par défaut pour ce client."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,image:0
+#: help:ext.assembly,image:0
+#: help:int.assembly,image:0
+#: help:sta.assembly,image:0
+msgid "This field holds the image used as avatar for this contact, limited to 1024x1024px"
+msgstr "Ce champ contient l'image utilisée comme photo d'identité pour ce contact, de taille limitée à 1024x1024px."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,property_supplier_payment_term:0
+#: help:ext.assembly,property_supplier_payment_term:0
+#: help:int.assembly,property_supplier_payment_term:0
+#: help:sta.assembly,property_supplier_payment_term:0
+msgid "This payment term will be used instead of the default one for purchase orders and supplier invoices"
+msgstr "Ce délai de paiement sera utilisé à la place de celui par défaut pour les bons de commande et les factures fournisseurs"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,property_payment_term:0
+#: help:ext.assembly,property_payment_term:0
+#: help:int.assembly,property_payment_term:0
+#: help:sta.assembly,property_payment_term:0
+msgid "This payment term will be used instead of the default one for sale orders and customer invoices"
+msgstr "Ce délai de paiement sera utilisé à la place de celui par défaut pour les commandes et les factures clients"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,property_product_pricelist:0
+#: help:ext.assembly,property_product_pricelist:0
+#: help:int.assembly,property_product_pricelist:0
+#: help:sta.assembly,property_product_pricelist:0
+msgid "This pricelist will be used, instead of the default one, for sales to the current partner"
+msgstr "Cette liste de prix sera utilisée, à la place de la liste par défaut, pour les ventes faites au partenaire actuel."
+
+#. module: mozaik_structure
+#: field:abstract.assembly,tz:0
+#: field:ext.assembly,tz:0
+#: field:int.assembly,tz:0
+#: field:sta.assembly,tz:0
+msgid "Timezone"
+msgstr "Fuseau horaire"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,tz_offset:0
+#: field:ext.assembly,tz_offset:0
+#: field:int.assembly,tz_offset:0
+#: field:sta.assembly,tz_offset:0
+msgid "Timezone offset"
+msgstr "Décalage horaire"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,title:0
+#: field:ext.assembly,title:0
+#: field:int.assembly,title:0
+#: field:sta.assembly,title:0
+msgid "Title"
+msgstr "Civilité"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,tongue:0
+#: field:ext.assembly,tongue:0
+#: field:int.assembly,tongue:0
+#: field:sta.assembly,tongue:0
+msgid "Tongue"
+msgstr "Langue"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,total_invoiced:0
+#: field:ext.assembly,total_invoiced:0
+#: field:int.assembly,total_invoiced:0
+#: field:sta.assembly,total_invoiced:0
+msgid "Total Invoiced"
+msgstr "Total facturé"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,debit:0
+#: field:ext.assembly,debit:0
+#: field:int.assembly,debit:0
+#: field:sta.assembly,debit:0
+msgid "Total Payable"
+msgstr "Total dû"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,credit:0
+#: field:ext.assembly,credit:0
+#: field:int.assembly,credit:0
+#: field:sta.assembly,credit:0
+msgid "Total Receivable"
+msgstr "Total compte client"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,credit:0
+#: help:ext.assembly,credit:0
+#: help:int.assembly,credit:0
+#: help:sta.assembly,credit:0
+msgid "Total amount this customer owes you."
+msgstr "Montant total que ce client vous doit."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,debit:0
+#: help:ext.assembly,debit:0
+#: help:int.assembly,debit:0
+#: help:sta.assembly,debit:0
+msgid "Total amount you have to pay to this supplier."
+msgstr "Montant total à payer au fournisseur."
+
+#. module: mozaik_structure
+#: field:abstract.assembly,twitter:0
+#: field:ext.assembly,twitter:0
+#: field:int.assembly,twitter:0
+#: field:sta.assembly,twitter:0
+msgid "Twitter"
+msgstr "Twitter"
 
 #. module: mozaik_structure
 #: field:abstract.assembly,message_unread:0
@@ -1062,6 +2060,54 @@ msgstr "La date de début doit être antérieure à la date d'échéance."
 #: field:sta.power.level,message_unread:0
 msgid "Unread Messages"
 msgstr "Messages non lus"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,use_parent_address:0
+#: field:ext.assembly,use_parent_address:0
+#: field:int.assembly,use_parent_address:0
+#: field:sta.assembly,use_parent_address:0
+msgid "Use Company Address"
+msgstr "Utiliser l'adresse de la société"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,type:0
+#: help:ext.assembly,type:0
+#: help:int.assembly,type:0
+#: help:sta.assembly,type:0
+msgid "Used to select automatically the right address according to the context in sales and purchases documents."
+msgstr "Utiliser pour sélectionner automatiquement la bonne adresse en regards du contexte des documents de ventes et d'achats"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,user_ids:0
+#: field:ext.assembly,user_ids:0
+#: field:int.assembly,user_ids:0
+#: field:sta.assembly,user_ids:0
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,usual_firstname:0
+#: field:ext.assembly,usual_firstname:0
+#: field:int.assembly,usual_firstname:0
+#: field:sta.assembly,usual_firstname:0
+msgid "Usual Firstname"
+msgstr "Prénom usuel"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,usual_lastname:0
+#: field:ext.assembly,usual_lastname:0
+#: field:int.assembly,usual_lastname:0
+#: field:sta.assembly,usual_lastname:0
+msgid "Usual Lastname"
+msgstr "Nom usuel"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,vat_subjected:0
+#: field:ext.assembly,vat_subjected:0
+#: field:int.assembly,vat_subjected:0
+#: field:sta.assembly,vat_subjected:0
+msgid "VAT Legal Statement"
+msgstr "Déclaration de TVA"
 
 #. module: mozaik_structure
 #: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
@@ -1127,4 +2173,20 @@ msgstr "Année"
 #, python-format
 msgid "You can not create recursive instances"
 msgstr "Vous ne pouvez pas créer d'instances récursives"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,zip:0
+#: field:ext.assembly,zip:0
+#: field:int.assembly,zip:0
+#: field:sta.assembly,zip:0
+msgid "Zip Code"
+msgstr "Code postal"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,has_image:0
+#: field:ext.assembly,has_image:0
+#: field:int.assembly,has_image:0
+#: field:sta.assembly,has_image:0
+msgid "unknown"
+msgstr "inconnu"
 
