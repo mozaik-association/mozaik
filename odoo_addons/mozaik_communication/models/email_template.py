@@ -19,7 +19,7 @@ class EmailTemplate(models.Model):
     @api.model
     def _get_default_instance_id(self):
         instances = self.env.user.partner_id.int_instance_m2m_ids
-        return instances and instances[0] or False
+        return instances and instances[0]
 
     # Fake field for auto-completing placeholder
     involvement_category_id = fields.Many2one(
