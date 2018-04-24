@@ -12,7 +12,7 @@ class MassMailing(models.Model):
 
     create_uid =  fields.Many2one('res.users', readonly=True)
     group_id = fields.Many2one(
-        'mail.mass_mailing.group', copy=True)
+        'mail.mass_mailing.group', string='Group', copy=True)
     group_total_sent = fields.Integer(
         related='group_id.total_sent')
     mailing_model = fields.Char(default='email.coordinate')
@@ -40,7 +40,7 @@ class MassMailing(models.Model):
                     main_target_model='email.coordinate'
                 )
                 res = dl.get_complex_distribution_list_ids()[0]
-                if mailing.contact_ab_pc < 100 and mailing.group_id:
+                if mailing.contact_ab_pc < 100 or mailing.group_id:
                     topick = int(len(res) / 100.0 * mailing.contact_ab_pc)
                     already_mailed = self.env['mail.mail.statistics'].search([
                         ('mass_mailing_id.group_id', '=', mailing.group_id.id),

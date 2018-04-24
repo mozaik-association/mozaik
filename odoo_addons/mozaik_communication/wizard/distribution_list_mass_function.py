@@ -286,7 +286,7 @@ class DistributionListMassFunction(orm.TransientModel):
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
 
-                    if wizard.contact_ab_pc < 100:
+                    if wizard.contact_ab_pc < 100 or context.get('mailing_group_id'):
                         if context.get('mailing_group_id'):
                             stats_obj = self.pool['mail.mail.statistics']
                             stats_ids = stats_obj.search(

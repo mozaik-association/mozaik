@@ -5,7 +5,6 @@ from openerp import models, fields, tools
 
 class MassMailingReport(models.Model):
     _inherit = 'mail.statistics.report'
-    _auto = False
 
     group_id = fields.Many2one(
         'mail.mass_mailing.group', string='Group', readonly=True)
