@@ -209,7 +209,8 @@ class distribution_list(orm.Model):
         if is_partner_allowed:
             noway = _('Partner %s is not a user') % partner_id.display_name
             res_users_model = self.pool['res.users']
-            if partner_id.is_company and partner_id.responsible_user_id:
+            if partner_id.is_company and partner_id.responsible_user_id and \
+                    partner_id.responsible_user_id.active:
                 user_id = partner_id.responsible_user_id
             else:
                 domain = [('partner_id', '=', partner_id.id)]
