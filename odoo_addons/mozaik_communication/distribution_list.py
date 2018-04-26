@@ -152,8 +152,16 @@ class distribution_list(orm.Model):
     def _get_opt_res_ids(
             self, cr, uid, model_name, domain, in_mode, context=None):
         if in_mode:
-            domain.append(('email_is_main', '=', True))
-            domain.append(('postal_is_main', '=', True))
+            domain += [
+                '|',
+                ('email_is_main', '=', True),
+                ('email_coordinate_id', '=', False),
+            ]
+            domain += [
+                '|',
+                ('postal_is_main', '=', True),
+                ('postal_coordinate_id', '=', False),
+            ]
         opt_ids = super(distribution_list, self)._get_opt_res_ids(
             cr, uid, model_name, domain, in_mode, context=context)
         return opt_ids
