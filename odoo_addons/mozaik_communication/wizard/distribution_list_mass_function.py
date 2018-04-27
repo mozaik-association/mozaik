@@ -25,6 +25,7 @@
 ##############################################################################
 
 import base64
+import random
 
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
@@ -254,7 +255,8 @@ class DistributionListMassFunction(orm.TransientModel):
                         'subject': "",
                         'distribution_list_id': dl_id,
                         'mass_mailing_name': wizard.mass_mailing_name,
-                        'model': wizard.trg_model}
+                        'model': wizard.trg_model,
+                        'contact_ab_pc': wizard.contact_ab_pc}
                     value = composer.onchange_template_id(
                         cr, uid, ids, template_id, 'mass_mail', '', 0,
                         context=context)['value']
@@ -283,6 +285,35 @@ class DistributionListMassFunction(orm.TransientModel):
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
+
+                    if wizard.contact_ab_pc < 100 or context.get('mailing_group_id'):
+                        if context.get('mailing_group_id'):
+                            stats_obj = self.pool['mail.mail.statistics']
+                            stats_ids = stats_obj.search(
+                                cr, uid, [
+                                    ('mass_mailing_id.group_id', '=',
+                                     context['mailing_group_id']),
+                                ])
+                            stats = stats_obj.browse(cr, uid, stats_ids)
+                            already_mailed = [stat.res_id for stat in stats]
+                            remaining = set(active_ids).difference(
+                                already_mailed)
+                        else:
+                            group_obj = self.pool['mail.mass_mailing.group']
+                            new_group_id = group_obj.create(cr, uid, {
+                                'distribution_list_id': \
+                                    wizard.distribution_list_id.id,
+                                'include_unauthorized': \
+                                    wizard.include_unauthorized,
+                                'internal_instance_id': \
+                                    wizard.internal_instance_id.id,
+                            }, context=context)
+                            context['mailing_group_id'] = new_group_id
+                            remaining = active_ids
+                        topick = int(len(active_ids) / 100.0 * wizard.contact_ab_pc)
+                        if topick > len(remaining):
+                            topick = len(remaining)
+                        active_ids = random.sample(remaining, topick)
 
                     if alternative_ids and wizard.extract_csv:
                         if wizard.postal_mail_name and \

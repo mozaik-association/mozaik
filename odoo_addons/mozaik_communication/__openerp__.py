@@ -52,6 +52,7 @@ MOZAIK Communication
         'static/src/img/icon-mass.png',
     ],
     'data': [
+        'security/mail_mass_mailing_group.xml',
         'security/ir.model.access.csv',
         'security/communication_security.xml',
         'wizard/distribution_list_mass_function_view.xml',
@@ -69,6 +70,7 @@ MOZAIK Communication
         'views/mail_mail_statistics_view.xml',
         'views/virtual_models_view.xml',
         'views/email_template_view.xml',
+        'views/mass_mailing_report.xml',
     ],
     'qweb': [
     ],

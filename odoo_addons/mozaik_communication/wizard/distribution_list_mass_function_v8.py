@@ -17,6 +17,7 @@ class DistributionListMassFunction(models.TransientModel):
     involvement_category_id = fields.Many2one(
         'partner.involvement.category', string='Involvement Category',
         domain=[('code', '!=', False)])
+    contact_ab_pc = fields.Integer('AB Batch (%)', default=100)
 
     @api.onchange('placeholder_id', 'involvement_category_id')
     def _onchange_placeholder_id(self):
