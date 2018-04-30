@@ -286,9 +286,13 @@
                                           'search_default_all': True}" />
                         <button class="oe_right" string="Donations" name="%(partner_involvement_donation_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}" />
-                        <group>
-                            <field name="is_donor" />
-                            <field name="is_volunteer" />
+                        <group name="donor-volunteer">
+                            <group>
+                                <field name="is_donor" />
+                            </group>
+                            <group>
+                                <field name="is_volunteer" />
+                            </group>
                         </group>
                         <field name="partner_involvement_ids" context="{'default_partner_id': active_id}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
