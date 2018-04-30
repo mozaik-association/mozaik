@@ -13,6 +13,7 @@
         'mozaik_person',
         'mozaik_person_coordinate',
         'mozaik_structure',
+        'mozaik_mandate',
     ],
     'description': """
 MOZAIK Membership
