@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="partner_involvement_category_form_view">
+        <field name="name">partner.involvement.category.form (in mozaik_automatic_supporter)</field>
+        <field name="model">partner.involvement.category</field>
+        <field name="inherit_id" ref="mozaik_person.partner_involvement_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='data2']" position="inside">
+                <field name="automatic_supporter" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="partner_involvement_category_search_view">
+        <field name="name">partner.involvement.category.search (in mozaik_automatic_supporter)</field>
+        <field name="model">partner.involvement.category</field>
+        <field name="inherit_id" ref="mozaik_person.partner_involvement_category_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_categories']" position="after">
+                <separator/>
+                <filter name="automatic_supporter" string="Automatic Supporter"
+                    domain="[('automatic_supporter', '=', True)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="partner_involvement_category_tree_view">
+        <field name="name">partner.involvement.category.tree (in mozaik_automatic_supporter)</field>
+        <field name="model">partner.involvement.category</field>
+        <field name="inherit_id" ref="mozaik_person.partner_involvement_category_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="automatic_supporter" />
+            </xpath>
+        </field>
+    </record>
+
+</data>
+</openerp>

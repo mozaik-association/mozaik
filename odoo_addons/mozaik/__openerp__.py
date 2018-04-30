@@ -35,6 +35,7 @@
         'mozaik_portal',
         'mozaik_person',
         'mozaik_involvement_followup',
+        'mozaik_automatic_supporter',
         'mozaik_chart_account',
         'mozaik_retrocession',
         'mozaik_account',
