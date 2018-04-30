@@ -35,6 +35,7 @@
         'mozaik_base',
         'mozaik_structure',
         'mozaik_mandate',
+        'mozaik_membership',
         'mozaik_chart_account',
     ],
     'description': """
