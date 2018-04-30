@@ -260,7 +260,7 @@
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button class="oe_inline oe_stat_button" icon="fa-pencil-square-o"
                         type="object" name="get_model_action"
-                        context="{'action': 'mozaik_mandate.sta_candidature_action','model': 'sta.mandate'}"
+                        context="{'action': 'mozaik_mandate.sta_candidature_action','model': 'sta.candidature'}"
                         attrs="{'invisible':[('id','=', False)]}">
                         <field name="sta_candidature_count" widget="statinfo" string="St. Candidatures"/>
                     </button>
@@ -268,7 +268,6 @@
 
             </field>
         </record>
-         
 
     </data>
 </openerp>
