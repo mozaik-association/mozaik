@@ -49,9 +49,9 @@ class change_main_address(orm.TransientModel):
         """
         To get default values for the object.
         """
+        context = dict(context or {})
         res = super(change_main_address, self).default_get(cr, uid, fields,
                                                            context=context)
-        context = context or {}
 
         ids = context.get('active_ids') or context.get('active_id') and \
             [context.get('active_id')] or []
@@ -60,7 +60,12 @@ class change_main_address(orm.TransientModel):
         res['keep_instance'] = False
 
         if len(ids) == 1:
-            res['keeping_mode'] = 1
+            if context.get('mode', 'new') == 'switch':
+                # switch of a main coordinate to another existing coordinate
+                model = context.get('active_model', False)
+                self._switch_context(cr, uid, model, ids[0], context=context)
+                ids = [context['active_id']]
+
             for partner in self.pool['res.partner'].browse(cr, uid, ids,
                                                            context=context):
                 if partner.int_instance_id:
