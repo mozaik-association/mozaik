@@ -8,7 +8,7 @@
             <field name="name">distribution.list.mass.function.wizard</field>
             <field name="model">distribution.list.mass.function</field>
             <field name="arch" type="xml">
-                <form string="Mass Function">
+                <form>
                     <div class="oe_title" name="title">
                         <separator string="Execute Distribution List"/>
                         <h1>
@@ -53,6 +53,14 @@
                                                        ('e_mass_function','!=','email_coordinate_id')]}"
                             groups="mozaik_base.mozaik_res_groups_user">
                             <group>
+                                <label for="partner_from_id"/>
+                                <div>
+                                    <field name="partner_name" style="width: 50%"/>
+                                    <field name="partner_from_id" 
+                                        attrs="{'required':[('e_mass_function','=','email_coordinate_id'), ('trg_model','=','email.coordinate')]}"
+                                        options="{'no_create_edit': True, 'no_open': True}" style="width: 50%"/>
+                                    <field name="email_from"/>
+                                </div>
                                 <field name="subject" placeholder="Subject..." 
                                     attrs="{'required':[('e_mass_function','=','email_coordinate_id'), 
                                     ('trg_model','=','email.coordinate')]}" 
@@ -70,8 +78,7 @@
                             <group>
                                 <group>
                                     <field name="email_template_id"
-                                        domain="[('model_id.model','=','email.coordinate')]"
-                                        on_change="onchange_template_id(email_template_id)"/>
+                                        domain="[('model_id.model','=','email.coordinate')]"/>
                                     <field name="mass_mailing_name" />
                                 </group>
                                 <group>

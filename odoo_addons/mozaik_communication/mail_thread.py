@@ -35,6 +35,8 @@ def get_first_text_part(msg):
         for part in msg.get_payload():
             if part.get_content_maintype() == 'text':
                 return part.get_payload()
+            if part.get_content_maintype() == 'multipart':
+                return get_first_text_part(part)
     elif maintype == 'text':
         return msg.get_payload()
 

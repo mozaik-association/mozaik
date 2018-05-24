@@ -84,8 +84,6 @@ class DistributionListMassFunction(orm.TransientModel):
             'ir.attachment',
             rel='distribution_list_mass_function_ir_attachment_rel',
             id1='wizard_id', id2='attachment_id', string='Attachments'),
-        'email_template_id': fields.many2one(
-            'email.template', string='Email Template', ondelete='cascade'),
         'mass_mailing_name': fields.char(string='Mass Mailing Name'),
         'extract_csv': fields.boolean(
             string='Complementary Postal CSV',
@@ -139,31 +137,6 @@ class DistributionListMassFunction(orm.TransientModel):
             }
         }
 
-    def onchange_template_id(
-            self, cr, uid, ids,
-            email_template_id,
-            context=None):
-        """
-        Propagate subject and body from template to wizard
-        """
-        if not email_template_id:
-            return
-        tmpl = self.pool['email.template'].browse(
-            cr, uid, email_template_id, context=context)
-
-        flds = ['subject', 'body_html']
-        values = {
-            field: getattr(tmpl, field)
-            for field in flds
-            if getattr(tmpl, field)
-        }
-        if values.get('body_html'):
-            values['body'] = values.pop('body_html')
-
-        return {
-            'value': values
-        }
-
     def onchange_subject(
             self, cr, uid, ids,
             subject, mass_mailing_name,
@@ -190,7 +163,6 @@ class DistributionListMassFunction(orm.TransientModel):
         context = dict(context or {})
         file_exported = False
         composer = self.pool['mail.compose.message']
-        mail_message = self.pool['mail.message']
         for wizard in self.browse(cr, uid, ids, context=context):
             domains = []
             if wizard.internal_instance_id:
@@ -240,36 +212,36 @@ class DistributionListMassFunction(orm.TransientModel):
                     # Send mass mailing
                     #
                     template_id = wizard.email_template_id.id
-                    email_from = mail_message._get_default_from(
-                        cr, uid, context=context)
                     dl_id = wizard.distribution_list_id and \
                         wizard.distribution_list_id.id or False
                     mail_composer_vals = {
-                        'email_from': email_from,
+                        'email_from': wizard.email_from,
                         'parent_id': False,
                         'use_active_domain': False,
                         'composition_mode': 'mass_mail',
                         'partner_ids': [[6, False, []]],
                         'notify': False,
                         'template_id': template_id,
-                        'subject': "",
+                        'subject': wizard.subject,
                         'distribution_list_id': dl_id,
                         'mass_mailing_name': wizard.mass_mailing_name,
                         'model': wizard.trg_model,
-                        'contact_ab_pc': wizard.contact_ab_pc}
-                    value = composer.onchange_template_id(
-                        cr, uid, ids, template_id, 'mass_mail', '', 0,
-                        context=context)['value']
-                    attachments = value.get('attachment_ids', [])
-                    if wizard.attachment_ids:
-                        attachments += wizard.attachment_ids.ids
+                        'body': wizard.body,
+                        'contact_ab_pc': wizard.contact_ab_pc,
+                    }
+                    attachments = wizard.attachment_ids.ids or []
+                    if template_id:
+                        value = composer.onchange_template_id(
+                            cr, uid, ids, template_id, 'mass_mail', '', 0,
+                            context=context)['value']
+                        attachments += value.get('attachment_ids', [])
+                        for fld in ['subject', 'body', 'email_from']:
+                            value.pop(fld, None)
+                        mail_composer_vals.update(value)
                     if attachments:
-                        value['attachment_ids'] = [
+                        mail_composer_vals['attachment_ids'] = [
                             [6, False, attachments]
                         ]
-                    mail_composer_vals.update(value)
-                    vals = {'subject': wizard.subject, 'body': wizard.body}
-                    mail_composer_vals.update(vals)
                     mail_composer_id = composer.create(
                         cr, uid, mail_composer_vals, context=context)
 
@@ -286,7 +258,8 @@ class DistributionListMassFunction(orm.TransientModel):
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
 
-                    if wizard.contact_ab_pc < 100 or context.get('mailing_group_id'):
+                    if wizard.contact_ab_pc < 100 or \
+                            context.get('mailing_group_id'):
                         if context.get('mailing_group_id'):
                             stats_obj = self.pool['mail.mail.statistics']
                             stats_ids = stats_obj.search(
@@ -301,16 +274,17 @@ class DistributionListMassFunction(orm.TransientModel):
                         else:
                             group_obj = self.pool['mail.mass_mailing.group']
                             new_group_id = group_obj.create(cr, uid, {
-                                'distribution_list_id': \
+                                'distribution_list_id':
                                     wizard.distribution_list_id.id,
-                                'include_unauthorized': \
+                                'include_unauthorized':
                                     wizard.include_unauthorized,
-                                'internal_instance_id': \
+                                'internal_instance_id':
                                     wizard.internal_instance_id.id,
                             }, context=context)
                             context['mailing_group_id'] = new_group_id
                             remaining = active_ids
-                        topick = int(len(active_ids) / 100.0 * wizard.contact_ab_pc)
+                        topick = int(
+                            len(active_ids) / 100.0 * wizard.contact_ab_pc)
                         if topick > len(remaining):
                             topick = len(remaining)
                         active_ids = random.sample(remaining, topick)
