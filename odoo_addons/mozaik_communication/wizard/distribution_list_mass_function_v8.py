@@ -69,7 +69,7 @@ class DistributionListMassFunction(models.TransientModel):
             name = self.partner_from_id.name
             email = self.partner_from_id.email or ''
         if self.partner_name:
-            name = self.partner_name and self.partner_name.strip() or ''
+            name = self.partner_name and self.partner_name.strip() or name
         self.email_from = formataddr((name, email))
 
     @api.onchange('email_template_id')
