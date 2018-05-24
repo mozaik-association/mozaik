@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from anybox.testing.openerp import SharedSetupTransactionCase
+from email.utils import formataddr
 
 
 class TestMassFunction(SharedSetupTransactionCase):
@@ -52,3 +53,66 @@ class TestMassFunction(SharedSetupTransactionCase):
         self.assertTrue(bool(wizard.email_template_id))
         self.assertEqual(wizard.email_template_id.subject, vals['subject'])
         self.assertEqual(wizard.email_template_id.body_html, vals['body'])
+        return
+
+    def test_email_from(self):
+        '''
+        Check for:
+        * partner_from_id content and default value
+        * email_from computed value
+        '''
+        # create 2 new users
+        partner_obj = self.env['res.partner']
+        vals = {
+            'name': 'Bob',
+            'email': 'bob@vandersteen.be',
+        }
+        p1 = partner_obj.create(vals)
+        vals = {
+            'name': 'Bobette',
+            'email': 'bobette@vandersteen.be',
+            'is_company': True,
+        }
+        p2 = partner_obj.create(vals)
+        # add a partner_id and a res_partner_m2m_ids to a distribution list
+        dl = self.browse_ref('%s.everybody_list' % self._module_ns)
+        vals = {
+            'partner_id': p1.id,
+            'res_partner_m2m_ids': [(6, 0, [p2.id])],
+        }
+        dl.write(vals)
+        # from now, allowed "From" are:
+        # - the parner of the list: bob
+        # - authorized companies specified on the list: bobette
+        # - the user because he is an owner of the list: admin
+
+        # check for possible "From" choices
+        mfct_obj = self.env['distribution.list.mass.function'].with_context(
+            {'active_id': dl.id})
+        ids = mfct_obj._get_partner_from_ids()
+        p_ids = [p1.id, p2.id, self.env.user.partner_id.id]
+        self.assertEqual(set(ids), set(p_ids))
+        # check for default value
+        def_from = mfct_obj._get_default_partner_from_id()
+        self.assertEqual(def_from, self.env.user.partner_id)
+        # check for email_from
+        vals = {
+            'partner_from_id': p2.id,
+            'partner_name': 'Le roi Arthur',
+        }
+        wizard = mfct_obj.new(vals)
+        wizard._onchange_partner_from()
+        email = formataddr((vals['partner_name'], p2.email))
+        self.assertEqual(email, wizard.email_from)
+
+        vals = {
+            'partner_id': False,
+            'res_users_ids': [(5, 0, 0)],
+        }
+        dl.write(vals)
+        p2.is_company = False
+        # from now, allowed "From" are: nobody
+        ids = mfct_obj._get_partner_from_ids()
+        # check for possible "From" choices
+        self.assertFalse(ids)
+        return

@@ -2,10 +2,42 @@
 # © 2018 ACSONE SA/NV <https://acsone.eu/>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from openerp import api, fields, models
+from email.utils import formataddr
 
 
 class DistributionListMassFunction(models.TransientModel):
     _inherit = 'distribution.list.mass.function'
+
+    @api.model
+    def _get_partner_from_ids(self):
+        pids = self.env['res.partner']
+        dl_id = self.env.context.get('active_id') or False
+        if dl_id:
+            dl = self.env['distribution.list'].browse([dl_id])
+            # first: the sender partner
+            if dl.partner_id:
+                pids |= dl.partner_id
+            # than: the requestor user
+            if self.env.user.partner_id in dl.res_partner_m2m_ids:
+                pids |= self.env.user.partner_id
+            elif self.env.user in dl.res_users_ids:
+                pids |= self.env.user.partner_id
+            # finally: all owners and allowed partners that are legal persons
+            pids |= dl.res_partner_m2m_ids.filtered(lambda s: s.is_company)
+            pids |= dl.res_users_ids.mapped(
+                'partner_id').filtered(lambda s: s.is_company)
+        return pids.filtered(lambda s: s.email).ids
+
+    @api.model
+    def _get_domain_partner_from_id(self):
+        ids = self._get_partner_from_ids()
+        return [('id', 'in', ids)]
+
+    @api.model
+    def _get_default_partner_from_id(self):
+        if self.env.user.partner_id.id in self._get_partner_from_ids():
+            return self.env.user.partner_id
+        return False
 
     # Fake field for auto-completing placeholder
     placeholder_id = fields.Many2one(
@@ -18,6 +50,39 @@ class DistributionListMassFunction(models.TransientModel):
         'partner.involvement.category', string='Involvement Category',
         domain=[('code', '!=', False)])
     contact_ab_pc = fields.Integer('AB Batch (%)', default=100)
+    partner_from_id = fields.Many2one(
+        'res.partner', string='From',
+        domain=lambda s: s._get_domain_partner_from_id(),
+        default=lambda s: s._get_default_partner_from_id(),
+        context={'show_email': 1})
+    partner_name = fields.Char()
+    email_from = fields.Char(readonly=True)
+    email_template_id = fields.Many2one(
+        'email.template', string='Email Template')
+
+    @api.onchange('partner_from_id', 'partner_name')
+    def _onchange_partner_from(self):
+        self.ensure_one()
+        name = ''
+        email = ''
+        if self.partner_from_id:
+            name = self.partner_from_id.name
+            email = self.partner_from_id.email or ''
+        if self.partner_name:
+            name = self.partner_name and self.partner_name.strip() or name
+        self.email_from = formataddr((name, email))
+
+    @api.onchange('email_template_id')
+    def _onchange_template_id(self):
+        """
+        Instanciate subject and body from template to wizard
+        """
+        tmpl = self.email_template_id
+        if tmpl:
+            if tmpl.subject:
+                self.subject = tmpl.subject
+            if tmpl.body_html:
+                self.body = tmpl.body_html
 
     @api.onchange('placeholder_id', 'involvement_category_id')
     def _onchange_placeholder_id(self):
@@ -41,9 +106,8 @@ class DistributionListMassFunction(models.TransientModel):
             'body_html': self.body or False,
         }
         template = self.env['email.template'].create(values)
-        new_values = self.onchange_template_id(template.id)['value']
-        new_values['email_template_id'] = template.id
-        self.write(new_values)
+        self.email_template_id = template
+        self._onchange_template_id()
 
         return {
             'type': 'ir.actions.act_window',
