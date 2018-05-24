@@ -59,8 +59,7 @@ class mail_compose_message(orm.TransientModel):
         """
         Send mails by asynchronous way depending on parameters
         """
-        if context is None:
-            context = {}
+        context = dict(context or {})
         if context.get('active_ids'):
             if not context.get('not_async'):
                 try:
