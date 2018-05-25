@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <record id="partner_of_user_1" model="res.partner">
             <field name="lastname">DETAILLE</field>
