@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <record id="email_main_company" model="email.coordinate">
             <field name="partner_id" ref="base.main_partner" />
