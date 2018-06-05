@@ -19,7 +19,7 @@ class MailComposeMessage(models.TransientModel):
         {limit1: prio1, limit2: prio2, ...}
         """
         if self.env.context.get('active_ids') and \
-                not self.env.context.get('job_priority'):
+                not self.env.context.get('default_mail_job_priority'):
             priorities = literal_eval(
                 self.env['ir.config_parameter'].get_param(
                     'mail.sending.job.priorities', default='{}'))
@@ -27,5 +27,5 @@ class MailComposeMessage(models.TransientModel):
             limits = [lim for lim in priorities if lim <= sz]
             prio = limits and priorities[max(limits)] or None
             if prio:
-                self = self.with_context(job_priority=prio)
+                self = self.with_context(default_mail_job_priority=prio)
         return super(MailComposeMessage, self).send_mail()
