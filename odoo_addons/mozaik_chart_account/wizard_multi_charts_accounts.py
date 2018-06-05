@@ -24,7 +24,6 @@
 ##############################################################################
 
 from openerp.osv import orm
-from openerp.tools.translate import _
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -35,69 +34,6 @@ class wizard_multi_charts_accounts(orm.TransientModel):
     Execute wizard automatically without showing the wizard popup window
     """
     _inherit = 'wizard.multi.charts.accounts'
-
-    def generate_properties(self, cr, uid, chart_template_id, acc_template_ref,
-                            company_id, context=None):
-        super(wizard_multi_charts_accounts, self).generate_properties(
-            cr, uid, chart_template_id, acc_template_ref, company_id,
-            context=context)
-
-        property_obj = self.pool.get('ir.property')
-        field_obj = self.pool.get('ir.model.fields')
-        todo_list = [
-            ('property_retrocession_account', 'mandate.category',
-             'account.account'),
-            ('property_retrocession_cost_account', 'mandate.category',
-             'account.account'),
-            ('property_subscription_account', 'product.template',
-             'account.account')
-        ]
-        template = self.pool.get('account.chart.template').browse(
-            cr, uid, chart_template_id, context=context)
-        for record in todo_list:
-            account = getattr(template, record[0])
-            value = account and \
-                'account.account,' + str(acc_template_ref[account.id]) or \
-                False
-            if value:
-                field = field_obj.search(
-                    cr, uid, [('name', '=', record[0]),
-                              ('model', '=', record[1]),
-                              ('relation', '=', record[2])], context=context)
-                vals = {
-                    'name': record[0],
-                    'company_id': company_id,
-                    'fields_id': field[0],
-                    'value': value,
-                }
-                property_ids = property_obj.search(
-                    cr, uid, [('name', '=', record[0]),
-                              ('company_id', '=', company_id)],
-                    context=context)
-                if property_ids:
-                    # the property exist: modify it
-                    property_obj.write(
-                        cr, uid, property_ids, vals, context=context)
-                else:
-                    # create the property
-                    property_obj.create(cr, uid, vals, context=context)
-        self._prepare_operation_templates(cr, uid, template, acc_template_ref,
-                                          context=context)
-        return True
-
-    def _prepare_operation_templates(self, cr, uid, template, acc_template_ref,
-                                     context=None):
-        account = getattr(template, 'property_subscription_account')
-        account_id = account and account.id or False
-        vals = {'name': _('Subscriptions'),
-                'account_id': account_id and
-                acc_template_ref[account_id] or False,
-                'label': _('Subscriptions'),
-                'amount_type': 'percentage_of_total',
-                'amount': 100.0
-                }
-        self.pool.get('account.statement.operation.template').create(
-            cr, uid, vals, context=context)
 
     def _prepare_all_journals(self, cr, uid, chart_template_id,
                               acc_template_ref, company_id, context=None):

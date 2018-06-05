@@ -30,8 +30,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Localization/Account Charts',
     'depends': [
-        'mozaik_retrocession',
-        'mozaik_membership',
+        'account',
     ],
     'description': """
 l10n MOZAIK
