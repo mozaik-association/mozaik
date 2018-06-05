@@ -14,10 +14,11 @@
 # To provide both the URL and a branch, use:
 # sale-workflow https://github.com/OCA/sale-workflow branchname
 
-acsone-addons https://github.com/acsone/acsone-addons
+acsone-addons https://github.com/mozaik-association/acsone-addons 8.0-moz_master
 
 web
-server-tools
-connector
+server-tools https://github.com/mozaik-association/server-tools 8.0-moz_master
+connector https://github.com/mozaik-association/connector 8.0-moz_master
 partner-contact
-social
+social https://github.com/mozaik-association/social 8.0-moz_master
+
