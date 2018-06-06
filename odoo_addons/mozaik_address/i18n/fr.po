@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 21:15+0000\n"
-"PO-Revision-Date: 2018-03-12 21:15+0000\n"
+"POT-Creation-Date: 2018-06-06 09:39+0000\n"
+"PO-Revision-Date: 2018-06-06 09:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -502,9 +502,6 @@ msgid "Local Streets"
 msgstr "Rues locales"
 
 #. module: mozaik_address
-#: view:address.local.zip:mozaik_address.address_local_zip_form_view
-#: view:address.local.zip:mozaik_address.address_local_zip_search_view
-#: view:address.local.zip:mozaik_address.address_local_zip_tree_view
 #: model:ir.model,name:mozaik_address.model_address_local_zip
 msgid "Local Zip Code"
 msgstr "Code postal local"
@@ -663,6 +660,7 @@ msgstr "Les doublons sélectionnés seront associés à la co-résidence suivant
 
 #. module: mozaik_address
 #: field:address.address,sequence:0
+#: field:address.local.zip,sequence:0
 msgid "Sequence"
 msgstr "Séquence"
 
@@ -823,3 +821,4 @@ msgstr "adresse"
 #: view:print.postal.from.partner.wizard:mozaik_address.print_postal_from_partner_wizard
 msgid "or"
 msgstr "ou"
+

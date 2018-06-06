@@ -44,7 +44,7 @@ This module manages postal addresses and postal coordinates.
         'security/address_security.xml',
         'data/address_address_data.xml',
         'address_address_view.xml',
-        'address_local_zip_view.xml',
+        'views/address_local_zip_view.xml',
         'address_local_street_view.xml',
         'coordinate_category_view.xml',
         'res_partner_view.xml',
