@@ -634,7 +634,7 @@ msgstr "Ancien membre (rupture)"
 #. module: mozaik_membership
 #: model:membership.state,name:mozaik_membership.expulsion_former_member
 msgid "Former Member (expulsion)"
-msgstr "Ancien membre (expulsion)"
+msgstr "Ancien membre (exclusion)"
 
 #. module: mozaik_membership
 #: model:membership.state,name:mozaik_membership.inappropriate_former_member
