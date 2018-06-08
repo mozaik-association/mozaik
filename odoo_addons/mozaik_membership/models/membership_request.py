@@ -146,7 +146,7 @@ class MembershipRequest(models.Model):
             'firstname': firstname,
             'birth_date': birth_date,
 
-            'int_instance_id': int_instance_id,
+            'int_instance_id': res.get('int_instance_id') or int_instance_id,
 
             'day': day,
             'month': month,

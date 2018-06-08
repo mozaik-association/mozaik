@@ -502,18 +502,16 @@ class membership_request(orm.Model):
 
         # references
         'partner_id': fields.many2one(
-            'res.partner', string='Partner', ondelete='cascade',
+            'res.partner', string='Partner',
             domain="[('membership_state_id', '!=', False)]"),
 
         'int_instance_id': fields.many2one(
             'int.instance',
             string='Internal Instance',
-            ondelete='cascade'
         ),
         'force_int_instance_id': fields.many2one(
             'int.instance',
             string='Internal Instance (to Force)',
-            ondelete='cascade',
             track_visibility='onchange',
         ),
 
@@ -875,8 +873,8 @@ class membership_request(orm.Model):
                 "('is_company', '=', False),"
                 "('birth_date','=', '%s'),"
                 "('email', '=', '%s'),"
-                "(\"firstname\", 'ilike', \"%s\"),"
-                "(\"lastname\", 'ilike', \"%s\")]"
+                "('firstname', 'ilike', \"%s\"),"
+                "('lastname', 'ilike', \"%s\")]"
                 % (birth_date, email, firstname, lastname))
         if not is_company and birth_date and email:
             partner_domains.append(
@@ -884,6 +882,14 @@ class membership_request(orm.Model):
                 "('is_company', '=', False),"
                 "('birth_date','=', '%s'),"
                 "('email', '=', '%s')]" % (birth_date, email))
+        if not is_company and email and firstname and lastname:
+            partner_domains.append(
+                "[('membership_state_id', '!=', False),"
+                "('is_company', '=', False),"
+                "('email', '=', '%s'),"
+                "('firstname', 'ilike', \"%s\"),"
+                "('lastname', 'ilike', \"%s\")]"
+                % (email, firstname, lastname))
         if not is_company and email:
             partner_domains.append(
                 "[('membership_state_id', '!=', False),"
@@ -898,8 +904,8 @@ class membership_request(orm.Model):
                 partner_domains.append(
                     "[('membership_state_id','!=',False),"
                     "('is_company', '=', False),"
-                    "(\"firstname\", 'ilike', \"%s\"),"
-                    "(\"lastname\", 'ilike', \"%s\")]" % (firstname, lastname))
+                    "('firstname', 'ilike', \"%s\"),"
+                    "('lastname', 'ilike', \"%s\")]" % (firstname, lastname))
             elif not is_company:
                 partner_domains.append(
                     "[('membership_state_id', '!=', False),"
@@ -908,7 +914,7 @@ class membership_request(orm.Model):
             else:
                 partner_domains.append(
                     "[('is_company', '=', True),"
-                    "(\"lastname\", 'ilike', \"%s\")]" % (lastname))
+                    "('lastname', 'ilike', \"%s\")]" % (lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj,
