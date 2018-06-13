@@ -18,7 +18,7 @@ acsone-addons https://github.com/mozaik-association/acsone-addons 8.0-moz_master
 
 web
 server-tools https://github.com/mozaik-association/server-tools 8.0-moz_master
-connector https://github.com/mozaik-association/connector 8.0-moz_master
+connector
 partner-contact
 social https://github.com/mozaik-association/social 8.0-moz_master
 

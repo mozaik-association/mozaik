@@ -88,10 +88,10 @@ class TestMassFunction(SharedSetupTransactionCase):
 
         # check for possible "From" choices
         mfct_obj = self.env['distribution.list.mass.function'].with_context(
-            {'active_id': dl.id})
-        ids = mfct_obj._get_partner_from_ids()
+            {'active_model': 'distribution.list', 'active_id': dl.id})
+        partners = mfct_obj._get_partner_from()
         p_ids = [p1.id, p2.id, self.env.user.partner_id.id]
-        self.assertEqual(set(ids), set(p_ids))
+        self.assertEqual(set(partners.ids), set(p_ids))
         # check for default value
         def_from = mfct_obj._get_default_partner_from_id()
         self.assertEqual(def_from, self.env.user.partner_id)
@@ -100,10 +100,16 @@ class TestMassFunction(SharedSetupTransactionCase):
             'partner_from_id': p2.id,
             'partner_name': 'Le roi Arthur',
         }
-        wizard = mfct_obj.new(vals)
+        wizard = mfct_obj.create(vals)
         wizard._onchange_partner_from()
         email = formataddr((vals['partner_name'], p2.email))
         self.assertEqual(email, wizard.email_from)
+
+        # check for possible "From" choices simulating a wizard reload
+        mfct_obj = mfct_obj.with_context(
+            {'active_model': mfct_obj._name, 'active_id': wizard.id})
+        partners = mfct_obj._get_partner_from()
+        self.assertEqual(set(partners.ids), set(p_ids))
 
         vals = {
             'partner_id': False,
@@ -112,7 +118,7 @@ class TestMassFunction(SharedSetupTransactionCase):
         dl.write(vals)
         p2.is_company = False
         # from now, allowed "From" are: nobody
-        ids = mfct_obj._get_partner_from_ids()
+        partners = mfct_obj._get_partner_from()
         # check for possible "From" choices
-        self.assertFalse(ids)
+        self.assertFalse(partners)
         return

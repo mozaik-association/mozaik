@@ -9,11 +9,15 @@ class DistributionListMassFunction(models.TransientModel):
     _inherit = 'distribution.list.mass.function'
 
     @api.model
-    def _get_partner_from_ids(self):
+    def _get_partner_from(self):
         pids = self.env['res.partner']
-        dl_id = self.env.context.get('active_id') or False
-        if dl_id:
-            dl = self.env['distribution.list'].browse([dl_id])
+        model = self._context.get('active_model')
+        active_id = self._context.get('active_id') or False
+        dl = active_id and self.env[model].browse([active_id]) or False
+        if dl and model == self._name:
+            # in case of wizard reloading
+            dl = dl.distribution_list_id
+        if dl:
             # first: the sender partner
             if dl.partner_id:
                 pids |= dl.partner_id
@@ -26,16 +30,16 @@ class DistributionListMassFunction(models.TransientModel):
             pids |= dl.res_partner_m2m_ids.filtered(lambda s: s.is_company)
             pids |= dl.res_users_ids.mapped(
                 'partner_id').filtered(lambda s: s.is_company)
-        return pids.filtered(lambda s: s.email).ids
+        return pids.filtered(lambda s: s.email)
 
     @api.model
     def _get_domain_partner_from_id(self):
-        ids = self._get_partner_from_ids()
-        return [('id', 'in', ids)]
+        partners = self._get_partner_from()
+        return [('id', 'in', partners.ids)]
 
     @api.model
     def _get_default_partner_from_id(self):
-        if self.env.user.partner_id.id in self._get_partner_from_ids():
+        if self.env.user.partner_id in self._get_partner_from():
             return self.env.user.partner_id
         return False
 
