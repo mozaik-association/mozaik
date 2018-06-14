@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 22:00+0000\n"
-"PO-Revision-Date: 2018-04-20 22:00+0000\n"
+"POT-Creation-Date: 2018-06-14 18:25+0000\n"
+"PO-Revision-Date: 2018-06-14 18:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -467,7 +467,7 @@ msgid "Enterprise Number"
 msgstr "Numéro d'entreprise"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:941
+#: code:addons/mozaik_membership/membership_request.py:947
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -877,7 +877,7 @@ msgid "Internal Mandates"
 msgstr "Mandats internes"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:941
+#: code:addons/mozaik_membership/membership_request.py:947
 #, python-format
 msgid "Invalid Data"
 msgstr "Données invalides"

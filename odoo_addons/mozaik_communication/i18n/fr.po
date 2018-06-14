@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 22:00+0000\n"
-"PO-Revision-Date: 2018-04-20 22:00+0000\n"
+"POT-Creation-Date: 2018-06-14 18:25+0000\n"
+"PO-Revision-Date: 2018-06-14 18:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,13 +23,13 @@ msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:335
+#: code:addons/mozaik_communication/distribution_list.py:344
 #, python-format
 msgid "<b>New alias</b>: %s@%s"
 msgstr "<b>Nouveau pseudonyme</b>: %s@%s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:264
+#: code:addons/mozaik_communication/distribution_list.py:273
 #, python-format
 msgid "<p>Distribution List: %s</p><p>Sender: %s</p><p>Failure Reason: %s</p>"
 msgstr "<p>Liste de distribution: %s</p><p>Émetteur: %s</p><p>Raison de l'échec: %s</p>"
@@ -39,6 +39,11 @@ msgstr "<p>Liste de distribution: %s</p><p>Émetteur: %s</p><p>Raison de l'éche
 #, python-format
 msgid "A postal mail log cannot be copied when linked to a postal mailing!"
 msgstr "Un courrier postal ne peut être dupliqué s'il est lié à un envoi postal de masse !"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,contact_ab_pc:0
+msgid "AB Batch (%)"
+msgstr "Lot AB (%)"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_abstract_virtual_target
@@ -91,7 +96,7 @@ msgid "Add Registrations"
 msgstr "Ajouter des inscriptions"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:326
+#: code:addons/mozaik_communication/distribution_list.py:335
 #, python-format
 msgid "Alias modified on distribution list %s"
 msgstr "Pseudonyme modifié pour la liste de distribution %s"
@@ -256,7 +261,7 @@ msgid "Bounced"
 msgstr "Rebond"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:59
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:60
 #: selection:distribution.list.mass.function,p_mass_function:0
 #, python-format
 msgid "CSV Extraction"
@@ -321,6 +326,11 @@ msgid "Common ID"
 msgstr "Common ID"
 
 #. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
+msgid "Compare batches"
+msgstr "Comparer les lots"
+
+#. module: mozaik_communication
 #: field:virtual.partner.candidature,competencies_m2m_ids:0
 #: field:virtual.partner.event,competencies_m2m_ids:0
 #: field:virtual.partner.instance,competencies_m2m_ids:0
@@ -360,7 +370,7 @@ msgid "Contents"
 msgstr "Contenu"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:187
+#: code:addons/mozaik_communication/distribution_list.py:195
 #, python-format
 msgid "Coordinate %s(%s) of %s is not main"
 msgstr "La coordonnée %s(%s) de %s n'est pas principale"
@@ -387,6 +397,7 @@ msgstr "Code pays"
 #: field:add.registration,create_uid:0
 #: field:distribution.list.mass.function,create_uid:0
 #: field:export.csv,create_uid:0
+#: field:mail.mass_mailing.group,create_uid:0
 #: field:postal.mail,create_uid:0
 #: field:postal.mail.log,create_uid:0
 msgid "Created by"
@@ -396,6 +407,7 @@ msgstr "Créé par"
 #: field:add.registration,create_date:0
 #: field:distribution.list.mass.function,create_date:0
 #: field:export.csv,create_date:0
+#: field:mail.mass_mailing.group,create_date:0
 msgid "Created on"
 msgstr "Créé le"
 
@@ -478,6 +490,7 @@ msgstr "Courriel de masse direct"
 #: field:distribution.list.mass.function,display_name:0
 #: field:export.csv,display_name:0
 #: field:export.csv.queries,display_name:0
+#: field:mail.mass_mailing.group,display_name:0
 #: field:postal.mail,display_name:0
 #: field:postal.mail.log,display_name:0
 #: field:virtual.assembly.instance,display_name:0
@@ -497,6 +510,7 @@ msgstr "Nom à afficher"
 #: field:add.registration,distribution_list_id:0
 #: field:distribution.list.mass.function,distribution_list_id:0
 #: model:ir.model,name:mozaik_communication.model_distribution_list
+#: field:mail.mass_mailing.group,distribution_list_id:0
 msgid "Distribution List"
 msgstr "Liste de distribution"
 
@@ -585,6 +599,11 @@ msgid "Email Template"
 msgstr "Modèle de courriel"
 
 #. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_email_template_placeholder
+msgid "Email Template Placeholder"
+msgstr "Paramètre fictif de modèle de courriel"
+
+#. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_email_template
 msgid "Email Templates"
 msgstr "Modèles de courriels"
@@ -592,7 +611,7 @@ msgstr "Modèles de courriels"
 #. module: mozaik_communication
 #: view:email.template:mozaik_communication.view_email_template_search
 msgid "Email Templates of which I am an owner"
-msgstr "Les modèles de courriels dont je suis propriétaire"
+msgstr "Mes modèles de courriels"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_mail_thread
@@ -614,6 +633,11 @@ msgstr "Adresse électronique VIP"
 #: model:ir.model,name:mozaik_communication.model_mail_compose_message
 msgid "Email composition wizard"
 msgstr "Assistant de composition de courriel"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,email_from:0
+msgid "Email from"
+msgstr "De (adresse électronique)"
 
 #. module: mozaik_communication
 #: field:virtual.target,email_is_main:0
@@ -642,7 +666,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:196
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:295
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:300
 #: code:addons/mozaik_communication/wizard/export_csv.py:172
 #, python-format
 msgid "Error"
@@ -832,13 +856,13 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:334
+#: code:addons/mozaik_communication/distribution_list.py:343
 #, python-format
 msgid "Former alias: %s@%s"
 msgstr "Ancien pseudonyme: %s@%s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:262
+#: code:addons/mozaik_communication/distribution_list.py:271
 #, python-format
 msgid "Forwarding Failure: %s"
 msgstr "Échec de transfert: %s"
@@ -861,6 +885,11 @@ msgstr "Échec de transfert: %s"
 #: selection:virtual.partner.retrocession,tongue:0
 msgid "French"
 msgstr "Français"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,partner_from_id:0
+msgid "From"
+msgstr "De"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:47
@@ -901,6 +930,12 @@ msgid "Get a CSV file for partners without email"
 msgstr "Produire un fichier CSV pour les partenaires sans adresse électronique"
 
 #. module: mozaik_communication
+#: field:mail.mass_mailing,group_id:0
+#: field:mail.statistics.report,group_id:0
+msgid "Group"
+msgstr "Groupe"
+
+#. module: mozaik_communication
 #: view:postal.mail:mozaik_communication.postal_mail_search_view
 #: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
@@ -922,7 +957,7 @@ msgid "Group by Co-Residency"
 msgstr "Grouper par Co-Résidence"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:330
+#: code:addons/mozaik_communication/distribution_list.py:339
 #, python-format
 msgid "Hello"
 msgstr "Bonjour"
@@ -945,6 +980,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:distribution.list.mass.function,id:0
 #: field:export.csv,id:0
 #: field:export.csv.queries,id:0
+#: field:mail.mass_mailing.group,id:0
 #: field:postal.mail,id:0
 #: field:postal.mail.log,id:0
 #: field:virtual.assembly.instance,id:0
@@ -987,6 +1023,11 @@ msgstr "Inclure les interdits"
 #: field:distribution.list.line,distribution_list_in_ids:0
 msgid "Include in"
 msgstr "Inclu dans"
+
+#. module: mozaik_communication
+#: field:mail.mass_mailing.group,include_unauthorized:0
+msgid "Include unauthorized"
+msgstr "Inclure les interdits"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,include_without_coordinate:0
@@ -1096,6 +1137,11 @@ msgstr "Mandat interne"
 #: field:virtual.assembly.instance,int_power_level_id:0
 msgid "Internal Power Level"
 msgstr "Niveau de pouvoir interne"
+
+#. module: mozaik_communication
+#: field:mail.mass_mailing.group,internal_instance_id:0
+msgid "Internal instance id"
+msgstr "Internal instance id"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/mass_mailing.py:60
@@ -1252,6 +1298,7 @@ msgstr "Date du dernier message"
 #: field:distribution.list.mass.function,__last_update:0
 #: field:export.csv,__last_update:0
 #: field:export.csv.queries,__last_update:0
+#: field:mail.mass_mailing.group,__last_update:0
 #: field:postal.mail,__last_update:0
 #: field:postal.mail.log,__last_update:0
 #: field:virtual.assembly.instance,__last_update:0
@@ -1271,6 +1318,7 @@ msgstr "Modifié le"
 #: field:add.registration,write_uid:0
 #: field:distribution.list.mass.function,write_uid:0
 #: field:export.csv,write_uid:0
+#: field:mail.mass_mailing.group,write_uid:0
 #: field:postal.mail,write_uid:0
 #: field:postal.mail.log,write_uid:0
 msgid "Last Updated by"
@@ -1280,6 +1328,7 @@ msgstr "Dernière mise à jour par"
 #: field:add.registration,write_date:0
 #: field:distribution.list.mass.function,write_date:0
 #: field:export.csv,write_date:0
+#: field:mail.mass_mailing.group,write_date:0
 #: field:postal.mail,write_date:0
 #: field:postal.mail.log,write_date:0
 msgid "Last Updated on"
@@ -1346,8 +1395,9 @@ msgstr "Nombre de courriers"
 
 #. module: mozaik_communication
 #: model:ir.ui.menu,name:mozaik_communication.mailings_submenu
+#: field:mail.mass_mailing.group,mailings_ids:0
 msgid "Mailings"
-msgstr "Courriels"
+msgstr "Courriels de masse"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:49
@@ -1454,8 +1504,7 @@ msgid "Mass Action"
 msgstr "Fonctionnalité de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:413
-#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:418
 #: field:distribution.list.mass.function,e_mass_function:0
 #: field:distribution.list.mass.function,p_mass_function:0
 #: model:ir.actions.act_window,name:mozaik_communication.distribution_list_mass_function_action
@@ -1465,7 +1514,7 @@ msgid "Mass Function"
 msgstr "Fonctionnalité de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:58
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:59
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 #: model:ir.model,name:mozaik_communication.model_mail_mass_mailing
 #, python-format
@@ -1473,9 +1522,19 @@ msgid "Mass Mailing"
 msgstr "Courriels de masse"
 
 #. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_mail_mass_mailing_group
+msgid "Mass Mailing Group"
+msgstr "Regroupement de courriels de masse"
+
+#. module: mozaik_communication
 #: field:distribution.list.mass.function,mass_mailing_name:0
 msgid "Mass Mailing Name"
 msgstr "Nom du courriel de masse"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_mail_statistics_report
+msgid "Mass Mailing Statistics"
+msgstr "Statistiques de courriel de masse"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,bounce_counter:0
@@ -1581,6 +1640,7 @@ msgstr "Mes modèles"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:35
 #: selection:distribution.list.mass.function,sort_by:0
+#: field:mail.mass_mailing.group,name:0
 #: field:postal.mail,name:0
 #: field:postal.mail.log,name:0
 #, python-format
@@ -1623,7 +1683,7 @@ msgid "Newsletters"
 msgstr "Lettres d'information"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:180
+#: code:addons/mozaik_communication/distribution_list.py:188
 #, python-format
 msgid "No unique coordinate found with address: %s"
 msgstr "Pas de coordonnée unique trouvée avec l'email: %s"
@@ -1759,13 +1819,13 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:202
+#: code:addons/mozaik_communication/distribution_list.py:210
 #, python-format
 msgid "Partner %s is not a user"
 msgstr "Le contact %s n'est pas un utilisateur"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:192
+#: code:addons/mozaik_communication/distribution_list.py:200
 #, python-format
 msgid "Partner %s is not an owner nor an allowed partner"
 msgstr "Le contact %s n'est ni un propriétaire ni un émetteur autorisé"
@@ -1780,6 +1840,11 @@ msgstr "Partenaire émetteur"
 #: field:postal.mail.log,partner_instance_id:0
 msgid "Partner Internal Instance"
 msgstr "Instance interne du partenaire"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,partner_name:0
+msgid "Partner name"
+msgstr "Nom du contact"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_virtual_partner_candidature
@@ -2068,13 +2133,13 @@ msgid "Result"
 msgstr "Résultat"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:294
+#: code:addons/mozaik_communication/distribution_list.py:303
 #, python-format
 msgid "Result of %s"
 msgstr "Résultat de %s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:425
+#: code:addons/mozaik_communication/distribution_list.py:434
 #, python-format
 msgid "Result of %s filter without coordinate"
 msgstr "Résultat du filtre %s (injoignables)"
@@ -2133,6 +2198,11 @@ msgstr "Voir le résultat du filtre"
 #: view:distribution.list.line:mozaik_communication.distribution_list_line_tree
 msgid "See Result Without Coordinate"
 msgstr "Voir les injoignables"
+
+#. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
+msgid "Send next batch"
+msgstr "Envoyer le lot suivant"
 
 #. module: mozaik_communication
 #: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_search
@@ -2277,13 +2347,13 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:331
+#: code:addons/mozaik_communication/distribution_list.py:340
 #, python-format
 msgid "The alias of the distribution list %s has been changed by %s."
 msgstr "Le pseudonyme de la liste de distribution %s a été modifié par %s."
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:295
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:300
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"
@@ -2312,6 +2382,17 @@ msgstr "Langue"
 #: field:virtual.partner.mandate,ref_partner_competencies_m2m_ids:0
 msgid "Topics"
 msgstr "Thèmes"
+
+#. module: mozaik_communication
+#: field:mail.mass_mailing,group_total_sent:0
+#: field:mail.mass_mailing.group,total_sent:0
+msgid "Total sent (%)"
+msgstr "Total envoyé (%)"
+
+#. module: mozaik_communication
+#: field:mail.statistics.report,trial:0
+msgid "Trial"
+msgstr "Essai"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:50
@@ -2397,7 +2478,7 @@ msgid "Unread Messages"
 msgstr "Messages non lus"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:218
+#: code:addons/mozaik_communication/distribution_list.py:227
 #, python-format
 msgid "User %s(%s) has no visibility on list %s(%s)"
 msgstr "L'utilisateur %s(%s) n'a aucune visibilité sur la liste %s(%s)"
@@ -2415,7 +2496,7 @@ msgid "Usual Lastname"
 msgstr "Nom usuel"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:60
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:61
 #, python-format
 msgid "VCARD Extraction"
 msgstr "Extraction VCARD"
@@ -2605,4 +2686,9 @@ msgstr "Code postal"
 #: view:export.csv:mozaik_communication.export_csv_wizard
 msgid "or"
 msgstr "ou"
+
+#. module: mozaik_communication
+#: field:mail.compose.message,contact_ab_pc:0
+msgid "unknown"
+msgstr "inconnu"
 

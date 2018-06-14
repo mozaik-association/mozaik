@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 22:00+0000\n"
-"PO-Revision-Date: 2018-04-20 22:00+0000\n"
+"POT-Creation-Date: 2018-06-14 18:25+0000\n"
+"PO-Revision-Date: 2018-06-14 18:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -85,6 +85,11 @@ msgstr "Sociétés qui font réference au partenaire"
 #: model:ir.ui.menu,name:mozaik_base.persons_configuration_submenu
 msgid "Configuration"
 msgstr "Configuration"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.res_partner_natural_title_menu
+msgid "Contact Titles"
+msgstr "Civilités"
 
 #. module: mozaik_base
 #: field:res.users,contract_ids:0
@@ -201,11 +206,6 @@ msgid "Latest Full Reconciliation Date"
 msgstr "Dernière date de lettrage total"
 
 #. module: mozaik_base
-#: model:ir.ui.menu,name:mozaik_base.res_partner_legal_title_menu
-msgid "Legal Persons Titles"
-msgstr "Formes juridiques"
-
-#. module: mozaik_base
 #: model:ir.ui.menu,name:mozaik_base.localization_submenu
 msgid "Localization"
 msgstr "Localisation"
@@ -284,11 +284,6 @@ msgstr "Utilisateur Mozaik"
 #: model:res.groups,name:mozaik_base.mozaik_res_groups_vip_reader
 msgid "Mozaik Vip Reader"
 msgstr "Lecteur Vip Mozaik"
-
-#. module: mozaik_base
-#: model:ir.ui.menu,name:mozaik_base.res_partner_natural_title_menu
-msgid "Natural Persons Titles"
-msgstr "Civilités"
 
 #. module: mozaik_base
 #: model:ir.model,name:mozaik_base.model_mail_notification
@@ -395,6 +390,7 @@ msgstr "Ce délai de paiement sera utilisé à la place de celui par défaut pou
 
 #. module: mozaik_base
 #: model:ir.ui.menu,name:mozaik_base.persons_titles_submenu
+#: model:ir.ui.menu,name:mozaik_base.res_partner_legal_title_menu
 msgid "Titles"
 msgstr "Civilités et Formes juridiques"
 
