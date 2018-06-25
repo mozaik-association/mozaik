@@ -387,10 +387,8 @@
             <field name="model_id" ref="mass_mailing.model_mail_mass_mailing"/>
             <field name="domain_force">[
                 '|',
-                '|',
-                ('distribution_list_id.int_instance_id', '=', False),
-                ('distribution_list_id.int_instance_id', 'in', user._model.internal_instances(user.env.cr,user.id)),
                 ('create_uid', '=', user.id),
+                ('distribution_list_id.int_instance_id', 'in', user._model.internal_instances(user.env.cr,user.id)),
             ]
             </field>
             <field name="groups" eval="[(6, 0, [
