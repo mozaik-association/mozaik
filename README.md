@@ -6,8 +6,6 @@ Mozaik
 
 A suite of Odoo modules to manage large associative organizations (members, committees, subscriptions, ...).
 
-A [sandbox environnement](http://mozaik.odoodemo.acsone.eu/web) is available. A demo user with guest/guest credentials can be used to log on.
-
 A [presentation from Odoo Experience 2015](http://www.slideshare.net/acsone/mozaik-managing-a-political-party-with-odoo) is available, illustrating a small subset of features.
 
 Summary
@@ -21,16 +19,13 @@ What can you do with Mozaik ?
 -----------------------------
 
 - the follow-up of the members, supporters, politicians and representatives with a complete membership workflow and a fluent and performing communication
-- the follow-up of the electoral process from the setting up of the lists of candidates to the electoral results
-- the follow-up of the mandates including their renewal and the detection of suspicious holding multiple offices
-- the follow-up of the membership fees and retrocessions
+- the follow-up of the mandates including their renewal, their declaration and the declaration of their revenues
+- the follow-up of the membership fees
 - the definition of the state's structure and party's organisation
 
 Mozaik required the development of some extensions to the basis features:
 - advanced CRM: multi-email, multi-address, local address validation, multi-phone, multi-relationship between partners, management of duplicates, ...
 - dynamic distribution lists (complex expressions associated with static opt-in/opt-out lists based on a multi-model search engine) together with mass (mailing) features
-- online help (editable by power users), currently in French
-- SSO-type authentication method.
 
 Who can benefit from Mozaik ?
 -----------------------------
@@ -43,21 +38,9 @@ Who can benefit from Mozaik ?
 More technically
 ----------------
 
-The application is intended for Odoo v8, but is currently mostly coded using the classic OpenERP api.
-
 Some more generic modules have been move to other repositories:
 - [Acsone Addons](https://github.com/acsone/acsone-addons) for distribution lists and newsletters (```distribution_list```)
-- [OCA/web](https://github.com/OCA/web) for online help (```help_online```)
-- [OCA/Server Tools](https://github.com/OCA/server-tools) for SSO authentication (```auth_from_http_remote_user```)
 - [OCA/connector](https://github.com/OCA/connector)
 - [OCA/partner-contact](https://github.com/OCA/partner-contact)
 - [OCA/social](https://github.com/OCA/social)
-
-A special module is provided to quickly build a non empty sandbox database: ```mozaik_sample_accounting```.
-
-List of dependencies needed to the whole project can be consulted in the ```mozaik_base/__openerp__.py``` manifest.
-
-Additional python dependencies:
-- anybox.testing.openerp
-- phonenumbers
 
