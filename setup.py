@@ -2,9 +2,10 @@ from setuptools import setup
 
 
 setup(
-    version="0.0.0",
     name='odoo-addons-mozaik',
-    description='Mozaik Odoo instance customizations',
+    description='Mozaik Addons',
     setup_requires=['setuptools-odoo'],
-    odoo_addons=True,
+    odoo_addons={
+        'odoo_version_override': '11.0',
+    },
 )
