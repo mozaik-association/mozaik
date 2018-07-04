@@ -5,7 +5,6 @@ setup(
     name='odoo-addons-mozaik',
     description='Mozaik Addons',
     setup_requires=['setuptools-odoo'],
-    odoo_addons={
-        'odoo_version_override': '11.0',
-    },
+    odoo_addons=True,
 )
+
