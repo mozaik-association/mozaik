@@ -10,7 +10,9 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'mozaik_abstract_model',
         'mozaik_duplicate',
+        'contacts',  # TODO for menu entry, to change
     ],
     'description': """
 MOZAIK Coordinate
@@ -22,12 +24,16 @@ MOZAIK Coordinate
     'images': [
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'coordinate_category_view.xml',
-        'abstract_coordinate_view.xml',
-        'res_partner_view.xml',
-        'wizard/change_main_coordinate.xml',
-        'wizard/bounce_editor_view.xml',
+        'wizards/failure_editor.xml',
+        'views/res_partner.xml',
+        'views/coordinate_category.xml',
+        'views/abstract_coordinate.xml',
+        # 'security/ir.model.access.csv',
+        # 'coordinate_category_view.xml',
+        # 'abstract_coordinate_view.xml',
+        # 'res_partner_view.xml',
+        # 'wizard/change_main_coordinate.xml',
+        # 'wizard/bounce_editor_view.xml',
     ],
     'qweb': [
     ],
@@ -36,5 +42,5 @@ MOZAIK Coordinate
     'test': [
     ],
     'license': 'AGPL-3',
-    'installable': False,
+    'installable': True,
 }

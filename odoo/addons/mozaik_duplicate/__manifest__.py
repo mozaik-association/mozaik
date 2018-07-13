@@ -10,7 +10,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'mozaik_base',
+        'mozaik_abstract_model',
     ],
     'description': """
 MOZAIK Duplicate
@@ -21,7 +21,7 @@ MOZAIK Duplicate
     'images': [
     ],
     'data': [
-        'wizard/allow_duplicate_view.xml',
+        # 'wizard/allow_duplicate_view.xml',
     ],
     'qweb': [
     ],
@@ -30,5 +30,5 @@ MOZAIK Duplicate
     'test': [
     ],
     'license': 'AGPL-3',
-    'installable': False,
+    'installable': True,
 }

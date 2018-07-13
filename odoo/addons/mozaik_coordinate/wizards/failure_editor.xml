@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="failure_editor_form_view">
+        <field name="name">failure.editor.form (in mozaik_coordinate)</field>
+        <field name="model">failure.editor</field>
+        <field name="arch" type="xml">
+            <form string="Failure Editor">
+                <group>
+                    <field name="increase" />
+                    <field name="description" />
+                </group>
+                <footer>
+                    <button name="update_failure_datas" string="Apply" type="object"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="failure_editor_act_window">
+        <field name="name">Failure Editor</field>
+        <field name="res_model">failure.editor</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="src_model">abstract.coordinate</field> <!-- TODO -->
+        <field name="multi" eval="0"/> <!-- TODO -->
+        <field name="view_id" ref="failure_editor_form_view" />
+        <field name="context">{'default_model': context.get('active_model', False)}</field>
+        <!--<field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" /> TODO-->
+    </record>
+
+</odoo>
