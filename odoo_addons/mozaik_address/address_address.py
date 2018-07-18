@@ -153,7 +153,7 @@ class address_address(orm.Model):
         'address.local.zip':
             (lambda self, cr, uid, ids, context=None:
              self.pool['address.local.zip']._get_linked_addresses(
-                 cr, uid, ids, context=context),
+                 cr, uid, ids, context=context).ids,
              ['local_zip', 'town'], 15),
         'address.local.street':
             (lambda self, cr, uid, ids, context=None:
@@ -173,7 +173,7 @@ class address_address(orm.Model):
         'address.local.zip':
             (lambda self, cr, uid, ids, context=None:
              self.pool['address.local.zip']._get_linked_addresses(
-                 cr, uid, ids, context=context),
+                 cr, uid, ids, context=context).ids,
              ['local_zip', 'town'], 10),
     }
     _street_store_triggers = {
