@@ -21,6 +21,7 @@
         'mozaik_membership',
     ],
     'data': [
+        'security/partner_involvement.xml',
         'data/mail_message_subtype_data.xml',
         'data/ir_cron_data.xml',
         'data/ir_config_parameter.xml',

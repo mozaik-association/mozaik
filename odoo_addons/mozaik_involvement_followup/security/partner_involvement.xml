@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="mozaik_person.partner_involvement_base_cud_user_rule" model="ir.rule">
+            <field name="active" eval="0"/>
+        </record>
+
+        <record id="partner_involvement_base_cd_user_rule" model="ir.rule">
+            <field name="name">Partner Involvement (CD) for Mozaik User</field>
+            <field name="model_id" ref="mozaik_person.model_partner_involvement" />
+            <field name="domain_force">[('involvement_category_id.res_users_ids', 'in', [user.id])]</field>
+            <field name="groups" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_user'),
+            ])]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="partner_involvement_base_u_user_rule" model="ir.rule">
+            <field name="name">Partner Involvement (U) for Mozaik User</field>
+            <field name="model_id" ref="mozaik_person.model_partner_involvement" />
+            <field name="domain_force">['|', ('message_follower_ids', 'in', [user.partner_id.id]), ('involvement_category_id.res_users_ids', 'in', [user.id])]</field>
+            <field name="groups" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_user'),
+            ])]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+    </data>
+</openerp>
