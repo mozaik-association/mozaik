@@ -531,7 +531,7 @@ class res_partner(orm.Model):
         aborting = False
 
         document_reset_ids, document_ids = super(
-            res_partner, self).get_duplicate_ids(
+            res_partner, self).get_duplicates(
             cr, uid, value, context=context)
         if document_ids:
             document_values = self.read(
