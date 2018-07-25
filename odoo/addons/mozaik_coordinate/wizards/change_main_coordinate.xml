@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Change Main Coordinate Wizard on res.partner -->
+
+    <record id="change_main_coordinate_form" model="ir.ui.view">
+        <field name="name">Change.main.coordinate.form (in mozaik_coordinate)</field>
+        <field name="model">change.main.coordinate</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group name="data">
+                        <field name="invalidate_previous_coordinate" />
+                        <field name="change_allowed" groups="mozaik_base.res_groups_developper"/>
+                    </group>
+                    <group></group>
+                </group>
+                <footer>
+                    <button string="Change" name="button_change_main_coordinate" type="object" class="oe_highlight" attrs="{'invisible': [('change_allowed','=', False)]}"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

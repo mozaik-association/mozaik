@@ -2,20 +2,30 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
 from uuid import uuid4
-import odoo
 from odoo.tests.common import TransactionCase
 from odoo import api, fields, models
 from .common_mozaik_abstract_model import CommonMozaikAbstractModel
 
 
-class ResPartner(models.Model):
-    _name = 'res.partner'
-    _inherit = [
-        'mozaik.abstract.model',
-        'res.partner',
-    ]
+test_partner_name = 'test.res.partner'
+
+
+class TestResPartner(models.Model):
+    _name = test_partner_name
+    _inherit = 'mozaik.abstract.model'
     _inactive_cascade = True
     _unicity_keys = 'N/A'
+    _abstract = True
+
+    name = fields.Char()
+    email = fields.Char()
+    parent_id = fields.Many2one(
+        test_partner_name,
+    )
+    child_ids = fields.One2many(
+        test_partner_name,
+        'parent_id',
+    )
 
 
 class TestChildModel(models.Model):
@@ -25,12 +35,13 @@ class TestChildModel(models.Model):
     ]
     _description = "Test child model"
     _unicity_keys = 'N/A'
+    _abstract = True
 
     name = fields.Char(
         required=True,
     )
     partner_id = fields.Many2one(
-        ResPartner._name,
+        TestResPartner._name,
         "Partner",
         required=True,
     )
@@ -44,12 +55,13 @@ class TestAnotherModel(models.Model):
     _name = 'test.another.model'
     _description = "Test another model"
     _unicity_keys = 'N/A'
+    _abstract = True
 
     name = fields.Char(
         required=True,
     )
     partner_id = fields.Many2one(
-        ResPartner._name,
+        TestResPartner._name,
         "Partner",
         required=True,
     )
@@ -79,16 +91,10 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
     def _get_odoo_models(self):
         """
         Get Odoo models to update/instantiate
+        Order is important
         :return: list
         """
-        return [TestChildModel, ResPartner, TestAnotherModel]
-
-    def _get_odoo_models_exist(self):
-        """
-        Get existing Odoo models to update/instantiate
-        :return: list
-        """
-        return [ResPartner]
+        return [TestResPartner, TestChildModel, TestAnotherModel]
 
     def _init_test_models(self):
         """
@@ -105,28 +111,15 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         _logger.setLevel(logging.CRITICAL)
         for model_cls in models_cls:
             model_cls._build_model(registry, cr)
-            registry.setup_models(cr)
+        registry.setup_models(cr)
         names = [m._name for m in models_cls]
         registry.init_models(cr, names, self.env.context)
         _logger.setLevel(previous_level)
         return True
 
     def setUp(self):
-        registry = odoo.registry()
-        registry_fields = {}
-        for OdooModel in self._get_odoo_models_exist():
-            registry_fields.update({
-                OdooModel._name: set(registry[OdooModel._name]._fields)
-            })
         super().setUp()
-
-        @self.addCleanup
-        def reset():
-            # reset registry and env
-            registry._clear_cache()
-            registry.clear_caches()
-            registry.reset_changes()
-            self.env.reset()
+        registry = self.registry
         # We must be in test mode before create/init new models
         registry.enter_test_mode()
         # Add the cleanup to disable test mode after this setup as finished
@@ -134,7 +127,7 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         self._init_test_models()
         # Concrete Odoo models who inherit mozaik.abstract.model
         self.implemented_mozaik_abstract_obj = self.env[
-            ResPartner._name]
+            TestResPartner._name]
         # Odoo model with _inactive_cascade = True to disable records
         self.child_obj = self.env[TestChildModel._name]
         self.trigger1 = self.implemented_mozaik_abstract_obj.create({
@@ -167,7 +160,7 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         """
         For this case, we ensure that we won't have any infinite loop
         when the child have the same model than the 'master'.
-        Example with res.partner and related contacts
+        Example with test.res.partner and related contacts
         :return: bool
         """
         self.child1 = self.implemented_mozaik_abstract_obj.create({
@@ -187,7 +180,7 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         """
         For this case, we ensure that we won't have any infinite loop
         when the child have the same model than the 'master'.
-        Example with res.partner and related contacts
+        Example with test.res.partner and related contacts
         :return: bool
         """
         self.child1 = self.implemented_mozaik_abstract_obj.create({
