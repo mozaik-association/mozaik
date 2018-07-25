@@ -14,6 +14,7 @@
     'depends': [
         'mail_restrict_follower_selection',
         'mail',
+        'base_suspend_security',
         'mozaik_base',
         'mozaik_person',
         'mozaik_structure',

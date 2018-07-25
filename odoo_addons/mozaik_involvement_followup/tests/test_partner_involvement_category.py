@@ -22,6 +22,11 @@ class TestPartnerInvolvementCategory(SharedSetupTransactionCase):
 
     _module_ns = 'mozaik_involvement_followup'
 
+    def setUp(self):
+        super(TestPartnerInvolvementCategory, self).setUp()
+        # during tests, suspend_security hook has to be manually registered
+        self.registry('ir.rule')._register_hook(self.cr)
+
     def test_involvement_category_integrity_1(self):
         # create a category with negative deadline rule: NOK
         vals = {
