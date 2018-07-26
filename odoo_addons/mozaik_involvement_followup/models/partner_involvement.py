@@ -64,7 +64,7 @@ class PartnerInvolvement(models.Model):
             fol_ids = []
             if cat.mandate_category_id:
                 fol_ids += cat.mandate_category_id._get_active_representative(
-                    res.partner_instance_id.id, True)
+                    res.partner_instance_id, True).ids
             fol_ids += cat.message_follower_ids.ids
             res.message_subscribe(fol_ids)
             res.state = 'followup'
@@ -101,3 +101,21 @@ class PartnerInvolvement(models.Model):
             res[2]['is_editable'] = is_editable
             res[2]['is_uid'] = uid == res[0]
         return result
+
+    @api.multi
+    def _check_record_rules_result_count(self, result_ids, operation):
+        """
+        Special security rule: if user is compatible with mandate category
+        specified on involvement category, stop checking on create
+        """
+        if operation == 'create':
+            self.ensure_one()
+            cat = self.involvement_category_id.mandate_category_id
+            if cat:
+                representatives = cat._get_active_representative(
+                    self.partner_instance_id, True)
+                if self.env.user.partner_id in representatives:
+                    return
+        return super(
+            PartnerInvolvement, self)._check_record_rules_result_count(
+                result_ids, operation)
