@@ -99,7 +99,7 @@
                             <label for="partner_id" class="oe_edit_only"/>
                             <h1><field name="partner_id" domain="[('is_assembly','=',False)]" /></h1>
                             <label for="involvement_category_id" class="oe_edit_only"/>
-                            <h1><field name="involvement_category_id" context="{'apply_for_read': 'write'}" /></h1>
+                            <h1><field name="involvement_category_id" /></h1>
                         </div>
                         <group>
                             <group name="data1">

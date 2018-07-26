@@ -94,5 +94,5 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
                             'partner_id': inv.partner_id.id,
                             'involvement_category_id': cat.id,
                         }
-                        inv.create(vals)
+                        inv.suspend_security().create(vals)
         return action

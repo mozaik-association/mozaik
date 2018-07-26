@@ -10,7 +10,7 @@ class MandateCategory(models.Model):
     _inherit = 'mandate.category'
 
     @api.multi
-    def _get_active_representative(self, instance_id, users_only):
+    def _get_active_representative(self, int_instance, users_only):
         '''
         Search for active representatives of a given mandate category
         for a given internal instance
@@ -24,9 +24,9 @@ class MandateCategory(models.Model):
         assemblies = mandates.mapped('int_assembly_id')
         for instance in assemblies.mapped('instance_id'):
             iis = instance.search([('id', 'child_of', instance.id)])
-            if instance_id in iis._ids:
+            if int_instance in iis:
                 instances |= instance
         mandates = mandates.filtered(
             lambda s: s.int_assembly_id.instance_id in instances)
         res = mandates.mapped('partner_id')
-        return res.ids
+        return res
