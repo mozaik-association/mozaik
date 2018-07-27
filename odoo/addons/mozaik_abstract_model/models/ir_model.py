@@ -10,7 +10,7 @@ class IrModel(models.Model):
     @api.model
     def _get_active_relations(self, objects, with_ids=False):
         self = self.sudo()
-        imf_obj = self.env['ir.model.fields'].with_context(active_test=True)
+        imf_obj = self.env['ir.model.fields']
         model_name = first(objects)._name
         relations = imf_obj.search([
             ('relation', '=', model_name),
@@ -34,7 +34,7 @@ class IrModel(models.Model):
                     continue
 
                 field = model_obj._fields.get(relation.name)
-                if hasattr(field, 'store') and not field.store:
+                if field.compute:
                     continue
                 if hasattr(model_obj, '_allowed_inactive_link_models'):
                     if record._name in model_obj._allowed_inactive_link_models:
@@ -47,7 +47,8 @@ class IrModel(models.Model):
                 # we have to add a domain to avoid infinite loop
                 if model_obj._name == model_name:
                     domain.append(('id', 'not in', objects.ids))
-                active_dep_ids = model_obj.search(domain)
+                active_dep_ids = model_obj.with_context(
+                    active_test=True).search(domain)
 
                 if active_dep_ids:
                     if with_ids:
@@ -62,9 +63,9 @@ class IrModel(models.Model):
 
     @api.model
     def _get_relation_column_name(self, model_name, relation_model_name):
-        relations = self.env['ir.model.fields'].search([
+        relation = self.env['ir.model.fields'].search([
             ('model', '=', model_name),
             ('relation', '=', relation_model_name),
             ('ttype', '=', 'many2one'),
         ], limit=1)
-        return relations.name
+        return relation.name

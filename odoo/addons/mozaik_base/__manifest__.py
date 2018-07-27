@@ -14,10 +14,8 @@
     'description': """
 MOZAIK Base
 ===========
-* define Mozaik menus skeleton
 """,
     'data': [
-        'data/ir_ui_menu.xml',
     ],
     'license': 'AGPL-3',
     'installable': True,
