@@ -8,8 +8,7 @@
         <field name="name">phone.phone.form (in mozaik_phone)</field>
         <field name="model">phone.phone</field>
         <field name="arch" type="xml">
-            <form string="Phone">
-                <header/>
+            <form  duplicate="false">
                 <sheet>
                     <div class="oe_title"  name="title">
                         <label for="name" class="oe_edit_only"/>
@@ -34,7 +33,7 @@
                         <group name="other" />
                     </group>
 
-                    <notebook invisible="context.get('popup')"> <!-- TODO popup -->
+                    <notebook>
                         <page name="coordinates" string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             <button string="All Details"
                                     name="%(phone_coordinate_act_window)d"
@@ -48,7 +47,7 @@
                                     <field name="coordinate_category_id" />
                                     <field name="is_main" />
                                     <field name="unauthorized" />
-                                    <field name="vip" /><!--TODO groups="mozaik_base.mozaik_res_groups_vip_reader" />-->
+                                    <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
                                     <field name="is_duplicate_detected" invisible="1"/>
                                 </tree>
                             </field>
@@ -59,14 +58,13 @@
                                     <field name="coordinate_category_id" />
                                     <field name="is_main" />
                                     <field name="unauthorized" />
-                                    <field name="vip" /><!--TODO groups="mozaik_base.mozaik_res_groups_vip_reader" />-->
+                                    <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
                                 </tree>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <!-- TODO -->
-                <div name="dev" class="oe_form_sheetbg"> <!--TODO groups="mozaik_base.res_groups_developper">-->
+                <div name="dev" class="oe_form_sheetbg" groups="base.group_erp_manager">
                     <div class="oe_formview oe_form_sheet_width">
                         <h3>More Info</h3>
                         <group name="moreinfo">
@@ -75,8 +73,8 @@
                         </group>
                     </div>
                 </div>
-                <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" /> <!--TODO groups="mozaik_base.mozaik_res_groups_configurator"/>-->
+                <div name="chat" class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -120,12 +118,10 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
-        <!--<field name="view_id" ref="phone_phone_tree_view" /> TODO should be non necessary-->
-        <!--<field name="search_view_id" ref="phone_phone_search_view" />-->
     </record>
 
     <record model="ir.ui.menu" id="phone_phone_menu">
-        <field name="name">Phone Phone</field>
+        <field name="name">Phones</field>
         <field name="parent_id" ref="phone_coordinate_submenu"/>
         <field name="action" ref="phone_phone_act_window"/>
         <field name="sequence" eval="20"/>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <!-- Used by phone library -->
+    <record id="default_country_code_phone" model="ir.config_parameter">
+        <field name="key">default.country.code.phone</field>
+        <field name="value">BE</field>
+    </record>
+</odoo>

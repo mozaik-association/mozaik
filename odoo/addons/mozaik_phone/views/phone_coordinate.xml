@@ -4,20 +4,13 @@
 
 <odoo>
 
-    <record model="ir.ui.menu" id="phone_coordinate_submenu">
-        <field name="name">Phone Coordinates</field>
-        <field name="parent_id" ref="contacts.menu_contacts"/> <!--TODO mozaik_base.persons_root_menu-->
-        <field name="sequence" eval="40"/>
-    </record>
+    <menuitem id="phone_coordinate_submenu" name="Phone Coordinates"
+              sequence="30" parent="mozaik_coordinate.mozaik_coordinate_menu" />
 
     <record model="ir.actions.act_window" id="phone_coordinate_act_window">
         <field name="name">Phone Coordinates</field>
         <field name="res_model">phone.coordinate</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[]</field>
-        <field name="context">{}</field>
-        <!--<field name="view_id" ref="phone_coordinate_tree_view" /> TODO should not be necessary-->
-        <!--<field name="search_view_id" ref="phone_coordinate_search_view" />-->
     </record>
 
     <record model="ir.ui.view" id="phone_coordinate_form_view">
@@ -25,22 +18,21 @@
         <field name="model">phone.coordinate</field>
         <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+            <div name="title" position="inside">
                 <label for="phone_id" class="oe_edit_only"/>
                 <h1><field name="phone_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
-            </xpath>
-
-            <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
+            </div>
+            <button name="button_all_duplicates" position="attributes">
                 <attribute name="name">%(phone_coordinate_act_window)d</attribute>
-                <attribute name="context" translation="off">
-                    {'search_default_duplicate': True,
-                     'search_default_phone_id': phone_id,
-                     'default_phone_id': phone_id}</attribute>
-            </xpath>
-
-            <xpath expr="//group[@name='moreinfo']" position="inside">
-                <span name="anchor_for_inherit_view" />
-            </xpath>
+                <attribute name="context" translation="off">{
+                    'search_default_duplicate': True,
+                    'search_default_phone_id': phone_id,
+                    'default_phone_id': phone_id,
+                    }</attribute>
+            </button>
+            <group name="moreinfo" position="inside">
+                <span name="anchor_for_inherit_view"/>
+            </group>
         </field>
     </record>
 
@@ -49,20 +41,18 @@
         <field name="model">phone.coordinate</field>
         <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_search_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="partner_id" position="after">
                 <field name="phone_id" />
                 <field name="coordinate_type" />
-            </xpath>
-
-            <xpath expr="//filter[@name='main']" position="before">
+            </field>
+            <filter name="main" position="before">
                 <filter name="malformed" string="Malformed Phones" domain="[('phone_id','not like',' % ')]"/>
                 <separator/>
-            </xpath>
-
-            <xpath expr="//group[@name='group_by']" position="inside">
+            </filter>
+            <group name="group_by" position="inside">
                 <filter name="phone" string="Phone" domain="[]" context="{'group_by':'phone_id'}" />
                 <filter name="type" string="Phone Type" domain="[]" context="{'group_by':'coordinate_type'}" />
-            </xpath>
+            </group>
         </field>
     </record>
 
@@ -71,15 +61,15 @@
         <field name="model">phone.coordinate</field>
         <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_tree_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="partner_id" position="after">
                 <field name="phone_id" />
-                <field name="coordinate_type" /> <!--TODO groups="mozaik_base.res_groups_developper" />-->
-            </xpath>
+                <field name="coordinate_type" groups="base.group_erp_manager"/>
+            </field>
         </field>
     </record>
 
     <record model="ir.ui.menu" id="phone_coordinate_menu">
-        <field name="name">Phone Coordinate</field>
+        <field name="name">Phone Coordinates</field>
         <field name="parent_id" ref="phone_coordinate_submenu"/>
         <field name="action" ref="phone_coordinate_act_window"/>
         <field name="sequence" eval="10"/>

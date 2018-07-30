@@ -155,6 +155,16 @@ class AbstractCoordinate(models.AbstractModel):
         return result
 
     @api.model
+    def _get_default_coordinate_type(self, values):
+        """
+        Get the default coordinate type.
+        Useful for inherit
+        :param values: dict
+        :return: str
+        """
+        return 'n/a'
+
+    @api.model
     def create(self, vals):
         """
         When 'is_main' is true the coordinate has to become
@@ -169,8 +179,8 @@ class AbstractCoordinate(models.AbstractModel):
         """
         coordinate_type = vals.get('coordinate_type')
         partner_id = vals.get('partner_id')
-        if not coordinate_type:
-            coordinate_type = 'n/a'
+        if 'coordinate_type' not in vals:
+            coordinate_type = self._get_default_coordinate_type(vals)
             vals.update({
                 'coordinate_type': coordinate_type,
             })
@@ -238,7 +248,7 @@ class AbstractCoordinate(models.AbstractModel):
         main_coordinates = self.browse()
         domain = [
             ('partner_id', 'in', partners.ids),
-            (self._discriminant_field, '=', value)
+            (self._discriminant_field, '=', value),
         ]
         all_coordinates = self.sudo().search(domain)
         for partner in partners:

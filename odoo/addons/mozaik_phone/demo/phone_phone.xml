@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="phone_phone_fix1" model="phone.phone">
+        <field name="name">061548798</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_fix2" model="phone.phone">
+        <field name="name">063458688</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_fix3" model="phone.phone">
+        <field name="name">063458978</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_fix4" model="phone.phone">
+        <field name="name">061458978</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_fix5" model="phone.phone">
+        <field name="name">061411232</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_mobile1" model="phone.phone">
+        <field name="name">+32 478 85 25 25</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_mobile2" model="phone.phone">
+        <field name="name">+32 465 00 00 00</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_mobile3" model="phone.phone">
+        <field name="name">+32 473 78 10 78</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_mobile4" model="phone.phone">
+        <field name="name">+32 473 78 10 79</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_mobile5" model="phone.phone">
+        <field name="name">+32 473 78 10 80</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_fax1" model="phone.phone">
+        <field name="name">061548799</field>
+        <field name="type">fax</field>
+    </record>
+
+    <record id="phone_phone_fax2" model="phone.phone">
+        <field name="name">061900009</field>
+        <field name="type">fax</field>
+    </record>
+
+    <record id="phone_phone_fax3" model="phone.phone">
+        <field name="name">+33 01 40 23 86 13</field>
+        <field name="type">fax</field>
+    </record>
+
+</odoo>

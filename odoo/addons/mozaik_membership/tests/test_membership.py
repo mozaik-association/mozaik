@@ -79,7 +79,7 @@ class test_membership(SharedSetupTransactionCase):
             '%s.membership_request_mp' % self._module_ns)
         self.rec_mr_create = self.browse_ref(
             '%s.membership_request_eh' % self._module_ns)
-        self.mobile_five = self.browse_ref('%s.mobile_five'
+        self.mobile_five = self.browse_ref('%s.mobile5'
                                            % self._module_ns)
         self.coord_mobile_2 = self.browse_ref(
             '%s.mobile_coordinate_for_jacques_2' % self._module_ns)

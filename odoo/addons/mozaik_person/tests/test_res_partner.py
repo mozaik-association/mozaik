@@ -744,3 +744,53 @@ class test_res_partner(SharedSetupTransactionCase):
         }
         partner = self.env['res.partner'].create(vals)
         self.assertEqual(vals['lastname'], partner.lastname)
+
+    # TODO test from mozaik_phone: test the inactivate of a partner and
+    # the propagation (need to be tested with somthing else than
+    # phone.coordinate, no dependecies between them)
+    def test_invalidate_partner(self):
+        """
+        When invalidating a partner all its coordinates have to be invalidated
+        :return: bool
+        """
+        partner_sandra = self.partner_sandra
+        phone_coordinate_model = self.phone_coordinate_model
+        phone_model = self.phone_model
+
+        nb_active_phone_coord = len(partner_sandra.phone_coordinate_ids)
+        self.assertEqual(nb_active_phone_coord, 1,
+                         'Wrong expected reference data for this test')
+        self.assertEqual(
+            partner_sandra.phone_coordinate_ids[0].coordinate_type,
+            'fax',
+            'Wrong expected reference data for this test')
+        nb_inactive_phone_coord = len(
+            partner_sandra.phone_coordinate_inactive_ids)
+        self.assertEqual(nb_inactive_phone_coord, 0,
+                         'Wrong expected reference data for this test')
+        # Add a coordinate to the partner
+        values = {
+            'name': '061785612',
+            'type': 'fix',
+        }
+        phone = phone_model.create(values)
+        coordinate = phone_coordinate_model.create({
+            'partner_id': partner_sandra.id,
+            'phone_id': phone.id,
+        })
+        self.assertTrue(coordinate, 'Create coordinate fails')
+        nb_active_phone_coord += 1
+
+        # Invalidate partner
+        partner_sandra.write({
+            'is_duplicate_detected': False,
+            'is_duplicate_allowed': False,
+            'active': False,
+            'expire_date': fields.datetime.now(),
+        })
+        self.assertEqual(len(partner_sandra.phone_coordinate_ids), 0,
+                         'Invalidate partner fails with active coordinates')
+        self.assertEqual(
+            len(partner_sandra.phone_coordinate_inactive_ids),
+            nb_active_phone_coord,
+            'Invalidate partner fails with too few inactive coordinates')

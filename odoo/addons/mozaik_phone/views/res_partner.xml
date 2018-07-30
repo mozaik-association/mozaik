@@ -4,43 +4,46 @@
 
 <odoo>
 
-    <record model="ir.ui.view" id="res_partner_form_view">
-        <field name="name">res.partner.form (in mozaik_phone)</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
-        <field name="arch" type="xml">
-
-            <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone" invisible="1"/>
-                <field name="fix_coordinate_id" />
-            </xpath>
-
-            <xpath expr="//field[@name='mobile']" position="replace">
-                <field name="mobile" invisible="1"/>
-                <field name="mobile_coordinate_id" />
-            </xpath>
-
-            <!-- TODO no fax in base -->
-            <!--<xpath expr="//field[@name='fax']" position="replace">-->
-                <!--<field name="fax_coordinate_id" />-->
-            <!--</xpath>-->
-        </field>
-    </record>
-
     <record model="ir.ui.view" id="res_partner_form_2_view">
         <field name="name">res.partner.form (in mozaik_phone)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="mozaik_coordinate.res_partner_form_view"/>
+        <field name="priority" eval="150"/>
         <field name="arch" type="xml">
-            <xpath expr="//separator[@name='phone']" position="replace">
-                <span name="phone" class="oe_horizontal_separator oe_clear oe_inline">
-                    Phone Coordinates
-                </span>
-                <button class="oe_right" string="All Details" name="%(phone_coordinate_act_window)d"
+
+            <xpath expr="//field[@name='phone']" position="attributes">
+                <attribute name="attrs">{'invisible': [('phone', '=', 'VIP')]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="fix_coordinate_id" attrs="{'invisible': [('phone', '!=', 'VIP')]}" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
+            </xpath>
+
+            <xpath expr="//field[@name='mobile']" position="attributes">
+                <attribute name="attrs">{'invisible': [('mobile', '=', 'VIP')]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='mobile']" position="after">
+                <field name="mobile_coordinate_id" attrs="{'invisible': [('mobile', '!=', 'VIP')]}" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
+
+                <field name="fax" attrs="{'invisible': [('fax', '=', 'VIP')]}"/>
+                <field name="fax_coordinate_id" attrs="{'invisible': [('fax', '!=', 'VIP')]}" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
+            </xpath>
+
+            <xpath expr="//button[@name='toggle_active']" position="before">
+
+                <button class="oe_stat_button" string="All Phones" icon="fa-phone" name="%(phone_coordinate_act_window)d"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
                         context="{'search_default_partner_id': active_id,
                                   'default_partner_id': active_id,
                                   'search_default_all': True}" />
+            </xpath>
+
+            <xpath expr="//page[@name='coordinates']" position="inside">
+                <span name="phone" class="oe_horizontal_separator oe_clear oe_inline">
+                    Phone Coordinates
+                </span>
+
                 <field name="phone_coordinate_ids" context="{'default_partner_id': active_id}"
                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                     <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
@@ -48,7 +51,7 @@
                         <field name="coordinate_category_id" />
                         <field name="is_main" />
                         <field name="unauthorized" />
-                        <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                        <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
                         <field name="failure_counter" attrs="{'invisible': [('failure_counter','=',0)]}" />
                         <field name="is_duplicate_detected" invisible="1"/>
                     </tree>
@@ -60,7 +63,7 @@
                         <field name="coordinate_category_id" />
                         <field name="is_main" />
                         <field name="unauthorized" />
-                        <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                        <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
                         <field name="failure_counter" attrs="{'invisible': [('failure_counter','=',0)]}" />
                     </tree>
                 </field>
