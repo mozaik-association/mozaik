@@ -1,56 +1,58 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from odoo import api, models
+from odoo import api, models, tools
+from odoo.fields import first
 
 
 class IrModel(models.Model):
-
     _inherit = 'ir.model'
 
     @api.model
     def _get_active_relations(self, objects, with_ids=False):
-        self = self.sudo()  # TODO
-
-        # force active_test in context to be sure to not retrieve inactive
-        # documents later in this method
-        # TODO ir.model.fields doesn't have a active field, so I set the
-        # TODO context here to profit of it in the for loop below, but it need
-        # TODO to be verified
-        # TODO ctx was previously used for active_dep_ids = model.search(
+        self = self.sudo()
         imf_obj = self.env['ir.model.fields'].with_context(active_test=True)
-
-        relations = imf_obj.search(
-            [('relation', '=', objects._name), ('ttype', '=', 'many2one')])
+        model_name = first(objects)._name
+        relations = imf_obj.search([
+            ('relation', '=', model_name),
+            ('ttype', '=', 'many2one'),
+        ])
 
         results = {}
         for record in objects:
             relation_models = {}
             for relation in relations:
-                model = relation.model_id
-                if not model:
+                model_obj = self.env.get(relation.model_id.model)
+                if not isinstance(model_obj, models.BaseModel):
                     continue
-                if not model._auto or model._transient:
+                if not tools.table_exists(self.env.cr, model_obj._table):
                     continue
-                if not model._fields.get(relation.name):
+                if not model_obj._auto or model_obj._transient:
                     continue
-                if not model._fields.get('active'):
+                if not model_obj._fields.get(relation.name):
+                    continue
+                if not model_obj._fields.get('active'):
                     continue
 
-                col = model._fields[relation.name]
-                if hasattr(col, 'store') and not col.store:
+                field = model_obj._fields.get(relation.name)
+                if hasattr(field, 'store') and not field.store:
                     continue
-                if hasattr(model, '_allowed_inactive_link_models'):
-                    if record._name in model._allowed_inactive_link_models:
+                if hasattr(model_obj, '_allowed_inactive_link_models'):
+                    if record._name in model_obj._allowed_inactive_link_models:
                         continue
 
-                active_dep_ids = model.search(
-                    [(relation.name, '=', record.id)])
+                domain = [
+                    (relation.name, '=', record.id),
+                ]
+                # In case of the relation is the same model than given object,
+                # we have to add a domain to avoid infinite loop
+                if model_obj._name == model_name:
+                    domain.append(('id', 'not in', objects.ids))
+                active_dep_ids = model_obj.search(domain)
 
                 if active_dep_ids:
                     if with_ids:
                         relation_models.update({
-                            relation.model: active_dep_ids
+                            relation.model: active_dep_ids,
                         })
                         results.update({record.id: relation_models})
                     else:
@@ -60,11 +62,9 @@ class IrModel(models.Model):
 
     @api.model
     def _get_relation_column_name(self, model_name, relation_model_name):
-        relations = self.env['ir.model.fields'].search(
-            [('model', '=', model_name),
-             ('relation', '=', relation_model_name),
-             ('ttype', '=', 'many2one')])
-        if relations:
-            return relations[0].name
-
-        return False
+        relations = self.env['ir.model.fields'].search([
+            ('model', '=', model_name),
+            ('relation', '=', relation_model_name),
+            ('ttype', '=', 'many2one'),
+        ], limit=1)
+        return relations.name
