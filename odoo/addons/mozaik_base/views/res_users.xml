@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_users_form_simple_modif" model="ir.ui.view">
+        <field name="name">res.users.preferences.form (mozaik_base)</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='preference_change_password']" position="attributes">
+                <attribute name="groups" translation="off">mozaik_base.res_groups_mozaik_developer</attribute>
+            </xpath>
+            <xpath expr="//field[@name='email']" position="attributes">
+                <attribute name="groups" translation="off">mozaik_base.res_groups_mozaik_developer</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

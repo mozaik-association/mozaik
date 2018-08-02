@@ -1,5 +1,6 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from odoo import exceptions, models
 
 
 class CommonMozaikAbstractModel(object):
@@ -17,6 +18,10 @@ class CommonMozaikAbstractModel(object):
         self.trigger1 = None
         self.child1 = None
         self.child2 = None
+        # To avoid pylint error, use an empty list as default value
+        self.invalidate_success = []
+        self.invalidate_fails = []
+        self.validates = []
 
     def _check_before_tests(self):
         """
@@ -81,4 +86,41 @@ class CommonMozaikAbstractModel(object):
         self.assertTrue(self.trigger1.active)
         self.assertFalse(self.child1.active)
         self.assertFalse(self.child2.active)
+        return True
+
+    def test_action_invalidate_success(self):
+        """
+        Test an invalidate who should work
+        :return: bool
+        """
+        # Ensure test correctly implemented
+        self.assertIsInstance(self.validates, models.BaseModel)
+        result = self.invalidate_success.action_invalidate()
+        self.assertTrue(result)
+        for inv_success in self.invalidate_success:
+            self.assertFalse(inv_success.active)
+            self.assertTrue(bool(inv_success.expire_date))
+        return True
+
+    def test_action_invalidate_fail(self):
+        """
+        Test an invalidate who shouldn't work
+        :return: bool
+        """
+        with self.assertRaises(exceptions.ValidationError):
+            self.invalidate_fails.action_invalidate()
+        return True
+
+    def test_action_revalidate_success(self):
+        """
+        Test a revalidation who should work
+        :return: bool
+        """
+        # Ensure test correctly implemented
+        self.assertIsInstance(self.validates, models.BaseModel)
+        result = self.validates.action_revalidate()
+        self.assertTrue(result)
+        for validate in self.validates:
+            self.assertTrue(validate.active)
+            self.assertFalse(bool(validate.expire_date))
         return True

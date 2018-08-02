@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <menuitem
+            id="mozaik_main_menu"
+            name="Mozaik"
+            sequence="25"
+            web_icon="mozaik_base,static/description/icon.png"
+    />
+     <menuitem
+            id="mozaik_person_menu"
+            name="Persons"
+            sequence="10"
+            parent="mozaik_main_menu"
+    />
+     <menuitem
+            id="mozaik_partner_tags_menu"
+            sequence="50"
+            action="base.action_partner_category_form"
+            parent="mozaik_person_menu"
+    />
+     <menuitem
+            id="mozaik_configuration_menu"
+            name="Configuration"
+            sequence="250"
+            parent="mozaik_main_menu"
+            groups="mozaik_base.mozaik_res_groups_configurator"
+    />
+     <menuitem
+            id="mozaik_configuration_person_menu"
+            name="Persons"
+            sequence="40"
+            parent="mozaik_configuration_menu"
+    />
+     <menuitem
+            id="mozaik_configuration_person_title_menu"
+            action="base.action_partner_title_contact"
+            sequence="10"
+            name="Titles"
+            parent="mozaik_configuration_person_menu"
+    />
+     <menuitem
+            id="mozaik_configuration_localisation_menu"
+            name="Localisation"
+            sequence="50"
+            parent="mozaik_configuration_menu"
+    />
+     <menuitem
+            id="mozaik_configuration_localisation_country_menu"
+            sequence="10"
+            name="Countries"
+            parent="mozaik_configuration_localisation_menu"
+            action="base.action_country"
+    />
+</odoo>
