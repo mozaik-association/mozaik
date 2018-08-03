@@ -32,7 +32,7 @@ class MozaikAbstractModel(models.AbstractModel):
         Create unit index based on models who implements this abstract model.
         :return:
         """
-        result = super(MozaikAbstractModel, self).init()
+        result = super().init()
         if not self._auto or self._unicity_keys == 'N/A':
             if not self._unicity_keys:
                 _logger.warning('No _unicity_keys specified for model %s',
@@ -97,7 +97,7 @@ class MozaikAbstractModel(models.AbstractModel):
                     })
                 if self._inactive_cascade:
                     self._invalidate_active_relations()
-        return super(MozaikAbstractModel, self).write(vals)
+        return super().write(vals)
 
     @api.multi
     def action_invalidate(self, vals=None):
