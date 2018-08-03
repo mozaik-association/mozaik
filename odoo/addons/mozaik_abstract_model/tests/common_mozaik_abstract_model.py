@@ -27,7 +27,7 @@ class CommonMozaikAbstractModel(object):
         """
         Do some check before start tests.
         To ensure data required are correctly initialized
-        :return: bool
+        :return:
         """
         # Ensure correctly implemented
         self.assertTrue(self.trigger1._inactive_cascade)
@@ -38,13 +38,13 @@ class CommonMozaikAbstractModel(object):
         self.assertTrue(self.trigger1)
         self.assertTrue(self.child1)
         self.assertTrue(self.child2)
-        return True
+        return
 
     def test_disable_cascade1(self):
         """
         Test the abstract model to ensure that 'children' are correctly
         disabled (active = False)
-        :return: bool
+        :return:
         """
         self._check_before_tests()
         # Ensure both are active = True
@@ -59,13 +59,13 @@ class CommonMozaikAbstractModel(object):
         self.assertFalse(self.trigger1.active)
         self.assertFalse(self.child1.active)
         self.assertFalse(self.child2.active)
-        return True
+        return
 
     def test_disable_cascade2(self):
         """
         Test that 'children' are not reactivate when the 'master' re-become
         active = True
-        :return: bool
+        :return:
         """
         self._check_before_tests()
         # Ensure both are active = True
@@ -86,12 +86,12 @@ class CommonMozaikAbstractModel(object):
         self.assertTrue(self.trigger1.active)
         self.assertFalse(self.child1.active)
         self.assertFalse(self.child2.active)
-        return True
+        return
 
     def test_action_invalidate_success(self):
         """
         Test an invalidate who should work
-        :return: bool
+        :return:
         """
         # Ensure test correctly implemented
         self.assertIsInstance(self.validates, models.BaseModel)
@@ -100,23 +100,23 @@ class CommonMozaikAbstractModel(object):
         for inv_success in self.invalidate_success:
             self.assertFalse(inv_success.active)
             self.assertTrue(bool(inv_success.expire_date))
-        return True
+        return
 
     def test_action_invalidate_fail(self):
         """
         Test an invalidate who shouldn't work
-        :return: bool
+        :return:
         """
         # Ensure test correctly implemented
         self.assertIsInstance(self.invalidate_fails, models.BaseModel)
         with self.assertRaises(exceptions.ValidationError):
             self.invalidate_fails.action_invalidate()
-        return True
+        return
 
     def test_action_revalidate_success(self):
         """
         Test a revalidation who should work
-        :return: bool
+        :return:
         """
         # Ensure test correctly implemented
         self.assertIsInstance(self.validates, models.BaseModel)
@@ -125,4 +125,4 @@ class CommonMozaikAbstractModel(object):
         for validate in self.validates:
             self.assertTrue(validate.active)
             self.assertFalse(bool(validate.expire_date))
-        return True
+        return

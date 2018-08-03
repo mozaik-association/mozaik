@@ -22,9 +22,11 @@ class MozaikAbstractModel(models.AbstractModel):
         readonly=True,
         default=False,
         track_visibility='onchange',
+        copy=False,
     )
     active = fields.Boolean(
         default=True,
+        copy=False,
     )
 
     def init(self):
@@ -160,7 +162,7 @@ class MozaikAbstractModel(models.AbstractModel):
                     _logger.info(
                         'Remaining active m2o for %s(%s): %s',
                         self._name, k, v)
-                raise ValidationError(_('Impossible invalidation: at least '
+                raise ValidationError(_('Invalidation not allowed: at least '
                                         'one dependency is still active'))
 
     @api.multi
