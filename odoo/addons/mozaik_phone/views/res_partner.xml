@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form (in mozaik_phone)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='phone']" position="replace">
+                <field name="phone" invisible="1"/>
+                <field name="fix_coordinate_id" />
+            </xpath>
+
+            <xpath expr="//field[@name='mobile']" position="replace">
+                <field name="mobile" invisible="1"/>
+                <field name="mobile_coordinate_id" />
+            </xpath>
+
+            <!-- TODO no fax in base -->
+            <!--<xpath expr="//field[@name='fax']" position="replace">-->
+                <!--<field name="fax_coordinate_id" />-->
+            <!--</xpath>-->
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_form_2_view">
+        <field name="name">res.partner.form (in mozaik_phone)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mozaik_coordinate.res_partner_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//separator[@name='phone']" position="replace">
+                <span name="phone" class="oe_horizontal_separator oe_clear oe_inline">
+                    Phone Coordinates
+                </span>
+                <button class="oe_right" string="All Details" name="%(phone_coordinate_act_window)d"
+                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                        context="{'search_default_partner_id': active_id,
+                                  'default_partner_id': active_id,
+                                  'search_default_all': True}" />
+                <field name="phone_coordinate_ids" context="{'default_partner_id': active_id}"
+                       attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                    <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
+                        <field name="phone_id"/>
+                        <field name="coordinate_category_id" />
+                        <field name="is_main" />
+                        <field name="unauthorized" />
+                        <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                        <field name="failure_counter" attrs="{'invisible': [('failure_counter','=',0)]}" />
+                        <field name="is_duplicate_detected" invisible="1"/>
+                    </tree>
+                </field>
+                <field name="phone_coordinate_inactive_ids"
+                       readonly="1" attrs="{'invisible': [('active','=',True)]}">
+                    <tree decoration-danger="unauthorized==True">
+                        <field name="phone_id"/>
+                        <field name="coordinate_category_id" />
+                        <field name="is_main" />
+                        <field name="unauthorized" />
+                        <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                        <field name="failure_counter" attrs="{'invisible': [('failure_counter','=',0)]}" />
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_tree_view">
+        <field name="name">res.partner.tree (in mozaik_phone)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="mobile" invisible="context.get('default_is_company')"/>
+                <field name="fax" invisible="not context.get('default_is_company')"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

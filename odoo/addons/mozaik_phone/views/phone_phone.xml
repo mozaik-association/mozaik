@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="phone_phone_form_view">
+        <field name="name">phone.phone.form (in mozaik_phone)</field>
+        <field name="model">phone.phone</field>
+        <field name="arch" type="xml">
+            <form string="Phone">
+                <header/>
+                <sheet>
+                    <div class="oe_title"  name="title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" placeholder="+32 476 81 37 00" /></h1>
+                    </div>
+                    <div class="oe_right oe_button_box" name="buttons" />
+
+                    <group name="data">
+                        <group name="main">
+                            <field name="type" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" />
+                        </group>
+                        <group name="other">
+                            <field name="also_for_fax"  attrs="{'invisible': [('type','!=','fix')]}" />
+                        </group>
+                    </group>
+
+                    <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                        <group name="validity">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                        </group>
+                        <group name="other" />
+                    </group>
+
+                    <notebook invisible="context.get('popup')"> <!-- TODO popup -->
+                        <page name="coordinates" string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                            <button string="All Details"
+                                    name="%(phone_coordinate_act_window)d"
+                                    type="action"
+                                    context="{'search_default_phone_id': active_id,
+                                              'default_phone_id': active_id,
+                                              'search_default_all': True}"/>
+                            <field name="phone_coordinate_ids" context="{'default_phone_id': id}">
+                                <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
+                                    <field name="partner_id"/>
+                                    <field name="coordinate_category_id" />
+                                    <field name="is_main" />
+                                    <field name="unauthorized" />
+                                    <field name="vip" /><!--TODO groups="mozaik_base.mozaik_res_groups_vip_reader" />-->
+                                    <field name="is_duplicate_detected" invisible="1"/>
+                                </tree>
+                            </field>
+                            <field name="phone_coordinate_inactive_ids"
+                                   readonly="1" attrs="{'invisible': [('active','=',True)]}">
+                                <tree decoration-danger="unauthorized==True">
+                                    <field name="partner_id"/>
+                                    <field name="coordinate_category_id" />
+                                    <field name="is_main" />
+                                    <field name="unauthorized" />
+                                    <field name="vip" /><!--TODO groups="mozaik_base.mozaik_res_groups_vip_reader" />-->
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- TODO -->
+                <div name="dev" class="oe_form_sheetbg"> <!--TODO groups="mozaik_base.res_groups_developper">-->
+                    <div class="oe_formview oe_form_sheet_width">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="id"/>
+                            <field name="active"/>
+                        </group>
+                    </div>
+                </div>
+                <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                    <field name="message_follower_ids" widget="mail_followers" /> <!--TODO groups="mozaik_base.mozaik_res_groups_configurator"/>-->
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="phone_phone_search_view">
+        <field name="name">phone.phone.search (in mozaik_phone)</field>
+        <field name="model">phone.phone</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="type" />
+
+                <filter name="malformed" string="Malformed Phones" domain="[('name','not like',' % ')]"/>
+                <separator/>
+                <filter name="phones" string="Phones" domain="[('type','in',['fix','mobile'])]" />
+                <filter name="faxes" string="Faxes" domain="['|',('type','=','fax'),('also_for_fax','=',True)]" />
+
+                <group expand="1" string="Group By..." name="group_by">
+                    <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="phone_phone_tree_view">
+        <field name="name">phone.phone.tree (in mozaik_phone)</field>
+        <field name="model">phone.phone</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="type" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="phone_phone_act_window">
+        <field name="name">Phones</field>
+        <field name="res_model">phone.phone</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <!--<field name="view_id" ref="phone_phone_tree_view" /> TODO should be non necessary-->
+        <!--<field name="search_view_id" ref="phone_phone_search_view" />-->
+    </record>
+
+    <record model="ir.ui.menu" id="phone_phone_menu">
+        <field name="name">Phone Phone</field>
+        <field name="parent_id" ref="phone_coordinate_submenu"/>
+        <field name="action" ref="phone_phone_act_window"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+</odoo>

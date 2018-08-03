@@ -23,5 +23,6 @@
 #
 ##############################################################################
 
-from . import abstract_duplicate
-from . import wizard
+# from . import abstract_duplicate
+# from . import wizard
+from . import models

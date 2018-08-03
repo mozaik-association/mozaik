@@ -77,3 +77,8 @@ target/
 #Temporary ODT
 *.~*odt*
 
+acsoo.cfg
+freeze.sh
+gitaggregate.yaml
+requirements-find-links.txt
+requirements.txt

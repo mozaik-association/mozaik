@@ -23,6 +23,8 @@
 #
 ##############################################################################
 
-from . import phone_phone
-from . import res_partner
-from . import wizard
+# from . import phone_phone
+# from . import res_partner
+# from . import wizard
+from . import models
+from . import models

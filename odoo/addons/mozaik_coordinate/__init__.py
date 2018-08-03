@@ -23,6 +23,8 @@
 #
 ##############################################################################
 
-from . import coordinate_category
-from . import abstract_coordinate
-from . import wizard
+# from . import coordinate_category
+# from . import abstract_coordinate
+# from . import wizard
+from . import models
+from . import wizards

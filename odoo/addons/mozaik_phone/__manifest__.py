@@ -10,6 +10,10 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'base',
+        'mail',
+        'contacts',  # TODO temporary for menu
+        'mozaik_abstract_model',
         'mozaik_coordinate',
     ],
     'description': """
@@ -27,17 +31,17 @@ Numbers are normalized regarding the external python library: phonenumbers
     'images': [
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'security/phone_security.xml',
+        'views/phone_coordinate.xml',
+        'views/phone_phone.xml',
+        'views/res_partner.xml',
+        # 'security/ir.model.access.csv', TODO
+        # 'security/phone_security.xml',
         'data/ir_config_parameter_data.xml',
         'data/phone_phone_data.xml',
-        'phone_phone_view.xml',
-        'coordinate_category_view.xml',
-        'res_partner_view.xml',
-        'wizard/change_main_phone.xml',
-        'wizard/allow_duplicate_view.xml',
-        'wizard/bounce_editor_view.xml',
-        'wizard/change_phone_type.xml',
+        # 'wizard/change_main_phone.xml', TODO
+        # 'wizard/allow_duplicate_view.xml',
+        # 'wizard/bounce_editor_view.xml',
+        # 'wizard/change_phone_type.xml',
     ],
     'qweb': [
     ],
@@ -46,5 +50,5 @@ Numbers are normalized regarding the external python library: phonenumbers
     'test': [
     ],
     'license': 'AGPL-3',
-    'installable': False,
+    'installable': True,
 }
