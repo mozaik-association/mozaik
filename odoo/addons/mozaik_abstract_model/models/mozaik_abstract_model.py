@@ -34,7 +34,7 @@ class MozaikAbstractModel(models.AbstractModel):
         """
         result = super().init()
         if not self._auto or self._unicity_keys == 'N/A':
-            if not self._unicity_keys:
+            if self._auto and not self._unicity_keys:
                 _logger.warning('No _unicity_keys specified for model %s',
                                 self._name)
             return result
