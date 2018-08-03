@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
 from uuid import uuid4
+import odoo
 from odoo.tests.common import TransactionCase
 from odoo import api, fields, models
 from .common_mozaik_abstract_model import CommonMozaikAbstractModel
@@ -75,13 +76,26 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
     Tests for mozaik.abstract.model
     """
 
-    def _init_test_models(self, models_cls):
+    def _get_odoo_models(self):
+        """
+        Get Odoo models to update/instantiate
+        :return: list
+        """
+        return [TestChildModel, ResPartner, TestAnotherModel]
+
+    def _get_odoo_models_exist(self):
+        """
+        Get existing Odoo models to update/instantiate
+        :return: list
+        """
+        return [ResPartner]
+
+    def _init_test_models(self):
         """
         Function to init/create a new Odoo Model during unit test.
-        :param models_cls: list of Odoo Models
         :return: bool
         """
-        models_cls = [TestChildModel, ResPartner, TestAnotherModel]
+        models_cls = self._get_odoo_models()
         registry = self.env.registry
         cr = self.env.cr
         # Get the logger of the registry to disable logs who say that the
@@ -98,14 +112,26 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         return True
 
     def setUp(self):
+        registry = odoo.registry()
+        registry_fields = {}
+        for OdooModel in self._get_odoo_models_exist():
+            registry_fields.update({
+                OdooModel._name: set(registry[OdooModel._name]._fields)
+            })
         super(TestMozaikAbstractModel, self).setUp()
-        registry = self.env.registry
+
+        @self.addCleanup
+        def reset():
+            # reset registry and env
+            registry._clear_cache()
+            registry.clear_caches()
+            registry.reset_changes()
+            self.env.reset()
         # We must be in test mode before create/init new models
         registry.enter_test_mode()
         # Add the cleanup to disable test mode after this setup as finished
-        self.addCleanup(self.registry.leave_test_mode)
-        models_cls = [TestChildModel, ResPartner]
-        self._init_test_models(models_cls)
+        self.addCleanup(registry.leave_test_mode)
+        self._init_test_models()
         # Concrete Odoo models who inherit mozaik.abstract.model
         self.implemented_mozaik_abstract_obj = self.env[
             ResPartner._name]

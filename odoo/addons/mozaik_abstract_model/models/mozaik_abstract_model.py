@@ -15,7 +15,7 @@ class MozaikAbstractModel(models.AbstractModel):
 
     _allowed_inactive_link_models = []
     _inactive_cascade = False
-    _unicity_keys = 'N/A'
+    _unicity_keys = None
 
     expire_date = fields.Datetime(
         'Expiration Date',
@@ -89,7 +89,7 @@ class MozaikAbstractModel(models.AbstractModel):
         if 'active' in vals:
             mode = 'activate' if vals.get('active') else 'deactivate'
             expire_date = vals.get('expire_date')
-            vals.update(self.get_fields_to_update(mode))
+            vals.update(self._get_fields_to_update(mode))
             if mode == 'deactivate':
                 if expire_date:
                     vals.update({
@@ -102,28 +102,27 @@ class MozaikAbstractModel(models.AbstractModel):
     @api.multi
     def action_invalidate(self, vals=None):
         """
-        Invalidates an object
-        Note: Argument vals must be the last in the signature
+        Invalidates a recordset
         :param vals: dict
         :return: bool
         """
         vals = vals or {}
-        vals.update(self.get_fields_to_update('deactivate'))
+        vals.update(self._get_fields_to_update('deactivate'))
         return self.write(vals)
 
     @api.multi
     def action_revalidate(self, vals=None):
         """
-        Reactivates an object by setting
+        Reactivates a recordset
         :param vals: dict
         :return: bool
         """
         vals = vals or {}
-        vals.update(self.get_fields_to_update('activate'))
+        vals.update(self._get_fields_to_update('activate'))
         return self.write(vals)
 
     @api.model
-    def get_fields_to_update(self, mode):
+    def _get_fields_to_update(self, mode):
         """
         Depending on a mode, builds a dictionary allowing to update validity
         fields
@@ -145,7 +144,7 @@ class MozaikAbstractModel(models.AbstractModel):
 
     @api.multi
     @api.constrains('expire_date')
-    def _constrain_invalidate(self):
+    def _check_invalidate(self):
         """
         Check if record can be deactivated, dependencies must be deactivated
         before
