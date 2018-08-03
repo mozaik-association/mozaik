@@ -22,20 +22,39 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import testtool
-from . import url
-from . import ir_model
-from . import ir_import
-from . import res_lang
-from . import res_users
-from . import res_partner
-from . import mail_message
-from . import selections_translator
-from . import document
-from . import more_index
-from . import ir_cron
-from . import ir_rule
-from . import mail_mail
-from . import abstract_model
-from . import base_tools
-from . import mail_followers
+
+import logging
+
+from urllib import urlencode
+from urlparse import urljoin
+
+_logger = logging.getLogger(__name__)
+
+
+def get_document_url(self, cr, uid, model, object_id, context=None):
+        """
+        ================
+        get_document_url
+        ================
+        Builds the Url to a document
+        :type model: string
+        :param model: model technical name
+        :type object_id: integer
+        :param object_id: document id
+        :rtype: string
+        :rparam: document url
+        """
+        base_url = self.pool['ir.config_parameter'].get_param(
+            cr, uid, 'web.base.url')
+        # the parameters to encode for the query and fragment part of url
+        query = {
+            'db': cr.dbname,
+        }
+        fragment = {
+            'action': 'mail.action_mail_redirect',
+            'model': model,
+            'res_id': object_id,
+        }
+        url = urljoin(
+            base_url, "?%s#%s" % (urlencode(query), urlencode(fragment)))
+        return url

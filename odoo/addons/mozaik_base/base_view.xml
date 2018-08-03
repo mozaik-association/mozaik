@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Add web resources -->
+
+        <template id="assets_backend" name="backend_mozaik_base" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/mozaik_base/static/src/css/backend_mozaik_base.css"/>
+                <script type="text/javascript" src="/mozaik_base/static/src/js/mozaik_base.js"></script>
+            </xpath>
+        </template>
+
+        <template id="theme" name="frontend_mozaik_base" inherit_id="website.theme">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/mozaik_base/static/src/css/frontend_mozaik_base.css"/>
+            </xpath>
+        </template>
+
+        <template id="footer_default" inherit_id="website.footer_default"
+            name="Automatic Footer (mozaik_base)">
+            <xpath expr="//div[@class='container hidden-print']" position="replace">
+                <div class="container hidden-print">
+                    <div class="row">
+                        <div class="col-md-5 col-lg-offset-1 pull-right" >
+                           <ul class="list-inline js_language_selector mt16" t-if="(request.website_multilang and len(languages) &gt; 1) or editable">
+                                <li t-foreach="languages" t-as="lg">
+                                    <a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang=lg[0])" t-att-data-default-lang="editable and 'true' if lg[0] == website.default_lang_code else None">
+                                     <t t-esc="lg[1].split('/').pop()"/></a>
+                                </li>
+                                <li groups="base.group_website_publisher">
+                                    <t t-set="url_return" t-value="url_for('', '[lang]') + '?' + keep_query()"/>
+                                    <a t-attf-href="/web#action=base.action_view_base_language_install&amp;website_id=#{website.id}&amp;url_return=#{url_return}">
+                                    <i class="fa fa-plus-circle"/>
+                                    Add a language...
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="layout_footer_copyright" inherit_id="website.layout_footer_copyright"
+            name="Footer Copyright (mozaik_base)">
+            <xpath expr="//div[@class='container mt16 mb8']" position="replace" />
+        </template>
+
+        <!-- Persons -->
+
+        <menuitem id="persons_root_menu" name="Persons"
+                  sequence="10" groups="res_groups_base" />
+
+        <menuitem id="persons_configuration_submenu" name="Configuration"
+                  sequence="99" parent="persons_root_menu" groups="mozaik_base.mozaik_res_groups_configurator" />
+
+        <menuitem id="localization_submenu" name="Localization"
+                  sequence="40" parent="persons_configuration_submenu" />
+
+        <menuitem id="persons_titles_submenu" name="Titles"
+                  sequence="60" parent="persons_configuration_submenu" />
+
+        <!-- Membership -->
+
+        <menuitem id="membership_root_menu" name="Membership"
+                  sequence="12" groups="res_groups_base"/>
+
+        <!-- Communication -->
+
+        <menuitem id="communication_root_menu" name="Communication"
+                  sequence="14" groups="res_groups_base"/>
+
+        <!-- Mandates -->
+
+        <menuitem id="mandates_root_menu" name="Mandates"
+                  sequence="30" groups="res_groups_base" />
+
+        <!-- Structures -->
+
+        <menuitem id="structures_root_menu" name="Structures"
+                  sequence="32" groups="res_groups_base" />
+
+        <!-- Re-base standard menus -->
+
+        <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
+                  sequence="50" parent="persons_configuration_submenu" />
+
+        <menuitem id="res_country_menu" action="base.action_country"
+                  sequence="50" parent="localization_submenu" />
+
+        <menuitem id="res_partner_natural_title_menu" action="base.action_partner_title_contact"
+                  sequence="10" parent="persons_titles_submenu" />
+
+        <menuitem id="res_partner_legal_title_menu" action="base.action_partner_title_partner"
+                  sequence="20" parent="persons_titles_submenu" />
+
+        <record id="mail.mail_feeds" model="ir.ui.menu">
+            <field name="parent_id" ref="communication_root_menu" />
+            <field name="sequence">5</field>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_user'),
+            ])]" />
+        </record>
+
+        <record id="help_online.menu_help_main" model="ir.ui.menu">
+            <field name="name">Help</field>
+            <field name="sequence">390</field>
+            <field name="groups_id" eval="[(5, 0, 0)]" />
+        </record>
+
+        <record id="help_online.menu_help" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5, 0, 0)]" />
+        </record>
+
+        <record id="help_toc_action" model="ir.actions.act_url">
+            <field name="name">Table of Contents</field>
+            <field name="url">/page/mozaik-help-toc</field>
+            <field name="target">self</field>
+        </record>
+
+        <menuitem id="help_toc_menu" action="help_toc_action"
+                  name="Table of Contents"
+                  sequence="50" parent="help_online.menu_help"
+                  groups="help_online.help_online_group_reader" />
+
+        <record id="event.act_register_event_partner" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_user'),
+            ])]" />
+        </record>
+
+        <!-- Hide standard menus -->
+
+        <record id="mail.mail_feeds_main" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
+        </record>
+
+        <record id="base.marketing_menu" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
+        </record>
+
+        <!-- Hide standard actions -->
+
+        <record id="distribution_list.action_view_distribution_list_add_filter" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
+        </record>
+
+        <record id="document.act_res_partner_document" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
+        </record>
+
+        <!-- Update user form -->
+
+        <record id="sales_team.res_user_form" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+        </record>
+
+        <record id="mail.view_users_form_mail" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+        </record>
+
+        <!-- Update Preferences form -->
+
+        <record id="sales_team.view_users_form_preferences" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+        </record>
+
+        <record id="mail.view_users_form_simple_modif_mail" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+        </record>
+
+        <record id="view_users_form_simple_modif" model="ir.ui.view">
+            <field name="name">res.users.preferences.form (mozaik_base)</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='preference_change_password']" position="attributes">
+                    <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="attributes">
+                    <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="base.user_groups_view" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('base.group_erp_manager'),
+            ])]" />
+        </record>
+
+        <!-- Messages form -->
+
+        <record id="view_message_form" model="ir.ui.view">
+            <field name="name">mail.message.form (mozaik_base)</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='res_id']" position="after">
+                    <field name="record_name" readonly="1"
+                           attrs="{'invisible': ['|',('record_name', '=', False),('parent_id', '!=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='subtype_id']" position="after">
+                    <field name="message_id" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='body']" position="after">
+                    <separator string="Attachments"/>
+                    <field name="attachment_ids"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Email form -->
+
+        <record model="ir.ui.view" id="view_mail_form">
+            <field name="name">mail.mail.form (mozaik_base)</field>
+            <field name="model">mail.mail</field>
+            <field name="inherit_id" ref="mail.view_mail_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='message_id']" position="after">
+                    <field name="mail_message_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Export Translations form -->
+
+        <record id="wizard_lang_export" model="ir.ui.view">
+            <field name="name">Export Translations (mozaik_base)</field>
+            <field name="model">base.language.export</field>
+            <field name="inherit_id" ref="base.wizard_lang_export"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@states='get']" position="after">
+                    <div class="oe_clear" states="choose">
+                        <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

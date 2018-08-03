@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Force this view to be evaluated first before all other views -->
+        <record id="partner_firstname.view_partner_form_firstname" model="ir.ui.view">
+            <field name="priority" eval="5"/>
+        </record>
+
+        <!-- Portal Access: not for Partner Creation group, only for developpers -->
+        <record id="portal.partner_wizard_action" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.res_groups_developper')]),
+                                          ]" />
+        </record>
+
+        <!-- Partner Mass Mailing: only for developpers -->
+        <record id="base.action_partner_mass_mail" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.res_groups_developper')]),
+                                          ]" />
+        </record>
+
+    </data>
+</openerp>

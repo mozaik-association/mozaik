@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+
+    <data noupdate="0">
+        <record id="auth_admin_passkey.send_to_admin" model="ir.config_parameter">
+            <field name="value">False</field>
+        </record>
+
+        <record id="auth_admin_passkey.send_to_user" model="ir.config_parameter">
+            <field name="value">False</field>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <record id="filestore_ir_config" model="ir.config_parameter">
+            <field name="key">ir_attachment.location</field>
+            <field name="value">file:filestore</field>
+        </record>
+        <record id="workers_pivot" model="ir.config_parameter">
+            <field name="key">worker_pivot</field>
+            <field name="value">10</field>
+        </record>
+    </data>
+
+
+</openerp>

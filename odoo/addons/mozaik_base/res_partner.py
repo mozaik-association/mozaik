@@ -22,20 +22,33 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import testtool
-from . import url
-from . import ir_model
-from . import ir_import
-from . import res_lang
-from . import res_users
-from . import res_partner
-from . import mail_message
-from . import selections_translator
-from . import document
-from . import more_index
-from . import ir_cron
-from . import ir_rule
-from . import mail_mail
-from . import abstract_model
-from . import base_tools
-from . import mail_followers
+
+from openerp.osv import orm
+
+
+class res_partner(orm.Model):
+
+    _inherit = 'res.partner'
+
+    # Do not launch workflow if not yet ready for
+    _enable_wkf = False
+
+# orm methods
+
+    def create_workflow(self, cr, uid, ids, context=None):
+        """
+        Do not launch workflow if not yet ready for
+        """
+        if self._enable_wkf:
+            return super(res_partner, self).create_workflow(
+                cr, uid, ids, context=context)
+        return True
+
+    def step_workflow(self, cr, uid, ids, context=None):
+        """
+        Do not reevaluate workflow if not yet ready for
+        """
+        if self._enable_wkf:
+            return super(res_partner, self).step_workflow(
+                cr, uid, ids, context=context)
+        return True

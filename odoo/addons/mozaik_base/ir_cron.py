@@ -22,20 +22,30 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import testtool
-from . import url
-from . import ir_model
-from . import ir_import
-from . import res_lang
-from . import res_users
-from . import res_partner
-from . import mail_message
-from . import selections_translator
-from . import document
-from . import more_index
-from . import ir_cron
-from . import ir_rule
-from . import mail_mail
-from . import abstract_model
-from . import base_tools
-from . import mail_followers
+
+import openerp
+import openerp.tools as tools
+
+original_acquire_job = openerp.addons.base.ir.ir_cron.ir_cron._acquire_job
+
+
+class ir_cron(openerp.addons.base.ir.ir_cron.ir_cron):
+
+    @classmethod
+    def _acquire_job(cls, db_name):
+        '''
+        Avoid annoying traces in console when debugging server
+        at a low applicative level
+        '''
+        res = False
+        go = True
+        # go = False
+        if tools.config.options.get('log_level', '') in ['debug_sql']:
+            go = False
+        elif tools.config.options.get('deactivate_cron', '0') == '1':
+            go = False
+        if go:
+            res = original_acquire_job(db_name)
+        return res
+
+openerp.addons.base.ir.ir_cron.ir_cron._acquire_job = ir_cron._acquire_job

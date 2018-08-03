@@ -22,20 +22,33 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import testtool
-from . import url
-from . import ir_model
-from . import ir_import
-from . import res_lang
-from . import res_users
-from . import res_partner
-from . import mail_message
-from . import selections_translator
-from . import document
-from . import more_index
-from . import ir_cron
-from . import ir_rule
-from . import mail_mail
-from . import abstract_model
-from . import base_tools
-from . import mail_followers
+
+import openerp.tools as tools
+from openerp.osv import orm
+
+
+class ir_rule(orm.Model):
+
+    _inherit = 'ir.rule'
+
+    @tools.ormcache()
+    def _compute_domain(self, cr, uid, model_name, mode="read"):
+        '''
+        Transform domain ('x', 'child_of', []) always evaluated to True (!)
+        to the False domain
+        '''
+        dom = super(ir_rule, self)._compute_domain(
+            cr, uid, model_name, mode=mode)
+        if dom:
+            dom = isinstance(dom, list) and dom or list(dom)
+            ind = 0
+            for d in dom:
+                if not isinstance(d, str) and len(d) == 3:
+                    if d[1] == 'child_of' and not d[2]:
+                        dom[ind] = (0, '=', 1)
+                ind += 1
+        return dom
+
+    def clear_cache(self, cr, uid):
+        super(ir_rule, self)._compute_domain.clear_cache(self)
+        self._compute_domain.clear_cache(self)
