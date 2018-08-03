@@ -4,7 +4,7 @@ import logging
 from uuid import uuid4
 import odoo
 from odoo.tests.common import TransactionCase
-from odoo import fields, models
+from odoo import api, fields, models
 from .common_mozaik_abstract_model import CommonMozaikAbstractModel
 
 
@@ -34,6 +34,41 @@ class TestChildModel(models.Model):
         "Partner",
         required=True,
     )
+
+
+class TestAnotherModel(models.Model):
+    """
+    Model who doesn't implements mozaik.abstract.model for the following
+    tests
+    """
+    _name = 'test.another.model'
+    _description = "Test another model"
+    _unicity_keys = 'N/A'
+
+    name = fields.Char(
+        required=True,
+    )
+    partner_id = fields.Many2one(
+        ResPartner._name,
+        "Partner",
+        required=True,
+    )
+    active = fields.Boolean(
+        default=True,
+    )
+
+    @api.multi
+    def write(self, vals):
+        """
+        For this test, whatever is set into the active field, we set it to
+        True (to disable inactivation)
+        :param vals: dict
+        :return: bool
+        """
+        vals.update({
+            'active': True,
+        })
+        return super().write(vals)
 
 
 class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
@@ -83,7 +118,7 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
             registry_fields.update({
                 OdooModel._name: set(registry[OdooModel._name]._fields)
             })
-        super(TestMozaikAbstractModel, self).setUp()
+        super().setUp()
 
         @self.addCleanup
         def reset():
@@ -114,6 +149,19 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
             'partner_id': self.trigger1.id,
             'name': str(uuid4()),
         })
+        self.invalidate_success = self.trigger1
+        partner_invalid_fails = self.trigger1.copy()
+        invalidate_obj = self.env[TestAnotherModel._name]
+        partner_invalid_fails.write({
+            'expire_date': fields.Date.today(),
+        })
+        invalidate_obj.create({
+            'name': str(uuid4()),
+            'partner_id': partner_invalid_fails.id,
+            'active': True,
+        })
+        self.invalidate_fails = partner_invalid_fails
+        self.validates = self.trigger1
 
     def test_no_infinite_loop1(self):
         """

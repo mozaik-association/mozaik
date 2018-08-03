@@ -1,14 +1,11 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
+from psycopg2.extensions import AsIs
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
-
-
-INVALIDATE_ERROR = _(
-    'Invalidation impossible, at least one dependency is still active')
 
 
 class MozaikAbstractModel(models.AbstractModel):
@@ -25,9 +22,11 @@ class MozaikAbstractModel(models.AbstractModel):
         readonly=True,
         default=False,
         track_visibility='onchange',
+        copy=False,
     )
     active = fields.Boolean(
         default=True,
+        copy=False,
     )
 
     def init(self):
@@ -44,31 +43,41 @@ class MozaikAbstractModel(models.AbstractModel):
 
         cr = self.env.cr
         unicity = " ".join(self._unicity_keys.split())
-        createit = True
-        index_query = """
-        CREATE UNIQUE INDEX %s_unique_idx ON %s
-        USING btree (%s) WHERE (active IS TRUE);
-        """
-        query = """
-        SELECT indexdef
-        FROM pg_indexes
-        WHERE tablename = '%s' and indexname = '%s_unique_idx'
-        """
-        cr.execute(query, tuple(self._table, self._table))
+        create_index = True
+        index_name = "%s_unique_idx" % self._table
+        index_query = "CREATE UNIQUE INDEX %(index_name)s ON %(table_name)s " \
+                      "USING btree (%(btree)s) WHERE (active IS TRUE)"
+        index_values = {
+            "index_name": AsIs(index_name),
+            "table_name": AsIs(self._table),
+            "btree": AsIs(unicity),
+        }
+        query = "SELECT indexdef " \
+                "FROM pg_indexes " \
+                "WHERE tablename = %(table_name)s " \
+                "AND indexname = %(index_name)s;"
+        query_values = {
+            "index_name": index_name,
+            "table_name": self._table,
+        }
+        cr.execute(query, query_values)
         sql_res = cr.dictfetchone()
         if sql_res:
             previous = sql_res.get('indexdef', '').replace(
                 ' ON public.', ' ON ')
-            if previous != index_query:
+            if previous != index_query % index_values:
                 _logger.info(
                     'Rebuild index %s_unique_idx:\n%s\n%s',
                     self._name, previous, index_query)
-                cr.execute("DROP INDEX %s_unique_idx", tuple(self._table))
+                drop_values = {
+                    "index_name": AsIs(index_name),
+                }
+                cr.execute("DROP INDEX %(index_name)s;", drop_values)
             else:
-                createit = False
+                create_index = False
 
-        if createit:
-            cr.execute(index_query, tuple(self._table, self._table, unicity))
+        if create_index:
+            cr.execute(index_query, index_values)
         return result
 
     @api.multi
@@ -153,7 +162,8 @@ class MozaikAbstractModel(models.AbstractModel):
                     _logger.info(
                         'Remaining active m2o for %s(%s): %s',
                         self._name, k, v)
-                raise ValidationError(INVALIDATE_ERROR)
+                raise ValidationError(_('Invalidation not allowed: at least '
+                                        'one dependency is still active'))
 
     @api.multi
     def _invalidate_active_relations(self):
