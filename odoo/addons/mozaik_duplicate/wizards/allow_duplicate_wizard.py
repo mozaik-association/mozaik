@@ -5,18 +5,13 @@ from odoo import api, exceptions, models, _
 
 class AllowDuplicateWizard(models.TransientModel):
     _name = "allow.duplicate.wizard"
-    _description = "Allow duplicate wizard"
+    _description = "Allow duplicates wizard"
 
     @api.model
-    def fields_view_get(self, view_id=None, view_type='form', toolbar=False,
-                        submenu=False):
+    def view_init(self, fields_list):
         """
         Overwrite this function to check if the wizard can be called
         (with correct information).
-        :param view_id: int or None
-        :param view_type: str
-        :param toolbar: bool
-        :param submenu: deprecated
         :return: dict
         """
         context = self.env.context
@@ -48,9 +43,7 @@ class AllowDuplicateWizard(models.TransientModel):
             if not target_obj.search_count(domain_search):
                 raise exceptions.UserError(
                     _('You must select more than one entry!'))
-        return super(AllowDuplicateWizard, self).fields_view_get(
-            view_id=view_id, view_type=view_type, toolbar=toolbar,
-            submenu=submenu)
+        return super().view_init(fields_list)
 
     @api.model
     def get_error_msg_by_model(self, model):
@@ -83,4 +76,3 @@ class AllowDuplicateWizard(models.TransientModel):
                 model_id_name_value.write(values)
         else:
             targets.write(target_obj.get_fields_to_update("allow"))
-        return {}

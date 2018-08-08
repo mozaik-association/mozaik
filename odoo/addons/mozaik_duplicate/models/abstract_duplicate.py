@@ -1,12 +1,14 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo import api, fields, models
+from odoo.tools import safe_eval
 
 
 class AbstractDuplicate(models.AbstractModel):
     _name = 'abstract.duplicate'
     _inherit = ['mozaik.abstract.model']
-    _description = "Abstract Duplicate"
+    _description = "Abstract Duplicate Model"
 
     _discriminant_field = None
     _discriminant_model = None
@@ -50,10 +52,11 @@ class AbstractDuplicate(models.AbstractModel):
         :param vals: dict
         :return: self recordset
         """
-        result = super(AbstractDuplicate, self.sudo()).create(vals)
+        result = super().create(vals)
         if result:
+            result = result.sudo()
             value = result._get_discriminant_value()
-            self.detect_and_repair_duplicate(value)
+            self.suspend_security()._detect_and_repair_duplicate(value)
         return result
 
     @api.multi
@@ -63,7 +66,7 @@ class AbstractDuplicate(models.AbstractModel):
         :param vals: dict
         :return: bool
         """
-        self_sudo = self.sudo()
+        self_suspend = self.suspend_security()
         trigger_fields = self._trigger_fields or [self._discriminant_field]
         trigger_fields.extend([
             'is_duplicate_detected',
@@ -71,10 +74,10 @@ class AbstractDuplicate(models.AbstractModel):
         ])
         updated_trigger_fields = [
             fld for fld in vals.keys() if fld in trigger_fields]
-        result = super(AbstractDuplicate, self).write(vals)
+        result = super().write(vals)
         if self and updated_trigger_fields:
-            values = [d._get_discriminant_value() for d in self_sudo]
-            self_sudo.detect_and_repair_duplicate(values)
+            values = [d._get_discriminant_value() for d in self_suspend]
+            self_suspend._detect_and_repair_duplicate(values)
         return result
 
     @api.multi
@@ -83,30 +86,31 @@ class AbstractDuplicate(models.AbstractModel):
         Override unlink method to detect and repair duplicates.
         :return: bool
         """
-        self_sudo = self.sudo()
-        result = super(AbstractDuplicate, self).unlink()
+        self_suspend = self.suspend_security()
+        values = False
         if self:
-            values = [d._get_discriminant_value() for d in self_sudo]
-            self.detect_and_repair_duplicate(values)
+            values = [d._get_discriminant_value() for d in self_suspend]
+        result = super().unlink()
+        if values:
+            self_suspend._detect_and_repair_duplicate(values)
         return result
 
     @api.multi
     def button_undo_allow_duplicate(self):
         """
         Undo the effect of the "Allow duplicate" wizard.
-        All allowed duplicates will be reset (see detect_and_repair_duplicate).
+        All allowed duplicates will be reset
+        (see _detect_and_repair_duplicate).
         :return: dict
         """
         self.write({'is_duplicate_allowed': False})
-        if len(self) != 1:
-            return {}
+        self.ensure_one()
         # Reload the tree with all duplicates
         value = self._get_discriminant_value()
         action = self.env.ref(self._undo_redirect_action).read()[0]
         action.pop('search_view', False)
-        context = {
-            'search_default_%s' % self._discriminant_field: value,
-        }
+        context = safe_eval(action["context"])
+        context['search_default_%s' % self._discriminant_field] = value
         action.update({
             'context': context,
         })
@@ -120,7 +124,7 @@ class AbstractDuplicate(models.AbstractModel):
         :param mode: str
         :return: dict
         """
-        result = super(AbstractDuplicate, self).get_fields_to_update(mode)
+        result = super().get_fields_to_update(mode)
         if mode in ['reset', 'deactivate']:
             result.update({
                 'is_duplicate_detected': False,
@@ -139,7 +143,7 @@ class AbstractDuplicate(models.AbstractModel):
         return result
 
     @api.model
-    def get_duplicates(self, value):
+    def _get_duplicates(self, value):
         """
         Get duplicates
         :param value: str, int, float, bool
@@ -151,7 +155,7 @@ class AbstractDuplicate(models.AbstractModel):
         return result
 
     @api.model
-    def detect_and_repair_duplicate(self, values, columns_to_read=None):
+    def _detect_and_repair_duplicate(self, values, columns_to_read=None):
         """
         Detect automatically duplicates (setting the is_duplicate_detected
         flag)
@@ -171,7 +175,7 @@ class AbstractDuplicate(models.AbstractModel):
             'is_duplicate_detected',
         ])
         for value in values:
-            duplicates = self.get_duplicates(value)
+            duplicates = self._get_duplicates(value)
             values_write = {}
             if len(duplicates) > 1:
                 val = {}

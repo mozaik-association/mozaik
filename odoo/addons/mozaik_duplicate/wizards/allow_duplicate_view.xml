@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <form>
                 <strong>
-                    Selected duplicates are allowed. Are you sure?
+                    Allow selected duplicates, proceed anyway?
                 </strong>
                 <footer>
                     <button string="Ok" name="button_allow_duplicate" type="object" class="oe_highlight" />
