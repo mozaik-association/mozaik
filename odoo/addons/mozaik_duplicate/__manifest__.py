@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
-# Copyright 2018 ACSONE SA/NV
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
+# Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
-    'name': 'MOZAIK: Duplicate',
+    'name': 'Mozaik: Duplicate',
     'version': '11.0.1.0.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'base_suspend_security',
+        'mozaik_base',
         'mozaik_abstract_model',
     ],
     'description': """
@@ -18,16 +18,8 @@ MOZAIK Duplicate
 * Provide an abstract model (and related wizard) to detect, repair and allow
   duplicates
 """,
-    'images': [
-    ],
     'data': [
-        # 'wizard/allow_duplicate_view.xml',
-    ],
-    'qweb': [
-    ],
-    'demo': [
-    ],
-    'test': [
+        'wizards/allow_duplicate_view.xml',
     ],
     'license': 'AGPL-3',
     'installable': True,

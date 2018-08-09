@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="allow_duplicate_form_view" model="ir.ui.view">
+        <field name="name">Allow.duplicate.wizard (in mozaik_duplicate)</field>
+        <field name="model">allow.duplicate.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <strong>
+                    Allow selected duplicates, proceed anyway?
+                </strong>
+                <footer>
+                    <button string="Ok" name="button_allow_duplicate" type="object" class="oe_highlight" />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

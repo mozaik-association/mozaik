@@ -511,10 +511,10 @@ class res_partner(orm.Model):
 
         return user_id
 
-    def get_duplicate_ids(self, cr, uid, value, context=None):
+    def _get_duplicates(self, cr, uid, value, context=None):
         """
         =================
-        get_duplicate_ids
+        _get_duplicates
         =================
         Get duplicated partners with the ``discriminant_field`` equals to
         ``value``
@@ -531,7 +531,7 @@ class res_partner(orm.Model):
         aborting = False
 
         document_reset_ids, document_ids = super(
-            res_partner, self).get_duplicate_ids(
+            res_partner, self)._get_duplicates(
             cr, uid, value, context=context)
         if document_ids:
             document_values = self.read(

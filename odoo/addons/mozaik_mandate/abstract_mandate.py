@@ -594,7 +594,7 @@ class abstract_mandate(orm.AbstractModel):
 
 # public methods
 
-    def get_duplicate_ids(self, cr, uid, value, context=None):
+    def _get_duplicates(self, cr, uid, value, context=None):
         reset_ids = []
         duplicate_ids = []
         mandate_dataset = self._get_discriminant_model().search_read(
@@ -669,12 +669,12 @@ class abstract_mandate(orm.AbstractModel):
 
         return True
 
-    def detect_and_repair_duplicate(self, cr, uid, vals, context=None,
+    def _detect_and_repair_duplicate(self, cr, uid, vals, context=None,
                                     detection_model=None, columns_to_read=None,
                                     model_id_name=None):
         """
         ===========================
-        detect_and_repair_duplicate
+        _detect_and_repair_duplicate
         ===========================
         Detect automatically duplicates (setting the is_duplicate_detected
         flag)
@@ -684,7 +684,7 @@ class abstract_mandate(orm.AbstractModel):
         :type vals: list
         """
         columns_to_read = columns_to_read or []
-        super(abstract_mandate, self).detect_and_repair_duplicate(
+        super(abstract_mandate, self)._detect_and_repair_duplicate(
             cr, uid, vals, context=context,
             columns_to_read=['model', 'mandate_id'],
             model_id_name='mandate_id')
