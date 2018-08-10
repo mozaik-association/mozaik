@@ -10,6 +10,7 @@ class AbstractCoordinate(models.AbstractModel):
     _order = "partner_id, expire_date, is_main desc, coordinate_type"
 
     _discriminant_field = None
+    _log_access = True
 
     partner_id = fields.Many2one(
         'res.partner',
