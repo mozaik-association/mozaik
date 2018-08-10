@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 {
     'name': 'MOZAIK: Coordinate',
     'version': '11.0.1.0.0',
@@ -12,7 +10,7 @@
     'depends': [
         'mozaik_abstract_model',
         'mozaik_duplicate',
-        'contacts',  # TODO for menu entry, to change
+        'contacts',
     ],
     'description': """
 MOZAIK Coordinate
@@ -21,25 +19,13 @@ MOZAIK Coordinate
   professional, ...
 * provide an abstract model (and related wizard) for all kinds of coordinates
 """,
-    'images': [
-    ],
     'data': [
-        'wizards/failure_editor.xml',
         'views/res_partner.xml',
-        'views/coordinate_category.xml',
         'views/abstract_coordinate.xml',
-        # 'security/ir.model.access.csv',
-        # 'coordinate_category_view.xml',
-        # 'abstract_coordinate_view.xml',
-        # 'res_partner_view.xml',
-        # 'wizard/change_main_coordinate.xml',
-        # 'wizard/bounce_editor_view.xml',
-    ],
-    'qweb': [
-    ],
-    'demo': [
-    ],
-    'test': [
+        'views/coordinate_category.xml',
+        'security/ir.model.access.csv',
+        'wizards/failure_editor.xml',
+        'wizards/change_main_coordinate.xml',
     ],
     'license': 'AGPL-3',
     'installable': True,

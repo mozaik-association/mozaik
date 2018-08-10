@@ -1143,7 +1143,7 @@ class membership_request(orm.Model):
             context['invalidate'] = mr.replace_coordinates
 
             if address_id:
-                self.pool['postal.coordinate'].change_main_coordinate(
+                self.pool['postal.coordinate']._change_main_coordinate(
                     cr, uid, [partner_id], address_id, context=context)
 
             # case of phone number
@@ -1157,7 +1157,7 @@ class membership_request(orm.Model):
 
             # case of email
             if mr.email:
-                self.pool['email.coordinate'].change_main_coordinate(
+                self.pool['email.coordinate']._change_main_coordinate(
                     cr, uid, [partner_id], mr.email, context=context)
 
         # if request `validate` then object should be invalidate
@@ -1180,7 +1180,7 @@ class membership_request(orm.Model):
                 phone_id = self.get_phone_id(cr, uid, phone_number, phone_type,
                                              then_create=True, context=context)
         if phone_id:
-            self.pool['phone.coordinate'].change_main_coordinate(
+            self.pool['phone.coordinate']._change_main_coordinate(
                 cr, uid, [partner_id], phone_id, context=context)
 
         return phone_id

@@ -35,14 +35,17 @@ class AbstractDuplicate(models.AbstractModel):
         return self.browse()
 
     @api.multi
-    def _get_discriminant_value(self):
+    def _get_discriminant_value(self, force_field=False):
         """
         Get the value of the discriminant field
+        :param force_field: str
         :return: str, int, float, bool
         """
         self.ensure_one()
         if self._is_discriminant_m2o():
-            return self[self._discriminant_field].id
+            force_field = force_field or 'id'
+            value = self[self._discriminant_field]
+            return value[force_field]
         return self[self._discriminant_field]
 
     @api.model
@@ -67,18 +70,26 @@ class AbstractDuplicate(models.AbstractModel):
         :return: bool
         """
         self_suspend = self.suspend_security()
+        trigger_fields = self._get_trigger_fields(vals.keys())
+        result = super().write(vals)
+        if self and trigger_fields:
+            values = [d._get_discriminant_value() for d in self_suspend]
+            self_suspend._detect_and_repair_duplicate(values)
+        return result
+
+    def _get_trigger_fields(self, fields_list):
+        """
+        Get a list of fields who are into _trigger_fields and into given
+        fields_list parameter (intersection).
+        :param fields_list: list of str
+        :return:
+        """
         trigger_fields = self._trigger_fields or [self._discriminant_field]
         trigger_fields.extend([
             'is_duplicate_detected',
             'is_duplicate_allowed',
         ])
-        updated_trigger_fields = [
-            fld for fld in vals.keys() if fld in trigger_fields]
-        result = super().write(vals)
-        if self and updated_trigger_fields:
-            values = [d._get_discriminant_value() for d in self_suspend]
-            self_suspend._detect_and_repair_duplicate(values)
-        return result
+        return list(set(trigger_fields).intersection(fields_list))
 
     @api.multi
     def unlink(self):
@@ -117,14 +128,14 @@ class AbstractDuplicate(models.AbstractModel):
         return action
 
     @api.model
-    def get_fields_to_update(self, mode):
+    def _get_fields_to_update(self, mode):
         """
         Depending on a mode, builds a dictionary allowing to update duplicate
         fields
         :param mode: str
         :return: dict
         """
-        result = super().get_fields_to_update(mode)
+        result = super()._get_fields_to_update(mode)
         if mode in ['reset', 'deactivate']:
             result.update({
                 'is_duplicate_detected': False,
@@ -190,11 +201,11 @@ class AbstractDuplicate(models.AbstractModel):
                     lambda d: not d.is_duplicate_detected and not
                     d.is_duplicate_allowed))
                 if nb_duplicates >= 1:
-                    values_write = self.get_fields_to_update('duplicate')
+                    values_write = self._get_fields_to_update('duplicate')
             elif len(duplicates) == 1:
                 if duplicates.is_duplicate_allowed or \
                         duplicates.is_duplicate_detected:
-                    values_write = self.get_fields_to_update('reset')
+                    values_write = self._get_fields_to_update('reset')
 
             if values_write:
                 # super write method must be called here to avoid to cycle

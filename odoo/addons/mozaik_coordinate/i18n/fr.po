@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 21:15+0000\n"
-"PO-Revision-Date: 2018-03-12 21:15+0000\n"
+"POT-Creation-Date: 2018-07-26 14:50+0000\n"
+"PO-Revision-Date: 2018-07-26 14:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_coordinate
-#: sql_constraint:bounce.editor:0
+#: sql_constraint:failure.editor:0
 msgid "\"increase\" field should be a positive value"
-msgstr "L'incrément doit être positif"
+msgstr "Le champ \"increase\" devrait avoir une valeur positive"
 
 #. module: mozaik_coordinate
 #: model:ir.model,name:mozaik_coordinate.model_abstract_coordinate
@@ -26,74 +26,57 @@ msgid "Abstract Coordinate"
 msgstr "Coordonnée abstraite"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,active:0
-#: field:coordinate.category,active:0
-msgid "Active"
-msgstr "Actif"
-
-#. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "All"
 msgstr "Tous"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "All Coordinates, expired or not"
 msgstr "Toutes les coordonnées, expirées ou non"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/abstract_coordinate.py:297
+#: code:addons/mozaik_coordinate/models/abstract_coordinate.py:155
 #, python-format
 msgid "An active coordinate cannot be duplicated!"
-msgstr "Une coordonnée active ne peut être dupliquée !"
+msgstr "Une coordonnée active ne peut pas être dupliquée!"
 
 #. module: mozaik_coordinate
-#: view:bounce.editor:mozaik_coordinate.bounce_editor_wizard
+#: model:ir.ui.view,arch_db:mozaik_coordinate.failure_editor_form_view
 msgid "Apply"
 msgstr "Appliquer"
 
 #. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:113
+#: code:addons/mozaik_coordinate/wizards/change_main_coordinate.py:53
 #, python-format
-msgid "At least one partner is required to change its main coordinate!"
-msgstr "Au moins un partenanire est requis pour changer sa coordonnée principale !"
+msgid "At least one partner is required to  change its main coordinate!"
+msgstr "Au moins un partenaire est requis pour mettre à jour la coordonnée principale!"
 
 #. module: mozaik_coordinate
-#: view:bounce.editor:mozaik_coordinate.bounce_editor_wizard
-#: model:ir.model,name:mozaik_coordinate.model_bounce_editor
-msgid "Bounce Editor"
-msgstr "Editeur d'échecs"
-
-#. module: mozaik_coordinate
-#: view:bounce.editor:mozaik_coordinate.bounce_editor_wizard
-#: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
+#: model:ir.ui.view,arch_db:mozaik_coordinate.change_main_coordinate_form
+#: model:ir.ui.view,arch_db:mozaik_coordinate.failure_editor_form_view
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Category"
 msgstr "Catégorie"
 
 #. module: mozaik_coordinate
-#: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
+#: model:ir.ui.view,arch_db:mozaik_coordinate.change_main_coordinate_form
 msgid "Change"
-msgstr "Changer"
+msgstr "Change"
 
 #. module: mozaik_coordinate
-#: field:change.main.coordinate,change_allowed:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_change_allowed
 msgid "Change Allowed"
-msgstr "Changement autorisé"
-
-#. module: mozaik_coordinate
-#: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
-msgid "Change Main Coordinate"
-msgstr "Changer de coordonnée principale"
+msgstr "Changeement autorisé"
 
 #. module: mozaik_coordinate
 #: model:ir.model,name:mozaik_coordinate.model_change_main_coordinate
@@ -101,291 +84,209 @@ msgid "Change Main Coordinate Wizard"
 msgstr "Assistant de changement de coordonnée principale"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,partner_id:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_partner_id
 msgid "Contact"
 msgstr "Contact"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
-msgid "Coordinate"
-msgstr "Coordonnée"
-
-#. module: mozaik_coordinate
-#: model:ir.actions.act_window,name:mozaik_coordinate.coordinate_category_action
-#: model:ir.ui.menu,name:mozaik_coordinate.coordinate_category_menu
+#: model:ir.actions.act_window,name:mozaik_coordinate.coordinate_category_act_window
 msgid "Coordinate Categories"
-msgstr "Catégories de coordonnée"
+msgstr "Catégories de coordonnées"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,coordinate_category_id:0
-#: view:coordinate.category:mozaik_coordinate.coordinate_category_form_view
 #: model:ir.model,name:mozaik_coordinate.model_coordinate_category
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_coordinate_category_id
+#: model:ir.ui.menu,name:mozaik_coordinate.coordinate_category_menu
+#: model:ir.ui.view,arch_db:mozaik_coordinate.coordinate_category_form_view
 msgid "Coordinate Category"
 msgstr "Catégorie de coordonnée"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,coordinate_type:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_coordinate_type
 msgid "Coordinate Type"
-msgstr "Type de catégorie"
+msgstr "Type de coordonnée"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_tree_view
-#: view:res.partner:mozaik_coordinate.view_partner_form
+#: model:ir.ui.view,arch_db:mozaik_coordinate.res_partner_form_view
 msgid "Coordinates"
 msgstr "Coordonnées"
 
 #. module: mozaik_coordinate
-#: field:bounce.editor,create_uid:0
-#: field:change.main.coordinate,create_uid:0
-#: field:coordinate.category,create_uid:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_create_uid
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_create_uid
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_coordinate_category_create_uid
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_coordinate
-#: field:bounce.editor,create_date:0
-#: field:change.main.coordinate,create_date:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_create_date
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_create_date
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_coordinate_category_create_date
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_create_date
 msgid "Created on"
 msgstr "Créé le"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,create_date:0
-#: field:coordinate.category,create_date:0
-msgid "Creation Date"
-msgstr "Date de création"
-
-#. module: mozaik_coordinate
-#: help:abstract.coordinate,message_last_post:0
-#: help:coordinate.category,message_last_post:0
-msgid "Date of the last message posted on the record."
-msgstr "Date du dernier message posté sur l'enregistrement."
-
-#. module: mozaik_coordinate
-#: field:bounce.editor,description:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_description
 msgid "Description"
 msgstr "Description"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,display_name:0
-#: field:bounce.editor,display_name:0
-#: field:change.main.coordinate,display_name:0
-#: field:coordinate.category,display_name:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_display_name
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_display_name
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_coordinate_category_display_name
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr "Nom à afficher"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Duplicates"
 msgstr "Doublons"
 
 #. module: mozaik_coordinate
-#: view:res.partner:mozaik_coordinate.view_partner_form
+#: model:ir.ui.view,arch_db:mozaik_coordinate.res_partner_form_view
 msgid "Email Coordinates"
-msgstr "Coordonnées électroniques"
+msgstr "Email Coordinates"
 
 #. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/abstract_coordinate.py:288
-#: code:addons/mozaik_coordinate/abstract_coordinate.py:297
-#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:62
-#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:67
-#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:79
-#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:63
-#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:76
-#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:98
-#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:112
+#: code:addons/mozaik_coordinate/models/abstract_coordinate.py:135
+#: code:addons/mozaik_coordinate/models/abstract_coordinate.py:140
 #, python-format
-msgid "Error"
-msgstr "Erreur"
-
-#. module: mozaik_coordinate
-#: constraint:abstract.coordinate:0
 msgid "Exactly one main coordinate must exist for a given partner"
-msgstr "Un partenanire ne peut avoir qu'une seule coordonnée principale"
+msgstr "Une coordonnée principale doit exister pour le partenaire"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,expire_date:0
-#: field:coordinate.category,expire_date:0
-msgid "Expiration Date"
-msgstr "Date d'expiration"
-
-#. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Expired"
 msgstr "Expiré"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Expired Coordinates"
 msgstr "Coordonnées expirées"
 
 #. module: mozaik_coordinate
-#: model:ir.actions.act_window,name:mozaik_coordinate.bounce_editor_action
+#: model:ir.actions.act_window,name:mozaik_coordinate.failure_editor_act_window
+#: model:ir.model,name:mozaik_coordinate.model_failure_editor
+#: model:ir.ui.view,arch_db:mozaik_coordinate.failure_editor_form_view
 msgid "Failure Editor"
 msgstr "Editeur d'échecs"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
 msgid "Failures"
 msgstr "Échecs"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,bounce_counter:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_failure_counter
 msgid "Failures Counter"
 msgstr "Compteur d'échecs"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,message_follower_ids:0
-#: field:coordinate.category,message_follower_ids:0
-msgid "Followers"
-msgstr "Abonnés"
-
-#. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Group By..."
 msgstr "Grouper par..."
 
 #. module: mozaik_coordinate
-#: help:abstract.coordinate,message_summary:0
-#: help:coordinate.category,message_summary:0
-msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
-msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
-
-#. module: mozaik_coordinate
-#: field:abstract.coordinate,id:0
-#: field:bounce.editor,id:0
-#: field:change.main.coordinate,id:0
-#: field:coordinate.category,id:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_coordinate_category_id
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_id
 msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_coordinate
-#: help:abstract.coordinate,message_unread:0
-#: help:coordinate.category,message_unread:0
-msgid "If checked new messages require your attention."
-msgstr "Si coché, de nouveaux messages requièrent votre attention."
-
-#. module: mozaik_coordinate
-#: field:bounce.editor,increase:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_increase
 msgid "Increase by"
-msgstr "Incrément de"
+msgstr "Incrémenter par"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
-#: view:coordinate.category:mozaik_coordinate.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.coordinate_category_form_view
 msgid "Invalidate"
 msgstr "Invalider"
 
 #. module: mozaik_coordinate
-#: field:change.main.coordinate,invalidate_previous_coordinate:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_invalidate_previous_coordinate
 msgid "Invalidate Previous Main Coordinate"
-msgstr "Invalider la coordonnée principale précédente"
+msgstr "Invalider coordonnée principale précédente"
 
 #. module: mozaik_coordinate
-#: view:coordinate.category:mozaik_coordinate.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.coordinate_category_form_view
 msgid "Invalidate category: proceed anyway?"
 msgstr "Poursuivre l'invalidation de la catégorie ?"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
 msgid "Invalidate coordinate: proceed anyway?"
 msgstr "Poursuivre l'invalidation de la coordonnée ?"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,is_duplicate_allowed:0
-msgid "Is Duplicate Allowed"
-msgstr "Doublon autorisé"
-
-#. module: mozaik_coordinate
-#: field:abstract.coordinate,is_duplicate_detected:0
-msgid "Is Duplicate Detected"
-msgstr "Doublon détecté"
-
-#. module: mozaik_coordinate
-#: field:abstract.coordinate,is_main:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_is_main
 msgid "Is Main"
-msgstr "Principale"
+msgstr "Est principale"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,message_is_follower:0
-#: field:coordinate.category,message_is_follower:0
-msgid "Is a Follower"
-msgstr "Est abonné"
-
-#. module: mozaik_coordinate
-#: field:abstract.coordinate,bounce_date:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_failure_date
 msgid "Last Failure Date"
-msgstr "Date du dernier échec"
+msgstr "Date dernier échec"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,bounce_description:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_failure_description
 msgid "Last Failure Description"
-msgstr "Description du dernier échec"
+msgstr "Description dernier échec"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,message_last_post:0
-#: field:coordinate.category,message_last_post:0
-msgid "Last Message Date"
-msgstr "Date du dernier message"
-
-#. module: mozaik_coordinate
-#: field:abstract.coordinate,__last_update:0
-#: field:bounce.editor,__last_update:0
-#: field:change.main.coordinate,__last_update:0
-#: field:coordinate.category,__last_update:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate___last_update
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate___last_update
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_coordinate_category___last_update
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: mozaik_coordinate
-#: field:bounce.editor,write_uid:0
-#: field:change.main.coordinate,write_uid:0
-#: field:coordinate.category,write_uid:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_write_uid
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_write_uid
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_coordinate_category_write_uid
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_coordinate
-#: field:bounce.editor,write_date:0
-#: field:change.main.coordinate,write_date:0
-#: field:coordinate.category,write_date:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_write_date
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_write_date
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_coordinate_category_write_date
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_write_date
 msgid "Last Updated on"
-msgstr "Date de dernière mise à jour"
+msgstr "Dernière mise à jour le"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Main Coordinates"
 msgstr "Coodonnées principales"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,message_ids:0
-#: field:coordinate.category,message_ids:0
-msgid "Messages"
-msgstr "Messages"
-
-#. module: mozaik_coordinate
-#: help:abstract.coordinate,message_ids:0
-#: help:coordinate.category,message_ids:0
-msgid "Messages and communication history"
-msgstr "Historique des messages et communications"
-
-#. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:68
+#: code:addons/mozaik_coordinate/wizards/failure_editor.py:38
 #, python-format
 msgid "Missing active_ids in context!"
-msgstr "\"active_ids\" manquant dans le contexte !"
+msgstr "active_ids manquant dans le contexte!"
 
 #. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:63
+#: code:addons/mozaik_coordinate/wizards/failure_editor.py:35
 #, python-format
 msgid "Missing active_model in context!"
-msgstr "\"active_model\" manquant dans le contexte !"
+msgstr "active_model manquant dans le contexte!"
 
 #. module: mozaik_coordinate
-#: field:bounce.editor,model:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_failure_editor_model
 msgid "Model"
 msgstr "Modèle"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
-#: view:coordinate.category:mozaik_coordinate.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.coordinate_category_form_view
 msgid "More Info"
 msgstr "Plus d'info"
 
@@ -395,136 +296,104 @@ msgid "N/A"
 msgstr "N/A"
 
 #. module: mozaik_coordinate
-#: field:coordinate.category,name:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_coordinate_category_name
 msgid "Name"
 msgstr "Nom"
 
 #. module: mozaik_coordinate
-#: view:coordinate.category:mozaik_coordinate.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.coordinate_category_form_view
 msgid "Name of the category..."
 msgstr "Nom de la catégorie..."
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_coordinate
-#: view:res.partner:mozaik_coordinate.view_partner_form
+#: model:ir.ui.view,arch_db:mozaik_coordinate.res_partner_form_view
 msgid "Phone Coordinates"
-msgstr "Coordonnées téléphoniques"
+msgstr "Phone Coordinates"
 
 #. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:77
-#, python-format
-msgid "Please select only one coordinate!"
-msgstr "Veuillez sélectionner une seule coordonnée!"
-
-#. module: mozaik_coordinate
-#: view:res.partner:mozaik_coordinate.view_partner_form
+#: model:ir.ui.view,arch_db:mozaik_coordinate.res_partner_form_view
 msgid "Postal Coordinates"
-msgstr "Coordonnées postales"
+msgstr "Postal Coordinates"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
 msgid "Reactivate"
 msgstr "Réactiver"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
-#: view:coordinate.category:mozaik_coordinate.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.coordinate_category_form_view
 msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
 msgid "Reset Counter: proceed anyway?"
 msgstr "Poursuivre la réinitialisation du compteur ?"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,message_summary:0
-#: field:coordinate.category,message_summary:0
-msgid "Summary"
-msgstr "Résumé"
-
-#. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:63
-#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:98
+#: code:addons/mozaik_coordinate/wizards/change_main_coordinate.py:49
 #, python-format
 msgid "Target model not specified!"
-msgstr "Modèle destination non spécifié !"
+msgstr "Model cible non spécifié!"
 
 #. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:80
+#: code:addons/mozaik_coordinate/wizards/failure_editor.py:45
 #, python-format
 msgid "This action is not allowed on inactive documents!"
-msgstr "Cette action n'est pas admise sur les documents inactifs !"
+msgstr "Cette action n'est pa autorisée sur un document inactif!"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
-#: field:abstract.coordinate,unauthorized:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_unauthorized
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_tree_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_tree_view
 msgid "Undo Allow Duplicate"
 msgstr "Rétablir les doublons"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_tree_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_tree_view
 msgid "Undo allow duplicate: proceed anyway?"
 msgstr "Poursuivre le rétablissement des doublons ?"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,message_unread:0
-#: field:coordinate.category,message_unread:0
-msgid "Unread Messages"
-msgstr "Messages non lus"
-
-#. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
-#: field:abstract.coordinate,vip:0
+#: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_vip
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "VIP"
 msgstr "VIP"
 
 #. module: mozaik_coordinate
-#: view:coordinate.category:mozaik_coordinate.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.coordinate_category_form_view
 msgid "Validate"
 msgstr "Valider"
 
 #. module: mozaik_coordinate
-#: field:abstract.coordinate,website_message_ids:0
-#: field:coordinate.category,website_message_ids:0
-msgid "Website Messages"
-msgstr "Messages de site web"
-
-#. module: mozaik_coordinate
-#: help:abstract.coordinate,website_message_ids:0
-#: help:coordinate.category,website_message_ids:0
-msgid "Website communication history"
-msgstr "Historique de communication de site web"
-
-#. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "With Failures"
 msgstr "Avec échecs"
 
 #. module: mozaik_coordinate
-#: view:bounce.editor:mozaik_coordinate.bounce_editor_wizard
-#: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
+#: model:ir.ui.view,arch_db:mozaik_coordinate.change_main_coordinate_form
+#: model:ir.ui.view,arch_db:mozaik_coordinate.failure_editor_form_view
 msgid "or"
 msgstr "ou"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
 msgid "⇒ Reset"
 msgstr "⇒ Réinitialiser"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
+#: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
 msgid "⇒ Show all duplicates"
 msgstr "⇒ Voir tous les doublons"
-

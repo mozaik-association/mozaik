@@ -16,6 +16,7 @@ class MozaikAbstractModel(models.AbstractModel):
     _allowed_inactive_link_models = []
     _inactive_cascade = False
     _unicity_keys = None
+    _log_access = True
 
     expire_date = fields.Datetime(
         'Expiration Date',
