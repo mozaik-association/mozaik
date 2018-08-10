@@ -11,7 +11,6 @@ class CoordinateCategory(models.Model):
     _unicity_keys = 'name'
 
     name = fields.Char(
-        size=128,
         required=True,
         index=True,
     )

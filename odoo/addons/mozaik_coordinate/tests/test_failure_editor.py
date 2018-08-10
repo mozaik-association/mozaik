@@ -58,7 +58,7 @@ class TestCommonFailureEditor(TestCommonAbstractCoordinate):
         wizard = self.create_failure_data(counter)
 
         # 3/ Execute wizard
-        wizard.update_failure_datas()
+        wizard.update_failure_data()
         self.assertEqual(self.coordinate.failure_counter, counter,
                          'Update coordinate fails with wrong failure_counter')
         self.assertEqual(

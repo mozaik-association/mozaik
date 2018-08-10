@@ -6,7 +6,7 @@ from odoo.fields import first
 from ..tests.common import TestCommonAbstractCoordinate
 
 
-class TestChangeMainCoordinate(models.TransientModel):
+class TestChangeMainCoordinate(models.Model):
     """
     A concrete Odoo Wizard used for these tests only
     """
@@ -90,6 +90,7 @@ class TestCommonCoordinateWizard(TestCommonAbstractCoordinate):
         """
         context = self.env.context.copy()
         context.update({
+            'active_model': new_main_coordinate.partner_id.id,
             'active_id': new_main_coordinate.partner_id.id,
             'res_id': new_main_coordinate.partner_id.id,
             'target_id': new_main_coordinate.id,
@@ -120,7 +121,6 @@ class TestCommonCoordinateWizard(TestCommonAbstractCoordinate):
             form partner[coo_into_partner] = self.model_id_N
         Assure that the replicated coordinate is main:
             partner[coo_into_partner].is_main = True
-        :return: bool
         """
         self.change_main_coordinate(True)
         partners = self.partner1 | self.partner2 | self.partner3
@@ -149,7 +149,7 @@ class TestCommonCoordinateWizard(TestCommonAbstractCoordinate):
             self.assertTrue(
                 value, 'Coordinate Should Be Replicate Into The Associated '
                        'Partner')
-        return True
+        return
 
     def test_mass_replication_with_invalidate(self):
         """
@@ -169,7 +169,6 @@ class TestCommonCoordinateWizard(TestCommonAbstractCoordinate):
         u1 ----- main_model_coo1 ------ model 1 : active
         u2 ----- model_coo2      ------ model 2 : not active
         u2 ----- main_model_coo_3------ model 1 : active
-        :return: bool
         """
         self.change_main_coordinate(True)
         self.assertTrue(
@@ -179,7 +178,7 @@ class TestCommonCoordinateWizard(TestCommonAbstractCoordinate):
         self.assertFalse(
             self.coordinate2.active,
             'Previous model Coordinate should be invalidate')
-        return True
+        return
 
     def test_mass_replication_without_invalidate(self):
         """
@@ -197,20 +196,18 @@ class TestCommonCoordinateWizard(TestCommonAbstractCoordinate):
         u1 ----- main_model_coo1 ------ model 1 : active
         u2 ----- model_coo2      ------ model 2 : active
         u2 ----- main_model_coo_3------ model 1 : active
-        :return: bool
         """
         self.change_main_coordinate(False)
         self.assertTrue(
             self.coordinate2.active,
             'Previous model Coordinate should not be invalidate')
-        return True
+        return
 
     def test_switch_main_coordinate(self):
         """
         This test check the ability of the wizard
         to set a selected coordinate as main, unflag the current one
         and eventually invalidate it
-        :return: bool
         """
         vals = {
             'partner_id': self.partner4.id,
@@ -230,4 +227,4 @@ class TestCommonCoordinateWizard(TestCommonAbstractCoordinate):
         self.switch_main_coordinate(coordinate1, True)
         self.assertTrue(coordinate1.is_main)
         self.assertFalse(coordinate2.active)
-        return True
+        return

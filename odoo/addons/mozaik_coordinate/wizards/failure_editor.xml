@@ -14,7 +14,7 @@
                     <field name="description" />
                 </group>
                 <footer>
-                    <button name="update_failure_datas" string="Apply" type="object"/>
+                    <button name="update_failure_data" string="Apply" type="object"/>
                     or
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>

@@ -8,7 +8,6 @@ class AbstractCoordinate(models.AbstractModel):
     _inherit = ['abstract.duplicate']
     _description = 'Abstract Coordinate'
     _order = "partner_id, expire_date, is_main desc, coordinate_type"
-    _log_access = True
 
     _discriminant_field = None
 
@@ -70,16 +69,15 @@ class AbstractCoordinate(models.AbstractModel):
         """
         partner_id = values.get('partner_id')
         coordinate_type = values.get('coordinate_type')
-        domain = self.get_target_domain(partner_id, coordinate_type)
-        coordinates = self.search_count(domain)
+        domain = self._get_target_domain(partner_id, coordinate_type)
+        coordinates = self.sudo().search_count(domain)
         if not coordinates:
             values.update({
                 'is_main': True,
             })
-        return True
 
     @api.multi
-    @api.constrains('partner_id', 'is_main', 'active')
+    @api.constrains('partner_id', 'is_main', 'active', 'coordinate_type')
     def _check_one_main_coordinate(self, for_unlink=False):
         """
         Check if associated partner has exactly one main coordinate
@@ -88,7 +86,7 @@ class AbstractCoordinate(models.AbstractModel):
         :return: bool
         """
         if self.env.context.get('no_check_main_coordinate'):
-            return True
+            return
         coordinates = self_sudo = self.sudo()
         if for_unlink:
             coordinates = coordinates.filtered(
@@ -101,8 +99,8 @@ class AbstractCoordinate(models.AbstractModel):
         ])
         for coordinate in coordinates:
             other_coordinates = all_other_coordinates.filtered(
-                lambda x, c=coordinate: c.partner_id.id == x.partner_id.id and
-                c.coordinate_type == x.coordinate_type)
+                lambda s, c=coordinate: s.partner_id == c.partner_id and
+                s.coordinate_type == c.coordinate_type)
             other_coordinates = other_coordinates.with_prefetch(
                 self_sudo._prefetch)
             if for_unlink and len(other_coordinates) > 1 and \
@@ -116,7 +114,6 @@ class AbstractCoordinate(models.AbstractModel):
                 raise exceptions.ValidationError(_(
                     "Exactly one main coordinate must exist for a "
                     "given partner"))
-        return True
 
     @api.multi
     def copy(self, default=None):
@@ -140,12 +137,14 @@ class AbstractCoordinate(models.AbstractModel):
         """
         result = []
         is_notification = self.env.context.get('is_notification')
-        for record in self:
-            display_name = record._get_discriminant_value('display_name')
-            if is_notification:
+        if is_notification:
+            for record in self:
                 display_name = '%s: %s' % (
-                    record.partner_id.display_name, display_name)
-            result.append((record.id, display_name))
+                    record.partner_id.display_name,
+                    record._get_discriminant_value('display_name'))
+                result.append((record.id, display_name))
+        else:
+            result = super().name_get()
         return result
 
     @api.model
@@ -168,16 +167,15 @@ class AbstractCoordinate(models.AbstractModel):
             vals.update({
                 'coordinate_type': coordinate_type,
             })
-        domain_other_active_main = self.get_target_domain(
-            partner_id, coordinate_type)
         self._validate_vals(vals)
         if vals.get('is_main'):
+            domain_other_active_main = self._get_target_domain(
+                partner_id, coordinate_type)
             invalidate = self.env.context.get('invalidate')
             mode = 'deactivate' if invalidate else 'secondary'
             validate_fields = self._get_fields_to_update(mode)
-            self.search_and_update(domain_other_active_main, validate_fields)
-        return super(AbstractCoordinate,
-                     self.with_context(mail_create_nolog=True)).create(vals)
+            self._search_and_update(domain_other_active_main, validate_fields)
+        return super().create(vals)
 
     @api.multi
     def unlink(self):
@@ -185,17 +183,14 @@ class AbstractCoordinate(models.AbstractModel):
         During unlink, check if a one main coordinate still available
         :return: bool
         """
-        coordinates_main = self.filtered(lambda s: s.is_main)
-        unlink_first = self - coordinates_main
+        main_coordinates = self.filtered(lambda s: s.is_main)
+        unlink_first = self - main_coordinates
         result = True
         if unlink_first:
             result = super(AbstractCoordinate, unlink_first).unlink()
-        if not coordinates_main._check_one_main_coordinate(for_unlink=True):
-            raise exceptions.ValidationError(
-                _('Exactly one main coordinate must exist for a given '
-                  'partner'))
-        if coordinates_main:
-            result = super(AbstractCoordinate, coordinates_main).unlink()
+        if main_coordinates:
+            main_coordinates._check_one_main_coordinate(for_unlink=True)
+            result = super(AbstractCoordinate, main_coordinates).unlink()
         return result
 
     @api.multi
@@ -206,16 +201,7 @@ class AbstractCoordinate(models.AbstractModel):
         self.write({'failure_counter': 0})
 
     @api.multi
-    def get_linked_partners(self):
-        """
-        Returns partner linked to coordinate
-        Path to partner must be object.partner_id
-        :return: res.partner recordset
-        """
-        return self.mapped("partner_id")
-
-    @api.multi
-    def set_as_main(self):
+    def _set_as_main(self):
         """
         This method allows to switch main coordinate:
         1) Reset is_main of previous main coordinate
@@ -224,17 +210,17 @@ class AbstractCoordinate(models.AbstractModel):
         """
         self.ensure_one()
         # 1) Reset is_main of previous main coordinate
-        target_domain = self.get_target_domain(
+        target_domain = self._get_target_domain(
             self.partner_id.id, self.coordinate_type)
         mode = 'deactivate' if self.env.context.get('invalidate') else \
             'secondary'
         fields_to_update = self._get_fields_to_update(mode)
-        self.search_and_update(target_domain, fields_to_update)
+        self._search_and_update(target_domain, fields_to_update)
         # 2) Set is_main of new main coordinate
         return self.write({'is_main': True})
 
     @api.model
-    def change_main_coordinate(self, partners, value):
+    def _change_main_coordinate(self, partners, value):
         """
         Update main coordinate for given partners with given values.
         The coordinate is created if not exists
@@ -247,10 +233,10 @@ class AbstractCoordinate(models.AbstractModel):
             ('partner_id', 'in', partners.ids),
             (self._discriminant_field, '=', value)
         ]
-        all_coordinates = self.search(domain)
+        all_coordinates = self.sudo().search(domain)
         for partner in partners:
             coordinates = all_coordinates.filtered(
-                lambda r, p=partner: r.partner_id.id == p.id)
+                lambda s, p=partner: s.partner_id == p)
             coordinates = coordinates.with_prefetch(self._prefetch)
             if not coordinates:
                 coordinate = self.create({
@@ -261,12 +247,12 @@ class AbstractCoordinate(models.AbstractModel):
                 all_coordinates |= coordinate
                 main_coordinates |= coordinate
             elif not any(coordinates.mapped("is_main")):
-                coordinates.set_as_main()
+                coordinates._set_as_main()
                 main_coordinates |= coordinates
         return main_coordinates
 
     @api.model
-    def search_and_update(self, target_domain, fields_to_update):
+    def _search_and_update(self, target_domain, fields_to_update):
         """
         1) Search with self on ``target_domain``
         2) Update self with ``fields_to_update``
@@ -278,10 +264,9 @@ class AbstractCoordinate(models.AbstractModel):
         if results:
             results.with_context(
                 no_check_main_coordinate=True).write(fields_to_update)
-        return len(results) != 0
 
     @api.model
-    def get_target_domain(self, partner_id, coordinate_type):
+    def _get_target_domain(self, partner_id, coordinate_type):
         """
         Get a domain to look for the target
         :param partner_id: int
@@ -331,11 +316,11 @@ class AbstractCoordinate(models.AbstractModel):
                 domain.append(('id', 'not in', self.ids))
             else:
                 domain.append(('id', '!=', coordinate.id))
-            coords = self.search(domain, limit=limit)
+            coords = self.sudo().search(domain, limit=limit)
             if coordinate.is_main and len(coords) == 1:
                 coordinate_value = coords._get_discriminant_value()
                 coordinate_ctx = coordinate.with_context(invalidate=invalidate)
-                coordinate_ctx.change_main_coordinate(
+                coordinate_ctx._change_main_coordinate(
                     coordinate.partner_id, coordinate_value)
                 if vals:
                     coordinate_ctx.write(vals)

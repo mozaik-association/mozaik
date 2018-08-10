@@ -100,7 +100,7 @@ class change_co_residency_address(orm.TransientModel):
         new_coord_ids = []
         for coord in cores.postal_coordinate_ids:
             if coord.is_main:
-                pc_ids = coord_obj.change_main_coordinate(
+                pc_ids = coord_obj._change_main_coordinate(
                     cr,
                     uid,
                     [coord.partner_id.id],

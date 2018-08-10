@@ -10,6 +10,7 @@
     'depends': [
         'mozaik_abstract_model',
         'mozaik_duplicate',
+        'contacts',
     ],
     'description': """
 MOZAIK Coordinate

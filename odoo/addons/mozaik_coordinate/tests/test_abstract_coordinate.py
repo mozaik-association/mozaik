@@ -113,7 +113,7 @@ class TestAbstractCoordinate(TestCommonAbstractCoordinate):
             self.model_coordinate._discriminant_field: self.field_id_2,
             'is_main': False,
         })
-        pc2.with_context(invalidate=True).set_as_main()
+        pc2.with_context(invalidate=True)._set_as_main()
         coordinate = self.partner1[self.coo_into_partner]
         self.assertTrue(pc1.is_main)
         self.assertFalse(pc1.active)
