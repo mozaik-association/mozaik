@@ -1,42 +1,7 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_structure, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_structure is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_structure is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_structure.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp.osv import orm, fields
-
-
-class ext_assembly_category(orm.Model):
-
-    _name = 'ext.assembly.category'
-    _inherit = ['abstract.assembly.category']
-    _description = 'External Assembly Category'
-
-    _columns = {
-        # Unused field
-        'power_level_id': fields.many2one('int.power.level',
-                                          'Internal Power Level'),
-    }
 
 
 class ext_assembly(orm.Model):
@@ -115,11 +80,7 @@ class ext_assembly(orm.Model):
         self.pool.get('int.instance').get_default(cr, uid)
     }
 
-# constraints
-
     _unicity_keys = 'ref_partner_id, assembly_category_id'
-
-# view methods: onchange, button
 
     def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id,
                                       context=None):

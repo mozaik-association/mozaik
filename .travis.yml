@@ -27,6 +27,7 @@ install:
 
 script:
   - export TRAVIS_BUILD_DIR=${TRAVIS_BUILD_DIR}/odoo/addons
+  - pip install phonenumbers
   - travis_run_tests
 
 after_success:

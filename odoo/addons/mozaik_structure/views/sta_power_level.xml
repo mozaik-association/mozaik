@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="sta_power_level_form_view" model="ir.ui.view">
+        <field name="name">sta.power.level.form</field>
+        <field name="model">sta.power.level</field>
+        <field name="inherit_id" ref="abstract_power_level_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[@name='buttons']" position="inside">
+                <button string="Legislatures" name="%(legislature_action)d"
+                            type="action" attrs="{'invisible': [('id','=',False)]}"
+                            context="{'search_default_power_level_id': active_id,
+                                      'default_power_level_id': active_id}" />
+                <button string="Instances" name="%(sta_instance_action)d"
+                            type="action" attrs="{'invisible': [('id','=',False)]}"
+                            context="{'search_default_power_level_id': active_id,
+                                      'default_power_level_id': active_id}" />
+            </xpath>
+            <xpath expr="//field[@name='assembly_category_ids']" position="attributes">
+                <attribute name="context" translation="off">{'default_power_level_id': active_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='assembly_category_ids']" position="before">
+                <button string="All Details"
+                                name="%(sta_assembly_category_action)d"
+                                type="action"
+                                context="{'search_default_power_level_id': active_id,
+                                          'default_power_level_id': active_id,
+                                          'search_default_all': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sta_power_level_action" model="ir.actions.act_window">
+        <field name="name">State Power Levels</field>
+        <field name="res_model">sta.power.level</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="abstract_power_level_search_view" />
+        <field name="view_id" ref="abstract_power_level_tree_view" />
+    </record>
+
+</odoo>

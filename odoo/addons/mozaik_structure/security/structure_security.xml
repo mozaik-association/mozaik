@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="module_category_structure">
+        <field name="name">Structure</field>
+        <field name="parent_id" ref="base.module_category_political_association"/>
+        <field name="sequence" eval="75" />
+    </record>
+
+    <record model="res.groups" id="res_groups_structure_reader">
+        <field name="name">Structure Reader</field>
+        <field name="category_id" ref="module_category_structure"/>
+    </record>
+
+    <record model="res.groups" id="res_groups_structure_manager">
+        <field name="name">Structure Manager</field>
+        <field name="category_id" ref="module_category_structure"/>
+        <field name="implied_ids" eval="[(6, 0, [
+            ref('res_groups_structure_reader'),
+        ])]" />
+    </record>
+
+</odoo>

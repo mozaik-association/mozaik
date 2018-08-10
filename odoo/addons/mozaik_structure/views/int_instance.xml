@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="int_instance_form_view" model="ir.ui.view">
+        <field name="name">int.instance.form</field>
+        <field name="model">int.instance</field>
+        <field name="inherit_id" ref="abstract_instance_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='children']" position="after">
+                <button string="State Instances" name="%(sta_instance_action)d"
+                            type="action" attrs="{'invisible': [('id','=',False)]}"
+                            context="{'search_default_int_instance_id': active_id,
+                                      'default_int_instance_id': active_id}" />
+                <button string="External Assemblies" name="%(ext_assembly_action)d"
+                            type="action" attrs="{'invisible': [('id','=',False)]}"
+                            context="{'search_default_instance_id': active_id,
+                                      'default_instance_id': active_id}" />
+            </xpath>
+            <xpath expr="//button[@name='children']" position="attributes">
+                <attribute name="name">%(int_instance_action)d</attribute>
+            </xpath>
+            <xpath expr="//field[@name='assembly_ids']" position="before">
+                <button string="All Details"
+                                name="%(int_assembly_action)d"
+                                type="action"
+                                context="{'search_default_instance_id': active_id,
+                                          'default_instance_id': active_id,
+                                          'search_default_all': True}"/>
+            </xpath>
+
+            <xpath expr="//page[@name='assemblies']" position="after">
+                <page string="Multi-Instances" name="multi_instances" attrs="{'invisible': [('id','=',False)]}">
+                    <separator string="Composition"/>
+                    <field name="multi_instance_pc_m2m_ids"
+                           context="{'default_parent_id': parent_id,
+                                     'default_power_level_id': power_level_id}">
+                        <tree>
+                            <field name="name"/>
+                            <field name="power_level_id"/>
+                            <field name="active"/>
+                        </tree>
+                    </field>
+                    <separator string="Membership"/>
+                    <field name="multi_instance_cp_m2m_ids"
+                           context="{'default_parent_id': parent_id,
+                                     'default_power_level_id': power_level_id}">
+                        <tree>
+                            <field name="name"/>
+                            <field name="power_level_id"/>
+                            <field name="active"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}">
+                    <button string="All Details"
+                                name="%(electoral_district_action)d"
+                                type="action"
+                                context="{'search_default_int_instance_id': active_id,
+                                          'default_int_instance_id': active_id,
+                                          'search_default_all': True}"/>
+                    <field name="electoral_district_ids" context="{'default_int_instance_id': active_id}"
+                           attrs="{'invisible': [('active','=',False)]}">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                    <field name="electoral_district_inactive_ids" context="{'default_int_instance_id': active_id}"
+                           attrs="{'invisible': [('active','=',True)]}">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="int_instance_action" model="ir.actions.act_window">
+        <field name="name">Internal Instances</field>
+        <field name="res_model">int.instance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="abstract_instance_search_view" />
+        <field name="view_id" ref="abstract_instance_tree_view" />
+    </record>
+
+</odoo>

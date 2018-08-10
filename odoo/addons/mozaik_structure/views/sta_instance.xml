@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="sta_instance_search_view" model="ir.ui.view">
+        <field name="name">sta.instance.search</field>
+        <field name="model">sta.instance</field>
+        <field name="inherit_id" ref="abstract_instance_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="identifier"/>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="secondary_parent_id"/>
+                <field name="int_instance_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='parent']" position="after">
+                <filter name="secondary_parent" string="Secondary Parent" domain="[]" context="{'group_by':'secondary_parent_id'}" />
+                <filter name="int_instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sta_instance_tree_view" model="ir.ui.view">
+        <field name="name">sta.instance.tree</field>
+        <field name="model">sta.instance</field>
+        <field name="inherit_id" ref="abstract_instance_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='power_level_id']" position="after">
+                <field name="identifier"/>
+                <field name="int_instance_id"/>
+                <field name="secondary_parent_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sta_instance_form_view" model="ir.ui.view">
+        <field name="name">sta.instance.form</field>
+        <field name="model">sta.instance</field>
+        <field name="inherit_id" ref="abstract_instance_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='children']" position="replace">
+                <button string="Children" name="%(sta_instance_children_action)d"
+                    type="action" attrs="{'invisible': [('id','=',False)]}"
+                    context="{'default_parent_id': active_id}" />
+                <attribute name="name"></attribute>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="secondary_parent_id"/>
+                <field name="identifier"/>
+            </xpath>
+            <xpath expr="//group[@name='data_2']" position="inside">
+                <field name="int_instance_id"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='assemblies']" position="after">
+                <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}">
+                    <button string="All Details"
+                                name="%(electoral_district_action)d"
+                                type="action"
+                                context="{'search_default_sta_instance_id': active_id,
+                                          'default_sta_instance_id': active_id,
+                                          'search_default_all': True}"/>
+                    <field name="electoral_district_ids" context="{'default_sta_instance_id': active_id}">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='assembly_ids']" position="attributes">
+                <attribute name="context" translation="off">{'default_instance_id': active_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='assembly_ids']" position="before">
+                <button string="All Details"
+                                name="%(sta_assembly_action)d"
+                                type="action"
+                                context="{'search_default_instance_id': active_id,
+                                          'default_instance_id': active_id,
+                                          'search_default_all': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sta_instance_action" model="ir.actions.act_window">
+        <field name="name">State Instances</field>
+        <field name="res_model">sta.instance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sta_instance_search_view" />
+        <field name="view_id" ref="sta_instance_tree_view" />
+    </record>
+
+    <record id="sta_instance_action" model="ir.actions.act_window">
+        <field name="name">State Instances</field>
+        <field name="res_model">sta.instance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sta_instance_search_view" />
+        <field name="view_id" ref="sta_instance_tree_view" />
+    </record>
+
+</odoo>
