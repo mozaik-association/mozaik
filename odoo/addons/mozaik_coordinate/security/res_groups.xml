@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="res.groups" id="res_groups_coordinate_user_reader">
+        <field name="name">Coordinate reader</field>
+    </record>
+
+    <record model="res.groups" id="res_groups_coordinate_user">
+        <field name="name">Coordinate user</field>
+        <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_coordinate.res_groups_coordinate_user_reader'),
+            ])]" />
+    </record>
+
+    <record model="res.groups" id="res_groups_coordinate_vip_reader">
+        <field name="name">Coordinate VIP reader</field>
+    </record>
+
+    <record model="res.groups" id="res_groups_coordinate_vip_user">
+        <field name="name">Coordinate VIP user</field>
+        <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_coordinate.res_groups_coordinate_vip_reader'),
+            ])]" />
+    </record>
+
+    <record model="res.groups" id="res_groups_coordinate_officer">
+        <field name="name">Coordinate officer</field>
+    </record>
+
+    <record model="res.groups" id="res_groups_coordinate_manager">
+        <field name="name">Coordinate manager</field>
+    </record>
+
+</odoo>

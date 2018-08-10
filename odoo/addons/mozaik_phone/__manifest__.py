@@ -50,5 +50,5 @@ Numbers are normalized regarding the external python library: phonenumbers
     'test': [
     ],
     'license': 'AGPL-3',
-    'installable': True,
+    'installable': False,
 }

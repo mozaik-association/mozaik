@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_coordinate_category_res_group_base,mozaik.coordinate.category.res.group.base,model_coordinate_category,base.group_user,1,0,0,0

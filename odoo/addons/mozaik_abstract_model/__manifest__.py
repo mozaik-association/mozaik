@@ -13,4 +13,7 @@
         'base',
         'mail',
     ],
+    'data': [
+        'security/res_groups.xml',
+    ],
 }
