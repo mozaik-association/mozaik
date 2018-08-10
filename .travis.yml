@@ -26,6 +26,7 @@ install:
   - travis_install_nightly
 
 script:
+  - export TRAVIS_BUILD_DIR=${TRAVIS_BUILD_DIR}/odoo/addons
   - travis_run_tests
 
 after_success:

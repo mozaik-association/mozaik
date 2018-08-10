@@ -1,27 +1,6 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_address, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_address is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_address is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_address.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from collections import OrderedDict
 
 from openerp.osv import orm, fields
@@ -50,8 +29,6 @@ class address_address(orm.Model):
     _name = 'address.address'
     _inherit = ['mozaik.abstract.model']
     _description = 'Address'
-
-# private methods
 
     def _get_technical_name(self, cr, uid, values, context=None):
         """
@@ -274,11 +251,7 @@ class address_address(orm.Model):
 
     _order = 'country_id, zip, name'
 
-# constraints
-
     _unicity_keys = 'technical_name, sequence'
-
-# orm methods
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
@@ -307,8 +280,6 @@ class address_address(orm.Model):
         res = super(address_address, self).copy_data(
             cr, uid, ids, default=default, context=context)
         return res
-
-# view methods: onchange, button
 
     def onchange_country_id(self, cr, uid, ids, country_id, context=None):
         return {
@@ -351,8 +322,6 @@ class address_address(orm.Model):
             'value': vals
         }
 
-# public methods
-
     def get_linked_partners(self, cr, uid, ids, context=None):
         """
         Return all partners ids linked to addresses ids
@@ -364,149 +333,3 @@ class address_address(orm.Model):
         coord_ids = self._get_linked_coordinates(cr, uid, ids, context=context)
         return self.pool['postal.coordinate'].get_linked_partners(
             cr, uid, coord_ids, context=context)
-
-
-class postal_coordinate(orm.Model):
-
-    _name = 'postal.coordinate'
-    _inherit = ['abstract.coordinate']
-    _description = 'Postal Coordinate'
-
-    _track = {
-        'bounce_counter': {
-            'mozaik_address.address_failure_notification':
-                lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
-        },
-    }
-
-    _discriminant_field = 'address_id'
-    _trigger_fields = []
-    _undo_redirect_action = 'mozaik_address.postal_coordinate_action'
-
-    _columns = {
-        'address_id':
-            fields.many2one(
-                'address.address', string='Address', required=True,
-                readonly=True, select=True),
-        'co_residency_id':
-            fields.many2one('co.residency', string='Co-Residency', select=True)
-    }
-
-    _rec_name = _discriminant_field
-
-# constraints
-
-    _unicity_keys = 'partner_id, %s' % _discriminant_field
-
-# view methods: onchange, button
-
-    def onchange_unauthorized(
-            self, cr, uid, ids, unauthorized, co_residency_id, context=None):
-        if unauthorized and co_residency_id:
-            return {
-                'warning': {
-                    'title': _('Warning'),
-                    'message': _(
-                        'Unauthorizing a coordinate usually involves '
-                        'a change in its co-residency.'
-                    )
-                }
-            }
-
-# public methods
-
-    def name_get(self, cr, uid, ids, context=None):
-        result = super(postal_coordinate, self).name_get(
-            cr, uid, ids, context=context)
-        new_result = []
-        for res in result:
-            data = self.read(cr, uid, res[0], ['co_residency_id'],
-                             context=context)
-            name = res[1]
-            if data['co_residency_id']:
-                name = "%s (%s)" % (name, data['co_residency_id'][1])
-            new_result.append((res[0], name))
-        return new_result
-
-    def get_fields_to_update(self, cr, uid, mode, context=None):
-        """
-        :type mode: char
-        :param mode: mode defining return values
-        :rtype: dictionary
-        :rparam: values to update
-        """
-        res = super(postal_coordinate, self).get_fields_to_update(
-            cr, uid, mode, context=context)
-        if mode in ['duplicate', 'reset']:
-            res.update({'co_residency_id': False})
-        return res
-
-
-class co_residency(orm.Model):
-
-    _name = 'co.residency'
-    _inherit = ['mozaik.abstract.model']
-    _description = 'Co-Residency'
-
-    _inactive_cascade = True
-
-    _columns = {
-        'address_id': fields.many2one(
-            'address.address', string='Address',
-            required=True, readonly=True, select=True),
-        'line': fields.char('Line 1', track_visibility='onchange'),
-        'line2': fields.char('Line 2', track_visibility='onchange'),
-
-        'postal_coordinate_ids': fields.one2many(
-            'postal.coordinate', 'co_residency_id',
-            string='Postal Coordinates'),
-    }
-
-    _rec_name = 'address_id'
-
-# constraints
-
-    _unicity_keys = 'address_id'
-
-# orm methods
-
-    def name_get(self, cr, uid, ids, context=None):
-        """
-        :rparam: list of (id, name)
-                 where id is the id of each object
-                 and name, the name to display.
-        :rtype: [(id, name)] list of tuple
-        """
-        if not ids:
-            return []
-
-        context = context or self.pool['res.users'].context_get(cr, uid)
-
-        ids = isinstance(ids, (long, int)) and [ids] or ids
-
-        res = []
-        for record in self.read(cr, uid, ids, ['line', 'line2'],
-                                context=context):
-            if not record['line'] and not record['line2']:
-                name = _("Co-Residency to complete")
-            else:
-                name = "/".join([line for line in
-                                 [record['line'], record['line2']] if line])
-            res.append((record['id'], name))
-        return res
-
-    def unlink(self, cr, uid, ids, context=None):
-        '''
-        Force "undo allow duplicate" when deleting a co-residency
-        '''
-        ids = isinstance(ids, (long, int)) and [ids] or ids
-        coords = self.read(
-            cr, uid, ids, ['postal_coordinate_ids'], context=context)
-        cids = []
-        for c in coords:
-            cids += c['postal_coordinate_ids']
-        if cids:
-            self.pool['postal.coordinate'].button_undo_allow_duplicate(
-                cr, uid, cids, context=context)
-        res = super(co_residency, self).unlink(cr, uid, ids, context=context)
-        return res

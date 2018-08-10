@@ -1,7 +1,5 @@
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from . import models
-from . import res_country
-from . import address_local_street
-from . import address_address
-from . import res_partner
+from . import wizardS
 from . import reports
-from . import wizard

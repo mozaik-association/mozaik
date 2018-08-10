@@ -1,27 +1,5 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_address, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_address is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_address is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_address.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
@@ -38,9 +16,6 @@ class res_partner(orm.Model):
     def _get_main_postal_coordinate_id(self, cr, uid, ids, name, args,
                                        context=None):
         """
-        ==============================
-        _get_main_postal_coordinate_id
-        ==============================
         Reset main address field for a given address
         :param ids: partner ids for which the address number has to be
                     recomputed
@@ -65,9 +40,6 @@ class res_partner(orm.Model):
 
     def _get_street2(self, cr, uid, ids, name, args, context=None):
         """
-        ============
-        _get_street2
-        ============
         :rtype: {}
         :rparam: corresponding value for each partner_id
         """
@@ -87,9 +59,6 @@ class res_partner(orm.Model):
     def _get_main_address_componant(self, cr, uid, ids, name, args,
                                     context=None):
         """
-        ===========================
-        _get_main_address_componant
-        ===========================
         Reset address fields with corresponding main postal coordinate ids
         :param ids: partner ids for which new address fields have to be
                     recomputed
@@ -234,8 +203,6 @@ class res_partner(orm.Model):
                 type='char',
                 store=_street2_store_triggers),
     }
-
-# orm methods
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
