@@ -22,6 +22,7 @@ class AbstractCoordinate(models.AbstractModel):
     coordinate_category_id = fields.Many2one(
         'coordinate.category',
         'Coordinate category',
+        track_visibility='onchange',
         index=True,
     )
     coordinate_type = fields.Selection(
@@ -37,25 +38,30 @@ class AbstractCoordinate(models.AbstractModel):
     )
     unauthorized = fields.Boolean(
         default=False,
+        track_visibility='onchange',
     )
     vip = fields.Boolean(
         'VIP',
         default=False,
+        track_visibility='onchange',
     )
     failure_counter = fields.Integer(
         'Failures Counter',
         default=0,
         copy=False,
+        track_visibility='onchange',
         oldname="bounce_counter",
     )
     failure_description = fields.Text(
         'Last Failure Description',
         copy=False,
+        track_visibility='onchange',
         oldname="bounce_description",
     )
     failure_date = fields.Datetime(
         'Last Failure Date',
         copy=False,
+        track_visibility='onchange',
         oldname="bounce_date",
     )
 

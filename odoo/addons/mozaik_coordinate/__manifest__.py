@@ -12,12 +12,14 @@
     'category': 'Political Association',
     'depends': [
         'base',
+        'contacts',
+        'mail',
         'mozaik_abstract_model',
         'mozaik_duplicate',
-        'contacts',
     ],
     'data': [
-        'security/ir.model.access.csv',
+        'security/res_groups.xml',
+        'security/coordinate_category.xml',
         'views/res_partner.xml',
         'views/abstract_coordinate.xml',
         'views/coordinate_category.xml',

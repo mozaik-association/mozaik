@@ -9,7 +9,7 @@
         <field name="model">abstract.coordinate</field>
         <field name="arch" type="xml">
             <form>
-                <header attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                <header attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}" groups="mozaik_coordinate.res_groups_coordinate_user">
                     <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
                             attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                             confirm="Undo allow duplicate: proceed anyway?" />
@@ -31,7 +31,7 @@
                         <group name="other">
                             <field name="is_main" attrs="{'readonly': [('id','!=',False)]}" />
                             <field name="unauthorized" />
-                            <field name="vip"/>
+                            <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
                         </group>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -57,7 +57,8 @@
                                     <field name="failure_counter" class="oe_inline" readonly="1"/>
                                     <button name="button_reset_counter" type="object" class="oe_link" string="⇒ Reset"
                                             attrs="{'invisible': [('failure_counter','=',0)]}"
-                                            confirm="Reset Counter: proceed anyway?"/>
+                                            confirm="Reset Counter: proceed anyway?"
+                                            groups="mozaik_coordinate.res_groups_coordinate_user"/>
                                 </div>
                                 <field name="failure_description" readonly="1" />
                                 <field name="failure_date" readonly="1" />
@@ -65,7 +66,7 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div name="dev" class="oe_form_sheetbg">
+                <div name="dev" class="oe_form_sheetbg" groups="base.group_erp_manager">
                     <div class="oe_formview oe_form_sheet_width">
                         <h3>More Info</h3>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -80,7 +81,7 @@
                     </div>
                 </div>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -99,7 +100,7 @@
                 <separator />
                 <filter name="unauthorized" string="Unauthorized" domain="[('unauthorized','=',True)]" />
                 <separator />
-                <filter name="vip" string="VIP" domain="[('vip','=',True)]" />
+                <filter name="vip" string="VIP" domain="[('vip','=',True)]" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
                 <separator />
                 <filter name="duplicate" string="Duplicates" domain="[('is_duplicate_detected','=',True)]" />
                 <separator />
@@ -131,7 +132,7 @@
                 <field name="coordinate_category_id" />
                 <field name="is_main" />
                 <field name="unauthorized" />
-                <field name="vip" />
+                <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
                 <field name="failure_counter" attrs="{'invisible': [('failure_counter','=',0)]}"/>
 
                 <field name="is_duplicate_detected" invisible="1"/>
@@ -139,11 +140,12 @@
                 <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
                         attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                         icon="gtk-undo"
-                        confirm="Undo allow duplicate: proceed anyway?" />
+                        confirm="Undo allow duplicate: proceed anyway?"
+                        groups="mozaik_coordinate.res_groups_coordinate_user"/>
 
                 <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
 
-                <field name="active"/>
+                <field name="active" groups="base.group_erp_manager"/>
             </tree>
         </field>
     </record>

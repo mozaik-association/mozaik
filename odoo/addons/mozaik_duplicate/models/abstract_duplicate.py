@@ -18,9 +18,12 @@ class AbstractDuplicate(models.AbstractModel):
 
     is_duplicate_detected = fields.Boolean(
         readonly=True,
+        copy=False,
+        track_visibility='onchange',
     )
     is_duplicate_allowed = fields.Boolean(
         readonly=True,
+        copy=False,
     )
 
     @api.model

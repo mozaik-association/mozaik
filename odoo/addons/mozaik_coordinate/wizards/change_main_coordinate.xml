@@ -11,7 +11,7 @@
                 <group>
                     <group name="data">
                         <field name="invalidate_previous_coordinate" />
-                        <field name="change_allowed" groups="mozaik_base.res_groups_developper"/>
+                        <field name="change_allowed" groups="base.group_erp_manager"/>
                     </group>
                 </group>
                 <footer>

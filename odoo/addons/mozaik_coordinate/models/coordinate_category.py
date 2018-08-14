@@ -13,4 +13,5 @@ class CoordinateCategory(models.Model):
     name = fields.Char(
         required=True,
         index=True,
+        track_visibility='onchange',
     )

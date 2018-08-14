@@ -10,8 +10,8 @@
     'website': 'https://acsone.eu/',
     'category': 'Political Association',
     'depends': [
+        'mail',
         'base_suspend_security',
-        'mozaik_base',
         'mozaik_abstract_model',
     ],
     'data': [
