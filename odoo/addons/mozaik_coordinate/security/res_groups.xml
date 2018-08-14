@@ -16,21 +16,25 @@
 
     <record model="res.groups" id="res_groups_coordinate_vip_reader">
         <field name="name">Coordinate VIP reader</field>
+        <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_coordinate.res_groups_coordinate_user_reader'),
+            ])]" />
     </record>
 
     <record model="res.groups" id="res_groups_coordinate_vip_user">
         <field name="name">Coordinate VIP user</field>
         <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_coordinate.res_groups_coordinate_user'),
                 ref('mozaik_coordinate.res_groups_coordinate_vip_reader'),
             ])]" />
     </record>
 
-    <record model="res.groups" id="res_groups_coordinate_officer">
-        <field name="name">Coordinate officer</field>
-    </record>
-
     <record model="res.groups" id="res_groups_coordinate_manager">
         <field name="name">Coordinate manager</field>
+        <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_coordinate.res_groups_coordinate_vip_user'),
+            ])]" />
+        <field name="users" eval="[(6, 0, [ref('base.user_root')])]"/>
     </record>
 
 </odoo>
