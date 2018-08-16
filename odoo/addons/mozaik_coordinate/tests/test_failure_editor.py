@@ -1,76 +1,58 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from psycopg2 import IntegrityError
-from ..tests.common import TestCommonAbstractCoordinate
+import logging
+from uuid import uuid4
+from odoo.tests.common import TransactionCase
+from .common_failure_editor import CommonFailureEditor
+from .test_abstract_coordinate import ResPartner, NotAbstractCoordinate
 DESC = 'Bad Coordinate'
 
 
-class TestCommonFailureEditor(TestCommonAbstractCoordinate):
+class TestCommonFailureEditor(CommonFailureEditor, TransactionCase):
     """
     Run test for the abstract class too
     resolved with a dual inherit on the abstract and the common.NAME
     """
 
+    def _get_odoo_models(self):
+        """
+        Inherit to add a new model to instantiate
+        :return: list of Odoo Models
+        """
+        return [ResPartner, NotAbstractCoordinate]
+
+    def _init_test_models(self):
+        """
+        Function to init/create a new Odoo Model during unit test.
+        """
+        models_cls = self._get_odoo_models()
+        registry = self.env.registry
+        cr = self.env.cr
+        # Get the logger of the registry to disable logs who say that the
+        # table doesn't exists
+        _logger = logging.getLogger("odoo.modules.registry")
+        previous_level = _logger.level
+        _logger.setLevel(logging.CRITICAL)
+        for model_cls in models_cls:
+            model_cls._build_model(registry, cr)
+        registry.setup_models(cr)
+        names = [m._name for m in models_cls]
+        registry.init_models(cr, names, self.env.context)
+        _logger.setLevel(previous_level)
+        return
+
     def setUp(self):
-        super().setUp()
-        self.model_wizard = self.env['failure.editor']
-        partner = self.env['res.partner'].create({
-            'name': 'partner_1',
-        })
+        super(TestCommonFailureEditor, self).setUp()
+        registry = self.env.registry
+        # We must be in test mode before create/init new models
+        registry.enter_test_mode()
+        # Add the cleanup to disable test mode after this setup as finished
+        self.addCleanup(self.registry.leave_test_mode)
+        self._init_test_models()
+        self.model_coordinate = self.env[NotAbstractCoordinate._name]
+        self.coo_into_partner = 'not_abstract_coordinate_id'
         self.coordinate = self.model_coordinate.create({
-            'name': 'My coordinate name',
-            'partner_id': partner.id,
+            'name': str(uuid4()),
+            'partner_id': self.partner1.id,
+            self.model_coordinate._discriminant_field: str(uuid4()),
         })
-
-    def create_failure_data(self, inc):
-        """
-        Create a failure.editor wizard
-        :param inc:
-        :return: failure.editor wizard
-        """
-        context = self.env.context.copy()
-        context.update({
-            'active_ids': self.coordinate.ids,
-            'active_model': self.model_coordinate._name,
-            'default_model': self.model_coordinate._name,
-        })
-        wiz_vals = {
-            'increase': inc,
-            'description': DESC,
-        }
-        return self.model_wizard.with_context(context).create(wiz_vals)
-
-    def test_add_failure(self):
-        """
-        1/ test reference data
-        2/ create a valid wz
-        3/ execute it and test the new counter value
-        4/ reset the counter and test its value
-        5/ create an invalid wz
-        :return: bool
-        """
-        # 1/ Check for reference data
-        self.assertEqual(self.coordinate.failure_counter, 0,
-                         'Wrong expected reference data for this test')
-
-        # 2/ Create wizard record
-        counter = 2
-        wizard = self.create_failure_data(counter)
-
-        # 3/ Execute wizard
-        wizard.update_failure_data()
-        self.assertEqual(self.coordinate.failure_counter, counter,
-                         'Update coordinate fails with wrong failure_counter')
-        self.assertEqual(
-            self.coordinate.failure_description, DESC,
-            'Update coordinate fails with wrong failure_description')
-
-        # 4/ Reset counter
-        self.coordinate.button_reset_counter()
-        self.assertEqual(self.coordinate.failure_counter, 0,
-                         'Reset counter fails with wrong failure_counter')
-        self.env.cr._default_log_exceptions = False
-        with self.assertRaises(IntegrityError):
-            self.create_failure_data(-2)
-        self.env.cr._default_log_exceptions = True
-        return True

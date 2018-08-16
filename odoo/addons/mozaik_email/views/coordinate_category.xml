@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="coordinate_category_form_view" model="ir.ui.view">
+        <field name="name">Coordinate.category.form (in mozaik_email)</field>
+        <field name="model">coordinate.category</field>
+        <field name="inherit_id" ref="mozaik_coordinate.coordinate_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='buttons']" position="inside">
+                <button string="Email Coordinates"
+                        name="%(email_coordinate_action)d"
+                        type="action"
+                        context="{'search_default_coordinate_category_id': active_id, 'default_coordinate_category_id': active_id}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

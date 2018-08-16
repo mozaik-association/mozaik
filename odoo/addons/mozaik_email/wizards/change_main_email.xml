@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="change_main_email_wizard" model="ir.ui.view">
+        <field name="name">change.main.email.wizard</field>
+        <field name="model">change.main.email</field>
+        <field name="inherit_id" ref="mozaik_coordinate.change_main_coordinate_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='invalidate_previous_coordinate']" position="before">
+                <field name="old_email" options='{"no_open":True}' readonly='1' attrs="{'invisible': [('old_email','=',False)]}"/>
+                <field name="email" readonly="context.get('mode', '') == 'switch'"/>
+            </xpath>
+
+            <xpath expr="//field[@name='invalidate_previous_coordinate']" position="attributes">
+                <attribute name="attrs" translation="off">{'invisible': [('old_email','=',False)]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="change_main_email_action" model="ir.actions.act_window">
+        <field name="name">Change Main Email</field>
+        <field name="view_type">form</field>
+        <field name="src_model">res.partner</field>
+        <field name="res_model">change.main.email</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="change_main_email_wizard"/>
+        <field name="context">{'target_model': 'email.coordinate'}</field>
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_user')])]" />
+    </record>
+
+    <record id="set_as_main_action" model="ir.actions.act_window">
+        <field name="name">Set as main</field>
+        <field name="view_type">form</field>
+        <field name="src_model">email.coordinate</field>
+        <field name="res_model">change.main.email</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="change_main_email_wizard" />
+        <field name="context">{'mode': 'switch'}</field>
+        <field name="binding_model_id" ref="mozaik_email.model_email_coordinate" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_user')])]" />
+    </record>
+
+</odoo>

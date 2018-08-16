@@ -42,3 +42,18 @@ class EmailCoordinate(models.Model):
         if not path.startswith('/'):
             path = '/' + path
         return base_url + path
+
+    # TODO was in the mozaik_email addon
+    @api.model
+    def check_mail_message_access(self, res_ids, operation, model_name=None):
+        """
+        :param res_ids: list of int
+        :param operation: str
+        :param model_name: str
+        """
+        context = self.env.context
+        if context.get('active_model') == 'distribution.list' and \
+                context.get('main_target_model') == 'email.coordinate':
+            return None
+        return super().check_mail_message_access(
+            res_ids, operation, model_name=model_name)

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="email_coordinate_search_view" model="ir.ui.view">
+        <field name="name">email.coordinate.search (in mozaik_email)</field>
+        <field name="model">email.coordinate</field>
+        <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_search_view" />
+        <field name="priority" eval="90" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="email" />
+            </xpath>
+
+            <xpath expr="//group[@name='group_by']" position="inside">
+                <filter name="e_mail" string="Email" domain="[]" context="{'group_by':'email'}" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="email_coordinate_tree_view" model="ir.ui.view">
+        <field name="name">email.coordinate.tree (in mozaik_email)</field>
+        <field name="model">email.coordinate</field>
+        <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_tree_view" />
+        <field name="priority" eval="10" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="email" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="email_coordinate_action" model="ir.actions.act_window">
+        <field name="name">Email Coordinates</field>
+        <field name="res_model">email.coordinate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="email_coordinate_tree_view" />
+        <field name="search_view_id" ref="email_coordinate_search_view" />
+    </record>
+
+    <record id="email_coordinate_form_view" model="ir.ui.view">
+        <field name="name">email.coordinate.form (in mozaik_email)</field>
+        <field name="model">email.coordinate</field>
+        <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_form_view" />
+        <field name="priority" eval="90" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='title']" position="inside">
+                <label for="email" class="oe_edit_only"/>
+                <h1><field name="email" attrs="{'readonly': [('id','!=',False)]}" widget="email" /></h1>
+            </xpath>
+
+            <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
+                <attribute name="name">%(email_coordinate_action)d</attribute>
+                <attribute name="context" translation="off">{'search_default_duplicate': True,
+                    'search_default_email': email,
+                    'default_email': email}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Menu -->
+
+    <menuitem id="email_coordinate_menu" action="email_coordinate_action"
+              sequence="10" parent="mozaik_coordinate.mozaik_coordinate_menu" />
+
+</odoo>

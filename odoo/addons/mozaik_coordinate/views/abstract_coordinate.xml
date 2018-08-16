@@ -150,4 +150,15 @@
         </field>
     </record>
 
+    <record model="ir.ui.menu" id="mozaik_coordinate_menu" >
+        <field name="name">Coordinates</field>
+        <field name="sequence">30</field>
+        <field name="parent_id" ref="contacts.menu_contacts" />
+    </record>
+
+    <!-- Change the sequence of the Configuration menu (was 2) -->
+    <record model="ir.ui.menu" id="contacts.res_partner_menu_config" >
+        <field name="sequence">100</field>
+    </record>
+
 </odoo>

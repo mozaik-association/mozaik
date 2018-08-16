@@ -26,5 +26,8 @@
         'wizards/failure_editor.xml',
         'wizards/change_main_coordinate.xml',
     ],
+    'demo': [
+        'demo/res_partner.xml',
+    ],
     'installable': True,
 }

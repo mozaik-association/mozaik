@@ -1,65 +1,53 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_email, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_email is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_email is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_email.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp.osv import orm
-import openerp.tests.common as common
-import logging
-
-_logger = logging.getLogger(__name__)
-
-DB = common.DB
-ADMIN_USER_ID = common.ADMIN_USER_ID
+# Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from uuid import uuid4
+from odoo.addons.mozaik_coordinate.tests.common_abstract_coordinate import \
+    CommonAbstractCoordinate
+from odoo import exceptions
+from odoo.tests.common import TransactionCase
 
 
-class test_email_coordinate(common.TransactionCase):
+class TestEmailCoordinate(CommonAbstractCoordinate, TransactionCase):
 
     def setUp(self):
-        super(test_email_coordinate, self).setUp()
+        super(TestEmailCoordinate, self).setUp()
+        self.model_coordinate = self.env['email.coordinate']
+        self.coo_into_partner = 'email_coordinate_id'
+        self.partner = self.env.ref("mozaik_coordinate.res_partner_thierry")
+        self.field_id_1 = "%s@example.test" % str(uuid4())
+        self.field_id_2 = "%s@example.test" % str(uuid4())
+        self.field_id_3 = "%s@example.test" % str(uuid4())
 
-        self.registry('ir.model').clear_caches()
-        self.registry('ir.model.data').clear_caches()
+    def test_bad_email(self):
+        """
+        Test to insert invalid email address (bad format) to check the
+        constraint function _check_email()
+        For this test, we try to insert invalid emails
+        """
+        with self.assertRaises(exceptions.ValidationError):
+            self.model_coordinate.create({
+                'partner_id': self.partner.id,
+                'email': 'an invalid email',
+            })
+        # work with the sanitize
+        self.model_coordinate.create({
+            'partner_id': self.partner.id,
+            'email': 'first bad AFTER right@ok.be',
+        })
+        return
 
-    def test_bad_insert(self):
+    def test_valid_email(self):
         """
-        ===============
-        test_bad_insert
-        ===============
+        Test to insert invalid email address (bad format) to check the
+        constraint function _check_email()
+        For this case we try to insert valid emails
         """
-        cr, uid = self.cr, self.uid
-        model_email = self.registry('email.coordinate')
-        model_partner = self.registry('res.partner')
-        partner_id_1 = model_partner.create(cr, uid, {'name': 'test'})
-        self.assertRaises(
-            orm.except_orm,
-            model_email.create,
-            cr, uid, {'partner_id': partner_id_1,
-                      'email': 'bad'})
-        email_id = model_email.create(
-            cr, uid, {'partner_id': partner_id_1,
-                      'email': 'first bad AFTER right@ok.be'})
-        self.assertEqual(
-            'firstbadafterright@ok.be',
-            model_email.browse(
-                self.cr, self.uid, [email_id])[0].email,
-            'Email Should Not Contains Upper Case Or Whitespace')
+        self.model_coordinate.create({
+            'partner_id': self.partner.id,
+            'email': 'my123@example.test',
+        })
+        self.model_coordinate.create({
+            'partner_id': self.partner.id,
+            'email': 'another-titi@example.com',
+        })
+        return

@@ -35,10 +35,13 @@ class MozaikAbstractModel(models.AbstractModel):
         :return:
         """
         result = super().init()
-        if not self._auto or self._unicity_keys == 'N/A':
-            if self._auto and not self._unicity_keys:
-                _logger.warning('No _unicity_keys specified for model %s',
-                                self._name)
+
+        if not self._auto or self._abstract:
+            return result
+
+        if self._unicity_keys == 'N/A' or not self._unicity_keys:
+            _logger.warning('No _unicity_keys specified for model %s',
+                            self._name)
             return result
 
         cr = self.env.cr
