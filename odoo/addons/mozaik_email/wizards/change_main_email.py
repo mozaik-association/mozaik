@@ -44,25 +44,8 @@ class ChangeMainEmail(models.TransientModel):
         return result
 
     @api.model
-    def _sanitize_vals(self, vals):
-        email = vals.get("email")
-        if email:
-            email = self._sanitize_email(email)
-            vals["email"] = email
-
-    @api.model
     def _sanitize_email(self, email):
         return self.env["email.coordinate"]._sanitize_email(email)
-
-    @api.model
-    def create(self, vals):
-        self._sanitize_vals(vals)
-        return super().create(vals)
-
-    @api.multi
-    def write(self, vals):
-        self._sanitize_vals(vals)
-        return super().write(vals)
 
     @api.multi
     @api.onchange("email")
