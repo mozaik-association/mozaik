@@ -45,6 +45,13 @@ class ChangeMainCoordinate(models.AbstractModel):
                   'coordinate!'))
         return super().view_init(fields_list)
 
+    @api.model
+    def _get_target_model(self):
+        target_model = self.env.context.get('target_model')
+        if not target_model:
+            target_model = self.env.context.get('active_model')
+        return target_model
+
     @api.multi
     def button_change_main_coordinate(self):
         """
@@ -60,7 +67,7 @@ class ChangeMainCoordinate(models.AbstractModel):
         """
         self.ensure_one()
         context = self.env.context
-        target_model = context.get('target_model', False)
+        target_model = self._get_target_model()
         active_ids = context.get('active_ids', context.get('res_id'))
         active_model = context.get('active_model')
         active_obj = self.env[active_model]

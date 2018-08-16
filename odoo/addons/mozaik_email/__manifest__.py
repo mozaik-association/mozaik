@@ -22,7 +22,7 @@ This module manages email coordinates.
         'wizards/change_main_email.xml',
         'wizards/allow_duplicate_wizard.xml',
         'wizards/failure_editor.xml',
-        'security/abstract_coordinate.xml',
+        'security/email_coordinate.xml',
     ],
     'demo': [
         'demo/email_coordinate.xml',

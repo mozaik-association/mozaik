@@ -3,8 +3,6 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <!-- Coordinate Category -->
-
     <record id="coordinate_category_form_view" model="ir.ui.view">
         <field name="name">Coordinate.category.form (in mozaik_email)</field>
         <field name="model">coordinate.category</field>

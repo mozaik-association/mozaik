@@ -3,8 +3,6 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <!-- Email Coordinate -->
-
     <record id="email_coordinate_search_view" model="ir.ui.view">
         <field name="name">email.coordinate.search (in mozaik_email)</field>
         <field name="model">email.coordinate</field>
@@ -63,10 +61,6 @@
                 <attribute name="context" translation="off">{'search_default_duplicate': True,
                     'search_default_email': email,
                     'default_email': email}</attribute>
-            </xpath>
-
-            <xpath expr="//group[@name='moreinfo']" position="inside">
-                <span name="anchor_for_inherit_view" />
             </xpath>
 
         </field>

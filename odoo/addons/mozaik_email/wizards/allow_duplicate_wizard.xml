@@ -6,7 +6,6 @@
     <record id="allow_duplicate_action" model="ir.actions.act_window">
         <field name="name">Allow Duplicates</field>
         <field name="view_type">form</field>
-        <field name="view_mode">form</field>
         <field name="src_model">email.coordinate</field>
         <field name="res_model">allow.duplicate.wizard</field>
         <field name="multi" eval="1"/>

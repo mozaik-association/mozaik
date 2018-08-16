@@ -22,29 +22,26 @@
         <field name="priority" eval="150"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='email']" position="replace">
-                <field name="email_coordinate_id" />
+            <xpath expr="//field[@name='email']" position="attributes">
+                <attribute name="attrs">{'invisible': [('email', '=', 'VIP')]}</attribute>
             </xpath>
 
-        </field>
-    </record>
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="email_coordinate_id" attrs="{'invisible': [('email', '!=', 'VIP')]}" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
+            </xpath>
 
-    <record id="view_partner_2_form" model="ir.ui.view">
-        <field name="name">res.partner.form (in mozaik_email)</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_coordinate.res_partner_form_view" />
-        <field name="priority" eval="150"/>
-        <field name="arch" type="xml">
+            <xpath expr="//button[@name='toggle_active']" position="before">
+                <button string="All Emails" class="oe_stat_button" icon="fa-at" name="%(email_coordinate_action)d"
+                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                        context="{'search_default_partner_id': active_id,
+                                      'default_partner_id': active_id,
+                                      'search_default_all': True}" />
+            </xpath>
 
             <xpath expr="//page[@name='coordinates']" position="inside">
                 <span name="email" class="oe_horizontal_separator oe_clear oe_inline">
                     Email Coordinates
                 </span>
-                <button class="oe_right" string="All Details" name="%(email_coordinate_action)d"
-                        type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_partner_id': active_id,
-                                      'default_partner_id': active_id,
-                                      'search_default_all': True}" />
                 <field name="email_coordinate_ids" context="{'default_partner_id': active_id}"
                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                     <tree decoration-warning="unauthorized==True" decoration-info="is_duplicate_detected==True">

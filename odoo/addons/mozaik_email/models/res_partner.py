@@ -15,15 +15,13 @@ class ResPartner(models.Model):
         'partner_id',
         'Email coordinates',
         domain=[('active', '=', True)],
-        help="Email coordinates enabled for this partner",
-        copy=False
+        copy=False,
     )
     email_coordinate_inactive_ids = fields.One2many(
         'email.coordinate',
         'partner_id',
         'Email coordinates',
         domain=[('active', '=', False)],
-        help="Email coordinates disabled for this partner",
         copy=False,
     )
     # email_coordinate_id cannot be store=True for security issue: if the main
@@ -43,9 +41,7 @@ class ResPartner(models.Model):
     @api.depends(
         'email_coordinate_ids',
         'email_coordinate_ids.is_main',
-        'email_coordinate_ids.partner_id',
         'email_coordinate_ids.vip',
-        'email_coordinate_ids.unauthorized',
         'email_coordinate_ids.active',
         'email_coordinate_ids.email',
     )
@@ -59,7 +55,9 @@ class ResPartner(models.Model):
         for record in self:
             coordinate = self.env['email.coordinate'].browse()
             if record.active:
-                coordinate = first(record.email_coordinate_ids.filtered(
+                coordinate = first(record.sudo().email_coordinate_ids.filtered(
                     lambda e: e.is_main).with_prefetch(self._prefetch))
-            record.email_coordinate_id = coordinate
+            vip_group = 'mozaik_coordinate.res_groups_coordinate_vip_reader'
+            if not coordinate.vip or self.user_has_groups(vip_group):
+                record.email_coordinate_id = coordinate
             record.email = 'VIP' if coordinate.vip else coordinate.email

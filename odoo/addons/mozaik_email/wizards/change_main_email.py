@@ -26,7 +26,7 @@ class ChangeMainEmail(models.TransientModel):
         """
         result = super(ChangeMainEmail, self).default_get(fields_list)
         context = self.env.context
-        if context.get('mode') == 'switch':
+        if context.get("mode") == 'switch':
             target_model = context.get('active_model')
             target_id = context.get('active_id')
             target = self.env[target_model].browse(target_id)
@@ -42,3 +42,31 @@ class ChangeMainEmail(models.TransientModel):
                 'old_email': partner.email_coordinate_id.email,
             })
         return result
+
+    @api.model
+    def _sanitize_vals(self, vals):
+        email = vals.get("email")
+        if email:
+            email = self._sanitize_email(email)
+            vals["email"] = email
+
+    @api.model
+    def _sanitize_email(self, email):
+        return self.env["email.coordinate"]._sanitize_email(email)
+
+    @api.model
+    def create(self, vals):
+        self._sanitize_vals(vals)
+        return super().create(vals)
+
+    @api.multi
+    def write(self, vals):
+        self._sanitize_vals(vals)
+        return super().write(vals)
+
+    @api.multi
+    @api.onchange("email")
+    def onchange_email(self):
+        for wiz in self:
+            if wiz.email:
+                wiz.email = self._sanitize_email(wiz.email)

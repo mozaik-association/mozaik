@@ -2,11 +2,10 @@
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <!--Enable the failure editor wizard for email coordinate-->
+
     <record model="ir.actions.act_window" id="failure_editor_act_window">
         <field name="name">Failure Editor</field>
         <field name="view_type">form</field>
-        <field name="view_mode">form</field>
         <field name="res_model">failure.editor</field>
         <field name="multi" eval="0"/>
         <field name="target">new</field>

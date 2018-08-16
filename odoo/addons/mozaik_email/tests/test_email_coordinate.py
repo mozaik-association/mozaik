@@ -21,7 +21,7 @@ class TestEmailCoordinate(CommonAbstractCoordinate, TransactionCase):
     def test_bad_email(self):
         """
         Test to insert invalid email address (bad format) to check the
-        constraint function _constrain_email()
+        constraint function _check_email()
         For this test, we try to insert invalid emails
         """
         with self.assertRaises(exceptions.ValidationError):
@@ -29,17 +29,17 @@ class TestEmailCoordinate(CommonAbstractCoordinate, TransactionCase):
                 'partner_id': self.partner.id,
                 'email': 'an invalid email',
             })
-        with self.assertRaises(exceptions.ValidationError):
-            self.model_coordinate.create({
-                'partner_id': self.partner.id,
-                'email': 'first bad AFTER right@ok.be',
-            })
+        # work with the sanitize
+        self.model_coordinate.create({
+            'partner_id': self.partner.id,
+            'email': 'first bad AFTER right@ok.be',
+        })
         return
 
     def test_valid_email(self):
         """
         Test to insert invalid email address (bad format) to check the
-        constraint function _constrain_email()
+        constraint function _check_email()
         For this case we try to insert valid emails
         """
         self.model_coordinate.create({
