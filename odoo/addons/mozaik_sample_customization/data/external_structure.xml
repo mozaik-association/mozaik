@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <!-- Assembly Categories -->
+
+    <record id="ext_assembly_category_01" model="ext.assembly.category">
+        <field name="name">Conseil d'administration</field>
+    </record>
+
+    <record id="ext_assembly_category_02" model="ext.assembly.category">
+        <field name="name">Assemblée générale</field>
+    </record>
+
+    <record id="ext_assembly_category_03" model="ext.assembly.category">
+        <field name="name">Comité de Surveillance</field>
+    </record>
+
+    <record id="ext_assembly_category_04" model="ext.assembly.category">
+        <field name="name">Comité exécutif</field>
+    </record>
+
+    <record id="ext_assembly_category_05" model="ext.assembly.category">
+        <field name="name">Conseil d'avis</field>
+    </record>
+
+    <record id="ext_assembly_category_06" model="ext.assembly.category">
+        <field name="name">Comité permanent</field>
+    </record>
+
+    <record id="ext_assembly_category_07" model="ext.assembly.category">
+        <field name="name">Comité de Gestion</field>
+    </record>
+
+    <record id="ext_assembly_category_08" model="ext.assembly.category">
+        <field name="name">Comité de Direction</field>
+    </record>
+
+    <!-- Assemblies -->
+
+    <record id="ext_assembly_01" model="ext.assembly">
+        <field name="instance_id" ref="mozaik_structure.int_instance_01"/>
+        <field name="ref_partner_id" ref="res_partner_rtbf"/>
+        <field name="assembly_category_id" ref="ext_assembly_category_01"/>
+        <field name="designation_int_assembly_id" ref="int_assembly_08"/>
+        <field name="months_before_end_of_mandate" eval="4"/>
+    </record>
+
+     <record id="ext_assembly_02" model="ext.assembly">
+        <field name="instance_id" ref="mozaik_structure.int_instance_01"/>
+        <field name="ref_partner_id" ref="res_partner_rtbf"/>
+        <field name="assembly_category_id" ref="ext_assembly_category_02"/>
+        <field name="designation_int_assembly_id" ref="int_assembly_08"/>
+        <field name="months_before_end_of_mandate" eval="4"/>
+    </record>
+
+     <record id="ext_assembly_03" model="ext.assembly">
+        <field name="instance_id" ref="mozaik_structure.int_instance_01"/>
+        <field name="ref_partner_id" ref="res_partner_partena"/>
+        <field name="assembly_category_id" ref="ext_assembly_category_04"/>
+        <field name="designation_int_assembly_id" ref="int_assembly_08"/>
+        <field name="months_before_end_of_mandate" eval="3"/>
+    </record>
+
+</odoo>

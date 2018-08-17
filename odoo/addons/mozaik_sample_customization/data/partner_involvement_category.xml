@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <record id="partner_involvement_category_cpaq" model="partner.involvement.category">
+        <field name="name">Organisation Colloque de Pâques</field>
+        <field name="code">CPAQ</field>
+        <field name="involvement_type">voluntary</field>
+        <field name="interests_ids" eval="[(4, ref('term_confirmed_one'))]"/>
+    </record>
+
+</odoo>

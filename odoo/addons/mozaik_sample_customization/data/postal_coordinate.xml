@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <!-- Local Zip -->
+
+    <record id="local_zip_1" model="address.local.zip">
+        <field name="local_zip">4500</field>
+        <field name="town">Huy</field>
+        <field name="int_instance_id" ref="int_instance_05"/>
+    </record>
+
+    <record id="local_zip_2" model="address.local.zip">
+        <field name="local_zip">4360</field>
+        <field name="town">Oreye</field>
+        <field name="int_instance_id" ref="int_instance_06"/>
+    </record>
+
+    <record id="local_zip_3" model="address.local.zip">
+        <field name="local_zip">1020</field>
+        <field name="town">Brussels</field>
+        <field name="int_instance_id" ref="int_instance_11"/>
+    </record>
+
+    <!-- Local Streets -->
+
+    <record id="local_street_1" model="address.local.street">
+        <field name="identifier">local_street_1</field>
+        <field name="local_street">Grand-Place</field>
+        <field name="local_zip">4500</field>
+    </record>
+
+    <record id="local_street_2" model="address.local.street">
+        <field name="identifier">local_street_2</field>
+        <field name="local_street">Rue Louis Maréchal</field>
+        <field name="local_zip">4360</field>
+    </record>
+
+    <record id="local_street_3" model="address.local.street">
+        <field name="identifier">local_street_3</field>
+        <field name="local_street">Avenue des Pagodes</field>
+        <field name="local_street_alternative">Pagodenlaan</field>
+        <field name="local_zip">1020</field>
+    </record>
+
+    <!-- Addresses -->
+
+    <record id="address_address_01" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_local_zip_id" ref="local_zip_1"/>
+        <field name="address_local_street_id" ref="local_street_1"/>
+        <field name="number">5</field>
+    </record>
+
+    <record id="address_address_02" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_local_zip_id" ref="local_zip_2"/>
+        <field name="address_local_street_id" ref="local_street_2"/>
+        <field name="number">6</field>
+        <field name="box">2B</field>
+    </record>
+
+    <record id="address_address_03" model="address.address">
+        <field name="country_id" ref="base.us"/>
+        <field name="zip_man">20301</field>
+        <field name="town_man">Washington DC</field>
+        <field name="street_man">White House</field>
+    </record>
+
+    <record id="address_address_04" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_local_zip_id" ref="local_zip_3"/>
+        <field name="address_local_street_id" ref="local_street_3"/>
+        <field name="select_alternative_address_local_street" eval="1"/>
+        <field name="number">6</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <!-- Postal Coordinates -->
+
+    <record id="postal_coordinate_01_thierry_01" model="postal.coordinate">
+        <field name="address_id" ref="address_address_01"/>
+        <field name="partner_id" ref="res_partner_thierry"/>
+    </record>
+
+    <record id="postal_coordinate_02_jacques" model="postal.coordinate">
+        <field name="address_id" ref="address_address_02"/>
+        <field name="partner_id" ref="res_partner_jacques"/>
+    </record>
+
+    <record id="postal_coordinate_03_marc" model="postal.coordinate">
+        <field name="address_id" ref="address_address_02"/>
+        <field name="partner_id" ref="res_partner_marc"/>
+    </record>
+
+    <record id="postal_coordinate_04_thierry_02" model="postal.coordinate">
+        <field name="address_id" ref="address_address_02"/>
+        <field name="partner_id" ref="res_partner_thierry"/>
+        <field name="is_main" eval="True"/>
+    </record>
+
+    <record id="postal_coordinate_05_pauline_01" model="postal.coordinate">
+        <field name="address_id" ref="address_address_02"/>
+        <field name="partner_id" ref="res_partner_pauline"/>
+        <field name="is_main" eval="True"/>
+    </record>
+
+    <record id="postal_coordinate_06_paul" model="postal.coordinate">
+        <field name="address_id" ref="address_address_02"/>
+        <field name="partner_id" ref="res_partner_paul"/>
+        <field name="vip" eval="True"/>
+    </record>
+
+    <record id="postal_coordinate_07_pauline_02" model="postal.coordinate">
+        <field name="address_id" ref="address_address_03"/>
+        <field name="partner_id" ref="res_partner_pauline"/>
+        <field name="vip" eval="True"/>
+    </record>
+
+</odoo>

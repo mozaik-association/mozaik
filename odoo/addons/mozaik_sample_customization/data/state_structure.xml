@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <!-- Power Levels -->
+
+    <record id="sta_power_level_01" model="sta.power.level">
+        <field name="name">Fédéral</field>
+        <field name="sequence">8</field>
+    </record>
+
+    <record id="sta_power_level_02" model="sta.power.level">
+        <field name="name">Europe</field>
+        <field name="sequence">9</field>
+    </record>
+
+    <record id="sta_power_level_03" model="sta.power.level">
+        <field name="name">Communauté</field>
+        <field name="sequence">7</field>
+    </record>
+
+    <record id="sta_power_level_04" model="sta.power.level">
+        <field name="name">Région</field>
+        <field name="sequence">7</field>
+    </record>
+
+    <record id="sta_power_level_05" model="sta.power.level">
+        <field name="name">Commune</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="sta_power_level_06" model="sta.power.level">
+        <field name="name">Arrondissement</field>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="sta_power_level_07" model="sta.power.level">
+        <field name="name">Province</field>
+        <field name="sequence">6</field>
+    </record>
+
+    <!-- Assembly Categories -->
+
+    <record id="sta_assembly_category_01" model="sta.assembly.category">
+        <field name="name">Europe</field>
+        <field name="power_level_id" ref="sta_power_level_02"/>
+        <field name="duration">5</field>
+    </record>
+
+    <record id="sta_assembly_category_02" model="sta.assembly.category">
+        <field name="name">Sénat</field>
+        <field name="power_level_id" ref="sta_power_level_01"/>
+        <field name="duration">4</field>
+    </record>
+
+    <record id="sta_assembly_category_03" model="sta.assembly.category">
+        <field name="name">Chambre</field>
+        <field name="power_level_id" ref="sta_power_level_01"/>
+        <field name="duration">4</field>
+    </record>
+
+    <record id="sta_assembly_category_04" model="sta.assembly.category">
+        <field name="name">Parlement de la Communauté</field>
+        <field name="power_level_id" ref="sta_power_level_03"/>
+        <field name="duration">5</field>
+    </record>
+
+    <record id="sta_assembly_category_05" model="sta.assembly.category">
+        <field name="name">Conseil provincial</field>
+        <field name="power_level_id" ref="sta_power_level_07"/>
+        <field name="duration">6</field>
+        <field name="is_legislative" eval="1"/>
+    </record>
+
+    <record id="sta_assembly_category_06" model="sta.assembly.category">
+        <field name="name">Conseil régional</field>
+        <field name="power_level_id" ref="sta_power_level_04"/>
+        <field name="duration">5</field>
+        <field name="is_legislative" eval="1"/>
+    </record>
+
+    <record id="sta_assembly_category_07" model="sta.assembly.category">
+        <field name="name">Conseil communal</field>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="duration">6</field>
+        <field name="is_legislative" eval="1"/>
+    </record>
+
+    <record id="sta_assembly_category_08" model="sta.assembly.category">
+        <field name="name">Commission européenne</field>
+        <field name="power_level_id" ref="sta_power_level_02"/>
+        <field name="duration">5</field>
+    </record>
+
+    <record id="sta_assembly_category_09" model="sta.assembly.category">
+        <field name="name">Gouvernement fédéral</field>
+        <field name="power_level_id" ref="sta_power_level_01"/>
+        <field name="duration">4</field>
+    </record>
+
+    <record id="sta_assembly_category_10" model="sta.assembly.category">
+        <field name="name">Gouvernement de la communauté</field>
+        <field name="power_level_id" ref="sta_power_level_03"/>
+        <field name="duration">5</field>
+    </record>
+
+    <record id="sta_assembly_category_11" model="sta.assembly.category">
+        <field name="name">Collège des bourgmestre et échevins</field>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="duration">6</field>
+    </record>
+
+    <record id="sta_assembly_category_12" model="sta.assembly.category">
+        <field name="name">Gouvernement régional</field>
+        <field name="power_level_id" ref="sta_power_level_04"/>
+        <field name="duration">5</field>
+    </record>
+
+    <record id="sta_assembly_category_13" model="sta.assembly.category">
+        <field name="name">Députation permanente</field>
+        <field name="power_level_id" ref="sta_power_level_07"/>
+        <field name="duration">6</field>
+    </record>
+
+    <record id="sta_assembly_category_14" model="sta.assembly.category">
+        <field name="name">Conseil de l'Aide Social</field>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="duration">6</field>
+        <field name="is_legislative" eval="1"/>
+    </record>
+
+    <record id="sta_assembly_category_15" model="sta.assembly.category">
+        <field name="name">Bureau de l'aide Sociale</field>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="duration">6</field>
+    </record>
+
+     <record id="sta_assembly_category_16" model="sta.assembly.category">
+        <field name="name">Parlement régional</field>
+        <field name="power_level_id" ref="sta_power_level_04"/>
+        <field name="duration">5</field>
+    </record>
+
+    <!-- Instances -->
+
+    <record id="sta_instance_01" model="sta.instance">
+        <field name="name">Etat féderal</field>
+        <field name="power_level_id" ref="sta_power_level_01"/>
+        <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
+    </record>
+
+    <record id="sta_instance_02" model="sta.instance">
+        <field name="name">Communauté française</field>
+        <field name="power_level_id" ref="sta_power_level_03"/>
+        <field name="parent_id" ref="sta_instance_01"/>
+        <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
+    </record>
+
+    <record id="sta_instance_03" model="sta.instance">
+        <field name="name">Région wallonne</field>
+        <field name="power_level_id" ref="sta_power_level_04"/>
+         <field name="parent_id" ref="sta_instance_01"/>
+        <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
+    </record>
+
+    <record id="sta_instance_04" model="sta.instance">
+        <field name="name">Liège</field>
+        <field name="power_level_id" ref="sta_power_level_07"/>
+        <field name="parent_id" ref="sta_instance_03"/>
+        <field name="secondary_parent_id" ref="sta_instance_02"/>
+        <field name="int_instance_id" ref="int_instance_03"/>
+    </record>
+
+    <record id="sta_instance_05" model="sta.instance">
+        <field name="name">Huy-Waremme</field>
+        <field name="power_level_id" ref="sta_power_level_06"/>
+        <field name="parent_id" ref="sta_instance_04"/>
+        <field name="int_instance_id" ref="int_instance_04"/>
+    </record>
+
+    <record id="sta_instance_06" model="sta.instance">
+        <field name="name">Vlaams Brabant</field>
+        <field name="power_level_id" ref="sta_power_level_07"/>
+        <field name="parent_id" ref="sta_instance_01"/>
+        <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
+    </record>
+
+    <record id="sta_instance_07" model="sta.instance">
+        <field name="name">Huy</field>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="parent_id" ref="sta_instance_05"/>
+        <field name="int_instance_id" ref="int_instance_05"/>
+        <field name="identifier">61031</field>
+    </record>
+
+    <record id="sta_instance_08" model="sta.instance">
+        <field name="name">Bruxelles Capitale</field>
+        <field name="power_level_id" ref="sta_power_level_04"/>
+        <field name="parent_id" ref="sta_instance_01"/>
+        <field name="int_instance_id" ref="int_instance_10"/>
+    </record>
+
+    <record id="sta_instance_09" model="sta.instance">
+        <field name="name">Oreye</field>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="parent_id" ref="sta_instance_05"/>
+        <field name="int_instance_id" ref="int_instance_06"/>
+    </record>
+
+    <record id="sta_instance_10" model="sta.instance">
+        <field name="name">Bruxelles</field>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="parent_id" ref="sta_instance_09"/>
+        <field name="int_instance_id" ref="int_instance_11"/>
+    </record>
+
+    <!-- Assemblies -->
+
+    <record id="sta_assembly_01" model="sta.assembly">
+        <field name="instance_id" ref="sta_instance_07"/>
+        <field name="assembly_category_id" ref="sta_assembly_category_07"/>
+    </record>
+
+    <record id="sta_assembly_02" model="sta.assembly">
+        <field name="instance_id" ref="sta_instance_04"/>
+        <field name="assembly_category_id" ref="sta_assembly_category_05"/>
+    </record>
+
+    <record id="sta_assembly_03" model="sta.assembly">
+        <field name="instance_id" ref="sta_instance_07"/>
+        <field name="assembly_category_id" ref="sta_assembly_category_11"/>
+    </record>
+
+     <record id="sta_assembly_04" model="sta.assembly">
+        <field name="instance_id" ref="sta_instance_04"/>
+        <field name="assembly_category_id" ref="sta_assembly_category_13"/>
+    </record>
+
+    <!-- Legislature -->
+
+    <record id="legislature_01" model="legislature">
+        <field name="name" eval="'Communale '+(DateTime.today() + relativedelta(years=2)).strftime('%Y')"/>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="start_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"/>
+        <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"/>
+        <field name="election_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-09-15')"/>
+    </record>
+
+    <record id="legislature_02" model="legislature">
+        <field name="name" eval="'Provinciale '+(DateTime.today() + relativedelta(years=1)).strftime('%Y')"/>
+        <field name="power_level_id" ref="sta_power_level_09"/>
+        <field name="start_date" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-10-01')"/>
+        <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=7)).strftime('%Y-09-30')"/>
+        <field name="election_date" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-09-15')"/>
+    </record>
+
+    <record id="legislature_03_opened" model="legislature">
+        <field name="name" eval="'Communale '+(DateTime.today() - relativedelta(years=4)).strftime('%Y')"/>
+        <field name="power_level_id" ref="sta_power_level_05"/>
+        <field name="start_date" eval="(DateTime.today() - relativedelta(years=4)).strftime('%Y-10-01')"/>
+        <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-09-30')"/>
+        <field name="election_date" eval="(DateTime.today() - relativedelta(years=4)).strftime('%Y-09-15')"/>
+    </record>
+
+    <!-- Electoral Districts -->
+
+    <record id="electoral_district_01" model="electoral.district">
+        <field name="sta_instance_id" ref="sta_instance_07"/>
+        <field name="assembly_id" ref="sta_assembly_01"/>
+        <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+    </record>
+
+    <record id="electoral_district_02" model="electoral.district">
+        <field name="name">Huy (Province)</field>
+        <field name="sta_instance_id" ref="sta_instance_07"/>
+        <field name="assembly_id" ref="sta_assembly_02"/>
+        <field name="designation_int_assembly_id" ref="int_assembly_04"/>
+    </record>
+
+</odoo>

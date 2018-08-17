@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <record id="res_partner_paul" model="res.partner">
+        <field name="firstname">Paul</field>
+        <field name="lastname">VAN HAVER</field>
+        <field name="birthdate_date">1985-03-12</field>
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_pauline" model="res.partner">
+        <field name="lastname">MAROIS</field>
+        <field name="firstname">Pauline</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="website">http://www.legoland.dk/</field>
+    </record>
+
+    <record id="res_partner_marc" model="res.partner">
+        <field name="lastname">ZUCKERBERG</field>
+        <field name="firstname">Mark</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="int_instance_ids" eval="[(6, 0, [
+            ref('mozaik_structure.int_instance_01'),
+        ])]"/>
+    </record>
+
+    <record id="res_partner_thierry" model="res.partner">
+        <field name="lastname">LHERMITTE</field>
+        <field name="firstname">Thierry</field>
+        <field name="birthdate_date">1985-04-01</field>
+        <field name="usual_lastname">BROCHANT</field>
+        <field name="usual_firstname">Pierre</field>
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_jacques" model="res.partner">
+        <field name="lastname">LE CROQUANT</field>
+        <field name="firstname">Jacques</field>
+        <field name="birthdate_date">1985-03-12</field>
+        <field name="usual_firstname">Jacquou</field>
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_dries" model="res.partner">
+        <field name="lastname">MERTENS</field>
+        <field name="firstname">Dries</field>
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_serguei" model="res.partner">
+        <field name="lastname">BUBKA</field>
+        <field name="firstname">Sergueï</field>
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_fgtb" model="res.partner">
+        <field name="name">F.G.T.B</field>
+        <field name="is_company" eval="True" />
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_nouvelobs" model="res.partner">
+        <field name="name">Nouvel Observateur</field>
+        <field name="is_company" eval="True" />
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_nouvelobs_bis" model="res.partner">
+        <field name="name">Nouvel Observateur (Service Publicité)</field>
+        <field name="is_company" eval="True" />
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_rtbf" model="res.partner">
+        <field name="name">Radio Télévision belge francophone</field>
+        <field name="is_company" eval="True" />
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+    <record id="res_partner_partena" model="res.partner">
+        <field name="name">Partena</field>
+        <field name="is_company" eval="True" />
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+</odoo>

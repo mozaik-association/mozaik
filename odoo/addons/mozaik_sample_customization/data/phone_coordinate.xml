@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <!-- Phones -->
+
+    <record id="phone_phone_01_fix" model="phone.phone">
+        <field name="name">061548798</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_02_fix" model="phone.phone">
+        <field name="name">063458688</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_03_fix" model="phone.phone">
+        <field name="name">063458978</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_04_mobile" model="phone.phone">
+        <field name="name">+32 478 85 25 25</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_05_mobile" model="phone.phone">
+        <field name="name">+32 465 00 00 00</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_06_mobile" model="phone.phone">
+        <field name="name">+32 473 78 10 78</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_07_mobile" model="phone.phone">
+        <field name="name">+32 473 78 10 79</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_08_mobile" model="phone.phone">
+        <field name="name">+32 473 78 10 80</field>
+        <field name="type">mobile</field>
+    </record>
+
+    <record id="phone_phone_09_fax" model="phone.phone">
+        <field name="name">061548799</field>
+        <field name="type">fax</field>
+    </record>
+
+    <record id="phone_phone_10_fax" model="phone.phone">
+        <field name="name">061900009</field>
+        <field name="type">fax</field>
+    </record>
+
+    <record id="phone_phone_11_fix" model="phone.phone">
+        <field name="name">061458978</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_12_fix" model="phone.phone">
+        <field name="name">061411232</field>
+        <field name="type">fix</field>
+    </record>
+
+    <record id="phone_phone_13_fax" model="phone.phone">
+        <field name="name">+33 01 40 23 86 13</field>
+        <field name="type">fax</field>
+    </record>
+
+    <record id="phone_phone_14_fix" model="phone.phone">
+        <field name="name">025520330</field>
+        <field name="type">fix</field>
+        <field name="also_for_fax" eval="1"/>
+    </record>
+
+    <!-- Phone Coordinates -->
+
+    <record id="phone_coordinate_01" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_11_fix" />
+        <field name="partner_id" ref="res_partner_pauline" />
+        <field name="coordinate_category_id" ref="coordinate_category_professional" />
+        <field name="unauthorized" eval="True" />
+    </record>
+
+    <record id="phone_coordinate_02" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_11_fix" />
+        <field name="partner_id" ref="res_partner_paul" />
+    </record>
+
+    <record id="phone_coordinate_03" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_01_fix" />
+        <field name="partner_id" ref="res_partner_marc" />
+    </record>
+
+    <record id="phone_coordinate_04" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_04_mobile" />
+        <field name="partner_id" ref="res_partner_marc" />
+    </record>
+
+    <record id="phone_coordinate_05" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_09_fax" />
+        <field name="partner_id" ref="res_partner_marc" />
+        <field name="coordinate_category_id" ref="coordinate_category_professional" />
+    </record>
+
+    <record id="phone_coordinate_06" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_05_mobile" />
+        <field name="partner_id" ref="res_partner_thierry" />
+        <field name="coordinate_category_id" ref="coordinate_category_professional" />
+    </record>
+
+    <record id="phone_coordinate_07" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_06_mobile" />
+        <field name="partner_id" ref="res_partner_thierry" />
+    </record>
+
+    <record id="phone_coordinate_08" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_13_fax" />
+        <field name="partner_id" ref="res_partner_nouvelobs" />
+        <field name="unauthorized" eval="True" />
+    </record>
+
+    <record id="phone_coordinate_09" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_07_mobile" />
+        <field name="partner_id" ref="res_partner_jacques" />
+        <field name="vip" eval="True" />
+    </record>
+
+    <record id="phone_coordinate_10" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_08_mobile" />
+        <field name="partner_id" ref="res_partner_jacques" />
+        <field name="coordinate_category_id" ref="coordinate_category_professional" />
+    </record>
+
+    <record id="phone_coordinate_11" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_01_fix" />
+        <field name="partner_id" ref="res_partner_jacques" />
+    </record>
+
+    <record id="phone_coordinate_12" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_02_fix" />
+        <field name="partner_id" ref="res_partner_jacques" />
+    </record>
+
+    <record id="phone_coordinate_13" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_09_fax" />
+        <field name="partner_id" ref="res_partner_jacques" />
+    </record>
+
+    <record id="phone_coordinate_14" model="phone.coordinate">
+        <field name="phone_id" ref="phone_phone_14_fix" />
+        <field name="partner_id" ref="res_partner_fgtb" />
+    </record>
+
+</odoo>

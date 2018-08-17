@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <record id="email_coordinate_01_pauline" model="email.coordinate">
+        <field name="email">demo+mz+pauline@acsone.eu</field>
+        <field name="partner_id" ref="res_partner_pauline" />
+    </record>
+
+    <record id="email_coordinate_02_thierry_01" model="email.coordinate">
+        <field name="email">demo+mz+thierry@acsone.eu</field>
+        <field name="partner_id" ref="res_partner_thierry" />
+    </record>
+
+    <record id="email_coordinate_03_thierry_02" model="email.coordinate">
+        <field name="email">demo+mz+titi@acsone.eu</field>
+        <field name="partner_id" ref="res_partner_thierry" />
+        <field name="vip" eval="True" />
+        <field name="coordinate_category_id" ref="coordinate_category_private" />
+    </record>
+
+    <record id="email_coordinate_04_jacques_01" model="email.coordinate">
+        <field name="email">demo+mz+jacques@acsone.eu</field>
+        <field name="partner_id" ref="res_partner_jacques" />
+    </record>
+
+    <record id="email_coordinate_05_paul" model="email.coordinate">
+        <field name="partner_id" ref="res_partner_paul" />
+        <field name="email">demo+mz+paul@acsone.eu</field>
+        <field name="unauthorized" eval="True" />
+    </record>
+
+    <record id="email_coordinate_06_jacques_02" model="email.coordinate">
+        <field name="partner_id" ref="res_partner_jacques" />
+        <field name="email">demo+mz+jack@acsone.eu</field>
+        <field name="unauthorized" eval="True" />
+    </record>
+
+    <record id="email_coordinate_07_nouvelobs" model="email.coordinate">
+        <field name="partner_id" ref="res_partner_nouvelobs" />
+        <field name="email">demo+mz+nobs@acsone.eu</field>
+    </record>
+
+    <record id="email_coordinate_08_local_huy" model="email.coordinate">
+        <field name="partner_id" ref="int_assembly_02_res_partner" />
+        <field name="email">demo+mz+huy@acsone.eu</field>
+    </record>
+
+    <record id="email_coordinate_09_regional_huy_waremme" model="email.coordinate">
+        <field name="partner_id" ref="int_assembly_03_res_partner" />
+        <field name="email">demo+mz+huy+waremme@acsone.eu</field>
+    </record>
+
+</odoo>
