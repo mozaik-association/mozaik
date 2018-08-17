@@ -9,17 +9,19 @@
                 <field name="name" />
                 <field name="assembly_category_id" />
                 <field name="instance_id" />
+                <field name="designation_int_assembly_id" />
 
-                <filter name="expired" string="Expired"
+                <filter name="expired" string="Archived"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expired Assemblies" />
+                        domain="[('active','=',False)]" help="Archived Assemblies" />
                 <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Assemblies, expired or not" />
+                        domain="[('active', '&lt;=', 1)]" help="All Assemblies, archived or not" />
 
-                <group expand="0" string="Group By..." name="group_by">
-                    <filter name="category" string="Category" domain="[]" context="{'group_by':'assembly_category_id'}" />
-                    <filter name="instance" string="Instance" domain="[]" context="{'group_by':'instance_id'}" />
+                <group expand="0" string="Group By" name="group_by">
+                    <filter name="category" string="Category" context="{'group_by':'assembly_category_id'}" />
+                    <filter name="instance" string="Instance" context="{'group_by':'instance_id'}" />
+                    <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
                 </group>
             </search>
         </field>
@@ -43,18 +45,23 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                         invisible="context.get('popup')"
-                         groups="mozaik_base.mozaik_res_groups_configurator">
-                        <button name="action_invalidate" string="Invalidate" type="object"
-                                confirm="Invalidate assembly: proceed anyway?" />
+                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
                     </div>
                 </header>
                 <sheet>
-                    <div class="oe_title" name="title" attrs="{'invisible': [('id','=',False)]}">
-                        <h1><field name="partner_id" readonly="1" required="0" /></h1>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
+                                confirm="Archive/reactivate assembly: proceed anyway?"
+                                groups="mozaik_abstract_model.res_groups_archiving_manager">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" default_focus="1"/></h1>
+                        <group>
+                            <field name="partner_id" required="0" attrs="{'invisible': [('id','=',False)]}"/>
+                        </group>
                     </div>
 
                     <group>
@@ -63,6 +70,7 @@
                             <field name="assembly_category_id"/>
                         </group>
                         <group name="mandate">
+                            <field name="designation_int_assembly_id" domain="[('is_designation_assembly', '=', True), ('id','!=',active_id)]"/>
                             <field name="months_before_end_of_mandate"/>
                         </group>
                     </group>
@@ -75,22 +83,15 @@
                         <group name="other">
                         </group>
                     </group>
+                
+                    <notebook>
+                        <page string="More Info" name="dev" groups="base.group_erp_manager">
+                            <group name="moreinfo"/>
+                        </page>
+                    </notebook>
                 </sheet>
-                <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
-                    <div class="oe_formview oe_form_sheet_width">
-                        <h3>More Info</h3>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                            <button name="action_revalidate" string="Validate" type="object"
-                                    confirm="Reactivate document: proceed anyway?" />
-                        </div>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="active"/>
-                        </group>
-                    </div>
-                </div>
-                <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                <div name="chat" class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>

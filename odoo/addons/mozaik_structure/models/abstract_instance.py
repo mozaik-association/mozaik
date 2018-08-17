@@ -1,89 +1,94 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
-from openerp.tools import SUPERUSER_ID
+from odoo import api, exceptions, fields, models, _
 
 
-class abstract_instance(orm.AbstractModel):
+class AbstractInstance(models.AbstractModel):
 
     _name = 'abstract.instance'
     _inherit = ['mozaik.abstract.model']
     _description = 'Abstract Instance'
-
-    _columns = {
-        'name': fields.char(
-            'Name',
-            size=128,
-            required=True,
-            select=True,
-            track_visibility='onchange'),
-        'power_level_id': fields.many2one(
-            'abstract.power.level',
-            'Power Level',
-            required=True,
-            select=True,
-            track_visibility='onchange'),
-        'parent_id': fields.many2one(
-            'abstract.instance',
-            'Parent Instance',
-            select=True,
-            track_visibility='onchange'),
-        'parent_left': fields.integer(
-            'Left Parent',
-            select=True),
-        'parent_right': fields.integer(
-            'Right Parent',
-            select=True),
-        'assembly_ids': fields.one2many(
-            'abstract.assembly',
-            'assembly_category_id',
-            'Assemblies',
-            domain=[
-                ('active',
-                 '=',
-                 True)]),
-        'assembly_inactive_ids': fields.one2many(
-            'abstract.assembly',
-            'assembly_category_id',
-            'Assemblies',
-            domain=[
-                ('active',
-                 '=',
-                 False)]),
-    }
-
     _parent_name = 'parent_id'
     _parent_store = True
     _parent_order = 'name'
     _order = 'name'
-
-    _constraints = [
-        (orm.Model._check_recursion,
-         _('You can not create recursive instances'), ['parent_id']),
-    ]
-
     _unicity_keys = 'power_level_id, name'
+    _log_access = True
 
-    def name_get(self, cr, uid, ids, context=None):
+    name = fields.Char(
+        required=True,
+        index=True,
+        track_visibility='onchange',
+    )
+    power_level_id = fields.Many2one(
+        'abstract.power.level',
+        string='Power Level',
+        required=True,
+        index=True,
+        track_visibility='onchange',
+    )
+    parent_id = fields.Many2one(
+        'abstract.instance',
+        string='Parent Instance',
+        index=True,
+        ondelete='restrict',
+        track_visibility='onchange',
+    )
+    parent_left = fields.Integer(
+        'Left Parent',
+        index=True,
+    )
+    parent_right = fields.Integer(
+        'Right Parent',
+        index=True,
+    )
+    assembly_ids = fields.One2many(
+        'abstract.assembly',
+        'instance_id',
+        string='Assemblies',
+        domain=[('active', '=', True)],
+    )
+    assembly_inactive_ids = fields.One2many(
+        'abstract.assembly',
+        'instance_id',
+        string='Assemblies',
+        domain=[('active', '=', False)],
+    )
+
+    @api.multi
+    @api.constrains('parent_id')
+    def _check_instance_recursion(self):
         """
-        :rparam: list of tuple (id, name to display)
-                 where id is the id of the object into the relation
-                 and display_name, the name of this object.
-        :rtype: [(id,name)] list of tuple
+        Check for recursion in instances hierarchy
         """
-        uid = SUPERUSER_ID
-        if not ids:
-            return []
+        if not self._check_recursion():
+            raise exceptions.ValidationError(
+                _('You can not create recursive instances'))
 
-        if isinstance(ids, (long, int)):
-            ids = [ids]
+    @api.multi
+    @api.constrains('power_level_id')
+    def _check_power_level(self):
+        """
+        Check if power level is consistent with all related assembly
+        Note:
+        Only relevant for internal and state assemblies
+        """
+        for instance in self:
+            assemblies = instance.assembly_ids + instance.assembly_inactive_ids
+            power_levels = (
+                assemblies.mapped('assembly_category_id.power_level_id') -
+                instance.power_level_id)
+            if power_levels:
+                raise exceptions.ValidationError(
+                    _('Power level is inconsistent with '
+                      'power level of all related assemblies'))
 
-        res = []
-        for record in self.read(cr, uid, ids, ['name', 'power_level_id'],
-                                context=context):
-            display_name = '%s (%s)' % \
-                           (record['name'], record['power_level_id'][1])
-            res.append((record['id'], display_name))
-        return res
+    @api.multi
+    @api.depends('name', 'power_level_id', 'power_level_id.name')
+    def name_get(self):
+        result = []
+        for instance in self:
+            name = '%s (%s)' % (instance.name, instance.power_level_id.name)
+            result.append((instance.id, name))
+        return result

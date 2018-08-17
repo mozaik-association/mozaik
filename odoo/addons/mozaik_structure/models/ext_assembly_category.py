@@ -1,17 +1,31 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm, fields
+from odoo import api, fields, models
 
 
-class ext_assembly_category(orm.Model):
+class ExtAssemblyCategory(models.Model):
 
     _name = 'ext.assembly.category'
     _inherit = ['abstract.assembly.category']
     _description = 'External Assembly Category'
+    _order = 'name'
+    _unicity_keys = 'name'
 
-    _columns = {
-        # Unused field
-        'power_level_id': fields.many2one('int.power.level',
-                                          'Internal Power Level'),
-    }
+    # Unused fields
+    power_level_id = fields.Many2one(
+        comodel_name='int.power.level',
+    )
+    assembly_ids = fields.One2many(
+        comodel_name='int.assembly',
+    )
+    assembly_inactive_ids = fields.One2many(
+        comodel_name='int.assembly',
+    )
+
+    @api.multi
+    def _check_power_level(self):
+        """
+        Not relevant for external assembly
+        """
+        pass

@@ -6,18 +6,14 @@
         <field name="model">int.assembly</field>
         <field name="inherit_id" ref="abstract_assembly_search_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='instance_id']" position="after">
-                <field name="designation_int_assembly_id" />
-            </xpath>
             <xpath expr="//filter[@name='expired']" position="before">
                 <filter name="designation_assemblies" string="Designation Assemblies"
                         domain="[('is_designation_assembly','=',True)]" />
                 <filter name="executive_assemblies" string="Executive Assemblies"
                         domain="[('designation_int_assembly_id','!=',False)]" />
+                <filter name="secretariats" string="Secretariats"
+                        domain="[('is_secretariat','=',True)]" />
                 <separator/>
-            </xpath>
-            <xpath expr="//group[@name='group_by']" position="inside">
-                <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
             </xpath>
         </field>
     </record>
@@ -39,14 +35,11 @@
         <field name="inherit_id" ref="abstract_assembly_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
-                 <field name="is_designation_assembly"/>
-                 <field name="designation_int_assembly_id" domain="[('is_designation_assembly', '=', True), ('id','!=',active_id)]"/>
+                <field name="is_designation_assembly"/>
+                <field name="is_secretariat" />
             </xpath>
             <xpath expr="//field[@name='months_before_end_of_mandate']" position="attributes">
-                 <attribute name="attrs" translation="off">{'invisible': [('designation_int_assembly_id', '=', False)]}</attribute>
-            </xpath>
-            <xpath expr="//field[@name='assembly_category_id']" position="attributes">
-                 <attribute name="on_change" translation="off">onchange_assembly_category_id(assembly_category_id)</attribute>
+                <attribute name="attrs" translation="off">{'invisible': [('designation_int_assembly_id', '=', False)]}</attribute>
             </xpath>
         </field>
     </record>

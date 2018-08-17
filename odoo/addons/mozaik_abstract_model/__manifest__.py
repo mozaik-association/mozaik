@@ -12,6 +12,7 @@
     'depends': [
         'base',
         'mail',
+        'disable_tracking_installation',
         'inherit_abstract_view',
     ],
     'data': [

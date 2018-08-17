@@ -1,12 +1,10 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
-from openerp.tools import SUPERUSER_ID
+from odoo import api, exceptions, fields, models, _
 
 
-class abstract_assembly(orm.AbstractModel):
+class AbstractAssembly(models.AbstractModel):
 
     _name = 'abstract.assembly'
     _inherit = ['mozaik.abstract.model']
@@ -14,112 +12,118 @@ class abstract_assembly(orm.AbstractModel):
         'res.partner': 'partner_id',
     }
     _description = 'Abstract Assembly'
-
-    _category_model = 'abstract.assembly.category'
-
-    def _build_name(self, cr, uid, vals, context=None):
-        '''
-        Build the name of the related partner
-        '''
-        kind = self._name[:3]
-        if kind == 'ext':
-            model = 'res.partner'
-            field = 'ref_partner_id'
-        else:
-            model = '%s.instance' % kind
-            field = 'instance_id'
-        if not vals.get(field) or \
-                not vals.get('assembly_category_id'):
-            return False
-        instance = self.pool[model].read(
-            cr, uid, [vals.get(field)], ['name'], context=context)[0]
-        category = self.pool['%s.assembly.category' % kind].read(
-            cr, uid, vals.get('assembly_category_id'), ['name'],
-            context=context)
-        name = '%s (%s)' % (instance['name'], category['name'])
-        return name
-
-    _columns = {
-        'assembly_category_id': fields.many2one(
-            _category_model,
-            string='Category',
-            select=True,
-            required=True,
-            track_visibility='onchange'),
-        'instance_id': fields.many2one(
-            'abstract.instance',
-            string='Instance',
-            select=True,
-            required=True,
-            track_visibility='onchange'),
-        'partner_id': fields.many2one(
-            'res.partner',
-            string='Associated Partner',
-            select=True,
-            required=True,
-            ondelete='restrict', auto_join=True),
-        'months_before_end_of_mandate': fields.integer(
-            'Alert Delay (#Months)',
-            track_visibility='onchange', group_operator='min'),
-    }
-
-    _defaults = {
-        'is_company': True,
-        'is_assembly': True,
-    }
-
     _order = 'partner_id, assembly_category_id'
+    _unicity_keys = 'instance_id, assembly_category_id'
+    _log_access = True
 
-    def _check_consistent_power_level(self, cr, uid, ids, context=None):
+    assembly_category_id = fields.Many2one(
+        'abstract.assembly.category',
+        string='Category',
+        index=True,
+        required=True,
+        track_visibility='onchange',
+    )
+    instance_id = fields.Many2one(
+        'abstract.instance',
+        string='Instance',
+        index=True,
+        required=True,
+        track_visibility='onchange',
+    )
+    partner_id = fields.Many2one(
+        'res.partner',
+        string='Related Partner',
+        index=True,
+        required=True,
+        readonly=True,
+        ondelete='restrict',
+        auto_join=True,
+    )
+    designation_int_assembly_id = fields.Many2one(
+        'int.assembly',
+        string='Designation Assembly',
+        index=True,
+        track_visibility='onchange',
+        domain=[('is_designation_assembly', '=', True)],
+    )
+    months_before_end_of_mandate = fields.Integer(
+        'Alert Delay (#Months)',
+        track_visibility='onchange',
+        group_operator='min',
+    )
+
+    @api.multi
+    @api.constrains('instance_id', 'assembly_category_id')
+    def _check_power_level(self):
         """
         Check if power levels of assembly category and instance are
         consistents.
-        :rparam: True if it is the case
-                 False otherwise
-        :rtype: boolean
         Note:
         Only relevant for internal and state assemblies
         """
-        uid = SUPERUSER_ID
-        assemblies = self.browse(cr, uid, ids, context=context)
-        for assembly in assemblies:
-            if not assembly.assembly_category_id._model._columns.\
-                    get('power_level_id'):
-                break
-            if assembly.assembly_category_id.power_level_id and \
-               assembly.assembly_category_id.power_level_id.id !=\
-               assembly.instance_id.power_level_id.id:
-                return False
+        for assembly in self:
+            if assembly.assembly_category_id.power_level_id !=\
+                    assembly.instance_id.power_level_id:
+                raise exceptions.ValidationError(
+                    _('Power level of category and instance are inconsistent'))
 
-        return True
-
-    _constraints = [
-        (_check_consistent_power_level,
-         _('Power level of category and instance are inconsistent'),
-         ['assembly_category_id', 'instance_id'])
-    ]
-
-    _unicity_keys = 'instance_id, assembly_category_id'
-
-    def create(self, cr, uid, vals, context=None):
+    @api.model
+    def _get_names(self, vals=None):
         '''
-        Produce the first value of the name field.
-        Next values are generated by the function _compute_dummy
+        Intended to be inherited
+        :param values: dict
+        :return: tuple
         '''
-        if not vals.get('name') and not vals.get('partner_id'):
-            vals['name'] = self._build_name(cr, uid, vals, context=context)
-        res = super(abstract_assembly, self).create(
-            cr, uid, vals, context=context)
+        return (False, False)
+
+    @api.model
+    def _build_name(self, names):
+        '''
+        Build the name of the related partner
+        :param values: tuple of string
+        :return: string
+        '''
+        name = '%s (%s)' % names
+        return name
+
+    @api.model
+    def create(self, values):
+        """
+        Force is_assembly and is_company
+        Provide a name if any
+        """
+        values.update({
+            'is_company': True,
+            'is_assembly': True,
+        })
+        if not values.get('name') and not values.get('partner_id'):
+            values['name'] = self._build_name(self._get_names(vals=values))
+        res = super().create(values)
         return res
 
-    def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id,
-                                      context=None):
-        res = {}
-        res['value'] = dict(months_before_end_of_mandate=False)
-        if assembly_category_id:
-            assembly_category = self.pool.get(self._category_model).browse(
-                cr, uid, assembly_category_id)
-            value = assembly_category.months_before_end_of_mandate
-            res['value'] = dict(months_before_end_of_mandate=value)
-
+    @api.multi
+    def unlink(self):
+        """
+        Reset is_assembly of related partners
+        """
+        partners = self.mapped('partner_id')
+        res = super().unlink()
+        partners.write({'is_assembly': False})
         return res
+
+    @api.onchange(
+        'instance_id', 'assembly_category_id')
+    def _onchange_assembly_category_or_instance(self):
+        '''
+        Rebuid assembly name when changing its instance or its category
+        '''
+        self.ensure_one()
+        if self.instance_id and self.assembly_category_id:
+            self.name = self._build_name(self._get_names())
+
+    @api.onchange('assembly_category_id')
+    def _onchange_assembly_category_id(self):
+        self.ensure_one()
+        if self.assembly_category_id:
+            self.months_before_end_of_mandate = \
+                self.assembly_category_id.months_before_end_of_mandate

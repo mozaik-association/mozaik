@@ -1,16 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo>
 
+    <record id="sta_assembly_search_view" model="ir.ui.view">
+        <field name="name">sta.assembly.search</field>
+        <field name="model">sta.assembly</field>
+        <field name="inherit_id" ref="abstract_assembly_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='expired']" position="before">
+                <filter name="legislative" string="Legislative Assemblies"
+                        domain="[('is_legislative','=',True)]" />
+                <filter name="executive_assemblies" string="Executive Assemblies"
+                        domain="[('is_legislative','=',False)]" />
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sta_assembly_tree_view" model="ir.ui.view">
+        <field name="name">sta.assembly.tree</field>
+        <field name="model">sta.assembly</field>
+        <field name="inherit_id" ref="abstract_assembly_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='assembly_category_id']" position="after">
+                <field name="is_legislative" />
+            </xpath>
+        </field>
+    </record>
+
     <record id="sta_assembly_form_view" model="ir.ui.view">
         <field name="name">sta.assembly.form</field>
         <field name="model">sta.assembly</field>
         <field name="inherit_id" ref="abstract_assembly_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/div[@name='buttons']" position="inside">
-                <button string="Electoral Districts" name="%(electoral_district_action)d"
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button string="Electoral Districts" name="%(electoral_district_action)d" class="oe_stat_button" icon="fa-bullseye"
                             type="action" attrs="{'invisible': [('id','=',False)]}"
                             context="{'search_default_assembly_id': active_id,
                                       'default_assembly_id': active_id}" />
+            </xpath>
+            <xpath expr="//field[@name='assembly_category_id']" position="after">
+                <field name="is_legislative" />
             </xpath>
         </field>
     </record>
@@ -18,10 +47,9 @@
     <record id="sta_assembly_action" model="ir.actions.act_window">
         <field name="name">State Assemblies</field>
         <field name="res_model">sta.assembly</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="abstract_assembly_search_view" />
-        <field name="view_id" ref="abstract_assembly_tree_view" />
+        <field name="search_view_id" ref="sta_assembly_search_view" />
+        <field name="view_id" ref="sta_assembly_tree_view" />
     </record>
 
 </odoo>

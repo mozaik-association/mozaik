@@ -9,7 +9,6 @@
     'category': 'Political Association',
     'depends': [
         'base',
-        'mozaik_abstract_model',
     ],
     'description': """
 MOZAIK Base

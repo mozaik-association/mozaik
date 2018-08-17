@@ -1,6 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo>
 
+    <record id="ext_assembly_category_search_view" model="ir.ui.view">
+        <field name="name">ext.assembly.category.search.view</field>
+        <field name="model">ext.assembly.category</field>
+        <field name="inherit_id" ref="abstract_assembly_category_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='power_level_id']" position="replace"/>
+            <xpath expr="//filter[@name='power_level']" position="replace"/>
+        </field>
+        <field name="priority" eval="99"/>
+    </record>
+
+    <record id="ext_assembly_category_tree_view" model="ir.ui.view">
+        <field name="name">ext.assembly.category.tree.view</field>
+        <field name="model">ext.assembly.category</field>
+        <field name="inherit_id" ref="abstract_assembly_category_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='power_level_id']" position="replace"/>
+        </field>
+        <field name="priority" eval="99"/>
+    </record>
+
     <record id="ext_assembly_category_form_view" model="ir.ui.view">
         <field name="name">ext.assembly.category.form</field>
         <field name="model">ext.assembly.category</field>
@@ -9,16 +30,17 @@
             <xpath expr="//button[@name='assemblies']" position="attributes">
                 <attribute name="name">%(ext_assembly_action)d</attribute>
             </xpath>
+            <xpath expr="//field[@name='power_level_id']" position="replace"/>
         </field>
+        <field name="priority" eval="99"/>
     </record>
 
     <record id="ext_assembly_category_action" model="ir.actions.act_window">
         <field name="name">External Assembly Categories</field>
         <field name="res_model">ext.assembly.category</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="abstract_assembly_category_search_view" />
-        <field name="view_id" ref="abstract_assembly_category_tree_view" />
+        <field name="search_view_id" ref="ext_assembly_category_search_view" />
+        <field name="view_id" ref="ext_assembly_category_tree_view" />
     </record>
 
 </odoo>

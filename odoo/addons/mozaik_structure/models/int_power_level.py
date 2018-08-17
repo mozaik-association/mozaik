@@ -1,41 +1,31 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm, fields
-
-from openerp.tools import SUPERUSER_ID
+from odoo import api, fields, models
 
 
-class int_power_level(orm.Model):
+class IntPowerLevel(models.Model):
 
     _name = 'int.power.level'
     _inherit = ['abstract.power.level']
     _description = 'Internal Power Level'
 
-    _columns = {
-        'assembly_category_ids': fields.one2many(
-            'int.assembly.category',
-            'power_level_id',
-            'Internal Assembly Categories',
-            domain=[('active', '=', True)]
-        ),
-        'assembly_category_inactive_ids': fields.one2many(
-            'int.assembly.category',
-            'power_level_id',
-            'Internal Assembly Categories',
-            domain=[('active', '=', False)]
-        ),
-        'level_for_followers': fields.boolean('Level For Followers'),
-    }
+    assembly_category_ids = fields.One2many(
+        comodel_name='int.assembly.category',
+        string='Internal Assembly Categories',
+        domain=[('active', '=', True)],
+    )
+    assembly_category_inactive_ids = fields.One2many(
+        comodel_name='int.assembly.category',
+        string='Internal Assembly Categories',
+        domain=[('active', '=', False)],
+    )
+    level_for_followers = fields.Boolean(default=False)
 
-    _defaults = {
-        'level_for_followers': False,
-    }
-
-    def get_default(self, cr, uid, context=None):
+    @api.model
+    def _get_default_int_power_level(self):
         """
         Returns the default Internal Power Level
         """
-        res_id = self.pool['ir.model.data'].xmlid_to_res_id(
-            cr, SUPERUSER_ID, 'mozaik_structure.int_power_level_01')
+        res_id = self.env.ref('mozaik_structure.int_power_level_01')
         return res_id
