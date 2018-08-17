@@ -1,64 +1,141 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo>
 
-    <menuitem id="structure_root_menu" name="Structures"
-              sequence="32" groups="res_groups_base" />
+    <record model="ir.ui.menu" id="structure_root_menu">
+        <field name="name">Structures</field>
+        <field name="sequence" eval="32"/>
+        <field name="groups_id" eval="[(6, 0, [
+            ref('res_groups_structure_reader'),
+        ])]" />
+    </record>
 
-    <menuitem id="state_submenu" name="State"
-              sequence="10" parent="structure_root_menu" />
+    <record model="ir.ui.menu" id="state_structure_menu">
+        <field name="name">State</field>
+        <field name="parent_id" ref="structure_root_menu"/>
+        <field name="sequence" eval="10"/>
+    </record>
 
-    <menuitem id="state_instance_menu" action="sta_instance_action"
-              sequence="10" parent="state_submenu" />
+    <record model="ir.ui.menu" id="sta_instance_menu">
+        <field name="name">Instances</field>
+        <field name="parent_id" ref="state_structure_menu"/>
+        <field name="action" ref="sta_instance_action"/>
+        <field name="sequence" eval="10"/>
+    </record>
 
-    <menuitem id="state_assembly_menu" action="sta_assembly_action"
-              sequence="20" parent="state_submenu" />
+    <record model="ir.ui.menu" id="sta_assembly_menu">
+        <field name="name">Assemblies</field>
+        <field name="parent_id" ref="state_structure_menu"/>
+        <field name="action" ref="sta_assembly_action"/>
+        <field name="sequence" eval="20"/>
+    </record>
 
-    <menuitem id="electoral_district_menu" action="electoral_district_action"
-              sequence="30" parent="state_submenu" />
+    <record model="ir.ui.menu" id="electoral_district_menu">
+        <field name="name">Electoral Districts</field>
+        <field name="parent_id" ref="state_structure_menu"/>
+        <field name="action" ref="electoral_district_action"/>
+        <field name="sequence" eval="30"/>
+    </record>
 
-    <menuitem id="legislatures_menu" action="legislature_action"
-              sequence="40" parent="state_submenu" />
+    <record model="ir.ui.menu" id="legislatures_menu">
+        <field name="name">Legislatures</field>
+        <field name="parent_id" ref="state_structure_menu"/>
+        <field name="action" ref="legislature_action"/>
+        <field name="sequence" eval="40"/>
+    </record>
 
-    <menuitem id="internal_submenu" name="Internal"
-              sequence="20" parent="mozaik_base.structures_root_menu" />
+    <record model="ir.ui.menu" id="internal_structure_menu">
+        <field name="name">Internal</field>
+        <field name="parent_id" ref="structure_root_menu"/>
+        <field name="sequence" eval="20"/>
+    </record>
 
-    <menuitem id="internal_instance_menu" action="int_instance_action"
-              sequence="10" parent="internal_submenu" />
+    <record model="ir.ui.menu" id="int_instance_menu">
+        <field name="name">Instances</field>
+        <field name="parent_id" ref="internal_structure_menu"/>
+        <field name="action" ref="int_instance_action"/>
+        <field name="sequence" eval="10"/>
+    </record>
 
-    <menuitem id="internal_assembly_menu" action="int_assembly_action"
-              sequence="20" parent="internal_submenu" />
+    <record model="ir.ui.menu" id="int_assembly_menu">
+        <field name="name">Assemblies</field>
+        <field name="parent_id" ref="internal_structure_menu"/>
+        <field name="action" ref="int_assembly_action"/>
+        <field name="sequence" eval="20"/>
+    </record>
 
-    <menuitem id="external_submenu" name="External"
-              sequence="30" parent="mozaik_base.structures_root_menu" />
+    <record model="ir.ui.menu" id="external_structure_menu">
+        <field name="name">External</field>
+        <field name="parent_id" ref="structure_root_menu"/>
+        <field name="sequence" eval="30"/>
+    </record>
 
-    <menuitem id="external_assembly_menu" action="ext_assembly_action"
-              sequence="20" parent="external_submenu" />
+    <record model="ir.ui.menu" id="ext_assembly_menu">
+        <field name="name">Assemblies</field>
+        <field name="parent_id" ref="external_structure_menu"/>
+        <field name="action" ref="ext_assembly_action"/>
+        <field name="sequence" eval="20"/>
+    </record>
 
-    <menuitem id="configuration_submenu" name="Configuration"
-              sequence="90" parent="mozaik_base.structures_root_menu" groups="mozaik_base.mozaik_res_groups_configurator" />
+    <record model="ir.ui.menu" id="structure_configuration_menu">
+        <field name="name">Configuration</field>
+        <field name="parent_id" ref="structure_root_menu"/>
+        <field name="sequence" eval="90"/>
+        <field name="groups_id" eval="[(6, 0, [
+            ref('res_groups_structure_manager'),
+        ])]" />
+    </record>
 
-    <menuitem id="state_configuration_submenu" name="State"
-              sequence="10" parent="configuration_submenu"/>
+    <record model="ir.ui.menu" id="state_configuration_menu">
+        <field name="name">State</field>
+        <field name="parent_id" ref="structure_configuration_menu"/>
+        <field name="sequence" eval="10"/>
+    </record>
 
-    <menuitem id="sta_power_level_menu" action="sta_power_level_action"
-              sequence="10" parent="state_configuration_submenu" />
+    <record model="ir.ui.menu" id="sta_power_level_menu">
+        <field name="name">Power Levels</field>
+        <field name="parent_id" ref="state_configuration_menu"/>
+        <field name="action" ref="sta_power_level_action"/>
+        <field name="sequence" eval="10"/>
+    </record>
 
-    <menuitem id="sta_assembly_category_menu" action="sta_assembly_category_action"
-              sequence="20" parent="state_configuration_submenu" />
+    <record model="ir.ui.menu" id="sta_assembly_category_menu">
+        <field name="name">Assembly Categories</field>
+        <field name="parent_id" ref="state_configuration_menu"/>
+        <field name="action" ref="sta_assembly_category_action"/>
+        <field name="sequence" eval="20"/>
+    </record>
 
-    <menuitem id="internal_configuration_submenu" name="Internal"
-              sequence="20" parent="configuration_submenu"/>
+    <record model="ir.ui.menu" id="internal_configuration_menu">
+        <field name="name">Internal</field>
+        <field name="parent_id" ref="structure_configuration_menu"/>
+        <field name="sequence" eval="20"/>
+    </record>
 
-    <menuitem id="int_power_level_menu" action="int_power_level_action"
-              sequence="10" parent="internal_configuration_submenu" />
+    <record model="ir.ui.menu" id="int_power_level_menu">
+        <field name="name">Power Levels</field>
+        <field name="parent_id" ref="internal_configuration_menu"/>
+        <field name="action" ref="int_power_level_action"/>
+        <field name="sequence" eval="10"/>
+    </record>
 
-    <menuitem id="int_assembly_category_menu" action="int_assembly_category_action"
-              sequence="20" parent="internal_configuration_submenu" />
+    <record model="ir.ui.menu" id="int_assembly_category_menu">
+        <field name="name">Assembly Categories</field>
+        <field name="parent_id" ref="internal_configuration_menu"/>
+        <field name="action" ref="int_assembly_category_action"/>
+        <field name="sequence" eval="20"/>
+    </record>
 
-    <menuitem id="external_configuration_submenu" name="External"
-              sequence="30" parent="configuration_submenu"/>
+    <record model="ir.ui.menu" id="external_configuration_menu">
+        <field name="name">External</field>
+        <field name="parent_id" ref="structure_configuration_menu"/>
+        <field name="sequence" eval="30"/>
+    </record>
 
-    <menuitem id="ext_assembly_category_menu" action="ext_assembly_category_action"
-              sequence="20" parent="external_configuration_submenu" />
+    <record model="ir.ui.menu" id="ext_assembly_category_menu">
+        <field name="name">Assembly Categories</field>
+        <field name="parent_id" ref="external_configuration_menu"/>
+        <field name="action" ref="ext_assembly_category_action"/>
+        <field name="sequence" eval="20"/>
+    </record>
 
 </odoo>

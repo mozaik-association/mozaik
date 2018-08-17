@@ -6,11 +6,12 @@
         <field name="model">sta.assembly.category</field>
         <field name="inherit_id" ref="abstract_assembly_category_search_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
-                <field name="power_level_id" />
-            </xpath>
-            <xpath expr="//group[@name='group_by']" position="inside">
-                <filter name="level" string="Power Level" domain="[]" context="{'group_by':'power_level_id'}" />
+            <xpath expr="//filter[@name='expired']" position="before">
+                <filter name="legislative" string="Legislative Categories"
+                        domain="[('is_legislative','=',True)]" />
+                <filter name="executive_assemblies" string="Executive Categories"
+                        domain="[('is_legislative','=',False)]" />
+                <separator/>
             </xpath>
         </field>
     </record>
@@ -20,8 +21,7 @@
         <field name="model">sta.assembly.category</field>
         <field name="inherit_id" ref="abstract_assembly_category_tree_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
-                <field name="power_level_id" />
+            <xpath expr="//field[@name='power_level_id']" position="after">
                 <field name="is_legislative" />
             </xpath>
         </field>
@@ -35,11 +35,8 @@
             <xpath expr="//button[@name='assemblies']" position="attributes">
                 <attribute name="name">%(sta_assembly_action)d</attribute>
             </xpath>
-            <xpath expr="//group[@name='mandate']" position="before">
-                <group name="data">
-                    <field name="power_level_id"/>
-                    <field name="is_legislative"/>
-                </group>
+            <xpath expr="//field[@name='power_level_id']" position="after">
+                <field name="is_legislative"/>
             </xpath>
         </field>
     </record>
@@ -47,7 +44,6 @@
     <record id="sta_assembly_category_action" model="ir.actions.act_window">
         <field name="name">State Assembly Categories</field>
         <field name="res_model">sta.assembly.category</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="sta_assembly_category_search_view" />
         <field name="view_id" ref="sta_assembly_category_tree_view" />

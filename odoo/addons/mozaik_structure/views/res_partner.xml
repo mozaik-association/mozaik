@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="res_partner_search_view" model="ir.ui.view">
+        <field name="name">res.partner.search (mozaik_structure)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='type_company']" position="after">
+                 <filter string="Assemblies" name="assemblies" domain="[('is_assembly','=',1)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form (mozaik_structure)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_type']" position="attributes">
+                 <attribute name="attrs" translation="off">{'readonly': [('is_assembly', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                 <field name="is_assembly" attrs="{'invisible': ['|', ('is_company', '=', False), ('is_assembly', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

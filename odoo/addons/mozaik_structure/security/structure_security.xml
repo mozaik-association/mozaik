@@ -20,4 +20,10 @@
         ])]" />
     </record>
 
+    <record model="res.users" id="base.user_root">
+        <field name="groups_id" eval="[
+            (4, ref('res_groups_structure_manager')),
+        ]" />
+    </record>
+
 </odoo>

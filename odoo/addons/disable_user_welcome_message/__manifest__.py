@@ -3,7 +3,7 @@
 {
     'name': 'Disable user_welcome_message',
     'description': """
-        Module to disable the welcome message send to new users""",
+        Module to disable the welcome message sent to new users""",
     'version': '11.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',

@@ -9,12 +9,8 @@
             <xpath expr="//field[@name='instance_id']" position="before">
                 <field name="ref_partner_id" domain="[('is_company','=',True),('is_assembly','=',False)]" />
             </xpath>
-            <xpath expr="//field[@name='instance_id']" position="after">
-                <field name="designation_int_assembly_id" />
-            </xpath>
             <xpath expr="//filter[@name='instance']" position="before">
                 <filter name="partner" string="Partner" domain="[]" context="{'group_by':'ref_partner_id'}"/>
-                <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
             </xpath>
         </field>
     </record>
@@ -31,6 +27,7 @@
                 <field name="instance_id" />
             </xpath>
         </field>
+        <field name="priority" eval="99"/>
     </record>
 
     <record id="ext_assembly_form_view" model="ir.ui.view">
@@ -38,23 +35,22 @@
         <field name="model">ext.assembly</field>
         <field name="inherit_id" ref="abstract_assembly_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='instance_id']" position="before">
-                 <field name="ref_partner_id" domain="[('is_company','=',True),('is_assembly','=',False)]"
-                        context="{'default_is_company': True}"/>
+            <xpath expr="//field[@name='instance_id']" position="replace">
+                 <field name="ref_partner_id"/>
             </xpath>
-            <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
-                 <field name="designation_int_assembly_id" required="1"/>
+            <xpath expr="//field[@name='assembly_category_id']" position="after">
+                <field name="instance_id" />
             </xpath>
-            <xpath expr="//field[@name='assembly_category_id']" position="attributes">
-                 <attribute name="on_change" translation="off">onchange_assembly_category_id(assembly_category_id)</attribute>
+            <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                 <attribute name="required">1</attribute>
             </xpath>
         </field>
+        <field name="priority" eval="99"/>
     </record>
 
     <record id="ext_assembly_action" model="ir.actions.act_window">
         <field name="name">External Assemblies</field>
         <field name="res_model">ext.assembly</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="ext_assembly_search_view" />
         <field name="view_id" ref="ext_assembly_tree_view" />

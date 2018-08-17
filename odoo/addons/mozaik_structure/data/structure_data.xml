@@ -1,16 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo noupdate="1">
 
-    <!-- Create Internal Power Level -->
+    <!-- Internal Power Level -->
 
-    <record id="mozaik_structure.int_power_level_01" model="int.power.level">
+    <record id="int_power_level_01" model="int.power.level">
         <field name="name">State</field>
-        <field name="sequence">5</field>
     </record>
 
-    <!-- Create Internal Instance -->
+    <!-- Internal Instance -->
 
-    <record id="mozaik_structure.int_instance_01" model="int.instance"><!-- force id on mozaik_structure module -->
+    <record id="int_instance_01" model="int.instance">
         <field name="name">Mozaik Headquarter</field>
         <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
     </record>

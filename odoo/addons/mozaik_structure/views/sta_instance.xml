@@ -33,16 +33,31 @@
         </field>
     </record>
 
+    <record id="sta_instance_action" model="ir.actions.act_window">
+        <field name="name">State Instances</field>
+        <field name="res_model">sta.instance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sta_instance_search_view" />
+        <field name="view_id" ref="sta_instance_tree_view" />
+    </record>
+
     <record id="sta_instance_form_view" model="ir.ui.view">
         <field name="name">sta.instance.form</field>
         <field name="model">sta.instance</field>
         <field name="inherit_id" ref="abstract_instance_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='children']" position="replace">
-                <button string="Children" name="%(sta_instance_children_action)d"
-                    type="action" attrs="{'invisible': [('id','=',False)]}"
-                    context="{'default_parent_id': active_id}" />
-                <attribute name="name"></attribute>
+            <xpath expr="//button[@name='assemblies']" position="after">
+                <button string="Electoral Districts" name="%(electoral_district_action)d" class="oe_stat_button" icon="fa-bullseye"
+                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                        context="{'search_default_sta_instance_id': active_id,
+                                  'default_sta_instance_id': active_id,
+                                  'search_default_all': True}"/>
+            </xpath>
+            <xpath expr="//button[@name='children']" position="attributes">
+                <attribute name="name">%(sta_instance_action)d</attribute>
+            </xpath>
+            <xpath expr="//button[@name='assemblies']" position="attributes">
+                <attribute name="name">%(sta_assembly_action)d</attribute>
             </xpath>
             <xpath expr="//field[@name='parent_id']" position="after">
                 <field name="secondary_parent_id"/>
@@ -53,49 +68,20 @@
             </xpath>
             <xpath expr="//notebook/page[@name='assemblies']" position="after">
                 <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}">
-                    <button string="All Details"
-                                name="%(electoral_district_action)d"
-                                type="action"
-                                context="{'search_default_sta_instance_id': active_id,
-                                          'default_sta_instance_id': active_id,
-                                          'search_default_all': True}"/>
-                    <field name="electoral_district_ids" context="{'default_sta_instance_id': active_id}">
+                    <field name="electoral_district_ids" context="{'default_sta_instance_id': active_id}"
+                           attrs="{'invisible': [('active','=',False)]}">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                    <field name="electoral_district_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}">
                         <tree>
                             <field name="name"/>
                         </tree>
                     </field>
                 </page>
             </xpath>
-            <xpath expr="//field[@name='assembly_ids']" position="attributes">
-                <attribute name="context" translation="off">{'default_instance_id': active_id}</attribute>
-            </xpath>
-            <xpath expr="//field[@name='assembly_ids']" position="before">
-                <button string="All Details"
-                                name="%(sta_assembly_action)d"
-                                type="action"
-                                context="{'search_default_instance_id': active_id,
-                                          'default_instance_id': active_id,
-                                          'search_default_all': True}"/>
-            </xpath>
         </field>
-    </record>
-
-    <record id="sta_instance_action" model="ir.actions.act_window">
-        <field name="name">State Instances</field>
-        <field name="res_model">sta.instance</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="sta_instance_search_view" />
-        <field name="view_id" ref="sta_instance_tree_view" />
-    </record>
-
-    <record id="sta_instance_action" model="ir.actions.act_window">
-        <field name="name">State Instances</field>
-        <field name="res_model">sta.instance</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="sta_instance_search_view" />
-        <field name="view_id" ref="sta_instance_tree_view" />
     </record>
 
 </odoo>
