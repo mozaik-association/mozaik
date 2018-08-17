@@ -39,6 +39,15 @@
         </field>
     </record>
 
+    <record id="postal_coordinate_action" model="ir.actions.act_window">
+        <field name="name">Postal Coordinates</field>
+        <field name="res_model">postal.coordinate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="postal_coordinate_tree_view" />
+        <field name="search_view_id" ref="postal_coordinate_search_view" />
+    </record>
+
     <record id="postal_coordinate_form_view" model="ir.ui.view">
         <field name="name">postal.coordinate.form</field>
         <field name="model">postal.coordinate</field>
@@ -46,16 +55,12 @@
         <field name="priority" eval="10" />
         <field name="arch" type="xml">
 
-            <xpath expr="//div[@class='oe_title']" position="inside">
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
                 <label for="address_id" class="oe_edit_only"/>
                 <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
             </xpath>
             <xpath expr="//field[@name='coordinate_category_id']" position="before">
                 <field name="co_residency_id" readonly="not context.get('is_developper')" attrs="{'invisible': [('co_residency_id','=',False)]}"/>
-            </xpath>
-
-            <xpath expr="//field[@name='unauthorized']" position="attributes">
-                <attribute name="on_change" translation="off">onchange_unauthorized(unauthorized, co_residency_id, context)</attribute>
             </xpath>
 
             <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
@@ -66,51 +71,20 @@
                      'default_address_id': address_id}</attribute>
             </xpath>
 
-            <xpath expr="//group[@name='moreinfo']" position="inside">
-                <span name="anchor_for_inherit_view" />
-            </xpath>
-
         </field>
     </record>
 
-    <record id="postal_coordinate_action" model="ir.actions.act_window">
+    <record model="ir.ui.menu" id="postal_coordinate_submenu">
         <field name="name">Postal Coordinates</field>
-        <field name="res_model">postal.coordinate</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="postal_coordinate_tree_view" />
-        <field name="search_view_id" ref="postal_coordinate_search_view" />
+        <field name="parent_id" ref="mozaik_coordinate.mozaik_coordinate_menu"/>
+        <field name="sequence" eval="40"/>
     </record>
 
-    <menuitem id="postal_coordinate_submenu" name="Postal Coordinates"
-              sequence="40" parent="mozaik_base.persons_root_menu" />
-
-    <menuitem id="postal_coordinate_menu" action="postal_coordinate_action"
-              sequence="10" parent="postal_coordinate_submenu" />
-
-    <record id="postal_coordinate_label_paperformat" model="report.paperformat">
-        <field name="name">Postal Coordinate Labels</field>
-        <field name="default" eval="True"/>
-        <field name="format">custom</field>
-        <field name="orientation">Portrait</field>
-        <field name="margin_top" eval="1"/>
-        <field name="margin_bottom" eval="1"/>
-        <field name="margin_left" eval="1"/>
-        <field name="margin_right" eval="1"/>
-        <field name="header_line" eval="False"/>
-        <field name="header_spacing">0</field>
-        <field name="dpi">90</field>
-    </record>
-
-    <report string="Labels"
-            id="postal_coordinate_label_report"
-            model="postal.coordinate"
-            report_type="qweb-pdf"
-            name="mozaik_address.report_postal_coordinate_label"
-            file="mozaik_address.report_postal_coordinate_label"/>
-
-    <record id="postal_coordinate_label_report" model="ir.actions.report.xml">
-        <field name="paperformat_id" ref="postal_coordinate_label_paperformat"/>
+    <record model="ir.ui.menu" id="postal_coordinate_menu">
+        <field name="name">Postal Coordinates</field>
+        <field name="parent_id" ref="mozaik_address.postal_coordinate_submenu"/>
+        <field name="action" ref="postal_coordinate_action"/>
+        <field name="sequence" eval="10"/>
     </record>
 
 </odoo>

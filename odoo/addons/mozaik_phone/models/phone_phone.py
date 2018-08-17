@@ -141,12 +141,12 @@ class PhonePhone(models.Model):
         This method will return a country code.
         e.g. BE, FR, ...
         The country code firstly will be the value of the parameter key
-        ``default.country.code.phone``
+        ``default.country.code``
         If no value then take the default country code 'BE'
         :return: str
         """
         return self.env['ir.config_parameter'].get_param(
-            "default.country.code.phone", default='BE')
+            "default.country.code", default='BE')
 
     @api.multi
     @api.onchange('type')

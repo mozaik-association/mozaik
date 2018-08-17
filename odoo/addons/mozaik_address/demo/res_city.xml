@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="res_city_1" model="res.city">
+        <field name="zipcode">4500</field>
+        <field name="name">Huy</field>
+        <field name="country_id" ref="base.be"/>
+    </record>
+
+    <record id="res_city_2" model="res.city">
+        <field name="zipcode">4360</field>
+        <field name="name">Oreye</field>
+        <field name="country_id" ref="base.be"/>
+    </record>
+
+    <record id="res_city_3" model="res.city">
+        <field name="zipcode">1020</field>
+        <field name="name">Brussels</field>
+        <field name="country_id" ref="base.be"/>
+    </record>
+
+</odoo>

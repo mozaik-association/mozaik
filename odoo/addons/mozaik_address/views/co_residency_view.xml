@@ -36,7 +36,6 @@
                 <header/>
                 <sheet>
                     <div class="oe_title">
-                        <label for="name"/>
                         <h1><field name="address_id" /></h1>
                     </div>
                     <group name="lines" >
@@ -51,7 +50,7 @@
                         <group name="other">
                         </group>
                     </group>
-                    <notebook invisible="context.get('popup')">
+                    <notebook>
                         <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             <button string="All Details" name="%(postal_coordinate_action)d"
                                     type="action" attrs="{'invisible': [('id','=',False)]}"
@@ -59,29 +58,26 @@
                                               'search_default_all': True}" />
                             <field name="postal_coordinate_ids"
                                    readonly="1" attrs="{'invisible': [('active','=',False)]}">
-                                <tree colors="darkorange:is_duplicate_detected==True;red:unauthorized==True">
+                                <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
                                     <field name="partner_id"/>
                                     <field name="coordinate_category_id" />
                                     <field name="is_main" />
                                     <field name="unauthorized" />
-                                    <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                                    <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
                                     <field name="is_duplicate_detected" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
+                        <page name="dev" string="More Info" groups="base.group_erp_manager">
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
-                <div class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
-                    <div class="oe_formview oe_form_sheet_width">
-                        <h3>More Info</h3>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="active"/>
-                        </group>
-                    </div>
-                </div>
-                <div class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
@@ -97,7 +93,11 @@
         <field name="search_view_id" ref="co_residency_search_view" />
     </record>
 
-    <menuitem id="co_residency_menu" action="co_residency_action"
-              sequence="25" parent="postal_coordinate_submenu" />
+    <record model="ir.ui.menu" id="co_residency_menu">
+        <field name="name">Co-Residencies</field>
+        <field name="parent_id" ref="mozaik_address.postal_coordinate_submenu"/>
+        <field name="action" ref="co_residency_action"/>
+        <field name="sequence" eval="50"/>
+    </record>
 
 </odoo>

@@ -122,7 +122,10 @@ class AbstractDuplicate(models.AbstractModel):
         :return: dict
         """
         self.write({'is_duplicate_allowed': False})
-        self.ensure_one()
+
+        if len(self) != 1:
+            return True
+
         # Reload the tree with all duplicates
         value = self._get_discriminant_value()
         action = self.env.ref(self._undo_redirect_action).read()[0]

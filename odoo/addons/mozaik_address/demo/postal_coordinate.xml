@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="postal_coordinate_1" model="postal.coordinate">
+        <field name="address_id" ref="address_1"/>
+        <field name="partner_id" ref="mozaik_coordinate.res_partner_thierry"/>
+    </record>
+
+    <record id="postal_coordinate_2" model="postal.coordinate">
+        <field name="address_id" ref="address_2"/>
+        <field name="partner_id" ref="mozaik_coordinate.res_partner_jacques"/>
+    </record>
+
+    <record id="postal_coordinate_2_duplicate_1" model="postal.coordinate">
+        <field name="address_id" ref="address_2"/>
+        <field name="partner_id" ref="mozaik_coordinate.res_partner_marc"/>
+    </record>
+
+    <record id="postal_coordinate_2_duplicate_2" model="postal.coordinate">
+        <field name="address_id" ref="address_2"/>
+        <field name="partner_id" ref="mozaik_coordinate.res_partner_thierry"/>
+        <field name="is_main" eval="True"/>
+    </record>
+
+    <record id="postal_coordinate_2_duplicate_3" model="postal.coordinate">
+        <field name="address_id" ref="address_2"/>
+        <field name="partner_id" ref="mozaik_coordinate.res_partner_pauline"/>
+        <field name="is_main" eval="True"/>
+    </record>
+
+    <record id="postal_coordinate_2_duplicate_4" model="postal.coordinate">
+        <field name="address_id" ref="address_2"/>
+        <field name="partner_id" ref="mozaik_coordinate.res_partner_paul"/>
+        <field name="vip" eval="True"/>
+    </record>
+
+    <record id="postal_coordinate_3" model="postal.coordinate">
+        <field name="address_id" ref="address_3"/>
+        <field name="partner_id" ref="mozaik_coordinate.res_partner_pauline"/>
+        <field name="vip" eval="True"/>
+    </record>
+
+</odoo>

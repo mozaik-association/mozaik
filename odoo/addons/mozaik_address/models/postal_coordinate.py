@@ -1,43 +1,34 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+from odoo import api, models, fields, _
 
 
-class postal_coordinate(orm.Model):
+class PostalCoordinate(models.Model):
 
     _name = 'postal.coordinate'
     _inherit = ['abstract.coordinate']
     _description = 'Postal Coordinate'
 
-    _track = {
-        'bounce_counter': {
-            'mozaik_address.address_failure_notification':
-                lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
-        },
-    }
-
     _discriminant_field = 'address_id'
     _trigger_fields = []
     _undo_redirect_action = 'mozaik_address.postal_coordinate_action'
 
-    _columns = {
-        'address_id':
-            fields.many2one(
-                'address.address', string='Address', required=True,
-                readonly=True, select=True),
-        'co_residency_id':
-            fields.many2one('co.residency', string='Co-Residency', select=True)
-    }
+    address_id = fields.Many2one(
+        'address.address', string='Address', required=True,
+        readonly=True, index=True)
+    co_residency_id = fields.Many2one(
+        'co.residency', string='Co-Residency', index=True)
 
     _rec_name = _discriminant_field
 
     _unicity_keys = 'partner_id, %s' % _discriminant_field
 
-    def onchange_unauthorized(
-            self, cr, uid, ids, unauthorized, co_residency_id, context=None):
-        if unauthorized and co_residency_id:
+    @api.multi
+    @api.onchange("unauthorized", "co_residency_id")
+    def _onchange_unauthorized(self):
+        self.ensure_one()
+        if self.unauthorized and self.co_residency_id:
             return {
                 'warning': {
                     'title': _('Warning'),
@@ -47,29 +38,30 @@ class postal_coordinate(orm.Model):
                     )
                 }
             }
+        return {}
 
-    def name_get(self, cr, uid, ids, context=None):
-        result = super(postal_coordinate, self).name_get(
-            cr, uid, ids, context=context)
+    @api.multi
+    def name_get(self):
+        result = super().name_get()
         new_result = []
         for res in result:
-            data = self.read(cr, uid, res[0], ['co_residency_id'],
-                             context=context)
+            postal_coordinate = self.browse(res[0])
             name = res[1]
-            if data['co_residency_id']:
-                name = "%s (%s)" % (name, data['co_residency_id'][1])
+            if postal_coordinate.co_residency_id:
+                name = "%s (%s)" % (
+                    name, postal_coordinate.co_residency_id.display_name)
             new_result.append((res[0], name))
         return new_result
 
-    def get_fields_to_update(self, cr, uid, mode, context=None):
+    @api.model
+    def _get_fields_to_update(self, mode):
         """
         :type mode: char
         :param mode: mode defining return values
         :rtype: dictionary
         :rparam: values to update
         """
-        res = super(postal_coordinate, self).get_fields_to_update(
-            cr, uid, mode, context=context)
+        res = super()._get_fields_to_update(mode)
         if mode in ['duplicate', 'reset']:
             res.update({'co_residency_id': False})
         return res

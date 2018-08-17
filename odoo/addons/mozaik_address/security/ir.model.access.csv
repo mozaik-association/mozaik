@@ -1,12 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_address_address_res_group_base,mozaik.address.address.res.group.base,model_address_address,mozaik_base.res_groups_base,1,0,0,0
-access_address_address_res_group_user,mozaik.address.address.res.group.user,model_address_address,mozaik_base.mozaik_res_groups_user,1,1,1,1
-access_postal_coordinate_res_group_base,mozaik.postal.coordinate.res.group.base,model_postal_coordinate,mozaik_base.res_groups_base,1,0,0,0
-access_postal_coordinate_res_group_user,mozaik.postal.coordinate.res.group.user,model_postal_coordinate,mozaik_base.mozaik_res_groups_user,1,1,1,1
-access_address_local_zip_res_group_base,mozaik.address.local.zip.res.group.base,model_address_local_zip,mozaik_base.res_groups_base,1,0,0,0
-access_address_local_zip_res_group_user,mozaik.address.local.zip.res.group.configurator,model_address_local_zip,mozaik_base.mozaik_res_groups_configurator,1,1,1,1
-access_address_local_street_res_group_base,mozaik.address.local.street.res.group.base,model_address_local_street,mozaik_base.res_groups_base,1,0,0,0
-access_address_local_street_res_group_user,mozaik.address.local.street.res.group.configurator,model_address_local_street,mozaik_base.mozaik_res_groups_configurator,1,1,1,1
-access_co_residency_res_group_base,mozaik.co.residency.res.group.base,model_co_residency,mozaik_base.res_groups_base,1,0,0,0
-access_co_residency_res_group_user,mozaik.co.residency.res.group.user,model_co_residency,mozaik_base.mozaik_res_groups_user,1,1,1,0
-access_co_residency_res_group_configurator,mozaik.co.residency.res.group.configurator,model_co_residency,mozaik_base.mozaik_res_groups_configurator,1,1,1,1
+access_address_address_res_group_base,mozaik.address.address.res.group.base,model_address_address,mozaik_coordinate.res_groups_coordinate_user_reader,1,0,0,0
+access_address_address_res_group_user,mozaik.address.address.res.group.user,model_address_address,mozaik_coordinate.res_groups_coordinate_user,1,1,1,1
+access_co_residency_res_group_base,mozaik.co.residency.res.group.base,model_co_residency,mozaik_coordinate.res_groups_coordinate_user_reader,1,0,0,0
+access_co_residency_res_group_user,mozaik.co.residency.res.group.user,model_co_residency,mozaik_coordinate.res_groups_coordinate_user,1,1,1,0
+access_co_residency_res_group_configurator,mozaik.co.residency.res.group.configurator,model_co_residency,mozaik_coordinate.res_groups_coordinate_user,1,1,1,1
