@@ -10,9 +10,7 @@
     'website': 'https://acsone.eu/',
     'category': 'Political Association',
     'depends': [
-        'mozaik_coordinate',
-        'mozaik_email',
-        'mozaik_structure',
+        'mozaik',
     ],
     'data': [
         # 'data/thesaurus.xml',

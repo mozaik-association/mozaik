@@ -244,9 +244,6 @@ class res_partner(orm.Model):
             'Main Website', size=128, track_visibility='onchange',
             help="Main Website of Partner or Company"),
         'comment': fields.text('Notes', track_visibility='onchange'),
-        'firstname': fields.char("Firstname", track_visibility='onchange'),
-        'lastname': fields.char(
-            "Lastname", track_visibility='onchange'),
 
         # Special case:
         # * do not use native birthdate field, it is a char field without

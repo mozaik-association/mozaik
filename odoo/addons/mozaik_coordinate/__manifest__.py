@@ -2,9 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Mozaik: Coordinate',
-    'description': """
-        * Manage coordinates categories: private, professional, ...
-        * provide an abstract model and wizard for all kinds of coordinates""",
+    'summary': """
+        Manage coordinates categories: private, professional, ...
+        Provide an abstract model and wizard for all kinds of coordinates""",
     'version': '11.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',

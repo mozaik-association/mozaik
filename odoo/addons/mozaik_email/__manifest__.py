@@ -1,20 +1,17 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': 'MOZAIK: Email',
+    'name': 'Mozaik: Email',
+    'summary': """
+        Manage email and email coordinates.""",
     'version': '11.0.1.0.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
+    'license': 'AGPL-3',
+    'author': 'ACSONE SA/NV',
+    'website': 'https://acsone.eu/',
     'category': 'Political Association',
     'depends': [
         'mozaik_coordinate',
     ],
-    'description': """
-MOZAIK Email
-============
-This module manages email coordinates.
-""",
     'data': [
         'views/email_coordinate.xml',
         'views/coordinate_category.xml',
@@ -27,6 +24,5 @@ This module manages email coordinates.
     'demo': [
         'demo/email_coordinate.xml',
     ],
-    'license': 'AGPL-3',
     'installable': True,
 }

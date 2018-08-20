@@ -8,8 +8,18 @@ class ResPartner(models.Model):
 
     _inherit = 'res.partner'
 
-    usual_firstname = fields.Char()
-    usual_lastname = fields.Char()
+    firstname = fields.Char(
+        track_visibility='onchange',
+    )
+    lastname = fields.Char(
+        track_visibility='onchange',
+    )
+    usual_firstname = fields.Char(
+        track_visibility='onchange',
+    )
+    usual_lastname = fields.Char(
+        track_visibility='onchange',
+    )
 
     @api.multi
     @api.depends("firstname", "lastname", "usual_firstname", "usual_lastname")

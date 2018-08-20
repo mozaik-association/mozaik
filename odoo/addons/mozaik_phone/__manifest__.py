@@ -1,11 +1,15 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': 'MOZAIK: Phone',
+    'name': 'Mozaik: Phone',
+    'summary': """
+        Manages phone numbers and phone coordinates.
+        It covers three types of phone: fix, mobile and fax.
+        Phones are normalized with the external library: phonenumbers""",
     'version': '11.0.1.0.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
+    'license': 'AGPL-3',
+    'author': 'ACSONE SA/NV',
+    'website': 'https://acsone.eu/',
     'category': 'Political Association',
     'depends': [
         'base',
@@ -13,13 +17,6 @@
         'mozaik_abstract_model',
         'mozaik_coordinate',
     ],
-    'description': """
-MOZAIK Phone
-============
-This module manages phone numbers and phone coordinates.
-It covers three types of phone: fix, mobile and fax.
-Numbers are normalized regarding the external python library: phonenumbers
-""",
     'data': [
         'security/phone_coordinate.xml',
         'security/phone_phone.xml',
@@ -35,11 +32,10 @@ Numbers are normalized regarding the external python library: phonenumbers
         'demo/phone_phone.xml',
         'demo/phone_coordinate.xml',
     ],
-    'license': 'AGPL-3',
-    'installable': True,
     'external_dependencies': {
         'python': [
             'phonenumbers',
         ],
     },
+    'installable': True,
 }
