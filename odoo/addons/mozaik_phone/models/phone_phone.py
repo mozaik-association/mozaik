@@ -131,8 +131,9 @@ class PhonePhone(models.Model):
         Because a phone number can not be duplicated
         :param default: dict
         """
-        raise exceptions.ValidationError(_("A phone number cannot "
-                                           "be duplicated!"))
+        # pylint: disable=method-required-super
+        raise exceptions.ValidationError(
+            _("A phone number cannot be duplicated!"))
 
     @api.model
     def _get_default_country_code(self):

@@ -50,7 +50,6 @@ class ResPartner(models.Model):
         index=True,
     )
     fax = fields.Char(
-        'Fax',
         compute="_compute_phone_numbers",
         store=True,
         index=True,
