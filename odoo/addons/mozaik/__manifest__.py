@@ -1,44 +1,26 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 {
-    'name': 'MOZAIK',
+    'name': 'Mozaik: All Modules Loader',
+    'summary': """
+        Loads all Mozaik modules""",
     'version': '11.0.1.0.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
+    'license': 'AGPL-3',
+    'author': 'ACSONE SA/NV',
+    'website': 'https://acsone.eu/',
     'category': 'Political Association',
     'depends': [
-        'mozaik_help',
-        'mozaik_mobile',
-        'mozaik_portal',
-        'mozaik_person',
-        'mozaik_involvement_followup',
-        'mozaik_automatic_supporter',
-        'mozaik_chart_account',
-        'mozaik_retrocession',
-        'mozaik_account',
-        'mozaik_communication',
-        'connector_support',
-    ],
-    'description': """
-MOZAIK
-======
-Loads all applicative modules
-""",
-    'images': [
+        'disable_user_welcome_message',
+        'partner_usual_firstname',
+        'mozaik_abstract_model',
+        'mozaik_duplicate',
+        'mozaik_coordinate',
+        'mozaik_email',
+        'mozaik_phone',
+        'mozaik_structure',
     ],
     'data': [
-        'security/security.xml',
-        'data/res_users_data.xml',
         'views/mail_followers.xml',
     ],
-    'qweb': [
-    ],
-    'demo': [
-        'demo/res_users_demo.xml',
-    ],
-    'license': 'AGPL-3',
-    'installable': False,
+    'installable': True,
 }
