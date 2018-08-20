@@ -33,5 +33,5 @@
         'data/res_users.xml',
         # 'data/sample_customization_demo.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

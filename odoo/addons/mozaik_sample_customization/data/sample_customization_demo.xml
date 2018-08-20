@@ -1,303 +1,195 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<openerp>
-    <data noupdate="1">
+<odoo noupdate="1">
 
-        <!-- Rename default structure -->
+    <!-- Add some attributes to existing records -->
 
-        <record id="mozaik_structure.int_power_level_01" model="int.power.level">
-            <field name="name">Fédéral</field>
-        </record>
+    <!-- Persons -->
 
-        <record id="mozaik_structure.int_instance_01" model="int.instance">
-            <field name="name">Mozaik Fédéral</field>
-        </record>
+    <record id="res_partner_pauline" model="res.partner">
+        <field name="tongue">f</field>
+        <field name="gender">f</field>
+        <field name="secondary_website">http://www.acsone.eu</field>
+        <field name="twitter">#onpc</field>
+        <field name="facebook">LEGOLAND</field>
+    </record>
 
-        <!-- Add some attributes to existing records -->
+    <record id="res_partner_jacques" model="res.partner">
+        <field name="civil_status">m</field>
+    </record>
 
-        <!-- Persons -->
+    <record id="res_partner_fgtb" model="res.partner">
+        <field name="acronym">fgtb</field>
+    </record>
 
-        <record id="res_partner_marc" model="res.partner">
-            <field name="usual_lastname"></field>
-            <field name="usual_firstname"></field>
-        </record>
+    <record id="res_partner_nouvelobs" model="res.partner">
+        <field name="acronym">nouvelobs</field>
+        <field name="enterprise_identifier">060544091</field>
+    </record>
 
-        <record id="res_partner_thierry" model="res.partner">
-            <field name="usual_lastname">BROCHANT</field>
-            <field name="usual_firstname">Pierre</field>
-        </record>
+    <record id="res_partner_rtbf" model="res.partner">
+        <field name="acronym">rtbf</field>
+    </record>
 
-        <record id="res_partner_paul" model="res.partner">
-            <field name="usual_lastname"></field>
-            <field name="usual_firstname"></field>
-            <field name="birth_date">1985-03-12</field>
-            <field name="ldap_name">pvanhaver</field>
-            <field name="ldap_id">451256</field>
-        </record>
+    <record id="res_partner_dries" model="res.partner">
+        <field name="gender">m</field>
+        <field name="twitter">#red-devil</field>
+        <field name="notify_email">none</field>
+    </record>
 
-        <record id="res_partner_pauline" model="res.partner">
-            <field name="usual_lastname"></field>
-            <field name="usual_firstname"></field>
-            <field name="tongue">f</field>
-            <field name="gender">f</field>
-            <field name="secondary_website">http://www.acsone.eu</field>
-            <field name="twitter">#onpc</field>
-            <field name="facebook">LEGOLAND</field>
-            <field name="website">http://www.legoland.dk/</field>
-        </record>
+    <record id="res_partner_sb" model="res.partner">
+        <field name="company_id" ref="base.main_company" />
+        <field name="gender">m</field>
+        <field name="notify_email">none</field>
+    </record>
 
-        <record id="res_partner_jacques" model="res.partner">
-            <field name="usual_firstname">Jacquou</field>
-            <field name="usual_lastname"></field>
-            <field name="civil_status">m</field>
-        </record>
+    <!-- Emails -->
 
-        <record id="res_partner_fgtb" model="res.partner">
-            <field name="acronym">fgtb</field>
-        </record>
+    <!-- Phones -->
 
-        <record id="res_partner_nouvelobs" model="res.partner">
-            <field name="acronym">nouvelobs</field>
-            <field name="enterprise_identifier">060544091</field>
-        </record>
+    <!-- Local Zip -->
 
-        <record id="res_partner_rtbf" model="res.partner">
-            <field name="acronym">rtbf</field>
-        </record>
+    <record id="local_zip_3_bis" model="address.local.zip">
+        <field name="local_zip">1020</field>
+        <field name="town">Bruxelles</field>
+        <field name="int_instance_id" ref="int_instance_local_bxl"/>
+    </record>
 
-        <record id="res_partner_dries" model="res.partner">
-            <field name="lastname">MERTENS</field>
-            <field name="firstname">Dries</field>
-            <field name="company_id" ref="base.main_company" />
-            <field name="gender">m</field>
-            <field name="twitter">#red-devil</field>
-            <field name="notify_email">none</field>
-        </record>
+    <record id="local_zip_3_ter" model="address.local.zip">
+        <field name="local_zip">1020</field>
+        <field name="town">Laken</field>
+        <field name="int_instance_id" ref="int_instance_local_bxl"/>
+    </record>
 
-        <record id="res_partner_sb" model="res.partner">
-            <field name="lastname">BUBKA</field>
-            <field name="firstname">Sergueï</field>
-            <field name="company_id" ref="base.main_company" />
-            <field name="gender">m</field>
-            <field name="notify_email">none</field>
-        </record>
+    <record id="local_zip_bxl_1030" model="address.local.zip">
+        <field name="local_zip">1030</field>
+        <field name="town">Bruxelles</field>
+        <field name="int_instance_id" ref="int_instance_local_bxl"/>
+    </record>
 
-        <!-- Emails -->
+    <record id="local_zip_wemmel" model="address.local.zip">
+        <field name="local_zip">1780</field>
+        <field name="town">Wemmel</field>
+    </record>
 
-        <record id="email_coordinate_thierry_two" model="email.coordinate">
-            <field name="vip" eval="True" />
-            <field name="coordinate_category_id" ref="coordinate_category_private" />
-        </record>
+    <!-- Local Streets -->
 
-        <record id="email_coordinate_paul" model="email.coordinate">
-            <field name="partner_id" ref="res_partner_paul" />
-            <field name="email">pvh@google.com</field>
-            <field name="unauthorized" eval="False" />
-        </record>
+    <record id="local_street_rsw" model="address.local.street">
+        <field name="identifier">local_street_rsw</field>
+        <field name="local_street">Romeinsesteenweg</field>
+        <field name="local_zip">1780</field>
+    </record>
 
-        <record id="email_coordinate_jacques" model="email.coordinate">
-            <field name="partner_id" ref="res_partner_jacques" />
-            <field name="email">jacques@mozaik-ec.be</field>
-            <field name="unauthorized" eval="False" />
-        </record>
+    <record id="local_street_slc" model="address.local.street">
+        <field name="identifier">local_street_slc</field>
+        <field name="local_street">Rue Sous-le-Chateau</field>
+        <field name="local_zip">4500</field>
+    </record>
 
-        <record id="email_coordinate_nouvelobs" model="email.coordinate">
-            <field name="partner_id" ref="res_partner_nouvelobs" />
-            <field name="email">info@n-obs.be</field>
-        </record>
+    <record id="local_street_br" model="address.local.street">
+        <field name="identifier">local_street_br</field>
+        <field name="local_street">Boulevard Auguste Reyers</field>
+        <field name="local_street_alternative">Auguste Reyerslaan</field>
+        <field name="local_zip">1030</field>
+    </record>
 
-        <record id="email_coordinate_sec_huy" model="email.coordinate">
-            <field name="partner_id" ref="int_assembly_02_res_partner" />
-            <field name="email">secretariat@mozaik-huy.be</field>
-        </record>
+    <record id="local_street_versailles" model="address.local.street">
+        <field name="identifier">local_street_versailles</field>
+        <field name="local_street">Avenue de Versailles</field>
+        <field name="local_street_alternative">Versailleslaan</field>
+        <field name="local_zip">1020</field>
+    </record>
 
-        <record id="email_coordinate_sec_hw" model="email.coordinate">
-            <field name="partner_id" ref="int_assembly_03_res_partner" />
-            <field name="email">secretariat@mozaik-hw.be</field>
-        </record>
+    <!-- Addresses -->
 
-        <!-- Phones -->
+    <record id="address_huy_slc32" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_local_zip_id" ref="local_zip_1"/>
+        <field name="address_local_street_id" ref="local_street_slc"/>
+        <field name="number">32</field>
+    </record>
 
-        <record id="main_fix_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="coordinate_category_professional" />
-            <field name="unauthorized" eval="True" />
-        </record>
+    <record id="address_wemmel_rsw" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_local_zip_id" ref="local_zip_wemmel"/>
+        <field name="address_local_street_id" ref="local_street_rsw"/>
+        <field name="number">950</field>
+    </record>
 
-        <record id="main_fax_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="coordinate_category_professional" />
-        </record>
+    <record id="address_wemmel_bulg" model="address.address">
+        <field name="country_id" ref="base.bg"/>
+        <field name="zip_man">8455</field>
+        <field name="town_man">Профил</field>
+        <field name="street_man">визитка на нашия</field>
+        <field name="street2">да създадеш своя профил</field>
+        <field name="number">58</field>
+        <field name="box">4b</field>
+    </record>
 
-        <record id="main_mobile_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="coordinate_category_professional" />
-        </record>
+    <record id="address_br52" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_local_zip_id" ref="local_zip_bxl_1030"/>
+        <field name="address_local_street_id" ref="local_street_br"/>
+        <field name="number">52</field>
+    </record>
 
-        <record id="main_mobile_coordinate_two" model="phone.coordinate">
-            <field name="vip" eval="True" />
-        </record>
+    <record id="address_ver36" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_local_zip_id" ref="local_zip_3_ter"/>
+        <field name="address_local_street_id" ref="local_street_versailles"/>
+        <field name="number">36</field>
+        <field name="box">2</field>
+    </record>
 
-        <record id="mobile_coordinate_two" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="coordinate_category_professional" />
-        </record>
+    <!-- Postal Coordinates -->
 
-        <record id="main_fax_coordinate_for_nouvelobs" model="phone.coordinate">
-            <field name="unauthorized" eval="True" />
-        </record>
+    <record id="postal_coordinate_sec_huy" model="postal.coordinate">
+        <field name="partner_id" ref="int_assembly_02_res_partner" />
+        <field name="address_id" ref="address_huy_slc32"/>
+    </record>
 
-        <record id="fix_fgtb" model="phone.phone">
-            <field name="name">025520330</field>
-            <field name="type">fix</field>
-            <field name="also_for_fax" eval="1"/>
-        </record>
+    <record id="postal_coordinate_for_rtbf" model="postal.coordinate">
+        <field name="address_id" ref="address_br52"/>
+        <field name="partner_id" ref="res_partner_rtbf"/>
+    </record>
 
-        <record id="main_fix_coordinate_for_fgtb" model="phone.coordinate">
-            <field name="phone_id" ref="fix_fgtb" />
-            <field name="partner_id" ref="res_partner_fgtb" />
-        </record>
+    <record id="postal_coordinate_for_dries" model="postal.coordinate">
+        <field name="address_id" ref="address_wemmel_rsw"/>
+        <field name="partner_id" ref="res_partner_dries"/>
+        <field name="vip" eval="True"/>
+    </record>
 
-        <!-- Local Zip -->
+    <record id="postal_coordinate_for_dries_bg" model="postal.coordinate">
+        <field name="address_id" ref="address_wemmel_bulg"/>
+        <field name="partner_id" ref="res_partner_dries"/>
+        <field name="unauthorized" eval="True" />
+    </record>
 
-        <record id="local_zip_3_bis" model="address.local.zip">
-            <field name="local_zip">1020</field>
-            <field name="town">Bruxelles</field>
-            <field name="int_instance_id" ref="int_instance_local_bxl"/>
-        </record>
+    <record id="postal_coordinate_for_sb_ver36" model="postal.coordinate">
+        <field name="address_id" ref="address_ver36"/>
+        <field name="partner_id" ref="res_partner_sb"/>
+        <field name="unauthorized" eval="True" />
+    </record>
 
-        <record id="local_zip_3_ter" model="address.local.zip">
-            <field name="local_zip">1020</field>
-            <field name="town">Laken</field>
-            <field name="int_instance_id" ref="int_instance_local_bxl"/>
-        </record>
+    <!-- Involvements -->
 
-        <record id="local_zip_bxl_1030" model="address.local.zip">
-            <field name="local_zip">1030</field>
-            <field name="town">Bruxelles</field>
-            <field name="int_instance_id" ref="int_instance_local_bxl"/>
-        </record>
+    <record id="involvement_category" model="partner.involvement.category">
+        <field name="name">Assemblée Générale 2013</field>
+        <field name="code">AG2013</field>
+    </record>
 
-        <record id="local_zip_wemmel" model="address.local.zip">
-            <field name="local_zip">1780</field>
-            <field name="town">Wemmel</field>
-        </record>
+    <record id="involvement_jacques" model="partner.involvement">
+        <field name="partner_id" ref="res_partner_jacques"/>
+        <field name="involvement_category_id" ref="involvement_category"/>
+        <field name="note">Orateur - Présentation: L'écologie de demain</field>
+    </record>
 
-        <!-- Local Streets -->
+    <record id="involvement_nouvelobs" model="partner.involvement">
+        <field name="partner_id" ref="res_partner_nouvelobs"/>
+        <field name="involvement_category_id" ref="involvement_category"/>
+    </record>
 
-        <record id="local_street_rsw" model="address.local.street">
-            <field name="identifier">local_street_rsw</field>
-            <field name="local_street">Romeinsesteenweg</field>
-            <field name="local_zip">1780</field>
-        </record>
+    <record id="involvement_category_tb2017" model="partner.involvement.category">
+        <field name="name">Tournoi de belotte de Marchienne-au-Pont (oct. 2017)</field>
+    </record>
 
-        <record id="local_street_slc" model="address.local.street">
-            <field name="identifier">local_street_slc</field>
-            <field name="local_street">Rue Sous-le-Chateau</field>
-            <field name="local_zip">4500</field>
-        </record>
-
-        <record id="local_street_br" model="address.local.street">
-            <field name="identifier">local_street_br</field>
-            <field name="local_street">Boulevard Auguste Reyers</field>
-            <field name="local_street_alternative">Auguste Reyerslaan</field>
-            <field name="local_zip">1030</field>
-        </record>
-
-        <record id="local_street_versailles" model="address.local.street">
-            <field name="identifier">local_street_versailles</field>
-            <field name="local_street">Avenue de Versailles</field>
-            <field name="local_street_alternative">Versailleslaan</field>
-            <field name="local_zip">1020</field>
-        </record>
-
-        <!-- Addresses -->
-
-        <record id="address_huy_slc32" model="address.address">
-            <field name="country_id" ref="base.be"/>
-            <field name="address_local_zip_id" ref="local_zip_1"/>
-            <field name="address_local_street_id" ref="local_street_slc"/>
-            <field name="number">32</field>
-        </record>
-
-        <record id="address_wemmel_rsw" model="address.address">
-            <field name="country_id" ref="base.be"/>
-            <field name="address_local_zip_id" ref="local_zip_wemmel"/>
-            <field name="address_local_street_id" ref="local_street_rsw"/>
-            <field name="number">950</field>
-        </record>
-
-        <record id="address_wemmel_bulg" model="address.address">
-            <field name="country_id" ref="base.bg"/>
-            <field name="zip_man">8455</field>
-            <field name="town_man">Профил</field>
-            <field name="street_man">визитка на нашия</field>
-            <field name="street2">да създадеш своя профил</field>
-            <field name="number">58</field>
-            <field name="box">4b</field>
-        </record>
-
-        <record id="address_br52" model="address.address">
-            <field name="country_id" ref="base.be"/>
-            <field name="address_local_zip_id" ref="local_zip_bxl_1030"/>
-            <field name="address_local_street_id" ref="local_street_br"/>
-            <field name="number">52</field>
-        </record>
-
-        <record id="address_ver36" model="address.address">
-            <field name="country_id" ref="base.be"/>
-            <field name="address_local_zip_id" ref="local_zip_3_ter"/>
-            <field name="address_local_street_id" ref="local_street_versailles"/>
-            <field name="number">36</field>
-            <field name="box">2</field>
-        </record>
-
-        <!-- Postal Coordinates -->
-
-        <record id="postal_coordinate_sec_huy" model="postal.coordinate">
-            <field name="partner_id" ref="int_assembly_02_res_partner" />
-            <field name="address_id" ref="address_huy_slc32"/>
-        </record>
-
-        <record id="postal_coordinate_for_rtbf" model="postal.coordinate">
-            <field name="address_id" ref="address_br52"/>
-            <field name="partner_id" ref="res_partner_rtbf"/>
-        </record>
-
-        <record id="postal_coordinate_for_dries" model="postal.coordinate">
-            <field name="address_id" ref="address_wemmel_rsw"/>
-            <field name="partner_id" ref="res_partner_dries"/>
-            <field name="vip" eval="True"/>
-        </record>
-
-        <record id="postal_coordinate_for_dries_bg" model="postal.coordinate">
-            <field name="address_id" ref="address_wemmel_bulg"/>
-            <field name="partner_id" ref="res_partner_dries"/>
-            <field name="unauthorized" eval="True" />
-        </record>
-
-        <record id="postal_coordinate_for_sb_ver36" model="postal.coordinate">
-            <field name="address_id" ref="address_ver36"/>
-            <field name="partner_id" ref="res_partner_sb"/>
-            <field name="unauthorized" eval="True" />
-        </record>
-
-        <!-- Involvements -->
-
-        <record id="involvement_category" model="partner.involvement.category">
-            <field name="name">Assemblée Générale 2013</field>
-            <field name="code">AG2013</field>
-        </record>
-
-        <record id="involvement_jacques" model="partner.involvement">
-            <field name="partner_id" ref="res_partner_jacques"/>
-            <field name="involvement_category_id" ref="involvement_category"/>
-            <field name="note">Orateur - Présentation: L'écologie de demain</field>
-        </record>
-
-        <record id="involvement_nouvelobs" model="partner.involvement">
-            <field name="partner_id" ref="res_partner_nouvelobs"/>
-            <field name="involvement_category_id" ref="involvement_category"/>
-        </record>
-
-        <record id="involvement_category_tb2017" model="partner.involvement.category">
-            <field name="name">Tournoi de belotte de Marchienne-au-Pont (oct. 2017)</field>
-        </record>
-
-    </data>
-</openerp>
+</odoo>
