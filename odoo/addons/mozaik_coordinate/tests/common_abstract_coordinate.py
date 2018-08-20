@@ -54,11 +54,15 @@ class CommonAbstractCoordinate(CommonCoordinate):
         **Note**
         Check also that the new is right main
         """
+        self.model_coordinate.search([
+            ('partner_id', '=', self.partner1.id),
+        ]).unlink()
         pc1 = self.model_coordinate.create({
             'partner_id': self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
             'is_main': True,
         })
+        self.assertTrue(pc1.is_main)
         pc2 = self.model_coordinate.create({
             'partner_id': self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_2,
@@ -131,6 +135,9 @@ class CommonAbstractCoordinate(CommonCoordinate):
         * try to unlink the main coordinate
         * check that is raise an ``orm.except_orm`` exception
         """
+        self.model_coordinate.search([
+            ('partner_id', '=', self.partner1.id),
+        ]).unlink()
         main_abstract_coordinate = self.model_coordinate.create({
             'partner_id': self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
@@ -152,6 +159,9 @@ class CommonAbstractCoordinate(CommonCoordinate):
         * try to unlink the two main coordinate
         * check that it succeed
         """
+        self.model_coordinate.search([
+            ('partner_id', '=', self.partner1.id),
+        ]).unlink()
         self.model_coordinate.create({
             'partner_id': self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_1,

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.actions.act_window" id="failure_editor_act_window">
+        <field name="name">Failure Editor</field>
+        <field name="view_mode">form</field>
+        <field name="res_model">failure.editor</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="mozaik_coordinate.failure_editor_form_view" />
+        <field name="context">{'default_model': context.get('active_model', False)}</field>
+        <field name="binding_model_id" ref="mozaik_phone.model_phone_coordinate" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_user')])]" />
+    </record>
+
+</odoo>

@@ -41,7 +41,7 @@ class CommonCoordinateWizard(CommonCoordinate):
             'invalidate_previous_coordinate': invalidate,
         }
         wizard = self.model_coordinate_wizard.with_context(
-            context).create(wiz_vals)
+            context).new(wiz_vals)
         return wizard.button_change_main_coordinate()
 
     def switch_main_coordinate(self, new_main_coordinate, invalidate):
@@ -66,7 +66,7 @@ class CommonCoordinateWizard(CommonCoordinate):
             'invalidate_previous_coordinate': invalidate,
         }
         wizard = self.model_coordinate_wizard.with_context(
-            context).create(wiz_vals)
+            context).new(wiz_vals)
         context.update({
             'active_id': new_main_coordinate.id,
             'active_ids': new_main_coordinate.ids,

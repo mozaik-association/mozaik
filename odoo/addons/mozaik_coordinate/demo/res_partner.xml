@@ -10,11 +10,23 @@
         <field name="name">Pauline</field>
     </record>
 
+    <record model="res.partner" id="res_partner_paul">
+        <field name="name">Paul</field>
+    </record>
+
     <record model="res.partner" id="res_partner_nicolas">
         <field name="name">Nicolas</field>
     </record>
 
     <record model="res.partner" id="res_partner_sandra">
         <field name="name">Sandra</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_marc">
+        <field name="name">Marc</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_jacques">
+        <field name="name">Jacques</field>
     </record>
 </odoo>

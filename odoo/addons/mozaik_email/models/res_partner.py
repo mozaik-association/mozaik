@@ -56,7 +56,7 @@ class ResPartner(models.Model):
             coordinate = self.env['email.coordinate'].browse()
             if record.active:
                 coordinate = first(record.sudo().email_coordinate_ids.filtered(
-                    lambda e: e.is_main).with_prefetch(self._prefetch))
+                    lambda e: e.is_main))
             vip_group = 'mozaik_coordinate.res_groups_coordinate_vip_reader'
             if not coordinate.vip or self.user_has_groups(vip_group):
                 record.email_coordinate_id = coordinate

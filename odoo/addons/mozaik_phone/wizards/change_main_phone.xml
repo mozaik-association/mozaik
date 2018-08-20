@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="change_main_phone_wizard" model="ir.ui.view">
+        <field name="name">change.main.phone.wizard</field>
+        <field name="model">change.main.phone</field>
+        <field name="inherit_id" ref="mozaik_coordinate.change_main_coordinate_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='invalidate_previous_coordinate']" position="before">
+                <field name="old_phone_id" options='{"no_open":True}' readonly='1'/>
+                <field name="phone_id" options='{"no_open":True}'
+                       readonly="context.get('mode', '') == 'switch'" />
+            </xpath>
+            <xpath expr="//group[@name='data']" position="inside">
+                <field name="partner_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="change_main_phone_action" model="ir.actions.act_window">
+        <field name="name">Change Main Phone</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">res.partner</field>
+        <field name="res_model">change.main.phone</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="change_main_phone_wizard"/>
+        <field name="context">{'target_model': 'phone.coordinate'}</field>
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_user')])]" />
+    </record>
+
+    <record id="set_as_main_action" model="ir.actions.act_window">
+        <field name="name">Set as main</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">phone.coordinate</field>
+        <field name="res_model">change.main.phone</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="change_main_phone_wizard" />
+        <field name="context">{'target_model': 'phone.coordinate', 'mode': 'switch'}</field>
+        <field name="binding_model_id" ref="mozaik_phone.model_phone_coordinate" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_user')])]" />
+    </record>
+
+</odoo>

@@ -60,7 +60,7 @@ class ResPartner(models.Model):
         for record in self:
             coordinate = coordinates.filtered(
                 lambda c, r=record: c.partner_id.id == r.id and c.is_main)
-            coordinate = first(coordinate.with_prefetch(self._prefetch))
+            coordinate = first(coordinate)
             record.not_abstract_coordinate_id = coordinate
 
 
