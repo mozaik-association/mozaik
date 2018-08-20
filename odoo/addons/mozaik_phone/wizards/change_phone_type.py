@@ -64,7 +64,6 @@ class ChangePhoneType(models.TransientModel):
                 'is_main': False,
             })
         phone_coordinates = phone_coordinates.filtered(lambda c: c.is_main)
-        phone_coordinates = phone_coordinates.with_prefetch(self._prefetch)
         wizard_obj = self.env['change.main.phone']
         for coordinate in phone_coordinates:
             context = self.env.context.copy()

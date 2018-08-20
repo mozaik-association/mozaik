@@ -28,10 +28,9 @@ class EmailCoordinate(models.Model):
         """
         bad_records = self.filtered(
             lambda r: not tools.single_email_re.match(r.email))
-        bad_records = bad_records.with_prefetch(self._prefetch)
         if bad_records:
-            message =(_("Invalid email address:\n- %s") %
-                      first(bad_records).email)
+            message = (_("Invalid email address:\n- %s") %
+                       first(bad_records).email)
             raise exceptions.ValidationError(message)
 
     @api.model

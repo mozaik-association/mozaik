@@ -20,7 +20,6 @@ class PhonePhone(models.Model):
 
     name = fields.Char(
         'Number',
-        size=50,
         required=True,
         index=True,
         track_visibility='onchange',
@@ -73,9 +72,6 @@ class PhonePhone(models.Model):
         :param num: str
         :return: str
         """
-        if self.env.context.get('install_mode', False) and num[:4] == 'tbc ':
-            # during data migration suspect number are not checked
-            return num
         code = False
         numero = num
         if num[:2] == '00':
@@ -87,10 +83,6 @@ class PhonePhone(models.Model):
                 numero, code) if code else pn.parse(numero)
         except pn.NumberParseException as e:
             errmsg = _('Invalid phone number: %s') % e
-            if self.env.get('install_mode', False):
-                # during data migration exception are not allowed
-                _logger.warning(errmsg)
-                return num
             raise exceptions.UserError(errmsg)
         return pn.format_number(
             normalized_number,
@@ -120,7 +112,7 @@ class PhonePhone(models.Model):
         :return: self recordset
         """
         self._update_values(vals, mode='create')
-        return super(PhonePhone, self).create(vals)
+        return super().create(vals)
 
     @api.multi
     def write(self, vals):
@@ -130,7 +122,7 @@ class PhonePhone(models.Model):
         :return: bool
         """
         self._update_values(vals)
-        return super(PhonePhone, self).write(vals)
+        return super().write(vals)
 
     @api.multi
     def copy(self, default=None):

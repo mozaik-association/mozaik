@@ -5,67 +5,37 @@
 <odoo>
 
     <record id="phone_coordinate1" model="phone.coordinate">
-        <field name="phone_id" ref="phone_phone_fix4" />
+        <field name="phone_id" ref="phone_phone_fix3" />
         <field name="partner_id" ref="mozaik_coordinate.res_partner_pauline" />
     </record>
 
     <record id="phone_coordinate2" model="phone.coordinate">
-        <field name="phone_id" ref="phone_phone_fix4" />
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_paul" />
-    </record>
-
-    <record id="phone_coordinate3" model="phone.coordinate">
-        <field name="phone_id" ref="phone_phone_fix1" />
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_marc" />
-    </record>
-
-    <record id="phone_coordinate4" model="phone.coordinate">
         <field name="phone_id" ref="phone_phone_mobile1" />
         <field name="partner_id" ref="mozaik_coordinate.res_partner_marc" />
     </record>
 
-    <record id="phone_coordinate5" model="phone.coordinate">
-        <field name="phone_id" ref="phone_phone_fax1" />
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_marc" />
-    </record>
-
-    <record id="phone_coordinate6" model="phone.coordinate">
+    <record id="phone_coordinate3" model="phone.coordinate">
         <field name="phone_id" ref="phone_phone_mobile2" />
         <field name="partner_id" ref="mozaik_coordinate.res_partner_thierry" />
     </record>
 
-    <record id="phone_coordinate7" model="phone.coordinate">
+    <record id="phone_coordinate4" model="phone.coordinate">
         <field name="phone_id" ref="phone_phone_mobile3" />
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_thierry" />
+        <field name="partner_id" ref="mozaik_coordinate.res_partner_jacques" />
     </record>
 
-    <record id="phone_coordinate8" model="phone.coordinate">
-        <field name="phone_id" ref="phone_phone_fax3" />
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_sandra" />
-    </record>
-
-    <record id="phone_coordinate9" model="phone.coordinate">
+    <record id="phone_coordinate5" model="phone.coordinate">
         <field name="phone_id" ref="phone_phone_mobile4" />
         <field name="partner_id" ref="mozaik_coordinate.res_partner_jacques" />
     </record>
 
-    <record id="phone_coordinate10" model="phone.coordinate">
-        <field name="phone_id" ref="phone_phone_mobile5" />
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_jacques" />
-    </record>
-
-    <record id="phone_coordinate11" model="phone.coordinate">
+    <record id="phone_coordinate6" model="phone.coordinate">
         <field name="phone_id" ref="phone_phone_fix1" />
         <field name="partner_id" ref="mozaik_coordinate.res_partner_jacques" />
     </record>
 
-    <record id="phone_coordinate12" model="phone.coordinate">
+    <record id="phone_coordinate7" model="phone.coordinate">
         <field name="phone_id" ref="phone_phone_fix2" />
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_jacques" />
-    </record>
-
-    <record id="phone_coordinate13" model="phone.coordinate">
-        <field name="phone_id" ref="phone_phone_fax1" />
         <field name="partner_id" ref="mozaik_coordinate.res_partner_jacques" />
     </record>
 

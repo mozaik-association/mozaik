@@ -15,16 +15,11 @@
     </record>
 
     <record id="phone_phone_fix3" model="phone.phone">
-        <field name="name">063458978</field>
-        <field name="type">fix</field>
-    </record>
-
-    <record id="phone_phone_fix4" model="phone.phone">
         <field name="name">061458978</field>
         <field name="type">fix</field>
     </record>
 
-    <record id="phone_phone_fix5" model="phone.phone">
+    <record id="phone_phone_fix4" model="phone.phone">
         <field name="name">061411232</field>
         <field name="type">fix</field>
     </record>
@@ -40,16 +35,11 @@
     </record>
 
     <record id="phone_phone_mobile3" model="phone.phone">
-        <field name="name">+32 473 78 10 78</field>
-        <field name="type">mobile</field>
-    </record>
-
-    <record id="phone_phone_mobile4" model="phone.phone">
         <field name="name">+32 473 78 10 79</field>
         <field name="type">mobile</field>
     </record>
 
-    <record id="phone_phone_mobile5" model="phone.phone">
+    <record id="phone_phone_mobile4" model="phone.phone">
         <field name="name">+32 473 78 10 80</field>
         <field name="type">mobile</field>
     </record>

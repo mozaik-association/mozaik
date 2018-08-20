@@ -90,14 +90,13 @@ class AbstractCoordinate(models.AbstractModel):
         Check if associated partner has exactly one main coordinate
         for a given coordinate type
         :param for_unlink: bool
-        :return: bool
         """
         if self.env.context.get('no_check_main_coordinate'):
             return
         coordinates = self_sudo = self.sudo()
         if for_unlink:
             coordinates = coordinates.filtered(
-                lambda c: c.is_main).with_prefetch(self_sudo._prefetch)
+                lambda c: c.is_main)
         partners = coordinates.mapped("partner_id")
         coordinate_types = coordinates.mapped("coordinate_type")
         all_other_coordinates = self_sudo.search([
@@ -108,8 +107,6 @@ class AbstractCoordinate(models.AbstractModel):
             other_coordinates = all_other_coordinates.filtered(
                 lambda s, c=coordinate: s.partner_id == c.partner_id and
                 s.coordinate_type == c.coordinate_type)
-            other_coordinates = other_coordinates.with_prefetch(
-                self_sudo._prefetch)
             if for_unlink and len(other_coordinates) > 1 and \
                     coordinate.is_main:
                 raise exceptions.ValidationError(
@@ -254,7 +251,6 @@ class AbstractCoordinate(models.AbstractModel):
         for partner in partners:
             coordinates = all_coordinates.filtered(
                 lambda s, p=partner: s.partner_id == p)
-            coordinates = coordinates.with_prefetch(self._prefetch)
             if not coordinates:
                 coordinate = self.create({
                     'partner_id': partner.id,

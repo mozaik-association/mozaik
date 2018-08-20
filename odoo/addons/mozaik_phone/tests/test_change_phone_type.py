@@ -7,14 +7,14 @@ class TestEmailCoordinate(TransactionCase):
 
     def setUp(self):
         super(TestEmailCoordinate, self).setUp()
-        self.mobile4 = self.env.ref("mozaik_phone.phone_phone_mobile4")
-        self.mobile5 = self.env.ref("mozaik_phone.phone_phone_mobile5")
+        self.mobile4 = self.env.ref("mozaik_phone.phone_phone_mobile3")
+        self.mobile5 = self.env.ref("mozaik_phone.phone_phone_mobile4")
         self.fix1 = self.env.ref("mozaik_phone.phone_phone_fix1")
         self.fix2 = self.env.ref("mozaik_phone.phone_phone_fix2")
-        self.phone_coord9 = self.env.ref("mozaik_phone.phone_coordinate9")
-        self.phone_coord10 = self.env.ref("mozaik_phone.phone_coordinate10")
-        self.phone_coord11 = self.env.ref("mozaik_phone.phone_coordinate11")
-        self.phone_coord12 = self.env.ref("mozaik_phone.phone_coordinate12")
+        self.phone_coord9 = self.env.ref("mozaik_phone.phone_coordinate4")
+        self.phone_coord10 = self.env.ref("mozaik_phone.phone_coordinate5")
+        self.phone_coord11 = self.env.ref("mozaik_phone.phone_coordinate6")
+        self.phone_coord12 = self.env.ref("mozaik_phone.phone_coordinate7")
         self.wizard_obj = self.env['change.phone.type']
 
     def test_change_main_mobile_to_fix_main(self):
@@ -27,7 +27,7 @@ class TestEmailCoordinate(TransactionCase):
         - mobile_coordinate_for_jacques_2 should become main
         - fix_coordinate_for_jacques_1 should not be main anymore
         """
-        wizard = self.wizard_obj.create({
+        wizard = self.wizard_obj.new({
             'phone_id': self.phone_coord9.phone_id.id,
             'type': 'fix',
         })
@@ -50,7 +50,7 @@ class TestEmailCoordinate(TransactionCase):
         - mobile_coordinate_for_jacques_2 should become main
         - fix_coordinate_for_jacques_1 should be main anymore
         """
-        wizard = self.wizard_obj.create({
+        wizard = self.wizard_obj.new({
             'phone_id': self.mobile4.id,
             'type': 'fix',
             'is_main': False,
@@ -73,7 +73,7 @@ class TestEmailCoordinate(TransactionCase):
         - mobile_coordinate_for_jacques_1 should remain main
         - fix_coordinate_for_jacques_1 should not be main anymore
         """
-        wizard = self.wizard_obj.create({
+        wizard = self.wizard_obj.new({
             'phone_id': self.phone_coord10.phone_id.id,
             'type': 'fix',
         })
@@ -96,7 +96,7 @@ class TestEmailCoordinate(TransactionCase):
         - mobile_coordinate_for_jacques_1 should remain main
         - fix_coordinate_for_jacques_1 should remain main
         """
-        wizard = self.wizard_obj.create({
+        wizard = self.wizard_obj.new({
             'phone_id': self.mobile5.id,
             'type': 'fix',
             'is_main': False,

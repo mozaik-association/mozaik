@@ -16,8 +16,8 @@ class TestPhonePhone(TransactionCase):
         insert a valid phone number without prefix
         """
         num = self.model_phone._check_and_format_number('061140220')
-        self.assertEquals(num, '+32 61 14 02 20',
-                          '061140220 should give +32 61 14 02 20')
+        self.assertEqual(num, '+32 61 14 02 20',
+                         '061140220 should give +32 61 14 02 20')
         return
 
     def test_insert_with_prefix(self):
@@ -28,8 +28,8 @@ class TestPhonePhone(TransactionCase):
         expected: +32 489 58 75 20
         """
         num = self.model_phone._check_and_format_number('+32489587520')
-        self.assertEquals(num, '+32 489 58 75 20',
-                          '+32489587520 should give +32 489 58 75 20')
+        self.assertEqual(num, '+32 489 58 75 20',
+                         '+32489587520 should give +32 489 58 75 20')
         return
 
     def test_proper_escaping(self):
@@ -41,8 +41,8 @@ class TestPhonePhone(TransactionCase):
         """
         num = self.model_phone._check_and_format_number(
             '061-54/10    45')
-        self.assertEquals(num, '+32 61 54 10 45',
-                          '061-54/10    45 should give +32 61 54 10 45')
+        self.assertEqual(num, '+32 61 54 10 45',
+                         '061-54/10    45 should give +32 61 54 10 45')
         return
 
     def test_insert_bad_query(self):

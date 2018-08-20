@@ -50,7 +50,7 @@ class ResPartner(models.Model):
         index=True,
     )
     fax = fields.Char(
-        string='Fax',
+        'Fax',
         compute="_compute_phone_numbers",
         store=True,
         index=True,
@@ -62,9 +62,7 @@ class ResPartner(models.Model):
         'phone_coordinate_ids.phone_id',
         'phone_coordinate_ids.is_main',
         'phone_coordinate_ids.vip',
-        'phone_coordinate_ids.unauthorized',
         'phone_coordinate_ids.active',
-        'phone_coordinate_inactive_ids.active',
         'phone_coordinate_ids.phone_id.name',
         'phone_coordinate_ids.phone_id.type',
         'phone_coordinate_ids.phone_id.also_for_fax',
@@ -90,17 +88,13 @@ class ResPartner(models.Model):
             # Get coordinate phone depending of the type(fix, fax, mobile)
             phone_coordinates = all_phone_coordinates.filtered(
                 lambda c, p=record: c.partner_id.id == p.id)
-            phone_coordinates = phone_coordinates.with_prefetch(self._prefetch)
             fix_coordinate = phone_coordinates.filtered(
                 lambda c: c.coordinate_type == 'fix')
-            fix_coordinate = fix_coordinate.with_prefetch(self._prefetch)
             fax_coordinate = phone_coordinates.filtered(
                 lambda c: c.coordinate_type == 'fax')
             fax_coordinate |= fix_coordinate.filtered(lambda f: f.also_for_fax)
-            fax_coordinate = fax_coordinate.with_prefetch(self._prefetch)
             mobile_coordinate = phone_coordinates.filtered(
                 lambda c: c.coordinate_type == 'mobile')
-            mobile_coordinate = mobile_coordinate.with_prefetch(self._prefetch)
 
             if any(fix_coordinate.mapped("vip")):
                 fix = vip
@@ -115,11 +109,14 @@ class ResPartner(models.Model):
             else:
                 fax = first(fax_coordinate).phone_id.name
             vip_group = 'mozaik_coordinate.res_groups_coordinate_vip_reader'
-            if not first(fix_coordinate).vip or self.user_has_groups(vip_group):
+            if not first(fix_coordinate).vip or \
+                    self.user_has_groups(vip_group):
                 record.fix_coordinate_id = first(fix_coordinate)
-            if not first(mobile_coordinate).vip or self.user_has_groups(vip_group):
+            if not first(mobile_coordinate).vip or \
+                    self.user_has_groups(vip_group):
                 record.mobile_coordinate_id = first(mobile_coordinate)
-            if not first(fax_coordinate).vip or self.user_has_groups(vip_group):
+            if not first(fax_coordinate).vip or \
+                    self.user_has_groups(vip_group):
                 record.fax_coordinate_id = first(fax_coordinate)
             record.phone = fix
             record.mobile = mobile

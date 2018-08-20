@@ -6,10 +6,8 @@
 
     <record model="ir.actions.act_window" id="failure_editor_act_window">
         <field name="name">Failure Editor</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="res_model">failure.editor</field>
-        <field name="multi" eval="0"/>
         <field name="target">new</field>
         <field name="view_id" ref="mozaik_coordinate.failure_editor_form_view" />
         <field name="context">{'default_model': context.get('active_model', False)}</field>

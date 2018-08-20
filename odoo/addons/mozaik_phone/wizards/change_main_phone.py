@@ -11,7 +11,6 @@ class ChangeMainPhone(models.TransientModel):
     old_phone_id = fields.Many2one(
         "phone.phone",
         "Current main phone",
-        ondelete="cascade",
     )
     phone_id = fields.Many2one(
         "phone.phone",
@@ -22,7 +21,6 @@ class ChangeMainPhone(models.TransientModel):
     partner_id = fields.Many2one(
         "res.partner",
         "Partner",
-        ondelete="cascade",
     )
 
     @api.model
@@ -38,15 +36,16 @@ class ChangeMainPhone(models.TransientModel):
         active_id = context.get('active_ids', context.get('active_id'))
         if active_id and isinstance(active_id, list):
             active_id = active_id[0]
-        result.update({
-            'partner_id': active_id,
-        })
         if context.get('mode') == 'switch':
             target_model = context.get('target_model')
-            target_id = context.get('target_id')
-            coordinate = self.env[target_model].browse(target_id)
+            coordinate = self.env[target_model].browse(active_id)
             result.update({
-                'phone_id': coordinate.id,
+                'phone_id': coordinate.phone_id.id,
+                'partner_id': coordinate.partner_id.id,
+            })
+        else:
+            result.update({
+                'partner_id': active_id,
             })
         return result
 
@@ -59,4 +58,4 @@ class ChangeMainPhone(models.TransientModel):
         else:
             self.old_phone_id = self.partner_id.mobile_coordinate_id\
                 .phone_id.id
-        self.change_allowed = not bool(self.phone_id == self.old_phone_id)
+        self.change_allowed = not self.phone_id == self.old_phone_id

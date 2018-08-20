@@ -13,8 +13,8 @@ class TestPhoneCoordinateWizard(CommonCoordinateWizard, TransactionCase):
         self.model_coordinate = self.env['phone.coordinate']
         model_phone = self.env['phone.phone']
         self.coo_into_partner = 'mobile_coordinate_id'
-        self.coordinate1 = self.env.ref("mozaik_phone.phone_coordinate4")
-        self.coordinate2 = self.env.ref("mozaik_phone.phone_coordinate6")
+        self.coordinate1 = self.env.ref("mozaik_phone.phone_coordinate2")
+        self.coordinate2 = self.env.ref("mozaik_phone.phone_coordinate3")
         self.field_id_1 = model_phone.create({
             'name': '+32 478 85 25 26',
             'type': 'mobile',

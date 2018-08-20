@@ -24,7 +24,7 @@ class PhoneCoordinate(models.Model):
         related='phone_id.type',
         readonly=True,
         store=True,
-        default=False # remove the default defined in abstract.coordinate
+        default=False  # remove the default defined in abstract.coordinate
     )
     also_for_fax = fields.Boolean(
         related='phone_id.also_for_fax',

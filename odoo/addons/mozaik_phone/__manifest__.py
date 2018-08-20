@@ -26,8 +26,6 @@ Numbers are normalized regarding the external python library: phonenumbers
         'views/phone_coordinate.xml',
         'views/phone_phone.xml',
         'views/res_partner.xml',
-        'data/ir_config_parameter.xml',
-        'data/mail_message_subtype.xml',
         'wizards/change_main_phone.xml',
         'wizards/allow_duplicate_view.xml',
         'wizards/failure_editor_view.xml',

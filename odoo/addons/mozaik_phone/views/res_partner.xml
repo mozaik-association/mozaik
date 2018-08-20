@@ -8,7 +8,6 @@
         <field name="name">res.partner.form (in mozaik_phone)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="mozaik_coordinate.res_partner_form_view"/>
-        <field name="priority" eval="150"/>
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='phone']" position="attributes">
