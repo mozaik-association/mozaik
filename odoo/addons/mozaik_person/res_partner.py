@@ -209,10 +209,6 @@ class res_partner(orm.Model):
         'ldap_id': fields.integer(
             'LDAP Id', track_visibility='onchange',
             help="ID of the user in the LDAP", group_operator='min'),
-        'usual_firstname': fields.char(
-            "Usual Firstname", track_visibility='onchange'),
-        'usual_lastname': fields.char(
-            "Usual Lastname", track_visibility='onchange'),
         'printable_name': fields.function(
             _get_partner_names, type='char', string='Printable Name',
             multi="AllNames",
