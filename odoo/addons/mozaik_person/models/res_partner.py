@@ -9,7 +9,6 @@ class ResPartner(models.Model):
 
     _inherit = 'res.partner'
 
-    nationality_id = fields.Many2one(track_visibility='onchange')
     is_donor = fields.Boolean(
         string="Is a donor",
         compute='_compute_involvement_bools', store=True,
