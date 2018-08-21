@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<doo noupdate="0">
+
+    <record model="ir.ui.menu" id="mozaik_thesaurus_menu" >
+        <field name="name">Thesaurus</field>
+        <field name="sequence">40</field>
+        <field name="parent_id" ref="contacts.menu_contacts" />
+    </record>
+
+    <record model="ir.ui.menu" id="thesaurus_term_menu">
+        <field name="name">Thesaurus Terms</field>
+        <field name="parent_id" ref="mozaik_thesaurus_menu"/>
+        <field name="action" ref="thesaurus_term_action"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record model="ir.ui.menu" id="thesaurus_menu">
+        <field name="name">Thesaurus</field>
+        <field name="parent_id" ref="mozaik_thesaurus_menu"/>
+        <field name="action" ref="thesaurus_action"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+</odoo>
