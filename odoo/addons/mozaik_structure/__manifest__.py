@@ -12,6 +12,7 @@
     'depends': [
         'base',
         'mozaik_abstract_model',
+        'mozaik_partner_assembly',
     ],
     'data': [
         'data/structure_data.xml',
@@ -34,7 +35,6 @@
         'views/int_assembly_category.xml',
         'views/int_power_level.xml',
         'views/structure_menu.xml',
-        'views/res_partner.xml',
     ],
     'demo': [
         'demo/internal_structure.xml',
