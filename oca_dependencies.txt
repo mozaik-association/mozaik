@@ -15,4 +15,4 @@
 # sale-workflow https://github.com/OCA/sale-workflow branchname
 
 server-backend https://github.com/OCA/server-backend 11.0
-partner-contact https://github.com/OCA/partner-contact 11.0
+partner-contact https://github.com/mozaik-association/partner-contact 11.0-mrm_master

@@ -17,6 +17,7 @@
         'mozaik_coordinate',
         'mozaik_email',
         'mozaik_phone',
+        'mozaik_partner_fields',
         'mozaik_structure',
     ],
     'data': [

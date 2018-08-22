@@ -29,29 +29,9 @@ from openerp import fields as new_fields
 from openerp.osv import orm, fields, expression
 from openerp.tools.translate import _
 from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
-from datetime import datetime, date
 
 from openerp.addons.base.res import res_partner
 from openerp.addons.mozaik_base.base_tools import format_value, get_age
-from dateutil.relativedelta import relativedelta
-
-# Constants
-AVAILABLE_GENDERS = [
-    ('m', 'Male'),
-    ('f', 'Female'),
-]
-
-available_genders = dict(AVAILABLE_GENDERS)
-
-AVAILABLE_CIVIL_STATUS = [
-    ('u', 'Unmarried'),
-    ('m', 'Married'),
-    ('d', 'Divorced'),
-    ('w', 'Widowed'),
-    ('s', 'Separated'),
-]
-
-available_civil_status = dict(AVAILABLE_CIVIL_STATUS)
 
 AVAILABLE_TONGUES = [
     ('f', 'French'),
@@ -63,9 +43,7 @@ available_tongues = dict(AVAILABLE_TONGUES)
 
 class ResPartner(models.Model):
 
-    _name = 'res.partner'
-    _inherit = ['res.partner', 'abstract.term.finder']
-    _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
+    _inherit = 'res.partner'
 
     @api.one
     @api.depends('select_name')
@@ -80,16 +58,6 @@ class ResPartner(models.Model):
     technical_name = new_fields.Char(
         string='Technical Name', compute='_compute_technical_name',
         store=True, index=True)
-
-    @api.model
-    @api.returns('self', lambda value: value.id)
-    def create(self, vals):
-        if (vals.get('is_company') and vals.get('name')
-            and not(vals.get('lastname')
-                    and vals.get('firstname'))):
-                vals['lastname'] = vals['name']
-        partner = super(ResPartner, self).create(vals)
-        return partner
 
 
 class res_partner(orm.Model):
@@ -106,30 +74,6 @@ class res_partner(orm.Model):
     _mail_mass_mailing = False
 
 # private methods
-
-    @api.multi
-    @api.depends('birth_date')
-    def _compute_age(self):
-        """
-        age computed depending of the birth date of the
-        membership request
-        """
-        for partner in self:
-            partner.age = get_age(partner.birth_date)
-
-    def _search_age(self, operator, value):
-        """
-        Use birth_date to search on age
-        """
-        age = value
-        computed_birth_date = date.today() - relativedelta(years=age)
-        computed_birth_date = datetime.strftime(
-            computed_birth_date, DEFAULT_SERVER_DATE_FORMAT)
-        if operator == '>=':
-            operator = '<='
-        elif operator == '<':
-            operator = '>'
-        return [('birth_date', operator, computed_birth_date)]
 
     def _get_partner_names(self, cr, uid, ids, name, args, context=None):
         """
@@ -161,19 +105,6 @@ class res_partner(orm.Model):
             }
         return result
 
-    @api.one
-    def _inverse_name_after_cleaning_whitespace(self):
-        '''
-            Name field is readonly on mozaik for a natural person
-            but due to a dependance on readonly_bypass, the inverse function
-            in partner_firstname is triggered and can change the expected
-            result. For example if lastname contains space(s).
-        '''
-        if self.is_company:
-            super(res_partner, self)._inverse_name_after_cleaning_whitespace()
-
-# data model
-
     _display_name_store_trigger = {
         'res.partner': (lambda self, cr, uid, ids, context=None: ids,
                         # trigger priority must be greater than 10 (i.e.
@@ -190,19 +121,6 @@ class res_partner(orm.Model):
         'tongue': fields.selection(
             AVAILABLE_TONGUES, 'Tongue', select=True,
             track_visibility='onchange'),
-        'gender': fields.selection(
-            AVAILABLE_GENDERS, 'Gender', select=True,
-            track_visibility='onchange'),
-        'civil_status': fields.selection(
-            AVAILABLE_CIVIL_STATUS, 'Civil Status',
-            track_visibility='onchange'),
-        'secondary_website': fields.char(
-            'Secondary Website', size=128, track_visibility='onchange',
-            help="Secondary Website of Partner or Company"),
-        'twitter': fields.char(
-            'Twitter', size=64, track_visibility='onchange'),
-        'facebook': fields.char(
-            'Facebook', size=64, track_visibility='onchange'),
         'ldap_name': fields.char(
             'LDAP Name', size=64, track_visibility='onchange',
             help="Name of the user in the LDAP"),
@@ -222,13 +140,6 @@ class res_partner(orm.Model):
         'enterprise_identifier': fields.char(
             'Enterprise Number', size=10, track_visibility='onchange'),
 
-        'competencies_m2m_ids': fields.many2many(
-            'thesaurus.term', 'res_partner_term_competencies_rel',
-            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.many2many(
-            'thesaurus.term', 'res_partner_term_interests_rel',
-            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
-
         'partner_involvement_ids': fields.one2many(
             'partner.involvement', 'partner_id', string='Partner Involvements',
             domain=[('active', '=', True)], context={'force_recompute': True}),
@@ -240,24 +151,7 @@ class res_partner(orm.Model):
         'display_name': fields.function(
             _get_partner_names, type='char', string='Name', multi="AllNames",
             store=_display_name_store_trigger, select=True),
-        'website': fields.char(
-            'Main Website', size=128, track_visibility='onchange',
-            help="Main Website of Partner or Company"),
-        'comment': fields.text('Notes', track_visibility='onchange'),
-
-        # Special case:
-        # * do not use native birthdate field, it is a char field without
-        # any control
-        # * do not redefine it either, oe will silently rename twice the
-        # column (birthdate_moved12, birthdate_moved13, ...)
-        #   losing its content and making the res_partner table with an
-        # astronomic number of columns !!
-        'birth_date': fields.date(
-            'Birth Date', select=True, track_visibility='onchange'),
     }
-
-    age = new_fields.Integer(
-        string='Age', compute='_compute_age', search='_search_age')
 
     _defaults = {
         # Redefinition

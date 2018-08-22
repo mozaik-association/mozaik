@@ -1,0 +1,19 @@
+mozaik_person:
+* not migrated: enterprise_identifier, acronym, tongue, ldap_name, ldap_id
+
+OCA/partner_contact_gender:
+* gender (from mozaik_person): f=>female, m=>male
+
+OCA/partner_contact_birthdate:
+* birth_date (from mozaik_person) => birthdate_date
+
+mozaik_partner_fields:
+* civil_status (from mozaik_person) => marital with same selection as in hr/hr.employee (i.e. loose of the choice 'separated')
+* secondary_website (from mozaik_person)
+* twitter (from mozaik_person) => social_twitter
+* facebook (from mozaik_person) => social_facebook
+ 
+mozaik_thesaurus:
+* partner/competencies_m2m_ids (from mozaik_person) => competency_ids
+* partner/interests_m2m_ids (from mozaik_person) => interest_ids
+
