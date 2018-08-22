@@ -9,8 +9,6 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     is_assembly = fields.Boolean(
-        'Is an Assembly',
         readonly=True,
         copy=False,
-        default=False,
     )
