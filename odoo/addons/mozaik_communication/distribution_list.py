@@ -426,7 +426,7 @@ class distribution_list_line(orm.Model):
                                                 uid, ids, context=None):
         context = context or {}
         current_filter = self.browse(cr, uid, ids, context)
-        res = super(distribution_list_line, self).get_list_from_domain(
+        res = super(distribution_list_line, self)._get_list_from_domain(
             cr,
             uid,
             ids,
