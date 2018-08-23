@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 ACSONE SA/NV
+# Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import api, fields, models
@@ -23,6 +22,15 @@ class PartnerInvolvement(models.Model):
         string='Just a promise',
         compute='_compute_promise', store=True)
 
+    _sql_constraints = [
+        (
+            'donation',
+            "CHECK (active IS FALSE OR involvement_type IS NULL OR "
+            "involvement_type NOT IN ('donation') OR amount > 0.0)",
+            'For a donation amount must be positive !',
+        ),
+    ]
+
     @api.multi
     @api.depends("effective_time", "reference", "involvement_type")
     def _compute_promise(self):
@@ -32,12 +40,3 @@ class PartnerInvolvement(models.Model):
                 involvement.reference and
                 not involvement.effective_time
             )
-
-    _sql_constraints = [
-        (
-            'donation',
-            "CHECK (active IS FALSE OR involvement_type IS NULL OR "
-            "involvement_type NOT IN ('donation') OR amount > 0.0)",
-            'For a donation amount must be positive !',
-        ),
-    ]

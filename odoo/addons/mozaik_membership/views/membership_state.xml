@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="membership_state_search_view" model="ir.ui.view">
+        <field name="name">membership.state.search</field>
+        <field name="model">membership.state</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code" />
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="membership_state_tree_view" model="ir.ui.view">
+        <field name="name">membership.state.tree</field>
+        <field name="model">membership.state</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="code" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="membership_state_form_view" model="ir.ui.view">
+        <field name="name">membership.state.form</field>
+        <field name="model">membership.state</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                         invisible="context.get('popup')"
+                         groups="mozaik_base.mozaik_res_groups_configurator">
+                        <button name="action_invalidate" string="Invalidate" type="object"
+                                confirm="Invalidate Membership State: proceed anyway?" />
+                    </span>
+                </header>
+                <sheet>
+                    <div class="oe_title" name="title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <div class="oe_right oe_button_box" name="buttons"></div>
+                    <group>
+                        <group>
+                            <field name="code"
+                                attrs="{'readonly': [('id','!=',False)]}" />
+                        </group>
+                    </group>
+                    <group name="state"
+                        attrs="{'invisible': [('id','=',False)]}">
+                        <group name="validity">
+                            <field name="create_date" />
+                            <field name="expire_date"
+                                attrs="{'invisible': [('active','=',True)]}" />
+                        </group>
+                    </group>
+                </sheet>
+                <div name="dev" class="oe_form_sheetbg"
+                    groups="mozaik_base.res_groups_developper">
+                    <div class="oe_formview oe_form_sheet_width">
+                        <h3>More Info</h3>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                            <button name="action_revalidate" string="Reactivate" type="object"
+                                    confirm="Reactivate document: proceed anyway?" />
+                        </div>
+                        <group name="moreinfo">
+                            <field name="id" />
+                            <field name="active" />
+                        </group>
+                    </div>
+                </div>
+                <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                    <field name="message_follower_ids" widget="mail_followers"
+                        groups="mozaik_base.mozaik_res_groups_configurator" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="membership_state_action" model="ir.actions.act_window">
+        <field name="name">Membership States</field>
+        <field name="res_model">membership.state</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="membership_state_tree_view" />
+        <field name="search_view_id" ref="membership_state_search_view" />
+    </record>
+
+</odoo>

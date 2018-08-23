@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <record id="mr_required_age" model="ir.config_parameter">
+        <field name="key">mr_required_age</field>
+        <field name="value">16</field>
+    </record>
+
+</odoo>
