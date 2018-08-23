@@ -1,27 +1,5 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_membership, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_membership is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_membership is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_membership.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp.osv import orm, fields
 
@@ -75,8 +53,6 @@ class change_main_address(orm.TransientModel):
 
         return res
 
-# view methods: onchange, button
-
     def onchange_address_id(self, cr, uid, ids, address_id,
                             old_int_instance_id, context=None):
         res = {}
@@ -98,8 +74,6 @@ class change_main_address(orm.TransientModel):
         res.update({'new_int_instance_id': new_int_instance_id,
                     'keeping_mode': keeping_mode})
         return {'value': res}
-
-# public methods
 
     def button_change_main_coordinate(self, cr, uid, ids, context=None):
         """
