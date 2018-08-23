@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- DISTRIBUTION LIST -->
+    <record id="distribution_list_search" model="ir.ui.view">
+        <field name="name">distribution.list.search</field>
+        <field name="model">distribution.list</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="dst_model_id"/>
+                <field name="note"/>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="dst_model" string="Destination Model" domain="[]" context="{'group_by':'dst_model_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="distribution_list_tree" model="ir.ui.view">
+        <field name="name">distribution.list.tree</field>
+        <field name="model">distribution.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="dst_model_id" options="{'no_create_edit': True}"/>
+                <button name="get_action_from_domains" string="See Distribution List Result" type="object"/>
+                <button name="mass_mailing" string="Mass Mailing" type="object"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="distribution_list_form" model="ir.ui.view">
+        <field name="name">distribution.list.form</field>
+        <field name="model">distribution.list</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="mass_mailing" type="object" string="Mass Mailing" groups="base.group_user"/>
+                </header>
+                <sheet>
+                    <div class="oe_title" name="title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group name="info">
+                        <group>
+                            <field name="dst_model_id" options="{'no_create_edit': True}"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="bridge_field"/>
+                        </group>
+                    </group>
+                    <group name="filters">
+                        <div name="to_include">
+                            <separator string="Filters to Include"/>
+                            <field name="to_include_distribution_list_line_ids">
+                                <tree>
+                                    <field name="id" invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="src_model_id" options="{'no_create_edit': True}"/>
+                                    <field name="bridge_field_id" options="{'no_create_edit': True}"/>
+                                    <button groups="base.group_user"  name="get_list_from_domain" string="See Filter Result" type="object"/>
+                                </tree>
+                            </field>
+                        </div>
+                        <div name="to_exclude">
+                            <separator string="Filters to Exclude"/>
+                            <field name="to_exclude_distribution_list_line_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="src_model_id" options="{'no_create_edit': True}"/>
+                                    <field name="bridge_field_id" options="{'no_create_edit': True}"/>
+                                    <button groups="base.group_user"  name="get_list_from_domain" string="See Filter Result" type="object"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </group>
+                    <notebook name="dl_notebook">
+                        <page name="note" string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="distribution_list_action" model="ir.actions.act_window">
+        <field name="name">Distribution Lists</field>
+        <field name="res_model">distribution.list</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Distribution Lists" id="distribution_list_menu_root" groups="base.group_user"
+        sequence="30" web_icon="distribution_list,static/description/icon.png"/>
+    <menuitem name="Distribution Lists" id="distribution_list_menu" parent="distribution_list_menu_root"
+        sequence="10"/>
+    <menuitem id="distribution_list_submenu" parent="distribution_list_menu"
+        sequence="1" action="distribution_list_action"/>
+</odoo>
