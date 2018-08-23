@@ -62,7 +62,7 @@ class add_registration(orm.TransientModel):
             ctx = dict(context or {},
                        main_object_field='partner_id',
                        main_target_model='res.partner')
-            partner_ids = dl_obj.get_complex_distribution_list_ids(
+            partner_ids = dl_obj._get_complex_distribution_list_ids(
                 cr, uid, [wiz.distribution_list_id.id], context=ctx)[0]
             session = ConnectorSession(cr, uid, context=context)
             if len(partner_ids) > worker_pivot:
