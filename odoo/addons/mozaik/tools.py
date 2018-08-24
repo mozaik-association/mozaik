@@ -23,8 +23,8 @@ def format_value(value, escape_digit=False, remove_blanks=False):
             for c in unicodedata.normalize('NFD', value)
             if unicodedata.category(c) != 'Mn'
         )
-        esc = not remove_blanks and ' ' or ''
-        regexp = escape_digit and CHARS_AND_DIGIT_TO_ESCAPE or CHARS_TO_ESCAPE
+        esc = '' if remove_blanks else ' '
+        regexp = CHARS_AND_DIGIT_TO_ESCAPE if escape_digit else CHARS_TO_ESCAPE
         value = re.sub(regexp, esc, value)
         value = value.strip().lower()
     return value

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="partner_involvement_form_view">
+        <field name="name">partner.involvement.form (in mozaik_involvement)</field>
+        <field name="model">partner.involvement</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                    </div>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
+                                confirm="Archive/reactivate involvement: proceed anyway?"
+                                groups="mozaik_abstract_model.res_groups_archiving_manager">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="partner_id" class="oe_edit_only"/>
+                        <h1><field name="partner_id" /></h1>
+                        <label for="involvement_category_id" class="oe_edit_only"/>
+                        <h1><field name="involvement_category_id" /></h1>
+                    </div>
+                    <group>
+                        <group name="data1">
+                            <field name="involvement_type" />
+                            <field name="allow_multi" invisible="1"/>
+                        </group>
+                        <group name="data2">
+                            <field name="effective_time" />
+                        </group>
+                    </group>
+                    <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                        <group name="validity">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                        </group>
+                        <group name="other"/>
+                    </group>
+                    <notebook>
+                        <page name="note" string="Note">
+                            <field name="note" />
+                        </page>
+                        <page string="More Info" name="dev" groups="base.group_erp_manager">
+                            <group name="moreinfo"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div name="chat" class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="partner_involvement_search_view">
+        <field name="name">partner.involvement.search (in mozaik_involvement)</field>
+        <field name="model">partner.involvement</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="involvement_category_id"/>
+                <field name="involvement_type"/>
+                <field name="note"/>
+                <field string="Creation Date > ..." name="creation_time"
+                    filter_domain="[('creation_time','>',self)]" />
+                <field string="Creation Date &lt; ..." name="creation_time"
+                    filter_domain="[('creation_time','&lt;',self)]" />
+
+                <filter name="my_involvements" string="My Involvements"
+                    domain="[('involvement_category_id.res_users_ids', 'in', [uid])]"
+                    help="Involvements of which I am one of the owners of the category" />
+                <separator/>
+                <filter name="without_type" string="Without Type"
+                    domain="[('involvement_type', '=', False)]"/>
+                <separator/>
+                <filter name="expired" string="Expired"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]" help="Expired Involvements" />
+                <filter name="all" string="All"
+                    context="{'invisible_expire_date': False}"
+                    domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                    help="All Involvements, expired or not" />
+
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                    <filter name="category" string="Category" context="{'group_by': 'involvement_category_id'}"/>
+                    <filter name="involvement_type" string="Type" context="{'group_by': 'involvement_type'}"/>
+                    <filter name="creation_time_month" string="Creation Months" context="{'group_by': 'creation_time'}"/>
+                    <filter name="creation_time_year" string="Creation Years" context="{'group_by': 'creation_time:year'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="partner_involvement_tree_view">
+        <field name="name">partner.involvement.tree (in mozaik_involvement)</field>
+        <field name="model">partner.involvement</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="involvement_category_id"/>
+                <field name="involvement_type" />
+                <field name="creation_time" />
+                <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="partner_involvement_act_window">
+        <field name="name">Involvements</field>
+        <field name="res_model">partner.involvement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="partner_involvement_tree_view"/>
+        <field name="search_view_id" ref="partner_involvement_search_view" />
+    </record>
+
+    <record id="partner_involvement_donation_act_window" model="ir.actions.act_window">
+        <field name="name">Donations</field>
+        <field name="res_model">partner.involvement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="partner_involvement_tree_view"/>
+        <field name="search_view_id" ref="partner_involvement_search_view" />
+        <field name="domain">[('involvement_type', '=', 'donation')]</field>
+        <field name="context">{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1}</field>
+    </record>
+
+</odoo>

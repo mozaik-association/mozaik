@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.model.access" id="partner_involvement_category_access_reader">
+        <field name="name">partner.involvement.category access for reader (R)</field>
+        <field name="model_id" ref="model_partner_involvement_category"/>
+        <field name="group_id" ref="res_groups_involvement_reader"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record model="ir.model.access" id="partner_involvement_category_access_user">
+        <field name="name">partner.involvement.category access for user (CUD)</field>
+        <field name="model_id" ref="model_partner_involvement_category"/>
+        <field name="group_id" ref="res_groups_involvement_user"/>
+        <field name="perm_read" eval="0"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="partner_involvement_category_user_rule" model="ir.rule">
+        <field name="name">Partner Involvement Category for User (CUD)</field>
+        <field name="model_id" ref="model_partner_involvement_category" />
+        <field name="domain_force">[('res_users_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(6, 0, [
+            ref('res_groups_involvement_user'),
+        ])]"/>
+        <field name="perm_read" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="partner_involvement_category_manager_rule" model="ir.rule">
+        <field name="name">Partner Involvement Category for Manager (CUD)</field>
+        <field name="model_id" ref="model_partner_involvement_category" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(6, 0, [
+            ref('res_groups_involvement_manager'),
+        ])]"/>
+        <field name="perm_read" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+</odoo>
