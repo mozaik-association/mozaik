@@ -11,7 +11,6 @@
     'website': 'https://acsone.eu/',
     'depends': [
         'base',
-        'mail',
         'partner_firstname',
     ],
     'data': [
