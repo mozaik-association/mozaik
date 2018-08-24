@@ -30,7 +30,7 @@
                 <field name="marital"/>
             </xpath>
             <xpath expr="//field[@name='birthdate_date']" position="after">
-                <field name="age"/>
+                <field name="age" attrs="{'invisible': [('birthdate_date', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='website']" position="after">
                 <field name="secondary_website"/>
