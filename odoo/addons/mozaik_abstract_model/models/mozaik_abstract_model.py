@@ -29,6 +29,11 @@ class MozaikAbstractModel(models.AbstractModel):
         copy=False,
     )
 
+    # magic field
+    create_date = fields.Datetime(
+        readonly=True,
+    )
+
     def init(self):
         """
         Create unit index based on models who implements this abstract model.
