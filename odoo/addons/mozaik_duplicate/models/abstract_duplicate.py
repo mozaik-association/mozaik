@@ -72,10 +72,11 @@ class AbstractDuplicate(models.AbstractModel):
         :param vals: dict
         :return: bool
         """
-        self_suspend = self.suspend_security()
         trigger_fields = self._get_trigger_fields(vals.keys())
         result = super().write(vals)
-        if self and trigger_fields:
+        if self and trigger_fields and \
+                not self._context.get('escape_detection'):
+            self_suspend = self.suspend_security()
             values = [d._get_discriminant_value() for d in self_suspend]
             self_suspend._detect_and_repair_duplicate(values)
         return result
