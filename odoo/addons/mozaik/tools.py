@@ -20,7 +20,7 @@ def format_value(value, escape_digit=False, remove_blanks=False):
     if value:
         value = ''.join(
             c
-            for c in unicodedata.normalize('NFD', value)
+            for c in unicodedata.normalize('NFD', str(value))
             if unicodedata.category(c) != 'Mn'
         )
         esc = '' if remove_blanks else ' '
