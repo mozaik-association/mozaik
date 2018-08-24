@@ -18,6 +18,7 @@
         'mozaik_email',
         'mozaik_phone',
         'mozaik_partner_fields',
+        'mozaik_involvement',
         'mozaik_structure',
     ],
     'data': [

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record model="ir.ui.menu" id="involvement_menu" >
+        <field name="name">Involvements</field>
+        <field name="sequence">35</field>
+        <field name="parent_id" ref="contacts.menu_contacts" />
+    </record>
+
+    <record model="ir.ui.menu" id="partner_involvement_menu">
+        <field name="name">Involvements</field>
+        <field name="parent_id" ref="involvement_menu"/>
+        <field name="action" ref="partner_involvement_act_window"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <record model="ir.ui.menu" id="partner_involvement_category_menu">
+        <field name="name">Involvements Categories</field>
+        <field name="parent_id" ref="involvement_menu"/>
+        <field name="action" ref="partner_involvement_category_act_window"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+</odoo>
