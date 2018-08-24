@@ -9,6 +9,9 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="partner_involvement_ids"/>
+            </xpath>
             <xpath expr="//separator[position()=last()]" position="before">
                 <separator />
                 <filter string="Donor" name="donor" domain="[('is_donor','=',True)]"/>
@@ -61,17 +64,6 @@
                         </tree>
                     </field>
                 </page>
-            </xpath>
-        </field>
-    </record>
-
-    <record model="ir.ui.view" id="res_partner_search_view">
-        <field name="name">res.partner.search (in mozaik_involvement)</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
-                <field name="partner_involvement_ids"/>
             </xpath>
         </field>
     </record>

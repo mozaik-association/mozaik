@@ -1,6 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+import logging
+from psycopg2.extensions import AsIs
 
 from odoo import api, fields, models, _
 
@@ -9,6 +11,8 @@ CATEGORY_TYPE = [
     ('donation', 'Donations Campaign'),
     ('voluntary', 'Voluntary Work'),
 ]
+
+_logger = logging.getLogger(__name__)
 
 
 class PartnerInvolvementCategory(models.Model):
@@ -72,30 +76,43 @@ class PartnerInvolvementCategory(models.Model):
 
     def init(self):
         """
-        Create unit index based on code for active records.
+        Create unique index based on code for active records.
         :return:
         """
         result = super().init()
 
         cr = self.env.cr
         createit = True
-        index_def = "CREATE UNIQUE INDEX %s_unique_code_idx ON %s " \
-                    "USING btree (code) WHERE (active IS TRUE)" % \
-                    (self._table, self._table)
-        cr.execute("""
+        index_name = '%s_unique_code_idx' % self._table
+        index_def = "CREATE UNIQUE INDEX %(index)s ON %(table)s " \
+                    "USING btree (code) WHERE (active IS TRUE)"
+        index_values = {
+            "index": AsIs(index_name),
+            "table": AsIs(self._table),
+        }
+        query = """
             SELECT indexdef
             FROM pg_indexes
-            WHERE tablename = '%s' and indexname = '%s_unique_code_idx'""" % (
-            self._table, self._table))
+            WHERE tablename = %s AND indexname = %s"""
+        cr.execute(query, (self._table, index_name))
         sql_res = cr.dictfetchone()
         if sql_res:
-            if sql_res['indexdef'] != index_def:
-                cr.execute("DROP INDEX %s_unique_code_idx" % (self._table,))
+            previous = sql_res.get('indexdef', '').replace(
+                ' ON public.', ' ON ')
+            current = index_def % index_values
+            if previous != current:
+                _logger.info(
+                    'Rebuild index %s_unique_idx:\n%s\n%s',
+                    index_name, previous, current)
+                drop_values = {
+                    'index': AsIs(index_name),
+                }
+                cr.execute("DROP INDEX %(index)s", drop_values)
             else:
                 createit = False
 
         if createit:
-            cr.execute(index_def)
+            cr.execute(index_def, index_values)
 
         return result
 

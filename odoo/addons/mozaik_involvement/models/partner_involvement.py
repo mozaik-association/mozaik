@@ -1,8 +1,12 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import logging
+from psycopg2.extensions import AsIs
+
 from odoo import api, exceptions, fields, models, _
+
+_logger = logging.getLogger(__name__)
 
 
 class PartnerInvolvement(models.Model):
@@ -77,45 +81,58 @@ class PartnerInvolvement(models.Model):
 
     def init(self):
         """
-        Create unit indexes based on partner_id and involvement_category_id
+        Create unique indexes based on partner_id and involvement_category_id
         for active records.
         Do not call super() here
         :return:
         """
         cr = self.env.cr
 
-        def create_index(i, index_def):
+        index_values = {
+            "table": AsIs(self._table),
+        }
+
+        def create_index(index_def, index_name):
             createit = True
-            query = \
-                "SELECT indexdef " \
-                "FROM pg_indexes " \
-                "WHERE tablename = '%s' AND indexname = '%s_unique_%s_idx'"
-            cr.execute(query % (self._table, self._table, i))
+            query = """
+                SELECT indexdef
+                FROM pg_indexes
+                WHERE tablename = %s AND indexname = %s"""
+            cr.execute(query, (self._table, index_name))
             sql_res = cr.dictfetchone()
             if sql_res:
-                if sql_res['indexdef'] != index_def:
-                    cr.execute(
-                        "DROP INDEX %s_unique_%s_idx" % (self._table, i))
+                previous = sql_res.get('indexdef', '').replace(
+                    ' ON public.', ' ON ')
+                current = index_def % index_values
+                if previous != current:
+                    _logger.info(
+                        'Rebuild index %s_unique_idx:\n%s\n%s',
+                        index_name, previous, current)
+
+                    drop_value = {
+                        'index': AsIs(index_name),
+                    }
+                    cr.execute("DROP INDEX %(index)s", drop_value)
                 else:
                     createit = False
             if createit:
-                cr.execute(index_def)
+                cr.execute(index_def, index_values)
 
-        index1 = "CREATE UNIQUE INDEX %s_unique_1_idx " \
-            "ON %s USING btree " \
+        def1 = "CREATE UNIQUE INDEX %(table)s_unique_1_idx " \
+            "ON %(table)s USING btree " \
             "(partner_id, involvement_category_id) " \
-            "WHERE active IS TRUE AND allow_multi IS FALSE" \
-            % (self._table, self._table)
-        create_index(1, index1)
+            "WHERE ((active IS TRUE) AND (allow_multi IS FALSE))"
+        ndx1 = '%s_unique_1_idx' % self._table
+        create_index(def1, ndx1)
 
-        index2 = "CREATE UNIQUE INDEX %s_unique_2_idx " \
-            "ON %s USING btree " \
+        def2 = "CREATE UNIQUE INDEX %(table)s_unique_2_idx " \
+            "ON %(table)s USING btree " \
             "(partner_id, involvement_category_id, effective_time) " \
-            "WHERE active IS TRUE AND allow_multi IS TRUE " \
-            "AND (involvement_type NOT IN ('donation') OR " \
-            "involvement_type IS NULL)" \
-            % (self._table, self._table)
-        create_index(2, index2)
+            "WHERE ((active IS TRUE) AND (allow_multi IS TRUE) " \
+            "AND (((involvement_type)::text <> 'donation'::text) OR " \
+            "(involvement_type IS NULL)))"
+        ndx2 = '%s_unique_2_idx' % self._table
+        create_index(def2, ndx2)
 
     @api.model
     @api.returns('self', lambda value: value.id)

@@ -1,8 +1,8 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import psycopg2
 from datetime import datetime, timedelta
+import psycopg2
 
 from odoo.tests.common import TransactionCase
 
@@ -73,7 +73,7 @@ class TestPartnerInvolvement(TransactionCase):
         involvement.copy()
         # create an already existing involvement: NOK
         with self.assertRaises(
-                psycopg2.IntegrityError), mute_logger('odoo.sql_db'):
+            psycopg2.IntegrityError), mute_logger('odoo.sql_db'):
             self.env['partner.involvement'].create({
                 'partner_id': paul.id,
                 'involvement_category_id': cat.id,
