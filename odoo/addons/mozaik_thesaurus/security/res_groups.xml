@@ -9,22 +9,22 @@
         <field name="sequence" eval="80" />
     </record>
 
-    <record model="res.groups" id="res_groups_thesaurus_user">
+    <record model="res.groups" id="thesaurus_user">
         <field name="name">Thesaurus User</field>
         <field name="category_id" ref="module_category_thesaurus"/>
     </record>
 
-    <record model="res.groups" id="res_groups_thesaurus_manager">
+    <record model="res.groups" id="thesaurus_manager">
         <field name="name">Thesaurus Manager</field>
         <field name="category_id" ref="module_category_thesaurus"/>
         <field name="implied_ids" eval="[(6, 0, [
-            ref('res_groups_thesaurus_user'),
+            ref('thesaurus_user'),
         ])]" />
     </record>
 
     <record model="res.users" id="base.user_root">
         <field name="groups_id" eval="[
-            (4, ref('res_groups_archiving_manager')),
+            (4, ref('thesaurus_manager')),
         ]" />
     </record>
 

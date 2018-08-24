@@ -1,4 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2017 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
 <odoo noupdate="0">
 
     <record id="thesaurus_term_search_view" model="ir.ui.view">
@@ -6,26 +9,25 @@
         <field name="model">thesaurus.term</field>
         <field name="arch" type="xml">
             <search>
-                <field name="search_name" filter_domain="['|',('search_name','ilike',self),('select_name','ilike',self)]" />
-                <field name="name" />
-                <field name="ext_identifier" />
-                <field name="state" />
+                <field name="search_name" filter_domain="['|',('search_name','ilike',self),('select_name','ilike',self)]"/>
+                <field name="name"/>
+                <field name="state"/>
 
                 <filter name="draft" string="To confirm"
-                    domain="[('state','in',['draft'])]" />
+                    domain="[('state','in',['draft'])]"/>
                 <filter name="confirm" string="Confirmed"
-                    domain="[('state','in',['confirmed'])]" />
-                <separator />
+                    domain="[('state','in',['confirmed'])]"/>
+                <separator/>
                 <filter name="expired" string="Expired"
                     context="{'invisible_expire_date': False}"
-                    domain="[('active','=',False)]" help="Expired Terms" />
+                    domain="[('active','=',False)]" help="Expired Terms"/>
                 <filter name="all" string="All"
                     context="{'invisible_expire_date': False}"
-                    domain="[('active', '&lt;=', True)]" />
+                    domain="[('active', '&lt;=', True)]"/>
 
                 <group expand="1" string="Group By..." name="group_by">
                     <filter name="status" string="Status"
-                        domain="[]" context="{'group_by':'state'}" />
+                        domain="[]" context="{'group_by':'state'}"/>
                 </group>
             </search>
         </field>
@@ -36,14 +38,12 @@
         <field name="model">thesaurus.term</field>
         <field name="arch" type="xml">
             <tree colors="grey:active==False;red:state=='draft'">
-                <field name="name" />
-                <field name="ext_identifier" />
-
+                <field name="name"/>
                 <field name="expire_date"
-                    invisible="context.get('invisible_expire_date', True)" />
+                    invisible="context.get('invisible_expire_date', True)"/>
 
-                <field name="state" invisible="1" />
-                <field name="active" invisible="1" />
+                <field name="state" invisible="1"/>
+                <field name="active" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -55,8 +55,8 @@
         <field name="arch" type="xml">
             <tree colors="grey:active==False;red:state=='draft'">
                 <field name="search_name" string="Term"/>
-                <field name="state" invisible="1" />
-                <field name="active" invisible="1" />
+                <field name="state" invisible="1"/>
+                <field name="active" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -67,32 +67,33 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
-                        <button name="button_confirm" string="Confirm Term"
-                            type="object" states="draft" />
-                        <button name="button_cancel" string="Cancel Term"
-                            type="object" states="confirm" />
-                        <button name="button_reset" string="Reset Term"
-                            type="object" states="cancel" />
-                    </span>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm" />
+                    <button name="button_confirm" string="Confirm Term"
+                        type="object" states="draft" class="btn-primary"
+                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"/>
+                    <button name="button_cancel" string="Cancel Term"
+                        type="object" states="confirm"
+                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"/>
+                    <button name="button_reset" string="Reset Term"
+                        type="object" states="cancel"
+                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                     </div>
                     <div class="oe_title" name="title">
-                        <label for="name" class="oe_edit_only" />
+                        <label for="name" class="oe_edit_only"/>
                         <h1>
-                            <field name="name" />
+                            <field name="name"/>
                         </h1>
                     </div>
 
                     <group name="state"
                         attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
-                            <field name="create_date" />
+                            <field name="create_date"/>
                             <field name="expire_date"
-                                attrs="{'invisible': [('active','=',True)]}" />
+                                attrs="{'invisible': [('active','=',True)]}"/>
                         </group>
                         <group name="other">
                         </group>
@@ -100,27 +101,24 @@
 
                     <notebook>
                         <page name="parent_terms" string="Parent Terms">
-                            <field name="parent_m2m_ids" readonly="1"/>
+                            <field name="parent_ids"/>
                         </page>
                         <page name="children_terms" string="Children Terms">
-                            <field name="children_m2m_ids" readonly="1"/>
-                        </page>
-                        <page name="technical" string="Technicals">
-                            <group name="technical">
-                                <field name="ext_identifier" />
-                                <field name="thesaurus_id" groups="mozaik_thesaurus.res_groups_thesaurus_manager" />
-                            </group>
+                            <field name="child_ids"/>
                         </page>
                         <page string="More Info" name="dev" groups="base.group_erp_manager">
                             <group name="moreinfo">
-                                <field name="select_name" />
+                                <field name="active"/>
+                                <field name="select_name"/>
+                                <field name="thesaurus_id" groups="mozaik_thesaurus.thesaurus_user"/>
                             </group>
                         </page>
                     </notebook>
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager" />
-                    <field name="message_ids" widget="mail_thread" />
+                    <field name="message_follower_ids" widget="mail_followers"
+                           groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
         </field>
@@ -130,8 +128,8 @@
         <field name="name">Thesaurus Terms</field>
         <field name="res_model">thesaurus.term</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="thesaurus_term_tree_view" />
-        <field name="search_view_id" ref="thesaurus_term_search_view" />
+        <field name="view_id" ref="thesaurus_term_tree_view"/>
+        <field name="search_view_id" ref="thesaurus_term_search_view"/>
         <field name="context">{'search_default_draft': True}</field>
     </record>
 

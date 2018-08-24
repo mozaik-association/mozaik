@@ -1,4 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2017 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
 <odoo noupdate="0">
 
     <record id="res_partner_search_view" model="ir.ui.view">
@@ -7,8 +10,8 @@
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="competency_ids" string="Competencies &amp; Topics" widget="many2one" />
-                <field name="interest_ids" invisible="context.get('default_is_company', True)" widget="many2one" />
+                <field name="competency_ids" string="Competencies &amp; Topics" widget="many2one"/>
+                <field name="interest_ids" invisible="context.get('default_is_company', True)" widget="many2one"/>
             </xpath>
         </field>
     </record>
@@ -20,10 +23,10 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="index" string="Indexation">
-                    <separator string="Competencies" attrs="{'invisible': [('is_company','=',True)]}" />
-                    <separator string="Topics" attrs="{'invisible': [('is_company','=',False)]}" />
+                    <separator string="Competencies" attrs="{'invisible': [('is_company','=',True)]}"/>
+                    <separator string="Topics" attrs="{'invisible': [('is_company','=',False)]}"/>
                     <field name="competency_ids"/>
-                    <separator string="Interests" attrs="{'invisible': [('is_company','=',True)]}" />
+                    <separator string="Interests" attrs="{'invisible': [('is_company','=',True)]}"/>
                     <field name="interest_ids" attrs="{'invisible': [('is_company','=',True)]}"/>
                 </page>
             </xpath>
