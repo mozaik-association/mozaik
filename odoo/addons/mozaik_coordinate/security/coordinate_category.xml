@@ -6,7 +6,7 @@
     <record model="ir.model.access" id="coordinate_category_access_all_R">
         <field name="name">coordinate.category all R</field>
         <field name="model_id" ref="model_coordinate_category"/>
-        <field name="group_id" ref="mozaik_coordinate.res_groups_coordinate_user_reader"/>
+        <field name="group_id" ref="mozaik_coordinate.res_groups_coordinate_reader"/>
         <field name="perm_read" eval="1"/>
         <field name="perm_create" eval="0"/>
         <field name="perm_write" eval="0"/>

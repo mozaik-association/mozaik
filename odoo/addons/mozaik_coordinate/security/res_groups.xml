@@ -3,21 +3,21 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record model="res.groups" id="res_groups_coordinate_user_reader">
+    <record model="res.groups" id="res_groups_coordinate_reader">
         <field name="name">Coordinate reader</field>
     </record>
 
     <record model="res.groups" id="res_groups_coordinate_user">
         <field name="name">Coordinate user</field>
         <field name="implied_ids" eval="[(6, 0, [
-                ref('mozaik_coordinate.res_groups_coordinate_user_reader'),
+                ref('mozaik_coordinate.res_groups_coordinate_reader'),
             ])]" />
     </record>
 
     <record model="res.groups" id="res_groups_coordinate_vip_reader">
         <field name="name">Coordinate VIP reader</field>
         <field name="implied_ids" eval="[(6, 0, [
-                ref('mozaik_coordinate.res_groups_coordinate_user_reader'),
+                ref('mozaik_coordinate.res_groups_coordinate_reader'),
             ])]" />
     </record>
 
