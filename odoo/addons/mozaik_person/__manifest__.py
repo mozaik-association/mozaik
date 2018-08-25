@@ -1,41 +1,33 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Acsone Sa/Nv
+# Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 {
-    'name': 'MOZAIK: Person',
+    'name': 'Mozaik: Persons',
+    'summary': """
+        Manage duplicates, add several names and identifier""",
     'version': '11.0.1.0.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
+    'license': 'AGPL-3',
+    'author': 'ACSONE SA/NV',
+    'website': 'https://acsone.eu/',
     'category': 'Political Association',
     'depends': [
-        'base_suspend_security',
-        'partner_contact_nationality',
+        'base',
+        'contacts',
+        'partner_usual_firstname',
+        'mozaik_abstract_model',
         'mozaik_duplicate',
-    ],
-    'description': """
-MOZAIK Person
-=============
-""",
-    'images': [
+        'mozaik_partner_assembly',
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'security/person_security.xml',
-        'data/res_partner_sequence_data.xml',
-        'views/partner_involvement_view.xml',
-        'res_partner_view.xml',
-        'person_view.xml',
-        'wizard/create_user_from_partner_view.xml',
-        'wizard/allow_duplicate_view.xml',
-    ],
-    'qweb': [
+        'data/ir_sequence.xml',
+        'security/res_groups.xml',
+        'security/res_partner.xml',
+        'views/res_partner.xml',
+        'views/person_menu.xml',
+        'wizards/create_user_from_partner_view.xml',
+        'wizards/allow_duplicate_view.xml',
     ],
     'demo': [
+        'demo/res_partner.xml',
     ],
-    'test': [
-    ],
-    'license': 'AGPL-3',
-    'installable': False,
+    'installable': True,
 }

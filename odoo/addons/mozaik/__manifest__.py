@@ -20,6 +20,7 @@
         'mozaik_partner_fields',
         'mozaik_involvement',
         'mozaik_structure',
+        'mozaik_person',
     ],
     'data': [
         'views/mail_followers.xml',
