@@ -14,7 +14,7 @@
                     </group>
                 </div>
                 <footer>
-                    <button name="_merge_distribution_list" string="Ok" type="object"/>
+                    <button name="merge_distribution_list" string="Ok" type="object"/>
                     or
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
@@ -24,7 +24,7 @@
     </record>
 
     <record id="merge_distribution_list_action" model="ir.actions.act_window">
-        <field name="name">Merge Distribution List(s) Into</field>
+        <field name="name">Merge Distribution List(s)</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="src_model">distribution.list</field>
@@ -32,14 +32,7 @@
         <field name="multi" eval="1"/>
         <field name="target">new</field>
         <field name="view_id" ref="merge_distribution_list_wizard" />
+        <field name="binding_model_id" ref="model_distribution_list"/>
         <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]" />
     </record>
-
-    <!--<record id="merge_distribution_list_value" model="ir.values">-->
-        <!--<field name="name">Merge Distribution List(s) Into</field>-->
-        <!--<field name="model">distribution.list</field>-->
-        <!--<field name="key">action</field>-->
-        <!--<field name="key2">client_action_multi</field>-->
-        <!--<field name="value" eval="'ir.actions.act_window,%s' % ref('merge_distribution_list_action')" />-->
-    <!--</record>-->
 </odoo>

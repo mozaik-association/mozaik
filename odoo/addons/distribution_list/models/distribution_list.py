@@ -1,7 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, models, exceptions, fields, _
-from odoo.fields import first
 from odoo.osv import expression
 
 
@@ -31,7 +30,8 @@ class DistributionList(models.Model):
     company_id = fields.Many2one(
         "res.company",
         "Company",
-        default=lambda self: self.env.user.company_id.id,
+        default=lambda self: self.env['res.company']._company_default_get(
+            self._name),
     )
     dst_model_id = fields.Many2one(
         "ir.model",
@@ -48,6 +48,11 @@ class DistributionList(models.Model):
     note = fields.Text(
     )
 
+    _sql_constraints = [
+        ('constraint_uniq_name', 'unique(company_id, name)',
+         "This name already exists for this company"),
+    ]
+
     @api.model
     def _get_computed_targets(self, bridge_field, targets, in_mode):
         """
@@ -59,16 +64,15 @@ class DistributionList(models.Model):
         """
         if not bridge_field or bridge_field == 'id':
             return targets
-        elif not hasattr(first(targets), bridge_field):
+        elif not targets._fields.get(bridge_field):
             # Ensure the bridge field exists into the target model
             raise exceptions.UserError(
                 _("The target model (%s) doesn't contain the bridge field: "
-                  "%s") % (first(targets)._name, bridge_field))
-        else:
-            if not hasattr(first(targets), 'id'):
-                raise exceptions.UserError(
-                    _("The bridge field must be a Many2one!"))
+                  "%s") % (targets._name, bridge_field))
+        elif targets._fields.get(bridge_field).type == 'many2one':
             return targets.mapped(bridge_field)
+        raise exceptions.UserError(
+            _("The bridge field must be a Many2one!"))
 
     @api.multi
     def _get_target_if_no_included_filter(self):
@@ -88,14 +92,8 @@ class DistributionList(models.Model):
         default.update({
             'name': _("%s (copy)") % self.name,
         })
-        lines = self.env['distribution.list.line'].browse()
-        line_to_cpy = self.to_include_distribution_list_line_ids
-        line_to_cpy |= self.to_exclude_distribution_list_line_ids
         result = super(DistributionList, self).copy(default=default)
-        for line in line_to_cpy:
-            lines |= line.copy({
-                'distribution_list_id': result.id,
-            })
+        result._complete_distribution_list(self.ids)
         return result
 
     @api.multi
@@ -119,7 +117,6 @@ class DistributionList(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _('Mass Mailing'),
-            'view_type': 'form',
             'view_mode': 'form',
             'target': 'new',
             'res_model': 'mail.compose.message',
@@ -158,7 +155,7 @@ class DistributionList(models.Model):
         # If the exclude_dll is empty, we have to build an empty recordset
         # with the same include's model
         else:
-            results_exclude = self.env[first(results_include)._name].browse()
+            results_exclude = self.env[results_include._name].browse()
 
         if not safe_mode:
             # compute ids locally for only one distribution list
@@ -195,10 +192,10 @@ class DistributionList(models.Model):
         :param sort: str
         :return: recordset
         """
-        target_model = first(source_records)._name
+        target_model = source_records._name
         if not bridge_field:
             results = source_records
-        elif not hasattr(first(source_records), bridge_field):
+        elif not source_records._fields.get(bridge_field):
             raise exceptions.UserError(
                 _("The target model %s doesn't have a field named "
                   "%s") % (target_model, bridge_field))
@@ -212,10 +209,13 @@ class DistributionList(models.Model):
                 ],
             ])
             values = self.env[target_model].search(domain, order=sort)
-            results = values.mapped(bridge_field)
-            if not hasattr(first(results), 'id'):
+            if not values._fields.get(bridge_field):
+                raise exceptions.UserError(
+                    _("The target field doesn't exists in the source model"))
+            if values._fields.get(bridge_field).type != 'many2one':
                 raise exceptions.UserError(
                     _("The target field %s must be a Many2one") % bridge_field)
+            results = values.mapped(bridge_field)
         else:
             results = self.env[target_model].browse()
         return results
@@ -288,11 +288,8 @@ class DistributionList(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _('Result of %s') % self.name,
-            'view_type': 'form',
             'view_mode': 'tree, form',
             'res_model': self.dst_model_id.model,
-            'view_id': False,
-            'views': [(False, 'tree')],
             'context': self.env.context.copy(),
             'domain': domain,
             'target': 'current',

@@ -61,7 +61,7 @@ class DistributionListLine(models.Model):
     ]
 
     @api.multi
-    def _get_valid_bridge_field_id(self):
+    def _get_valid_bridge_fields(self):
         """
         Get every fields available for each distribution.list.line
         :return: dict
@@ -85,12 +85,12 @@ class DistributionListLine(models.Model):
         results = {}
         for record in self:
             available_fields = all_fields.filtered(
-                lambda f, r=record: f.model_id.id == r.src_model_id.id and
+                lambda f, r=record: f.model_id == r.src_model_id and
                 f.relation == r.distribution_list_id.dst_model_id.model)
-            if record.distribution_list_id.dst_model_id.id == \
-                    record.src_model_id.id:
+            if record.distribution_list_id.dst_model_id == \
+                    record.src_model_id:
                 available_fields |= all_id_fields.filtered(
-                    lambda f, r=record: f.model_id.id == r.src_model_id.id)
+                    lambda f, r=record: f.model_id == r.src_model_id)
             results.update({
                 record: available_fields,
             })
@@ -103,10 +103,10 @@ class DistributionListLine(models.Model):
         Constrain to check if the bridge_field_id set is correct
         :return:
         """
-        fields_available = self._get_valid_bridge_field_id()
+        fields_available = self._get_valid_bridge_fields()
         # Available fields
         bad_dist_list_lines = self.filtered(
-            lambda l: l.bridge_field_id.id not in fields_available.get(l).ids)
+            lambda l: l.bridge_field_id not in fields_available.get(l))
         if bad_dist_list_lines:
             details = "\n- ".join(bad_dist_list_lines.mapped("name"))
             message = _("These distribution list lines are not valid because "
@@ -128,7 +128,7 @@ class DistributionListLine(models.Model):
     @api.onchange('src_model_id', 'distribution_list_id')
     def _onchange_src_model_id(self):
         self.domain = self._fields.get('src_model_id').default(self)
-        fields_available = self._get_valid_bridge_field_id().get(self)
+        fields_available = self._get_valid_bridge_fields().get(self)
         if len(fields_available) == 1:
             self.bridge_field_id = fields_available
         result = {
@@ -163,19 +163,6 @@ class DistributionListLine(models.Model):
         self.write({
             "domain": domain,
         })
-
-    @api.model
-    def create(self, vals):
-        """
-
-        :param vals: dict
-        :return: self recordset
-        """
-        if not vals.get('domain'):
-            vals.update({
-                'domain': str(self._fields.get('domain').default(self)),
-            })
-        return super(DistributionListLine, self).create(vals)
 
     @api.multi
     def write(self, vals):

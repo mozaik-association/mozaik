@@ -10,6 +10,7 @@ class MailComposeMessage(models.TransientModel):
     distribution_list_id = fields.Many2one(
         "distribution.list",
         "Distribution list",
+        ondelete="cascade",
     )
 
     @api.model
@@ -43,7 +44,7 @@ class MailComposeMessage(models.TransientModel):
         dl_computed = context.get('dl_computed')
         dist_list = self.distribution_list_id
         if dist_list and not dl_computed:
-            mains, _ = dist_list._get_complex_distribution_list_ids()
+            mains, __ = dist_list._get_complex_distribution_list_ids()
             context.update({
                 'active_ids': mains.ids,
                 'active_model': first(mains)._name,
