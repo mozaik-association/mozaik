@@ -15,7 +15,6 @@ class DistributionListAddFilter(models.TransientModel):
         "Distribution list",
         required=True,
         ondelete="cascade",
-        default=lambda self: self.env.context.get('distribution_list_id'),
     )
     name = fields.Char(
         required=True,
@@ -30,10 +29,11 @@ class DistributionListAddFilter(models.TransientModel):
         "ir.model.fields",
         "Bridge field",
         required=True,
+        ondelete="cascade",
     )
 
     @api.multi
-    def _add_distribution_list_line(self):
+    def add_distribution_list_line(self):
         """
         Create a new distribution list line with the data filled into the
         wizard and the current active domain from the context
@@ -46,7 +46,7 @@ class DistributionListAddFilter(models.TransientModel):
             raise exceptions.UserError(
                 _("You have to check the entire list to add the "
                   "current filter"))
-        name = self.distribution_list_line_name
+        name = self.name
         model = self.env['ir.model'].search([
             ('model', '=', active_model)
         ], limit=1)
@@ -55,6 +55,47 @@ class DistributionListAddFilter(models.TransientModel):
             'domain': domain,
             'exclude': self.exclude,
             'src_model_id': model.id,
+            'bridge_field_id': self.bridge_field_id.id,
             'distribution_list_id': self.distribution_list_id.id,
         })
         return {}
+
+    @api.multi
+    def _get_valid_bridge_fields(self):
+        """
+        Get every fields available for each distribution.list.line
+        :return: dict
+        """
+        self.ensure_one()
+        active_model = self.env.context.get('active_model')
+        dst_models = self.distribution_list_id.dst_model_id
+        domain = [
+            ('ttype', '=', 'many2one'),
+            ('model_id.model', '=', active_model),
+            ('relation', 'in', dst_models.mapped("model")),
+        ]
+        all_fields = self.env['ir.model.fields'].search(domain)
+        available_fields = all_fields
+        if active_model == dst_models.model:
+            domain = [
+                ('ttype', '=', 'integer'),
+                ('name', '=', 'id'),
+                ('model_id', '=', dst_models.id),
+            ]
+            all_id_fields = self.env['ir.model.fields'].search(domain)
+            available_fields |= all_id_fields
+        return available_fields
+
+    @api.onchange('bridge_field_id', 'distribution_list_id')
+    def _onchange_bridge_field_id(self):
+        fields_available = self._get_valid_bridge_fields()
+        if len(fields_available) == 1:
+            self.bridge_field_id = fields_available
+        if self.bridge_field_id not in fields_available:
+            self.bridge_field_id = False
+        result = {
+            'domain': {
+                'bridge_field_id': [('id', 'in', fields_available.ids)],
+            },
+        }
+        return result

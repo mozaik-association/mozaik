@@ -15,10 +15,11 @@ class MergeDistributionList(models.TransientModel):
         "Distribution list",
         help="Distribution list to complete",
         required=True,
+        ondelete="cascade",
     )
 
     @api.multi
-    def _merge_distribution_list(self):
+    def merge_distribution_list(self):
         """
         Merge selected distribution list (lines) into the distribution list
         selected into the wizard

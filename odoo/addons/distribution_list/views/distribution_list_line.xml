@@ -10,8 +10,8 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
-                <field name="src_model_id" options="{'no_create_edit': True}"/>
-                <field name="bridge_field_id" options="{'no_create_edit': True}"/>
+                <field name="src_model_id"/>
+                <field name="bridge_field_id"/>
 
                 <group expand="0" string="Group By..." name="group_by">
                     <filter name="src_model" string="Model" domain="[]" context="{'group_by':'src_model_id'}" />
@@ -27,7 +27,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <button groups="base.group_user" name="get_list_from_domain" string="See Filter Result" type="object"/>
+                <button name="get_list_from_domain" string="See Filter Result" type="object"/>
             </tree>
         </field>
     </record>
@@ -71,6 +71,10 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="distribution_list_line" parent="distribution_list_menu"
-        sequence="2" action="distribution_list_line_action"/>
+    <record model="ir.ui.menu" id="distribution_list_line">
+        <field name="name">Filters</field>
+        <field name="parent_id" ref="distribution_list_menu"/>
+        <field name="action" ref="distribution_list_line_action"/>
+        <field name="sequence" eval="2"/>
+    </record>
 </odoo>
