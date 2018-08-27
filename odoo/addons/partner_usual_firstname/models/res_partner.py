@@ -59,12 +59,12 @@ class ResPartner(models.Model):
             if not p.lastname and p.usual_lastname:
                 vals['lastname'] = p.usual_lastname
                 vals['usual_lastname'] = False
-            if p.lastname == p.usual_lastname:
+            if p.lastname == p.usual_lastname and p.lastname:
                 vals['usual_lastname'] = False
             if not p.firstname and p.usual_firstname:
                 vals['firstname'] = p.usual_firstname
                 vals['usual_firstname'] = False
-            if p.firstname == p.usual_firstname:
+            if p.firstname == p.usual_firstname and p.firstname:
                 vals['usual_firstname'] = False
             if vals:
                 p.write(vals)

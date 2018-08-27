@@ -1,5 +1,5 @@
 mozaik_person:
-* not migrated: enterprise_identifier, acronym, tongue, ldap_name, ldap_id
+* not migrated: enterprise_identifier, tongue, ldap_name, ldap_id
 
 OCA/partner_contact_gender:
 * gender (from mozaik_person): f=>female, m=>male
@@ -16,4 +16,12 @@ mozaik_partner_fields:
 mozaik_thesaurus:
 * partner/competencies_m2m_ids (from mozaik_person) => competency_ids
 * partner/interests_m2m_ids (from mozaik_person) => interest_ids
+
+mozaik_involvement:
+* partner.involvement.category (from mozaik_person)
+* partner.involvement (from mozaik_person)
+** interests_m2m_ids => interest_ids
+
+moazaik_membership_request:
+* membership.request (from mozaik_membership)
 

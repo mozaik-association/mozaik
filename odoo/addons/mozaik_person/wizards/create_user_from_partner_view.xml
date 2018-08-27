@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="create_user_from_partner_form_view" model="ir.ui.view">
+        <field name="name">create.user.from.partner.view (in mozaik_person)</field>
+        <field name="model">create.user.from.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="data" attrs="{'invisible': [('nok','!=',False)]}">
+                    <group name="main">
+                        <field name="login" />
+                    </group>
+                    <group name="other">
+                        <field name="group_id" options='{"no_open":True, "no_create":True}' />
+                    </group>
+                </group>
+                <div name="dev" groups="base.group_erp_manager">
+                    <h3>More Info</h3>
+                    <group name="moreinfo">
+                        <field name="appl_id" widget="selection"/>
+                        <field name="nok"/>
+                    </group>
+                </div>
+                <div name="noway">
+                    <p attrs="{'invisible': [('nok','!=','user')]}">The selected partner is already a user.</p>
+                    <p attrs="{'invisible': [('nok','!=','company')]}">The selected partner is a legal person.</p>
+                    <p attrs="{'invisible': [('nok','!=','active')]}">The selected partner is deactivated.</p>
+                </div>
+                <footer>
+                    <span name="go-wizard" attrs="{'invisible': [('nok','!=',False)]}">
+                        <button string="Create" name="create_user_from_partner"
+                                type="object" class="oe_highlight" />
+                        or
+                    </span>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="create_user_from_partner_action" model="ir.actions.act_window">
+        <field name="name">Transform to a User</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">res.partner</field>
+        <field name="res_model">create.user.from.partner</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="view_id" ref="create_user_from_partner_form_view"/>
+        <field name="groups_id"
+               eval="[(6, 0, [
+                       ref('base.group_erp_manager'),
+                     ]),]" />
+        <field name="context" eval='"{&apos;default_appl_id&apos;: %s}" % ref("base.module_category_political_association")' />
+    </record>
+
+</odoo>

@@ -36,15 +36,14 @@ class MozaikAbstractModel(models.AbstractModel):
 
     def init(self):
         """
-        Create unit index based on models who implements this abstract model.
-        :return:
+        Create unique index based on models who implements this abstract model
         """
         result = super().init()
 
-        if not self._auto or self._abstract:
+        if not self._auto or self._abstract or self._unicity_keys == 'N/A':
             return result
 
-        if self._unicity_keys == 'N/A' or not self._unicity_keys:
+        if not self._unicity_keys:
             _logger.warning('No _unicity_keys specified for model %s',
                             self._name)
             return result
@@ -143,7 +142,7 @@ class MozaikAbstractModel(models.AbstractModel):
         if mode == 'deactivate':
             result.update({
                 'active': False,
-                'expire_date': fields.datetime.now(),
+                'expire_date': fields.Datetime.now(),
             })
         if mode == 'activate':
             result.update({

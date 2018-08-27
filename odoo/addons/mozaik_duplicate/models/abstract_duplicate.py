@@ -73,11 +73,14 @@ class AbstractDuplicate(models.AbstractModel):
         :return: bool
         """
         trigger_fields = self._get_trigger_fields(vals.keys())
-        result = super().write(vals)
-        if self and trigger_fields and \
-                not self._context.get('escape_detection'):
+        detect = self and trigger_fields and \
+            not self._context.get('escape_detection')
+        if detect:
             self_suspend = self.suspend_security()
             values = [d._get_discriminant_value() for d in self_suspend]
+        result = super().write(vals)
+        if detect:
+            values += [d._get_discriminant_value() for d in self_suspend]
             self_suspend._detect_and_repair_duplicate(values)
         return result
 
@@ -123,6 +126,9 @@ class AbstractDuplicate(models.AbstractModel):
         # Reload the tree with all duplicates
         value = self._get_discriminant_value()
         action = self.env.ref(self._undo_redirect_action).read()[0]
+        # force the tree view
+        action['view_mode'] = 'tree,' + action['view_mode'].replace(
+            'tree,', '')
         action.pop('search_view', False)
         context = safe_eval(action["context"])
         context['search_default_%s' % self._discriminant_field] = value
