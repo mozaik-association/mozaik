@@ -19,6 +19,7 @@
     ],
     'data': [
         'data/ir_sequence.xml',
+        'data/ir_cron.xml',
         'security/res_groups.xml',
         'security/res_partner.xml',
         'views/res_partner.xml',

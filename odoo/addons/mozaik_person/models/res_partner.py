@@ -95,11 +95,15 @@ class ResPartner(models.Model):
         """
         Check if identifier is unique
         """
-        other = self.env['res.partner'].sudo()
-        for partner in self.filtered(lambda s: s.identifier):
-            p = other.search([
-                ('identifier', '=', partner.identifier),
-                ('id', '!=', partner.id)], limit=1)
+        partners = self.filtered(lambda s: s.identifier)
+        identifiers = partners.mapped('identifier')
+        if not identifiers:
+            return
+        other = self.env['res.partner'].sudo().search([
+            ('identifier', 'in', identifiers)])
+        for partner in partners:
+            p = other.filtered(
+                lambda s: s != partner and s.identifier == partner.identifier)
             if p:
                 raise exceptions.ValidationError(
                     _('Identifier %s is already assigned') %
@@ -233,6 +237,7 @@ class ResPartner(models.Model):
 
         return user
 
+    @api.model
     def _update_identifier_sequence(self):
         """
         Update next value (after data migration) of identifier sequence

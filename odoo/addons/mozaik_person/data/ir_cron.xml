@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <record id="reset_res_partner_identifiers_ir_cron" model="ir.cron">
+        <field name="name">Reset res.partner identifiers sequence</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="numbercall" eval="0"/>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="False"/>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">model._update_identifier_sequence()</field>
+    </record>
+
+</odoo>
