@@ -72,8 +72,8 @@ class TestPartnerInvolvement(TransactionCase):
         # copy it: OK
         involvement.copy()
         # create an already existing involvement: NOK
-        with self.assertRaises(
-            psycopg2.IntegrityError), mute_logger('odoo.sql_db'):
+        with self.assertRaises(psycopg2.IntegrityError), \
+                mute_logger('odoo.sql_db'):
             self.env['partner.involvement'].create({
                 'partner_id': paul.id,
                 'involvement_category_id': cat.id,

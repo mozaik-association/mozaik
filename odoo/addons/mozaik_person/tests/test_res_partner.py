@@ -121,7 +121,7 @@ class TestResPartner(TransactionCase):
         # create one more nouvelobs => duplicates: 3 detected, 0 allowed
         nouvelobs_ter = nouvelobs.create(
             {'name': nouvelobs.name, 'is_company': True})
-        for partner in (partners | nouvelobs_ter):
+        for partner in partners | nouvelobs_ter:
             bools = [
                 not partner.is_duplicate_detected,
                 partner.is_duplicate_allowed,
@@ -154,7 +154,7 @@ class TestResPartner(TransactionCase):
 
         # reactivate nouvelobs_ter => duplicates: 2 detected, 0 allowed
         nouvelobs_ter.toggle_active()
-        for partner in (nouvelobs | nouvelobs_ter):
+        for partner in nouvelobs | nouvelobs_ter:
             bools = [
                 not partner.is_duplicate_detected,
                 partner.is_duplicate_allowed,
@@ -222,7 +222,7 @@ class TestResPartner(TransactionCase):
 
         # add a new dany without birthdate => 3 detected, 0 allowed
         dany3 = dany1.create({'name': 'Boon Dany'})
-        for partner in (partners | dany3):
+        for partner in partners | dany3:
             bools = [
                 not partner.is_duplicate_detected,
                 partner.is_duplicate_allowed,
@@ -231,7 +231,7 @@ class TestResPartner(TransactionCase):
 
         # update dany3's birthdate=1990-10-10 => 2 detected, 0 allowed
         dany3.birthdate_date = dany1.birthdate_date
-        for partner in (dany1 | dany3):
+        for partner in dany1 | dany3:
             bools = [
                 not partner.is_duplicate_detected,
                 partner.is_duplicate_allowed,

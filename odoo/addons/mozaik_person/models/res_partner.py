@@ -103,7 +103,7 @@ class ResPartner(models.Model):
             ('identifier', 'in', identifiers)])
         for partner in partners:
             p = other.filtered(
-                lambda s: s != partner and s.identifier == partner.identifier)
+                lambda s, p=partner: s != p and s.identifier == p.identifier)
             if p:
                 raise exceptions.ValidationError(
                     _('Identifier %s is already assigned') %
@@ -177,8 +177,8 @@ class ResPartner(models.Model):
         args = args or []
         domain = []
         if name:
-            op = operator in ['like', 'ilike', '=', ] and operator or 'ilike'
-            ident = name.isdigit() and int(name) or -1
+            op = operator if operator in ['like', 'ilike', '=', ] else 'ilike'
+            ident = int(name) if name.isdigit() else -1
             domain = [
                 '|', '|',
                 ('select_name', op, name),
@@ -226,7 +226,7 @@ class ResPartner(models.Model):
             raise exceptions.UserError(
                 _('%s must be active to become a user!') % self.display_name)
 
-        vals = group_ids and {'groups_id': [(6, 0, group_ids.ids)]} or {}
+        vals = {'groups_id': [(6, 0, group_ids.ids)]} if group_ids else {}
         vals.update({
             'partner_id': self.id,
             'login': login,
