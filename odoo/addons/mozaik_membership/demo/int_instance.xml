@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="int_instance_03" model="int.instance">
+        <field name="name">Liège</field>
+        <field name="parent_id" ref="mozaik_structure.int_instance_02"/>
+        <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
+    </record>
+
+</odoo>

@@ -1,8 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_waiting_member_report_res_groups_base,mozaik.waiting.member.report.res.groups.user,model_waiting_member_report,mozaik_base.res_groups_base,1,0,0,0
-access_virtual_master_partner_res_groups_base,mozaik.virtual.master.partner.res.groups.base,model_virtual_master_partner,mozaik_base.res_groups_base,1,0,0,0
-access_virtual_custom_partner_res_groups_base,mozaik.virtual.custom.partner.res.groups.base,model_virtual_custom_partner,mozaik_base.res_groups_base,1,0,0,0
-access_membership_state_res_groups_base,mozaik.membership.state.res.groups.base,model_membership_state,mozaik_base.res_groups_base,1,0,0,0
-access_membership_state_res_groups_configurator,mozaik.membership.state.res.groups.configurator,model_membership_state,mozaik_base.mozaik_res_groups_configurator,1,1,1,1
-access_membership_line_res_groups_base,mozaik.membership.line.res.groups.base,model_membership_line,mozaik_base.res_groups_base,1,0,0,0
-access_membership_line_res_groups_officer,mozaik.membership.line.res.groups.officer,model_membership_line,mozaik_base.mozaik_res_groups_officer,1,1,1,0
+access_virtual_master_partner_res_groups_base,mozaik.virtual.master.partner.res.groups.base,model_virtual_master_partner,mozaik_membership.res_groups_membership_reader,1,0,0,0
+access_virtual_custom_partner_res_groups_base,mozaik.virtual.custom.partner.res.groups.base,model_virtual_custom_partner,mozaik_membership.res_groups_membership_reader,1,0,0,0
+access_membership_state_res_groups_base,mozaik.membership.state.res.groups.base,model_membership_state,mozaik_membership.res_groups_membership_reader,1,0,0,0
+access_membership_state_res_groups_configurator,mozaik.membership.state.res.groups.configurator,model_membership_state,mozaik_membership.res_groups_membership_manager,1,1,1,1
+access_membership_line_res_groups_base,mozaik.membership.line.res.groups.base,model_membership_line,mozaik_membership.res_groups_membership_reader,1,0,0,0
+access_membership_line_res_groups_officer,mozaik.membership.line.res.groups.officer,model_membership_line,mozaik_membership.res_groups_membership_user,1,1,1,0

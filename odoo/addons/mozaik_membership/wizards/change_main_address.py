@@ -1,51 +1,48 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm, fields
+from odoo import api, models, fields
 
 
-class change_main_address(orm.TransientModel):
+class ChangeMainAddress(models.TransientModel):
 
     _inherit = 'change.main.address'
 
-    _columns = {
-        'keeping_mode': fields.integer(string='Mode'),
-        # 1: mandatory
-        # 2: user's choice
-        # 3: forbiden
-        'keep_instance': fields.boolean(
-            string='Keep Previous Internal Instance?'),
-        'old_int_instance_id': fields.many2one(
-            'int.instance', string='Previous Internal Instance',
-            ondelete='cascade'),
-        'new_int_instance_id': fields.many2one(
-            'int.instance', string='New Internal Instance',
-            ondelete='cascade'),
-    }
+    keeping_mode = fields.Integer(string='Mode')
+    # 1: mandatory
+    # 2: user's choice
+    # 3: forbiden
+    keep_instance = fields.Boolean(
+        string='Keep Previous Internal Instance?')
+    old_int_instance_id = fields.Many2one(
+        'int.instance', string='Previous Internal Instance',
+        ondelete='cascade')
+    new_int_instance_id = fields.Many2one(
+        'int.instance', string='New Internal Instance',
+        ondelete='cascade')
 
-    def default_get(self, cr, uid, fields, context):
+    @api.model
+    def default_get(self, fields_list):
         """
         To get default values for the object.
         """
-        context = dict(context or {})
-        res = super(change_main_address, self).default_get(cr, uid, fields,
-                                                           context=context)
+        res = super().default_get(fields_list)
 
-        ids = context.get('active_ids') or context.get('active_id') and \
-            [context.get('active_id')] or []
-
+        ids = self.env.context.get('active_ids') or \
+            self.env.context.get('active_id') and \
+            [self.env.context.get('active_id')] or []
+        active_model = self.env.context.get("active_model")
         res['keeping_mode'] = 1
         res['keep_instance'] = False
 
         if len(ids) == 1:
-            if context.get('mode', 'new') == 'switch':
-                # switch of a main coordinate to another existing coordinate
-                model = context.get('active_model', False)
-                self._switch_context(cr, uid, model, ids[0], context=context)
-                ids = [context['active_id']]
-
-            for partner in self.pool['res.partner'].browse(cr, uid, ids,
-                                                           context=context):
+            target_model = self._get_target_model()
+            if active_model == target_model:
+                target = self.env[target_model].browse(ids)
+                partners = target.mapped("partner_id")
+            else:
+                partners = self.env['res.partner'].browse(ids)
+            for partner in partners:
                 if partner.int_instance_id:
                     res['keep_instance'] = partner.is_company
                     res['old_int_instance_id'] = partner.int_instance_id.id
@@ -53,44 +50,39 @@ class change_main_address(orm.TransientModel):
 
         return res
 
-    def onchange_address_id(self, cr, uid, ids, address_id,
-                            old_int_instance_id, context=None):
-        res = {}
+    @api.onchange("address_id")
+    def _onchange_address_id(self):
+        self.ensure_one()
         new_int_instance_id = False
         keeping_mode = 3
-        if not old_int_instance_id:
+        if not self.old_int_instance_id:
             keeping_mode = 1
-        elif address_id:
-            adr = self.pool['address.address'].browse(cr, uid, address_id,
-                                                      context=context)
-            if adr.address_local_zip_id:
+        elif self.address_id:
+            adr = self.address_id
+            if adr.city_id:
                 new_int_instance_id = \
-                    adr.address_local_zip_id.int_instance_id.id
+                    adr.city_id.int_instance_id.id
             else:
-                new_int_instance_id = self.pool['int.instance'].\
-                    get_default(cr, uid, context=None)
-            if old_int_instance_id != new_int_instance_id:
+                new_int_instance_id = self.env['int.instance']. \
+                    _get_default_int_instance()
+            if self.old_int_instance_id != new_int_instance_id:
                 keeping_mode = 2
-        res.update({'new_int_instance_id': new_int_instance_id,
-                    'keeping_mode': keeping_mode})
-        return {'value': res}
+        self.new_int_instance_id = new_int_instance_id
+        self.keeping_mode = keeping_mode
 
-    def button_change_main_coordinate(self, cr, uid, ids, context=None):
+    @api.multi
+    def button_change_main_coordinate(self):
         """
         Change main coordinate for a list of partners
         * a new main coordinate is created for each partner
         * the previsous main coordinate is invalidates or not regarding
           the option ``invalidate_previous_coordinate``
         :raise: ERROR if no partner selected
-
-        **Note**
-        When launched from the partner form the partner id is taken ``res_id``
         """
-        context = context or {}
+        self.ensure_one()
+        self_ctx = self
+        if self.keeping_mode == 2 and self.keep_instance:
+            self_ctx = self.with_context(keep_current_instance=True)
 
-        wizard = self.browse(cr, uid, ids, context=context)[0]
-        if wizard.keeping_mode == 2 and wizard.keep_instance:
-            context.update({'keep_current_instance': True})
-
-        return super(change_main_address, self).button_change_main_coordinate(
-            cr, uid, ids, context=context)
+        return super(ChangeMainAddress,
+                     self_ctx).button_change_main_coordinate()

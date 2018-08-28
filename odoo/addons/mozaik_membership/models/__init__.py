@@ -7,12 +7,10 @@ from . import membership_line
 from . import res_partner
 from . import res_users
 from . import structure
-from . import address_local_zip
-from . import sub_abstract_coordinate
-from . import email_coordinate
+from . import res_city
+from . import abstract_coordinate
 from . import postal_coordinate
-from . import phone_coordinate
 from . import partner_involvement
-from . import partner_relation
-from . import mandate
+from . import res_partner_relation
+from . import res_partner_relation_all
 from . import virtual_models

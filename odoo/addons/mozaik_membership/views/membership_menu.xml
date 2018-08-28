@@ -2,13 +2,13 @@
 <odoo noupdate="0">
 
     <menuitem id="membership_menu" name="Memberships"
-              sequence="15" parent="mozaik_base.persons_root_menu" />
+              sequence="15" parent="contacts.menu_contacts" />
 
     <menuitem id="membership_line_submenu" action="membership_line_action"
               sequence="15" parent="membership_menu"/>
 
     <menuitem id="membership_submenu" name="Memberships"
-              sequence="30" parent="mozaik_base.persons_configuration_submenu" />
+              sequence="30" parent="contacts.res_partner_menu_config" />
 
     <menuitem id="membership_state_menu" action="membership_state_action"
               sequence="10" parent="membership_submenu" />

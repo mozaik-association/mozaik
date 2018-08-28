@@ -43,15 +43,8 @@
         <field name="res_model">pass.former.member</field>
         <field name="target">new</field>
         <field name="view_id" ref="pass_former_member_view" />
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
-    </record>
-
-    <record id="pass_former_member_values" model="ir.values">
-        <field name="name">Transform Members to Former Members</field>
-        <field name="model">res.partner</field>
-        <field name="key">action</field>
-        <field name="key2">client_action_multi</field>
-        <field name="value" eval="'ir.actions.act_window,%s' % ref('pass_former_member_action')" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_membership.res_groups_membership_user')])]" />
     </record>
 
 </odoo>

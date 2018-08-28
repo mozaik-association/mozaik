@@ -1,11 +1,11 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.osv import orm, fields
-from openerp import tools
+from odoo import models, fields
+from odoo import tools
 
 
-class virtual_master_partner(orm.Model):
+class VirtualMasterPartner(models.Model):
     """
     All partners with their postal/email coordinates
     """
@@ -14,45 +14,39 @@ class virtual_master_partner(orm.Model):
     _description = "Virtual Master Partner"
     _auto = False
 
-    _columns = {
-        'partner_id': fields.many2one(
-            'res.partner',
-            'Partner'),
-        'membership_state_id': fields.many2one(
-            'membership.state',
-            'Membership State'),
-        'display_name': fields.char('Display Name'),
-        'technical_name': fields.char('Technical Name'),
-        'identifier': fields.integer('Number', group_operator='min'),
-        'lastname': fields.char('Lastname'),
-        'firstname': fields.char('Firstname'),
-        'birth_date': fields.date('Birth Date'),
-        'is_company': fields.boolean('Is Company'),
-        'postal_coordinate_id': fields.integer(
-            'Postal Coordinate ID', group_operator='min'),
-        'email_coordinate_id': fields.integer(
-            'Email Coordinate ID', group_operator='min'),
-        'email': fields.char('Email Coordinate'),
-        'postal': fields.char('Postal Coordinate'),
-        'email_is_main': fields.boolean('Email is Main'),
-        'postal_is_main': fields.boolean('Postal is Main'),
-        'email_unauthorized': fields.boolean('Email Unauthorized'),
-        'postal_unauthorized': fields.boolean('Postal Unauthorized'),
-        'email_bounce_counter': fields.integer('Email Bounce Counter'),
-        'postal_bounce_counter': fields.integer('Postal Bounce Counter'),
-        'zip': fields.char("Zip Code"),
-        'country_id': fields.many2one(
-            'res.country',
-            string='Country'),
-        'int_instance_id': fields.many2one(
-            'int.instance',
-            string='Internal Instance'),
-        'active': fields.boolean("Active"),
-    }
+    partner_id = fields.Many2one(
+        comodel_name='res.partner', string='Partner')
+    membership_state_id = fields.Many2one(
+        comodel_name='membership.state', string='Membership State')
+    display_name = fields.Char()
+    technical_name = fields.Char()
+    identifier = fields.Integer(string='Number', group_operator='min')
+    lastname = fields.Char()
+    firstname = fields.Char()
+    birthdate_date = fields.Date(string='Birth Date')
+    is_company = fields.Boolean()
+    postal_coordinate_id = fields.Integer(
+        string='Postal Coordinate ID', group_operator='min')
+    email_coordinate_id = fields.Integer(
+        string='Email Coordinate ID', group_operator='min')
+    email = fields.Char(string='Email Coordinate')
+    postal = fields.Char(string='Postal Coordinate')
+    email_is_main = fields.Boolean(string='Email is Main')
+    postal_is_main = fields.Boolean(string='Postal is Main')
+    email_unauthorized = fields.Boolean()
+    postal_unauthorized = fields.Boolean()
+    email_failure_counter = fields.Integer(string='Email Bounce Counter')
+    postal_failure_counter = fields.Integer(string='Postal Bounce Counter')
+    zip = fields.Char("Zip Code")
+    country_id = fields.Many2one(
+        comodel_name='res.country', string='Country')
+    int_instance_id = fields.Many2one(
+        comodel_name='int.instance', string='Internal Instance')
+    active = fields.Boolean()
 
-    def init(self, cr):
-        tools.drop_view_if_exists(cr, 'virtual_master_partner')
-        cr.execute("""
+    def init(self):
+        tools.drop_view_if_exists(self.env.cr, 'virtual_master_partner')
+        self.env.cr.execute("""
         create or replace view virtual_master_partner as (
         SELECT
             p.id as partner_id,
@@ -62,11 +56,11 @@ class virtual_master_partner(orm.Model):
             p.identifier as identifier,
             p.lastname as lastname,
             p.firstname as firstname,
-            p.birth_date as birth_date,
+            p.birthdate_date as birthdate_date,
             p.is_company as is_company,
 
-            e.bounce_counter as email_bounce_counter,
-            pc.bounce_counter as postal_bounce_counter,
+            e.failure_counter as email_failure_counter,
+            pc.failure_counter as postal_failure_counter,
 
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
@@ -118,18 +112,18 @@ class virtual_master_partner(orm.Model):
             )""")
 
 
-class virtual_custom_partner(orm.Model):
+class VirtualCustomPartner(models.Model):
     _name = "virtual.custom.partner"
     _inherit = ['virtual.master.partner']
     _description = "Virtual Custom Partner"
     _auto = False
 
-    def init(self, cr):
+    def init(self):
         """
         Select all row of virtual.master.partner but take only main coordinate
         if there are
         """
-        cr.execute("""
+        self.env.cr.execute("""
         create or replace view virtual_custom_partner as (
         SELECT
             partner_id as id,
