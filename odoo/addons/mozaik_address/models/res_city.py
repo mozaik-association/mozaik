@@ -15,6 +15,15 @@ class ResCity(models.Model):
 
     # fields redefinition
     zipcode = fields.Char(required=True)
+    country_id = fields.Many2one(
+        default=lambda s: s._default_country_id(),
+        domain=[('enforce_cities', '=', True)]
+    )
+
+    @api.model
+    def _default_country_id(self):
+        return self.env["address.address"]._default_country_id().filtered(
+            'enforce_cities')
 
     @api.multi
     def name_get(self):
