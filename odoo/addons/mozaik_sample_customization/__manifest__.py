@@ -28,7 +28,6 @@
         # 'data/mandate_data.xml',
         # 'data/communication_data.xml',
         'data/res_company.xml',
-        'data/res_users.xml',
     ],
     'installable': True,
 }
