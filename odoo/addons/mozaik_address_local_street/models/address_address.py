@@ -32,7 +32,8 @@ class AddressAddress(models.Model):
                 number = adrs.box and '%s/%s' % (number, adrs.box) or \
                     adrs.number or False
 
-                street = adrs.address_local_street_id.local_street_alternative if \
+                street = \
+                    adrs.address_local_street_id.local_street_alternative if \
                     adrs.select_alternative_address_local_street else \
                     adrs.address_local_street_id.local_street
                 adrs.street = ' '.join([el for el in [street, number] if el])
