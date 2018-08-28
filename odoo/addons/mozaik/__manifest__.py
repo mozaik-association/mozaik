@@ -15,6 +15,8 @@
         'mozaik_abstract_model',
         'mozaik_duplicate',
         'mozaik_coordinate',
+        'mozaik_address',
+        'mozaik_address_local_street',
         'mozaik_email',
         'mozaik_phone',
         'mozaik_partner_fields',
