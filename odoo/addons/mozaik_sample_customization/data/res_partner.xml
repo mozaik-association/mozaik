@@ -11,8 +11,12 @@
     <record id="res_partner_pauline" model="res.partner">
         <field name="lastname">MAROIS</field>
         <field name="firstname">Pauline</field>
+        <field name="gender">female</field>
         <field name="company_id" ref="base.main_company" />
         <field name="website">http://www.legoland.dk/</field>
+        <field name="secondary_website">http://www.acsone.eu</field>
+        <field name="social_twitter">#onpc</field>
+        <field name="social_facebook">LEGOLAND</field>
     </record>
 
     <record id="res_partner_marc" model="res.partner">
@@ -39,30 +43,37 @@
         <field name="birthdate_date">1985-03-12</field>
         <field name="usual_firstname">Jacquou</field>
         <field name="company_id" ref="base.main_company" />
+        <field name="marital">married</field>
     </record>
 
     <record id="res_partner_dries" model="res.partner">
         <field name="lastname">MERTENS</field>
         <field name="firstname">Dries</field>
         <field name="company_id" ref="base.main_company" />
+        <field name="gender">male</field>
+        <field name="social_twitter">#red-devil</field>
     </record>
 
     <record id="res_partner_serguei" model="res.partner">
         <field name="lastname">BUBKA</field>
         <field name="firstname">Sergueï</field>
         <field name="company_id" ref="base.main_company" />
+        <field name="birthdate_date">1963-12-14</field>
+        <field name="gender">male</field>
     </record>
 
     <record id="res_partner_fgtb" model="res.partner">
         <field name="name">F.G.T.B</field>
         <field name="is_company" eval="True" />
         <field name="company_id" ref="base.main_company" />
+        <field name="acronym">fgtb</field>
     </record>
 
     <record id="res_partner_nouvelobs" model="res.partner">
         <field name="name">Nouvel Observateur</field>
         <field name="is_company" eval="True" />
         <field name="company_id" ref="base.main_company" />
+        <field name="acronym">nouvelobs</field>
     </record>
 
     <record id="res_partner_nouvelobs_bis" model="res.partner">
@@ -75,6 +86,7 @@
         <field name="name">Radio Télévision belge francophone</field>
         <field name="is_company" eval="True" />
         <field name="company_id" ref="base.main_company" />
+        <field name="acronym">rtbf</field>
     </record>
 
     <record id="res_partner_partena" model="res.partner">

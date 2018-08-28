@@ -1,24 +1,51 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo noupdate="1">
 
-    <!-- Local Zip -->
+    <!-- Cities -->
 
-    <record id="local_zip_1" model="address.local.zip">
-        <field name="local_zip">4500</field>
-        <field name="town">Huy</field>
+    <record id="res_city_1" model="res.city">
+        <field name="zipcode">4500</field>
+        <field name="name">Huy</field>
         <field name="int_instance_id" ref="int_instance_05"/>
+        <field name="country_id" ref="base.be"/>
     </record>
 
-    <record id="local_zip_2" model="address.local.zip">
-        <field name="local_zip">4360</field>
-        <field name="town">Oreye</field>
+    <record id="res_city_2" model="res.city">
+        <field name="zipcode">4360</field>
+        <field name="name">Oreye</field>
         <field name="int_instance_id" ref="int_instance_06"/>
+        <field name="country_id" ref="base.be"/>
     </record>
 
-    <record id="local_zip_3" model="address.local.zip">
-        <field name="local_zip">1020</field>
-        <field name="town">Brussels</field>
+    <record id="res_city_3" model="res.city">
+        <field name="zipcode">1020</field>
+        <field name="name">Brussels</field>
         <field name="int_instance_id" ref="int_instance_11"/>
+        <field name="country_id" ref="base.be"/>
+    </record>
+
+    <record id="res_city_4" model="res.city">
+        <field name="local_zip">1020</field>
+        <field name="name">Bruxelles</field>
+        <field name="int_instance_id" ref="int_instance_11"/>
+    </record>
+
+    <record id="res_city_5" model="res.city">
+        <field name="zipcode">1020</field>
+        <field name="name">Laeken</field>
+        <field name="int_instance_id" ref="int_instance_11"/>
+    </record>
+
+    <record id="res_city_6" model="res.city">
+        <field name="zipcode">1030</field>
+        <field name="name">Bruxelles</field>
+        <field name="int_instance_id" ref="int_instance_11"/>
+    </record>
+
+    <record id="res_city_7" model="res.city">
+        <field name="zipcode">1780</field>
+        <field name="name">Wemmel</field>
+        <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
     </record>
 
     <!-- Local Streets -->
@@ -42,18 +69,44 @@
         <field name="local_zip">1020</field>
     </record>
 
+    <record id="local_street_4" model="address.local.street">
+        <field name="identifier">local_street_rsw</field>
+        <field name="local_street">Romeinsesteenweg</field>
+        <field name="local_zip">1780</field>
+    </record>
+
+    <record id="local_street_5" model="address.local.street">
+        <field name="identifier">local_street_slc</field>
+        <field name="local_street">Rue Sous-le-Chateau</field>
+        <field name="local_zip">4500</field>
+    </record>
+
+    <record id="local_street_6" model="address.local.street">
+        <field name="identifier">local_street_br</field>
+        <field name="local_street">Boulevard Auguste Reyers</field>
+        <field name="local_street_alternative">Auguste Reyerslaan</field>
+        <field name="local_zip">1030</field>
+    </record>
+
+    <record id="local_street_7" model="address.local.street">
+        <field name="identifier">local_street_versailles</field>
+        <field name="local_street">Avenue de Versailles</field>
+        <field name="local_street_alternative">Versailleslaan</field>
+        <field name="local_zip">1020</field>
+    </record>
+
     <!-- Addresses -->
 
     <record id="address_address_01" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_local_zip_id" ref="local_zip_1"/>
+        <field name="address_res_city_id" ref="res_city_1"/>
         <field name="address_local_street_id" ref="local_street_1"/>
         <field name="number">5</field>
     </record>
 
     <record id="address_address_02" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_local_zip_id" ref="local_zip_2"/>
+        <field name="address_res_city_id" ref="res_city_2"/>
         <field name="address_local_street_id" ref="local_street_2"/>
         <field name="number">6</field>
         <field name="box">2B</field>
@@ -68,11 +121,50 @@
 
     <record id="address_address_04" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_local_zip_id" ref="local_zip_3"/>
+        <field name="address_res_city_id" ref="res_city_3"/>
         <field name="address_local_street_id" ref="local_street_3"/>
         <field name="select_alternative_address_local_street" eval="1"/>
         <field name="number">6</field>
         <field name="sequence">1</field>
+    </record>
+
+    <record id="address_address_05" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_res_city_id" ref="res_city_1"/>
+        <field name="address_local_street_id" ref="local_street_5"/>
+        <field name="number">32</field>
+    </record>
+
+    <record id="address_address_06" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_res_city_id" ref="res_city_7"/>
+        <field name="address_local_street_id" ref="local_street_4"/>
+        <field name="number">950</field>
+    </record>
+
+    <record id="address_address_07" model="address.address">
+        <field name="country_id" ref="base.bg"/>
+        <field name="zip_man">8455</field>
+        <field name="town_man">Профил</field>
+        <field name="street_man">визитка на нашия</field>
+        <field name="street2">да създадеш своя профил</field>
+        <field name="number">58</field>
+        <field name="box">4b</field>
+    </record>
+
+    <record id="address_address_08" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_res_city_id" ref="res_city_6"/>
+        <field name="address_local_street_id" ref="local_street_6"/>
+        <field name="number">52</field>
+    </record>
+
+    <record id="address_address_09" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="address_res_city_id" ref="res_city_5"/>
+        <field name="address_local_street_id" ref="local_street_7"/>
+        <field name="number">36</field>
+        <field name="box">2</field>
     </record>
 
     <!-- Postal Coordinates -->
@@ -114,6 +206,34 @@
         <field name="address_id" ref="address_address_03"/>
         <field name="partner_id" ref="res_partner_pauline"/>
         <field name="vip" eval="True"/>
+    </record>
+
+    <record id="postal_coordinate_08_sec_huy" model="postal.coordinate">
+        <field name="address_id" ref="address_address_05"/>
+        <field name="partner_id" ref="int_assembly_02_res_partner" />
+    </record>
+
+    <record id="postal_coordinate_09_rtbf" model="postal.coordinate">
+        <field name="address_id" ref="address_address_08"/>
+        <field name="partner_id" ref="res_partner_rtbf"/>
+    </record>
+
+    <record id="postal_coordinate_10_dries_01" model="postal.coordinate">
+        <field name="address_id" ref="address_address_06"/>
+        <field name="partner_id" ref="res_partner_dries"/>
+        <field name="vip" eval="True"/>
+    </record>
+
+    <record id="postal_coordinate_10_dries_02" model="postal.coordinate">
+        <field name="address_id" ref="address_address_07"/>
+        <field name="partner_id" ref="res_partner_dries"/>
+        <field name="unauthorized" eval="True" />
+    </record>
+
+    <record id="postal_coordinate_11_serguei" model="postal.coordinate">
+        <field name="address_id" ref="address_address_09"/>
+        <field name="partner_id" ref="res_partner_serguei"/>
+        <field name="unauthorized" eval="True" />
     </record>
 
 </odoo>
