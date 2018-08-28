@@ -9,7 +9,7 @@ class ResCity(models.Model):
     _name = 'res.city'
     _inherit = ['res.city', 'mozaik.abstract.model']
     _order = "zipcode, sequence, name"
-    _unicity_keys = 'zipcode, name'
+    _unicity_keys = 'zipcode, name, country_id'
 
     sequence = fields.Integer(default=16)
 

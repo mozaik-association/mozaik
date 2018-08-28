@@ -56,7 +56,7 @@ class ResPartner(models.Model):
             ('active', '<=', True)])
         for coord in coordinate_ids:
             if coord.active == coord.partner_id.active:
-                coord.partner_id.postal_coordinate_id = coord.id
+                coord.partner_id.postal_coordinate_id = coord
 
     @api.multi
     @api.depends(
@@ -75,8 +75,7 @@ class ResPartner(models.Model):
         for coord in coordinate_ids:
             if coord.active == coord.partner_id.active:
                 coord.partner_id.country_id = coord.address_id.country_id
-                coord.partner_id.city_id = coord.address_id.city_id and \
-                    coord.address_id.city_id.id or False
+                coord.partner_id.city_id = coord.address_id.city_id
                 coord.partner_id.zip = coord.address_id.zip
                 coord.partner_id.city = coord.address_id.city
                 coord.partner_id.street = coord.address_id.street

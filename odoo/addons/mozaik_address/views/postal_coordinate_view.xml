@@ -42,7 +42,6 @@
     <record id="postal_coordinate_action" model="ir.actions.act_window">
         <field name="name">Postal Coordinates</field>
         <field name="res_model">postal.coordinate</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="postal_coordinate_tree_view" />
         <field name="search_view_id" ref="postal_coordinate_search_view" />
@@ -55,7 +54,7 @@
         <field name="priority" eval="10" />
         <field name="arch" type="xml">
 
-            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+            <xpath expr="//div[@name='title']" position="inside">
                 <label for="address_id" class="oe_edit_only"/>
                 <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
             </xpath>

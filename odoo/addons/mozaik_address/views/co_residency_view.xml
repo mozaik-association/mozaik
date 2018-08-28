@@ -35,6 +35,13 @@
             <form create="0">
                 <header/>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
+                                confirm="Archive/reactivate co-residency: proceed anyway?"
+                                groups="mozaik_abstract_model.res_groups_archiving_manager">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
                     <div class="oe_title">
                         <h1><field name="address_id" /></h1>
                     </div>
@@ -70,8 +77,6 @@
                         </page>
                         <page name="dev" string="More Info" groups="base.group_erp_manager">
                             <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
                             </group>
                         </page>
                     </notebook>

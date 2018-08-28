@@ -95,9 +95,8 @@ class AddressAddress(models.Model):
     )
     def _compute_street(self):
         for adrs in self:
-            number = adrs.number or '-'
-            number = adrs.box and '%s/%s' % (number, adrs.box) or \
-                adrs.number or False
+            number = adrs.number or adrs.box and '-' or False
+            number = '/'.join([el for el in [number, adrs.box] if el])
             street = adrs.street_man or False
             adrs.street = ' '.join([el for el in [street, number] if el])
 
@@ -117,8 +116,8 @@ class AddressAddress(models.Model):
         "country_id.name",
     )
     def _compute_integral_address(self):
+        country_code = self._get_default_country_code()
         for adrs in self:
-            country_code = self._get_default_country_code()
             elts = [
                 adrs.street or False,
                 adrs.sequence and '[%s]' % adrs.sequence or False,
@@ -133,7 +132,7 @@ class AddressAddress(models.Model):
 
             key_fields = self._get_key_field()
             values = key_fields.copy()
-            for field in key_fields.keys():
+            for field in key_fields:
                 to_evaluate = field if not key_fields[field] else '%s.%s' % (
                     field, key_fields[field])
                 field_value = adrs.mapped(to_evaluate)
@@ -211,7 +210,7 @@ class AddressAddress(models.Model):
                 0 if value is null
         """
         technical_value = []
-        for field in values.keys():
+        for field in values:
             value = values[field] or '0'
             technical_value.append(format_value(value))
         return '#'.join(technical_value)

@@ -14,9 +14,6 @@
                     </group>
                 </div>
                 <notebook>
-                    <page name="info" string="Info">
-                        <field name="message" attrs="{'invisible':[('message', '=', False)]}"/>
-                    </page>
                     <page name="dev" string="More Info" groups="base.group_erp_manager">
                         <group name="moreinfo">
                             <field name="use_allowed"/>

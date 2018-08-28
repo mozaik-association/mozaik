@@ -18,7 +18,6 @@ class ChangeCoResidencyAddress(models.TransientModel):
         required=True, ondelete='cascade')
     use_allowed = fields.Boolean()
     invalidate = fields.Boolean('Invalidate Co-Residency', default=True)
-    message = fields.Char()
 
     @api.model
     def _use_allowed(self, co_residency_id):

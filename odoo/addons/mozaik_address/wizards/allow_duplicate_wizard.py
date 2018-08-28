@@ -12,10 +12,10 @@ class AllowDuplicateWizard(models.TransientModel):
 
     address_id = fields.Many2one(
         'address.address', string='Co-Residency',
-        readonly=True, ondelete='cascade')
+        readonly=True)
     co_residency_id = fields.Many2one(
         'co.residency', string='Co-Residency',
-        readonly=True, ondelete='cascade')
+        readonly=True)
 
     @api.model
     def default_get(self, fields_list):
@@ -23,18 +23,18 @@ class AllowDuplicateWizard(models.TransientModel):
         To get default values for the object.
         """
         res = super().default_get(fields_list)
-
-        ids = self.env.context.get('active_id') and \
-            [self.env.context.get('active_id')] or \
-            self.env.context.get('active_ids') or []
-        for coord in self.env["postal.coordinate"].browse(ids):
-            address = coord.address_id
-            res['address_id'] = address.id
-            cor_ids = self.env['co.residency'].search(
-                [('address_id', '=', address.id)])
-            if cor_ids:
-                res['co_residency_id'] = first(cor_ids).id
-            break
+        if 'address_id' in fields_list or 'co_residency_id' in fields_list:
+            ids = self.env.context.get('active_id') and \
+                [self.env.context.get('active_id')] or \
+                self.env.context.get('active_ids') or []
+            for coord in self.env["postal.coordinate"].browse(ids):
+                address = coord.address_id
+                res['address_id'] = address.id
+                cor_ids = self.env['co.residency'].search(
+                    [('address_id', '=', address.id)])
+                if cor_ids:
+                    res['co_residency_id'] = first(cor_ids).id
+                break
 
         return res
 

@@ -54,7 +54,6 @@
                         </page>
                         <page name="dev" string="More Info" groups="base.group_erp_manager">
                             <group name="moreinfo">
-                                <field name="id"/>
                                 <field name="active"/>
                             </group>
                         </page>

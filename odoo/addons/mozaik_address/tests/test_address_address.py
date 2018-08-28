@@ -21,7 +21,7 @@ class TestAddressAddress(TransactionCase):
             'street_man': 'Rue de Colard Trouillet',
             'number': '7',
         }
-        adr = self.model_address.create(vals)
+        adr = self.model_address.new(vals)
         self.assertEqual(
             adr.name,
             'Rue de Colard Trouillet 7 - 4100 Seraing',
@@ -38,7 +38,7 @@ class TestAddressAddress(TransactionCase):
             'box': False,
             'sequence': 3,
         }
-        adr.write(vals)
+        adr.update(vals)
         self.assertEqual(
             adr.name,
             'Rue de Colard Trouillet 7 [3] - 4100 Seraing',
@@ -54,7 +54,7 @@ class TestAddressAddress(TransactionCase):
             'city_man': 'New York',
             'street_man': 'United Nations',
         }
-        adr = self.model_address.create(vals)
+        adr = self.model_address.new(vals)
         self.assertEqual(
             adr.name,
             'United Nations - New York - United States',
@@ -76,7 +76,7 @@ class TestAddressAddress(TransactionCase):
             'street_man': 'AAAAAàéÉçùièêÈ',
             'number': '7',
         }
-        adr = self.model_address.create(vals)
+        adr = self.model_address.new(vals)
         self.assertTrue(
             'aaaaaaeecuieee' in adr.technical_name,
             'No Accented char and no Upper For technical name')
