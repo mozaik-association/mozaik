@@ -66,7 +66,7 @@ class AddressAddress(models.Model):
     @api.model
     def _default_country_id(self):
         return self.env["res.country"]._country_default_get(
-            self._get_default_country_code)
+            self._get_default_country_code())
 
     @api.multi
     @api.depends(
