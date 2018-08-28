@@ -136,7 +136,7 @@ class AddressAddress(models.Model):
                 to_evaluate = field if not key_fields[field] else '%s.%s' % (
                     field, key_fields[field])
                 field_value = adrs.mapped(to_evaluate)
-                real_value = field_value and field_value[0] or False
+                real_value = field_value[0] if field_value else False
                 values[field] = real_value
             technical_name = self._get_technical_name(values)
 
@@ -181,7 +181,7 @@ class AddressAddress(models.Model):
             'SELECT MAX(sequence) FROM address_address '
             'WHERE technical_name=%s', (self.technical_name,))
         sequence = cr.fetchone()
-        sequence = sequence and sequence[0] or False
+        sequence = sequence[0] if sequence else False
         if not sequence:
             raise ValidationError(
                 _('An Address without sequence number cannot be duplicated!'))

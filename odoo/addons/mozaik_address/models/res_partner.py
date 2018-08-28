@@ -80,5 +80,5 @@ class ResPartner(models.Model):
                 coord.partner_id.city = coord.address_id.city
                 coord.partner_id.street = coord.address_id.street
                 coord.partner_id.street2 = coord.address_id.street2
-                coord.partner_id.address = coord.vip and 'VIP' or \
+                coord.partner_id.address = 'VIP' if coord.vip else \
                     coord.address_id.name
