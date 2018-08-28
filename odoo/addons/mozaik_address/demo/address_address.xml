@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <record id="address_1" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="city_id" ref="res_city_1"/>
+        <field name="number">5</field>
+    </record>
+
+    <record id="address_2" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="city_id" ref="res_city_2"/>
+        <field name="number">6</field>
+        <field name="box">2B</field>
+    </record>
+
+    <record id="address_3" model="address.address">
+        <field name="country_id" ref="base.us"/>
+        <field name="zip_man">20301</field>
+        <field name="city_man">Washington DC</field>
+        <field name="street_man">White House</field>
+    </record>
+
+    <record id="address_4" model="address.address">
+        <field name="country_id" ref="base.be"/>
+        <field name="city_id" ref="res_city_3"/>
+        <field name="number">6</field>
+        <field name="sequence">1</field>
+    </record>
+
+</odoo>

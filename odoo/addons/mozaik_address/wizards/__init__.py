@@ -3,6 +3,5 @@
 
 from . import change_main_address
 from . import allow_duplicate_wizard
-from . import bounce_editor
+from . import failure_editor
 from . import change_co_residency_address
-from . import print_postal_from_partner_wizard

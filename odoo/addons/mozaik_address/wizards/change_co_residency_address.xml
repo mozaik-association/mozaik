@@ -13,15 +13,13 @@
                         <field name="invalidate"/>
                     </group>
                 </div>
-                <div name="info">
-                    <field name="message" attrs="{'invisible':[('message', '=', False)]}"/>
-                </div>
-                <div name="dev" groups="mozaik_base.res_groups_developper">
-                    <h3>More Info</h3>
-                    <group name="moreinfo">
-                        <field name="use_allowed"/>
-                    </group>
-                </div>
+                <notebook>
+                    <page name="dev" string="More Info" groups="base.group_erp_manager">
+                        <group name="moreinfo">
+                            <field name="use_allowed"/>
+                        </group>
+                    </page>
+                </notebook>
                 <footer>
                     <span name="go-wizard">
                         <button string="Change" name="change_address"
@@ -44,15 +42,8 @@
         <field name="res_model">change.co.residency.address</field>
         <field name="target">new</field>
         <field name="view_id" ref="change_co_residency_address_wizard"/>
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-    </record>
-
-    <record id="change_co_residency_address_value" model="ir.values">
-        <field name="name">Change Co-Residency Address</field>
-        <field name="model">co.residency</field>
-        <field name="key">action</field>
-        <field name="key2">client_action_multi</field>
-        <field name="value" eval="'ir.actions.act_window,%s' % ref('change_co_residency_address_action')"/>
+        <field name="binding_model_id" ref="mozaik_address.model_co_residency" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_user')])]" />
     </record>
 
 </odoo>

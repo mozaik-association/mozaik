@@ -56,11 +56,12 @@ class AllowDuplicateWizard(models.TransientModel):
         """
         return _('You must only select duplicated entries!')
 
-    def button_allow_duplicate(self):
+    def button_allow_duplicate(self, vals=None):
         """
         Button/action to allow duplicates
         :return: dict
         """
+        vals = vals or {}
         context = self.env.context
         multi_model = context.get('multi_model')
         model_id_name = context.get('model_id_name')
@@ -73,6 +74,9 @@ class AllowDuplicateWizard(models.TransientModel):
                 model_id_name_value = target[model_id_name]
                 model_obj = self.env[target.model]
                 values = model_obj._get_fields_to_update("allow")
-                model_id_name_value.write(values)
+                vals.update(values)
+                model_id_name_value.write(vals)
         else:
-            targets.write(target_obj._get_fields_to_update("allow"))
+            values = target_obj._get_fields_to_update("allow")
+            vals.update(values)
+            targets.write(vals)

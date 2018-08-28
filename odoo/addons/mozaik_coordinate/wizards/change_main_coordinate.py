@@ -22,7 +22,7 @@ class ChangeMainCoordinate(models.AbstractModel):
         :return: str, int, float, bool
         """
         self.ensure_one()
-        coord_obj = self.env[self.env.context.get('target_model')]
+        coord_obj = self.env[self._get_target_model()]
         if coord_obj._is_discriminant_m2o():
             force_field = force_field or 'id'
             value = self[coord_obj._discriminant_field]
@@ -32,7 +32,7 @@ class ChangeMainCoordinate(models.AbstractModel):
     @api.model
     def view_init(self, fields_list):
         context = self.env.context
-        target_model = context.get('target_model', False)
+        target_model = self._get_target_model()
         if not target_model:
             raise exceptions.UserError(_('Target model not specified!'))
         active_model = context.get('active_model')

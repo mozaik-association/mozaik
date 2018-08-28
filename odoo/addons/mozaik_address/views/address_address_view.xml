@@ -8,14 +8,11 @@
             <search>
                 <field name="name" />
                 <field name="street_man" />
-                <field name="address_local_zip_id" />
+                <field name="city_id" />
                 <field name="country_id" />
-                <separator />
-                <filter name="non_standard_streets" string="Non-standard Streets"
-                        domain="[('address_local_street_id', '=', False),('country_code', '=', 'BE'),('street_man', '!=', False)]"
-                        help="Not standard streets" />
+
                 <group expand="0" string="Group By..." name="group_by">
-                    <filter string="Zip" context="{'group_by': 'address_local_zip_id'}"/>
+                    <filter string="Zip" context="{'group_by': 'city_id'}"/>
                     <filter string="Country" context="{'group_by': 'country_id'}"/>
                 </group>
             </search>
@@ -28,7 +25,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
-                <field name="address_local_zip_id" />
+                <field name="city_id" />
                 <field name="country_id" />
             </tree>
         </field>
@@ -41,39 +38,36 @@
             <form>
                 <header/>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
+                                confirm="Archive/reactivate address: proceed anyway?"
+                                groups="mozaik_abstract_model.res_groups_archiving_manager">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
                     <div class="oe_title" attrs="{'invisible': [('id','=',False)]}">
                         <h1><field name="name" /></h1>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons">
-                    </div>
                     <group name="country_zip" >
                         <group>
-                            <field name="country_id"
-                                   on_change="onchange_country_id(country_id)"/>
+                            <field name="country_id"/>
                         </group>
                         <group>
-                            <field name="address_local_zip_id"
-                                   attrs="{'invisible': [('country_code','!=', 'BE')],
-                                           'required': [('country_code','=', 'BE')]}"
-                                   on_change="onchange_local_zip_id(address_local_zip_id)"/>
+                            <field name="enforce_cities" invisible="1"/>
+                            <field name="city_id"
+                                   attrs="{'invisible': [('enforce_cities','!=', True)],
+                                           'required': [('enforce_cities','=', True)]}"/>
                             <field name="zip_man"
-                                   attrs="{'invisible': [('country_code','=', 'BE')],
-                                           'required': [('country_code','!=', 'BE')]}"/>
-                            <field name="town_man"
-                                   attrs="{'invisible': [('country_code','=', 'BE')],
-                                           'required': [('country_code','!=', 'BE')]}"/>
+                                   attrs="{'invisible': [('enforce_cities','=', True)],
+                                           'required': [('enforce_cities','!=', True)]}"/>
+                            <field name="city_man"
+                                   attrs="{'invisible': [('enforce_cities','=', True)],
+                                           'required': [('enforce_cities','!=', True)]}"/>
                         </group>
                     </group>
                     <group>
                         <group name="streets">
-                            <field name="address_local_street_id"
-                               domain="[('local_zip','=',zip),('disabled','=',False)]"
-                               attrs="{'invisible': [('country_code','!=', 'BE')]}"
-                               on_change="onchange_local_street_id(address_local_street_id)"/>
-                            <field name="select_alternative_address_local_street"
-                                   attrs="{'invisible': [('address_local_street_id','=', False)]}"/>
-                            <field name="street_man"
-                               attrs="{'invisible': [('address_local_street_id','!=', False)]}"/>
+                            <field name="street_man"/>
                             <field name="street2" />
                         </group>
                         <group name="numbers">
@@ -90,7 +84,7 @@
                         <group name="other">
                         </group>
                     </group>
-                    <notebook invisible="context.get('popup')">
+                    <notebook>
                         <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             <button string="All Details" name="%(postal_coordinate_action)d"
                                     type="action" attrs="{'invisible': [('id','=',False)]}"
@@ -98,44 +92,39 @@
                                               'default_address_id': active_id,
                                               'search_default_all': True}" />
                             <field name="postal_coordinate_ids" context="{'default_address_id': id}">
-                                <tree colors="darkorange:is_duplicate_detected==True;red:unauthorized==True">
+                                <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
                                     <field name="partner_id"/>
                                     <field name="coordinate_category_id" />
                                     <field name="is_main" />
                                     <field name="unauthorized" />
-                                    <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                                    <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
                                     <field name="is_duplicate_detected" invisible="1"/>
                                 </tree>
                             </field>
                             <field name="postal_coordinate_inactive_ids"
                                    readonly="1" attrs="{'invisible': [('active','=',True)]}">
-                                <tree colors="red:unauthorized==True">
+                                <tree decoration-danger="unauthorized==True">
                                     <field name="partner_id"/>
                                     <field name="coordinate_category_id" />
                                     <field name="is_main" />
                                     <field name="unauthorized" />
-                                    <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                                    <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
                                 </tree>
                             </field>
                         </page>
+                        <page name="dev" string="More Info" groups="base.group_erp_manager">
+                            <group name="moreinfo">
+                                <field name="country_code"/>
+                                <field name="zip"/>
+                                <field name="city" />
+                                <field name="street"/>
+                                <field name="technical_name"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
-                <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
-                    <div class="oe_formview oe_form_sheet_width">
-                        <h3>More Info</h3>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="active"/>
-                            <field name="country_code"/>
-                            <field name="zip" on_change="onchange_zip(zip)"/>
-                            <field name="city" />
-                            <field name="street"/>
-                            <field name="technical_name"/>
-                        </group>
-                    </div>
-                </div>
-                <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                <div name="chat" class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -145,13 +134,17 @@
     <record id="address_address_action" model="ir.actions.act_window">
         <field name="name">Addresses</field>
         <field name="res_model">address.address</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="address_address_tree_view" />
         <field name="search_view_id" ref="address_address_search_view" />
     </record>
 
-    <menuitem id="address_address_menu" action="address_address_action"
-              sequence="20" parent="postal_coordinate_submenu" />
+    <record model="ir.ui.menu" id="address_address_menu">
+        <field name="name">Addresses</field>
+        <field name="parent_id" ref="postal_coordinate_submenu"/>
+        <field name="action" ref="address_address_action"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
 
 </odoo>

@@ -25,3 +25,6 @@ mozaik_involvement:
 moazaik_membership_request:
 * membership.request (from mozaik_membership)
 
+mozaik_address:
+* model 'address.local.street' moved to module mozaik_address_local_street
+* model 'address.local.zip' was replaced by 'res.city'

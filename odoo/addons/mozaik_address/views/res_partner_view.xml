@@ -15,26 +15,26 @@
     <record id="view_partner_form" model="ir.ui.view">
         <field name="name">res.partner.form (mozaik_address)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="inherit_id" ref="mozaik_coordinate.res_partner_form_view" />
         <field name="arch" type="xml">
 
-            <xpath expr="//label[@for='type']" position="replace"/>
-            <xpath expr="//div[field[@name='type']]" position="replace"/>
-            <xpath expr="//label[@for='street']" position="replace">
-                <field name="postal_coordinate_id" />
+            <xpath expr="//label[@for='street']" position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//div[field[@name='street']]" position="replace"/>
 
-        </field>
-    </record>
+            <xpath expr="//div[hasclass('o_address_format')]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
 
-    <record id="view_partner_2_form" model="ir.ui.view">
-        <field name="name">res.partner.form (mozaik_address_2)</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_coordinate.view_partner_form" />
-        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_address_format')]" position="after">
+                <field name="address" attrs="{'invisible': [('address', '=', 'VIP')]}"/>
+            </xpath>
 
-            <xpath expr="//separator[@name='address']" position="replace">
+            <xpath expr="//div[hasclass('o_address_format')]" position="after">
+                <field name="postal_coordinate_id" attrs="{'invisible': [('address', '!=', 'VIP')]}" groups="mozaik_coordinate.res_groups_coordinate_vip_reader"/>
+            </xpath>
+
+            <xpath expr="//page[@name='coordinates']" position="inside">
                 <span name="address" class="oe_horizontal_separator oe_clear oe_inline">
                     Postal Coordinates
                 </span>
@@ -45,26 +45,26 @@
                                   'search_default_all': True}" />
                 <field name="postal_coordinate_ids" context="{'default_partner_id': active_id}"
                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
-                    <tree colors="darkorange:is_duplicate_detected==True;red:unauthorized==True;green:co_residency_id!=False">
+                    <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
                         <field name="address_id"/>
                         <field name="coordinate_category_id" />
                         <field name="is_main" />
                         <field name="unauthorized" />
-                        <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                        <field name="bounce_counter" attrs="{'invisible': [('bounce_counter','=',0)]}" />
+                        <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
+                        <field name="failure_counter" attrs="{'invisible': [('failure_counter','=',0)]}" />
                         <field name="is_duplicate_detected" invisible="1"/>
                         <field name="co_residency_id"/>
                     </tree>
                 </field>
                 <field name="postal_coordinate_inactive_ids"
                        readonly="1" attrs="{'invisible': [('active','=',True)]}">
-                    <tree colors="red:unauthorized==True">
+                    <tree decoration-danger="unauthorized==True">
                         <field name="address_id"/>
                         <field name="coordinate_category_id" />
                         <field name="is_main" />
                         <field name="unauthorized" />
-                        <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                        <field name="bounce_counter" attrs="{'invisible': [('bounce_counter','=',0)]}" />
+                        <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
+                        <field name="failure_counter" attrs="{'invisible': [('failure_counter','=',0)]}" />
                     </tree>
                 </field>
             </xpath>

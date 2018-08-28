@@ -8,7 +8,6 @@
         <field name="name">res.partner.form (in mozaik_coordinate)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
-        <field name="priority" eval="90"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='internal_notes']" position="attributes">
                 <attribute name="autofocus" translation="off">autofocus</attribute>

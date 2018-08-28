@@ -1,32 +1,9 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_address, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_address is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_address is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_address.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
-from anybox.testing.openerp import SharedSetupTransactionCase
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo.tests.common import TransactionCase
 
 
-class test_postal_coordinate(SharedSetupTransactionCase):
+class TestPostalCoordinate(TransactionCase):
 
     _data_files = (
         '../../mozaik_base/tests/data/res_partner_data.xml',
@@ -35,19 +12,14 @@ class test_postal_coordinate(SharedSetupTransactionCase):
         'data/address_data.xml',
     )
 
-    _module_ns = 'mozaik_address'
-
     def setUp(self):
-        super(test_postal_coordinate, self).setUp()
+        super().setUp()
 
-        self.registry('ir.model').clear_caches()
-        self.registry('ir.model.data').clear_caches()
-        self.allow_duplicate_wizard_model = self.registry(
-            'allow.duplicate.address.wizard')
-        self.postal_model = self.registry('postal.coordinate')
-        self.co_residency_model = self.registry('co.residency')
-        self.cores_change_adr_model = self.registry(
-            'change.co.residency.address')
+        self.allow_duplicate_wizard_model = self.env[
+            'allow.duplicate.address.wizard']
+        self.postal_model = self.env['postal.coordinate']
+        self.co_residency_model = self.env['co.residency']
+        self.cores_change_adr_model = self.env['change.co.residency.address']
 
     def test_all_duplicate_co_residency(self):
         """
@@ -67,9 +39,7 @@ class test_postal_coordinate(SharedSetupTransactionCase):
         5) Delete co-residency
             * idem 3)
         """
-        cr, uid = self.cr, self.uid
         pc_mod, wz_mod = self.postal_model, self.allow_duplicate_wizard_model
-        cr_mod = self.co_residency_model
         postal_XIDS = [
             'mozaik_address.postal_coordinate_2',
             'mozaik_address.postal_coordinate_2_duplicate_1',
@@ -77,23 +47,21 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             'mozaik_address.postal_coordinate_2_duplicate_3',
         ]
 
-        postal_coordinates_ids = []
+        all_pcs = pc_mod.browse()
         for xid in postal_XIDS:
-            postal_coordinates_ids.append(self.ref(xid))
+            all_pcs += self.env.ref(xid)
 
         # Step One
+        postal_coordinates = all_pcs[0] + all_pcs[1]
         ctx = {
             'active_model': pc_mod._name,
-            'active_ids': [
-                postal_coordinates_ids[0],
-                postal_coordinates_ids[1]
-            ],
+            'active_ids': postal_coordinates.ids,
             'get_co_residency': True,
         }
-        vals = wz_mod.default_get(cr, uid, [], context=ctx)
-        wz_id = wz_mod.create(cr, uid, vals, context=ctx)
-        cor_id = wz_mod.button_allow_duplicate(cr, uid, [wz_id], context=ctx)
-        postal_coordinates = pc_mod.browse(cr, uid, ctx['active_ids'])
+        wz_mod_ctx = wz_mod.with_context(ctx)
+        vals = wz_mod_ctx.default_get([])
+        wz_id = wz_mod_ctx.create(vals)
+        cor_id = wz_id.button_allow_duplicate()
         # check allowed
         self.assertTrue(
             postal_coordinates[0].is_duplicate_allowed,
@@ -110,31 +78,29 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             'Postal Coordinate 2 Should not Be Duplicate Detected')
         # check co residency
         self.assertEqual(
-            postal_coordinates[0].co_residency_id.id, cor_id,
+            postal_coordinates[0].co_residency_id, cor_id,
             'Wrong Co-Residency associated to Postal Coordinate 1')
         self.assertEqual(
-            postal_coordinates[1].co_residency_id.id, cor_id,
+            postal_coordinates[1].co_residency_id, cor_id,
             'Wrong Co-Residency associated to Postal Coordinate 2')
 
         # Step Two
+        postal_coordinates = all_pcs[2] + all_pcs[3]
         ctx = {
             'active_model': pc_mod._name,
-            'active_ids': [
-                postal_coordinates_ids[2],
-                postal_coordinates_ids[3]
-            ],
+            'active_ids': postal_coordinates.ids,
             'get_co_residency': True,
         }
-        vals = wz_mod.default_get(cr, uid, [], context=ctx)
-        wz_id = wz_mod.create(cr, uid, vals, context=ctx)
-        cor2_id = wz_mod.button_allow_duplicate(cr, uid, [wz_id], context=ctx)
-        postal_coordinates = pc_mod.browse(cr, uid, ctx['active_ids'])
+        wz_mod_ctx = wz_mod.with_context(ctx)
+        vals = wz_mod_ctx.default_get([])
+        wz_id = wz_mod_ctx.create(vals)
+        cor2_id = wz_id.button_allow_duplicate()
         # check co residency
         self.assertEqual(
-            postal_coordinates[0].co_residency_id.id, cor2_id,
+            postal_coordinates[0].co_residency_id, cor2_id,
             'Wrong Co-Residency associated to Postal Coordinate 3')
         self.assertEqual(
-            postal_coordinates[1].co_residency_id.id, cor2_id,
+            postal_coordinates[1].co_residency_id, cor2_id,
             'Wrong Co-Residency associated to Postal Coordinate 4')
         self.assertEqual(
             cor_id, cor2_id,
@@ -142,10 +108,34 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             'Postal Coordinates: [1,2] != [3,4]')
 
         # Step Three
-        pc_mod.button_undo_allow_duplicate(
-            cr, uid, [postal_coordinates_ids[2]])
-        postal_coordinates = pc_mod.browse(cr, uid, postal_coordinates_ids)
+        all_pcs[2].button_undo_allow_duplicate()
         for i in range(4):
+            self.assertFalse(
+                all_pcs[i].is_duplicate_allowed,
+                'Postal Coordinate %s Must Be Not Allowed Duplicate' % i)
+            self.assertTrue(
+                all_pcs[i].is_duplicate_detected,
+                'Postal Coordinate %s Must Be Detected Duplicate' % i)
+            self.assertFalse(
+                all_pcs[i].co_residency_id.id,
+                'No co-all_pcs Must Be associated '
+                'to Postal Coordinate %s' % i)
+
+        # Step Four
+        postal_coordinates = all_pcs[0] + all_pcs[1]
+        ctx = {
+            'active_model': pc_mod._name,
+            'active_ids': postal_coordinates.ids,
+            'get_co_residency': True,
+        }
+        wz_mod_ctx = wz_mod.with_context(ctx)
+        vals = wz_mod_ctx.default_get([])
+        wz_id = wz_mod_ctx.create(vals)
+        cor_id = wz_id.button_allow_duplicate()
+
+        # Step Five
+        cor_id.unlink()
+        for i in range(2):
             self.assertFalse(
                 postal_coordinates[i].is_duplicate_allowed,
                 'Postal Coordinate %s Must Be Not Allowed Duplicate' % i)
@@ -153,35 +143,7 @@ class test_postal_coordinate(SharedSetupTransactionCase):
                 postal_coordinates[i].is_duplicate_detected,
                 'Postal Coordinate %s Must Be Detected Duplicate' % i)
             self.assertFalse(
-                postal_coordinates[i].co_residency_id.id,
-                'No co-residency Must Be associated '
-                'to Postal Coordinate %s' % i)
-
-        # Step Four
-        ctx = {
-            'active_model': pc_mod._name,
-            'active_ids': [
-                postal_coordinates_ids[0],
-                postal_coordinates_ids[1]
-            ],
-            'get_co_residency': True,
-        }
-        vals = wz_mod.default_get(cr, uid, [], context=ctx)
-        wz_id = wz_mod.create(cr, uid, vals, context=ctx)
-        cor_id = wz_mod.button_allow_duplicate(cr, uid, [wz_id], context=ctx)
-
-        # Step Five
-        cr_mod.unlink(cr, uid, cor_id)
-        coords = pc_mod.browse(cr, uid, ctx['active_ids'])
-        for i in range(2):
-            self.assertFalse(
-                coords[i].is_duplicate_allowed,
-                'Postal Coordinate %s Must Be Not Allowed Duplicate' % i)
-            self.assertTrue(
-                coords[i].is_duplicate_detected,
-                'Postal Coordinate %s Must Be Detected Duplicate' % i)
-            self.assertFalse(
-                coords[i].co_residency_id.id,
+                postal_coordinates[i].co_residency_id,
                 'No co-residency Must Be associated '
                 'to Postal Coordinate %s' % i)
 
@@ -197,12 +159,11 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             - create new postal coordinates
             - create new co-residency
         """
-        cr, uid = self.cr, self.uid
         pc_mod, wz_mod = self.postal_model,\
             self.allow_duplicate_wizard_model
         cr_mod = self.co_residency_model
         wiz_adr_mod = self.cores_change_adr_model
-        new_adr_id = self.ref('mozaik_address.address_4')
+        new_adr = self.env.ref('mozaik_address.address_4')
 
         postal_XIDS = [
             'mozaik_address.postal_coordinate_2',
@@ -210,46 +171,43 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             'mozaik_address.postal_coordinate_2_duplicate_2',
         ]
 
-        cor_ids = cr_mod.search(cr, uid, [('address_id', '=', new_adr_id)])
+        cor_ids = cr_mod.search([('address_id', '=', new_adr.id)])
         self.assertFalse(cor_ids)
-        pc_ids = pc_mod.search(cr, uid, [('address_id', '=', new_adr_id)])
+        pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
         self.assertFalse(pc_ids)
 
-        postal_coordinates_ids = []
+        postal_coordinates = pc_mod.browse()
         for xid in postal_XIDS:
-            postal_coordinates_ids.append(self.ref(xid))
+            postal_coordinates += self.env.ref(xid)
 
         # Step One
         ctx = {
             'active_model': pc_mod._name,
-            'active_ids': postal_coordinates_ids,
+            'active_ids': postal_coordinates.ids,
             'get_co_residency': True,
         }
-        vals = wz_mod.default_get(cr, uid, [], context=ctx)
-        wz_id = wz_mod.create(cr, uid, vals, context=ctx)
-        cor_id = wz_mod.button_allow_duplicate(cr, uid, [wz_id], context=ctx)
+        wz_mod_ctx = wz_mod.with_context(ctx)
+        vals = wz_mod_ctx.default_get([])
+        wz_id = wz_mod_ctx.create(vals)
+        cor_id = wz_id.button_allow_duplicate()
 
         ctx = {
             'active_model': cr_mod._name,
-            'active_ids': [cor_id],
+            'active_ids': cor_id.ids,
         }
-        wz_id = wiz_adr_mod.create(cr,
-                                   uid,
-                                   {'address_id': new_adr_id,
-                                    'invalidate': False},
-                                   context=ctx)
-        wiz_adr_mod.change_address(cr, uid, [wz_id], context=ctx)
+        wiz_adr_mod_ctx = wiz_adr_mod.with_context(ctx)
+        wz_id = wiz_adr_mod_ctx.create({'address_id': new_adr.id,
+                                        'invalidate': False})
+        wz_id.change_address()
 
-        cor_ids = cr_mod.search(cr, uid, [('address_id', '=', new_adr_id)])
+        cor_ids = cr_mod.search([('address_id', '=', new_adr.id)])
         self.assertNotEqual(cor_ids, False)
-        self.assertNotEqual(cor_ids[0], cor_id)
-        pc_ids = pc_mod.search(cr, uid, [('address_id', '=', new_adr_id)])
+        self.assertNotEqual(cor_ids, cor_id)
+        pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
         self.assertNotEqual(pc_ids, False)
-        pc_ids.sort()
-        postal_coordinates_ids.sort()
-        self.assertNotEqual(pc_ids, postal_coordinates_ids)
+        self.assertNotEqual(pc_ids, postal_coordinates)
 
-        old_main = pc_mod.browse(cr, uid, postal_coordinates_ids[2])
+        old_main = postal_coordinates[2]
         self.assertFalse(old_main.is_main)
 
     def test_change_co_residency_address_invalidate(self):
@@ -265,12 +223,11 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             - create new co-residency
             - invalidate old co-residency and postal coordinates
         """
-        cr, uid = self.cr, self.uid
         pc_mod, wz_mod = self.postal_model,\
             self.allow_duplicate_wizard_model
         cr_mod = self.co_residency_model
         wiz_adr_mod = self.cores_change_adr_model
-        new_adr_id = self.ref('mozaik_address.address_4')
+        new_adr = self.env.ref('mozaik_address.address_4')
 
         postal_XIDS = [
             'mozaik_address.postal_coordinate_2',
@@ -278,49 +235,45 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             'mozaik_address.postal_coordinate_2_duplicate_2',
         ]
 
-        cor_ids = cr_mod.search(cr, uid, [('address_id', '=', new_adr_id)])
+        cor_ids = cr_mod.search([('address_id', '=', new_adr.id)])
         self.assertFalse(cor_ids)
-        pc_ids = pc_mod.search(cr, uid, [('address_id', '=', new_adr_id)])
+        pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
         self.assertFalse(pc_ids)
 
-        postal_coordinates_ids = []
+        postal_coordinates = pc_mod.browse()
         for xid in postal_XIDS:
-            postal_coordinates_ids.append(self.ref(xid))
+            postal_coordinates += self.env.ref(xid)
 
         # Step One
         ctx = {
             'active_model': pc_mod._name,
-            'active_ids': postal_coordinates_ids,
+            'active_ids': postal_coordinates.ids,
             'get_co_residency': True,
         }
-        vals = wz_mod.default_get(cr, uid, [], context=ctx)
-        wz_id = wz_mod.create(cr, uid, vals, context=ctx)
-        cor_id = wz_mod.button_allow_duplicate(cr, uid, [wz_id], context=ctx)
+        wz_mod_ctx = wz_mod.with_context(ctx)
+        vals = wz_mod_ctx.default_get([])
+        wz_id = wz_mod_ctx.create(vals)
+        cor_id = wz_id.button_allow_duplicate()
 
         ctx = {
             'active_model': cr_mod._name,
-            'active_ids': [cor_id],
+            'active_ids': cor_id.ids,
         }
-        wz_id = wiz_adr_mod.create(cr,
-                                   uid,
-                                   {'address_id': new_adr_id,
-                                    'invalidate': True},
-                                   context=ctx)
-        wiz_adr_mod.change_address(cr, uid, [wz_id], context=ctx)
+        wiz_adr_mod_ctx = wiz_adr_mod.with_context(ctx)
+        wz_id = wiz_adr_mod_ctx .create({'address_id': new_adr.id,
+                                         'invalidate': True})
+        wz_id.change_address()
 
-        cor_ids = cr_mod.search(cr, uid, [('address_id', '=', new_adr_id)])
+        cor_ids = cr_mod.search([('address_id', '=', new_adr.id)])
         self.assertNotEqual(cor_ids, False)
-        self.assertNotEqual(cor_ids[0], cor_id)
-        pc_ids = pc_mod.search(cr, uid, [('address_id', '=', new_adr_id)])
+        self.assertNotEqual(cor_ids, cor_id)
+        pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
         self.assertNotEqual(pc_ids, False)
-        pc_ids.sort()
-        postal_coordinates_ids.sort()
-        self.assertNotEqual(pc_ids, postal_coordinates_ids)
+        self.assertNotEqual(pc_ids, postal_coordinates)
 
         # check inactive
-        co_res = cr_mod.browse(cr, uid, cor_id)
-        self.assertFalse(co_res.active)
-        self.assertFalse(len(co_res.postal_coordinate_ids))
+        self.assertFalse(cor_id.active)
+        self.assertFalse(len(cor_id.postal_coordinate_ids))
 
-        for coord in co_res.postal_coordinate_ids:
+        for coord in cor_id.postal_coordinate_ids:
             self.assertFalse(coord.active)
