@@ -8,9 +8,21 @@
         <field name="name">phone.phone.form (in mozaik_phone)</field>
         <field name="model">phone.phone</field>
         <field name="arch" type="xml">
-            <form  duplicate="false">
+            <form duplicate="0">
                 <sheet>
-                    <div class="oe_title"  name="title">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
+                                confirm="Archive/reactivate phone: proceed anyway?"
+                                groups="mozaik_abstract_model.res_groups_archiving_manager">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                        <button class="oe_stat_button" string="All Details" icon="fa-phone" name="%(phone_coordinate_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_phone_id': active_id,
+                                          'default_phone_id': active_id,
+                                          'search_default_all': True}" />
+                    </div>
+                    <div class="oe_title" name="title">
                         <label for="name" class="oe_edit_only"/>
                         <h1><field name="name" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" placeholder="+32 476 81 37 00" /></h1>
                     </div>
@@ -35,12 +47,6 @@
 
                     <notebook>
                         <page name="coordinates" string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                            <button string="All Details"
-                                    name="%(phone_coordinate_act_window)d"
-                                    type="action"
-                                    context="{'search_default_phone_id': active_id,
-                                              'default_phone_id': active_id,
-                                              'search_default_all': True}"/>
                             <field name="phone_coordinate_ids" context="{'default_phone_id': id}">
                                 <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
                                     <field name="partner_id"/>
@@ -64,8 +70,6 @@
                         </page>
                         <page name="dev" string="More Info" groups="base.group_erp_manager">
                             <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
                             </group>
                         </page>
                     </notebook>

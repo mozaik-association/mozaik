@@ -11,9 +11,15 @@
                 <group>
                     <group name="data">
                         <field name="invalidate_previous_coordinate" />
-                        <field name="change_allowed" groups="base.group_erp_manager"/>
                     </group>
                 </group>
+                <notebook>
+                    <page name="dev" string="More Info" groups="base.group_erp_manager">
+                        <group name="moreinfo">
+                            <field name="change_allowed"/>
+                        </group>
+                    </page>
+                </notebook>
                 <footer>
                     <span name="go-wizard" attrs="{'invisible': [('change_allowed','=', False)]}">
                         <button string="Change" name="button_change_main_coordinate" type="object" class="oe_highlight" />

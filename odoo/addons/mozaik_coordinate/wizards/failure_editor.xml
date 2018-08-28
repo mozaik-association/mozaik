@@ -8,7 +8,7 @@
         <field name="name">failure.editor.form (in mozaik_coordinate)</field>
         <field name="model">failure.editor</field>
         <field name="arch" type="xml">
-            <form string="Failure Editor">
+            <form>
                 <group>
                     <field name="increase" />
                     <field name="description" />
