@@ -5,7 +5,7 @@
         <field name="name">Organisation Colloque de Pâques</field>
         <field name="code">CPAQ</field>
         <field name="involvement_type">voluntary</field>
-        <field name="interests_ids" eval="[(4, ref('term_confirmed_one'))]"/>
+        <!--field name="interests_ids" eval="[(4, ref('term_confirmed_one'))]"/-->
     </record>
 
 </odoo>

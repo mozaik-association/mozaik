@@ -4,7 +4,7 @@
     <!-- Internal Power Level -->
 
     <record id="int_power_level_01" model="int.power.level">
-        <field name="name">State</field>
+        <field name="name">Federal</field>
     </record>
 
     <!-- Internal Instance -->

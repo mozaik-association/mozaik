@@ -25,7 +25,7 @@
     </record>
 
     <record id="res_city_4" model="res.city">
-        <field name="local_zip">1020</field>
+        <field name="zipcode">1020</field>
         <field name="name">Bruxelles</field>
         <field name="int_instance_id" ref="int_instance_11"/>
     </record>
@@ -99,14 +99,14 @@
 
     <record id="address_address_01" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_res_city_id" ref="res_city_1"/>
+        <field name="city_id" ref="res_city_1"/>
         <field name="address_local_street_id" ref="local_street_1"/>
         <field name="number">5</field>
     </record>
 
     <record id="address_address_02" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_res_city_id" ref="res_city_2"/>
+        <field name="city_id" ref="res_city_2"/>
         <field name="address_local_street_id" ref="local_street_2"/>
         <field name="number">6</field>
         <field name="box">2B</field>
@@ -115,13 +115,13 @@
     <record id="address_address_03" model="address.address">
         <field name="country_id" ref="base.us"/>
         <field name="zip_man">20301</field>
-        <field name="town_man">Washington DC</field>
+        <field name="city_man">Washington DC</field>
         <field name="street_man">White House</field>
     </record>
 
     <record id="address_address_04" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_res_city_id" ref="res_city_3"/>
+        <field name="city_id" ref="res_city_3"/>
         <field name="address_local_street_id" ref="local_street_3"/>
         <field name="select_alternative_address_local_street" eval="1"/>
         <field name="number">6</field>
@@ -130,14 +130,14 @@
 
     <record id="address_address_05" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_res_city_id" ref="res_city_1"/>
+        <field name="city_id" ref="res_city_1"/>
         <field name="address_local_street_id" ref="local_street_5"/>
         <field name="number">32</field>
     </record>
 
     <record id="address_address_06" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_res_city_id" ref="res_city_7"/>
+        <field name="city_id" ref="res_city_7"/>
         <field name="address_local_street_id" ref="local_street_4"/>
         <field name="number">950</field>
     </record>
@@ -145,7 +145,7 @@
     <record id="address_address_07" model="address.address">
         <field name="country_id" ref="base.bg"/>
         <field name="zip_man">8455</field>
-        <field name="town_man">Профил</field>
+        <field name="city_man">Профил</field>
         <field name="street_man">визитка на нашия</field>
         <field name="street2">да създадеш своя профил</field>
         <field name="number">58</field>
@@ -154,14 +154,14 @@
 
     <record id="address_address_08" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_res_city_id" ref="res_city_6"/>
+        <field name="city_id" ref="res_city_6"/>
         <field name="address_local_street_id" ref="local_street_6"/>
         <field name="number">52</field>
     </record>
 
     <record id="address_address_09" model="address.address">
         <field name="country_id" ref="base.be"/>
-        <field name="address_res_city_id" ref="res_city_5"/>
+        <field name="city_id" ref="res_city_5"/>
         <field name="address_local_street_id" ref="local_street_7"/>
         <field name="number">36</field>
         <field name="box">2</field>

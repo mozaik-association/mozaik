@@ -18,7 +18,7 @@
         <field name="firstname">Claude</field>
         <field name="company_id" ref="base.main_company"/>
         <field name="int_instance_ids" eval="[(6, 0, [
-            ref('int_instance_local_bxl'),
+            ref('int_instance_07'),
         ])]"/>
     </record>
 
@@ -31,7 +31,7 @@
         <field name="secondary_website">http://www.itftennis.com/procircuit/players/player/profile.aspx?playerid=30020306</field>
         <field name="int_instance_ids" eval="[(6, 0, [
             ref('int_instance_04'),
-            ref('int_instance_local_bxl'),
+            ref('int_instance_07'),
         ])]"/>
     </record>
 

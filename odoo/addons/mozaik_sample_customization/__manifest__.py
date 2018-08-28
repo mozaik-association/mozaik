@@ -22,7 +22,7 @@
         'data/coordinate_category.xml',
         'data/res_users.xml',
         'data/email_coordinate.xml',
-        'data/phone_cooridinate.xml',
+        'data/phone_coordinate.xml',
         'data/postal_coordinate.xml',
         # 'data/relation_data.xml',
         # 'data/mandate_data.xml',
@@ -30,5 +30,5 @@
         'data/res_company.xml',
         'data/res_users.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

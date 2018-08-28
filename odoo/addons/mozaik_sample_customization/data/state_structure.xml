@@ -247,7 +247,7 @@
 
     <record id="legislature_02" model="legislature">
         <field name="name" eval="'Provinciale '+(DateTime.today() + relativedelta(years=1)).strftime('%Y')"/>
-        <field name="power_level_id" ref="sta_power_level_09"/>
+        <field name="power_level_id" ref="sta_power_level_07"/>
         <field name="start_date" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-10-01')"/>
         <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=7)).strftime('%Y-09-30')"/>
         <field name="election_date" eval="(DateTime.today() + relativedelta(years=1)).strftime('%Y-09-15')"/>
@@ -264,6 +264,7 @@
     <!-- Electoral Districts -->
 
     <record id="electoral_district_01" model="electoral.district">
+        <field name="name">Huy (Commune)</field>
         <field name="sta_instance_id" ref="sta_instance_07"/>
         <field name="assembly_id" ref="sta_assembly_01"/>
         <field name="designation_int_assembly_id" ref="int_assembly_01"/>
