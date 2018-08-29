@@ -4,11 +4,9 @@
    <record id="res_partner_search_view" model="ir.ui.view">
         <field name="name">res.partner.search (from mozaik_partner_unauthorized)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_person.res_partner_search_view" />
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//filter[1]" position="before">
-                <field name="partner_is_subject_relation_ids"/>
-                <field name="partner_is_object_relation_ids" context="{'object': True}"/>
                 <field string="Email" name="email" filter_domain="[('email','ilike',self)]" />
                 <field string="Address" name="street" filter_domain="[('address','ilike',self)] "/>
                 <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]" />
@@ -23,37 +21,11 @@
     </record>
 
     <record id="res_partner_form_view" model="ir.ui.view">
-        <field name="name">res.partner.from (from mozaik_partner_unauthorized)</field>
+        <field name="name">res.partner.form (from mozaik_partner_unauthorized)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_person.view_emails_partner_info_form" />
+        <field name="inherit_id" ref="mozaik_coordinate.res_partner_form_view"/>
         <field name="arch" type="xml">
-
-            <xpath expr="//group[@name='moreinfo']" position="inside">
-                <field name="email"/>
-
-                <field name="address" />
-                <field name="country_id"/>
-                <field name="state_id"/>
-                <field name="zip_id"/>
-                <field name="zip" />
-                <field name="city" />
-                <field name="street" />
-                <field name="street2" />
-
-                <field name="phone"/>
-                <field name="mobile" />
-                <field name="fax" />
-            </xpath>
-
-        </field>
-    </record>
-
-    <record id="res_partner_form_view_2" model="ir.ui.view">
-        <field name="name">res.partner.form.2 (from mozaik_partner_unauthorized)</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_coordinate.view_partner_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page/*[1]" position="before">
+            <xpath expr="//page[@name='coordinates']/*[1]" position="before">
                 <group name="coordinates_data">
                     <field name="unauthorized" />
                 </group>
@@ -65,7 +37,6 @@
         <field name="name">res.partner.tree (from mozaik_partner_unauthorized)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree" />
-        <field name="priority" eval="20" />
         <field name="arch" type="xml">
 
             <xpath expr="//tree" position="inside">
@@ -77,15 +48,6 @@
             <xpath expr="//tree" position="attributes">
                 <attribute name="decoration-danger" translation="off">unauthorized</attribute>
             </xpath>
-
-        </field>
-    </record>
-
-    <record id="view_partner_tree_view_2" model="ir.ui.view">
-        <field name="name">res.partner.tree.2 (from mozaik_partner_unauthorized)</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_phone.view_partner_tree" />
-        <field name="arch" type="xml">
 
             <xpath expr="//field[@name='mobile']" position="attributes">
                 <attribute name="attrs" translation="off">{'invisible': [('unauthorized', '=', True)]}</attribute>

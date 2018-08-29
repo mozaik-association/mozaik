@@ -6,37 +6,21 @@ from odoo.tests.common import TransactionCase
 
 class TestResPartner(TransactionCase):
 
-    def setUp(self):
-        super(test_res_partner, self).setUp()
-        self.registry('ir.model').clear_caches()
-        self.registry('ir.model.data').clear_caches()
-
-        self.partner_obj = self.env['res.partner']
-        self.email_coordinate_obj = self.env['email.coordinate']
-
     def test_unauthorized(self):
-        vals = {
-            'name': 'Partner For The Unauthorized test',
-        }
-        partner = self.partner_obj.create(vals)
-        self.assertFalse(
-            partner.unauthorized,
-            'With no coordinate: should not be unauthorized')
-        vals = {
-            'email': 'test@test.be',
-            'partner_id': partner.id,
-            'is_main': False
-        }
-        email_coordinate = self.email_coordinate_obj.create(vals)
-        self.assertFalse(
-            partner.unauthorized,
-            'With a coordinate authorized: should not be unauthorized')
-        email_coordinate.unauthorized = True
-        self.assertTrue(
-            partner.unauthorized,
-            'With a coordinate unauthorized: should be unauthorized')
-        email_coordinate.action_invalidate()
-        self.assertFalse(
-            partner.unauthorized,
-            'With a coordinate unauthorized inactive: should not '
-            'be unauthorized')
+        """
+        Check for compute method of unauthorized partner's flag
+        """
+        # get a partner and one of its coordinates
+        nicolas = self.browse_ref('mozaik_coordinate.res_partner_nicolas')
+        coord = self.browse_ref('mozaik_email.email_coordinate_nicolas')
+        # Nicolas has no unauthorized coordinates
+        self.assertFalse(nicolas.unauthorized)
+        # mark the coordinate as unauthorized
+        coord.unauthorized = True
+        # Nicolas is then unauthorized
+        self.assertTrue(nicolas.unauthorized)
+        # invalidate the coordinate
+        coord.action_invalidate()
+        # Nicolas isn't unauthorized any longer
+        self.assertFalse(nicolas.unauthorized)
+        return
