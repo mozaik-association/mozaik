@@ -30,8 +30,7 @@
             </xpath>
 
             <xpath expr="//button[@name='toggle_active']" position="before">
-
-                <button class="oe_stat_button" string="All Phones" icon="fa-phone" name="%(phone_coordinate_act_window)d"
+                <button class="oe_stat_button" string="All Phones" icon="fa-phone" name="%(phone_coordinate_action)d"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
                         context="{'search_default_partner_id': active_id,
                                   'default_partner_id': active_id,
@@ -39,10 +38,7 @@
             </xpath>
 
             <xpath expr="//page[@name='coordinates']" position="inside">
-                <span name="phone" class="oe_horizontal_separator oe_clear oe_inline">
-                    Phone Coordinates
-                </span>
-
+                <separator string="Phone Coordinates" />
                 <field name="phone_coordinate_ids" context="{'default_partner_id': active_id}"
                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                     <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">

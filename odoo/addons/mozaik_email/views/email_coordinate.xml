@@ -66,9 +66,11 @@
         </field>
     </record>
 
-    <!-- Menu -->
-
-    <menuitem id="email_coordinate_menu" action="email_coordinate_action"
-              sequence="10" parent="mozaik_coordinate.mozaik_coordinate_menu" />
+    <record model="ir.ui.menu" id="email_coordinate_menu">
+        <field name="name">Email Coordinates</field>
+        <field name="parent_id" ref="mozaik_coordinate.mozaik_coordinate_menu"/>
+        <field name="action" ref="email_coordinate_action"/>
+        <field name="sequence" eval="10"/>
+    </record>
 
 </odoo>

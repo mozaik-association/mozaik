@@ -22,10 +22,11 @@
         'security/phone_phone.xml',
         'views/phone_coordinate.xml',
         'views/phone_phone.xml',
+        'views/coordinate_category.xml',
         'views/res_partner.xml',
         'wizards/change_main_phone.xml',
-        'wizards/allow_duplicate_view.xml',
-        'wizards/failure_editor_view.xml',
+        'wizards/allow_duplicate_wizard.xml',
+        'wizards/failure_editor.xml',
         'wizards/change_phone_type.xml',
     ],
     'demo': [

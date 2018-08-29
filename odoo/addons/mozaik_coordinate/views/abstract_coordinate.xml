@@ -70,7 +70,6 @@
                                         confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
-                                <field name="id"/>
                                 <field name="active"/>
                                 <field name="coordinate_type"/>
                             </group>

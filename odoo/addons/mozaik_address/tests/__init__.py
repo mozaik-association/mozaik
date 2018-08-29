@@ -3,3 +3,4 @@
 
 from . import test_address_address
 from . import test_postal_coordinate
+from . import test_res_city

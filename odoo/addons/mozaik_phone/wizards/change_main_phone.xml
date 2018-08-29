@@ -15,7 +15,7 @@
                 <field name="phone_id" options='{"no_open":True}'
                        readonly="context.get('mode', '') == 'switch'" />
             </xpath>
-            <xpath expr="//group[@name='data']" position="inside">
+            <xpath expr="//group[@name='moreinfo']" position="inside">
                 <field name="partner_id"/>
             </xpath>
         </field>

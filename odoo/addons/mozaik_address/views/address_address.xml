@@ -36,7 +36,10 @@
         <field name="model">address.address</field>
         <field name="arch" type="xml">
             <form>
-                <header/>
+               <header>
+                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                    </div>
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
@@ -44,6 +47,11 @@
                                 groups="mozaik_abstract_model.res_groups_archiving_manager">
                             <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
                         </button>
+                        <button string="All Details" class="oe_stat_button" icon="fa-address-card" name="%(postal_coordinate_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_address_id': active_id,
+                                          'default_address_id': active_id,
+                                          'search_default_all': True}" />
                     </div>
                     <div class="oe_title" attrs="{'invisible': [('id','=',False)]}">
                         <h1><field name="name" /></h1>
@@ -86,11 +94,6 @@
                     </group>
                     <notebook>
                         <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                            <button string="All Details" name="%(postal_coordinate_action)d"
-                                    type="action" attrs="{'invisible': [('id','=',False)]}"
-                                    context="{'search_default_address_id': active_id,
-                                              'default_address_id': active_id,
-                                              'search_default_all': True}" />
                             <field name="postal_coordinate_ids" context="{'default_address_id': id}">
                                 <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
                                     <field name="partner_id"/>

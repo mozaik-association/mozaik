@@ -39,9 +39,7 @@
             </xpath>
 
             <xpath expr="//page[@name='coordinates']" position="inside">
-                <span name="email" class="oe_horizontal_separator oe_clear oe_inline">
-                    Email Coordinates
-                </span>
+                <separator string="Email Coordinates" />
                 <field name="email_coordinate_ids" context="{'default_partner_id': active_id}"
                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                     <tree decoration-warning="unauthorized==True" decoration-info="is_duplicate_detected==True">

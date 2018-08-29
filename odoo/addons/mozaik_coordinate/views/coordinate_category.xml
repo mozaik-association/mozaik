@@ -8,16 +8,22 @@
         <field name="name">coordinate.category.form (in mozaik_coordinate)</field>
         <field name="model">coordinate.category</field>
         <field name="arch" type="xml">
-            <form string="Coordinate Category">
-                <header attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
-                    <button name="action_invalidate" string="Invalidate" type="object" confirm="Invalidate category: proceed anyway?" />
+            <form>
+                <header>
+                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                    </div>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
+                                confirm="Archive/reactivate category: proceed anyway?"
+                                groups="mozaik_abstract_model.res_groups_archiving_manager">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
                     <div class="oe_title" name="title">
                         <label for="name" class="oe_edit_only"/>
                         <h1><field name="name" placeholder="Name of the category..." /></h1>
-                    </div>
-                    <div class="oe_right oe_button_box" name="buttons">
                     </div>
 
                     <notebook>
@@ -33,13 +39,7 @@
 
                         </page>
                         <page name="dev" string="More Info" groups="base.group_erp_manager">
-                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Reactivate document: proceed anyway?" />
-                            </div>
                             <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
                             </group>
                         </page>
                     </notebook>
