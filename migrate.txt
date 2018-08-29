@@ -28,3 +28,10 @@ moazaik_membership_request:
 mozaik_address:
 * model 'address.local.street' moved to module mozaik_address_local_street
 * model 'address.local.zip' was replaced by 'res.city'
+
+mozaik_person_coordinate:
+* => mozaik_partner_unauthorized:
+
+OCA/partner_multi_relation:
+* model 'partner.relation.category' (from mozaik_person_coordinate) => 'res.partner.relation.type'
+* model 'partner.relation' (from mozaik_person_coordinate) => 'res.partner.relation'
