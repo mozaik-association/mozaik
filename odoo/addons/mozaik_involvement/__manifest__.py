@@ -8,12 +8,14 @@
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',
+    'category': 'Political Association',
     'depends': [
         'base',
         'base_suspend_security',
         'contacts',
         'mozaik_abstract_model',
         'mozaik_partner_assembly',
+        'mozaik_thesaurus',
     ],
     'data': [
         'security/res_groups.xml',

@@ -18,8 +18,9 @@ _logger = logging.getLogger(__name__)
 class PartnerInvolvementCategory(models.Model):
 
     _name = 'partner.involvement.category'
-    _inherit = ['mozaik.abstract.model']
+    _inherit = ['mozaik.abstract.model', 'abstract.term.finder']
     _description = 'Partner Involvement Category'
+    _terms = ['interest_ids']
     _unicity_keys = 'name'
 
     @api.model
@@ -61,13 +62,13 @@ class PartnerInvolvementCategory(models.Model):
         copy=False,
         default=lambda s: s._default_res_users_ids(),
     )
-    # interest_ids = fields.Many2many(
-    #     'thesaurus.term',
-    #     relation='involvement_category_term_interests_rel',
-    #     column1='category_id',
-    #     column2='term_id',
-    #     string='Interests',
-    # )
+    interest_ids = fields.Many2many(
+        'thesaurus.term',
+        relation='involvement_category_term_interests_rel',
+        column1='category_id',
+        column2='term_id',
+        string='Interests',
+    )
     involvement_ids = fields.One2many(
         'partner.involvement',
         'involvement_category_id',

@@ -110,6 +110,7 @@
                             <group name="moreinfo">
                                 <field name="active"/>
                                 <field name="select_name"/>
+                                <field name="search_name"/>
                                 <field name="thesaurus_id"/>
                             </group>
                         </page>

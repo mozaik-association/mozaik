@@ -147,13 +147,13 @@ class PartnerInvolvement(models.Model):
             if ic.allow_multi and ic.involvement_type not in ['donation']:
                 vals['effective_time'] = fields.Datetime.now()
         res = super(PartnerInvolvement, self).create(vals)
-        # terms = res.involvement_category_id.interest_ids
-        # if terms:
-        #     interests = [
-        #         (4, term.id) for term in terms
-        #     ]
-        #     res.partner_id.suspend_security().write(
-        #         {'interest_ids': interests})
+        terms = res.involvement_category_id.interest_ids
+        if terms:
+            interests = [
+                (4, term.id) for term in terms
+            ]
+            res.partner_id.suspend_security().write(
+                {'interest_ids': interests})
         return res
 
     @api.multi

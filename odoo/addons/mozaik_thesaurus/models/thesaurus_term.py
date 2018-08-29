@@ -100,6 +100,16 @@ class ThesaurusTerm(models.Model):
         return super(ThesaurusTerm, self).create(vals)
 
     @api.multi
+    def write(self, vals):
+        """
+        :param: vals
+        :type: dictionary
+        """
+        if not vals.get('search_name') and vals.get('name'):
+            vals['search_name'] = vals['name']
+        return super(ThesaurusTerm, self).write(vals)
+
+    @api.multi
     def _get_child_terms(self):
         """
         Returns all child terms of self recursively including self itself
@@ -120,7 +130,7 @@ class ThesaurusTerm(models.Model):
             args += [
                 '|',
                 ('name', '=', name),
-                ('select_name', '=', name),
+                ('select_name', '=', format_value(name, remove_blanks=True)),
             ]
         else:
             args += [
