@@ -1,5 +1,5 @@
 mozaik_person:
-* not migrated: enterprise_identifier, tongue, ldap_name, ldap_id
+* not migrated: enterprise_identifier, acronym, tongue, ldap_name, ldap_id
 
 OCA/partner_contact_gender:
 * gender (from mozaik_person): f=>female, m=>male
@@ -35,3 +35,10 @@ mozaik_person_coordinate:
 OCA/partner_multi_relation:
 * model 'partner.relation.category' (from mozaik_person_coordinate) => 'res.partner.relation.type'
 * model 'partner.relation' (from mozaik_person_coordinate) => 'res.partner.relation'
+
+distribution_list:
+* Lines (include/exclude) => M2M to O2M
+* distribution.list.line: fill the bridge field (mandatory)
+
+mozaik_abstract_model:
+* The Abstract model comes from mozaik_base (maybe migration to rename the original script)

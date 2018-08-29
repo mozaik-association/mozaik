@@ -39,7 +39,7 @@ class MassMailing(models.Model):
                     main_object_field='email_coordinate_id',
                     main_target_model='email.coordinate'
                 )
-                res = dl.get_complex_distribution_list_ids()[0]
+                res = dl._get_complex_distribution_list_ids()[0]
                 if mailing.contact_ab_pc < 100 or mailing.group_id:
                     topick = int(len(res) / 100.0 * mailing.contact_ab_pc)
                     already_mailed = self.env['mail.mail.statistics'].search([

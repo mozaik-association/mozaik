@@ -203,7 +203,7 @@ class DistributionListMassFunction(orm.TransientModel):
                     # Get CSV containing email coordinates
                     #
                     active_ids, alternative_ids = self.pool[
-                        'distribution.list'].get_complex_distribution_list_ids(
+                        'distribution.list']._get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
 
@@ -254,7 +254,7 @@ class DistributionListMassFunction(orm.TransientModel):
                             context['alternative_object_domain'] = [
                                 ('email_coordinate_id', '=', False)]
                     active_ids, alternative_ids = self.pool[
-                        'distribution.list'].get_complex_distribution_list_ids(
+                        'distribution.list']._get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
 
@@ -317,7 +317,7 @@ class DistributionListMassFunction(orm.TransientModel):
                     # Get VCARD containing email coordinates
                     #
                     active_ids = self.pool[
-                        'distribution.list'].get_complex_distribution_list_ids(
+                        'distribution.list']._get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)[0]
                     file_exported = self.export_vcard(cr, uid, ids,
@@ -341,7 +341,7 @@ class DistributionListMassFunction(orm.TransientModel):
                     # Get CSV containing postal coordinates
                     #
                     active_ids, alternative_ids = self.pool[
-                        'distribution.list'].get_complex_distribution_list_ids(
+                        'distribution.list']._get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
 
@@ -358,7 +358,7 @@ class DistributionListMassFunction(orm.TransientModel):
                     # Get postal coordinate PDF labels
                     #
                     active_ids, alternative_ids = self.pool[
-                        'distribution.list'].get_complex_distribution_list_ids(
+                        'distribution.list']._get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
                     if wizard.postal_mail_name and \
