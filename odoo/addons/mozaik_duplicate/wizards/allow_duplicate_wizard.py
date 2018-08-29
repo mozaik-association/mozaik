@@ -56,6 +56,7 @@ class AllowDuplicateWizard(models.TransientModel):
         """
         return _('You must only select duplicated entries!')
 
+    @api.multi
     def button_allow_duplicate(self, vals=None):
         """
         Button/action to allow duplicates

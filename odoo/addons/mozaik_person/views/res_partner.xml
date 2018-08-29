@@ -60,7 +60,7 @@
                 <field name="is_duplicate_allowed" invisible="1"/>
                 <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
                         attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
-                        icon="gtk-undo"
+                        icon="fa-undo text-warning"
                         confirm="Undo allow duplicate: proceed anyway?"
                         groups="mozaik_person.res_groups_partner_user" />
 

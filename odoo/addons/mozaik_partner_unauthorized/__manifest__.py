@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': 'Mozaik: Partner - Coordinate',
+    'name': 'Mozaik: Unauthorized Partner',
     'summary': """
         Add a boolean 'unauthorized' on partners.
         It is computed from all its unauthorized main coordinates.""",
@@ -18,8 +18,8 @@
         'mozaik_phone',
     ],
     'data': [
-        'views\res_partner.xml',
+        'views/res_partner.xml',
     ],
     'auto_install': True,
-    'installable': False,
+    'installable': True,
 }
