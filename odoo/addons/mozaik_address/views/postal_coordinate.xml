@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="postal_coordinate_search_view" model="ir.ui.view">
-        <field name="name">postal.coordinate.search</field>
+        <field name="name">postal.coordinate.search (in mozaik_address)</field>
         <field name="model">postal.coordinate</field>
         <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_search_view" />
         <field name="priority" eval="10" />
@@ -22,7 +22,7 @@
     </record>
 
     <record id="postal_coordinate_tree_view" model="ir.ui.view">
-        <field name="name">postal.coordinate.tree</field>
+        <field name="name">postal.coordinate.tree (in mozaik_address)</field>
         <field name="model">postal.coordinate</field>
         <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_tree_view" />
         <field name="priority" eval="10" />
@@ -48,7 +48,7 @@
     </record>
 
     <record id="postal_coordinate_form_view" model="ir.ui.view">
-        <field name="name">postal.coordinate.form</field>
+        <field name="name">postal.coordinate.form (in mozaik_address)</field>
         <field name="model">postal.coordinate</field>
         <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_form_view" />
         <field name="priority" eval="10" />

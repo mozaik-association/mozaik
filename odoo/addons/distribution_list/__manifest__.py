@@ -2,23 +2,19 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Distribution List',
+    'summary': """
+        Manage distribution lists composed
+        with dynamic filters (odoo domain)""",
     'version': '11.0.1.0.0',
+    'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
-    'maintainer': 'ACSONE SA/NV',
-    "website": "http://www.acsone.eu",
+    'website': 'https://acsone.eu/',
     'category': 'Marketing',
     'depends': [
         'base',
         'web',
         'mail',
     ],
-    'description': """
-Distribution List
-=================
-This module provide features to allow the user to
-* create distribution lists composed with dynamic filters (odoo domain)
-* manage those distribution lists by adding or deleting lines
-""",
     'data': [
         'security/distribution_list_security.xml',
         'security/ir.model.access.csv',
@@ -36,6 +32,5 @@ This module provide features to allow the user to
         'demo/distribution_list.xml',
         'demo/distribution_list_line.xml',
     ],
-    'license': 'AGPL-3',
     'installable': True,
 }
