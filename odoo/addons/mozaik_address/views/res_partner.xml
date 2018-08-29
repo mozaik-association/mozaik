@@ -1,19 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo>
 
-    <record id="view_partner_tree" model="ir.ui.view">
-        <field name="name">res.partner.tree (mozaik_address)</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_tree" />
-        <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
-                <field name="address" invisible="1"/>
-            </xpath>
-        </field>
-    </record>
-
     <record id="view_partner_form" model="ir.ui.view">
-        <field name="name">res.partner.form (mozaik_address)</field>
+        <field name="name">res.partner.form (in mozaik_address)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="mozaik_coordinate.res_partner_form_view" />
         <field name="arch" type="xml">
