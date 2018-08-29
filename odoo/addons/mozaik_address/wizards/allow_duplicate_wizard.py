@@ -44,22 +44,17 @@ class AllowDuplicateWizard(models.TransientModel):
         Create co_residency if any.
         """
         self.ensure_one()
-        new_co = False
         if self.co_residency_id:
             cor_id = self.co_residency_id
         else:
             vals = {'address_id': self.address_id.id}
             cor_id = self.env['co.residency'].create(vals)
-            new_co = True
 
-        vals = {'co_residency_id': cor_id.id}
-        super().button_allow_duplicate(vals=vals)
-
-        if self.env.context.get('get_co_residency', False):
-            return cor_id
+        self_ctx = self.with_context(co_residency_id=cor_id.id)
+        super(AllowDuplicateWizard, self_ctx).button_allow_duplicate()
 
         # go directly to the newly created co-residency
         res = cor_id.get_formview_action()
-        if res and new_co:
+        if not self.co_residency_id:
             res['new_co_res'] = True
         return res

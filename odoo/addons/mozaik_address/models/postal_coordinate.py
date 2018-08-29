@@ -62,6 +62,8 @@ class PostalCoordinate(models.Model):
         :rparam: values to update
         """
         res = super()._get_fields_to_update(mode)
+        if 'co_residency_id' in self.env.context:
+            res['co_residency_id'] = self.env.context['co_residency_id']
         if mode in ['duplicate', 'reset']:
-            res.update({'co_residency_id': False})
+            res['co_residency_id'] = False
         return res
