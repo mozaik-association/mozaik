@@ -274,7 +274,7 @@ class test_distribution_list(SharedSetupTransactionCase):
 
         # virtual_target, admin
         a_main_ids, a_alternative_ids = \
-            self.dl_obj.get_complex_distribution_list_ids(
+            self.dl_obj._get_complex_distribution_list_ids(
                 cr, uid, [dl_id], context=context)
         a_search_ids = self.virtrg_obj.search(
             cr, uid, [('identifier', '!=', 0)], context=context)
@@ -294,7 +294,7 @@ class test_distribution_list(SharedSetupTransactionCase):
 
         # virtual_target, other user
         u_main_ids = \
-            self.dl_obj.get_complex_distribution_list_ids(
+            self.dl_obj._get_complex_distribution_list_ids(
                 cr, oid, [dl_id], context=context)[0]
         u_search_ids = self.virtrg_obj.search(
             cr, oid, dom, context=context)
@@ -311,7 +311,7 @@ class test_distribution_list(SharedSetupTransactionCase):
 
         # email_coordinate_id, postal_coordinate_id, admin
         ac_main_ids, ac_alternative_ids = \
-            self.dl_obj.get_complex_distribution_list_ids(
+            self.dl_obj._get_complex_distribution_list_ids(
                 cr, uid, [dl_id], context=context)
         self.assertTrue(ec_id in ac_main_ids)
         dom = [('identifier', '!=', 0), ('email_coordinate_id', '!=', False)]
@@ -344,7 +344,7 @@ class test_distribution_list(SharedSetupTransactionCase):
 
         # email_coordinate_id, postal_coordinate_id, other user
         uc_main_ids, uc_alternative_ids = \
-            self.dl_obj.get_complex_distribution_list_ids(
+            self.dl_obj._get_complex_distribution_list_ids(
                 cr, oid, [dl_id], context=context)
         self.assertFalse(ec_id in uc_main_ids)
         vals = self.virtrg_obj.search_read(
@@ -371,7 +371,7 @@ class test_distribution_list(SharedSetupTransactionCase):
 
         # virtual target, admin, inactive
         aa_main_ids = \
-            self.dl_obj.get_complex_distribution_list_ids(
+            self.dl_obj._get_complex_distribution_list_ids(
                 cr, uid, [dl_id], context=context)[0]
         self.assertEqual(
             set(aa_main_ids) - set(inactive_ids), set(a_main_ids))
