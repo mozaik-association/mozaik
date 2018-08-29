@@ -10,9 +10,10 @@ class ChangeCoResidencyAddress(models.TransientModel):
     _name = 'change.co.residency.address'
     _description = 'Change Co-Residency Address Wizard'
 
-    co_residency_id = fields.Many2one('co.residency', 'Co-Residency')
+    co_residency_id = fields.Many2one(
+        'co.residency', 'Co-Residency', readonly=True)
     old_address_id = fields.Many2one(
-        'address.address', 'Current Address')
+        'address.address', 'Current Address', readonly=True)
     address_id = fields.Many2one(
         'address.address', 'New Address',
         required=True, ondelete='cascade')

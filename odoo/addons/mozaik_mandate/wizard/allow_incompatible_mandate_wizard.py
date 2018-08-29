@@ -31,10 +31,10 @@ class allow_incompatible_mandate_wizard(orm.TransientModel):
     _inherit = "allow.duplicate.wizard"
     _name = "allow.incompatible.mandate.wizard"
 
-    def button_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
+    def button_allow_duplicate(self, cr, uid, ids, context=None):
         context = context or {}
         super(allow_incompatible_mandate_wizard, self).button_allow_duplicate(
-            cr, uid, ids, context=context, vals=vals)
+            cr, uid, ids, context=context)
 
         # redirect to the representative's form view
         ids = context.get('active_ids')

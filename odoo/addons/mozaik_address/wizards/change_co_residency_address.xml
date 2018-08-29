@@ -8,7 +8,7 @@
             <form>
                 <div name="addresses">
                     <group>
-                        <field name="old_address_id" options='{"no_open":True}' readonly='1'/>
+                        <field name="old_address_id" options='{"no_open":True}'/>
                         <field name="address_id" options='{"no_open":True}'/>
                         <field name="invalidate"/>
                     </group>
@@ -16,6 +16,7 @@
                 <notebook>
                     <page name="dev" string="More Info" groups="base.group_erp_manager">
                         <group name="moreinfo">
+                            <field name="co_residency_id"/>
                             <field name="use_allowed"/>
                         </group>
                     </page>

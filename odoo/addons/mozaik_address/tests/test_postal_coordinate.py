@@ -1,16 +1,16 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo.tests.common import TransactionCase
 
 
-class TestPostalCoordinate(TransactionCase):
+def allow_duplicate(wz):
+    action = wz.button_allow_duplicate()
+    cor_id = action['res_id']
+    return wz.env['co.residency'].browse(cor_id)
 
-    _data_files = (
-        '../../mozaik_base/tests/data/res_partner_data.xml',
-        '../../mozaik_base/tests/data/res_users_data.xml',
-        'data/reference_data.xml',
-        'data/address_data.xml',
-    )
+
+class TestPostalCoordinate(TransactionCase):
 
     def setUp(self):
         super().setUp()
@@ -56,12 +56,11 @@ class TestPostalCoordinate(TransactionCase):
         ctx = {
             'active_model': pc_mod._name,
             'active_ids': postal_coordinates.ids,
-            'get_co_residency': True,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
         wz_id = wz_mod_ctx.create(vals)
-        cor_id = wz_id.button_allow_duplicate()
+        cor_id = allow_duplicate(wz_id)
         # check allowed
         self.assertTrue(
             postal_coordinates[0].is_duplicate_allowed,
@@ -89,12 +88,11 @@ class TestPostalCoordinate(TransactionCase):
         ctx = {
             'active_model': pc_mod._name,
             'active_ids': postal_coordinates.ids,
-            'get_co_residency': True,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
         wz_id = wz_mod_ctx.create(vals)
-        cor2_id = wz_id.button_allow_duplicate()
+        cor2_id = allow_duplicate(wz_id)
         # check co residency
         self.assertEqual(
             postal_coordinates[0].co_residency_id, cor2_id,
@@ -126,12 +124,11 @@ class TestPostalCoordinate(TransactionCase):
         ctx = {
             'active_model': pc_mod._name,
             'active_ids': postal_coordinates.ids,
-            'get_co_residency': True,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
         wz_id = wz_mod_ctx.create(vals)
-        cor_id = wz_id.button_allow_duplicate()
+        cor_id = allow_duplicate(wz_id)
 
         # Step Five
         cor_id.unlink()
@@ -184,12 +181,11 @@ class TestPostalCoordinate(TransactionCase):
         ctx = {
             'active_model': pc_mod._name,
             'active_ids': postal_coordinates.ids,
-            'get_co_residency': True,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
         wz_id = wz_mod_ctx.create(vals)
-        cor_id = wz_id.button_allow_duplicate()
+        cor_id = allow_duplicate(wz_id)
 
         ctx = {
             'active_model': cr_mod._name,
@@ -248,12 +244,11 @@ class TestPostalCoordinate(TransactionCase):
         ctx = {
             'active_model': pc_mod._name,
             'active_ids': postal_coordinates.ids,
-            'get_co_residency': True,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
         wz_id = wz_mod_ctx.create(vals)
-        cor_id = wz_id.button_allow_duplicate()
+        cor_id = allow_duplicate(wz_id)
 
         ctx = {
             'active_model': cr_mod._name,
