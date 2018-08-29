@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
-from odoo.osv import expression
 
 
 class AbstractTermFinder(models.AbstractModel):
@@ -15,13 +14,10 @@ class AbstractTermFinder(models.AbstractModel):
     def search(self, args,
                offset=0, limit=None, order=None, count=False):
         """
-        Overide search for get children thesaurus
-        At first time search with default arg and second time
-        search with updated args. add thesaurus term
+        Overide to search over through child terms of a term
         :param args: domain to modify (list) or None
         """
         if self._terms:
-
             domain = []
             for arg in args:
                 if hasattr(arg, '__iter__') and arg[0] in self._terms and\
@@ -36,5 +32,4 @@ class AbstractTermFinder(models.AbstractModel):
                     domain += [arg]
             args = domain
         return super(AbstractTermFinder, self).search(
-            args,
-            offset=offset, limit=limit, order=order, count=count)
+            args, offset=offset, limit=limit, order=order, count=count)

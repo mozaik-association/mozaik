@@ -24,6 +24,7 @@
         'mozaik_partner_fields',
         'mozaik_involvement',
         'mozaik_person',
+        'mozaik_thesaurus',
     ],
     'data': [
         'views/mail_followers.xml',

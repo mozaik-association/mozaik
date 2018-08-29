@@ -1,24 +1,39 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo noupdate="1">
 
-    <record id="thesaurus_01" model="thesaurus">
-        <field name="name">Thesaurus</field>
-    </record>
-
-    <record id="term_confirmed_one" model="thesaurus.term">
+    <record id="term_01" model="thesaurus.term">
         <field name="name">Sport &amp; Loisirs</field>
-        <field name="ext_identifier">ID5623</field>
         <field name="state">confirm</field>
     </record>
 
-    <record id="term_confirmed_two" model="thesaurus.term">
+    <record id="term_02" model="thesaurus.term">
         <field name="name">Ressources Humaines</field>
-        <field name="ext_identifier">ID1288</field>
         <field name="state">confirm</field>
     </record>
 
-    <record id="term_draft_one" model="thesaurus.term">
+    <record id="term_04" model="thesaurus.term">
+        <field name="name">Transport</field>
+        <field name="state">confirm</field>
+    </record>
+
+    <record id="term_05" model="thesaurus.term">
+        <field name="name">Ecologie</field>
+        <field name="state">confirm</field>
+    </record>
+
+    <record id="term_06" model="thesaurus.term">
         <field name="name">Véhicules électriques</field>
+        <field name="parent_ids" eval="[
+            (4, ref('term_04')),
+            (4, ref('term_05')),
+        ]"/>
+    </record>
+
+    <record id="term_07" model="thesaurus.term">
+        <field name="name">Vélos électriques</field>
+        <field name="parent_ids" eval="[
+            (4, ref('term_06')),
+        ]"/>
     </record>
 
 </odoo>

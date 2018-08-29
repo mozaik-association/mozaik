@@ -5,19 +5,19 @@
 <odoo noupdate="0">
 
     <record id="res_partner_search_view" model="ir.ui.view">
-        <field name="name">res.partner.search (mozaik_thesaurus)</field>
+        <field name="name">res.partner.search (in mozaik_thesaurus)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <field name="competency_ids" string="Competencies &amp; Topics" widget="many2one"/>
-                <field name="interest_ids" invisible="context.get('default_is_company', True)" widget="many2one"/>
+                <field name="interest_ids" invisible="context.get('default_is_company', False)" widget="many2one"/>
             </xpath>
         </field>
     </record>
 
     <record id="res_partner_form_view" model="ir.ui.view">
-        <field name="name">res.partner.form (mozaik_thesaurus)</field>
+        <field name="name">res.partner.form (in mozaik_thesaurus)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">

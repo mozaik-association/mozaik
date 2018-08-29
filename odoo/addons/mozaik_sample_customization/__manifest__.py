@@ -13,7 +13,7 @@
         'mozaik',
     ],
     'data': [
-        # 'data/thesaurus.xml',
+        'data/thesaurus.xml',
         'data/partner_involvement_category.xml',
         'data/internal_structure.xml',
         'data/res_partner.xml',

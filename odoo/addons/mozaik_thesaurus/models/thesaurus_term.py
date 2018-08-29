@@ -2,8 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, api, fields, _
-from odoo.osv import expression
 from odoo.addons.mozaik.tools import format_value
+from odoo.fields import first
 
 # Available States for thesaurus terms
 TERM_AVAILABLE_STATES = [
@@ -50,6 +50,7 @@ class ThesaurusTerm(models.Model):
         comodel_name='thesaurus',
         string='Thesaurus',
         required=True,
+        default=lambda s: s._get_default_thesaurus_id(),
     )
     state = fields.Selection(
         selection=TERM_AVAILABLE_STATES,
@@ -77,9 +78,13 @@ class ThesaurusTerm(models.Model):
         copy=False,
     )
 
+    @api.model
+    def _get_default_thesaurus_id(self):
+        return self.env['thesaurus'].search([], order='id desc', limit=1)
+
     @api.multi
     def _track_subtype(self, init_values):
-        record = self[0]
+        record = first(self)
         if 'state' in init_values and record.state == 'draft':
             return 'mozaik_thesaurus.term_to_validate'
         return super(ThesaurusTerm, self)._track_subtype(init_values)
@@ -89,8 +94,6 @@ class ThesaurusTerm(models.Model):
         """
         :param: vals
         :type: dictionary that contains at least 'name'
-        :rparam: id of the new term
-        :rtype: integer
         """
         if not vals.get('search_name'):
             vals['search_name'] = vals.get('name')
@@ -98,6 +101,10 @@ class ThesaurusTerm(models.Model):
 
     @api.multi
     def _get_child_terms(self):
+        """
+        Returns all child terms of self recursively including self itself
+        :return: terms recordSet
+        """
         children = self.mapped('child_ids')
         terms = self.env[self._name]
         if children:
@@ -108,7 +115,7 @@ class ThesaurusTerm(models.Model):
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
         args = args or []
-        if len(name) and name[-1:] == '!':
+        if name and name[-1:] == '!':
             name = name[:-1]
             args += [
                 '|',
@@ -118,11 +125,10 @@ class ThesaurusTerm(models.Model):
         else:
             args += [
                 '|',
-                 ('select_name', operator, name),
-                 ('search_name', operator, name),
+                ('select_name', operator, name),
+                ('search_name', operator, name),
             ]
-        term_ids = super(ThesaurusTerm, self).name_search(
-            name=name, args=args, operator=operator, limit=limit)
+        term_ids = self.search(args, limit=limit)
         return term_ids.name_get()
 
     @api.multi
@@ -134,33 +140,44 @@ class ThesaurusTerm(models.Model):
         })
         return super(ThesaurusTerm, self).copy(default=default)
 
+    @api.model
+    def _get_fields_to_update(self, mode):
+        """
+        Set state to cancel when invalidating a term
+        :param mode: str
+        :return: dict
+        """
+        result = super()._get_fields_to_update(mode)
+        if mode == 'deactivate':
+            result.update({
+                'state': TERM_AVAILABLE_STATES[2][0],
+            })
+        if mode == 'activate':
+            result.update({
+                'state': TERM_AVAILABLE_STATES[0][0],
+            })
+        return result
+
     @api.multi
     def button_confirm(self):
         """
-        Confirm the term
+        Confirm terms
         :rparam: True
         :rtype: boolean
         """
         vals = {
             'state': TERM_AVAILABLE_STATES[1][0]
         }
-        self.write(vals)
+        return self.write(vals)
 
     @api.multi
     def button_cancel(self):
         """
-        Cancel the term
+        Cancel terms
         :rparam: True
         :rtype: boolean
-        Note:
-        Reset the notification term to avoid the expected exception related to
-        an active reference
         """
-        self.ensure_one()
-        # Reset notification term on the thesaurus
-        self.thesaurus_id.update_notification_term()
-        return super(ThesaurusTerm, self).action_invalidate(
-            vals={'state': TERM_AVAILABLE_STATES[2][0]})
+        return self.action_invalidate()
 
     @api.multi
     def button_reset(self):
@@ -169,6 +186,4 @@ class ThesaurusTerm(models.Model):
         :rparam: True
         :rtype: boolean
         """
-        self.ensure_one()
-        return super(ThesaurusTerm, self).action_revalidate(
-            vals={'state': TERM_AVAILABLE_STATES[0][0]})
+        return self.action_revalidate()

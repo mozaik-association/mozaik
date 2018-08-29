@@ -44,6 +44,9 @@
         <field name="usual_firstname">Jacquou</field>
         <field name="company_id" ref="base.main_company" />
         <field name="marital">married</field>
+        <field name="competency_ids" eval="[
+            (4, ref('term_02')),
+        ]"/>
     </record>
 
     <record id="res_partner_dries" model="res.partner">
@@ -52,6 +55,9 @@
         <field name="company_id" ref="base.main_company" />
         <field name="gender">male</field>
         <field name="social_twitter">#red-devil</field>
+        <field name="interest_ids" eval="[
+            (4, ref('term_07')),
+        ]"/>
     </record>
 
     <record id="res_partner_serguei" model="res.partner">
@@ -60,6 +66,9 @@
         <field name="company_id" ref="base.main_company" />
         <field name="birthdate_date">1963-12-14</field>
         <field name="gender">male</field>
+        <field name="interest_ids" eval="[
+            (4, ref('term_06')),
+        ]"/>
     </record>
 
     <record id="res_partner_fgtb" model="res.partner">

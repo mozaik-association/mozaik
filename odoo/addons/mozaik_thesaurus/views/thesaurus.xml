@@ -2,7 +2,7 @@
 <odoo noupdate="0">
 
     <record id="thesaurus_tree_view" model="ir.ui.view">
-        <field name="name">thesaurus.tree</field>
+        <field name="name">thesaurus.tree (in mozaik_thesaurus)</field>
         <field name="model">thesaurus</field>
         <field name="arch" type="xml">
             <tree>
@@ -12,7 +12,7 @@
     </record>
 
     <record id="thesaurus_form_view" model="ir.ui.view">
-        <field name="name">thesaurus.form</field>
+        <field name="name">thesaurus.form (in mozaik_thesaurus)</field>
         <field name="model">thesaurus</field>
         <field name="arch" type="xml">
             <form duplicate="0">
@@ -34,12 +34,10 @@
                             <field name="name" />
                         </h1>
                     </div>
-                    <group name="status"
-                        attrs="{'invisible': [('id','=',False)]}">
+                    <group name="status" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
                             <field name="create_date" />
-                            <field name="expire_date"
-                                attrs="{'invisible': [('active','=',True)]}" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                         </group>
                         <group name="other">
                         </group>
@@ -52,8 +50,7 @@
                     </notebook>
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"
-                           groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>

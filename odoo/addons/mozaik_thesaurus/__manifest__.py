@@ -15,14 +15,14 @@
         'mozaik_abstract_model',
     ],
     'data': [
+        'data/thesaurus_data.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',
-        'security/thesaurus_term_rule.xml',
+        'security/ir_rule.xml',
         'views/thesaurus.xml',
         'views/thesaurus_term.xml',
+        'views/res_partner.xml',
         'views/thesaurus_menu.xml',
-        'views/res_partner_view.xml',
-        'data/thesaurus_data.xml',
     ],
     'installable': True,
 }

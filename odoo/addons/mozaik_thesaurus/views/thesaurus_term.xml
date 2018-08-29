@@ -5,7 +5,7 @@
 <odoo noupdate="0">
 
     <record id="thesaurus_term_search_view" model="ir.ui.view">
-        <field name="name">thesaurus.term.search</field>
+        <field name="name">thesaurus.term.search (in mozaik_thesaurus)</field>
         <field name="model">thesaurus.term</field>
         <field name="arch" type="xml">
             <search>
@@ -34,10 +34,10 @@
     </record>
 
     <record id="thesaurus_term_tree_view" model="ir.ui.view">
-        <field name="name">thesaurus.term.tree</field>
+        <field name="name">thesaurus.term.tree (in mozaik_thesaurus)</field>
         <field name="model">thesaurus.term</field>
         <field name="arch" type="xml">
-            <tree colors="grey:active==False;red:state=='draft'">
+            <tree decoration-danger="state=='draft'" decoration-muted="not active">
                 <field name="name"/>
                 <field name="expire_date"
                     invisible="context.get('invisible_expire_date', True)"/>
@@ -49,11 +49,11 @@
     </record>
 
     <record id="thesaurus_term_search_tree_view" model="ir.ui.view">
-        <field name="name">thesaurus.term.tree.search</field>
+        <field name="name">thesaurus.term.tree.search (in mozaik_thesaurus)</field>
         <field name="model">thesaurus.term</field>
         <field name="priority">5</field>
         <field name="arch" type="xml">
-            <tree colors="grey:active==False;red:state=='draft'">
+            <tree decoration-danger="state=='draft'" decoration-muted="not active">
                 <field name="search_name" string="Term"/>
                 <field name="state" invisible="1"/>
                 <field name="active" invisible="1"/>
@@ -62,20 +62,20 @@
     </record>
 
     <record id="thesaurus_term_form_view" model="ir.ui.view">
-        <field name="name">thesaurus.term.form</field>
+        <field name="name">thesaurus.term.form (in mozaik_thesaurus)</field>
         <field name="model">thesaurus.term</field>
         <field name="arch" type="xml">
             <form>
                 <header>
                     <button name="button_confirm" string="Confirm Term"
-                        type="object" states="draft" class="btn-primary"
-                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"/>
+                        type="object" class="btn-primary"
+                        attrs="{'invisible': ['|',('id','=',False),('state','!=','draft')]}"/>
                     <button name="button_cancel" string="Cancel Term"
-                        type="object" states="confirm"
-                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"/>
+                        type="object"
+                        attrs="{'invisible': ['|',('id','=',False),('state','!=','confirm')]}"/>
                     <button name="button_reset" string="Reset Term"
-                        type="object" states="cancel"
-                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"/>
+                        type="object"
+                        attrs="{'invisible': ['|',('id','=',False),('state','!=','cancel')]}"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                 </header>
                 <sheet>
@@ -103,21 +103,20 @@
                         <page name="parent_terms" string="Parent Terms">
                             <field name="parent_ids"/>
                         </page>
-                        <page name="children_terms" string="Children Terms">
+                        <page name="children_terms" string="Child Terms">
                             <field name="child_ids"/>
                         </page>
                         <page string="More Info" name="dev" groups="base.group_erp_manager">
                             <group name="moreinfo">
                                 <field name="active"/>
                                 <field name="select_name"/>
-                                <field name="thesaurus_id" groups="mozaik_thesaurus.thesaurus_user"/>
+                                <field name="thesaurus_id"/>
                             </group>
                         </page>
                     </notebook>
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"
-                           groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
