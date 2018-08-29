@@ -15,7 +15,7 @@
         <field name="name">thesaurus.form</field>
         <field name="model">thesaurus</field>
         <field name="arch" type="xml">
-            <form>
+            <form duplicate="0">
                 <header>
                     <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
                     </div>
@@ -34,7 +34,6 @@
                             <field name="name" />
                         </h1>
                     </div>
-
                     <group name="status"
                         attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
@@ -45,18 +44,16 @@
                         <group name="other">
                         </group>
                     </group>
-
                     <notebook>
                         <page string="More Info" name="dev" groups="base.group_erp_manager">
                             <group name="moreinfo">
-                            <field name="new_thesaurus_term_id" />
                             </group>
                         </page>
                     </notebook>
-
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager" />
+                    <field name="message_follower_ids" widget="mail_followers"
+                           groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>

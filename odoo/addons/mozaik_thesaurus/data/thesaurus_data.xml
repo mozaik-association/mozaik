@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo noupdate="1">
+
+    <record id="initial_thesaurus" model="thesaurus">
+        <field name="name">Thesaurus</field>
+    </record>
+
+    <!-- subtype -->
+    <record id="new_term_to_validate" model="mail.message.subtype">
+        <field name="name">New Term to Validate</field>
+        <field name="res_model">thesaurus.terms</field>
+        <field name="default" eval="True"/>
+        <field name="description">New Term to Validate</field>
+    </record>
+
+    <record id="term_to_validate" model="mail.message.subtype">
+        <field name="name">Term to Validate</field>
+        <field name="res_model">thesaurus</field>
+        <field name="default" eval="True"/>
+        <field name="parent_id" eval="ref('new_term_to_validate')"/>
+        <field name="relation_field">thesaurus_id</field>
+    </record>
+
+</odoo>

@@ -1,9 +1,9 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, fields, _
-from openerp.addons.mozaik_base.base_tools import format_value
-
+from odoo import models, api, fields, _
+from odoo.osv import expression
+from odoo.addons.mozaik.tools import format_value
 
 # Available States for thesaurus terms
 TERM_AVAILABLE_STATES = [
@@ -11,8 +11,6 @@ TERM_AVAILABLE_STATES = [
     ('confirm', 'Confirmed'),
     ('cancel', 'Cancelled'),
 ]
-
-term_available_states = dict(TERM_AVAILABLE_STATES)
 
 
 class ThesaurusTerm(models.Model):
@@ -24,89 +22,71 @@ class ThesaurusTerm(models.Model):
     _unicity_keys = 'name'
     _rec_name = 'search_name'
 
-    @api.model
-    def _get_default_thesaurus_id(self):
-        return self.env['thesaurus'].search([], limit=1).id
-
-    @api.one
-    @api.constrains('ext_identifier', 'state')
-    def _check_ext_identifier(self):
-        """
-        :raise Warning: if ext_identifier is not set when validating term
-        """
-        if self.state == 'confirm' and not self.ext_identifier:
-            raise Warning(
-                _('Missing External Identifier for a validated term'))
-
     @api.multi
-    def _compute_search_name(self):
-        self.ensure_one()
-        name_path = self.name
-        names = [self.name]
-        parent_ids = self.parent_m2m_ids._ids
-        while parent_ids:
-            for p_id in parent_ids:
-                parent = self.browse(p_id)
-                if parent.name not in names:
-                    names.append(parent.name)
-                parent_ids += parent.parent_m2m_ids._ids
-                parent_ids = filter(lambda a: a != p_id, parent_ids)
-        if names:
-            names.reverse()
-            name_path = '/'.join(names)
-        return name_path
-
-    @api.one
-    def compute_search_name(self):
-        if self.parent_m2m_ids:
-            self.search_name = self._compute_search_name()
-        else:
-            self.search_name = self.name
-
-    @api.one
     @api.depends('search_name')
     def _compute_select_name(self):
-        self.select_name = format_value(self.search_name, remove_blanks=True)
+        for record in self:
+            record.select_name = format_value(
+                record.search_name,
+                remove_blanks=True)
 
     name = fields.Char(
-        string='Term', required=True, index=True, track_visibility='onchange')
+        string='Term',
+        required=True,
+        index=True,
+        track_visibility='onchange',
+    )
     search_name = fields.Char(
-        string='Term (Full Path)', index=True, readonly=True)
+        string='Term (Full Path)',
+        index=True,
+        readonly=True,
+    )
     select_name = fields.Char(
-        compute='_compute_select_name', store=True, index=True)
+        compute='_compute_select_name',
+        store=True,
+        index=True,
+    )
     thesaurus_id = fields.Many2one(
-        comodel_name='thesaurus', string='Thesaurus', readonly=True,
-        required=True, default=_get_default_thesaurus_id)
-    ext_identifier = fields.Char(
-        string='External Identifier', required=False, index=True,
-        track_visibility='onchange', states={'confirm': [('required', True)]},
-        copy=False)
+        comodel_name='thesaurus',
+        string='Thesaurus',
+        required=True,
+    )
     state = fields.Selection(
-        selection=TERM_AVAILABLE_STATES, string='Status', readonly=True,
-        required=True, track_visibility='onchange',
-        default=TERM_AVAILABLE_STATES[0][0], copy=False)
-    parent_m2m_ids = fields.Many2many(
-        comodel_name='thesaurus.term', relation='child_term_parent_term_rel',
-        column1='child_term_id', column2='parent_term_id',
-        string='Parent Terms', copy=False)
-    children_m2m_ids = fields.Many2many(
-        comodel_name='thesaurus.term', relation='child_term_parent_term_rel',
-        column1='parent_term_id', column2='child_term_id',
-        string='Children Terms', copy=False)
+        selection=TERM_AVAILABLE_STATES,
+        string='Status',
+        readonly=True,
+        required=True,
+        track_visibility='onchange',
+        default=TERM_AVAILABLE_STATES[0][0],
+        copy=False,
+    )
+    parent_ids = fields.Many2many(
+        comodel_name='thesaurus.term',
+        relation='child_term_parent_term_rel',
+        column1='child_term_id',
+        column2='parent_term_id',
+        string='Parent Terms',
+        copy=False,
+    )
+    child_ids = fields.Many2many(
+        comodel_name='thesaurus.term',
+        relation='child_term_parent_term_rel',
+        column1='parent_term_id',
+        column2='child_term_id',
+        string='Child Terms',
+        copy=False,
+    )
 
-    @api.one
-    def set_relation_terms(self, parent_term_ids):
-        vals = {
-            'parent_m2m_ids': [[6, False, parent_term_ids]],
-        }
-        self.write(vals)
+    @api.multi
+    def _track_subtype(self, init_values):
+        record = self[0]
+        if 'state' in init_values and record.state == 'draft':
+            return 'mozaik_thesaurus.term_to_validate'
+        return super(ThesaurusTerm, self)._track_subtype(init_values)
 
     @api.model
-    @api.returns('self', lambda value: value.id)
     def create(self, vals):
         """
-        Create a new term and notify it to the thesaurus to send a message to
-        the followers.
         :param: vals
         :type: dictionary that contains at least 'name'
         :rparam: id of the new term
@@ -114,47 +94,40 @@ class ThesaurusTerm(models.Model):
         """
         if not vals.get('search_name'):
             vals['search_name'] = vals.get('name')
-        new_id = super(ThesaurusTerm, self).create(vals)
-        if not self.env.context.get('load_mode'):
-            # Reset notification term on the thesaurus
-            new_id.thesaurus_id.update_notification_term()
-            # Set notification term on the thesaurus
-            new_id.thesaurus_id.update_notification_term(newid=new_id.id)
-        return new_id
+        return super(ThesaurusTerm, self).create(vals)
 
     @api.multi
-    def get_children_term(self):
-        children = self.mapped('children_m2m_ids')
+    def _get_child_terms(self):
+        children = self.mapped('child_ids')
         terms = self.env[self._name]
         if children:
-            terms |= children.get_children_term()
+            terms |= children._get_child_terms()
         terms |= self
         return terms
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
-        args = list(args or [])
+        args = args or []
         if len(name) and name[-1:] == '!':
-            name = name.replace('!', '', 1)
-            args = [
+            name = name[:-1]
+            args += [
                 '|',
                 ('name', '=', name),
                 ('select_name', '=', name),
             ]
         else:
-            ids = super(ThesaurusTerm, self).search([
-                    '|',
-                    ('select_name', operator, name),
-                    ('search_name', operator, name),
-                ] + args, limit=80)
-            if ids:
-                return ids.name_get()
-        return super(ThesaurusTerm, self).name_search(
+            args += [
+                '|',
+                 ('select_name', operator, name),
+                 ('search_name', operator, name),
+            ]
+        term_ids = super(ThesaurusTerm, self).name_search(
             name=name, args=args, operator=operator, limit=limit)
+        return term_ids.name_get()
 
-    @api.one
-    @api.returns('self', lambda value: value.id)
+    @api.multi
     def copy(self, default=None):
+        self.ensure_one()
         default = default or {}
         default.update({
             'name': _('%s (copy)') % self.name,
@@ -171,7 +144,7 @@ class ThesaurusTerm(models.Model):
         vals = {
             'state': TERM_AVAILABLE_STATES[1][0]
         }
-        return self.write(vals)
+        self.write(vals)
 
     @api.multi
     def button_cancel(self):
@@ -190,7 +163,7 @@ class ThesaurusTerm(models.Model):
             vals={'state': TERM_AVAILABLE_STATES[2][0]})
 
     @api.multi
-    def button_reset(self, cr, uid, ids, context=None):
+    def button_reset(self):
         """
         Cancel the term
         :rparam: True

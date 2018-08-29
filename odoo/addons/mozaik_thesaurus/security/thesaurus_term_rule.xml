@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.rule" id="mozaik_thesaurus_rule_user">
+        <field name="name">Thesaurus Term User Rule</field>
+        <field name="model_id" ref="mozaik_thesaurus.model_thesaurus"/>
+        <field name="domain_force">[('state', '=', 'draft')]</field>
+        <field name="perm_read" eval="0"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="groups" eval="[(6, 0, [ref('thesaurus_user')])]"/>
+    </record>
+
+    <record model="ir.rule" id="mozaik_thesaurus_rule_manager">
+        <field name="name">Thesaurus Term Manager Rule</field>
+        <field name="model_id" ref="mozaik_thesaurus.model_thesaurus"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="0"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="groups" eval="[(6, 0, [ref('thesaurus_manager')])]"/>
+    </record>
+
+</odoo>

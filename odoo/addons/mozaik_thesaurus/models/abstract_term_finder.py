@@ -1,8 +1,8 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models
-from __builtin__ import int
+from odoo import api, models
+from odoo.osv import expression
 
 
 class AbstractTermFinder(models.AbstractModel):
@@ -11,17 +11,30 @@ class AbstractTermFinder(models.AbstractModel):
     _description = 'Abstract Term Finder'
     _terms = []
 
-    def search(self, cr, user, args,
-               offset=0, limit=None, order=None, context=None, count=False):
+    @api.model
+    def search(self, args,
+               offset=0, limit=None, order=None, count=False):
+        """
+        Overide search for get children thesaurus
+        At first time search with default arg and second time
+        search with updated args. add thesaurus term
+        :param args: domain to modify (list) or None
+        """
         if self._terms:
-            args = [[
-                arg[0], 'in', self.pool['thesaurus.term'].browse(
-                    cr, user, arg[2], context=context).get_children_term().ids
-                ] if hasattr(arg, '__iter__') and arg[0] in self._terms and
-                arg[1] == '=' and
-                isinstance(arg[2], int) else arg for arg in args
-            ]
+
+            domain = []
+            for arg in args:
+                if hasattr(arg, '__iter__') and arg[0] in self._terms and\
+                        arg[1] == '=' and isinstance(arg[2], int):
+                    # add term domain search
+                    domain += [
+                        [arg[0], 'in', self.env['thesaurus.term'].browse(
+                            arg[2])._get_child_terms().ids]
+                    ]
+                else:
+                    # default search domain
+                    domain += [arg]
+            args = domain
         return super(AbstractTermFinder, self).search(
-            cr, user, args,
-            offset=offset, limit=limit, order=order,
-            context=context, count=count)
+            args,
+            offset=offset, limit=limit, order=order, count=count)
