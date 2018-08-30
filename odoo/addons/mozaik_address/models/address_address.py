@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 from odoo import api, models, fields, _
 from odoo.exceptions import ValidationError
-from odoo.addons.mozaik.tools import format_value
+from odoo.addons.mozaik_tools.tools import format_value
 
 
 class AddressAddress(models.Model):

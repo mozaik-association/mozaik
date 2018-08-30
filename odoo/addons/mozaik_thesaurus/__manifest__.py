@@ -12,6 +12,7 @@
     'depends': [
         'base',
         'contacts',
+        'mozaik_tools',
         'mozaik_abstract_model',
     ],
     'data': [

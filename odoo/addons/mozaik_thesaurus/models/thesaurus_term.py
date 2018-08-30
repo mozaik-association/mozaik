@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, api, fields, _
-from odoo.addons.mozaik.tools import format_value
+from odoo.addons.mozaik_tools.tools import format_value
 from odoo.fields import first
 
 # Available States for thesaurus terms

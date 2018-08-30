@@ -13,6 +13,7 @@
         'base',
         'contacts',
         'partner_usual_firstname',
+        'mozaik_tools',
         'mozaik_abstract_model',
         'mozaik_duplicate',
         'mozaik_partner_assembly',

@@ -14,6 +14,7 @@
         'mail',
         'contacts',
         'base_address_city',
+        'mozaik_tools',
         'mozaik_coordinate',
     ],
     'data': [

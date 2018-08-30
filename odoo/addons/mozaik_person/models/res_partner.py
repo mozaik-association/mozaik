@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, exceptions, fields, models, _
-from odoo.addons.mozaik.tools import format_value
+from odoo.addons.mozaik_tools.tools import format_value
 
 
 class ResPartner(models.Model):
