@@ -14,9 +14,7 @@ class TestPartnerInvolvement(SavepointCase):
 
     def setUp(self):
         super().setUp()
-        self.paul = self.env['res.partner'].create({
-            'name': 'Paul Bocuse',
-        })
+        self.paul = self.browse_ref('mozaik_involvement.res_partner_bocuse')
 
     def test_add_interests_on_involvement_creation(self):
         '''
