@@ -22,14 +22,14 @@ class ResPartner(models.Model):
     )
 
     partner_involvement_ids = fields.One2many(
-        'partner.involvement',
-        'partner_id',
+        comodel_name='partner.involvement',
+        inverse_name='partner_id',
         string='Partner Involvements',
         domain=[('active', '=', True)],
     )
     partner_involvement_inactive_ids = fields.One2many(
-        'partner.involvement',
-        'partner_id',
+        comodel_name='partner.involvement',
+        inverse_name='partner_id',
         string='Partner Involvements',
         domain=[('active', '=', False)],
     )

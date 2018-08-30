@@ -18,7 +18,7 @@ class PartnerInvolvement(models.Model):
     _order = 'partner_id, id desc'
 
     partner_id = fields.Many2one(
-        'res.partner',
+        comodel_name='res.partner',
         string='Partner',
         required=True,
         index=True,
@@ -26,7 +26,7 @@ class PartnerInvolvement(models.Model):
         domain=[('is_assembly', '=', False)],
     )
     involvement_category_id = fields.Many2one(
-        'partner.involvement.category',
+        comodel_name='partner.involvement.category',
         string='Involvement Category',
         oldname='partner_involvement_category_id',
         required=True,
@@ -34,7 +34,7 @@ class PartnerInvolvement(models.Model):
         track_visibility='onchange',
     )
     note = fields.Text(
-        'Notes',
+        string='Notes',
         track_visibility='onchange',
     )
     involvement_type = fields.Selection(
@@ -50,12 +50,12 @@ class PartnerInvolvement(models.Model):
         readonly=True,
     )
     effective_time = fields.Datetime(
-        'Involvement Date',
+        string='Involvement Date',
         copy=False,
         track_visibility='onchange',
     )
     creation_time = fields.Datetime(
-        'Involvement Date',
+        string='Involvement Date',
         compute='_compute_creation_time',
         store=True,
     )
@@ -147,13 +147,13 @@ class PartnerInvolvement(models.Model):
             if ic.allow_multi and ic.involvement_type not in ['donation']:
                 vals['effective_time'] = fields.Datetime.now()
         res = super(PartnerInvolvement, self).create(vals)
-        # terms = res.involvement_category_id.interest_ids
-        # if terms:
-        #     interests = [
-        #         (4, term.id) for term in terms
-        #     ]
-        #     res.partner_id.suspend_security().write(
-        #         {'interest_ids': interests})
+        terms = res.involvement_category_id.interest_ids
+        if terms:
+            interests = [
+                (4, term.id) for term in terms
+            ]
+            res.partner_id.suspend_security().write(
+                {'interest_ids': interests})
         return res
 
     @api.multi

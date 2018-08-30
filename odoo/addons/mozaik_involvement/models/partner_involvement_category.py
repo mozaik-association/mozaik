@@ -18,8 +18,9 @@ _logger = logging.getLogger(__name__)
 class PartnerInvolvementCategory(models.Model):
 
     _name = 'partner.involvement.category'
-    _inherit = ['mozaik.abstract.model']
+    _inherit = ['mozaik.abstract.model', 'abstract.term.finder']
     _description = 'Partner Involvement Category'
+    _terms = ['interest_ids']
     _unicity_keys = 'name'
 
     @api.model
@@ -27,7 +28,7 @@ class PartnerInvolvementCategory(models.Model):
         return self.env.user
 
     name = fields.Char(
-        'Involvement Category',
+        string='Involvement Category',
         required=True,
         track_visibility='onchange',
     )
@@ -36,7 +37,7 @@ class PartnerInvolvementCategory(models.Model):
         track_visibility='onchange',
     )
     note = fields.Text(
-        'Notes',
+        string='Notes',
         track_visibility='onchange',
     )
     involvement_type = fields.Selection(
@@ -46,13 +47,13 @@ class PartnerInvolvementCategory(models.Model):
         track_visibility='onchange',
     )
     allow_multi = fields.Boolean(
-        'Allow Multiple Involvements',
+        string='Allow Multiple Involvements',
         default=False,
         track_visibility='onchange',
     )
 
     res_users_ids = fields.Many2many(
-        'res.users',
+        comodel_name='res.users',
         relation='involvement_category_res_users_rel',
         column1='category_id',
         column2='user_id',
@@ -61,16 +62,16 @@ class PartnerInvolvementCategory(models.Model):
         copy=False,
         default=lambda s: s._default_res_users_ids(),
     )
-    # interest_ids = fields.Many2many(
-    #     'thesaurus.term',
-    #     relation='involvement_category_term_interests_rel',
-    #     column1='category_id',
-    #     column2='term_id',
-    #     string='Interests',
-    # )
+    interest_ids = fields.Many2many(
+        comodel_name='thesaurus.term',
+        relation='involvement_category_term_interests_rel',
+        column1='category_id',
+        column2='term_id',
+        string='Interests',
+    )
     involvement_ids = fields.One2many(
-        'partner.involvement',
-        'involvement_category_id',
+        comodel_name='partner.involvement',
+        inverse_name='involvement_category_id',
         string='Involvements',
     )
 

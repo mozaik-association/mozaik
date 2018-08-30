@@ -48,7 +48,9 @@
                             <field name="note" />
                         </page>
                         <page string="More Info" name="dev" groups="base.group_erp_manager">
-                            <group name="moreinfo"/>
+                            <group name="moreinfo">
+                                <field name="creation_time" />
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

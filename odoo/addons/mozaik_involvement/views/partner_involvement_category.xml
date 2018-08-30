@@ -37,7 +37,7 @@
                             <field name="code" />
                         </group>
                         <group name="data2">
-<!--                             <field name="interest_ids" widget="many2many_tags" options="{'no_create_edit': True}" /> -->
+                            <field name="interest_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
                         </group>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -86,7 +86,7 @@
                 <field name="code"/>
                 <field name="involvement_type"/>
                 <field name="note"/>
-<!--                 <field name="interest_ids" widget="many2one" /> -->
+                <field name="interest_ids" widget="many2one" />
 
                 <filter name="without_type" string="Without Type"
                     domain="[('involvement_type', '=', False)]"/>
