@@ -29,28 +29,28 @@ class DistributionList(models.Model):
         default='id',
     )
     res_partner_opt_out_ids = fields.Many2many(
-        "res.partner",
-        "distribution_list_res_partner_out",
-        "distribution_list_id",
-        "partner_id",
-        "Opt-out",
+        comodel_name="res.partner",
+        relation="distribution_list_res_partner_out",
+        column1="distribution_list_id",
+        column2="partner_id",
+        string="Opt-out",
         oldname="opt_out_ids",
     )
     res_partner_opt_in_ids = fields.Many2many(
-        "res.partner",
-        "distribution_list_res_partner_in",
-        "distribution_list_id",
-        "partner_id",
-        "Opt-out",
+        comodel_name="res.partner",
+        relation="distribution_list_res_partner_out",
+        column1="distribution_list_id",
+        column2="partner_id",
+        string="Opt-in",
         oldname="opt_in_ids",
     )
 
     def get_alias_model_name(self, vals):
-        return vals.get('alias_model', first(self)._name)
+        return vals.get('alias_model', self._name)
 
     def get_alias_values(self):
         self.ensure_one()
-        values = super(DistributionList, self).get_alias_values()
+        values = super().get_alias_values()
         values.update({
             'alias_parent_thread_id': self.id,
             'alias_defaults': {'distribution_list_id': self.id},
@@ -139,12 +139,11 @@ class DistributionList(models.Model):
         }
 
     @api.model
-    def _get_opt_res_ids(self, model_name, domain, in_mode):
+    def _get_opt_res_ids(self, model_name, domain):
         """
 
         :param model_name: str
         :param domain: list
-        :param in_mode: bool
         :return: model_name recordset
         """
         opt_ids = self.env[model_name].search(domain)
@@ -156,7 +155,7 @@ class DistributionList(models.Model):
         """
         False if alias_name and mail_forwarding are incompatible
         True otherwise
-        :return: bool
+        :return:
         """
         if self.filtered(lambda r: r.mail_forwarding != bool(r.alias_name)):
             raise exceptions.ValidationError(
@@ -184,49 +183,17 @@ class DistributionList(models.Model):
             DistributionList, self.with_context(context)).create(vals)
 
     @api.multi
-    def copy(self, default=None):
-        """
-
-        :param default: None or dict
-        :return: self recordset
-        """
-        self.ensure_one()
-        default = default or {}
-        if not default.get('alias_name') and self.mail_forwarding:
-            alias_name = self._build_alias_name(_("%s+copy") % self.name)
-            default.update({
-                'alias_name': alias_name,
-            })
-            default['alias_name'] = alias_name
-        elif not self.mail_forwarding:
-            default.update({
-                'alias_name': False,
-            })
-        return super(DistributionList, self).copy(default=default)
-
-    @api.multi
     def write(self, vals):
         """
 
         :param vals: dict
         :return: bool
         """
-        if 'mail_forwarding' in vals and not vals.get('mail_forwarding'):
+        if not vals.get('mail_forwarding', True):
             vals.update({
                 'alias_name': False,
             })
-        return super(DistributionList, self).write(vals)
-
-    @api.multi
-    def unlink(self):
-        """
-
-        :return: bool
-        """
-        mail_alias = self.mapped("alias_id")
-        result = super(DistributionList, self).unlink()
-        mail_alias.unlink()
-        return result
+        return super().write(vals)
 
     @api.model
     def message_new(self, msg_dict, custom_values=None):
@@ -248,8 +215,8 @@ class DistributionList(models.Model):
                             'list specified%s', param)
         else:
             dist_list = self.browse(dist_list_id)
-            if dist_list.allow_forwarding():
-                dist_list.distribution_list_forwarding(msg_dict)
+            if dist_list.mail_forwarding:
+                dist_list._distribution_list_forwarding(msg_dict)
             else:
                 _logger.warning(
                     'Mail Forwarding not allowed for distribution list %s: '
@@ -279,25 +246,25 @@ class DistributionList(models.Model):
         :return: target recordset
         """
         self.ensure_one()
-        targets = super(DistributionList, self).\
-            _get_target_from_distribution_list(safe_mode=safe_mode)
+        targets = super()._get_target_from_distribution_list(
+            safe_mode=safe_mode)
         if self.newsletter and self.partner_path:
             partner_path = self.partner_path
             model = self.dst_model_id.model
             # opt in
             partners = self.res_partner_opt_in_ids
             domain = [(partner_path, 'in', partners.ids)]
-            targets |= self._get_opt_res_ids(model, domain, True)
+            targets |= self._get_opt_res_ids(model, domain)
 
             # opt out
             partners = self.res_partner_opt_out_ids
             domain = [(partner_path, 'in', partners.ids)]
-            targets -= self._get_opt_res_ids(model, domain, False)
+            targets -= self._get_opt_res_ids(model, domain)
 
         return targets
 
     @api.multi
-    def update_opt(self, partners, mode='out'):
+    def _update_opt(self, partners, mode='out'):
         """
         update the list of opt out/in
         :param partners: res.partner recordset
@@ -319,7 +286,7 @@ class DistributionList(models.Model):
         return False
 
     @api.multi
-    def distribution_list_forwarding(self, msg):
+    def _distribution_list_forwarding(self, msg):
         """
         Create a 'mail.compose.message' depending of the message msg and then
         send a mail with this composer to the resulting ids of the
@@ -359,14 +326,6 @@ class DistributionList(models.Model):
             mail_composer_vals = self_ctx._get_mail_compose_message_vals(msg)
             mail_composer = mail_composer_obj.create(mail_composer_vals)
             mail_composer.send_mail()
-
-    def allow_forwarding(self):
-        """
-        Define if the distribution list is allowed to make forwarding
-        :return: boolean
-        """
-        self.ensure_one()
-        return self.mail_forwarding
 
     @api.onchange('mail_forwarding', 'alias_name', 'name')
     def _onchange_mail_forwarding(self):

@@ -23,7 +23,7 @@ class MailComposeMessage(models.TransientModel):
                     'distribution_list_id':
                         mass_mailing.distribution_list_id.id,
                 })
-        return super(MailComposeMessage, self).create(vals)
+        return super().create(vals)
 
     @api.multi
     def get_mail_values(self, res_ids):
@@ -39,7 +39,7 @@ class MailComposeMessage(models.TransientModel):
         :return: dict
         """
         self.ensure_one()
-        result = super(MailComposeMessage, self).get_mail_values(res_ids)
+        result = super().get_mail_values(res_ids)
         if self.distribution_list_id:
             mailing_ids = [v.get('mailing_id') for v in result.values()
                            if v.get('mailing_id')]

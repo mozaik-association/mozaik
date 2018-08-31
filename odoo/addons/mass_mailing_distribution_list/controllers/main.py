@@ -9,4 +9,4 @@ class MassMailController(http.Controller):
                  '<model("mail.mass_mailing"):mailing>/unsubscribe'],
                 type='http', auth='none')
     def newsletter(self, mailing, email=None, res_id=None, **post):
-        return mailing.sudo().try_update_opt(res_id)
+        return mailing.sudo()._try_update_opt(res_id)

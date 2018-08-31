@@ -57,19 +57,19 @@ class TestDistributionList(TransactionCase):
         self.distri_list_line_obj.create(vals)
 
         # opt in
-        dist_list.update_opt(partner2, mode='in')
+        dist_list._update_opt(partner2, mode='in')
         self.assertEquals(
             len(dist_list.res_partner_opt_in_ids), 1,
             'Should have one opt_in_ids')
 
         # remove 2 ids with opt_out
         partners = partner | partner2
-        dist_list.update_opt(partners, mode='out')
+        dist_list._update_opt(partners, mode='out')
         self.assertEquals(
             len(dist_list.res_partner_opt_out_ids), 2,
             'Should have two opt_out_ids')
         with self.assertRaises(exceptions.ValidationError) as e:
-            dist_list.update_opt(partner, mode='bad')
+            dist_list._update_opt(partner, mode='bad')
         self.assertIn(" is not a valid mode", e.exception.name)
         return
 
@@ -112,51 +112,15 @@ class TestDistributionList(TransactionCase):
         targets = dist_list._get_target_from_distribution_list()
         self.assertFalse(bool(targets), 'Should have an empty result')
         # now add it into res_partner_opt_in_ids
-        dist_list.update_opt(partner, mode='in')
+        dist_list._update_opt(partner, mode='in')
         targets = dist_list._get_target_from_distribution_list()
         self.assertEquals(
             len(targets), 1,
             'Should have one partner into res_ids cause of opt_in_ids')
         # now add it into opt_out_ids
-        dist_list.update_opt(partner, mode='out')
+        dist_list._update_opt(partner, mode='out')
         targets = dist_list._get_target_from_distribution_list()
         self.assertFalse(bool(targets), 'Should have an empty result')
-        return
-
-    def test_allow_forwarding(self):
-        """
-
-        :return:
-        """
-        vals = {
-            'name': str(uuid4()),
-            'dst_model_id': self.partner_model.id,
-        }
-        dist_list = self.distri_list_obj.create(vals)
-
-        self.assertFalse(dist_list.allow_forwarding(),
-                         'Should not be allowed to make mail forwarding')
-        vals = {
-            'mail_forwarding': True,
-        }
-        with self.assertRaises(exceptions.ValidationError) as e:
-            dist_list.write(vals)
-        self.assertEquals(
-            "An alias is mandatory for mail forwarding, forbidden otherwise",
-            e.exception.name)
-        vals = {
-            'mail_forwarding': True,
-            'alias_name': 'xyz',
-        }
-        dist_list.write(vals)
-        self.assertTrue(dist_list.allow_forwarding(),
-                        'Should be allowed to make mail forwarding')
-        vals = {
-            'mail_forwarding': False,
-        }
-        dist_list.write(vals)
-        self.assertFalse(dist_list.allow_forwarding(),
-                         'Mail forwarding should be not allowed')
         return
 
     def test_alias_name(self):
@@ -311,5 +275,5 @@ class TestDistributionList(TransactionCase):
     def test_get_opt_res_ids(self):
         partner = self.env.ref('base.partner_root')
         results = self.distri_list_obj._get_opt_res_ids(
-            'res.partner', [('id', '=', partner.id)], True)
+            'res.partner', [('id', '=', partner.id)])
         self.assertEquals(partner.ids, results.ids, 'Should be equals')

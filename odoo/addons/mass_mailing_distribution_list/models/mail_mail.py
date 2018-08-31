@@ -15,6 +15,7 @@ class MailMail(models.Model):
         :param email_to: str
         :return:
         """
+        self.ensure_one()
         mml = self.mailing_id
         if mml.distribution_list_id and mml.distribution_list_id.newsletter:
             res_id = self.res_id
@@ -41,7 +42,6 @@ class MailMail(models.Model):
             url = 'mail/newsletter/%(mailing_id)s/' \
                   'unsubscribe?%(params)s' % params
             full_url = urljoin(base_url, url)
-            btn_msg = 'Click to unsubscribe'
-            return '<small><a href="%s">%s</a></small>' % (full_url, btn_msg)
+            return full_url
         else:
-            return super(MailMail, self)._get_unsubscribe_url(email_to)
+            return super()._get_unsubscribe_url(email_to)

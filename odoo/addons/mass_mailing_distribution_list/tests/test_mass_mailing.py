@@ -48,7 +48,7 @@ class TestMassMailing(TransactionCase):
         }
         mailing = self.ml_obj.create(vals)
         for n in range(2):
-            msg = mailing.try_update_opt(partner)
+            msg = mailing._try_update_opt(partner)
             if n == 0:
                 self.assertEquals(msg, MSG_OK, 'Should be unsubscribe')
             elif n == 1:
@@ -56,4 +56,4 @@ class TestMassMailing(TransactionCase):
                     msg, MSG_KO,
                     'URL for an already unsubscribed partner will fail')
         with self.assertRaises(ValueError):
-            self.ml_obj.try_update_opt(partner)
+            self.ml_obj._try_update_opt(partner)
