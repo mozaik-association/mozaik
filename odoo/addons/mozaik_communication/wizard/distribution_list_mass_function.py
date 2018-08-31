@@ -1,122 +1,142 @@
-
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_communication, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_communication is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_communication is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_communication.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import base64
 import random
-
-from openerp.tools.translate import _
-from openerp.osv import orm, fields
-
-# Constants
-SORT_BY = [
-    ('identifier', 'Identification Number'),
-    ('technical_name', 'Name'),
-    ('country_id, zip, technical_name', 'Zip Code'),
-]
-P_MASS_FUNCTION = [
-    ('postal_coordinate_id', 'Label Printing'),
-    ('csv', 'CSV Extraction'),
-]
-TRG_MODEL = [
-    ('email.coordinate', 'Email Coordinate'),
-    ('postal.coordinate', 'Postal Coordinate'),
-]
+from email.utils import formataddr
+from odoo import api, exceptions, models, fields, _
 
 
-class DistributionListMassFunction(orm.TransientModel):
-
+class DistributionListMassFunction(models.TransientModel):
     _name = 'distribution.list.mass.function'
     _description = 'Mass Function'
 
-    def _get_e_mass_function(self, cr, uid, context=None):
+    @api.model
+    def _get_e_mass_function(self):
         """
         Get available mass functions for mode=email.coordinate
+        :return:
         """
         funcs = [
             ('email_coordinate_id', _('Mass Mailing')),
             ('csv', _('CSV Extraction')),
-            ('vcard', _('VCARD Extraction')),
         ]
-        if not context.get('in_mozaik_user'):
+        if not self.env.user.has_group(""):
             return funcs[1:]
         return funcs
 
-    _columns = {
-        'trg_model': fields.selection(
-            TRG_MODEL, string='Sending Mode', required=True),
-        'e_mass_function': fields.selection(
-            lambda s, c, u, **kwargs: s._get_e_mass_function(c, u, **kwargs),
-            string='Mass Function'),
-        'p_mass_function': fields.selection(
-            P_MASS_FUNCTION, string='Mass Function'),
+    trg_model = fields.Selection(
+        selection=[
+            ('email.coordinate', 'Email Coordinate'),
+            ('postal.coordinate', 'Postal Coordinate'),
+        ],
+        string="Sending mode",
+        required=True,
+        default='email.coordinate',
+    )
+    e_mass_function = fields.Selection(
+        selection=_get_e_mass_function,
+        string="Mass function",
+    )
+    p_mass_function = fields.Selection(
+        selection=[
+            ('csv', 'CSV Extraction'),
+        ],
+        string="Mass function",
+        default="csv",
+    )
+    distribution_list_id = fields.Many2one(
+        comodel_name="distribution.list",
+        string="Distribution list",
+        required=True,
+        ondelete="cascade",
+        default=lambda self: self.env.context.get('active_id', False),
+    )
+    subject = fields.Char()
+    body = fields.Html(
+        string="Content",
+        help="Automatically sanitized HTML contents",
+    )
+    attachment_ids = fields.Many2many(
+        comodel_name="ir.attachment",
+        relation="distribution_list_mass_function_ir_attachment_rel",
+        column1="wizard_id",
+        column2="attachment_id",
+        string="Attachments",
+    )
+    mass_mailing_name = fields.Char()
+    extract_csv = fields.Boolean(
+        string="Complementary postal CSV",
+        help="Get a CSV file for partners without email",
+        default=False,
+    )
+    postal_mail_name = fields.Char()
+    sort_by = fields.Selection(
+        selection=[
+            ('identifier', 'Identification Number'),
+            ('technical_name', 'Name'),
+            ('country_id, zip, technical_name', 'Zip Code'),
+        ],
+    )
+    bounce_counter = fields.Integer(
+        string="Maximum of fails",
+    )
+    include_unauthorized = fields.Boolean(
+        default=False,
+    )
+    internal_instance_id = fields.Many2one(
+        comodel_name="int.instance",
+        string="Internal instance",
+        ondelete="cascade",
+    )
+    include_without_coordinate = fields.Boolean(
+        default=False,
+    )
+    groupby_coresidency = fields.Boolean(
+        string="Group by co-residency",
+        default=False,
+    )
+    export_file = fields.Binary(
+        string="File",
+        readonly=True,
+    )
+    export_filename = fields.Char(
+        size=128,
+    )
+    # Fake field for auto-completing placeholder
+    placeholder_id = fields.Many2one(
+        comodel_name='email.template.placeholder',
+        string="Placeholder",
+        domain=[('model_id', '=', 'email.coordinate')],
+    )
+    placeholder_value = fields.Char(
+        help="Copy this text to the email body. It'll be replaced by the "
+             "value from the document",
+    )
+    involvement_category_id = fields.Many2one(
+        comodel_name='partner.involvement.category',
+        string='Involvement Category',
+        domain=[('code', '!=', False)],
+    )
+    contact_ab_pc = fields.Integer(
+        string='AB Batch (%)',
+        default=100,
+    )
+    partner_from_id = fields.Many2one(
+        comodel_name='res.partner',
+        string='From',
+        domain=lambda self: self._get_domain_partner_from_id(),
+        default=lambda self: self._get_default_partner_from_id(),
+        context={'show_email': 1},
+    )
+    partner_name = fields.Char()
+    email_from = fields.Char(readonly=True)
+    email_template_id = fields.Many2one(
+        'email.template', string='Email Template')
 
-        'distribution_list_id': fields.many2one(
-            'distribution.list', string='Distribution List',
-            required=True, ondelete='cascade'),
-
-        'subject': fields.char(string='Subject'),
-        'body': fields.html(
-            string='Contents', help='Automatically sanitized HTML contents'),
-        'attachment_ids': fields.many2many(
-            'ir.attachment',
-            rel='distribution_list_mass_function_ir_attachment_rel',
-            id1='wizard_id', id2='attachment_id', string='Attachments'),
-        'mass_mailing_name': fields.char(string='Mass Mailing Name'),
-        'extract_csv': fields.boolean(
-            string='Complementary Postal CSV',
-            help="Get a CSV file for partners without email"),
-
-        'postal_mail_name': fields.char(string='Postal Mailing Name'),
-        'sort_by': fields.selection(SORT_BY, string='Sort by'),
-
-        'bounce_counter': fields.integer(string='Maximum of Fails'),
-        'include_unauthorized': fields.boolean(string='Include Unauthorized'),
-        'internal_instance_id': fields.many2one(
-            'int.instance', string='Internal Instance', ondelete='cascade'),
-
-        'include_without_coordinate': fields.boolean(
-            string='Include without Coordinate'),
-        'groupby_coresidency': fields.boolean(string='Group by Co-Residency'),
-
-        'export_file': fields.binary(string='File', readonly=True),
-        'export_filename': fields.char(string='Export Filename', size=128),
-    }
-
-    _defaults = {
-        'trg_model': 'email.coordinate',
-        'distribution_list_id': lambda s, cr, u, c: c.get('active_id', False),
-        'include_unauthorized': False,
-        'extract_csv': False,
-        'include_without_coordinate': False,
-        'groupby_coresidency': False,
-    }
-
-    def onchange_mass_function(self, cr, uid, ids, context=None):
+    @api.onchange("e_mass_function")
+    def _onchange_mass_function(self):
         """
-        Reset some fields when `mass_fucntion` change
+        Reset some fields when `mass_function` change
         """
         return {
             'value': {
@@ -126,7 +146,8 @@ class DistributionListMassFunction(orm.TransientModel):
             }
         }
 
-    def onchange_trg_model(self, cr, uid, ids, context=None):
+    @api.onchange("trg_model")
+    def _onchange_trg_model(self):
         """
         Reset some fields when `trg_model` change
         """
@@ -137,365 +158,387 @@ class DistributionListMassFunction(orm.TransientModel):
             }
         }
 
-    def onchange_subject(
-            self, cr, uid, ids,
-            subject, mass_mailing_name,
-            context=None):
+    @api.onchange("subject")
+    def _onchange_subject(self):
         """
         Propose a default value for the mass mailing name
         """
-        if mass_mailing_name:
+        if self.mass_mailing_name:
             return
         return {
             'value': {
-                'mass_mailing_name': subject,
+                'mass_mailing_name': self.subject,
             }
         }
 
-# public methods
-
-    def mass_function(self, cr, uid, ids, context=None):
+    @api.multi
+    def mass_function(self):
         """
         This method allow to make mass function on
         - email.coordinate
         - postal.coordinate
         """
-        context = dict(context or {})
-        file_exported = False
-        composer = self.pool['mail.compose.message']
-        for wizard in self.browse(cr, uid, ids, context=context):
-            domains = []
-            if wizard.internal_instance_id:
-                domains.append(
-                    ('int_instance_id', 'child_of',
-                     [wizard.internal_instance_id.id]))
-            context['main_object_domain'] = domains
-            fct = wizard.trg_model == 'email.coordinate' \
-                and wizard.e_mass_function or wizard.p_mass_function
-            if (fct == 'csv' or wizard.extract_csv) and \
-                    wizard.include_without_coordinate:
-                context['active_test'] = False
-                context['alternative_object_field'] = 'id'
-                context['alternative_target_model'] = \
-                    wizard.distribution_list_id.dst_model_id.model
-                context['alternative_object_domain'] = domains
+        self.ensure_one()
+        context = self.env.context.copy()
+        main_domain = []
+        if self.internal_instance_id:
+            main_domain.append(
+                ('int_instance_id', 'child_of', self.internal_instance_id.ids)
+            )
+        context.update({
+            'main_object_domain': main_domain,
+        })
+        fct = self.e_mass_function
+        if self.trg_model != 'email.coordinate':
+            fct = self.p_mass_function
+        if (fct == 'csv' or self.extract_csv) and self.include_without_coordinate:
+            context.update({
+                'active_test': False,
+                'alternative_object_field': 'id',
+                'alternative_target_model':
+                    self.distribution_list_id.dst_model_id.model,
+                'alternative_object_domain': main_domain,
+            })
+        if self.sort_by:
+            context.update({
+                'sort_by': self.sort_by,
+            })
 
-            if wizard.sort_by:
-                context['sort_by'] = wizard.sort_by
+        csv_model = self.trg_model
+        self_ctx = self.with_context(context)
+        if self.trg_model == 'email.coordinate':
+            alternatives, mains = self_ctx._mass_email_coordinate(
+                fct, main_domain)
+            if alternatives and self.extract_csv:
+                fct = 'csv'
+                csv_model = 'postal.coordinate'
+                mains = alternatives
+        elif self.trg_model == 'postal.coordinate':
+            alternatives, mains = self_ctx._mass_postal_coordinate(
+                fct, main_domain)
 
-            csv_model = wizard.trg_model
+        if fct == 'csv':
+            if self.include_without_coordinate:
+                self.export_csv('virtual.target', alternatives)
+            else:
+                self.export_csv(csv_model, mains, self.groupby_coresidency)
 
-            if wizard.trg_model == 'email.coordinate':
-                if not wizard.include_unauthorized:
-                    domains.append(('email_unauthorized', '=', False))
-
-                if wizard.bounce_counter:
-                    wizard.bounce_counter = wizard.bounce_counter if \
-                        wizard.bounce_counter >= 0 else 0
-                    domains.append(
-                        ('email_bounce_counter', '<=', wizard.bounce_counter))
-
-                context['main_object_field'] = 'email_coordinate_id'
-                context['main_target_model'] = 'email.coordinate'
-
-                if fct == 'csv':
-                    #
-                    # Get CSV containing email coordinates
-                    #
-                    active_ids, alternative_ids = self.pool[
-                        'distribution.list']._get_complex_distribution_list_ids(
-                            cr, uid, [wizard.distribution_list_id.id],
-                            context=context)
-
-                elif fct == 'email_coordinate_id':
-                    #
-                    # Send mass mailing
-                    #
-                    template_id = wizard.email_template_id.id
-                    dl_id = wizard.distribution_list_id and \
-                        wizard.distribution_list_id.id or False
-                    mail_composer_vals = {
-                        'email_from': wizard.email_from,
-                        'parent_id': False,
-                        'use_active_domain': False,
-                        'composition_mode': 'mass_mail',
-                        'partner_ids': [[6, False, []]],
-                        'notify': False,
-                        'template_id': template_id,
-                        'subject': wizard.subject,
-                        'distribution_list_id': dl_id,
-                        'mass_mailing_name': wizard.mass_mailing_name,
-                        'model': wizard.trg_model,
-                        'body': wizard.body,
-                        'contact_ab_pc': wizard.contact_ab_pc,
-                    }
-                    attachments = wizard.attachment_ids.ids or []
-                    if template_id:
-                        value = composer.onchange_template_id(
-                            cr, uid, ids, template_id, 'mass_mail', '', 0,
-                            context=context)['value']
-                        attachments += value.get('attachment_ids', [])
-                        for fld in ['subject', 'body', 'email_from']:
-                            value.pop(fld, None)
-                        mail_composer_vals.update(value)
-                    if attachments:
-                        mail_composer_vals['attachment_ids'] = [
-                            [6, False, attachments]
-                        ]
-                    mail_composer_id = composer.create(
-                        cr, uid, mail_composer_vals, context=context)
-
-                    if wizard.extract_csv:
-                        if not wizard.include_without_coordinate:
-                            context['alternative_object_field'] = \
-                                'postal_coordinate_id'
-                            context['alternative_target_model'] = \
-                                'postal.coordinate'
-                            context['alternative_object_domain'] = [
-                                ('email_coordinate_id', '=', False)]
-                    active_ids, alternative_ids = self.pool[
-                        'distribution.list']._get_complex_distribution_list_ids(
-                            cr, uid, [wizard.distribution_list_id.id],
-                            context=context)
-
-                    if wizard.contact_ab_pc < 100 or \
-                            context.get('mailing_group_id'):
-                        if context.get('mailing_group_id'):
-                            stats_obj = self.pool['mail.mail.statistics']
-                            stats_ids = stats_obj.search(
-                                cr, uid, [
-                                    ('mass_mailing_id.group_id', '=',
-                                     context['mailing_group_id']),
-                                ])
-                            stats = stats_obj.browse(cr, uid, stats_ids)
-                            already_mailed = [stat.res_id for stat in stats]
-                            remaining = set(active_ids).difference(
-                                already_mailed)
-                        else:
-                            group_obj = self.pool['mail.mass_mailing.group']
-                            new_group_id = group_obj.create(cr, uid, {
-                                'distribution_list_id':
-                                    wizard.distribution_list_id.id,
-                                'include_unauthorized':
-                                    wizard.include_unauthorized,
-                                'internal_instance_id':
-                                    wizard.internal_instance_id.id,
-                            }, context=context)
-                            context['mailing_group_id'] = new_group_id
-                            remaining = active_ids
-                        topick = int(
-                            len(active_ids) / 100.0 * wizard.contact_ab_pc)
-                        if topick > len(remaining):
-                            topick = len(remaining)
-                        active_ids = random.sample(remaining, topick)
-
-                    if alternative_ids and wizard.extract_csv:
-                        if wizard.postal_mail_name and \
-                                not wizard.include_without_coordinate:
-                            self._generate_postal_log(
-                                cr, uid, wizard.postal_mail_name,
-                                alternative_ids, context=context)
-                    elif not active_ids:
-                        raise orm.except_orm(
-                            _('Error'), _('There are no recipients'))
-                    context['active_ids'] = active_ids
-                    context['dl_computed'] = True
-                    context['email_coordinate_path'] = 'email'
-                    composer.send_mail(
-                        cr, uid, [mail_composer_id], context=context)
-                    if alternative_ids and wizard.extract_csv:
-                        fct = 'csv'
-                        csv_model = 'postal.coordinate'
-                        active_ids = alternative_ids
-
-                    if wizard.mass_mailing_name:
-                        self.post_processing(
-                            cr, uid, [wizard.id], active_ids, context=context)
-
-                elif fct == 'vcard':
-                    #
-                    # Get VCARD containing email coordinates
-                    #
-                    active_ids = self.pool[
-                        'distribution.list']._get_complex_distribution_list_ids(
-                            cr, uid, [wizard.distribution_list_id.id],
-                            context=context)[0]
-                    file_exported = self.export_vcard(cr, uid, ids,
-                                                      active_ids, context)
-
-            elif wizard.trg_model == 'postal.coordinate':
-                if not wizard.include_unauthorized:
-                    domains.append(('postal_unauthorized', '=', False))
-
-                if wizard.bounce_counter:
-                    wizard.bounce_counter = wizard.bounce_counter if \
-                        wizard.bounce_counter >= 0 else 0
-                    domains.append(
-                        ('postal_bounce_counter', '<=', wizard.bounce_counter))
-
-                context['main_object_field'] = 'postal_coordinate_id'
-                context['main_target_model'] = 'postal.coordinate'
-
-                if fct == 'csv':
-                    #
-                    # Get CSV containing postal coordinates
-                    #
-                    active_ids, alternative_ids = self.pool[
-                        'distribution.list']._get_complex_distribution_list_ids(
-                            cr, uid, [wizard.distribution_list_id.id],
-                            context=context)
-
-                    if wizard.postal_mail_name and \
-                            not wizard.include_without_coordinate:
-                        self.post_processing(
-                            cr, uid, [wizard.id], active_ids, context=context)
-                        self._generate_postal_log(
-                            cr, uid, wizard.postal_mail_name, active_ids,
-                            context=context)
-
-                elif fct == 'postal_coordinate_id':
-                    #
-                    # Get postal coordinate PDF labels
-                    #
-                    active_ids, alternative_ids = self.pool[
-                        'distribution.list']._get_complex_distribution_list_ids(
-                            cr, uid, [wizard.distribution_list_id.id],
-                            context=context)
-                    if wizard.postal_mail_name and \
-                            not wizard.include_without_coordinate:
-                        self.post_processing(
-                            cr, uid, [wizard.id], active_ids, context=context)
-                    ctx = context.copy()
-                    if wizard.groupby_coresidency:
-                        to_print_ids = []
-                        co_res_ids = []
-                        for postal in self.pool['postal.coordinate'].browse(
-                                cr, uid, active_ids, context=context):
-                            if postal.co_residency_id:
-                                if postal.co_residency_id.id not in\
-                                        co_res_ids:
-                                    co_res_ids.append(
-                                        postal.co_residency_id.id)
-                                    to_print_ids.append(postal.id)
-                            else:
-                                to_print_ids.append(postal.id)
-                        active_ids = to_print_ids
-                    ctx.update({
-                        'active_model': 'postal.coordinate',
-                        'active_ids': active_ids,
-                        'groupby_co_residency': wizard.groupby_coresidency,
-                    })
-                    report = self.pool['report'].get_pdf(
-                        cr, uid, active_ids,
-                        report_name='mozaik_address.' +
-                        'report_postal_coordinate_label', context=ctx)
-
-                    pdf = base64.encodestring(report)
-
-                    self.write(cr, uid, ids[0],
-                               {'export_file': pdf,
-                                'export_filename': 'report.pdf'},
-                               context=context)
-                    file_exported = True
-
-                    if wizard.postal_mail_name:
-                        self._generate_postal_log(
-                            cr, uid, wizard.postal_mail_name, active_ids,
-                            context=context)
-
-            if fct == 'csv':
-                if wizard.include_without_coordinate:
-                    file_exported = self.export_csv(
-                        cr, uid, ids, 'virtual.target', alternative_ids,
-                        context=context)
-                else:
-                    file_exported = self.export_csv(
-                        cr, uid, ids, csv_model, active_ids,
-                        wizard.groupby_coresidency, context=context)
-
-        if file_exported:
             return {
                 'name': _('Mass Function'),
                 'type': 'ir.actions.act_window',
                 'res_model': 'distribution.list.mass.function',
                 'view_mode': 'form',
                 'view_type': 'form',
-                'res_id': ids[0],
+                'res_id': self.id,
                 'views': [(False, 'form')],
                 'target': 'new',
             }
+        return {}
 
-    def _generate_postal_log(self, cr, uid,
-                             postal_mail_name, postal_coordinate_ids,
-                             context=None):
+    def _mass_postal_coordinate(self, fct, main_domain):
+        """
+        Manage mass function when the target model is postal.coordinate
+        :param fct: str
+        :param main_domain: list (domain)
+        :return: tuple of 2 recordset
+        """
+        context = self.env.context.copy()
+        if not self.include_unauthorized:
+            main_domain.append(('postal_unauthorized', '=', False))
+        if self.bounce_counter:
+            bounce_counter = max([self.bounce_counter, 0])
+            main_domain.append(('postal_bounce_counter', '<=', bounce_counter))
+        context.update({
+            'main_object_field': 'postal_coordinate_id',
+            'main_target_model': 'postal.coordinate',
+        })
+        if fct == 'csv':
+            # Get CSV containing postal coordinates
+            mains, alternatives = self.distribution_list_id.with_context(
+                context)._get_complex_distribution_list_ids()
+
+            if self.postal_mail_name and not self.include_without_coordinate:
+                self.with_context(context)._post_processing(mains)
+                self.with_context(context)._generate_postal_log(
+                    self.postal_mail_name, mains)
+        return alternatives, mains
+
+    def _mass_email_coordinate(self, fct, main_domain):
+        """
+        Manage mass function when the target model is email.coordinate
+        :param fct: str
+        :param main_domain: list (domain)
+        :return: tuple of 2 recordset
+        """
+        context = self.env.context.copy()
+        group_obj = self.env['mail.mass_mailing.group']
+        if not self.include_unauthorized:
+            main_domain.append(('email_unauthorized', '=', False))
+        if self.bounce_counter:
+            bounce_counter = max([self.bounce_counter, 0])
+            main_domain.append(('email_bounce_counter', '<=', bounce_counter))
+        context.update({
+            'main_object_field': 'email_coordinate_id',
+            'main_target_model': 'email.coordinate',
+        })
+        if fct == 'csv':
+            # Get CSV containing email coordinates
+            mains, alternatives = self.distribution_list_id.with_context(
+                context)._get_complex_distribution_list_ids()
+
+        elif fct == 'email_coordinate_id':
+            # Send mass mailing
+            mail_composer = self.with_context(context)._create_mail_composer()
+
+            if self.extract_csv:
+                if not self.include_without_coordinate:
+                    context.update({
+                        'alternative_object_field': 'postal_coordinate_id',
+                        'alternative_target_model': 'postal.coordinate',
+                        'alternative_object_domain': [
+                            ('email_coordinate_id', '=', False),
+                        ],
+                    })
+                mains, alternatives = self.distribution_list_id.with_context(
+                    context)._get_complex_distribution_list_ids()
+
+            if self.contact_ab_pc < 100 or context.get('mailing_group_id'):
+                if context.get('mailing_group_id'):
+                    stats_obj = self.env['mail.mail.statistics']
+                    domain = [
+                        ('mass_mailing_id.group_id', '=',
+                         context.get('mailing_group_id')),
+                    ]
+                    stats = stats_obj.search(domain)
+                    already_mailed = stats.mapped("res_id")
+                    remaining = set(mains).difference(already_mailed)
+                else:
+                    new_group = group_obj.with_context(context).create({
+                        'distribution_list_id': self.distribution_list_id.id,
+                        'include_unauthorized': self.include_unauthorized,
+                        'internal_instance_id': self.internal_instance_id.id,
+                    })
+                    context.update({
+                        'mailing_group_id': new_group.id,
+                    })
+                    remaining = mains
+                topick = int(len(mains) / 100.0 * self.contact_ab_pc)
+                if topick > len(remaining):
+                    topick = len(remaining)
+                mains = random.sample(remaining, topick)
+
+            if alternatives and self.extract_csv:
+                if self.postal_mail_name and not self.include_without_coordinate:
+                    self.with_context(context)._generate_postal_log(
+                        self.postal_mail_name, alternatives)
+            elif not mains:
+                raise exceptions.UserError(_('There are no recipients'))
+            context.update({
+                'active_ids': mains.ids,
+                'dl_computed': True,
+                'email_coordinate_path': 'email',
+            })
+            mail_composer.with_context(context).send_mail()
+
+            if self.mass_mailing_name:
+                self.with_context(context)._post_processing(mains)
+        return alternatives, mains
+
+    def _create_mail_composer(self):
+        """
+        Create the mail.compose.message
+        :return: mail.compose.message recordset
+        """
+        csv_model = self.trg_model
+        composer_obj = self.env['mail.compose.message']
+        mail_composer_vals = {
+            'email_from': self.email_from,
+            'parent_id': False,
+            'use_active_domain': False,
+            'composition_mode': 'mass_mail',
+            'partner_ids': [[6, False, []]],
+            'notify': False,
+            'template_id': self.email_template_id.id,
+            'subject': self.subject,
+            'distribution_list_id': self.distribution_list_id.id,
+            'mass_mailing_name': self.mass_mailing_name,
+            'model': csv_model,
+            'body': self.body,
+            'contact_ab_pc': self.contact_ab_pc,
+        }
+        attachments = self.attachment_ids.ids or []
+        if self.email_template_id:
+            value = composer_obj.onchange_template_id(
+                self.email_template_id.id, 'mass_mail', '', 0).get('value', {})
+            attachments += value.get('attachment_ids', [])
+            for fld in ['subject', 'body', 'email_from']:
+                value.pop(fld, None)
+            mail_composer_vals.update(value)
+        if attachments:
+            mail_composer_vals.update({
+                'attachment_ids': [(6, False, attachments)],
+            })
+        return composer_obj.create(mail_composer_vals)
+
+    @api.multi
+    def _generate_postal_log(self, postal_mail_name, postal_coordinates):
         """
         Generate a postal mailing for the specified parameters:
         * postal mailing name
         * postal coordinate ids
+        :param postal_mail_name:
+        :param postal_coordinates:
+        :return: bool
         """
-        if not postal_coordinate_ids:
+        if not postal_coordinates:
             return True
-        today = fields.date.today()
-        postal_mail_obj = self.pool['postal.mail']
-        postal_mail_id = postal_mail_obj.search(cr, uid, [
+        today = fields.Date.today()
+        postal_mail_obj = self.env['postal.mail']
+        postal_mail = postal_mail_obj.search([
             ('name', '=', postal_mail_name),
             ('sent_date', '=', today),
-        ], context=context)
-        if not postal_mail_id:
-            postal_mail_id = postal_mail_obj.create(cr, uid, {
+        ], limit=1)
+        if not postal_mail:
+            postal_mail = postal_mail_obj.create({
                 'name': postal_mail_name,
                 'sent_date': today,
-            }, context=context)
-        else:
-            postal_mail_id = postal_mail_id[0]
-
-        coords = self.pool['postal.coordinate'].browse(
-            cr, uid, postal_coordinate_ids, context=context)
-        for coord in coords:
-            self.pool['postal.mail.log'].create(cr, uid, {
-                'postal_mail_id': postal_mail_id,
+            })
+        for coord in postal_coordinates:
+            self.env['postal.mail.log'].create({
+                'postal_mail_id': postal_mail.id,
                 'postal_coordinate_id': coord.id,
                 'partner_id': coord.partner_id.id,
                 'sent_date': today,
-            }, context=context)
-
+            })
         return True
 
-    def export_csv(self, cr, uid, ids, model, model_ids, group_by=False,
-                   context=None):
+    def export_csv(self, model, targets, group_by=False):
         """
         Export the specified coordinates to a CSV file.
+        :param model: str
+        :param targets: recordset
+        :param group_by: bool
+        :return: bool
         """
-        csv_content = self.pool.get('export.csv').get_csv(
-            cr, uid, model, model_ids, group_by=group_by, context=context)
+        csv_content = self.env['export.csv'].get_csv(
+            model, targets, group_by=group_by)
+        csv_content = base64.encodebytes(csv_content.encode())
+        return self.write({
+            'export_file': csv_content,
+            'export_filename': 'extract.csv',
+        })
 
-        csv_content = base64.encodestring(csv_content)
+    def _post_processing(self, records):
+        """
 
-        self.write(cr, uid, ids[0],
-                   {'export_file': csv_content,
-                    'export_filename': 'extract.csv'},
-                   context=context)
-
+        :param records: recordset
+        :return: bool
+        """
         return True
 
-    def export_vcard(self, cr, uid, ids, email_coordinate_ids, context=None):
+    @api.model
+    def _get_partner_from(self):
         """
-        ============
-        export_vcard
-        ============
-        Export the specified coordinates to a VCF file.
-        :type email_coordinate_ids: []
+        Get partner from distribution list
+        :return: res.partner recordset
         """
-        vcard_content = self.pool.get('export.vcard').get_vcard(
-            cr, uid, email_coordinate_ids, context=context)
-        vcard_content = base64.encodestring(vcard_content)
+        partners = self.env['res.partner'].browse()
+        model = self.env.context.get('active_model')
+        active_id = self.env.context.get('active_id') or False
+        dist_list = active_id and self.env[model].browse([active_id]) or False
+        if dist_list and model == self._name:
+            # in case of wizard reloading
+            dist_list = dist_list.distribution_list_id
+        if dist_list:
+            # first: the sender partner
+            partners |= dist_list.partner_id
+            # than: the requestor user
+            if self.env.user.partner_id in dist_list.res_partner_m2m_ids:
+                partners |= self.env.user.partner_id
+            elif self.env.user in dist_list.res_users_ids:
+                partners |= self.env.user.partner_id
+            # finally: all owners and allowed partners that are legal persons
+            partners |= dist_list.res_partner_m2m_ids.filtered(
+                lambda s: s.is_company)
+            partners |= dist_list.res_users_ids.mapped(
+                'partner_id').filtered(lambda s: s.is_company)
+        return partners.filtered(lambda s: s.email)
 
-        self.write(cr, uid, ids[0],
-                   {'export_file': vcard_content,
-                    'export_filename': 'extract.vcf'},
-                   context=context)
+    @api.model
+    def _get_domain_partner_from_id(self):
+        """
+        Load partners and transform results into a domain
+        :return: list (domain)
+        """
+        partners = self._get_partner_from()
+        return [('id', 'in', partners.ids)]
 
-        return True
+    @api.model
+    def _get_default_partner_from_id(self):
+        """
 
-    def post_processing(self, cr, uid, ids, active_ids, context=None):
-        pass
+        :return: res.partner recordset
+        """
+        if self.env.user.partner_id in self._get_partner_from():
+            return self.env.user.partner_id
+        return self.env['res.partner'].browse()
+
+    @api.onchange('partner_from_id', 'partner_name')
+    def _onchange_partner_from(self):
+        self.ensure_one()
+        name = ''
+        email = ''
+        if self.partner_from_id:
+            name = self.partner_from_id.name
+            email = self.partner_from_id.email or ''
+        if self.partner_name:
+            name = self.partner_name and self.partner_name.strip() or name
+        self.email_from = formataddr((name, email))
+
+    @api.onchange('email_template_id')
+    def _onchange_template_id(self):
+        """
+        Instanciate subject and body from template to wizard
+        """
+        tmpl = self.email_template_id
+        if tmpl:
+            if tmpl.subject:
+                self.subject = tmpl.subject
+            if tmpl.body_html:
+                self.body = tmpl.body_html
+
+    @api.onchange('placeholder_id', 'involvement_category_id')
+    def _onchange_placeholder_id(self):
+        code_key = '{{CODE}}'
+        for wizard in self:
+            if wizard.placeholder_id:
+                placeholder_value = wizard.placeholder_id.placeholder
+                wizard.placeholder_id = False
+                if code_key in placeholder_value \
+                        and wizard.involvement_category_id:
+                    placeholder_value = placeholder_value.replace(
+                        code_key, wizard.involvement_category_id.code)
+                wizard.placeholder_value = placeholder_value
+
+    @api.multi
+    def save_as_template(self):
+        self.ensure_one()
+        template_name = u"Mass Function: {subject}"
+        values = {
+            'name': template_name.format(subject=self.subject),
+            'subject': self.subject or False,
+            'body_html': self.body or False,
+        }
+        template = self.env['email.template'].create(values)
+        self.email_template_id = template
+        self._onchange_template_id()
+
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': self.id,
+            'res_model': self._name,
+            'target': 'new',
+            'context': self.env.context,
+        }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <!-- Postal Mail Log -->
+
+    <record id="postal_mail_log_search_view" model="ir.ui.view">
+        <field name="name">postal.mail.log.search</field>
+        <field name="model">postal.mail.log</field>
+        <field name="arch" type="xml">
+            <search string="Postal Mail Logs" version="7.0">
+                <field name="name"/>
+                <field name="postal_mail_id"/>
+                <field name="postal_coordinate_id"/>
+                <field name="partner_id"/>
+                <field name="sent_date"/>
+                <separator/>
+                <filter name="expired" string="Expired" context="{'invisible_expire_date': False}" domain="[('active','=',False)]" help="Expired Postal Mail Logs"/>
+                <filter name="all" string="All" context="{'invisible_expire_date': False}" domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Postal Mail Logs, expired or not"/>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="postal_mail_id_group" string="Postal Mailing" domain="[]" context="{'group_by': 'postal_mail_id'}"/>
+                    <filter name="partner_id_group" string="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter name="postal_coordinate_id" string="Postal Coordinate" domain="[]" context="{'group_by': 'postal_coordinate_id'}"/>
+                    <filter name="sent_date_group" string="Sent Date" domain="[]" context="{'group_by': 'sent_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="postal_mail_log_tree_view" model="ir.ui.view">
+        <field name="name">postal.mail.history.tree</field>
+        <field name="model">postal.mail.log</field>
+        <field name="arch" type="xml">
+            <tree string="Postal Mail Logs" version="7.0">
+                <field name="name"/>
+                <field name="sent_date"/>
+                <field name="postal_mail_id"/>
+                <field name="postal_coordinate_id"/>
+                <field name="partner_id"/>
+                <field name="expire_date" invisible="context.get('invisible_expire_date', True)"/>
+                <field name="active" groups="mozaik_base.res_groups_developper"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="postal_mail_log_form_view" model="ir.ui.view">
+        <field name="name">postal.mail.log.form</field>
+        <field name="model">postal.mail.log</field>
+        <field name="arch" type="xml">
+            <form string="Postal Mail Log" version="7.0">
+                <header>
+                    <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}" invisible="context.get('popup')" groups="mozaik_base.mozaik_res_groups_configurator">
+                        <button name="action_invalidate" string="Invalidate" type="object"
+                                confirm="Invalidate Postal Mail Log: proceed anyway?" />
+                    </span>
+                </header>
+                <sheet>
+                    <div class="oe_title" name="title">
+                        <label for="postal_mail_id" class="oe_edit_only" attrs="{'invisible':[('postal_mail_id','=',False)]}"/>
+                        <h1>
+                            <field name="postal_mail_id" attrs="{'readonly': [('id','!=',False)],'invisible':[('postal_mail_id','=',False)]}"/>
+                        </h1>
+                        <label for="name" class="oe_edit_only" attrs="{'invisible':[('postal_mail_id','!=',False)]}"/>
+                        <h1>
+                            <field name="name" attrs="{'readonly': [('id','!=',False)], 'invisible':[('postal_mail_id','!=',False)], 'required':[('postal_mail_id','=',False)]}"/>
+                        </h1>
+                    </div>
+                    <group name="data">
+                        <group name="data1">
+                            <field name="partner_id" domain="[('is_assembly','=',False)]" attrs="{'readonly':[('postal_coordinate_id','!=',False)]}"/>
+                            <field name="postal_coordinate_id" attrs="{'readonly': [('id','!=',False)]}" context="{'default_partner_id':partner_id }"/>
+                        </group>
+                        <group name="data2">
+                            <field name="sent_date"/>
+                        </group>
+                    </group>
+                    <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                        <group name="validity">
+                            <field name="create_date"/>
+                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}"/>
+                        </group>
+                        <group name="other">
+                        </group>
+                    </group>
+                </sheet>
+                <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                    <div class="oe_formview oe_form_sheet_width">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="id"/>
+                            <field name="active"/>
+                            <field name="partner_instance_id"/>
+                        </group>
+                    </div>
+                </div>
+                <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="postal_mail_log_action" model="ir.actions.act_window">
+        <field name="name">Postal Mail Logs</field>
+        <field name="res_model">postal.mail.log</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="postal_mail_log_tree_view"/>
+        <field name="search_view_id" ref="postal_mail_log_search_view"/>
+    </record>
+</odoo>

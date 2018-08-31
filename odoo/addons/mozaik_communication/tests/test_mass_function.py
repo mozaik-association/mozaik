@@ -29,11 +29,11 @@ class TestMassFunction(SharedSetupTransactionCase):
         wiz = mfct_obj.browse(cr, uid, wiz_id)
         self.assertFalse(wiz.mass_mailing_name)
         subject = 'Le livre de la jungle'
-        values = mfct_obj.onchange_subject(
+        values = mfct_obj._onchange_subject(
             cr, uid, [wiz_id], subject, wiz.mass_mailing_name)
         mfct_obj.write(cr, uid, [wiz_id], values['value'])
         self.assertEqual(subject, wiz.mass_mailing_name)
-        values = mfct_obj.onchange_subject(
+        values = mfct_obj._onchange_subject(
             cr, uid, [wiz_id], 'La guerre des étoiles', wiz.mass_mailing_name)
         self.assertFalse(values)
         return

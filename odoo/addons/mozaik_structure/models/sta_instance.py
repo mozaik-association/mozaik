@@ -46,7 +46,7 @@ class StaInstance(models.Model):
         string='Internal Instance',
         index=True,
         track_visibility='onchange',
-        default=lambda s: s._get_default_instance_id(),
+        default=lambda s: s._get_default_instance(),
     )
     identifier = fields.Char(
         'External Identifier (INS)',

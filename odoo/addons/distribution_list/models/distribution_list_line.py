@@ -227,7 +227,7 @@ class DistributionListLine(models.Model):
             'view_id': False,
             'views': [(False, 'tree')],
             'context': self.env.context.copy(),
-            'domain': self.domain,
+            'domain': self._get_eval_domain(),
             'target': 'current',
         }
 

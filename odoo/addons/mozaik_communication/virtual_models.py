@@ -1,41 +1,18 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_communication, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_communication is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_communication is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_communication.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from lxml import etree
 
-from openerp import tools, api
-from openerp.osv import orm, fields
+from odoo import api, fields, tools, models
 
-from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
-from openerp.addons.mozaik_person.res_partner import AVAILABLE_TONGUES
-from openerp.addons.mozaik_retrocession.retrocession \
+from odoo.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
+from odoo.addons.mozaik_person.res_partner import AVAILABLE_TONGUES
+from odoo.addons.mozaik_retrocession.retrocession \
     import RETROCESSION_AVAILABLE_STATES
-from openerp.addons.mozaik_mandate.mandate \
+from odoo.addons.mozaik_mandate.mandate \
     import mandate_category_available_types
 
 
-class abstract_virtual_target(orm.AbstractModel):
+class abstract_virtual_target(models.AbstractModel):
     _name = 'abstract.virtual.target'
     _description = 'Abstract Virtual Target'
 

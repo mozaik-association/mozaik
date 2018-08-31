@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 {
     'name': 'MOZAIK: Communication',
     'version': '11.0.1.0.0',
@@ -28,9 +26,6 @@ MOZAIK Communication
 ** Communication/Configuration
 * Customization of the Distribution List Module
 """,
-    'images': [
-        'static/src/img/icon-mass.png',
-    ],
     'data': [
         'security/mail_mass_mailing_group.xml',
         'security/ir.model.access.csv',
@@ -52,12 +47,10 @@ MOZAIK Communication
         'views/email_template_view.xml',
         'views/mass_mailing_report.xml',
     ],
-    'qweb': [
-    ],
     'demo': [
-    ],
-    'test': [
+        'demo/communication_data.xml',
+        'demo/postal_mail_data.xml',
     ],
     'license': 'AGPL-3',
-    'installable': False,
+    'installable': True,
 }

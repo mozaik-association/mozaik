@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="membership_request_search_view" model="ir.ui.view">
+        <field name="name">membership.request.search (mozaik_communication)</field>
+        <field name="model">membership.request</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_request_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='supporter']" position="after">
+                <filter name="other" string="Other"
+                        domain="[('request_type', '=', 'n')]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_request_form_view" model="ir.ui.view">
+        <field name="name">membership.request.form (mozaik_communication)</field>
+        <field name="model">membership.request</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_request_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='request_type']" position="after">
+                <field name="distribution_list_ids" widget="many2many_tags" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

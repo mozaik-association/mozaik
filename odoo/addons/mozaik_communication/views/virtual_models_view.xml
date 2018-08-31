@@ -1,1324 +1,1320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="virtual_target_tree_view" model="ir.ui.view">
+        <field name="name">virtual.target.tree</field>
+        <field name="model">virtual.target</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Virtual Target" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="email" />
+                <field name="postal" />
+                <field name="membership_state_id" />
+                <field name="int_instance_id" />
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Virtual Target -->
+    <record id="virtual_target_search_view" model="ir.ui.view">
+        <field name="name">virtual.target.search</field>
+        <field name="model">virtual.target</field>
+        <field name="arch" type="xml">
+            <search string="Virtual Target">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
 
-        <record id="virtual_target_tree_view" model="ir.ui.view">
-            <field name="name">virtual.target.tree</field>
-            <field name="model">virtual.target</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Virtual Target" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="email" />
-                    <field name="postal" />
-                    <field name="membership_state_id" />
-                    <field name="int_instance_id" />
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
 
-        <record id="virtual_target_search_view" model="ir.ui.view">
-            <field name="name">virtual.target.search</field>
-            <field name="model">virtual.target</field>
-            <field name="arch" type="xml">
-                <search string="Virtual Target">
-                    <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
-
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-
-                    <filter string="Natural Persons" name="type_person"
+                <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
-                    <filter string="Legal Persons" name="type_company"
+                <filter string="Legal Persons" name="type_company"
                         domain="[('is_company','!=',0)]" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
 
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="email_coordinate" string="Email Coordinate" context="{'group_by':'email_coordinate_id'}" />
-                        <filter name="postal_coordinate" string="Postal Coordinate" context="{'group_by':'postal_coordinate_id'}" />
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="email_coordinate" string="Email Coordinate" context="{'group_by':'email_coordinate_id'}" />
+                    <filter name="postal_coordinate" string="Postal Coordinate" context="{'group_by':'postal_coordinate_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <!-- Partners/Involvements -->
+    <!-- Partners/Involvements -->
 
-        <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.involvement.search</field>
-            <field name="model">virtual.partner.involvement</field>
-            <field name="arch" type="xml">
-                <search string="Partners/Involvements">
-                    <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
+    <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.involvement.search</field>
+        <field name="model">virtual.partner.involvement</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Involvements">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-                    <field name="involvement_category_id" />
-                    <field name="involvement_type"/>
-                    <field string="Involvement Date > ..." name="effective_time"
-                        filter_domain="[('effective_time','>',self)]" />
-                    <field string="Involvement Date &lt; ..." name="effective_time"
-                        filter_domain="[('effective_time','&lt;',self)]" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="involvement_category_id" />
+                <field name="involvement_type"/>
+                <field string="Involvement Date > ..." name="effective_time"
+                       filter_domain="[('effective_time','>',self)]" />
+                <field string="Involvement Date &lt; ..." name="effective_time"
+                       filter_domain="[('effective_time','&lt;',self)]" />
 
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
-                    <field name="nationality_id"/>
+                <field name="interests_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                <field name="nationality_id"/>
 
-                    <filter string="Natural Persons" name="type_person"
+                <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
-                    <filter string="Legal Persons" name="type_company"
+                <filter string="Legal Persons" name="type_company"
                         domain="[('is_company','!=',0)]" />
-                    <separator />
-                    <filter string="Male" name="male"
+                <separator />
+                <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female"
+                <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
-                    <separator />
-                    <filter string="French" name="french"
+                <separator />
+                <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german"
+                <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
-                    <separator />
-                    <filter string="Donor" name="donor"
+                <separator />
+                <filter string="Donor" name="donor"
                         domain="[('is_donor','=',True)]" />
-                    <separator />
-                    <filter string="Volunteer" name="volunteer"
+                <separator />
+                <filter string="Volunteer" name="volunteer"
                         domain="[('is_volunteer','=',True)]" />
-                    <separator />
-                    <filter string="Employee" name="employee"
+                <separator />
+                <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee"
+                <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
-                    <separator/>
-                    <filter name="without_type" string="Involvement Without Type"
+                <separator/>
+                <filter name="without_type" string="Involvement Without Type"
                         domain="[('involvement_type', '=', False)]"/>
-                    <separator/>
-                    <filter name="promise" string="Promise"
+                <separator/>
+                <filter name="promise" string="Promise"
                         domain="[('promise', '=', True)]"/>
-                    <filter name="donation" string="Donation"
+                <filter name="donation" string="Donation"
                         domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"/>
-                    <separator/>
-                    <filter string="Local Voluntary"
+                <separator/>
+                <filter string="Local Voluntary"
                         name="local_voluntary"
                         domain="[('local_voluntary','=', True)]" />
-                    <filter string="Regional Voluntary"
+                <filter string="Regional Voluntary"
                         name="regional_voluntary"
                         domain="[('regional_voluntary','=', True)]" />
-                    <filter string="National Voluntary"
+                <filter string="National Voluntary"
                         name="national_voluntary"
                         domain="[('national_voluntary','=', True)]" />
-                    <filter string="Non Local Voluntary"
+                <filter string="Non Local Voluntary"
                         name="non_local_voluntary"
                         domain="[('local_voluntary','=', False)]" />
-                    <filter string="Non Regional Voluntary"
+                <filter string="Non Regional Voluntary"
                         name="non_regional_voluntary"
                         domain="[('regional_voluntary','=', False)]" />
-                    <filter string="Non National Voluntary"
+                <filter string="Non National Voluntary"
                         name="non_national_voluntary"
                         domain="[('national_voluntary','=', False)]" />
-                    <separator/>
-                    <filter string="Local Only"
+                <separator/>
+                <filter string="Local Only"
                         name="local_only"
                         domain="[('local_only','=', True)]" />
-                    <filter string="Not Local Only"
+                <filter string="Not Local Only"
                         name="not_local_only"
                         domain="[('local_only','=', False)]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
 
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="involvement_category" string="Involvement Category" context="{'group_by':'involvement_category_id'}" />
-                        <filter name="involvement_type" string="Involvement Type" context="{'group_by': 'involvement_type'}"/>
-                        <filter name="involvement_month" string="Involvement Months" context="{'group_by': 'effective_time'}"/>
-                        <filter name="involvment_year" string="Involvement Years" context="{'group_by': 'effective_time:year'}"/>
-                        <filter name="nationality" string="Nationality" context="{'group_by': 'nationality_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="involvement_category" string="Involvement Category" context="{'group_by':'involvement_category_id'}" />
+                    <filter name="involvement_type" string="Involvement Type" context="{'group_by': 'involvement_type'}"/>
+                    <filter name="involvement_month" string="Involvement Months" context="{'group_by': 'effective_time'}"/>
+                    <filter name="involvment_year" string="Involvement Years" context="{'group_by': 'effective_time:year'}"/>
+                    <filter name="nationality" string="Nationality" context="{'group_by': 'nationality_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_partner_involvement_tree_view" model="ir.ui.view">
-            <field name="name">virtual.partner.involvement.tree</field>
-            <field name="model">virtual.partner.involvement</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Involvements" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
+    <record id="virtual_partner_involvement_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.involvement.tree</field>
+        <field name="model">virtual.partner.involvement</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Involvements" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
 
-                    <field name="involvement_category_id" />
-                    <field name="involvement_type"/>
+                <field name="involvement_category_id" />
+                <field name="involvement_type"/>
 
-                    <field name="birth_date" />
-                    <field name="gender" />
-                    <field name="tongue" />
-                    <field name="is_donor" />
-                    <field name="is_volunteer" />
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="birth_date" />
+                <field name="gender" />
+                <field name="tongue" />
+                <field name="is_donor" />
+                <field name="is_volunteer" />
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Partners/Involvements -->
+    <!-- Add filter for Partners/Involvements -->
 
-        <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.partner.involvement</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.involvement</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_involvement_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.partner.involvement</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
-        </record>
+    <record id="add_filter_from_involvement_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.involvement</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_partner_involvement_action" model="ir.actions.act_window">
-            <field name="name">Partners/Involvements</field>
-            <field name="res_model">virtual.partner.involvement</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_involvement_search_view" />
-            <field name="view_id" ref="virtual_partner_involvement_tree_view" />
-        </record>
+    <record id="virtual_partner_involvement_action" model="ir.actions.act_window">
+        <field name="name">Partners/Involvements</field>
+        <field name="res_model">virtual.partner.involvement</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_involvement_search_view" />
+        <field name="view_id" ref="virtual_partner_involvement_tree_view" />
+    </record>
 
-        <!-- Partners/Relations -->
+    <!-- Partners/Relations -->
 
-        <record id="virtual_partner_relation_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.relation.search</field>
-            <field name="model">virtual.partner.relation</field>
-            <field name="arch" type="xml">
-                <search string="Partners/Relations">
-                    <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
+    <record id="virtual_partner_relation_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.relation.search</field>
+        <field name="model">virtual.partner.relation</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Relations">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-                    <field name="relation_category_id" />
-                    <field name="object_partner_id" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="relation_category_id" />
+                <field name="object_partner_id" />
 
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                <field name="interests_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
 
-                    <filter string="Natural Persons" name="type_person"
+                <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
-                    <filter string="Legal Persons" name="type_company"
+                <filter string="Legal Persons" name="type_company"
                         domain="[('is_company','!=',0)]" />
-                    <filter string="Assemblies" name="type_assembly"
+                <filter string="Assemblies" name="type_assembly"
                         domain="[('is_assembly','!=',0)]" />
-                    <separator />
-                    <filter string="Male" name="male"
+                <separator />
+                <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female"
+                <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
-                    <separator />
-                    <filter string="French" name="french"
+                <separator />
+                <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german"
+                <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
-                    <separator />
-                    <filter string="Employee" name="employee"
+                <separator />
+                <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee"
+                <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="relation_category" string="Relation Category" context="{'group_by':'relation_category_id'}" />
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="relation_category" string="Relation Category" context="{'group_by':'relation_category_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_partner_relation_tree_view" model="ir.ui.view">
-            <field name="name">virtual.partner.relation.tree</field>
-            <field name="model">virtual.partner.relation</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Relations" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
+    <record id="virtual_partner_relation_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.relation.tree</field>
+        <field name="model">virtual.partner.relation</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Relations" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
 
-                    <field name="relation_category_id" />
-                    <field name="object_partner_id" />
+                <field name="relation_category_id" />
+                <field name="object_partner_id" />
 
-                    <field name="birth_date" />
-                    <field name="gender" />
-                    <field name="tongue" />
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="birth_date" />
+                <field name="gender" />
+                <field name="tongue" />
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Partners/Relations -->
+    <!-- Add filter for Partners/Relations -->
 
-        <record id="add_filter_from_relation_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.partner.relation</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_relation_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.relation</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_relation_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.partner.relation</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_relation_action')" />
-        </record>
+    <record id="add_filter_from_relation_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.relation</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_relation_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_partner_relation_action" model="ir.actions.act_window">
-            <field name="name">Partners/Relations</field>
-            <field name="res_model">virtual.partner.relation</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_relation_search_view" />
-            <field name="view_id" ref="virtual_partner_relation_tree_view" />
-        </record>
+    <record id="virtual_partner_relation_action" model="ir.actions.act_window">
+        <field name="name">Partners/Relations</field>
+        <field name="res_model">virtual.partner.relation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_relation_search_view" />
+        <field name="view_id" ref="virtual_partner_relation_tree_view" />
+    </record>
 
-        <!-- Partners/Instances -->
+    <!-- Partners/Instances -->
 
-        <record id="virtual_partner_instance_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.instance.search</field>
-            <field name="model">virtual.partner.instance</field>
-            <field name="arch" type="xml">
-                <search string="Partners/Instances">
-                    <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
+    <record id="virtual_partner_instance_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.instance.search</field>
+        <field name="model">virtual.partner.instance</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Instances">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-                    <field name="membership_state_id" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="membership_state_id" />
 
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                <field name="interests_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
 
-                    <field name="email_category_id" />
-                    <field name="postal_category_id" />
-                    <field name="nationality_id"/>
+                <field name="email_category_id" />
+                <field name="postal_category_id" />
+                <field name="nationality_id"/>
 
-                    <filter string="Main Address" name="main_postal"
+                <filter string="Main Address" name="main_postal"
                         domain="[('main_postal','=',1)]" />
-                    <separator />
-                    <filter string="Main Email" name="main_email"
+                <separator />
+                <filter string="Main Email" name="main_email"
                         domain="[('main_email','=',1)]" />
-                    <separator />
-                    <filter string="Natural Persons" name="type_person"
+                <separator />
+                <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
-                    <filter string="Legal Persons" name="type_company"
+                <filter string="Legal Persons" name="type_company"
                         domain="[('is_company','!=',0)]" />
-                    <separator />
-                    <filter string="Male" name="male"
+                <separator />
+                <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female"
+                <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
-                    <separator />
-                    <filter string="French" name="french"
+                <separator />
+                <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german"
+                <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
-                    <separator />
-                    <filter string="Donor" name="donor"
+                <separator />
+                <filter string="Donor" name="donor"
                         domain="[('is_donor','=',True)]" />
-                    <separator />
-                    <filter string="Volunteer" name="volunteer"
+                <separator />
+                <filter string="Volunteer" name="volunteer"
                         domain="[('is_volunteer','=',True)]" />
-                    <separator />
-                    <filter string="Employee" name="employee"
+                <separator />
+                <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee"
+                <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
-                    <separator/>
-                    <filter string="Local Voluntary"
+                <separator/>
+                <filter string="Local Voluntary"
                         name="local_voluntary"
                         domain="[('local_voluntary','=', True)]" />
-                    <filter string="Regional Voluntary"
+                <filter string="Regional Voluntary"
                         name="regional_voluntary"
                         domain="[('regional_voluntary','=', True)]" />
-                    <filter string="National Voluntary"
+                <filter string="National Voluntary"
                         name="national_voluntary"
                         domain="[('national_voluntary','=', True)]" />
-                    <filter string="Non Local Voluntary"
+                <filter string="Non Local Voluntary"
                         name="non_local_voluntary"
                         domain="[('local_voluntary','=', False)]" />
-                    <filter string="Non Regional Voluntary"
+                <filter string="Non Regional Voluntary"
                         name="non_regional_voluntary"
                         domain="[('regional_voluntary','=', False)]" />
-                    <filter string="Non National Voluntary"
+                <filter string="Non National Voluntary"
                         name="non_national_voluntary"
                         domain="[('national_voluntary','=', False)]" />
-                    <separator/>
-                    <filter string="Local Only"
+                <separator/>
+                <filter string="Local Only"
                         name="local_only"
                         domain="[('local_only','=', True)]" />
-                    <filter string="Not Local Only"
+                <filter string="Not Local Only"
                         name="not_local_only"
                         domain="[('local_only','=', False)]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="state" string="State" context="{'group_by':'membership_state_id'}" />
-                        <filter name="nationality" string="Nationality" context="{'group_by': 'nationality_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="state" string="State" context="{'group_by':'membership_state_id'}" />
+                    <filter name="nationality" string="Nationality" context="{'group_by': 'nationality_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_partner_instance_tree_view" model="ir.ui.view">
-            <field name="name">virtual.partner.instance.tree</field>
-            <field name="model">virtual.partner.instance</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Instances" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
+    <record id="virtual_partner_instance_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.instance.tree</field>
+        <field name="model">virtual.partner.instance</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Instances" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
 
-                    <field name="membership_state_id" />
+                <field name="membership_state_id" />
 
-                    <field name="birth_date" />
-                    <field name="gender" />
-                    <field name="tongue" />
-                    <field name="is_donor" />
-                    <field name="is_volunteer" />
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="birth_date" />
+                <field name="gender" />
+                <field name="tongue" />
+                <field name="is_donor" />
+                <field name="is_volunteer" />
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Partners/Instances -->
+    <!-- Add filter for Partners/Instances -->
 
-        <record id="add_filter_from_instance_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.partner.instance</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_instance_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.instance</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_instance_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.partner.instance</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_instance_action')" />
-        </record>
+    <record id="add_filter_from_instance_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.instance</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_instance_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_partner_instance_action" model="ir.actions.act_window">
-            <field name="name">Partners/Instances</field>
-            <field name="res_model">virtual.partner.instance</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_instance_search_view" />
-            <field name="view_id" ref="virtual_partner_instance_tree_view" />
-        </record>
+    <record id="virtual_partner_instance_action" model="ir.actions.act_window">
+        <field name="name">Partners/Instances</field>
+        <field name="res_model">virtual.partner.instance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_instance_search_view" />
+        <field name="view_id" ref="virtual_partner_instance_tree_view" />
+    </record>
 
-        <!-- Partners/Mandates -->
+    <!-- Partners/Mandates -->
 
-        <record id="virtual_partner_mandate_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.mandate.search</field>
-            <field name="model">virtual.partner.mandate</field>
-            <field name="arch" type="xml">
-                <search string="Partners/Mandates">
-                    <field name="identifier" /> 
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
+    <record id="virtual_partner_mandate_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.mandate.search</field>
+        <field name="model">virtual.partner.mandate</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Mandates">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field string="Mandate Start Date > ..." name="start_date"
-                        filter_domain="[('start_date','>',self)]" />
-                    <field string="Mandate Start Date &lt; ..."
-                        name="start_date" filter_domain="[('start_date','&lt;',self)]" />
-                    <field string="Mandate End Date > ..." name="deadline_date"
-                        filter_domain="[('deadline_date','>',self)]" />
-                    <field string="Mandate End Date &lt; ..."
-                        name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]" />
+                <field string="Mandate Start Date > ..." name="start_date"
+                       filter_domain="[('start_date','>',self)]" />
+                <field string="Mandate Start Date &lt; ..."
+                       name="start_date" filter_domain="[('start_date','&lt;',self)]" />
+                <field string="Mandate End Date > ..." name="deadline_date"
+                       filter_domain="[('deadline_date','>',self)]" />
+                <field string="Mandate End Date &lt; ..."
+                       name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]" />
 
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-                    <field name="designation_int_assembly_id" />
-                    <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
-                    <field name="designation_instance_id" string="Designated by non descendants of..." operator="not child_of"/>
-                    <field name="assembly_id" />
-                    <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
-                    <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
-                    <field name="mandate_category_id" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="designation_int_assembly_id" />
+                <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
+                <field name="designation_instance_id" string="Designated by non descendants of..." operator="not child_of"/>
+                <field name="assembly_id" />
+                <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
+                <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
+                <field name="mandate_category_id" />
 
-                    <field name="ext_competencies_m2m_ids" widget="many2one" />
-                    <field name="sta_competencies_m2m_ids" widget="many2one" />
+                <field name="ext_competencies_m2m_ids" widget="many2one" />
+                <field name="sta_competencies_m2m_ids" widget="many2one" />
 
-                    <field name="ref_partner_competencies_m2m_ids" widget="many2one"/>
+                <field name="ref_partner_competencies_m2m_ids" widget="many2one"/>
 
-                    <filter string="In Progress" name="in_progress" domain="[('in_progress','=', True)]"/>
-                    <separator/>
-                    <filter name="sta_mod" string="State Mandate"
+                <filter string="In Progress" name="in_progress" domain="[('in_progress','=', True)]"/>
+                <separator/>
+                <filter name="sta_mod" string="State Mandate"
                         domain="[('model','=','sta.mandate')]" />
-                    <filter name="int_mod" string="Internal Mandate"
+                <filter name="int_mod" string="Internal Mandate"
                         domain="[('model','=','int.mandate')]" />
-                    <filter name="ext_mod" string="External Mandate"
+                <filter name="ext_mod" string="External Mandate"
                         domain="[('model','=','ext.mandate')]" />
-                    <separator />
-                    <filter string="Male" name="male"
+                <separator />
+                <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female"
+                <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
-                    <separator />
-                    <filter string="French" name="french"
+                <separator />
+                <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german"
+                <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
-                    <separator />
-                    <filter string="Employee" name="employee"
+                <separator />
+                <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee"
+                <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}" />
-                        <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
-                        <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}" />
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}" />
+                    <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
+                    <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_partner_mandate_tree_view" model="ir.ui.view">
-            <field name="name">virtual.partner.mandate.tree</field>
-            <field name="model">virtual.partner.mandate</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Mandates" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
+    <record id="virtual_partner_mandate_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.mandate.tree</field>
+        <field name="model">virtual.partner.mandate</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Mandates" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
 
-                    <field name="assembly_id" />
-                    <field name="designation_int_assembly_id" />
-                    <field name="mandate_category_id" />
+                <field name="assembly_id" />
+                <field name="designation_int_assembly_id" />
+                <field name="mandate_category_id" />
 
-                    <field name="start_date" />
+                <field name="start_date" />
 
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Partners/Mandates -->
+    <!-- Add filter for Partners/Mandates -->
 
-        <record id="add_filter_from_mandate_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.partner.mandate</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_mandate_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.mandate</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_mandate_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.partner.mandate</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_mandate_action')" />
-        </record>
+    <record id="add_filter_from_mandate_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.mandate</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_mandate_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_partner_mandate_action" model="ir.actions.act_window">
-            <field name="name">Partners/Mandates</field>
-            <field name="res_model">virtual.partner.mandate</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_mandate_search_view" />
-            <field name="view_id" ref="virtual_partner_mandate_tree_view" />
-            <field name="context">{'search_default_in_progress': True}</field>
-        </record>
+    <record id="virtual_partner_mandate_action" model="ir.actions.act_window">
+        <field name="name">Partners/Mandates</field>
+        <field name="res_model">virtual.partner.mandate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_mandate_search_view" />
+        <field name="view_id" ref="virtual_partner_mandate_tree_view" />
+        <field name="context">{'search_default_in_progress': True}</field>
+    </record>
 
-        <!-- Partners/Candidatures -->
+    <!-- Partners/Candidatures -->
 
-        <record id="virtual_partner_candidature_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.candidature.search</field>
-            <field name="model">virtual.partner.candidature</field>
-            <field name="arch" type="xml">
-                <search string="Partners/Candidatures">
-                    <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
+    <record id="virtual_partner_candidature_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.candidature.search</field>
+        <field name="model">virtual.partner.candidature</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Candidatures">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field string="Mandate Start Date > ..." name="start_date"
-                        filter_domain="[('start_date','>',self)]" />
-                    <field string="Mandate Start Date &lt; ..."
-                        name="start_date" filter_domain="[('start_date','&lt;',self)]" />
+                <field string="Mandate Start Date > ..." name="start_date"
+                       filter_domain="[('start_date','>',self)]" />
+                <field string="Mandate Start Date &lt; ..."
+                       name="start_date" filter_domain="[('start_date','&lt;',self)]" />
 
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-                    <field name="designation_int_assembly_id" />
-                    <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
-                    <field name="designation_instance_id" string="Designated by non descendants of..." operator="not child_of"/>
-                    <field name="assembly_id" />
-                    <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
-                    <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
-                    <field name="mandate_category_id" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="designation_int_assembly_id" />
+                <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
+                <field name="designation_instance_id" string="Designated by non descendants of..." operator="not child_of"/>
+                <field name="assembly_id" />
+                <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
+                <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
+                <field name="mandate_category_id" />
 
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" widget="many2one" />
+                <field name="interests_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" widget="many2one" />
 
-                    <filter name="sta_mod" string="State Candidature"
+                <filter name="sta_mod" string="State Candidature"
                         domain="[('model','=','sta.candidature')]" />
-                    <filter name="int_mod" string="Internal Candidature"
+                <filter name="int_mod" string="Internal Candidature"
                         domain="[('model','=','int.candidature')]" />
-                    <filter name="ext_mod" string="External Candidature"
+                <filter name="ext_mod" string="External Candidature"
                         domain="[('model','=','ext.candidature')]" />
-                    <separator />
-                    <filter string="Male" name="male"
+                <separator />
+                <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female"
+                <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
-                    <separator />
-                    <filter string="French" name="french"
+                <separator />
+                <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german"
+                <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
-                    <separator />
-                    <filter string="Employee" name="employee"
+                <separator />
+                <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee"
+                <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}" />
-                        <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
-                        <filter name="mandate_category" string="Mandate Category" context="{'group_by':'mandate_category_id'}" />
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}" />
+                    <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
+                    <filter name="mandate_category" string="Mandate Category" context="{'group_by':'mandate_category_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_partner_candidature_tree_view" model="ir.ui.view">
-            <field name="name">virtual.partner.candidature.tree</field>
-            <field name="model">virtual.partner.candidature</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Candidatures" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
+    <record id="virtual_partner_candidature_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.candidature.tree</field>
+        <field name="model">virtual.partner.candidature</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Candidatures" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
 
-                    <field name="assembly_id" />
-                    <field name="designation_int_assembly_id" />
-                    <field name="mandate_category_id" />
+                <field name="assembly_id" />
+                <field name="designation_int_assembly_id" />
+                <field name="mandate_category_id" />
 
-                    <field name="start_date" />
+                <field name="start_date" />
 
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Partners/Candidatures -->
+    <!-- Add filter for Partners/Candidatures -->
 
-        <record id="add_filter_from_candidature_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.partner.candidature</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_candidature_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.candidature</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_candidature_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.partner.candidature</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_candidature_action')" />
-        </record>
+    <record id="add_filter_from_candidature_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.candidature</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_candidature_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_partner_candidature_action" model="ir.actions.act_window">
-            <field name="name">Partners/Candidatures</field>
-            <field name="res_model">virtual.partner.candidature</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_candidature_search_view" />
-            <field name="view_id" ref="virtual_partner_candidature_tree_view" />
-        </record>
+    <record id="virtual_partner_candidature_action" model="ir.actions.act_window">
+        <field name="name">Partners/Candidatures</field>
+        <field name="res_model">virtual.partner.candidature</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_candidature_search_view" />
+        <field name="view_id" ref="virtual_partner_candidature_tree_view" />
+    </record>
 
-        <!-- Assemblies/Instances -->
+    <!-- Assemblies/Instances -->
 
-        <record id="virtual_assembly_instance_search_view" model="ir.ui.view">
-            <field name="name">virtual.assembly.instance.search</field>
-            <field name="model">virtual.assembly.instance</field>
-            <field name="arch" type="xml">
-                <search string="Assemblies/Instances">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+    <record id="virtual_assembly_instance_search_view" model="ir.ui.view">
+        <field name="name">virtual.assembly.instance.search</field>
+        <field name="model">virtual.assembly.instance</field>
+        <field name="arch" type="xml">
+            <search string="Assemblies/Instances">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
 
-                    <field name="int_category_assembly_id" string="Internal Assembly Category" />
-                    <field name="sta_category_assembly_id" string="State Assembly Category" />
-                    <field name="ext_category_assembly_id" string="External Assembly Category" />
-                    <field name="sta_power_level_id" string="State Power Level" />
-                    <field name="int_power_level_id" string="Internal Power Level" />
+                <field name="int_category_assembly_id" string="Internal Assembly Category" />
+                <field name="sta_category_assembly_id" string="State Assembly Category" />
+                <field name="ext_category_assembly_id" string="External Assembly Category" />
+                <field name="sta_power_level_id" string="State Power Level" />
+                <field name="int_power_level_id" string="Internal Power Level" />
 
-                    <field name="competencies_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" widget="many2one" />
 
-                    <filter name="sta_mod" string="State Assembly"
+                <filter name="sta_mod" string="State Assembly"
                         domain="[('model','=','sta.assembly')]" />
-                    <filter name="int_mod" string="Internal Assembly"
+                <filter name="int_mod" string="Internal Assembly"
                         domain="[('model','=','int.assembly')]" />
-                    <filter name="ext_mod" string="External Assembly"
+                <filter name="ext_mod" string="External Assembly"
                         domain="[('model','=','ext.assembly')]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
 
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="int_ass_category" string="Internal Assembly Category" context="{'group_by':'int_category_assembly_id'}" />
-                        <filter name="ext_ass_category" string="External Assembly Category" context="{'group_by':'ext_category_assembly_id'}" />
-                        <filter name="sta_ass_category" string="State Assembly Category" context="{'group_by':'sta_category_assembly_id'}" />
-                        <filter name="int_pl" string="Internal Power Level" context="{'group_by':'int_power_level_id'}" />
-                        <filter name="sta_pl" string="State Power Level" context="{'group_by':'sta_power_level_id'}" />
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="int_ass_category" string="Internal Assembly Category" context="{'group_by':'int_category_assembly_id'}" />
+                    <filter name="ext_ass_category" string="External Assembly Category" context="{'group_by':'ext_category_assembly_id'}" />
+                    <filter name="sta_ass_category" string="State Assembly Category" context="{'group_by':'sta_category_assembly_id'}" />
+                    <filter name="int_pl" string="Internal Power Level" context="{'group_by':'int_power_level_id'}" />
+                    <filter name="sta_pl" string="State Power Level" context="{'group_by':'sta_power_level_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_assembly_instance_tree_view" model="ir.ui.view">
-            <field name="name">virtual.assembly.instance.tree</field>
-            <field name="model">virtual.assembly.instance</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Assemblies/Instances" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
+    <record id="virtual_assembly_instance_tree_view" model="ir.ui.view">
+        <field name="name">virtual.assembly.instance.tree</field>
+        <field name="model">virtual.assembly.instance</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Assemblies/Instances" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
 
-                    <field name="category" />
-                    <field name="email_unauthorized" invisible="True"/>
-                    <field name="postal_unauthorized" invisible="True"/>
-                </tree>
-            </field>
-        </record>
+                <field name="category" />
+                <field name="email_unauthorized" invisible="True"/>
+                <field name="postal_unauthorized" invisible="True"/>
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Assemblies/Instances -->
+    <!-- Add filter for Assemblies/Instances -->
 
-        <record id="add_filter_from_assembly_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.assembly.instance</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_assembly_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.assembly.instance</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_assembly_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.assembly.instance</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_assembly_action')" />
-        </record>
+    <record id="add_filter_from_assembly_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.assembly.instance</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_assembly_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_assembly_instance_action" model="ir.actions.act_window">
-            <field name="name">Assemblies/Instances</field>
-            <field name="res_model">virtual.assembly.instance</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_assembly_instance_search_view" />
-            <field name="view_id" ref="virtual_assembly_instance_tree_view" />
-        </record>
+    <record id="virtual_assembly_instance_action" model="ir.actions.act_window">
+        <field name="name">Assemblies/Instances</field>
+        <field name="res_model">virtual.assembly.instance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_assembly_instance_search_view" />
+        <field name="view_id" ref="virtual_assembly_instance_tree_view" />
+    </record>
 
-        <!-- Partners/Retrocessions -->
+    <!-- Partners/Retrocessions -->
 
-        <record id="virtual_partner_retrocession_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.retrocession.search
-            </field>
-            <field name="model">virtual.partner.retrocession</field>
-            <field name="arch" type="xml">
-                <search string="Partners/Retrocessions">
-                    <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
-                    <field name="month" />
-                    <field name="year" />
-                    <field name="state" />
+    <record id="virtual_partner_retrocession_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.retrocession.search
+        </field>
+        <field name="model">virtual.partner.retrocession</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Retrocessions">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
+                <field name="month" />
+                <field name="year" />
+                <field name="state" />
 
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-                    <field name="designation_int_assembly_id" />
-                    <field name="mandate_category_id" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="designation_int_assembly_id" />
+                <field name="mandate_category_id" />
 
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" widget="many2one" />
+                <field name="interests_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" widget="many2one" />
 
-                    <filter name="sta_mod" string="State Mandate"
+                <filter name="sta_mod" string="State Mandate"
                         domain="[('sta_mandate_id','!=',False)]" />
-                    <filter name="ext_mod" string="External Mandate"
+                <filter name="ext_mod" string="External Mandate"
                         domain="[('ext_mandate_id','!=',False)]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
 
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
-                        <filter name="sta_mandate" string="State Mandate" context="{'group_by':'sta_mandate_id'}" />
-                        <filter name="ext_mandate" string="External Mandate" context="{'group_by':'ext_mandate_id'}" />
-                        <filter name="state" string="State" context="{'group_by':'state'}" />
-                        <filter name="m" string="Month" context="{'group_by':'month'}" />
-                        <filter name="y" string="Year" context="{'group_by':'year'}" />
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
+                    <filter name="sta_mandate" string="State Mandate" context="{'group_by':'sta_mandate_id'}" />
+                    <filter name="ext_mandate" string="External Mandate" context="{'group_by':'ext_mandate_id'}" />
+                    <filter name="state" string="State" context="{'group_by':'state'}" />
+                    <filter name="m" string="Month" context="{'group_by':'month'}" />
+                    <filter name="y" string="Year" context="{'group_by':'year'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_partner_retrocession_tree_view" model="ir.ui.view">
-            <field name="name">virtual.partner.retrocession.tree</field>
-            <field name="model">virtual.partner.retrocession</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Retrocessions" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
+    <record id="virtual_partner_retrocession_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.retrocession.tree</field>
+        <field name="model">virtual.partner.retrocession</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Retrocessions" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
 
-                    <field name="state" />
+                <field name="state" />
 
-                    <field name="month" />
-                    <field name="year" />
+                <field name="month" />
+                <field name="year" />
 
-                    <field name="mandate_category_id" />
+                <field name="mandate_category_id" />
 
-                    <field name="birth_date" />
-                    <field name="gender" />
-                    <field name="tongue" />
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="birth_date" />
+                <field name="gender" />
+                <field name="tongue" />
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Partners/Retrocessions -->
+    <!-- Add filter for Partners/Retrocessions -->
 
-        <record id="add_filter_from_retrocession_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.partner.retrocession</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_retrocession_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.retrocession</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_retrocession_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.partner.retrocession</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_retrocession_action')" />
-        </record>
+    <record id="add_filter_from_retrocession_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.retrocession</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_retrocession_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_partner_retrocession_action" model="ir.actions.act_window">
-            <field name="name">Partners/Retrocessions</field>
-            <field name="res_model">virtual.partner.retrocession</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_retrocession_search_view" />
-            <field name="view_id" ref="virtual_partner_retrocession_tree_view" />
-        </record>
+    <record id="virtual_partner_retrocession_action" model="ir.actions.act_window">
+        <field name="name">Partners/Retrocessions</field>
+        <field name="res_model">virtual.partner.retrocession</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_retrocession_search_view" />
+        <field name="view_id" ref="virtual_partner_retrocession_tree_view" />
+    </record>
 
-        <!-- Partners/Membership -->
+    <!-- Partners/Membership -->
 
-        <record id="virtual_partner_membership_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.membership.search</field>
-            <field name="model">virtual.partner.membership</field>
-            <field name="arch" type="xml">
-                <search string="Partners/Membership">
-                    <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
+    <record id="virtual_partner_membership_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.membership.search</field>
+        <field name="model">virtual.partner.membership</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Membership">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-                    <field name="membership_state_id" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="membership_state_id" />
 
-                    <field string="Welcome Documents Sent Date > ..." name="del_doc_date"
-                        filter_domain="[('del_doc_date','>',self)]" />
-                    <field string="Welcome Documents Sent Date &lt; ..." name="del_doc_date"
-                        filter_domain="[('del_doc_date','&lt;',self)]" />
-                    <field string="Member Card Sent Date > ..." name="del_mem_card_date"
-                        filter_domain="[('del_mem_card_date','>',self)]" />
-                    <field string="Member Card Sent Date &lt; ..." name="del_mem_card_date"
-                        filter_domain="[('del_mem_card_date','&lt;',self)]" />
+                <field string="Welcome Documents Sent Date > ..." name="del_doc_date"
+                       filter_domain="[('del_doc_date','>',self)]" />
+                <field string="Welcome Documents Sent Date &lt; ..." name="del_doc_date"
+                       filter_domain="[('del_doc_date','&lt;',self)]" />
+                <field string="Member Card Sent Date > ..." name="del_mem_card_date"
+                       filter_domain="[('del_mem_card_date','>',self)]" />
+                <field string="Member Card Sent Date &lt; ..." name="del_mem_card_date"
+                       filter_domain="[('del_mem_card_date','&lt;',self)]" />
 
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" widget="many2one" />
+                <field name="interests_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" widget="many2one" />
 
-                    <filter string="Undelivered Welcome Documents"
+                <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
                         domain="[('del_doc_date','=', False),
                                  ('membership_state_id.code','in', ['member_candidate','supporter'])]" />
-                    <separator/>
-                    <filter string="Undelivered Member Cards"
+                <separator/>
+                <filter string="Undelivered Member Cards"
                         name="del_mem_card_date"
                         domain="[('del_mem_card_date','=', False),
                                  ('membership_state_id.code','=', 'member')]" />
-                    <separator/>
-                    <filter string="Awaiting payment" name="awaiting_payment"
+                <separator/>
+                <filter string="Awaiting payment" name="awaiting_payment"
                         domain="[('reference','!=', False)]"/>
-                    <separator />
-                    <filter string="Members"
+                <separator />
+                <filter string="Members"
                         name="member"
                         domain="[('membership_state_id.code','=', 'member')]" />
-                    <separator />
-                    <filter string="Male" name="male"
+                <separator />
+                <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female"
+                <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
-                    <separator />
-                    <filter string="French" name="french"
+                <separator />
+                <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german"
+                <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
-                    <separator />
-                    <filter string="Donor" name="donor"
+                <separator />
+                <filter string="Donor" name="donor"
                         domain="[('is_donor','=',True)]" />
-                    <separator />
-                    <filter string="Volunteer" name="volunteer"
+                <separator />
+                <filter string="Volunteer" name="volunteer"
                         domain="[('is_volunteer','=',True)]" />
-                    <separator />
-                    <filter string="Employee" name="employee"
+                <separator />
+                <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee"
+                <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
 
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="state" string="State" context="{'group_by':'membership_state_id'}" />
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="state" string="State" context="{'group_by':'membership_state_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_partner_membership_tree_view" model="ir.ui.view">
-            <field name="name">virtual.partner.membership.tree</field>
-            <field name="model">virtual.partner.membership</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Membership" create="0" delete="0">
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="membership_state_id" />
+    <record id="virtual_partner_membership_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.membership.tree</field>
+        <field name="model">virtual.partner.membership</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Membership" create="0" delete="0">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="membership_state_id" />
 
-                    <field name="del_mem_card_date" />
+                <field name="del_mem_card_date" />
 
-                    <field name="birth_date" />
-                    <field name="gender" />
-                    <field name="tongue" />
-                    <field name="is_donor" />
-                    <field name="is_volunteer" />
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="birth_date" />
+                <field name="gender" />
+                <field name="tongue" />
+                <field name="is_donor" />
+                <field name="is_volunteer" />
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Partners/Membership -->
+    <!-- Add filter for Partners/Membership -->
 
-        <record id="add_filter_from_membership_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.partner.membership</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_membership_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.membership</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_membership_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.partner.membership</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_membership_action')" />
-        </record>
+    <record id="add_filter_from_membership_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.membership</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_membership_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_partner_membership_action" model="ir.actions.act_window">
-            <field name="name">Partners/Membership</field>
-            <field name="res_model">virtual.partner.membership</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_membership_search_view" />
-            <field name="view_id" ref="virtual_partner_membership_tree_view" />
-        </record>
+    <record id="virtual_partner_membership_action" model="ir.actions.act_window">
+        <field name="name">Partners/Membership</field>
+        <field name="res_model">virtual.partner.membership</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_membership_search_view" />
+        <field name="view_id" ref="virtual_partner_membership_tree_view" />
+    </record>
 
-        <!-- Partners/Events -->
+    <!-- Partners/Events -->
 
-        <record id="virtual_partner_event_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.event.search</field>
-            <field name="model">virtual.partner.event</field>
-            <field name="arch" type="xml">
-                <search string="Partners/Events">
-                    <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date"
-                        filter_domain="[('birth_date','>',self)]" />
-                    <field string="Birth Date &lt; ..." name="birth_date"
-                        filter_domain="[('birth_date','&lt;',self)]" />
+    <record id="virtual_partner_event_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.event.search</field>
+        <field name="model">virtual.partner.event</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Events">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date"
+                       filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date"
+                       filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field name="partner_id" />
-                    <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-                    <field name="event_id" />
-                    <field name="event_registration_id" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="event_id" />
+                <field name="event_registration_id" />
 
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                <field name="interests_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
 
-                    <filter string="Male" name="male"
+                <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female"
+                <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
-                    <separator />
-                    <filter string="French" name="french"
+                <separator />
+                <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german"
+                <filter string="German" name="german"
                         domain="[('tongue','=','g')]" />
-                    <separator />
-                    <filter string="Employee" name="employee"
+                <separator />
+                <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee"
+                <filter string="Not Employee" name="not_employee"
                         domain="[('employee','=',0)]" />
-                    <separator />
-                    <filter name="p_vip" string="VIP Address"
+                <separator />
+                <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="e_vip" string="VIP Email"
+                <separator />
+                <filter name="e_vip" string="VIP Email"
                         domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="p_unauthorized" string="Unauthorized Address"
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="e_unauthorized" string="Unauthorized Email"
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-                    <separator />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
 
-                    <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                        <filter name="event" string="Events" context="{'group_by':'event_id'}" />
-                    </group>
-                </search>
-            </field>
-        </record>
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="event" string="Events" context="{'group_by':'event_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-        <record id="virtual_partner_event_tree_view" model="ir.ui.view">
-            <field name="name">virtual.partner.event.tree</field>
-            <field name="model">virtual.partner.event</field>
-            <field name="arch" type="xml">
-                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Events" create="0" delete="0">
-                    <field name="event_registration_id" />
-                    <field name="int_instance_id" />
+    <record id="virtual_partner_event_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.event.tree</field>
+        <field name="model">virtual.partner.event</field>
+        <field name="arch" type="xml">
+            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Events" create="0" delete="0">
+                <field name="event_registration_id" />
+                <field name="int_instance_id" />
 
-                    <field name="birth_date" />
-                    <field name="gender" />
-                    <field name="tongue" />
+                <field name="birth_date" />
+                <field name="gender" />
+                <field name="tongue" />
 
-                    <field name="postal_unauthorized" invisible="1" />
-                    <field name="email_unauthorized" invisible="1" />
-                </tree>
-            </field>
-        </record>
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </tree>
+        </field>
+    </record>
 
-        <!-- Add filter for Partners/Events -->
+    <!-- Add filter for Partners/Events -->
 
-        <record id="add_filter_from_event_action" model="ir.actions.act_window">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">virtual.partner.event</field>
-            <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1" />
-            <field name="target">new</field>
-            <field name="view_id"
-                ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id"
-                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
+    <record id="add_filter_from_event_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.event</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id"
+               ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
 
-        <record id="add_filter_from_event_values" model="ir.values">
-            <field name="name">Add Filter To Distribution List</field>
-            <field name="model">virtual.partner.event</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value"
-                eval="'ir.actions.act_window,%s' % ref('add_filter_from_event_action')" />
-        </record>
+    <record id="add_filter_from_event_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.event</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+               eval="'ir.actions.act_window,%s' % ref('add_filter_from_event_action')" />
+    </record>
 
-        <!-- Action -->
+    <!-- Action -->
 
-        <record id="virtual_partner_event_action" model="ir.actions.act_window">
-            <field name="name">Partners/Events</field>
-            <field name="res_model">virtual.partner.event</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_event_search_view" />
-            <field name="view_id" ref="virtual_partner_event_tree_view" />
-        </record>
+    <record id="virtual_partner_event_action" model="ir.actions.act_window">
+        <field name="name">Partners/Events</field>
+        <field name="res_model">virtual.partner.event</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_event_search_view" />
+        <field name="view_id" ref="virtual_partner_event_tree_view" />
+    </record>
 
-        <!-- Virtual Model Menus -->
+    <!-- Virtual Model Menus -->
 
-        <menuitem id="virtual_partner_instance_menu" sequence="10"
-            parent="virtual_models_submenu" action="virtual_partner_instance_action" />
-        <menuitem id="virtual_partner_membership_menu" sequence="12"
-            parent="virtual_models_submenu" action="virtual_partner_membership_action" />
-        <menuitem id="virtual_partner_relation_menu" sequence="14"
-            parent="virtual_models_submenu" action="virtual_partner_relation_action" />
-        <menuitem id="virtual_partner_involvement_menu" sequence="16"
-            parent="virtual_models_submenu" action="virtual_partner_involvement_action" />
-        <menuitem id="virtual_partner_candidature_menu" sequence="30"
-            parent="virtual_models_submenu" action="virtual_partner_candidature_action" />
-        <menuitem id="virtual_partner_mandate_menu" sequence="32"
-            parent="virtual_models_submenu" action="virtual_partner_mandate_action" />
-        <menuitem id="virtual_partner_retrocession_menu" sequence="34"
-            parent="virtual_models_submenu" action="virtual_partner_retrocession_action"
-            groups="mozaik_base.mozaik_res_groups_configurator,mozaik_base.mozaik_res_groups_financial_user"/>
-        <menuitem id="virtual_partner_event_menu" sequence="36"
-            parent="virtual_models_submenu" action="virtual_partner_event_action" />
-        <menuitem id="virtual_assembly_instance_menu" sequence="40"
-            parent="virtual_models_submenu" action="virtual_assembly_instance_action" />
-
-    </data>
-</openerp>
+    <menuitem id="virtual_partner_instance_menu" sequence="10"
+              parent="virtual_models_submenu" action="virtual_partner_instance_action" />
+    <menuitem id="virtual_partner_membership_menu" sequence="12"
+              parent="virtual_models_submenu" action="virtual_partner_membership_action" />
+    <menuitem id="virtual_partner_relation_menu" sequence="14"
+              parent="virtual_models_submenu" action="virtual_partner_relation_action" />
+    <menuitem id="virtual_partner_involvement_menu" sequence="16"
+              parent="virtual_models_submenu" action="virtual_partner_involvement_action" />
+    <menuitem id="virtual_partner_candidature_menu" sequence="30"
+              parent="virtual_models_submenu" action="virtual_partner_candidature_action" />
+    <menuitem id="virtual_partner_mandate_menu" sequence="32"
+              parent="virtual_models_submenu" action="virtual_partner_mandate_action" />
+    <menuitem id="virtual_partner_retrocession_menu" sequence="34"
+              parent="virtual_models_submenu" action="virtual_partner_retrocession_action"
+              groups="mozaik_base.mozaik_res_groups_configurator,mozaik_base.mozaik_res_groups_financial_user"/>
+    <menuitem id="virtual_partner_event_menu" sequence="36"
+              parent="virtual_models_submenu" action="virtual_partner_event_action" />
+    <menuitem id="virtual_assembly_instance_menu" sequence="40"
+              parent="virtual_models_submenu" action="virtual_assembly_instance_action" />
+</odoo>

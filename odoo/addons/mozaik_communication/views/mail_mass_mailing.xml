@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_mail_mass_mailing_form" model="ir.ui.view">
+        <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing)</field>
+        <field name="model">mail.mass_mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mailing_domain']" position="attributes">
+                <attribute name="attrs" translation="off">{'required': [('mailing_model', '!=','email.coordinate')],'invisible': [('mailing_model', '=','email.coordinate')]}</attribute>
+            </xpath>
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">0</attribute>
+                <attribute name="edit">0</attribute>
+            </xpath>
+            <xpath expr="//header" position="attributes">
+                <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_edit_html']" position="attributes">
+                <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_edit_html']/following-sibling::button[1]" position="attributes">
+                <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+            </xpath>
+            <xpath expr="//field[@name='replied_ratio']/parent::button" position="replace">
+                <button name="%(mass_mailing.action_view_mail_mail_statistics_mailing)d" context="{'search_default_filter_bounced': True}" type="action" class="oe_stat_button" icon="fa-medkit">
+                    <field name="bounced" string="Bounced" widget="statinfo" />
+                </button>
+            </xpath>
+            <form position="inside">
+                <field name="group_id" invisible="1" />
+                <field name="group_total_sent" invisible="1" />
+            </form>
+            <header position="inside">
+                <button name="send_custom" type="object" string="Send next batch" attrs="{'invisible': ['|', ('group_id', '=', False), ('group_total_sent', '&gt;', 99)]}"/>
+                <button name="compare_group" type="object" string="Compare batches" attrs="{'invisible': [('group_id', '=', False)]}"/>
+            </header>
+        </field>
+    </record>
+
+    <record id="view_mail_mass_mailing_search" model="ir.ui.view">
+        <field name="name">mail.mass_mailing.search (mozaik_communication mass_mailing)</field>
+        <field name="model">mail.mass_mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="create_uid" string="Sender" />
+            </xpath>
+            <xpath expr="//field[@name='mass_mailing_campaign_id']" position="replace">
+                <field name="distribution_list_id" />
+            </xpath>
+            <xpath expr="//filter[@string='Sent By']" position="replace">
+                <filter string="Sender" name="by_sender" context="{'group_by':'create_uid'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mail_mass_mailing_tree" model="ir.ui.view">
+        <field name="name">mail.mass_mailing.tree (mozaik_communication mass_mailing)</field>
+        <field name="model">mail.mass_mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="distribution_list_id" />
+                <field name="create_uid" string="Sender" />
+                <field name="create_date" />
+            </xpath>
+            <xpath expr="//field[@name='replied']" position="replace">
+                <field name="bounced" />
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="colors" translation="off">red:bounced</attribute>
+                <attribute name="create">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mail_mass_mailing_distribution_list_form" model="ir.ui.view">
+        <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing_distribution_list)</field>
+        <field name="model">mail.mass_mailing</field>
+        <field name="inherit_id" ref="mass_mailing_distribution_list.view_mail_mass_mailing_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='distribution_list_id']" position="attributes">
+                <attribute name="attrs" translation="off">{'required': [('mailing_model', '=','email.coordinate')],'invisible': [('mailing_model', '!=','email.coordinate')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='mailing_model']" position="attributes">
+                <attribute name="attrs"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

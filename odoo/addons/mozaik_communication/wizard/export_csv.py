@@ -1,36 +1,32 @@
-# -*- coding: utf-8 -*-
-# Copyright 2018 Acsone Sa/Nv
+# Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 import tempfile
 import csv
 import base64
-
-from openerp import api
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+from io import StringIO
+from odoo import api, models, fields, _
 
 
-def _get_utf8(data):
-    if not data:
-        return None
-    return unicode(data).encode('utf-8', 'ignore')
-
-
-class export_csv(orm.TransientModel):
+class ExportCsv(models.TransientModel):
     _name = 'export.csv'
     _description = 'Export CSV Wizard'
 
-    _columns = {
-        'export_file': fields.binary('Csv', readonly=True),
-        'export_filename': fields.char('Export CSV Filename', size=128),
-    }
+    export_file = fields.Binary(
+        string="CSV",
+        readonly=True,
+    )
+    export_filename = fields.Char(
+        string="Export CSV filename",
+        size=128,
+    )
 
-    def _get_csv_rows(self, cr, uid, context=None):
+    @api.model
+    def _get_csv_rows(self):
         """
         Get the rows (header) for the specified model.
+        :return: list of str
         """
-        hdr = [
+        header = [
             _('Number'),
             _('Name'),
             _('Lastname'),
@@ -78,81 +74,91 @@ class export_csv(orm.TransientModel):
             _('National voluntary'),
             _('Local only'),
         ]
+        return header
 
-        return [_get_utf8(col) for col in hdr]
-
+    @api.model
     def _get_order_by(self, order_by):
+        """
+        Based on the given order_by, build the order by
+        :param order_by: str
+        :return: str
+        """
         r_order_by = "ORDER BY p.id"
-        if order_by:
-            if order_by == "identifier" or order_by == "technical_name":
-                r_order_by = "ORDER BY p.%s" % order_by
-            else:
-                r_order_by =\
-                    "ORDER BY country_name, final_zip, p.technical_name"
+        if order_by in ['identifier', 'technical_name']:
+            r_order_by = "ORDER BY p.%s" % order_by
+        elif order_by:
+            r_order_by = "ORDER BY country_name, final_zip, p.technical_name"
         return r_order_by
 
-    @api.cr_uid_context
-    def _get_csv_values(self, cr, uid, obj, obfuscation, context=None):
+    @api.model
+    def _get_csv_values(self, values, obfuscation):
         """
         Get the values of the specified obj taking into account the VIP
         obfuscation principle
+        :param values: dict
+        :param obfuscation: str
+        :return: list of str
         """
-
-        export_values = [
-            obj.get('identifier'),
-            _get_utf8(obj.get('name')),
-            _get_utf8(obj.get('lastname')),
-            _get_utf8(obj.get('firstname')),
-            _get_utf8(obj.get('usual_lastname')),
-            _get_utf8(obj.get('usual_firstname')),
-            _get_utf8(obj.get('printable_name')),
-            _get_utf8(obj.get('co_residency')),
-            _get_utf8(obj.get('instance')),
-            _get_utf8(obj.get('power_name')),
-            _get_utf8(obj.get('state')),
-            _get_utf8(obj.get('reference')),
-            obj.get('birth_date'),
-            _get_utf8(obj.get('gender')),
-            _get_utf8(obj.get('tongue')),
-            obj.get('adr_main'),
-            obj.get('adr_unauthorized'),
-            obj.get('adr_vip'),
-            obj.get('adr_vip') and obfuscation or _get_utf8(
-                obj.get('street2')),
-            obj.get('adr_vip') and obfuscation or _get_utf8(obj.get('street')),
-            obj.get('adr_vip') and obfuscation or obj.get('final_zip'),
-            obj.get('adr_vip') and obfuscation or _get_utf8(obj.get('city')),
-            obj.get('country_code'),
-            _get_utf8(obj.get('country_name')),
-            obj.get('fix_main'),
-            obj.get('fix_unauthorized'),
-            obj.get('fix_vip'),
-            obj.get('fix_vip') and obfuscation or _get_utf8(obj.get('fix')),
-            obj.get('mobile_main'),
-            obj.get('mobile_unauthorized'),
-            obj.get('mobile_vip'),
-            obj.get('mobile_vip') and obfuscation or _get_utf8(obj.get(
-                'mobile')),
-            obj.get('fax_main'),
-            obj.get('fax_unauthorized'),
-            obj.get('fax_vip'),
-            obj.get('fax_vip') and obfuscation or _get_utf8(obj.get('fax')),
-            obj.get('email_main'),
-            obj.get('email_unauthorized'),
-            obj.get('email_vip'),
-            obj.get('email_vip') and obfuscation or _get_utf8(obj.get(
-                'email')),
-            _get_utf8(obj.get('website')),
-            _get_utf8(obj.get('secondary_website')),
-            _get_utf8(obj.get('local_voluntary')),
-            _get_utf8(obj.get('regional_voluntary')),
-            _get_utf8(obj.get('national_voluntary')),
-            _get_utf8(obj.get('local_only')),
+        keys = [
+            'identifier',
+            'name',
+            'lastname',
+            'firstname',
+            'usual_lastname',
+            'usual_firstname',
+            'printable_name',
+            'co_residency',
+            'instance',
+            'power_name',
+            'state',
+            'reference',
+            'birth_date',
+            'gender',
+            'tongue',
+            'adr_main',
+            'adr_unauthorized',
+            'adr_vip',
+            'adr_vip' and obfuscation or 'street2',
+            'adr_vip' and obfuscation or 'street',
+            'adr_vip' and obfuscation or 'final_zip',
+            'adr_vip' and obfuscation or 'city',
+            'country_code',
+            'country_name',
+            'fix_main',
+            'fix_unauthorized',
+            'fix_vip',
+            'fix_vip' and obfuscation or 'fix',
+            'mobile_main',
+            'mobile_unauthorized',
+            'mobile_vip',
+            'mobile_vip' and obfuscation or 'mobile',
+            'fax_main',
+            'fax_unauthorized',
+            'fax_vip',
+            'fax_vip' and obfuscation or 'fax',
+            'email_main',
+            'email_unauthorized',
+            'email_vip',
+            'email_vip' and obfuscation or 'email',
+            'website',
+            'secondary_website',
+            'local_voluntary',
+            'regional_voluntary',
+            'national_voluntary',
+            'local_only',
         ]
+        export_values = [values.get(k) for k in keys]
         return export_values
 
-    def _prefetch_csv_datas(self, cr, uid, model, model_ids, context=None):
-        queries_obj = self.pool['export.csv.queries']
+    @api.model
+    def _prefetch_csv_datas(self, model, model_ids):
+        """
+
+        :param model:
+        :param model_ids:
+        :return:
+        """
+        queries_obj = self.env['export.csv.queries']
         if not model_ids:
             return
         if model == 'email.coordinate':
@@ -177,60 +183,51 @@ class export_csv(orm.TransientModel):
         for row in cr.dictfetchall():
             yield row
 
-    def get_csv(self, cr, uid, model, model_ids, group_by=False, context=None):
+    def get_csv(self, model, model_ids, group_by=False):
         """
         Build a CSV file related to a coordinate model
+        :param model: str
+        :param model_ids: list of int
+        :param group_by: str
+        :return: str
         """
-        tmp = tempfile.NamedTemporaryFile(
-            prefix='Extract', suffix=".csv", delete=False)
-        f = open(tmp.name, "r+")
-        writer = csv.writer(f)
-        hdr = self._get_csv_rows(cr, uid, context=context)
-        writer.writerow(hdr)
-        co_residencies = []
-        if model_ids:
-            state_ids = self.pool['membership.state'].search(
-                cr, uid, [], context=context)
-            states = self.pool['membership.state'].browse(
-                cr, uid, state_ids, context=context)
-            states = {st.id: st.name for st in states}
-            country_ids = self.pool['res.country'].search(
-                cr, uid, [], context=context)
-            countries = self.pool['res.country'].browse(
-                cr, uid, country_ids, context=context)
-            countries = {cnt.id: cnt.name for cnt in countries}
-            selections = self.pool['res.partner'].fields_get(
-                cr, uid, allfields=['gender', 'tongue'], context=context)
-            genders = {k: v for k, v in selections['gender']['selection']}
-            tongues = {k: v for k, v in selections['tongue']['selection']}
-            viper = self.pool['res.users'].has_group(
-                cr, uid, 'mozaik_base.mozaik_res_groups_vip_reader')
-            obfuscation = False if viper else 'VIP'
-            for data in self._prefetch_csv_datas(
-                    cr, uid, model, model_ids, context=context):
-                if data.get('state_id'):
-                    data['state'] = states[data['state_id']]
-                if data.get('country_id'):
-                    data['country_name'] = countries[data['country_id']]
-                if data.get('gender'):
-                    data['gender'] = genders.get(data['gender'])
-                if data.get('tongue'):
-                    data['tongue'] = tongues.get(data['tongue'])
-                if model == 'postal.coordinate' and group_by:
-                    # when grouping by co_residency, output only one row
-                    # by co_residency
-                    co_id = data.get('co_residency_id')
-                    if co_id and co_id in co_residencies:
-                        continue
-                    co_residencies.append(co_id)
-                export_values = self._get_csv_values(
-                    cr, uid, data, obfuscation, context=context)
-                assert len(hdr) == len(export_values)
-                writer.writerow(export_values)
-        f.close()
-        f = open(tmp.name, "r")
-        csv_content = f.read()
-        f.close()
+        with StringIO() as memory_file:
+            writer = csv.writer(memory_file)
+            headers = self._get_csv_rows()
+            writer.writerow(headers)
+            co_residencies = []
+            if model and model_ids:
+                states = self.env['membership.state'].search([])
+                states = {st.id: st.name for st in states}
+                countries = self.env['res.country'].search([])
+                countries = {cnt.id: cnt.name for cnt in countries}
+                selections = self.env['res.partner'].fields_get(allfields=['gender', 'tongue'])
+                genders = {k: v for k, v in selections['gender']['selection']}
+                tongues = {k: v for k, v in selections['tongue']['selection']}
+                viper = self.env['res.users'].has_group('mozaik_base.mozaik_res_groups_vip_reader')
+                obfuscation = 'VIP'
+                if viper:
+                    obfuscation = False
+                for data in self._prefetch_csv_datas(model, model_ids):
+                    if data.get('state_id'):
+                        data.update({'state': states.get(data.get('state_id'))}),
+                    if data.get('country_id'):
+                        data.update({'country_name': countries.get(data.get('country_id'))}),
+                    if data.get('gender'):
+                        data.update({'gender': genders.get(data.get('gender'))}),
+                    if data.get('tongue'):
+                        data.update({'tongue': tongues.get(data.get('tongue'))}),
+                    if model == 'postal.coordinate' and group_by:
+                        # when grouping by co_residency, output only one row
+                        # by co_residency
+                        co_id = data.get('co_residency_id')
+                        if co_id and co_id in co_residencies:
+                            continue
+                        co_residencies.append(co_id)
+                    export_values = self._get_csv_values(data, obfuscation)
+                    assert len(headers) == len(export_values)
+                    writer.writerow(export_values)
+            csv_content = memory_file.getvalue()
         return csv_content
 
     def export(self, cr, uid, ids, context=None):
