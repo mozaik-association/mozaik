@@ -11,9 +11,6 @@ class MailComposeMessage(models.TransientModel):
     def _get_priorities(self):
         """
         Load priorities from parameters.
-        As it's loaded as a json, the string must use the double quote
-        and NOT simple quote.
-        Ex: {"param1": 10, "param2": 20}
         :return: dict
         """
         key = 'mail.sending.job.priorities'
@@ -49,4 +46,4 @@ class MailComposeMessage(models.TransientModel):
             if limits:
                 prio = priorities.get(max(limits))
                 self = self.with_context(default_mail_job_priority=prio)
-        return super(MailComposeMessage, self).send_mail()
+        return super().send_mail()

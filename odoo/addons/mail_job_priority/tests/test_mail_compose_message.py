@@ -1,16 +1,16 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import exceptions
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class TestMailComposeMessage(TransactionCase):
+class TestMailComposeMessage(SavepointCase):
     """
     Tests for mail.compose.message
     """
 
     def setUp(self):
-        super(TestMailComposeMessage, self).setUp()
+        super().setUp()
         self.mail_composer_obj = self.env['mail.compose.message']
         self.partner_obj = self.env['res.partner']
         self.mail_obj = self.env['mail.mail']
@@ -87,70 +87,35 @@ class TestMailComposeMessage(TransactionCase):
         partners)
         :return:
         """
-        partners = self.partner_obj.search([], limit=10)
-        context = self.env.context.copy()
-        context.update({
-            'active_ids': partners.ids,
-        })
-        mail_composer_obj = self.mail_composer_obj.with_context(context)
-        mail_composer_vals = {
-            'email_from': 'my-unit-test@test.eu',
-            'partner_ids': [[6, False, partners.ids]],
-            'notify': False,
-            'subject': "I'm not a SPAM",
-            'model': 'res.partner',
-            'composition_mode': 'mass_mail',
-        }
-        existing_mails = self.mail_obj.search([])
-        mail_composer = mail_composer_obj.create(mail_composer_vals)
-        mail_composer.send_mail()
-        new_mails = self.mail_obj.search([
-            ('id', 'not in', existing_mails.ids),
-        ])
-        priority = self._get_priority(context.get('active_ids', []))
-        # Ensure new mails are created
-        self.assertTrue(bool(new_mails))
-        for mail in new_mails:
-            self.assertEquals(mail.mail_job_priority, priority)
+        for limit in range(1, 10):
+            partners = self.partner_obj.search([], limit=limit)
+            context = self.env.context.copy()
+            context.update({
+                'active_ids': partners.ids,
+            })
+            mail_composer_obj = self.mail_composer_obj.with_context(context)
+            mail_composer_vals = {
+                'email_from': 'my-unit-test@test.eu',
+                'partner_ids': [[6, False, partners.ids]],
+                'notify': False,
+                'subject': "I'm not a SPAM",
+                'model': 'res.partner',
+                'composition_mode': 'mass_mail',
+            }
+            existing_mails = self.mail_obj.search([])
+            mail_composer = mail_composer_obj.create(mail_composer_vals)
+            mail_composer.send_mail()
+            new_mails = self.mail_obj.search([
+                ('id', 'not in', existing_mails.ids),
+            ])
+            priority = self._get_priority(context.get('active_ids', []))
+            # Ensure new mails are created
+            self.assertTrue(bool(new_mails))
+            for mail in new_mails:
+                self.assertEqual(mail.mail_job_priority, priority)
         return
 
     def test_mail_priority2(self):
-        """
-        Test if the mail.compose.message set correctly the priority on
-        the new mail.mail.
-        For this case, we simulate a normal behaviour (send email to some
-        partners)
-        :return:
-        """
-        partners = self.partner_obj.search([], limit=1)
-        context = self.env.context.copy()
-        context.update({
-            'active_ids': partners.ids,
-            'active_model': partners._name,
-        })
-        mail_composer_obj = self.mail_composer_obj.with_context(context)
-        mail_composer_vals = {
-            'email_from': 'my-unit-test@test.eu',
-            'partner_ids': [[6, False, partners.ids]],
-            'notify': False,
-            'subject': "I'm not a SPAM",
-            'model': 'res.partner',
-            'composition_mode': 'mass_mail',
-        }
-        existing_mails = self.mail_obj.search([])
-        mail_composer = mail_composer_obj.create(mail_composer_vals)
-        mail_composer.send_mail()
-        new_mails = self.mail_obj.search([
-            ('id', 'not in', existing_mails.ids),
-        ])
-        priority = self._get_priority(context.get('active_ids', []))
-        # Ensure new mails are created
-        self.assertTrue(bool(new_mails))
-        for mail in new_mails:
-            self.assertEquals(mail.mail_job_priority, priority)
-        return
-
-    def test_mail_priority3(self):
         """
         Test if the mail.compose.message set correctly the priority on
         the new mail.mail.
