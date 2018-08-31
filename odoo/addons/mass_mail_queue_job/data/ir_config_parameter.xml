@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="1">
+
+    <record id="job_mail_chunck_size" model="ir.config_parameter">
+        <field name="key">job_mail_chunck_size</field>
+        <field name="value">100</field>
+    </record>
+
+</odoo>
