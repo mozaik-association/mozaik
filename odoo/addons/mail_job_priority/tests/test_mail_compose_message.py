@@ -25,6 +25,7 @@ class TestMailComposeMessage(SavepointCase):
             40: 40,
         }
         self.config_obj.set_param(self.priorities_key, str(priorities))
+        self.mail_obj.search([]).unlink()
 
     def _get_priority(self, active_ids):
         """
@@ -87,32 +88,30 @@ class TestMailComposeMessage(SavepointCase):
         partners)
         :return:
         """
-        for limit in range(1, 10):
+        context = self.env.context.copy()
+        # to avoid effect of another module, force synchrone mails sending
+        context['not_async'] = 1
+        for limit in [1, 10]:
             partners = self.partner_obj.search([], limit=limit)
-            context = self.env.context.copy()
             context.update({
                 'active_ids': partners.ids,
             })
             mail_composer_obj = self.mail_composer_obj.with_context(context)
+            subject = "I'm not a SPAM-%s" % limit
             mail_composer_vals = {
                 'email_from': 'my-unit-test@test.eu',
-                'partner_ids': [[6, False, partners.ids]],
-                'notify': False,
-                'subject': "I'm not a SPAM",
+                'subject': subject,
                 'model': 'res.partner',
                 'composition_mode': 'mass_mail',
             }
-            existing_mails = self.mail_obj.search([])
             mail_composer = mail_composer_obj.create(mail_composer_vals)
             mail_composer.send_mail()
-            new_mails = self.mail_obj.search([
-                ('id', 'not in', existing_mails.ids),
-            ])
-            priority = self._get_priority(context.get('active_ids', []))
+            new_mails = self.mail_obj.search([('subject', '=', subject)])
             # Ensure new mails are created
-            self.assertTrue(bool(new_mails))
-            for mail in new_mails:
-                self.assertEqual(mail.mail_job_priority, priority)
+            self.assertTrue(new_mails)
+            priority = [self._get_priority(partners.ids)]
+            priorities = new_mails.mapped('mail_job_priority')
+            self.assertEqual(set(priorities), set(priority))
         return
 
     def test_mail_priority2(self):
@@ -123,29 +122,23 @@ class TestMailComposeMessage(SavepointCase):
         in the context
         :return:
         """
-        partners = self.partner_obj.browse()
         context = self.env.context.copy()
         context.update({
-            'active_ids': partners.ids,
+            'active_ids': [],
         })
         mail_composer_obj = self.mail_composer_obj.with_context(context)
         mail_composer_vals = {
             'email_from': 'my-unit-test@test.eu',
-            'partner_ids': [[6, False, partners.ids]],
-            'notify': False,
             'subject': "I'm not a SPAM",
             'model': 'res.partner',
             'composition_mode': 'mass_mail',
         }
-        existing_mails = self.mail_obj.search([])
         mail_composer = mail_composer_obj.create(mail_composer_vals)
         # We should have the 'normal' exception about Singleton
         with self.assertRaises(ValueError) as e:
             mail_composer.send_mail()
         self.assertIn("singleton", str(e.exception))
-        new_mails = self.mail_obj.search([
-            ('id', 'not in', existing_mails.ids),
-        ])
+        new_mails = self.mail_obj.search([])
         # Ensure no new mails are created
-        self.assertFalse(bool(new_mails))
+        self.assertFalse(new_mails)
         return
