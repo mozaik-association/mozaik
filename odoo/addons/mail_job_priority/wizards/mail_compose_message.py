@@ -1,31 +1,49 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from ast import literal_eval
-
-from openerp import api, models
+import ast
+from odoo import api, exceptions, models, _
 
 
 class MailComposeMessage(models.TransientModel):
-
     _inherit = 'mail.compose.message'
+
+    @api.model
+    def _get_priorities(self):
+        """
+        Load priorities from parameters.
+        :return: dict
+        """
+        key = 'mail.sending.job.priorities'
+        try:
+            priorities = ast.literal_eval(
+                self.env['ir.config_parameter'].get_param(key, default='{}'))
+        # Catch exception to have a understandable error message
+        except (ValueError, SyntaxError):
+            raise exceptions.UserError(
+                _("Error to load the configuration who contains "
+                  "priorities (key %s)") % key)
+        # As literal_eval can transform str into any format, check if we
+        # have a real dict
+        if not isinstance(priorities, dict):
+            raise exceptions.UserError(
+                _("Error to load the configuration who contains "
+                  "priorities (key %s).\nInvalid dict") % key)
+        return priorities
 
     @api.multi
     def send_mail(self):
         """
-        Set a priority on subsequent generated mail.mail
-        depending on a dictionary like:
-        {limit1: prio1, limit2: prio2, ...}
+        Set a priority on subsequent generated mail.mail, using priorities
+        set into the configuration.
+        :return: dict/action
         """
-        if self.env.context.get('active_ids') and \
-                not self.env.context.get('default_mail_job_priority'):
-            priorities = literal_eval(
-                self.env['ir.config_parameter'].get_param(
-                    'mail.sending.job.priorities', default='{}'))
-            sz = len(self.env.context['active_ids'])
-            limits = [lim for lim in priorities if lim <= sz]
-            prio = limits and priorities[max(limits)] or None
-            if prio:
+        active_ids = self.env.context.get('active_ids')
+        default_priority = self.env.context.get('default_mail_job_priority')
+        if active_ids and not default_priority:
+            priorities = self._get_priorities()
+            size = len(active_ids)
+            limits = [lim for lim in priorities if lim <= size]
+            if limits:
+                prio = priorities.get(max(limits))
                 self = self.with_context(default_mail_job_priority=prio)
-        return super(MailComposeMessage, self).send_mail()
+        return super().send_mail()
