@@ -14,6 +14,7 @@
         'disable_user_welcome_message',
         'distribution_list',
         'inherit_abstract_view',
+        'mass_mail_queue_job',
         'mozaik_abstract_model',
         'mozaik_address',
         'mozaik_address_local_street',
