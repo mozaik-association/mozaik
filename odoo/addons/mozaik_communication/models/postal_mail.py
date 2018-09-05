@@ -57,7 +57,7 @@ class PostalMail(models.Model):
         default.update({
             'name': _('%s (copy)') % self.name,
         })
-        return super(PostalMail, self).copy(default=default)
+        return super().copy(default=default)
 
     @api.multi
     def name_get(self):
@@ -65,7 +65,7 @@ class PostalMail(models.Model):
         Keep existing display name but add the sent_date
         :return: list of tuple: (int, str)
         """
-        result = super(PostalMail, self).name_get()
+        result = super().name_get()
         new_result = []
         for postal_id, display_name in result:
             postal_mail = self.browse(postal_id)
@@ -91,5 +91,5 @@ class PostalMail(models.Model):
         ]
         if args:
             args = expression.AND([domain, args or []])
-        return super(PostalMail, self).name_search(
+        return super().name_search(
             name=name, args=args, operator=operator, limit=limit)

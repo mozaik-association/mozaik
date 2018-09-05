@@ -3,7 +3,7 @@
 import logging
 import html
 from email.utils import formataddr
-from odoo import api, exceptions, fields, models, tools, _, SUPERUSER_ID
+from odoo import api, exceptions, fields, models, _
 from odoo.osv import expression
 from odoo.fields import first
 
@@ -17,11 +17,9 @@ class DistributionList(models.Model):
         'distribution.list',
         'mozaik.abstract.model',
     ]
-    _order = 'name'
     _unicity_keys = 'name, int_instance_id'
 
     name = fields.Char(
-        required=True,
         track_visibility='onchange',
     )
     public = fields.Boolean(
@@ -48,7 +46,7 @@ class DistributionList(models.Model):
         index=True,
         track_visibility='onchange',
     )
-    res_partner_m2m_ids = fields.Many2many(
+    res_partner_ids = fields.Many2many(
         comodel_name="res.partner",
         relation="distribution_list_res_partner_rel",
         column1="distribution_list_id",
@@ -68,49 +66,42 @@ class DistributionList(models.Model):
     partner_path = fields.Char(
         default="partner_id",
     )
-    note = fields.Text(
-        track_visibility='onchange',
-    )
-    # No More Global Unique Name
+
     _sql_constraints = [
         ('unique_code', 'unique (code)', 'Code already used!'),
     ]
 
-    @api.model_cr
-    def init(self):
-        """
-        Drop the constraint about unique name
-        :return:
-        """
-        result = super(DistributionList, self).init()
-        tools.drop_constraint(
-            self.env.cr, self._table, "constraint_uniq_name")
-        return result
-
     @api.model
-    def _get_mailing_object(self, email_from, mailing_model=False,
-                            email_field='email'):
+    def _get_mailing_object(
+            self, email_from,
+            mailing_model='email.coordinate', email_field='email'):
         """
-
+        Get email coordinate(s) from a sanitized email
         :param email_from: str
         :param mailing_model: str
         :param email_field: str
-        :return: mailing_model recordset
+        :return: email coordinate recordset
         """
-        mailing_model = 'email.coordinate'
-        email_from = self.env[mailing_model]._sanitize_email(email_from)
-        return super(DistributionList, self)._get_mailing_object(
+        email_from = self.env['email.coordinate']._sanitize_email(email_from)
+        return super()._get_mailing_object(
             email_from, mailing_model=mailing_model,
             email_field=email_field)
 
     @api.multi
     def _get_mail_compose_message_vals(self, msg, mailing_model=False):
+        """
+        Prepare values for a composer from an incomming message
+        :param msg: incomming message str
+        :param mailing_model: str
+        :param email_field: str
+        :return: composer dict
+        """
         self.ensure_one()
-        result = super(DistributionList, self)._get_mail_compose_message_vals(
+        result = super()._get_mail_compose_message_vals(
             msg, mailing_model='email.coordinate')
         if result.get('mass_mailing_name') and result.get('subject'):
             result.update({
-                'mass_mailing_name': result.get('subject'),
+                'mass_mailing_name': result['subject'],
             })
         if self.partner_id.email:
             result.update({
@@ -120,10 +111,17 @@ class DistributionList(models.Model):
         return result
 
     @api.multi
-    def _get_computed(self, bridge_field, to_be_computed, in_mode):
+    def _get_computed_targets(self, bridge_field, sources, in_mode):
+        """
+        Convert source records to target records according to the bridge field
+        :param bridge_field: str
+        :param sources: recordset
+        :param in_mode: bool
+        :return: target recordset
+        """
         self.ensure_one()
-        results = super(DistributionList, self)._get_computed(
-            bridge_field, to_be_computed, in_mode)
+        results = super()._get_computed_targets(
+            bridge_field, sources, in_mode)
         if not in_mode and results and bridge_field != 'id':
             target_model_name = self.dst_model_id.model
             target_obj = self.env[target_model_name]
@@ -136,7 +134,7 @@ class DistributionList(models.Model):
         return results
 
     @api.onchange('dst_model_id')
-    def onchange_dst_model(self):
+    def _onchange_dst_model(self):
         bridge_field = False
         if self.dst_model_id:
             bridge_field = 'common_id'
@@ -145,7 +143,7 @@ class DistributionList(models.Model):
         self.bridge_field = bridge_field
 
     @api.onchange('newsletter')
-    def onchange_newsletter(self):
+    def _onchange_newsletter(self):
         if not self.newsletter:
             self.code = False
 
@@ -170,13 +168,12 @@ class DistributionList(models.Model):
                 ('postal_coordinate_id', '=', False),
             ]
             domain = expression.AND(domain, domain_mail, domain_postal)
-        return super(DistributionList, self)._get_opt_res_ids(
-            model_name, domain, in_mode)
+        return super()._get_opt_res_ids(model_name, domain, in_mode)
 
-    def distribution_list_forwarding(self, msg):
+    def _distribution_list_forwarding(self, msg):
         """
         check if the associated user of the email_coordinate (found with
-        msg['email_from']) is into the owners of the distribution list
+        msg['email_from']) is an owner of the distribution list
         If user is into the owners then call super with uid=found_user_id
         :param msg:
         :return:
@@ -188,44 +185,46 @@ class DistributionList(models.Model):
         email_from = msg.get('email_from')
         noway = _('No unique coordinate found with address: %s') % email_from
         coordinate = self._get_mailing_object(email_from)
-        if coordinate:
+        if len(coordinate) == 1:
             params = (coordinate.email, coordinate.id,
                       coordinate.partner_id.display_name)
             noway = _('Coordinate %s(%s) of %s is not main') % params
-            if coordinate.is_main and coordinate.partner_id:
+            if coordinate.is_main:
                 partner = coordinate.partner_id
-                noway = _('Partner %s is not an owner nor '
-                          'an allowed partner') % partner.display_name
-                if partner in self.res_partner_m2m_ids:
-                    is_partner_allowed = True
-                elif partner in self.res_users_ids.mapped("partner_id"):
-                    is_partner_allowed = True
-            if is_partner_allowed:
-                noway = _('Partner %s is not a user') % partner.display_name
-                if partner.is_company and partner.responsible_user_id.active:
-                    user = partner.responsible_user_id
-                else:
-                    user = first(partner.user_ids)
-            if user:
-                try:
-                    # Force access rules
-                    self.sudo(user.id).name
-                    has_visibility = True
-                except exceptions.AccessError:
-                    params = (user.name, user.id, self.name, self.id)
-                    noway = _('User %s(%s) has no visibility on list '
-                              '%s(%s)') % params
-            if has_visibility:
-                context = self.env.context.copy()
-                context.update({
-                    'email_coordinate_path': 'email',
-                    'main_object_field': 'email_coordinate_id',
-                    'main_target_model': 'email.coordinate',
-                    'main_object_domain': [('email_unauthorized', '=', False)],
-                    'additional_res_ids': coordinate.ids,
-                })
-                return super(DistributionList, self.with_context(context)
-                             ).distribution_list_forwarding(msg)
+        if partner:
+            partner = coordinate.partner_id
+            noway = _('Partner %s is not an owner nor '
+                      'an allowed partner') % partner.display_name
+            if partner in self.res_partner_ids:
+                is_partner_allowed = True
+            elif partner in self.res_users_ids.mapped("partner_id"):
+                is_partner_allowed = True
+        if is_partner_allowed:
+            noway = _('Partner %s is not a user') % partner.display_name
+            if partner.is_company and partner.responsible_user_id.active:
+                user = partner.responsible_user_id
+            else:
+                user = first(partner.user_ids)
+        if user:
+            try:
+                # business logic continue with this user
+                self_sudo = self.sudo(user.id)
+                # Force access rules
+                self_sudo.name
+                has_visibility = True
+            except exceptions.AccessError:
+                params = (user.name, user.id, self.name, self.id)
+                noway = _('User %s(%s) has no visibility on list '
+                          '%s(%s)') % params
+        if has_visibility:
+            self = self_sudo.with_context(
+                email_coordinate_path='email',
+                main_object_field='email_coordinate_id',
+                main_target_model='email.coordinate',
+                main_object_domain=[('email_unauthorized', '=', False)],
+                additional_res_ids=coordinate.ids,
+            )
+            return super().distribution_list_forwarding(msg)
         _logger.info('Mail forwarding aborted. Reason: %s' % noway)
         self._reply_error_to_owners(msg, noway)
 
@@ -269,25 +268,24 @@ class DistributionList(models.Model):
         composer.send_mail()
 
     @api.multi
-    def get_all_without_coordinates(self):
+    def result_without_coordinate_action(self):
         """
-        Return all ids corresponding to filters but without any coordinate
-
-        :rtype: {}
-        :rparam: dictionary to launch an ir.actions.act_window
+        Return an action displaying results without any coordinate
+        :return: an ir.actions.act_window dictionary
         """
+        self.ensure_one()
         context = self.env.context.copy()
         context.update({
             'active_test': False,
         })
+        targets = self._get_target_from_distribution_list()
         domain = [
-            ('id', 'in', self.ids),
+            ('id', 'in', targets.ids),
             ('active', '=', False),
         ]
         return {
             'type': 'ir.actions.act_window',
             'name': _('Result of %s') % self.name,
-            'view_type': 'form',
             'view_mode': 'tree, form',
             'res_model': self.dst_model_id.model,
             'view_id': False,
@@ -297,31 +295,24 @@ class DistributionList(models.Model):
             'target': 'current',
         }
 
-    def action_invalidate(self, vals=None):
-        """
-        Invalidates distribution lists
-        :param vals: dict
-        :return: bool
-        """
-        vals = vals or {}
-        vals.update({
-            'code': False,
-        })
-        return super(DistributionList, self).action_invalidate(vals=vals)
-
     @api.multi
     def write(self, vals):
         """
-
+        Destroy code when invalidating distribution lists
         :param vals: dict
         :return: bool
         """
+        if not vals.get('active', True):
+            vals.update({
+                'code': False,
+            })
+        res = super().write(vals)
         self._create_message_post(vals)
-        return super(DistributionList, self).write(vals)
+        return res
 
     def _create_message_post(self, vals):
         """
-
+        Inform owner about an alias modification
         :param vals: dict
         :return: bool
         """
@@ -345,7 +336,7 @@ class DistributionList(models.Model):
                     body = msg % parts
                     partners = record.res_users_ids.filtered(
                         lambda u: u != self.env.user).mapped("partner_id")
-                    partners |= record.res_partner_m2m_ids
+                    partners |= record.res_partner_ids
                     record.message_post(
                         body=body, subject=subject, partner_ids=partners.ids)
-        return True
+        return

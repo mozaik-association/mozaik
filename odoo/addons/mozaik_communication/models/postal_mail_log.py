@@ -1,7 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import api, exceptions, fields, models, _, SUPERUSER_ID
-from odoo.osv import expression
+from odoo import api, exceptions, fields, models, _
 
 
 class PostalMailLog(models.Model):
@@ -12,7 +11,6 @@ class PostalMailLog(models.Model):
     _unicity_keys = 'N/A'
 
     name = fields.Char(
-        size=256,
         track_visibility='onchange',
     )
     sent_date = fields.Date(
@@ -50,9 +48,9 @@ class PostalMailLog(models.Model):
         Keep existing display name but add the sent_date
         :return: list of tuple: (int, str)
         """
-        result = super(PostalMailLog, self).name_get()
+        result = super().name_get()
         new_result = []
-        for target_id, display_name in result:
+        for target_id, __ in result:
             record = self.browse(target_id)
             name = record.name or record.postal_mail_id.name
             new_result.append((target_id, name))
@@ -71,7 +69,7 @@ class PostalMailLog(models.Model):
             raise exceptions.ValidationError(
                 _('A postal mail log cannot be copied when linked to a '
                   'postal mailing!'))
-        return super(PostalMailLog, self).copy(default=default)
+        return super().copy(default=default)
 
     @api.onchange("postal_coordinate_id", "partner_id")
     def _onchange_postal_coordinate_id(self):

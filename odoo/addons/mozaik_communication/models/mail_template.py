@@ -13,13 +13,12 @@ class MailTemplate(models.Model):
         Get the default model
         :return: ir.model recordset
         """
-        return self.env['ir.model'].search(
-            [('model', '=', 'email.coordinate')], limit=1)
+        return self.env.ref('mozaik_communication.model_email.coordinate')
 
     @api.model
     def _get_default_user(self):
         """
-
+        Get the default user
         :return: res.users recordset
         """
         return self.env.user

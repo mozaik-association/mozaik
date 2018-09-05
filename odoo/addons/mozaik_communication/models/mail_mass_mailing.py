@@ -29,7 +29,7 @@ class MassMailing(models.Model):
         Remove last insert: `mail.mass_mailing.contact`
         :return:
         """
-        result = super(MassMailing, self)._get_mailing_model()
+        result = super()._get_mailing_model()
         if result:
             # remove last insert: mailing list
             result.pop()
@@ -60,7 +60,7 @@ class MassMailing(models.Model):
                         topick = len(remaining)
                     mains = random.sample(remaining, topick)
                 return mains
-        return super(MassMailing, self).get_recipients(mailing)
+        return super().get_recipients(mailing)
 
     @api.multi
     def send_custom(self):
@@ -81,7 +81,6 @@ class MassMailing(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
-            'view_type': 'form',
             'res_id': wiz.id,
             'res_model': wiz._name,
             'target': 'new',

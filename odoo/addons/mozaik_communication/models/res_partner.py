@@ -1,6 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import SUPERUSER_ID, api, models, fields
+from odoo import api, models, fields
 
 
 class ResPartner(models.Model):
@@ -35,11 +35,10 @@ class ResPartner(models.Model):
         """
         Bypass security for some fields
         """
-        if self.env.user.id != SUPERUSER_ID:
+        if self.env.user._is_superuser():
             flds = set(fields or self._fields) - set([
                 '__last_update', 'image_medium', 'image_small',
             ])
             if not flds:
-                return super(ResPartner, self.sudo()).read(
-                    fields=fields, load=load)
-        return super(ResPartner, self).read(fields=fields, load=load)
+                self = self.sudo()
+        return super().read(fields=fields, load=load)

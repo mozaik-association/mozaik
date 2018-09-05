@@ -76,7 +76,7 @@ class DistributionList(models.Model):
     def _get_mailing_object(self, email_from, mailing_model=False,
                             email_field='email'):
         """
-
+        Get records related to an email (typically partners)
         :param email_from: str
         :param mailing_model: str
         :param email_field: str
@@ -93,7 +93,7 @@ class DistributionList(models.Model):
         if not email_from:
             return mailing_object.browse()
         domain = [(email_field, '=', email_from)]
-        return mailing_object.search(domain, limit=1)
+        return mailing_object.search(domain)
 
     @api.model
     def _get_attachment(self, data):
@@ -113,10 +113,11 @@ class DistributionList(models.Model):
     @api.multi
     def _get_mail_compose_message_vals(self, msg, mailing_model=False):
         """
-
-        :param msg: dict
+        Prepare values for a composer from an incomming message
+        :param msg: incomming message str
         :param mailing_model: str
-        :return: dict
+        :param email_field: str
+        :return: composer dict
         """
         self.ensure_one()
         if not mailing_model:

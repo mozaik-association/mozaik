@@ -43,6 +43,18 @@ class MailComposeMessage(models.TransientModel):
                 ]
         return vals
 
+    @api.model
+    def _transient_vacuum(self, force=False):
+        """
+        Do not unlink mail composer wizards if unfinished jobs exist
+        """
+        res = False
+        domain = [('state', '!=', 'done')]
+        jobs = self.env['queue.job'].search(domain)
+        if not jobs:
+            res = super()._transient_vacuum(force=force)
+        return res
+
     @api.multi
     def send_mail(self):
         """

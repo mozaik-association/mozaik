@@ -14,6 +14,7 @@ class DistributionListLine(models.Model):
     """
     _name = 'distribution.list.line'
     _description = 'Distribution List Line'
+    _order = 'name'
 
     name = fields.Char(
         required=True,

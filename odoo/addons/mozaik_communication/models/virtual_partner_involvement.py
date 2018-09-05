@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import fields, models
-from odoo.addons.mozaik_person.models.partner_involvement import CATEGORY_TYPE
+from odoo.addons.mozaik_involvement.models.partner_involvement import CATEGORY_TYPE
 
 
 class VirtualPartnerInvolvement(models.Model):

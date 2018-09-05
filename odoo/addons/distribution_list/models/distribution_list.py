@@ -5,12 +5,10 @@ from odoo.osv import expression
 
 
 class DistributionList(models.Model):
-    """
-    New Odoo model used to represents a distribution list (to send email or
-    postal mails).
-    """
+
     _name = 'distribution.list'
     _description = 'Distribution List'
+    _order = 'name'
 
     name = fields.Char(
         required=True,
@@ -54,23 +52,23 @@ class DistributionList(models.Model):
     ]
 
     @api.model
-    def _get_computed_targets(self, bridge_field, targets, in_mode):
+    def _get_computed_targets(self, bridge_field, sources, in_mode):
         """
-        Convert source ids to target ids according to the bridge field
+        Convert source records to target records according to the bridge field
         :param bridge_field: str
-        :param targets: dict
+        :param sources: recordset
         :param in_mode: bool
         :return: target recordset
         """
         if not bridge_field or bridge_field == 'id':
-            return targets
-        elif not targets._fields.get(bridge_field):
+            return sources
+        elif not sources._fields.get(bridge_field):
             # Ensure the bridge field exists into the target model
             raise exceptions.UserError(
-                _("The target model (%s) doesn't contain the bridge field: "
-                  "%s") % (targets._name, bridge_field))
-        elif targets._fields.get(bridge_field).type == 'many2one':
-            return targets.mapped(bridge_field)
+                _("The result model (%s) doesn't contain the bridge field: "
+                  "%s") % (sources._name, bridge_field))
+        elif sources._fields.get(bridge_field).type == 'many2one':
+            return sources.mapped(bridge_field)
         raise exceptions.UserError(
             _("The bridge field must be a Many2one!"))
 
@@ -225,7 +223,7 @@ class DistributionList(models.Model):
         """
         Simple case:
             no ``field_main_object`` provided
-            first result list is coming from ``get_ids_from_distribution_list``
+            first result list comes from ``_get_target_from_distribution_list``
             second result list is empty.
         If ``field_main_object`` is provided:
             the result ids are filtered according to the target model

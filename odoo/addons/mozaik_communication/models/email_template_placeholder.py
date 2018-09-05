@@ -12,8 +12,7 @@ class EmailTemplatePlaceholder(models.Model):
         Get the default model
         :return: ir.model recordset
         """
-        return self.env['ir.model'].search(
-            [('model', '=', 'email.coordinate')], limit=1)
+        return self.env.ref('mozaik_communication.model_email.coordinate')
 
     model_id = fields.Many2one(
         default=lambda s: s._get_default_model(),
