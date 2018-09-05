@@ -4,7 +4,7 @@
     'name': 'Distribution List',
     'summary': """
         Manage distribution lists composed
-        with dynamic filters (odoo domain)""",
+        with multiple filters (odoo domain)""",
     'version': '11.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',

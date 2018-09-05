@@ -113,7 +113,7 @@ class test_distribution_list(SharedSetupTransactionCase):
             'subject': 'test',
             'body': 'body',
         }
-        self.dl_obj.distribution_list_forwarding(
+        self.dl_obj._distribution_list_forwarding(
             cr, uid, msg, dl_id, context=context)
         mail_ids = self.mail_obj.search(
             cr, uid,
@@ -126,7 +126,7 @@ class test_distribution_list(SharedSetupTransactionCase):
             'res_users_ids': [(6, 0, [self.usr.id])]
         }
         self.dl_obj.write(cr, uid, [dl_id], vals, context=context)
-        self.dl_obj.distribution_list_forwarding(
+        self.dl_obj._distribution_list_forwarding(
             cr, uid, msg, dl_id, context=context)
         mail_ids = self.mail_obj.search(
             cr, uid,
@@ -141,7 +141,7 @@ class test_distribution_list(SharedSetupTransactionCase):
             'res_partner_m2m_ids': [(6, 0, [self.usr.partner_id.id])],
         }
         self.dl_obj.write(cr, uid, [dl_id], vals, context=context)
-        self.dl_obj.distribution_list_forwarding(
+        self.dl_obj._distribution_list_forwarding(
             cr, uid, msg, dl_id, context=context)
         mail_ids = self.mail_obj.search(
             cr, uid,
@@ -165,7 +165,7 @@ class test_distribution_list(SharedSetupTransactionCase):
             'res_partner_m2m_ids': [(4, partner_id)],
         }
         self.dl_obj.write(cr, uid, [dl_id], vals, context=context)
-        self.dl_obj.distribution_list_forwarding(
+        self.dl_obj._distribution_list_forwarding(
             cr, uid, msg, dl_id, context=context)
         mail_ids = self.mail_obj.search(
             cr, uid,
@@ -178,7 +178,7 @@ class test_distribution_list(SharedSetupTransactionCase):
             'responsible_user_id': self.usr.id,
         }
         self.partner_obj.write(cr, uid, [partner_id], vals, context=context)
-        self.dl_obj.distribution_list_forwarding(
+        self.dl_obj._distribution_list_forwarding(
             cr, uid, msg, dl_id, context=context)
         mail_ids = self.mail_obj.search(
             cr, uid,
@@ -189,7 +189,7 @@ class test_distribution_list(SharedSetupTransactionCase):
 
         # inactive the user
         self.usr.active = False
-        self.dl_obj.distribution_list_forwarding(
+        self.dl_obj._distribution_list_forwarding(
             cr, uid, msg, dl_id, context=context)
         mail_ids = self.mail_obj.search(
             cr, uid,
@@ -205,7 +205,7 @@ class test_distribution_list(SharedSetupTransactionCase):
             'email': 'emmanuel.vals.noway@nouvelobs.eu',
         }
         self.ec_obj.create(cr, uid, vals, context=context)
-        self.dl_obj.distribution_list_forwarding(
+        self.dl_obj._distribution_list_forwarding(
             cr, uid, msg, dl_id, context=context)
         mail_ids = self.mail_obj.search(
             cr, uid,

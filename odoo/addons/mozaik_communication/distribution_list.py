@@ -237,7 +237,7 @@ class distribution_list(orm.Model):
             if res_ids:
                 ctx['additional_res_ids'] = res_ids
             return super(distribution_list, self).\
-                distribution_list_forwarding(
+                _distribution_list_forwarding(
                 cr, user_id.id, msg, dl_id, context=ctx)
         _logger.info('Mail forwarding aborted. Reason: %s' % noway)
         self._reply_error_to_owners(
@@ -426,7 +426,7 @@ class distribution_list_line(orm.Model):
                                                 uid, ids, context=None):
         context = context or {}
         current_filter = self.browse(cr, uid, ids, context)
-        res = super(distribution_list_line, self).get_list_from_domain(
+        res = super(distribution_list_line, self)._get_list_from_domain(
             cr,
             uid,
             ids,

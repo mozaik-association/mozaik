@@ -42,3 +42,6 @@ distribution_list:
 
 mozaik_abstract_model:
 * The Abstract model comes from mozaik_base (maybe migration to rename the original script)
+
+mass_mailing_distribution_list
+mail.mass_mailing field: old name was "mailing_model" (selection) and now it's M2O
