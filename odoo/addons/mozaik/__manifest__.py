@@ -16,6 +16,7 @@
         'inherit_abstract_view',
         'mail_job_priority',
         'mass_mail_queue_job',
+        'mass_mailing_distribution_list',
         'mozaik_abstract_model',
         'mozaik_address',
         'mozaik_address_local_street',

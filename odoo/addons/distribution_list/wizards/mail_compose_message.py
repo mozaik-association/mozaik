@@ -1,7 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, models, fields
-from odoo.fields import first
 
 
 class MailComposeMessage(models.TransientModel):
@@ -40,14 +39,12 @@ class MailComposeMessage(models.TransientModel):
         of the distribution list to send mail.
         :return: super result
         """
-        context = self.env.context.copy()
-        dl_computed = context.get('dl_computed')
+        dl_computed = self._context.get('dl_computed')
         dist_list = self.distribution_list_id
         if dist_list and not dl_computed:
             mains, __ = dist_list._get_complex_distribution_list_ids()
-            context.update({
-                'active_ids': mains.ids,
-                'active_model': first(mains)._name,
-            })
-        return super(
-            MailComposeMessage, self.with_context(context)).send_mail()
+            self = self.with_context(
+                active_ids=mains.ids,
+                active_model=mains._name,
+            )
+        return super().send_mail()

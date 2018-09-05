@@ -4,7 +4,6 @@ import logging
 import base64
 import re
 from odoo import api, exceptions, fields, models, _
-from odoo.fields import first
 from odoo.tools import ustr
 
 _logger = logging.getLogger(__name__)
@@ -38,7 +37,7 @@ class DistributionList(models.Model):
     )
     res_partner_opt_in_ids = fields.Many2many(
         comodel_name="res.partner",
-        relation="distribution_list_res_partner_out",
+        relation="distribution_list_res_partner_in",
         column1="distribution_list_id",
         column2="partner_id",
         string="Opt-in",
@@ -52,7 +51,6 @@ class DistributionList(models.Model):
         self.ensure_one()
         values = super().get_alias_values()
         values.update({
-            'alias_parent_thread_id': self.id,
             'alias_defaults': {'distribution_list_id': self.id},
         })
         return values
@@ -128,7 +126,7 @@ class DistributionList(models.Model):
         for attachment_data in msg.get('attachments', []):
             attachments |= self._get_attachment(attachment_data)
         return {
-            'email_from': msg.get('from', False),
+            'email_from': msg.get('email_from', False),
             'composition_mode': 'mass_mail',
             'subject': msg.get('subject', False),
             'body': msg.get('body', False),
@@ -138,15 +136,15 @@ class DistributionList(models.Model):
             'attachment_ids': [[6, 0, attachments.ids]],
         }
 
-    @api.model
-    def _get_opt_res_ids(self, model_name, domain):
+    @api.multi
+    def _get_opt_res_ids(self, domain):
         """
-
-        :param model_name: str
+        Get destination model opt/in opt/out records
         :param domain: list
-        :return: model_name recordset
+        :return: dst model recordset
         """
-        opt_ids = self.env[model_name].search(domain)
+        self.ensure_one()
+        opt_ids = self.env[self.dst_model_id.model].search(domain)
         return opt_ids
 
     @api.multi
@@ -238,8 +236,7 @@ class DistributionList(models.Model):
     def _get_target_from_distribution_list(self, safe_mode=True):
         """
         manage opt in/out.
-        If the distribution list are newsletter and also have a parther_path
-        then
+        If the distribution list is a newsletter and has a parther_path then:
         * remove all res_ids that contains a partner id into the opt_out_ids
         * add to res_ids all partner id into the opt_in_ids
         :param safe_mode: bool
@@ -250,24 +247,23 @@ class DistributionList(models.Model):
             safe_mode=safe_mode)
         if self.newsletter and self.partner_path:
             partner_path = self.partner_path
-            model = self.dst_model_id.model
             # opt in
             partners = self.res_partner_opt_in_ids
             domain = [(partner_path, 'in', partners.ids)]
-            targets |= self._get_opt_res_ids(model, domain)
+            targets |= self._get_opt_res_ids(domain)
 
             # opt out
             partners = self.res_partner_opt_out_ids
             domain = [(partner_path, 'in', partners.ids)]
-            targets -= self._get_opt_res_ids(model, domain)
+            targets -= self._get_opt_res_ids(domain)
 
         return targets
 
     @api.multi
-    def _update_opt(self, partners, mode='out'):
+    def _update_opt(self, partner_ids, mode='out'):
         """
-        update the list of opt out/in
-        :param partners: res.partner recordset
+        Update list of opt out/in
+        :param partners: list of target model ids
         :param mode: str
         :return: bool
         """
@@ -275,14 +271,22 @@ class DistributionList(models.Model):
         if mode not in ['in', 'out']:
             raise exceptions.ValidationError(
                 _('Mode "%s" is not a valid mode') % mode)
-        target_field = 'res_partner_opt_%s_ids' % mode
-        if partners and hasattr(self, target_field):
-            opt_val = [(4, p.id, False) for p in partners]
-            if opt_val:
-                vals = {
-                    target_field: opt_val,
-                }
-                return self.write(vals)
+        if partner_ids and self.partner_path:
+            partner_ids = self.env[self.dst_model_id.model].browse(
+                partner_ids).mapped(self.partner_path)
+        if partner_ids:
+            vals = {}
+            for opt in ['in', 'out']:
+                opt_field = 'res_partner_opt_%s_ids' % opt
+                opt_val = [
+                    (4 if mode == opt else 3, pid)
+                    for pid in partner_ids
+                ]
+                vals.update({
+                    opt_field: opt_val,
+                })
+            res = self.write(vals)
+            return res
         return False
 
     @api.multi

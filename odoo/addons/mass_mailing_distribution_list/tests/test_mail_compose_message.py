@@ -1,19 +1,23 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from uuid import uuid4
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class TestMailComposeMessage(TransactionCase):
+class TestMailComposeMessage(SavepointCase):
 
     def setUp(self):
         super(TestMailComposeMessage, self).setUp()
-        self.dist_list_obj = self.env['distribution.list']
         self.dist_list_line_obj = self.env['distribution.list.line']
         self.mass_mailing_obj = self.env['mail.mass_mailing']
         self.mail_compose_message_obj = self.env['mail.compose.message']
         self.dst_model_id = self.env.ref("base.model_res_partner")
         self.partner_id_field = self.env.ref("base.field_res_partner_id")
+        vals = {
+            'name': str(uuid4()),
+            'dst_model_id': self.dst_model_id.id,
+        }
+        self.dist_list = self.env['distribution.list'].create(vals)
 
     def test_create_mail_compose_message(self):
         """
@@ -22,11 +26,7 @@ class TestMailComposeMessage(TransactionCase):
         should have this `distribution_list_id` too
         :return:
         """
-        vals = {
-            'name': str(uuid4()),
-            'dst_model_id': self.dst_model_id.id,
-        }
-        dist_list = self.dist_list_obj.create(vals)
+        dist_list = self.dist_list
         vals = {
             'name': 'test',
             'reply_to_mode': 'email',
@@ -57,12 +57,7 @@ class TestMailComposeMessage(TransactionCase):
         'distribution_list_id'
         :return:
         """
-        # distribution list
-        vals = {
-            'name': str(uuid4()),
-            'dst_model_id': self.dst_model_id.id,
-        }
-        dist_list = self.dist_list_obj.create(vals)
+        dist_list = self.dist_list
         vals = {
             'name': str(uuid4()),
             'src_model_id': self.dst_model_id.id,
