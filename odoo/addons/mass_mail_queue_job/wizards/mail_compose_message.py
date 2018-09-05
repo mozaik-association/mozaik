@@ -50,7 +50,7 @@ class MailComposeMessage(models.TransientModel):
         """
         self.ensure_one()
         if self.composition_mode != 'mass_mail' or \
-                self._context.get('not_async') or \
+                not self._context.get('async_send_mail') or \
                 not self._context.get('active_ids'):
             return super().send_mail()
 
@@ -91,6 +91,7 @@ class MailComposeMessage(models.TransientModel):
         """
         Build (and send) mails
         """
-        sel_ctx = self.with_context(not_async=True, active_ids=active_ids)
+        sel_ctx = self.with_context(
+            async_send_mail=False, active_ids=active_ids)
         composer = sel_ctx.create(vals)
         composer.send_mail()

@@ -79,7 +79,7 @@ class mail_compose_message(orm.TransientModel):
         Do not recompute ids if sending mails asynchronously
         """
         context = context or {}
-        if context.get('not_async'):
+        if not context.get('async_send_mail'):
             context = dict(context, dl_computed=True)
         return super(mail_compose_message, self).send_mail(
             cr, uid, ids, context=context)

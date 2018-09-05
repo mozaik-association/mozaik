@@ -186,7 +186,6 @@ class TestDistributionList(SavepointCase):
         context.update({
             'default_auto_delete': False,
             'default_keep_archives': True,
-            'not_async': 1,
         })
         self.distri_list_obj.with_context(context).message_new(
             msg_dict, custom_values=custom_values)

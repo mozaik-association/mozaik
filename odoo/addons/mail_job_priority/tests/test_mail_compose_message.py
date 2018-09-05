@@ -89,8 +89,6 @@ class TestMailComposeMessage(SavepointCase):
         :return:
         """
         context = self.env.context.copy()
-        # to avoid effect of another module, force synchrone mails sending
-        context['not_async'] = 1
         for limit in [1, 10]:
             partners = self.partner_obj.search([], limit=limit)
             context.update({
