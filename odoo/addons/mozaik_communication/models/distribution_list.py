@@ -14,8 +14,8 @@ class DistributionList(models.Model):
 
     _name = "distribution.list"
     _inherit = [
-        'distribution.list',
         'mozaik.abstract.model',
+        'distribution.list',
     ]
     _unicity_keys = 'name, int_instance_id'
 
@@ -57,7 +57,8 @@ class DistributionList(models.Model):
         track_visibility='onchange',
     )
     dst_model_id = fields.Many2one(
-        default=lambda self: self.env.ref(
+        #TODO
+        xdefault=lambda self: self.env.ref(
             "mozaik_communication.model_virtual_target"),
     )
     bridge_field = fields.Char(
@@ -268,10 +269,10 @@ class DistributionList(models.Model):
         composer.send_mail()
 
     @api.multi
-    def result_without_coordinate_action(self):
+    def action_show_result_without_coordinate(self):
         """
-        Return an action displaying results without any coordinate
-        :return: an ir.actions.act_window dictionary
+        Allow to show the result of the distribution list without coordinate
+        :return: dict/action
         """
         self.ensure_one()
         context = self.env.context.copy()

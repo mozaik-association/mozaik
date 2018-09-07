@@ -2,61 +2,6 @@
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <record id="virtual_target_tree_view" model="ir.ui.view">
-        <field name="name">virtual.target.tree</field>
-        <field name="model">virtual.target</field>
-        <field name="arch" type="xml">
-            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Virtual Target" create="0" delete="0">
-                <field name="partner_id" />
-                <field name="email" />
-                <field name="postal" />
-                <field name="membership_state_id" />
-                <field name="int_instance_id" />
-                <field name="postal_unauthorized" invisible="1" />
-                <field name="email_unauthorized" invisible="1" />
-            </tree>
-        </field>
-    </record>
-
-    <record id="virtual_target_search_view" model="ir.ui.view">
-        <field name="name">virtual.target.search</field>
-        <field name="model">virtual.target</field>
-        <field name="arch" type="xml">
-            <search string="Virtual Target">
-                <field name="identifier" />
-                <field string="Birth Date > ..." name="birth_date"
-                       filter_domain="[('birth_date','>',self)]" />
-                <field string="Birth Date &lt; ..." name="birth_date"
-                       filter_domain="[('birth_date','&lt;',self)]" />
-
-                <field name="partner_id" />
-                <field name="int_instance_id" />
-                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
-
-                <filter string="Natural Persons" name="type_person"
-                        domain="[('is_company','=',0)]" />
-                <filter string="Legal Persons" name="type_company"
-                        domain="[('is_company','!=',0)]" />
-                <separator />
-                <filter name="p_unauthorized" string="Unauthorized Address"
-                        domain="[('postal_unauthorized','=',True)]" />
-                <separator />
-                <filter name="e_unauthorized" string="Unauthorized Email"
-                        domain="[('email_unauthorized','=',True)]" />
-                <separator />
-                <filter name="without_coordinate" string="Without Coordinate"
-                        domain="[('active','=',False)]" />
-
-                <group expand="0" string="Group By..." name="group_by">
-                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                    <filter name="email_coordinate" string="Email Coordinate" context="{'group_by':'email_coordinate_id'}" />
-                    <filter name="postal_coordinate" string="Postal Coordinate" context="{'group_by':'postal_coordinate_id'}" />
-                </group>
-            </search>
-        </field>
-    </record>
 
     <!-- Partners/Involvements -->
 

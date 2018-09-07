@@ -2,9 +2,6 @@
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <act_window name="Add Current Filter To Distribution List" res_model="distribution.list.add.filter"
-        src_model="res.partner" view_mode="form" target="new" multi="True" key2="client_action_multi"
-        id="action_view_distribution_list_add_filter"  groups="base.group_user"/>
 
     <record id="distribution_list_add_filter" model="ir.ui.view">
         <field name="name">distribution.list.add.filter.form</field>
@@ -40,4 +37,17 @@
             </form>
         </field>
     </record>
+
+    <record id="distribution_list_add_filter_action" model="ir.actions.act_window">
+        <field name="name">Add Current Filter To Distribution List</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">res.partner</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1"/>
+        <field name="target">new</field>
+        <field name="view_id" ref="merge_distribution_list_wizard" />
+        <field name="binding_model_id" ref="model_distribution_list"/>
+        <field name="groups_id" eval="[(6, 0, [ref('res_groups_distribution_list_user')])]" />
+    </record>
+
 </odoo>

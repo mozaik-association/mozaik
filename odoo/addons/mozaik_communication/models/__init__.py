@@ -11,6 +11,4 @@ from . import mail_mass_mailing
 from . import mail_statistics_report
 from . import mail_template
 from . import mail_thread
-from . import postal_mail_log
-from . import postal_mail
 from . import res_partner

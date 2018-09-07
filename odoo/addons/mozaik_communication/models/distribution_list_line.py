@@ -8,8 +8,8 @@ from odoo.osv import expression
 class DistributionListLine(models.Model):
     _name = "distribution.list.line"
     _inherit = [
-        'distribution.list.line',
         'mozaik.abstract.model',
+        'distribution.list.line',
     ]
     _unicity_keys = 'name, company_id'
 
@@ -20,6 +20,8 @@ class DistributionListLine(models.Model):
         Intended to be inherited
         :return: list of string
         """
+        #TODO
+        return ['res.partner']
         return []
 
     @api.model
@@ -42,7 +44,11 @@ class DistributionListLine(models.Model):
     )
 
     @api.multi
-    def result_without_coordinate_action(self):
+    def action_show_filter_result_without_coordinate(self):
+        """
+        Allow to show the result of the list without coordinate
+        :return: dict/action
+        """
         result = self._get_list_from_domain()
         result.update({
             'name': _('Result of %s filter without coordinate') % self.name

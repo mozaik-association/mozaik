@@ -31,7 +31,7 @@ class MailComposeMessage(models.TransientModel):
         return priorities
 
     @api.multi
-    def send_mail(self):
+    def send_mail(self, auto_commit=False):
         """
         Set a priority on subsequent generated mail.mail, using priorities
         set into the configuration.
@@ -46,4 +46,4 @@ class MailComposeMessage(models.TransientModel):
             if limits:
                 prio = priorities.get(max(limits))
                 self = self.with_context(default_mail_job_priority=prio)
-        return super().send_mail()
+        return super().send_mail(auto_commit=auto_commit)

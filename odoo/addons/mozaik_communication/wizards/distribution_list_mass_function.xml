@@ -3,15 +3,12 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <!-- Distribution List Mailing View -->
-
     <record id="distribution_list_mass_function_wizard" model="ir.ui.view">
         <field name="name">distribution.list.mass.function.wizard</field>
         <field name="model">distribution.list.mass.function</field>
         <field name="arch" type="xml">
             <form>
                 <div class="oe_title" name="title">
-                    <separator string="Execute Distribution List"/>
                     <h1>
                         <field name="distribution_list_id" readonly="1" options='{"no_open":True}' />
                     </h1>
@@ -75,7 +72,7 @@
                         <field name="attachment_ids" widget="many2many_binary" string="Attach a file"/>
                         <group>
                             <group>
-                                <field name="email_template_id"
+                                <field name="mail_template_id"
                                        domain="[('model_id.model','=','email.coordinate')]"/>
                                 <field name="mass_mailing_name" />
                             </group>
@@ -124,16 +121,11 @@
         </field>
     </record>
 
-    <!-- Distribution List Mass Function Action -->
-
-    <record id="distribution_list_mass_function_action"
-            model="ir.actions.act_window">
-        <field name="name">Mass Function</field>
-        <field name="view_type">form</field>
+    <record id="distribution_list_mass_function_action" model="ir.actions.act_window">
+        <field name="name">Execute Distribution List</field>
         <field name="view_mode">form</field>
         <field name="src_model">distribution.list</field>
         <field name="res_model">distribution.list.mass.function</field>
-        <field name="multi" eval="0" />
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list_mass_function_wizard" />
     </record>

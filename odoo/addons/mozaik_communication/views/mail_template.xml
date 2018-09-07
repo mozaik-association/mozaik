@@ -5,7 +5,7 @@
     <record id="view_email_template_search" model="ir.ui.view">
         <field name="name">mail.template.search (mozaik_communication)</field>
         <field name="model">mail.template</field>
-        <field name="inherit_id" ref="email_template.view_email_template_search" />
+        <field name="inherit_id" ref="mail.view_email_template_search" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='model_id']" position="after">
                 <field name="int_instance_id"/>
@@ -20,23 +20,18 @@
     <record id="email_template_tree" model="ir.ui.view">
         <field name="name">mail.template.tree (mozaik_communication)</field>
         <field name="model">mail.template</field>
-        <field name="inherit_id" ref="email_template.email_template_tree" />
+        <field name="inherit_id" ref="mail.email_template_tree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <field name="int_instance_id"/>
             </xpath>
-            <xpath expr="//field[@name='mail_server_id']" position="replace"/>
-            <xpath expr="//field[@name='email_from']" position="replace"/>
-            <xpath expr="//field[@name='email_to']" position="replace"/>
-            <xpath expr="//field[@name='partner_to']" position="replace"/>
-            <xpath expr="//field[@name='report_name']" position="replace"/>
         </field>
     </record>
 
     <record id="email_template_form" model="ir.ui.view">
         <field name="name">mail.template.form (mozaik_communication)</field>
         <field name="model">mail.template</field>
-        <field name="inherit_id" ref="email_template.email_template_form" />
+        <field name="inherit_id" ref="mail.email_template_form" />
         <field name="arch" type="xml">
             <field name="placeholder_id" position="before">
                 <field name="involvement_category_id"/>
@@ -47,22 +42,13 @@
                         <field name="int_instance_id" />
                         <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
                     </group>
-                    <div class="oe_clear">
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                    </div>
                 </page>
             </xpath>
-            <xpath expr="//button[@name='action_edit_html']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
             <xpath expr="//button[@name='create_action']" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute name="groups">base.group_erp_manager</attribute>
             </xpath>
             <xpath expr="//button[@name='unlink_action']" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute name="groups">base.group_erp_manager</attribute>
             </xpath>
         </field>
     </record>

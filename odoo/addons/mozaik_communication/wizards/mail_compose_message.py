@@ -40,12 +40,12 @@ class MailComposeMessage(models.TransientModel):
                     result[model_obj.id]['email_to'] = email[0]
         return result
 
-    def send_mail(self, cr, uid, ids, context=None):
+    @api.multi
+    def send_mail(self, auto_commit=False):
         """
         Do not recompute ids if sending mails asynchronously
         """
-        context = context or {}
+        context = self._context
         if not context.get('async_send_mail'):
-            context = dict(context, dl_computed=True)
-        return super(mail_compose_message, self).send_mail(
-            cr, uid, ids, context=context)
+            self = self.with_context(dl_computed=True)
+        return super().send_mail(auto_commit=auto_commit)

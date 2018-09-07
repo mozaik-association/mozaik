@@ -35,7 +35,7 @@ class DistributionList(models.Model):
         "ir.model",
         "Destination model",
         required=True,
-        default=lambda self: self.env.ref("base.model_res_partner").id,
+        default=lambda self: self.env.ref("base.model_res_partner"),
     )
     bridge_field = fields.Char(
         required=True,
@@ -273,9 +273,9 @@ class DistributionList(models.Model):
                 })
 
     @api.multi
-    def get_action_from_domains(self):
+    def action_show_result(self):
         """
-        Allow to preview resulting of distribution list
+        Allow to show the result of the distribution list
         :return: dict/action
         """
         self.ensure_one()

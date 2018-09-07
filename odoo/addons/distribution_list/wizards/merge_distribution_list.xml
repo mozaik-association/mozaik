@@ -25,7 +25,6 @@
 
     <record id="merge_distribution_list_action" model="ir.actions.act_window">
         <field name="name">Merge Distribution List(s)</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="src_model">distribution.list</field>
         <field name="res_model">merge.distribution.list</field>
@@ -33,6 +32,6 @@
         <field name="target">new</field>
         <field name="view_id" ref="merge_distribution_list_wizard" />
         <field name="binding_model_id" ref="model_distribution_list"/>
-        <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]" />
+        <field name="groups_id" eval="[(6, 0, [ref('res_groups_distribution_list_user')])]" />
     </record>
 </odoo>

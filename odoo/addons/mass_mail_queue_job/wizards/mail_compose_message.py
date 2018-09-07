@@ -56,7 +56,7 @@ class MailComposeMessage(models.TransientModel):
         return res
 
     @api.multi
-    def send_mail(self):
+    def send_mail(self, auto_commit=False):
         """
         Build mass mails by queue job
         """
@@ -94,16 +94,16 @@ class MailComposeMessage(models.TransientModel):
             _logger.info(
                 'Delay %s for ids: %s', description, chunck_active_ids)
             wz_model.with_delay(description=description)._build_mails_jobified(
-                vals, chunck_active_ids)
+                vals, chunck_active_ids, auto_commit)
         return {'type': 'ir.actions.act_window_close'}
 
     @api.model
     @job(default_channel='root.mail.build')
-    def _build_mails_jobified(self, vals, active_ids):
+    def _build_mails_jobified(self, vals, active_ids, auto_commit):
         """
         Build (and send) mails
         """
         sel_ctx = self.with_context(
             async_send_mail=False, active_ids=active_ids)
         composer = sel_ctx.create(vals)
-        composer.send_mail()
+        composer.send_mail(auto_commit=auto_commit)

@@ -20,9 +20,16 @@ class DistributionListMassFunction(models.TransientModel):
             ('email_coordinate_id', _('Mass Mailing')),
             ('csv', _('CSV Extraction')),
         ]
-        if not self.env.user.has_group(""):
-            return funcs[1:]
         return funcs
+
+    @api.model
+    def _get_default_e_mass_function(self):
+        """
+        Get default email.coordinate mass function
+        :return:
+        """
+        funcs = self._get_e_mass_function()
+        return funcs[0][0]
 
     trg_model = fields.Selection(
         selection=[
@@ -36,6 +43,7 @@ class DistributionListMassFunction(models.TransientModel):
     e_mass_function = fields.Selection(
         selection=_get_e_mass_function,
         string="Mass function",
+        default=lambda self: self._get_default_e_mass_function(),
     )
     p_mass_function = fields.Selection(
         selection=[
@@ -100,7 +108,6 @@ class DistributionListMassFunction(models.TransientModel):
         readonly=True,
     )
     export_filename = fields.Char(
-        size=128,
     )
     # Fake field for auto-completing placeholder
     placeholder_id = fields.Many2one(
@@ -128,10 +135,15 @@ class DistributionListMassFunction(models.TransientModel):
         default=lambda self: self._get_default_partner_from_id(),
         context={'show_email': 1},
     )
-    partner_name = fields.Char()
-    email_from = fields.Char(readonly=True)
-    email_template_id = fields.Many2one(
-        'email.template', string='Email Template')
+    partner_name = fields.Char(
+    )
+    email_from = fields.Char(
+        readonly=True,
+    )
+    mail_template_id = fields.Many2one(
+        comodel_name='mail.template',
+        string='Email Template',
+    )
 
     @api.onchange("e_mass_function")
     def _onchange_mass_function(self):
@@ -358,7 +370,7 @@ class DistributionListMassFunction(models.TransientModel):
             'composition_mode': 'mass_mail',
             'partner_ids': [[6, False, []]],
             'notify': False,
-            'template_id': self.email_template_id.id,
+            'template_id': self.mail_template_id.id,
             'subject': self.subject,
             'distribution_list_id': self.distribution_list_id.id,
             'mass_mailing_name': self.mass_mailing_name,
@@ -367,9 +379,9 @@ class DistributionListMassFunction(models.TransientModel):
             'contact_ab_pc': self.contact_ab_pc,
         }
         attachments = self.attachment_ids.ids or []
-        if self.email_template_id:
+        if self.mail_template_id:
             value = composer_obj.onchange_template_id(
-                self.email_template_id.id, 'mass_mail', '', 0).get('value', {})
+                self.mail_template_id.id, 'mass_mail', '', 0).get('value', {})
             attachments += value.get('attachment_ids', [])
             for fld in ['subject', 'body', 'email_from']:
                 value.pop(fld, None)
@@ -495,12 +507,12 @@ class DistributionListMassFunction(models.TransientModel):
             name = self.partner_name and self.partner_name.strip() or name
         self.email_from = formataddr((name, email))
 
-    @api.onchange('email_template_id')
+    @api.onchange('mail_template_id')
     def _onchange_template_id(self):
         """
         Instanciate subject and body from template to wizard
         """
-        tmpl = self.email_template_id
+        tmpl = self.mail_template_id
         if tmpl:
             if tmpl.subject:
                 self.subject = tmpl.subject
@@ -530,7 +542,7 @@ class DistributionListMassFunction(models.TransientModel):
             'body_html': self.body or False,
         }
         template = self.env['email.template'].create(values)
-        self.email_template_id = template
+        self.mail_template_id = template
         self._onchange_template_id()
 
         return {

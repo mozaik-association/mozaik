@@ -1,10 +1,9 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import tempfile
 import csv
 import base64
 from io import StringIO
-from odoo import api, models, fields, _
+from odoo import api, exceptions, models, fields, _
 
 
 class ExportCsv(models.TransientModel):
@@ -17,7 +16,6 @@ class ExportCsv(models.TransientModel):
     )
     export_filename = fields.Char(
         string="Export CSV filename",
-        size=128,
     )
 
     @api.model
@@ -164,25 +162,25 @@ class ExportCsv(models.TransientModel):
         if model == 'email.coordinate':
             query = """
             %s WHERE ec.id IN %%s
-            """ % queries_obj.email_coordinate_request(cr, uid)
+            """ % queries_obj.email_coordinate_request()
         elif model == 'postal.coordinate':
             query = """
             %s WHERE pc.id IN %%s
-            """ % queries_obj.postal_coordinate_request(cr, uid)
+            """ % queries_obj.postal_coordinate_request()
         elif model == 'virtual.target':
             query = """
             %s WHERE vt.id IN %%s
-            """ % queries_obj.virtual_target_request(cr, uid)
+            """ % queries_obj.virtual_target_request()
         else:
-            raise orm.except_orm(
-                _('Error'),
+            raise exceptions.UserError(
                 _('Model %s not supported for csv export!') % model)
-        order_by = self._get_order_by(context.get('sort_by'))
+        order_by = self._get_order_by(self._context.get('sort_by'))
         query = "%s %s" % (query, order_by)
-        cr.execute(query, (tuple(model_ids),))
-        for row in cr.dictfetchall():
+        self.env.cr.execute(query, (tuple(model_ids),))
+        for row in self.env.cr.dictfetchall():
             yield row
 
+    @api.model
     def get_csv(self, model, model_ids, group_by=False):
         """
         Build a CSV file related to a coordinate model
@@ -201,22 +199,25 @@ class ExportCsv(models.TransientModel):
                 states = {st.id: st.name for st in states}
                 countries = self.env['res.country'].search([])
                 countries = {cnt.id: cnt.name for cnt in countries}
-                selections = self.env['res.partner'].fields_get(allfields=['gender', 'tongue'])
+                selections = self.env['res.partner'].fields_get(
+                    allfields=['gender', 'lang'])
                 genders = {k: v for k, v in selections['gender']['selection']}
                 tongues = {k: v for k, v in selections['tongue']['selection']}
-                viper = self.env['res.users'].has_group('mozaik_base.mozaik_res_groups_vip_reader')
+                viper = self.env['res.users'].has_group(
+                    'mozaik_coordinate.res_groups_coordinate_vip_reader')
                 obfuscation = 'VIP'
                 if viper:
                     obfuscation = False
                 for data in self._prefetch_csv_datas(model, model_ids):
                     if data.get('state_id'):
-                        data.update({'state': states.get(data.get('state_id'))}),
+                        data['state'] = states.get(data['state_id'])
                     if data.get('country_id'):
-                        data.update({'country_name': countries.get(data.get('country_id'))}),
+                        data['country_name'] = countries.get(
+                            data['country_id'])
                     if data.get('gender'):
-                        data.update({'gender': genders.get(data.get('gender'))}),
-                    if data.get('tongue'):
-                        data.update({'tongue': tongues.get(data.get('tongue'))}),
+                        data['gender'] = genders.get(data['gender'])
+                    if data.get('lang'):
+                        data['lang'] = tongues.get(data['lang'])
                     if model == 'postal.coordinate' and group_by:
                         # when grouping by co_residency, output only one row
                         # by co_residency
@@ -230,25 +231,27 @@ class ExportCsv(models.TransientModel):
             csv_content = memory_file.getvalue()
         return csv_content
 
-    def export(self, cr, uid, ids, context=None):
+    @api.multi
+    def export(self):
+        self.ensure_one()
+        context = self._context
         model = context.get('active_model', False)
         model_ids = context.get('active_ids', False)
-        csv_content = self.get_csv(cr, uid, model, model_ids, context=context)
+        csv_content = self.get_csv(model, model_ids)
 
         csv_content = base64.encodestring(csv_content)
 
-        self.write(cr, uid, ids[0],
-                   {'export_file': csv_content,
-                    'export_filename': 'Extract.csv'},
-                   context=context)
+        self.write({
+            'export_file': csv_content,
+            'export_filename': 'Extract.csv',
+        })
 
         return {
             'name': 'Export Csv',
             'type': 'ir.actions.act_window',
             'res_model': 'export.csv',
             'view_mode': 'form',
-            'view_type': 'form',
-            'res_id': ids[0],
+            'res_id': self.id,
             'views': [(False, 'form')],
             'target': 'new',
         }

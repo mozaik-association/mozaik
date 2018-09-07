@@ -2,15 +2,17 @@
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
+
     <record id="distribution_list_line_search" model="ir.ui.view">
         <field name="name">distribution.list.line.search (mozaik_communication)</field>
         <field name="model">distribution.list.line</field>
         <field name="inherit_id" ref="distribution_list.distribution_list_line_search" />
         <field name="arch" type="xml">
-            <field name="src_model_id" position="after">
+            <xpath expr="//field[@name='src_model_id']" position="after">
+                <separator/>
                 <filter name="expired" string="Expired" context="{'invisible_expire_date': False}" domain="[('active','=',False)]" help="Expired Filters" />
                 <filter name="all" string="All" context="{'invisible_expire_date': False}" domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Filters, expired or not" />
-            </field>
+            </xpath>
         </field>
     </record>
 
@@ -19,13 +21,16 @@
         <field name="model">distribution.list.line</field>
         <field name="inherit_id" ref="distribution_list.distribution_list_line_tree" />
         <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="active" invisible="1"/>
-            </field>
-            <button name="get_list_from_domain" position="replace">
-                <button name="get_list_from_domain" attrs="{'invisible':[('active', '=', False)]}" string="See Filter Result" type="object"/>
-                <button name="get_list_without_coordinate_from_domain" attrs="{'invisible':[('active', '=', False)]}" string="See Result Without Coordinate" type="object"/>
-            </button>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                <field name="active" groups="base.group_erp_manager"/>
+            </xpath>
+            <xpath expr="//button[@name='action_show_filter_result']" position="attributes">
+                <attribute name="attrs" translation="off">{'invisible':[('active', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_show_filter_result']" position="after">
+                <button name="action_show_filter_result_without_coordinate" attrs="{'invisible':[('active', '=', False)]}" string="Without Coordinate" type="object" icon="fa-address-card text-danger"/>
+            </xpath>
         </field>
     </record>
 
@@ -34,31 +39,21 @@
         <field name="model">distribution.list.line</field>
         <field name="inherit_id" ref="distribution_list.distribution_list_line_form" />
         <field name="arch" type="xml">
-            <!-- Rebuild header -->
-            <header position="replace">
-                <header>
-                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}" invisible="context.get('popup')" groups="mozaik_base.mozaik_res_groups_user">
-                        <button name="action_invalidate" string="Invalidate" type="object" confirm="Invalidate Filter: proceed anyway?" />
-                        <button name="get_list_from_domain" class="oe_read_only" type="object" string="See Filter Result" />
-                        <button name="get_list_without_coordinate_from_domain" class="oe_read_only" string="See Result Without Coordinate" type="object"/>
-                    </div>
-                </header>
-            </header>
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button name="action_show_filter_result_without_coordinate" class="oe_stat_button" string="Without Coordinate" icon="fa-address-card text-danger"
+                        type="object" attrs="{'invisible': [('id','=',False)]}" />
+                <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
+                        confirm="Archive/reactivate filter: proceed anyway?"
+                        groups="mozaik_abstract_model.res_groups_archiving_manager">
+                    <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                </button>
+            </xpath>
 
-            <button name="action_partner_selection" position="attributes">
+            <xpath expr="//button[@name='action_redefine_domain']" position="attributes">
                 <attribute name="attrs" translation="off">{'invisible':[('active', '=', False)]}</attribute>
-                <attribute name="groups" translation="off">mozaik_base.mozaik_res_groups_user</attribute>
-            </button>
+            </xpath>
 
-            <field name="src_model_id" position="attributes">
-                <attribute name="widget" translation="off">selection</attribute>
-            </field>
-
-            <field name="domain" position="attributes">
-                <attribute name="readonly" translation="off">not context.get('is_developper')</attribute>
-            </field>
-
-            <sheet position="inside">
+            <xpath expr="//group[@name='data']" position="after">
                 <group name="status" attrs="{'invisible': [('id','=',False)]}">
                     <group name="validity">
                         <field name="create_date" />
@@ -67,39 +62,21 @@
                     <group name="other">
                     </group>
                 </group>
-                <separator string="Included in following distribution lists:"/>
-                <field name="distribution_list_in_ids" widget="many2many_tags" readonly="1" context="{'active_test': False}"/>
-                <separator string="Excluded from following distribution lists:"/>
-                <field name="distribution_list_out_ids" widget="many2many_tags" readonly="1" context="{'active_test': False}"/>
-            </sheet>
+            </xpath>
 
-            <!-- Add user tree into distribution list form -->
-            <form position="inside">
-                <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
-                    <div class="oe_formview oe_form_sheet_width">
-                        <h3>More Info</h3>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                            <button name="action_revalidate" string="Validate" type="object"
-                                    confirm="Reactivate document: proceed anyway?" />
-                        </div>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="active"/>
-                        </group>
-                    </div>
-                </div>
-                <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+            <xpath expr="//notebook" position="inside">
+                <page string="More Info" name="dev" groups="base.group_erp_manager">
+                    <group name="moreinfo"/>
+                </page>
+            </xpath>
+
+            <xpath expr="//form" position="inside">
+                <div name="chat" class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
-            </form>
-
+            </xpath>
         </field>
     </record>
 
-    <!-- Merge Distribution List: only for Mozaik Users -->
-
-    <record id="distribution_list.merge_distribution_list_action" model="ir.actions.act_window">
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-    </record>
 </odoo>

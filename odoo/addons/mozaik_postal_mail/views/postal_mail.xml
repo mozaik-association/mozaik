@@ -92,4 +92,13 @@
         <field name="search_view_id" ref="postal_mail_search_view"/>
     </record>
 
+    <menuitem id="postal_mailings_submenu" name="Postal Mailings"
+              sequence="40" parent="mozaik_base.communication_root_menu" />
+
+    <menuitem id="postal_mailing_postal_mail_menu" action="postal_mail_action"
+              sequence="15" parent="postal_mailings_submenu"/>
+
+    <menuitem id="postal_mailing_postal_mail_history_menu" action="postal_mail_log_action"
+              sequence="20" parent="postal_mailings_submenu"/>
+
 </odoo>

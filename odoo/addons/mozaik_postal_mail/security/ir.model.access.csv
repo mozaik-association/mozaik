@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_postal_mail_reader,postal.mail.reader,model_postal_mail,res_groups_communication_reader,1,0,0,0
+access_postal_mail_user,postal.mail.user,model_postal_mail,res_groups_communication_user,0,1,1,0
+access_postal_mail_manager,postal.mail.manager,model_postal_mail,res_groups_communication_manager,0,0,0,1
+access_postal_mail_log_reader,postal.mail.log.reader,model_postal_mail_log,res_groups_communication_reader,1,0,0,0
+access_postal_mail_log_user,postal.mail.log.user,model_postal_mail_log,res_groups_communication_user,0,1,1,0
+access_postal_mail_log_manager,postal.mail.log.manager,model_postal_mail_log,res_groups_communication_manager,0,0,0,1

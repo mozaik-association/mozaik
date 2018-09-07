@@ -33,7 +33,7 @@ class MailComposeMessage(models.TransientModel):
             MailComposeMessage, self.with_context(context)).create(vals)
 
     @api.multi
-    def send_mail(self):
+    def send_mail(self, auto_commit=False):
         """
         Overriding of send mail: it has to compute the ids
         of the distribution list to send mail.
@@ -47,4 +47,4 @@ class MailComposeMessage(models.TransientModel):
                 active_ids=mains.ids,
                 active_model=mains._name,
             )
-        return super().send_mail()
+        return super().send_mail(auto_commit=auto_commit)

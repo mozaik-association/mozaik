@@ -3,62 +3,72 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <!-- SEARCH -->
     <record id="distribution_list_line_search" model="ir.ui.view">
         <field name="name">distribution.list.line.search</field>
         <field name="model">distribution.list.line</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
+                <field name="distribution_list_id"/>
                 <field name="src_model_id"/>
                 <field name="bridge_field_id"/>
 
-                <group expand="0" string="Group By..." name="group_by">
+                <group>
                     <filter name="src_model" string="Model" domain="[]" context="{'group_by':'src_model_id'}" />
                 </group>
             </search>
         </field>
     </record>
 
-    <!-- TREE -->
     <record id="distribution_list_line_tree" model="ir.ui.view">
         <field name="name">distribution.list.line.tree</field>
         <field name="model">distribution.list.line</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <button name="get_list_from_domain" string="See Filter Result" type="object"/>
+                <button name="action_show_filter_result" string="Result" type="object" icon="fa-address-card text-success"/>
             </tree>
         </field>
     </record>
 
-    <!-- FORM -->
     <record id="distribution_list_line_form" model="ir.ui.view">
         <field name="name">distribution.list.line.form</field>
         <field name="model">distribution.list.line</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button groups="base.group_user" name="get_list_from_domain"
-                        string="See Filter Result" type="object" class="oe_read_only"/>
+                    <div attrs="{'invisible': [('id','=',False)]}">
+                    </div>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_show_filter_result" class="oe_stat_button" string="Filter result" icon="fa-address-card text-warning"
+                                type="object" attrs="{'invisible': [('id','=',False)]}" />
+                    </div>
                     <div class="oe_title" name="title">
                         <label for="name" class="oe_edit_only"/>
                         <h1>
                             <field name="name" placeholder="Name"/>
                         </h1>
                     </div>
-                    <group name="info">
-                        <field name="src_model_id" options="{'no_create_edit': True}"/>
-                        <field name="bridge_field_id" options="{'no_create_edit': True}"/>
-                        <field name="company_id" groups="base.group_multi_company" options="{'no_create_': True}"/>
+                    <group name="data">
+                        <group name="info">
+                            <field name="distribution_list_id" invisible="context.get('default_distribution_list_id')"/>
+                            <field name="src_model_id" widget="selection"/>
+                            <field name="bridge_field_id" options="{'no_create_edit': True}"/>
+                        </group>
+                        <group name="company">
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create_edit': True}"/>
+                        </group>
                     </group>
-                    <separator string="Expression"/>
-                    <group name="expr">
-                        <field name="domain" readonly="1"/>
-                        <button class="oe_read_only" name="action_partner_selection" type="object" string="Define New Expression" groups="base.group_user"/>
-                    </group>
+                    <notebook>
+                        <page name="filter" string="Filter">
+                            <group name="expr">
+                                <field name="domain" readonly="1"/>
+                                <button class="oe_read_only" name="action_redefine_domain" type="object" string="Define New Expression" groups="distribution_list.res_groups_distribution_list_user"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -67,8 +77,9 @@
     <record id="distribution_list_line_action" model="ir.actions.act_window">
         <field name="name">Filters</field>
         <field name="res_model">distribution.list.line</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="distribution_list_line_tree" />
+        <field name="search_view_id" ref="distribution_list_line_search" />
     </record>
 
     <record model="ir.ui.menu" id="distribution_list_line">

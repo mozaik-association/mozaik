@@ -20,8 +20,8 @@ class DistributionListLine(models.Model):
         required=True,
     )
     distribution_list_id = fields.Many2one(
-        "distribution.list",
-        "Distribution list",
+        comodel_name="distribution.list",
+        string="Distribution list",
         required=True,
         index=True,
     )
@@ -45,7 +45,7 @@ class DistributionListLine(models.Model):
         "Model",
         required=True,
         index=True,
-        default=lambda self: self.env.ref("base.model_res_partner").id,
+        default=lambda self: self.env.ref("base.model_res_partner"),
     )
     bridge_field_id = fields.Many2one(
         "ir.model.fields",
@@ -128,7 +128,7 @@ class DistributionListLine(models.Model):
 
     @api.onchange('src_model_id', 'distribution_list_id')
     def _onchange_src_model_id(self):
-        self.domain = self._fields.get('src_model_id').default(self)
+        self.domain = self._fields.get('domain').default(self)
         fields_available = self._get_valid_bridge_fields().get(self)
         if len(fields_available) == 1:
             self.bridge_field_id = fields_available
@@ -211,18 +211,15 @@ class DistributionListLine(models.Model):
         return targets
 
     @api.multi
-    def get_list_from_domain(self):
+    def action_show_filter_result(self):
         """
-        This method will provide a 'test' by returning a dictionary
-        that allow user to see the result of the domain expression applied on
-        the selected model
+        Allow to show the result of the filter
         :return: dict/action
         """
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'name': _('Result of %s') % self.name,
-            'view_type': 'form',
             'view_mode': 'tree, form',
             'res_model': self.src_model_id.model,
             'view_id': False,
@@ -233,16 +230,9 @@ class DistributionListLine(models.Model):
         }
 
     @api.multi
-    def action_partner_selection(self):
+    def action_redefine_domain(self):
         """
-        Launch an action act_windows with special parameters:
-           * view_mode      --> tree_partner_selection
-               View Customized With JavaScript and QWeb
-
-           * flags          --> search_view
-               Put the search_view to true allow to show
-               The SearchBox into a PopUp window
-        :return:
+        Allow to launch an action to redefine the filter domain
         """
         self.ensure_one()
         context = self.env.context.copy()
