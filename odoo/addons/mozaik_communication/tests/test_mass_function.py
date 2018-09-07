@@ -74,11 +74,11 @@ class TestMassFunction(SharedSetupTransactionCase):
             'is_company': True,
         }
         p2 = partner_obj.create(vals)
-        # add a partner_id and a res_partner_m2m_ids to a distribution list
+        # add a partner_id and a res_partner_ids to a distribution list
         dl = self.browse_ref('%s.everybody_list' % self._module_ns)
         vals = {
             'partner_id': p1.id,
-            'res_partner_m2m_ids': [(6, 0, [p2.id])],
+            'res_partner_ids': [(6, 0, [p2.id])],
         }
         dl.write(vals)
         # from now, allowed "From" are:

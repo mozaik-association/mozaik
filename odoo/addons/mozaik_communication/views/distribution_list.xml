@@ -17,9 +17,11 @@
             </xpath>
             <xpath expr="//filter[@name='newsletter']" position="after">
                 <separator/>
-                <filter name="my_lists" string="My Lists" domain="[('res_users_ids', 'in', [uid])]" help="Distribution Lists of which I am an owner" />
-                <separator/>
                 <filter name="public" string="Public Newsletters" domain="[('newsletter','=',True),('public','=',True)]"/>
+            </xpath>
+            <xpath expr="//group" position="before">
+                <separator/>
+                <filter name="my_lists" string="My Lists" domain="[('res_users_ids', 'in', [uid])]" help="Distribution Lists of which I am an owner" />
                 <separator/>
                 <filter name="expired" string="Expired" context="{'invisible_expire_date': False}" domain="[('active','=',False)]" help="Expired Distribution Lists" />
                 <filter name="all" string="All" context="{'invisible_expire_date': False}" domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Distribution Lists, expired or not" />
@@ -61,6 +63,18 @@
         <field name="model">distribution.list</field>
         <field name="inherit_id" ref="distribution_list.distribution_list_form" />
         <field name="arch" type="xml">
+            <xpath expr="//header" position="attributes">
+                <attribute name="attrs" translation="off">{'invisible': ['|',('id', '=', False),('active', '=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='mass_mailing']" position="attributes">
+                <attribute name="groups" translation="off">base.group_erp_manager</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='mass_mailing']" position="after">
+                <button name="%(distribution_list_mass_function_action)d" type="action" string="Mass Action" />
+            </xpath>
+
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
                 <button name="action_show_result_without_coordinate" class="oe_stat_button" string="Without Coordinate" icon="fa-address-card text-danger"
                         type="object" attrs="{'invisible': [('id','=',False)]}" />
@@ -92,7 +106,7 @@
             </xpath>
 
             <xpath expr="//field[@name='to_include_distribution_list_line_ids']//button[@name='action_show_filter_result']" position="after">
-                <button name="action_show_result_without_coordinate" string="Without Coordinate" type="object" icon="fa-address-card text-warning"/>
+                <button name="action_show_filter_result_without_coordinate" string="Without Coordinate" type="object" icon="fa-address-card text-danger"/>
             </xpath>
 
             <xpath expr="//notebook" position="inside">

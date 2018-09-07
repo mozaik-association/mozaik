@@ -17,7 +17,7 @@
                     </div>
                     <group>
                         <field name="distribution_list_id"/>
-                        <field name="bridge_field_id"/>
+                        <field name="bridge_field_id" options="{'no_create_edit': True}"/>
                         <field name="exclude"/>
                     </group>
                 </div>
@@ -26,12 +26,12 @@
                 </div>
 
                 <footer invisible="context.get('active_domain','x') == 'x'">
-                    <button name="add_distribution_list_line" string="Add" type="object"/>
+                    <button name="add_distribution_list_line" string="Add" type="object" class="btn-primary"/>
                     or
-                    <button string="Cancel" class="oe_link" special="cancel" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
                 <footer invisible="not context.get('active_domain','x') == 'x'">
-                    <button string="Cancel" class="oe_link" special="cancel" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
 
             </form>
@@ -45,8 +45,8 @@
         <field name="res_model">distribution.list.add.filter</field>
         <field name="multi" eval="1"/>
         <field name="target">new</field>
-        <field name="view_id" ref="merge_distribution_list_wizard" />
-        <field name="binding_model_id" ref="model_distribution_list"/>
+        <field name="view_id" ref="distribution_list_add_filter" />
+        <field name="binding_model_id" ref="base.model_res_partner"/>
         <field name="groups_id" eval="[(6, 0, [ref('res_groups_distribution_list_user')])]" />
     </record>
 

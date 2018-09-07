@@ -34,13 +34,12 @@ class MailComposeMessage(models.TransientModel):
             'email_from',
             'subtype_id',
             'message_type',
+            'mass_mailing_name',
+            'distribution_list_id',
+            'contact_ab_pc',
         ], load='_classic_write')[0]
         vals.pop('id', None)
-        for key in vals.keys():
-            if isinstance(vals[key], list):
-                vals[key] = [
-                    (6, 0, vals[key])
-                ]
+        vals = self._convert_to_write(vals)
         return vals
 
     @api.model
@@ -103,7 +102,7 @@ class MailComposeMessage(models.TransientModel):
         """
         Build (and send) mails
         """
-        sel_ctx = self.with_context(
+        self_ctx = self.with_context(
             async_send_mail=False, active_ids=active_ids)
-        composer = sel_ctx.create(vals)
+        composer = self_ctx.create(vals)
         composer.send_mail(auto_commit=auto_commit)

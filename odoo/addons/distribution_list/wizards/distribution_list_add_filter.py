@@ -63,36 +63,37 @@ class DistributionListAddFilter(models.TransientModel):
     @api.multi
     def _get_valid_bridge_fields(self):
         """
-        Get every fields available for each distribution.list.line
-        :return: dict
+        Get available bridge fields between src and dst models
+        :return: field recordset
         """
         self.ensure_one()
         active_model = self.env.context.get('active_model')
-        dst_models = self.distribution_list_id.dst_model_id
+        dst_model = self.distribution_list_id.dst_model_id
         domain = [
             ('ttype', '=', 'many2one'),
             ('model_id.model', '=', active_model),
-            ('relation', 'in', dst_models.mapped("model")),
+            ('relation', '=', dst_model.model),
         ]
         all_fields = self.env['ir.model.fields'].search(domain)
         available_fields = all_fields
-        if active_model == dst_models.model:
+        if active_model == dst_model.model:
             domain = [
                 ('ttype', '=', 'integer'),
                 ('name', '=', 'id'),
-                ('model_id', '=', dst_models.id),
+                ('model_id', '=', dst_model.id),
             ]
             all_id_fields = self.env['ir.model.fields'].search(domain)
             available_fields |= all_id_fields
         return available_fields
 
-    @api.onchange('bridge_field_id', 'distribution_list_id')
+    @api.onchange('distribution_list_id')
     def _onchange_bridge_field_id(self):
         fields_available = self._get_valid_bridge_fields()
         if len(fields_available) == 1:
             self.bridge_field_id = fields_available
-        if self.bridge_field_id not in fields_available:
-            self.bridge_field_id = False
+        else:
+            self.bridge_field_id = fields_available.filtered(
+                lambda s: s.name == 'id')
         result = {
             'domain': {
                 'bridge_field_id': [('id', 'in', fields_available.ids)],

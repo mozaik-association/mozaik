@@ -138,7 +138,7 @@ class test_distribution_list(SharedSetupTransactionCase):
         # remove user from owners but add it as allowed partner
         vals = {
             'res_users_ids': [(3, self.usr.id, False)],
-            'res_partner_m2m_ids': [(6, 0, [self.usr.partner_id.id])],
+            'res_partner_ids': [(6, 0, [self.usr.partner_id.id])],
         }
         self.dl_obj.write(cr, uid, [dl_id], vals, context=context)
         self.dl_obj._distribution_list_forwarding(
@@ -162,7 +162,7 @@ class test_distribution_list(SharedSetupTransactionCase):
         msg['email_from'] = vals['email']
         # make the legal person an allowed partner of the DL
         vals = {
-            'res_partner_m2m_ids': [(4, partner_id)],
+            'res_partner_ids': [(4, partner_id)],
         }
         self.dl_obj.write(cr, uid, [dl_id], vals, context=context)
         self.dl_obj._distribution_list_forwarding(

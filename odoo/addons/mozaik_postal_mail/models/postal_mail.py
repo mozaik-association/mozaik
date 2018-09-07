@@ -93,3 +93,34 @@ class PostalMail(models.Model):
             args = expression.AND([domain, args or []])
         return super().name_search(
             name=name, args=args, operator=operator, limit=limit)
+
+    @api.model
+    def _generate_postal_log(self, postal_mail_name, postal_coordinates):
+        """
+        Generate a postal mailing for the specified parameters:
+        * postal mailing name
+        * postal coordinate ids
+        :param postal_mail_name:
+        :param postal_coordinates:
+        :return: bool
+        """
+        if not postal_coordinates:
+            return True
+        today = fields.Date.today()
+        postal_mail = self.search([
+            ('name', '=', postal_mail_name),
+            ('sent_date', '=', today),
+        ], limit=1)
+        if not postal_mail:
+            postal_mail = self.create({
+                'name': postal_mail_name,
+                'sent_date': today,
+            })
+        for coord in postal_coordinates:
+            self.env['postal.mail.log'].create({
+                'postal_mail_id': postal_mail.id,
+                'postal_coordinate_id': coord.id,
+                'partner_id': coord.partner_id.id,
+                'sent_date': today,
+            })
+        return True

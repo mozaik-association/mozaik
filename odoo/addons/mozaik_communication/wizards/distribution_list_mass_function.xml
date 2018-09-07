@@ -47,9 +47,9 @@
                         </group>
                     </page>
                     <page name="mass_mailing" string="Mass Mailing"
-                          attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
-                                                       ('e_mass_function','!=','email_coordinate_id')]}"
-                          groups="mozaik_base.mozaik_res_groups_user">
+                          autofocus="autofocus"
+                          attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),('e_mass_function','!=','email_coordinate_id')]}"
+                          groups="mozaik_communication.res_groups_communication_user">
                         <group>
                             <label for="partner_from_id"/>
                             <div>
@@ -91,26 +91,24 @@
                                        attrs="{'invisible':[('p_mass_function','=','postal_coordinate_id')]}" />
                                 <field name="postal_mail_name"
                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}"
-                                       groups="mozaik_base.mozaik_res_groups_user"/>
+                                       groups="mozaik_communication.res_groups_communication_user"/>
                                 <field name="groupby_coresidency"
                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
                             </group>
                         </group>
                     </page>
+                    <page string="More Info" name="dev" groups="base.group_erp_manager">
+                        <group name="moreinfo"/>
+                    </page>
                 </notebook>
-                <div name="dev" groups="mozaik_base.res_groups_developper">
-                    <h3>More Info</h3>
-                    <group name="moreinfo">
-                    </group>
-                </div>
                 <footer>
                     <span name="go-wizard"
                           attrs="{'invisible':[('p_mass_function','=',False),('e_mass_function','=',False)]}">
                         <button name="mass_function" string="Launch"
-                                type="object" class="oe_highlight" />
+                                type="object" class="btn-primary" />
                         or
                     </span>
-                    <button string="Cancel" class="oe_link" special="cancel" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
 
                     <button type="object" name="save_as_template" string="Save as new template" class="pull-right"
                             attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),

@@ -14,9 +14,9 @@
                     </group>
                 </div>
                 <footer>
-                    <button name="merge_distribution_list" string="Ok" type="object"/>
+                    <button name="merge_distribution_list" string="Ok" type="object" class="btn-primary"/>
                     or
-                    <button string="Cancel" class="oe_link" special="cancel" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
 
             </form>

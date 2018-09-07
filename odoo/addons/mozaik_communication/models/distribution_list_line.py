@@ -11,26 +11,7 @@ class DistributionListLine(models.Model):
         'mozaik.abstract.model',
         'distribution.list.line',
     ]
-    _unicity_keys = 'name, company_id'
-
-    @api.model
-    def _get_src_model_name(self):
-        """
-        Get the list of available model name
-        Intended to be inherited
-        :return: list of string
-        """
-        #TODO
-        return ['res.partner']
-        return []
-
-    @api.model
-    def _src_model_id_domain(self):
-        """
-
-        :return: list of tuple (domain)
-        """
-        return [('model', 'in', self._get_src_model_name())]
+    _unicity_keys = 'N/A'
 
     name = fields.Char(
         track_visibility='onchange',
@@ -40,18 +21,18 @@ class DistributionListLine(models.Model):
     )
     src_model_id = fields.Many2one(
         track_visibility='onchange',
-        domain=_src_model_id_domain,
     )
 
     @api.multi
     def action_show_filter_result_without_coordinate(self):
         """
-        Allow to show the result of the list without coordinate
+        Show the result of the list without coordinate
         :return: dict/action
         """
-        result = self._get_list_from_domain()
+        self.ensure_one()
+        result = self.action_show_filter_result()
         result.update({
-            'name': _('Result of %s filter without coordinate') % self.name
+            'name': _('Result of %s without coordinate') % self.name
         })
         domain = result.get('domain', [])
         domain = expression.AND([domain, [('active', '=', False)]])

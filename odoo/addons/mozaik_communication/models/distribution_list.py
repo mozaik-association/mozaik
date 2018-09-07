@@ -56,11 +56,6 @@ class DistributionList(models.Model):
     code = fields.Char(
         track_visibility='onchange',
     )
-    dst_model_id = fields.Many2one(
-        #TODO
-        xdefault=lambda self: self.env.ref(
-            "mozaik_communication.model_virtual_target"),
-    )
     bridge_field = fields.Char(
         default="common_id",
     )
@@ -71,6 +66,15 @@ class DistributionList(models.Model):
     _sql_constraints = [
         ('unique_code', 'unique (code)', 'Code already used!'),
     ]
+
+    @api.model
+    def _get_dst_model_names(self):
+        """
+        Get the list of available model name
+        :return: list of string
+        """
+        res = super()._get_dst_model_names()
+        return res + ['virtual.target']
 
     @api.model
     def _get_mailing_object(
@@ -271,30 +275,24 @@ class DistributionList(models.Model):
     @api.multi
     def action_show_result_without_coordinate(self):
         """
-        Allow to show the result of the distribution list without coordinate
+        Show the result of the distribution list without coordinate
         :return: dict/action
         """
         self.ensure_one()
+        result = self.with_context(active_test=False).action_show_result()
+        result.update({
+            'name': _('Result of %s without coordinate') % self.name
+        })
+        domain = result.get('domain', [])
+        domain = expression.AND([domain, [('active', '=', False)]])
+        result.update({
+            'domain': domain,
+        })
         context = self.env.context.copy()
         context.update({
             'active_test': False,
         })
-        targets = self._get_target_from_distribution_list()
-        domain = [
-            ('id', 'in', targets.ids),
-            ('active', '=', False),
-        ]
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Result of %s') % self.name,
-            'view_mode': 'tree, form',
-            'res_model': self.dst_model_id.model,
-            'view_id': False,
-            'views': [(False, 'tree')],
-            'domain': domain,
-            'context': context,
-            'target': 'current',
-        }
+        return result
 
     @api.multi
     def write(self, vals):

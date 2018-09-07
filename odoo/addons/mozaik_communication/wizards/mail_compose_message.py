@@ -40,8 +40,10 @@ class MailComposeMessage(models.TransientModel):
                     result[model_obj.id]['email_to'] = email[0]
         return result
 
+
+
     @api.multi
-    def send_mail(self, auto_commit=False):
+    def xsend_mail(self, auto_commit=False):
         """
         Do not recompute ids if sending mails asynchronously
         """

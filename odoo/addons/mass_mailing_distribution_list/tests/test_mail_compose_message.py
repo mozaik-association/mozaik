@@ -57,11 +57,16 @@ class TestMailComposeMessage(SavepointCase):
         'distribution_list_id'
         :return:
         """
+        vals = {
+            'name': str(uuid4()),
+            'email': 'test@test.be',
+        }
+        partner = self.res_partner_obj.create(vals)
         dist_list = self.dist_list
         vals = {
             'name': str(uuid4()),
             'src_model_id': self.dst_model_id.id,
-            'domain': "[(1, '=', 1)]",
+            'domain': "[('id', 'in', [%s])]" % partner.id,
             'distribution_list_id': dist_list.id,
             'bridge_field_id': self.partner_id_field.id,
         }

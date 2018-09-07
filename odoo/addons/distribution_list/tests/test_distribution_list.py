@@ -326,12 +326,13 @@ class TestDistributionList(TransactionCase):
 
     def test_get_complex_distribution_list_ids(self):
         """
-        Test that `get_complex_distribution_list_ids` return the correct ids
-        when use a context with
-        * more_filter
+        Test that `get_complex_distribution_list_ids` return correct ids
+        when using a context with
+        * main_object_field
+        * main_object_domain
+        * alternative_object_field
+        * alternative_object_domain
         * sort_by
-        * field_alternative_object
-        * field_main_object
         """
         partner_obj = self.partner_obj
         distri_list_obj = self.dist_list_obj
@@ -400,11 +401,11 @@ class TestDistributionList(TransactionCase):
         })
         context = self.env.context.copy()
         context.update({
-            'more_filter': [('name', '=', 'p4')],
+            'main_object_field': 'parent_id',
+            'main_object_domain': [('name', '=', 'p4')],
+            'alternative_object_field': 'company_id',
+            'alternative_object_domain': [('parent_id', '=', False)],
             'sort_by': 'name desc',
-            'field_alternative_object': 'company_id',
-            'alternative_more_filter': [('parent_id', '=', False)],
-            'field_main_object': 'parent_id',
         })
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
@@ -414,14 +415,14 @@ class TestDistributionList(TransactionCase):
             first(alternatives).id, 1,
             'Should have at least one company as alternative object')
 
-        context.pop('more_filter')
+        context.pop('main_object_domain')
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
         self.assertEquals(
             len(mains), 2, 'Should have 2 ids if no `more_filter`')
 
         context.update({
-            'more_filter': [('name', '=', 'x23')],
+            'main_object_domain': [('name', '=', 'x23')],
         })
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
@@ -430,7 +431,7 @@ class TestDistributionList(TransactionCase):
             'With a "noway" domain and a target field name, '
             'should return no result')
 
-        context.pop('field_main_object')
+        context.pop('main_object_field')
         primary_ids = dl.with_context(
             context)._get_target_from_distribution_list()
         mains, alternatives = dl.with_context(

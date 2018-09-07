@@ -24,8 +24,11 @@ class DistributionListLine(models.Model):
         string="Distribution list",
         required=True,
         index=True,
+        ondelete='cascade',
+        copy=False,
     )
     exclude = fields.Boolean(
+        default=False,
         help="Check this box to exclude the result of this filter/line on "
              "the related distribution list",
     )
@@ -41,25 +44,57 @@ class DistributionListLine(models.Model):
         default="[]",
     )
     src_model_id = fields.Many2one(
-        "ir.model",
-        "Model",
+        comodel_name="ir.model",
+        string="Model",
         required=True,
         index=True,
-        default=lambda self: self.env.ref("base.model_res_partner"),
+        default=lambda self: self._get_default_src_model_id(),
+        domain=lambda self: self._get_domain_src_model_id(),
     )
     bridge_field_id = fields.Many2one(
-        "ir.model.fields",
-        "Bridge field",
+        comodel_name="ir.model.fields",
+        string="Bridge field",
         help="Bridge field between the source model (of this line/filter) "
-             "and the destination model (on the distribution list. If the "
-             "model is the same, let it empty",
+             "and the destination model (on the distribution list.",
         required=True,
     )
+
     _sql_constraints = [
         ('unique_name_by_dist_list', 'unique(name, distribution_list_id)',
          'The name of a filter must be unique. A filter with the same name '
          'already exists.'),
     ]
+
+    @api.model
+    def _get_src_model_names(self):
+        """
+        Get the list of available model name
+        Intended to be inherited
+        :return: list of string
+        """
+        return []
+
+    @api.model
+    def _get_domain_src_model_id(self):
+        """
+        Get domain of available models
+        :return: list of tuple (domain)
+        """
+        models = self._get_src_model_names() or ['res.partner']
+        return [('model', 'in', models)]
+
+    @api.model
+    def _get_default_src_model_id(self):
+        """
+        Get the default src model
+        :return: model recordset
+        """
+        model = False
+        models = self._get_src_model_names() or ['res.partner']
+        if len(models) == 1:
+            model = self.env['ir.model'].search([('model', 'in', models)])
+            model = model or self.env.ref('base.model_res_partner')
+        return model
 
     @api.multi
     def _get_valid_bridge_fields(self):
@@ -132,27 +167,14 @@ class DistributionListLine(models.Model):
         fields_available = self._get_valid_bridge_fields().get(self)
         if len(fields_available) == 1:
             self.bridge_field_id = fields_available
+        else:
+            self.bridge_field_id = fields_available.filtered(
+                lambda s: s.name == 'id')
         result = {
             'domain': {
                 'bridge_field_id': [('id', 'in', fields_available.ids)],
             },
         }
-        return result
-
-    @api.multi
-    def copy(self, default=None):
-        """
-        When copying then add '(copy)' at the end of the name
-        :param default: None or dict
-        :return: self recordset
-        """
-        self.ensure_one()
-        default = default or {}
-        if 'name' not in default:
-            default.update({
-                'name': _('%s (copy)') % self.name,
-            })
-        result = super(DistributionListLine, self).copy(default=default)
         return result
 
     def _save_domain(self, domain):
@@ -177,7 +199,7 @@ class DistributionListLine(models.Model):
             vals.update({
                 'domain': self._fields.get('domain').default(self),
             })
-        return super(DistributionListLine, self).write(vals)
+        return super().write(vals)
 
     @api.multi
     def _get_target_recordset(self):
@@ -213,17 +235,15 @@ class DistributionListLine(models.Model):
     @api.multi
     def action_show_filter_result(self):
         """
-        Allow to show the result of the filter
+        Show the result of the filter
         :return: dict/action
         """
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'name': _('Result of %s') % self.name,
-            'view_mode': 'tree, form',
+            'view_mode': 'tree,form',
             'res_model': self.src_model_id.model,
-            'view_id': False,
-            'views': [(False, 'tree')],
             'context': self.env.context.copy(),
             'domain': self._get_eval_domain(),
             'target': 'current',

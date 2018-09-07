@@ -27,7 +27,6 @@
         'security/communication_security.xml',
         'security/mail_mass_mailing_group.xml',
         'wizards/distribution_list_mass_function.xml',
-        'wizards/distribution_list_add_filter.xml',
         'views/distribution_list_line.xml',
         'views/distribution_list.xml',
         'views/mail_mail_statistics.xml',

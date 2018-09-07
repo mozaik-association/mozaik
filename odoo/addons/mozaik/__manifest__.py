@@ -20,6 +20,7 @@
         'mozaik_abstract_model',
         'mozaik_address',
         'mozaik_address_local_street',
+        'mozaik_communication',
         'mozaik_coordinate',
         'mozaik_duplicate',
         'mozaik_email',

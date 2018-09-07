@@ -8,7 +8,7 @@
         <field name="model">distribution.list.line</field>
         <field name="inherit_id" ref="distribution_list.distribution_list_line_search" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='src_model_id']" position="after">
+            <xpath expr="//group" position="before">
                 <separator/>
                 <filter name="expired" string="Expired" context="{'invisible_expire_date': False}" domain="[('active','=',False)]" help="Expired Filters" />
                 <filter name="all" string="All" context="{'invisible_expire_date': False}" domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Filters, expired or not" />
@@ -21,15 +21,13 @@
         <field name="model">distribution.list.line</field>
         <field name="inherit_id" ref="distribution_list.distribution_list_line_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
-                <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
-                <field name="active" groups="base.group_erp_manager"/>
-            </xpath>
             <xpath expr="//button[@name='action_show_filter_result']" position="attributes">
                 <attribute name="attrs" translation="off">{'invisible':[('active', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@name='action_show_filter_result']" position="after">
                 <button name="action_show_filter_result_without_coordinate" attrs="{'invisible':[('active', '=', False)]}" string="Without Coordinate" type="object" icon="fa-address-card text-danger"/>
+                <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                <field name="active" groups="base.group_erp_manager"/>
             </xpath>
         </field>
     </record>

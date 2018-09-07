@@ -5,14 +5,14 @@ from odoo import api, models, exceptions, fields, _
 
 class MergeDistributionList(models.TransientModel):
     """
-    Wizard to merge one distribution list into selected distribution lists
+    Wizard to merge selected distribution lists into another distribution list
     """
     _name = 'merge.distribution.list'
     _description = 'Complete Distribution List'
 
     distribution_list_id = fields.Many2one(
-        "distribution.list",
-        "Distribution list",
+        comodel_name="distribution.list",
+        string="Distribution list",
         help="Distribution list to complete",
         required=True,
         ondelete="cascade",

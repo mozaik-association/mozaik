@@ -145,43 +145,30 @@ class DistributionListMassFunction(models.TransientModel):
         string='Email Template',
     )
 
-    @api.onchange("e_mass_function")
-    def _onchange_mass_function(self):
-        """
-        Reset some fields when `mass_function` change
-        """
-        return {
-            'value': {
-                'extract_csv': False,
-                'export_filename': False,
-                'include_without_coordinate': False,
-            }
-        }
-
     @api.onchange("trg_model")
     def _onchange_trg_model(self):
         """
         Reset some fields when `trg_model` change
         """
-        return {
-            'value': {
-                'p_mass_function': False,
-                'e_mass_function': False,
-            }
-        }
+        self.p_mass_function = False
+        self.e_mass_function = False
+
+    @api.onchange("e_mass_function")
+    def _onchange_e_mass_function(self):
+        """
+        Reset some fields when `mass_function` change
+        """
+        self.extract_csv = False
+        self.export_filename = False
+        self.include_without_coordinate = False
 
     @api.onchange("subject")
     def _onchange_subject(self):
         """
         Propose a default value for the mass mailing name
         """
-        if self.mass_mailing_name:
-            return
-        return {
-            'value': {
-                'mass_mailing_name': self.subject,
-            }
-        }
+        if not self.mass_mailing_name:
+            self.mass_mailing_name = self.subject
 
     @api.multi
     def mass_function(self):
@@ -203,7 +190,8 @@ class DistributionListMassFunction(models.TransientModel):
         fct = self.e_mass_function
         if self.trg_model != 'email.coordinate':
             fct = self.p_mass_function
-        if (fct == 'csv' or self.extract_csv) and self.include_without_coordinate:
+        if (fct == 'csv' or self.extract_csv) \
+                and self.include_without_coordinate:
             context.update({
                 'active_test': False,
                 'alternative_object_field': 'id',
@@ -247,6 +235,7 @@ class DistributionListMassFunction(models.TransientModel):
             }
         return {}
 
+    @api.multi
     def _mass_postal_coordinate(self, fct, main_domain):
         """
         Manage mass function when the target model is postal.coordinate
@@ -254,27 +243,27 @@ class DistributionListMassFunction(models.TransientModel):
         :param main_domain: list (domain)
         :return: tuple of 2 recordset
         """
-        context = self.env.context.copy()
         if not self.include_unauthorized:
             main_domain.append(('postal_unauthorized', '=', False))
         if self.bounce_counter:
             bounce_counter = max([self.bounce_counter, 0])
             main_domain.append(('postal_bounce_counter', '<=', bounce_counter))
-        context.update({
-            'main_object_field': 'postal_coordinate_id',
-            'main_target_model': 'postal.coordinate',
-        })
+        self = self.with_context(
+            main_object_field='postal_coordinate_id',
+            main_target_model='postal.coordinate',
+        )
         if fct == 'csv':
             # Get CSV containing postal coordinates
-            mains, alternatives = self.distribution_list_id.with_context(
-                context)._get_complex_distribution_list_ids()
+            dl = self.distribution_list_id
+            mains, alternatives = dl._get_complex_distribution_list_ids()
 
             if self.postal_mail_name and not self.include_without_coordinate:
-                self.with_context(context)._post_processing(mains)
-                self.with_context(context)._generate_postal_log(
+                self._post_processing(mains)
+                self.env['postal.mail']._generate_postal_log(
                     self.postal_mail_name, mains)
         return alternatives, mains
 
+    @api.multi
     def _mass_email_coordinate(self, fct, main_domain):
         """
         Manage mass function when the target model is email.coordinate
@@ -282,37 +271,35 @@ class DistributionListMassFunction(models.TransientModel):
         :param main_domain: list (domain)
         :return: tuple of 2 recordset
         """
-        context = self.env.context.copy()
-        group_obj = self.env['mail.mass_mailing.group']
-        if not self.include_unauthorized:
-            main_domain.append(('email_unauthorized', '=', False))
-        if self.bounce_counter:
-            bounce_counter = max([self.bounce_counter, 0])
-            main_domain.append(('email_bounce_counter', '<=', bounce_counter))
-        context.update({
-            'main_object_field': 'email_coordinate_id',
-            'main_target_model': 'email.coordinate',
-        })
+        context = self._context
+        if self.distribution_list_id.dst_model_id.model == 'virtual.target':
+            if not self.include_unauthorized:
+                main_domain.append(('email_unauthorized', '=', False))
+            if self.bounce_counter:
+                bounce_counter = max([self.bounce_counter, 0])
+                main_domain.append(
+                    ('email_bounce_counter', '<=', bounce_counter))
+        self = self.with_context(
+            main_object_field='email_coordinate_id',
+            main_target_model='email.coordinate',
+        )
         if fct == 'csv':
             # Get CSV containing email coordinates
-            mains, alternatives = self.distribution_list_id.with_context(
-                context)._get_complex_distribution_list_ids()
+            dl = self.distribution_list_id
+            mains, alternatives = dl._get_complex_distribution_list_ids()
 
         elif fct == 'email_coordinate_id':
-            # Send mass mailing
-            mail_composer = self.with_context(context)._create_mail_composer()
-
             if self.extract_csv:
                 if not self.include_without_coordinate:
-                    context.update({
-                        'alternative_object_field': 'postal_coordinate_id',
-                        'alternative_target_model': 'postal.coordinate',
-                        'alternative_object_domain': [
+                    self = self.with_context(
+                        alternative_object_field='postal_coordinate_id',
+                        alternative_target_model='postal.coordinate',
+                        alternative_object_domain=[
                             ('email_coordinate_id', '=', False),
                         ],
-                    })
-                mains, alternatives = self.distribution_list_id.with_context(
-                    context)._get_complex_distribution_list_ids()
+                    )
+            dl = self.distribution_list_id
+            mains, alternatives = dl._get_complex_distribution_list_ids()
 
             if self.contact_ab_pc < 100 or context.get('mailing_group_id'):
                 if context.get('mailing_group_id'):
@@ -325,8 +312,9 @@ class DistributionListMassFunction(models.TransientModel):
                     already_mailed = stats.mapped("res_id")
                     remaining = set(mains).difference(already_mailed)
                 else:
-                    new_group = group_obj.with_context(context).create({
-                        'distribution_list_id': self.distribution_list_id.id,
+                    group_obj = self.env['mail.mass_mailing.group']
+                    new_group = group_obj.create({
+                        'distribution_list_id': dl.id,
                         'include_unauthorized': self.include_unauthorized,
                         'internal_instance_id': self.internal_instance_id.id,
                     })
@@ -339,21 +327,25 @@ class DistributionListMassFunction(models.TransientModel):
                     topick = len(remaining)
                 mains = random.sample(remaining, topick)
 
-            if alternatives and self.extract_csv:
-                if self.postal_mail_name and not self.include_without_coordinate:
-                    self.with_context(context)._generate_postal_log(
+            if self.extract_csv and alternatives:
+                if self.postal_mail_name and \
+                        not self.include_without_coordinate:
+                    self.env['postal.mail']._generate_postal_log(
                         self.postal_mail_name, alternatives)
             elif not mains:
                 raise exceptions.UserError(_('There are no recipients'))
-            context.update({
-                'active_ids': mains.ids,
-                'dl_computed': True,
-                'email_coordinate_path': 'email',
-            })
-            mail_composer.with_context(context).send_mail()
+            self = self.with_context(
+                active_ids=mains.ids,
+                async_send_mail=True,
+                dl_computed=True,
+                email_coordinate_path='email',
+            )
+            # Send mass mailing
+            mail_composer = self._create_mail_composer()
+            mail_composer.send_mail()
 
             if self.mass_mailing_name:
-                self.with_context(context)._post_processing(mains)
+                self._post_processing(mains)
         return alternatives, mains
 
     def _create_mail_composer(self):
@@ -391,38 +383,6 @@ class DistributionListMassFunction(models.TransientModel):
                 'attachment_ids': [(6, False, attachments)],
             })
         return composer_obj.create(mail_composer_vals)
-
-    @api.multi
-    def _generate_postal_log(self, postal_mail_name, postal_coordinates):
-        """
-        Generate a postal mailing for the specified parameters:
-        * postal mailing name
-        * postal coordinate ids
-        :param postal_mail_name:
-        :param postal_coordinates:
-        :return: bool
-        """
-        if not postal_coordinates:
-            return True
-        today = fields.Date.today()
-        postal_mail_obj = self.env['postal.mail']
-        postal_mail = postal_mail_obj.search([
-            ('name', '=', postal_mail_name),
-            ('sent_date', '=', today),
-        ], limit=1)
-        if not postal_mail:
-            postal_mail = postal_mail_obj.create({
-                'name': postal_mail_name,
-                'sent_date': today,
-            })
-        for coord in postal_coordinates:
-            self.env['postal.mail.log'].create({
-                'postal_mail_id': postal_mail.id,
-                'postal_coordinate_id': coord.id,
-                'partner_id': coord.partner_id.id,
-                'sent_date': today,
-            })
-        return True
 
     def export_csv(self, model, targets, group_by=False):
         """
@@ -465,12 +425,12 @@ class DistributionListMassFunction(models.TransientModel):
             # first: the sender partner
             partners |= dist_list.partner_id
             # than: the requestor user
-            if self.env.user.partner_id in dist_list.res_partner_m2m_ids:
+            if self.env.user.partner_id in dist_list.res_partner_ids:
                 partners |= self.env.user.partner_id
             elif self.env.user in dist_list.res_users_ids:
                 partners |= self.env.user.partner_id
             # finally: all owners and allowed partners that are legal persons
-            partners |= dist_list.res_partner_m2m_ids.filtered(
+            partners |= dist_list.res_partner_ids.filtered(
                 lambda s: s.is_company)
             partners |= dist_list.res_users_ids.mapped(
                 'partner_id').filtered(lambda s: s.is_company)
