@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="virtual_partner_relation_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.involvement.tree</field>
+        <field name="model">virtual.partner.involvement</field>
+        <field name="inherit_id" ref="mozaik_communication.abstract_virtual_target_tree_view"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <button name="get_partner_action" position="after">
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="relation_category_id" />
+                <field name="object_partner_id" />
+                <field name="birth_date" />
+                <field name="gender" />
+                <field name="tongue" />
+                <field name="postal_unauthorized" invisible="1" />
+                <field name="email_unauthorized" invisible="1" />
+            </button>
+            <tree postion="attributes">
+                <attribute name="decoration-danger">email_unauthorized==True or postal_unauthorized==True</attribute>
+                <attribute name="create">0</attribute>
+                <attribute name="delete">0</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="virtual_partner_relation_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.relation.search</field>
+        <field name="model">virtual.partner.relation</field>
+        <field name="arch" type="xml">
+            <search string="Partners/Relations">
+                <field name="identifier" />
+                <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]" />
+                <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field name="relation_category_id" />
+                <field name="object_partner_id" />
+                <field name="interests_m2m_ids" widget="many2one" />
+                <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" />
+                <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]" />
+                <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','!=',0)]" />
+                <separator />
+                <filter string="Male" name="male" domain="[('gender','=','m')]" />
+                <filter string="Female" name="female" domain="[('gender','=','f')]" />
+                <separator />
+                <filter string="French" name="french" domain="[('tongue','=','f')]" />
+                <filter string="German" name="german" domain="[('tongue','=','g')]" />
+                <separator />
+                <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
+                <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
+                <separator />
+                <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                <separator />
+                <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                <separator />
+                <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]" />
+                <separator />
+                <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]" />
+                <separator />
+                <filter name="without_coordinate" string="Without Coordinate" domain="[('active','=',False)]" />
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter name="relation_category" string="Relation Category" context="{'group_by':'relation_category_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Add filter for Partners/Relations -->
+
+    <record id="add_filter_from_relation_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">virtual.partner.relation</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="multi" eval="1" />
+        <field name="target">new</field>
+        <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+    </record>
+
+    <record id="add_filter_from_relation_values" model="ir.values">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="model">virtual.partner.relation</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_relation_action')" />
+    </record>
+
+
+    <record id="virtual_partner_relation_action" model="ir.actions.act_window">
+        <field name="name">Partners/Relations</field>
+        <field name="res_model">virtual.partner.relation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_relation_search_view" />
+        <field name="view_id" ref="virtual_partner_relation_tree_view" />
+    </record>
+</odoo>

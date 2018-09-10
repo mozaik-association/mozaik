@@ -1,6 +1,5 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo.addons.mozaik_involvement.models.partner_involvement import CATEGORY_TYPE
 from odoo import api, fields, tools, models
 from psycopg2.extensions import AsIs
 
@@ -47,6 +46,8 @@ class VirtualPartnerInvolvement(models.Model):
     )
     birth_date = fields.Date()
     # Load dynamically selection values
+    # If it doesn't work, better way is maybe the related (if selection
+    # value come from the related)
     gender = fields.Selection(
         selection=lambda s: s.env['res.partner'].fields_get(
             allfields=['gender']).get('gender', {}).get('selection', [])
@@ -87,8 +88,11 @@ class VirtualPartnerInvolvement(models.Model):
         'res.country',
         'Nationality',
     )
+    # Same remark here as before
     involvement_type = fields.Selection(
-        CATEGORY_TYPE,
+        selection=lambda s: s.env['partner.involvement.category'].fields_get(
+            allfields=['involvement_type']).get(
+            'involvement_type', {}).get('selection', [])
     )
     effective_time = fields.Datetime(
         'Involvement Date',
