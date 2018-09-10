@@ -45,7 +45,7 @@ class TestPostalCoordinate(TransactionCase):
         pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
         self.assertFalse(pc_ids)
 
-        postal_coordinates = self.env["postal.coordinate"]
+        postal_coordinates = self.env["postal.coordinate"].browse()
         for xid in postal_XIDS:
             postal_coordinates += self.env.ref(xid)
 
@@ -70,7 +70,7 @@ class TestPostalCoordinate(TransactionCase):
         partners_xmlid = ['mozaik_coordinate.res_partner_marc',
                           'mozaik_coordinate.res_partner_jacques',
                           'mozaik_coordinate.res_partner_paul']
-        partners = self.env["res.partner"]
+        partners = self.env["res.partner"].browse()
         for partner in partners_xmlid:
             partners += self.env.ref(partner)
         vals = {

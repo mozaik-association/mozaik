@@ -39,5 +39,5 @@ class ResUsers(models.Model):
             dom.append((
                 'power_level_id', '=', power_level_id
             ))
-        instances = self.env['int.instance'].sudo().search(dom)
+        instances = self_sudo.env['int.instance'].search(dom)
         return instances.ids

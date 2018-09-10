@@ -112,13 +112,6 @@
                 <field name="exclusion_date" />
             </xpath>
 
-            <!--<xpath expr="//header/div/button[@name='action_invalidate']" position="after">-->
-                <!--<button name="action_invalidate" string="Invalidate"-->
-                        <!--type="object" confirm="Invalidate contact: proceed anyway?"-->
-                        <!--attrs="{'invisible': [('kind', '!=', 'p')]}"-->
-                        <!--invisible="context.get('in_mozaik_officer') or not context.get('in_mozaik_user')"/>-->
-            <!--</xpath>-->
-
             <xpath expr="//field[@name='partner_involvement_ids']/tree" position="inside">
                 <field name="amount" sum="1"/>
                 <field name="promise" invisible="1"/>

@@ -35,29 +35,26 @@ class GenerateReference(models.TransientModel):
     @api.model
     def _get_selected_values(self):
         partner_obj = self.env['res.partner']
-        partner_ids = []
-        member_ids = []
-        candidate_ids = []
-        former_ids = []
+        partners = partner_obj.browse()
+        member_ids = partner_obj.browse()
+        candidate_ids = partner_obj.browse()
+        former_ids = partner_obj.browse()
 
         if self.env.context.get('active_domain'):
             active_domain = self.env.context.get('active_domain')
-            partner_ids = partner_obj.search(active_domain)
+            partners = partner_obj.search(active_domain)
         elif self.env.context.get('active_ids'):
-            partner_ids = self.env.context.get('active_ids')
+            partners = partner_obj.browse(self.env.context.get('active_ids'))
 
-        if partner_ids:
+        if partners:
             # search member with reference
-            member_ids = partner_obj.search(
-                [('membership_state_id.code', '=', 'member'),
-                 ('id', 'in', partner_ids)])
-            candidate_ids = partner_obj.search(
-                [('membership_state_id.code', '=', 'member_candidate'),
-                 ('id', 'in', partner_ids)])
-            former_ids = partner_obj.search(
-                [('membership_state_id.code', '=', 'former_member'),
-                 ('id', 'in', partner_ids)])
-        return partner_ids, member_ids, candidate_ids, former_ids
+            member_ids = partners.filtered(
+                lambda s: s.membership_state_code == 'member')
+            candidate_ids = partners.filtered(
+                lambda s: s.membership_state_code == 'member_candidate')
+            former_ids = partners.filtered(
+                lambda s: s.membership_state_code == 'former_member')
+        return partners, member_ids, candidate_ids, former_ids
 
     @api.model
     def default_get(self, fields_list):
@@ -110,8 +107,10 @@ class GenerateReference(models.TransientModel):
         for wiz in self:
             partner_ids = wiz.partner_ids
             if len(partner_ids) > worker_pivot:
-                self.with_delay().generate_reference_action(
-                    partner_ids, wiz.reference_date)
+                description = ("Generate reference for partners %s" %
+                               ", ".join(partner_ids.ids))
+                self.with_delay(description=description)\
+                    .generate_reference_action(partner_ids, wiz.reference_date)
             else:
                 self.generate_reference_action(partner_ids, wiz.reference_date)
 

@@ -84,7 +84,6 @@ class TestStructure(TransactionCase):
         self.assertTrue(assembly.partner_id.is_assembly)
 
         # 2.2/ Update the assembly
-        # instance_id = self.env.ref('mozaik_structure.sta_instance_03')
         data = dict(
             instance_id=instance_id.id,
         )

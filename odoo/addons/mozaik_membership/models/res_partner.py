@@ -5,6 +5,7 @@ import logging
 from datetime import date
 
 from odoo import api, models, fields, _
+from odoo.fields import first
 from odoo.exceptions import ValidationError
 
 import odoo.addons.decimal_precision as dp
@@ -72,8 +73,8 @@ class ResPartner(models.Model):
     @api.depends('membership_line_ids', 'membership_line_ids.active')
     def _compute_current_membership_line_id(self):
         for partner in self:
-            current_membership_line_id = partner.membership_line_ids.filtered(
-                lambda s: s.active) or False
+            current_membership_line_id = first(
+                partner.membership_line_ids.filtered(lambda s: s.active))
             partner.current_membership_line_id = current_membership_line_id
 
     @api.multi
@@ -194,7 +195,8 @@ class ResPartner(models.Model):
     @api.depends("membership_line_ids", "membership_line_ids.product_id")
     def _compute_subscription_product_id(self):
         for partner in self:
-            membership_line = partner.membership_line_ids.filtered("active")
+            membership_line = first(
+                partner.membership_line_ids.filtered("active"))
             partner.subscription_product_id = membership_line.product_id
 
     @api.multi

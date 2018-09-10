@@ -27,20 +27,6 @@ class TestPartner(TransactionCase):
         self.partner_jacques_id = self.env.ref(
             'mozaik_coordinate.res_partner_jacques')
 
-    def get_partner(self, partner_id=False):
-        """
-        Return a new browse record of partner
-        """
-        if not partner_id:
-            name = uuid.uuid4()
-            partner_values = {
-                'lastname': name,
-            }
-            partner_id = self.partner_obj.create(self.cr, self.uid,
-                                                 partner_values)
-        # check each time the current state change
-        return self.partner_obj.browse(self.cr, self.uid, partner_id)
-
     def test_change_instance(self):
         '''
         Check that instance well updated into the partner when its main postal

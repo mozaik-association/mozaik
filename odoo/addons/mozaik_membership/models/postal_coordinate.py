@@ -43,8 +43,7 @@ class PostalCoordinate(models.Model):
         self_ctx = self.with_context(delay_notification=change_instance)
         res = super(PostalCoordinate, self_ctx).create(vals)
         if vals.get('is_main') and change_instance:
-            res._update_partner_int_instance()
-            res.sudo()._update_followers()
+            res._update_postal_follower()
         return res
 
     @api.model
@@ -54,6 +53,10 @@ class PostalCoordinate(models.Model):
         '''
         res = super().write(vals)
         if vals.get('is_main', False):
-            self._update_partner_int_instance()
-            self.sudo()._update_followers()
+            self._update_postal_follower()
         return res
+
+    @api.multi
+    def _update_postal_follower(self):
+        self._update_partner_int_instance()
+        self.sudo()._update_followers()

@@ -7,7 +7,6 @@ from odoo import api, models, fields
 from odoo.addons.queue_job.job import job
 
 WORKER_PIVOT = 10
-AVAILABLE_MONTHS = [7, 8, 9]
 
 
 class PassFormerMember(models.TransientModel):
@@ -24,19 +23,20 @@ class PassFormerMember(models.TransientModel):
     @api.model
     def _get_selected_values(self):
         partner_obj = self.env['res.partner']
-        partner_ids = []
-        concerned_partner_ids = []
+        partners = partner_obj.browse()
+        concerned_partner_ids = partner_obj.browse()
 
         if self.env.context.get('active_domain'):
             active_domain = self.env.context.get('active_domain')
-            partner_ids = partner_obj.search(active_domain)
+            partners = partner_obj.search(active_domain)
         elif self.env.context.get('active_ids'):
-            partner_ids = self.env.context.get('active_ids')
+            partners = partner_obj.browse(
+                self.env.context.get('active_ids'))
 
-        if partner_ids:
+        if partners:
             # search member with reference
-            domain = [('id', 'in', partner_ids), ('reference', '!=', False)]
-            concerned_partner_ids = partner_obj.search(domain)
+            concerned_partner_ids = partners.filtered(lambda s: s.reference)
+            domain = [('id', 'in', partners.ids), ('reference', '!=', False)]
             data = partner_obj.read_group(
                 domain, ['membership_state_id'], ['membership_state_id'],
                 orderby='membership_state_id ASC')
@@ -46,7 +46,7 @@ class PassFormerMember(models.TransientModel):
                 for st in data if st['membership_state_id']
             ]
             concerned_partners = '\n'.join(concerned_partners)
-        return partner_ids, concerned_partner_ids, concerned_partners
+        return partners, concerned_partner_ids, concerned_partners
 
     @api.model
     def default_get(self, fields_list):
@@ -65,10 +65,13 @@ class PassFormerMember(models.TransientModel):
             res['concerned_members'] = concerned_members
             res['concerned_partner_ids'] = [(6, 0, concerned_partner_ids.ids)]
             curr_month = date.today().month
-            date_ok = curr_month in AVAILABLE_MONTHS
+            date_ok = curr_month in self._get_available_months()
             res['go'] = date_ok and concerned_partner_ids
 
         return res
+
+    def _get_available_months(self):
+        return [7, 8, 9]
 
     @api.multi
     def pass_former_member(self):
@@ -89,18 +92,20 @@ class PassFormerMember(models.TransientModel):
         for wiz in self:
             partner_ids = wiz.concerned_partner_ids
             if len(partner_ids) > worker_pivot:
-                self.with_delay().pass_former_member_action(partner_ids)
+                description = ("Pass former member for partners %s" %
+                               ", ".join(partner_ids.ids))
+                self.with_delay(description=description)\
+                    .pass_former_member_action(partner_ids)
             else:
                 self.pass_former_member_action(partner_ids)
 
     @job(default_channel="root.pass_former_member")
-    def pass_former_member_action(self, partner_ids):
+    def pass_former_member_action(self, partners):
         """
         Pass to former Member for each partner
         Reset reference for each other
         """
-        partner_ids.decline_payment()
-        domain = [('id', 'in', partner_ids.ids), ('reference', '!=', False)]
-        partners = self.env["res.partner"].search(domain)
+        partners.decline_payment()
+        partners = partners.filtered(lambda s: s.reference)
         if partners:
             partners.write({'reference': False})

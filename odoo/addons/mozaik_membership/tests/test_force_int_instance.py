@@ -1,4 +1,4 @@
-# Copyright 2017 ACSONE SA/NV
+# Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from uuid import uuid4
 from odoo.tests.common import TransactionCase
