@@ -10,7 +10,6 @@ class ResUsers(models.Model):
 
     int_instance_m2m_ids = fields.Many2many(
         related='partner_id.int_instance_m2m_ids')
-    lang = fields.Selection(related='partner_id.lang')
 
     @api.model
     def _register_hook(self):
@@ -31,7 +30,7 @@ class ResUsers(models.Model):
         self.ensure_one()
         self_sudo = self.sudo()
         if not self_sudo.int_instance_m2m_ids:
-            return self.env['int.instance'].browse()
+            return self.env['int.instance'].browse().ids
         dom = [(
             'id', 'child_of', self_sudo.int_instance_m2m_ids.ids
         )]

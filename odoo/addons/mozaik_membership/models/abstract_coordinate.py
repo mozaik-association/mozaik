@@ -26,9 +26,6 @@ class AbstractCoordinate(models.AbstractModel):
 
     @api.model
     def create(self, vals):
-        '''
-        update and notify follower if is_main is True
-        '''
         res = super().create(vals)
-        res.sudo()._update_followers()
+        res._update_followers()
         return res

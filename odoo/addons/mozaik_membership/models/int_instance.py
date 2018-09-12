@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, SUPERUSER_ID
+from odoo import api, fields, models
 from odoo.fields import first
 from odoo.tools.safe_eval import safe_eval
 
@@ -20,9 +20,9 @@ class IntInstance(models.Model):
     @api.depends("partner_ids")
     def _compute_member_count(self):
         for inst in self:
-            inst.member_count = len(self.partner_ids.filtered(
-                lambda p, s:
-                p.int_instance_id == s.id and not p.is_company))
+            inst.member_count = len(inst.partner_ids.filtered(
+                lambda p, ii=inst:
+                p.int_instance_id == ii and not p.is_company))
 
     @api.multi
     def get_member_action(self):
@@ -34,19 +34,9 @@ class IntInstance(models.Model):
         return action
 
     @api.model
-    def check_mail_message_access(self, res_ids, operation, model_name=None):
-        """
-        When user has sufficient rights to create a new instance, it has also
-        sufficient rights to create the related notification
-        """
-        if operation == 'create':
-            return
-        super().check_mail_message_access(res_ids, operation, model_name)
-
-    @api.model
     def create(self, vals):
         if not vals.get('parent_id'):
-            if self.env.uid != SUPERUSER_ID:
+            if not self.env.user._is_admin():
                 # because the user has rights to create a new instance
                 # this new instance has to be added to users's internal
                 # instances if it is a root instance
@@ -62,5 +52,5 @@ class IntInstance(models.Model):
         """
         res = super()._get_default_int_instance()
         if not res:
-            res = self.env['res.users']._internal_instances()
-        return first(res)
+            res = first(self.env['res.users']._internal_instances())
+        return res

@@ -11,11 +11,10 @@ class PostalCoordinate(models.Model):
     @api.multi
     def _update_partner_int_instance(self):
         """
-        Update instance of partner linked to the postal coordinate case where
-        coordinate is main and `active` field has same value than
-        `partner.active`
-        Instance is the default one if no instance for the postal coordinate
-        otherwise it is its instance
+        Update instance of partner linked to the postal coordinate
+        when it becomes main and its `active` field is equal
+        to the `active` field of its partner.
+        Instance is the default one if no instance found on the city
         """
         for pc in self:
             # if coordinate is main update int_instance of partner
@@ -26,9 +25,9 @@ class PostalCoordinate(models.Model):
                 def_int_instance_id = self.env['int.instance']\
                     ._get_default_int_instance()
                 # get instance_id of address or keep default otherwise
-                zip_id = pc.address_id.address_local_zip_id
+                zip_id = pc.address_id.city_id
                 new_int_instance_id = \
-                    zip_id and zip_id.int_instance_id.id or \
+                    zip_id and zip_id.int_instance_id or \
                     def_int_instance_id
 
                 if new_int_instance_id != cur_int_instance_id:
@@ -37,11 +36,10 @@ class PostalCoordinate(models.Model):
     @api.model
     def create(self, vals):
         """
-        call `_update_partner_int_instance` if `is_main` is True
+        Compute followers and change partner instance if any
         """
         change_instance = not self.env.context.get('keep_current_instance')
-        self_ctx = self.with_context(delay_notification=change_instance)
-        res = super(PostalCoordinate, self_ctx).create(vals)
+        res = super().create(vals)
         if vals.get('is_main') and change_instance:
             res._update_postal_follower()
         return res
@@ -49,7 +47,7 @@ class PostalCoordinate(models.Model):
     @api.model
     def write(self, vals):
         '''
-        call `_update_partner_int_instance` if `is_main` is True
+        Recompute followers and change partner instance if any
         '''
         res = super().write(vals)
         if vals.get('is_main', False):
@@ -59,4 +57,4 @@ class PostalCoordinate(models.Model):
     @api.multi
     def _update_postal_follower(self):
         self._update_partner_int_instance()
-        self.sudo()._update_followers()
+        self._update_followers()

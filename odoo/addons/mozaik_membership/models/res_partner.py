@@ -38,7 +38,8 @@ class ResPartner(models.Model):
     free_member = fields.Boolean()
     membership_state_id = fields.Many2one(
         comodel_name='membership.state', string='Membership State', index=True,
-        track_visibility='onchange')
+        track_visibility='onchange', copy=False,
+        default=lambda s: s._default_membership_state_id())
     membership_state_code = fields.Char(
         related='membership_state_id.code', readonly=True)
     subscription_product_id = fields.Many2one(
@@ -69,6 +70,9 @@ class ResPartner(models.Model):
     def _default_int_instance_id(self):
         return self.env['int.instance']._get_default_int_instance()
 
+    def _default_membership_state_id(self):
+        return self.env['membership.state']._get_default_state().id
+
     @api.multi
     @api.depends('membership_line_ids', 'membership_line_ids.active')
     def _compute_current_membership_line_id(self):
@@ -84,18 +88,18 @@ class ResPartner(models.Model):
         '''
         Compute the kind of partner, computed field used in ir.rule
         '''
-        for val in self:
-            if val.is_assembly:
+        for partner in self:
+            if partner.is_assembly:
                 k = 'a'
-            elif not val.identifier:
+            elif not partner.identifier:
                 k = 't'
-            elif val.is_company:
+            elif partner.is_company:
                 k = 'c'
-            elif val.membership_state_code == 'without_membership':
+            elif partner.membership_state_code == 'without_membership':
                 k = 'p'
             else:
                 k = 'm'
-            val.kind = k
+            partner.kind = k
 
     @api.multi
     def _update_membership_line(self, ref=False, date_from=False):
@@ -137,15 +141,16 @@ class ResPartner(models.Model):
     @api.multi
     def _get_followers_assemblies(self):
         self.ensure_one()
+        fol_ids = self.env["res.partner"]
         int_instance_id = self.env.context.get('new_instance_id')
         if not int_instance_id:
             int_instance = self.int_instance_id
         else:
             int_instance = self.env["int.instance"].browse(int_instance_id)
         if not int_instance:
-            return False
+            return fol_ids
         fol_ids = int_instance._get_instance_followers()
-        return fol_ids or False
+        return fol_ids
 
     @api.multi
     def _subscribe_assemblies(self, int_instance_id=None):
@@ -154,7 +159,8 @@ class ResPartner(models.Model):
         for partner in self:
             fol_ids = self.with_context(new_instance_id=int_instance_id)\
                 ._get_followers_assemblies()
-            partner.message_subscribe(fol_ids.ids)
+            if fol_ids:
+                partner.message_subscribe(partner_ids=fol_ids.ids)
         return fol_ids
 
     @api.model
@@ -214,19 +220,9 @@ class ResPartner(models.Model):
         '''
         If partner has an identifier then update its followers
         '''
-        if not vals.get('is_company', False):
-            # Force the state here to avoid a security alert
-            # when creating the workflow and updating the first time
-            # the state of the new partner
-            state_obj = self.env['membership.state']
-            vals.update({
-                'membership_state_id': state_obj._get_default_state().id,
-            })
         res = super().create(vals)
-        if 'identifier' in vals and res.identifier > 0:
-            # do not update followers when simulating partner workflow
-            # i.e. identifier = -1 (see get_partner_preview method)
-            res.sudo()._update_followers()
+        if 'identifier' in vals:
+            res._update_followers()
         return res
 
     @api.multi
@@ -244,10 +240,6 @@ class ResPartner(models.Model):
                 raise ValidationError(
                     _('A natural person with membership history '
                       'cannot be transformed to a legal person'))
-
-            if is_company:
-                # reset state for a company
-                vals['membership_state_id'] = None
 
         p_upd_fol = self.env['res.partner']
         p_add_line = self.env['res.partner']
@@ -277,7 +269,7 @@ class ResPartner(models.Model):
 
         # update partners followers
         if vals.get('int_instance_id'):
-            p_upd_fol.sudo()._update_followers()
+            p_upd_fol._update_followers()
 
         if 'int_instance_m2m_ids' in vals:
             rule_obj = self.env['ir.rule']
@@ -322,9 +314,9 @@ class ResPartner(models.Model):
         vals = {'decline_payment_date': today}
 
         if self.membership_state_code == "member":
-            self.update_state("former_member")
+            self._update_state("former_member")
         else:
-            self.update_state("supporter")
+            self._update_state("supporter")
 
         return self.write(vals)
 
@@ -344,59 +336,57 @@ class ResPartner(models.Model):
     def exclude(self):
         res = self._exclude_or_resign('exclusion_date')
         if self.membership_state_code == "member":
-            self.update_state("expulsion_former_member")
+            self._update_state("expulsion_former_member")
         else:
-            self.update_state("inappropriate_former_member")
+            self._update_state("inappropriate_former_member")
         return res
 
     @api.multi
     def resign(self):
         res = self._exclude_or_resign('resignation_date')
         if self.membership_state_code == "member":
-            self.update_state("resignation_former_member")
+            self._update_state("resignation_former_member")
         elif self.membership_state_code == "former_member":
-            self.update_state("break_former_member")
+            self._update_state("break_former_member")
         else:
-            self.update_state("former_supporter")
+            self._update_state("former_supporter")
         return res
 
     def accept(self):
-        self.update_state("member")
+        self._update_state("member")
 
     def member_candidate(self):
-        self.update_state("member_candidate")
+        self._update_state("member_candidate")
 
     def supporter(self):
-        self.update_state("supporter")
+        self._update_state("supporter")
 
     def reset(self):
         if self.membership_state_code == "former_supporter":
-            self.update_state("supporter")
+            self._update_state("supporter")
         else:
-            self.update_state("former_member")
+            self._update_state("former_member")
 
     @api.multi
     def reject(self):
         today = fields.date.today()
         res = self.write({'rejected_date': today})
-        self.update_state("refused_member_candidate")
+        self._update_state("refused_member_candidate")
         return res
 
     def paid(self):
         if self.membership_state_code == "former_member":
-            self.update_state("former_member_committee")
+            self._update_state("former_member_committee")
         elif self.membership_state_code != "member":
-            self.update_state("member_committee")
+            self._update_state("member_committee")
 
     @api.multi
-    def update_state(self, membership_state_code):
+    def _update_state(self, membership_state_code):
         """
         :type membership_state_code: char
         :param membership_state_code: code of `membership.state`
         """
         self.ensure_one()
-        if not self.env.context.get('lang'):
-            self = self.with_context(lang=self.lang)
         membership_state_obj = self.env['membership.state']
         state = membership_state_obj.search(
             [('code', '=', membership_state_code)], limit=1)
@@ -421,9 +411,6 @@ class ResPartner(models.Model):
 
         if membership_state_code == 'supporter':
             vals['free_member'] = True
-
-        if membership_state_code == 'member_candidate':
-            vals['del_doc_date'] = False
 
         # force voluntaries fields if any
         if membership_state_code in [

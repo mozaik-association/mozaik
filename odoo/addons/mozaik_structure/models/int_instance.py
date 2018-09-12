@@ -86,8 +86,8 @@ class IntInstance(models.Model):
         Get related partners of all secretariats associated to self
         '''
         self.ensure_one()
-        instances = self.env[self._name]
-        instance = self
+        instances = self.env[self._name].sudo()
+        instance = self.sudo()
         while instance:
             instances |= instance
             instance = instance.parent_id
