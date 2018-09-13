@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -12,14 +11,9 @@
     'depends': [
         'product',
         'account',
-        'account_accountant',
-        'account_cancel',
-        'account_auto_installer',
-        'mozaik_person',
-        'mozaik_mandate',
-        'mozaik_chart_account',
+        'mozaik_involvement',
         'mozaik_membership',
-        'mozaik_retrocession',
+        'l10n_generic_coa',
     ],
     'description': """
 MOZAIK Account
@@ -29,17 +23,14 @@ Manage accounting features
     'images': [
     ],
     'data': [
-        'data/product_data.xml',
-        'security/account_security.xml',
-        'account_view.xml',
-        'views/product_view.xml',
-    ],
-    'qweb': [
+        'data/product_template.xml',
+        'views/account_bank_statement.xml',
+        'views/product_template.xml',
     ],
     'demo': [
-    ],
-    'test': [
+        'demo/product_product.xml',
+        'demo/ir_property.xml'
     ],
     'license': 'AGPL-3',
-    'installable': False,
+    'installable': True,
 }
