@@ -392,7 +392,7 @@ class DistributionListMassFunction(models.TransientModel):
         :param group_by: bool
         :return: bool
         """
-        csv_content = self.env['export.csv'].get_csv(
+        csv_content = self.env['export.csv']._get_csv(
             model, targets, group_by=group_by)
         csv_content = base64.encodebytes(csv_content.encode())
         return self.write({
@@ -415,16 +415,17 @@ class DistributionListMassFunction(models.TransientModel):
         :return: res.partner recordset
         """
         partners = self.env['res.partner'].browse()
-        model = self.env.context.get('active_model')
-        active_id = self.env.context.get('active_id') or False
-        dist_list = active_id and self.env[model].browse([active_id]) or False
+        context = self.env.context
+        model = context.get('active_model')
+        active_id = context.get('active_ids', context.get('active_id'))
+        dist_list = self.env[model].browse(active_id).exists()
         if dist_list and model == self._name:
             # in case of wizard reloading
             dist_list = dist_list.distribution_list_id
         if dist_list:
             # first: the sender partner
             partners |= dist_list.partner_id
-            # than: the requestor user
+            # than: the request or user
             if self.env.user.partner_id in dist_list.res_partner_ids:
                 partners |= self.env.user.partner_id
             elif self.env.user in dist_list.res_users_ids:
@@ -433,8 +434,8 @@ class DistributionListMassFunction(models.TransientModel):
             partners |= dist_list.res_partner_ids.filtered(
                 lambda s: s.is_company)
             partners |= dist_list.res_users_ids.mapped(
-                'partner_id').filtered(lambda s: s.is_company)
-        return partners.filtered(lambda s: s.email)
+                'partner_id').filtered("is_company")
+        return partners.filtered("email")
 
     @api.model
     def _get_domain_partner_from_id(self):
@@ -464,7 +465,7 @@ class DistributionListMassFunction(models.TransientModel):
             name = self.partner_from_id.name
             email = self.partner_from_id.email or ''
         if self.partner_name:
-            name = self.partner_name and self.partner_name.strip() or name
+            name = self.partner_name.strip()
         self.email_from = formataddr((name, email))
 
     @api.onchange('mail_template_id')

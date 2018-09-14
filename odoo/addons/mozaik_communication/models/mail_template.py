@@ -25,9 +25,9 @@ class MailTemplate(models.Model):
 
     @api.model
     def _get_default_instance(self):
-        #TODO: xxx
+        # TODO: xxx
+        # return first(self.env.user.partner_id.int_instance_m2m_ids)
         return False
-        return first(self.env.user.partner_id.int_instance_m2m_ids)
 
     # Fake field for auto-completing placeholder
     involvement_category_id = fields.Many2one(

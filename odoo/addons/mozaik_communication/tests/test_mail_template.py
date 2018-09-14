@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo.tests.common import SavepointCase
 
-from openerp.tests.common import TransactionCase
 
-
-class TestEmailTemplate(TransactionCase):
+class TestEmailTemplate(SavepointCase):
 
     def test_default_values(self):
         """
@@ -14,7 +12,7 @@ class TestEmailTemplate(TransactionCase):
         # Give an instance to the user
         int_instance = self.browse_ref('mozaik_structure.int_instance_01')
         self.env.user.partner_id.int_instance_m2m_ids = int_instance
-        # Cretae a template
+        # Create a template
         vals = {
             'name': 'Sébastien parmi les hommes...',
         }

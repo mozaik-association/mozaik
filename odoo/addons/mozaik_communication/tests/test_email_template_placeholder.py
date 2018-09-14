@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo.tests.common import SavepointCase
 
-from openerp.tests.common import TransactionCase
 
-
-class TestEmailTemplatePlaceholder(TransactionCase):
+class TestEmailTemplatePlaceholder(SavepointCase):
 
     def test_default_values(self):
         """
         check for default value for some fields
         """
-        # Cretae a placeholder
+        # Create a placeholder
         vals = {
             'name': 'Et Dieu créa la femme...',
         }

@@ -19,7 +19,7 @@
         'mozaik_email',
         'mozaik_structure',
         'mozaik_involvement',
-        #'mozaik_membership',
+        # 'mozaik_membership',
         # from https://github.com/OCA/social
         'email_template_configurator',
     ],
@@ -27,6 +27,7 @@
         'security/communication_security.xml',
         'security/mail_mass_mailing_group.xml',
         'wizards/distribution_list_mass_function.xml',
+        'views/abstract_virtual_target.xml',
         'views/distribution_list_line.xml',
         'views/distribution_list.xml',
         'views/mail_mail_statistics.xml',
@@ -34,7 +35,6 @@
         'views/mail_statistics_report.xml',
         'views/mail_template.xml',
         'views/res_partner.xml',
-        #'views/virtual_target.xml',
         'wizards/export_csv.xml',
     ],
     'demo': [

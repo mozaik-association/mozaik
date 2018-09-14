@@ -6,7 +6,16 @@
         <field name="name">Abstract.virtual.target (in mozaik_communication)</field>
         <field name="model">abstract.virtual.target</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="0" delete="0" decoration-danger="email_unauthorized==True or postal_unauthorized==True">
+                <field name="partner_id"/>
+                <field name="int_instance_id"/>
+                <field name="birth_date"/>
+                <field name="gender"/>
+                <field name="lang"/>
+                <field name="employee"/>
+                <field name="postal_vip"/>
+                <field name="postal_unauthorized" invisible="True"/>
+                <field name="email_unauthorized" invisible=""/>
                 <button name="get_partner_action" string="See Partner" type="object"/>
             </tree>
         </field>

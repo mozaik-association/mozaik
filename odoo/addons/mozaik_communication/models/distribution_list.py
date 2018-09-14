@@ -3,7 +3,7 @@
 import logging
 import html
 from email.utils import formataddr
-from odoo import api, exceptions, fields, models, _
+from odoo import api, fields, models, _
 from odoo.osv import expression
 from odoo.fields import first
 
@@ -211,13 +211,11 @@ class DistributionList(models.Model):
             else:
                 user = first(partner.user_ids)
         if user:
-            try:
-                # business logic continue with this user
-                self_sudo = self.sudo(user.id)
-                # Force access rules
-                self_sudo.name
-                has_visibility = True
-            except exceptions.AccessError:
+            # Check access rights
+            self_sudo = self.sudo(user.id)
+            has_visibility = self_sudo.check_access_rights(
+                'read', raise_exception=False)
+            if not has_visibility:
                 params = (user.name, user.id, self.name, self.id)
                 noway = _('User %s(%s) has no visibility on list '
                           '%s(%s)') % params
@@ -229,9 +227,12 @@ class DistributionList(models.Model):
                 main_object_domain=[('email_unauthorized', '=', False)],
                 additional_res_ids=coordinate.ids,
             )
-            return super().distribution_list_forwarding(msg)
-        _logger.info('Mail forwarding aborted. Reason: %s' % noway)
+            # the self is updated
+            return super(DistributionList, self)._distribution_list_forwarding(
+                msg)
+        _logger.info('Mail forwarding aborted. Reason: %s', noway)
         self._reply_error_to_owners(msg, noway)
+        return None
 
     @api.multi
     def _reply_error_to_owners(self, msg, reason):
@@ -328,7 +329,7 @@ class DistributionList(models.Model):
                         _('Hello'),
                         _('The alias of the distribution list %s '
                           'has been changed by %s.') % (
-                            record.name, record.env.user.name),
+                              record.name, record.env.user.name),
                         _('Former alias: %s@%s') % (old_alias, domain),
                         _('<b>New alias</b>: %s@%s') % (new_alias, domain),
                     )

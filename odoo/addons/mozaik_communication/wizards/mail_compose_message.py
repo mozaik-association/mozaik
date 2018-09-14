@@ -40,8 +40,6 @@ class MailComposeMessage(models.TransientModel):
                     result[model_obj.id]['email_to'] = email[0]
         return result
 
-
-
     @api.multi
     def xsend_mail(self, auto_commit=False):
         """
@@ -50,4 +48,6 @@ class MailComposeMessage(models.TransientModel):
         context = self._context
         if not context.get('async_send_mail'):
             self = self.with_context(dl_computed=True)
-        return super().send_mail(auto_commit=auto_commit)
+        # The self could change, so specify it
+        return super(MailComposeMessage, self).send_mail(
+            auto_commit=auto_commit)

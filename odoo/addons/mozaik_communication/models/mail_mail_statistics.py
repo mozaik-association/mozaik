@@ -1,6 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class MailMailStats(models.Model):
@@ -70,5 +70,5 @@ class MailMailStats(models.Model):
                     email_coordinate = self.env[active_model].browse(
                         active_ids)
                     email_coordinate.message_post(
-                        subject='Bounce Details', body=bounce_body)
+                        subject=_('Bounce Details'), body=bounce_body)
         return results
