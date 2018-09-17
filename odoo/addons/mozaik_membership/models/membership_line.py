@@ -1,6 +1,8 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import api, models, fields, _
+from datetime import date
+from odoo import api, exceptions, models, fields, _
+from odoo.tools import float_is_zero
 import odoo.addons.decimal_precision as dp
 
 
@@ -11,14 +13,15 @@ class MembershipLine(models.Model):
     _description = 'Membership Line'
     _rec_name = 'partner_id'
     _order = 'date_from desc, date_to desc, create_date desc, partner_id'
-    _unicity_keys = 'partner_id'
+    # 1 active membership line per partner/instance
+    _unicity_keys = 'partner_id, int_instance_id'
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Member',
         ondelete='cascade', required=True, index=True)
     product_id = fields.Many2one(
         comodel_name='product.product', string='Subscription',
-        domain="[('membership', '!=', False), ('list_price', '>', 0.0)]",
+        domain="[('membership', '!=', False)]",
         index=True, default=lambda s: s._default_product_id())
     state_id = fields.Many2one(
         comodel_name='membership.state', string='State',
@@ -27,16 +30,40 @@ class MembershipLine(models.Model):
     int_instance_id = fields.Many2one(
         comodel_name='int.instance', string='Internal Instance', index=True,
         default=lambda s: s._default_int_instance_id(), required=True,)
-    partner_instance_id = fields.Many2one(
-        related='partner_id.int_instance_id',
-        string='Partner Internal Instance',
-        comodel_name='int.instance',
-        index=True, readonly=True, store=True)
     reference = fields.Char()
     date_from = fields.Date(string='From', readonly=True)
+    # Question: should be the 'expire_date' fields defined on the abstract?
     date_to = fields.Date(string='To', readonly=True)
     price = fields.Float(
-        digits=dp.get_precision('Product Price'))
+        digits=dp.get_precision('Product Price'),
+        copy=False,
+    )
+    paid = fields.Boolean(
+        default=False,
+        help="Define if this line is paid or not",
+        copy=False,
+        index=True,
+    )
+
+    _sql_constraints = [
+        ('unique_ref', 'unique(reference)', 'This reference is already used'),
+    ]
+
+    @api.multi
+    @api.constrains('reference', 'price')
+    def _constrains_reference(self):
+        """
+        Constrain function for the field reference
+        This field must be mandatory when the price is != 0.0.
+        :return:
+        """
+        bad_records = self.filtered(
+            lambda r: not r.price_is_zero(r.price) and not r.reference)
+        if bad_records:
+            details = "\n- ".join(bad_records.mapped("display_name"))
+            message = _("A reference is mandatory when the price is greater "
+                        "than 0:\n- %s") % details
+            raise exceptions.ValidationError(message)
 
     @api.model
     def _default_product_id(self):
@@ -62,8 +89,9 @@ class MembershipLine(models.Model):
         """
         vals = vals or {}
         if 'date_to' not in vals:
-            vals['date_to'] = fields.date.today()
-
+            vals.update({
+                'date_to': fields.date.today(),
+            })
         return super().action_invalidate(vals=vals)
 
     @api.model
@@ -81,3 +109,331 @@ class MembershipLine(models.Model):
             index_name: message,
         })
         return result
+
+    @api.model
+    def _invalidate_previous_lines(self, partner_ids, date_to, line_id=False,
+                                   int_instance_id=False):
+        """
+        Based on given partner_ids and date_from, invalidate membership
+        lines related to these one (every lines where date_to not filled).
+        If a line_id is set, we only have to display a single membership
+        line. This use case is used when we have a specific line to disable.
+        For this case, we should have only 1 partner into partner_ids list.
+        Example:
+        - If a partner have 2 membership lines active (date_to is False and
+            related to same instance), we have to disable these 2 lines.
+        :param partner_ids: list of int
+        :param date_to: str
+        :param line_id: int
+        :param int_instance_id: int
+        :return: bool
+        """
+        if not partner_ids or not date_to:
+            return False
+        partners = self.env['res.partner'].browse(partner_ids)
+        if not line_id:
+            lines = partners.mapped("membership_line_ids").filtered(
+                lambda l: not l.date_to)
+            if int_instance_id:
+                lines = lines.filtered(
+                    lambda l: l.int_instance_id.id == int_instance_id)
+        else:
+            lines = self.browse(line_id)
+        if lines:
+            return lines.action_invalidate({
+                'date_to': date_to,
+            })
+        return True
+
+    @api.model
+    def create(self, vals):
+        """
+        During the creation of a new membership.line, we have first to
+        invalidate (by filling the date_to) of the previous membership line of
+        the related partner.
+        :param vals: dict
+        :return: self recordset
+        """
+        if self.env.context.get(
+                'no_invalidate_previous_membership_line', True):
+            partner_id = vals.get('partner_id')
+            date_from = vals.get('date_from')
+            int_instance_id = vals.get('int_instance_id')
+            self._invalidate_previous_lines(
+                partner_ids=[partner_id], date_to=date_from,
+                int_instance_id=int_instance_id)
+        result = super(MembershipLine, self).create(vals)
+        return result
+
+    @api.model
+    def _get_subscription_product(self, partner, instance=False):
+        """
+        Get the subscription product related to the current partner
+        The membership_line parameter could be used to have information about
+        the instance, product etc
+        :param partner: res.partner recordset
+        :param instance: int.instance recordset
+        :return: product.product recordset
+        """
+        partner.ensure_one()
+        return partner.subscription_product_id
+
+    @api.model
+    def _get_subscription_price(self, product, partner=False, instance=False):
+        """
+        Get the subscription price based on given product.
+        The price depends on the product, partner and the instance
+        :param product: product.product recordset
+        :param partner: res.partner recordset
+        :param int.instance: int.instance recordset
+        :return: float
+        """
+        product.ensure_one()
+        return product.price or product.list_price
+
+    @api.model
+    def _generate_membership_reference(self, partner, instance, ref_date=''):
+        """
+        Generate a unique reference based on the partner, instance and the
+        ref_date.
+        This method is intended to be overriden regarding
+        locale conventions.
+        Here is an arbitrary convention: "MS: YYYY/id"
+        :param partner: res.partner recordset
+        :param instance: int.instance recordset
+        :param ref_date: str/date
+        :return:
+        """
+        partner.ensure_one()
+        ref_date = ref_date or fields.Date.from_string(
+            fields.Date.today()).year
+        ref = 'MS: %s/%s/%s' % (ref_date, instance.id, partner.id)
+        return ref
+
+    @api.model
+    def _build_membership_values(self, partner, instance, date_from=False,
+                                 previous=False, product=False, price=False):
+        """
+        Build membership values based on given parameters
+        :param partner: res.partner recordset
+        :param instance: int.instance recordset
+        :param date_from: date/str
+        :param previous: membership.line recordset
+        :param product: product.product recordset
+        :param price: float
+        :return: dict
+        """
+        if not previous:
+            previous = self.env[self._name].browse()
+        if not product:
+            product = self._get_subscription_product(
+                partner=partner, instance=instance)
+        date_from = date_from or fields.Date.today()
+        # If the price is not set (stay to False so != 0), we have to compute
+        # it
+        if not price and isinstance(price, bool):
+            price = previous._get_subscription_price(
+                product, partner=partner, instance=instance)
+        reference = previous._generate_membership_reference(
+            partner, instance, ref_date=date_from)
+        paid = self._get_paid_based_on_price(price)
+        values = {
+            'date_from': date_from,
+            'date_to': False,
+            'partner_id': partner.id,
+            'state_id': partner.membership_state_id.id,
+            'int_instance_id': instance.id,
+            'price': price,
+            'reference': reference,
+            'product_id': product.id,
+            'paid': paid,
+        }
+        return values
+
+    @api.multi
+    def _mark_as_paid(self):
+        """
+        Mark as paid current recordset
+        :return: self
+        """
+        self.write({
+            'paid': True,
+        })
+        return self
+
+    @api.model
+    def _get_paid_based_on_price(self, price):
+        """
+        Based on the given price, set the default value for the paid bool
+        :param price: float
+        :return: bool
+        """
+        return self.price_is_zero(price)
+
+    @api.model
+    def price_is_zero(self, price):
+        """
+        Check if the given price is a zero (using the precision of the field)
+        :param price: float
+        :return: bool
+        """
+        precision = self._fields.get('price').digits[1]
+        # If the price is 0, it's automatically set as paid
+        is_zero = float_is_zero(price, precision_digits=precision)
+        return is_zero
+
+    @api.model
+    def _get_date_no_renew(self):
+        """
+        Get the date where we don't have to renew the membership.line
+        :return: date
+        """
+        value = self.env['ir.config_parameter'].sudo().get_param(
+            'membership.no_subscription_renew', default='')
+        year = date.today().year - 1
+        if not value:
+            # If we don't have a value, use the last day of year
+            value = '31/12'
+            year += 1
+        # Minus 1 because it's launched at the beginning of year
+        day, month = [int(v) for v in value.split('/')]
+        return date(year=year, month=month, day=day)
+
+    @api.model
+    def _get_forced_states_for_closing(self):
+        """
+        During the closing of membership.line, it's possible to force
+        to close only lines with states defined returned by this function
+        :return: membership.state recordset
+        """
+        return self.env['membership.state'].browse()
+
+    @api.model
+    def _get_lines_to_close(self):
+        """
+        Get membership lines to close (date_to is not filled)
+        :return: membership.line recordset
+        """
+        domain = [
+            ('date_to', '=', False),
+            ('active', '=', True),
+        ]
+        states = self._get_forced_states_for_closing()
+        if states:
+            domain.append(('state_id', 'in', states.ids))
+        context = self.env.context
+        active_domain = context.get('active_domain')
+        if context.get('active_model') == self._name and active_domain:
+            domain.extend(active_domain)
+        return self.search(domain)
+
+    @api.multi
+    def _close(self, date_to=False):
+        """
+
+        :param date_to: date/str
+        :return: current recordset
+        """
+        if not date_to:
+            date_to = fields.Date.today()
+        if isinstance(date_to, str):
+            real_date_to = fields.Date.from_string(date_to)
+        # We can not renew if the date_from is < date_to
+        lines = self.filtered(
+            lambda l: fields.Date.from_string(l.date_from) <= real_date_to)
+        if lines:
+            values = {
+                'date_to': date_to,
+            }
+            lines.action_invalidate(values)
+        return lines
+
+    @api.model
+    def _get_lines_to_renew(self):
+        """
+        Get membership lines to renew.
+        Load every lines where the date_from <= the limit_date
+        (cfr: _get_date_no_renew() function)
+        Then filter these lines to have only 1 line to renew per
+        partner/instance.
+        :return: membership.line recordset
+        """
+        limit_date = self._get_date_no_renew()
+        domain = [
+            # Active should be False to avoid constraint error during renew
+            ('active', '=', False),
+            ('date_from', '<=', limit_date),
+        ]
+        context = self.env.context
+        active_domain = context.get('active_domain')
+        if context.get('active_model') == self._name and active_domain:
+            # We don't care about active/inactive because the renew have 2
+            # behaviours (1 for active and another for inactive)
+            domain = active_domain
+        lines = self.search(domain, order='date_to ASC, id ASC')
+        # Now we have every lines but we have to remove duplicates
+        # (we should have 1 line per partner/instance)
+        # So now we have for each combination partner/instance
+        # only 1 membership line.
+        # And thanks to the order (during search), the membership line should
+        # be the last (more recent) membership line (so the one to renew)
+        data = {(l.partner_id, l.int_instance_id): l for l in lines}
+        # Now we have to get only membership lines (so dict values)
+        membership_lines = self.browse()
+        # .values() return a list but we need a multi-recordset
+        for line in data.values():
+            membership_lines |= line
+        return membership_lines
+
+    @api.multi
+    def _renew(self, date_from=False):
+        """
+        Renew current membership.line
+        :param date_from: str/date
+        :return: membership.line recordset
+        """
+        membership_line_obj = self.env[self._name]
+        limit_date = self._get_date_no_renew()
+        # We have to renew every (active) membership lines of the partner
+        if date_from:
+            real_date_from = fields.Date.from_string(date_from)
+        else:
+            real_date_from = fields.Date.today()
+        membership_lines = self.filtered(
+            lambda l:
+            fields.Date.from_string(l.date_from) <= limit_date and
+            fields.Date.from_string(l.date_from) <= real_date_from)
+        # Save which membership line are created/updated
+        membership_altered = membership_line_obj.browse()
+        for membership_line in membership_lines:
+            partner = membership_line.partner_id
+            instance = membership_line.int_instance_id
+            values = self._build_membership_values(
+                partner, instance, date_from=real_date_from,
+                previous=membership_line)
+            # If the line still active, we only have to renew the reference
+            # Because membership lines are supposed to be closed.
+            # If there are not, it's because we have to renew them, without
+            # creating new lines
+            if membership_line.active:
+                membership_line.write({
+                    'reference': values.get('reference'),
+                })
+                membership_altered |= membership_line
+            else:
+                membership_altered |= membership_line_obj.create(values)
+        return membership_altered
+
+    @api.model
+    def _launch_renew(self, date_from=False):
+        """
+        Steps:
+        - Get every lines to close
+        - Close them
+        - Get every lines to renew
+        - Renew them
+        :param date_from: str/date
+        :return: membership.line recordset
+        """
+        self._get_lines_to_close()._close(date_to=date_from)
+        return self._get_lines_to_renew()._renew(date_from=date_from)

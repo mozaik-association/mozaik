@@ -26,9 +26,9 @@ class PostalCoordinate(models.Model):
                     ._get_default_int_instance()
                 # get instance_id of address or keep default otherwise
                 zip_id = pc.address_id.city_id
-                new_int_instance_id = \
-                    zip_id.int_instance_id if zip_id \
-                    else def_int_instance_id
+                new_int_instance_id = def_int_instance_id
+                if zip_id.int_instance_id:
+                    new_int_instance_id = zip_id.int_instance_id
 
                 if new_int_instance_id != cur_int_instance_id:
                     partner._change_instance(new_int_instance_id)

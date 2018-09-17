@@ -72,6 +72,9 @@
                     </field>
                 </page>
             </xpath>
+            <field name="parent_id" position="after">
+                <field name="code"/>
+            </field>
         </field>
     </record>
 

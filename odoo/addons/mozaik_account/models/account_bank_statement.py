@@ -11,14 +11,14 @@ class AccountBankStatement(models.Model):
     @api.multi
     def auto_reconcile(self):
         self.ensure_one()
-        for bank_line in self.line_ids:
-            if not bank_line.partner_id or bank_line.journal_entry_ids:
-                continue
-
-            mode, __ = bank_line._get_info_from_reference(
-                bank_line.name)
-
+        lines = self.line_ids.filtered(
+            lambda l: not (not l.partner_id or l.journal_entry_ids))
+        if not lines:
+            return False
+        for bank_line in lines:
+            mode, __ = bank_line._get_info_from_reference(bank_line.name)
             if mode == 'membership':
                 bank_line._create_membership_move(bank_line.name)
             elif mode == 'donation':
                 bank_line._create_donation_move(bank_line.name)
+        return True

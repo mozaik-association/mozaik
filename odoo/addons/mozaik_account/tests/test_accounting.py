@@ -1,9 +1,11 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import uuid
+import random
 from datetime import date
 from odoo.tests.common import SavepointCase
 from odoo.exceptions import ValidationError
+from odoo.fields import first
 
 
 class TestAccountingWithProduct(object):
@@ -42,16 +44,28 @@ class TestAccountingWithProduct(object):
         return partner
 
     def _generate_payment(self, additional_amount=0, with_partner=True):
-        self.partner.reference = self.partner._generate_membership_reference()
-        b_statement_id = self.bs_obj.with_context(journal_type='bank')\
-            .create({})
-        amount = 0.0
+        instance = first(self.partner.int_instance_ids)
+        reference = self.partner._generate_membership_reference(instance)
+        b_statement_id = self.bs_obj.with_context(
+            journal_type='bank').create({})
         if self.product:
             amount = self.product.list_price
+        else:
+            amount = random.uniform(10, 100)
+        if not self.partner.membership_line_ids.filtered(
+                lambda l: l.reference == reference):
+            values = self.partner.membership_line_ids._build_membership_values(
+                self.partner, instance, price=amount, product=self.product)
+            values.update({
+                'reference': reference,
+            })
+            self.partner.membership_line_ids.create(values)
         amount += additional_amount
-        statement_line_vals = {'statement_id': b_statement_id.id,
-                               'name': self.partner.reference,
-                               'amount': amount}
+        statement_line_vals = {
+            'statement_id': b_statement_id.id,
+            'name': reference,
+            'amount': amount,
+        }
         if with_partner:
             statement_line_vals['partner_id'] = self.partner.id
 
@@ -66,22 +80,22 @@ class TestAccountingWithProduct(object):
             'property_subscription_account', 'product.template')
         other_account = self.env["account.account"].search(
             [("id", "not in", subscription_account.ids)], limit=1)
+        reference = self.partner.membership_line_ids.reference
         if self.product:
             if self.product.list_price > 0:
                 res.append({
                     'account_id': subscription_account.id,
                     'debit': 0,
                     'credit': self.product.list_price,
-                    'name': self.partner.reference
+                    'name': reference
                 })
         if additional_amount > 0:
-            account = None
             if self.product:
                 account = other_account
                 name = 'Comment'
             else:
                 account = subscription_account
-                name = self.partner.reference
+                name = reference
 
             res.append({
                 'account_id': account.id,
@@ -100,51 +114,46 @@ class TestAccountingWithProduct(object):
 
         self.assertEqual(
             self.partner.membership_state_id.code, 'member_committee')
-        self.assertEqual(
-            self.partner.subscription_product_id, self.product)
-        ml_data = self.ml_obj.search_read(
-            [('partner_id', '=', self.partner.id), ('active', '=', True)],
-            ['price'])[0]
+        ml_data = self.ml_obj.search([
+            ('partner_id', '=', self.partner.id),
+            ('active', '=', True),
+        ], limit=1)
 
-        self.assertEqual(ml_data['price'], bank_s.line_ids.amount)
-        self.assertFalse(self.partner.amount)
+        self.assertAlmostEqual(ml_data.price, bank_s.line_ids.amount)
+        self.assertTrue(ml_data.paid)
 
     def test_accounting_manual_reconcile(self):
         additional_amount = 1999.99
+        if not self.product:
+            prod_id = self.env['membership.line']._get_subscription_product(
+                partner=self.partner,
+                instance=first(self.partner.int_instance_ids))
+        else:
+            prod_id = self.product
         bank_s = self._generate_payment(
             additional_amount=additional_amount)
+        price = self.partner.membership_line_ids.price
         bank_s.auto_reconcile()
         for line in bank_s.line_ids:
             self.assertFalse(line.journal_entry_ids)
 
         move_dicts = self._get_manual_move_dict(additional_amount)
 
-        bank_s.line_ids[0].process_reconciliation(
+        first(bank_s.line_ids).process_reconciliation(
             new_aml_dicts=move_dicts)
 
         self.assertEqual(
             self.partner.membership_state_id.code, 'member_committee')
 
-        if not self.product:
-            prod_id = self.env.ref(
-                'mozaik_membership.membership_product_undefined')
-        else:
-            prod_id = self.product
+        self.assertEqual(self.partner.membership_line_ids.product_id, prod_id)
 
-        self.assertEqual(
-            self.partner.subscription_product_id, prod_id)
+        ml_data = self.ml_obj.search([
+            ('partner_id', '=', self.partner.id),
+            ('active', '=', True),
+        ], limit=1)
 
-        ml_data = self.ml_obj.search_read(
-            [('partner_id', '=', self.partner.id), ('active', '=', True)],
-            ['price'])[0]
-        price = 0.0
-        if self.product:
-            price = self.product.list_price
-        else:
-            price = additional_amount
-
-        self.assertEqual(ml_data['price'], price)
-        self.assertFalse(self.partner.amount)
+        self.assertAlmostEqual(ml_data.price, price)
+        self.assertTrue(ml_data.paid)
 
     def test_accounting_manual_reconcile_without_partner(self):
         additional_amount = 1999.99
@@ -157,10 +166,9 @@ class TestAccountingWithProduct(object):
                 self.assertFalse(line.journal_entry_ids)
 
         move_dicts = self._get_manual_move_dict(additional_amount)
-
-        self.assertRaises(ValidationError,
-                          bank_s.line_ids[0].process_reconciliation,
-                          new_aml_dicts=move_dicts)
+        with self.assertRaises(ValidationError):
+            first(bank_s.line_ids).process_reconciliation(
+                new_aml_dicts=move_dicts)
 
 
 class TestAccountingFirstMembershipAccepted(TestAccountingWithProduct,
@@ -186,6 +194,9 @@ class TestAccountingFirstMembershipAcceptedWithAnotherAmount(
             additional_amount=additional_amount, with_partner=with_partner)
         if with_partner and not additional_amount:
             bs.line_ids.amount = self.partner.amount
+            self.partner.membership_line_ids.write({
+                'price': self.partner.amount,
+            })
         return bs
 
     def test_accounting_manual_reconcile_without_partner(self):
@@ -267,21 +278,21 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
             'property_subscription_account',
             'product.template')
         if self.product:
-            if self.product.list_price > 0:
+            if self.partner.membership_line_ids.price > 0:
                 res.append({
                     'account_id': subscription_account.id,
                     'debit': 0,
-                    'credit': self.product.list_price,
-                    'name': self.partner.reference
+                    'credit': self.partner.membership_line_ids.price,
+                    'name': self.partner.membership_line_ids.reference
                 })
 
         if additional_amount > 0:
-            if self.product.list_price > 0:
+            if self.partner.membership_line_ids.price > 0:
                 res.append({
                     'account_id': subscription_account.id,
                     'debit': 0,
-                    'credit': self.product.list_price,
-                    'name': self.partner_2.reference
+                    'credit': self.partner_2.membership_line_ids.price,
+                    'name': self.partner_2.membership_line_ids.reference
                 })
         return res
 
@@ -295,10 +306,21 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
         additional_amount = self.product.list_price
         b_statement_id = self._generate_payment(
             additional_amount=additional_amount)
-        self.partner_2.reference = self.partner_2\
-            ._generate_membership_reference()
-        references = {self.partner.id: self.partner.reference,
-                      self.partner_2.id: self.partner_2.reference}
+        instance = first(self.partner_2.int_instance_ids)
+        partner2_ref = self.partner_2._generate_membership_reference(
+            instance=instance)
+        values = self.partner_2.membership_line_ids._build_membership_values(
+            self.partner_2, instance, price=additional_amount,
+            product=self.product)
+        values.update({
+            'reference': partner2_ref,
+        })
+        self.partner_2.membership_line_ids.create(values)
+        partner1_ref = self.partner.membership_line_ids.reference
+        references = {
+            self.partner.id: partner1_ref,
+            self.partner_2.id: partner2_ref,
+        }
         b_statement_id.auto_reconcile()
         for bank_s in b_statement_id:
             for line in bank_s.line_ids:
@@ -320,15 +342,14 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
                 prod_id = self.product
 
             self.assertEqual(
-                partner.subscription_product_id, prod_id)
+                partner.membership_line_ids.product_id, prod_id)
 
             ml_data = self.ml_obj.search_read(
                 [('partner_id', '=', partner.id),
                  ('active', '=', True)],
                 ['price'])[0]
-            price = 0.0
             if self.product:
-                price = self.product.list_price
+                price = partner.membership_line_ids.price
             else:
                 price = additional_amount
 
@@ -353,8 +374,8 @@ class TestAccountingProtectAutoReconcile(TestAccountingWithProduct,
 
     def test_accounting_auto_reconcile(self):
         '''
-            Auto reconcile should not occur if reference has been already
-            used previously
+        Auto reconcile should not occur if reference has been already
+        used previously
         '''
         b_statement_id = self._generate_payment()
         b_statement_id.auto_reconcile()

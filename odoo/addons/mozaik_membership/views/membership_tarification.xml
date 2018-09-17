@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="membership_tarification_form_view" model="ir.ui.view">
+        <field name="name">Membership.tarification.form (in mozaik_membership)</field>
+        <field name="model">membership.tarification</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Available variables" name="group_note">
+                        <label colspan="2" string="context => Current context"/>
+                        <label colspan="2" string="partner => res.partner to evaluate the tarification"/>
+                        <label colspan="2" string="uid => Current user id"/>
+                        <label colspan="2" string="user => Current res.users"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="membership_tarification_tree_view" model="ir.ui.view">
+        <field name="name">Membership.tarification.tree (in mozaik_membership)</field>
+        <field name="model">membership.tarification</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="product_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="membership_tarification_act_window">
+        <field name="name">Membership tarification</field>
+        <field name="res_model">membership.tarification</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.menu" id="membership_tarification_menu">
+        <field name="name">Membership tarification</field>
+        <field name="parent_id" ref="mozaik_structure.structure_configuration_menu"/>
+        <field name="action" ref="membership_tarification_act_window"/>
+        <field name="sequence" eval="40"/>
+    </record>
+</odoo>

@@ -71,7 +71,7 @@ class VirtualMasterPartner(models.Model):
             e.unauthorized as email_unauthorized,
             pc.unauthorized as postal_unauthorized,
 
-            p.int_instance_id as int_instance_id,
+            NULL::int AS int_instance_id,
 
             CASE
                 WHEN pc.vip is TRUE

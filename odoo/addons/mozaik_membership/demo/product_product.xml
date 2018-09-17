@@ -1,10 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<odoo noupdate="1">
-
-    <record id="membership_product_category" model="product.category">
-        <field name="name">Subscription</field>
-        <field name="parent_id" ref="product.product_category_all" />
-    </record>
+<odoo>
 
     <record id="membership_product_free" model="product.product">
         <field name="name">Free Subscription</field>

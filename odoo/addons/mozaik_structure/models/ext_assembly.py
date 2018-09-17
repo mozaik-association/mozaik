@@ -16,7 +16,7 @@ class ExtAssembly(models.Model):
     )
     instance_id = fields.Many2one(
         comodel_name='int.instance',
-        default=lambda s: s._get_default_instance_id(),
+        default=lambda s: s._get_default_instance(),
     )
     ref_partner_id = fields.Many2one(
         'res.partner',
@@ -31,7 +31,7 @@ class ExtAssembly(models.Model):
         domain=[('is_company', '=', True), ('is_assembly', '=', False)],
     )
 
-    def _get_default_instance_id(self):
+    def _get_default_instance(self):
         return self.env['int.instance']._get_default_int_instance()
 
     @api.multi

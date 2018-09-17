@@ -25,6 +25,10 @@ mozaik_involvement:
 moazaik_membership_request:
 * membership.request (from mozaik_membership)
 
+mozaik_membership:
+* field int_instance_id deleted
+* New field force_int_instance_id (it's not the new field of int_instance_id)
+
 mozaik_address:
 * model 'address.local.street' moved to module mozaik_address_local_street
 * model 'address.local.zip' was replaced by 'res.city'

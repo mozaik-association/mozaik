@@ -4,6 +4,7 @@
 from odoo import api, models, _
 from odoo.fields import first
 from odoo.exceptions import ValidationError
+from odoo.tools import float_compare
 
 
 class AccountBankStatementLine(models.Model):
@@ -33,11 +34,10 @@ class AccountBankStatementLine(models.Model):
 
         models_mode = self._get_models()
         for model in models_mode:
-            obj = self.env[model].search(
-                domain).mapped(models_mode[model]['map'])
+            obj = self.env[model].search(domain).mapped(
+                models_mode.get(model, {}).get('map'))
             if obj:
-                res = first(obj)
-                return models_mode[model]['mode'], res
+                return models_mode.get(model, {}).get('mode'), first(obj)
 
         return False, False
 
@@ -54,7 +54,7 @@ class AccountBankStatementLine(models.Model):
 
         prod_id = self.env.ref('mozaik_account.product_template_donation')
 
-        account = prod_id.product_tmpl_id._get_product_accounts()["income"]
+        account = prod_id.product_tmpl_id._get_product_accounts().get("income")
         if account:
             move_dicts = [{
                 'account_id': account.id,
@@ -65,46 +65,28 @@ class AccountBankStatementLine(models.Model):
             self.process_reconciliation(new_aml_dicts=move_dicts)
 
     @api.multi
-    def _propagate_payment(self, prod_id, amount_paid, reference):
+    def _propagate_payment(self, amount_paid, reference):
         self.ensure_one()
-
+        memb_obj = self.env['membership.line']
         mode, partner = self._get_info_from_reference(reference)
-
         if mode == 'membership':
-
-            if not prod_id:
-                prod_id = partner._get_membership_prod_info(
-                    amount_paid, reference)[0]
-
-            if not prod_id:
-                # no matching price found
-                prod_id = self.env.ref(
-                    'mozaik_membership.membership_product_undefined').id
-
+            membership = memb_obj._get_membership_line_by_ref(reference)
+            # ??? still necessary ??
             partner.paid()
-
-            ml_ids = self.env['membership.line'].search([
-                ('partner_id', '=', partner.id),
-                ('active', '=', True)])
-            if ml_ids:
-                vals = {
-                    'product_id': prod_id,
-                    'price': amount_paid,
-                }
-                ml_ids.write(vals)
+            membership._mark_as_paid()
 
         if mode == 'donation':
-            inv_ids = self.env['partner.involvement'].search([
+            involvements = self.env['partner.involvement'].search([
                 ('partner_id', '=', partner.id),
                 ('reference', '=', reference),
-                ('active', '<=', True)])
-            if inv_ids:
+                ('active', '<=', True),
+            ])
+            if involvements:
                 vals = {
                     'effective_time': self.date,
                     'amount': amount_paid,
                 }
-                inv_ids.write(vals)
-
+                involvements.write(vals)
         return
 
     @api.multi
@@ -114,29 +96,35 @@ class AccountBankStatementLine(models.Model):
         """
         self.ensure_one()
         bsl_obj = self.env['account.bank.statement.line']
-        line_count = bsl_obj.search_count([('id', '!=', self.id),
-                                           ('name', '=', reference)])
-        if line_count > 0:
+        # Search if already exist
+        domain = [
+            ('id', '!=', self.id),
+            ('name', '=', reference),
+        ]
+        if bsl_obj.search_count(domain):
             # do not auto reconcile if reference has been used previously
             return
-        product_id, credit_account = self.partner_id._get_membership_prod_info(
-            self.amount, reference)
-
-        if credit_account:
+        membership = self.env['membership.line']._get_membership_line_by_ref(
+            reference)
+        product = membership.product_id
+        account = product.property_subscription_account
+        precision = membership._fields.get('price').digits[1]
+        # float_compare return 0 is values are equals
+        if account and not float_compare(self.amount, membership.price, precision_digits=precision):
             move_dicts = [{
-                'account_id': credit_account.id,
+                'account_id': account.id,
                 'debit': 0,
                 'credit': self.amount,
                 'name': reference,
             }]
             self.process_reconciliation(
-                new_aml_dicts=move_dicts, prod_id=product_id)
+                new_aml_dicts=move_dicts, prod_id=product)
 
     @api.multi
     def process_reconciliation(
             self, counterpart_aml_dicts=None, payment_aml_rec=None,
             new_aml_dicts=None, prod_id=None):
-        if not all((r.partner_id for r in self)):
+        if self.filtered(lambda l: not l.partner_id):
             raise ValidationError(_("You must first select a partner!"))
 
         res = super().process_reconciliation(
@@ -144,7 +132,6 @@ class AccountBankStatementLine(models.Model):
             payment_aml_rec=payment_aml_rec,
             new_aml_dicts=new_aml_dicts)
 
-        for data in new_aml_dicts or {}:
-            self._propagate_payment(
-                prod_id, data['credit'], data.get('name', False))
+        for data in new_aml_dicts or []:
+            self._propagate_payment(data.get('credit'), data.get('name'))
         return res

@@ -2,8 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from datetime import date
-
 from odoo import api, models, fields, _
 from odoo.fields import first
 from odoo.exceptions import ValidationError
@@ -25,16 +23,15 @@ class ResPartner(models.Model):
 
     _inherit = 'res.partner'
 
-    int_instance_id = fields.Many2one(
-        comodel_name='int.instance', string='Internal Instance', index=True,
-        track_visibility='onchange',
-        default=lambda s: s._default_int_instance_id())
     int_instance_m2m_ids = fields.Many2many(
         comodel_name='int.instance', string='Internal Instances')
-
+    force_int_instance_id = fields.Many2one(
+        comodel_name='int.instance',
+        string="Force instance",
+    )
     membership_line_ids = fields.One2many(
         comodel_name='membership.line', inverse_name='partner_id',
-        string='Memberships')
+        string='Memberships', readonly=True)
     free_member = fields.Boolean()
     membership_state_id = fields.Many2one(
         comodel_name='membership.state', string='Membership State', index=True,
@@ -44,7 +41,7 @@ class ResPartner(models.Model):
         related='membership_state_id.code', readonly=True)
     subscription_product_id = fields.Many2one(
         compute="_compute_subscription_product_id",
-        comodel_name="product.product", string='Subscription', store=True)
+        comodel_name="product.product", string='Subscription', store=False)
     kind = fields.Selection(
         compute="_compute_kind", string='Partner Kind', compute_sudo=True,
         selection=AVAILABLE_PARTNER_KINDS, store=True)
@@ -65,6 +62,39 @@ class ResPartner(models.Model):
         help='Partner wishing to be contacted only by the local')
     amount = fields.Float(
         digits=dp.get_precision('Product Price'), readonly=True)
+
+    int_instance_ids = fields.Many2many(
+        comodel_name='int.instance',
+        string='Instances',
+        compute="_compute_int_instance_ids",
+        store=True,
+    )
+
+    @api.multi
+    @api.depends('membership_line_ids.int_instance_id',
+                 'city_id.int_instance_id', 'city_id')
+    def _compute_int_instance_ids(self):
+        """
+        Compute function the field int_instance_ids.
+        Rule to fill the field:
+        - Use instances on active membership lines
+        - IF NO instances found: use the force_int_instance_id
+        - IF NO instances found: use the instance set on the city_id
+            (if the country force to have cities)
+        - IF NO instances found: use the default instance
+        :return:
+        """
+        default_instance = self.env['int.instance']._get_default_int_instance()
+        for record in self:
+            instances = record.membership_line_ids.filtered(
+                lambda l: l.active).mapped("int_instance_id")
+            if not instances and record.force_int_instance_id:
+                instances = record.force_int_instance_id
+            if not instances and record.country_id.enforce_cities:
+                instances = record.city_id.int_instance_id
+            if not instances:
+                instances = default_instance
+            record.int_instance_ids = instances
 
     @api.model
     def _default_int_instance_id(self):
@@ -101,90 +131,27 @@ class ResPartner(models.Model):
                 k = 'm'
             partner.kind = k
 
-    @api.multi
-    def _update_membership_line(self, ref=False, date_from=False):
-        """
-        Search for a `membership.membership_line` for each partner
-        If no membership_line exist:
-        * then create one
-        * else invalidate it updating its `date_to` and duplicate it
-          with the right state
-        """
-        date_from = date_from or fields.Date.today()
-        values = {
-            'date_from': date_from,
-            'date_to': False,
-        }
-        membership_line_obj = self.env['membership.line']
-        membership_state_obj = self.env['membership.state']
-        def_state_id = membership_state_obj._get_default_state()
-        for partner in self.filtered(lambda s: not s.is_company):
-            values['partner_id'] = partner.id
-            values['state_id'] = partner.membership_state_id.id
-            if values['state_id'] != def_state_id.id:
-                values['int_instance_id'] = partner.int_instance_id.id \
-                    if partner.int_instance_id else False
-                values['reference'] = ref
-                current_membership_line_id = membership_line_obj.search(
-                    [('partner_id', '=', partner.id), ('active', '=', True)],
-                    limit=1)
-
-                if current_membership_line_id:
-                    # update and copy it
-                    current_membership_line_id.action_invalidate(
-                        vals={'date_to': date_from})
-                    current_membership_line_id.copy(default=values)
-                else:
-                    # create first membership_line
-                    membership_line_obj.create(values)
-
-    @api.multi
-    def _get_followers_assemblies(self):
-        self.ensure_one()
-        fol_ids = self.env["res.partner"]
-        int_instance_id = self.env.context.get('new_instance_id')
-        if not int_instance_id:
-            int_instance = self.int_instance_id
-        else:
-            int_instance = self.env["int.instance"].browse(int_instance_id)
-        if not int_instance:
-            return fol_ids
-        fol_ids = int_instance._get_instance_followers()
-        return fol_ids
-
-    @api.multi
-    def _subscribe_assemblies(self, int_instance_id=None):
-        # compute list of new followers
-        fol_ids = []
-        for partner in self:
-            fol_ids = self.with_context(new_instance_id=int_instance_id)\
-                ._get_followers_assemblies()
-            if fol_ids:
-                partner.message_subscribe(partner_ids=fol_ids.ids)
-        return fol_ids
-
     @api.model
-    def _change_instance(self, new_instance):
+    def _get_default_subscription_product(self):
         """
-        Update instance of partner
+
+        :return: product.template
         """
-        # update partner and send changing instance notification
-        vals = {
-            'int_instance_id': new_instance.id,
-        }
-        self.write(vals)
+        return self.env['product.product'].browse()
 
     @api.multi
-    def _generate_membership_reference(self, ref_date=None):
+    def _renew_membership_line(self, date_from=False):
         """
-        This method is intended to be overriden regarding
-        locale conventions.
-        Here is an arbitrary convention: "MS: YYYY/id"
+        Renew a subscription of current partners.
+        So a new membership.line is created for each partners.
+        Previous
+        :param date_from: str/date
+        :return:
         """
-        self.ensure_one()
-        ref_date = ref_date or date.today().year
-        ref = 'MS: %s/%s' % (ref_date, self.id)
-        return ref
+        partners = self.filtered(lambda s: not s.is_company)
+        # We have to renew every (active) membership lines of the partner
+        partners.mapped("membership_line_ids").filtered(
+            lambda l: l.active)._renew(date_from=date_from)
 
     @api.multi
     def _create_user(self, login, group_ids):
@@ -194,36 +161,16 @@ class ResPartner(models.Model):
         """
         self.ensure_one()
         user = super()._create_user(login, group_ids)
-        self.int_instance_m2m_ids = self.int_instance_id
+        self.int_instance_m2m_ids = self.int_instance_ids
         return user
 
     @api.multi
     @api.depends("membership_line_ids", "membership_line_ids.product_id")
     def _compute_subscription_product_id(self):
+        tarification_obj = self.env['membership.tarification']
         for partner in self:
-            membership_line = first(
-                partner.membership_line_ids.filtered("active"))
-            partner.subscription_product_id = membership_line.product_id
-
-    @api.multi
-    def _update_membership_reference(self):
-        '''
-        Update reference for each partner ids
-        '''
-        vals = {}
-        for partner in self:
-            vals['reference'] = partner._generate_membership_reference()
-            partner.write(vals)
-
-    @api.model
-    def create(self, vals):
-        '''
-        If partner has an identifier then update its followers
-        '''
-        res = super().create(vals)
-        if 'identifier' in vals:
-            res._update_followers()
-        return res
+            product = tarification_obj._get_product_by_partner(partner)
+            partner.subscription_product_id = product
 
     @api.multi
     def write(self, vals):
@@ -233,62 +180,16 @@ class ResPartner(models.Model):
         Invalidate some caches when changing set of instances related to
         the user
         """
-        if 'is_company' in vals:
-            is_company = vals['is_company']
-            p2d = self.filtered(lambda s, c=is_company: not s.is_company and c)
-            if p2d.mapped('membership_line_ids'):
+        if vals.get('is_company'):
+            if self.filtered(
+                    lambda s: not s.is_company and s.membership_line_ids):
                 raise ValidationError(
                     _('A natural person with membership history '
                       'cannot be transformed to a legal person'))
-
-        p_upd_fol = self.env['res.partner']
-        p_add_line = self.env['res.partner']
-        if vals.get('int_instance_id'):
-            int_instance_id = vals['int_instance_id']
-            p_upd_fol = self.filtered(
-                lambda s, ii=int_instance_id: s.int_instance_id.id != ii)
-            p_add_line |= p_upd_fol
-            # subscribe related assemblies before updating partner
-            # followers list will be entirely reinitialize later
-            p_upd_fol._subscribe_assemblies(int_instance_id=int_instance_id)
-
-        previous_data = {}
-        if vals.get('membership_state_id'):
-            p_add_line |= self
-            previous_data = self.read(['accepted_date', 'reference'])
-            previous_data = {data['id']: data for data in previous_data}
-
         res = super().write(vals)
-
-        # add a membership lines if any
-        for partner in p_add_line:
-            data = previous_data.get(partner.id, {})
-            partner._update_membership_line(
-                ref=data.get('reference'),
-                date_from=data.get('accepted_date'))
-
-        # update partners followers
-        if vals.get('int_instance_id'):
-            p_upd_fol._update_followers()
-
         if 'int_instance_m2m_ids' in vals:
-            rule_obj = self.env['ir.rule']
-            rule_obj.clear_cache()
-
+            self.env['ir.rule'].clear_cache()
         return res
-
-    @api.multi
-    def _update_followers(self):
-        '''
-        Update followers list for each partner
-        '''
-        for partner_id in self:
-            # reset former followers
-            for coodinate in [partner_id.postal_coordinate_ids,
-                              partner_id.phone_coordinate_ids,
-                              partner_id.email_coordinate_ids]:
-                if coodinate:
-                    coodinate._update_followers()
 
     # State management
     @api.multi
@@ -381,6 +282,28 @@ class ResPartner(models.Model):
             self._update_state("member_committee")
 
     @api.multi
+    def _generate_membership_reference(self, instance=False, ref_date=''):
+        """
+        Generate the reference value for the current partner
+        :param instance: int.instance recordset
+        :param ref_date: date/str
+        :return:
+        """
+        self.ensure_one()
+        membership_obj = self.env['membership.line']
+        if isinstance(instance, bool):
+            instance = self.env['int.instance'].browse()
+        # If no instance provided and the current partner has only 1 active
+        # membership.line, use the related instance.
+        if not instance:
+            instances = self.membership_line_ids.filtered(
+                lambda l: l.active)
+            if len(instances) == 1:
+                instance = instances
+        return membership_obj._generate_membership_reference(
+            partner=self, instance=instance, ref_date=ref_date)
+
+    @api.multi
     def _update_state(self, membership_state_code):
         """
         :type membership_state_code: char
@@ -442,3 +365,22 @@ class ResPartner(models.Model):
         res = self.write(vals)
 
         return res
+
+    @api.multi
+    def action_add_membership(self):
+        """
+
+        :return: dict
+        """
+        self.ensure_one()
+        action = self.env.ref(
+            "mozaik_membership.add_membership_action").read()[0]
+        context = self.env.context.copy()
+        context.update({
+            'active_id': self.id,
+            'active_model': self._name,
+        })
+        action.update({
+            'context': context,
+        })
+        return action

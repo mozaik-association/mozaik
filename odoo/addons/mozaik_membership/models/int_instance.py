@@ -11,8 +11,8 @@ class IntInstance(models.Model):
     _inherit = 'int.instance'
     member_count = fields.Integer(
         compute='_compute_member_count', string='Members')
-    partner_ids = fields.One2many(
-        comodel_name="res.partner", inverse_name="int_instance_id")
+    partner_ids = fields.Many2many(
+        comodel_name="res.partner")
     partner_m2m_ids = fields.Many2many(
         comodel_name="res.partner")
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!--Some test are based on these rules; Please update unit test after update this file-->
+    <record model="membership.tarification" id="membership_tarification_first_rule">
+        <field name="sequence" eval="10"/>
+        <field name="name">First subscription</field>
+        <field name="code">not partner.membership_line_ids</field>
+        <field name="product_id" ref="membership_product_first"/>
+    </record>
+
+    <record model="membership.tarification" id="membership_tarification_reduce_rule">
+        <field name="sequence" eval="50"/>
+        <field name="name">Reduction</field>
+        <field name="code">partner.function == 'Software Developer'</field>
+        <field name="product_id" ref="membership_product_other"/>
+    </record>
+
+    <record model="membership.tarification" id="membership_tarification_default_rule">
+        <field name="sequence" eval="1000"/>
+        <field name="name">Default rule</field>
+        <field name="code">True</field>
+        <field name="product_id" ref="membership_product_isolated"/>
+    </record>
+</odoo>
