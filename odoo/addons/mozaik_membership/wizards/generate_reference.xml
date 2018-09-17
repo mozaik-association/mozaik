@@ -44,15 +44,8 @@
         <field name="res_model">generate.reference</field>
         <field name="target">new</field>
         <field name="view_id" ref="generate_reference_view" />
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_membership.res_groups_membership_user')])]" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
     </record>
 
-    <record id="generate_reference_values" model="ir.values">
-        <field name="name">Generate References</field>
-        <field name="model">res.partner</field>
-        <field name="key">action</field>
-        <field name="key2">client_action_multi</field>
-        <field name="value" eval="'ir.actions.act_window,%s' % ref('generate_reference_action')" />
-    </record>
-
-</openerp>
+</odoo>

@@ -4,7 +4,7 @@
     <record id="res_partner_search_view" model="ir.ui.view">
         <field name="name">res.partner.search (mozaik_membership)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_filter" />
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//filter[1]" position="before">
                 <field name="int_instance_id" />
@@ -49,12 +49,12 @@
                     invisible="'default_is_company' not in context or context.get('default_is_company')" />
                 <separator/>
             </xpath>
-            <xpath expr="//filter[@name='country']" position="after">
-                <filter name="instance" string="Internal Instance"
+            <xpath expr="//filter[@name='group_country']" position="after">
+                <filter name="group_instance" string="Internal Instance"
                     context="{'group_by': 'int_instance_id'}" />
-                <filter name="membership_state" string="Membership State"
+                <filter name="group_membership_state" string="Membership State"
                     context="{'group_by': 'membership_state_id'}" />
-                <filter name="subscription_product" string="Subscription"
+                <filter name="group_subscription_product" string="Subscription"
                     context="{'group_by': 'subscription_product_id'}" />
             </xpath>
         </field>
@@ -79,7 +79,7 @@
     <record id="res_partner_form_view" model="ir.ui.view">
         <field name="name">res.partner.form (mozaik_membership)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="inherit_id" ref="mozaik_person.res_partner_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='postal_coordinate_id']" position="after">
                 <field name="int_instance_id"
@@ -112,93 +112,79 @@
                 <field name="exclusion_date" />
             </xpath>
 
-            <xpath expr="//header/div" position="inside">
-                <button name="button_modification_request" string="Modification Request" 
-                        type="object" attrs="{'invisible': [('membership_state_code', 'not in', ['member', 'member_committee', 'former_member_committee', 'member_candidate'])]}"
-                        invisible="(context.get('uid',0)!=1) and (context.get('in_mozaik_officer') or not context.get('in_mozaik_user'))"/>
-                <button name="button_modification_request" string="Membership Request" 
-                        type="object" attrs="{'invisible': ['|', ('kind', 'in', ['a','t','c']), ('membership_state_code', 'in', ['member', 'member_committee', 'former_member_committee', 'member_candidate'])]}"
-                        groups="mozaik_base.mozaik_res_groups_user"/>
-            </xpath>
-
-            <xpath expr="//header/div/button[@name='action_invalidate']" position="attributes">
-                <attribute name="groups">mozaik_base.mozaik_res_groups_officer</attribute>
-            </xpath>
-
-            <xpath expr="//header/div/button[@name='action_invalidate']" position="after">
-                <button name="action_invalidate" string="Invalidate"
-                        type="object" confirm="Invalidate contact: proceed anyway?"
-                        attrs="{'invisible': [('kind', '!=', 'p')]}"
-                        invisible="context.get('in_mozaik_officer') or not context.get('in_mozaik_user')"/>
-            </xpath>
-
             <xpath expr="//field[@name='partner_involvement_ids']/tree" position="inside">
                 <field name="amount" sum="1"/>
                 <field name="promise" invisible="1"/>
             </xpath>
 
             <xpath expr="//field[@name='partner_involvement_ids']/tree" position="attributes">
-                <attribute name="colors" translation="off">red:promise==True</attribute>
+                <attribute name="decoration-danger" translation="off">promise==True</attribute>
             </xpath>
 
             <notebook position="inside">
-                <page name="memberships" string="Memberships"
-                    attrs="{'invisible': [('membership_state_code', 'in', [False, 'without_membership'])]}">
+                <page name="memberships" string="Memberships">
 
                     <div name="state_management">
-                        <button name="accept" string="Accept"
-                            groups="mozaik_base.res_groups_developper"
+
+                        <button name="member_candidate" string="Member candidate" type="object"
+                            groups="base.group_erp_manager"
+                            attrs="{'invisible': [('membership_state_code', 'not in', ['supporter', 'without_membership', 'refused_member_candidate'])]}"
+                            confirm="Set as member candidate: proceed anyway?" />
+
+                        <button name="supporter" string="Supporter" type="object"
+                            groups="base.group_erp_manager"
+                            attrs="{'invisible': [('membership_state_code', 'not in', ['without_membership', 'member_candidate', 'refused_member_candidate'])]}"
+                            confirm="Set as supporter: proceed anyway?" />
+
+                        <button name="accept" string="Accept" type="object"
+                            groups="base.group_erp_manager"
                             attrs="{'invisible': [('membership_state_code', 'not in', ['member_committee', 'former_member_committee'])]}" />
 
                         <button name="register_free_membership" string="Free Membership" type="object"
-                            groups="mozaik_base.mozaik_res_groups_configurator,mozaik_base.mozaik_res_groups_financial_manager"
+                            groups="mozaik_membership.res_groups_membership_user"
                             attrs="{'invisible': ['|', ('membership_state_code', 'not in', ['member_candidate', 'member', 'supporter', 'former_member']), ('reference', '=', False)]}"
                             confirm="Register a free membership: proceed anyway?" />
 
-                        <button name="paid" string="Paid"
-                            groups="mozaik_base.res_groups_developper"
+                        <button name="paid" string="Paid" type="object"
+                            groups="base.group_erp_manager"
                             attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member', 'supporter', 'former_member']),]}" />
 
                         <button name="decline_payment" string="Decline Payment" type="object"
-                            groups="mozaik_base.mozaik_res_groups_officer"
+                            groups="mozaik_membership.res_groups_membership_user"
                             confirm="Decline membership payment request: proceed anyway?"
                             attrs="{'invisible': ['|', ('membership_state_code', 'not in', ['member_candidate', 'member']), ('reference', '=', False)]}" />
 
                         <button name="reject" string="Reject" type="object"
-                            groups="mozaik_base.mozaik_res_groups_officer"
+                            groups="mozaik_membership.res_groups_membership_user"
                             confirm="Reject member candidate: proceed anyway?"
                             attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member_committee'])]}" />
 
                         <button id="exclude_former" name="exclude" string="Exclude" type="object"
-                            groups="mozaik_base.mozaik_res_groups_officer"
+                            groups="mozaik_membership.res_groups_membership_user"
                             confirm="Exclude former member: proceed anyway?"
                             attrs="{'invisible': [('membership_state_code', 'not in', ['former_member', 'former_member_committee'])]}" />
 
                         <button id="exclude_member" name="exclude" string="Exclude" type="object"
-                            groups="mozaik_base.mozaik_res_groups_officer"
+                            groups="mozaik_membership.res_groups_membership_user"
                             confirm="Exclude member: proceed anyway?"
                             attrs="{'invisible': [('membership_state_code', 'not in', ['member'])]}" />
 
                         <button name="resign" string="Resign" type="object"
-                            groups="mozaik_base.mozaik_res_groups_officer"
+                            groups="mozaik_membership.res_groups_membership_user"
                             confirm="Resign person: proceed anyway?"
                             attrs="{'invisible': [('membership_state_code', 'not in', ['member', 'former_member', 'supporter'])]}" />
 
-                        <button name="reset" string="Reset"
-                            groups="mozaik_base.mozaik_res_groups_officer"
+                        <button name="reset" string="Reset" type="object"
+                            groups="mozaik_membership.res_groups_membership_user"
                             confirm="Reset membership state: proceed anyway?"
                             attrs="{'invisible': [('membership_state_code', 'not in', ['former_supporter', 'resignation_former_member', 'break_former_member', 'inappropriate_former_member', 'expulsion_former_member'])]}" />
 
-                        <button name="%(mozaik_membership.membership_request_action)d" string="Membership Requests" type="action" class="oe_right"
-                                context="{'search_default_partner_id': active_id, 'search_default_all': True}"/>
                     </div>
                     <group name="membership_data">
                         <group name="membership_subscription">
                             <field name="subscription_product_id"
                                 widget="selection"
-                                attrs="{'invisible': ['|',
-                                                      ('membership_state_code', 'not in', ['member',
-                                                      'former_member_committee', 'member_committee'])]}"/>
+                                attrs="{'invisible': [('subscription_product_id', '=', False)]}"/>
                             <field name="reference"
                                 attrs="{'invisible': [('reference', '=', False)]}"
                                 readonly="1" />
@@ -212,7 +198,7 @@
                         </group>
                     </group>
                     <field name="membership_line_ids" readonly="1">
-                        <tree colors="gray:active==False;green:state_code=='member';red:state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']">
+                        <tree decoration-muted="active==False" decoration-success="state_code=='member'" decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']">
                             <field name="int_instance_id" />
                             <field name="state_id" />
                             <field name="product_id"
@@ -227,19 +213,12 @@
                 </page>
             </notebook>
 
-            <xpath expr="//page[@name='user']" position="inside">
+            <xpath expr="//page[@name='dev']" position="inside">
                 <separator string="Internal Instances" attrs="{'invisible': [('is_company','=', True)]}"/>
                 <field name="int_instance_m2m_ids" widget="many2many_tags"
                     placeholder="Instances..."
                     attrs="{'required': [('user_ids','!=',[]),('membership_state_id','!=',False)],
                     'invisible': [('is_company','=', True)]}" />
-                <div class="oe_clear" attrs="{'invisible': [('is_company','=', True)]}">
-                    <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </div>
             </xpath>
 
         </field>

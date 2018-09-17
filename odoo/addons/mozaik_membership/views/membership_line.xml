@@ -23,7 +23,7 @@
                     context="{'invisible_expire_date': False}"
                     domain="[('active','=',False)]" help="Expired Memberships" />
 
-                <group expand="0" string="Group By..." name="group_by">
+                <group name="group_by">
                     <filter string="Member" context="{'group_by': 'partner_id'}"/>
                     <filter string="Instance" context="{'group_by': 'int_instance_id'}"/>
                     <filter string="Subscription" context="{'group_by': 'product_id'}"/>
@@ -37,7 +37,7 @@
         <field name="name">membership.line.tree (mozaik_membership)</field>
         <field name="model">membership.line</field>
         <field name="arch" type="xml">
-            <tree colors="gray:active==False;green:state_code=='member';red:state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']"
+            <tree decoration-muted="active==False" decoration-success="state_code=='member'" decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']"
                   create="0" delete="0">
                 <field name="partner_id"/>
                 <field name="int_instance_id"/>
@@ -59,18 +59,12 @@
         <field name="model">membership.line</field>
         <field name="arch" type="xml">
             <form edit="0" create="0" delete="0">
-                <header>
-                    <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                         invisible="context.get('popup')"
-                         groups="mozaik_base.mozaik_res_groups_configurator">
-                    </span>
-                </header>
                 <sheet>
                     <div class="oe_title" name="title">
                         <label for="partner_id"/>
                         <h1><field name="partner_id" /></h1>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                    <div class="oe_right oe_button_box" name="buttons">
                     </div>
 
                     <group name="data">
@@ -92,35 +86,35 @@
                         </group>
                     </group>
 
-                    <group name="state" attrs="{'invisible': [('id','=',False)]}">
-                        <group name="validity">
-                            <field name="create_date" />
-                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
-                        </group>
-                        <group name="dates">
-                            <field name="date_from" />
-                            <field name="date_to" attrs="{'invisible': [('date_to','=',False)]}" />
-                        </group>
-                    </group>
+                    <notebook>
+                        <page name="info" string="Info">
+                            <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                                <group name="validity">
+                                    <field name="create_date" />
+                                    <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                                </group>
+                                <group name="dates">
+                                    <field name="date_from" />
+                                    <field name="date_to" attrs="{'invisible': [('date_to','=',False)]}" />
+                                </group>
+                            </group>
+                        </page>
+                         <page name="dev" string="More Info" groups="base.group_erp_manager">
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Reactivate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="active"/>
+                                <field name="partner_instance_id" />
+                                <field name="state_code" />
+                            </group>
+                        </page>
+                    </notebook>
 
                 </sheet>
-                <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
-                    <div class="oe_formview oe_form_sheet_width">
-                        <h3>More Info</h3>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                            <button name="action_revalidate" string="Reactivate" type="object"
-                                    confirm="Reactivate document: proceed anyway?" />
-                        </div>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="active"/>
-                            <field name="partner_instance_id" />
-                            <field name="state_code" />
-                        </group>
-                    </div>
-                </div>
-                <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                <div name="chat" class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>

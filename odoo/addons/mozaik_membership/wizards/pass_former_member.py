@@ -3,75 +3,78 @@
 
 from datetime import date
 
-from openerp.osv import orm, fields
-from openerp.addons.connector.queue.job import job
-from openerp.addons.connector.session import ConnectorSession
+from odoo import api, models, fields
+from odoo.addons.queue_job.job import job
 
 WORKER_PIVOT = 10
-AVAILABLE_MONTHS = [7, 8, 9]
 
 
-class pass_former_member(orm.TransientModel):
+class PassFormerMember(models.TransientModel):
 
     _name = "pass.former.member"
     _description = 'Wizard to Transform Members to Former Members'
 
-    def _get_selected_values(self, cr, uid, context=None):
-        partner_obj = self.pool['res.partner']
-        partner_ids = []
-        concerned_partner_ids = []
+    nb_selected = fields.Integer(string='Selected Partners')
+    concerned_members = fields.Text()
+    concerned_partner_ids = fields.Many2many(
+        comodel_name="res.partner", ondelete="cascade", required=True)
+    go = fields.Boolean()
 
-        if context.get('active_domain'):
-            active_domain = context.get('active_domain')
-            partner_ids = partner_obj.search(
-                cr, uid, active_domain, context=context)
-        elif context.get('active_ids'):
-            partner_ids = context.get('active_ids')
+    @api.model
+    def _get_selected_values(self):
+        partner_obj = self.env['res.partner']
+        partners = partner_obj.browse()
+        concerned_partner_ids = partner_obj.browse()
 
-        if partner_ids:
+        if self.env.context.get('active_domain'):
+            active_domain = self.env.context.get('active_domain')
+            partners = partner_obj.search(active_domain)
+        elif self.env.context.get('active_ids'):
+            partners = partner_obj.browse(
+                self.env.context.get('active_ids'))
+
+        if partners:
             # search member with reference
-            domain = [('id', 'in', partner_ids), ('reference', '!=', False)]
-            concerned_partner_ids = partner_obj.search(
-                cr, uid, domain, context=context)
+            concerned_partner_ids = partners.filtered(lambda s: s.reference)
+            domain = [('id', 'in', partners.ids), ('reference', '!=', False)]
             data = partner_obj.read_group(
-                cr, uid, domain,
-                ['membership_state_id'], ['membership_state_id'],
-                context=context, orderby='membership_state_id ASC')
+                domain, ['membership_state_id'], ['membership_state_id'],
+                orderby='membership_state_id ASC')
             concerned_partners = [
                 '%s: %s' % (st['membership_state_id'][1],
                             st['membership_state_id_count'])
                 for st in data if st['membership_state_id']
             ]
             concerned_partners = '\n'.join(concerned_partners)
-        return partner_ids, concerned_partner_ids, concerned_partners
+        return partners, concerned_partner_ids, concerned_partners
 
-    _columns = {
-        'nb_selected': fields.integer('Selected Partners'),
-        'concerned_members': fields.text('Concerned Members'),
-        'concerned_partner_ids': fields.text('IDS', required=True),
-        'go': fields.boolean('Go')
-    }
-
-    def default_get(self, cr, uid, fields, context):
+    @api.model
+    def default_get(self, fields_list):
         """
         To get default values for the object.
         """
-        res = super(pass_former_member, self).default_get(
-            cr, uid, fields, context=context)
-        if context is None:
-            context = {}
-        partner_ids, concerned_partner_ids, concerned_members = \
-            self._get_selected_values(cr, uid, context=context)
-        res['nb_selected'] = len(partner_ids)
-        res['concerned_members'] = concerned_members
-        res['concerned_partner_ids'] = str(concerned_partner_ids)
-        curr_month = date.today().month
-        date_ok = curr_month in AVAILABLE_MONTHS
-        res['go'] = date_ok and concerned_partner_ids
+        res = super().default_get(fields_list)
+        current_fields = ['nb_selected',
+                          'concerned_members',
+                          'concerned_partner_ids',
+                          'go']
+        if any(el in fields_list for el in current_fields):
+            partner_ids, concerned_partner_ids, concerned_members = \
+                self._get_selected_values()
+            res['nb_selected'] = len(partner_ids)
+            res['concerned_members'] = concerned_members
+            res['concerned_partner_ids'] = [(6, 0, concerned_partner_ids.ids)]
+            curr_month = date.today().month
+            date_ok = curr_month in self._get_available_months()
+            res['go'] = date_ok and concerned_partner_ids
 
         return res
 
-    def pass_former_member(self, cr, uid, ids, context=None):
+    def _get_available_months(self):
+        return [7, 8, 9]
+
+    @api.multi
+    def pass_former_member(self):
         """
         Pass to former Member for all partner
         If concerned partner number is > to the ir.parameter value then
@@ -81,42 +84,28 @@ class pass_former_member(orm.TransientModel):
         """
 
         try:
-            parameter_obj = self.pool['ir.config_parameter']
+            parameter_obj = self.env['ir.config_parameter']
             worker_pivot = int(parameter_obj.get_param(
-                cr, uid, 'worker_pivot', WORKER_PIVOT))
-        except:
+                'worker_pivot', WORKER_PIVOT))
+        except ValueError:
             worker_pivot = WORKER_PIVOT
-        for wiz in self.browse(cr, uid, ids, context=context):
-            partner_ids = eval(wiz.concerned_partner_ids)
+        for wiz in self:
+            partner_ids = wiz.concerned_partner_ids
             if len(partner_ids) > worker_pivot:
-                session = ConnectorSession(cr, uid, context=context)
-                pass_former_member_action.delay(
-                    session, self._name, partner_ids, context=context)
+                description = ("Pass former member for partners %s" %
+                               ", ".join(partner_ids.ids))
+                self.with_delay(description=description)\
+                    .pass_former_member_action(partner_ids)
             else:
-                do_pass_former_member_action(
-                    self.pool['res.partner'], cr, uid,
-                    partner_ids, context=context)
+                self.pass_former_member_action(partner_ids)
 
-
-@job
-def pass_former_member_action(session, model_name, partner_ids, context=None):
-    """
-    Pass to former Member for each partner
-    """
-    cr, uid, = session.cr, session.uid
-    partner_obj = session.pool['res.partner']
-    do_pass_former_member_action(
-        partner_obj, cr, uid, partner_ids, context=context)
-
-
-def do_pass_former_member_action(obj, cr, uid, partner_ids, context=None):
-    """
-    Pass to former Member for each partner
-    Reset reference for each other
-    """
-    obj.decline_payment(cr, uid, partner_ids, context=context)
-    domain = [('id', 'in', partner_ids), ('reference', '!=', False)]
-    ids = obj.search(cr, uid, domain, context=context)
-    if ids:
-        obj.write(cr, uid, ids, {'reference': False}, context=context)
-    pass
+    @job(default_channel="root.pass_former_member")
+    def pass_former_member_action(self, partners):
+        """
+        Pass to former Member for each partner
+        Reset reference for each other
+        """
+        partners.decline_payment()
+        partners = partners.filtered(lambda s: s.reference)
+        if partners:
+            partners.write({'reference': False})

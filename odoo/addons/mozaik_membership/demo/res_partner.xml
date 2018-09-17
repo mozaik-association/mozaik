@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="mozaik_coordinate.res_partner_marc" model="res.partner">
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
+            ref('mozaik_structure.int_instance_01'),
+        ])]"/>
+    </record>
+
+    <record id="res_partner_fgtb" model="res.partner">
+        <field name="name">F.G.T.B</field>
+        <field name="is_company" eval="True" />
+    </record>
+
+</odoo>

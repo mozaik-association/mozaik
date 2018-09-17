@@ -7,10 +7,10 @@
         <field name="inherit_id" ref="mozaik_email.email_coordinate_form_view" />
         <field name="priority" eval="10" />
         <field name="groups_id" eval="[(6, 0, [
-            ref('mozaik_base.res_groups_developper'),
+            ref('base.group_erp_manager'),
         ])]" />
         <field name="arch" type="xml">
-            <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
+            <xpath expr="//group[@name='moreinfo']" position="inside">
                 <field name="partner_instance_id" />
                 <field name="partner_kind" />
             </xpath>
@@ -23,10 +23,10 @@
         <field name="inherit_id" ref="mozaik_address.postal_coordinate_form_view" />
         <field name="priority" eval="10" />
         <field name="groups_id" eval="[(6, 0, [
-            ref('mozaik_base.res_groups_developper'),
+            ref('base.group_erp_manager'),
         ])]" />
         <field name="arch" type="xml">
-            <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
+            <xpath expr="//group[@name='moreinfo']" position="inside">
                 <field name="partner_instance_id" />
                 <field name="partner_kind" />
             </xpath>
@@ -39,10 +39,10 @@
         <field name="inherit_id" ref="mozaik_phone.phone_coordinate_form_view" />
         <field name="priority" eval="10" />
         <field name="groups_id" eval="[(6, 0, [
-            ref('mozaik_base.res_groups_developper'),
+            ref('base.group_erp_manager'),
         ])]" />
         <field name="arch" type="xml">
-            <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
+            <xpath expr="//group[@name='moreinfo']" position="inside">
                 <field name="partner_instance_id" />
                 <field name="partner_kind" />
             </xpath>

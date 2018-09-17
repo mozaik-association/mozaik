@@ -4,7 +4,7 @@
     <record id="partner_involvement_search_view" model="ir.ui.view">
         <field name="name">partner.involvement.search (mozaik_membership)</field>
         <field name="model">partner.involvement</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_search_view" />
+        <field name="inherit_id" ref="mozaik_involvement.partner_involvement_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='without_type']" position="after">
                 <separator/>
@@ -19,10 +19,10 @@
     <record id="partner_involvement_form_view" model="ir.ui.view">
         <field name="name">partner.involvement.form (mozaik_membership)</field>
         <field name="model">partner.involvement</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_form_view" />
+        <field name="inherit_id" ref="mozaik_involvement.partner_involvement_form_view" />
         <field name="priority" eval="10" />
         <field name="groups_id" eval="[(6, 0, [
-            ref('mozaik_base.res_groups_developper'),
+            ref('base.group_erp_manager'),
         ])]" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='moreinfo']" position="inside">
@@ -34,7 +34,7 @@
     <record id="partner_involvement_2_form_view" model="ir.ui.view">
         <field name="name">partner.involvement.form (mozaik_membership)</field>
         <field name="model">partner.involvement</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_form_view" />
+        <field name="inherit_id" ref="mozaik_involvement.partner_involvement_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="payment" string="Payment" attrs="{'invisible': [('involvement_type', 'not in', ['donation'])]}" autofocus="autofocus">
@@ -55,7 +55,7 @@
     <record id="partner_involvement_tree_view" model="ir.ui.view">
         <field name="name">partner.involvement.tree (mozaik_membership)</field>
         <field name="model">partner.involvement</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_tree_view" />
+        <field name="inherit_id" ref="mozaik_involvement.partner_involvement_tree_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='creation_time']" position="after">
                 <field name="amount" sum="1"/>
@@ -63,12 +63,12 @@
             </xpath>
 
             <xpath expr="//tree" position="attributes">
-                <attribute name="colors" translation="off">red:promise==True</attribute>
+                <attribute name="decoration-danger" translation="off">promise==True</attribute>
             </xpath>
         </field>
     </record>
 
-    <record id="mozaik_person.partner_involvement_donation_action" model="ir.actions.act_window">
+    <record id="mozaik_involvement.partner_involvement_donation_act_window" model="ir.actions.act_window">
         <field name="context">{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1, 'search_default_donation': 1}</field>
     </record>
 

@@ -7,9 +7,9 @@
         <field name="inherit_id" ref="mozaik_structure.abstract_instance_form_view" />
         <field name="arch" type="xml">
 
-            <xpath expr="//div[@name='buttons']" position="inside">
-                <button class="oe_inline oe_stat_button" icon="fa-users"
-                    type="object" name="_get_member_action"
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" icon="fa-users"
+                    type="object" name="get_member_action"
                     context="{'search_default_membership_state': True}"
                     attrs="{'invisible':[('id','=', False)]}">
                     <field name="member_count" widget="statinfo" string="Members"/>
@@ -19,5 +19,4 @@
         </field>
     </record>
 
-</data>
 </odoo>
