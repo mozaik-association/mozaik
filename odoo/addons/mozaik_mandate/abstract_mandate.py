@@ -415,7 +415,7 @@ class abstract_selection_committee(orm.AbstractModel):
                                     context=context)
 
         invalidation_delay = int(
-            self.pool.get('ir.config_parameter').get_param(
+            self.pool.get('ir.config_parameter').sudo().get_param(
                 cr,
                 uid,
                 self._parameters_key,

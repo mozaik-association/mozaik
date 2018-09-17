@@ -14,7 +14,7 @@ class TestDistributionList(SavepointCase):
         self.distri_list_line_obj = self.env['distribution.list.line']
         self.alias_obj = self.env['mail.alias']
         self.partner_obj = self.env['res.partner']
-        self.ir_cfg_obj = self.env['ir.config_parameter']
+        self.ir_cfg_obj = self.env['ir.config_parameter'].sudo()
         self.mail_obj = self.env['mail.mail']
         self.partner_model = self.env.ref("base.model_res_partner")
         self.dist_list_model = self.env.ref(

@@ -53,7 +53,7 @@ class TestDistributionListLine(TransactionCase):
         self.assertEqual(
             dist_list_line.domain, domain, "Domains should be the same")
 
-    def test_action_partner_selection(self):
+    def test_action_redefine_domain(self):
         """
         Verify that the dictionary returned has well:
         * same model than the distribution list line
@@ -73,7 +73,7 @@ class TestDistributionListLine(TransactionCase):
         }
 
         dist_list_line = self.dist_list_obj.create(dll_values)
-        result = dist_list_line.action_partner_selection()
+        result = dist_list_line.action_redefine_domain()
         self.assertEqual(
             dist_list_line.src_model_id.model, result.get('res_model'),
             "Model should be the same")
@@ -81,7 +81,7 @@ class TestDistributionListLine(TransactionCase):
             result.get('flags', {}).get('search_view'),
             "Should have a search view to be able to select a domain")
 
-    def test_get_list_from_domain(self):
+    def test_action_show_filter_result(self):
         """
         Test that action is well returned with correct value required for
         a `get_list_from_domain`
@@ -98,11 +98,7 @@ class TestDistributionListLine(TransactionCase):
             'distribution_list_id': self.dist_list.id,
             'bridge_field_id': self.partner_id_field.id,
         })
-        vals = dist_list_line.get_list_from_domain()
+        vals = dist_list_line.action_show_filter_result()
 
-        self.assertEqual(
-            vals.get('type'), 'ir.actions.act_window',
-            "Should be an ir.actions.act_window ")
-        self.assertEqual(
-            vals.get('res_model'), 'res.partner',
-            "Model should be the same than the distribution list")
+        self.assertEqual(vals['type'], 'ir.actions.act_window')
+        self.assertEqual(vals['res_model'], 'res.partner')

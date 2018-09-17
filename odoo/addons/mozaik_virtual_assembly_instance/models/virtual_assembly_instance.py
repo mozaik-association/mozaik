@@ -10,7 +10,7 @@ class VirtualAssemblyInstance(models.Model):
     _inherit = "abstract.virtual.target"
     _auto = False
     _terms = [
-        'competencies_m2m_ids',
+        'competency_ids',
     ]
 
     partner_id = fields.Many2one(
@@ -52,10 +52,7 @@ class VirtualAssemblyInstance(models.Model):
         :return: list
         """
         result = super(VirtualAssemblyInstance, self)._get_union_parameters()
-        field_name = 'type'
-        fields_get = self.env['mandate.category'].fields_get(
-            allfields=[field_name]).get(field_name, {})
-        result.extend([v[0] for v in fields_get.get('selection') if v])
+        result.extend(['int', 'sta', 'ext'])
         return result
 
     @api.model

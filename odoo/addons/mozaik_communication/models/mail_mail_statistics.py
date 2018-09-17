@@ -63,7 +63,7 @@ class MailMailStats(models.Model):
                 })
                 wizard.update_failure_data()
                 # post technical details of the bounce on the sender document
-                keep_bounce = self.env['ir.config_parameter'].get_param(
+                keep_bounce = self.env['ir.config_parameter'].sudo().get_param(
                     'mail.bounce.keep', default='1')
                 bounce_body = ctx.get('bounce_body')
                 if bounce_body and keep_bounce.lower() in ['1', 'true']:

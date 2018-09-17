@@ -80,8 +80,8 @@ class DistributionListLine(models.Model):
         Get domain of available models
         :return: list of tuple (domain)
         """
-        models = self._get_src_model_names() or ['res.partner']
-        return [('model', 'in', models)]
+        mods = self._get_src_model_names() or ['res.partner']
+        return [('model', 'in', mods)]
 
     @api.model
     def _get_default_src_model_id(self):
@@ -90,9 +90,9 @@ class DistributionListLine(models.Model):
         :return: model recordset
         """
         model = False
-        models = self._get_src_model_names() or ['res.partner']
-        if len(models) == 1:
-            model = self.env['ir.model'].search([('model', 'in', models)])
+        mods = self._get_src_model_names() or ['res.partner']
+        if len(mods) == 1:
+            model = self.env['ir.model'].search([('model', 'in', mods)])
             model = model or self.env.ref('base.model_res_partner')
         return model
 

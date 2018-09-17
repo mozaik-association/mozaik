@@ -1,15 +1,12 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields
+from odoo import api, models
 
 
 class ResUsers(models.Model):
 
     _inherit = 'res.users'
-
-    int_instance_m2m_ids = fields.Many2many(
-        related='partner_id.int_instance_m2m_ids')
 
     @api.model
     def _register_hook(self):

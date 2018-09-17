@@ -3,7 +3,7 @@
 import logging
 import html
 from email.utils import formataddr
-from odoo import api, fields, models, _
+from odoo import api, exceptions, fields, models, _
 from odoo.osv import expression
 from odoo.fields import first
 
@@ -175,14 +175,17 @@ class DistributionList(models.Model):
             domain = expression.AND(domain, domain_mail, domain_postal)
         return super()._get_opt_res_ids(model_name, domain, in_mode)
 
+    @api.multi
     def _distribution_list_forwarding(self, msg):
         """
         check if the associated user of the email_coordinate (found with
         msg['email_from']) is an owner of the distribution list
         If user is into the owners then call super with uid=found_user_id
         :param msg:
-        :return:
+        :return: Boolean
         """
+        self.ensure_one()
+        res = False
         partner = self.env['res.partner'].browse()
         user = self.env['res.users'].browse()
         is_partner_allowed = False
@@ -197,7 +200,6 @@ class DistributionList(models.Model):
             if coordinate.is_main:
                 partner = coordinate.partner_id
         if partner:
-            partner = coordinate.partner_id
             noway = _('Partner %s is not an owner nor '
                       'an allowed partner') % partner.display_name
             if partner in self.res_partner_ids:
@@ -211,28 +213,32 @@ class DistributionList(models.Model):
             else:
                 user = first(partner.user_ids)
         if user:
-            # Check access rights
-            self_sudo = self.sudo(user.id)
-            has_visibility = self_sudo.check_access_rights(
-                'read', raise_exception=False)
-            if not has_visibility:
+            try:
+                # business logic continue with this user
+                self_sudo = self.sudo(user.id)
+                # Force access rules
+                self_sudo.check_access_rule('read')
+                has_visibility = True
+            except exceptions.AccessError:
                 params = (user.name, user.id, self.name, self.id)
                 noway = _('User %s(%s) has no visibility on list '
                           '%s(%s)') % params
         if has_visibility:
+            dom = []
+            if self.dst_model_id.model == 'virtual.target':
+                dom.append(('email_unauthorized', '=', False))
             self = self_sudo.with_context(
-                email_coordinate_path='email',
                 main_object_field='email_coordinate_id',
                 main_target_model='email.coordinate',
-                main_object_domain=[('email_unauthorized', '=', False)],
+                main_object_domain=dom,
                 additional_res_ids=coordinate.ids,
+                async_send_mail=True,
             )
-            # the self is updated
-            return super(DistributionList, self)._distribution_list_forwarding(
-                msg)
-        _logger.info('Mail forwarding aborted. Reason: %s', noway)
-        self._reply_error_to_owners(msg, noway)
-        return None
+            res = super()._distribution_list_forwarding(msg)
+        else:
+            _logger.info('Mail forwarding aborted. Reason: %s', noway)
+            self._reply_error_to_owners(msg, noway)
+        return res
 
     @api.multi
     def _reply_error_to_owners(self, msg, reason):
@@ -307,36 +313,4 @@ class DistributionList(models.Model):
                 'code': False,
             })
         res = super().write(vals)
-        self._create_message_post(vals)
         return res
-
-    def _create_message_post(self, vals):
-        """
-        Inform owner about an alias modification
-        :param vals: dict
-        :return: bool
-        """
-        if 'alias_name' in vals:
-            for record in self:
-                old_alias = record.alias_name
-                new_alias = vals.get('alias_name')
-                domain = record.alias_id.alias_domain
-                if new_alias and new_alias != old_alias:
-                    subject = _('Alias modified on distribution '
-                                'list %s') % record.name
-                    msg = "<p>%s,</p><p>%s</p><p>%s<br/>%s</p>"
-                    parts = (
-                        _('Hello'),
-                        _('The alias of the distribution list %s '
-                          'has been changed by %s.') % (
-                              record.name, record.env.user.name),
-                        _('Former alias: %s@%s') % (old_alias, domain),
-                        _('<b>New alias</b>: %s@%s') % (new_alias, domain),
-                    )
-                    body = msg % parts
-                    partners = record.res_users_ids.filtered(
-                        lambda u: u != self.env.user).mapped("partner_id")
-                    partners |= record.res_partner_ids
-                    record.message_post(
-                        body=body, subject=subject, partner_ids=partners.ids)
-        return

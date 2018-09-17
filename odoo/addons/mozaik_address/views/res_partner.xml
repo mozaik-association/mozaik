@@ -4,7 +4,8 @@
     <record id="view_partner_form" model="ir.ui.view">
         <field name="name">res.partner.form (in mozaik_address)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_coordinate.res_partner_form_view" />
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="20"/>
         <field name="arch" type="xml">
 
             <xpath expr="//button[@name='toggle_active']" position="before">

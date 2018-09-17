@@ -338,7 +338,6 @@ class DistributionListMassFunction(models.TransientModel):
                 active_ids=mains.ids,
                 async_send_mail=True,
                 dl_computed=True,
-                email_coordinate_path='email',
             )
             # Send mass mailing
             mail_composer = self._create_mail_composer()
@@ -353,7 +352,7 @@ class DistributionListMassFunction(models.TransientModel):
         Create the mail.compose.message
         :return: mail.compose.message recordset
         """
-        csv_model = self.trg_model
+        model = self.trg_model
         composer_obj = self.env['mail.compose.message']
         mail_composer_vals = {
             'email_from': self.email_from,
@@ -366,7 +365,7 @@ class DistributionListMassFunction(models.TransientModel):
             'subject': self.subject,
             'distribution_list_id': self.distribution_list_id.id,
             'mass_mailing_name': self.mass_mailing_name,
-            'model': csv_model,
+            'model': model,
             'body': self.body,
             'contact_ab_pc': self.contact_ab_pc,
         }
@@ -392,7 +391,7 @@ class DistributionListMassFunction(models.TransientModel):
         :param group_by: bool
         :return: bool
         """
-        csv_content = self.env['export.csv']._get_csv(
+        csv_content = self.env['export.csv'].get_csv(
             model, targets, group_by=group_by)
         csv_content = base64.encodebytes(csv_content.encode())
         return self.write({
@@ -415,17 +414,17 @@ class DistributionListMassFunction(models.TransientModel):
         :return: res.partner recordset
         """
         partners = self.env['res.partner'].browse()
-        context = self.env.context
-        model = context.get('active_model')
-        active_id = context.get('active_ids', context.get('active_id'))
-        dist_list = self.env[model].browse(active_id).exists()
+        model = self.env.context.get('active_model')
+        dist_list = False
+        if self.env.context.get('active_id'):
+            dist_list = self.env[model].browse(self.env.context['active_id'])
         if dist_list and model == self._name:
             # in case of wizard reloading
             dist_list = dist_list.distribution_list_id
         if dist_list:
             # first: the sender partner
             partners |= dist_list.partner_id
-            # than: the request or user
+            # than: the requestor user
             if self.env.user.partner_id in dist_list.res_partner_ids:
                 partners |= self.env.user.partner_id
             elif self.env.user in dist_list.res_users_ids:
@@ -434,8 +433,8 @@ class DistributionListMassFunction(models.TransientModel):
             partners |= dist_list.res_partner_ids.filtered(
                 lambda s: s.is_company)
             partners |= dist_list.res_users_ids.mapped(
-                'partner_id').filtered("is_company")
-        return partners.filtered("email")
+                'partner_id').filtered(lambda s: s.is_company)
+        return partners.filtered(lambda s: s.email)
 
     @api.model
     def _get_domain_partner_from_id(self):
@@ -502,7 +501,7 @@ class DistributionListMassFunction(models.TransientModel):
             'subject': self.subject or False,
             'body_html': self.body or False,
         }
-        template = self.env['email.template'].create(values)
+        template = self.env['mail.template'].create(values)
         self.mail_template_id = template
         self._onchange_template_id()
 

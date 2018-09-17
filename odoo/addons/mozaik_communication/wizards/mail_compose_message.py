@@ -1,5 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo import api, fields, models
 
 
@@ -18,35 +19,38 @@ class MailComposeMessage(models.TransientModel):
         self.ensure_one()
         result = super().get_mail_values(res_ids)
         mailing_ids = [
-            v.get('mailing_id')
+            v['mailing_id']
             for v in result.values()
             if v.get('mailing_id')
         ]
         if mailing_ids:
-            context = self._context
             mailing_values = {
                 'contact_ab_pc': self.contact_ab_pc,
             }
+            context = self._context
             if context.get('mailing_group_id'):
                 mailing_values['group_id'] = context['mailing_group_id']
             self.env['mail.mass_mailing'].browse(mailing_ids).write(
                 mailing_values)
-        email_path = context.get('email_coordinate_path', False)
-        if email_path:
-            for model_obj in self.env[self.model].sudo().browse(result.keys()):
-                email = model_obj.mapped(email_path)
+        if self.model == 'email.coordinate':
+            for coord in self.env['email.coordinate'].sudo().browse(
+                    result.keys()):
+                email = coord.email
                 if email:
-                    result[model_obj.id].pop('recipient_ids', None)
-                    result[model_obj.id]['email_to'] = email[0]
+                    result[coord.id].pop('recipient_ids', None)
+                    result[coord.id]['email_to'] = email
         return result
 
     @api.multi
-    def xsend_mail(self, auto_commit=False):
+    def send_mail(self, auto_commit=False):
         """
         Do not recompute ids if sending mails asynchronously
+        through a distribution list
         """
+        self.ensure_one()
         context = self._context
-        if not context.get('async_send_mail'):
+        if self.distribution_list_id and \
+                context.get('async_send_mail') is False:
             self = self.with_context(dl_computed=True)
         # The self could change, so specify it
         return super(MailComposeMessage, self).send_mail(

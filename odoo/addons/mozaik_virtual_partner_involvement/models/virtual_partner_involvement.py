@@ -9,8 +9,8 @@ class VirtualPartnerInvolvement(models.Model):
     _description = "Partner/Involvement"
     _auto = False
     _terms = [
-        'interests_m2m_ids',
-        'competencies_m2m_ids',
+        'interest_ids',
+        'competency_ids',
     ]
 
     partner_id = fields.Many2one(
@@ -71,7 +71,7 @@ p.is_company AS is_company,
 p.identifier AS identifier,
 p.birth_date AS birth_date,
 p.gender AS gender,
-p.tongue AS tongue,
+p.lang AS lang,
 p.employee AS employee,
 pc.unauthorized AS postal_unauthorized,
 pc.vip AS postal_vip,

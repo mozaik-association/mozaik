@@ -16,7 +16,8 @@ class MailComposeMessage(models.TransientModel):
         key = 'mail.sending.job.priorities'
         try:
             priorities = ast.literal_eval(
-                self.env['ir.config_parameter'].get_param(key, default='{}'))
+                self.env['ir.config_parameter'].sudo().get_param(
+                    key, default='{}'))
         # Catch exception to have a understandable error message
         except (ValueError, SyntaxError):
             raise exceptions.UserError(

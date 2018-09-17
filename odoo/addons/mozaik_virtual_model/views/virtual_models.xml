@@ -9,8 +9,9 @@
         <field name="name">virtual.partner.mandate.search</field>
         <field name="model">virtual.partner.mandate</field>
         <field name="arch" type="xml">
-            <search string="Partners/Mandates">
+            <search>
                 <field name="identifier" />
+                <!-- pylint: disable=duplicate-xml-fields -->
                 <field string="Birth Date > ..." name="birth_date"
                        filter_domain="[('birth_date','>',self)]" />
                 <field string="Birth Date &lt; ..." name="birth_date"

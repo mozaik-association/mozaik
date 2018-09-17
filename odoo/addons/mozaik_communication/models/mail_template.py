@@ -8,7 +8,7 @@ class MailTemplate(models.Model):
     _inherit = 'mail.template'
 
     @api.model
-    def _get_default_model(self):
+    def _get_default_model_id(self):
         """
         Get the default model
         :return: ir.model recordset
@@ -16,7 +16,7 @@ class MailTemplate(models.Model):
         return self.env.ref('mozaik_communication.model_email_coordinate')
 
     @api.model
-    def _get_default_user(self):
+    def _get_default_res_users_ids(self):
         """
         Get the default user
         :return: res.users recordset
@@ -24,10 +24,8 @@ class MailTemplate(models.Model):
         return self.env.user
 
     @api.model
-    def _get_default_instance(self):
-        # TODO: xxx
-        # return first(self.env.user.partner_id.int_instance_m2m_ids)
-        return False
+    def _get_default_int_instance_id(self):
+        return first(self.env.user.partner_id.int_instance_m2m_ids)
 
     # Fake field for auto-completing placeholder
     involvement_category_id = fields.Many2one(
@@ -42,16 +40,16 @@ class MailTemplate(models.Model):
         column2='user_id',
         string='Owners',
         required=True,
-        default=lambda s: s._get_default_user(),
+        default=lambda s: s._get_default_res_users_ids(),
     )
     int_instance_id = fields.Many2one(
         comodel_name='int.instance',
         string='Internal Instance',
         index=True,
-        default=lambda s: s._get_default_instance(),
+        default=lambda s: s._get_default_int_instance_id(),
     )
     model_id = fields.Many2one(
-        default=lambda s: s._get_default_model(),
+        default=lambda s: s._get_default_model_id(),
     )
 
     @api.onchange('placeholder_id', 'involvement_category_id')

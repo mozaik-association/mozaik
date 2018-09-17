@@ -1,15 +1,20 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+import logging
 from uuid import uuid4
-import psycopg2
+from psycopg2 import IntegrityError
+
 from odoo.tests.common import SavepointCase
-from odoo.fields import first
+from odoo.tools.misc import mute_logger
+
+_logger = logging.getLogger(__name__)
 
 
 class TestDistributionList(SavepointCase):
 
     def setUp(self):
-        super(TestDistributionList, self).setUp()
+        super().setUp()
         self.user_obj = self.env['res.users']
         self.partner_obj = self.env['res.partner']
         self.dl_obj = self.env['distribution.list']
@@ -17,256 +22,222 @@ class TestDistributionList(SavepointCase):
         self.int_instance_obj = self.env['int.instance']
         self.ec_obj = self.env['email.coordinate']
         self.pc_obj = self.env['postal.coordinate']
-        self.virtrg_obj = self.env['virtual.target']
-        self.evr_lst = self.env.ref('mozaik_communication.everybody_list')
-        self.partner_model = self.env.ref("base.model_res_partner")
-        self.company = self.env.ref('base.main_company')
-        self.officier_group = self.env.ref(
-            'mozaik_base.mozaik_res_groups_officer')
-        self.partner = self.env.ref(
-            'mozaik_communication.res_partner_nouvelobs')
-        self.partner_thierry = self.env.ref(
-            "mozaik_communication.res_partner_thierry")
+        self.evr_lst_id = self.browse_ref(
+            'mozaik_communication.everybody_list')
+        self.partner_model_id = self.ref('base.model_res_partner')
         self.usr = self.create_an_officier()
 
     def create_an_officier(self):
-        name = str(uuid4())
         # create the partner
+        name = str(uuid4())
         vals = {
             'name': name,
         }
         partner = self.partner_obj.create(vals)
-        default_instance = self.int_instance_obj.get_default()
-
+        default_instance_id = self.int_instance_obj._get_default_int_instance()
         # create the user
         vals = {
             'name': name,
             'login': name,
-            'partner_id': partner,
-            'company_id': self.company.id,
-            'groups_id': [(4, self.officier_group.id, False)],
-            'int_instance_m2m_ids': [(6, 0, default_instance.ids)],
+            'partner_id': partner.id,
+            'company_id': self.ref('base.main_company'),
+            'groups_id': [(6, 0, [
+                self.ref('mozaik_communication.res_groups_communication_user'),
+                self.ref('mozaik_coordinate.res_groups_coordinate_reader'),
+            ])],
+            'int_instance_m2m_ids': [(6, 0, [default_instance_id.id])]
         }
         return self.user_obj.create(vals)
 
     def test_only_owner_forward(self):
         email = 'alibaba@test.eu'
+
         # set email after to avoid MailDeliveryException
         vals = {
             'partner_id': self.usr.partner_id.id,
             'email': email,
         }
-        mail_coord = self.ec_obj.create(vals)
+        self.ec_obj.create(vals)
+
         # take a DL where user is not an owner nor an allowed partner
-        dist_list = self.evr_lst
+        dl = self.evr_lst_id
         msg = {
             'email_from': "<%s>" % email,
-            'subject': 'test',
+            'subject': 'Just a test',
             'body': 'body',
         }
-        dist_list._distribution_list_forwarding(msg)
-        domain = [
-            ('res_id', '=', mail_coord.id),
-            ('model', '=', 'email.coordinate'),
-        ]
-        mails = self.mail_obj.search()
-        self.assertFalse(mails)
+        forward = dl._distribution_list_forwarding(msg)
+        self.assertFalse(forward)
+
         # add user to the owner
         vals = {
-            'res_users_ids': [(6, 0, self.usr.ids)]
+            'res_users_ids': [(6, 0, [self.usr.id])]
         }
-        dist_list.write(vals)
-        dist_list._distribution_list_forwarding(msg)
-        mails = self.mail_obj.search(domain)
-        self.assertTrue(mails)
-        mails.unlink()
+        dl.write(vals)
+        forward = dl._distribution_list_forwarding(msg)
+        self.assertTrue(forward)
+
         # remove user from owners but add it as allowed partner
         vals = {
             'res_users_ids': [(3, self.usr.id, False)],
-            'res_partner_ids': [(6, 0, self.usr.partner_id.ids)],
+            'res_partner_ids': [(6, 0, [self.usr.partner_id.id])],
         }
-        dist_list.write(vals)
-        dist_list._distribution_list_forwarding(msg)
-        mails = self.mail_obj.search(domain)
-        self.assertTrue(mails)
-        mails.unlink()
+        dl.write(vals)
+        forward = dl._distribution_list_forwarding(msg)
+        self.assertTrue(forward)
+
         # take a legal person without a responsible user
-        partner = self.partner
+        partner = self.browse_ref('mozaik_communication.res_partner_cmpy_1')
         # add it an email coordinate
+        email = 'emmanuel.vals.noway@rf.fr'
         vals = {
             'partner_id': partner.id,
-            'email': 'emmanuel.vals.noway@nouvelobs.eu',
+            'email': email,
         }
         self.ec_obj.create(vals)
         # use it as a sender
-        msg.update({
-            'email_from': vals.get('email'),
-        })
+        msg['email_from'] = email
+        forward = dl._distribution_list_forwarding(msg)
+        self.assertFalse(forward)
+
         # make the legal person an allowed partner of the DL
         vals = {
-            'res_partner_ids': [(4, partner.id, False)],
+            'res_partner_ids': [(4, partner.id)],
         }
-        dist_list.write(vals)
-        dist_list._distribution_list_forwarding(msg)
-        mails = self.mail_obj.search(domain)
-        self.assertFalse(mails)
+        dl.write(vals)
+        forward = dl._distribution_list_forwarding(msg)
+        self.assertFalse(forward)
+
         # add it a responsible user
         vals = {
             'responsible_user_id': self.usr.id,
         }
         partner.write(vals)
-        dist_list._distribution_list_forwarding(msg)
-        mails = self.mail_obj.search(domain)
-        self.assertTrue(mails)
-        mails.unlink()
+        forward = dl._distribution_list_forwarding(msg)
+        self.assertTrue(forward)
+
         # inactive the user
         self.usr.active = False
-        dist_list._distribution_list_forwarding(msg)
-        mails = self.mail_obj.search(domain)
-        self.assertFalse(mails)
+        forward = dl._distribution_list_forwarding(msg)
+        self.assertFalse(forward)
+
         # reactive the user
         self.usr.active = True
         # but with the same ec as the legal person
         vals = {
             'partner_id': self.usr.partner_id.id,
-            'email': 'emmanuel.vals.noway@nouvelobs.eu',
+            'email': email,
         }
         self.ec_obj.create(vals)
-        dist_list._distribution_list_forwarding(msg)
-        mails = self.mail_obj.search(domain)
-        self.assertFalse(mails)
+        forward = dl._distribution_list_forwarding(msg)
+        self.assertFalse(forward)
+        return
 
     def test_newsletter_code_unique(self):
-        vals = {
-            'name': 'Newsletter Sample 1',
-            'code': 'SAMPLE1',
-            'newsletter': True,
-        }
-        self.dl_obj.create(vals)
-        vals = {
-            'name': 'Newsletter Sample 2',
-            'code': 'SAMPLE1',
-            'newsletter': True,
-        }
-        # Disable error into logs
-        previous_log = self.env.cr._default_log_exceptions
-        self.env.cr._default_log_exceptions = False
-        with self.assertRaises(psycopg2.IntegrityError):
+        newsletter = self.browse_ref(
+            'mozaik_communication.distribution_list_newsletter')
+        vals = dict(
+            name='Newsletter Sample 2',
+            code=newsletter.code,
+            newsletter=True,
+        )
+        with self.assertRaises(IntegrityError), mute_logger('odoo.sql_db'):
             self.dl_obj.create(vals)
-        self.env.cr._default_log_exceptions = previous_log
+        return
 
-    def test_notify_owner_on_alias_change(self):
-        dl_name = str(uuid4())
-        default_instance = first(self.usr.int_instance_m2m_ids)
-        # set email after to avoid MailDeliveryException
-        vals = {
-            'partner_id': self.usr.partner_id.id,
-            'email': 'sacha.distel@example.com',
-        }
-        self.ec_obj.create(vals)
-        vals = {
-            'name': dl_name,
-            'int_instance_id': default_instance.id,
-            'dst_model_id': self.partner_model.id,
-            'mail_forwarding': True,
-            'alias_name': 'xxx',
-            'res_users_ids': [(6, False, [self.env.uid, self.usr.id])]
-        }
-        dist_list = self.dl_obj.create(vals)
-        vals = {
-            'alias_name': "yyy",
-        }
-        dist_list.write(vals)
-        # owner should notified
-        mails = self.mail_obj.search([
-            ('subject', 'ilike', dl_name),
-            ('recipient_ids', 'in', self.usr.partner_id.id),
-        ])
-        self.assertEqual(len(mails), 1)
-
-    def test_complex_distribution_list_ids(self):
+    def test_get_complex_distribution_list_ids(self):
         # create a vip email
-        partner_thierry = self.partner_thierry
-        mail_coord = self.ec_obj.create({
-            'partner_id': partner_thierry,
+        thierry = self.browse_ref('mozaik_coordinate.res_partner_thierry')
+        ec = self.ec_obj.create({
+            'partner_id': thierry.id,
             'email': 'x23@example.com',
             'vip': True,
+            'is_main': True,
         })
-        dist_list = self.evr_lst
-        officer_uid = self.usr.id
-        # virtual_target, admin
-        mains, alternatives = dist_list._get_complex_distribution_list_ids()
-        search_result_recs = self.virtrg_obj.search([('identifier', '!=', 0)])
-        self.assertFalse(alternatives)
-        self.assertEqual(mains, search_result_recs)
-        domain = [
-            ('identifier', '!=', 0),
-            '&',
-            '|',
-            ('email', '=', False),
-            ('email', '!=', 'VIP'),
-            '|',
-            ('postal', '=', False),
-            ('postal', '!=', 'VIP'),
+        # create a vip address
+        paul = self.browse_ref('mozaik_coordinate.res_partner_paul')
+        pc = self.env['postal.coordinate'].create({
+            'partner_id': paul.id,
+            'address_id': self.ref('mozaik_address.address_4'),
+            'vip': True,
+            'is_main': True,
+        })
+
+        dl = self.evr_lst_id
+        dl_usr = dl.sudo(user=self.usr.id)
+
+        # res.partner, admin
+        a_mains, a_alternatives = dl._get_complex_distribution_list_ids()
+        a_partners = self.partner_obj.search([('is_company', '=', False)])
+        self.assertFalse(a_alternatives)
+        self.assertEqual(a_mains, a_partners)
+
+        dom = [
+            ('is_company', '=', False),
         ]
-        # virtual_target, other user
-        mains, = dist_list.sudo(
-            officer_uid)._get_complex_distribution_list_ids()
-        search_result_recs = self.virtrg_obj.sudo(officer_uid).search(domain)
-        self.assertEqual(mains, search_result_recs)
-        context = self.env.context.copy()
-        context.update(
+
+        # res.partner, other user
+        u_mains, __ = dl_usr._get_complex_distribution_list_ids()
+        u_partners = self.partner_obj.sudo(user=self.usr.id).search(dom)
+        self.assertEqual(u_mains, u_partners)
+
+        context = dict(
             main_object_field='email_coordinate_id',
             main_object_domain=[],
             main_target_model='email.coordinate',
             alternative_object_field='postal_coordinate_id',
-            alternative_object_domain=[('email_coordinate_id', '=', False)],
+            alternative_object_domain=[('email', '=', False)],
             alternative_target_model='postal.coordinate',
         )
+        dl_ctx = dl.with_context(context)
+        dl_usr_ctx = dl_usr.with_context(context)
+
         # email_coordinate_id, postal_coordinate_id, admin
-        mains, alternatives = dist_list.with_context(
-            context)._get_complex_distribution_list_ids()
-        self.virtrg_obj = self.virtrg_obj.with_context(context)
-        self.assertIn(mail_coord, mains)
-        domain = [
-            ('identifier', '!=', 0),
-            ('email_coordinate_id', '!=', False),
+        ac_mains, ac_alternatives = dl_ctx._get_complex_distribution_list_ids()
+        self.assertIn(ec, ac_mains)
+        self.assertIn(pc, ac_alternatives)
+        dom = [
+            ('is_company', '=', False),
+            ('email', '!=', False),
         ]
-        mail_coordinates = self.virtrg_obj.search(domain).mapped(
-            "email_coordinate_id")
-        self.assertEqual(set(mains), set(mail_coordinates))
-        postal_coordinates = self.virtrg_obj.search([
-            ('identifier', '!=', 0),
-            ('email_coordinate_id', '=', False),
-            ('postal_coordinate_id', '!=', False),
-        ]).mapped("postal_coordinate_id")
-        self.assertEqual(set(alternatives), set(postal_coordinates))
-        inactives = self.virtrg_obj.search([('active', '=', False)])
-        mains_vip = mains.filtered("vip")
-        alternatives_vip = alternatives.filtered("vip")
+        ac_partners = self.partner_obj.search(dom)
+        ac_emails = ac_partners.mapped('email_coordinate_id')
+        self.assertEqual(ac_mains, ac_emails)
+        dom = [
+            ('is_company', '=', False),
+            ('email', '=', False),
+            ('address', '!=', False),
+        ]
+        ac_partners = self.partner_obj.search(dom)
+        ac_postals = ac_partners.mapped('postal_coordinate_id')
+        self.assertEqual(ac_alternatives, ac_postals)
+
+        e_vips = ac_emails.filtered(lambda s: s.vip)
+        p_vips = ac_postals.filtered(lambda s: s.vip)
+
         # email_coordinate_id, postal_coordinate_id, other user
-        mains, alternatives = dist_list.sudo(
-            officer_uid)._get_complex_distribution_list_ids()
-        self.assertNotIn(mail_coord, mains)
-        mail_coord = self.virtrg_obj.sudo(officer_uid).search([
+        thierry.identifier = -7
+        paul.identifier = -8
+        uc_mains, uc_alternatives = \
+            dl_usr_ctx._get_complex_distribution_list_ids()
+        self.assertNotIn(ec, uc_mains)
+        self.assertNotIn(pc, uc_alternatives)
+        dom = [
+            ('is_company', '=', False),
             ('identifier', '!=', 0),
-            ('email_coordinate_id', '!=', False),
-        ]).mapped("email_coordinate_id")
-        self.assertEqual(mains, mail_coord - mains_vip)
-        postal_coord = self.virtrg_obj.sudo(officer_uid).search([
+            ('email', '!=', False),
+        ]
+        uc_partners = self.partner_obj.search(dom)
+        uc_emails = uc_partners.mapped('email_coordinate_id')
+        self.assertEqual(uc_mains, uc_emails - e_vips)
+        dom = [
+            ('is_company', '=', False),
             ('identifier', '!=', 0),
-            ('email_coordinate_id', '=', False),
-            ('postal_coordinate_id', '!=', False),
-        ]).mapped("postal_coordinate_id")
-        self.assertEqual(alternatives, postal_coord - alternatives_vip)
-        context.update(
-            main_object_field='id',
-            main_object_domain=[],
-            main_target_model='virtual.target',
-            active_test=False,
-        )
-        dist_list = dist_list.with_context(context)
-        # virtual target, admin, inactive
-        other_mains, = dist_list._get_complex_distribution_list_ids()
-        self.assertEqual(other_mains - inactives, mains)
+            ('email', '=', False),
+            ('address', '!=', False),
+        ]
+        uc_partners = self.partner_obj.search(dom)
+        uc_postals = uc_partners.mapped('postal_coordinate_id')
+        self.assertEqual(uc_alternatives, uc_postals - p_vips)
+
         return

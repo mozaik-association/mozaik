@@ -15,9 +15,6 @@ class TestDistributionList(TransactionCase):
         self.dist_list_obj = self.env['distribution.list']
         self.dist_list_line_obj = self.env['distribution.list.line']
         self.first_user = self.env.ref("distribution_list.first_user")
-        self.first_user.write({
-            'groups_id': [(4, self.env.ref("base.group_partner_manager").id)],
-        })
         self.second_user = self.env.ref("distribution_list.second_user")
         self.partner_model = self.env.ref("base.model_res_partner")
         self.mail_template_model = self.env.ref("mail.model_mail_template")
@@ -511,7 +508,7 @@ class TestDistributionList(TransactionCase):
             "distribution list's id")
         return
 
-    def test_get_action_from_domain(self):
+    def test_action_show_result(self):
         """
         Test that action is well returned with correct value required for
         a `get_actions_from_domains`
@@ -522,9 +519,7 @@ class TestDistributionList(TransactionCase):
             'name': str(uuid4()),
             'dst_model_id': partner_model.id,
         })
-        result = dist_list.get_action_from_domains()
-        self.assertEqual(result.get('type'), 'ir.actions.act_window',
-                         "Should be an ir.actions.act_window ")
-        self.assertEqual(result.get('res_model'), 'res.partner',
-                         "Model should be the same than the distribution list")
+        result = dist_list.action_show_result()
+        self.assertEqual(result['type'], 'ir.actions.act_window')
+        self.assertEqual(result['res_model'], 'res.partner')
         return

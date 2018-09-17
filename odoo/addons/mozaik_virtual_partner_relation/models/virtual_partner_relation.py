@@ -8,7 +8,7 @@ class VirtualPartnerRelation(models.Model):
     _description = "Partner/Relation"
     _inherit = "abstract.virtual.target"
     _auto = False
-    _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
+    _terms = ['interest_ids', 'competency_ids']
 
     relation_category_id = fields.Many2one(
         comodel_name='partner.relation.category',
@@ -60,7 +60,7 @@ class VirtualPartnerRelation(models.Model):
             p.identifier AS identifier,
             p.birth_date AS birth_date,
             p.gender AS gender,
-            p.tongue AS tongue,
+            p.lang AS lang,
             p.employee AS employee,
             CASE
                 WHEN ec2.id IS NULL

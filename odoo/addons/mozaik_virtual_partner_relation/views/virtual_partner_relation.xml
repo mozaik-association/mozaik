@@ -19,8 +19,9 @@
         <field name="name">virtual.partner.relation.search</field>
         <field name="model">virtual.partner.relation</field>
         <field name="arch" type="xml">
-            <search string="Partners/Relations">
+            <search>
                 <field name="identifier" />
+                <!-- pylint: disable=duplicate-xml-fields -->
                 <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]" />
                 <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]" />
                 <field name="partner_id" />
@@ -29,17 +30,15 @@
                 <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                 <field name="relation_category_id" />
                 <field name="object_partner_id" />
-                <field name="interests_m2m_ids" widget="many2one" />
-                <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                <field name="lang" />
+                <field name="interest_ids" widget="many2one" />
+                <field name="competency_ids" string="Competencies &amp; Topics" widget="many2one" />
                 <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" />
                 <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]" />
                 <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','!=',0)]" />
                 <separator />
-                <filter string="Male" name="male" domain="[('gender','=','m')]" />
-                <filter string="Female" name="female" domain="[('gender','=','f')]" />
-                <separator />
-                <filter string="French" name="french" domain="[('tongue','=','f')]" />
-                <filter string="German" name="german" domain="[('tongue','=','g')]" />
+                <filter string="Male" name="male" domain="[('gender','=','male')]" />
+                <filter string="Female" name="female" domain="[('gender','=','female')]" />
                 <separator />
                 <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
                 <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
@@ -62,33 +61,22 @@
         </field>
     </record>
 
-    <!-- Add filter for Partners/Relations -->
-
     <record id="add_filter_from_relation_action" model="ir.actions.act_window">
         <field name="name">Add Filter To Distribution List</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="src_model">virtual.partner.relation</field>
         <field name="res_model">distribution.list.add.filter</field>
         <field name="multi" eval="1" />
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+        <field name="binding_model_id" ref="mozaik_virtual_partner_instance.model_virtual_partner_relation" />
+        <field name="groups_id"
+               eval="[(6, 0, [ref('mozaik_communication.res_groups_communication_user')])]" />
     </record>
-
-    <record id="add_filter_from_relation_values" model="ir.values">
-        <field name="name">Add Filter To Distribution List</field>
-        <field name="model">virtual.partner.relation</field>
-        <field name="key">action</field>
-        <field name="key2">client_action_multi</field>
-        <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_relation_action')" />
-    </record>
-
 
     <record id="virtual_partner_relation_action" model="ir.actions.act_window">
         <field name="name">Partners/Relations</field>
         <field name="res_model">virtual.partner.relation</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree</field>
         <field name="search_view_id" ref="virtual_partner_relation_search_view" />
         <field name="view_id" ref="virtual_partner_relation_tree_view" />

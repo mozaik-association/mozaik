@@ -1,7 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import api, models, _
-from odoo.exceptions import UserError
+from odoo import api, exceptions, models, _
 
 
 class EmailCoordinate(models.Model):
@@ -9,10 +8,11 @@ class EmailCoordinate(models.Model):
 
     @api.model
     def get_url(self, path):
-        base_url = self.env['ir.config_parameter'].get_param(
+        base_url = self.env['ir.config_parameter'].sudo().get_param(
             'external_website.base_url')
         if not base_url:
-            raise UserError(_('Please configure the base URL for the website'))
+            raise exceptions.Warning(
+                _('Please configure the base URL for the website'))
         if base_url.endswith('/'):
             base_url = base_url[:-1]
         if not path.startswith('/'):

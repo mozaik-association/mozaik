@@ -62,7 +62,7 @@ class DistributionList(models.Model):
         :param name: str
         :return: str
         """
-        catchall_alias = self.env['ir.config_parameter'].get_param(
+        catchall_alias = self.env['ir.config_parameter'].sudo().get_param(
             'mail.catchall.alias')
         if not catchall_alias:
             raise exceptions.MissingError(
@@ -82,9 +82,9 @@ class DistributionList(models.Model):
         :param email_field: str
         :return: mailing_model recordset
         """
-        email_from = re.findall(MATCH_EMAIL, email_from)
-        if email_from:
-            email_from = email_from[0]
+        res = re.findall(MATCH_EMAIL, email_from)
+        if res:
+            email_from = res[0]
 
         if not mailing_model:
             mailing_model = self.dst_model_id.model
@@ -300,11 +300,12 @@ class DistributionList(models.Model):
         (key = distribution.list.mass.mailing.test) (case-insensitive),
         so the dest. email become the sender
         :param msg:
-        :return:
+        :return: Boolean
         """
+        res = False
         target = self._get_mailing_object(msg.get('email_from', ''))
         subject = msg.get('subject')
-        test_code = ustr(self.env['ir.config_parameter'].get_param(
+        test_code = ustr(self.env['ir.config_parameter'].sudo().get_param(
             "distribution.list.mass.mailing.test", default="TEST"))
         self_ctx = self
         if len(target) != 1:
@@ -331,6 +332,8 @@ class DistributionList(models.Model):
             mail_composer_vals = self_ctx._get_mail_compose_message_vals(msg)
             mail_composer = mail_composer_obj.create(mail_composer_vals)
             mail_composer.send_mail()
+            res = True
+        return res
 
     @api.onchange('mail_forwarding', 'alias_name', 'name')
     def _onchange_mail_forwarding(self):

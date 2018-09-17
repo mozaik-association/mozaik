@@ -9,8 +9,8 @@ class VirtualPartnerMembership(models.Model):
     _inherit = "abstract.virtual.target"
     _auto = False
     _terms = [
-        'competencies_m2m_ids',
-        'interests_m2m_ids',
+        'competency_ids',
+        'interest_ids',
     ]
 
     partner_id = fields.Many2one(
@@ -53,7 +53,7 @@ class VirtualPartnerMembership(models.Model):
                 p.identifier as identifier,
                 p.birth_date as birth_date,
                 p.gender as gender,
-                p.tongue as tongue,
+                p.lang as lang,
                 p.employee as employee,
                 pc.unauthorized as postal_unauthorized,
                 pc.vip as postal_vip,

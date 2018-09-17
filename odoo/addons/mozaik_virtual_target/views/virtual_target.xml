@@ -8,15 +8,11 @@
         <field name="inherit_id" ref="mozaik_communication.abstract_virtual_target_tree_view"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Virtual Target" create="0" delete="0">
-                <field name="partner_id" />
+            <field name="int_instance_id" position="after">
+                <field name="membership_state_id" />
                 <field name="email" />
                 <field name="postal" />
-                <field name="membership_state_id" />
-                <field name="int_instance_id" />
-                <field name="postal_unauthorized" invisible="1" />
-                <field name="email_unauthorized" invisible="1" />
-            </tree>
+            </field>
         </field>
     </record>
 
@@ -24,8 +20,9 @@
         <field name="name">virtual.target.search</field>
         <field name="model">virtual.target</field>
         <field name="arch" type="xml">
-            <search string="Virtual Target">
+            <search>
                 <field name="identifier" />
+                <!-- pylint: disable=duplicate-xml-fields -->
                 <field string="Birth Date > ..." name="birth_date"
                        filter_domain="[('birth_date','>',self)]" />
                 <field string="Birth Date &lt; ..." name="birth_date"
@@ -50,7 +47,7 @@
                 <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
 
-                <group expand="0" string="Group By..." name="group_by">
+                <group name="group_by">
                     <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
                     <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
                     <filter name="email_coordinate" string="Email Coordinate" context="{'group_by':'email_coordinate_id'}" />

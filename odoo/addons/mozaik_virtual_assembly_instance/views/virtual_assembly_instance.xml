@@ -20,8 +20,9 @@
         <field name="name">virtual.assembly.instance.search</field>
         <field name="model">virtual.assembly.instance</field>
         <field name="arch" type="xml">
-            <search string="Assemblies/Instances">
+            <search>
                 <field name="partner_id" />
+                <!-- pylint: disable=duplicate-xml-fields -->
                 <field name="int_instance_id" />
                 <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
                 <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
@@ -30,7 +31,7 @@
                 <field name="ext_category_assembly_id" string="External Assembly Category" />
                 <field name="sta_power_level_id" string="State Power Level" />
                 <field name="int_power_level_id" string="Internal Power Level" />
-                <field name="competencies_m2m_ids" widget="many2one" />
+                <field name="competency_ids" widget="many2one" />
                 <filter string="Main Address" name="main_postal" domain="[('main_postal','=',1)]" />
                 <separator />
                 <filter string="Main Email" name="main_email" domain="[('main_email','=',1)]" />
@@ -48,7 +49,7 @@
                 <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]" />
                 <separator />
                 <filter name="without_coordinate" string="Without Coordinate" domain="[('active','=',False)]" />
-                <group expand="0" string="Group By..." name="group_by">
+                <group name="group_by">
                     <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
                     <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
                     <filter name="int_ass_category" string="Internal Assembly Category" context="{'group_by':'int_category_assembly_id'}" />
@@ -61,37 +62,22 @@
         </field>
     </record>
 
-    <!-- Add filter for Assemblies/Instances -->
-
     <record id="add_filter_from_assembly_action" model="ir.actions.act_window">
         <field name="name">Add Filter To Distribution List</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="src_model">virtual.assembly.instance</field>
         <field name="res_model">distribution.list.add.filter</field>
         <field name="multi" eval="1" />
         <field name="target">new</field>
-        <field name="view_id"
-               ref="distribution_list.distribution_list_add_filter" />
+        <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
+        <field name="binding_model_id" ref="mozaik_virtual_partner_instance.model_virtual_assembly_instance" />
         <field name="groups_id"
-               eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+               eval="[(6, 0, [ref('mozaik_communication.res_groups_communication_user')])]" />
     </record>
-
-    <record id="add_filter_from_assembly_values" model="ir.values">
-        <field name="name">Add Filter To Distribution List</field>
-        <field name="model">virtual.assembly.instance</field>
-        <field name="key">action</field>
-        <field name="key2">client_action_multi</field>
-        <field name="value"
-               eval="'ir.actions.act_window,%s' % ref('add_filter_from_assembly_action')" />
-    </record>
-
-    <!-- Action -->
 
     <record id="virtual_assembly_instance_action" model="ir.actions.act_window">
         <field name="name">Assemblies/Instances</field>
         <field name="res_model">virtual.assembly.instance</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree</field>
         <field name="search_view_id" ref="virtual_assembly_instance_search_view" />
         <field name="view_id" ref="virtual_assembly_instance_tree_view" />

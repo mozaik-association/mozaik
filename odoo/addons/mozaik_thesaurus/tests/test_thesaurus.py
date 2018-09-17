@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from psycopg2._psycopg import IntegrityError
+from psycopg2 import IntegrityError
 
 from odoo.tests import SavepointCase
 from odoo.tools.misc import mute_logger

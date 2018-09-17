@@ -11,4 +11,5 @@ from . import mail_mass_mailing
 from . import mail_statistics_report
 from . import mail_template
 from . import mail_thread
+from . import abstract_virtual_target
 from . import res_partner

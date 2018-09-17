@@ -68,7 +68,7 @@ class MailComposeMessage(models.TransientModel):
         active_ids = self._context['active_ids']
         vals = self._prepare_vals()
 
-        icp_model = self.env['ir.config_parameter']
+        icp_model = self.env['ir.config_parameter'].sudo()
         chunck_size = icp_model.get_param(
             'job_mail_chunck_size', default=CHUNK_SIZE)
 
@@ -102,7 +102,6 @@ class MailComposeMessage(models.TransientModel):
         """
         Build (and send) mails
         """
-        self_ctx = self.with_context(
-            async_send_mail=False, active_ids=active_ids)
+        self_ctx = self.with_context(active_ids=active_ids, dl_computed=True)
         composer = self_ctx.create(vals)
         composer.send_mail(auto_commit=auto_commit)

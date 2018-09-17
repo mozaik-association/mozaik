@@ -35,32 +35,34 @@ class MassMailing(models.Model):
             result.pop()
         return result
 
-    @api.model
-    def get_recipients(self, mailing):
+    @api.multi
+    def get_recipients(self):
         """
         Override this method to get resulting ids of the distribution list
         :param mailing:
         :return: recordset
         """
-        mailing.ensure_one()
-        if mailing.distribution_list_id:
-            if mailing.mailing_model == 'email.coordinate':
-                dl = mailing.distribution_list_id.with_context(
+        self.ensure_one()
+        if self.distribution_list_id:
+            if self.mailing_model == 'email.coordinate':
+                dl = self.distribution_list_id.with_context(
                     main_object_field='email_coordinate_id',
                     main_target_model='email.coordinate'
                 )
-                mains, = dl._get_complex_distribution_list_ids()
-                if mailing.contact_ab_pc < 100 or mailing.group_id:
-                    topick = int(len(mains) / 100.0 * mailing.contact_ab_pc)
+                mains, __ = dl._get_complex_distribution_list_ids()
+                if self.contact_ab_pc < 100 or self.group_id:
+                    topick = int(len(mains) / 100.0 * self.contact_ab_pc)
                     already_mailed = self.env['mail.mail.statistics'].search([
-                        ('mass_mailing_id.group_id', '=', mailing.group_id.id),
+                        ('mass_mailing_id.group_id', '=', self.group_id.id),
                     ]).mapped('res_id')
                     remaining = set(mains.ids).difference(already_mailed)
                     if topick > len(remaining):
                         topick = len(remaining)
-                    mains = random.sample(remaining, topick)
-                return mains
-        return super().get_recipients(mailing)
+                    res_ids = random.sample(remaining, topick)
+                else:
+                    res_ids = mains.ids
+                return res_ids
+        return super().get_recipients()
 
     @api.multi
     def send_custom(self):

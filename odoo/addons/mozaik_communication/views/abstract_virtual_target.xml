@@ -12,10 +12,8 @@
                 <field name="birth_date"/>
                 <field name="gender"/>
                 <field name="lang"/>
-                <field name="employee"/>
-                <field name="postal_vip"/>
-                <field name="postal_unauthorized" invisible="True"/>
-                <field name="email_unauthorized" invisible=""/>
+                <field name="postal_unauthorized" invisible="1"/>
+                <field name="email_unauthorized" invisible="1"/>
                 <button name="get_partner_action" string="See Partner" type="object"/>
             </tree>
         </field>

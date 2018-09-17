@@ -61,7 +61,7 @@ class TestMailComposeMessage(SavepointCase):
             'name': str(uuid4()),
             'email': 'test@test.be',
         }
-        partner = self.res_partner_obj.create(vals)
+        partner = self.env['res.partner'].create(vals)
         dist_list = self.dist_list
         vals = {
             'name': str(uuid4()),

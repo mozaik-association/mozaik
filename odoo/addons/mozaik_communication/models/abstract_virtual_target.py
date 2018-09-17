@@ -45,20 +45,20 @@ class AbstractVirtualTarget(models.AbstractModel):
         selection=lambda s: s.env['res.partner'].fields_get(
             allfields=['gender']).get('gender', {}).get('selection', [])
     )
-    tongue = fields.Selection(
+    lang = fields.Selection(
         selection=lambda s: s.env['res.partner'].fields_get(
             allfields=['lang']).get('lang', {}).get('selection', [])
     )
     employee = fields.Boolean()
-    competencies_m2m_ids = fields.Many2many(
+    competency_ids = fields.Many2many(
         comodel_name='thesaurus.term',
         string='Competencies',
-        related='partner_id.competencies_m2m_ids',
+        related='partner_id.competency_ids',
     )
-    interests_m2m_ids = fields.Many2many(
+    interest_ids = fields.Many2many(
         comodel_name='thesaurus.term',
         string='Interests',
-        related='partner_id.interests_m2m_ids',
+        related='partner_id.interest_ids',
     )
     postal_vip = fields.Boolean(
         string='VIP Address',
@@ -143,6 +143,8 @@ class AbstractVirtualTarget(models.AbstractModel):
 
     @api.model_cr
     def init(self):
+        if self._abstract:
+            return
         cr = self.env.cr
         view_name = self._get_view_name()
         # To loop at least once, force the [False] if the function return
