@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="distribution_list_mass_function_wizard" model="ir.ui.view">
+        <field name="name">distribution.list.mass.function.wizard</field>
+        <field name="model">distribution.list.mass.function</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="oe_title" name="title">
+                    <h1>
+                        <field name="distribution_list_id" readonly="1" options='{"no_open":True}' />
+                    </h1>
+                </div>
+                <group name="function">
+                    <field name="trg_model" widget="radio"
+                           readonly="bool(context.get('mailing_group_id'))"/>
+                    <field name="e_mass_function"
+                           attrs="{'invisible':[('trg_model','!=','email.coordinate')],
+                                    'required':[('trg_model','=','email.coordinate')]}"
+                           readonly="bool(context.get('mailing_group_id'))"
+                           widget="radio" />
+                    <field name="p_mass_function"
+                           attrs="{'invisible':[('trg_model','!=','postal.coordinate')],
+                                    'required':[('trg_model','=','postal.coordinate')]}"
+                           widget="radio" />
+                </group>
+                <group name="modifiers">
+                    <field name="include_unauthorized"
+                           readonly="bool(context.get('mailing_group_id'))" />
+                    <field name="bounce_counter" />
+                    <field name="internal_instance_id"
+                           readonly="bool(context.get('mailing_group_id'))" />
+                </group>
+
+                <notebook>
+                    <page name="download" string="Result"
+                          autofocus="autofocus"
+                          attrs="{'invisible':[('export_filename','=',False)]}">
+                        <group>
+                            <field name="export_file"
+                                   nolabel="1"
+                                   readonly="1"
+                                   filename="export_filename" />
+                            <field name="export_filename" invisible="1"/>
+                        </group>
+                    </page>
+                    <page name="mass_mailing" string="Mass Mailing"
+                          autofocus="autofocus"
+                          attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),('e_mass_function','!=','email_coordinate_id')]}"
+                          groups="mozaik_communication.res_groups_communication_user">
+                        <group>
+                            <label for="partner_from_id"/>
+                            <div>
+                                <field name="partner_name" style="width: 50%"/>
+                                <field name="partner_from_id"
+                                       attrs="{'required':[('e_mass_function','=','email_coordinate_id'), ('trg_model','=','email.coordinate')]}"
+                                       options="{'no_create_edit': True, 'no_open': True}" style="width: 50%"/>
+                                <field name="email_from"/>
+                            </div>
+                            <field name="subject" placeholder="Subject..." attrs="{'required':[('e_mass_function','=','email_coordinate_id'), ('trg_model','=','email.coordinate')]}"/>
+                        </group>
+                        <field name="body"/>
+                        <group>
+                            <field name="involvement_category_id" />
+                            <field name="placeholder_id"
+                                   options="{'no_quick_create':True,'no_create_edit':True}"/>
+                            <field name="placeholder_value"/>
+                        </group>
+                        <separator/>
+                        <field name="attachment_ids" widget="many2many_binary" string="Attach a file"/>
+                        <group>
+                            <group>
+                                <field name="mail_template_id"
+                                       domain="[('model_id.model','=','email.coordinate')]"/>
+                                <field name="mass_mailing_name" />
+                            </group>
+                            <group>
+                                <field name="extract_csv" />
+                                <field name="contact_ab_pc" />
+                            </group>
+                        </group>
+                    </page>
+                    <page name="postal_mailing" string="Postal Mailing"
+                          attrs="{'invisible':['|',('trg_model','!=','postal.coordinate'),('p_mass_function','=',False),('extract_csv','=',False),('e_mass_function','!=','csv')]}">
+                        <group>
+                            <group>
+                                <field name="sort_by" />
+                                <field name="include_without_coordinate"
+                                       attrs="{'invisible':[('p_mass_function','=','postal_coordinate_id')]}" />
+                                <field name="postal_mail_name"
+                                       attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}"
+                                       groups="mozaik_communication.res_groups_communication_user"/>
+                                <field name="groupby_coresidency"
+                                       attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
+                            </group>
+                        </group>
+                    </page>
+                    <page string="More Info" name="dev" groups="base.group_erp_manager">
+                        <group name="moreinfo"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <span name="go-wizard"
+                          attrs="{'invisible':[('p_mass_function','=',False),('e_mass_function','=',False)]}">
+                        <button name="mass_function" string="Launch"
+                                type="object" class="btn-primary" />
+                        or
+                    </span>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+
+                    <button type="object" name="save_as_template" string="Save as new template" class="pull-right"
+                            attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
+                                                     ('e_mass_function','!=','email_coordinate_id')]}"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="distribution_list_mass_function_action" model="ir.actions.act_window">
+        <field name="name">Execute Distribution List</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">distribution.list</field>
+        <field name="res_model">distribution.list.mass.function</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="distribution_list_mass_function_wizard" />
+    </record>
+
+</odoo>

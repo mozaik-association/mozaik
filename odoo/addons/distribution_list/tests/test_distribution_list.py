@@ -15,9 +15,6 @@ class TestDistributionList(TransactionCase):
         self.dist_list_obj = self.env['distribution.list']
         self.dist_list_line_obj = self.env['distribution.list.line']
         self.first_user = self.env.ref("distribution_list.first_user")
-        self.first_user.write({
-            'groups_id': [(4, self.env.ref("base.group_partner_manager").id)],
-        })
         self.second_user = self.env.ref("distribution_list.second_user")
         self.partner_model = self.env.ref("base.model_res_partner")
         self.mail_template_model = self.env.ref("mail.model_mail_template")
@@ -326,12 +323,13 @@ class TestDistributionList(TransactionCase):
 
     def test_get_complex_distribution_list_ids(self):
         """
-        Test that `get_complex_distribution_list_ids` return the correct ids
-        when use a context with
-        * more_filter
+        Test that `get_complex_distribution_list_ids` return correct ids
+        when using a context with
+        * main_object_field
+        * main_object_domain
+        * alternative_object_field
+        * alternative_object_domain
         * sort_by
-        * field_alternative_object
-        * field_main_object
         """
         partner_obj = self.partner_obj
         distri_list_obj = self.dist_list_obj
@@ -400,11 +398,11 @@ class TestDistributionList(TransactionCase):
         })
         context = self.env.context.copy()
         context.update({
-            'more_filter': [('name', '=', 'p4')],
+            'main_object_field': 'parent_id',
+            'main_object_domain': [('name', '=', 'p4')],
+            'alternative_object_field': 'company_id',
+            'alternative_object_domain': [('parent_id', '=', False)],
             'sort_by': 'name desc',
-            'field_alternative_object': 'company_id',
-            'alternative_more_filter': [('parent_id', '=', False)],
-            'field_main_object': 'parent_id',
         })
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
@@ -414,14 +412,14 @@ class TestDistributionList(TransactionCase):
             first(alternatives).id, 1,
             'Should have at least one company as alternative object')
 
-        context.pop('more_filter')
+        context.pop('main_object_domain')
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
         self.assertEquals(
             len(mains), 2, 'Should have 2 ids if no `more_filter`')
 
         context.update({
-            'more_filter': [('name', '=', 'x23')],
+            'main_object_domain': [('name', '=', 'x23')],
         })
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
@@ -430,7 +428,7 @@ class TestDistributionList(TransactionCase):
             'With a "noway" domain and a target field name, '
             'should return no result')
 
-        context.pop('field_main_object')
+        context.pop('main_object_field')
         primary_ids = dl.with_context(
             context)._get_target_from_distribution_list()
         mains, alternatives = dl.with_context(
@@ -510,7 +508,7 @@ class TestDistributionList(TransactionCase):
             "distribution list's id")
         return
 
-    def test_get_action_from_domain(self):
+    def test_action_show_result(self):
         """
         Test that action is well returned with correct value required for
         a `get_actions_from_domains`
@@ -521,9 +519,7 @@ class TestDistributionList(TransactionCase):
             'name': str(uuid4()),
             'dst_model_id': partner_model.id,
         })
-        result = dist_list.get_action_from_domains()
-        self.assertEqual(result.get('type'), 'ir.actions.act_window',
-                         "Should be an ir.actions.act_window ")
-        self.assertEqual(result.get('res_model'), 'res.partner',
-                         "Model should be the same than the distribution list")
+        result = dist_list.action_show_result()
+        self.assertEqual(result['type'], 'ir.actions.act_window')
+        self.assertEqual(result['res_model'], 'res.partner')
         return

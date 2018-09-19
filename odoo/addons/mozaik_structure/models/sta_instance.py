@@ -46,7 +46,7 @@ class StaInstance(models.Model):
         string='Internal Instance',
         index=True,
         track_visibility='onchange',
-        default=lambda s: s._get_default_instance_id(),
+        default=lambda s: s._get_default_int_instance_id(),
     )
     identifier = fields.Char(
         'External Identifier (INS)',
@@ -58,7 +58,7 @@ class StaInstance(models.Model):
          'The external identifier (INS) must be unique.'),
     ]
 
-    def _get_default_instance_id(self):
+    def _get_default_int_instance_id(self):
         return self.env['int.instance']._get_default_int_instance()
 
     @api.multi

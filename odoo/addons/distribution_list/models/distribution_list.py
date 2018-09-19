@@ -5,12 +5,10 @@ from odoo.osv import expression
 
 
 class DistributionList(models.Model):
-    """
-    New Odoo model used to represents a distribution list (to send email or
-    postal mails).
-    """
+
     _name = 'distribution.list'
     _description = 'Distribution List'
+    _order = 'name'
 
     name = fields.Char(
         required=True,
@@ -20,12 +18,14 @@ class DistributionList(models.Model):
         "distribution_list_id",
         "Filters to include",
         domain=[('exclude', '!=', True)],
+        copy=True,
     )
     to_exclude_distribution_list_line_ids = fields.One2many(
         "distribution.list.line",
         "distribution_list_id",
         "Filters to exclude",
         domain=[('exclude', '=', True)],
+        copy=True,
     )
     company_id = fields.Many2one(
         "res.company",
@@ -37,7 +37,8 @@ class DistributionList(models.Model):
         "ir.model",
         "Destination model",
         required=True,
-        default=lambda self: self.env.ref("base.model_res_partner").id,
+        default=lambda self: self._get_default_dst_model_id(),
+        domain=lambda self: self._get_domain_dst_model_id(),
     )
     bridge_field = fields.Char(
         required=True,
@@ -54,23 +55,54 @@ class DistributionList(models.Model):
     ]
 
     @api.model
-    def _get_computed_targets(self, bridge_field, targets, in_mode):
+    def _get_dst_model_names(self):
         """
-        Convert source ids to target ids according to the bridge field
+        Get the list of available model name
+        Intended to be inherited
+        :return: list of string
+        """
+        return []
+
+    @api.model
+    def _get_domain_dst_model_id(self):
+        """
+        Get domain of available models
+        :return: list of tuple (domain)
+        """
+        mods = self._get_dst_model_names() or ['res.partner']
+        return [('model', 'in', mods)]
+
+    @api.model
+    def _get_default_dst_model_id(self):
+        """
+        Get the default dst model
+        :return: model recordset
+        """
+        model = False
+        mods = self._get_dst_model_names() or ['res.partner']
+        if len(mods) == 1:
+            model = self.env['ir.model'].search([('model', 'in', mods)])
+            model = model or self.env.ref('base.model_res_partner')
+        return model
+
+    @api.model
+    def _get_computed_targets(self, bridge_field, sources, in_mode):
+        """
+        Convert source records to target records according to the bridge field
         :param bridge_field: str
-        :param targets: dict
+        :param sources: recordset
         :param in_mode: bool
         :return: target recordset
         """
         if not bridge_field or bridge_field == 'id':
-            return targets
-        elif not targets._fields.get(bridge_field):
+            return sources
+        elif not sources._fields.get(bridge_field):
             # Ensure the bridge field exists into the target model
             raise exceptions.UserError(
-                _("The target model (%s) doesn't contain the bridge field: "
-                  "%s") % (targets._name, bridge_field))
-        elif targets._fields.get(bridge_field).type == 'many2one':
-            return targets.mapped(bridge_field)
+                _("The result model (%s) doesn't contain the bridge field: "
+                  "%s") % (sources._name, bridge_field))
+        elif sources._fields.get(bridge_field).type == 'many2one':
+            return sources.mapped(bridge_field)
         raise exceptions.UserError(
             _("The bridge field must be a Many2one!"))
 
@@ -93,7 +125,6 @@ class DistributionList(models.Model):
             'name': _("%s (copy)") % self.name,
         })
         result = super(DistributionList, self).copy(default=default)
-        result._complete_distribution_list(self.ids)
         return result
 
     @api.multi
@@ -178,37 +209,38 @@ class DistributionList(models.Model):
         return results
 
     @api.model
-    def _get_target(self, source_records, bridge_field, domain, sort):
+    def _get_target(
+            self, source_records, bridge_field, domain, target_model, sort):
         """
         From an initial list of ids of a model, returns a list
         containing the value of a specific field of this model
         optionally filtered by an extra domain and/or
         ordered by a given sort criteria
         Final result is a list of unique values (sorted or not)
-        If no target field is given the initial ids list is returned
+        If a target_model is provided, security is applied
         :param source_records: recordset
         :param bridge_field: str
         :param domain: list
         :param sort: str
         :return: recordset
         """
-        target_model = source_records._name
+        source_model = source_records._name
+        results = self.env[target_model or source_model].browse()
         if not bridge_field:
-            results = source_records
+            pass
         elif not source_records._fields.get(bridge_field):
             raise exceptions.UserError(
                 _("The target model %s doesn't have a field named "
-                  "%s") % (target_model, bridge_field))
+                  "%s") % (source_model, bridge_field))
         elif source_records:
             domain = domain or []
             domain = expression.AND([
                 domain,
                 [
                     ('id', 'in', source_records.ids),
-                    (bridge_field, '!=', False),
                 ],
             ])
-            values = self.env[target_model].search(domain, order=sort)
+            values = self.env[source_model].search(domain, order=sort)
             if not values._fields.get(bridge_field):
                 raise exceptions.UserError(
                     _("The target field doesn't exists in the source model"))
@@ -216,41 +248,52 @@ class DistributionList(models.Model):
                 raise exceptions.UserError(
                     _("The target field %s must be a Many2one") % bridge_field)
             results = values.mapped(bridge_field)
-        else:
-            results = self.env[target_model].browse()
+            if target_model and target_model != source_model:
+                # apply security
+                results = self.env[target_model].search(
+                    [('id', 'in', results.ids)])
         return results
 
     @api.multi
     def _get_complex_distribution_list_ids(self):
         """
         Simple case:
-            no ``field_main_object`` provided
-            first result list is coming from ``get_ids_from_distribution_list``
+            no ``main_object_field`` provided
+            first result list comes from ``_get_target_from_distribution_list``
             second result list is empty.
-        If ``field_main_object`` is provided:
+        If ``main_object_field`` is provided:
             the result ids are filtered according to the target model
             and the field specified, i.e. [trg_model.field_mailing_object.id]
-        If ``more_filter`` is provided:
+        If ``main_object_domain`` is provided:
             apply a second filter
-        If ``field_alternative_object`` is provided:
+        If ``alternative_object_field`` is provided:
             a second result is computed from the first ids,
-            i.e. [trg_model.field_alternative_object.id]
-        If ``alternative_more_filter`` is provided:
+            i.e. [trg_model.alternative_object_field.id]
+        If ``alternative_object_domain`` is provided:
             apply a second filter for the alternative object
         If ``sort_by`` is provided result ids are sorted accordingly
         :return: list, list
         """
         self.ensure_one()
         context = self.env.context
-        targets = self._get_target_from_distribution_list()
+        mains = targets = self._get_target_from_distribution_list()
+        alternatives = self.env[self.dst_model_id.model].browse()
         sort = context.get('sort_by', False)
-        field_main_object = context.get('field_main_object')
-        more_filter = context.get('more_filter')
-        field_alternative_object = context.get('field_alternative_object')
-        alternative_more_filter = context.get('alternative_more_filter')
-        mains = self._get_target(targets, field_main_object, more_filter, sort)
-        alternatives = self._get_target(
-            targets, field_alternative_object, alternative_more_filter, sort)
+        main_object_field = context.get('main_object_field')
+        alternative_object_field = context.get('alternative_object_field')
+        if main_object_field:
+            main_object_domain = context.get('main_object_domain')
+            main_target_model = context.get('main_target_model')
+            mains = self._get_target(
+                targets, main_object_field, main_object_domain,
+                main_target_model, sort)
+        if alternative_object_field:
+            alternative_object_domain = context.get(
+                'alternative_object_domain')
+            alternative_target_model = context.get('alternative_target_model')
+            alternatives = self._get_target(
+                targets, alternative_object_field, alternative_object_domain,
+                alternative_target_model, sort)
         return mains, alternatives
 
     @api.multi
@@ -275,9 +318,9 @@ class DistributionList(models.Model):
                 })
 
     @api.multi
-    def get_action_from_domains(self):
+    def action_show_result(self):
         """
-        Allow to preview resulting of distribution list
+        Show the result of the distribution list
         :return: dict/action
         """
         self.ensure_one()
@@ -288,7 +331,7 @@ class DistributionList(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _('Result of %s') % self.name,
-            'view_mode': 'tree, form',
+            'view_mode': 'tree,form',
             'res_model': self.dst_model_id.model,
             'context': self.env.context.copy(),
             'domain': domain,

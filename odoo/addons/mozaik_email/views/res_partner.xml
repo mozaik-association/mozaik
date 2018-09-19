@@ -19,7 +19,7 @@
         <field name="name">res.partner.form (in mozaik_email)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
-        <field name="priority" eval="150"/>
+        <field name="priority" eval="20"/>
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='email']" position="attributes">

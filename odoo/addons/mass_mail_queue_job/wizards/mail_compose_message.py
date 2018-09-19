@@ -34,17 +34,28 @@ class MailComposeMessage(models.TransientModel):
             'email_from',
             'subtype_id',
             'message_type',
+            'mass_mailing_name',
+            'distribution_list_id',
+            'contact_ab_pc',
         ], load='_classic_write')[0]
         vals.pop('id', None)
-        for key in vals.keys():
-            if isinstance(vals[key], list):
-                vals[key] = [
-                    (6, 0, vals[key])
-                ]
+        vals = self._convert_to_write(vals)
         return vals
 
+    @api.model
+    def _transient_vacuum(self, force=False):
+        """
+        Do not unlink mail composer wizards if unfinished jobs exist
+        """
+        res = False
+        domain = [('state', '!=', 'done')]
+        jobs = self.env['queue.job'].search(domain)
+        if not jobs:
+            res = super()._transient_vacuum(force=force)
+        return res
+
     @api.multi
-    def send_mail(self):
+    def send_mail(self, auto_commit=False):
         """
         Build mass mails by queue job
         """
@@ -57,7 +68,7 @@ class MailComposeMessage(models.TransientModel):
         active_ids = self._context['active_ids']
         vals = self._prepare_vals()
 
-        icp_model = self.env['ir.config_parameter']
+        icp_model = self.env['ir.config_parameter'].sudo()
         chunck_size = icp_model.get_param(
             'job_mail_chunck_size', default=CHUNK_SIZE)
 
@@ -82,16 +93,15 @@ class MailComposeMessage(models.TransientModel):
             _logger.info(
                 'Delay %s for ids: %s', description, chunck_active_ids)
             wz_model.with_delay(description=description)._build_mails_jobified(
-                vals, chunck_active_ids)
+                vals, chunck_active_ids, auto_commit)
         return {'type': 'ir.actions.act_window_close'}
 
     @api.model
     @job(default_channel='root.mail.build')
-    def _build_mails_jobified(self, vals, active_ids):
+    def _build_mails_jobified(self, vals, active_ids, auto_commit):
         """
         Build (and send) mails
         """
-        sel_ctx = self.with_context(
-            async_send_mail=False, active_ids=active_ids)
-        composer = sel_ctx.create(vals)
-        composer.send_mail()
+        self_ctx = self.with_context(active_ids=active_ids, dl_computed=True)
+        composer = self_ctx.create(vals)
+        composer.send_mail(auto_commit=auto_commit)

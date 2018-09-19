@@ -16,7 +16,8 @@ class MailComposeMessage(models.TransientModel):
         key = 'mail.sending.job.priorities'
         try:
             priorities = ast.literal_eval(
-                self.env['ir.config_parameter'].get_param(key, default='{}'))
+                self.env['ir.config_parameter'].sudo().get_param(
+                    key, default='{}'))
         # Catch exception to have a understandable error message
         except (ValueError, SyntaxError):
             raise exceptions.UserError(
@@ -31,7 +32,7 @@ class MailComposeMessage(models.TransientModel):
         return priorities
 
     @api.multi
-    def send_mail(self):
+    def send_mail(self, auto_commit=False):
         """
         Set a priority on subsequent generated mail.mail, using priorities
         set into the configuration.
@@ -46,4 +47,4 @@ class MailComposeMessage(models.TransientModel):
             if limits:
                 prio = priorities.get(max(limits))
                 self = self.with_context(default_mail_job_priority=prio)
-        return super().send_mail()
+        return super().send_mail(auto_commit=auto_commit)

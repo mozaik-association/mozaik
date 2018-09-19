@@ -10,6 +10,11 @@ class TestResCity(TransactionCase):
         """
         Check for default country
         """
+        # reset countries
+        self.env['res.country'].search(
+            [('enforce_cities', '=', True)]). write({
+                'enforce_cities': False,
+            })
         # Belgium does not enforce cities
         def_country = self.env['res.city']._default_country_id()
         self.assertFalse(def_country)

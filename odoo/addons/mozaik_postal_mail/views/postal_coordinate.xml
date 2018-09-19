@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="postal_coordinate_form_view" model="ir.ui.view">
+        <field name="name">postal.coordinate.form (mozaik_communication)</field>
+        <field name="model">postal.coordinate</field>
+        <field name="inherit_id" ref="mozaik_address.postal_coordinate_form_view"/>
+        <field name="priority" eval="10"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='buttons']" position="inside">
+                <button string="Postal History"
+                        name="%(postal_mail_log_action)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-list"
+                        context="{'search_default_postal_coordinate_id': active_id,'default_postal_coordinate_id': active_id,
+                                      'search_default_partner_id': partner_id,'default_partner_id': partner_id}">
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

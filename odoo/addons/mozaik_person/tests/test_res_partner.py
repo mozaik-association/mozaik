@@ -263,7 +263,7 @@ class TestResPartner(TransactionCase):
         """
         # get the partner with MAX(identifier)
         partner = self.env['res.partner'].search(
-            [], limit=1, order='identifier desc')
+            [('identifier', '!=', False)], limit=1, order='identifier desc')
         partner.identifier += 47
 
         # update the sequence

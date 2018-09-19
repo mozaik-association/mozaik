@@ -33,18 +33,19 @@ class MailComposeMessage(models.TransientModel):
             MailComposeMessage, self.with_context(context)).create(vals)
 
     @api.multi
-    def send_mail(self):
+    def send_mail(self, auto_commit=False):
         """
-        Overriding of send mail: it has to compute the ids
-        of the distribution list to send mail.
-        :return: super result
+        With a distribution list active ids must be computed here
+        except if they are previously computed.
         """
-        dl_computed = self._context.get('dl_computed')
         dist_list = self.distribution_list_id
-        if dist_list and not dl_computed:
+        if dist_list and not self._context.get('dl_computed'):
             mains, __ = dist_list._get_complex_distribution_list_ids()
+            if mains and self._context.get('additional_res_ids'):
+                additional_res_ids = self._context['additional_res_ids']
+                mains |= self.env[mains._name].browse(additional_res_ids)
             self = self.with_context(
                 active_ids=mains.ids,
                 active_model=mains._name,
             )
-        return super().send_mail()
+        return super().send_mail(auto_commit=auto_commit)

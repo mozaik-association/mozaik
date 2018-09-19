@@ -41,11 +41,14 @@ class MailComposeMessage(models.TransientModel):
         self.ensure_one()
         result = super().get_mail_values(res_ids)
         if self.distribution_list_id:
-            mailing_ids = [v.get('mailing_id') for v in result.values()
-                           if v.get('mailing_id')]
-            mass_mailing_obj = self.env['mail.mass_mailing']
+            mailing_ids = [
+                v['mailing_id']
+                for v in result.values()
+                if v.get('mailing_id')
+            ]
             if mailing_ids:
                 # Only the first
+                mass_mailing_obj = self.env['mail.mass_mailing']
                 mass_mailing_obj.browse(mailing_ids[0]).write({
                     'distribution_list_id': self.distribution_list_id.id,
                 })

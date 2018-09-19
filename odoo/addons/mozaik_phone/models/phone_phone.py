@@ -145,7 +145,7 @@ class PhonePhone(models.Model):
         If no value then take the default country code 'BE'
         :return: str
         """
-        return self.env['ir.config_parameter'].get_param(
+        return self.env['ir.config_parameter'].sudo().get_param(
             "default.country.code", default='BE')
 
     @api.multi

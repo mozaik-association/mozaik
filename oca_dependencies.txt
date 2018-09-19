@@ -17,3 +17,4 @@
 server-backend https://github.com/OCA/server-backend 11.0
 queue https://github.com/mozaik-association/queue 11.0-mrm_master
 partner-contact https://github.com/mozaik-association/partner-contact 11.0-mrm_master
+social https://github.com/mozaik-association/social 11.0-mrm_master

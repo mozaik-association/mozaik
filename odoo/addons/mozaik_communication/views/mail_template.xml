@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_email_template_search" model="ir.ui.view">
+        <field name="name">mail.template.search (mozaik_communication)</field>
+        <field name="model">mail.template</field>
+        <field name="inherit_id" ref="mail.view_email_template_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='model_id']" position="after">
+                <field name="int_instance_id"/>
+                <filter name="my_templates" string="My Templates" domain="[('res_users_ids', 'in', [uid])]" help="Email Templates of which I am an owner" />
+            </xpath>
+            <xpath expr="//group[1]" position="inside">
+                <filter name="instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="email_template_tree" model="ir.ui.view">
+        <field name="name">mail.template.tree (mozaik_communication)</field>
+        <field name="model">mail.template</field>
+        <field name="inherit_id" ref="mail.email_template_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="int_instance_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="email_template_form" model="ir.ui.view">
+        <field name="name">mail.template.form (mozaik_communication)</field>
+        <field name="model">mail.template</field>
+        <field name="inherit_id" ref="mail.email_template_form" />
+        <field name="arch" type="xml">
+            <field name="placeholder_id" position="before">
+                <field name="involvement_category_id"/>
+            </field>
+            <xpath expr="//notebook" position="inside">
+                <page name="security" string="Security">
+                    <group name="validity">
+                        <field name="int_instance_id" />
+                        <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//button[@name='create_action']" position="attributes">
+                <attribute name="groups">base.group_erp_manager</attribute>
+            </xpath>
+            <xpath expr="//button[@name='unlink_action']" position="attributes">
+                <attribute name="groups">base.group_erp_manager</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

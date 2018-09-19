@@ -54,6 +54,10 @@ class TestMailComposeMessage(TransactionCase):
         # get the job
         job = q_model.search([])
         self.assertEqual(1, len(job))
+        # try to vacuum composers
+        vac_res = mcm_model._transient_vacuum()
+        # vacuum has been aborted
+        self.assertFalse(vac_res)
         # execute the job
         self._execute_real_job(job)
         self.assertEqual(job.state, 'done')
@@ -62,4 +66,8 @@ class TestMailComposeMessage(TransactionCase):
         self.assertEqual(1, len(mail))
         self.assertEqual(1, len(mail.attachment_ids))
         self.assertEqual(fname, mail.attachment_ids.name)
+        # vacuum composers
+        vac_res = mcm_model._transient_vacuum()
+        # vacuum has been processed
+        self.assertTrue(vac_res)
         return

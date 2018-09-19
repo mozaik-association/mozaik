@@ -1,58 +1,57 @@
-
-# -*- coding: utf-8 -*-
-# Copyright 2017 ACSONE SA/NV
+# Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from anybox.testing.openerp import SharedSetupTransactionCase
+import logging
 from email.utils import formataddr
 
+from odoo.tests.common import SavepointCase
 
-class TestMassFunction(SharedSetupTransactionCase):
+_logger = logging.getLogger(__name__)
 
-    _data_files = (
-        '../../mozaik_base/tests/data/res_partner_data.xml',
-        'data/communication_data.xml',
-    )
 
-    _module_ns = 'mozaik_communication'
+class TestMassFunction(SavepointCase):
 
-    def test_onchange_subject_and_template(self):
-        cr, uid, context = self.cr, self.uid, {'in_mozaik_user': True}
-        evr_lst_id = self.ref('%s.everybody_list' % self._module_ns)
-        mfct_obj = self.registry('distribution.list.mass.function')
+    def setUp(self):
+        super().setUp()
+        self.evr_lst_id = self.browse_ref(
+            'mozaik_communication.everybody_list')
+        self.mfct_obj = self.env['distribution.list.mass.function']
+
+    def test_onchange_subject(self):
+        evr_lst_id = self.evr_lst_id
+        mfct_obj = self.mfct_obj
         vals = {
             'trg_model': 'email.coordinate',
             'e_mass_function': 'email_coordinate_id',
-            'distribution_list_id': evr_lst_id,
+            'distribution_list_id': evr_lst_id.id,
         }
-        wiz_id = mfct_obj.create(cr, uid, vals, context)
-        wiz = mfct_obj.browse(cr, uid, wiz_id)
+        wiz = mfct_obj.new(vals)
         self.assertFalse(wiz.mass_mailing_name)
         subject = 'Le livre de la jungle'
-        values = mfct_obj.onchange_subject(
-            cr, uid, [wiz_id], subject, wiz.mass_mailing_name)
-        mfct_obj.write(cr, uid, [wiz_id], values['value'])
+        wiz.subject = subject
+        wiz._onchange_subject()
         self.assertEqual(subject, wiz.mass_mailing_name)
-        values = mfct_obj.onchange_subject(
-            cr, uid, [wiz_id], 'La guerre des étoiles', wiz.mass_mailing_name)
-        self.assertFalse(values)
+        subject2 = 'La guerre des étoiles'
+        wiz.subject = subject2
+        wiz._onchange_subject()
+        self.assertEqual(subject, wiz.mass_mailing_name)
         return
 
     def test_save_as_template(self):
-        mfct_obj = self.env['distribution.list.mass.function']
-        evr_lst_id = self.ref('%s.everybody_list' % self._module_ns)
+        mfct_obj = self.mfct_obj
+        evr_lst_id = self.evr_lst_id
         vals = {
             'trg_model': 'email.coordinate',
             'e_mass_function': 'email_coordinate_id',
-            'distribution_list_id': evr_lst_id,
+            'distribution_list_id': evr_lst_id.id,
             'subject': 'TEST1',
             'body': '<p>hello</p>',
         }
-        wizard = mfct_obj.with_context({'in_mozaik_user': True}).create(vals)
+        wizard = mfct_obj.create(vals)
         wizard.save_as_template()
-        self.assertTrue(bool(wizard.email_template_id))
-        self.assertEqual(wizard.email_template_id.subject, vals['subject'])
-        self.assertEqual(wizard.email_template_id.body_html, vals['body'])
+        self.assertTrue(wizard.mail_template_id)
+        self.assertEqual(wizard.mail_template_id.subject, vals['subject'])
+        self.assertEqual(wizard.mail_template_id.body_html, vals['body'])
         return
 
     def test_email_from(self):
@@ -61,24 +60,15 @@ class TestMassFunction(SharedSetupTransactionCase):
         * partner_from_id content and default value
         * email_from computed value
         '''
-        # create 2 new users
-        partner_obj = self.env['res.partner']
-        vals = {
-            'name': 'Bob',
-            'email': 'bob@vandersteen.be',
-        }
-        p1 = partner_obj.create(vals)
-        vals = {
-            'name': 'Bobette',
-            'email': 'bobette@vandersteen.be',
-            'is_company': True,
-        }
-        p2 = partner_obj.create(vals)
-        # add a partner_id and a res_partner_m2m_ids to a distribution list
-        dl = self.browse_ref('%s.everybody_list' % self._module_ns)
+        # get 2 partners
+        p1 = self.browse_ref('mozaik_coordinate.res_partner_thierry')
+        p2 = self.browse_ref('mozaik_coordinate.res_partner_pauline')
+        p2.is_company = True
+        # add a partner_id and a res_partner_ids to a distribution list
+        dl = self.evr_lst_id
         vals = {
             'partner_id': p1.id,
-            'res_partner_m2m_ids': [(6, 0, [p2.id])],
+            'res_partner_ids': [(6, 0, [p2.id])],
         }
         dl.write(vals)
         # from now, allowed "From" are:

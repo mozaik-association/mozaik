@@ -10,7 +10,7 @@
     </record>
 
     <record id="second_partner_user" model="res.partner">
-        <field name="name">first partner user</field>
+        <field name="name">second partner user</field>
         <field name="company_id" ref="second_company"/>
         <field name="customer" eval="False"/>
         <field name="email">second_user@second.com</field>

@@ -23,7 +23,7 @@
                 <field name="distribution_list_id" attrs="{'invisible': [('mailing_model_id', '=','mail.mass_mailing.contact')]}"/>
             </xpath>
             <xpath expr="//field[@name='mailing_domain']" position="attributes">
-                <attribute name="attrs">{'invisible': [('distribution_list_id', '!=', False)]}</attribute>
+                <attribute name="attrs">{'required': [('distribution_list_id', '=', False)], 'invisible': [('distribution_list_id', '!=', False)]}</attribute>
             </xpath>
         </field>
     </record>

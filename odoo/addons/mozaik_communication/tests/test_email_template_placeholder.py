@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase
 
 
 class TestEmailTemplatePlaceholder(TransactionCase):
@@ -11,7 +10,7 @@ class TestEmailTemplatePlaceholder(TransactionCase):
         """
         check for default value for some fields
         """
-        # Cretae a placeholder
+        # Create a placeholder
         vals = {
             'name': 'Et Dieu créa la femme...',
         }

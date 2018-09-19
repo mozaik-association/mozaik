@@ -222,7 +222,7 @@ class retrocession_factory_wizard(orm.TransientModel):
         yearly_mandate_ids = list(set(mandate_ids) - set(monthly_mandate_ids))
 
         worker_pivot = int(
-            self.pool.get('ir.config_parameter').get_param(
+            self.pool.get('ir.config_parameter').sudo().get_param(
                 cr,
                 uid,
                 'worker_pivot',

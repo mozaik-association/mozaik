@@ -3,7 +3,6 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <!-- SEARCH -->
     <record id="distribution_list_search" model="ir.ui.view">
         <field name="name">distribution.list.search (mass_mailing_distribution_list)</field>
         <field name="model">distribution.list</field>
@@ -18,7 +17,6 @@
         </field>
     </record>
 
-    <!-- TREE -->
     <record id="distribution_list_tree" model="ir.ui.view">
         <field name="name">distribution.list.tree (mass_mailing_distribution_list)</field>
         <field name="model">distribution.list</field>
@@ -31,7 +29,6 @@
         </field>
     </record>
 
-    <!-- FORM -->
     <record id="distribution_list_form" model="ir.ui.view">
         <field name="name">distribution.list.form (mass_mailing_distribution_list)</field>
         <field name="model">distribution.list</field>
@@ -45,13 +42,13 @@
                 <field name="partner_path" attrs="{'invisible': [('mail_forwarding', '=', 'False')], 'required':[('newsletter','=', True)]}" />
             </xpath>
 
-            <xpath expr="//group[@name='info']" position="inside">
+            <xpath expr="//group[@name='data']" position="inside">
                 <group>
                     <field name="mail_forwarding"/>
                 </group>
-                <group name="group_alias" attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}">
-                    <label for="alias_name" string="Email Alias"/>
-                    <div name="alias_def">
+                <group name="group_alias">
+                    <label for="alias_name" string="Email Alias" attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}"/>
+                    <div name="alias_def" attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}">
                         <!--We have to force to False the required to avoid interface issue (because the field is required but automatically set)-->
                         <field name="alias_id" class="oe_read_only oe_inline" string="Email Alias" required="False"/>
                         <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;" >
@@ -61,7 +58,7 @@
                 </group>
             </xpath>
 
-            <xpath expr="//notebook" position="inside">
+            <xpath expr="//page[@name='technical']" position="before">
                 <page name="optin" string="Opt-In" attrs="{'invisible': [('newsletter', '=', False)]}">
                     <field name="res_partner_opt_in_ids">
                         <tree>

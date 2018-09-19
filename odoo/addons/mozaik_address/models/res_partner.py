@@ -20,7 +20,7 @@ class ResPartner(models.Model):
         domain=[('active', '=', False)], copy=False)
 
     postal_coordinate_id = fields.Many2one(
-        "postal.coordinate", compute="_compute_main_postal_coordinate_id",
+        "postal.coordinate", compute="_compute_main_address_componant",
         string='Address')
 
     address = fields.Char(
@@ -43,26 +43,11 @@ class ResPartner(models.Model):
     @api.multi
     @api.depends(
         "postal_coordinate_ids",
+        "postal_coordinate_ids.address_id",
         "postal_coordinate_ids.is_main",
-        "postal_coordinate_ids.active")
-    def _compute_main_postal_coordinate_id(self):
-        """
-        Reset main address field for a given address
-        """
-        coord_obj = self.env['postal.coordinate']
-        coordinate_ids = coord_obj.sudo().search([
-            ('partner_id', 'in', self.ids),
-            ('is_main', '=', True),
-            ('active', '<=', True)])
-        for coord in coordinate_ids:
-            if coord.active == coord.partner_id.active:
-                coord.partner_id.postal_coordinate_id = coord
-
-    @api.multi
-    @api.depends(
-        "postal_coordinate_ids",
-        "postal_coordinate_ids.is_main",
-        "postal_coordinate_ids.active")
+        "postal_coordinate_ids.active",
+        "postal_coordinate_ids.vip",
+    )
     def _compute_main_address_componant(self):
         """
         Reset address fields with corresponding main postal coordinate ids
@@ -72,13 +57,16 @@ class ResPartner(models.Model):
             [('partner_id', 'in', self.ids),
              ('is_main', '=', True),
              ('active', '<=', True)])
-        for coord in coordinate_ids:
-            if coord.active == coord.partner_id.active:
-                coord.partner_id.country_id = coord.address_id.country_id
-                coord.partner_id.city_id = coord.address_id.city_id
-                coord.partner_id.zip = coord.address_id.zip
-                coord.partner_id.city = coord.address_id.city
-                coord.partner_id.street = coord.address_id.street
-                coord.partner_id.street2 = coord.address_id.street2
-                coord.partner_id.address = 'VIP' if coord.vip else \
-                    coord.address_id.name
+        for partner in self:
+            coord = coordinate_ids.filtered(
+                lambda s, p=partner: s.partner_id.id == p.id and
+                s.active == p.active)
+            partner.postal_coordinate_id = coord
+            partner.country_id = coord.address_id.country_id
+            partner.city_id = coord.address_id.city_id
+            partner.zip = coord.address_id.zip
+            partner.city = coord.address_id.city
+            partner.street = coord.address_id.street
+            partner.street2 = coord.address_id.street2
+            partner.address = 'VIP' if coord.vip else \
+                coord.address_id.name

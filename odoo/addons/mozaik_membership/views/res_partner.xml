@@ -79,7 +79,8 @@
     <record id="res_partner_form_view" model="ir.ui.view">
         <field name="name">res.partner.form (mozaik_membership)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_person.res_partner_form_view" />
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="25" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='postal_coordinate_id']" position="after">
                 <field name="int_instance_id"

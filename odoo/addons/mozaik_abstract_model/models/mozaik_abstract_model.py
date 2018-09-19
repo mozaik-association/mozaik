@@ -40,17 +40,23 @@ class MozaikAbstractModel(models.AbstractModel):
         """
         result = super().init()
 
-        if not self._auto or self._abstract or self._unicity_keys == 'N/A':
+        if not self._auto or self._abstract:
             return result
+
+        create_index = True
+        drop_index = False
+        if self._unicity_keys == 'N/A':
+            drop_index = True
+            create_index = False
 
         if not self._unicity_keys:
             _logger.warning('No _unicity_keys specified for model %s',
                             self._name)
-            return result
+            drop_index = True
+            create_index = False
 
         cr = self.env.cr
         unicity = " ".join(self._unicity_keys.split())
-        create_index = True
         index_name = "%s_unique_idx" % self._table
         index_query = "CREATE UNIQUE INDEX %(index_name)s ON %(table_name)s " \
                       "USING btree (%(btree)s) WHERE (active IS TRUE)"
@@ -76,15 +82,21 @@ class MozaikAbstractModel(models.AbstractModel):
                 _logger.info(
                     'Rebuild index %s_unique_idx:\n%s\n%s',
                     self._name, previous, index_query)
-                drop_values = {
-                    "index_name": AsIs(index_name),
-                }
-                cr.execute("DROP INDEX %(index_name)s;", drop_values)
+                drop_index = True
             else:
                 create_index = False
+        else:
+            drop_index = False
+
+        if drop_index:
+            drop_values = {
+                "index_name": AsIs(index_name),
+            }
+            cr.execute("DROP INDEX %(index_name)s;", drop_values)
 
         if create_index:
             cr.execute(index_query, index_values)
+
         return result
 
     @api.multi
