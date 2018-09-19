@@ -333,9 +333,9 @@ class ExportCsv(models.TransientModel):
         order_by = self._get_order_by(self.env.context.get('sort_by'))
         query = "%(select)s WHERE %(where_query)s ORDER BY %(order_by)s"
         values = {
-            'where_query': AsIs(where_query),
+            'where_query': where_query,
             'order_by': AsIs(order_by),
-            'select': AsIs(select),
+            'select': select,
         }
         self.env.cr.execute(query, values)
         for row in self.env.cr.dictfetchall():

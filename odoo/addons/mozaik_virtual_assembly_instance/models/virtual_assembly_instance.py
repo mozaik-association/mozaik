@@ -91,6 +91,7 @@ class VirtualAssemblyInstance(models.Model):
                             "ON i.id = assembly.instance_id"
             instance_join = self.env.cr.mogrify(
                 instance_join, {'assembly_instance': AsIs(assembly_instance)})
+            instance_join = instance_join.decode("utf-8")
         assembly_type = "%s_assembly" % parameter
         assembly_category = "%s_assembly_category" % parameter
         values.update({
