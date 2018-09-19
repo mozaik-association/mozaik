@@ -42,7 +42,7 @@ class CommonAbstractCoordinate(CommonCoordinate):
         })
         # Disable error into logs
         self.env.cr._default_log_exceptions = False
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             self.model_coordinate.create(values)
         self.env.cr._default_log_exceptions = True
         return

@@ -2,7 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
 from psycopg2.extensions import AsIs
-from odoo import api, fields, models, _
+from psycopg2 import IntegrityError
+from odoo import api, exceptions, fields, models, _
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -34,6 +35,14 @@ class MozaikAbstractModel(models.AbstractModel):
         readonly=True,
     )
 
+    @api.model
+    def _get_index_name(self):
+        """
+        Get the dynamic index/constraint name
+        :return: str
+        """
+        return "%s_unique_idx" % self._table
+
     def init(self):
         """
         Create unique index based on models who implements this abstract model
@@ -57,7 +66,7 @@ class MozaikAbstractModel(models.AbstractModel):
 
         cr = self.env.cr
         unicity = " ".join(self._unicity_keys.split())
-        index_name = "%s_unique_idx" % self._table
+        index_name = self._get_index_name()
         index_query = "CREATE UNIQUE INDEX %(index_name)s ON %(table_name)s " \
                       "USING btree (%(btree)s) WHERE (active IS TRUE)"
         index_values = {
@@ -96,8 +105,48 @@ class MozaikAbstractModel(models.AbstractModel):
 
         if create_index:
             cr.execute(index_query, index_values)
-
         return result
+
+    @api.model
+    def _get_exception_messages(self):
+        """
+        Build a dict where the key is the constraint name (index name) and the
+        value is the error message to raise (with a ValidationError).
+        :return: dict
+        """
+        return {}
+
+    @api.multi
+    def _display_error_message(self, exception):
+        """
+        Load error messages depending on index name and raise the
+        ValidationError with the correct message
+        :param exception: Exception object
+        :return:
+        """
+        try:
+            # If we have an AttributeError to read the constraint name, it
+            # could come from the exception who doesn't have the expected
+            # format. In this case, we have to re-raise the
+            # original expression but with a ValidationError
+            constraint_name = exception.diag.constraint_name
+        except AttributeError:
+            raise exceptions.ValidationError(str(exception))
+        message = self._get_exception_messages().get(
+            constraint_name, str(exception))
+        raise exceptions.ValidationError(message)
+
+    @api.model
+    def create(self, vals):
+        """
+
+        :param vals: dict
+        :return: self recordset
+        """
+        try:
+            return super().create(vals)
+        except IntegrityError as e:
+            self._display_error_message(e)
 
     @api.multi
     def write(self, vals):
@@ -118,7 +167,10 @@ class MozaikAbstractModel(models.AbstractModel):
                     })
                 if self._inactive_cascade:
                     self._invalidate_active_relations()
-        return super().write(vals)
+        try:
+            return super().write(vals)
+        except IntegrityError as e:
+            self._display_error_message(e)
 
     @api.multi
     def action_invalidate(self, vals=None):

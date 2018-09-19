@@ -3,8 +3,7 @@
 
 import logging
 from uuid import uuid4
-from psycopg2 import IntegrityError
-
+from odoo.exceptions import ValidationError
 from odoo.tests.common import SavepointCase
 from odoo.tools.misc import mute_logger
 
@@ -141,7 +140,7 @@ class TestDistributionList(SavepointCase):
             code=newsletter.code,
             newsletter=True,
         )
-        with self.assertRaises(IntegrityError), mute_logger('odoo.sql_db'):
+        with self.assertRaises(ValidationError), mute_logger('odoo.sql_db'):
             self.dl_obj.create(vals)
         return
 
