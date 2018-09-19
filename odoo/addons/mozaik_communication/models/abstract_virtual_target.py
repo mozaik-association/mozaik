@@ -162,7 +162,7 @@ class AbstractVirtualTarget(models.AbstractModel):
             # The string returned is exactly the one that would be sent to the
             # DB after an execute. So the returned string is safe.
             # cfr psycopg official documentation
-            sub_queries.append(cr.mogrify(sub_query, values))
+            sub_queries.append(str(cr.mogrify(sub_query, values)))
         main_query = "\nUNION\n".join(sub_queries)
         tools.drop_view_if_exists(cr, view_name)
         query = """CREATE OR REPLACE VIEW %(table_name)s AS (
