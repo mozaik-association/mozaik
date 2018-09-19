@@ -12,11 +12,13 @@
         'partner_contact_gender',
         'partner_contact_nationality',
         'distribution_list',
+        'mozaik_partner_assembly',
         'mozaik_communication',
         'mozaik_membership',
         'mozaik_thesaurus',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'views/virtual_partner_instance.xml',
     ],
     'license': 'AGPL-3',

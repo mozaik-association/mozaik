@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class VirtualAssemblyInstance(models.Model):
     _name = "virtual.assembly.instance"
     _description = "Assembly/Instance"
-    _inherit = "abstract.virtual.target"
+    _inherit = "abstract.virtual.model"
     _auto = False
     _terms = [
         'competency_ids',

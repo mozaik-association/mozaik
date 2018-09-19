@@ -5,7 +5,7 @@
     <record id="virtual_partner_membership_tree_view" model="ir.ui.view">
         <field name="name">virtual.partner.membership.tree</field>
         <field name="model">virtual.partner.membership</field>
-        <field name="inherit_id" ref="mozaik_communication.abstract_virtual_target_tree_view"/>
+        <field name="inherit_id" ref="mozaik_communication.abstract_virtual_model_tree_view"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="int_instance_id" position="after">

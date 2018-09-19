@@ -6,7 +6,7 @@ from odoo import api, fields, models
 class VirtualPartnerInstance(models.Model):
     _name = "virtual.partner.instance"
     _description = "Partner/Instance"
-    _inherit = "abstract.virtual.target"
+    _inherit = "abstract.virtual.model"
     _auto = False
     _terms = ['interest_ids', 'competency_ids']
 

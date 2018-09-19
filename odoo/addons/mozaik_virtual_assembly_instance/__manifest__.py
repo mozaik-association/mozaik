@@ -9,11 +9,13 @@
     'category': 'Political Association',
     'depends': [
         'distribution_list',
+        'mozaik_partner_assembly',
         'mozaik_communication',
-        'mozaik_membership',
+        'mozaik_structure',
         'mozaik_thesaurus',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'views/virtual_assembly_instance.xml',
     ],
     'license': 'AGPL-3',

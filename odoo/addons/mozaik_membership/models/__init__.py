@@ -12,8 +12,6 @@ from . import postal_coordinate
 from . import partner_involvement
 from . import res_partner_relation
 from . import res_partner_relation_all
-from . import virtual_master_partner
-from . import virtual_custom_partner
 from . import assembly_mixin
 from . import sta_assembly
 from . import int_instance

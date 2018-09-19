@@ -5,7 +5,7 @@ from odoo import api, fields, models
 
 class VirtualPartnerInvolvement(models.Model):
     _name = "virtual.partner.involvement"
-    _inherit = "abstract.virtual.target"
+    _inherit = "abstract.virtual.model"
     _description = "Partner/Involvement"
     _auto = False
     _terms = [

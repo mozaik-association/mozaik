@@ -6,7 +6,7 @@ from odoo import api, fields, models
 class VirtualPartnerMembership(models.Model):
     _name = "virtual.partner.membership"
     _description = "Partner/Membership"
-    _inherit = "abstract.virtual.target"
+    _inherit = "abstract.virtual.model"
     _auto = False
     _terms = [
         'competency_ids',

@@ -4,12 +4,12 @@ from psycopg2.extensions import AsIs
 from odoo import api, fields, tools, models
 
 
-class AbstractVirtualTarget(models.AbstractModel):
+class AbstractVirtualModel(models.AbstractModel):
     """
     Abstract model used to contain common properties for virtual models
     """
-    _name = 'abstract.virtual.target'
-    _description = 'Abstract Virtual Target'
+    _name = 'abstract.virtual.model'
+    _description = 'Abstract Virtual Model'
 
     partner_id = fields.Many2one(
         comodel_name='res.partner',

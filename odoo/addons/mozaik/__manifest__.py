@@ -22,6 +22,7 @@
         'mozaik_duplicate',
         'mozaik_email',
         'mozaik_involvement',
+        'mozaik_membership',
         'mozaik_partner_assembly',
         'mozaik_partner_fields',
         'mozaik_partner_unauthorized',

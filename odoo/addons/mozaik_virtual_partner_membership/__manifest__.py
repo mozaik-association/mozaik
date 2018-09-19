@@ -16,6 +16,7 @@
         'mozaik_thesaurus',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'views/virtual_partner_membership.xml',
     ],
     'license': 'AGPL-3',

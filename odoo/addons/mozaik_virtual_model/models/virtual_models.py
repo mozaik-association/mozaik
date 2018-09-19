@@ -17,7 +17,7 @@ class virtual_partner_mandate(orm.Model):
 
     _name = "virtual.partner.mandate"
     _description = "Partner/Mandate"
-    _inherit = "abstract.virtual.target"
+    _inherit = "abstract.virtual.model"
     _terms = [
         'ref_partner_competencies_m2m_ids',
         'sta_competencies_m2m_ids',
@@ -230,7 +230,7 @@ class virtual_partner_candidature(orm.Model):
 
     _name = "virtual.partner.candidature"
     _description = "Partner/Candidature"
-    _inherit = "abstract.virtual.target"
+    _inherit = "abstract.virtual.model"
     _terms = [
         'competencies_m2m_ids',
         'interests_m2m_ids',
@@ -369,7 +369,7 @@ class virtual_partner_retrocession(orm.Model):
 
     _name = "virtual.partner.retrocession"
     _description = "Partner/Retrocession"
-    _inherit = "abstract.virtual.target"
+    _inherit = "abstract.virtual.model"
     _terms = [
         'competencies_m2m_ids',
         'interests_m2m_ids',

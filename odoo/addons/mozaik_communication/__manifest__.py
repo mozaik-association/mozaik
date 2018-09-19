@@ -31,6 +31,7 @@
     'data': [
         'security/communication_security.xml',
         'security/mail_mass_mailing_group.xml',
+        'security/ir.model.access.csv',
         'wizards/distribution_list_mass_function.xml',
         'views/distribution_list_line.xml',
         'views/distribution_list.xml',
@@ -39,7 +40,8 @@
         'views/mail_statistics_report.xml',
         'views/mail_template.xml',
         'views/res_partner.xml',
-        'views/abstract_virtual_target.xml',
+        'views/abstract_virtual_model.xml',
+        'views/virtual_target.xml',
         'wizards/export_csv.xml',
     ],
     'demo': [
