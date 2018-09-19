@@ -15,6 +15,8 @@
         'distribution_list',
         'mass_mailing_distribution_list',
         'mass_mail_queue_job',
+        'partner_contact_birthdate',
+        'partner_contact_gender',
         'mozaik_abstract_model',
         'mozaik_coordinate',
         'mozaik_address',

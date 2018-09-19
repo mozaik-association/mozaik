@@ -20,12 +20,6 @@ class VirtualPartnerMembership(models.Model):
         comodel_name='membership.state',
         string="State",
     )
-    del_doc_date = fields.Date(
-        string='Welcome Documents Sent Date',
-    )
-    del_mem_card_date = fields.Date(
-        string="Member Card Sent Date",
-    )
     reference = fields.Char()
     is_donor = fields.Boolean(
         string="Is a donor",
@@ -41,17 +35,14 @@ class VirtualPartnerMembership(models.Model):
         :return: str
         """
         select = """SELECT
-                p.id as id,
                 concat(p.id, '/', pc.id, '/', e.id) as common_id,
                 p.id as partner_id,
                 p.int_instance_id as int_instance_id,
-                p.del_doc_date as del_doc_date,
-                p.del_mem_card_date as del_mem_card_date,
                 p.reference as reference,
                 e.id as email_coordinate_id,
                 pc.id as postal_coordinate_id,
                 p.identifier as identifier,
-                p.birth_date as birth_date,
+                p.birthdate_date as birth_date,
                 p.gender as gender,
                 p.lang as lang,
                 p.employee as employee,

@@ -60,7 +60,7 @@ class VirtualPartnerInstance(models.Model):
             pc.coordinate_category_id AS postal_category_id,
             p.is_company AS is_company,
             p.identifier AS identifier,
-            p.birth_date AS birth_date,
+            p.birthdate_date AS birth_date,
             p.gender AS gender,
             p.lang AS lang,
             p.employee AS employee,

@@ -69,7 +69,7 @@
         <field name="multi" eval="1" />
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-        <field name="binding_model_id" ref="mozaik_virtual_partner_instance.model_virtual_partner_relation" />
+        <field name="binding_model_id" ref="mozaik_virtual_partner_relation.model_virtual_partner_relation" />
         <field name="groups_id"
                eval="[(6, 0, [ref('mozaik_communication.res_groups_communication_user')])]" />
     </record>

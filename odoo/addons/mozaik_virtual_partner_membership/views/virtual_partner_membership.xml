@@ -2,17 +2,16 @@
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <record id="virtual_partner_relation_tree_view" model="ir.ui.view">
-        <field name="name">virtual.partner.involvement.tree</field>
-        <field name="model">virtual.partner.involvement</field>
+    <record id="virtual_partner_membership_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.membership.tree</field>
+        <field name="model">virtual.partner.membership</field>
         <field name="inherit_id" ref="mozaik_communication.abstract_virtual_target_tree_view"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="int_instance_id" position="after">
                 <field name="membership_state_id"/>
-                <field name="del_mem_card_date"/>
             </field>
-            <field name="tongue" position="after">
+            <field name="lang" position="after">
                 <field name="is_donor"/>
                 <field name="is_volunteer"/>
             </field>
@@ -38,28 +37,9 @@
                 <field name="membership_state_id" />
                 <field name="lang" />
 
-                <field string="Welcome Documents Sent Date > ..." name="del_doc_date"
-                       filter_domain="[('del_doc_date','>',self)]" />
-                <field string="Welcome Documents Sent Date &lt; ..." name="del_doc_date"
-                       filter_domain="[('del_doc_date','&lt;',self)]" />
-                <field string="Member Card Sent Date > ..." name="del_mem_card_date"
-                       filter_domain="[('del_mem_card_date','>',self)]" />
-                <field string="Member Card Sent Date &lt; ..." name="del_mem_card_date"
-                       filter_domain="[('del_mem_card_date','&lt;',self)]" />
-
                 <field name="interest_ids" widget="many2one" />
                 <field name="competency_ids" widget="many2one" />
 
-                <filter string="Undelivered Welcome Documents"
-                        name="del_doc_date"
-                        domain="[('del_doc_date','=', False),
-                                 ('membership_state_id.code','in', ['member_candidate','supporter'])]" />
-                <separator/>
-                <filter string="Undelivered Member Cards"
-                        name="del_mem_card_date"
-                        domain="[('del_mem_card_date','=', False),
-                                 ('membership_state_id.code','=', 'member')]" />
-                <separator/>
                 <filter string="Awaiting payment" name="awaiting_payment"
                         domain="[('reference','!=', False)]"/>
                 <separator />
@@ -114,7 +94,7 @@
         <field name="target">new</field>
         <field name="view_id"
                ref="distribution_list.distribution_list_add_filter" />
-        <field name="binding_model_id" ref="mozaik_virtual_partner_instance.model_virtual_partner_membership" />
+        <field name="binding_model_id" ref="mozaik_virtual_partner_membership.model_virtual_partner_membership" />
         <field name="groups_id"
                eval="[(6, 0, [ref('mozaik_communication.res_groups_communication_user')])]" />
     </record>

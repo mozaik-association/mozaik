@@ -52,7 +52,6 @@ class VirtualPartnerInvolvement(models.Model):
         :return: str
         """
         select = """SELECT
-pi.id AS id,
 CONCAT(pi.partner_id, '/', pc.id, '/', e.id) AS common_id,
 pi.partner_id AS partner_id,
 pi.effective_time AS effective_time,
@@ -69,7 +68,7 @@ e.id AS email_coordinate_id,
 pc.id AS postal_coordinate_id,
 p.is_company AS is_company,
 p.identifier AS identifier,
-p.birth_date AS birth_date,
+p.birthdate_date AS birth_date,
 p.gender AS gender,
 p.lang AS lang,
 p.employee AS employee,
