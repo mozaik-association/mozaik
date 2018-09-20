@@ -51,6 +51,9 @@ class DistributionListLine(models.Model):
         default=lambda self: self._get_default_src_model_id(),
         domain=lambda self: self._get_domain_src_model_id(),
     )
+    src_model_model = fields.Char(
+        related="src_model_id.model",
+    )
     bridge_field_id = fields.Many2one(
         comodel_name="ir.model.fields",
         string="Bridge field",
@@ -177,7 +180,7 @@ class DistributionListLine(models.Model):
         }
         return result
 
-    def _save_domain(self, domain):
+    def save_domain(self, domain):
         """
         This method will update `domain`
         :param domain: str
@@ -247,24 +250,4 @@ class DistributionListLine(models.Model):
             'context': self.env.context.copy(),
             'domain': self._get_eval_domain(),
             'target': 'current',
-        }
-
-    @api.multi
-    def action_redefine_domain(self):
-        """
-        Allow to launch an action to redefine the filter domain
-        """
-        self.ensure_one()
-        context = self.env.context.copy()
-        context.update({
-            'res_id': self.id,
-        })
-        return {
-            'type': 'ir.actions.act_window',
-            'name': '%s List' % self.src_model_id.name,
-            'res_model': self.src_model_id.model,
-            'view_mode': 'tree',
-            'target': 'new',
-            'flags': {'search_view': True},
-            'context': context,
         }

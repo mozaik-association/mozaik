@@ -59,6 +59,7 @@
                         <group name="info">
                             <field name="distribution_list_id" invisible="context.get('default_distribution_list_id')" attrs="{'readonly': [('id','!=',False)]}"/>
                             <field name="src_model_id" widget="selection"/>
+                            <field name="src_model_model" invisible="1"/>
                             <field name="bridge_field_id" options="{'no_create_edit': True}"/>
                         </group>
                         <group name="company">
