@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime, timedelta
-import psycopg2
 
 from odoo.tests.common import SavepointCase
 
@@ -75,7 +74,7 @@ class TestPartnerInvolvement(SavepointCase):
         # copy it: OK
         involvement.copy()
         # create an already existing involvement: NOK
-        with self.assertRaises(psycopg2.IntegrityError), \
+        with self.assertRaises(exceptions.ValidationError), \
                 mute_logger('odoo.sql_db'):
             self.env['partner.involvement'].create({
                 'partner_id': paul.id,

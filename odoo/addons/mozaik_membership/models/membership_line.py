@@ -1,7 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from odoo import api, models, fields
+from odoo import api, models, fields, _
 import odoo.addons.decimal_precision as dp
 
 
@@ -66,3 +65,19 @@ class MembershipLine(models.Model):
             vals['date_to'] = fields.date.today()
 
         return super().action_invalidate(vals=vals)
+
+    @api.model
+    def _get_exception_messages(self):
+        """
+        Build a dict where the key is the constraint name (index name) and the
+        value is the error message to raise (with a ValidationError).
+        :return: dict
+        """
+        result = super(MembershipLine, self)._get_exception_messages()
+        index_name = self._get_index_name()
+        message = _("The partner already have an active subscription "
+                    "to this instance")
+        result.update({
+            index_name: message,
+        })
+        return result
