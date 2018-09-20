@@ -64,18 +64,17 @@ class ExtAssembly(models.Model):
         '''
         n1 = (
             self and self.ref_partner_id or
-            vals and self.env['res.partner'].browse(
-                vals.get('ref_partner_id')).name or
-            False
-        )
+            self.env['res.partner'].browse(
+                vals and vals.get('ref_partner_id'))
+        ).name or False
         n2 = (
             self and self.assembly_category_id or
-            vals and self.env['ext.assembly.category'].browse(
-                vals.get('assembly_category_id')).name or
-            False
-        )
+            self.env['ext.assembly.category'].browse(
+                vals and vals.get('assembly_category_id'))
+        ).name or False
         return (n1, n2)
 
+    @api.model
     @api.onchange(
         'ref_partner_id', 'assembly_category_id')
     def _onchange_assembly_category_or_instance(self):

@@ -257,19 +257,27 @@ class TestStructure(TransactionCase):
         self.assertFalse(ia.name)
 
         # update record and launch the onchange
-        ia.instance_id = self.ref('mozaik_structure.int_instance_01')
+        ia.instance_id = self.browse_ref('mozaik_structure.int_instance_01')
         ia._onchange_assembly_category_or_instance()
 
         # check for assembly name
         self.assertFalse(ia.name)
 
         # update record and launch the onchange
-        ia.assembly_category_id = self.ref(
+        ia.assembly_category_id = self.browse_ref(
             'mozaik_structure.int_assembly_category_01')
         ia._onchange_assembly_category_or_instance()
 
         # check for assembly name
-        self.assertTrue(ia.name)
+        names = ia._get_names()
+        self.assertEqual('%s (%s)' % names, ia.name)
+        vals = {
+            'instance_id': ia.instance_id.id,
+            'assembly_category_id': ia.assembly_category_id.id,
+        }
+        ii = self.env['int.assembly']
+        name = ii._build_name(ii._get_names(vals=vals))
+        self.assertEqual(name, ia.name)
 
         return
 

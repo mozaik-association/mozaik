@@ -37,16 +37,14 @@ class IntAssembly(models.Model):
         '''
         n1 = (
             self and self.instance_id or
-            vals and self.env['int.instance'].browse(
-                vals.get('instance_id')).name or
-            False
-        )
+            self.env['int.instance'].browse(
+                vals and vals.get('instance_id'))
+        ).name or False
         n2 = (
             self and self.assembly_category_id or
-            vals and self.env['int.assembly.category'].browse(
-                vals.get('assembly_category_id')).name or
-            False
-        )
+            self.env['int.assembly.category'].browse(
+                vals and vals.get('assembly_category_id'))
+        ).name or False
         return (n1, n2)
 
     @api.multi
