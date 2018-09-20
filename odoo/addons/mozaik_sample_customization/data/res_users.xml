@@ -8,7 +8,7 @@
         <field name="firstname">Pierre</field>
         <field name="usual_lastname">KIROUL</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="int_instance_ids" eval="[(6, 0, [
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
             ref('int_instance_03'),
         ])]"/>
     </record>
@@ -17,7 +17,7 @@
         <field name="lastname">LELOUCH</field>
         <field name="firstname">Claude</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="int_instance_ids" eval="[(6, 0, [
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
             ref('int_instance_07'),
         ])]"/>
     </record>
@@ -29,7 +29,7 @@
         <field name="employee" eval="1"/>
         <field name="website">http://www.aftnet.be/portail-aft/Joueurs/Fiche-signaletique-membre.aspx?numfed=4021764</field>
         <field name="secondary_website">http://www.itftennis.com/procircuit/players/player/profile.aspx?playerid=30020306</field>
-        <field name="int_instance_ids" eval="[(6, 0, [
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
             ref('int_instance_04'),
             ref('int_instance_07'),
         ])]"/>
@@ -39,7 +39,7 @@
         <field name="lastname">BARRAL</field>
         <field name="firstname">Léon</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="int_instance_ids" eval="[(6, 0, [
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
             ref('int_instance_06'),
         ])]"/>
     </record>
@@ -49,7 +49,7 @@
         <field name="firstname">Isabelle</field>
         <field name="company_id" ref="base.main_company"/>
         <field name="employee" eval="1"/>
-        <field name="int_instance_ids" eval="[(6, 0, [
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
             ref('mozaik_structure.int_instance_01'),
         ])]"/>
     </record>
@@ -59,7 +59,7 @@
         <field name="firstname">Sylvie</field>
         <field name="company_id" ref="base.main_company"/>
         <field name="employee" eval="1"/>
-        <field name="int_instance_ids" eval="[(6, 0, [
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
             ref('mozaik_structure.int_instance_01'),
         ])]"/>
     </record>
