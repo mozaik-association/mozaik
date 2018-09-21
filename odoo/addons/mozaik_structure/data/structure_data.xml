@@ -3,13 +3,13 @@
 
     <!-- Internal Power Level -->
 
-    <record id="int_power_level_01" model="int.power.level">
+    <record forcecreate="True" id="int_power_level_01" model="int.power.level">
         <field name="name">Federal</field>
     </record>
 
     <!-- Internal Instance -->
 
-    <record id="int_instance_01" model="int.instance">
+    <record forcecreate="True" id="int_instance_01" model="int.instance">
         <field name="name">Mozaik Headquarter</field>
         <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
     </record>

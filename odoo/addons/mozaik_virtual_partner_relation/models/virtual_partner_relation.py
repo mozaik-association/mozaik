@@ -37,69 +37,47 @@ class VirtualPartnerRelation(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        if False:
-            select = """SELECT
+        select = """SELECT
             CONCAT(r.left_partner_id, '/',
-                CASE
-                    WHEN pc2.id IS NULL
-                    THEN pc1.id
-                    ELSE pc2.id
-                END,
-                '/',
-                CASE
-                    WHEN ec2.id IS NULL
-                    THEN ec1.id
-                    ELSE ec2.id
-                END) as common_id,
-            r.left_partner_id AS partner_id,
-            rc.id AS relation_category_id,
-            r.right_partner_id AS object_partner_id,
-            p.int_instance_id AS int_instance_id,
-            p.is_assembly AS is_assembly,
-            p.is_company AS is_company,
-            p.identifier AS identifier,
-            p.birthdate_date AS birth_date,
-            p.gender AS gender,
-            p.lang AS lang,
-            p.employee AS employee,
-            CASE
-                WHEN ec2.id IS NULL
-                THEN ec1.id
-                ELSE ec2.id
-            END
-            AS email_coordinate_id,
             CASE
                 WHEN pc2.id IS NULL
                 THEN pc1.id
                 ELSE pc2.id
-            END
-            AS postal_coordinate_id,
+            END,
+            '/',
             CASE
-                WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
-                THEN True
-                ELSE False
-            END AS active"""
-        else:
-            select = """SELECT
-            CONCAT(r.left_partner_id, '/',pc1.id,ec1.id) as common_id,
-            r.left_partner_id AS partner_id,
-            rc.id AS relation_category_id,
-            r.right_partner_id AS object_partner_id,
-            p.int_instance_id AS int_instance_id,
-            p.is_assembly AS is_assembly,
-            p.is_company AS is_company,
-            p.identifier AS identifier,
-            p.birthdate_date AS birth_date,
-            p.gender AS gender,
-            p.lang AS lang,
-            p.employee AS employee,
-            ec1.id AS email_coordinate_id,
-            pc1.id AS postal_coordinate_id,
-            CASE
-                WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
-                THEN True
-                ELSE False
-            END AS active"""
+                WHEN ec2.id IS NULL
+                THEN ec1.id
+                ELSE ec2.id
+            END) as common_id,
+        r.left_partner_id AS partner_id,
+        rc.id AS relation_category_id,
+        r.right_partner_id AS object_partner_id,
+        p.int_instance_id AS int_instance_id,
+        p.is_assembly AS is_assembly,
+        p.is_company AS is_company,
+        p.identifier AS identifier,
+        p.birthdate_date AS birth_date,
+        p.gender AS gender,
+        p.lang AS lang,
+        p.employee AS employee,
+        CASE
+            WHEN ec2.id IS NULL
+            THEN ec1.id
+            ELSE ec2.id
+        END
+        AS email_coordinate_id,
+        CASE
+            WHEN pc2.id IS NULL
+            THEN pc1.id
+            ELSE pc2.id
+        END
+        AS postal_coordinate_id,
+        CASE
+            WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
+            THEN True
+            ELSE False
+        END AS active"""
         return select
 
     @api.model
@@ -122,9 +100,7 @@ class VirtualPartnerRelation(models.Model):
             LEFT OUTER JOIN email_coordinate AS ec1
                 ON ec1.partner_id = p.id
                 AND ec1.active
-                AND ec1.is_main"""
-        if False:
-            from_query += """
+                AND ec1.is_main
             LEFT OUTER JOIN postal_coordinate AS pc2
                 ON pc2.id = r.postal_coordinate_id
                 AND pc2.active

@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
 from uuid import uuid4
-from psycopg2 import IntegrityError
 from odoo.exceptions import ValidationError
 from .common import CommonCoordinate
 

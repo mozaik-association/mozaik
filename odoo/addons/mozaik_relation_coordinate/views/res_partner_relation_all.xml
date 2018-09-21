@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_relation_all_form_view">
+        <field name="name">res.partner.relation.all.form (in mozaik_relation_coordinate)</field>
+        <field name="model">res.partner.relation.all</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                    </div>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
+                                confirm="Archive/reactivate relation: proceed anyway?"
+                                groups="mozaik_abstract_model.res_groups_archiving_manager">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="this_partner_id" class="oe_edit_only"/>
+                        <h1><field name="this_partner_id" /></h1>
+                        <label for="type_selection_id" class="oe_edit_only"/>
+                        <h1><field name="type_selection_id" options="{'no_create': True}"/></h1>
+                        <label for="other_partner_id" class="oe_edit_only"/>
+                        <h1><field name="other_partner_id" /></h1>
+                    </div>
+                    <group>
+                        <group name="state">
+                            <field name="create_date" attrs="{'invisible': [('id','=',False)]}"/>
+                        </group>
+                        <group name="validity">
+                            <field name="date_start" />
+                            <field name="date_end" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="note" string="Note">
+                            <field name="note" />
+                        </page>
+                        <page name="coordinates" string="Coordinates" attrs="{'invisible': [('is_inverse','=',True)]}">
+                            <group>
+                                <field name="email_coordinate_id" context="{'default_partner_id': this_partner_id}"/>
+                                <field name="postal_coordinate_id" context="{'default_partner_id': this_partner_id}"/>
+                                <field name="fix_coordinate_id" context="{'default_partner_id': this_partner_id, 'default_type': 'fix'}"/>
+                                <field name="mobile_coordinate_id" context="{'default_partner_id': this_partner_id, 'default_type': 'mobile'}"/>
+                                <field name="fax_coordinate_id" context="{'default_partner_id': this_partner_id, 'default_type': 'fax'}"/>
+                            </group>
+                        </page>
+                        <page string="More Info" name="dev" groups="base.group_erp_manager">
+                            <group name="moreinfo">
+                                <field name="is_inverse" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- module partner_multi_relation is incompatible with mail.thread -->
+                <!--div name="chat" class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field name="message_ids" widget="mail_thread" />
+                </div-->
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_relation_all_search_view">
+        <field name="name">res.partner.relation.all.search (in mozaik_relation_coordinate)</field>
+        <field name="model">res.partner.relation.all</field>
+        <field name="inherit_id" ref="partner_multi_relation.search_res_partner_relation_all"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type_selection_id']" position="after">
+                <field name="note"/>
+                <field string="Start date >= ..." name="date_start" filter_domain="[('date_start','>=', self)]" />
+                <field string="Start date &lt; ..." name="date_start" filter_domain="[('date_start','&lt;', self)]" />
+                <field string="End date > ..." name="date_end" filter_domain="[('date_end','>', self)]" />
+                <field string="End date &lt;= ..." name="date_end" filter_domain="[('date_end','&lt;=', self)]" />
+            </xpath>
+            <xpath expr="//group/preceding-sibling::filter[1]" position="before">
+                <separator/>
+            </xpath>
+            <xpath expr="//group/preceding-sibling::filter[1]" position="attributes">
+                <attribute name="string">All</attribute>
+                <attribute name="name" translation="off">all</attribute>
+            </xpath>
+            <xpath expr="//group/preceding-sibling::filter[1]" position="after">
+                <filter name="expired" string="Expired"
+                        domain="[('active','=',False)]" help="Expired Relations" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_relation_all_tree_view">
+        <field name="name">res.partner.relation.all.tree (in mozaik_relation_coordinate)</field>
+        <field name="model">res.partner.relation.all</field>
+        <field name="inherit_id" ref="partner_multi_relation.tree_res_partner_relation_all"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable"/>
+                <attribute name="colors"/>
+                <attribute name="decoration-muted" translation="off">not active</attribute>
+                <attribute name="decoration-info" translation="off">date_start > current_date</attribute>
+            </xpath>
+        </field>
+        <field name="priority" eval="99"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="partner_multi_relation.action_res_partner_relation_all">
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+</odoo>
