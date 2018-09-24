@@ -4,14 +4,6 @@ import datetime
 
 from odoo import api, fields, models
 
-COORDINATE_FIELDS = [
-    'email_coordinate_id',
-    'postal_coordinate_id',
-    'fix_coordinate_id',
-    'mobile_coordinate_id',
-    'fax_coordinate_id',
-]
-
 
 class ResPartnerRelationAll(models.AbstractModel):
 
@@ -84,14 +76,26 @@ class ResPartnerRelationAll(models.AbstractModel):
     )
 
     @api.model
+    def _get_coordinate_fields(self):
+        """ retrieve coordinate fields define here above """
+        flds = [
+            n for (n, f)
+            in self._fields.items()
+            if f.type == 'many2one' and f.comodel_name in (
+                'phone.coordinate', 'postal.coordinate', 'email.coordinate',
+            )
+        ]
+        return flds
+
+    @api.model
     def _get_additional_relation_columns(self):
-        """ adda new columns in SQL view """
+        """ add a new columns in SQL view """
         res = super()._get_additional_relation_columns()
         added_fields = (
             ', rel.note'
             ', rel.create_date'
         )
-        for fld in COORDINATE_FIELDS:
+        for fld in self._get_coordinate_fields():
             added_fields += ', rel.%s' % fld
         return "%s%s" % (res, added_fields)
 
@@ -111,7 +115,7 @@ class ResPartnerRelationAll(models.AbstractModel):
         """remove coordinates from values"""
         vals = super()._correct_vals(vals, type_selection)
         if type_selection.is_inverse:
-            for key in COORDINATE_FIELDS:
+            for key in self._get_coordinate_fields():
                 vals.pop(key, None)
         return vals
 

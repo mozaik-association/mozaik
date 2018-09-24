@@ -58,11 +58,7 @@
                         </page>
                     </notebook>
                 </sheet>
-                <!-- module partner_multi_relation is incompatible with mail.thread -->
-                <!--div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
-                    <field name="message_ids" widget="mail_thread" />
-                </div-->
+                <!-- module partner_multi_relation is incompatible with mail.thread: thus, no chatting room for now -->
             </form>
         </field>
     </record>

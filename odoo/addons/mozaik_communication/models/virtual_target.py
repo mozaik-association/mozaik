@@ -34,19 +34,7 @@ class VirtualTarget(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = """SELECT
-            CONCAT(p.id, '/', pc.id, '/', e.id) AS common_id,
-            p.id AS partner_id,
-            p.int_instance_id AS int_instance_id,
-            p.is_company AS is_company,
-            p.identifier AS identifier,
-            p.birthdate_date AS birth_date,
-            p.gender AS gender,
-            p.lang AS lang,
-            p.employee AS employee,
-            pc.id AS postal_coordinate_id,
-            pc.unauthorized AS postal_unauthorized,
-            pc.vip AS postal_vip,
+        select = super()._get_select() + """,
             pc.is_main AS main_postal,
             pc.failure_counter as postal_failure_counter,
             CASE
@@ -56,9 +44,6 @@ class VirtualTarget(models.Model):
             END as postal,
             adr.zip as zip,
             adr.country_id as country_id,
-            e.id AS email_coordinate_id,
-            e.unauthorized AS email_unauthorized,
-            e.vip AS email_vip,
             e.is_main AS main_email,
             e.failure_counter as email_failure_counter,
             CASE
@@ -70,12 +55,7 @@ class VirtualTarget(models.Model):
             p.display_name AS display_name,
             p.technical_name AS technical_name,
             p.lastname AS lastname,
-            p.firstname AS firstname,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END AS active"""
+            p.firstname AS firstname"""
         return select
 
     @api.model

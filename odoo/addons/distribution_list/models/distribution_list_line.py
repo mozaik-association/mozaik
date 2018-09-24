@@ -207,7 +207,7 @@ class DistributionListLine(models.Model):
     @api.multi
     def _get_target_recordset(self):
         """
-        Get target recordset where the related domain is applied with a AND
+        Get target recordset where the related domain is applied with a OR
         between every domains
         :return: target recordset
         """

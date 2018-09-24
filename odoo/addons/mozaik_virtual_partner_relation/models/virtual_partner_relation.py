@@ -10,6 +10,9 @@ class VirtualPartnerRelation(models.Model):
     _auto = False
     _terms = ['interest_ids', 'competency_ids']
 
+    is_assembly = fields.Boolean(
+        string='Is an Assembly',
+    )
     relation_category_id = fields.Many2one(
         comodel_name='res.partner.relation.type',
         string='Relation Category',
@@ -17,18 +20,6 @@ class VirtualPartnerRelation(models.Model):
     object_partner_id = fields.Many2one(
         comodel_name='res.partner',
         string='Object',
-    )
-    is_assembly = fields.Boolean(
-        string='Is an Assembly',
-    )
-    postal_unauthorized = fields.Boolean(
-        related='postal_coordinate_id.unauthorized',
-    )
-    email_vip = fields.Boolean(
-        related='email_coordinate_id.vip',
-    )
-    email_unauthorized = fields.Boolean(
-        related='email_coordinate_id.unauthorized',
     )
 
     @api.model
@@ -38,7 +29,7 @@ class VirtualPartnerRelation(models.Model):
         :return: str
         """
         select = """SELECT
-            CONCAT(r.left_partner_id, '/',
+            CONCAT(p.id, '/',
             CASE
                 WHEN pc2.id IS NULL
                 THEN pc1.id
@@ -50,9 +41,7 @@ class VirtualPartnerRelation(models.Model):
                 THEN ec1.id
                 ELSE ec2.id
             END) as common_id,
-        r.left_partner_id AS partner_id,
-        rc.id AS relation_category_id,
-        r.right_partner_id AS object_partner_id,
+        p.id AS partner_id,
         p.int_instance_id AS int_instance_id,
         p.is_assembly AS is_assembly,
         p.is_company AS is_company,
@@ -61,6 +50,8 @@ class VirtualPartnerRelation(models.Model):
         p.gender AS gender,
         p.lang AS lang,
         p.employee AS employee,
+        r.type_id AS relation_category_id,
+        r.right_partner_id AS object_partner_id,
         CASE
             WHEN ec2.id IS NULL
             THEN ec1.id
@@ -68,14 +59,38 @@ class VirtualPartnerRelation(models.Model):
         END
         AS email_coordinate_id,
         CASE
+            WHEN ec2.id IS NULL
+            THEN ec1.vip
+            ELSE ec2.vip
+        END
+        AS email_vip,
+        CASE
+            WHEN ec2.id IS NULL
+            THEN ec1.unauthorized
+            ELSE ec2.unauthorized
+        END
+        AS email_unauthorized,
+        CASE
             WHEN pc2.id IS NULL
             THEN pc1.id
             ELSE pc2.id
         END
         AS postal_coordinate_id,
         CASE
-            WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
-            THEN True
+            WHEN pc2.id IS NULL
+            THEN pc1.vip
+            ELSE pc2.vip
+        END
+        AS postal_vip,
+        CASE
+            WHEN pc2.id IS NULL
+            THEN pc1.unauthorized
+            ELSE pc2.unauthorized
+        END
+        AS postal_unauthorized,
+        CASE
+            WHEN ec2.id IS NOT NULL OR pc2.id IS NOT NULL THEN True
+            WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL THEN True
             ELSE False
         END AS active"""
         return select
@@ -91,8 +106,6 @@ class VirtualPartnerRelation(models.Model):
                 ON p.id = r.left_partner_id
                 AND p.active
                 AND p.identifier > 0
-            JOIN res_partner_relation_type AS rc
-                ON rc.id = r.type_id
             LEFT OUTER JOIN postal_coordinate AS pc1
                 ON pc1.partner_id = p.id
                 AND pc1.active

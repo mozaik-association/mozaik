@@ -9,7 +9,7 @@ from odoo.tests.common import SavepointCase
 class TestPartnerRelationAll(SavepointCase):
 
     def setUp(self):
-        super(TestPartnerRelationAll, self).setUp()
+        super().setUp()
         self.ec_id = self.browse_ref('mozaik_email.email_coordinate_pauline')
         self.pc_id = self.ref('mozaik_address.postal_coordinate_3')
         self.relation = self.env['res.partner.relation'].create({

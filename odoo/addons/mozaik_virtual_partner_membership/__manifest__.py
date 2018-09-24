@@ -8,8 +8,6 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'partner_contact_birthdate',
-        'partner_contact_gender',
         'distribution_list',
         'mozaik_communication',
         'mozaik_membership',
