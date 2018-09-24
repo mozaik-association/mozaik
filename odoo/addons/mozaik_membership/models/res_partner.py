@@ -122,8 +122,8 @@ class ResPartner(models.Model):
             values['partner_id'] = partner.id
             values['state_id'] = partner.membership_state_id.id
             if values['state_id'] != def_state_id.id:
-                values['int_instance_id'] = partner.int_instance_id and \
-                    partner.int_instance_id.id or False
+                values['int_instance_id'] = partner.int_instance_id.id \
+                    if partner.int_instance_id else False
                 values['reference'] = ref
                 current_membership_line_id = membership_line_obj.search(
                     [('partner_id', '=', partner.id), ('active', '=', True)],

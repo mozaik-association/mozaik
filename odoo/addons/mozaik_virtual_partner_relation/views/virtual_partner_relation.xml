@@ -9,7 +9,7 @@
         <field name="inherit_id" ref="mozaik_communication.abstract_virtual_model_tree_view"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <field name="birth_date" position="after">
+            <field name="birth_date" position="before">
                 <field name="relation_category_id" />
                 <field name="object_partner_id" />
             </field>
@@ -34,6 +34,7 @@
                 <field name="lang" />
                 <field name="interest_ids" widget="many2one" />
                 <field name="competency_ids" string="Competencies &amp; Topics" widget="many2one" />
+
                 <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" />
                 <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]" />
                 <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','!=',0)]" />

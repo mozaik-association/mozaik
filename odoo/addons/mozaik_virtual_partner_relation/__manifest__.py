@@ -13,6 +13,7 @@
         'partner_multi_relation',
         'distribution_list',
         'mozaik_partner_assembly',
+        'mozaik_relation_coordinate',
         'mozaik_communication',
         'mozaik_thesaurus',
     ],

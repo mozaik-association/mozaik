@@ -28,6 +28,7 @@
         'mozaik_partner_unauthorized',
         'mozaik_person',
         'mozaik_phone',
+        'mozaik_relation_coordinate',
         'mozaik_structure',
         'mozaik_thesaurus',
         'mozaik_tools',
