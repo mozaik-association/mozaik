@@ -42,6 +42,7 @@
         'views/res_partner.xml',
         'views/abstract_virtual_model.xml',
         'views/virtual_target.xml',
+        'views/communication_menu.xml',
         'wizards/export_csv.xml',
     ],
     'demo': [

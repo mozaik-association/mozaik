@@ -110,30 +110,16 @@ class VirtualAssemblyInstance(models.Model):
 
     @api.model
     def _get_select(self):
-        select = """SELECT
+        select = super()._get_select() + """,
             %(model_name)s as model,
-            concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
-            assembly.partner_id as partner_id,
-            %(int_instance_id)s as int_instance_id,
             cat.name as category,
             %(int_cat_id)s as int_category_assembly_id,
             %(sta_cat_id)s as sta_category_assembly_id,
             %(ext_cat_id)s as ext_category_assembly_id,
             %(int_power_id)s as int_power_level_id,
             %(sta_power_id)s as sta_power_level_id,
-            e.id as email_coordinate_id,
-            pc.id as postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
             pc.is_main as main_postal,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized,
-            e.is_main as main_email,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END AS active"""
+            e.is_main as main_email"""
         return select
 
     @api.model

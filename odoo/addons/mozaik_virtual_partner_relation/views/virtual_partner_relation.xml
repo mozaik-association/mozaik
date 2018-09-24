@@ -2,6 +2,7 @@
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
+
     <record id="virtual_partner_relation_tree_view" model="ir.ui.view">
         <field name="name">virtual.partner.relation.tree</field>
         <field name="model">virtual.partner.relation</field>
@@ -81,4 +82,12 @@
         <field name="search_view_id" ref="virtual_partner_relation_search_view" />
         <field name="view_id" ref="virtual_partner_relation_tree_view" />
     </record>
+
+    <record model="ir.ui.menu" id="virtual_partner_relation_menu" >
+        <field name="name">Partners/Relations</field>
+        <field name="sequence" eval="50"/>
+        <field name="parent_id" ref="mozaik_communication.virtual_model_menu" />
+        <field name="action" ref="virtual_partner_relation_action" />
+    </record>
+
 </odoo>

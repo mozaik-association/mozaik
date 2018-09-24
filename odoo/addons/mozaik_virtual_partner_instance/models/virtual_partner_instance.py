@@ -10,19 +10,26 @@ class VirtualPartnerInstance(models.Model):
     _auto = False
     _terms = ['interest_ids', 'competency_ids']
 
-    partner_id = fields.Many2one(
-        domain=[('is_assembly', '=', False)],
+    local_voluntary = fields.Boolean()
+    regional_voluntary = fields.Boolean()
+    national_voluntary = fields.Boolean()
+    local_only = fields.Boolean()
+    is_donor = fields.Boolean(
+        string="Is a donor",
     )
-    membership_state_id = fields.Many2one(
-        comodel_name='membership.state',
-        string='State',
+    is_volunteer = fields.Boolean(
+        string="Is a volunteer",
     )
-    main_postal = fields.Boolean(
-        string='Main Address',
+    nationality_id = fields.Many2one(
+        comodel_name='res.country',
+        string='Nationality',
     )
     postal_category_id = fields.Many2one(
         comodel_name='coordinate.category',
         string='Postal Coordinate Category',
+    )
+    main_postal = fields.Boolean(
+        string='Main Address',
     )
     email_category_id = fields.Many2one(
         comodel_name='coordinate.category',
@@ -30,19 +37,9 @@ class VirtualPartnerInstance(models.Model):
     )
     main_email = fields.Boolean(
     )
-    is_donor = fields.Boolean(
-        string="Is a donor",
-    )
-    is_volunteer = fields.Boolean(
-        string="Is a volunteer",
-    )
-    local_voluntary = fields.Boolean()
-    regional_voluntary = fields.Boolean()
-    national_voluntary = fields.Boolean()
-    local_only = fields.Boolean()
-    nationality_id = fields.Many2one(
-        comodel_name='res.country',
-        string='Nationality',
+    membership_state_id = fields.Many2one(
+        comodel_name='membership.state',
+        string='State',
     )
 
     @api.model
@@ -51,39 +48,19 @@ class VirtualPartnerInstance(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = """SELECT
-            CONCAT(p.id, '/', pc.id, '/', e.id) AS common_id,
-            p.id AS partner_id,
-            p.int_instance_id AS int_instance_id,
-            e.id AS email_coordinate_id,
-            pc.id AS postal_coordinate_id,
-            pc.coordinate_category_id AS postal_category_id,
-            p.is_company AS is_company,
-            p.identifier AS identifier,
-            p.birthdate_date AS birth_date,
-            p.gender AS gender,
-            p.lang AS lang,
-            p.employee AS employee,
+        select = super()._get_select() + """,
             p.local_voluntary,
             p.regional_voluntary,
             p.national_voluntary,
             p.local_only,
+            p.is_donor,
+            p.is_volunteer,
             p.nationality_id,
-            pc.unauthorized AS postal_unauthorized,
-            pc.vip AS postal_vip,
+            pc.coordinate_category_id AS postal_category_id,
             pc.is_main AS main_postal,
-            e.vip AS email_vip,
             e.coordinate_category_id AS email_category_id,
             e.is_main AS main_email,
-            e.unauthorized AS email_unauthorized,
-            ms.id AS membership_state_id,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END AS active,
-            p.is_donor,
-            p.is_volunteer"""
+            ms.id AS membership_state_id"""
         return select
 
     @api.model

@@ -75,13 +75,12 @@ class AbstractVirtualModel(models.AbstractModel):
     active = fields.Boolean()
 
     @api.multi
-    def get_partner_action(self):
+    def see_partner_action(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'res.partner',
             'view_mode': 'form',
-            'view_type': 'form',
             'res_id': self.partner_id.id,
             'target': 'current',
         }
@@ -123,7 +122,28 @@ class AbstractVirtualModel(models.AbstractModel):
         Build the SELECT of the SQL query
         :return: str
         """
-        return ""
+        select = """SELECT
+            CONCAT(p.id, '/', pc.id, '/', e.id) AS common_id,
+            p.id AS partner_id,
+            p.int_instance_id AS int_instance_id,
+            e.id AS email_coordinate_id,
+            pc.id AS postal_coordinate_id,
+            p.is_company AS is_company,
+            p.identifier AS identifier,
+            p.birthdate_date AS birth_date,
+            p.gender AS gender,
+            p.lang AS lang,
+            p.employee AS employee,
+            pc.unauthorized AS postal_unauthorized,
+            pc.vip AS postal_vip,
+            e.vip AS email_vip,
+            e.unauthorized AS email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END AS active"""
+        return select
 
     @api.model
     def _get_from(self):

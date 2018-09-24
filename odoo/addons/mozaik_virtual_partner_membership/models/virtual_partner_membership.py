@@ -13,9 +13,6 @@ class VirtualPartnerMembership(models.Model):
         'interest_ids',
     ]
 
-    partner_id = fields.Many2one(
-        domain=[('is_company', '=', False), ('identifier', '>', 0)],
-    )
     membership_state_id = fields.Many2one(
         comodel_name='membership.state',
         string="State",
@@ -34,30 +31,11 @@ class VirtualPartnerMembership(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = """SELECT
-                concat(p.id, '/', pc.id, '/', e.id) as common_id,
-                p.id as partner_id,
-                p.int_instance_id as int_instance_id,
-                p.reference as reference,
-                e.id as email_coordinate_id,
-                pc.id as postal_coordinate_id,
-                p.identifier as identifier,
-                p.birthdate_date as birth_date,
-                p.gender as gender,
-                p.lang as lang,
-                p.employee as employee,
-                pc.unauthorized as postal_unauthorized,
-                pc.vip as postal_vip,
-                e.vip as email_vip,
-                e.unauthorized as email_unauthorized,
-                p.membership_state_id as membership_state_id,
-                CASE
-                    WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                    THEN True
-                    ELSE False
-                END AS active,
-                p.is_donor,
-                p.is_volunteer"""
+        select = super()._get_select() + """,
+            p.membership_state_id as membership_state_id,
+            p.reference as reference,
+            p.is_donor,
+            p.is_volunteer"""
         return select
 
     @api.model

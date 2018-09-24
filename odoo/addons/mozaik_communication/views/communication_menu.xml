@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record model="ir.ui.menu" id="virtual_model_menu" >
+        <field name="name">Virtual models</field>
+        <field name="sequence">15</field>
+        <field name="parent_id" ref="mass_mailing.mass_mailing_menu_root" />
+    </record>
+
+</odoo>

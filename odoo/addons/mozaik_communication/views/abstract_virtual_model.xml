@@ -14,7 +14,7 @@
                 <field name="lang"/>
                 <field name="postal_unauthorized" invisible="1"/>
                 <field name="email_unauthorized" invisible="1"/>
-                <button name="get_partner_action" string="See Partner" type="object"/>
+                <button name="see_partner_action" string="See Partner" type="object"/>
             </tree>
         </field>
     </record>
