@@ -56,9 +56,6 @@ class DistributionList(models.Model):
     code = fields.Char(
         track_visibility='onchange',
     )
-    bridge_field = fields.Char(
-        default="common_id",
-    )
     partner_path = fields.Char(
         default="partner_id",
     )
@@ -114,38 +111,6 @@ class DistributionList(models.Model):
                     (self.partner_id.name, self.partner_id.email)),
             })
         return result
-
-    @api.multi
-    def _get_computed_targets(self, bridge_field, sources, in_mode):
-        """
-        Convert source records to target records according to the bridge field
-        :param bridge_field: str
-        :param sources: recordset
-        :param in_mode: bool
-        :return: target recordset
-        """
-        self.ensure_one()
-        results = super()._get_computed_targets(
-            bridge_field, sources, in_mode)
-        if not in_mode and results and bridge_field != 'id':
-            target_model_name = self.dst_model_id.model
-            target_obj = self.env[target_model_name]
-            partners = results.mapped("partner_id")
-            if partners:
-                domain = [
-                    ('partner_id', 'in', partners.ids),
-                ]
-                results = target_obj.search(domain)
-        return results
-
-    @api.onchange('dst_model_id')
-    def _onchange_dst_model(self):
-        bridge_field = False
-        if self.dst_model_id:
-            bridge_field = 'common_id'
-            if self.dst_model_id.model == 'res.partner':
-                bridge_field = 'id'
-        self.bridge_field = bridge_field
 
     @api.onchange('newsletter')
     def _onchange_newsletter(self):
@@ -294,10 +259,6 @@ class DistributionList(models.Model):
         domain = expression.AND([domain, [('active', '=', False)]])
         result.update({
             'domain': domain,
-        })
-        context = self.env.context.copy()
-        context.update({
-            'active_test': False,
         })
         return result
 

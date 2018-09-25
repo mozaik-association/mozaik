@@ -31,5 +31,5 @@ class AbstractTermFinder(models.AbstractModel):
                     # default search domain
                     domain += [arg]
             args = domain
-        return super(AbstractTermFinder, self).search(
+        return super().search(
             args, offset=offset, limit=limit, order=order, count=count)

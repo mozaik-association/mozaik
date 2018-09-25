@@ -82,11 +82,6 @@
                                 </tree>
                             </field>
                         </page>
-                        <page name="technical" string="Technical">
-                            <group>
-                                <field name="bridge_field"/>
-                            </group>
-                        </page>
                     </notebook>
                 </sheet>
             </form>

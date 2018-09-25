@@ -38,10 +38,6 @@
                 <field name="newsletter" />
             </xpath>
 
-            <xpath expr="//field[@name='bridge_field']" position="after">
-                <field name="partner_path" attrs="{'invisible': [('mail_forwarding', '=', 'False')], 'required':[('newsletter','=', True)]}" />
-            </xpath>
-
             <xpath expr="//group[@name='data']" position="inside">
                 <group>
                     <field name="mail_forwarding"/>
@@ -58,7 +54,7 @@
                 </group>
             </xpath>
 
-            <xpath expr="//page[@name='technical']" position="before">
+            <xpath expr="//notebook" position="inside">
                 <page name="optin" string="Opt-In" attrs="{'invisible': [('newsletter', '=', False)]}">
                     <field name="res_partner_opt_in_ids">
                         <tree>
@@ -74,6 +70,11 @@
                             <field name="email"/>
                         </tree>
                     </field>
+                </page>
+                <page name="technical" string="Technical">
+                    <group>
+                        <field name="partner_path" attrs="{'invisible': [('mail_forwarding', '=', 'False')], 'required':[('newsletter','=', True)]}" />
+                    </group>
                 </page>
             </xpath>
         </field>

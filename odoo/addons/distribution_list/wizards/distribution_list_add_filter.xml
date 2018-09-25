@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <form>
 
-                <div invisible="context.get('active_domain','x') == 'x'">
+                <div invisible="not context.get('active_domain')">
                     <div class="oe_title"  name="title">
                         <h1>
                             <field name="name" nolabel="1" placeholder="New Filter Name" />
@@ -17,20 +17,20 @@
                     </div>
                     <group>
                         <field name="distribution_list_id"/>
-                        <field name="bridge_field_id" options="{'no_create_edit': True}"/>
+                        <field name="bridge_field_id" widget="selection"/>
                         <field name="exclude"/>
                     </group>
                 </div>
-                <div invisible="not context.get('active_domain','x') == 'x'">
-                    Warning! You have to check the entire list to add the current filter
+                <div invisible="context.get('active_domain')">
+                    Warning! You have to define the filter before to add it into a distribution list
                 </div>
 
-                <footer invisible="context.get('active_domain','x') == 'x'">
+                <footer invisible="not context.get('active_domain')">
                     <button name="add_distribution_list_line" string="Add" type="object" class="btn-primary"/>
                     or
                     <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
-                <footer invisible="not context.get('active_domain','x') == 'x'">
+                <footer invisible="context.get('active_domain')">
                     <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
 

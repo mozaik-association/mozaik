@@ -20,6 +20,5 @@
         'views/virtual_partner_instance.xml',
     ],
     'license': 'AGPL-3',
-    'auto_install': True,
     'installable': True,
 }

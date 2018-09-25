@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import ast
 from odoo import api, models, exceptions, tools, fields, _
-from odoo.fields import first
 from odoo.osv import expression
 
 
@@ -52,7 +51,14 @@ class DistributionListLine(models.Model):
         domain=lambda self: self._get_domain_src_model_id(),
     )
     src_model_model = fields.Char(
+        string="Model name",
         related="src_model_id.model",
+        readonly=True,
+    )
+    trg_model = fields.Char(
+        string="Target model",
+        related="distribution_list_id.dst_model_id.model",
+        readonly=True,
     )
     bridge_field_id = fields.Many2one(
         comodel_name="ir.model.fields",
@@ -60,6 +66,11 @@ class DistributionListLine(models.Model):
         help="Bridge field between the source model (of this line/filter) "
              "and the destination model (on the distribution list.",
         required=True,
+        domain="["
+        "('model_id', '=', src_model_id), "
+        "('ttype', '=', 'many2one'), "
+        "('relation', '=', trg_model), "
+        "]",
     )
 
     _sql_constraints = [
@@ -166,6 +177,7 @@ class DistributionListLine(models.Model):
 
     @api.onchange('src_model_id', 'distribution_list_id')
     def _onchange_src_model_id(self):
+        self.ensure_one()
         self.domain = self._fields.get('domain').default(self)
         fields_available = self._get_valid_bridge_fields().get(self)
         if len(fields_available) == 1:
@@ -173,12 +185,6 @@ class DistributionListLine(models.Model):
         else:
             self.bridge_field_id = fields_available.filtered(
                 lambda s: s.name == 'id')
-        result = {
-            'domain': {
-                'bridge_field_id': [('id', 'in', fields_available.ids)],
-            },
-        }
-        return result
 
     def save_domain(self, domain):
         """
@@ -215,20 +221,22 @@ class DistributionListLine(models.Model):
         if not self:
             return False
         # The target model of every lines should be the same
-        target_model = first(self).distribution_list_id.dst_model_id.model
+        self.mapped('distribution_list_id').ensure_one()
+        target_model = self.mapped('distribution_list_id.dst_model_id').model
         targets = self.env[target_model].browse()
-        for target_model in self.mapped("src_model_id.model"):
+        for bridge_field in self.mapped("bridge_field_id"):
             self_model = self.filtered(
-                lambda r: r.bridge_field_id.model_id.model == target_model)
+                lambda r, bf=bridge_field: r.bridge_field_id == bf)
             domains = [r._get_eval_domain() for r in self_model]
             big_domain = expression.OR(domains)
+            source_model = bridge_field.model_id.model
+            field_name = bridge_field.name
             try:
-                results = self.env[target_model].search(big_domain)
-                for field_name in self_model.mapped("bridge_field_id.name"):
-                    if field_name == 'id':
-                        targets |= results
-                    else:
-                        targets |= results.mapped(field_name)
+                results = self.env[source_model].search(big_domain)
+                if field_name == 'id':
+                    targets |= results
+                else:
+                    targets |= results.mapped(field_name)
             except Exception as e:
                 message = _("A filter for the target model %s is not valid.\n"
                             "Details: %s") % (target_model, tools.ustr(e))
@@ -245,9 +253,9 @@ class DistributionListLine(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _('Result of %s') % self.name,
-            'view_mode': 'tree,form',
+            'view_mode': 'tree',
             'res_model': self.src_model_id.model,
-            'context': self.env.context.copy(),
+            'context': self.env.context,
             'domain': self._get_eval_domain(),
             'target': 'current',
         }

@@ -1,24 +1,31 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from uuid import uuid4
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 from odoo import exceptions
-from odoo.fields import first
 
 
-class TestDistributionList(TransactionCase):
+class TestDistributionList(SavepointCase):
 
     def setUp(self):
         super(TestDistributionList, self).setUp()
-        self.user_obj = self.env['res.users']
         self.partner_obj = self.env['res.partner']
         self.dist_list_obj = self.env['distribution.list']
         self.dist_list_line_obj = self.env['distribution.list.line']
         self.first_user = self.env.ref("distribution_list.first_user")
         self.second_user = self.env.ref("distribution_list.second_user")
         self.partner_model = self.env.ref("base.model_res_partner")
-        self.mail_template_model = self.env.ref("mail.model_mail_template")
         self.partner_id_field = self.env.ref("base.field_res_partner_id")
+        self.parent_id_field = self.env.ref("base.field_res_partner_parent_id")
+        # inactive RR define elsewhere (for test db reusing purpose)
+        model_ids = [
+            self.ref('distribution_list.model_distribution_list'),
+            self.ref('base.model_res_partner'),
+        ]
+        rules = self.env['ir.rule'].search([('model_id', 'in', model_ids)])
+        rules -= self.browse_ref(
+            'distribution_list.distribution_list_company_rule')
+        rules.toggle_active()
 
     def test_confidentiality_distribution_list(self):
         """
@@ -52,12 +59,12 @@ class TestDistributionList(TransactionCase):
         })
         distribution_list_line = distribution_list.\
             to_include_distribution_list_line_ids
-        self.assertEquals(len(distribution_list_line), 1)
+        self.assertEqual(len(distribution_list_line), 1)
         with self.assertRaises(exceptions.AccessError) as e:
             distribution_list_line.sudo(user_no_access.id).read()
         self.assertIn("Document type: distribution.list.line, Operation: read",
                       e.exception.name)
-        self.assertEquals(len(distribution_list), 1)
+        self.assertEqual(len(distribution_list), 1)
         with self.assertRaises(exceptions.AccessError) as e:
             distribution_list.sudo(user_no_access.id).read()
         self.assertIn("Document type: distribution.list, Operation: read",
@@ -174,80 +181,6 @@ class TestDistributionList(TransactionCase):
         self.assertIn(customer.id, targets.ids)
         return
 
-    def test_not_safe_mode(self):
-        """
-        Test that excluded ids from excluded filters of distribution list are
-        not removed from the resulting ids if they are included by filters
-        into another distribution list
-        ex:
-        -------- DL1 ------------------ DL2 --------
-        include   |  exclude || include  |  exclude
-            A     |    B     ||    B     |    A
-            -----------------------------------
-            result: [A,B] with safe_mode = False
-        """
-        context = self.env.context.copy()
-        context.update({
-            'safe_mode': False,
-        })
-        partner_model = self.partner_obj.with_context(context)
-        distri_list_obj = self.dist_list_obj.with_context(context)
-        distri_list_line_obj = self.dist_list_line_obj.with_context(context)
-
-        partner_name_1 = str(uuid4())
-        partner_name_2 = str(uuid4())
-
-        partner1 = partner_model.create({
-            'name': partner_name_1,
-        })
-        partner2 = partner_model.create({
-            'name': partner_name_2,
-        })
-        dst_model_id = self.partner_model
-
-        include1_exclude2 = distri_list_obj.create({
-            'name': str(uuid4()),
-            'dst_model_id': dst_model_id.id,
-        })
-        distri_line_partner1 = distri_list_line_obj.create({
-            'name': str(uuid4()),
-            'domain': "[['name', '=', '%s']]" % partner_name_1,
-            'src_model_id': dst_model_id.id,
-            'distribution_list_id': include1_exclude2.id,
-            'bridge_field_id': self.partner_id_field.id,
-        })
-        distri_line_partner2 = distri_list_line_obj.create({
-            'name': str(uuid4()),
-            'domain': "[['name', '=', '%s']]" % partner_name_2,
-            'src_model_id': dst_model_id.id,
-            'distribution_list_id': include1_exclude2.id,
-            'exclude': True,
-            'bridge_field_id': self.partner_id_field.id,
-        })
-
-        include2_exclude1 = distri_list_obj.create({
-            'name': str(uuid4()),
-            'dst_model_id': dst_model_id.id,
-        })
-        distri_line_partner1.copy({
-            'distribution_list_id': include2_exclude1.id,
-            'exclude': True,
-        })
-        distri_line_partner2.copy({
-            'distribution_list_id': include2_exclude1.id,
-            'exclude': False,
-        })
-
-        waiting_list = include2_exclude1 | include1_exclude2
-        results = self.env['res.partner'].browse()
-        for dist_list in waiting_list:
-            results |= dist_list._get_target_from_distribution_list(
-                safe_mode=False)
-        self.assertEquals(len(waiting_list), 2)
-        self.assertIn(partner1.id, results.ids)
-        self.assertIn(partner2.id, results.ids)
-        return
-
     def test_get_ids_from_distribution_list(self):
         """
         Will check that
@@ -315,9 +248,9 @@ class TestDistributionList(TransactionCase):
             'bridge_field_id': self.partner_id_field.id,
         })
         trg_dist._complete_distribution_list(src_dist.ids)
-        self.assertEquals(
+        self.assertEqual(
             len(trg_dist.to_include_distribution_list_line_ids), 2)
-        self.assertEquals(
+        self.assertEqual(
             len(trg_dist.to_exclude_distribution_list_line_ids), 1)
         return
 
@@ -373,28 +306,27 @@ class TestDistributionList(TransactionCase):
         dl = distri_list_obj.create({
             'name': 'get_complex_distribution_list_ids',
             'dst_model_id': partner_model.id,
-            'bridge_field': 'parent_id',
         })
         distri_list_line_obj.create({
             'name': 'filter_one',
             'domain': "[('name', 'ilike', 'filter_one')]",
             'src_model_id': partner_model.id,
             'distribution_list_id': dl.id,
-            'bridge_field_id': self.partner_id_field.id,
+            'bridge_field_id': self.parent_id_field.id,
         })
         distri_list_line_obj.create({
             'name': 'filter_two',
             'domain': "[('name', 'ilike', 'filter_two')]",
             'src_model_id': partner_model.id,
             'distribution_list_id': dl.id,
-            'bridge_field_id': self.partner_id_field.id,
+            'bridge_field_id': self.parent_id_field.id,
         })
         distri_list_line_obj.create({
             'name': 'filter_three',
             'domain': "[('name', 'ilike', 'filter_three')]",
             'src_model_id': partner_model.id,
             'distribution_list_id': dl.id,
-            'bridge_field_id': self.partner_id_field.id,
+            'bridge_field_id': self.parent_id_field.id,
         })
         context = self.env.context.copy()
         context.update({
@@ -406,37 +338,27 @@ class TestDistributionList(TransactionCase):
         })
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
-        self.assertEquals(
-            mains.ids, p5.ids, 'Should have p5 partner has result')
-        self.assertEquals(
-            first(alternatives).id, 1,
-            'Should have at least one company as alternative object')
+        self.assertEqual(p5, mains)
+        self.assertEqual(self.browse_ref('base.main_company'), alternatives)
 
         context.pop('main_object_domain')
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
-        self.assertEquals(
-            len(mains), 2, 'Should have 2 ids if no `more_filter`')
+        self.assertEqual(p9 | p5, mains)
 
         context.update({
             'main_object_domain': [('name', '=', 'x23')],
         })
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
-        self.assertFalse(
-            mains,
-            'With a "noway" domain and a target field name, '
-            'should return no result')
+        self.assertFalse(mains)
 
         context.pop('main_object_field')
-        primary_ids = dl.with_context(
+        targets = dl.with_context(
             context)._get_target_from_distribution_list()
         mains, alternatives = dl.with_context(
             context)._get_complex_distribution_list_ids()
-        self.assertEquals(
-            mains, primary_ids,
-            'With no target field name, should return the same result as '
-            '"get_ids_from_distribution_list"')
+        self.assertEqual(mains, targets)
         return
 
     def test_duplicate_distribution_list_and_filters(self):
@@ -463,15 +385,15 @@ class TestDistributionList(TransactionCase):
         })
 
         distribution_list_copy = distribution_list.sudo(user.id).copy()
-        self.assertEquals(
+        self.assertEqual(
             distribution_list.dst_model_id.id,
             distribution_list_copy.dst_model_id.id)
         line_origin = distribution_list.to_include_distribution_list_line_ids
         line_cpy = distribution_list_copy.to_include_distribution_list_line_ids
         self.assertTrue(line_cpy)
-        self.assertEquals(line_cpy.domain, line_origin.domain)
-        self.assertEquals(line_cpy.exclude, line_origin.exclude)
-        self.assertEquals(
+        self.assertEqual(line_cpy.domain, line_origin.domain)
+        self.assertEqual(line_cpy.exclude, line_origin.exclude)
+        self.assertEqual(
             line_cpy.src_model_id.id, line_origin.src_model_id.id)
         return
 

@@ -234,18 +234,16 @@ class DistributionList(models.Model):
         return True
 
     @api.multi
-    def _get_target_from_distribution_list(self, safe_mode=True):
+    def _get_target_from_distribution_list(self):
         """
         manage opt in/out.
         If the distribution list is a newsletter and has a parther_path then:
         * remove all res_ids that contains a partner id into the opt_out_ids
         * add to res_ids all partner id into the opt_in_ids
-        :param safe_mode: bool
         :return: target recordset
         """
         self.ensure_one()
-        targets = super()._get_target_from_distribution_list(
-            safe_mode=safe_mode)
+        targets = super()._get_target_from_distribution_list()
         if self.newsletter and self.partner_path:
             partner_path = self.partner_path
             # opt in

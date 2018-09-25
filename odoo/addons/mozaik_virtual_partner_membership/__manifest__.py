@@ -18,6 +18,5 @@
         'views/virtual_partner_membership.xml',
     ],
     'license': 'AGPL-3',
-    'auto_install': True,
     'installable': True,
 }
