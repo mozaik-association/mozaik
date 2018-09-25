@@ -90,7 +90,7 @@ class AbstractVirtualModel(models.AbstractModel):
             [('common_id', 'in', common_ids)])
         ids = {vt.common_id: vt.id for vt in vts}
         for record in self:
-            record.result_id = ids[record.common_id]
+            record.result_id = ids.get(record.common_id, False)
 
     @api.multi
     def see_partner_action(self):
