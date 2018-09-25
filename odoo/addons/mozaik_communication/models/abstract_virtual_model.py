@@ -18,6 +18,11 @@ class AbstractVirtualModel(models.AbstractModel):
     common_id = fields.Char(
         string="Common ID",
     )
+    result_id = fields.Many2one(
+        comodel_name='virtual.target',
+        string='Result',
+        compute='_compute_result_id',
+    )
     int_instance_id = fields.Many2one(
         comodel_name='int.instance',
         string='Internal Instance',
@@ -73,6 +78,19 @@ class AbstractVirtualModel(models.AbstractModel):
         string='Unauthorized Email',
     )
     active = fields.Boolean()
+
+    @api.multi
+    @api.depends('common_id')
+    def _compute_result_id(self):
+        """
+        Compute result id based on common_id field
+        """
+        common_ids = self.mapped('common_id')
+        vts = self.env['virtual.target'].search(
+            [('common_id', 'in', common_ids)])
+        ids = {vt.common_id: vt.id for vt in vts}
+        for record in self:
+            record.result_id = ids[record.common_id]
 
     @api.multi
     def see_partner_action(self):
@@ -186,8 +204,11 @@ class AbstractVirtualModel(models.AbstractModel):
         main_query = " \nUNION\n ".join(sub_queries)
         tools.drop_view_if_exists(cr, view_name)
         query = """CREATE OR REPLACE VIEW %(table_name)s AS (
-                        SELECT e.*, row_number() OVER() AS id
-                        FROM (%(main_query)s) AS e);"""
+            SELECT
+                e.*, row_number() OVER(ORDER BY
+                    partner_id, postal_coordinate_id, email_coordinate_id
+                ) AS id
+            FROM (%(main_query)s) AS e);"""
         main_values = {
             "table_name": AsIs(view_name),
             "main_query": AsIs(main_query),

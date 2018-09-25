@@ -40,12 +40,6 @@ class DistributionList(models.Model):
         default=lambda self: self._get_default_dst_model_id(),
         domain=lambda self: self._get_domain_dst_model_id(),
     )
-    bridge_field = fields.Char(
-        required=True,
-        help="Field name making the bridge between source model of filters "
-             "and target model of distribution list",
-        default='id',
-    )
     note = fields.Text(
     )
 
@@ -85,30 +79,10 @@ class DistributionList(models.Model):
             model = model or self.env.ref('base.model_res_partner')
         return model
 
-    @api.model
-    def _get_computed_targets(self, bridge_field, sources, in_mode):
-        """
-        Convert source records to target records according to the bridge field
-        :param bridge_field: str
-        :param sources: recordset
-        :param in_mode: bool
-        :return: target recordset
-        """
-        if not bridge_field or bridge_field == 'id':
-            return sources
-        elif not sources._fields.get(bridge_field):
-            # Ensure the bridge field exists into the target model
-            raise exceptions.UserError(
-                _("The result model (%s) doesn't contain the bridge field: "
-                  "%s") % (sources._name, bridge_field))
-        elif sources._fields.get(bridge_field).type == 'many2one':
-            return sources.mapped(bridge_field)
-        raise exceptions.UserError(
-            _("The bridge field must be a Many2one!"))
-
     @api.multi
     def _get_target_if_no_included_filter(self):
-        target_model = self.mapped("dst_model_id").model
+        self.ensure_one()
+        target_model = self.dst_model_id.model
         return self.env[target_model].browse()
 
     @api.multi
@@ -155,57 +129,30 @@ class DistributionList(models.Model):
         }
 
     @api.multi
-    def _get_target_from_distribution_list(self, safe_mode=True):
+    def _get_target_from_distribution_list(self):
         """
-        This method computes all filters result and return a list of ids
-        depending of the ``bridge_field`` of the distribution list.
-        safe_mode:  Tool used in case of multiple distribution list.
-                    If a filter is include into a distribution list
-                    and exclude into an other then the result depends
-                    of `safe_mode`.
-                    True: excluded are not present
-                    False: excluded will be present if included into an other
-        :param safe_mode: bool
+        Computes records matching the entire distribution list
+        depending on filters to include or exclude.
         :return: target recordset
         """
         self.ensure_one()
-        bridge_field = self.bridge_field
         include_dll = self.to_include_distribution_list_line_ids
         exclude_dll = self.to_exclude_distribution_list_line_ids
         if not include_dll:
-            # without included filters get all ids
+            # without filter to include get records
             # from a method to override
             results_include = self._get_target_if_no_included_filter()
         else:
-            # get all ids to include
+            # get records to include
             results_include = include_dll._get_target_recordset()
 
-        # get all ids to exclude
+        # get records to exclude
         if exclude_dll:
             results_exclude = exclude_dll._get_target_recordset()
-        # If the exclude_dll is empty, we have to build an empty recordset
-        # with the same include's model
         else:
-            results_exclude = self.env[results_include._name].browse()
+            results_exclude = self.env[self.dst_model_id.model].browse()
 
-        if not safe_mode:
-            # compute ids locally for only one distribution list
-            results = self._get_computed_targets(
-                bridge_field, results_include, in_mode=True)
-            if results_exclude:
-                results -= self._get_computed_targets(
-                    bridge_field, results_exclude, in_mode=False)
-            results_include = False
-            results_exclude = False
-
-        if bridge_field and safe_mode:
-            # compute ids globally for all distribution lists
-            results = self._get_computed_targets(
-                bridge_field, results_include, in_mode=True)
-            if results_exclude:
-                results -= self._get_computed_targets(
-                    bridge_field, results_exclude, in_mode=False)
-
+        results = results_include - results_exclude
         return results
 
     @api.model
@@ -331,9 +278,9 @@ class DistributionList(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _('Result of %s') % self.name,
-            'view_mode': 'tree,form',
+            'view_mode': 'tree',
             'res_model': self.dst_model_id.model,
-            'context': self.env.context.copy(),
+            'context': self.env.context,
             'domain': domain,
             'target': 'current',
         }

@@ -24,6 +24,10 @@ class VirtualPartnerInstance(models.Model):
         comodel_name='res.country',
         string='Nationality',
     )
+    membership_state_id = fields.Many2one(
+        comodel_name='membership.state',
+        string='State',
+    )
     postal_category_id = fields.Many2one(
         comodel_name='coordinate.category',
         string='Postal Coordinate Category',
@@ -36,10 +40,6 @@ class VirtualPartnerInstance(models.Model):
         string='Email Coordinate Category',
     )
     main_email = fields.Boolean(
-    )
-    membership_state_id = fields.Many2one(
-        comodel_name='membership.state',
-        string='State',
     )
 
     @api.model
@@ -56,11 +56,11 @@ class VirtualPartnerInstance(models.Model):
             p.is_donor,
             p.is_volunteer,
             p.nationality_id,
+            p.membership_state_id,
             pc.coordinate_category_id AS postal_category_id,
             pc.is_main AS main_postal,
             e.coordinate_category_id AS email_category_id,
-            e.is_main AS main_email,
-            ms.id AS membership_state_id"""
+            e.is_main AS main_email"""
         return select
 
     @api.model
@@ -70,8 +70,6 @@ class VirtualPartnerInstance(models.Model):
         :return: str
         """
         from_query = """FROM res_partner AS p
-            LEFT OUTER JOIN membership_state AS ms
-                ON (ms.id = p.membership_state_id)
             LEFT OUTER JOIN postal_coordinate AS pc
                 ON (pc.partner_id = p.id
                 AND pc.active = TRUE)

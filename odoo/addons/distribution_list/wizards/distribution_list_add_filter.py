@@ -11,8 +11,8 @@ class DistributionListAddFilter(models.TransientModel):
     _description = 'Add Filter Wizard'
 
     distribution_list_id = fields.Many2one(
-        "distribution.list",
-        "Distribution list",
+        comodel_name="distribution.list",
+        string="Distribution list",
         required=True,
         ondelete="cascade",
     )
@@ -26,8 +26,8 @@ class DistributionListAddFilter(models.TransientModel):
         default=False,
     )
     bridge_field_id = fields.Many2one(
-        "ir.model.fields",
-        "Bridge field",
+        comodel_name="ir.model.fields",
+        string="Bridge field",
         required=True,
         ondelete="cascade",
     )
