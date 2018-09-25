@@ -377,7 +377,7 @@ class ResPartner(models.Model):
     def paid(self):
         if self.membership_state_code == "former_member":
             self._update_state("former_member_committee")
-        elif self.membership_state_code != "member":
+        else:
             self._update_state("member_committee")
 
     @api.multi

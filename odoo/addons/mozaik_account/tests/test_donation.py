@@ -1,26 +1,16 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import uuid
-from anybox.testing.openerp import SharedSetupTransactionCase
-from openerp.osv import orm
 
-from openerp import fields
+from odoo import fields
+from odoo.tests.common import SavepointCase
+from odoo.exceptions import ValidationError
 
 
-class test_donation(object):
-    _data_files = (
-        '../../l10n_mozaik/data/account_template.xml',
-        '../../l10n_mozaik/data/account_chart_template.xml',
-        '../../l10n_mozaik/data/account_installer.xml',
-    )
-
-    _module_ns = 'mozaik_account'
-    _account_wizard = 'pcmn_mozaik'
-    _with_coda = False
+class TestDonation(object):
 
     def setUp(self):
-        super(test_donation, self).setUp()
+        super().setUp()
 
         self.involvement = self._create_involvement()
         self.partner = self.involvement.partner_id
@@ -87,8 +77,7 @@ class test_donation(object):
 
     def test_accounting_auto_reconcile(self):
         statement = self._generate_payment()
-        if not self._with_coda:
-            statement.auto_reconcile()
+        statement.auto_reconcile()
 
         for line in statement.line_ids:
             self.assertTrue(line.journal_entry_id.id)
@@ -132,27 +121,25 @@ class test_donation(object):
         move_dicts = self._get_manual_move_dict(additional_amount)
 
         self.assertRaises(
-            orm.except_orm, statement.process_reconciliation, move_dicts)
+            ValidationError, statement.process_reconciliation, move_dicts)
 
 
-class test_accounting_protect_auto_reconcile(test_donation,
-                                             SharedSetupTransactionCase):
+class TestAccountingProtectAutoReconcile(TestDonation, SavepointCase):
 
     def test_accounting_auto_reconcile(self):
         '''
         Auto reconcile does not work when a reference is used twice
         '''
         statement = self._generate_payment()
-        if not self._with_coda:
-            statement.auto_reconcile()
+        statement.auto_reconcile()
 
         for line in statement.line_ids:
-            self.assertTrue(line.journal_entry_id.id)
+            self.assertTrue(line.journal_entry_ids)
 
         statement2 = statement.copy()
         statement2.auto_reconcile()
         for line in statement2.line_ids:
-            self.assertFalse(line.journal_entry_id.id)
+            self.assertFalse(line.journal_entry_ids)
 
     def test_accounting_manual_reconcile(self):
         return
