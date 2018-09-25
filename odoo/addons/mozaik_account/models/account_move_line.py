@@ -3,7 +3,7 @@
 from odoo import models
 
 
-class ProductTemplate(models.Model):
+class AccountMoveLine(models.Model):
 
     _inherit = ['account.move.line']
 
@@ -12,8 +12,8 @@ class ProductTemplate(models.Model):
         if st_line_id:
             st_line = self.env["account.bank.statement.line"].browse(
                 st_line_id)
-            mode, partner_id = st_line._get_info_from_reference(
-                vals.get('name', False))[0:2]
-            if mode == "membership" and partner_id:
-                vals['partner_id'] = partner_id
+            mode, partner = st_line._get_info_from_reference(
+                vals.get('name', False))
+            if mode == "membership" and partner:
+                vals['partner_id'] = partner.id
         return super().create(vals)

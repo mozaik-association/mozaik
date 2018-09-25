@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import uuid
 from datetime import date
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 from odoo.exceptions import ValidationError
 
 
@@ -164,7 +164,7 @@ class TestAccountingWithProduct(object):
 
 
 class TestAccountingFirstMembershipAccepted(TestAccountingWithProduct,
-                                            TransactionCase):
+                                            SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -173,7 +173,7 @@ class TestAccountingFirstMembershipAccepted(TestAccountingWithProduct,
 
 
 class TestAccountingFirstMembershipAcceptedWithAnotherAmount(
-        TestAccountingWithProduct, TransactionCase):
+        TestAccountingWithProduct, SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -193,7 +193,7 @@ class TestAccountingFirstMembershipAcceptedWithAnotherAmount(
 
 
 class TestAccountingFirstMembershipRefused(TestAccountingWithProduct,
-                                           TransactionCase):
+                                           SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -216,7 +216,7 @@ class TestAccountingFirstMembershipRefused(TestAccountingWithProduct,
         return
 
 
-class TestAccountingIsolated(TestAccountingWithProduct, TransactionCase):
+class TestAccountingIsolated(TestAccountingWithProduct, SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -225,7 +225,7 @@ class TestAccountingIsolated(TestAccountingWithProduct, TransactionCase):
 
 
 class TestAccountingLiveTogether(TestAccountingWithProduct,
-                                 TransactionCase):
+                                 SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -233,7 +233,7 @@ class TestAccountingLiveTogether(TestAccountingWithProduct,
             'mozaik_membership.membership_product_live_together')
 
 
-class TestAccountingOther(TestAccountingWithProduct, TransactionCase):
+class TestAccountingOther(TestAccountingWithProduct, SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -241,14 +241,14 @@ class TestAccountingOther(TestAccountingWithProduct, TransactionCase):
             'mozaik_membership.membership_product_other')
 
 
-class TestAccountingUndefined(TestAccountingWithProduct, TransactionCase):
+class TestAccountingUndefined(TestAccountingWithProduct, SavepointCase):
 
     def test_accounting_auto_reconcile(self):
         return
 
 
 class TestAccountingGroupedPayment(TestAccountingWithProduct,
-                                   TransactionCase):
+                                   SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -344,7 +344,7 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
 
 
 class TestAccountingProtectAutoReconcile(TestAccountingWithProduct,
-                                         TransactionCase):
+                                         SavepointCase):
 
     def setUp(self):
         super().setUp()

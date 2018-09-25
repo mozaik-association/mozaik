@@ -23,7 +23,7 @@ Manage accounting features
     'images': [
     ],
     'data': [
-        'data/product_template.xml',
+        'data/product_product.xml',
         'views/account_bank_statement.xml',
         'views/product_template.xml',
     ],

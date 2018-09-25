@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models, _
+from odoo.fields import first
 from odoo.exceptions import ValidationError
 
 
@@ -23,7 +24,7 @@ class AccountBankStatementLine(models.Model):
         Get the mode and the partner associated to a given reference
         '''
         if not reference:
-            return False, False, False
+            return False, False
 
         domain = [
             ('reference', '=', reference),
@@ -35,10 +36,10 @@ class AccountBankStatementLine(models.Model):
             obj = self.env[model].search(
                 domain).mapped(models_mode[model]['map'])
             if obj:
-                res = obj[0]
-                return models_mode[model]['mode'], res.id, reference
+                res = first(obj)
+                return models_mode[model]['mode'], res
 
-        return False, False, False
+        return False, False
 
     @api.multi
     def _create_donation_move(self, reference):
@@ -53,7 +54,7 @@ class AccountBankStatementLine(models.Model):
 
         prod_id = self.env.ref('mozaik_account.product_template_donation')
 
-        account = prod_id._get_product_accounts()["income"]
+        account = prod_id.product_tmpl_id._get_product_accounts()["income"]
         if account:
             move_dicts = [{
                 'account_id': account.id,
@@ -67,10 +68,9 @@ class AccountBankStatementLine(models.Model):
     def _propagate_payment(self, prod_id, amount_paid, reference):
         self.ensure_one()
 
-        mode, partner_id, reference = self._get_info_from_reference(reference)
+        mode, partner = self._get_info_from_reference(reference)
 
         if mode == 'membership':
-            partner = self.env['res.partner'].browse(partner_id)
 
             if not prod_id:
                 prod_id = partner._get_membership_prod_info(
@@ -84,7 +84,7 @@ class AccountBankStatementLine(models.Model):
             partner.paid()
 
             ml_ids = self.env['membership.line'].search([
-                ('partner_id', '=', partner_id),
+                ('partner_id', '=', partner.id),
                 ('active', '=', True)])
             if ml_ids:
                 vals = {
@@ -95,7 +95,7 @@ class AccountBankStatementLine(models.Model):
 
         if mode == 'donation':
             inv_ids = self.env['partner.involvement'].search([
-                ('partner_id', '=', partner_id),
+                ('partner_id', '=', partner.id),
                 ('reference', '=', reference),
                 ('active', '<=', True)])
             if inv_ids:
@@ -133,10 +133,10 @@ class AccountBankStatementLine(models.Model):
                 new_aml_dicts=move_dicts, prod_id=product_id)
 
     @api.multi
-    def process_reconciliation(self, counterpart_aml_dicts=None,
-                               payment_aml_rec=None, new_aml_dicts=None,
-                               prod_id=None):
-        if not self.partner_id:
+    def process_reconciliation(
+            self, counterpart_aml_dicts=None, payment_aml_rec=None,
+            new_aml_dicts=None, prod_id=None):
+        if not all((r.partner_id for r in self)):
             raise ValidationError(_("You must first select a partner!"))
 
         res = super().process_reconciliation(

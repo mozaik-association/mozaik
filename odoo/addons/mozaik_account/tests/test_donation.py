@@ -3,7 +3,7 @@
 import uuid
 
 from odoo import fields
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 from odoo.exceptions import ValidationError
 
 
@@ -124,8 +124,7 @@ class TestDonation(object):
             ValidationError, statement.process_reconciliation, move_dicts)
 
 
-class TestAccountingProtectAutoReconcile(TestDonation,
-                                         TransactionCase):
+class TestAccountingProtectAutoReconcile(TestDonation, SavepointCase):
 
     def test_accounting_auto_reconcile(self):
         '''
