@@ -15,7 +15,7 @@ class AccountBankStatement(models.Model):
             if not bank_line.partner_id or bank_line.journal_entry_ids:
                 continue
 
-            mode, partenr = bank_line._get_info_from_reference(
+            mode, __ = bank_line._get_info_from_reference(
                 bank_line.name)
 
             if mode == 'membership':

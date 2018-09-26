@@ -67,7 +67,7 @@
     <record model="ir.ui.menu" id="phone_coordinate_submenu">
         <field name="name">Phone Coordinates</field>
         <field name="parent_id" ref="mozaik_coordinate.mozaik_coordinate_menu"/>
-        <field name="sequence" eval="40"/>
+        <field name="sequence" eval="30"/>
     </record>
 
     <record model="ir.ui.menu" id="phone_coordinate_menu">

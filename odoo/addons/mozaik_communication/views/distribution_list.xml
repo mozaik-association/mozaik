@@ -90,7 +90,7 @@
                 <field name="code" attrs="{'invisible': [('newsletter', '=', False)]}"/>
             </xpath>
 
-            <xpath expr="//group[@name='data']" position="inside">
+            <xpath expr="//group[@name='forward']" position="after">
                 <group name="status" attrs="{'invisible': [('id','=',False)]}">
                     <group name="validity">
                         <field name="create_date" />

@@ -13,25 +13,27 @@
                         <field name="distribution_list_id" readonly="1" options='{"no_open":True}' />
                     </h1>
                 </div>
-                <group name="function">
-                    <field name="trg_model" widget="radio"
-                           readonly="bool(context.get('mailing_group_id'))"/>
-                    <field name="e_mass_function"
-                           attrs="{'invisible':[('trg_model','!=','email.coordinate')],
-                                    'required':[('trg_model','=','email.coordinate')]}"
-                           readonly="bool(context.get('mailing_group_id'))"
-                           widget="radio" />
-                    <field name="p_mass_function"
-                           attrs="{'invisible':[('trg_model','!=','postal.coordinate')],
-                                    'required':[('trg_model','=','postal.coordinate')]}"
-                           widget="radio" />
-                </group>
-                <group name="modifiers">
-                    <field name="include_unauthorized"
-                           readonly="bool(context.get('mailing_group_id'))" />
-                    <field name="bounce_counter" />
-                    <field name="internal_instance_id"
-                           readonly="bool(context.get('mailing_group_id'))" />
+                <group name="data">
+                    <group name="function">
+                        <field name="trg_model" widget="radio"
+                               readonly="bool(context.get('mailing_group_id'))"/>
+                        <field name="e_mass_function"
+                               attrs="{'invisible':[('trg_model','!=','email.coordinate')],
+                                       'required':[('trg_model','=','email.coordinate')]}"
+                               readonly="bool(context.get('mailing_group_id'))"
+                               widget="radio" />
+                        <field name="p_mass_function"
+                               attrs="{'invisible':[('trg_model','!=','postal.coordinate')],
+                                       'required':[('trg_model','=','postal.coordinate')]}"
+                               widget="radio" />
+                    </group>
+                    <group name="modifiers">
+                        <field name="include_unauthorized"
+                               readonly="bool(context.get('mailing_group_id'))" />
+                        <field name="bounce_counter" />
+                        <field name="internal_instance_id"
+                               readonly="bool(context.get('mailing_group_id'))" />
+                    </group>
                 </group>
 
                 <notebook>

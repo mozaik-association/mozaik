@@ -23,9 +23,6 @@
         <field name="lastname">ZUCKERBERG</field>
         <field name="firstname">Mark</field>
         <field name="company_id" ref="base.main_company" />
-        <field name="int_instance_ids" eval="[(6, 0, [
-            ref('mozaik_structure.int_instance_01'),
-        ])]"/>
     </record>
 
     <record id="res_partner_thierry" model="res.partner">

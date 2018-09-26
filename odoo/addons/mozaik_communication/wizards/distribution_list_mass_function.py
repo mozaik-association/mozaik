@@ -150,8 +150,13 @@ class DistributionListMassFunction(models.TransientModel):
         """
         Reset some fields when `trg_model` change
         """
-        self.p_mass_function = False
-        self.e_mass_function = False
+        if self.trg_model == 'postal.coordinate':
+            self.e_mass_function = False
+            self.p_mass_function = self._fields[
+                'p_mass_function'].selection[0][0]
+        if self.trg_model == 'email.coordinate':
+            self.e_mass_function = self._get_default_e_mass_function()
+            self.p_mass_function = False
 
     @api.onchange("e_mass_function")
     def _onchange_e_mass_function(self):

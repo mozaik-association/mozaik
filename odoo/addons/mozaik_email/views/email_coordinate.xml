@@ -70,7 +70,7 @@
         <field name="name">Email Coordinates</field>
         <field name="parent_id" ref="mozaik_coordinate.mozaik_coordinate_menu"/>
         <field name="action" ref="email_coordinate_action"/>
-        <field name="sequence" eval="10"/>
+        <field name="sequence" eval="20"/>
     </record>
 
 </odoo>

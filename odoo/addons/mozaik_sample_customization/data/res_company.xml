@@ -3,7 +3,7 @@
 
     <record id="email_main_company" model="email.coordinate">
         <field name="partner_id" ref="base.main_partner" />
-        <field name="email">info+mz@acsone.eu</field>
+        <field name="email">demo+info+mz@acsone.eu</field>
     </record>
 
     <record id="base.main_company" model="res.company">

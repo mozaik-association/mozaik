@@ -2,11 +2,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'MOZAIK: Account',
+    'name': 'Mozaik: Account',
+    'summary': """
+        Manage membership and donation reconciliation""",
     'version': '11.0.1.0.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
+    'license': 'AGPL-3',
+    'author': 'ACSONE SA/NV',
+    'website': 'https://acsone.eu/',
     'category': 'Political Association',
     'depends': [
         'product',
@@ -14,13 +16,6 @@
         'mozaik_involvement',
         'mozaik_membership',
         'l10n_generic_coa',
-    ],
-    'description': """
-MOZAIK Account
-==============
-Manage accounting features
-""",
-    'images': [
     ],
     'data': [
         'data/product_product.xml',
@@ -31,6 +26,5 @@ Manage accounting features
         'demo/product_product.xml',
         'demo/ir_property.xml'
     ],
-    'license': 'AGPL-3',
     'installable': True,
 }

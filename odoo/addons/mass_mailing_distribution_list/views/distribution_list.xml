@@ -38,19 +38,21 @@
                 <field name="newsletter" />
             </xpath>
 
-            <xpath expr="//group[@name='data']" position="inside">
-                <group>
-                    <field name="mail_forwarding"/>
-                </group>
-                <group name="group_alias">
-                    <label for="alias_name" string="Email Alias" attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}"/>
-                    <div name="alias_def" attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}">
-                        <!--We have to force to False the required to avoid interface issue (because the field is required but automatically set)-->
-                        <field name="alias_id" class="oe_read_only oe_inline" string="Email Alias" required="False"/>
-                        <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;" >
-                            <field name="alias_name" class="oe_inline" attrs="{'required': [('mail_forwarding', '=', True)]}"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
+            <xpath expr="//group[@name='data']" position="after">
+                <group name="forward">
+                    <group>
+                        <field name="mail_forwarding"/>
+                    </group>
+                    <group name="group_alias">
+                        <label for="alias_name" string="Email Alias" attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}"/>
+                        <div name="alias_def" attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}">
+                            <!--We have to force to False the required to avoid interface issue (because the field is required but automatically set)-->
+                            <field name="alias_id" class="oe_read_only oe_inline" string="Email Alias" required="False"/>
+                            <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;" >
+                                <field name="alias_name" class="oe_inline" attrs="{'required': [('mail_forwarding', '=', True)]}"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
+                            </div>
                         </div>
-                    </div>
+                    </group>
                 </group>
             </xpath>
 

@@ -15,6 +15,7 @@
         'inherit_abstract_view',
         'mail_job_priority',
         'mozaik_abstract_model',
+        'mozaik_account',
         'mozaik_address',
         'mozaik_address_local_street',
         'mozaik_communication',
