@@ -18,6 +18,10 @@
                 <attribute name="attrs" translation="off">{'invisible': [('old_email','=',False)]}</attribute>
             </xpath>
 
+            <xpath expr="//group[@name='moreinfo']" position="inside">
+                <field name="with_sanitize"/>
+            </xpath>
+
         </field>
     </record>
 

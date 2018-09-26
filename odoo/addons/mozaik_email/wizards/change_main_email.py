@@ -9,11 +9,14 @@ class ChangeMainEmail(models.TransientModel):
     _description = 'Change Main Email Wizard'
 
     old_email = fields.Char(
-        "Current main email",
+        string="Current main email",
     )
     email = fields.Char(
-        "New main email",
+        string="New main email",
         required=True,
+    )
+    with_sanitize = fields.Boolean(
+        default=True,
     )
 
     @api.model
@@ -53,3 +56,11 @@ class ChangeMainEmail(models.TransientModel):
         for wiz in self:
             if wiz.email:
                 wiz.email = self._sanitize_email(wiz.email)
+
+    @api.multi
+    def button_change_main_coordinate(self):
+        """
+        Add with_sanitize booolean in the context
+        """
+        self = self.with_context(with_sanitize=self.with_sanitize)
+        return super().button_change_main_coordinate()

@@ -48,7 +48,8 @@ class EmailCoordinate(models.Model):
         if email:
             email = self._sanitize_email(email)
             # on dev or test redirect all emails to a centralized test mailbox
-            if email and RUNNING_ENV != 'prod' and '@' in email:
+            sanitize = self._context.get('with_sanitize', True)
+            if email and RUNNING_ENV != 'prod' and '@' in email and sanitize:
                 if MASK and not RE_MASK.match(email):
                     email = email.replace('+', '-').replace('@', '-at-')
                     email = MASK % email

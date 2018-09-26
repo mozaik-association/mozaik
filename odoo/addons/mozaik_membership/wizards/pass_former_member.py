@@ -84,7 +84,7 @@ class PassFormerMember(models.TransientModel):
         """
 
         try:
-            parameter_obj = self.env['ir.config_parameter']
+            parameter_obj = self.env['ir.config_parameter'].sudo()
             worker_pivot = int(parameter_obj.get_param(
                 'worker_pivot', WORKER_PIVOT))
         except ValueError:

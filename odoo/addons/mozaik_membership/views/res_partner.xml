@@ -211,16 +211,14 @@
                             <field name="state_code" invisible="1"/>
                         </tree>
                     </field>
+                    <group name="user" attrs="{'invisible': [('is_company','=', True)]}">
+                        <separator string="Internal Instances"/>
+                        <field name="int_instance_m2m_ids" widget="many2many_tags"
+                            placeholder="Instances..."
+                            attrs="{'required': [('user_ids','!=',[]),('membership_state_id','!=',False)]}" />
+                    </group>
                 </page>
             </notebook>
-
-            <xpath expr="//page[@name='dev']" position="inside">
-                <separator string="Internal Instances" attrs="{'invisible': [('is_company','=', True)]}"/>
-                <field name="int_instance_m2m_ids" widget="many2many_tags"
-                    placeholder="Instances..."
-                    attrs="{'required': [('user_ids','!=',[]),('membership_state_id','!=',False)],
-                    'invisible': [('is_company','=', True)]}" />
-            </xpath>
 
         </field>
     </record>

@@ -68,7 +68,7 @@ class membership_request(orm.Model):
     @api.multi
     @api.constrains('birth_date', 'is_company', 'state')
     def _check_age(self):
-        required_age = int(self.env['ir.config_parameter'].get_param(
+        required_age = int(self.env['ir.config_parameter'].sudo().get_param(
             MR_REQUIRED_AGE_KEY, default=16))
         for mr in self.filtered(
                 lambda s: not s.is_company and s.birth_date and
