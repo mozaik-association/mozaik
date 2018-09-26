@@ -6,7 +6,6 @@
     <record id="everybody_list" model="distribution.list">
         <field name="name">Everybody</field>
         <field name="dst_model_id" ref="base.model_res_partner" />
-        <field name="bridge_field">id</field>
     </record>
 
     <record id="distribution_list_line_all_nat_pers_1" model="distribution.list.line">
@@ -20,7 +19,6 @@
     <record id="distribution_list_newsletter" model="distribution.list">
         <field name="name">Sample Newsletter</field>
         <field name="dst_model_id" ref="base.model_res_partner" />
-        <field name="bridge_field">id</field>
         <field name="code">NEWS</field>
         <field name="newsletter" eval="1"/>
         <field name="res_partner_opt_out_ids" eval="[(6, 0, [ref('mozaik_coordinate.res_partner_paul')])]"/>

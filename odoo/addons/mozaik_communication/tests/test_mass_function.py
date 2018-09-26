@@ -91,7 +91,6 @@ class TestMassFunction(SavepointCase):
             'partner_name': 'Le roi Arthur',
         }
         wizard = mfct_obj.create(vals)
-        wizard._onchange_partner_from()
         email = formataddr((vals['partner_name'], p2.email))
         self.assertEqual(email, wizard.email_from)
 

@@ -138,12 +138,25 @@ class DistributionListMassFunction(models.TransientModel):
     partner_name = fields.Char(
     )
     email_from = fields.Char(
-        readonly=True,
+        compute='_compute_email_from',
     )
     mail_template_id = fields.Many2one(
         comodel_name='mail.template',
         string='Email Template',
     )
+
+    @api.multi
+    @api.depends('partner_from_id', 'partner_name')
+    def _compute_email_from(self):
+        for wz in self:
+            name = ''
+            email = ''
+            if wz.partner_from_id:
+                name = wz.partner_from_id.name
+                email = wz.partner_from_id.email or ''
+            if wz.partner_name:
+                name = wz.partner_name.strip()
+            wz.email_from = formataddr((name, email))
 
     @api.onchange("trg_model")
     def _onchange_trg_model(self):
@@ -459,18 +472,6 @@ class DistributionListMassFunction(models.TransientModel):
         if self.env.user.partner_id in self._get_partner_from():
             return self.env.user.partner_id
         return self.env['res.partner'].browse()
-
-    @api.onchange('partner_from_id', 'partner_name')
-    def _onchange_partner_from(self):
-        self.ensure_one()
-        name = ''
-        email = ''
-        if self.partner_from_id:
-            name = self.partner_from_id.name
-            email = self.partner_from_id.email or ''
-        if self.partner_name:
-            name = self.partner_name.strip()
-        self.email_from = formataddr((name, email))
 
     @api.onchange('mail_template_id')
     def _onchange_template_id(self):
