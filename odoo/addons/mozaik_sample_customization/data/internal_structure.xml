@@ -9,6 +9,7 @@
 
     <record id="mozaik_structure.int_instance_01" model="int.instance">
         <field name="name">Mozaik Fédéral</field>
+        <field name="code">001</field>
     </record>
 
     <!-- Power Levels -->
@@ -96,42 +97,49 @@
         <field name="name">Parlement wallon</field>
         <field name="power_level_id" ref="int_power_level_02"/>
         <field name="parent_id" ref="mozaik_structure.int_instance_01"/>
+        <field name="code">002</field>
     </record>
 
     <record id="int_instance_03" model="int.instance">
         <field name="name">Liège</field>
         <field name="power_level_id" ref="int_power_level_03"/>
         <field name="parent_id" ref="int_instance_02"/>
+        <field name="code">003</field>
     </record>
 
     <record id="int_instance_04" model="int.instance">
         <field name="name">Huy-Waremme</field>
         <field name="power_level_id" ref="int_power_level_04"/>
         <field name="parent_id" ref="int_instance_03"/>
+        <field name="code">004</field>
     </record>
 
     <record id="int_instance_05" model="int.instance">
         <field name="name">Huy</field>
         <field name="power_level_id" ref="int_power_level_05"/>
         <field name="parent_id" ref="int_instance_04"/>
+        <field name="code">005</field>
     </record>
 
     <record id="int_instance_06" model="int.instance">
         <field name="name">Oreye</field>
         <field name="power_level_id" ref="int_power_level_05"/>
         <field name="parent_id" ref="int_instance_04"/>
+        <field name="code">006</field>
     </record>
 
     <record id="int_instance_07" model="int.instance">
         <field name="name">Wanze</field>
         <field name="power_level_id" ref="int_power_level_05"/>
         <field name="parent_id" ref="int_instance_04"/>
+        <field name="code">007</field>
     </record>
 
     <record id="int_instance_08" model="int.instance">
         <field name="name">Amay</field>
         <field name="power_level_id" ref="int_power_level_05"/>
         <field name="parent_id" ref="int_instance_04"/>
+        <field name="code">008</field>
     </record>
 
     <record id="int_instance_09" model="int.instance">
@@ -141,18 +149,21 @@
         <field name="multi_instance_pc_ids" eval="[(4, ref('int_instance_06')),
                                                    (4, ref('int_instance_07')),
                                                    (4, ref('int_instance_08')),]"/>
+        <field name="code">009</field>
     </record>
 
     <record id="int_instance_10" model="int.instance">
         <field name="name">Bruxelles</field>
         <field name="power_level_id" ref="int_power_level_04"/>
         <field name="parent_id" ref="mozaik_structure.int_instance_01"/>
+        <field name="code">010</field>
     </record>
 
     <record id="int_instance_11" model="int.instance">
         <field name="name">Bruxelles</field>
         <field name="power_level_id" ref="int_power_level_05"/>
         <field name="parent_id" ref="int_instance_10"/>
+        <field name="code">011</field>
     </record>
 
     <!-- Assemblies -->

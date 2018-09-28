@@ -17,6 +17,13 @@ class PartnerInvolvement(models.Model):
         string='Just a promise',
         compute='_compute_promise', store=True)
 
+    partner_instance_ids = fields.Many2many(
+        comodel_name="int.instance",
+        string='Partner Internal Instances',
+        related='partner_id.int_instance_ids',
+        readonly=True,
+    )
+
     _sql_constraints = [
         (
             'donation',

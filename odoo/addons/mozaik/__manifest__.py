@@ -31,6 +31,7 @@
         'mozaik_phone',
         'mozaik_relation_coordinate',
         'mozaik_structure',
+        'mozaik_subscription_price',
         'mozaik_thesaurus',
         'mozaik_tools',
         'mozaik_virtual_assembly_instance',

@@ -94,6 +94,7 @@
                             <group name="moreinfo">
                                 <field name="active"/>
                                 <field name="state_code" />
+                                <field name="partner_instance_ids" widget="many2many_tags"/>
                             </group>
                         </page>
                     </notebook>

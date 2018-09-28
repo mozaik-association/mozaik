@@ -11,6 +11,7 @@ from . import res_city
 from . import abstract_coordinate
 from . import postal_coordinate
 from . import partner_involvement
+from . import res_partner_relation
 from . import res_partner_relation_all
 from . import assembly_mixin
 from . import sta_assembly

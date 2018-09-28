@@ -16,7 +16,7 @@
         </field>
     </record>
 
-    <record id="partner_involvement_2_form_view" model="ir.ui.view">
+    <record id="partner_involvement_form_view" model="ir.ui.view">
         <field name="name">partner.involvement.form (mozaik_membership)</field>
         <field name="model">partner.involvement</field>
         <field name="inherit_id" ref="mozaik_involvement.partner_involvement_form_view" />
@@ -33,6 +33,9 @@
                         </group>
                     </group>
                 </page>
+            </xpath>
+            <xpath expr="//group[@name='moreinfo']" position="inside">
+                <field name="partner_instance_ids" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>

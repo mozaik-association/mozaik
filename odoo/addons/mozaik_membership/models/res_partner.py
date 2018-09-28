@@ -28,15 +28,20 @@ class ResPartner(models.Model):
     force_int_instance_id = fields.Many2one(
         comodel_name='int.instance',
         string="Force instance",
+        required=True,
+        default=lambda s: s._default_force_int_instance_id(),
     )
     membership_line_ids = fields.One2many(
         comodel_name='membership.line', inverse_name='partner_id',
         string='Memberships', readonly=True)
     free_member = fields.Boolean()
     membership_state_id = fields.Many2one(
-        comodel_name='membership.state', string='Membership State', index=True,
-        track_visibility='onchange', copy=False,
-        default=lambda s: s._default_membership_state_id())
+        comodel_name='membership.state', string='Membership State',
+        index=True,
+        compute="_compute_int_instance_ids",
+        store=True,
+        track_visibility='onchange',
+    )
     membership_state_code = fields.Char(
         related='membership_state_id.code', readonly=True)
     subscription_product_id = fields.Many2one(
@@ -70,9 +75,16 @@ class ResPartner(models.Model):
         store=True,
     )
 
+    @api.model
+    def _default_force_int_instance_id(self):
+        return first(self.env.user.partner_id.int_instance_m2m_ids)
+
     @api.multi
-    @api.depends('membership_line_ids.int_instance_id',
-                 'city_id.int_instance_id', 'city_id')
+    @api.depends(
+        'is_assembly',
+        'membership_line_ids.int_instance_id', 'force_int_instance_id',
+        'city_id', 'city_id.int_instance_id',
+    )
     def _compute_int_instance_ids(self):
         """
         Compute function the field int_instance_ids.
@@ -85,9 +97,16 @@ class ResPartner(models.Model):
         :return:
         """
         default_instance = self.env['int.instance']._get_default_int_instance()
+        default_state = self.env['membership.state']._get_default_state()
         for record in self:
-            instances = record.membership_line_ids.filtered(
-                lambda l: l.active).mapped("int_instance_id")
+            state = default_state if not record.is_assembly else False
+            memberships = record.membership_line_ids.filtered(
+                lambda l: l.active)
+            instances = memberships.mapped("int_instance_id")
+            states = memberships.mapped("state_id")
+            if states:
+                state = states.filtered(
+                    lambda s: s.state_code == 'member') or first(state)
             if not instances and record.force_int_instance_id:
                 instances = record.force_int_instance_id
             if not instances and record.country_id.enforce_cities:
@@ -95,13 +114,11 @@ class ResPartner(models.Model):
             if not instances:
                 instances = default_instance
             record.int_instance_ids = instances
+            record.membership_state_id = state
 
     @api.model
     def _default_int_instance_id(self):
         return self.env['int.instance']._get_default_int_instance()
-
-    def _default_membership_state_id(self):
-        return self.env['membership.state']._get_default_state().id
 
     @api.multi
     @api.depends('membership_line_ids', 'membership_line_ids.active')

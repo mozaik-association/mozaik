@@ -32,7 +32,6 @@ class MembershipLine(models.Model):
         default=lambda s: s._default_int_instance_id(), required=True,)
     reference = fields.Char()
     date_from = fields.Date(string='From', readonly=True)
-    # Question: should be the 'expire_date' fields defined on the abstract?
     date_to = fields.Date(string='To', readonly=True)
     price = fields.Float(
         digits=dp.get_precision('Product Price'),
@@ -42,7 +41,14 @@ class MembershipLine(models.Model):
         default=False,
         help="Define if this line is paid or not",
         copy=False,
-        index=True,
+        readonly=True,
+    )
+
+    partner_instance_ids = fields.Many2many(
+        comodel_name="int.instance",
+        string='Partner Internal Instances',
+        related='partner_id.int_instance_ids',
+        readonly=True,
     )
 
     _sql_constraints = [

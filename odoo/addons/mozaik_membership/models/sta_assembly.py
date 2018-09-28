@@ -9,25 +9,11 @@ class StaAssembly(models.Model):
     _inherit = 'sta.assembly'
 
     @api.model
-    def _pre_update(self, vals):
-        '''
-        When instance_id is touched force an update of int_instance_id
-        '''
-        res = {}
-        if 'instance_id' in vals:
-            instance_id = vals['instance_id']
-            int_instance_id = self.env['sta.instance'].browse(instance_id)\
-                .int_instance_id
-            if int_instance_id:
-                res = {'int_instance_id': int_instance_id.id}
-        return res
-
-    @api.model
     def create(self, vals):
         '''
         Set the Responsible Internal Instance linked to the result Partner
         '''
-        vals.update(self._pre_update(vals))
+        self._sanitize_instance(vals)
         res = super().create(vals)
         return res
 
@@ -36,6 +22,17 @@ class StaAssembly(models.Model):
         '''
         Update the Responsible Internal Instance linked to the result Partner
         '''
-        vals.update(self._pre_update(vals))
+        self._sanitize_instance(vals)
         res = super().write(vals)
         return res
+
+    @api.model
+    def _sanitize_instance(self, vals):
+        '''
+        Link result Partner to the Internal Instance of the state instance
+        '''
+        if 'instance_id' in vals:
+            instance_id = vals['instance_id']
+            int_instance_id = self.env['sta.instance'].browse(instance_id)\
+                .int_instance_id
+            vals.update({'force_int_instance_id': int_instance_id.id})

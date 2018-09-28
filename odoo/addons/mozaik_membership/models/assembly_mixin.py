@@ -23,8 +23,7 @@ class AssemblyMixin(models.AbstractModel):
     @api.model
     def _sanitize_instance(self, vals):
         '''
-        Responsible Internal Instance linked to the result Partner is the
-        Instance of the Assembly
+        Link result Partner to the Assembly Internal Instance
         '''
         if 'instance_id' in vals:
-            vals.update({'int_instance_id': vals['instance_id']})
+            vals.update({'force_int_instance_id': vals['instance_id']})

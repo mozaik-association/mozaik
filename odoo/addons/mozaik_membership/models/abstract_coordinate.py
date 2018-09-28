@@ -9,16 +9,15 @@ class AbstractCoordinate(models.AbstractModel):
     _inherit = ['abstract.coordinate']
 
     partner_kind = fields.Selection(
-        related='partner_id.kind', store=True)
-    partner_instance_ids = fields.Many2many(
-        related='partner_id.int_instance_ids',
-        comodel_name="int.instance",
-        relation="coordinate_partner_instance_relation",
-        column1="coordinate_id",
-        column2="partner_id",
-        string='Partner Internal Instance',
+        related='partner_id.kind',
         readonly=True,
         store=True,
+    )
+    partner_instance_ids = fields.Many2many(
+        comodel_name="int.instance",
+        string='Partner Internal Instances',
+        related='partner_id.int_instance_ids',
+        readonly=True,
     )
 
     @api.multi

@@ -16,21 +16,20 @@ class PostalCoordinate(models.Model):
         to the `active` field of its partner.
         Instance is the default one if no instance found on the city
         """
+        def_int_instance_id = self.env['int.instance']\
+            ._get_default_int_instance()
         for pc in self:
             # if coordinate is main update int_instance of partner
             if pc.is_main and pc.active == pc.partner_id.active and \
                     pc.partner_id.membership_state_id:
                 partner = pc.partner_id
-                cur_int_instance_id = partner.int_instance_id.id
-                def_int_instance_id = self.env['int.instance']\
-                    ._get_default_int_instance()
+                cur_int_instance_ids = partner.int_instance_ids
                 # get instance_id of address or keep default otherwise
                 zip_id = pc.address_id.city_id
-                new_int_instance_id = def_int_instance_id
-                if zip_id.int_instance_id:
-                    new_int_instance_id = zip_id.int_instance_id
+                new_int_instance_id = zip_id.int_instance_id or \
+                    def_int_instance_id
 
-                if new_int_instance_id != cur_int_instance_id:
+                if new_int_instance_id != cur_int_instance_ids:
                     partner._change_instance(new_int_instance_id)
 
     @api.model
@@ -40,7 +39,7 @@ class PostalCoordinate(models.Model):
         """
         change_instance = not self.env.context.get('keep_current_instance')
         res = super().create(vals)
-        if vals.get('is_main') and change_instance:
+        if res.is_main and change_instance:
             res._update_postal_follower()
         return res
 
