@@ -110,7 +110,9 @@ class AccountBankStatementLine(models.Model):
         account = product.property_subscription_account
         precision = membership._fields.get('price').digits[1]
         # float_compare return 0 is values are equals
-        if account and not float_compare(self.amount, membership.price, precision_digits=precision):
+        cmp = float_compare(
+            self.amount, membership.price, precision_digits=precision)
+        if account and not cmp:
             move_dicts = [{
                 'account_id': account.id,
                 'debit': 0,

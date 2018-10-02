@@ -78,7 +78,7 @@
         <field name="priority" eval="25" />
         <field name="arch" type="xml">
             <field name="postal_coordinate_id" position="after">
-                <field name="force_int_instance_id" attrs="{'invisible': [('membership_state_code','not in',[False, 'without_membership'])]}" />
+                <field name="force_int_instance_id" attrs="{'invisible': [('membership_state_code','not in',[False, 'without_membership'])], 'required': [('int_instance_ids', '=', False)]}" />
                 <field name="int_instance_ids" widget="many2many_tags"  attrs="{'invisible': [('membership_state_code','in',[False, 'without_membership'])]}"/>
                 <field name="local_only" attrs="{'invisible': ['|', ('is_assembly','=',True), ('membership_state_code', 'not in', [False, 'without_membership', 'former_supporter', 'break_former_member', 'resignation_former_member'])]}"/>
             </field>

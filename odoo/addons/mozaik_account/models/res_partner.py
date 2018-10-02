@@ -21,7 +21,9 @@ class ResPartner(models.Model):
         first = self.env.ref('mozaik_membership.membership_product_first')
         precision = self._fields.get('amount').digits[1]
         # float_compare return 0 is values are equals
-        if self.membership_state_code == 'member_candidate' and self.reference == reference and not float_compare(self.amount, amount, precision_digits=precision):
+        cmp = float_compare(self.amount, amount, precision_digits=precision)
+        if self.membership_state_code == 'member_candidate' and \
+                self.reference == reference and not cmp:
             return first.id, first.property_subscription_account
 
         domain = [

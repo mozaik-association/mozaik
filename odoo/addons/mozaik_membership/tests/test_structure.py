@@ -109,7 +109,4 @@ class TestStructure(TransactionCase):
         model_int_instance.create(vals)
         # users's internal instances must remain unchanged
         new_iis = marc.partner_id.int_instance_m2m_ids - initial_iis
-        self.assertFalse(new_iis,
-                         'Create an internal instance with a parent fails '
-                         'with wrong internal instances linked '
-                         'to the user''s partner')
+        self.assertFalse(new_iis)

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from odoo import api, models, fields, _
+from odoo import api, exceptions, models, fields, _
 from odoo.fields import first
 from odoo.exceptions import ValidationError
 
@@ -28,7 +28,6 @@ class ResPartner(models.Model):
     force_int_instance_id = fields.Many2one(
         comodel_name='int.instance',
         string="Force instance",
-        required=True,
         default=lambda s: s._default_force_int_instance_id(),
     )
     membership_line_ids = fields.One2many(
@@ -106,7 +105,7 @@ class ResPartner(models.Model):
             states = memberships.mapped("state_id")
             if states:
                 state = states.filtered(
-                    lambda s: s.state_code == 'member') or first(state)
+                    lambda s: s.code == 'member') or first(state)
             if not instances and record.force_int_instance_id:
                 instances = record.force_int_instance_id
             if not instances and record.country_id.enforce_cities:
@@ -116,9 +115,18 @@ class ResPartner(models.Model):
             record.int_instance_ids = instances
             record.membership_state_id = state
 
-    @api.model
-    def _default_int_instance_id(self):
-        return self.env['int.instance']._get_default_int_instance()
+    @api.multi
+    @api.constrains('force_int_instance_id', 'membership_line_ids')
+    def _check_force_int_instance_id(self):
+        """
+        Check if partner has an instance if no membership
+        """
+        self_sudo = self.sudo()
+        for partner in self_sudo.filtered(lambda s: not s.membership_line_ids):
+            if not partner.force_int_instance_id:
+                raise exceptions.ValidationError(_(
+                    "A partner without membership "
+                    "must be linked to an internal instance"))
 
     @api.multi
     @api.depends('membership_line_ids', 'membership_line_ids.active')

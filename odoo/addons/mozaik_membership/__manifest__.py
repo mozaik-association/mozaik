@@ -52,6 +52,7 @@
         "demo/int_instance.xml",
         "demo/sta_instance.xml",
         "demo/membership_tarification.xml",
+        "demo/res_city.xml",
     ],
     'installable': True,
 }

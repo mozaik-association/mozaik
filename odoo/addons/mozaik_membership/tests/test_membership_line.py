@@ -176,7 +176,7 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = partner.membership_state_id
-        date_from = '05/06/2015'
+        date_from = '2015-06-05'
         values = self._get_membership_line_values(
             price=price, ref=reference, partner=partner, product=product,
             date_from=date_from, state=state, instance=instance)
@@ -217,7 +217,7 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = partner.membership_state_id
-        date_from = '05/06/2018'
+        date_from = '2018-06-05'
         values = self._get_membership_line_values(
             price=price, ref=reference, partner=partner, product=product,
             date_from=date_from, state=state, instance=instance)

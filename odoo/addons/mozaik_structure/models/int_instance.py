@@ -56,7 +56,6 @@ class IntInstance(models.Model):
         oldname='multi_instance_cp_m2m_ids',
     )
     code = fields.Char(
-        required=True,
         copy=False,
     )
 
@@ -108,12 +107,11 @@ class IntInstance(models.Model):
         '''
         Get related partners of all secretariats associated to self
         '''
-        self.ensure_one()
-        instances = self.env[self._name].sudo()
-        instance = self.sudo()
-        while instance:
-            instances |= instance
-            instance = instance.parent_id
+        self_sudo = self.sudo()
+        instances = self_sudo.browse()
+        while self_sudo:
+            instances |= self_sudo
+            self_sudo = self_sudo.mapped('parent_id')
 
         assemblies = instances.mapped('assembly_ids')
         assemblies = assemblies.filtered(
