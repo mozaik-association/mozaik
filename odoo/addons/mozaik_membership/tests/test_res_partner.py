@@ -26,6 +26,11 @@ class TestPartner(TransactionCase):
         '''
         postal_obj = self.env['postal.coordinate']
         address = self.browse_ref('mozaik_address.address_1')
+        address.country_id.write({
+            'enforce_cities': True,
+        })
+        # Ensure it's defined
+        self.assertTrue(bool(address.city_id.int_instance_id))
         jacques = self.partner_jacques_id
         vals = {
             'address_id': address.id,
