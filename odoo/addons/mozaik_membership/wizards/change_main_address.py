@@ -35,11 +35,11 @@ class ChangeMainAddress(models.TransientModel):
         instance_ids = []
         if len(ids) == 1:
             active_model = self.env.context.get("active_model")
-            target_model = self._get_target_model()
-            if active_model == target_model:
-                target = self.env[target_model].browse(ids)
+            partner = self.env['res.partner'].browse()
+            if active_model == 'postal.coordinate':
+                target = self.env['postal.coordinate'].browse(ids)
                 partner = target.mapped("partner_id")
-            else:
+            elif active_model == 'res.partner':
                 partner = self.env['res.partner'].browse(ids)
             instance_ids = partner.int_instance_ids.ids
 

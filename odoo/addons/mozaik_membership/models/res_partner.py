@@ -24,7 +24,12 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     int_instance_m2m_ids = fields.Many2many(
-        comodel_name='int.instance', string='Internal Instances')
+        comodel_name='int.instance',
+        string='Internal Instances',
+        relation="res_partner_int_instance_manager",
+        column1="partner_id",
+        column2="int_instance_id",
+    )
     force_int_instance_id = fields.Many2one(
         comodel_name='int.instance',
         string="Force instance",
@@ -71,6 +76,9 @@ class ResPartner(models.Model):
         comodel_name='int.instance',
         string='Instances',
         compute="_compute_int_instance_ids",
+        relation="res_partner_int_instance",
+        column1="partner_id",
+        column2="int_instance_id",
         store=True,
     )
 
