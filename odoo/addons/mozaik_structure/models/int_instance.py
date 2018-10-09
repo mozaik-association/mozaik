@@ -74,7 +74,7 @@ class IntInstance(models.Model):
             'structure.instance_code_size', default=3))
         # If size is not equals to size in parameters or value is not digit
         bad_instances = self.filtered(
-            lambda l: len(l.code or '') != size or not l.code.isdigit())
+            lambda l: l.code and (len(l.code) != size or not l.code.isdigit()))
         if bad_instances:
             details = "\n- ".join(bad_instances.mapped("code"))
             message = _("These instance codes are not valid:\n- %s") % details

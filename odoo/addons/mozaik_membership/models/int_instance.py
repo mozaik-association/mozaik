@@ -37,7 +37,7 @@ class IntInstance(models.Model):
         self.ensure_one()
         action = self.env.ref(
             "mozaik_person.res_partner_natural_person_action").read()[0]
-        domain = [('id', '=', self.partner_ids.ids)]
+        domain = [('int_instance_ids', 'in', [self.id])]
         if action.get('domain'):
             domain = expression.AND([domain, safe_eval(action.get('domain'))])
         action.update({
@@ -53,7 +53,7 @@ class IntInstance(models.Model):
             # instances if it is a root instance.
             # We have to get values who could be filled and then add the user
             partner_m2m_ids = vals.get('partner_m2m_ids', [])
-            partner_m2m_ids.append(4, self.env.user.partner_id.id)
+            partner_m2m_ids.append((4, self.env.user.partner_id.id))
             vals.update({
                 "partner_m2m_ids": partner_m2m_ids,
             })
