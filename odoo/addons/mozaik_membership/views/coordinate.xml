@@ -11,7 +11,6 @@
         ])]" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='moreinfo']" position="inside">
-                <field name="partner_instance_id" />
                 <field name="partner_kind" />
             </xpath>
         </field>
@@ -27,8 +26,8 @@
         ])]" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='moreinfo']" position="inside">
-                <field name="partner_instance_id" />
                 <field name="partner_kind" />
+                <field name="partner_instance_ids" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
@@ -43,7 +42,6 @@
         ])]" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='moreinfo']" position="inside">
-                <field name="partner_instance_id" />
                 <field name="partner_kind" />
             </xpath>
         </field>

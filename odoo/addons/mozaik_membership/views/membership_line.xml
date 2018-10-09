@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo noupdate="0">
 
-   <record id="membership_line_search_view" model="ir.ui.view">
+    <record id="membership_line_search_view" model="ir.ui.view">
         <field name="name">membership.line.search (mozaik_membership)</field>
         <field name="model">membership.line</field>
         <field name="arch" type="xml">
@@ -17,11 +17,8 @@
                 <field name="state_id"/>
                 <field name="product_id"/>
 
-                <filter name="active" string="Active"
-                    domain="[('active','=',True)]" help="Active Memberships" />
-                <filter name="expired" string="Expired"
-                    context="{'invisible_expire_date': False}"
-                    domain="[('active','=',False)]" help="Expired Memberships" />
+                <filter name="active" string="Active" domain="[('active','=',True)]" help="Active Memberships" />
+                <filter name="expired" string="Expired" context="{'invisible_expire_date': False}" domain="[('active','=',False)]" help="Expired Memberships" />
 
                 <group name="group_by">
                     <filter string="Member" context="{'group_by': 'partner_id'}"/>
@@ -29,7 +26,7 @@
                     <filter string="Subscription" context="{'group_by': 'product_id'}"/>
                     <filter string="Membership State" context="{'group_by': 'state_id'}"/>
                 </group>
-           </search>
+            </search>
         </field>
     </record>
 
@@ -37,13 +34,11 @@
         <field name="name">membership.line.tree (mozaik_membership)</field>
         <field name="model">membership.line</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="active==False" decoration-success="state_code=='member'" decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']"
-                  create="0" delete="0">
+            <tree decoration-muted="active==False" decoration-success="state_code=='member'" decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']" create="0" delete="0">
                 <field name="partner_id"/>
                 <field name="int_instance_id"/>
                 <field name="state_id"/>
-                <field name="product_id"
-                    attrs="{'invisible': [('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
+                <field name="product_id" attrs="{'invisible': [('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
                 <field name="reference" />
                 <field name="date_from"/>
                 <field name="date_to"/>
@@ -69,17 +64,10 @@
 
                     <group name="data">
                         <group name="main">
-                           <field name="state_id" />
-                           <field name="product_id"
-                                attrs="{'invisible': ['|',
-                                                ('product_id','=',False),
-                                                ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
-                            <field name="price" readonly="not context.get('in_mozaik_configurator')"
-                                   attrs="{'invisible': ['|',
-                                                ('product_id','=',False),
-                                                ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}" />
-                            <field name="reference"
-                                   attrs="{'invisible': [('reference','=',False)]}" />
+                            <field name="state_id" />
+                            <field name="product_id" attrs="{'invisible': ['|', ('product_id','=',False), ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
+                            <field name="price" readonly="not context.get('in_mozaik_configurator')" attrs="{'invisible': ['|', ('product_id','=',False), ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}" />
+                            <field name="reference" attrs="{'invisible': [('reference','=',False)]}" />
                         </group>
                         <group name="other">
                             <field name="int_instance_id" />
@@ -99,15 +87,14 @@
                                 </group>
                             </group>
                         </page>
-                         <page name="dev" string="More Info" groups="base.group_erp_manager">
+                        <page name="dev" string="More Info" groups="base.group_erp_manager">
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_revalidate" string="Reactivate" type="object"
-                                        confirm="Reactivate document: proceed anyway?" />
+                                <button name="action_revalidate" string="Reactivate" type="object" confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="active"/>
-                                <field name="partner_instance_id" />
                                 <field name="state_code" />
+                                <field name="partner_instance_ids" widget="many2many_tags"/>
                             </group>
                         </page>
                     </notebook>

@@ -26,6 +26,7 @@ class AbstractVirtualModel(models.AbstractModel):
     int_instance_id = fields.Many2one(
         comodel_name='int.instance',
         string='Internal Instance',
+        store=False,
     )
     email_coordinate_id = fields.Many2one(
         comodel_name="email.coordinate",
@@ -143,7 +144,6 @@ class AbstractVirtualModel(models.AbstractModel):
         select = """SELECT
             CONCAT(p.id, '/', pc.id, '/', e.id) AS common_id,
             p.id AS partner_id,
-            p.int_instance_id AS int_instance_id,
             e.id AS email_coordinate_id,
             pc.id AS postal_coordinate_id,
             p.is_company AS is_company,

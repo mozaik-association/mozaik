@@ -19,7 +19,7 @@ class ChangeMainAddress(models.TransientModel):
     move_co_residency = fields.Boolean('Move Co-Residency', default=True)
     invalidate_co_residency = fields.Boolean('Invalidate Co-Residency',
                                              default=True)
-    move_allowed = fields.Boolean()
+    move_allowed = fields.Boolean(readonly=True)
     message = fields.Char()
 
     @api.model
@@ -61,10 +61,9 @@ class ChangeMainAddress(models.TransientModel):
 
     @api.multi
     def button_change_main_coordinate(self):
-        postal_coordinate_ids = []
+        postal_coordinate_ids = False
         if self.co_residency_id and self.move_co_residency:
-            postal_coordinate_ids = self.co_residency_id.\
-                postal_coordinate_ids.ids
+            postal_coordinate_ids = self.co_residency_id.postal_coordinate_ids
             cores_wiz_obj = self.env['change.co.residency.address']
             vals = {
                 'co_residency_id': self.co_residency_id.id,
@@ -77,7 +76,5 @@ class ChangeMainAddress(models.TransientModel):
             wizard.change_address()
         res = super().button_change_main_coordinate()
         if self.invalidate_previous_coordinate and postal_coordinate_ids:
-            postal_coordinate_ids =\
-                self.env['postal.coordinate'].browse(postal_coordinate_ids)
             postal_coordinate_ids.action_invalidate()
         return res

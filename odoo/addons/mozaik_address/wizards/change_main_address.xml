@@ -20,7 +20,6 @@
             <xpath expr="//group[@name='data']" position="after">
                 <separator string='Co-Residency' attrs="{'invisible': [('co_residency_id', '=', False)]}"/>
                 <group name="co-residency" attrs="{'invisible': [('co_residency_id', '=', False)]}">
-                    <field name="move_allowed" readonly='1' groups="base.group_erp_manager"/>
                     <field name="co_residency_id" options='{"no_open":True}' readonly='1'/>
                     <field name="move_co_residency" attrs="{'invisible': [('move_allowed', '=', False)]}"/>
                     <field name="invalidate_co_residency" attrs="{'invisible': [('move_co_residency', '=', False)]}"/>
@@ -28,6 +27,10 @@
                 <group name="message" attrs="{'invisible': [('move_allowed', '=', True)]}">
                     <b><field name="message" readonly="1" nolabel="1"/></b>
                 </group>
+            </xpath>
+
+            <xpath expr="//group[@name='moreinfo']" position="inside">
+                <field name="move_allowed"/>
             </xpath>
         </field>
     </record>

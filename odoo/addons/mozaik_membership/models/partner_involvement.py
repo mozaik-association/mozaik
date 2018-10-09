@@ -9,10 +9,6 @@ class PartnerInvolvement(models.Model):
 
     _inherit = 'partner.involvement'
 
-    partner_instance_id = fields.Many2one(
-        comodel_name='int.instance', string='Partner Internal Instance',
-        related='partner_id.int_instance_id', store=True, readonly=True)
-
     amount = fields.Float(
         digits=dp.get_precision('Product Price'),
         copy=False, track_visibility='onchange')
@@ -20,6 +16,13 @@ class PartnerInvolvement(models.Model):
     promise = fields.Boolean(
         string='Just a promise',
         compute='_compute_promise', store=True)
+
+    partner_instance_ids = fields.Many2many(
+        comodel_name="int.instance",
+        string='Partner Internal Instances',
+        related='partner_id.int_instance_ids',
+        readonly=True,
+    )
 
     _sql_constraints = [
         (

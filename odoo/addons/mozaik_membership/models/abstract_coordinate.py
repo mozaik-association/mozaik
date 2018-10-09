@@ -9,11 +9,16 @@ class AbstractCoordinate(models.AbstractModel):
     _inherit = ['abstract.coordinate']
 
     partner_kind = fields.Selection(
-        related='partner_id.kind', store=True)
-    partner_instance_id = fields.Many2one(
-        related='partner_id.int_instance_id',
-        string='Partner Internal Instance',
-        index=True, readonly=True, store=True)
+        related='partner_id.kind',
+        readonly=True,
+        store=True,
+    )
+    partner_instance_ids = fields.Many2many(
+        comodel_name="int.instance",
+        string='Partner Internal Instances',
+        related='partner_id.int_instance_ids',
+        readonly=True,
+    )
 
     @api.multi
     def _update_followers(self):
@@ -21,7 +26,7 @@ class AbstractCoordinate(models.AbstractModel):
         Update followers list for each coordinate of the same partner
         """
         for coord in self:
-            fol = coord.partner_instance_id._get_instance_followers()
+            fol = coord.partner_instance_ids._get_instance_followers()
             coord.message_subscribe(fol.ids)
 
     @api.model

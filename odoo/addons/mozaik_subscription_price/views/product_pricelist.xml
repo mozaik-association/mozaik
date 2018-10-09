@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="product_pricelist_form_view">
+        <field name="name">Product.pricelist.form (in mozail_subscription_price)</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="priority" eval="90"/>
+        <field name="arch" type="xml">
+            <field name="country_group_ids" position="after">
+                <field name="int_instance_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+</odoo>

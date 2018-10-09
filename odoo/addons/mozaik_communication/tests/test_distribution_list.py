@@ -164,6 +164,7 @@ class TestDistributionList(SavepointCase):
 
         dl = self.evr_lst_id
         dl_usr = dl.sudo(user=self.usr.id)
+        partner_obj = self.partner_obj
 
         # res.partner, admin
         a_mains, a_alternatives = dl._get_complex_distribution_list_ids()
@@ -177,7 +178,7 @@ class TestDistributionList(SavepointCase):
 
         # res.partner, other user
         u_mains, __ = dl_usr._get_complex_distribution_list_ids()
-        u_partners = self.partner_obj.sudo(user=self.usr.id).search(dom)
+        u_partners = partner_obj.sudo(user=self.usr.id).search(dom)
         self.assertEqual(u_mains, u_partners)
 
         context = dict(
@@ -199,7 +200,7 @@ class TestDistributionList(SavepointCase):
             ('is_company', '=', False),
             ('email', '!=', False),
         ]
-        ac_partners = self.partner_obj.search(dom)
+        ac_partners = partner_obj.search(dom)
         ac_emails = ac_partners.mapped('email_coordinate_id')
         self.assertEqual(ac_mains, ac_emails)
         dom = [
@@ -207,7 +208,7 @@ class TestDistributionList(SavepointCase):
             ('email', '=', False),
             ('address', '!=', False),
         ]
-        ac_partners = self.partner_obj.search(dom)
+        ac_partners = partner_obj.search(dom)
         ac_postals = ac_partners.mapped('postal_coordinate_id')
         self.assertEqual(ac_alternatives, ac_postals)
 
@@ -215,27 +216,23 @@ class TestDistributionList(SavepointCase):
         p_vips = ac_postals.filtered(lambda s: s.vip)
 
         # email_coordinate_id, postal_coordinate_id, other user
-        thierry.identifier = -7
-        paul.identifier = -8
         uc_mains, uc_alternatives = \
             dl_usr_ctx._get_complex_distribution_list_ids()
         self.assertNotIn(ec, uc_mains)
         self.assertNotIn(pc, uc_alternatives)
         dom = [
             ('is_company', '=', False),
-            ('identifier', '!=', 0),
             ('email', '!=', False),
         ]
-        uc_partners = self.partner_obj.search(dom)
+        uc_partners = partner_obj.search(dom)
         uc_emails = uc_partners.mapped('email_coordinate_id')
         self.assertEqual(uc_mains, uc_emails - e_vips)
         dom = [
             ('is_company', '=', False),
-            ('identifier', '!=', 0),
             ('email', '=', False),
             ('address', '!=', False),
         ]
-        uc_partners = self.partner_obj.search(dom)
+        uc_partners = partner_obj.search(dom)
         uc_postals = uc_partners.mapped('postal_coordinate_id')
         self.assertEqual(uc_alternatives, uc_postals - p_vips)
 

@@ -100,16 +100,19 @@ class TestDistributionList(SavepointCase):
         """
         catchall = 'demo'
         dl_name = str(uuid4())
-        # disable temporary the catchall alias
-        self.ir_cfg_obj.set_param("mail.catchall.alias", '')
-        # now this must raise
-        with self.assertRaises(exceptions.MissingError) as e:
-            self.distri_list_obj._build_alias_name(dl_name)
-        self.assertEqual(
-            "Please contact your Administrator to configure a "
-            "'catchall' mail alias", e.exception.name)
-        # re-enable the catchall alias
-        self.ir_cfg_obj.set_param("mail.catchall.alias", catchall)
+        # try to disable temporary the catchall alias
+        catchall = (
+            self.ir_cfg_obj.set_param("mail.catchall.alias", '') or catchall
+        )
+        if not self.ir_cfg_obj.get_param("mail.catchall.alias"):
+            # now this must raise
+            with self.assertRaises(exceptions.MissingError) as e:
+                self.distri_list_obj._build_alias_name(dl_name)
+            self.assertEqual(
+                "Please contact your Administrator to configure a "
+                "'catchall' mail alias", e.exception.name)
+            # re-enable the catchall alias
+            self.ir_cfg_obj.set_param("mail.catchall.alias", catchall)
         # now this must produce an alias without exception
         alias_name = self.distri_list_obj._build_alias_name(dl_name)
         self.assertEqual(alias_name, '%s+%s' % (catchall, dl_name))

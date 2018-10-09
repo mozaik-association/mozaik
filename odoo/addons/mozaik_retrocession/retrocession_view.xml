@@ -726,7 +726,7 @@
                                 <field name="retrocession_mode"/>
                                 <field name="need_account_management"/>
                                 <field name="mandate_ref"/>
-                                <field name="partner_instance_id"/>
+                                <!--<field name="partner_instance_id"/>-->
                             </group>
                         </div>
                     </div>

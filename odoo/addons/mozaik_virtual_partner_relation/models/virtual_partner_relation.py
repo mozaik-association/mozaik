@@ -42,7 +42,6 @@ class VirtualPartnerRelation(models.Model):
                 ELSE ec2.id
             END) as common_id,
         p.id AS partner_id,
-        p.int_instance_id AS int_instance_id,
         p.is_assembly AS is_assembly,
         p.is_company AS is_company,
         p.identifier AS identifier,

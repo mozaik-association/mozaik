@@ -3,3 +3,4 @@ access_membership_state_res_groups_base,mozaik.membership.state.res.groups.base,
 access_membership_state_res_groups_configurator,mozaik.membership.state.res.groups.configurator,model_membership_state,mozaik_membership.res_groups_membership_manager,1,1,1,1
 access_membership_line_res_groups_base,mozaik.membership.line.res.groups.base,model_membership_line,mozaik_membership.res_groups_membership_reader,1,0,0,0
 access_membership_line_res_groups_officer,mozaik.membership.line.res.groups.officer,model_membership_line,mozaik_membership.res_groups_membership_user,1,1,1,0
+access_membership_tarification,access_membership_tarification,model_membership_tarification,base.group_user,1,0,0,0

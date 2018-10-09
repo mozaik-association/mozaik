@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="base.partner_root" model="res.partner">
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
+            ref('mozaik_structure.int_instance_01'),
+        ])]"/>
+    </record>
+
+</odoo>

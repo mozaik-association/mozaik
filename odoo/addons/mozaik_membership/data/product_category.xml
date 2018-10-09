@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="membership_product_category" model="product.category">
+        <field name="name">Subscription</field>
+        <field name="parent_id" ref="product.product_category_all" />
+    </record>
+
+</odoo>

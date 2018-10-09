@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//filter[1]" position="before">
-                <field name="int_instance_id" />
+                <field name="int_instance_ids" widget="many2one"/>
                 <field name="subscription_product_id" />
                 <field name="membership_state_id" />
                 <field name="reference" />
@@ -50,8 +50,6 @@
                 <separator/>
             </xpath>
             <xpath expr="//filter[@name='group_country']" position="after">
-                <filter name="group_instance" string="Internal Instance"
-                    context="{'group_by': 'int_instance_id'}" />
                 <filter name="group_membership_state" string="Membership State"
                     context="{'group_by': 'membership_state_id'}" />
                 <filter name="group_subscription_product" string="Subscription"
@@ -65,13 +63,10 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
-
-            <xpath expr="//field[@name='country_id']" position="before">
-                <field name="membership_state_id"
-                    invisible="context.get('default_is_company')" />
-                <field name="int_instance_id" />
+            <field name="country_id" position="before">
+                <field name="membership_state_id" invisible="context.get('default_is_company')" />
                 <field name="local_only"/>
-            </xpath>
+            </field>
 
         </field>
     </record>
@@ -82,15 +77,14 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="priority" eval="25" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='postal_coordinate_id']" position="after">
-                <field name="int_instance_id"
-                    attrs="{'readonly': ['|', ('is_assembly','=',True), ('id','!=', False)]}" />
+            <field name="postal_coordinate_id" position="after">
+                <field name="force_int_instance_id" attrs="{'invisible': [('membership_state_code','not in',[False, 'without_membership'])], 'required': [('int_instance_ids', '=', False)]}" />
+                <field name="int_instance_ids" widget="many2many_tags"  attrs="{'invisible': [('membership_state_code','in',[False, 'without_membership'])]}"/>
                 <field name="local_only" attrs="{'invisible': ['|', ('is_assembly','=',True), ('membership_state_code', 'not in', [False, 'without_membership', 'former_supporter', 'break_former_member', 'resignation_former_member'])]}"/>
-            </xpath>
+            </field>
 
-            <xpath expr="//field[@name='identifier']"
-                position="after">
-                <span attrs="{'invisible':[('is_company', '=', True)]}">
+            <xpath expr="//field[@name='identifier']" position="after">
+                <span attrs="{'invisible':['|', ('is_company', '=', True), ('membership_state_id', '=', False)]}">
                     (
                     <field name="membership_state_id"
                         readonly="1" class="oe_inline" />
@@ -124,8 +118,9 @@
 
             <notebook position="inside">
                 <page name="memberships" string="Memberships">
-
                     <div name="state_management">
+
+                        <button name="action_add_membership" string="Add subscription" type="object"/>
 
                         <button name="member_candidate" string="Member candidate" type="object"
                             groups="base.group_erp_manager"
@@ -198,7 +193,7 @@
                             <field name="national_voluntary"/>
                         </group>
                     </group>
-                    <field name="membership_line_ids" readonly="1">
+                    <field name="membership_line_ids">
                         <tree decoration-muted="active==False" decoration-success="state_code=='member'" decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']">
                             <field name="int_instance_id" />
                             <field name="state_id" />
@@ -209,6 +204,8 @@
                             <field name="date_to" />
                             <field name="active" invisible="1" />
                             <field name="state_code" invisible="1"/>
+                            <button name="%(update_membership_product_action)d" string="Update product/price" type="action"/>
+                            <button name="%(update_membership_instance_action)d" string="Update instance" type="action"/>
                         </tree>
                     </field>
                     <group name="user" attrs="{'invisible': [('is_company','=', True)]}">

@@ -4,6 +4,7 @@
 from . import product_template
 from . import membership_state
 from . import membership_line
+from . import membership_tarification
 from . import res_partner
 from . import res_users
 from . import res_city

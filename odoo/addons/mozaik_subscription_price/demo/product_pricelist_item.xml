@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="product_pricelist_instance_item1" model="product.pricelist.item">
+        <field name="base">list_price</field>
+        <field name="applied_on">0_product_variant</field>
+        <field name="pricelist_id" ref="product_pricelist_instance"/>
+        <field name="product_id" ref="mozaik_membership.membership_product_free"/>
+        <field name="compute_price">fixed</field>
+        <field name="fixed_price">123.852</field>
+    </record>
+</odoo>

@@ -12,6 +12,7 @@
 
     <record id="int_instance_02" model="int.instance">
         <field name="name">Huy</field>
+        <field name="code">002</field>
         <field name="parent_id" ref="int_instance_01"/>
         <field name="power_level_id" ref="int_power_level_02"/>
     </record>

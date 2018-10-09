@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="int_instance_form_view">
+        <field name="name">Int.instance.form (in mozaik_subscription_price)</field>
+        <field name="model">int.instance</field>
+        <field name="inherit_id" ref="mozaik_structure.abstract_instance_form_view"/>
+        <field name="priority" eval="90"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="product_pricelist_id" options="{'no_create': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

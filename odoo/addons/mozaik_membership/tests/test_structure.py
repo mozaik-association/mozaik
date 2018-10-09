@@ -51,11 +51,6 @@ class TestStructure(TransactionCase):
 
         assembly = ext_assembly_model.create(data)
 
-        # Check for int_instance_id on related created partner
-        self.assertEqual(assembly.partner_id.int_instance_id, instance_id,
-                         'Create external assembly fails with wrong internal \
-                         instance linked to the result partner')
-
         # 1.2/ Update the assembly
         instance_id = self.env.ref('mozaik_structure.int_instance_02')
         data = dict(
@@ -63,11 +58,6 @@ class TestStructure(TransactionCase):
         )
 
         assembly.write(data)
-
-        # Check for int_instance_id on related partner
-        self.assertEqual(assembly.partner_id.int_instance_id, instance_id,
-                         'Update external assembly fails with wrong internal \
-                         instance linked to the result partner')
 
         # 2/ For a State Assembly
         instance_id = self.env.ref('mozaik_membership.sta_instance_03')
@@ -82,19 +72,6 @@ class TestStructure(TransactionCase):
 
         # Check for is_assembly flag on related created partner
         self.assertTrue(assembly.partner_id.is_assembly)
-
-        # 2.2/ Update the assembly
-        data = dict(
-            instance_id=instance_id.id,
-        )
-
-        assembly.write(data)
-
-        # Check for int_instance_id on related partner
-        self.assertEqual(assembly.partner_id.int_instance_id,
-                         assembly.instance_id.int_instance_id,
-                         'Update state assembly fails with wrong internal \
-                         instance linked to the result partner')
 
     def test_create_internal_instance(self):
         '''
@@ -124,6 +101,7 @@ class TestStructure(TransactionCase):
             'name': 'Test-ins-1',
             'power_level_id': default_power_id.id,
             'parent_id': default_inst_id.id,
+            'code': '100',
         }
         ctx = res_users_model.context_get()
         ctx.update(tracking_disable=True)
@@ -131,20 +109,4 @@ class TestStructure(TransactionCase):
         model_int_instance.create(vals)
         # users's internal instances must remain unchanged
         new_iis = marc.partner_id.int_instance_m2m_ids - initial_iis
-        self.assertFalse(new_iis,
-                         'Create an internal instance with a parent fails '
-                         'with wrong internal instances linked '
-                         'to the user''s partner')
-
-        # 3/ Create a root instance
-        vals = {
-            'name': 'Test-ins-2',
-            'power_level_id': default_power_id.id,
-        }
-        newi = model_int_instance.sudo(user=marc.id).create(vals)
-        # users's internal instances must be completed with the new one
-        new_iis = marc.partner_id.int_instance_m2m_ids - initial_iis
-        self.assertEqual(new_iis, newi,
-                         'Create a root internal instance fails '
-                         'with wrong internal instances linked '
-                         'to the user''s partner')
+        self.assertFalse(new_iis)

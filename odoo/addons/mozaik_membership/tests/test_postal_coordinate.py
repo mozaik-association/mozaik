@@ -74,7 +74,6 @@ class TestPostalCoordinate(TransactionCase):
         for partner in partners_xmlid:
             partners += self.env.ref(partner)
         vals = {
-            'int_instance_id': int_instance_id.id,
             'int_instance_m2m_ids': [(6, 0, [int_instance_id.id])],
         }
         partners.write(vals)
