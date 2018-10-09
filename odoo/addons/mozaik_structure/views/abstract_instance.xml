@@ -56,12 +56,12 @@
                         </button>
                         <button name="children" string="Instances" type="action" class="oe_stat_button" icon="fa-indent"
                                 attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_parent_id': active_id,
-                                          'default_parent_id' : active_id}" />
+                                context="{'search_default_parent_id': id,
+                                          'default_parent_id' : id}" />
                         <button string="Assemblies" name="assemblies" class="oe_stat_button" icon="fa-university"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_instance_id': active_id,
-                                          'default_instance_id': active_id,
+                                context="{'search_default_instance_id': id,
+                                          'default_instance_id': id,
                                           'search_default_all': True}" />
                     </div>
                     <div class="oe_title">
@@ -90,7 +90,7 @@
                     <notebook>
                         <page string="Assemblies" name="assemblies" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             <field name="assembly_ids" attrs="{'invisible': [('active','=',False)]}"
-                                   context="{'default_instance_id': active_id}">
+                                   context="{'default_instance_id': id}">
                                 <tree>
                                     <field name="assembly_category_id"/>
                                 </tree>

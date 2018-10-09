@@ -49,8 +49,8 @@
             <xpath expr="//button[@name='assemblies']" position="after">
                 <button string="Electoral Districts" name="%(electoral_district_action)d" class="oe_stat_button" icon="fa-bullseye"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_sta_instance_id': active_id,
-                                  'default_sta_instance_id': active_id,
+                        context="{'search_default_sta_instance_id': id,
+                                  'default_sta_instance_id': id,
                                   'search_default_all': True}"/>
             </xpath>
             <xpath expr="//button[@name='children']" position="attributes">
@@ -68,7 +68,7 @@
             </xpath>
             <xpath expr="//notebook/page[@name='assemblies']" position="after">
                 <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}">
-                    <field name="electoral_district_ids" context="{'default_sta_instance_id': active_id}"
+                    <field name="electoral_district_ids" context="{'default_sta_instance_id': id}"
                            attrs="{'invisible': [('active','=',False)]}">
                         <tree>
                             <field name="name"/>

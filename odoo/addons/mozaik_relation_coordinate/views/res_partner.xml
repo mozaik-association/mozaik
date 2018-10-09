@@ -11,8 +11,8 @@
         <field type="xml" name="arch">
             <xpath expr="//button[field[@name='relation_count']]" position="attributes">
                 <attribute name="context" translation="off">{
-                        'search_default_any_partner_id': active_id,
-                        'default_this_partner_id': active_id,
+                        'search_default_any_partner_id': id,
+                        'default_this_partner_id': id,
                         'active_model': 'res.partner',
                         'active_id': id,
                         'active_ids': [id],

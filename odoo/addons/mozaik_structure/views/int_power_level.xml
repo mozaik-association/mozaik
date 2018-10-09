@@ -9,8 +9,8 @@
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
                 <button string="Instances" name="%(int_instance_action)d" class="oe_stat_button" icon="fa-indent"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_power_level_id': active_id,
-                                  'default_power_level_id': active_id}" />
+                        context="{'search_default_power_level_id': id,
+                                  'default_power_level_id': id}" />
             </xpath>
             <xpath expr="//field[@name='sequence']" postion="after">
                 <field name="level_for_followers"/>

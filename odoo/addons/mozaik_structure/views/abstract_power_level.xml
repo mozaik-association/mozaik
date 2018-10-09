@@ -51,8 +51,8 @@
                         </button>
                         <button string="Assembly Categories" name="assembly_categories" class="oe_stat_button" icon="fa-cog"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_power_level_id': active_id,
-                                          'default_power_level_id': active_id,
+                                context="{'search_default_power_level_id': id,
+                                          'default_power_level_id': id,
                                           'search_default_all': True}" />
                     </div>
                     <div class="oe_title">
@@ -78,7 +78,7 @@
                     <notebook>
                         <page string="Assembly Categories" name="assembly_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             <field name="assembly_category_ids" attrs="{'invisible': [('active','=',False)]}"
-                                   context="{'default_power_level_id': active_id}">
+                                   context="{'default_power_level_id': id}">
                                 <tree>
                                     <field name="name"/>
                                 </tree>

@@ -11,7 +11,7 @@
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button class="oe_stat_button" string="Email Coordinates" icon="fa-at" name="%(email_coordinate_action)d"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_coordinate_category_id': active_id, 'default_coordinate_category_id': active_id}" />
+                        context="{'search_default_coordinate_category_id': id, 'default_coordinate_category_id': id}" />
             </xpath>
         </field>
     </record>

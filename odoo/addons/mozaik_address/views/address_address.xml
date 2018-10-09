@@ -49,8 +49,8 @@
                         </button>
                         <button string="All Details" class="oe_stat_button" icon="fa-address-card" name="%(postal_coordinate_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_address_id': active_id,
-                                          'default_address_id': active_id,
+                                context="{'search_default_address_id': id,
+                                          'default_address_id': id,
                                           'search_default_all': True}" />
                     </div>
                     <div class="oe_title" attrs="{'invisible': [('id','=',False)]}">

@@ -23,8 +23,8 @@
                         <button string="Involvements"
                                 name="%(partner_involvement_act_window)d"
                                 type="action"
-                                context="{'search_default_involvement_category_id': active_id,
-                                          'default_involvement_category_id': active_id}"/>
+                                context="{'search_default_involvement_category_id': id,
+                                          'default_involvement_category_id': id}"/>
                     </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>

@@ -11,8 +11,8 @@
             <xpath expr="//button[@name='toggle_active']" position="before">
                 <button string="All Addresses" class="oe_stat_button" icon="fa-address-card" name="%(postal_coordinate_action)d"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_partner_id': active_id,
-                                  'default_partner_id': active_id,
+                        context="{'search_default_partner_id': id,
+                                  'default_partner_id': id,
                                   'search_default_all': True}" />
             </xpath>
 
@@ -34,7 +34,7 @@
 
             <xpath expr="//page[@name='coordinates']" position="inside">
                 <separator string="Postal Coordinates" />
-                <field name="postal_coordinate_ids" context="{'default_partner_id': active_id}"
+                <field name="postal_coordinate_ids" context="{'default_partner_id': id}"
                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                     <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
                         <field name="address_id"/>

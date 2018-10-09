@@ -29,8 +29,8 @@
             <xpath expr="//button[@name='toggle_active']" position="after">
                 <button string="All Involvements" class="oe_stat_button" icon="fa-share-square" name="%(partner_involvement_act_window)d"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_partner_id': active_id,
-                                  'default_partner_id': active_id,
+                        context="{'search_default_partner_id': id,
+                                  'default_partner_id': id,
                                   'search_default_all': True}" />
                 <button string="Donations" class="oe_stat_button" icon="fa-thumbs-up" name="%(partner_involvement_donation_act_window)d"
                         type="action" attrs="{'invisible': [('id','=',False)]}" />
@@ -48,7 +48,7 @@
                             <field name="is_volunteer" />
                         </group>
                     </group>
-                    <field name="partner_involvement_ids" context="{'default_partner_id': active_id}"
+                    <field name="partner_involvement_ids" context="{'default_partner_id': id}"
                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                         <tree>
                             <field name="involvement_category_id" />
@@ -56,7 +56,7 @@
                             <field name="creation_time" />
                         </tree>
                     </field>
-                    <field name="partner_involvement_inactive_ids" context="{'default_partner_id': active_id}"
+                    <field name="partner_involvement_inactive_ids"
                            readonly="1" attrs="{'invisible': [('active','=',True)]}">
                         <tree>
                             <field name="involvement_category_id" />

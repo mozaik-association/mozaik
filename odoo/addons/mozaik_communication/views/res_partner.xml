@@ -19,7 +19,7 @@
                     <span class="oe_horizontal_separator oe_clear oe_inline">
                         Opt-In
                     </span>
-                    <field name="distribution_list_opt_in_ids" context="{'default_partner_id': active_id, 'default_newsletter':True}"
+                    <field name="distribution_list_opt_in_ids" context="{'default_partner_id': id, 'default_newsletter':True}"
                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                         <tree>
                             <field name="name" />
@@ -28,7 +28,7 @@
                     <span class="oe_horizontal_separator oe_clear oe_inline">
                         Opt-Out
                     </span>
-                    <field name="distribution_list_opt_out_ids" context="{'default_partner_id': active_id}"
+                    <field name="distribution_list_opt_out_ids" context="{'default_partner_id': id}"
                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                         <tree>
                             <field name="name" />

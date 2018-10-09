@@ -61,7 +61,7 @@
                         <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             <button string="All Details" name="%(postal_coordinate_action)d"
                                     type="action" attrs="{'invisible': [('id','=',False)]}"
-                                    context="{'search_default_co_residency_id': active_id,
+                                    context="{'search_default_co_residency_id': id,
                                               'search_default_all': True}" />
                             <field name="postal_coordinate_ids"
                                    readonly="1" attrs="{'invisible': [('active','=',False)]}">

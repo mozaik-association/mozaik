@@ -35,8 +35,8 @@
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
                 <button string="Electoral Districts" name="%(electoral_district_action)d" class="oe_stat_button" icon="fa-bullseye"
                             type="action" attrs="{'invisible': [('id','=',False)]}"
-                            context="{'search_default_assembly_id': active_id,
-                                      'default_assembly_id': active_id}" />
+                            context="{'search_default_assembly_id': id,
+                                      'default_assembly_id': id}" />
             </xpath>
             <xpath expr="//field[@name='assembly_category_id']" position="after">
                 <field name="is_legislative" />

@@ -64,7 +64,7 @@
                         </page>
                         <page name="to_include" string="Filters to Include" autofocus="autofocus">
                             <field name="to_include_distribution_list_line_ids"
-                                context="{'default_distribution_list_id': active_id, 'default_exclude': False}">
+                                context="{'default_distribution_list_id': id, 'default_exclude': False}">
                                 <tree>
                                     <field name="name"/>
                                     <field name="src_model_id"/>
@@ -74,7 +74,7 @@
                         </page>
                         <page name="to_exclude" string="Filters to Exclude">
                             <field name="to_exclude_distribution_list_line_ids"
-                                context="{'default_distribution_list_id': active_id, 'default_exclude': True}">
+                                context="{'default_distribution_list_id': id, 'default_exclude': True}">
                                 <tree>
                                     <field name="name"/>
                                     <field name="src_model_id"/>

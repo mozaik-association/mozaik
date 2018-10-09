@@ -28,7 +28,7 @@
                                 type="action"
                                 icon="fa-envelope"
                                 class="oe_stat_button"
-                                context="{'search_default_city_id': active_id,'default_city_id': active_id}"/>
+                                context="{'search_default_city_id': id,'default_city_id': id}"/>
                     </div>
                     <div class="oe_title" name="title">
                         <label for="zipcode" class="oe_edit_only"/>
