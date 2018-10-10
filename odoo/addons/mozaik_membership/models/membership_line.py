@@ -25,7 +25,7 @@ class MembershipLine(models.Model):
         index=True, default=lambda s: s._default_product_id())
     state_id = fields.Many2one(
         comodel_name='membership.state', string='State',
-        index=True)
+        required=True, index=True)
     state_code = fields.Char(related='state_id.code', readonly=True)
     int_instance_id = fields.Many2one(
         comodel_name='int.instance', string='Internal Instance', index=True,
@@ -36,12 +36,6 @@ class MembershipLine(models.Model):
     price = fields.Float(
         digits=dp.get_precision('Product Price'),
         copy=False,
-    )
-    paid = fields.Boolean(
-        default=False,
-        help="Define if this line is paid or not",
-        copy=False,
-        readonly=True,
     )
 
     partner_instance_ids = fields.Many2many(
@@ -217,12 +211,14 @@ class MembershipLine(models.Model):
         return ref
 
     @api.model
-    def _build_membership_values(self, partner, instance, date_from=False,
-                                 previous=False, product=False, price=False):
+    def _build_membership_values(
+            self, partner, instance, state,
+            date_from=False, previous=False, product=False, price=None):
         """
         Build membership values based on given parameters
         :param partner: res.partner recordset
         :param instance: int.instance recordset
+        :param state: membership.state recordset
         :param date_from: date/str
         :param previous: membership.line recordset
         :param product: product.product recordset
@@ -235,46 +231,23 @@ class MembershipLine(models.Model):
             product = self._get_subscription_product(
                 partner=partner, instance=instance)
         date_from = date_from or fields.Date.today()
-        # If the price is not set (stay to False so != 0), we have to compute
-        # it
-        if not price and isinstance(price, bool):
+        # If the price is not given, we have to compute it
+        if price is None:
             price = previous._get_subscription_price(
                 product, partner=partner, instance=instance)
         reference = previous._generate_membership_reference(
             partner, instance, ref_date=date_from)
-        paid = self._get_paid_based_on_price(price)
         values = {
             'date_from': date_from,
             'date_to': False,
             'partner_id': partner.id,
-            'state_id': partner.membership_state_id.id,
+            'state_id': state.id,
             'int_instance_id': instance.id,
             'price': price,
             'reference': reference,
             'product_id': product.id,
-            'paid': paid,
         }
         return values
-
-    @api.multi
-    def _mark_as_paid(self):
-        """
-        Mark as paid current recordset
-        :return: self
-        """
-        self.write({
-            'paid': True,
-        })
-        return self
-
-    @api.model
-    def _get_paid_based_on_price(self, price):
-        """
-        Based on the given price, set the default value for the paid bool
-        :param price: float
-        :return: bool
-        """
-        return self.price_is_zero(price)
 
     @api.model
     def price_is_zero(self, price):
@@ -294,14 +267,11 @@ class MembershipLine(models.Model):
         Get the date where we don't have to renew the membership.line
         :return: date
         """
-        value = self.env['ir.config_parameter'].sudo().get_param(
-            'membership.no_subscription_renew', default='')
-        year = date.today().year - 1
-        if not value:
-            # If we don't have a value, use the last day of year
-            value = '31/12'
-            year += 1
         # Minus 1 because it's launched at the beginning of year
+        year = date.today().year - 1
+        # If we don't have a value, use the last day of year
+        value = self.env['ir.config_parameter'].sudo().get_param(
+            'membership.no_subscription_renew', default='31/12')
         day, month = [int(v) for v in value.split('/')]
         return date(year=year, month=month, day=day)
 
@@ -312,7 +282,7 @@ class MembershipLine(models.Model):
         to close only lines with states defined returned by this function
         :return: membership.state recordset
         """
-        return self.env['membership.state'].browse()
+        return self.ref('mozaik_membership.member')
 
     @api.model
     def _get_lines_to_close(self):
@@ -409,13 +379,14 @@ class MembershipLine(models.Model):
             lambda l:
             fields.Date.from_string(l.date_from) <= limit_date and
             fields.Date.from_string(l.date_from) <= real_date_from)
+        renewal_state = self.env.ref('mozaik_membership.member')
         # Save which membership line are created/updated
         membership_altered = membership_line_obj.browse()
         for membership_line in membership_lines:
             partner = membership_line.partner_id
             instance = membership_line.int_instance_id
             values = self._build_membership_values(
-                partner, instance, date_from=real_date_from,
+                partner, instance, renewal_state, date_from=real_date_from,
                 previous=membership_line)
             # If the line still active, we only have to renew the reference
             # Because membership lines are supposed to be closed.

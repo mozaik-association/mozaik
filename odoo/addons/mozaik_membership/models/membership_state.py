@@ -34,6 +34,6 @@ class MembershipState(models.Model):
             default_state = self.env['ir.config_parameter'].sudo().get_param(
                 'default_membership_state', default='without_membership')
 
-        state_ids = self.search([('code', '=', default_state)])
+        state_id = self.search([('code', '=', default_state)], limit=1)
 
-        return state_ids
+        return state_id

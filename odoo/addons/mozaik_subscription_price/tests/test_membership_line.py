@@ -11,6 +11,7 @@ class TestMembershipLine(SavepointCase):
     def setUp(self):
         super(TestMembershipLine, self).setUp()
         self.membership_obj = self.env['membership.line']
+        self.pseudo_state = self.env['membership.state'].browse()
         self.partner_obj = self.env['res.partner']
         self.instance = self.env.ref("mozaik_membership.int_instance_03")
         self.pricelist = self.env.ref(
@@ -54,7 +55,8 @@ class TestMembershipLine(SavepointCase):
             # For this test, ensure we use the same product
             # Use the precision defined on the price field
             result_price = membership_obj._build_membership_values(
-                partner, instance, product=product).get('price')
+                partner, instance, self.pseudo_state,
+                product=product).get('price')
             self.assertAlmostEqual(price, result_price, places=precision)
 
     def test_get_subscription_price2(self):
@@ -97,5 +99,5 @@ class TestMembershipLine(SavepointCase):
             # For this test, ensure we use the same product
             # Use the precision defined on the price field
             result_price = membership_obj._build_membership_values(
-                partner, instance).get('price')
+                partner, instance, self.pseudo_state).get('price')
             self.assertAlmostEqual(real_price, result_price, places=precision)

@@ -18,6 +18,7 @@ class TestPartner(TransactionCase):
             "mozaik_membership.membership_tarification_reduce_rule")
         self.tarification3 = self.env.ref(
             "mozaik_membership.membership_tarification_default_rule")
+        self.member_state = self.env.ref('mozaik_membership.member')
 
     def test_change_instance(self):
         '''
@@ -85,7 +86,7 @@ class TestPartner(TransactionCase):
         })
         instance = self.env['int.instance'].search([], limit=1, offset=1)
         values = membership_obj._build_membership_values(
-            partner, instance)
+            partner, instance, self.member_state)
         membership_obj.create(values)
         partner.invalidate_cache()
         self.assertEqual(

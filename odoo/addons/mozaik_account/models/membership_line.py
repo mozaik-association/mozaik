@@ -6,9 +6,15 @@ from odoo import api, fields, models, tools
 class MembershipLine(models.Model):
     _inherit = 'membership.line'
 
-    account_move_id = fields.Many2one(
+    move_id = fields.Many2one(
         comodel_name="account.move",
         string="Account move",
+        readonly=True,
+    )
+    paid = fields.Boolean(
+        default=False,
+        help="Define if this line is paid or not",
+        copy=False,
         readonly=True,
     )
 
@@ -38,3 +44,43 @@ class MembershipLine(models.Model):
         :return: self recordset
         """
         return self._get_membership_line_by_ref(reference).product_id
+
+    @api.multi
+    def _mark_as_paid(self, amount, move_id):
+        """
+        Mark as paid current recordset
+        Can be inherited to create new lines if any
+        :param amount: float
+        :param move_id: id of move
+        :return: self
+        """
+        self.ensure_one()
+        self.write({
+            'paid': True,
+            'price': amount,
+            'move_id': move_id,
+        })
+        return self
+
+    @api.model
+    def _get_paid_based_on_price(self, price):
+        """
+        Based on the given price, set the default value for the paid bool
+        :param price: float
+        :return: bool
+        """
+        return self.price_is_zero(price)
+
+    @api.model
+    def _build_membership_values(
+            self, partner, instance, state,
+            date_from=False, previous=False, product=False, price=None):
+        """
+        Add paid boolean to values
+        """
+        vals = super()._build_membership_values(
+            partner, instance, state,
+            date_from=date_from, previous=previous,
+            product=product, price=price)
+        vals['paid'] = self._get_paid_based_on_price(vals.get('price', 0.0))
+        return vals

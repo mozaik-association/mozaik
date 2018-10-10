@@ -64,15 +64,16 @@ class AccountBankStatementLine(models.Model):
             self.process_reconciliation(new_aml_dicts=move_dicts)
 
     @api.multi
-    def _propagate_payment(self, amount_paid, reference):
+    def _propagate_payment(self, vals):
         self.ensure_one()
         memb_obj = self.env['membership.line']
+        amount_paid = vals.get('credit') or 0.0
+        reference = vals.get('name') or ''
         mode, partner = self._get_info_from_reference(reference)
         if mode == 'membership':
+            move_id = vals.get('move_id', False)
             membership = memb_obj._get_membership_line_by_ref(reference)
-            # ??? still necessary ??
-            partner.paid()
-            membership._mark_as_paid()
+            membership._mark_as_paid(amount_paid, move_id)
 
         if mode == 'donation':
             involvements = self.env['partner.involvement'].search([
@@ -108,7 +109,7 @@ class AccountBankStatementLine(models.Model):
         product = membership.product_id
         account = product.property_subscription_account
         precision = membership._fields.get('price').digits[1]
-        # float_compare return 0 is values are equals
+        # float_compare return 0 if values are equals
         cmp = float_compare(
             self.amount, membership.price, precision_digits=precision)
         if account and not cmp:
@@ -134,5 +135,5 @@ class AccountBankStatementLine(models.Model):
             new_aml_dicts=new_aml_dicts)
 
         for data in new_aml_dicts or []:
-            self._propagate_payment(data.get('credit'), data.get('name'))
+            self._propagate_payment(data)
         return res

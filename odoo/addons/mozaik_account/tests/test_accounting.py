@@ -11,11 +11,6 @@ from odoo.fields import first
 class TestAccountingWithProduct(object):
 
     product = None
-    bs_obj = None
-    bsl_obj = None
-    ml_obj = None
-    partner_obj = None
-    partner = None
     partner_2 = None
 
     def setUp(self):
@@ -30,6 +25,7 @@ class TestAccountingWithProduct(object):
             'accepted_date': date.today().strftime('%Y-%m-%d'),
             'free_member': False,
         })
+        self.member_state = self.env.ref('mozaik_membership.member')
 
     def _get_partner(self):
         """
@@ -56,7 +52,8 @@ class TestAccountingWithProduct(object):
         if not self.partner.membership_line_ids.filtered(
                 lambda l: l.reference == reference):
             values = self.partner.membership_line_ids._build_membership_values(
-                self.partner, instance, price=amount, product=self.product)
+                self.partner, instance, self.member_state,
+                price=amount, product=self.product)
             values.update({
                 'reference': reference,
             })
@@ -113,27 +110,21 @@ class TestAccountingWithProduct(object):
         for line in bank_s.line_ids:
             self.assertTrue(line.journal_entry_ids)
 
+        self.assertTrue(self.partner.membership_line_ids.paid)
+        self.assertAlmostEqual(
+            self.partner.membership_line_ids.price, bank_s.line_ids.amount)
         self.assertEqual(
-            self.partner.membership_state_id.code, 'member_committee')
-        ml_data = self.ml_obj.search([
-            ('partner_id', '=', self.partner.id),
-            ('active', '=', True),
-        ], limit=1)
-
-        self.assertAlmostEqual(ml_data.price, bank_s.line_ids.amount)
-        self.assertTrue(ml_data.paid)
+            bank_s.line_ids.journal_entry_ids.mapped('move_id'),
+            self.partner.membership_line_ids.move_id)
 
     def test_accounting_manual_reconcile(self):
         additional_amount = 1999.99
-        if not self.product:
-            prod_id = self.env['membership.line']._get_subscription_product(
-                partner=self.partner,
-                instance=first(self.partner.int_instance_ids))
-        else:
-            prod_id = self.product
         bank_s = self._generate_payment(
             additional_amount=additional_amount)
-        price = self.partner.membership_line_ids.price
+        if self.product:
+            price = self.product.list_price
+        else:
+            price = additional_amount
         bank_s.auto_reconcile()
         for line in bank_s.line_ids:
             self.assertFalse(line.journal_entry_ids)
@@ -143,18 +134,11 @@ class TestAccountingWithProduct(object):
         first(bank_s.line_ids).process_reconciliation(
             new_aml_dicts=move_dicts)
 
+        self.assertTrue(self.partner.membership_line_ids.paid)
+        self.assertAlmostEqual(self.partner.membership_line_ids.price, price)
         self.assertEqual(
-            self.partner.membership_state_id.code, 'member_committee')
-
-        self.assertEqual(self.partner.membership_line_ids.product_id, prod_id)
-
-        ml_data = self.ml_obj.search([
-            ('partner_id', '=', self.partner.id),
-            ('active', '=', True),
-        ], limit=1)
-
-        self.assertAlmostEqual(ml_data.price, price)
-        self.assertTrue(ml_data.paid)
+            bank_s.line_ids.journal_entry_ids.mapped('move_id'),
+            self.partner.membership_line_ids.move_id)
 
     def test_accounting_manual_reconcile_without_partner(self):
         additional_amount = 1999.99
@@ -274,27 +258,20 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
 
     def _get_manual_move_dict(self, additional_amount):
         property_obj = self.env['ir.property']
-        res = []
         subscription_account = property_obj.get(
             'property_subscription_account',
             'product.template')
-        if self.product:
-            if self.partner.membership_line_ids.price > 0:
-                res.append({
-                    'account_id': subscription_account.id,
-                    'debit': 0,
-                    'credit': self.partner.membership_line_ids.price,
-                    'name': self.partner.membership_line_ids.reference
-                })
-
-        if additional_amount > 0:
-            if self.partner.membership_line_ids.price > 0:
-                res.append({
-                    'account_id': subscription_account.id,
-                    'debit': 0,
-                    'credit': self.partner_2.membership_line_ids.price,
-                    'name': self.partner_2.membership_line_ids.reference
-                })
+        res = [{
+            'account_id': subscription_account.id,
+            'debit': 0,
+            'credit': self.product.list_price,
+            'name': self.partner.membership_line_ids.reference
+        }, {
+            'account_id': subscription_account.id,
+            'debit': 0,
+            'credit': additional_amount,
+            'name': self.partner_2.membership_line_ids.reference
+        }]
         return res
 
     def test_accounting_auto_reconcile(self):
@@ -311,8 +288,7 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
         partner2_ref = self.ml_obj._generate_membership_reference(
             self.partner_2, instance)
         values = self.partner_2.membership_line_ids._build_membership_values(
-            self.partner_2, instance, price=additional_amount,
-            product=self.product)
+            self.partner_2, instance, self.member_state, product=self.product)
         values.update({
             'reference': partner2_ref,
         })
@@ -323,9 +299,8 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
             self.partner_2.id: partner2_ref,
         }
         b_statement_id.auto_reconcile()
-        for bank_s in b_statement_id:
-            for line in bank_s.line_ids:
-                self.assertFalse(line.journal_entry_ids)
+        for line in b_statement_id.line_ids:
+            self.assertFalse(line.journal_entry_ids)
 
         move_dicts = self._get_manual_move_dict(additional_amount)
 
@@ -333,36 +308,18 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
             new_aml_dicts=move_dicts)
 
         for partner in [self.partner, self.partner_2]:
+            self.assertTrue(partner.membership_line_ids.paid)
+            self.assertAlmostEqual(
+                partner.membership_line_ids.price, self.product.list_price)
             self.assertEqual(
-                partner.membership_state_id.code, 'member_committee')
-
-            if not self.product:
-                prod_id = self.env.ref(
-                    'mozaik_membership.membership_product_undefined')
-            else:
-                prod_id = self.product
-
-            self.assertEqual(
-                partner.membership_line_ids.product_id, prod_id)
-
-            ml_data = self.ml_obj.search_read(
-                [('partner_id', '=', partner.id),
-                 ('active', '=', True)],
-                ['price'])[0]
-            if self.product:
-                price = partner.membership_line_ids.price
-            else:
-                price = additional_amount
-
-            self.assertEqual(ml_data['price'], price,
-                             'Wrong price specified')
+                b_statement_id.line_ids.journal_entry_ids.mapped('move_id'),
+                partner.membership_line_ids.move_id)
 
             mv_lines = self.env['account.move.line'].search(
                 [('partner_id', '=', partner.id),
                  ('name', '=', references[partner.id]),
-                 ('credit', '=', price)])
-            self.assertEqual(len(mv_lines), 1,
-                             'No account move lines created for partner')
+                 ('credit', '=', self.product.list_price)])
+            self.assertEqual(len(mv_lines), 1)
 
 
 class TestAccountingProtectAutoReconcile(TestAccountingWithProduct,
