@@ -32,8 +32,8 @@ class VirtualPartnerMembership(models.Model):
         :return: str
         """
         select = super()._get_select() + """,
-            p.membership_state_id as membership_state_id,
-            p.reference as reference,
+            m.state_id as membership_state_id,
+            m.reference as reference,
             p.is_donor,
             p.is_volunteer"""
         return select
