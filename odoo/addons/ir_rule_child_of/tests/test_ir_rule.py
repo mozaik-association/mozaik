@@ -35,7 +35,7 @@ class TestIrRule(SavepointCase):
 
         user1.company_ids = False
         user2.invalidate_cache()
-        ir_rule.clear_cache()
+        ir_rule.clear_caches()
         # since user1.company_ids.ids is a empty list, it cannot read
         # the user2 attribute
         self.assertRaises(AccessError, getattr, user2.sudo(user=user1), "name")

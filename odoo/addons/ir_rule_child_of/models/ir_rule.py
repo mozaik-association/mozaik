@@ -23,9 +23,3 @@ class IrRule(models.Model):
                     if d[1] == 'child_of' and not d[2]:
                         dom[ind] = (0, '=', 1)
         return dom
-
-    @api.model
-    def clear_cache(self):
-        res = super().clear_cache()
-        self._compute_domain.clear_cache(self)
-        return res
