@@ -13,6 +13,7 @@
         'disable_tracking_installation',
         'disable_user_welcome_message',
         'inherit_abstract_view',
+        'ir_rule_child_of',
         'mail_job_priority',
         'mozaik_abstract_model',
         'mozaik_account',
