@@ -58,6 +58,20 @@ class IntInstance(models.Model):
                 "partner_m2m_ids": partner_m2m_ids,
             })
         res = super().create(vals)
+        self.env['ir.rule'].clear_caches()
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super().write(vals)
+        if 'parent_id' in vals:
+            self.env['ir.rule'].clear_caches()
+        return res
+
+    @api.multi
+    def unlink(self):
+        res = super().unlink()
+        self.env['ir.rule'].clear_caches()
         return res
 
     @api.model
