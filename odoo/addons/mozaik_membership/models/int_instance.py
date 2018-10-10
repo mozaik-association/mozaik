@@ -43,20 +43,20 @@ class IntInstance(models.Model):
                 u = self.env.user
                 vals["partner_m2m_ids"] = [(4, u.partner_id.id)]
         res = super().create(vals)
-        self.env['ir.rule'].clear_cache()
+        self.env['ir.rule'].clear_caches()
         return res
 
     @api.multi
     def write(self, vals):
         res = super().write(vals)
         if 'parent_id' in vals:
-            self.env['ir.rule'].clear_cache()
+            self.env['ir.rule'].clear_caches()
         return res
 
     @api.multi
     def unlink(self):
         res = super().unlink()
-        self.env['ir.rule'].clear_cache()
+        self.env['ir.rule'].clear_caches()
         return res
 
     @api.model
