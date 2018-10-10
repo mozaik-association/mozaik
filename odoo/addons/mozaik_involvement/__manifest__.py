@@ -13,6 +13,7 @@
         'base',
         'base_suspend_security',
         'contacts',
+        'user_bypass_security',
         'mozaik_abstract_model',
         'mozaik_partner_assembly',
         'mozaik_thesaurus',

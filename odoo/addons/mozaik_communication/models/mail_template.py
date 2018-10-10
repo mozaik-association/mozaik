@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
 from odoo.fields import first
+from odoo.addons.user_bypass_security.fields import Many2manySudoRead
 
 
 class MailTemplate(models.Model):
@@ -33,7 +34,7 @@ class MailTemplate(models.Model):
         string='Involvement Category',
         domain=[('code', '!=', False)],
     )
-    res_users_ids = fields.Many2many(
+    res_users_ids = Many2manySudoRead(
         comodel_name='res.users',
         relation='email_template_res_users_rel',
         column1='template_id',

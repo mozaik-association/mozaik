@@ -17,6 +17,7 @@
         'mass_mail_queue_job',
         'partner_contact_birthdate',
         'partner_contact_gender',
+        'user_bypass_security',
         'mozaik_abstract_model',
         'mozaik_coordinate',
         'mozaik_address',
