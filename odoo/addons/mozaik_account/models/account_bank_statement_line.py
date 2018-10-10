@@ -14,7 +14,6 @@ class AccountBankStatementLine(models.Model):
     @api.model
     def _get_models(self):
         return {
-            'res.partner': {'mode': 'membership', 'map': lambda s: s},
             'membership.line': {'mode': 'membership', 'map': 'partner_id'},
             'partner.involvement': {'mode': 'donation', 'map': 'partner_id'},
         }

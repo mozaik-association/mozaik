@@ -45,7 +45,8 @@ class TestAccountingWithProduct(object):
 
     def _generate_payment(self, additional_amount=0, with_partner=True):
         instance = first(self.partner.int_instance_ids)
-        reference = self.partner._generate_membership_reference(instance)
+        reference = self.ml_obj._generate_membership_reference(
+            self.partner, instance)
         b_statement_id = self.bs_obj.with_context(
             journal_type='bank').create({})
         if self.product:
@@ -307,8 +308,8 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
         b_statement_id = self._generate_payment(
             additional_amount=additional_amount)
         instance = first(self.partner_2.int_instance_ids)
-        partner2_ref = self.partner_2._generate_membership_reference(
-            instance=instance)
+        partner2_ref = self.ml_obj._generate_membership_reference(
+            self.partner_2, instance)
         values = self.partner_2.membership_line_ids._build_membership_values(
             self.partner_2, instance, price=additional_amount,
             product=self.product)

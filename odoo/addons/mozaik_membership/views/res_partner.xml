@@ -10,7 +10,6 @@
                 <field name="int_instance_ids" widget="many2one"/>
                 <field name="subscription_product_id" />
                 <field name="membership_state_id" />
-                <field name="reference" />
 
                 <filter string="Local Voluntary"
                     name="local_voluntary"
@@ -45,7 +44,7 @@
                     domain="[('local_only','=', False)]" />
                 <separator/>
                 <filter string="Awaiting payment" name="awaiting_payment"
-                    domain="[('reference','!=', False)]"
+                    domain="[('subscription_ok','=', False)]"
                     invisible="'default_is_company' not in context or context.get('default_is_company')" />
                 <separator/>
             </xpath>
@@ -122,68 +121,12 @@
 
                         <button name="action_add_membership" string="Add subscription" type="object"/>
 
-                        <button name="member_candidate" string="Member candidate" type="object"
-                            groups="base.group_erp_manager"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['supporter', 'without_membership', 'refused_member_candidate'])]}"
-                            confirm="Set as member candidate: proceed anyway?" />
-
-                        <button name="supporter" string="Supporter" type="object"
-                            groups="base.group_erp_manager"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['without_membership', 'member_candidate', 'refused_member_candidate'])]}"
-                            confirm="Set as supporter: proceed anyway?" />
-
-                        <button name="accept" string="Accept" type="object"
-                            groups="base.group_erp_manager"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['member_committee', 'former_member_committee'])]}" />
-
-                        <button name="register_free_membership" string="Free Membership" type="object"
-                            groups="mozaik_membership.res_groups_membership_user"
-                            attrs="{'invisible': ['|', ('membership_state_code', 'not in', ['member_candidate', 'member', 'supporter', 'former_member']), ('reference', '=', False)]}"
-                            confirm="Register a free membership: proceed anyway?" />
-
-                        <button name="paid" string="Paid" type="object"
-                            groups="base.group_erp_manager"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member', 'supporter', 'former_member']),]}" />
-
-                        <button name="decline_payment" string="Decline Payment" type="object"
-                            groups="mozaik_membership.res_groups_membership_user"
-                            confirm="Decline membership payment request: proceed anyway?"
-                            attrs="{'invisible': ['|', ('membership_state_code', 'not in', ['member_candidate', 'member']), ('reference', '=', False)]}" />
-
-                        <button name="reject" string="Reject" type="object"
-                            groups="mozaik_membership.res_groups_membership_user"
-                            confirm="Reject member candidate: proceed anyway?"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member_committee'])]}" />
-
-                        <button id="exclude_former" name="exclude" string="Exclude" type="object"
-                            groups="mozaik_membership.res_groups_membership_user"
-                            confirm="Exclude former member: proceed anyway?"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['former_member', 'former_member_committee'])]}" />
-
-                        <button id="exclude_member" name="exclude" string="Exclude" type="object"
-                            groups="mozaik_membership.res_groups_membership_user"
-                            confirm="Exclude member: proceed anyway?"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['member'])]}" />
-
-                        <button name="resign" string="Resign" type="object"
-                            groups="mozaik_membership.res_groups_membership_user"
-                            confirm="Resign person: proceed anyway?"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['member', 'former_member', 'supporter'])]}" />
-
-                        <button name="reset" string="Reset" type="object"
-                            groups="mozaik_membership.res_groups_membership_user"
-                            confirm="Reset membership state: proceed anyway?"
-                            attrs="{'invisible': [('membership_state_code', 'not in', ['former_supporter', 'resignation_former_member', 'break_former_member', 'inappropriate_former_member', 'expulsion_former_member'])]}" />
-
                     </div>
                     <group name="membership_data">
                         <group name="membership_subscription">
                             <field name="subscription_product_id"
                                 widget="selection"
                                 attrs="{'invisible': [('subscription_product_id', '=', False)]}"/>
-                            <field name="reference"
-                                attrs="{'invisible': [('reference', '=', False)]}"
-                                readonly="1" />
                             <field name="amount"
                                 attrs="{'invisible': [('amount', '=', 0.0)]}"/>
                         </group>

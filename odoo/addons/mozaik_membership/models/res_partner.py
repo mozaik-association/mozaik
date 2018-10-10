@@ -59,7 +59,6 @@ class ResPartner(models.Model):
     rejected_date = fields.Date()
     resignation_date = fields.Date()
     exclusion_date = fields.Date()
-    reference = fields.Char()
     current_membership_line_id = fields.Many2one(
         comodel_name='membership.line', string='Current Membership',
         compute='_compute_current_membership_line_id')
@@ -315,28 +314,6 @@ class ResPartner(models.Model):
             self._update_state("member_committee")
 
     @api.multi
-    def _generate_membership_reference(self, instance=False, ref_date=''):
-        """
-        Generate the reference value for the current partner
-        :param instance: int.instance recordset
-        :param ref_date: date/str
-        :return:
-        """
-        self.ensure_one()
-        membership_obj = self.env['membership.line']
-        if isinstance(instance, bool):
-            instance = self.env['int.instance'].browse()
-        # If no instance provided and the current partner has only 1 active
-        # membership.line, use the related instance.
-        if not instance:
-            instances = self.membership_line_ids.filtered(
-                lambda l: l.active)
-            if len(instances) == 1:
-                instance = instances
-        return membership_obj._generate_membership_reference(
-            partner=self, instance=instance, ref_date=ref_date)
-
-    @api.multi
     def _update_state(self, membership_state_code):
         """
         :type membership_state_code: char
@@ -361,7 +338,6 @@ class ResPartner(models.Model):
                 'former_member',
                 'former_member_committee',
             ],
-            'reference': False,
             'amount': False,
         }
 
