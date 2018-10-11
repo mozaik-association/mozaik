@@ -31,7 +31,9 @@ class MembershipLine(models.Model):
     int_instance_id = fields.Many2one(
         comodel_name='int.instance', string='Internal Instance', index=True,
         default=lambda s: s._default_int_instance_id(), required=True,)
-    reference = fields.Char()
+    reference = fields.Char(
+        copy=False,
+    )
     date_from = fields.Date(string='From', readonly=True)
     date_to = fields.Date(string='To', readonly=True)
     price = fields.Float(

@@ -8,39 +8,34 @@ class ChangeMainAddress(models.TransientModel):
 
     _inherit = 'change.main.address'
 
-    keeping_mode = fields.Integer(string='Mode')
-    # 1: mandatory
-    # 2: user's choice
-    # 3: forbiden
     keep_instance = fields.Boolean(
-        string='Keep Previous Internal Instance?')
-    old_int_instance_id = fields.Many2one(
-        'int.instance', string='Previous Internal Instance',
-        domain=lambda s: s._domain_old_int_instance_id(),
-        default=lambda s: s._default_old_int_instance_id())
-    new_int_instance_id = fields.Many2one(
-        'int.instance', string='New Internal Instance',
-        compute='_compute_new_int_instance_id',
-        store=True)
+        string='Keep Previous Internal Instance?',
+    )
+    partner_change_instance_ids = fields.One2many(
+        comodel_name="partner.change.instance",
+        inverse_name="change_main_address_id",
+        string="Update instances",
+    )
 
     @api.model
     def _domain_old_int_instance_id(self):
         """
         Domain of old instance depending of instances of the unique partner
         """
-        ids = self.env.context.get('active_ids') or \
-            self.env.context.get('active_id') and \
-            [self.env.context.get('active_id')] or []
+        context = self.env.context
+        active_ids = context.get('active_ids')
+        if not active_ids and context.get('active_id'):
+            active_ids = [context.get('active_id')]
 
         instance_ids = []
-        if len(ids) == 1:
+        if len(active_ids) == 1:
             active_model = self.env.context.get("active_model")
             partner = self.env['res.partner'].browse()
             if active_model == 'postal.coordinate':
-                target = self.env['postal.coordinate'].browse(ids)
+                target = self.env['postal.coordinate'].browse(active_ids)
                 partner = target.mapped("partner_id")
             elif active_model == 'res.partner':
-                partner = self.env['res.partner'].browse(ids)
+                partner = self.env['res.partner'].browse(active_ids)
             instance_ids = partner.int_instance_ids.ids
 
         return [('id', 'in', instance_ids)]
@@ -62,52 +57,92 @@ class ChangeMainAddress(models.TransientModel):
         To get default values for the object.
         """
         res = super().default_get(fields_list)
+        context = self.env.context
+        active_ids = context.get('active_ids', [])
+        if not active_ids and context.get('active_id'):
+            active_ids = [context.get('active_id')]
+        res.update({
+            'keep_instance': False,
+        })
 
-        ids = self.env.context.get('active_ids') or \
-            self.env.context.get('active_id') and \
-            [self.env.context.get('active_id')] or []
-        res['keeping_mode'] = 1
-        res['keep_instance'] = False
-
-        if len(ids) == 1:
-            active_model = self.env.context.get("active_model")
-            target_model = self._get_target_model()
-            if active_model == target_model:
-                target = self.env[target_model].browse(ids)
-                partner = target.mapped("partner_id")
-            else:
-                partner = self.env['res.partner'].browse(ids)
+        if len(active_ids) == 1:
+            active_model = context.get("active_model")
+            partner = self.env['res.partner'].browse()
+            if active_model == 'postal.coordinate':
+                post_coord = self.env['postal.coordinate'].browse(active_ids)
+                partner = post_coord.mapped("partner_id")
+            elif active_model == 'res.partner':
+                partner = self.env['res.partner'].browse(active_ids)
             if partner.int_instance_ids:
-                res['keep_instance'] = partner.is_company
-            res['keeping_mode'] = 3
-
+                res.update({
+                    'keep_instance': partner.is_company,
+                })
+            items = self.partner_change_instance_ids._build_from_partner(
+                partner)
+            if items:
+                partner_change_instance_ids = [(0, False, i) for i in items]
+                res.update({
+                    'partner_change_instance_ids': partner_change_instance_ids,
+                })
         return res
 
-    @api.multi
-    @api.depends("address_id")
-    def _compute_new_int_instance_id(self):
-        for wz in self:
-            new_int_instance_id = False
-            if wz.address_id:
-                adr = wz.address_id
-                if adr.city_id:
-                    new_int_instance_id = \
-                        adr.city_id.int_instance_id
-            if not new_int_instance_id:
-                new_int_instance_id = self.env['int.instance'].\
-                    _get_default_int_instance()
-            wz.new_int_instance_id = new_int_instance_id
-
-    @api.onchange("address_id", "old_int_instance_id", "new_int_instance_id")
+    @api.onchange("address_id")
     def _onchange_address_id(self):
+        """
+        Onchange used to update the new instance based on the address
+        :return:
+        """
         self.ensure_one()
-        keeping_mode = 3
-        if not self.old_int_instance_id:
-            keeping_mode = 1
-        elif self.address_id:
-            if self.old_int_instance_id != self.new_int_instance_id:
-                keeping_mode = 2
-        self.keeping_mode = keeping_mode
+        # If we don't have instance on the new address,
+        # we can't update anything
+        if not self.address_id.city_id.int_instance_id:
+            return
+        # Do not update when the instance has been forced
+        lines = self.partner_change_instance_ids.filtered(
+            lambda l: l.origin == 'membership')
+        for line in lines:
+            instance_address = line.partner_id.city_id.int_instance_id
+            if instance_address == line.actual_instance_id:
+                # Replace the old instance by the new one
+                line.update({
+                    'close_subscription': False,
+                    'new_instance_id': self.address_id.city_id.int_instance_id,
+                })
+        # Now, when new_instance_id are filled, we have to check if into these
+        # instances, some are equals or useless.
+        lines = self.partner_change_instance_ids
+        while lines:
+            line = fields.first(lines)
+            lines -= line
+            # If no more lines, useless to do the filtered just after,
+            # break directly
+            if not lines:
+                break
+            new_instance = line.new_instance_id
+            lines_same_instance = lines.filtered(
+                lambda l: l.new_instance_id == new_instance)
+            if lines_same_instance:
+                lines -= lines_same_instance
+                # Group lines with the same instance
+                lines_same_instance |= line
+                # Take the line where actual_instance = new_instance
+                # (if not found, use the current line)
+                original_line = fields.first(lines_same_instance.filtered(
+                    lambda l: l.actual_instance_id == new_instance)) or line
+                # Disable the closure
+                # Force the new instance
+                original_line.update({
+                    'close_subscription': False,
+                    'new_instance_id': new_instance,
+                })
+                # For the others, we have to close them
+                # We can't not remove the new_instance_id in case of the user
+                # change many time the address_id. We have to keep the
+                # possibility to execute the onchange many times
+                # (not possible if we remove the new_instance_id)
+                (lines_same_instance - original_line).update({
+                    'close_subscription': True,
+                })
 
     @api.multi
     def button_change_main_coordinate(self):
@@ -119,9 +154,6 @@ class ChangeMainAddress(models.TransientModel):
         :raise: ERROR if no partner selected
         """
         self.ensure_one()
-        self_ctx = self
-        if self.keeping_mode == 2 and self.keep_instance:
-            self_ctx = self.with_context(keep_current_instance=True)
-
-        return super(ChangeMainAddress,
-                     self_ctx).button_change_main_coordinate()
+        result = super().button_change_main_coordinate()
+        self.partner_change_instance_ids._execute_update()
+        return result

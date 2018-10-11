@@ -38,6 +38,20 @@ class AddMembership(models.TransientModel):
     price = fields.Float(
         help="Subscription price",
     )
+    state_id = fields.Many2one(
+        comodel_name='membership.state',
+        string='State',
+        required=True,
+        domain=lambda self: self._get_state_domain(),
+    )
+
+    @api.model
+    def _get_state_domain(self):
+        """
+
+        :return: domain for membership.state
+        """
+        return []
 
     @api.model
     def default_get(self, fields_list):
@@ -109,6 +123,7 @@ class AddMembership(models.TransientModel):
         self.ensure_one()
         membership_obj = self.env['membership.line']
         values = membership_obj._build_membership_values(
-            self.partner_id, self.int_instance_id, date_from=self.date_from,
-            previous=False, product=self.product_id, price=self.price)
+            self.partner_id, self.int_instance_id, self.state_id,
+            date_from=self.date_from, product=self.product_id,
+            price=self.price)
         return membership_obj.create(values)

@@ -31,6 +31,7 @@ class PostalCoordinate(models.Model):
 
     @api.multi
     def _update_postal_follower(self):
-        #self._update_partner_int_instance()
-        #TODO: change instance on "main" membership if equal to int_instance of previous city
+        # self._update_partner_int_instance()
+        # TODO: change instance on "main" membership if equal to int_instance
+        # of previous city
         self._update_followers()
