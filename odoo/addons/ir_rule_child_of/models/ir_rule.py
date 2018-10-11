@@ -17,7 +17,7 @@ class IrRule(models.Model):
         '''
         dom = super()._compute_domain(model_name, mode=mode)
         if dom:
-            dom = isinstance(dom, list) and dom or list(dom)
+            dom = dom if isinstance(dom, list) else list(dom)
             for ind, d in enumerate(dom):
                 if not isinstance(d, str) and len(d) == 3:
                     if d[1] == 'child_of' and not d[2]:
