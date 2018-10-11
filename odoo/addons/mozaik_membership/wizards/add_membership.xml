@@ -8,10 +8,11 @@
             <form>
                 <group>
                     <group>
-                        <field name="partner_id"/>
-                        <field name="int_instance_id"/>
+                        <field name="partner_id" options="{'no_create_edit': True}"/>
+                        <field name="int_instance_id" options="{'no_create_edit': True}"/>
+                        <field name="state_id" options="{'no_create_edit': True}"/>
                         <field name="date_from"/>
-                        <field name="product_id"/>
+                        <field name="product_id" options="{'no_create_edit': True}"/>
                         <field name="price"/>
                     </group>
                     <group></group>

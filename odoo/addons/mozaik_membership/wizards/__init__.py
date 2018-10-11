@@ -5,3 +5,4 @@ from . import change_main_address
 from . import update_membership
 from . import pass_former_member
 from . import membership_renew
+from . import partner_change_instance
