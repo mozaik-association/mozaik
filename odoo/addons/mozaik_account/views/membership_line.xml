@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="membership_line_search_view" model="ir.ui.view">
+        <field name="name">membership.line.search (mozaik_account)</field>
+        <field name="model">membership.line</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_line_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='active']" position="before">
+                <filter name="paid" string="Paid" domain="[('move_id','!=',False)]" />
+                <separator />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_line_tree_view" model="ir.ui.view">
+        <field name="name">membership.line.tree (mozaik_account)</field>
+        <field name="model">membership.line</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_line_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reference']" position="after">
+                <field name="paid"
+                    attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="membership_line_form_view" model="ir.ui.view">
+        <field name="name">membership.line.form (mozaik_account)</field>
+        <field name="model">membership.line</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_line_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reference']" position="after">
+                <field name="paid"
+                    attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}" />
+            </xpath>
+            <xpath expr="//field[@name='date_to']" position="after">
+                <field name="move_id"
+                    attrs="{'invisible': [('move_id', '=', False)]}" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

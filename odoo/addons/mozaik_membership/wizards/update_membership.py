@@ -78,6 +78,21 @@ class UpdateMembership(models.TransientModel):
         return {}
 
     @api.multi
+    def _prepare_update_product_price(self):
+        """
+        Prepare a dictionary ready to use with the write() method
+        to update Product/price of a membership line
+        :return: dic
+        """
+        self.ensure_one()
+        vals = {
+            'product_id': self.product_id.id,
+            'price': self.price,
+            'reference': self.reference,
+        }
+        return vals
+
+    @api.multi
     def _update_product_price(self):
         """
         Update product and price on membership.line
@@ -90,13 +105,8 @@ class UpdateMembership(models.TransientModel):
         if self.membership_line_id.product_id == self.product_id:
             raise exceptions.UserError(
                 _("This product is already set on the membership line"))
-        paid = self.membership_line_id._get_paid_based_on_price(self.price)
-        return self.membership_line_id.write({
-            'product_id': self.product_id.id,
-            'price': self.price,
-            'paid': paid,
-            'reference': self.reference,
-        })
+        vals = self._prepare_update_product_price()
+        return self.membership_line_id.write(vals)
 
     @api.multi
     def _update_instance(self):

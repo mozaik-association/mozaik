@@ -26,7 +26,8 @@ class MembershipLine(models.Model):
     state_id = fields.Many2one(
         comodel_name='membership.state', string='State',
         required=True, index=True)
-    state_code = fields.Char(related='state_id.code', readonly=True)
+    state_code = fields.Char(
+        related='state_id.code', readonly=True, store=True)
     int_instance_id = fields.Many2one(
         comodel_name='int.instance', string='Internal Instance', index=True,
         default=lambda s: s._default_int_instance_id(), required=True,)
@@ -257,7 +258,6 @@ class MembershipLine(models.Model):
         :return: bool
         """
         precision = self._fields.get('price').digits[1]
-        # If the price is 0, it's automatically set as paid
         is_zero = float_is_zero(price, precision_digits=precision)
         return is_zero
 

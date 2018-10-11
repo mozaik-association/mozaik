@@ -10,6 +10,7 @@ class MembershipLine(models.Model):
         comodel_name="account.move",
         string="Account move",
         readonly=True,
+        copy=False,
     )
     paid = fields.Boolean(
         default=False,

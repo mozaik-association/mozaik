@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="res_partner_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form (mozaik_account)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="30" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree/field[@name='reference']" position="after">
+                <field name="paid"
+                    attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}" />
+                <field name="move_id" invisible="1" />
+            </xpath>
+
+            <xpath expr="//button[@name='%(mozaik_membership.update_membership_product_action)d']" position="attributes">
+                <attribute name="attrs" translation="off">{'invisible': ['|', ('active', '=', 'False'), ('move_id', '!=', 'False')]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='%(mozaik_membership.update_membership_instance_action)d']" position="attributes">
+                <attribute name="attrs" translation="off">{'invisible': ['|', ('active', '=', 'False'), ('move_id', '!=', 'False')]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

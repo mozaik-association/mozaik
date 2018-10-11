@@ -87,8 +87,7 @@ class TestMembershipLine(TransactionCase):
 
     def _get_membership_line_values(
             self, date_from=False, date_to=False, partner=False, state=False,
-            instance=False, price=False, ref=False, product=False,
-            paid=True):
+            instance=False, price=False, ref=False, product=False):
         """
 
         :param date_from: date
@@ -99,7 +98,6 @@ class TestMembershipLine(TransactionCase):
         :param price: float
         :param ref: str
         :param product: product.product recordset
-        :param paid: bool
         :return: dict
         """
         if isinstance(partner, bool):
@@ -119,7 +117,6 @@ class TestMembershipLine(TransactionCase):
             'price': price,
             'reference': ref,
             'product_id': product.id,
-            'paid': paid,
         }
         return values
 

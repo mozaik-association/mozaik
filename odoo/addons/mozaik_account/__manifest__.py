@@ -21,6 +21,8 @@
         'data/product_product.xml',
         'views/account_bank_statement.xml',
         'views/product_template.xml',
+        'views/res_partner.xml',
+        'views/membership_line.xml',
     ],
     'demo': [
         'demo/product_product.xml',
