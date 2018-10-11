@@ -45,7 +45,7 @@ class ChangeMainAddress(models.TransientModel):
                 co_res = cores_obj.search(
                     [('address_id', '=', res['old_address_id'])])
                 if co_res:
-                    co_res_id = co_res[0]
+                    co_res_id = co_res[0].id
                     if co_res_id:
                         res['move_allowed'] = cores_wiz_obj._use_allowed(
                             co_res_id)

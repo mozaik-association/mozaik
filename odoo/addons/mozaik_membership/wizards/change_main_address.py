@@ -18,40 +18,6 @@ class ChangeMainAddress(models.TransientModel):
     )
 
     @api.model
-    def _domain_old_int_instance_id(self):
-        """
-        Domain of old instance depending of instances of the unique partner
-        """
-        context = self.env.context
-        active_ids = context.get('active_ids')
-        if not active_ids and context.get('active_id'):
-            active_ids = [context.get('active_id')]
-
-        instance_ids = []
-        if len(active_ids) == 1:
-            active_model = self.env.context.get("active_model")
-            partner = self.env['res.partner'].browse()
-            if active_model == 'postal.coordinate':
-                target = self.env['postal.coordinate'].browse(active_ids)
-                partner = target.mapped("partner_id")
-            elif active_model == 'res.partner':
-                partner = self.env['res.partner'].browse(active_ids)
-            instance_ids = partner.int_instance_ids.ids
-
-        return [('id', 'in', instance_ids)]
-
-    @api.model
-    def _default_old_int_instance_id(self):
-        """
-        If only one instance, take it
-        """
-        instance_ids = self._domain_old_int_instance_id()[0][2]
-        res = False
-        if len(instance_ids) == 1:
-            res = self.env['int.instance'].browse(instance_ids)
-        return res
-
-    @api.model
     def default_get(self, fields_list):
         """
         To get default values for the object.
@@ -65,25 +31,25 @@ class ChangeMainAddress(models.TransientModel):
             'keep_instance': False,
         })
 
-        if len(active_ids) == 1:
-            active_model = context.get("active_model")
-            partner = self.env['res.partner'].browse()
-            if active_model == 'postal.coordinate':
-                post_coord = self.env['postal.coordinate'].browse(active_ids)
-                partner = post_coord.mapped("partner_id")
-            elif active_model == 'res.partner':
-                partner = self.env['res.partner'].browse(active_ids)
-            if partner.int_instance_ids:
+        active_model = context.get("active_model")
+        partners = self.env['res.partner'].browse()
+        if active_model == 'postal.coordinate':
+            post_coord = self.env['postal.coordinate'].browse(active_ids)
+            partners = post_coord.mapped("partner_id")
+        elif active_model == 'res.partner':
+            partners = self.env['res.partner'].browse(active_ids)
+        if len(partners) == 1:
+            if partners.int_instance_ids:
                 res.update({
-                    'keep_instance': partner.is_company,
+                    'keep_instance': partners.is_company,
                 })
-            items = self.partner_change_instance_ids._build_from_partner(
-                partner)
-            if items:
-                partner_change_instance_ids = [(0, False, i) for i in items]
-                res.update({
-                    'partner_change_instance_ids': partner_change_instance_ids,
-                })
+        items = self.partner_change_instance_ids._build_from_partner(
+            partners)
+        if items:
+            partner_change_instance_ids = [(0, False, i) for i in items]
+            res.update({
+                'partner_change_instance_ids': partner_change_instance_ids,
+            })
         return res
 
     @api.onchange("address_id")
@@ -119,8 +85,10 @@ class ChangeMainAddress(models.TransientModel):
             if not lines:
                 break
             new_instance = line.new_instance_id
+            partner = line.partner_id
             lines_same_instance = lines.filtered(
-                lambda l: l.new_instance_id == new_instance)
+                lambda l: l.new_instance_id == new_instance and
+                l.partner_id == partner)
             if lines_same_instance:
                 lines -= lines_same_instance
                 # Group lines with the same instance

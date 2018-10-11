@@ -79,26 +79,31 @@ class PartnerChangeInstance(models.TransientModel):
             raise exceptions.ValidationError(message)
 
     @api.model
-    def _build_from_partner(self, partner):
+    def _build_from_partner(self, partners):
         """
-        Using the given partner, build list of dict to create
+        Using the given partners, build list of dict to create
         current wizard lines
-        :param partner: res.partner recordset
+        :param partners: res.partner recordset
         :return: list of dict (to use in create/write)
         """
         items = []
-        lines = partner.membership_line_ids.filtered(lambda l: l.active)
+        lines = partners.mapped('membership_line_ids').filtered('active')
         for line in lines:
             items.append({
                 'origin': 'membership',
-                'partner_id': partner.id,
+                'partner_id': line.partner_id.id,
                 'membership_line_id': line.id,
                 'new_instance_id': line.int_instance_id.id,
                 'actual_instance_id': line.int_instance_id.id,
             })
-        if partner.force_int_instance_id:
+        other_partners = partners.filtered(
+            lambda s: not s.membership_line_ids and s.force_int_instance_id)
+        for partner in other_partners:
             items.append({
                 'origin': 'forced',
+                'partner_id': partner.id,
+                'new_instance_id': partner.force_int_instance_id.id,
+                'actual_instance_id': partner.force_int_instance_id.id,
             })
         return items
 
@@ -123,15 +128,12 @@ class PartnerChangeInstance(models.TransientModel):
         # Get lines to update:
         # - close_subscription is True
         # OR - new_instance_id != actual_instance_id
-        instance_obj = self.env['int.instance']
         lines = self.filtered(
             lambda l: l.close_subscription or
             l.new_instance_id != l.actual_instance_id)
         for record in lines:
             if record.origin == 'forced':
                 new_instance = record.new_instance_id
-                if record.close_subscription:
-                    new_instance = instance_obj.browse()
                 record.partner_id.write({
                     'force_int_instance_id': new_instance.id,
                 })

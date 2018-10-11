@@ -9,20 +9,22 @@
             <group name="data" position="inside">
                 <field name="keep_instance"/>
             </group>
-            <notebook position="inside">
+
+            <xpath expr="//page[1]" position="before">
                 <page string="Instances">
                     <group colspan="2">
                         <field name="partner_change_instance_ids" colspan="2" nolabel="1">
                             <tree editable="bottom" create="false">
                                 <field name="partner_id" force_save="1"/>
                                 <field name="actual_instance_id" force_save="1"/>
-                                <field name="close_subscription"/>
+                                <field name="origin" invisible="1" force_save="1"/>
+                                <field name="close_subscription" attrs="{'invisible': [('origin', '=', 'forced')]}"/>
                                 <field name="new_instance_id" attrs="{'invisible': [('close_subscription', '=', True)], 'required': [('close_subscription', '=', False)]}" options="{'no_create_edit': True}"/>
                             </tree>
                         </field>
                     </group>
                 </page>
-            </notebook>
+            </xpath>
         </field>
     </record>
 
