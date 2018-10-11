@@ -59,9 +59,6 @@ class ResPartner(models.Model):
     rejected_date = fields.Date()
     resignation_date = fields.Date()
     exclusion_date = fields.Date()
-    current_membership_line_id = fields.Many2one(
-        comodel_name='membership.line', string='Current Membership',
-        compute='_compute_current_membership_line_id')
     local_voluntary = fields.Boolean(track_visibility='onchange')
     regional_voluntary = fields.Boolean(track_visibility='onchange')
     national_voluntary = fields.Boolean(track_visibility='onchange')
@@ -134,14 +131,6 @@ class ResPartner(models.Model):
                 raise exceptions.ValidationError(_(
                     "A partner without membership "
                     "must be linked to an internal instance"))
-
-    @api.multi
-    @api.depends('membership_line_ids', 'membership_line_ids.active')
-    def _compute_current_membership_line_id(self):
-        for partner in self:
-            current_membership_line_id = first(
-                partner.membership_line_ids.filtered(lambda s: s.active))
-            partner.current_membership_line_id = current_membership_line_id
 
     @api.multi
     @api.depends('is_assembly', 'is_company',
@@ -224,22 +213,6 @@ class ResPartner(models.Model):
         return res
 
     # State management
-    @api.multi
-    def register_free_membership(self):
-        '''
-        Accept free subscription as membership payment
-        '''
-        # Accept membership
-        self.paid()
-        # Get free subscription
-        free_prd_id = self.env.ref('mozaik_membership.membership_product_free')
-        vals = {
-            'product_id': free_prd_id.id,
-            'price': 0.0,
-        }
-        # Force free subscription
-        for partner in self:
-            partner.current_membership_line_id.write(vals)
 
     @api.multi
     def decline_payment(self):
