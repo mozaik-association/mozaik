@@ -85,3 +85,27 @@ class MembershipLine(models.Model):
             product=product, price=price)
         vals['paid'] = self._get_paid_based_on_price(vals.get('price', 0.0))
         return vals
+
+    @api.model
+    def _get_lines_to_renew_domain(self):
+        res = super()._get_lines_to_renew_domain()
+        res.append(('paid', '=', True))
+        return res
+
+    @api.model
+    def _get_lines_to_former_member_domain(self):
+        res = super()._get_lines_to_renew_domain()
+        res.append(('paid', '=', False))
+        return res
+
+    @api.model
+    def _get_lines_to_close_renew_domain(self):
+        res = super()._get_lines_to_close_renew_domain()
+        res.append(('paid', '=', True))
+        return res
+
+    @api.model
+    def _get_lines_to_close_former_member_domain(self):
+        res = super()._get_lines_to_close_former_member_domain()
+        res.append(('paid', '=', False))
+        return res

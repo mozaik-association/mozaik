@@ -14,6 +14,7 @@
         'product',
         'partner_contact_birthdate',
         'partner_multi_relation',
+        'queue_job',
         'mozaik_email',
         'mozaik_address',
         'mozaik_phone',
@@ -23,6 +24,7 @@
         'mozaik_involvement',
     ],
     'data': [
+        'wizards/mass_membership_renew.xml',
         'data/membership_state.xml',
         'data/product_category.xml',
         'data/res_partner.xml',
@@ -42,7 +44,6 @@
         'views/res_partner.xml',
         'views/membership_menu.xml',
         'wizards/change_main_address.xml',
-        'wizards/pass_former_member.xml',
         'wizards/membership_renew.xml',
     ],
     'demo': [

@@ -65,7 +65,10 @@ class MembershipRenew(models.TransientModel):
         :return: dict
         """
         self.ensure_one()
-        lines = self._action_close_and_renew()
+        if self.env.context.get("renew"):
+            lines = self._action_close_and_renew()
+        else:
+            lines = self._action_close_and_former_member()
         action = self.env.ref(
             "mozaik_membership.membership_line_action").read()[0]
         domain = [('id', 'in', lines.ids)]
@@ -84,4 +87,15 @@ class MembershipRenew(models.TransientModel):
         self.ensure_one()
         renewed_lines = self.membership_line_ids._close(
             date_to=self.date_from)._renew(date_from=self.date_from)
+        return renewed_lines
+
+    @api.multi
+    def _action_close_and_former_member(self):
+        """
+        Close membership lines and renew them automatically
+        :return: membership.line recordset
+        """
+        self.ensure_one()
+        renewed_lines = self.membership_line_ids._close(
+            date_to=self.date_from)._former_member(date_from=self.date_from)
         return renewed_lines
