@@ -23,7 +23,6 @@ class TestAccountingWithProduct(object):
         self.partner = self._get_partner()
         self.partner.write({
             'accepted_date': date.today().strftime('%Y-%m-%d'),
-            'free_member': False,
         })
         self.member_state = self.env.ref('mozaik_membership.member')
 
@@ -253,7 +252,6 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
         self.partner_2 = self._get_partner()
         self.partner_2.write({
             'accepted_date': date.today().strftime('%Y-%m-%d'),
-            'free_member': False,
         })
 
     def _get_manual_move_dict(self, additional_amount):

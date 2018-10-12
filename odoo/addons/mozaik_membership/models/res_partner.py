@@ -6,10 +6,8 @@ from odoo import api, exceptions, models, fields, _
 from odoo.fields import first
 from odoo.exceptions import ValidationError
 
-import odoo.addons.decimal_precision as dp
-
 _logger = logging.getLogger(__name__)
-# Constants
+
 AVAILABLE_PARTNER_KINDS = [
     ('a', 'Assembly'),
     ('t', 'Technical'),
@@ -38,7 +36,6 @@ class ResPartner(models.Model):
     membership_line_ids = fields.One2many(
         comodel_name='membership.line', inverse_name='partner_id',
         string='Memberships', readonly=True)
-    free_member = fields.Boolean()
     membership_state_id = fields.Many2one(
         comodel_name='membership.state', string='Membership State',
         index=True,
@@ -310,9 +307,6 @@ class ResPartner(models.Model):
                 'former_member_committee',
             ],
         }
-
-        if membership_state_code == 'supporter':
-            vals['free_member'] = True
 
         # force voluntaries fields if any
         if membership_state_code in [

@@ -26,7 +26,7 @@ moazaik_membership_request:
 * membership.request (from mozaik_membership)
 
 mozaik_membership:
-* fields int_instance_id and reference deleted
+* deleted fields: int_instance_id, amount, free_member and reference
 * New field force_int_instance_id (it's not the new field of int_instance_id)
 
 mozaik_address:
