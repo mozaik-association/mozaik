@@ -123,5 +123,6 @@ class ChangeMainAddress(models.TransientModel):
         """
         self.ensure_one()
         result = super().button_change_main_coordinate()
-        self.partner_change_instance_ids._execute_update()
+        if not self.keep_instance:
+            self.partner_change_instance_ids._execute_update()
         return result

@@ -11,10 +11,10 @@
             </group>
 
             <xpath expr="//page[1]" position="before">
-                <page string="Instances">
+                <page string="Instances" attrs="{'invisible': [('keep_instance', '=', True)]}">
                     <group colspan="2">
                         <field name="partner_change_instance_ids" colspan="2" nolabel="1">
-                            <tree editable="bottom" create="false">
+                            <tree editable="bottom" create="0" delete="0">
                                 <field name="partner_id" force_save="1"/>
                                 <field name="actual_instance_id" force_save="1"/>
                                 <field name="origin" invisible="1" force_save="1"/>

@@ -14,6 +14,7 @@ class UpdateMembership(models.TransientModel):
         string="Membership line",
         required=True,
         ondelete="cascade",
+        readonly=True,
         help="Membership line to update",
     )
     update_type = fields.Selection(

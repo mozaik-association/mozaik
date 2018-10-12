@@ -21,6 +21,7 @@ class AddMembership(models.TransientModel):
         comodel_name='res.partner',
         string='Partner',
         required=True,
+        readonly=True,
         ondelete="cascade",
         help="Partner to affiliate",
     )
@@ -44,6 +45,8 @@ class AddMembership(models.TransientModel):
         required=True,
         domain=lambda self: self._get_state_domain(),
     )
+    state_code = fields.Char(
+        related='state_id.code', readonly=True)
 
     @api.model
     def _get_state_domain(self):
@@ -61,13 +64,15 @@ class AddMembership(models.TransientModel):
         :return: dict
         """
         result = super(AddMembership, self).default_get(fields_list)
-        # Only if the active_model (from context) is the membership one.
+        # Only if the active_model is res.partner
         partner_model = self.partner_id._name
         if self.env.context.get('active_model') == partner_model:
             active_id = self.env.context.get('active_id')
             partner = self.env[self.partner_id._name].browse()
+            instance = self.int_instance_id
             if active_id:
                 partner = partner.browse(active_id)
+                instance = partner.force_int_instance_id
             # Subscription product defined on the partner or
             # the last one used into membership lines
             product = partner.subscription_product_id
@@ -76,6 +81,7 @@ class AddMembership(models.TransientModel):
                 product = membership.product_id
             result.update({
                 'partner_id': partner.id,
+                'int_instance_id': instance.id,
                 'product_id': product.id,
             })
         return result

@@ -38,7 +38,7 @@
                 <field name="partner_id"/>
                 <field name="int_instance_id"/>
                 <field name="state_id"/>
-                <field name="product_id" attrs="{'invisible': [('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
+                <field name="product_id"/>
                 <field name="reference" />
                 <field name="date_from"/>
                 <field name="date_to"/>

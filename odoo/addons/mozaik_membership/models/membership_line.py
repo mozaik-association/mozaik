@@ -22,7 +22,7 @@ class MembershipLine(models.Model):
     product_id = fields.Many2one(
         comodel_name='product.product', string='Subscription',
         domain="[('membership', '!=', False)]",
-        index=True, default=lambda s: s._default_product_id())
+        index=True)
     state_id = fields.Many2one(
         comodel_name='membership.state', string='State',
         required=True, index=True)
@@ -67,10 +67,6 @@ class MembershipLine(models.Model):
             message = _("A reference is mandatory when the price is greater "
                         "than 0:\n- %s") % details
             raise exceptions.ValidationError(message)
-
-    @api.model
-    def _default_product_id(self):
-        return self.env.ref('mozaik_membership.membership_product_free')
 
     @api.model
     def _default_int_instance_id(self):
@@ -166,6 +162,8 @@ class MembershipLine(models.Model):
                 partner_ids=[partner_id], date_to=date_from,
                 int_instance_id=int_instance_id)
         result = super(MembershipLine, self).create(vals)
+        # With membership lines the force instance must be reset
+        result.partner_id.force_int_instance_id = False
         return result
 
     @api.model
@@ -201,7 +199,7 @@ class MembershipLine(models.Model):
         ref_date.
         This method is intended to be overriden regarding
         locale conventions.
-        Here is an arbitrary convention: "MS: YYYY/id"
+        Here is an arbitrary convention: "MS: YYYY/id/id"
         :param partner: res.partner recordset
         :param instance: int.instance recordset
         :param ref_date: str/date
@@ -246,10 +244,18 @@ class MembershipLine(models.Model):
             'partner_id': partner.id,
             'state_id': state.id,
             'int_instance_id': instance.id,
-            'price': price,
-            'reference': reference,
-            'product_id': product.id,
         }
+        # TODO: add a awaiting_payment flag on membership.state model
+        subscription_state_codes = [
+            'member', 'member_candidate',
+            'former_member_committee', 'member_committee',
+        ]
+        if state.code in subscription_state_codes:
+            values.update({
+                'price': price,
+                'reference': reference,
+                'product_id': product.id,
+            })
         return values
 
     @api.model
