@@ -101,6 +101,7 @@ class TestPartner(TransactionCase):
         # If we remove membership lines, come-back to tarification1
         partner.write({
             'membership_line_ids': [(6, False, [])],
+            'force_int_instance_id': default_instance.id,
         })
         partner.invalidate_cache()
         self.assertEqual(

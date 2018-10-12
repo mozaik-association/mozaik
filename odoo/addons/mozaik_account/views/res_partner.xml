@@ -15,7 +15,7 @@
             </xpath>
 
             <xpath expr="//button[@name='%(mozaik_membership.update_membership_product_action)d']" position="attributes">
-                <attribute name="attrs" translation="off">{'invisible': ['|', ('active', '=', 'False'), ('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), ('move_id', '!=', False)]}</attribute>
+                <attribute name="attrs" translation="off">{'invisible': ['|', '|', ('active', '=', 'False'), ('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), ('move_id', '!=', False)]}</attribute>
             </xpath>
 
             <xpath expr="//button[@name='%(mozaik_membership.update_membership_instance_action)d']" position="attributes">

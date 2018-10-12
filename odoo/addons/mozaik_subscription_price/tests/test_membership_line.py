@@ -11,7 +11,7 @@ class TestMembershipLine(SavepointCase):
     def setUp(self):
         super(TestMembershipLine, self).setUp()
         self.membership_obj = self.env['membership.line']
-        self.pseudo_state = self.env['membership.state'].browse()
+        self.pseudo_state = self.browse_ref('mozaik_membership.member')
         self.partner_obj = self.env['res.partner']
         self.instance = self.env.ref("mozaik_membership.int_instance_03")
         self.pricelist = self.env.ref(
@@ -40,7 +40,7 @@ class TestMembershipLine(SavepointCase):
             10,
             36985.25,
         ]
-        product = membership_obj._default_product_id()
+        product = self.browse_ref('mozaik_membership.membership_product_free')
         self.assertEqual(self.pricelist_item.product_id, product)
         self.assertEqual(
             instance.product_pricelist_id, self.pricelist_item.pricelist_id)

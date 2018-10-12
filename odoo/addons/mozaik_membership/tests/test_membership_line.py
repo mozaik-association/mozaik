@@ -60,7 +60,7 @@ class TestMembershipLine(TransactionCase):
         """
         partner = self.partner_marc
         instance = self.instance
-        # generate the reference
+        # get the price
         price = self.membership_obj._get_subscription_price(
             self.product_free, partner=partner, instance=instance)
         self.assertAlmostEqual(price, self.product_free.list_price)
@@ -71,16 +71,16 @@ class TestMembershipLine(TransactionCase):
         :return:
         """
         membership_obj = self.membership_obj
-        # Patch method to force using another product
         partner = self.partner_marc
         instance = self.instance
         price = 1256.369
-        # generate the reference
-        membership_obj._default_product_id().write({
+        # update the product price
+        self.product_free.write({
             'list_price': price,
         })
         # Use the precision defined on the price field
         precision = membership_obj._fields.get('price').digits[1]
+        # get the price
         result_price = membership_obj._get_subscription_price(
             self.product_free, partner=partner, instance=instance)
         self.assertAlmostEqual(price, result_price, places=precision)
