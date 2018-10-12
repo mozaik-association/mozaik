@@ -68,6 +68,20 @@ class MembershipLine(models.Model):
                         "than 0:\n- %s") % details
             raise exceptions.ValidationError(message)
 
+    @api.multi
+    @api.constrains('partner_id')
+    def _constrains_partner_id(self):
+        """
+        Constrain function for the field partner_id
+        :return:
+        """
+        bad_records = self.filtered(lambda r: r.partner_id.is_assembly)
+        if bad_records:
+            details = "\n- ".join(bad_records.mapped("display_name"))
+            message = _("It's not possible to create membership line for "
+                        "Assembly partner:\n- %s") % details
+            raise exceptions.ValidationError(message)
+
     @api.model
     def _default_product_id(self):
         return self.env.ref('mozaik_membership.membership_product_free')

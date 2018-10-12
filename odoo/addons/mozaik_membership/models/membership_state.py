@@ -9,12 +9,15 @@ class MembershipState(models.Model):
     _name = 'membership.state'
     _inherit = ['mozaik.abstract.model']
     _description = 'Membership State'
-    _order = 'name'
+    _order = 'sequence, name'
     _unicity_keys = 'code'
 
     name = fields.Char(string='Membership State', required=True,
                        track_visibility='onchange', translate=True)
     code = fields.Char(required=True)
+    sequence = fields.Integer(
+        help="Sequence used to define the membership state",
+    )
 
     @api.model
     def _get_default_state(self, default_state=False):
