@@ -123,19 +123,18 @@
                         <button name="action_add_membership" string="Add subscription" type="object" groups="mozaik_membership.res_groups_membership_user" />
 
                     </div>
+                    <group name="voluntary" col="3" attrs="{'invisible': [('membership_state_code', 'in', ['without_membership', 'supporter', 'former_supporter'])]}">
+                        <group><field name="local_voluntary"/></group>
+                        <group><field name="regional_voluntary"/></group>
+                        <group><field name="national_voluntary"/></group>
+                    </group>
                     <group name="membership_data">
                         <group name="membership_subscription">
                             <field name="subscription_product_id"
                                 widget="selection"
                                 attrs="{'invisible': [('subscription_product_id', '=', False)]}"/>
-                            <field name="amount"
-                                attrs="{'invisible': [('amount', '=', 0.0)]}"/>
                         </group>
-                        <group name="voluntary" attrs="{'invisible': [('membership_state_code', 'in', ['without_membership', 'supporter', 'former_supporter'])]}">
-                            <field name="local_voluntary"/>
-                            <field name="regional_voluntary"/>
-                            <field name="national_voluntary"/>
-                        </group>
+                        <group></group>
                     </group>
                     <field name="membership_line_ids">
                         <tree decoration-muted="active==False" decoration-success="state_code=='member'" decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']">

@@ -37,9 +37,6 @@
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page name="involvement" string="Involvements" attrs="{'invisible': [('is_assembly','=',True)]}">
-                    <span class="oe_horizontal_separator oe_clear oe_inline">
-                        Involvements
-                    </span>
                     <group name="donor-volunteer">
                         <group>
                             <field name="is_donor" />

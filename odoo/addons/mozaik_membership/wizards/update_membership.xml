@@ -10,24 +10,17 @@
             <form>
                 <group>
                     <group>
-                        <field name="membership_line_id"/>
+                        <field name="membership_line_id" options="{'no_open': True}"/>
                         <field name="update_type" attrs="{'invisible': [('update_type', '!=', False)]}"/>
                     </group>
-                    <group></group>
-                </group>
-                <group attrs="{'invisible': [('update_type', '!=', 'instance')]}">
-                    <group>
-                        <field name="int_instance_id" attrs="{'required': [('update_type', '=', 'instance')]}"/>
+                    <group attrs="{'invisible': [('update_type', '!=', 'instance')]}">
+                        <field name="int_instance_id" attrs="{'required': [('update_type', '=', 'instance')]}" options="{'no_create_edit': True, 'no_create': True}"/>
                     </group>
-                    <group></group>
-                </group>
-                <group attrs="{'invisible': [('update_type', '!=', 'product')]}">
-                    <group>
-                        <field name="product_id" attrs="{'required': [('update_type', '=', 'product')]}"/>
+                    <group attrs="{'invisible': [('update_type', '!=', 'product')]}">
+                        <field name="product_id" attrs="{'required': [('update_type', '=', 'product')]}" options="{'no_create_edit': True, 'no_create': True}"/>
                         <field name="price"/>
                         <field name="reference" attrs="{'required': [('price', '&gt;', 0)]}"/>
                     </group>
-                    <group></group>
                 </group>
                 <footer>
                     <button string="Update" name="action_update" type="object" class="oe_highlight"/>

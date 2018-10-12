@@ -65,8 +65,6 @@ class ResPartner(models.Model):
     local_only = fields.Boolean(
         track_visibility='onchange',
         help='Partner wishing to be contacted only by the local')
-    amount = fields.Float(
-        digits=dp.get_precision('Product Price'), readonly=True)
 
     int_instance_ids = fields.Many2many(
         comodel_name='int.instance',
@@ -311,7 +309,6 @@ class ResPartner(models.Model):
                 'former_member',
                 'former_member_committee',
             ],
-            'amount': False,
         }
 
         if membership_state_code == 'supporter':
