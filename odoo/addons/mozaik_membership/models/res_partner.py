@@ -101,6 +101,7 @@ class ResPartner(models.Model):
         'membership_line_ids.int_instance_id', 'force_int_instance_id',
         'city_id', 'city_id.int_instance_id',
         'membership_line_ids', 'membership_line_ids.state_id',
+        'postal_coordinate_ids', 'postal_coordinate_ids.is_main',
     )
     def _compute_int_instance_ids(self):
         """
