@@ -68,6 +68,20 @@ class MembershipLine(models.Model):
                         "than 0:\n- %s") % details
             raise exceptions.ValidationError(message)
 
+    @api.multi
+    @api.constrains('partner_id')
+    def _constrains_partner_id(self):
+        """
+        Constrain function for the field partner_id
+        :return:
+        """
+        bad_records = self.filtered(lambda r: r.partner_id.is_company)
+        if bad_records:
+            details = "\n- ".join(bad_records.mapped("display_name"))
+            message = _("It's not possible to create membership line for "
+                        "a legal person:\n- %s") % details
+            raise exceptions.ValidationError(message)
+
     @api.model
     def _default_int_instance_id(self):
         return self.env['int.instance']._get_default_int_instance()

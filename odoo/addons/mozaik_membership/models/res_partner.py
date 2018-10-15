@@ -37,7 +37,8 @@ class ResPartner(models.Model):
         comodel_name='membership.line', inverse_name='partner_id',
         string='Memberships', readonly=True)
     membership_state_id = fields.Many2one(
-        comodel_name='membership.state', string='Membership State',
+        comodel_name='membership.state',
+        string='Membership State',
         index=True,
         compute="_compute_int_instance_ids",
         store=True,
@@ -78,10 +79,26 @@ class ResPartner(models.Model):
         return first(self.env.user.partner_id.int_instance_m2m_ids)
 
     @api.multi
+    @api.constrains('membership_line_ids', 'is_company')
+    def _constrains_membership_line_ids(self):
+        """
+        Constrain function for the field membership_line_ids
+        :return:
+        """
+        bad_records = self.filtered(
+            lambda r: r.is_company and r.membership_line_ids)
+        if bad_records:
+            details = "\n- ".join(bad_records.mapped("display_name"))
+            message = _("An legal person shouldn't have membership "
+                        "lines:\n- %s") % details
+            raise exceptions.ValidationError(message)
+
+    @api.multi
     @api.depends(
         'is_assembly',
         'membership_line_ids.int_instance_id', 'force_int_instance_id',
         'city_id', 'city_id.int_instance_id',
+        'membership_line_ids', 'membership_line_ids.state_id',
     )
     def _compute_int_instance_ids(self):
         """
@@ -94,17 +111,14 @@ class ResPartner(models.Model):
         - IF NO instances found: use the default instance
         :return:
         """
+        # Work in sudo to have all info
+        if not self.env.user._is_superuser():
+            self = self.sudo()
         default_instance = self.env['int.instance']._get_default_int_instance()
-        default_state = self.env['membership.state']._get_default_state()
         for record in self:
-            state = default_state if not record.is_assembly else False
             memberships = record.membership_line_ids.filtered(
                 lambda l: l.active)
             instances = memberships.mapped("int_instance_id")
-            states = memberships.mapped("state_id")
-            if states:
-                state = states.filtered(
-                    lambda s: s.code == 'member') or first(state)
             if not instances and record.force_int_instance_id:
                 instances = record.force_int_instance_id
             if not instances and record.country_id.enforce_cities:
@@ -112,7 +126,27 @@ class ResPartner(models.Model):
             if not instances:
                 instances = default_instance
             record.int_instance_ids = instances
-            record.membership_state_id = state
+            record.membership_state_id = record._get_current_state()
+
+    @api.multi
+    def _get_current_state(self):
+        """
+        Get the state of the current partner.
+        Executed in sudo to have full membership lines
+        :return: membership.state recordset
+        """
+        self.ensure_one()
+        state_obj = self.env['membership.state']
+        state = state_obj.browse()
+        if not self.is_assembly:
+            memberships = self.sudo().membership_line_ids.filtered("active")
+            states = memberships.mapped("state_id")
+            # Get the highest priority of state
+            if states:
+                state = first(states.sorted(key=lambda s: s.sequence))
+            else:
+                state = state_obj._get_default_state()
+        return state
 
     @api.multi
     @api.constrains('force_int_instance_id', 'membership_line_ids')
