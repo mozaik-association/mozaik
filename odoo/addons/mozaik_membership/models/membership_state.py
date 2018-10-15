@@ -41,3 +41,43 @@ class MembershipState(models.Model):
         state_id = self.search([('code', '=', default_state)], limit=1)
 
         return state_id
+
+    @api.model
+    def _get_by_code(self, code):
+        """
+        Get a membership.state by given code
+        :param code: str
+        :return: membership.state recordset
+        """
+        if not code:
+            return self.browse()
+        domain = [
+            ('code', '=', code),
+        ]
+        return self.search(domain, limit=1)
+
+    @api.model
+    def _get_exclusion_state(self, lines=False):
+        """
+        Depending on previous lines, get the expulsion state
+        :param lines: membership.line recordset
+        :return: membership.state recordset
+        """
+        if lines:
+            return self._get_by_code('expulsion_former_member')
+        return self._get_by_code('inappropriate_former_member')
+
+    @api.model
+    def _get_all_exclusion_states(self):
+        """
+        Get every possible expulsion states
+        :return: membership.state recordset
+        """
+        codes = [
+            'expulsion_former_member',
+            'inappropriate_former_member',
+        ]
+        domain = [
+            ('code', 'in', codes),
+        ]
+        return self.search(domain)

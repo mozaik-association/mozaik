@@ -4,6 +4,7 @@ from datetime import date
 from odoo import api, exceptions, models, fields, _
 from odoo.tools import float_is_zero
 import odoo.addons.decimal_precision as dp
+from odoo.osv import expression
 
 
 class MembershipLine(models.Model):
@@ -82,6 +83,28 @@ class MembershipLine(models.Model):
                         "a legal person:\n- %s") % details
             raise exceptions.ValidationError(message)
 
+    @api.multi
+    @api.constrains('partner_id')
+    def _constrains_exclusion(self):
+        """
+        Constrain function to ensure that we have only 1 membership line
+        for a excluded partner.
+        :return:
+        """
+        # Get every membership lines where the partner is excluded and with
+        # more than 1 active line
+        bad_records = self.filtered(
+            lambda r: r.partner_id.is_excluded and
+            len(r.partner_id.membership_line_ids.filtered(
+                lambda l: l.active)) > 1)
+        if bad_records:
+            details = "\n- ".join(bad_records.mapped(
+                "partner_id.display_name"))
+            message = _("These partners are excluded but you're trying to add "
+                        "new membership lines without disabled exclusion "
+                        "lines:\n- %s") % details
+            raise exceptions.ValidationError(message)
+
     @api.model
     def _default_int_instance_id(self):
         return self.env['int.instance']._get_default_int_instance()
@@ -127,7 +150,7 @@ class MembershipLine(models.Model):
 
     @api.model
     def _invalidate_previous_lines(self, partner_ids, date_to, line_id=False,
-                                   int_instance_id=False):
+                                   int_instance_id=False, unexclude=True):
         """
         Based on given partner_ids and date_from, invalidate membership
         lines related to these one (every lines where date_to not filled).
@@ -137,10 +160,14 @@ class MembershipLine(models.Model):
         Example:
         - If a partner have 2 membership lines active (date_to is False and
             related to same instance), we have to disable these 2 lines.
+        Also, if given partners are excluded (is_exclude = True),
+        membership lines with exclusion states will be invalidated (only
+        if un-exclude parameter is set to True)
         :param partner_ids: list of int
         :param date_to: str
         :param line_id: int
         :param int_instance_id: int
+        :param unexclude: bool
         :return: bool
         """
         if not partner_ids or not date_to:
@@ -154,6 +181,13 @@ class MembershipLine(models.Model):
                     lambda l: l.int_instance_id.id == int_instance_id)
         else:
             lines = self.browse(line_id)
+        # If a partner is excluded, we have to un-exclude him before
+        # create new line
+        if unexclude and any(partners.mapped("is_excluded")):
+            state_obj = self.env['membership.state']
+            all_excl_states = state_obj._get_all_exclusion_states()
+            lines |= partners.mapped("membership_line_ids").filtered(
+                lambda l: l.active and l.state_id in all_excl_states)
         if lines:
             return lines.action_invalidate({
                 'date_to': date_to,
@@ -178,8 +212,9 @@ class MembershipLine(models.Model):
                 partner_ids=[partner_id], date_to=date_from,
                 int_instance_id=int_instance_id)
         result = super(MembershipLine, self).create(vals)
-        # With membership lines the force instance must be reset
-        result.partner_id.force_int_instance_id = False
+        if result.partner_id.force_int_instance_id:
+            # With membership lines the force instance must be reset
+            result.partner_id.force_int_instance_id = False
         return result
 
     @api.model
@@ -252,8 +287,10 @@ class MembershipLine(models.Model):
         if price is None:
             price = previous._get_subscription_price(
                 product, partner=partner, instance=instance)
-        reference = previous._generate_membership_reference(
-            partner, instance, ref_date=date_from)
+        reference = False
+        if price > 0:
+            reference = previous._generate_membership_reference(
+                partner, instance, ref_date=date_from)
         values = {
             'date_from': date_from,
             'date_to': False,
@@ -291,12 +328,19 @@ class MembershipLine(models.Model):
         Get the date where we don't have to renew the membership.line
         :return: date
         """
+        today = date.today()
         # Minus 1 because it's launched at the beginning of year
-        year = date.today().year - 1
+        year = today.year - 1
+        default = '31/12'
         # If we don't have a value, use the last day of year
         value = self.env['ir.config_parameter'].sudo().get_param(
-            'membership.no_subscription_renew', default='31/12')
+            'membership.no_subscription_renew', default=default)
         day, month = [int(v) for v in value.split('/')]
+        # Check if the renew is done at the end of the year. If it's the case,
+        # we don't have to use this current year (and not the previous one).
+        current_year_date = date(year=year+1, month=month, day=day)
+        if today >= current_year_date:
+            return current_year_date
         return date(year=year, month=month, day=day)
 
     @api.model
@@ -315,7 +359,6 @@ class MembershipLine(models.Model):
             ('active', '=', True),
         ]
 
-    @api.model
     def _get_lines_to_close_renew(self):
         domain = self._get_lines_to_close_renew_domain()
         return self._get_lines_to_close(domain)
@@ -333,37 +376,44 @@ class MembershipLine(models.Model):
         return self._get_lines_to_close(domain)
 
     @api.model
-    def _get_lines_to_close(self, domain):
+    def _get_lines_to_close(self, domain, partners=False):
         """
         Get membership lines to close (date_to is not filled)
+        :param domain: list of tuple
+        :param partners: res.partner recordset
         :return: membership.line recordset
         """
         states = self._get_forced_states_for_closing()
         if states:
             domain.append(('state_id', 'in', states.ids))
+        if partners:
+            domain.append(('partner_id', 'in', partners.ids))
         context = self.env.context
         active_domain = context.get('active_domain')
         if context.get('active_model') == self._name and active_domain:
-            domain.extend(active_domain)
+            domain = expression.AND([domain, active_domain])
         return self.search(domain)
 
     @api.multi
-    def _close(self, date_to=False):
+    def _close(self, date_to=False, force=False):
         """
-
+        Close current recordset (only when the date_from is <= to the limit
+        date (set into configuration)).
+        If force parameter is set to True, close them whatever the date_from.
         :param date_to: date/str
+        :param force: bool
         :return: current recordset
         """
         if not date_to:
             date_to = fields.Date.today()
-        if isinstance(date_to, str):
-            real_date_to = fields.Date.from_string(date_to)
         limit_date = self._get_date_no_renew()
-        # We can not renew if the date_from is < date_to
-        lines = self.filtered(
-            lambda l:
-            fields.Date.from_string(l.date_from) <= limit_date and
-            fields.Date.from_string(l.date_from) <= real_date_to)
+        # We can not renew if the date_from is < limit_date
+        if force:
+            lines = self
+        else:
+            lines = self.filtered(
+                lambda l:
+                fields.Date.from_string(l.date_from) <= limit_date)
         if lines:
             values = {
                 'date_to': date_to,
@@ -417,17 +467,21 @@ class MembershipLine(models.Model):
 
     @api.multi
     def _update_membership(self, state, date_from=False):
+        """
+
+        :param state: membership.state recordset
+        :param date_from: str/date
+        :return: membership.line recordset
+        """
         membership_line_obj = self.env[self._name]
-        limit_date = self._get_date_no_renew()
-        # We have to renew every (active) membership lines of the partner
         if date_from:
             real_date_from = fields.Date.from_string(date_from)
         else:
             real_date_from = date.today()
+        limit_date = self._get_date_no_renew()
+        # We have to renew every (active) membership lines of the partner
         membership_lines = self.filtered(
-            lambda l:
-            fields.Date.from_string(l.date_from) <= limit_date and
-            fields.Date.from_string(l.date_from) <= real_date_from)
+            lambda l: fields.Date.from_string(l.date_from) <= limit_date)
         # Save which membership line are created/updated
         membership_altered = membership_line_obj.browse()
         for membership_line in membership_lines:

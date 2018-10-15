@@ -9,6 +9,10 @@
                 <group>
                     <group>
                         <field name="partner_id" force_save="1"/>
+                        <field name="is_excluded" invisible="True"/>
+                        <div class="alert alert-danger" attrs="{'invisible':[('is_excluded','!=', True)]}" colspan="2">
+                            This partner is actually excluded. Add a new membership line will re-integrate him.
+                        </div>
                         <field name="int_instance_id" options="{'no_create_edit': True, 'no_create': True}"/>
                         <field name="state_id" widget="selection"/>
                         <field name="date_from"/>
@@ -22,7 +26,8 @@
                     </group>
                 </group>
                 <footer>
-                    <button string="Add" name="action_add" type="object" class="oe_highlight"/>
+                    <button string="Add" name="action_add" type="object" class="oe_highlight" attrs="{'invisible':[('is_excluded','=', True)]}"/>
+                    <button string="Re-integrate and Add" name="action_add" type="object" confirm="Are-you sure to re-integrate this partner?" class="btn btn-danger" icon="fa-exclamation-triangle" attrs="{'invisible':[('is_excluded','!=', True)]}"/>
                     <button string="Cancel" special="cancel"/>
                 </footer>
             </form>

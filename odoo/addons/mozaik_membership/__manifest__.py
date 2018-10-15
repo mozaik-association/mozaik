@@ -43,6 +43,7 @@
         'views/res_partner.xml',
         'views/membership_menu.xml',
         'wizards/change_main_address.xml',
+        'wizards/partner_exclusion.xml',
         'wizards/membership_renew.xml',
         'wizards/mass_membership_renew.xml',
     ],
