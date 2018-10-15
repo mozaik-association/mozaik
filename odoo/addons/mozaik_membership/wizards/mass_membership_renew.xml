@@ -8,7 +8,7 @@
         <field name="name">mass.membership.renew.form (in mozaik_membership)</field>
         <field name="model">mass.membership.renew</field>
         <field name="arch" type="xml">
-            <form string="Mass Membership Renew">
+            <form>
                 <group>
                     <field name="date_from"/>
                 </group>

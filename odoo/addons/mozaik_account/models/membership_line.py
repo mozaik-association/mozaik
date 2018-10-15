@@ -89,23 +89,23 @@ class MembershipLine(models.Model):
     @api.model
     def _get_lines_to_renew_domain(self):
         res = super()._get_lines_to_renew_domain()
-        res.append(('paid', '=', True))
+        res.append(('move_id', '!=', False))
         return res
 
     @api.model
     def _get_lines_to_former_member_domain(self):
-        res = super()._get_lines_to_renew_domain()
-        res.append(('paid', '=', False))
+        res = super()._get_lines_to_former_member_domain()
+        res.append(('move_id', '=', False))
         return res
 
     @api.model
     def _get_lines_to_close_renew_domain(self):
         res = super()._get_lines_to_close_renew_domain()
-        res.append(('paid', '=', True))
+        res.append(('move_id', '!=', False))
         return res
 
     @api.model
     def _get_lines_to_close_former_member_domain(self):
         res = super()._get_lines_to_close_former_member_domain()
-        res.append(('paid', '=', False))
+        res.append(('move_id', '=', False))
         return res
