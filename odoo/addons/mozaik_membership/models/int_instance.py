@@ -47,7 +47,7 @@ class IntInstance(models.Model):
 
     @api.model
     def create(self, vals):
-        if not vals.get('parent_id') and not self.env.user._is_admin():
+        if not vals.get('parent_id') and not self.env.user._is_superuser():
             # because the user has rights to create a new instance
             # this new instance has to be added to users's internal
             # instances if it is a root instance.

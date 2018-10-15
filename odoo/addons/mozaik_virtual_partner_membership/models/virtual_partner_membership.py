@@ -6,13 +6,17 @@ from odoo import api, fields, models
 class VirtualPartnerMembership(models.Model):
     _name = "virtual.partner.membership"
     _description = "Partner/Membership"
-    _inherit = "abstract.virtual.model"
-    _auto = False
-    _terms = [
-        'competency_ids',
-        'interest_ids',
+    _inherit = [
+        'abstract.virtual.model',
+        'abstract.term.finder',
     ]
+    _auto = False
+    _terms = ['interest_ids', 'competency_ids']
 
+    int_instance_id = fields.Many2one(
+        store=True,
+        search=None,
+    )
     membership_state_id = fields.Many2one(
         comodel_name='membership.state',
         string="State",
@@ -32,6 +36,7 @@ class VirtualPartnerMembership(models.Model):
         :return: str
         """
         select = super()._get_select() + """,
+            m.int_instance_id,
             m.state_id as membership_state_id,
             m.reference as reference,
             p.is_donor,

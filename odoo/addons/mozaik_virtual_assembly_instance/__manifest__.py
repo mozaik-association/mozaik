@@ -16,6 +16,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/virtual_assembly_instance.xml',
     ],
     'license': 'AGPL-3',

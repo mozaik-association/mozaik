@@ -27,7 +27,6 @@
                 <!-- pylint: disable=duplicate-xml-fields -->
                 <field name="int_instance_id" />
                 <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                 <field name="int_category_assembly_id" string="Internal Assembly Category" />
                 <field name="sta_category_assembly_id" string="State Assembly Category" />
                 <field name="ext_category_assembly_id" string="External Assembly Category" />

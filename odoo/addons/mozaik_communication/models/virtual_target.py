@@ -6,13 +6,11 @@ from odoo import api, fields, models
 class VirtualTarget(models.Model):
     _name = "virtual.target"
     _description = "Searching Result"
-    _auto = False
-    # Todo; tocheck: this model shouldn't inherit from abstract virtual model
-    # because it doesn't have same fields
     _inherit = [
         'abstract.virtual.model',
-        'abstract.term.finder'
+        'abstract.term.finder',
     ]
+    _auto = False
 
     membership_state_id = fields.Many2one(
         comodel_name='membership.state', string='Membership State')

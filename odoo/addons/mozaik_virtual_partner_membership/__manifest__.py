@@ -15,6 +15,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/virtual_partner_membership.xml',
     ],
     'license': 'AGPL-3',

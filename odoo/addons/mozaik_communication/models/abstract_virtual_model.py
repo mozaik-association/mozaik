@@ -23,11 +23,6 @@ class AbstractVirtualModel(models.AbstractModel):
         string='Result',
         compute='_compute_result_id',
     )
-    int_instance_id = fields.Many2one(
-        comodel_name='int.instance',
-        string='Internal Instance',
-        store=False,
-    )
     email_coordinate_id = fields.Many2one(
         comodel_name="email.coordinate",
         string="Email coordinate",
@@ -78,7 +73,20 @@ class AbstractVirtualModel(models.AbstractModel):
     email_unauthorized = fields.Boolean(
         string='Unauthorized Email',
     )
+    partner_instance_ids = fields.Many2many(
+        comodel_name="int.instance",
+        string='Partner Internal Instances',
+        related='partner_id.int_instance_ids',
+    )
     active = fields.Boolean()
+
+    # search field
+    int_instance_id = fields.Many2one(
+        comodel_name='int.instance',
+        string='Internal Instance',
+        store=False,
+        search='_search_int_instance_id',
+    )
 
     @api.multi
     @api.depends('common_id')
@@ -92,6 +100,18 @@ class AbstractVirtualModel(models.AbstractModel):
         ids = {vt.common_id: vt.id for vt in vts}
         for record in self:
             record.result_id = ids.get(record.common_id, False)
+
+    @api.model
+    def _search_int_instance_id(self, operator, value):
+        """
+        Use partner_instance_ids to search on int_instance_id
+        """
+        instance_mod = self.env['int.instance']
+        if isinstance(value, (int, list)):
+            instances = instance_mod.search([('id', operator, value)])
+        else:
+            instances = instance_mod.search([('name', operator, value)])
+        return [('partner_instance_ids', 'in', instances.ids)]
 
     @api.multi
     def see_partner_action(self):

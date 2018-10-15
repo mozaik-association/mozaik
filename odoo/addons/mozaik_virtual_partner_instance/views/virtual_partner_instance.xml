@@ -9,7 +9,7 @@
         <field name="inherit_id" ref="mozaik_communication.abstract_virtual_model_tree_view"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <field name="int_instance_id" position="after">
+            <field name="partner_id" position="after">
                 <field name="membership_state_id" />
             </field>
             <field name="lang" position="after">
@@ -34,7 +34,6 @@
                 <field name="partner_id" />
                 <field name="int_instance_id" />
                 <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                 <field name="membership_state_id" />
 
                 <field name="interest_ids" widget="many2one" />

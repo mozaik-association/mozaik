@@ -25,10 +25,10 @@
                 <!-- pylint: disable=duplicate-xml-fields -->
                 <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]" />
                 <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]" />
+
                 <field name="partner_id" />
                 <field name="int_instance_id" />
                 <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                 <field name="relation_category_id" />
                 <field name="object_partner_id" />
                 <field name="lang" />

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+
+    <record id="virtual_partner_membership_reader_rule" model="ir.rule">
+        <field name="name">Partner/Membership for Readers</field>
+        <field name="model_id" ref="mozaik_virtual_partner_membership.model_virtual_partner_membership"/>
+        <field name="domain_force">[('postal_vip','=',False),('email_vip','=',False)]</field>
+        <field name="groups" eval="[(6, 0, [
+            ref('mozaik_coordinate.res_groups_coordinate_reader'),
+        ])]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record id="virtual_partner_membership_vip_reader_rule" model="ir.rule">
+        <field name="name">Partner/Membership for Vip Readers</field>
+        <field name="model_id" ref="mozaik_virtual_partner_membership.model_virtual_partner_membership"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(6, 0, [
+            ref('mozaik_coordinate.res_groups_coordinate_vip_reader'),
+        ])]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+</odoo>
