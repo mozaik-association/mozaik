@@ -31,6 +31,7 @@
         <field name="res_model">membership.renew</field>
         <field name="target">new</field>
         <field name="view_id" ref="membership_renew_form_view"/>
+        <field name="context">{'renew': True}</field>
         <field name="binding_model_id" ref="model_membership_line"/>
     </record>
 
@@ -41,6 +42,28 @@
         <field name="res_model">membership.renew</field>
         <field name="target">new</field>
         <field name="view_id" ref="membership_renew_form_view"/>
+        <field name="context">{'renew': True}</field>
         <field name="binding_model_id" ref="base.model_res_partner"/>
     </record>
+
+    <record id="membership_former_member_membership_action" model="ir.actions.act_window">
+        <field name="name">Membership fromer member</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">membership.line</field>
+        <field name="res_model">membership.renew</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="membership_renew_form_view"/>
+        <field name="binding_model_id" ref="model_membership_line"/>
+    </record>
+
+    <record id="membership_former_member_partner_action" model="ir.actions.act_window">
+        <field name="name">Membership fromer member</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">res.partner</field>
+        <field name="res_model">membership.renew</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="membership_renew_form_view"/>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+    </record>
+
 </odoo>

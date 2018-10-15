@@ -258,3 +258,141 @@ class TestMembershipLine(TransactionCase):
         # Due to the date set into parameters, we shouldn't have a new line
         self.assertFalse(created)
         return
+
+    def test_former_member1(self):
+        """
+        Test the former member to ensure that copied values are corrects
+        :return:
+        """
+        membership_obj = self.membership_obj
+        # For the current test, remove every other membership.line records
+        membership_obj.search([]).unlink()
+        price = 0
+        reference = str(uuid4())
+        instance = self.instance
+        partner = self.partner_marc
+        product = self.product_subscription
+        state = partner.membership_state_id
+        date_from = '2015-06-05'
+        values = self._get_membership_line_values(
+            price=price, ref=reference, partner=partner, product=product,
+            date_from=date_from, state=state, instance=instance)
+        membership = membership_obj.create(values)
+        # We have to transform the date in correct format
+        new_date_from = fields.Date.to_string(
+            fields.Date.from_string('2015-11-09'))
+        # The product should be saved before the former member
+        theoric_product = partner.subscription_product_id
+        # Former member it (should not create a new membership)
+        same_membership = membership._former_member(date_from=new_date_from)
+        # Should be equals because it's a simple former member
+        self.assertEqual(same_membership, membership)
+        # Fields who shouldn't be updated
+        self.assertEqual(
+            fields.Date.from_string(same_membership.date_from),
+            fields.Date.from_string(date_from))
+        self.assertEqual(same_membership.partner_id, partner)
+        self.assertEqual(same_membership.int_instance_id, instance)
+        self.assertEqual(same_membership.product_id, theoric_product)
+        # Only the reference can change
+        self.assertNotEqual(same_membership.reference, reference)
+        return
+
+    def test_former_member2(self):
+        """
+        Test the former member to ensure that copied values are corrects
+        :return:
+        """
+        membership_obj = self.membership_obj
+        # For the current test, remove every other membership.line records
+        membership_obj.search([]).unlink()
+        price = 500
+        reference = str(uuid4())
+        instance = self.instance
+        partner = self.partner_marc
+        product = self.product_subscription
+        state = partner.membership_state_id
+        date_from = '2015-06-05'
+        values = self._get_membership_line_values(
+            price=price, ref=reference, partner=partner, product=product,
+            date_from=date_from, state=state, instance=instance)
+        membership = membership_obj.create(values)
+        # Force False to create a new one instead of updating the existing
+        membership.write({
+            'active': False,
+        })
+        # We have to transform the date in correct format
+        new_date_from = fields.Date.to_string(
+            fields.Date.from_string('2015-11-09'))
+        # Former member it
+        created = membership._former_member(date_from=new_date_from)
+        self.assertEqual(created.date_from, new_date_from)
+        self.assertEqual(created.partner_id, partner)
+        self.assertEqual(created.int_instance_id, instance)
+        # Should be equals because it's a simple former member
+        self.assertNotEqual(created, membership)
+        return
+
+    def test_former_member_with_date1(self):
+        """
+        Test the former member with the case of the date_from
+        (into membership.line) is the date interval (from parameter) where it
+        shouldn't be former member
+        :return:
+        """
+        self.env['ir.config_parameter'].set_param(
+            'membership.no_subscription_renew', '01/01')
+        membership_obj = self.membership_obj
+        # For the current test, remove every other membership.line records
+        membership_obj.search([]).unlink()
+        price = 500
+        reference = str(uuid4())
+        instance = self.instance
+        partner = self.partner_marc
+        product = self.product_subscription
+        state = partner.membership_state_id
+        date_from = '2018-06-05'
+        values = self._get_membership_line_values(
+            price=price, ref=reference, partner=partner, product=product,
+            date_from=date_from, state=state, instance=instance)
+        membership = membership_obj.create(values)
+        # We have to transform the date in correct format
+        new_date_from = fields.Date.to_string(
+            fields.Date.from_string('2018-11-09'))
+        # The product should be saved before the former member
+        # Former member it
+        created = membership._former_member(date_from=new_date_from)
+        # Due to the date set into parameters, we shouldn't have a new line
+        self.assertFalse(created)
+        return
+
+    def test_former_member_with_date2(self):
+        """
+        Test the former member with the case of the date_from
+        (into membership.line) is > than today so we don't have to
+        former member it
+        :return:
+        """
+        membership_obj = self.membership_obj
+        # For the current test, remove every other membership.line records
+        membership_obj.search([]).unlink()
+        price = 500
+        reference = str(uuid4())
+        instance = self.instance
+        partner = self.partner_marc
+        product = self.product_subscription
+        state = partner.membership_state_id
+        date_from = fields.Date.from_string(fields.Date.today())
+        date_from += timedelta(days=25)
+        values = self._get_membership_line_values(
+            price=price, ref=reference, partner=partner, product=product,
+            date_from=date_from, state=state, instance=instance)
+        membership = membership_obj.create(values)
+        # We have to transform the date in correct format
+        new_date_from = fields.Date.today()
+        # The product should be saved before the former member
+        # former member it
+        created = membership._former_member(date_from=new_date_from)
+        # Due to the date set into parameters, we shouldn't have a new line
+        self.assertFalse(created)
+        return
