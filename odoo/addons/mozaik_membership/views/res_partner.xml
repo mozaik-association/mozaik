@@ -76,6 +76,9 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="priority" eval="25" />
         <field name="arch" type="xml">
+            <div name="button_box">
+                <button name="action_exclude" type="object" icon="fa-exclamation-triangle" string="Exclude" confirm="Are you sure to exclude this partner and related membership lines?"/>
+            </div>
             <field name="postal_coordinate_id" position="after">
                 <field name="force_int_instance_id" attrs="{'invisible': [('membership_state_code','not in',[False, 'without_membership'])], 'required': [('int_instance_ids', '=', False)]}" />
                 <field name="int_instance_ids" widget="many2many_tags"  attrs="{'invisible': [('membership_state_code','in',[False, 'without_membership'])]}"/>
@@ -128,6 +131,7 @@
                     <group name="membership_data">
                         <group name="membership_subscription">
                             <field name="subscription_product_id" widget="selection" attrs="{'invisible': [('subscription_product_id', '=', False)]}"/>
+                            <field name="is_excluded"/>
                         </group>
                         <group></group>
                     </group>
