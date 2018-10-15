@@ -84,17 +84,17 @@ class ResPartner(models.Model):
         return first(self.env.user.partner_id.int_instance_m2m_ids)
 
     @api.multi
-    @api.constrains('membership_line_ids', 'is_assembly')
+    @api.constrains('membership_line_ids', 'is_company')
     def _constrains_membership_line_ids(self):
         """
         Constrain function for the field membership_line_ids
         :return:
         """
         bad_records = self.filtered(
-            lambda r: r.is_assembly and r.membership_line_ids)
+            lambda r: r.is_company and r.membership_line_ids)
         if bad_records:
             details = "\n- ".join(bad_records.mapped("display_name"))
-            message = _("An assembly partner shouldn't have membership "
+            message = _("An legal person shouldn't have membership "
                         "lines:\n- %s") % details
             raise exceptions.ValidationError(message)
 
@@ -144,13 +144,11 @@ class ResPartner(models.Model):
         state_obj = self.env['membership.state']
         state = state_obj.browse()
         if not self.is_assembly:
-            memberships = self.sudo().membership_line_ids.filtered(
-                lambda l: l.active)
+            memberships = self.sudo().membership_line_ids.filtered("active")
             states = memberships.mapped("state_id")
             # Get the highest priority of state
             if states:
-                state = first(states.sorted(
-                    key=lambda s: s.sequence, reverse=True))
+                state = first(states.sorted(key=lambda s: s.sequence))
             else:
                 state = state_obj._get_default_state()
         return state

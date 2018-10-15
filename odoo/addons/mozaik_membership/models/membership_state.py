@@ -16,7 +16,8 @@ class MembershipState(models.Model):
                        track_visibility='onchange', translate=True)
     code = fields.Char(required=True)
     sequence = fields.Integer(
-        help="Sequence used to define the membership state",
+        help="Sequence used to define the membership state of partners",
+        default=10,
     )
 
     @api.model

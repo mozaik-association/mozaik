@@ -75,11 +75,11 @@ class MembershipLine(models.Model):
         Constrain function for the field partner_id
         :return:
         """
-        bad_records = self.filtered(lambda r: r.partner_id.is_assembly)
+        bad_records = self.filtered(lambda r: r.partner_id.is_company)
         if bad_records:
             details = "\n- ".join(bad_records.mapped("display_name"))
             message = _("It's not possible to create membership line for "
-                        "Assembly partner:\n- %s") % details
+                        "a legal person:\n- %s") % details
             raise exceptions.ValidationError(message)
 
     @api.model
