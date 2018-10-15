@@ -359,7 +359,12 @@ class MembershipLine(models.Model):
             ('active', '=', True),
         ]
 
+    @api.model
     def _get_lines_to_close_renew(self):
+        """
+
+        :return: membership.line recordset
+        """
         domain = self._get_lines_to_close_renew_domain()
         return self._get_lines_to_close(domain)
 
@@ -372,6 +377,10 @@ class MembershipLine(models.Model):
 
     @api.model
     def _get_lines_to_close_former_member(self):
+        """
+
+        :return: membership.line recordset
+        """
         domain = self._get_lines_to_close_former_member_domain()
         return self._get_lines_to_close(domain)
 
