@@ -14,18 +14,19 @@
                         <field name="group_id" options='{"no_open":True, "no_create":True}' />
                     </group>
                 </group>
-                <div name="dev" groups="base.group_erp_manager">
-                    <h3>More Info</h3>
-                    <group name="moreinfo">
-                        <field name="appl_id" widget="selection"/>
-                        <field name="nok"/>
-                    </group>
-                </div>
                 <div name="noway">
                     <p attrs="{'invisible': [('nok','!=','user')]}">The selected partner is already a user.</p>
                     <p attrs="{'invisible': [('nok','!=','company')]}">The selected partner is a legal person.</p>
                     <p attrs="{'invisible': [('nok','!=','active')]}">The selected partner is deactivated.</p>
                 </div>
+                <notebook>
+                    <page name="dev" string="More Info" groups="base.group_erp_manager">
+                        <group name="moreinfo">
+                            <field name="appl_id" widget="selection"/>
+                            <field name="nok"/>
+                        </group>
+                    </page>
+                </notebook>
                 <footer>
                     <span name="go-wizard" attrs="{'invisible': [('nok','!=',False)]}">
                         <button string="Create" name="create_user_from_partner"

@@ -22,6 +22,9 @@
         <field name="parent_id" ref="mozaik_thesaurus_menu"/>
         <field name="action" ref="thesaurus_action"/>
         <field name="sequence" eval="30"/>
+        <field name="groups_id" eval="[(6, 0, [
+            ref('thesaurus_manager'),
+        ])]" />
     </record>
 
 </odoo>

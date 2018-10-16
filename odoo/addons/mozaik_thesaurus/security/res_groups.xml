@@ -9,9 +9,17 @@
         <field name="sequence" eval="80" />
     </record>
 
+    <record model="res.groups" id="thesaurus_reader">
+        <field name="name">Thesaurus Reader</field>
+        <field name="category_id" ref="module_category_thesaurus"/>
+    </record>
+
     <record model="res.groups" id="thesaurus_user">
         <field name="name">Thesaurus User</field>
         <field name="category_id" ref="module_category_thesaurus"/>
+        <field name="implied_ids" eval="[(6, 0, [
+            ref('thesaurus_reader'),
+        ])]" />
     </record>
 
     <record model="res.groups" id="thesaurus_manager">

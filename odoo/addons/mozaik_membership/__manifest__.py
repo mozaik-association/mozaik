@@ -24,7 +24,6 @@
         'mozaik_involvement',
     ],
     'data': [
-        'wizards/mass_membership_renew.xml',
         'data/membership_state.xml',
         'data/product_category.xml',
         'data/res_partner.xml',
@@ -45,6 +44,7 @@
         'views/membership_menu.xml',
         'wizards/change_main_address.xml',
         'wizards/membership_renew.xml',
+        'wizards/mass_membership_renew.xml',
     ],
     'demo': [
         "demo/product_product.xml",

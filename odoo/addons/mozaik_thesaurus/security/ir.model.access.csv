@@ -1,5 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_thesaurus_res_groups_thesaurus_user,thesaurus.res.groups.thesaurus.user,model_thesaurus,mozaik_thesaurus.thesaurus_user,1,0,0,0
+access_thesaurus_res_groups_thesaurus_reader,thesaurus.res.groups.thesaurus.reader,model_thesaurus,mozaik_thesaurus.thesaurus_reader,1,0,0,0
 access_thesaurus_res_groups_thesaurus_manager,thesaurus.res.groups.thesaurus.manager,model_thesaurus,mozaik_thesaurus.thesaurus_manager,0,1,1,1
-access_thesaurus_term_res_groups_thesaurus_user,thesaurus.term.res.groups.thesaurus.user,model_thesaurus_term,mozaik_thesaurus.thesaurus_user,1,1,1,0
+access_thesaurus_term_res_groups_thesaurus_reader,thesaurus.term.res.groups.thesaurus.reader,model_thesaurus_term,mozaik_thesaurus.thesaurus_reader,1,0,0,0
+access_thesaurus_term_res_groups_thesaurus_user,thesaurus.term.res.groups.thesaurus.user,model_thesaurus_term,mozaik_thesaurus.thesaurus_user,0,1,1,0
 access_thesaurus_term_res_groups_thesaurus_manager,thesaurus.term.res.groups.thesaurus.manager,model_thesaurus_term,mozaik_thesaurus.thesaurus_manager,0,0,0,1

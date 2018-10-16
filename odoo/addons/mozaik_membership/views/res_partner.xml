@@ -119,7 +119,7 @@
                     attrs="{'invisible':['|', ('is_company', '=', True), ('membership_state_id', '=', False)]}">
                     <div name="state_management">
 
-                        <button name="action_add_membership" string="Add subscription" type="object" groups="mozaik_membership.res_groups_membership_user" />
+                        <button name="action_add_membership" string="Add subscription" type="object" groups="mozaik_membership.res_groups_membership_user" attrs="{'invisible': [('active', '=', False)]}"/>
 
                     </div>
                     <group name="voluntary" col="3" attrs="{'invisible': [('membership_state_code', 'in', ['without_membership', 'supporter', 'former_supporter'])]}">
@@ -151,11 +151,11 @@
                                 attrs="{'invisible': [('active', '=', 'False')]}"/>
                         </tree>
                     </field>
-                    <group name="user">
+                    <group name="user" attrs="{'invisible': [('user_ids','=',[])]}" >
                         <separator string="Internal Instances"/>
                         <field name="int_instance_m2m_ids" widget="many2many_tags"
                             placeholder="Instances..."
-                            attrs="{'required': [('user_ids','!=',[]),('membership_state_id','!=',False)]}" />
+                            attrs="{'required': [('user_ids','!=',[])]}" />
                     </group>
                 </page>
             </notebook>

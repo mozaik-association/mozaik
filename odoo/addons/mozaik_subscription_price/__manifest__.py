@@ -15,6 +15,8 @@
         'mozaik_membership',
     ],
     'data': [
+        'security/res_groups.xml',
+        'security/ir.model.access.csv',
         'views/int_instance.xml',
         'views/product_pricelist.xml',
     ],
