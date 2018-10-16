@@ -43,6 +43,7 @@ class ResPartner(models.Model):
         compute="_compute_int_instance_ids",
         store=True,
         track_visibility='onchange',
+        compute_sudo=True,
     )
     membership_state_code = fields.Char(
         related='membership_state_id.code', readonly=True)
@@ -72,6 +73,7 @@ class ResPartner(models.Model):
         column1="partner_id",
         column2="int_instance_id",
         store=True,
+        compute_sudo=True,
     )
 
     @api.model
@@ -111,9 +113,6 @@ class ResPartner(models.Model):
         - IF NO instances found: use the default instance
         :return:
         """
-        # Work in sudo to have all info
-        if not self.env.user._is_superuser():
-            self = self.sudo()
         default_instance = self.env['int.instance']._get_default_int_instance()
         for record in self:
             memberships = record.membership_line_ids.filtered(
@@ -132,14 +131,13 @@ class ResPartner(models.Model):
     def _get_current_state(self):
         """
         Get the state of the current partner.
-        Executed in sudo to have full membership lines
         :return: membership.state recordset
         """
         self.ensure_one()
         state_obj = self.env['membership.state']
         state = state_obj.browse()
         if not self.is_assembly:
-            memberships = self.sudo().membership_line_ids.filtered("active")
+            memberships = self.membership_line_ids.filtered("active")
             states = memberships.mapped("state_id")
             # Get the highest priority of state
             if states:
