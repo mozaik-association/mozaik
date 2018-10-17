@@ -27,7 +27,7 @@
         <field name="domain_force">[('vip','=',False),('partner_kind','in',['a','c','p'])]</field>
     </record>
 
-    <record id="mozaik_address.postal_coordinate_vip_rule" model="ir.rule">
+    <record id="mozaik_address.postal_coordinate_vip_user_rule" model="ir.rule">
         <field name="domain_force">[('partner_kind','in',['a','c','p'])]</field>
     </record>
 
@@ -57,7 +57,7 @@
         <field name="domain_force">[('vip','=',False),('partner_kind','in',['a','c','p'])]</field>
     </record>
 
-    <record id="mozaik_email.email_coordinate_vip_rule" model="ir.rule">
+    <record id="mozaik_email.email_coordinate_vip_user_rule" model="ir.rule">
         <field name="domain_force">[('partner_kind','in',['a','c','p'])]</field>
     </record>
 
@@ -87,7 +87,7 @@
         <field name="domain_force">[('vip','=',False),('partner_kind','in',['a','c','p'])]</field>
     </record>
 
-    <record id="mozaik_phone.phone_coordinate_vip_rule" model="ir.rule">
+    <record id="mozaik_phone.phone_coordinate_vip_user_rule" model="ir.rule">
         <field name="domain_force">[('partner_kind','in',['a','c','p'])]</field>
     </record>
 
