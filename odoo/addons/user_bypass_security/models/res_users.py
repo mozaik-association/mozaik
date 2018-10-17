@@ -15,9 +15,10 @@ class ResUsers(models.Model):
         """
         Bypass rules if requested by a special context key
         """
-        if self.env.context.get('bypass_ir_rule', '') == mode:
+        if self.env.context.get('bypass_ir_rule_read') == '1' \
+                and mode == 'read':
             _logger.debug(
-                'Escape _apply_ir_rules for %s mode=%s', self._name, mode)
+                'Escape _apply_ir_rules for %s mode=read', self._name)
             return
         super()._apply_ir_rules(query, mode=mode)
 
@@ -25,7 +26,7 @@ class ResUsers(models.Model):
     def name_search(self, name='', args=None, operator='ilike', limit=100):
         # For the drop down list, we want the user to only see the users
         # he can really see (without by passing ir rules)
-        if self.env.context.get('bypass_ir_rule'):
-            self = self.with_context(bypass_ir_rule='')
+        if self.env.context.get('bypass_ir_rule_read'):
+            self = self.with_context(bypass_ir_rule_read=None)
         return super(ResUsers, self).name_search(
             name=name, args=args, operator=operator, limit=limit)

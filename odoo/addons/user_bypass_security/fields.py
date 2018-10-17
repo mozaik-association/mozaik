@@ -8,8 +8,8 @@ class Many2manySudoRead(fields.Many2many):
     Read M2M without applying ir_rule for read access
     """
     def read(self, records):
-        recs = records.with_context(bypass_ir_rule='read')
-        res = super(Many2manySudoRead, self).read(recs)
+        recs = records.sudo()
+        res = super().read(recs)
 
         # re-store result in right cache
         for record, rec in zip(records, recs):
