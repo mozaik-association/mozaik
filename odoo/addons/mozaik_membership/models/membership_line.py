@@ -359,6 +359,7 @@ class MembershipLine(models.Model):
             ('active', '=', True),
         ]
 
+    @api.model
     def _get_lines_to_close_renew(self):
         domain = self._get_lines_to_close_renew_domain()
         return self._get_lines_to_close(domain)

@@ -76,9 +76,6 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="priority" eval="25" />
         <field name="arch" type="xml">
-            <div name="button_box">
-                <button name="action_exclude" type="object" icon="fa-exclamation-triangle" string="Exclude" confirm="Are you sure to exclude this partner and related membership lines?"/>
-            </div>
             <field name="postal_coordinate_id" position="after">
                 <field name="force_int_instance_id" attrs="{'invisible': [('membership_state_code','not in',[False, 'without_membership'])], 'required': [('int_instance_ids', '=', False)]}" />
                 <field name="int_instance_ids" widget="many2many_tags"  attrs="{'invisible': [('membership_state_code','in',[False, 'without_membership'])]}"/>
@@ -101,6 +98,7 @@
             <xpath expr="//group[@name='moreinfo']" position="inside">
                 <field name="kind" />
                 <field name="membership_state_code" />
+                <field name="is_excluded"/>
             </xpath>
 
             <xpath expr="//field[@name='partner_involvement_ids']/tree" position="inside">
@@ -118,6 +116,8 @@
                     <div name="state_management">
 
                         <button name="action_add_membership" string="Add subscription" type="object" groups="mozaik_membership.res_groups_membership_user" attrs="{'invisible': [('active', '=', False)]}"/>
+                        <button name="action_exclude" type="object" icon="fa-exclamation-triangle" string="Exclude" attrs="{'invisible': ['|', ('is_excluded', '=', True), ('membership_state_code', 'not in', ['member', 'former_member'])]}" confirm="Are you sure to exclude this partner and related membership lines?"/>
+                        <button name="action_resignation" type="object" icon="fa-exclamation-triangle" string="Resignation" attrs="{'invisible': ['|', ('is_excluded', '=', True), ('membership_state_code', 'not in', ['member', 'former_member', 'supporter'])]}" confirm="Are you sure to resign this partner and related membership lines?"/>
 
                     </div>
                     <group name="voluntary" col="3" attrs="{'invisible': [('membership_state_code', 'in', ['without_membership', 'supporter', 'former_supporter'])]}">
@@ -128,7 +128,6 @@
                     <group name="membership_data">
                         <group name="membership_subscription">
                             <field name="subscription_product_id" widget="selection" attrs="{'invisible': [('subscription_product_id', '=', False)]}"/>
-                            <field name="is_excluded"/>
                         </group>
                         <group></group>
                     </group>

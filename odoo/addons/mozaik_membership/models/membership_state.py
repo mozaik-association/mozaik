@@ -57,15 +57,29 @@ class MembershipState(models.Model):
         return self.search(domain, limit=1)
 
     @api.model
-    def _get_exclusion_state(self, lines=False):
+    def _get_next_state(self, actual_state=False, event='expulsion'):
         """
         Depending on previous lines, get the expulsion state
-        :param lines: membership.line recordset
+        :param actual_state: membership.state recordset
+        :param event: str
         :return: membership.state recordset
         """
-        if lines:
-            return self._get_by_code('expulsion_former_member')
-        return self._get_by_code('inappropriate_former_member')
+        if not actual_state:
+            return self.browse()
+        code = actual_state.code
+        if event == 'expulsion':
+            if code == 'member':
+                return self._get_by_code('expulsion_former_member')
+            elif code == 'former_member':
+                return self._get_by_code('inappropriate_former_member')
+        elif event == 'resignation':
+            if code == 'member':
+                return self._get_by_code('resignation_former_member')
+            if code == 'former_member':
+                return self._get_by_code('break_former_member')
+            if code == 'supporter':
+                return self._get_by_code('former_member')
+        return self.browse()
 
     @api.model
     def _get_all_exclusion_states(self):
@@ -76,6 +90,9 @@ class MembershipState(models.Model):
         codes = [
             'expulsion_former_member',
             'inappropriate_former_member',
+            'resignation_former_member',
+            'break_former_member',
+            'former_member',
         ]
         domain = [
             ('code', 'in', codes),

@@ -201,33 +201,42 @@ class ResPartner(models.Model):
         Action to exclude current recordset (partners)
         :return: dict/action
         """
-        self._action_exclude()
+        self._action_expulsion('expulsion')
         return {}
 
     @api.multi
-    def _action_exclude(self):
+    def action_resignation(self):
+        """
+        Action to launch the resignation of current recordset (partners)
+        :return: dict/action
+        """
+        self._action_expulsion('resignation')
+        return {}
+
+    @api.multi
+    def _action_expulsion(self, event):
         """
         Action to exclude current recordset (partners)
+        :param date_from: str
         :return: membership.line recordset
         """
         membership_obj = self.env['membership.line']
         state_obj = self.env['membership.state']
         # Use sudo to also disable other membership lines
         domain = membership_obj._get_lines_to_close_renew_domain()
-        closed_lines = membership_obj.sudo()._get_lines_to_close(
+        membership_obj.sudo()._get_lines_to_close(
             domain, partners=self)._close(force=True)
         instance = self.env['int.instance']._get_default_int_instance()
         lines = membership_obj.browse()
         # Create the exclusion line only if the partner doesn't have
         # an active exclusion line (based on the state)
         for partner in self.filtered(lambda p: not p.is_excluded):
-            membership_lines = closed_lines.filtered(
-                lambda l, p=partner: l.partner_id == p)
-            # The exclusion state could depends on previous membership lines
-            excl_state = state_obj._get_exclusion_state(lines=membership_lines)
-            values = membership_obj._build_membership_values(
-                partner, instance, excl_state, price=0)
-            lines |= membership_obj.create(values)
+            excl_state = state_obj._get_next_state(
+                actual_state=partner.membership_state_id, event=event)
+            if excl_state:
+                values = membership_obj._build_membership_values(
+                    partner, instance, excl_state, price=0)
+                lines |= membership_obj.create(values)
         return lines
 
     @api.multi
