@@ -2,7 +2,7 @@
 <odoo noupdate="0">
 
     <record id="res_partner_user_rule" model="ir.rule">
-        <field name="name">Partner for Mozaik User</field>
+        <field name="name">Partner for Partner User (U)</field>
         <field name="model_id" ref="base.model_res_partner"/>
         <field name="domain_force">[('kind','in',['a','c','p'])]</field>
         <field name="perm_read" eval="0"/>
@@ -12,8 +12,8 @@
         <field name="groups" eval="[(6,0,[ref('mozaik_person.res_groups_partner_user')])]"/>
     </record>
 
-    <record id="res_partner_officier_rule" model="ir.rule">
-        <field name="name">Partner for Mozaik Officer</field>
+    <record id="res_partner_membership_user_u_rule" model="ir.rule">
+        <field name="name">Partner for Membership User (U)</field>
         <field name="model_id" ref="base.model_res_partner"/>
         <field name="domain_force">[('kind','not in',['t'])]</field>
         <field name="groups" eval="[(6,0,[ref('mozaik_membership.res_groups_membership_user')])]"/>
@@ -32,7 +32,7 @@
     </record>
 
     <record id="postal_coordinate_membership_user_rule" model="ir.rule">
-        <field name="name">Postal Coordinate for Membership User</field>
+        <field name="name">Postal Coordinate for Membership User (CUD)</field>
         <field name="model_id" ref="mozaik_address.model_postal_coordinate"/>
         <field name="domain_force">[('vip','=',False)]</field>
         <field name="groups" eval="[(6,0,[ref('mozaik_membership.res_groups_membership_user')])]"/>
@@ -43,7 +43,7 @@
     </record>
 
     <record id="postal_coordinate_membership_manager_rule" model="ir.rule">
-        <field name="name">Postal Coordinate for Membership Manager</field>
+        <field name="name">Postal Coordinate for Membership Manager (CUD)</field>
         <field name="model_id" ref="mozaik_address.model_postal_coordinate"/>
         <field name="domain_force">[(1,'=',1)]</field>
         <field name="groups" eval="[(6,0,[ref('mozaik_membership.res_groups_membership_manager')])]"/>
@@ -62,7 +62,7 @@
     </record>
 
     <record id="email_coordinate_membership_user_rule" model="ir.rule">
-        <field name="name">Email Coordinate for Membership User</field>
+        <field name="name">Email Coordinate for Membership User (CUD)</field>
         <field name="model_id" ref="mozaik_email.model_email_coordinate"/>
         <field name="domain_force">[('vip','=',False)]</field>
         <field name="groups" eval="[(6,0,[ref('mozaik_membership.res_groups_membership_user')])]"/>
@@ -73,9 +73,9 @@
     </record>
 
     <record id="email_coordinate_membership_manager_rule" model="ir.rule">
-        <field name="name">Email Coordinate for Membership Manager</field>
+        <field name="name">Email Coordinate for Membership Manager (CUD)</field>
         <field name="model_id" ref="mozaik_email.model_email_coordinate"/>
-        <field name="domain_force">[('vip','=',False)]</field>
+        <field name="domain_force">[(1,'=',1)]</field>
         <field name="groups" eval="[(6,0,[ref('mozaik_membership.res_groups_membership_manager')])]"/>
         <field name="perm_read" eval="0"/>
         <field name="perm_write" eval="1"/>
@@ -92,7 +92,7 @@
     </record>
 
     <record id="phone_coordinate_membership_user_rule" model="ir.rule">
-        <field name="name">Phone Coordinate for Membership User</field>
+        <field name="name">Phone Coordinate for Membership User (CUD)</field>
         <field name="model_id" ref="mozaik_phone.model_phone_coordinate"/>
         <field name="domain_force">[('vip','=',False)]</field>
         <field name="groups" eval="[(6,0,[ref('mozaik_membership.res_groups_membership_user')])]"/>
@@ -103,9 +103,9 @@
     </record>
 
     <record id="phone_coordinate_membership_manager_rule" model="ir.rule">
-        <field name="name">Phone Coordinate for Membership Manager</field>
+        <field name="name">Phone Coordinate for Membership Manager (CUD)</field>
         <field name="model_id" ref="mozaik_phone.model_phone_coordinate"/>
-        <field name="domain_force">[('vip','=',False)]</field>
+        <field name="domain_force">[(1,'=',1)]</field>
         <field name="groups" eval="[(6,0,[ref('mozaik_membership.res_groups_membership_manager')])]"/>
         <field name="perm_read" eval="0"/>
         <field name="perm_write" eval="1"/>

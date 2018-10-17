@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_address_address_res_group_base,mozaik.address.address.res.group.base,model_address_address,mozaik_coordinate.res_groups_coordinate_reader,1,0,0,0
-access_address_address_res_group_user,mozaik.address.address.res.group.user,model_address_address,mozaik_coordinate.res_groups_coordinate_user,1,1,1,1
-access_co_residency_res_group_base,mozaik.co.residency.res.group.base,model_co_residency,mozaik_coordinate.res_groups_coordinate_reader,1,0,0,0
-access_co_residency_res_group_user,mozaik.co.residency.res.group.user,model_co_residency,mozaik_coordinate.res_groups_coordinate_user,1,1,1,0
-access_co_residency_res_group_configurator,mozaik.co.residency.res.group.configurator,model_co_residency,mozaik_coordinate.res_groups_coordinate_user,1,1,1,1
+access_address_address_res_groups_coordinate_reader,address.address.res.groups.coordinate.reader,model_address_address,mozaik_coordinate.res_groups_coordinate_reader,1,0,0,0
+access_address_address_res_groups_coordinate_user,address.address.res.groups.coordinate.user,model_address_address,mozaik_coordinate.res_groups_coordinate_user,0,1,1,1
+access_co_residency_res_groups_coordinate_reader,co.residency.res.groups.coordinate.reader,model_co_residency,mozaik_coordinate.res_groups_coordinate_reader,1,0,0,0
+access_co_residency_res_groups_coordinate_user,co.residency.res.groups.coordinate.user,model_co_residency,mozaik_coordinate.res_groups_coordinate_user,0,1,1,0
+access_co_residency_res_groups_coordinate_manager,co.residency.res.groups.coordinate.manager,model_co_residency,mozaik_coordinate.res_groups_coordinate_manager,0,0,0,1

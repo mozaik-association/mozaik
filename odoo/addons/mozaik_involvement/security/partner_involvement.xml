@@ -14,10 +14,10 @@
         <field name="perm_unlink" eval="0"/>
     </record>
 
-    <record model="ir.model.access" id="partner_involvement_access_manager">
-        <field name="name">partner.involvement access for manager (CUD)</field>
+    <record model="ir.model.access" id="partner_involvement_access_user">
+        <field name="name">partner.involvement access for user (CUD)</field>
         <field name="model_id" ref="model_partner_involvement"/>
-        <field name="group_id" ref="res_groups_involvement_manager"/>
+        <field name="group_id" ref="res_groups_involvement_user"/>
         <field name="perm_read" eval="0"/>
         <field name="perm_create" eval="1"/>
         <field name="perm_write" eval="1"/>
@@ -27,7 +27,7 @@
     <record id="partner_involvement_user_rule" model="ir.rule">
         <field name="name">Partner Involvement for User (CUD)</field>
         <field name="model_id" ref="model_partner_involvement" />
-        <field name="domain_force">[('res_users_ids', 'in', [user.id])]</field>
+        <field name="domain_force">[('involvement_category_id.res_users_ids', 'in', [user.id])]</field>
         <field name="groups" eval="[(6, 0, [
             ref('res_groups_involvement_user'),
         ])]"/>

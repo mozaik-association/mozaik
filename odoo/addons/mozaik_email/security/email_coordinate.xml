@@ -3,8 +3,8 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record model="ir.model.access" id="email_coordinate_access_user_r">
-        <field name="name">email.coordinate all R</field>
+    <record model="ir.model.access" id="email_coordinate_access_reader_r">
+        <field name="name">email.coordinate reader R</field>
         <field name="model_id" ref="model_email_coordinate"/>
         <field name="group_id" ref="mozaik_coordinate.res_groups_coordinate_reader"/>
         <field name="perm_read" eval="1"/>
@@ -24,7 +24,7 @@
     </record>
 
     <record id="email_coordinate_reader_rule" model="ir.rule">
-        <field name="name">Email Coordinate for Coordinate Reader</field>
+        <field name="name">Email Coordinate for Coordinate Reader (R)</field>
         <field name="model_id" ref="model_email_coordinate"/>
         <field name="domain_force">[('vip','=',False)]</field>
         <field name="groups" eval="[(6, 0, [
@@ -37,7 +37,7 @@
     </record>
 
     <record id="email_coordinate_vip_reader_rule" model="ir.rule">
-        <field name="name">Email Coordinate for VIP Reader</field>
+        <field name="name">Email Coordinate for Coordinate VIP Reader (R)</field>
         <field name="model_id" ref="model_email_coordinate"/>
         <field name="domain_force">[(1,'=',1)]</field>
         <field name="groups" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_vip_reader')])]"/>
@@ -48,7 +48,7 @@
     </record>
 
     <record id="email_coordinate_user_rule" model="ir.rule">
-        <field name="name">Email Coordinate for Coodinate User</field>
+        <field name="name">Email Coordinate for Coodinate User (CUD)</field>
         <field name="model_id" ref="model_email_coordinate"/>
         <field name="domain_force">[('vip','=',False)]</field>
         <field name="groups" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_user')])]"/>
@@ -58,8 +58,8 @@
         <field name="perm_unlink" eval="1"/>
     </record>
 
-    <record id="email_coordinate_vip_rule" model="ir.rule">
-        <field name="name">Email Coordinate for VIP User</field>
+    <record id="email_coordinate_vip_user_rule" model="ir.rule">
+        <field name="name">Email Coordinate for Coordinate VIP User (CUD)</field>
         <field name="model_id" ref="model_email_coordinate"/>
         <field name="domain_force">[(1,'=',1)]</field>
         <field name="groups" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_vip_user')])]"/>

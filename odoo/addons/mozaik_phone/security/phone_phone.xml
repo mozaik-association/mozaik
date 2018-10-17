@@ -3,8 +3,8 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record model="ir.model.access" id="phone_phone_access_user_r">
-        <field name="name">phone.phone all R</field>
+    <record model="ir.model.access" id="phone_phone_access_reader_r">
+        <field name="name">phone.phone reader R</field>
         <field name="model_id" ref="model_phone_phone"/>
         <field name="group_id" ref="mozaik_coordinate.res_groups_coordinate_reader"/>
         <field name="perm_read" eval="1"/>
