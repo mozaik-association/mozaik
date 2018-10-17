@@ -5,6 +5,7 @@ import logging
 from psycopg2.extensions import AsIs
 
 from odoo import api, fields, models, _
+from odoo.addons.user_bypass_security.fields import Many2manySudoRead
 
 CATEGORY_TYPE = [
     ('petition', 'Petition'),
@@ -52,7 +53,7 @@ class PartnerInvolvementCategory(models.Model):
         track_visibility='onchange',
     )
 
-    res_users_ids = fields.Many2many(
+    res_users_ids = Many2manySudoRead(
         comodel_name='res.users',
         relation='involvement_category_res_users_rel',
         column1='category_id',

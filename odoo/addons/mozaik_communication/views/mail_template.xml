@@ -40,7 +40,7 @@
                 <page name="security" string="Security">
                     <group name="validity">
                         <field name="int_instance_id" />
-                        <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                        <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" context="{'bypass_ir_rule_read': '1'}"/>
                     </group>
                 </page>
             </xpath>

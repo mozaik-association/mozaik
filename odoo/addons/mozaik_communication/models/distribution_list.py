@@ -6,6 +6,7 @@ from email.utils import formataddr
 from odoo import api, exceptions, fields, models, _
 from odoo.osv import expression
 from odoo.fields import first
+from odoo.addons.user_bypass_security.fields import Many2manySudoRead
 
 _logger = logging.getLogger(__name__)
 
@@ -25,7 +26,7 @@ class DistributionList(models.Model):
     public = fields.Boolean(
         track_visibility='onchange',
     )
-    res_users_ids = fields.Many2many(
+    res_users_ids = Many2manySudoRead(
         comodel_name="res.users",
         relation="dist_list_res_users_rel",
         column1="dist_list_id",
