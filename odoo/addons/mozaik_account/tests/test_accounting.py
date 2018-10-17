@@ -2,13 +2,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import uuid
 import random
-from datetime import date
 from odoo.tests.common import SavepointCase
 from odoo.exceptions import ValidationError
 from odoo.fields import first
 
 
-class TestAccountingWithProduct(object):
+class TestAccounting(object):
 
     product = None
     partner_2 = None
@@ -21,9 +20,6 @@ class TestAccountingWithProduct(object):
         self.ml_obj = self.env['membership.line']
         self.partner_obj = self.env['res.partner']
         self.partner = self._get_partner()
-        self.partner.write({
-            'accepted_date': date.today().strftime('%Y-%m-%d'),
-        })
         self.member_state = self.env.ref('mozaik_membership.member')
 
     def _get_partner(self):
@@ -35,7 +31,6 @@ class TestAccountingWithProduct(object):
             'lastname': name,
         }
         partner = self.partner_obj.create(partner_values)
-        partner.member_candidate()
         return partner
 
     def _generate_payment(self, additional_amount=0, with_partner=True):
@@ -155,8 +150,7 @@ class TestAccountingWithProduct(object):
                 new_aml_dicts=move_dicts)
 
 
-class TestAccountingFirstMembershipAccepted(TestAccountingWithProduct,
-                                            SavepointCase):
+class TestAccountingWithProduct(TestAccounting, SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -164,22 +158,21 @@ class TestAccountingFirstMembershipAccepted(TestAccountingWithProduct,
             'mozaik_membership.membership_product_first')
 
 
-class TestAccountingFirstMembershipAcceptedWithAnotherAmount(
-        TestAccountingWithProduct, SavepointCase):
+class TestAccountingWithProductWithAnotherAmount(
+        TestAccounting, SavepointCase):
 
     def setUp(self):
         super().setUp()
         self.product = self.env.ref(
             'mozaik_membership.membership_product_first')
-        self.partner.amount = 7.0
 
     def _generate_payment(self, additional_amount=0, with_partner=True):
         bs = super()._generate_payment(
             additional_amount=additional_amount, with_partner=with_partner)
         if with_partner and not additional_amount:
-            bs.line_ids.amount = self.partner.amount
+            bs.line_ids.amount = 7.0
             self.partner.membership_line_ids.write({
-                'price': self.partner.amount,
+                'price': 7.0,
             })
         return bs
 
@@ -187,8 +180,7 @@ class TestAccountingFirstMembershipAcceptedWithAnotherAmount(
         return
 
 
-class TestAccountingFirstMembershipRefused(TestAccountingWithProduct,
-                                           SavepointCase):
+class TestAccountingPayTwice(TestAccounting, SavepointCase):
 
     def setUp(self):
         super().setUp()
@@ -197,8 +189,6 @@ class TestAccountingFirstMembershipRefused(TestAccountingWithProduct,
 
     def test_accounting_auto_reconcile(self):
         res = super().test_accounting_auto_reconcile()
-        self.partner.accept()
-        self.assertEqual(self.partner.membership_state_id.code, 'member')
 
         bank_s = self._generate_payment()
         bank_s.auto_reconcile()
@@ -211,48 +201,19 @@ class TestAccountingFirstMembershipRefused(TestAccountingWithProduct,
         return
 
 
-class TestAccountingIsolated(TestAccountingWithProduct, SavepointCase):
-
-    def setUp(self):
-        super().setUp()
-        self.product = self.env.ref(
-            'mozaik_membership.membership_product_isolated')
-
-
-class TestAccountingLiveTogether(TestAccountingWithProduct,
-                                 SavepointCase):
-
-    def setUp(self):
-        super().setUp()
-        self.product = self.env.ref(
-            'mozaik_membership.membership_product_live_together')
-
-
-class TestAccountingOther(TestAccountingWithProduct, SavepointCase):
-
-    def setUp(self):
-        super().setUp()
-        self.product = self.env.ref(
-            'mozaik_membership.membership_product_other')
-
-
-class TestAccountingUndefined(TestAccountingWithProduct, SavepointCase):
+class TestAccountingNoProduct(TestAccounting, SavepointCase):
 
     def test_accounting_auto_reconcile(self):
         return
 
 
-class TestAccountingGroupedPayment(TestAccountingWithProduct,
-                                   SavepointCase):
+class TestAccountingGroupedPayment(TestAccounting, SavepointCase):
 
     def setUp(self):
         super().setUp()
         self.product = self.env.ref(
             'mozaik_membership.membership_product_live_together')
         self.partner_2 = self._get_partner()
-        self.partner_2.write({
-            'accepted_date': date.today().strftime('%Y-%m-%d'),
-        })
 
     def _get_manual_move_dict(self, additional_amount):
         property_obj = self.env['ir.property']
@@ -320,8 +281,7 @@ class TestAccountingGroupedPayment(TestAccountingWithProduct,
             self.assertEqual(len(mv_lines), 1)
 
 
-class TestAccountingProtectAutoReconcile(TestAccountingWithProduct,
-                                         SavepointCase):
+class TestAccountingProtectAutoReconcile(TestAccounting, SavepointCase):
 
     def setUp(self):
         super().setUp()

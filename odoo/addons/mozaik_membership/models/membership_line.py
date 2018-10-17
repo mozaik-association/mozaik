@@ -89,9 +89,11 @@ class MembershipLine(models.Model):
     @api.model
     def _where_calc(self, domain, active_test=True):
         '''
-        Read always inactive membership lines
+        Read inactive membership lines if active_test
+        is not specified in the context
         '''
-        return super()._where_calc(domain, active_test=False)
+        active_test &= self._context.get('active_test', False)
+        return super()._where_calc(domain, active_test=active_test)
 
     @api.multi
     def action_invalidate(self, vals=None):

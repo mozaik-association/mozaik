@@ -98,11 +98,6 @@
             <xpath expr="//group[@name='moreinfo']" position="inside">
                 <field name="kind" />
                 <field name="membership_state_code" />
-                <field name="accepted_date" />
-                <field name="decline_payment_date" />
-                <field name="rejected_date" />
-                <field name="resignation_date" />
-                <field name="exclusion_date" />
             </xpath>
 
             <xpath expr="//field[@name='partner_involvement_ids']/tree" position="inside">

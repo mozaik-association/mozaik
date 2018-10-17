@@ -53,11 +53,6 @@ class ResPartner(models.Model):
     kind = fields.Selection(
         compute="_compute_kind", string='Partner Kind', compute_sudo=True,
         selection=AVAILABLE_PARTNER_KINDS, store=True)
-    accepted_date = fields.Date()
-    decline_payment_date = fields.Date()
-    rejected_date = fields.Date()
-    resignation_date = fields.Date()
-    exclusion_date = fields.Date()
     local_voluntary = fields.Boolean(track_visibility='onchange')
     regional_voluntary = fields.Boolean(track_visibility='onchange')
     national_voluntary = fields.Boolean(track_visibility='onchange')
@@ -91,7 +86,7 @@ class ResPartner(models.Model):
             lambda r: r.is_company and r.membership_line_ids)
         if bad_records:
             details = "\n- ".join(bad_records.mapped("display_name"))
-            message = _("An legal person shouldn't have membership "
+            message = _("A legal person shouldn't have membership "
                         "lines:\n- %s") % details
             raise exceptions.ValidationError(message)
 
@@ -161,7 +156,7 @@ class ResPartner(models.Model):
 
     @api.multi
     @api.depends('is_assembly', 'is_company',
-                 'identifier', 'membership_state_code')
+                 'identifier', 'membership_state_id')
     def _compute_kind(self):
         '''
         Compute the kind of partner, computed field used in ir.rule
@@ -173,7 +168,7 @@ class ResPartner(models.Model):
                 k = 't'
             elif partner.is_company:
                 k = 'c'
-            elif partner.membership_state_code == 'without_membership':
+            elif partner.membership_state_id.code == 'without_membership':
                 k = 'p'
             else:
                 k = 'm'
@@ -239,24 +234,12 @@ class ResPartner(models.Model):
             self.env['ir.rule'].clear_cache()
         return res
 
-    # State management
-
     @api.multi
-    def decline_payment(self):
-        today = fields.date.today()
-        vals = {'decline_payment_date': today}
-
-        if self.membership_state_code == "member":
-            self._update_state("former_member")
-        else:
-            self._update_state("supporter")
-
-        return self.write(vals)
-
-    @api.multi
-    def _exclude_or_resign(self, field):
-        vals = {field: fields.date.today()}
-        self.write(vals)
+    def _open_co_residency(self):
+        '''
+        When excluding or resigning a member open its co-residency,
+        maybe some infos have to be accordingly changed
+        '''
         res = None
         if self.ids and len(self.ids) == 1:
             # go directly to the co-residency form if any
@@ -266,82 +249,37 @@ class ResPartner(models.Model):
         return res
 
     @api.multi
-    def exclude(self):
-        res = self._exclude_or_resign('exclusion_date')
-        if self.membership_state_code == "member":
-            self._update_state("expulsion_former_member")
+    def _write(self, vals):
+        '''
+        Update additional flags together with the recomputing
+        of membership_state_id by inheriting the _write() low level
+        implementation
+        '''
+        if self and vals.get('membership_state_id'):
+            new_state_code = self.env['membership.state'].browse(
+                vals['membership_state_id']).code
+            dic = vals.copy()
+            res = True
+            for partner in self:
+                dic.update(partner._update_flags(new_state_code))
+                res &= super(ResPartner, partner)._write(dic)
         else:
-            self._update_state("inappropriate_former_member")
+            res = super()._write(vals)
         return res
 
     @api.multi
-    def resign(self):
-        res = self._exclude_or_resign('resignation_date')
-        if self.membership_state_code == "member":
-            self._update_state("resignation_former_member")
-        elif self.membership_state_code == "former_member":
-            self._update_state("break_former_member")
-        else:
-            self._update_state("former_supporter")
-        return res
-
-    def accept(self):
-        self._update_state("member")
-
-    def member_candidate(self):
-        self._update_state("member_candidate")
-
-    def supporter(self):
-        self._update_state("supporter")
-
-    def reset(self):
-        if self.membership_state_code == "former_supporter":
-            self._update_state("supporter")
-        else:
-            self._update_state("former_member")
-
-    @api.multi
-    def reject(self):
-        today = fields.date.today()
-        res = self.write({'rejected_date': today})
-        self._update_state("refused_member_candidate")
-        return res
-
-    def paid(self):
-        if self.membership_state_code == "former_member":
-            self._update_state("former_member_committee")
-        else:
-            self._update_state("member_committee")
-
-    @api.multi
-    def _update_state(self, membership_state_code):
+    def _update_flags(self, new_state_code):
         """
+        Update additional flags when changing state
         :type membership_state_code: char
-        :param membership_state_code: code of `membership.state`
+        :param membership_state_code: code of the new state
         """
         self.ensure_one()
-        membership_state_obj = self.env['membership.state']
-        state = membership_state_obj.search(
-            [('code', '=', membership_state_code)], limit=1)
 
-        vals = {
-            'membership_state_id': state.id,
-            'accepted_date': False,
-            'decline_payment_date': False,
-            'rejected_date': False,
-            'resignation_date': False,
-            'exclusion_date': False,
-            'customer': membership_state_code in [
-                'member_candidate',
-                'member_committee',
-                'member',
-                'former_member',
-                'former_member_committee',
-            ],
-        }
+        vals = {}
 
         # force voluntaries fields if any
-        if membership_state_code in [
+        if new_state_code in [
                 'without_membership', 'supporter', 'former_supporter']:
             vals.update({
                 'local_voluntary': False,
@@ -349,10 +287,10 @@ class ResPartner(models.Model):
                 'national_voluntary': False,
             })
         elif any([
-                membership_state_code == 'member_candidate' and
+                new_state_code == 'member_candidate' and
                 self.membership_state_code in [
                     'without_membership', 'supporter'],
-                membership_state_code == 'member_committee' and
+                new_state_code == 'member_committee' and
                 self.membership_state_code == 'supporter']):
             vals.update({
                 'local_voluntary': True,
@@ -361,15 +299,13 @@ class ResPartner(models.Model):
             })
 
         # force local only field if any
-        if membership_state_code in [
+        if new_state_code in [
                 'supporter', 'former_supporter', 'member_candidate',
                 'member_committee', 'member', 'former_member',
-                'former_member_committee']:
+                'former_member_committee'] and self.local_only:
             vals['local_only'] = False
 
-        res = self.write(vals)
-
-        return res
+        return vals
 
     @api.multi
     def action_add_membership(self):
