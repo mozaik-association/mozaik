@@ -21,4 +21,6 @@ class AccountBankStatement(models.Model):
                 bank_line._create_membership_move(bank_line.name)
             elif mode == 'donation':
                 bank_line._create_donation_move(bank_line.name)
+            elif not mode:
+                bank_line._create_membership_move_from_partner()
         return True

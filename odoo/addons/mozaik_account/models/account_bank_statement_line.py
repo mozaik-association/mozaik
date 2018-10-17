@@ -87,7 +87,27 @@ class AccountBankStatementLine(models.Model):
                     'amount': amount_paid,
                 }
                 involvements.write(vals)
+
+        # try to find if a membership have the same amount for the partner
+        partner_id = vals.get('partner_id')
+        if not mode and partner_id:
+            partner = self.env['res.partner'].browse(partner_id)
+            membership = memb_obj._get_membership_line_by_partner_amount(
+                partner, amount_paid)
+            if membership:
+                move_id = vals.get('move_id', False)
+                membership._mark_as_paid(amount_paid, move_id)
         return
+
+    @api.multi
+    def _create_membership_move_from_partner(self):
+        self.ensure_one()
+        memb_obj = self.env['membership.line']
+        partner = self.partner_id
+        amount_paid = self.amount
+        membership = memb_obj._get_membership_line_by_partner_amount(
+            partner, amount_paid)
+        self._reconcile_membership_move(membership)
 
     @api.multi
     def _create_membership_move(self, reference):
@@ -106,6 +126,11 @@ class AccountBankStatementLine(models.Model):
             return
         membership = self.env['membership.line']._get_membership_line_by_ref(
             reference)
+        self._reconcile_membership_move(membership)
+
+    @api.multi
+    def _reconcile_membership_move(self, membership):
+        self.ensure_one()
         product = membership.product_id
         account = product.property_subscription_account
         precision = membership._fields.get('price').digits[1]
@@ -117,15 +142,15 @@ class AccountBankStatementLine(models.Model):
                 'account_id': account.id,
                 'debit': 0,
                 'credit': self.amount,
-                'name': reference,
+                'name': membership.reference,
             }]
             self.process_reconciliation(
-                new_aml_dicts=move_dicts, prod_id=product)
+                new_aml_dicts=move_dicts)
 
     @api.multi
     def process_reconciliation(
             self, counterpart_aml_dicts=None, payment_aml_rec=None,
-            new_aml_dicts=None, prod_id=None):
+            new_aml_dicts=None):
         if self.filtered(lambda l: not l.partner_id):
             raise ValidationError(_("You must first select a partner!"))
 

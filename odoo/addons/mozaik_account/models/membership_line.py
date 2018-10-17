@@ -1,6 +1,8 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models, tools
+from odoo import api, fields, models, tools, _
+from odoo.tools import float_compare
+from odoo.exceptions import UserError
 
 
 class MembershipLine(models.Model):
@@ -33,6 +35,17 @@ class MembershipLine(models.Model):
             ('reference', '=', reference),
         ]
         return self.search(domain, limit=1)
+
+    @api.model
+    def _get_membership_line_by_partner_amount(self, partner, amount):
+        precision = self._fields.get('price').digits[1]
+        memberships = partner.membership_line_ids.filtered(
+            lambda s: s.active and not s.move_id and not float_compare(
+                s.price, amount, precision_digits=precision))
+        if len(memberships) > 1:
+            raise UserError(_(
+                "There are more than one membership available to reconciled"))
+        return memberships
 
     @api.model
     @tools.ormcache('reference')
