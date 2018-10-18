@@ -92,7 +92,7 @@ class MembershipState(models.Model):
             'inappropriate_former_member',
             'resignation_former_member',
             'break_former_member',
-            'former_member',
+            'former_supporter',
         ]
         domain = [
             ('code', 'in', codes),
