@@ -70,6 +70,11 @@ class ResPartner(models.Model):
         store=True,
         compute_sudo=True,
     )
+    is_excluded = fields.Boolean(
+        help="Define if the selected partner is actually excluded",
+        compute='_compute_int_instance_ids',
+        store=True,
+    )
 
     @api.model
     def _default_force_int_instance_id(self):
@@ -108,7 +113,12 @@ class ResPartner(models.Model):
         - IF NO instances found: use the default instance
         :return:
         """
+        # Work in sudo to have all info
+        if not self.env.user._is_superuser():
+            self = self.sudo()
+        state_obj = self.env['membership.state']
         default_instance = self.env['int.instance']._get_default_int_instance()
+        all_excl_states = state_obj._get_all_exclusion_states()
         for record in self:
             memberships = record.membership_line_ids.filtered(
                 lambda l: l.active)
@@ -119,8 +129,11 @@ class ResPartner(models.Model):
                 instances = record.city_id.int_instance_id
             if not instances:
                 instances = default_instance
+            state = record._get_current_state()
+            is_excluded = state in all_excl_states
             record.int_instance_ids = instances
-            record.membership_state_id = record._get_current_state()
+            record.membership_state_id = state
+            record.is_excluded = is_excluded
 
     @api.multi
     def _get_current_state(self):
@@ -181,6 +194,50 @@ class ResPartner(models.Model):
         :return: product.template
         """
         return self.env['product.product'].browse()
+
+    @api.multi
+    def action_exclude(self):
+        """
+        Action to exclude current recordset (partners)
+        :return: dict/action
+        """
+        self._action_expulsion('expulsion')
+        return {}
+
+    @api.multi
+    def action_resignation(self):
+        """
+        Action to launch the resignation of current recordset (partners)
+        :return: dict/action
+        """
+        self._action_expulsion('resignation')
+        return {}
+
+    @api.multi
+    def _action_expulsion(self, event):
+        """
+        Action to exclude current recordset (partners)
+        :param date_from: str
+        :return: membership.line recordset
+        """
+        membership_obj = self.env['membership.line']
+        state_obj = self.env['membership.state']
+        # Use sudo to also disable other membership lines
+        domain = membership_obj._get_lines_to_close_renew_domain()
+        membership_obj.sudo()._get_lines_to_close(
+            domain, partners=self)._close(force=True)
+        instance = self.env['int.instance']._get_default_int_instance()
+        lines = membership_obj.browse()
+        # Create the exclusion line only if the partner doesn't have
+        # an active exclusion line (based on the state)
+        for partner in self.filtered(lambda p: not p.is_excluded):
+            excl_state = state_obj._get_next_state(
+                actual_state=partner.membership_state_id, event=event)
+            if excl_state:
+                values = membership_obj._build_membership_values(
+                    partner, instance, excl_state, price=0)
+                lines |= membership_obj.create(values)
+        return lines
 
     @api.multi
     def _renew_membership_line(self, date_from=False):

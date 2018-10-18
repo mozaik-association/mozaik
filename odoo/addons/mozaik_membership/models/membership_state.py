@@ -41,3 +41,60 @@ class MembershipState(models.Model):
         state_id = self.search([('code', '=', default_state)], limit=1)
 
         return state_id
+
+    @api.model
+    def _get_by_code(self, code):
+        """
+        Get a membership.state by given code
+        :param code: str
+        :return: membership.state recordset
+        """
+        if not code:
+            return self.browse()
+        domain = [
+            ('code', '=', code),
+        ]
+        return self.search(domain, limit=1)
+
+    @api.model
+    def _get_next_state(self, actual_state=False, event='expulsion'):
+        """
+        Depending on previous lines, get the expulsion state
+        :param actual_state: membership.state recordset
+        :param event: str
+        :return: membership.state recordset
+        """
+        if not actual_state:
+            return self.browse()
+        code = actual_state.code
+        if event == 'expulsion':
+            if code == 'member':
+                return self._get_by_code('expulsion_former_member')
+            elif code == 'former_member':
+                return self._get_by_code('inappropriate_former_member')
+        elif event == 'resignation':
+            if code == 'member':
+                return self._get_by_code('resignation_former_member')
+            if code == 'former_member':
+                return self._get_by_code('break_former_member')
+            if code == 'supporter':
+                return self._get_by_code('former_member')
+        return self.browse()
+
+    @api.model
+    def _get_all_exclusion_states(self):
+        """
+        Get every possible expulsion states
+        :return: membership.state recordset
+        """
+        codes = [
+            'expulsion_former_member',
+            'inappropriate_former_member',
+            'resignation_former_member',
+            'break_former_member',
+            'former_supporter',
+        ]
+        domain = [
+            ('code', 'in', codes),
+        ]
+        return self.search(domain)
