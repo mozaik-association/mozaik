@@ -42,7 +42,7 @@ class PostalCoordinate(models.Model):
                     partner = self.env['res.partner'].browse(
                         vals.get('partner_id'))
                 else:
-                    address = record.partner_id
+                    partner = record.partner_id
                 record._auto_instance_assign(partner, address)
         res = super().write(vals)
         if vals.get('is_main', False):

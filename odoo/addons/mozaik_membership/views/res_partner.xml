@@ -131,7 +131,6 @@
                     <group name="membership_data">
                         <group name="membership_subscription">
                             <field name="subscription_product_id" widget="selection" attrs="{'invisible': [('subscription_product_id', '=', False)]}"/>
-                            <field name="is_excluded"/>
                         </group>
                         <group></group>
                     </group>
