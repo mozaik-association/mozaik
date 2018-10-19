@@ -74,6 +74,7 @@ class ResPartner(models.Model):
         help="Define if the selected partner is actually excluded",
         compute='_compute_int_instance_ids',
         store=True,
+        compute_sudo=True,
     )
 
     @api.model
@@ -101,6 +102,7 @@ class ResPartner(models.Model):
         'membership_line_ids.int_instance_id', 'force_int_instance_id',
         'city_id', 'city_id.int_instance_id',
         'membership_line_ids', 'membership_line_ids.state_id',
+        'postal_coordinate_ids', 'postal_coordinate_ids.is_main',
     )
     def _compute_int_instance_ids(self):
         """
@@ -113,9 +115,6 @@ class ResPartner(models.Model):
         - IF NO instances found: use the default instance
         :return:
         """
-        # Work in sudo to have all info
-        if not self.env.user._is_superuser():
-            self = self.sudo()
         state_obj = self.env['membership.state']
         default_instance = self.env['int.instance']._get_default_int_instance()
         all_excl_states = state_obj._get_all_exclusion_states()

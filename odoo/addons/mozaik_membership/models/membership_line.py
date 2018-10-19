@@ -36,7 +36,7 @@ class MembershipLine(models.Model):
         copy=False,
     )
     date_from = fields.Date(string='From', readonly=True)
-    date_to = fields.Date(string='To', readonly=True)
+    date_to = fields.Date(string='To', readonly=True, copy=False)
     price = fields.Float(
         digits=dp.get_precision('Product Price'),
         copy=False,
@@ -217,6 +217,24 @@ class MembershipLine(models.Model):
             result.partner_id.force_int_instance_id = False
         return result
 
+    @api.multi
+    def copy(self, default=None):
+        """
+
+        :param default: None or dict
+        :return: self recordset
+        """
+        self.ensure_one()
+        default = default or {}
+        if not self.active:
+            # If the line has been disabled, the copy start at the date_to
+            default.update({
+                'date_from': self.date_to,
+                'date_to': False,
+            })
+        result = super(MembershipLine, self).copy(default=default)
+        return result
+
     @api.model
     def _get_subscription_product(self, partner, instance=False):
         """
@@ -361,6 +379,10 @@ class MembershipLine(models.Model):
 
     @api.model
     def _get_lines_to_close_renew(self):
+        """
+
+        :return: membership.line recordset
+        """
         domain = self._get_lines_to_close_renew_domain()
         return self._get_lines_to_close(domain)
 
@@ -373,6 +395,10 @@ class MembershipLine(models.Model):
 
     @api.model
     def _get_lines_to_close_former_member(self):
+        """
+
+        :return: membership.line recordset
+        """
         domain = self._get_lines_to_close_former_member_domain()
         return self._get_lines_to_close(domain)
 

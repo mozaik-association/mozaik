@@ -113,6 +113,16 @@ class ChangeMainAddress(models.TransientModel):
                 })
 
     @api.multi
+    def _update_instances(self):
+        """
+        Update instance if necessary
+        :return: bool
+        """
+        if not self.keep_instance:
+            self.partner_change_instance_ids._execute_update()
+        return True
+
+    @api.multi
     def button_change_main_coordinate(self):
         """
         Change main coordinate for a list of partners
@@ -123,6 +133,5 @@ class ChangeMainAddress(models.TransientModel):
         """
         self.ensure_one()
         result = super().button_change_main_coordinate()
-        if not self.keep_instance:
-            self.partner_change_instance_ids._execute_update()
+        self._update_instances()
         return result

@@ -140,7 +140,8 @@ class PartnerChangeInstance(models.TransientModel):
             elif record.origin == 'membership':
                 line = record.membership_line_id
                 # Close the line
-                line._close(date_to=fields.Date.today())
+                from_date = fields.Date.today()
+                line._close(date_to=from_date, force=True)
                 if not record.close_subscription:
                     line.copy({
                         'int_instance_id': record.new_instance_id.id,
