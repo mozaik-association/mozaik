@@ -13,6 +13,7 @@
         'mozaik_coordinate',
     ],
     'data': [
+        'data/email_coordinate.xml',
         'views/email_coordinate.xml',
         'views/coordinate_category.xml',
         'views/res_partner.xml',

@@ -143,10 +143,22 @@ class MozaikAbstractModel(models.AbstractModel):
         :param vals: dict
         :return: self recordset
         """
+        res = False
         try:
-            return super().create(vals)
+            res = super().create(vals)
         except IntegrityError as e:
             self._display_error_message(e)
+
+        if res and self._context.get('migration') and vals.get('create_date'):
+            if vals.get('write_date'):
+                q = 'update %s set create_date=%s, write_date=%s where id=%s'
+                p = (AsIs(self._table), vals['create_date'],
+                     vals['write_date'], res.id)
+            else:
+                q = 'update %s set create_date=%%s where id=%%s'
+                p = (AsIs(self._table), vals['create_date'], res.id)
+            self.env.cr.execute(q, p)
+        return res
 
     @api.multi
     def write(self, vals):
