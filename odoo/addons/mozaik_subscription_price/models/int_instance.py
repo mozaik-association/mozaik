@@ -9,8 +9,7 @@ class IntInstance(models.Model):
     product_pricelist_id = fields.Many2one(
         comodel_name='product.pricelist',
         string='Pricelist',
-        ondelete="restrict",
-        help="Price list who contains prices to apply for your subscriptions",
+        help="Price list containing prices to apply for your subscriptions",
         copy=False,
     )
 

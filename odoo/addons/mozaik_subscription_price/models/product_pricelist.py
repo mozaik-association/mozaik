@@ -12,6 +12,7 @@ class ProductPricelist(models.Model):
         string='Instances',
         help="Internal instances using this price list",
         readonly=True,
+        track_visibility='onchange',
     )
 
     @api.multi
