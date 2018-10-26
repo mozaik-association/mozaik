@@ -142,9 +142,9 @@
                             <field name="active" invisible="1" />
                             <field name="state_code" invisible="1"/>
                             <button name="%(update_membership_product_action)d" string="Update product/price" type="action" groups="mozaik_membership.res_groups_membership_user"
-                                attrs="{'invisible': ['|', ('active', '=', 'False'), ('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"/>
+                                attrs="{'invisible': ['|', ('active', '=', False), ('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"/>
                             <button name="%(update_membership_instance_action)d" string="Update instance" type="action" groups="mozaik_membership.res_groups_membership_user"
-                                attrs="{'invisible': [('active', '=', 'False')]}"/>
+                                attrs="{'invisible': [('active', '=', False)]}"/>
                         </tree>
                     </field>
                     <group name="user" attrs="{'invisible': [('user_ids','=',[])]}" >
