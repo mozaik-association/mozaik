@@ -62,7 +62,8 @@ class MembershipLine(models.Model):
         :return:
         """
         bad_records = self.filtered(
-            lambda r: not r.price_is_zero(r.price) and not r.reference)
+            lambda r: not r.price_is_zero(r.price) and not r.reference and
+            r.active)
         if bad_records:
             details = "\n- ".join(bad_records.mapped("display_name"))
             message = _("A reference is mandatory when the price is greater "
