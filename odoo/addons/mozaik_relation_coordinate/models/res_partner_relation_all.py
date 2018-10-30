@@ -75,6 +75,13 @@ class ResPartnerRelationAll(models.AbstractModel):
         default=True,
     )
 
+    @api.model_cr_context
+    def _auto_init(self):
+        """
+        Just to regenerate the view when data model change here
+        """
+        return super()._auto_init()
+
     @api.model
     def _get_coordinate_fields(self):
         """ retrieve coordinate fields define here above """
