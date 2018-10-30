@@ -51,24 +51,3 @@ class PhoneCoordinate(models.Model):
         """
         phone_id = values.get('phone_id')
         return self._get_coordinate_type_from_phone_id(phone_id)
-
-    @api.model
-    def _check_must_be_main(self, values):
-        """
-        Inherit the function because the coordinate_type comes from the
-        phone_id.
-        We don't need to call the super because the behaviour is different.
-        If we call the super, we have to put is_main to False first
-        :param values: dict
-        :return: bool
-        """
-        partner_id = values.get('partner_id')
-        phone_id = values.get('phone_id')
-        coordinate_type = self._get_coordinate_type_from_phone_id(phone_id)
-        domain = self.get_target_domain(partner_id, coordinate_type)
-        coordinates = self.search_count(domain)
-        if not coordinates:
-            values.update({
-                'is_main': True,
-            })
-        return True
