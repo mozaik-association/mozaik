@@ -44,9 +44,13 @@ class ResPartner(models.Model):
     @api.depends(
         "postal_coordinate_ids",
         "postal_coordinate_ids.address_id",
+        "postal_coordinate_ids.address_id.name",
         "postal_coordinate_ids.is_main",
         "postal_coordinate_ids.active",
         "postal_coordinate_ids.vip",
+        "postal_coordinate_ids.co_residency_id",
+        "postal_coordinate_ids.co_residency_id.line",
+        "postal_coordinate_ids.co_residency_id.line2",
     )
     def _compute_main_address_componant(self):
         """
@@ -68,5 +72,11 @@ class ResPartner(models.Model):
             partner.city = coord.address_id.city
             partner.street = coord.address_id.street
             partner.street2 = coord.address_id.street2
-            partner.address = 'VIP' if coord.vip else \
-                coord.address_id.name
+            if coord.vip:
+                partner.address = 'VIP'
+            elif coord.co_residency_id:
+                partner.address = '%s (%s)' % (
+                    coord.address_id.name,
+                    coord.co_residency_id.name_get()[0][1])
+            else:
+                partner.address = coord.address_id.name
