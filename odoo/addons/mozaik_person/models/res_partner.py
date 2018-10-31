@@ -203,11 +203,11 @@ class ResPartner(models.Model):
         return res
 
     @api.multi
-    def _create_user(self, login, group_ids):
+    def _create_user(self, login, role_id):
         """
         Create a user from an existing partner
         :param login: char
-        :param group_ids: recordset
+        :param role_id: recordset
         :raise: if partner is already a user or is a company or is inactive
         :return: the user
         """
@@ -226,7 +226,9 @@ class ResPartner(models.Model):
             raise exceptions.UserError(
                 _('%s must be active to become a user!') % self.display_name)
 
-        vals = {'groups_id': [(6, 0, group_ids.ids)]} if group_ids else {}
+        vals = {
+            'role_line_ids': [(0, 0, {'role_id': role_id.id})]
+        } if role_id else {}
         vals.update({
             'partner_id': self.id,
             'login': login,

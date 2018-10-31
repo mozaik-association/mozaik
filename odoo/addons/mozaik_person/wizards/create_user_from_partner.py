@@ -10,23 +10,16 @@ class CreateUserFromPartner(models.TransientModel):
     _description = 'Wizard to Create a User from a Partner'
 
     nok = fields.Char(
-        'Reason',
+        string='Reason',
         default=False,
         readonly=True,
     )
     login = fields.Char(
         required=True,
     )
-    group_id = fields.Many2one(
-        'res.groups',
-        string="User's group",
-        required=True,
-        domain="[('category_id','=',appl_id)]",
-        ondelete='cascade',
-    )
-    appl_id = fields.Many2one(
-        'ir.module.category',
-        string="Application",
+    role_id = fields.Many2one(
+        comodel_name='res.users.role',
+        string="User's role",
         required=True,
         ondelete='cascade',
     )
@@ -60,17 +53,18 @@ class CreateUserFromPartner(models.TransientModel):
 
         return res
 
+    @api.multi
     def create_user_from_partner(self):
         """
         Create a user based on the selected partner (active_id) and associate
-        it to the choosen group
+        it to the choosen role
         """
         self.ensure_one()
 
         partner_id = self._context.get('active_id', False)
         partner = self.env['res.partner'].browse([partner_id])
 
-        group_id = self.group_id
+        role_id = self.role_id
         login = self.login
 
-        return partner._create_user(login, group_id)
+        return partner._create_user(login, role_id)

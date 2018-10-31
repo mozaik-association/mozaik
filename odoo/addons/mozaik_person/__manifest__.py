@@ -12,9 +12,12 @@
     'depends': [
         'base',
         'contacts',
+
+        'base_user_role',
         'partner_usual_firstname',
-        'mozaik_tools',
         'partner_contact_birthdate',
+
+        'mozaik_tools',
         'mozaik_abstract_model',
         'mozaik_duplicate',
         'mozaik_partner_assembly',

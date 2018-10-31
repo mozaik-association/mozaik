@@ -11,7 +11,7 @@
                         <field name="login" />
                     </group>
                     <group name="other">
-                        <field name="group_id" options='{"no_open":True, "no_create":True}' />
+                        <field name="role_id" options='{"no_open":True, "no_create":True}' />
                     </group>
                 </group>
                 <div name="noway">
@@ -22,7 +22,6 @@
                 <notebook>
                     <page name="dev" string="More Info" groups="base.group_erp_manager">
                         <group name="moreinfo">
-                            <field name="appl_id" widget="selection"/>
                             <field name="nok"/>
                         </group>
                     </page>
@@ -51,7 +50,7 @@
                eval="[(6, 0, [
                        ref('base.group_erp_manager'),
                      ]),]" />
-        <field name="context" eval='"{&apos;default_appl_id&apos;: %s}" % ref("base.module_category_political_association")' />
+        <field name="context">{}</field>
     </record>
 
 </odoo>

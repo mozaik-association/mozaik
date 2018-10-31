@@ -26,16 +26,16 @@ class TestCreateUserFromPartner(TransactionCase):
         self.assertEqual('user', res['nok'])
         with self.assertRaises(exceptions.UserError):
             res = wz_obj.with_context().default_get(['nok'])
-
+        # create a role
+        role = self.env['res.users.role'].create({'name': 'Abracadabra'})
         # get a partner and a group
         dany = self.browse_ref('mozaik_person.res_partner_demo_03')
-        grp = self.browse_ref('base.group_partner_manager')
         # build and execute a wizard
         wz = wz_obj.with_context(active_id=dany.id).new({
             'login': 'Bof!',
-            'group_id': grp.id,
+            'role_id': role.id,
         })
         user = wz.create_user_from_partner()
         self.assertEqual(dany.user_ids, user)
         self.assertEqual('Bof!', user.login)
-        self.assertIn(user, grp.users)
+        self.assertIn(user, role.line_ids.mapped('user_id'))
