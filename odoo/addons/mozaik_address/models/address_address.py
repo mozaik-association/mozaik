@@ -182,7 +182,7 @@ class AddressAddress(models.Model):
             'WHERE technical_name=%s', (self.technical_name,))
         sequence = cr.fetchone()
         sequence = sequence[0] if sequence else False
-        if not sequence:
+        if sequence is False:
             raise ValidationError(
                 _('An Address without sequence number cannot be duplicated!'))
 

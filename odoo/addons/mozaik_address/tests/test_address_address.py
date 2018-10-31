@@ -82,13 +82,8 @@ class TestAddressAddress(TransactionCase):
             'No Accented char and no Upper For technical name')
 
     def test_copy_address(self):
-        adr_3 = self.env.ref('%s.address_3' % self._module_ns)
         adr_4 = self.env.ref('%s.address_4' % self._module_ns)
 
-        # 1/ an address with a null sequence cannot be duplicated
-        self.assertRaises(ValidationError, adr_3.copy)
-
-        # 2/ otherwise copy is allowed and the sequence is increased
+        # sequence is increased
         adr = adr_4.copy()
-        self.assertEqual(
-            adr.sequence, 2, 'Copy address fails with wrong sequence')
+        self.assertEqual(adr.sequence, 2)

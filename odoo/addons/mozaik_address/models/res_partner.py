@@ -77,6 +77,6 @@ class ResPartner(models.Model):
             elif coord.co_residency_id:
                 partner.address = '%s (%s)' % (
                     coord.address_id.name,
-                    coord.co_residency_id.name_get()[0][1])
+                    coord.co_residency_id.display_name)
             else:
                 partner.address = coord.address_id.name
