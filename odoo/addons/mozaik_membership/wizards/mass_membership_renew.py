@@ -17,7 +17,7 @@ class MassMembershipRenew(models.TransientModel):
     @api.multi
     def doit(self):
         self.ensure_one()
-        self.with_delay().membership_renew_former_member(
+        self.with_delay()._membership_renew_former_member(
             self.date_from, self.env.context.get("renew"))
 
     @api.model

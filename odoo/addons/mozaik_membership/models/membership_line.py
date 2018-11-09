@@ -381,11 +381,13 @@ class MembershipLine(models.Model):
     @api.model
     def _get_lines_to_close_renew(self):
         """
-
+        - Close membership.line
+        - Renew membership.line if necessary
         :return: membership.line recordset
         """
         domain = self._get_lines_to_close_renew_domain()
-        return self._get_lines_to_close(domain)
+        self._get_lines_to_close(domain)
+        return self._get_lines_to_renew()
 
     @api.model
     def _get_lines_to_close_former_member_domain(self):
@@ -551,8 +553,8 @@ class MembershipLine(models.Model):
         :param date_from: str/date
         :return: membership.line recordset
         """
-        ml = self._get_lines_to_close_renew()._close(date_to=date_from)
-        return ml._renew(date_from=date_from)
+        self._get_lines_to_close_renew()._close(date_to=date_from)
+        return self._get_lines_to_renew()._renew(date_from=date_from)
 
     @api.multi
     def _former_member(self, date_from=False):
