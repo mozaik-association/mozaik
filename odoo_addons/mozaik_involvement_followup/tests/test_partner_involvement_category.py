@@ -141,7 +141,6 @@ class TestPartnerInvolvementCategory(SharedSetupTransactionCase):
         dom = wiz._next_category_ids_domain()
         self.assertEqual(set([ic3.id, ic2.id]), set(dom[0][2]))
         wiz.doit()
-        self.assertTrue(involvement.effective_time)
         self.assertEqual('done', involvement.state)
         # create another partner and an involvement
         vals = {
