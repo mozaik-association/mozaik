@@ -87,7 +87,7 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
                         type='comment')
             else:
                 # mark involvement as done
-                inv.write({'state': 'done', 'effective_time': now})
+                inv.write({'state': 'done'})
                 if self.followup == 'continue':
                     for cat in self.next_category_ids:
                         vals = {
