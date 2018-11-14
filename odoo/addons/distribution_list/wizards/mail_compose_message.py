@@ -8,7 +8,7 @@ class MailComposeMessage(models.TransientModel):
 
     distribution_list_id = fields.Many2one(
         "distribution.list",
-        "Distribution list",
+        "Distribution List",
         ondelete="cascade",
     )
 

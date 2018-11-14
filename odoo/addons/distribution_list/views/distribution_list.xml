@@ -12,7 +12,7 @@
                 <field name="dst_model_id"/>
                 <field name="note"/>
                 <group>
-                    <filter name="dst_model" string="Destination Model" domain="[]" context="{'group_by':'dst_model_id'}" />
+                    <filter name="dst_model" string="Target Model" domain="[]" context="{'group_by':'dst_model_id'}" />
                 </group>
             </search>
         </field>

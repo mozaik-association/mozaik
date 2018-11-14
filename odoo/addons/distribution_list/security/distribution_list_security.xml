@@ -8,12 +8,12 @@
     </record>
 
     <record model="res.groups" id="res_groups_distribution_list_reader">
-        <field name="name">Distribution List Reader</field>
+        <field name="name">Reader</field>
         <field name="category_id" ref="module_category_distribution_list"/>
     </record>
 
     <record model="res.groups" id="res_groups_distribution_list_user">
-        <field name="name">Distribution List User</field>
+        <field name="name">User</field>
         <field name="category_id" ref="module_category_distribution_list"/>
         <field name="implied_ids" eval="[(6, 0, [
             ref('res_groups_distribution_list_reader'),
@@ -21,7 +21,7 @@
     </record>
 
     <record model="res.groups" id="res_groups_distribution_list_manager">
-        <field name="name">Distribution List Manager</field>
+        <field name="name">Manager</field>
         <field name="category_id" ref="module_category_distribution_list"/>
         <field name="implied_ids" eval="[(6, 0, [
             ref('res_groups_distribution_list_user'),

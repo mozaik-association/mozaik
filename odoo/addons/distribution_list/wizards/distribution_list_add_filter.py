@@ -12,7 +12,7 @@ class DistributionListAddFilter(models.TransientModel):
 
     distribution_list_id = fields.Many2one(
         comodel_name="distribution.list",
-        string="Distribution list",
+        string="Distribution List",
         required=True,
         ondelete="cascade",
     )
@@ -21,8 +21,8 @@ class DistributionListAddFilter(models.TransientModel):
         oldname="distribution_list_line_name",
     )
     exclude = fields.Boolean(
-        help="Check this box to exclude filter result for the "
-             "distribution list",
+        help="Check this box to exclude the filter result "
+             "from the distribution list",
         default=False,
     )
     bridge_field_id = fields.Many2one(

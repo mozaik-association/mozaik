@@ -20,7 +20,7 @@ class DistributionListLine(models.Model):
     )
     distribution_list_id = fields.Many2one(
         comodel_name="distribution.list",
-        string="Distribution list",
+        string="Distribution List",
         required=True,
         index=True,
         ondelete='cascade',
@@ -28,8 +28,8 @@ class DistributionListLine(models.Model):
     )
     exclude = fields.Boolean(
         default=False,
-        help="Check this box to exclude the result of this filter/line on "
-             "the related distribution list",
+        help="Check this box to exclude the filter result "
+             "from the distribution list",
     )
     company_id = fields.Many2one(
         "res.company",
@@ -63,8 +63,8 @@ class DistributionListLine(models.Model):
     bridge_field_id = fields.Many2one(
         comodel_name="ir.model.fields",
         string="Bridge field",
-        help="Bridge field between the source model (of this line/filter) "
-             "and the destination model (on the distribution list.",
+        help="Bridge field between the source model (of the filter) "
+             "and the target model (of the distribution list)",
         required=True,
         domain="["
         "('model_id', '=', src_model_id), "
@@ -159,10 +159,10 @@ class DistributionListLine(models.Model):
             lambda l: l.bridge_field_id not in fields_available.get(l))
         if bad_dist_list_lines:
             details = "\n- ".join(bad_dist_list_lines.mapped("name"))
-            message = _("These distribution list lines are not valid because "
-                        "the bridge field is not related to the destination "
-                        "model set on the distribution list!"
-                        "\n- %s") % details
+            message = _(
+                "These filters are not valid because the bridge field "
+                "is not related to the target model of "
+                "the distribution list!\n- %s") % details
             raise exceptions.ValidationError(message)
 
     @api.multi

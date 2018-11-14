@@ -12,7 +12,7 @@ class MergeDistributionList(models.TransientModel):
 
     distribution_list_id = fields.Many2one(
         comodel_name="distribution.list",
-        string="Distribution list",
+        string="Distribution List",
         help="Distribution list to complete",
         required=True,
         ondelete="cascade",

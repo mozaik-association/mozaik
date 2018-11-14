@@ -16,14 +16,14 @@ class DistributionList(models.Model):
     to_include_distribution_list_line_ids = fields.One2many(
         "distribution.list.line",
         "distribution_list_id",
-        "Filters to include",
+        "Filters to Include",
         domain=[('exclude', '!=', True)],
         copy=True,
     )
     to_exclude_distribution_list_line_ids = fields.One2many(
         "distribution.list.line",
         "distribution_list_id",
-        "Filters to exclude",
+        "Filters to Exclude",
         domain=[('exclude', '=', True)],
         copy=True,
     )
@@ -35,7 +35,7 @@ class DistributionList(models.Model):
     )
     dst_model_id = fields.Many2one(
         "ir.model",
-        "Destination model",
+        string="Target Model",
         required=True,
         default=lambda self: self._get_default_dst_model_id(),
         domain=lambda self: self._get_domain_dst_model_id(),
