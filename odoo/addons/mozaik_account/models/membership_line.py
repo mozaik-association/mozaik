@@ -100,25 +100,40 @@ class MembershipLine(models.Model):
         return vals
 
     @api.model
+    def _update_domain_payment(self, domain, inverse=False):
+        """
+
+        :param domain: list
+        :param inverse: bool
+        :return: list (domain)
+        """
+        domain = domain or []
+        value = self.env['ir.config_parameter'].sudo().get_param(
+            'membership.renew_must_paid', default='1')
+        if value not in [True, 1, '1', 'True']:
+            return domain
+        operator = '='
+        if inverse:
+            operator = '!='
+        domain.append(('paid', operator, True))
+        return domain
+
+    @api.model
     def _get_lines_to_renew_domain(self):
         res = super()._get_lines_to_renew_domain()
-        res.append(('move_id', '!=', False))
-        return res
+        return self._update_domain_payment(res)
 
     @api.model
     def _get_lines_to_former_member_domain(self):
         res = super()._get_lines_to_former_member_domain()
-        res.append(('move_id', '=', False))
-        return res
+        return self._update_domain_payment(res, inverse=True)
 
     @api.model
     def _get_lines_to_close_renew_domain(self):
         res = super()._get_lines_to_close_renew_domain()
-        res.append(('move_id', '!=', False))
-        return res
+        return self._update_domain_payment(res)
 
     @api.model
     def _get_lines_to_close_former_member_domain(self):
         res = super()._get_lines_to_close_former_member_domain()
-        res.append(('move_id', '=', False))
-        return res
+        return self._update_domain_payment(res, inverse=True)

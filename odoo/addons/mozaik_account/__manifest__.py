@@ -19,6 +19,7 @@
     ],
     'data': [
         'data/product_product.xml',
+        'data/ir_config_parameter.xml',
         'views/account_bank_statement.xml',
         'views/product_template.xml',
         'views/res_partner.xml',
