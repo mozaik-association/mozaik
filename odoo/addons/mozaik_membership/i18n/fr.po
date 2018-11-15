@@ -65,11 +65,6 @@ msgid "Active Memberships"
 msgstr "Adhésions actives"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_partner_change_instance_actual_instance_id
-msgid "Current instance"
-msgstr "Instance actuelle"
-
-#. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.add_membership_form
 msgid "Add"
 msgstr "Ajouter"
@@ -89,21 +84,6 @@ msgstr "Toutes les relations (non-inverse et inverse) entre partenaires"
 #: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement_amount
 msgid "Amount"
 msgstr "Montant"
-
-#. module: mozaik_membership
-#: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
-msgid "Exclude this partner: proceed anyway?"
-msgstr "Poursuivre l'exclusion de ce partenaire ?"
-
-#. module: mozaik_membership
-#: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
-msgid "Resign this partner: proceed anyway?"
-msgstr "Poursuivre la démission de ce partenaire ?"
-
-#. module: mozaik_membership
-#: model:ir.ui.view,arch_db:mozaik_membership.add_membership_form
-msgid "Re-integrate this partner: proceed anyway?"
-msgstr "Poursuivre la réintégration de ce partenaire ?"
 
 #. module: mozaik_membership
 #: selection:res.partner,kind:0
@@ -134,9 +114,31 @@ msgid "Change Main Address Wizard"
 msgstr "Assistant de changement d'adresse principale"
 
 #. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.membership_former_member_membership_action
+#: model:ir.actions.act_window,name:mozaik_membership.membership_former_member_partner_action
+msgid "Change Member to Former Member"
+msgstr "Changement de membre à ancien membre"
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.mass_membership_former_member_act_window
+msgid "Change Members to Former Members"
+msgstr "Changement des membres en anciens membres"
+
+#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_partner_change_instance_change_main_address_id
 msgid "Change address"
 msgstr "Changement d'adresse"
+
+#. module: mozaik_membership
+#: model:ir.model.fields,help:mozaik_membership.field_abstract_assembly_is_excluded
+#: model:ir.model.fields,help:mozaik_membership.field_add_membership_is_excluded
+#: model:ir.model.fields,help:mozaik_membership.field_ext_assembly_is_excluded
+#: model:ir.model.fields,help:mozaik_membership.field_int_assembly_is_excluded
+#: model:ir.model.fields,help:mozaik_membership.field_res_partner_is_excluded
+#: model:ir.model.fields,help:mozaik_membership.field_res_users_is_excluded
+#: model:ir.model.fields,help:mozaik_membership.field_sta_assembly_is_excluded
+msgid "Checked if the partner is currently excluded"
+msgstr "Coché si le partenanire est actuellement exclu"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_res_city
@@ -175,7 +177,7 @@ msgstr "Société"
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_res_partner
 msgid "Contact"
-msgstr "Partenaire"
+msgstr "Contact"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership_create_uid
@@ -200,33 +202,16 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_partner_change_instance_actual_instance_id
+msgid "Current instance"
+msgstr "Instance actuelle"
+
+#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership_date_from
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_renew_date_from
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew_date_from
 msgid "Date From"
 msgstr "Date de début"
-
-#. module: mozaik_membership
-#: model:ir.model.fields,help:mozaik_membership.field_mass_membership_renew_date_from
-#: model:ir.model.fields,help:mozaik_membership.field_membership_renew_date_from
-msgid "Start date of new membership lines"
-msgstr "Date de début des nouvelles adhésions"
-
-#. module: mozaik_membership
-#: model:ir.model.fields,help:mozaik_membership.field_abstract_assembly_is_excluded
-#: model:ir.model.fields,help:mozaik_membership.field_add_membership_is_excluded
-#: model:ir.model.fields,help:mozaik_membership.field_ext_assembly_is_excluded
-#: model:ir.model.fields,help:mozaik_membership.field_int_assembly_is_excluded
-#: model:ir.model.fields,help:mozaik_membership.field_res_partner_is_excluded
-#: model:ir.model.fields,help:mozaik_membership.field_res_users_is_excluded
-#: model:ir.model.fields,help:mozaik_membership.field_sta_assembly_is_excluded
-msgid "Checked if the partner is currently excluded"
-msgstr "Coché si le partenanire est actuellement exclu"
-
-#. module: mozaik_membership
-#: model:ir.model.fields,help:mozaik_membership.field_membership_line_paid
-msgid "Checked if the subscription is paid"
-msgstr "Coché si la cotisation est payée"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership_display_name
@@ -255,6 +240,11 @@ msgstr "Fin d'adhésion"
 #: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "Exclude"
 msgstr "Exclure"
+
+#. module: mozaik_membership
+#: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
+msgid "Exclude this partner: proceed anyway?"
+msgstr "Poursuivre l'exclusion de ce partenaire ?"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_line_search_view
@@ -329,7 +319,7 @@ msgstr "Ancien sympathisant"
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line_date_from
 msgid "From"
-msgstr "À partir du"
+msgstr "De"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_line_search_view
@@ -517,14 +507,9 @@ msgid "Local Voluntary"
 msgstr "Volontaire local"
 
 #. module: mozaik_membership
-#: model:ir.actions.act_window,name:mozaik_membership.mass_membership_former_member_act_window
-msgid "Change Members to Former Members"
-msgstr "Changement des membres en anciens membres"
-
-#. module: mozaik_membership
-#: model:ir.actions.act_window,name:mozaik_membership.mass_membership_renew_act_window
-msgid "Renew Memberships"
-msgstr "Renouvellement d'adhésions"
+#: model:res.groups,name:mozaik_membership.res_groups_membership_manager
+msgid "Manager"
+msgstr "Gestionnaire"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line_partner_id
@@ -570,21 +555,6 @@ msgid "Membership Lines"
 msgstr "Historiques d'adhésion"
 
 #. module: mozaik_membership
-#: model:res.groups,name:mozaik_membership.res_groups_membership_manager
-msgid "Manager"
-msgstr "Gestionnaire"
-
-#. module: mozaik_membership
-#: model:res.groups,name:mozaik_membership.res_groups_membership_reader
-msgid "Reader"
-msgstr "Lecteur"
-
-#. module: mozaik_membership
-#: model:res.groups,name:mozaik_membership.res_groups_membership_user
-msgid "User"
-msgstr "Utilisateur"
-
-#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_membership_state
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly_membership_state_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly_membership_state_id
@@ -605,21 +575,9 @@ msgid "Membership States"
 msgstr "Statuts d'adhésion"
 
 #. module: mozaik_membership
-#: model:ir.actions.act_window,name:mozaik_membership.membership_former_member_membership_action
-#: model:ir.actions.act_window,name:mozaik_membership.membership_former_member_partner_action
-msgid "Change Member to Former Member"
-msgstr "Changement de membre à ancien membre"
-
-#. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_update_membership_membership_line_id
 msgid "Membership line to update"
 msgstr "Adhésion à mettre à jour"
-
-#. module: mozaik_membership
-#: model:ir.actions.act_window,name:mozaik_membership.membership_renew_membership_action
-#: model:ir.actions.act_window,name:mozaik_membership.membership_renew_partner_action
-msgid "Renew Membership"
-msgstr "Renouvellement de l'adhésion"
 
 #. module: mozaik_membership
 #: model:ir.actions.act_window,name:mozaik_membership.membership_tarification_act_window
@@ -627,6 +585,11 @@ msgstr "Renouvellement de l'adhésion"
 #: model:ir.ui.menu,name:mozaik_membership.membership_tarification_menu
 msgid "Membership tarification"
 msgstr "Tarif d'adhésion"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_update_membership
+msgid "Membership update"
+msgstr "Mise à jour d'une adhésion"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly_membership_line_ids
@@ -651,6 +614,11 @@ msgstr "Plus d'info"
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification_name
 msgid "Name"
 msgstr "Nom"
+
+#. module: mozaik_membership
+#: model:ir.model.fields,help:mozaik_membership.field_membership_tarification_name
+msgid "Name of the tarification"
+msgstr "Nom de la tarification"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly_national_voluntary
@@ -699,6 +667,11 @@ msgid "OK"
 msgstr "OK"
 
 #. module: mozaik_membership
+#: model:ir.model.fields,help:mozaik_membership.field_membership_tarification_sequence
+msgid "Order in which rule will be evaluated"
+msgstr "Ordre dans lequel sera évaluée la règle"
+
+#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_partner_change_instance_origin
 msgid "Origin"
 msgstr "Origine"
@@ -715,7 +688,6 @@ msgstr "Payé"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership_partner_id
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_instance_partner_ids
 #: model:ir.model.fields,field_description:mozaik_membership.field_partner_change_instance_partner_id
 #: selection:res.partner,kind:0
 msgid "Partner"
@@ -751,11 +723,6 @@ msgid "Partner Kind"
 msgstr "Type de partenaire"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_instance_partner_m2m_ids
-msgid "Users"
-msgstr "Utilisateurs"
-
-#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_res_partner_relation
 msgid "Partner relation"
 msgstr "Relation de partenaires"
@@ -774,6 +741,11 @@ msgstr "Partenaire à affilier"
 #: model:ir.model.fields,help:mozaik_membership.field_sta_assembly_local_only
 msgid "Partner wishing to be contacted only by the local"
 msgstr "Partenaire souhaitant être uniquement contacté par la locale"
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_instance_partner_ids
+msgid "Partners"
+msgstr "Partenaires"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.partner_involvement_form_view
@@ -825,6 +797,11 @@ msgid "Re-integrate and Add"
 msgstr "Réintegrer"
 
 #. module: mozaik_membership
+#: model:ir.ui.view,arch_db:mozaik_membership.add_membership_form
+msgid "Re-integrate this partner: proceed anyway?"
+msgstr "Poursuivre la réintégration de ce partenaire ?"
+
+#. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_line_form_view
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_state_form_view
 msgid "Reactivate"
@@ -835,6 +812,11 @@ msgstr "Réactiver"
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_state_form_view
 msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_membership
+#: model:res.groups,name:mozaik_membership.res_groups_membership_reader
+msgid "Reader"
+msgstr "Lecteur"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line_reference
@@ -860,9 +842,25 @@ msgid "Regional Voluntary"
 msgstr "Volontaire régional"
 
 #. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.membership_renew_membership_action
+#: model:ir.actions.act_window,name:mozaik_membership.membership_renew_partner_action
+msgid "Renew Membership"
+msgstr "Renouvellement de l'adhésion"
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.mass_membership_renew_act_window
+msgid "Renew Memberships"
+msgstr "Renouvellement d'adhésions"
+
+#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_membership_renew
 msgid "Renew membership line"
 msgstr "Renouvellement d'adhésions"
+
+#. module: mozaik_membership
+#: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
+msgid "Resign this partner: proceed anyway?"
+msgstr "Poursuivre la démission de ce partenaire ?"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
@@ -897,9 +895,10 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,help:mozaik_membership.field_membership_tarification_sequence
-msgid "Order in which rule will be evaluated"
-msgstr "Ordre dans lequel sera évaluée la règle"
+#: model:ir.model.fields,help:mozaik_membership.field_mass_membership_renew_date_from
+#: model:ir.model.fields,help:mozaik_membership.field_membership_renew_date_from
+msgid "Start date of new membership lines"
+msgstr "Date de début des nouvelles adhésions"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership_state_id
@@ -953,7 +952,7 @@ msgstr "Technique"
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/wizards/partner_change_instance.py:78
 #, python-format
-msgid "The new instance define by partner should be unique!"
+msgid "The new instance defined by partner should be unique!"
 msgstr "La nouvelle instance défine par partenaire doit être unique!"
 
 #. module: mozaik_membership
@@ -976,7 +975,7 @@ msgid "This Partner Internal Instances"
 msgstr "Instances internes de ce partenaire"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/wizards/update_membership.py:124
+#: code:addons/mozaik_membership/wizards/update_membership.py:125
 #, python-format
 msgid "This instance is already set on the membership line"
 msgstr "Cette instance est déjà celle de l'adhésion"
@@ -1000,7 +999,7 @@ msgid "This partner is actually excluded. Add a new membership line will re-inte
 msgstr "Ce partenaire est actuellment exclu. Lui ajouter une adhésion le réintègrera."
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/wizards/update_membership.py:110
+#: code:addons/mozaik_membership/wizards/update_membership.py:111
 #, python-format
 msgid "This product is already set on the membership line"
 msgstr "Cet article est déjà celui de l'adhésion"
@@ -1013,7 +1012,7 @@ msgstr "Cette référence est déjà utilisée"
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line_date_to
 msgid "To"
-msgstr "Jusqu'au"
+msgstr "A"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_line_search_view
@@ -1024,11 +1023,6 @@ msgstr "Jusqu'à < ..."
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_line_search_view
 msgid "To > ..."
 msgstr "Jusqu'à > ..."
-
-#. module: mozaik_membership
-#: model:ir.model.fields,help:mozaik_membership.field_membership_tarification_name
-msgid "Name of the tarification"
-msgstr "Nom de la tarification"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.update_membership
@@ -1058,7 +1052,13 @@ msgid "Update product/price"
 msgstr "Changement d'article/montant"
 
 #. module: mozaik_membership
+#: model:res.groups,name:mozaik_membership.res_groups_membership_user
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_res_users
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_instance_partner_m2m_ids
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -1101,11 +1101,6 @@ msgstr "partner => res.partner dont on évalue le tarif"
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
 msgid "uid => Current user id"
 msgstr "uid => Current user id"
-
-#. module: mozaik_membership
-#: model:ir.model,name:mozaik_membership.model_update_membership
-msgid "update.membership"
-msgstr "update.membership"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view

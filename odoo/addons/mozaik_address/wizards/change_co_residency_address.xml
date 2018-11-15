@@ -23,7 +23,7 @@
                 </notebook>
                 <footer>
                     <span name="go-wizard">
-                        <button string="Change" name="change_address"
+                        <button string="Modify" name="change_address"
                                 type="object" class="oe_highlight"
                                 attrs="{'invisible':['|', ('use_allowed', '=', False),
                                                           ('address_id', '=', False)]}"/>

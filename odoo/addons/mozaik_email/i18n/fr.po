@@ -63,27 +63,24 @@ msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: mozaik_email
-#: model:ir.model.fields,field_description:mozaik_email.field_abstract_assembly_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_email.field_email_coordinate_email
+#: model:ir.ui.view,arch_db:mozaik_email.email_coordinate_search_view
+msgid "Email"
+msgstr "Courriel"
+
+#. module: mozaik_email
+#: model:ir.model,name:mozaik_email.model_email_coordinate
+#: model:ir.model.fields,field_description:mozaik_email.field_abstract_assembly_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_email.field_ext_assembly_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_email.field_int_assembly_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_email.field_res_partner_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_email.field_res_users_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_email.field_sta_assembly_email_coordinate_id
-#: model:ir.ui.view,arch_db:mozaik_email.email_coordinate_search_view
-msgid "Email"
-msgstr "Adresse électronique"
-
-#. module: mozaik_email
-#: model:ir.model,name:mozaik_email.model_email_coordinate
 msgid "Email Coordinate"
 msgstr "Coordonnée électronique"
 
 #. module: mozaik_email
 #: model:ir.actions.act_window,name:mozaik_email.email_coordinate_action
-#: model:ir.ui.menu,name:mozaik_email.email_coordinate_menu
-#: model:ir.ui.view,arch_db:mozaik_email.coordinate_category_form_view
-#: model:ir.ui.view,arch_db:mozaik_email.view_partner_form
 #: model:ir.model.fields,field_description:mozaik_email.field_abstract_assembly_email_coordinate_ids
 #: model:ir.model.fields,field_description:mozaik_email.field_abstract_assembly_email_coordinate_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_email.field_ext_assembly_email_coordinate_ids
@@ -96,6 +93,9 @@ msgstr "Coordonnée électronique"
 #: model:ir.model.fields,field_description:mozaik_email.field_res_users_email_coordinate_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_email.field_sta_assembly_email_coordinate_ids
 #: model:ir.model.fields,field_description:mozaik_email.field_sta_assembly_email_coordinate_inactive_ids
+#: model:ir.ui.menu,name:mozaik_email.email_coordinate_menu
+#: model:ir.ui.view,arch_db:mozaik_email.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_email.view_partner_form
 msgid "Email Coordinates"
 msgstr "Coordonnées électroniques"
 

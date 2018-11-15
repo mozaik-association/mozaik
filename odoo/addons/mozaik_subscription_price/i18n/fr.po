@@ -36,6 +36,16 @@ msgid "Membership Line"
 msgstr "Historique d'adhésion"
 
 #. module: mozaik_subscription_price
+#: model:ir.ui.menu,name:mozaik_subscription_price.product_pricelist_menu
+msgid "Price Lists"
+msgstr "Listes de prix"
+
+#. module: mozaik_subscription_price
+#: model:ir.model.fields,field_description:mozaik_subscription_price.field_int_instance_product_pricelist_id
+msgid "Price list"
+msgstr "Liste de prix"
+
+#. module: mozaik_subscription_price
 #: model:ir.model.fields,help:mozaik_subscription_price.field_int_instance_product_pricelist_id
 msgid "Price list to apply to subscriptions"
 msgstr "Liste de prix à appliquer aux cotisations"
@@ -44,16 +54,6 @@ msgstr "Liste de prix à appliquer aux cotisations"
 #: model:ir.model,name:mozaik_subscription_price.model_product_pricelist
 msgid "Pricelist"
 msgstr "Liste de prix"
-
-#. module: mozaik_subscription_price
-#: model:ir.model.fields,field_description:mozaik_subscription_price.field_int_instance_product_pricelist_id
-msgid "Price list"
-msgstr "Liste de prix"
-
-#. module: mozaik_subscription_price
-#: model:ir.ui.menu,name:mozaik_subscription_price.product_pricelist_menu
-msgid "Price Lists"
-msgstr "Listes de prix"
 
 #. module: mozaik_subscription_price
 #: code:addons/mozaik_subscription_price/models/product_pricelist.py:28

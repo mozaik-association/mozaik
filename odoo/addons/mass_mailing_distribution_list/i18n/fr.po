@@ -23,7 +23,7 @@ msgstr "Un dictionnaire Python qui sera interprété pour fournir les valeurs pa
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list_alias_contact
 msgid "Alias Contact Security"
-msgstr "Sécurité de l'alias de contact"
+msgstr "Sécurité d'alias de contact"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list_alias_name
@@ -33,7 +33,7 @@ msgstr "Nom de l'alias"
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list_alias_domain
 msgid "Alias domain"
-msgstr "Domaine de l'alias"
+msgstr "Domaine d'alias"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list_alias_model_id
@@ -58,15 +58,15 @@ msgstr "Valeurs par défaut"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model,name:mass_mailing_distribution_list.model_distribution_list
-#: model:ir.ui.view,arch_db:mass_mailing_distribution_list.view_mail_mass_mailing_search
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mail_mass_mailing_distribution_list_id
+#: model:ir.ui.view,arch_db:mass_mailing_distribution_list.view_mail_mass_mailing_search
 msgid "Distribution List"
 msgstr "Liste de distribution"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.ui.view,arch_db:mass_mailing_distribution_list.distribution_list_form
 msgid "Email Alias"
-msgstr "Adresse email de l'alias"
+msgstr "Alias d'email"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model,name:mass_mailing_distribution_list.model_mail_compose_message
@@ -107,16 +107,16 @@ msgid "Newsletters"
 msgstr "Lettres d'information"
 
 #. module: mass_mailing_distribution_list
-#: model:ir.ui.view,arch_db:mass_mailing_distribution_list.distribution_list_form
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list_res_partner_opt_in_ids
+#: model:ir.ui.view,arch_db:mass_mailing_distribution_list.distribution_list_form
 msgid "Opt-In"
 msgstr "Opt-In"
 
 #. module: mass_mailing_distribution_list
-#: model:ir.ui.view,arch_db:mass_mailing_distribution_list.distribution_list_form
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list_res_partner_opt_out_ids
+#: model:ir.ui.view,arch_db:mass_mailing_distribution_list.distribution_list_form
 msgid "Opt-Out"
-msgstr "Opt-Out"
+msgstr "Option de retrait"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list_alias_force_thread_id

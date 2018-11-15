@@ -38,7 +38,7 @@ msgstr "Contact"
 #. module: mozaik_partner_unauthorized
 #: model:ir.ui.view,arch_db:mozaik_partner_unauthorized.res_partner_search_view
 msgid "Email"
-msgstr "Adresse électronique"
+msgstr "Courriel"
 
 #. module: mozaik_partner_unauthorized
 #: model:ir.ui.view,arch_db:mozaik_partner_unauthorized.res_partner_search_view

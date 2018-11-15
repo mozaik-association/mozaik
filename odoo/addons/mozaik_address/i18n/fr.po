@@ -91,11 +91,6 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: mozaik_address
-#: model:ir.ui.view,arch_db:mozaik_address.change_co_residency_address_wizard
-msgid "Change"
-msgstr "Modifier"
-
-#. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.change_co_residency_address_action
 msgid "Change Co-Residency Address"
 msgstr "Modifier l'adresse de co-résidence"
@@ -340,6 +335,11 @@ msgstr "Ligne 2"
 #: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_message
 msgid "Message"
 msgstr "Message"
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.change_co_residency_address_wizard
+msgid "Modify"
+msgstr "Modifier"
 
 #. module: mozaik_address
 #: model:ir.ui.view,arch_db:mozaik_address.address_address_form_view

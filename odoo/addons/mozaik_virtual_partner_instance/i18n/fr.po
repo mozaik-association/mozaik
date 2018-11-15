@@ -83,12 +83,12 @@ msgstr "Instance Interne descendant de..."
 #. module: mozaik_virtual_partner_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance_is_donor
 msgid "Is a donor"
-msgstr "Est donateur"
+msgstr "Est un donateur"
 
 #. module: mozaik_virtual_partner_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance_is_volunteer
 msgid "Is a volunteer"
-msgstr "Est volontaire"
+msgstr "Est un volontaire"
 
 #. module: mozaik_virtual_partner_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance___last_update
@@ -104,7 +104,7 @@ msgstr "Personnes morales"
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance_local_only
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
 msgid "Local Only"
-msgstr "Contact local"
+msgstr "Est contact local"
 
 #. module: mozaik_virtual_partner_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance_local_voluntary
@@ -149,7 +149,7 @@ msgstr "Personnes physiques"
 #. module: mozaik_virtual_partner_instance
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
 msgid "Non Local Voluntary"
-msgstr "Volontaire local"
+msgstr "Volontaire non local"
 
 #. module: mozaik_virtual_partner_instance
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
@@ -202,7 +202,7 @@ msgstr "Volontaire régional"
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance_membership_state_id
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
 msgid "State"
-msgstr "Etat"
+msgstr "Statut"
 
 #. module: mozaik_virtual_partner_instance
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view

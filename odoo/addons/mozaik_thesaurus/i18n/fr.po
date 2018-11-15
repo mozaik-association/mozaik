@@ -163,6 +163,11 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: mozaik_thesaurus
+#: model:res.groups,name:mozaik_thesaurus.thesaurus_manager
+msgid "Manager"
+msgstr "Gestionnaire"
+
+#. module: mozaik_thesaurus
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_form_view
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
 msgid "More Info"
@@ -179,6 +184,11 @@ msgstr "Nouveau terme à valider"
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
 msgid "Parent Terms"
 msgstr "Termes parents"
+
+#. module: mozaik_thesaurus
+#: model:res.groups,name:mozaik_thesaurus.thesaurus_reader
+msgid "Reader"
+msgstr "Lecteur"
 
 #. module: mozaik_thesaurus
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
@@ -224,16 +234,6 @@ msgid "Thesaurus"
 msgstr "Thésaurus"
 
 #. module: mozaik_thesaurus
-#: model:res.groups,name:mozaik_thesaurus.thesaurus_manager
-msgid "Manager"
-msgstr "Gestionnaire"
-
-#. module: mozaik_thesaurus
-#: model:res.groups,name:mozaik_thesaurus.thesaurus_reader
-msgid "Reader"
-msgstr "Lecteur"
-
-#. module: mozaik_thesaurus
 #: model:ir.model,name:mozaik_thesaurus.model_thesaurus_term
 msgid "Thesaurus Term"
 msgstr "Terme du thésaurus"
@@ -243,11 +243,6 @@ msgstr "Terme du thésaurus"
 #: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_term_menu
 msgid "Thesaurus Terms"
 msgstr "Termes du thésaurus"
-
-#. module: mozaik_thesaurus
-#: model:res.groups,name:mozaik_thesaurus.thesaurus_user
-msgid "User"
-msgstr "Utilisateur"
 
 #. module: mozaik_thesaurus
 #: sql_constraint:thesaurus:0
@@ -268,4 +263,9 @@ msgstr "Sujets"
 #: selection:thesaurus.term,state:0
 msgid "Unconfirmed"
 msgstr "Non confirmé"
+
+#. module: mozaik_thesaurus
+#: model:res.groups,name:mozaik_thesaurus.thesaurus_user
+msgid "User"
+msgstr "Utilisateur"
 

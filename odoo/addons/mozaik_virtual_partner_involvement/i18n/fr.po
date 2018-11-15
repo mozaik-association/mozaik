@@ -81,6 +81,7 @@ msgid "Internal Instance descending of..."
 msgstr "Instance Interne descendant de..."
 
 #. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_involvement_category_id
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Involvement Category"
 msgstr "Catégorie de participation"
@@ -124,12 +125,12 @@ msgstr "Années de participation"
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_is_donor
 msgid "Is a donor"
-msgstr "Est donateur"
+msgstr "Est un donateur"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_is_volunteer
 msgid "Is a volunteer"
-msgstr "Est volontaire"
+msgstr "Est un volontaire"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement___last_update
@@ -145,7 +146,7 @@ msgstr "Personnes morales"
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_local_only
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Local Only"
-msgstr "Contact local"
+msgstr "Est contact local"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_local_voluntary
@@ -180,27 +181,25 @@ msgstr "Personnes physiques"
 msgid "Non Local Voluntary"
 msgstr "Volontaire non local"
 
-#. module: mozaik_communication
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Non National Voluntary"
-msgstr "Pas actif pol. niv. national"
+msgstr "Volontaire non national"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Non Regional Voluntary"
-msgstr "Volontaire régional"
+msgstr "Volontaire non régional"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Not Employee"
 msgstr "Non employé"
 
-#. module: mozaik_communication
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Not Local Only"
-msgstr "N'est pas contact local"
+msgstr "Contact non local"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view

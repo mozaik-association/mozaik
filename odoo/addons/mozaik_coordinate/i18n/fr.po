@@ -75,11 +75,6 @@ msgid "Category"
 msgstr "Catégorie"
 
 #. module: mozaik_coordinate
-#: model:ir.ui.view,arch_db:mozaik_coordinate.change_main_coordinate_form
-msgid "Change"
-msgstr "Modifier"
-
-#. module: mozaik_coordinate
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_address_change_allowed
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_coordinate_change_allowed
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_change_main_email_change_allowed
@@ -112,23 +107,13 @@ msgstr "Catégories de coordonnées"
 
 #. module: mozaik_coordinate
 #: model:ir.model,name:mozaik_coordinate.model_coordinate_category
-#: model:ir.ui.menu,name:mozaik_coordinate.coordinate_category_menu
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_coordinate_category_id
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_email_coordinate_coordinate_category_id
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_phone_coordinate_coordinate_category_id
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_postal_coordinate_coordinate_category_id
+#: model:ir.ui.menu,name:mozaik_coordinate.coordinate_category_menu
 msgid "Coordinate Category"
 msgstr "Catégorie de coordonnée"
-
-#. module: mozaik_coordinate
-#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_manager
-msgid "Manager"
-msgstr "Gestionnaire"
-
-#. module: mozaik_coordinate
-#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_reader
-msgid "Reader"
-msgstr "Lecteur"
 
 #. module: mozaik_coordinate
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_coordinate_type
@@ -138,21 +123,7 @@ msgid "Coordinate Type"
 msgstr "Type de coordonnée"
 
 #. module: mozaik_coordinate
-#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_user
-msgid "User"
-msgstr "Utilisateur"
-
-#. module: mozaik_coordinate
-#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_vip_reader
-msgid "VIP Reader"
-msgstr "Lecteur VIP"
-
-#. module: mozaik_coordinate
-#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_vip_user
-msgid "VIP User"
-msgstr "Utilisateur VIP"
-
-#. module: mozaik_coordinate
+#: model:ir.ui.menu,name:mozaik_coordinate.mozaik_coordinate_menu
 #: model:ir.ui.view,arch_db:mozaik_coordinate.res_partner_form_view
 msgid "Coordinates"
 msgstr "Coordonnées"
@@ -317,6 +288,11 @@ msgid "Main Coordinates"
 msgstr "Coodonnées principales"
 
 #. module: mozaik_coordinate
+#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_manager
+msgid "Manager"
+msgstr "Gestionnaire"
+
+#. module: mozaik_coordinate
 #: code:addons/mozaik_coordinate/wizards/failure_editor.py:34
 #, python-format
 msgid "Missing active_ids in context!"
@@ -327,6 +303,11 @@ msgstr "active_ids manquant dans le contexte!"
 #, python-format
 msgid "Missing active_model in context!"
 msgstr "active_model manquant dans le contexte!"
+
+#. module: mozaik_coordinate
+#: model:ir.ui.view,arch_db:mozaik_coordinate.change_main_coordinate_form
+msgid "Modify"
+msgstr "Modifier"
 
 #. module: mozaik_coordinate
 #: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
@@ -366,6 +347,11 @@ msgstr "Réactiver"
 #: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
 msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_coordinate
+#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_reader
+msgid "Reader"
+msgstr "Lecteur"
 
 #. module: mozaik_coordinate
 #: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_form_view
@@ -411,6 +397,11 @@ msgid "Undo allow duplicate: proceed anyway?"
 msgstr "Poursuivre le rétablissement des doublons ?"
 
 #. module: mozaik_coordinate
+#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_user
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: mozaik_coordinate
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_abstract_coordinate_vip
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_email_coordinate_vip
 #: model:ir.model.fields,field_description:mozaik_coordinate.field_phone_coordinate_vip
@@ -418,6 +409,16 @@ msgstr "Poursuivre le rétablissement des doublons ?"
 #: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view
 msgid "VIP"
 msgstr "VIP"
+
+#. module: mozaik_coordinate
+#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_vip_reader
+msgid "VIP Reader"
+msgstr "Lecteur VIP"
+
+#. module: mozaik_coordinate
+#: model:res.groups,name:mozaik_coordinate.res_groups_coordinate_vip_user
+msgid "VIP User"
+msgstr "Utilisateur VIP"
 
 #. module: mozaik_coordinate
 #: model:ir.ui.view,arch_db:mozaik_coordinate.abstract_coordinate_search_view

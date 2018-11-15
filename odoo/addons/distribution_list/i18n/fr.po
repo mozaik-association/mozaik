@@ -79,7 +79,6 @@ msgid "Complete Distribution List"
 msgstr "Compléter une liste de distribution"
 
 #. module: distribution_list
-#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_create_date
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_create_date
 msgid "Create Date"
 msgstr "Date de création"
@@ -94,6 +93,7 @@ msgstr "Créé par"
 
 #. module: distribution_list
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter_create_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_create_date
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list_create_date
 msgid "Created on"
 msgstr "Créé le"
@@ -322,8 +322,8 @@ msgstr "Enregistrer l'expression"
 
 #. module: distribution_list
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_dst_model_id
-#: model:ir.ui.view,arch_db:distribution_list.distribution_list_search
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_trg_model
+#: model:ir.ui.view,arch_db:distribution_list.distribution_list_search
 msgid "Target Model"
 msgstr "Modèle destination"
 

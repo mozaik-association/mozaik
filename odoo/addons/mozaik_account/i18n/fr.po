@@ -62,6 +62,12 @@ msgid "Membership update"
 msgstr "Mise à jour d'une adhésion"
 
 #. module: mozaik_account
+#: code:addons/mozaik_account/models/membership_line.py:46
+#, python-format
+msgid "More than one membership to reconcile are available"
+msgstr "Plus d'une adhésion à réconcilier sont disponibles"
+
+#. module: mozaik_account
 #: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Paid"
 msgstr "Payée"
@@ -82,12 +88,6 @@ msgstr "Articles"
 #: model:ir.model.fields,field_description:mozaik_account.field_product_template_property_subscription_account
 msgid "Subscription Account"
 msgstr "Compte de cotisation"
-
-#. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:46
-#, python-format
-msgid "More than one membership to reconcile are available"
-msgstr "Plus d'une adhésion à réconcilier sont disponibles"
 
 #. module: mozaik_account
 #: code:addons/mozaik_account/models/account_bank_statement_line.py:155

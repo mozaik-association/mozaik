@@ -121,14 +121,14 @@ msgid "All relations with current partner"
 msgstr "Toutes les relations avec le partenaire courant"
 
 #. module: mozaik_structure
-#: model:ir.ui.view,arch_db:mozaik_structure.abstract_assembly_form_view
-msgid "Archive/reactivate assembly: proceed anyway?"
-msgstr "Poursuivre l'archivage/réactivation de l'assemblée ?"
-
-#. module: mozaik_structure
 #: model:ir.ui.view,arch_db:mozaik_structure.abstract_assembly_category_form_view
 msgid "Archive/reactivate assembly category: proceed anyway?"
 msgstr "Poursuivre l'archivage/réactivation de la catégorie ?"
+
+#. module: mozaik_structure
+#: model:ir.ui.view,arch_db:mozaik_structure.abstract_assembly_form_view
+msgid "Archive/reactivate assembly: proceed anyway?"
+msgstr "Poursuivre l'archivage/réactivation de l'assemblée ?"
 
 #. module: mozaik_structure
 #: model:ir.ui.view,arch_db:mozaik_structure.electoral_district_form_view
@@ -713,10 +713,10 @@ msgid "Gender"
 msgstr "Genre"
 
 #. module: mozaik_structure
+#: model:ir.ui.view,arch_db:mozaik_structure.abstract_assembly_category_search_view
 #: model:ir.ui.view,arch_db:mozaik_structure.abstract_assembly_search_view
 #: model:ir.ui.view,arch_db:mozaik_structure.abstract_instance_search_view
 #: model:ir.ui.view,arch_db:mozaik_structure.abstract_power_level_search_view
-#: model:ir.ui.view,arch_db:mozaik_structure.abstract_assembly_category_search_view
 #: model:ir.ui.view,arch_db:mozaik_structure.electoral_district_search_view
 #: model:ir.ui.view,arch_db:mozaik_structure.legislature_search_view
 msgid "Group By..."
@@ -1119,6 +1119,11 @@ msgid "Level For Followers"
 msgstr "Niveau à abonner"
 
 #. module: mozaik_structure
+#: model:res.groups,name:mozaik_structure.res_groups_structure_manager
+msgid "Manager"
+msgstr "Gestionnaire"
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_marital
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_marital
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_marital
@@ -1323,6 +1328,11 @@ msgstr "Le niveau de pouvoir est inconsistent avec celui des assemblées associ�
 #, python-format
 msgid "Power level of category and instance are inconsistent"
 msgstr "Le niveau de pouvoir de la catégorie et de l'instance sont incompatibles"
+
+#. module: mozaik_structure
+#: model:res.groups,name:mozaik_structure.res_groups_structure_reader
+msgid "Reader"
+msgstr "Lecteur"
 
 #. module: mozaik_structure
 #: code:addons/mozaik_structure/models/ext_assembly.py:56
@@ -1623,16 +1633,6 @@ msgstr "Rue 2"
 #: model:ir.module.category,name:mozaik_structure.module_category_structure
 msgid "Structure"
 msgstr "Structure"
-
-#. module: mozaik_structure
-#: model:res.groups,name:mozaik_structure.res_groups_structure_manager
-msgid "Manager"
-msgstr "Gestionnaire"
-
-#. module: mozaik_structure
-#: model:res.groups,name:mozaik_structure.res_groups_structure_reader
-msgid "Reader"
-msgstr "Lecteur"
 
 #. module: mozaik_structure
 #: model:ir.ui.menu,name:mozaik_structure.structure_root_menu

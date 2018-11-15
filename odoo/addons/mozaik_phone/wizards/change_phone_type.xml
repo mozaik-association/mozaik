@@ -15,7 +15,7 @@
                     <field name="is_main"/>
                 </group>
                 <footer>
-                    <button string="Change" name="change_phone_type" type="object" class="oe_highlight" />
+                    <button string="Modify" name="change_phone_type" type="object" class="oe_highlight" />
                     or
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>

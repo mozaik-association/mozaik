@@ -22,7 +22,7 @@
                 </notebook>
                 <footer>
                     <span name="go-wizard" attrs="{'invisible': [('change_allowed','=', False)]}">
-                        <button string="Change" name="button_change_main_coordinate" type="object" class="oe_highlight" />
+                        <button string="Modify" name="button_change_main_coordinate" type="object" class="oe_highlight" />
                         or
                     </span>
                     <button string="Cancel" class="oe_link" special="cancel" />

@@ -58,11 +58,6 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: mozaik_phone
-#: model:ir.ui.view,arch_db:mozaik_phone.change_phone_type_form
-msgid "Change"
-msgstr "Modifier"
-
-#. module: mozaik_phone
 #: model:ir.actions.act_window,name:mozaik_phone.change_main_phone_action
 msgid "Change Main Phone"
 msgstr "Changer le téléphone principal"
@@ -216,6 +211,11 @@ msgstr "Numéros de téléphone invalides"
 #: selection:phone.phone,type:0
 msgid "Mobile"
 msgstr "Mobile"
+
+#. module: mozaik_phone
+#: model:ir.ui.view,arch_db:mozaik_phone.change_phone_type_form
+msgid "Modify"
+msgstr "Modifier"
 
 #. module: mozaik_phone
 #: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_form_view

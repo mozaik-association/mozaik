@@ -78,12 +78,12 @@ msgstr "Instance Interne descendant de..."
 #. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_is_donor
 msgid "Is a donor"
-msgstr "Est donateur"
+msgstr "Est un donateur"
 
 #. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_is_volunteer
 msgid "Is a volunteer"
-msgstr "Est volontaire"
+msgstr "Est un volontaire"
 
 #. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership___last_update
@@ -130,7 +130,7 @@ msgstr "Référence"
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_membership_state_id
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
 msgid "State"
-msgstr "Etat"
+msgstr "Statut"
 
 #. module: mozaik_virtual_partner_membership
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view

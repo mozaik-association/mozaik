@@ -28,7 +28,7 @@ class MailComposeMessage(models.TransientModel):
         if not isinstance(priorities, dict):
             raise exceptions.UserError(
                 _("Error to load the system parameter (%s) of priorities.\n"
-                  "Invalid dict") % key)
+                  "Invalid dictionary") % key)
         return priorities
 
     @api.multi

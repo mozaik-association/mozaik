@@ -177,12 +177,6 @@ msgid "Involvement"
 msgstr "Participation"
 
 #. module: mozaik_involvement
-#: model:ir.actions.act_window,name:mozaik_involvement.partner_involvement_category_act_window
-#: model:ir.ui.menu,name:mozaik_involvement.partner_involvement_category_menu
-msgid "Involvements Categories"
-msgstr "Catégories de participations"
-
-#. module: mozaik_involvement
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_name
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_involvement_category_id
 msgid "Involvement Category"
@@ -195,21 +189,6 @@ msgid "Involvement Date"
 msgstr "Date de participation"
 
 #. module: mozaik_involvement
-#: model:res.groups,name:mozaik_involvement.res_groups_involvement_manager
-msgid "Manager"
-msgstr "Gestionnaire"
-
-#. module: mozaik_involvement
-#: model:res.groups,name:mozaik_involvement.res_groups_involvement_reader
-msgid "Reader"
-msgstr "Lecteur"
-
-#. module: mozaik_involvement
-#: model:res.groups,name:mozaik_involvement.res_groups_involvement_user
-msgid "User"
-msgstr "Utilisateur"
-
-#. module: mozaik_involvement
 #: model:ir.actions.act_window,name:mozaik_involvement.partner_involvement_act_window
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_involvement_ids
 #: model:ir.ui.menu,name:mozaik_involvement.involvement_menu
@@ -218,6 +197,12 @@ msgstr "Utilisateur"
 #: model:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
 msgid "Involvements"
 msgstr "Participations"
+
+#. module: mozaik_involvement
+#: model:ir.actions.act_window,name:mozaik_involvement.partner_involvement_category_act_window
+#: model:ir.ui.menu,name:mozaik_involvement.partner_involvement_category_menu
+msgid "Involvements Categories"
+msgstr "Catégories de participations"
 
 #. module: mozaik_involvement
 #: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
@@ -261,6 +246,11 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
+
+#. module: mozaik_involvement
+#: model:res.groups,name:mozaik_involvement.res_groups_involvement_manager
+msgid "Manager"
+msgstr "Gestionnaire"
 
 #. module: mozaik_involvement
 #: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
@@ -333,6 +323,11 @@ msgid "Petition"
 msgstr "Pétition"
 
 #. module: mozaik_involvement
+#: model:res.groups,name:mozaik_involvement.res_groups_involvement_reader
+msgid "Reader"
+msgstr "Lecteur"
+
+#. module: mozaik_involvement
 #: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
 msgid "Security"
 msgstr "Sécurité"
@@ -344,6 +339,11 @@ msgstr "Sécurité"
 #: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Type"
 msgstr "Type"
+
+#. module: mozaik_involvement
+#: model:res.groups,name:mozaik_involvement.res_groups_involvement_user
+msgid "User"
+msgstr "Utilisateur"
 
 #. module: mozaik_involvement
 #: selection:partner.involvement.category,involvement_type:0
