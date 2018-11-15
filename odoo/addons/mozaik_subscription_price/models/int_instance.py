@@ -8,8 +8,8 @@ class IntInstance(models.Model):
 
     product_pricelist_id = fields.Many2one(
         comodel_name='product.pricelist',
-        string='Pricelist',
-        help="Price list containing prices to apply for your subscriptions",
+        string='Price list',
+        help="Price list to apply to subscriptions",
         copy=False,
     )
 

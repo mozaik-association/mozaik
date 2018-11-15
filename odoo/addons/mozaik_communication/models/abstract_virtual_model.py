@@ -25,7 +25,7 @@ class AbstractVirtualModel(models.AbstractModel):
     )
     email_coordinate_id = fields.Many2one(
         comodel_name="email.coordinate",
-        string="Email coordinate",
+        string="Email Coordinate",
     )
     postal_coordinate_id = fields.Many2one(
         comodel_name='postal.coordinate',
@@ -47,6 +47,7 @@ class AbstractVirtualModel(models.AbstractModel):
             allfields=['gender']).get('gender', {}).get('selection', [])
     )
     lang = fields.Selection(
+        string='Language',
         selection=lambda s: s.env['res.partner'].fields_get(
             allfields=['lang']).get('lang', {}).get('selection', [])
     )

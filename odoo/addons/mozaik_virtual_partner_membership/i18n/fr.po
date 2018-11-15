@@ -1,0 +1,164 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_virtual_partner_membership
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-14 16:56+0000\n"
+"PO-Revision-Date: 2018-11-14 16:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.actions.act_window,name:mozaik_virtual_partner_membership.add_filter_from_membership_action
+msgid "Add Filter To Distribution List"
+msgstr "Ajouter ce filtre à une liste de distribution"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Awaiting payment"
+msgstr "En attente de paiement"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Birth Date < ..."
+msgstr "Date de naissance < ..."
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Birth Date > ..."
+msgstr "Date de naissance > ..."
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model,name:mozaik_virtual_partner_membership.model_distribution_list_line
+msgid "Distribution List Line"
+msgstr "Filtre"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Donor"
+msgstr "Donateur"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Employee"
+msgstr "Employé"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Female"
+msgstr "Femme"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_id
+msgid "ID"
+msgstr "ID"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Internal Instance"
+msgstr "Instance interne"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Internal Instance descending of..."
+msgstr "Instance Interne descendant de..."
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_is_donor
+msgid "Is a donor"
+msgstr "Est donateur"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_is_volunteer
+msgid "Is a volunteer"
+msgstr "Est volontaire"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Male"
+msgstr "Homme"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Members"
+msgstr "Membres"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Not Employee"
+msgstr "Non employé"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model,name:mozaik_virtual_partner_membership.model_virtual_partner_membership
+msgid "Partner/Membership"
+msgstr "Partenaire/Adhésion"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.actions.act_window,name:mozaik_virtual_partner_membership.virtual_partner_membership_action
+#: model:ir.ui.menu,name:mozaik_virtual_partner_membership.virtual_partner_membership_menu
+msgid "Partners/Membership"
+msgstr "Partenaires/Adhésions"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_reference
+msgid "Reference"
+msgstr "Référence"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_membership_state_id
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "State"
+msgstr "Etat"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Unauthorized Address"
+msgstr "Adresse interdite"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Unauthorized Email"
+msgstr "Adresse électronique interdite"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "VIP Address"
+msgstr "Adresse VIP"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "VIP Email"
+msgstr "Adresse électronique VIP"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Volunteer"
+msgstr "Volontaire"
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Without Coordinate"
+msgstr "Injoignable"
+

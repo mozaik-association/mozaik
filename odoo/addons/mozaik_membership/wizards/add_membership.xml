@@ -27,7 +27,7 @@
                 </group>
                 <footer>
                     <button string="Add" name="action_add" type="object" class="oe_highlight" attrs="{'invisible':[('is_excluded','=', True)]}"/>
-                    <button string="Re-integrate and Add" name="action_add" type="object" confirm="Are-you sure to re-integrate this partner?" class="btn btn-danger" icon="fa-exclamation-triangle" attrs="{'invisible':[('is_excluded','!=', True)]}"/>
+                    <button string="Re-integrate and Add" name="action_add" type="object" confirm="Re-integrate this partner: proceed anyway?" class="btn btn-danger" icon="fa-exclamation-triangle" attrs="{'invisible':[('is_excluded','!=', True)]}"/>
                     <button string="Cancel" special="cancel"/>
                 </footer>
             </form>

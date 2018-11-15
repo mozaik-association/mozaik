@@ -10,12 +10,12 @@
     </record>
 
     <record model="res.groups" id="res_groups_involvement_reader">
-        <field name="name">Involvement Reader</field>
+        <field name="name">Reader</field>
         <field name="category_id" ref="module_category_involvement"/>
     </record>
 
     <record model="res.groups" id="res_groups_involvement_user">
-        <field name="name">Involvement User</field>
+        <field name="name">User</field>
         <field name="category_id" ref="module_category_involvement"/>
         <field name="implied_ids" eval="[(6, 0, [
             ref('res_groups_involvement_reader'),
@@ -23,7 +23,7 @@
     </record>
 
     <record model="res.groups" id="res_groups_involvement_manager">
-        <field name="name">Involvement Manager</field>
+        <field name="name">Manager</field>
         <field name="category_id" ref="module_category_involvement"/>
         <field name="implied_ids" eval="[(6, 0, [
             ref('res_groups_involvement_user'),

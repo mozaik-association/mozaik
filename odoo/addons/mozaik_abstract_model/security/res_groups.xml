@@ -4,7 +4,7 @@
 <odoo>
 
     <record model="res.groups" id="res_groups_follower_manager">
-        <field name="name">Follower manager</field>
+        <field name="name">Followers manager</field>
         <field name="category_id" ref="base.module_category_usability"/>
     </record>
 

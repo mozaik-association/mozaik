@@ -33,7 +33,6 @@ class AddMembership(models.TransientModel):
     product_id = fields.Many2one(
         comodel_name="product.product",
         string="Subscription",
-        help="Pick a subscription",
         domain=[('membership', '=', True)],
     )
     price = fields.Float(
@@ -48,7 +47,7 @@ class AddMembership(models.TransientModel):
     state_code = fields.Char(
         related='state_id.code', readonly=True)
     is_excluded = fields.Boolean(
-        help="Define if the selected partner is actually excluded",
+        help="Checked if the partner is currently excluded",
         related="partner_id.is_excluded",
         readonly=True,
     )

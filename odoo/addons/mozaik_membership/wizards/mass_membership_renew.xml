@@ -26,7 +26,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="mass_membership_renew_act_window">
-        <field name="name">Mass Membership Renew</field>
+        <field name="name">Renew Memberships</field>
         <field name="res_model">mass.membership.renew</field>
         <field name="view_mode">form</field>
         <field name="context">{"renew": True}</field>
@@ -36,7 +36,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="mass_membership_former_member_act_window">
-        <field name="name">Mass Membership Former Member</field>
+        <field name="name">Change Members to Former Members</field>
         <field name="res_model">mass.membership.renew</field>
         <field name="view_mode">form</field>
         <field name="context">{}</field>

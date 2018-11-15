@@ -25,7 +25,7 @@
     </record>
 
     <record id="membership_renew_membership_action" model="ir.actions.act_window">
-        <field name="name">Membership renew</field>
+        <field name="name">Renew Membership</field>
         <field name="view_mode">form</field>
         <field name="src_model">membership.line</field>
         <field name="res_model">membership.renew</field>
@@ -36,7 +36,7 @@
     </record>
 
     <record id="membership_renew_partner_action" model="ir.actions.act_window">
-        <field name="name">Membership renew</field>
+        <field name="name">Renew Membership</field>
         <field name="view_mode">form</field>
         <field name="src_model">res.partner</field>
         <field name="res_model">membership.renew</field>
@@ -47,7 +47,7 @@
     </record>
 
     <record id="membership_former_member_membership_action" model="ir.actions.act_window">
-        <field name="name">Membership fromer member</field>
+        <field name="name">Change Member to Former Member</field>
         <field name="view_mode">form</field>
         <field name="src_model">membership.line</field>
         <field name="res_model">membership.renew</field>
@@ -57,7 +57,7 @@
     </record>
 
     <record id="membership_former_member_partner_action" model="ir.actions.act_window">
-        <field name="name">Membership fromer member</field>
+        <field name="name">Change Member to Former Member</field>
         <field name="view_mode">form</field>
         <field name="src_model">res.partner</field>
         <field name="res_model">membership.renew</field>

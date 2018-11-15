@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 22:00+0000\n"
-"PO-Revision-Date: 2018-04-20 22:00+0000\n"
+"POT-Creation-Date: 2018-11-14 16:56+0000\n"
+"PO-Revision-Date: 2018-11-14 16:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,81 +16,53 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/partner_involvement.py:101
+#: code:addons/mozaik_person/models/res_partner.py:222
 #, python-format
-msgid "%s (copy)"
-msgstr "%s (copie)"
+msgid "%s cannot be a company to become a user!"
+msgstr "%s ne peut être une personne morale pour devenir un utilisateur !"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:464
+#: code:addons/mozaik_person/models/res_partner.py:218
 #, python-format
-msgid "A partner and a login must be provided to create a user!"
-msgstr "Un partenaire et un login sont requis pour créer un utilisateur !"
+msgid "%s is already a user!"
+msgstr "%s est déjà un utilisateur !"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/wizard/create_user_from_partner.py:62
+#: code:addons/mozaik_person/models/res_partner.py:227
+#, python-format
+msgid "%s must be active to become a user!"
+msgstr "%s doit être actif pour devenir un utilisateur !"
+
+#. module: mozaik_person
+#: code:addons/mozaik_person/wizards/create_user_from_partner.py:37
 #, python-format
 msgid "A partner is required to create a new user!"
 msgstr "Un partenaire est obligatoire pour créer un nouvel utilisateur !"
 
 #. module: mozaik_person
-#: field:res.partner,acronym:0
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users_acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_acronym
 msgid "Acronym"
 msgstr "Acronyme"
 
 #. module: mozaik_person
-#: field:partner.involvement,active:0
-#: field:partner.involvement.category,active:0
-msgid "Active"
-msgstr "Actif"
-
-#. module: mozaik_person
-#: field:res.partner,age:0
-msgid "Age"
-msgstr "Age"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Age < ..."
-msgstr "Âge < ..."
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Age >= ..."
-msgstr "Âge >= ..."
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "All"
 msgstr "Tous"
 
 #. module: mozaik_person
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-msgid "All Categories, expired or not"
-msgstr "Toutes les catégories, expirées ou non"
-
-#. module: mozaik_person
-#: model:ir.actions.act_window,name:mozaik_person.all_res_partner_action
-#: model:ir.ui.menu,name:mozaik_person.all_persons_menu
+#: model:ir.ui.menu,name:mozaik_person.all_person_menu
 msgid "All Contacts"
-msgstr "Tous les partenaires"
+msgstr "Tous les contacts"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "All Contacts, expired or not"
-msgstr "Toutes les partenaires, expirés ou non"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "All Details"
-msgstr "Tous les détails"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "All Involvements, expired or not"
-msgstr "Toutes les participations, expirées ou non"
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+msgid "All Contacts, archived or not"
+msgstr "Tous les contacts, expirés ou non"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action
@@ -98,711 +70,220 @@ msgid "Allow Duplicates"
 msgstr "Autoriser les doublons"
 
 #. module: mozaik_person
-#: field:partner.involvement,allow_multi:0
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-#: field:partner.involvement.category,allow_multi:0
-msgid "Allow Multiple Involvements"
-msgstr "Permettre plusieurs participations"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/partner_involvement.py:222
-#, python-format
-msgid "An active involvement cannot be duplicated."
-msgstr "Une participation active ne peut être dupliquée."
-
-#. module: mozaik_person
-#: field:create.user.from.partner,appl_id:0
-msgid "Application"
-msgstr "Application"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Assemblies"
-msgstr "Assemblées"
-
-#. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:470
-#, python-format
-msgid "Bad partner id: %s!"
-msgstr "Identifiant de partenaire incorrect: %s!"
-
-#. module: mozaik_person
-#: field:res.partner,birth_date:0
-msgid "Birth Date"
-msgstr "Naissance"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Birth Date < ..."
-msgstr "Date de naissance < ..."
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Birth Date > ..."
-msgstr "Date de naissance > ..."
-
-#. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
+#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: mozaik_person
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-msgid "Categories of which I am an owner"
-msgstr "Catégories dont je suis propriétaire"
+#: model:ir.model,name:mozaik_person.model_res_partner
+msgid "Contact"
+msgstr "Contact"
 
 #. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "Category"
-msgstr "Catégorie"
-
-#. module: mozaik_person
-#: field:res.partner,civil_status:0
-msgid "Civil Status"
-msgstr "État civil"
-
-#. module: mozaik_person
-#: field:partner.involvement.category,code:0
-msgid "Code"
-msgstr "Code"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-#: field:res.partner,competencies_m2m_ids:0
-msgid "Competencies"
-msgstr "Compétences"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Competencies & Topics"
-msgstr "Compétences & thèmes"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Country"
-msgstr "Pays"
-
-#. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
+#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "Create"
 msgstr "Créer"
 
 #. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
-msgid "Create a User from a Partner"
-msgstr "Créer un utilisateur à partir d'un partenanire"
-
-#. module: mozaik_person
-#: field:create.user.from.partner,create_uid:0
-#: field:partner.involvement,create_uid:0
-#: field:partner.involvement.category,create_uid:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_person
-#: field:create.user.from.partner,create_date:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_create_date
 msgid "Created on"
 msgstr "Créé le"
 
 #. module: mozaik_person
-#: field:partner.involvement,create_date:0
-#: field:partner.involvement.category,create_date:0
-msgid "Creation Date"
-msgstr "Date de création"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "Creation Date < ..."
-msgstr "Date de création < ..."
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "Creation Date > ..."
-msgstr "Date de création  > ..."
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "Creation Months"
-msgstr "Mois de création"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "Creation Years"
-msgstr "Années de création"
-
-#. module: mozaik_person
-#: help:partner.involvement,message_last_post:0
-#: help:partner.involvement.category,message_last_post:0
-msgid "Date of the last message posted on the record."
-msgstr "Date du dernier message posté sur l'enregistrement."
-
-#. module: mozaik_person
-#: field:create.user.from.partner,display_name:0
-#: field:partner.involvement,display_name:0
-#: field:partner.involvement.category,display_name:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_display_name
 msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: mozaik_person
-#: selection:res.partner,civil_status:0
-msgid "Divorced"
-msgstr "Divorcé(e)"
-
-#. module: mozaik_person
-#: model:ir.actions.act_window,name:mozaik_person.partner_involvement_donation_action
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "Donations"
-msgstr "Dons"
-
-#. module: mozaik_person
-#: selection:partner.involvement.category,involvement_type:0
-msgid "Donations Campaign"
-msgstr "Compagne de dons"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Donor"
-msgstr "Donateur"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.actions.act_window,name:mozaik_person.res_partner_duplicate_action
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Duplicates"
 msgstr "Doublons"
 
 #. module: mozaik_person
-#: sql_constraint:partner.involvement:0
-msgid "Effective time is mandatory for this kind of involvement !"
-msgstr "L'heure effective est obligatoire pour ce type de particpation !"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Employee"
 msgstr "Employé"
 
 #. module: mozaik_person
-#: field:res.partner,enterprise_identifier:0
-msgid "Enterprise Number"
-msgstr "Numéro d'enterprise"
-
-#. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:463
-#: code:addons/mozaik_person/res_partner.py:469
-#: code:addons/mozaik_person/res_partner.py:475
-#: code:addons/mozaik_person/res_partner.py:481
-#: code:addons/mozaik_person/res_partner.py:488
-#: code:addons/mozaik_person/wizard/create_user_from_partner.py:61
-#, python-format
-msgid "Error"
-msgstr "Erreur"
-
-#. module: mozaik_person
-#: field:partner.involvement,expire_date:0
-#: field:partner.involvement.category,expire_date:0
-#: field:res.partner,expire_date:0
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users_expire_date
 msgid "Expiration Date"
 msgstr "Date d'expiration"
 
 #. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Expired"
-msgstr "Expiré"
-
-#. module: mozaik_person
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-msgid "Expired Categories"
-msgstr "Catégories exipirées"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Expired Contacts"
-msgstr "Partenaires expirés"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "Expired Involvements"
-msgstr "Participations expirées"
-
-#. module: mozaik_person
-#: field:res.partner,facebook:0
-msgid "Facebook"
-msgstr "Facebook"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-#: selection:res.partner,gender:0
-msgid "Female"
-msgstr "Femme"
-
-#. module: mozaik_person
-#: field:partner.involvement,message_follower_ids:0
-#: field:partner.involvement.category,message_follower_ids:0
-msgid "Followers"
-msgstr "Abonnés"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-#: selection:res.partner,tongue:0
-msgid "French"
-msgstr "Français"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-#: field:res.partner,gender:0
-msgid "Gender"
-msgstr "Genre"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-#: selection:res.partner,tongue:0
-msgid "German"
-msgstr "Allemand"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Group By..."
-msgstr "Grouper par..."
-
-#. module: mozaik_person
-#: help:partner.involvement,message_summary:0
-#: help:partner.involvement.category,message_summary:0
-msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
-msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
-
-#. module: mozaik_person
-#: field:create.user.from.partner,id:0
-#: field:partner.involvement,id:0
-#: field:partner.involvement.category,id:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_id
 msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_person
-#: help:res.partner,ldap_id:0
-msgid "ID of the user in the LDAP"
-msgstr "ID LDAP de l'utilisateur"
+#: code:addons/mozaik_person/models/res_partner.py:109
+#, python-format
+msgid "Identifier %s is already assigned"
+msgstr "L'identifiant %s est déjà assigné"
 
 #. module: mozaik_person
-#: help:partner.involvement,message_unread:0
-#: help:partner.involvement.category,message_unread:0
-msgid "If checked new messages require your attention."
-msgstr "Si coché, de nouveaux messages requièrent votre attention."
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "Indexation"
-msgstr "Indexation"
-
-#. module: mozaik_person
-#: field:partner.involvement.category,interests_m2m_ids:0
-#: view:res.partner:mozaik_person.view_partner_form
-#: field:res.partner,interests_m2m_ids:0
-msgid "Interests"
-msgstr "Intérêts"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_form_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "Invalidate"
-msgstr "Invalider"
-
-#. module: mozaik_person
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-msgid "Invalidate category: proceed anyway?"
-msgstr "Poursuivre l'invalidation de la catégorie ?"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "Invalidate contact: proceed anyway?"
-msgstr "Poursuivre l'invalidation du partenaire ?"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_form_view
-msgid "Invalidate involvement: proceed anyway?"
-msgstr "Poursuivre l'invalidation de la participation ?"
-
-#. module: mozaik_person
-#: model:ir.actions.act_window,name:mozaik_person.partner_involvement_category_action
-#: model:ir.ui.menu,name:mozaik_person.partner_involvement_category_menu
-msgid "Involvement Categories"
-msgstr "Catégories de participation"
-
-#. module: mozaik_person
-#: field:partner.involvement,involvement_category_id:0
-#: field:partner.involvement.category,name:0
-msgid "Involvement Category"
-msgstr "Catégorie de participation"
-
-#. module: mozaik_person
-#: field:partner.involvement,creation_time:0
-#: field:partner.involvement,effective_time:0
-msgid "Involvement Date"
-msgstr "Date de participation"
-
-#. module: mozaik_person
-#: model:ir.actions.act_window,name:mozaik_person.partner_involvement_action
-#: model:ir.ui.menu,name:mozaik_person.involvements_submenu
-#: model:ir.ui.menu,name:mozaik_person.partner_involvement_menu
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-#: field:partner.involvement.category,involvement_ids:0
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "Involvements"
-msgstr "Participations"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "Involvements of which I am one of the owners of the category"
-msgstr "Participations dont je suis propriétaire de la catégorie"
-
-#. module: mozaik_person
-#: field:res.partner,is_duplicate_allowed:0
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_is_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_is_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_is_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users_is_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_is_duplicate_allowed
 msgid "Is Duplicate Allowed"
 msgstr "Doublon autorisé"
 
 #. module: mozaik_person
-#: field:res.partner,is_duplicate_detected:0
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_is_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_is_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_is_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users_is_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_is_duplicate_detected
 msgid "Is Duplicate Detected"
 msgstr "Doublon détecté"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "Is a Company?"
-msgstr "Est une société ?"
-
-#. module: mozaik_person
-#: field:partner.involvement,message_is_follower:0
-#: field:partner.involvement.category,message_is_follower:0
-msgid "Is a Follower"
-msgstr "Est abonné"
-
-#. module: mozaik_person
-#: field:res.partner,is_donor:0
-msgid "Is a donor"
-msgstr "Est un donateur"
-
-#. module: mozaik_person
-#: field:res.partner,is_volunteer:0
-msgid "Is a volunteer"
-msgstr "Est un volontaire"
-
-#. module: mozaik_person
-#: field:res.partner,ldap_id:0
-msgid "LDAP Id"
-msgstr "Id LDAP"
-
-#. module: mozaik_person
-#: field:res.partner,ldap_name:0
-msgid "LDAP Name"
-msgstr "Nom LDAP"
-
-#. module: mozaik_person
-#: field:partner.involvement,message_last_post:0
-#: field:partner.involvement.category,message_last_post:0
-msgid "Last Message Date"
-msgstr "Date du dernier message"
-
-#. module: mozaik_person
-#: field:create.user.from.partner,__last_update:0
-#: field:partner.involvement,__last_update:0
-#: field:partner.involvement.category,__last_update:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: mozaik_person
-#: field:create.user.from.partner,write_uid:0
-#: field:partner.involvement,write_uid:0
-#: field:partner.involvement.category,write_uid:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_person
-#: field:create.user.from.partner,write_date:0
-#: field:partner.involvement,write_date:0
-#: field:partner.involvement.category,write_date:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_write_date
 msgid "Last Updated on"
-msgstr "Date de dernière mise à jour"
+msgstr "Dernière mise à jour le"
 
 #. module: mozaik_person
-#: model:ir.actions.act_window,name:mozaik_person.legal_res_partner_action
-#: model:ir.ui.menu,name:mozaik_person.legal_persons_menu
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.actions.act_window,name:mozaik_person.res_partner_legal_person_action
+#: model:ir.ui.menu,name:mozaik_person.legal_person_menu
 msgid "Legal Persons"
 msgstr "Personnes morales"
 
 #. module: mozaik_person
-#: field:create.user.from.partner,login:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_login
 msgid "Login"
-msgstr "Login"
+msgstr "Identifiant"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-#: selection:res.partner,gender:0
-msgid "Male"
-msgstr "Homme"
-
-#. module: mozaik_person
-#: selection:res.partner,civil_status:0
-msgid "Married"
-msgstr "Marié(e)"
-
-#. module: mozaik_person
-#: field:partner.involvement,message_ids:0
-#: field:partner.involvement.category,message_ids:0
-msgid "Messages"
-msgstr "Messages"
-
-#. module: mozaik_person
-#: help:partner.involvement,message_ids:0
-#: help:partner.involvement.category,message_ids:0
-msgid "Messages and communication history"
-msgstr "Historique des messages et communications"
-
-#. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
-#: view:partner.involvement:mozaik_person.partner_involvement_form_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-#: view:res.partner:mozaik_person.view_emails_partner_info_form
+#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
 msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_person
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-msgid "My Categories"
-msgstr "Mes catégories"
+#: model:ir.ui.view,arch_db:mozaik_person.view_partner_tree_view
+msgid "Name"
+msgstr "Nom"
 
 #. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "My Involvements"
-msgstr "Mes participations"
-
-#. module: mozaik_person
-#: help:res.partner,ldap_name:0
-msgid "Name of the user in the LDAP"
-msgstr "Nom LDAP de l'utilisateur"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Nationality"
-msgstr "Nationalité"
-
-#. module: mozaik_person
-#: model:ir.actions.act_window,name:mozaik_person.natural_res_partner_action
-#: model:ir.ui.menu,name:mozaik_person.natural_persons_menu
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.actions.act_window,name:mozaik_person.res_partner_natural_person_action
+#: model:ir.ui.menu,name:mozaik_person.natural_person_menu
 msgid "Natural Persons"
 msgstr "Personnes physiques"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Not Employee"
 msgstr "Non Employé"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Not User"
 msgstr "Non utilisateur"
 
 #. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_form_view
-msgid "Note"
-msgstr "Note"
-
-#. module: mozaik_person
-#: field:partner.involvement,note:0
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-#: field:partner.involvement.category,note:0
-msgid "Notes"
-msgstr "Notes"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-#: field:res.partner,identifier:0
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users_identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_identifier
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Number"
 msgstr "Numéro"
 
 #. module: mozaik_person
-#: field:partner.involvement.category,res_users_ids:0
-msgid "Owners"
-msgstr "Propriétaires"
-
-#. module: mozaik_person
-#: model:ir.model,name:mozaik_person.model_res_partner
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: field:partner.involvement,partner_id:0
-#: view:res.partner:mozaik_person.res_partner_search_view
+#: model:ir.module.category,name:mozaik_person.module_category_partner
 msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_person
-#: model:ir.model,name:mozaik_person.model_partner_involvement
-#: view:partner.involvement:mozaik_person.partner_involvement_form_view
-msgid "Partner Involvement"
-msgstr "Participation de partenaire"
+#: model:res.groups,name:mozaik_person.res_groups_partner_reader
+msgid "Reader"
+msgstr "Lecteur"
 
 #. module: mozaik_person
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-msgid "Partner Involvement Categories"
-msgstr "Catégories de participation de partenaire"
+#: model:res.groups,name:mozaik_person.res_groups_partner_user
+msgid "User"
+msgstr "Utilisateur"
 
 #. module: mozaik_person
-#: model:ir.model,name:mozaik_person.model_partner_involvement_category
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-msgid "Partner Involvement Category"
-msgstr "Catégorie de participation de partenaire"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: field:res.partner,partner_involvement_ids:0
-#: field:res.partner,partner_involvement_inactive_ids:0
-msgid "Partner Involvements"
-msgstr "Participations de partenaire"
-
-#. module: mozaik_person
-#: model:ir.ui.menu,name:mozaik_person.persons_menu
-msgid "Persons"
-msgstr "Personnes"
-
-#. module: mozaik_person
-#: selection:partner.involvement.category,involvement_type:0
-msgid "Petition"
-msgstr "Pétition"
-
-#. module: mozaik_person
-#: field:create.user.from.partner,portal_only:0
-msgid "Portal only"
-msgstr "Accès portail uniquement"
-
-#. module: mozaik_person
-#: field:res.partner,printable_name:0
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users_printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_printable_name
 msgid "Printable Name"
 msgstr "Nom imprimable"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.view_emails_partner_info_form
-msgid "Reactivate"
-msgstr "Réactiver"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_form_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-#: view:res.partner:mozaik_person.view_emails_partner_info_form
-msgid "Reactivate document: proceed anyway?"
-msgstr "Poursuivre la réactivation du document ?"
-
-#. module: mozaik_person
-#: field:create.user.from.partner,nok:0
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_nok
 msgid "Reason"
-msgstr "Raison"
+msgstr "Motif"
 
 #. module: mozaik_person
-#: field:res.partner,secondary_website:0
-msgid "Secondary Website"
-msgstr "Second site web"
+#: model:ir.actions.server,name:mozaik_person.reset_res_partner_identifiers_ir_cron_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_person.reset_res_partner_identifiers_ir_cron
+#: model:ir.cron,name:mozaik_person.reset_res_partner_identifiers_ir_cron
+msgid "Reset sequence 'Partner Identifier Sequence'"
+msgstr "Réinitialisation de la séquence 'Partner Identifier Sequence'"
 
 #. module: mozaik_person
-#: help:res.partner,secondary_website:0
-msgid "Secondary Website of Partner or Company"
-msgstr "Second site web de la personne physique ou morale"
-
-#. module: mozaik_person
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-msgid "Security"
-msgstr "Sécurité"
-
-#. module: mozaik_person
-#: field:res.partner,select_name:0
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users_select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_select_name
 msgid "Select Name"
 msgstr "Nom"
 
 #. module: mozaik_person
-#: selection:res.partner,civil_status:0
-msgid "Separated"
-msgstr "Séparé(e)"
-
-#. module: mozaik_person
-#: field:partner.involvement,message_summary:0
-#: field:partner.involvement.category,message_summary:0
-msgid "Summary"
-msgstr "Résumé"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Tag"
-msgstr "Étiquette"
-
-#. module: mozaik_person
-#: field:res.partner,technical_name:0
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users_technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_technical_name
 msgid "Technical Name"
 msgstr "Nom technique"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:482
-#, python-format
-msgid "The partner %s cannot be a company to be associated to a user!"
-msgstr "Le partenaire %s ne peut être une personne morale pour devenir un utilisateur !"
-
-#. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:489
-#, python-format
-msgid "The partner %s has to be active!"
-msgstr "Le partenaire %s doit être actif !"
-
-#. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:476
-#, python-format
-msgid "The partner %s is already a user!"
-msgstr "Le partenaire %s est déjà un utilisateur !"
-
-#. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
+#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "The selected partner is a legal person."
 msgstr "Le partenaire sélectionné est une personne morale."
 
 #. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
+#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "The selected partner is already a user."
 msgstr "Le partenaire sélectionné est déjà un utilisateur."
 
 #. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
+#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "The selected partner is deactivated."
 msgstr "Le partenaire sélectionné est désactivé."
-
-#. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:305
-#: constraint:res.partner:0
-#, python-format
-msgid "This identifier is already assigned"
-msgstr "Ce numéro d'identification est déjà attribué"
-
-#. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
-msgid "To become a member of the portal the contact has to have a known birthdate."
-msgstr "Pour devenir membre du portail le partenaire doit avoir une date de naissance."
-
-#. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
-msgid "To become a member of the portal the contact has to have an authorized email."
-msgstr "Pour devenir membre du portail le partenaire doit avoir une adresse électronique non interdite."
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-#: field:res.partner,tongue:0
-msgid "Tongue"
-msgstr "Langue"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "Topics"
-msgstr "Thèmes"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.create_user_from_partner_action
@@ -810,102 +291,26 @@ msgid "Transform to a User"
 msgstr "Transformer en un utilisateur"
 
 #. module: mozaik_person
-#: field:res.partner,twitter:0
-msgid "Twitter"
-msgstr "Twitter"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: field:partner.involvement,involvement_type:0
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-#: field:partner.involvement.category,involvement_type:0
-msgid "Type"
-msgstr "Type"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-#: view:res.partner:mozaik_person.view_partner_tree
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+#: model:ir.ui.view,arch_db:mozaik_person.view_partner_tree_view
 msgid "Undo Allow Duplicate"
 msgstr "Rétablir les doublons"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-#: view:res.partner:mozaik_person.view_partner_tree
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+#: model:ir.ui.view,arch_db:mozaik_person.view_partner_tree_view
 msgid "Undo allow duplicate: proceed anyway?"
 msgstr "Poursuivre le rétablissement des doublons ?"
 
 #. module: mozaik_person
-#: selection:res.partner,civil_status:0
-msgid "Unmarried"
-msgstr "Célibataire"
-
-#. module: mozaik_person
-#: field:partner.involvement,message_unread:0
-#: field:partner.involvement.category,message_unread:0
-msgid "Unread Messages"
-msgstr "Messages non lus"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-#: view:res.partner:mozaik_person.view_partner_form
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "User"
 msgstr "Utilisateur"
 
 #. module: mozaik_person
-#: field:create.user.from.partner,group_id:0
-msgid "User's group"
-msgstr "Profile"
-
-#. module: mozaik_person
-#: field:res.partner,usual_firstname:0
-msgid "Usual Firstname"
-msgstr "Prénom usuel"
-
-#. module: mozaik_person
-#: field:res.partner,usual_lastname:0
-msgid "Usual Lastname"
-msgstr "Nom usuel"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_form_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-msgid "Validate"
-msgstr "Valider"
-
-#. module: mozaik_person
-#: selection:partner.involvement.category,involvement_type:0
-msgid "Voluntary Work"
-msgstr "Volontariat"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Volunteer"
-msgstr "Volontaire"
-
-#. module: mozaik_person
-#: field:partner.involvement,website_message_ids:0
-#: field:partner.involvement.category,website_message_ids:0
-#: field:res.partner,website_message_ids:0
-msgid "Website Messages"
-msgstr "Messages de site web"
-
-#. module: mozaik_person
-#: help:partner.involvement,website_message_ids:0
-#: help:partner.involvement.category,website_message_ids:0
-#: help:res.partner,website_message_ids:0
-msgid "Website communication history"
-msgstr "Historique de communication de site web"
-
-#. module: mozaik_person
-#: selection:res.partner,civil_status:0
-msgid "Widowed"
-msgstr "Veuf(ve)"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
-msgid "Without Type"
-msgstr "Sans type"
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_role_id
+msgid "User's role"
+msgstr "Rôle de l'utilisateur"
 
 #. module: mozaik_person
 #: model:ir.model,name:mozaik_person.model_create_user_from_partner
@@ -913,27 +318,12 @@ msgid "Wizard to Create a User from a Partner"
 msgstr "Assistant de transformation d'un partenaire en utilisateur"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_tree
-msgid "grey:active==False;darkorange:is_duplicate_detected==True"
-msgstr "grey:active==False;darkorange:is_duplicate_detected==True"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
-msgid "mozaik_base.res_groups_developper"
-msgstr "mozaik_base.res_groups_developper"
-
-#. module: mozaik_person
-#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
+#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "or"
 msgstr "ou"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form_firstname
-msgid "{'readonly': ['|',('is_company', '=', False),('is_assembly', '=', True)], 'required': [('is_company', '=', True),('is_assembly', '=', False)]}"
-msgstr "{'readonly': ['|',('is_company', '=', False),('is_assembly', '=', True)], 'required': [('is_company', '=', True),('is_assembly', '=', False)]}"
-
-#. module: mozaik_person
-#: view:res.partner:mozaik_person.view_partner_form
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
 msgid "⇒ Show all duplicates"
 msgstr "⇒ Voir tous les doublons"
 

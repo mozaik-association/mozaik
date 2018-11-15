@@ -16,7 +16,7 @@
                         context="{'invisible_expire_date': False}"
                         domain="[('active', '&lt;=', 1)]" />
 
-                <group expand="0" string="Group By" name="group_by"/>
+                <group expand="0" string="Group By..." name="group_by"/>
             </search>
         </field>
     </record>

@@ -1,0 +1,262 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_virtual_partner_involvement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-14 16:56+0000\n"
+"PO-Revision-Date: 2018-11-14 16:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.actions.act_window,name:mozaik_virtual_partner_involvement.add_filter_from_invovlement_action
+msgid "Add Filter To Distribution List"
+msgstr "Ajouter ce filtre à une liste de distribution"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Birth Date < ..."
+msgstr "Date de naissance < ..."
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Birth Date > ..."
+msgstr "Date de naissance > ..."
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Competencies & Topics"
+msgstr "Compétences & thèmes"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model,name:mozaik_virtual_partner_involvement.model_distribution_list_line
+msgid "Distribution List Line"
+msgstr "Filtre"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Donation"
+msgstr "Don"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Donor"
+msgstr "Donateur"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Employee"
+msgstr "Employé"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Female"
+msgstr "Femme"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_id
+msgid "ID"
+msgstr "ID"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Internal Instance"
+msgstr "Instance interne"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Internal Instance descending of..."
+msgstr "Instance Interne descendant de..."
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Involvement Category"
+msgstr "Catégorie de participation"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_effective_time
+msgid "Involvement Date"
+msgstr "Date de participation"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Involvement Date < ..."
+msgstr "Date de participation < ..."
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Involvement Date > ..."
+msgstr "Date de participation > ..."
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Involvement Months"
+msgstr "Mois de participation"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_involvement_type
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Involvement Type"
+msgstr "Type de participation"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Involvement Without Type"
+msgstr "Participation sans type"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Involvement Years"
+msgstr "Années de participation"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_is_donor
+msgid "Is a donor"
+msgstr "Est donateur"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_is_volunteer
+msgid "Is a volunteer"
+msgstr "Est volontaire"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Legal Persons"
+msgstr "Personnes morales"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_local_only
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Local Only"
+msgstr "Contact local"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_local_voluntary
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Local Voluntary"
+msgstr "Volontaire local"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Male"
+msgstr "Homme"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_national_voluntary
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "National Voluntary"
+msgstr "Volontaire national"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_nationality_id
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Nationality"
+msgstr "Nationalité"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Natural Persons"
+msgstr "Personnes physiques"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Non Local Voluntary"
+msgstr "Volontaire non local"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Non National Voluntary"
+msgstr "Pas actif pol. niv. national"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Non Regional Voluntary"
+msgstr "Volontaire régional"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Not Employee"
+msgstr "Non employé"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+msgid "Not Local Only"
+msgstr "N'est pas contact local"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model,name:mozaik_virtual_partner_involvement.model_virtual_partner_involvement
+msgid "Partner/Involvement"
+msgstr "Partenaire/Participation"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.actions.act_window,name:mozaik_virtual_partner_involvement.virtual_partner_involvement_action
+#: model:ir.ui.menu,name:mozaik_virtual_partner_involvement.virtual_partner_involvement_menu
+msgid "Partners/Involvements"
+msgstr "Partenaires/Participations"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_promise
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Promise"
+msgstr "Promesse"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement_regional_voluntary
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Regional Voluntary"
+msgstr "Volontaire régional"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Unauthorized Address"
+msgstr "Adresse interdite"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Unauthorized Email"
+msgstr "Adresse électronique interdite"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "VIP Address"
+msgstr "Adresse VIP"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "VIP Email"
+msgstr "Adresse électronique VIP"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Volunteer"
+msgstr "Volontaire"
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
+msgid "Without Coordinate"
+msgstr "Injoignable"
+

@@ -12,11 +12,11 @@ class MembershipTarification(models.Model):
     _description = "Membership tarification"
 
     name = fields.Char(
-        help="Unique name of the tarification",
+        help="Name of the tarification",
         required=True,
     )
     sequence = fields.Integer(
-        help="Sequence to apply rule",
+        help="Order in which rule will be evaluated",
     )
     code = fields.Char(
         help="Python code to evaluate; should return a boolean.\n"

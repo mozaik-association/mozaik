@@ -128,7 +128,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="partner_involvement_category_act_window">
-        <field name="name">Involvement Categories</field>
+        <field name="name">Involvements Categories</field>
         <field name="res_model">partner.involvement.category</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" eval="partner_involvement_category_tree_view"/>

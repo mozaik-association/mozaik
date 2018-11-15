@@ -2,7 +2,7 @@
 <odoo noupdate="0">
 
     <record id="reset_res_partner_identifiers_ir_cron" model="ir.cron">
-        <field name="name">Reset res.partner identifiers sequence</field>
+        <field name="name">Reset sequence 'Partner Identifier Sequence'</field>
         <field name="user_id" ref="base.user_root"/>
         <field name="numbercall" eval="0"/>
         <field name="doall" eval="False"/>

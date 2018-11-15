@@ -56,7 +56,7 @@ class DistributionListLine(models.Model):
         readonly=True,
     )
     trg_model = fields.Char(
-        string="Target model",
+        string="Target Model",
         related="distribution_list_id.dst_model_id.model",
         readonly=True,
     )

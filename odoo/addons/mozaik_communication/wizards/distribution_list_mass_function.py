@@ -54,7 +54,7 @@ class DistributionListMassFunction(models.TransientModel):
     )
     distribution_list_id = fields.Many2one(
         comodel_name="distribution.list",
-        string="Distribution list",
+        string="Distribution List",
         required=True,
         ondelete="cascade",
         default=lambda self: self.env.context.get('active_id', False),
@@ -77,7 +77,6 @@ class DistributionListMassFunction(models.TransientModel):
         help="Get a CSV file for partners without email",
         default=False,
     )
-    postal_mail_name = fields.Char()
     sort_by = fields.Selection(
         selection=[
             ('identifier', 'Identification Number'),
@@ -274,11 +273,6 @@ class DistributionListMassFunction(models.TransientModel):
             # Get CSV containing postal coordinates
             dl = self.distribution_list_id
             mains, alternatives = dl._get_complex_distribution_list_ids()
-
-            if self.postal_mail_name and not self.include_without_coordinate:
-                self._post_processing(mains)
-                self.env['postal.mail']._generate_postal_log(
-                    self.postal_mail_name, mains)
         return alternatives, mains
 
     @api.multi
@@ -345,12 +339,7 @@ class DistributionListMassFunction(models.TransientModel):
                     topick = len(remaining)
                 mains = random.sample(remaining, topick)
 
-            if self.extract_csv and alternatives:
-                if self.postal_mail_name and \
-                        not self.include_without_coordinate:
-                    self.env['postal.mail']._generate_postal_log(
-                        self.postal_mail_name, alternatives)
-            elif not mains:
+            if not mains:
                 raise exceptions.UserError(_('There are no recipients'))
             self = self.with_context(
                 active_ids=mains.ids,

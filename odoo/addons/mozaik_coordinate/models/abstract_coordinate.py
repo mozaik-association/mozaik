@@ -21,7 +21,7 @@ class AbstractCoordinate(models.AbstractModel):
     )
     coordinate_category_id = fields.Many2one(
         'coordinate.category',
-        'Coordinate category',
+        string='Coordinate Category',
         track_visibility='onchange',
         index=True,
     )

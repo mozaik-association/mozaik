@@ -16,7 +16,7 @@
     </record>
 
     <record model="ir.ui.menu" id="product_pricelist_menu">
-        <field name="name">Product pricelists</field>
+        <field name="name">Price Lists</field>
         <field name="parent_id" ref="mozaik_membership.membership_submenu"/>
         <field name="action" ref="product.product_pricelist_action2"/>
         <field name="sequence" eval="20"/>

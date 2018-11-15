@@ -44,7 +44,7 @@ class MembershipLine(models.Model):
                 s.price, amount, precision_digits=precision))
         if len(memberships) > 1:
             raise UserError(_(
-                "There are more than one membership available to reconciled"))
+                "More than one membership to reconcile are available"))
         return memberships
 
     @api.model

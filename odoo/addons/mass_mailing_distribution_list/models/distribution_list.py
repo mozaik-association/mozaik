@@ -32,7 +32,7 @@ class DistributionList(models.Model):
         relation="distribution_list_res_partner_out",
         column1="distribution_list_id",
         column2="partner_id",
-        string="Opt-out",
+        string="Opt-Out",
         oldname="opt_out_ids",
     )
     res_partner_opt_in_ids = fields.Many2many(
@@ -40,7 +40,7 @@ class DistributionList(models.Model):
         relation="distribution_list_res_partner_in",
         column1="distribution_list_id",
         column2="partner_id",
-        string="Opt-in",
+        string="Opt-In",
         oldname="opt_in_ids",
     )
 

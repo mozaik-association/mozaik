@@ -8,7 +8,7 @@ class MassMailing(models.Model):
 
     distribution_list_id = fields.Many2one(
         comodel_name="distribution.list",
-        string="Distribution list",
+        string="Distribution List",
     )
 
     @api.onchange('mailing_model_id', 'contact_list_ids')

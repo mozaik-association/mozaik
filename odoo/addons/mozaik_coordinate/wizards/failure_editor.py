@@ -19,7 +19,7 @@ class FailureEditor(models.TransientModel):
     _sql_constraints = [
         ('increase_check',
          'CHECK(increase > 0)',
-         'The "Increase by" field should be a positive value'),
+         'The increment must be positive'),
     ]
 
     @api.model

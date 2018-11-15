@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-25 09:09+0000\n"
-"PO-Revision-Date: 2018-07-25 09:09+0000\n"
+"POT-Creation-Date: 2018-11-14 16:56+0000\n"
+"PO-Revision-Date: 2018-11-14 16:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,20 +18,20 @@ msgstr ""
 #. module: mozaik_duplicate
 #: model:ir.ui.view,arch_db:mozaik_duplicate.allow_duplicate_form_view
 msgid "<strong>\n"
-"                    Selected duplicates are allowed. Are you sure?\n"
+"                    Allow selected duplicates, proceed anyway?\n"
 "                </strong>"
 msgstr "<strong>\n"
-"                    Les doublons sélectionnés sont autorisés. Êtes vous sûr?\n"
+"                    Poursuivre l'autorisation des doublons sélectionnés ?\n"
 "                </strong>"
 
 #. module: mozaik_duplicate
 #: model:ir.model,name:mozaik_duplicate.model_abstract_duplicate
-msgid "Abstract Duplicate"
+msgid "Abstract Duplicate Model"
 msgstr "Modèle abstrait de doublons"
 
 #. module: mozaik_duplicate
 #: model:ir.model,name:mozaik_duplicate.model_allow_duplicate_wizard
-msgid "Allow duplicate wizard"
+msgid "Allow duplicates wizard"
 msgstr "Assistant d'autorisation de doublons"
 
 #. module: mozaik_duplicate
@@ -40,13 +40,11 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: mozaik_duplicate
-#: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate_create_uid
 #: model:ir.model.fields,field_description:mozaik_duplicate.field_allow_duplicate_wizard_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_duplicate
-#: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate_create_date
 #: model:ir.model.fields,field_description:mozaik_duplicate.field_allow_duplicate_wizard_create_date
 msgid "Created on"
 msgstr "Créé le"
@@ -64,12 +62,22 @@ msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_duplicate
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_coordinate_is_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate_is_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_email_coordinate_is_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_phone_coordinate_is_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_postal_coordinate_is_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_res_partner_is_duplicate_allowed
 msgid "Is Duplicate Allowed"
 msgstr "Doublon autorisé"
 
 #. module: mozaik_duplicate
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_coordinate_is_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate_is_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_email_coordinate_is_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_phone_coordinate_is_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_postal_coordinate_is_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_res_partner_is_duplicate_detected
 msgid "Is Duplicate Detected"
 msgstr "Doublon détecté"
 
@@ -80,19 +88,17 @@ msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: mozaik_duplicate
-#: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate_write_uid
 #: model:ir.model.fields,field_description:mozaik_duplicate.field_allow_duplicate_wizard_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_duplicate
-#: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate_write_date
 #: model:ir.model.fields,field_description:mozaik_duplicate.field_allow_duplicate_wizard_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: mozaik_duplicate
-#: code:addons/mozaik_duplicate/wizard/allow_duplicate_wizard.py:26
+#: code:addons/mozaik_duplicate/wizards/allow_duplicate_wizard.py:21
 #, python-format
 msgid "Missing active_model in context!"
 msgstr "\"active_model\" manquant dans le contexte!"
@@ -103,19 +109,19 @@ msgid "Ok"
 msgstr "Ok"
 
 #. module: mozaik_duplicate
-#: code:addons/mozaik_duplicate/wizard/allow_duplicate_wizard.py:63
+#: code:addons/mozaik_duplicate/wizards/allow_duplicate_wizard.py:57
 #, python-format
 msgid "You must only select duplicated entries!"
 msgstr "Seuls des doublons peuvent être sélectionnés!"
 
 #. module: mozaik_duplicate
-#: code:addons/mozaik_duplicate/wizard/allow_duplicate_wizard.py:37
+#: code:addons/mozaik_duplicate/wizards/allow_duplicate_wizard.py:32
 #, python-format
 msgid "You must select entries related to the same field \"%s\"!"
 msgstr "Vous devez sélectionner des doublons relatifs au même champ \"%s\"!"
 
 #. module: mozaik_duplicate
-#: code:addons/mozaik_duplicate/wizard/allow_duplicate_wizard.py:51
+#: code:addons/mozaik_duplicate/wizards/allow_duplicate_wizard.py:45
 #, python-format
 msgid "You must select more than one entry!"
 msgstr "Vous devez sélectionner au moins deux doublons!"
@@ -124,3 +130,4 @@ msgstr "Vous devez sélectionner au moins deux doublons!"
 #: model:ir.ui.view,arch_db:mozaik_duplicate.allow_duplicate_form_view
 msgid "or"
 msgstr "ou"
+

@@ -18,7 +18,7 @@
                         context="{'invisible_expire_date': False}"
                         domain="[('active', '&lt;=', 1)]" help="All Assemblies, archived or not" />
 
-                <group expand="0" string="Group By" name="group_by">
+                <group expand="0" string="Group By..." name="group_by">
                     <filter name="category" string="Category" context="{'group_by':'assembly_category_id'}" />
                     <filter name="instance" string="Instance" context="{'group_by':'instance_id'}" />
                     <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />

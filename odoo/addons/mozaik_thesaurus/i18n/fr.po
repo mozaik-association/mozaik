@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-24 14:09+0000\n"
-"PO-Revision-Date: 2018-08-24 14:09+0000\n"
+"POT-Creation-Date: 2018-11-14 16:56+0000\n"
+"PO-Revision-Date: 2018-11-14 16:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,9 +15,8 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-
 #. module: mozaik_thesaurus
-#: code:addons/mozaik_thesaurus/models/thesaurus_term.py:183
+#: code:addons/mozaik_thesaurus/models/thesaurus_term.py:149
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
@@ -48,9 +47,9 @@ msgid "Cancelled"
 msgstr "Annulé"
 
 #. module: mozaik_thesaurus
-#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_children_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_child_ids
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
-msgid "Children Terms"
+msgid "Child Terms"
 msgstr "Termes enfants"
 
 #. module: mozaik_thesaurus
@@ -61,11 +60,15 @@ msgstr "Compétences"
 #. module: mozaik_thesaurus
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_search_view
 msgid "Competencies & Topics"
-msgstr ""
+msgstr "Compétences & thèmes"
 
 #. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_assembly_competency_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_ext_assembly_competency_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_int_assembly_competency_ids
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_partner_competency_ids
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_users_competency_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_sta_assembly_competency_ids
 msgid "Competency"
 msgstr "Compétence"
 
@@ -92,23 +95,11 @@ msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_thesaurus
-#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_create_date
-#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_create_date
-msgid "Created on"
-msgstr "Créé le"
-
-#. module: mozaik_thesaurus
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_term_finder_display_name
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_display_name
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_display_name
 msgid "Display Name"
-msgstr "Nom affiché"
-
-#. module: mozaik_thesaurus
-#: code:addons/mozaik_thesaurus/models/thesaurus.py:32
-#, python-format
-msgid "Email model not found"
-msgstr "Modèle de mail manquant"
+msgstr "Nom à afficher"
 
 #. module: mozaik_thesaurus
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
@@ -123,14 +114,14 @@ msgstr "Termes expirés"
 #. module: mozaik_thesaurus
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
 msgid "Group By..."
-msgstr "Grouper par..."
+msgstr "Regrouper par..."
 
 #. module: mozaik_thesaurus
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_term_finder_id
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_id
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mozaik_thesaurus
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_form_view
@@ -138,8 +129,12 @@ msgid "Indexation"
 msgstr "Indexation"
 
 #. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_assembly_interest_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_ext_assembly_interest_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_int_assembly_interest_ids
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_partner_interest_ids
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_users_interest_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_sta_assembly_interest_ids
 msgid "Interest"
 msgstr "Intérêt"
 
@@ -165,22 +160,18 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_write_date
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_write_date
 msgid "Last Updated on"
-msgstr "Date de dernière mise à jour"
+msgstr "Dernière mise à jour le"
 
 #. module: mozaik_thesaurus
-#: code:addons/mozaik_thesaurus/models/thesaurus_term.py:64
-#, python-format
-msgid "Missing External Identifier for a validated term"
-msgstr "Identifiant externe manquant pour un terme validé"
-
-#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_form_view
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
 msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_thesaurus
-#: model:mail.template,subject:mozaik_thesaurus.mozaik_thesaurus_new_term_mail_template
-msgid "New thesaurus term created"
+#: model:mail.message.subtype,description:mozaik_thesaurus.new_term_to_validate
+#: model:mail.message.subtype,name:mozaik_thesaurus.new_term_to_validate
+msgid "New Term to Validate"
 msgstr "Nouveau terme à valider"
 
 #. module: mozaik_thesaurus
@@ -203,12 +194,7 @@ msgstr "Nom de sélection"
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_state
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
 msgid "Status"
-msgstr "Statut"
-
-#. module: mozaik_thesaurus
-#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
-msgid "Technicals"
-msgstr "Techniques"
+msgstr "État"
 
 #. module: mozaik_thesaurus
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_name
@@ -222,10 +208,9 @@ msgid "Term (Full Path)"
 msgstr "Terme (chemin complet)"
 
 #. module: mozaik_thesaurus
-#: code:addons/mozaik_thesaurus/models/thesaurus.py:33
-#, python-format
-msgid "The template used to send a notification to the managers of thesaurus terms was not found in the system."
-msgstr "Le modèle utilisé pour envoyer une notification aux responsables des termes du thésaurus n'a pas été trouvé dans le système."
+#: model:mail.message.subtype,name:mozaik_thesaurus.term_to_validate
+msgid "Term to Validate"
+msgstr "Terme à valider"
 
 #. module: mozaik_thesaurus
 #: model:ir.actions.act_window,name:mozaik_thesaurus.thesaurus_action
@@ -236,12 +221,17 @@ msgstr "Le modèle utilisé pour envoyer une notification aux responsables des t
 #: model:ir.ui.menu,name:mozaik_thesaurus.mozaik_thesaurus_menu
 #: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_menu
 msgid "Thesaurus"
-msgstr "Thesaurus"
+msgstr "Thésaurus"
 
 #. module: mozaik_thesaurus
 #: model:res.groups,name:mozaik_thesaurus.thesaurus_manager
-msgid "Thesaurus Manager"
-msgstr "Manager du thesaurus"
+msgid "Manager"
+msgstr "Gestionnaire"
+
+#. module: mozaik_thesaurus
+#: model:res.groups,name:mozaik_thesaurus.thesaurus_reader
+msgid "Reader"
+msgstr "Lecteur"
 
 #. module: mozaik_thesaurus
 #: model:ir.model,name:mozaik_thesaurus.model_thesaurus_term
@@ -256,8 +246,13 @@ msgstr "Termes du thésaurus"
 
 #. module: mozaik_thesaurus
 #: model:res.groups,name:mozaik_thesaurus.thesaurus_user
-msgid "Thesaurus User"
-msgstr "Utilisateur de thésaurus"
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: mozaik_thesaurus
+#: sql_constraint:thesaurus:0
+msgid "Thesaurus name already exists !"
+msgstr "Le nom du thésaurus existe déjà !"
 
 #. module: mozaik_thesaurus
 #: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
@@ -273,3 +268,4 @@ msgstr "Sujets"
 #: selection:thesaurus.term,state:0
 msgid "Unconfirmed"
 msgstr "Non confirmé"
+

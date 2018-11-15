@@ -8,12 +8,12 @@
     </record>
 
     <record model="res.groups" id="res_groups_structure_reader">
-        <field name="name">Structure Reader</field>
+        <field name="name">Reader</field>
         <field name="category_id" ref="module_category_structure"/>
     </record>
 
     <record model="res.groups" id="res_groups_structure_manager">
-        <field name="name">Structure Manager</field>
+        <field name="name">Manager</field>
         <field name="category_id" ref="module_category_structure"/>
         <field name="implied_ids" eval="[(6, 0, [
             ref('res_groups_structure_reader'),

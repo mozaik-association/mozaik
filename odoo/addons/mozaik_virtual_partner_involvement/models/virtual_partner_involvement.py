@@ -29,7 +29,7 @@ class VirtualPartnerInvolvement(models.Model):
     )
     involvement_category_id = fields.Many2one(
         comodel_name="partner.involvement.category",
-        string="Involvement category",
+        string="Involvement Category",
     )
     involvement_type = fields.Selection(
         selection=lambda s: s.env['partner.involvement.category'].fields_get(

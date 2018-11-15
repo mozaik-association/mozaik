@@ -18,7 +18,7 @@ class MembershipRenew(models.TransientModel):
     )
     date_from = fields.Date(
         default=fields.Date.today(),
-        help="Date from to generate new lines (during renew)",
+        help="Start date of new membership lines",
     )
 
     @api.model

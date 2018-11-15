@@ -1,0 +1,123 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_relation_coordinate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-14 16:56+0000\n"
+"PO-Revision-Date: 2018-11-14 16:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_search_view
+msgid "All"
+msgstr "Tous"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model,name:mozaik_relation_coordinate.model_res_partner_relation_all
+msgid "All (non-inverse + inverse) relations between partners"
+msgstr "Toutes les relations (non-inverse et inverse) entre partenaires"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_form_view
+msgid "Archive/reactivate relation: proceed anyway?"
+msgstr "Poursuivre l'archivage/réactivation de la relation ?"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_form_view
+msgid "Coordinates"
+msgstr "Coordonnées"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_all_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_all_email_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_email_coordinate_id
+msgid "Email Coordinate"
+msgstr "Coordinate électronique"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_search_view
+msgid "End date <= ..."
+msgstr "Date de fin <= ..."
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_search_view
+msgid "End date > ..."
+msgstr "Date de fin > ..."
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_search_view
+msgid "Expired"
+msgstr "Expiré"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_search_view
+msgid "Expired Relations"
+msgstr "Relations expirées"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_all_fax_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_fax_coordinate_id
+msgid "Fax Coordinate"
+msgstr "Coordonnée fax"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_all_fix_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_fix_coordinate_id
+msgid "Fix Coordinate"
+msgstr "Coordonnée fixe"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_all_mobile_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_mobile_coordinate_id
+msgid "Mobile Coordinate"
+msgstr "Coordonnée mobile"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_form_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_form_view
+msgid "Note"
+msgstr "Note"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_all_note
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_note
+msgid "Notes"
+msgstr "Notes"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model,name:mozaik_relation_coordinate.model_res_partner_relation
+msgid "Partner relation"
+msgstr "Relation de partenaires"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_all_postal_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_relation_coordinate.field_res_partner_relation_postal_coordinate_id
+msgid "Postal Coordinate"
+msgstr "Coordonnée postale"
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_search_view
+msgid "Start date < ..."
+msgstr "Date de début < ..."
+
+#. module: mozaik_relation_coordinate
+#: model:ir.ui.view,arch_db:mozaik_relation_coordinate.res_partner_relation_all_search_view
+msgid "Start date >= ..."
+msgstr "Date de début >= ..."
+

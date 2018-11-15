@@ -8,10 +8,11 @@ class UpdateMembership(models.TransientModel):
     Wizard used to update a membership.line
     """
     _name = "update.membership"
+    _description = "Membership update"
 
     membership_line_id = fields.Many2one(
         comodel_name="membership.line",
-        string="Membership line",
+        string="Membership Line",
         required=True,
         ondelete="cascade",
         readonly=True,

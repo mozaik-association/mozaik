@@ -71,7 +71,7 @@ class ResPartner(models.Model):
         compute_sudo=True,
     )
     is_excluded = fields.Boolean(
-        help="Define if the selected partner is actually excluded",
+        help="Checked if the partner is currently excluded",
         compute='_compute_int_instance_ids',
         store=True,
         compute_sudo=True,

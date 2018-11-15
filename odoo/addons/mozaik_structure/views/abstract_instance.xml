@@ -17,7 +17,7 @@
                         context="{'invisible_expire_date': False}"
                         domain="[('active', '&lt;=', 1)]" help="All Instances, archived or not" />
 
-                <group expand="0" string="Group By" name="group_by">
+                <group expand="0" string="Group By..." name="group_by">
                     <filter name="power_level" string="Power Level" context="{'group_by':'power_level_id'}" />
                     <filter name="parent" string="Parent" context="{'group_by':'parent_id'}" />
                 </group>

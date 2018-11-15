@@ -10,12 +10,12 @@
     </record>
 
     <record model="res.groups" id="res_groups_coordinate_reader">
-        <field name="name">Coordinate Reader</field>
+        <field name="name">Reader</field>
         <field name="category_id" ref="module_category_coordinate"/>
     </record>
 
     <record model="res.groups" id="res_groups_coordinate_user">
-        <field name="name">Coordinate User</field>
+        <field name="name">User</field>
         <field name="category_id" ref="module_category_coordinate"/>
         <field name="implied_ids" eval="[(6, 0, [
                 ref('mozaik_coordinate.res_groups_coordinate_reader'),
@@ -23,7 +23,7 @@
     </record>
 
     <record model="res.groups" id="res_groups_coordinate_vip_reader">
-        <field name="name">Coordinate VIP Reader</field>
+        <field name="name">VIP Reader</field>
         <field name="category_id" ref="module_category_coordinate"/>
         <field name="implied_ids" eval="[(6, 0, [
                 ref('mozaik_coordinate.res_groups_coordinate_reader'),
@@ -31,7 +31,7 @@
     </record>
 
     <record model="res.groups" id="res_groups_coordinate_vip_user">
-        <field name="name">Coordinate VIP User</field>
+        <field name="name">VIP User</field>
         <field name="category_id" ref="module_category_coordinate"/>
         <field name="implied_ids" eval="[(6, 0, [
                 ref('mozaik_coordinate.res_groups_coordinate_user'),
@@ -40,7 +40,7 @@
     </record>
 
     <record model="res.groups" id="res_groups_coordinate_manager">
-        <field name="name">Coordinate Manager</field>
+        <field name="name">Manager</field>
         <field name="category_id" ref="module_category_coordinate"/>
         <field name="implied_ids" eval="[(6, 0, [
                 ref('mozaik_coordinate.res_groups_coordinate_vip_user'),

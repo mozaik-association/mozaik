@@ -10,7 +10,7 @@
     </record>
 
     <record model="res.groups" id="res_groups_communication_reader">
-        <field name="name">Communication Reader</field>
+        <field name="name">Reader</field>
         <field name="category_id" ref="module_category_communication"/>
         <field name="implied_ids" eval="[(6, 0, [
             ref('distribution_list.res_groups_distribution_list_reader'),
@@ -18,7 +18,7 @@
     </record>
 
     <record model="res.groups" id="res_groups_communication_user">
-        <field name="name">Communication User</field>
+        <field name="name">User</field>
         <field name="category_id" ref="module_category_communication"/>
         <field name="implied_ids" eval="[(6, 0, [
             ref('res_groups_communication_reader'),
@@ -28,7 +28,7 @@
     </record>
 
     <record model="res.groups" id="res_groups_communication_manager">
-        <field name="name">Communication Manager</field>
+        <field name="name">Manager</field>
         <field name="category_id" ref="module_category_communication"/>
         <field name="implied_ids" eval="[(6, 0, [
             ref('res_groups_communication_user'),

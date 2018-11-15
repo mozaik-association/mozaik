@@ -91,9 +91,6 @@
                                 <field name="sort_by" />
                                 <field name="include_without_coordinate"
                                        attrs="{'invisible':[('p_mass_function','=','postal_coordinate_id')]}" />
-                                <field name="postal_mail_name"
-                                       attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}"
-                                       groups="mozaik_communication.res_groups_communication_user"/>
                                 <field name="groupby_coresidency"
                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
                             </group>

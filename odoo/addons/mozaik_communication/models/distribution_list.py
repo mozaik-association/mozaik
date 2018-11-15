@@ -43,7 +43,7 @@ class DistributionList(models.Model):
     )
     partner_id = fields.Many2one(
         comodel_name="res.partner",
-        string="Partner diffusion",
+        string="Diffusion partner",
         index=True,
         track_visibility='onchange',
     )

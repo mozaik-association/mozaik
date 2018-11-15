@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_person
+#	* mozaik_partner_assembly
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 20:59+0000\n"
-"PO-Revision-Date: 2014-10-20 20:59+0000\n"
+"POT-Creation-Date: 2018-11-14 16:56+0000\n"
+"PO-Revision-Date: 2018-11-14 16:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,11 +16,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_partner_assembly
-#: field:res.partner,is_assembly:0
-msgid "Is an Assembly"
-msgstr "Assemblée"
+#: code:addons/mozaik_partner_assembly/models/res_partner.py:25
+#, python-format
+msgid "An assembly must be a company"
+msgstr "Une assemblée doit être une personne morale"
+
+#. module: mozaik_partner_assembly
+#: model:ir.ui.view,arch_db:mozaik_partner_assembly.res_partner_search_view
+msgid "Assemblies"
+msgstr "Assemblées"
 
 #. module: mozaik_partner_assembly
 #: model:ir.model,name:mozaik_partner_assembly.model_res_partner
-msgid "Partner"
-msgstr "Partenaire"
+msgid "Contact"
+msgstr "Contact"
+
+#. module: mozaik_partner_assembly
+#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_partner_is_assembly
+#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_users_is_assembly
+msgid "Is an Assembly"
+msgstr "Est une assemblée"
+

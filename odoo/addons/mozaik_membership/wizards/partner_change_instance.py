@@ -25,7 +25,7 @@ class PartnerChangeInstance(models.TransientModel):
     )
     actual_instance_id = fields.Many2one(
         comodel_name="int.instance",
-        string="Actual instance",
+        string="Current instance",
         ondelete="cascade",
         required=True,
         readonly=True,
@@ -49,7 +49,7 @@ class PartnerChangeInstance(models.TransientModel):
     )
     membership_line_id = fields.Many2one(
         comodel_name="membership.line",
-        string="Membership line",
+        string="Membership Line",
         ondelete="cascade",
         readonly=True,
     )
@@ -75,7 +75,8 @@ class PartnerChangeInstance(models.TransientModel):
             lazy=False,
         )
         if any(v.get('__count', 0) > 1 for v in data):
-            message = _("The new instance define by partner should be unique!")
+            message = _(
+                "The new instance defined by partner should be unique!")
             raise exceptions.ValidationError(message)
 
     @api.model

@@ -21,14 +21,14 @@ class MailComposeMessage(models.TransientModel):
         # Catch exception to have a understandable error message
         except (ValueError, SyntaxError):
             raise exceptions.UserError(
-                _("Error to load the configuration who contains "
-                  "priorities (key %s)") % key)
+                _("Error to load the system parameter (%s) "
+                  "of priorities") % key)
         # As literal_eval can transform str into any format, check if we
         # have a real dict
         if not isinstance(priorities, dict):
             raise exceptions.UserError(
-                _("Error to load the configuration who contains "
-                  "priorities (key %s).\nInvalid dict") % key)
+                _("Error to load the system parameter (%s) of priorities.\n"
+                  "Invalid dict") % key)
         return priorities
 
     @api.multi

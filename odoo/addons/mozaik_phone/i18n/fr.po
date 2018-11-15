@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 22:00+0000\n"
-"PO-Revision-Date: 2018-04-20 22:00+0000\n"
+"POT-Creation-Date: 2018-11-14 16:56+0000\n"
+"PO-Revision-Date: 2018-11-14 16:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,27 +16,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_phone
-#: view:phone.phone:mozaik_phone.phone_phone_form_view
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_form_view
 msgid "+32 476 81 37 00"
 msgstr "+32 476 81 37 00"
 
 #. module: mozaik_phone
-#: code:addons/mozaik_phone/phone_phone.py:234
+#: code:addons/mozaik_phone/models/phone_phone.py:136
 #, python-format
 msgid "A phone number cannot be duplicated!"
 msgstr "Un numéro de téléphone ne peut être dupliqué !"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,active:0
-#: field:phone.phone,active:0
-msgid "Active"
-msgstr "Actif"
-
-#. module: mozaik_phone
-#: view:phone.phone:mozaik_phone.phone_phone_form_view
-#: view:res.partner:mozaik_phone.view_partner_2_form
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_form_view
 msgid "All Details"
 msgstr "Tous les détails"
+
+#. module: mozaik_phone
+#: model:ir.ui.view,arch_db:mozaik_phone.view_partner_form
+msgid "All Phones"
+msgstr "Tous les téléphones"
 
 #. module: mozaik_phone
 #: model:ir.actions.act_window,name:mozaik_phone.allow_duplicate_action
@@ -44,25 +42,25 @@ msgid "Allow Duplicates"
 msgstr "Autoriser les doublons"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,also_for_fax:0
-#: field:phone.phone,also_for_fax:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate_also_for_fax
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_also_for_fax
 msgid "Also for Fax"
 msgstr "Également pour fax"
 
 #. module: mozaik_phone
-#: view:change.phone.type:mozaik_phone.change_phone_type_form
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_form_view
+msgid "Archive/reactivate phone: proceed anyway?"
+msgstr "Poursuivre l'archivage/réactivation du numéro de téléphone ?"
+
+#. module: mozaik_phone
+#: model:ir.ui.view,arch_db:mozaik_phone.change_phone_type_form
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: mozaik_phone
-#: view:change.phone.type:mozaik_phone.change_phone_type_form
+#: model:ir.ui.view,arch_db:mozaik_phone.change_phone_type_form
 msgid "Change"
 msgstr "Modifier"
-
-#. module: mozaik_phone
-#: field:change.main.phone,change_allowed:0
-msgid "Change Allowed"
-msgstr "Changement autorisé"
 
 #. module: mozaik_phone
 #: model:ir.actions.act_window,name:mozaik_phone.change_main_phone_action
@@ -75,7 +73,6 @@ msgid "Change Main Phone Wizard"
 msgstr "Assistant de changement de téléphone principal"
 
 #. module: mozaik_phone
-#: view:change.phone.type:mozaik_phone.change_phone_type_form
 #: model:ir.actions.act_window,name:mozaik_phone.change_phone_type_action
 msgid "Change Phone Type"
 msgstr "Changement du type de téléphone"
@@ -86,272 +83,176 @@ msgid "Change Phone Type Wizard"
 msgstr "Assistant de changement de type de téléphone"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,partner_id:0
+#: model:ir.model,name:mozaik_phone.model_res_partner
 msgid "Contact"
 msgstr "Contact"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,coordinate_category_id:0
-msgid "Coordinate Category"
-msgstr "Catégorie de coordonnée"
-
-#. module: mozaik_phone
-#: view:phone.phone:mozaik_phone.phone_phone_form_view
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_form_view
 msgid "Coordinates"
 msgstr "Coordonnées"
 
 #. module: mozaik_phone
-#: field:change.main.phone,create_uid:0
-#: field:change.phone.type,create_uid:0
-#: field:phone.coordinate,create_uid:0
-#: field:phone.phone,create_uid:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_create_uid
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_create_uid
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate_create_uid
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_phone
-#: field:change.main.phone,create_date:0
-#: field:change.phone.type,create_date:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_create_date
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_create_date
 msgid "Created on"
-msgstr "Date de création"
+msgstr "Créé le"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,create_date:0
-#: field:phone.phone,create_date:0
-msgid "Creation Date"
-msgstr "Date de création"
-
-#. module: mozaik_phone
-#: field:change.main.phone,old_phone_id:0
-msgid "Current Main Phone"
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_old_phone_id
+msgid "Current main phone"
 msgstr "Téléphone principal actuel"
 
 #. module: mozaik_phone
-#: help:phone.coordinate,message_last_post:0
-#: help:phone.phone,message_last_post:0
-msgid "Date of the last message posted on the record."
-msgstr "Date du dernier message posté sur l'enregistrement."
-
-#. module: mozaik_phone
-#: field:change.main.phone,display_name:0
-#: field:change.phone.type,display_name:0
-#: field:phone.coordinate,display_name:0
-#: field:phone.phone,display_name:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_display_name
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_display_name
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate_display_name
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr "Nom à afficher"
 
 #. module: mozaik_phone
-#: code:addons/mozaik_phone/phone_phone.py:108
-#: code:addons/mozaik_phone/phone_phone.py:233
-#, python-format
-msgid "Error"
-msgstr "Erreur"
+#: model:ir.actions.act_window,name:mozaik_phone.failure_editor_act_window
+msgid "Failure Editor"
+msgstr "Editeur d'échecs"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,expire_date:0
-#: field:phone.phone,expire_date:0
-msgid "Expiration Date"
-msgstr "Date d'expiration"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,bounce_counter:0
-msgid "Failures Counter"
-msgstr "Compteur d'échecs"
-
-#. module: mozaik_phone
-#: selection:change.phone.type,type:0
-#: selection:phone.coordinate,coordinate_type:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_abstract_assembly_fax
+#: model:ir.model.fields,field_description:mozaik_phone.field_abstract_assembly_fax_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_ext_assembly_fax
+#: model:ir.model.fields,field_description:mozaik_phone.field_ext_assembly_fax_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_int_assembly_fax
+#: model:ir.model.fields,field_description:mozaik_phone.field_int_assembly_fax_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_partner_fax
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_partner_fax_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_users_fax
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_users_fax_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_sta_assembly_fax
+#: model:ir.model.fields,field_description:mozaik_phone.field_sta_assembly_fax_coordinate_id
 #: selection:phone.phone,type:0
-#: field:res.partner,fax_coordinate_id:0
 msgid "Fax"
 msgstr "Fax"
 
 #. module: mozaik_phone
-#: view:phone.phone:mozaik_phone.phone_phone_search_view
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_search_view
 msgid "Faxes"
 msgstr "Fax"
 
 #. module: mozaik_phone
-#: selection:change.phone.type,type:0
-#: selection:phone.coordinate,coordinate_type:0
 #: selection:phone.phone,type:0
 msgid "Fix"
 msgstr "Fixe"
 
 #. module: mozaik_phone
-#: code:addons/mozaik_phone/phone_phone.py:183
+#: code:addons/mozaik_phone/models/phone_phone.py:100
 #, python-format
 msgid "Fix + Fax"
 msgstr "Fixe + Fax"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,message_follower_ids:0
-#: field:phone.phone,message_follower_ids:0
-msgid "Followers"
-msgstr "Abonnés"
-
-#. module: mozaik_phone
-#: view:phone.phone:mozaik_phone.phone_phone_search_view
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_search_view
 msgid "Group By..."
-msgstr "Grouper par..."
+msgstr "Regrouper par..."
 
 #. module: mozaik_phone
-#: help:phone.coordinate,message_summary:0
-#: help:phone.phone,message_summary:0
-msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
-msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
-
-#. module: mozaik_phone
-#: field:change.main.phone,id:0
-#: field:change.phone.type,id:0
-#: field:phone.coordinate,id:0
-#: field:phone.phone,id:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_id
 msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_phone
-#: help:phone.coordinate,message_unread:0
-#: help:phone.phone,message_unread:0
-msgid "If checked new messages require your attention."
-msgstr "Si coché, de nouveaux messages requièrent votre attention."
-
-#. module: mozaik_phone
-#: code:addons/mozaik_phone/phone_phone.py:103
+#: code:addons/mozaik_phone/models/phone_phone.py:85
 #, python-format
 msgid "Invalid phone number: %s"
 msgstr "Numéro de téléphone invalide: %s"
 
 #. module: mozaik_phone
-#: code:addons/mozaik_phone/res_partner.py:105
-#, python-format
-msgid "Invalid phone type: \"%s\"!"
-msgstr "Type de téléphone invalide: \"%s\"!"
-
-#. module: mozaik_phone
-#: field:change.main.phone,invalidate_previous_coordinate:0
-msgid "Invalidate Previous Main Coordinate"
-msgstr "Invalider la coordonnée principale précédente"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,is_duplicate_allowed:0
-msgid "Is Duplicate Allowed"
-msgstr "Doublon autorisé"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,is_duplicate_detected:0
-msgid "Is Duplicate Detected"
-msgstr "Doublon détecté"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,is_main:0
-msgid "Is Main"
-msgstr "Est principale"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,message_is_follower:0
-#: field:phone.phone,message_is_follower:0
-msgid "Is a Follower"
-msgstr "Est abonné"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,bounce_date:0
-msgid "Last Failure Date"
-msgstr "Dernière date d'échec"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,bounce_description:0
-msgid "Last Failure Description"
-msgstr "Description du dernier échec"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,message_last_post:0
-#: field:phone.phone,message_last_post:0
-msgid "Last Message Date"
-msgstr "Date du dernier message"
-
-#. module: mozaik_phone
-#: field:change.main.phone,__last_update:0
-#: field:change.phone.type,__last_update:0
-#: field:phone.coordinate,__last_update:0
-#: field:phone.phone,__last_update:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone___last_update
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type___last_update
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate___last_update
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: mozaik_phone
-#: field:change.main.phone,write_uid:0
-#: field:change.phone.type,write_uid:0
-#: field:phone.coordinate,write_uid:0
-#: field:phone.phone,write_uid:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_write_uid
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_write_uid
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate_write_uid
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_phone
-#: field:change.main.phone,write_date:0
-#: field:change.phone.type,write_date:0
-#: field:phone.coordinate,write_date:0
-#: field:phone.phone,write_date:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_write_date
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_write_date
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate_write_date
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_write_date
 msgid "Last Updated on"
-msgstr "Date de dernière mise à jour"
+msgstr "Dernière mise à jour le"
 
 #. module: mozaik_phone
-#: view:phone.coordinate:mozaik_phone.phone_coordinate_search_view
-#: view:phone.phone:mozaik_phone.phone_phone_search_view
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_coordinate_search_view
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_search_view
 msgid "Malformed Phones"
 msgstr "Numéros de téléphone invalides"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,message_ids:0
-#: field:phone.phone,message_ids:0
-msgid "Messages"
-msgstr "Messages"
-
-#. module: mozaik_phone
-#: help:phone.coordinate,message_ids:0
-#: help:phone.phone,message_ids:0
-msgid "Messages and communication history"
-msgstr "Historique des messages et communications"
-
-#. module: mozaik_phone
-#: selection:change.phone.type,type:0
-#: selection:phone.coordinate,coordinate_type:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_abstract_assembly_mobile_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_ext_assembly_mobile_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_int_assembly_mobile_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_partner_mobile_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_users_mobile_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_sta_assembly_mobile_coordinate_id
 #: selection:phone.phone,type:0
-#: field:res.partner,mobile_coordinate_id:0
 msgid "Mobile"
 msgstr "Mobile"
 
 #. module: mozaik_phone
-#: view:phone.phone:mozaik_phone.phone_phone_form_view
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_form_view
 msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_phone
-#: field:change.main.phone,phone_id:0
-msgid "New Main Phone"
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_phone_id
+msgid "New main phone"
 msgstr "Nouveau téléphone principal"
 
 #. module: mozaik_phone
-#: code:addons/mozaik_phone/wizard/change_phone_type.py:58
+#: code:addons/mozaik_phone/wizards/change_phone_type.py:54
 #, python-format
 msgid "New phone type should be different than current one!"
 msgstr "Le nouveau type de téléphone doit être différent de l'actuel!"
 
 #. module: mozaik_phone
-#: field:phone.phone,name:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_name
 msgid "Number"
 msgstr "Numéro"
 
 #. module: mozaik_phone
-#: field:change.main.phone,partner_id:0
-#: model:ir.model,name:mozaik_phone.model_res_partner
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_main_phone_partner_id
 msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_phone
-#: field:change.phone.type,phone_id:0
-#: view:phone.coordinate:mozaik_phone.phone_coordinate_search_view
-#: field:phone.coordinate,phone_id:0
-#: view:phone.phone:mozaik_phone.phone_phone_form_view
-#: view:phone.phone:mozaik_phone.phone_phone_search_view
-#: field:res.partner,fix_coordinate_id:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_abstract_assembly_fix_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_phone_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_ext_assembly_fix_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_int_assembly_fix_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate_phone_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_partner_fix_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_users_fix_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_phone.field_sta_assembly_fix_coordinate_id
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_coordinate_search_view
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -361,22 +262,27 @@ msgid "Phone Coordinate"
 msgstr "Coordonnée téléphonique"
 
 #. module: mozaik_phone
-#: view:coordinate.category:mozaik_phone.coordinate_category_form_view
 #: model:ir.actions.act_window,name:mozaik_phone.phone_coordinate_action
+#: model:ir.model.fields,field_description:mozaik_phone.field_abstract_assembly_phone_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_abstract_assembly_phone_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_ext_assembly_phone_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_ext_assembly_phone_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_int_assembly_phone_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_int_assembly_phone_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_phone_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_phone_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_partner_phone_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_partner_phone_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_users_phone_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_res_users_phone_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_sta_assembly_phone_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_phone.field_sta_assembly_phone_coordinate_inactive_ids
 #: model:ir.ui.menu,name:mozaik_phone.phone_coordinate_menu
 #: model:ir.ui.menu,name:mozaik_phone.phone_coordinate_submenu
-#: field:phone.phone,phone_coordinate_ids:0
-#: field:phone.phone,phone_coordinate_inactive_ids:0
-#: view:res.partner:mozaik_phone.view_partner_2_form
-#: field:res.partner,phone_coordinate_ids:0
-#: field:res.partner,phone_coordinate_inactive_ids:0
+#: model:ir.ui.view,arch_db:mozaik_phone.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_phone.view_partner_form
 msgid "Phone Coordinates"
 msgstr "Coordonnées téléphoniques"
-
-#. module: mozaik_phone
-#: model:mail.message.subtype,name:mozaik_phone.phone_failure_notification
-msgid "Phone Failure Notification"
-msgstr "Notification d'échec de téléphone"
 
 #. module: mozaik_phone
 #: model:ir.model,name:mozaik_phone.model_phone_phone
@@ -384,85 +290,33 @@ msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
 #. module: mozaik_phone
-#: view:phone.coordinate:mozaik_phone.phone_coordinate_search_view
-#: field:phone.coordinate,coordinate_type:0
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_coordinate_search_view
 msgid "Phone Type"
 msgstr "Type de téléphone"
 
 #. module: mozaik_phone
-#: model:ir.actions.act_window,name:mozaik_phone.phone_phone_action
+#: model:ir.actions.act_window,name:mozaik_phone.phone_phone_act_window
 #: model:ir.ui.menu,name:mozaik_phone.phone_phone_menu
-#: view:phone.phone:mozaik_phone.phone_phone_search_view
-#: view:phone.phone:mozaik_phone.phone_phone_tree_view
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_search_view
 msgid "Phones"
 msgstr "Téléphones"
 
 #. module: mozaik_phone
-#: field:change.phone.type,is_main:0
 #: model:ir.actions.act_window,name:mozaik_phone.set_as_main_action
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_is_main
 msgid "Set as main"
 msgstr "Positionner comme principale"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,message_summary:0
-#: field:phone.phone,message_summary:0
-msgid "Summary"
-msgstr "Résumé"
-
-#. module: mozaik_phone
-#: model:mail.message.subtype,description:mozaik_phone.phone_failure_notification
-msgid "This Phone Coordinate seems to be down"
-msgstr "Cette coordonnée téléphonique semble obsolète"
-
-#. module: mozaik_phone
-#: field:change.phone.type,type:0
-#: view:phone.phone:mozaik_phone.phone_phone_search_view
-#: field:phone.phone,type:0
+#: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_type
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_coordinate_coordinate_type
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_type
+#: model:ir.ui.view,arch_db:mozaik_phone.phone_phone_search_view
 msgid "Type"
 msgstr "Type"
 
 #. module: mozaik_phone
-#: field:phone.coordinate,unauthorized:0
-msgid "Unauthorized"
-msgstr "Interdit"
-
-#. module: mozaik_phone
-#: code:addons/mozaik_phone/res_partner.py:108
-#, python-format
-msgid "Undefined"
-msgstr "Indéfini"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,message_unread:0
-#: field:phone.phone,message_unread:0
-msgid "Unread Messages"
-msgstr "Messages non lus"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,vip:0
-msgid "VIP"
-msgstr "VIP"
-
-#. module: mozaik_phone
-#: code:addons/mozaik_phone/res_partner.py:104
-#, python-format
-msgid "Validate Error"
-msgstr "Erreur de validation"
-
-#. module: mozaik_phone
-#: field:phone.coordinate,website_message_ids:0
-#: field:phone.phone,website_message_ids:0
-msgid "Website Messages"
-msgstr "Messages de site web"
-
-#. module: mozaik_phone
-#: help:phone.coordinate,website_message_ids:0
-#: help:phone.phone,website_message_ids:0
-msgid "Website communication history"
-msgstr "Historique de communication de site web"
-
-#. module: mozaik_phone
-#: view:change.phone.type:mozaik_phone.change_phone_type_form
+#: model:ir.ui.view,arch_db:mozaik_phone.change_phone_type_form
 msgid "or"
 msgstr "ou"
 

@@ -13,14 +13,14 @@ class ResPartner(models.Model):
     email_coordinate_ids = fields.One2many(
         'email.coordinate',
         'partner_id',
-        'Email coordinates',
+        string='Email Coordinates',
         domain=[('active', '=', True)],
         copy=False,
     )
     email_coordinate_inactive_ids = fields.One2many(
         'email.coordinate',
         'partner_id',
-        'Email coordinates',
+        string='Email Coordinates',
         domain=[('active', '=', False)],
         copy=False,
     )
@@ -28,7 +28,7 @@ class ResPartner(models.Model):
     # email is VIP, will be display for non vip reader if store=True
     email_coordinate_id = fields.Many2one(
         'email.coordinate',
-        "Email",
+        string="Email Coordinate",
         compute="_compute_email_coordinate_id",
     )
     email = fields.Char(

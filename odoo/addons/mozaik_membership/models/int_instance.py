@@ -14,12 +14,14 @@ class IntInstance(models.Model):
         compute='_compute_member_count', string='Members')
     partner_ids = fields.Many2many(
         comodel_name="res.partner",
+        string="Partners",
         relation="res_partner_int_instance",
         column2="partner_id",
         column1="int_instance_id",
     )
     partner_m2m_ids = fields.Many2many(
         comodel_name="res.partner",
+        string="Users",
         relation="res_partner_int_instance_manager",
         column2="partner_id",
         column1="int_instance_id",
