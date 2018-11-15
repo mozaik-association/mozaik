@@ -57,11 +57,8 @@ class TestMailComposeMessage(SavepointCase):
         """
         value = "{I don't have a valid format"
         self.config_obj.set_param(self.priorities_key, value)
-        with self.assertRaises(exceptions.UserError) as e:
+        with self.assertRaises(exceptions.UserError):
             self.mail_composer_obj._get_priorities()
-        self.assertIn(
-            "Error to load the configuration who contains priorities",
-            e.exception.name)
         return
 
     def test_get_priorities3(self):
@@ -73,11 +70,8 @@ class TestMailComposeMessage(SavepointCase):
         """
         value = "I'm not a dict at all :)"
         self.config_obj.set_param(self.priorities_key, value)
-        with self.assertRaises(exceptions.UserError) as e:
+        with self.assertRaises(exceptions.UserError):
             self.mail_composer_obj._get_priorities()
-        self.assertIn(
-            "Error to load the configuration who contains priorities",
-            e.exception.name)
         return
 
     def test_mail_priority1(self):
