@@ -262,7 +262,7 @@ msgstr "Dons"
 #. module: mozaik_person
 #: selection:partner.involvement.category,involvement_type:0
 msgid "Donations Campaign"
-msgstr "Compagne de dons"
+msgstr "Campagne de dons"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
