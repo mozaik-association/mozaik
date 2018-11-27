@@ -7,7 +7,8 @@
         <field name="inherit_id" ref="mozaik_membership.membership_line_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='active']" position="before">
-                <filter name="paid" string="Paid" domain="[('move_id','!=',False)]" />
+                <filter name="paid" string="Paid" domain="[('paid','=',True)]" />
+                <filter name="free" string="Free" domain="[('state_code','=','member'), ('price','=',0.0)]" />
                 <separator />
             </xpath>
         </field>
