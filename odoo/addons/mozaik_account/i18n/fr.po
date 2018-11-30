@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 16:56+0000\n"
-"PO-Revision-Date: 2018-11-14 16:56+0000\n"
+"POT-Creation-Date: 2018-11-30 17:34+0000\n"
+"PO-Revision-Date: 2018-11-30 17:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,11 @@ msgid "Donation"
 msgstr "Don"
 
 #. module: mozaik_account
+#: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
+msgid "Free"
+msgstr "Gratuit"
+
+#. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_account_move_line
 msgid "Journal Item"
 msgstr "Écriture comptable"
@@ -70,7 +75,7 @@ msgstr "Plus d'une adhésion à réconcilier sont disponibles"
 #. module: mozaik_account
 #: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Paid"
-msgstr "Payée"
+msgstr "Payé"
 
 #. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_product_template
@@ -88,6 +93,11 @@ msgstr "Articles"
 #: model:ir.model.fields,field_description:mozaik_account.field_product_template_property_subscription_account
 msgid "Subscription Account"
 msgstr "Compte de cotisation"
+
+#. module: mozaik_account
+#: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
+msgid "Unpaid"
+msgstr "Impayé"
 
 #. module: mozaik_account
 #: code:addons/mozaik_account/models/account_bank_statement_line.py:155

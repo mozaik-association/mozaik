@@ -43,10 +43,6 @@
                     name="not_local_only"
                     domain="[('local_only','=', False)]" />
                 <separator/>
-                <filter string="Awaiting payment" name="awaiting_payment"
-                    domain="[('subscription_ok','=', False)]"
-                    invisible="'default_is_company' not in context or context.get('default_is_company')" />
-                <separator/>
             </xpath>
             <xpath expr="//filter[@name='group_country']" position="after">
                 <filter name="group_membership_state" string="Membership State"
