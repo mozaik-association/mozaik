@@ -855,10 +855,10 @@ class virtual_assembly_instance(orm.Model):
             'ext.assembly.category', 'External Assembly Category'),
         'sta_category_assembly_id': fields.many2one(
             'sta.assembly.category', 'State Assembly Category'),
-
+        'main_postal': fields.boolean('Main Address'),
         'postal_vip': fields.boolean('VIP Address'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
-
+        'main_email': fields.boolean('Main Email'),
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
@@ -913,9 +913,11 @@ class virtual_assembly_instance(orm.Model):
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             pc.unauthorized as postal_unauthorized,
+            pc.is_main as main_postal,
             pc.vip as postal_vip,
             e.vip as email_vip,
             e.unauthorized as email_unauthorized,
+            e.is_main as main_email,
             CASE
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True

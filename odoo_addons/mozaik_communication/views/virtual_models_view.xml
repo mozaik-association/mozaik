@@ -823,7 +823,13 @@
                     <field name="int_power_level_id" string="Internal Power Level" />
 
                     <field name="competencies_m2m_ids" widget="many2one" />
+                    <filter string="Main Address" name="main_postal"
+                        domain="[('main_postal','=',1)]" />
+                    <separator />
 
+                    <filter string="Main Email" name="main_email"
+                        domain="[('main_email','=',1)]" />
+                    <separator />
                     <filter name="sta_mod" string="State Assembly"
                         domain="[('model','=','sta.assembly')]" />
                     <filter name="int_mod" string="Internal Assembly"
