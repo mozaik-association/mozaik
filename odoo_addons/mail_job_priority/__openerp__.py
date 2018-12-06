@@ -14,6 +14,10 @@
     'depends': [
         'mail',
         'mail_connector_queue',
+        # following depend is to be sure
+        # to compute priority before delegating mails sending to the connector
+        # because they overlaod together the same method
+        'asynchronous_batch_mailings',
     ],
     'data': [
     ],
