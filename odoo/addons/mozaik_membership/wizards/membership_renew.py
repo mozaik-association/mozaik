@@ -34,19 +34,15 @@ class MembershipRenew(models.TransientModel):
         result = super(MembershipRenew, self).default_get(fields_list)
         context = self.env.context
         active_model = context.get('active_model')
-        active_domain = context.get('active_domain')
         active_ids = context.get('active_ids')
         allowed_models = [
             self.membership_line_ids._name,
             'res.partner',
         ]
-        if active_model in allowed_models and (active_domain or active_ids):
+        if active_model in allowed_models and active_ids:
             target_obj = self.env[active_model]
             # Load from context
-            if active_domain:
-                targets = target_obj.search(active_domain)
-            else:
-                targets = target_obj.browse(active_ids)
+            targets = target_obj.browse(active_ids)
             # If it membership.line, just rename for better understanding
             if active_model == self.membership_line_ids._name:
                 lines = targets
@@ -65,10 +61,7 @@ class MembershipRenew(models.TransientModel):
         :return: dict
         """
         self.ensure_one()
-        if self.env.context.get("renew"):
-            lines = self._action_close_and_renew()
-        else:
-            lines = self._action_close_and_former_member()
+        lines = self._action_close_and_renew()
         action = self.env.ref(
             "mozaik_membership.membership_line_action").read()[0]
         domain = [('id', 'in', lines.ids)]
@@ -87,15 +80,4 @@ class MembershipRenew(models.TransientModel):
         self.ensure_one()
         renewed_lines = self.membership_line_ids._close(
             date_to=self.date_from)._renew(date_from=self.date_from)
-        return renewed_lines
-
-    @api.multi
-    def _action_close_and_former_member(self):
-        """
-        Close membership lines and renew them automatically
-        :return: membership.line recordset
-        """
-        self.ensure_one()
-        renewed_lines = self.membership_line_ids._close(
-            date_to=self.date_from)._former_member(date_from=self.date_from)
         return renewed_lines

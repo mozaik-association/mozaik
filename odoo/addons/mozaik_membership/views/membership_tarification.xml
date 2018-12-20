@@ -51,7 +51,7 @@
 
     <record model="ir.ui.menu" id="membership_tarification_menu">
         <field name="name">Membership tarification</field>
-        <field name="parent_id" ref="mozaik_structure.structure_configuration_menu"/>
+        <field name="parent_id" ref="mozaik_membership.membership_submenu"/>
         <field name="action" ref="membership_tarification_act_window"/>
         <field name="sequence" eval="40"/>
     </record>
