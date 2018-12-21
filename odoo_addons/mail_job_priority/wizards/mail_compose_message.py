@@ -14,7 +14,25 @@ class MailComposeMessage(models.TransientModel):
     @api.multi
     def send_mail(self):
         """
-        Set a priority on subsequent generated mail.mail
+        1. Mega hack to turn around a dependency impasse:
+        this method always called BEFORE the same in
+        distribution_list module that computes recipient ids,
+        thus, compute also here the list, add dependency on distribution_list,
+        set the dl_computed context and continue
+        """
+        if self.distribution_list_id and \
+                not self.env.context.get('active_ids'):
+            res_ids, _ = self.get_distribution_list_ids(
+                [self.distribution_list_id.id])
+            # do not send mail to an empty list of recipients
+            if not res_ids:
+                return {'type': 'ir.actions.act_window_close'}
+            if self.env.context.get('additional_res_ids'):
+                res_ids = list(
+                    set(res_ids + self.env.context['additional_res_ids']))
+            self = self.with_context(active_ids=res_ids, dl_computed=True)
+        """
+        2. Set a priority on subsequent generated mail.mail
         depending on a dictionary like:
         {limit1: prio1, limit2: prio2, ...}
         """
