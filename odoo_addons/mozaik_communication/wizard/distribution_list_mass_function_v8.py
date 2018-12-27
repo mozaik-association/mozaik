@@ -28,8 +28,11 @@ class DistributionListMassFunction(models.TransientModel):
                 pids |= self.env.user.partner_id
             # finally: all owners and allowed partners that are legal persons
             pids |= dl.res_partner_m2m_ids.filtered(lambda s: s.is_company)
-            pids |= dl.res_users_ids.mapped(
-                'partner_id').filtered(lambda s: s.is_company)
+            u_pids = dl.res_users_ids.mapped('partner_id')
+            # re-search them to apply security rules
+            u_pids = self.env['res.partner'].search([('id', 'in', u_pids.ids)])
+            if u_pids:
+                pids |= u_pids.filtered(lambda s: s.is_company)
         return pids.filtered(lambda s: s.email)
 
     @api.model
