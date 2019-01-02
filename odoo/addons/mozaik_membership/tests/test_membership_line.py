@@ -146,17 +146,7 @@ class TestMembershipLine(TransactionCase):
         theoric_product = partner.subscription_product_id
         # Renew it (should not create a new membership)
         same_membership = membership._renew(date_from=new_date_from)
-        # Should be equals because it's a simple renew
-        self.assertEqual(same_membership, membership)
-        # Fields who shouldn't be updated
-        self.assertEqual(
-            fields.Date.from_string(same_membership.date_from),
-            fields.Date.from_string(date_from))
-        self.assertEqual(same_membership.partner_id, partner)
-        self.assertEqual(same_membership.int_instance_id, instance)
-        self.assertEqual(same_membership.product_id, theoric_product)
-        # Only the reference can change
-        self.assertNotEqual(same_membership.reference, reference)
+        self.assertFalse(same_membership)
         return
 
     def test_renew2(self):
@@ -285,17 +275,7 @@ class TestMembershipLine(TransactionCase):
         theoric_product = partner.subscription_product_id
         # Former member it (should not create a new membership)
         same_membership = membership._former_member(date_from=new_date_from)
-        # Should be equals because it's a simple former member
-        self.assertEqual(same_membership, membership)
-        # Fields who shouldn't be updated
-        self.assertEqual(
-            fields.Date.from_string(same_membership.date_from),
-            fields.Date.from_string(date_from))
-        self.assertEqual(same_membership.partner_id, partner)
-        self.assertEqual(same_membership.int_instance_id, instance)
-        self.assertEqual(same_membership.product_id, theoric_product)
-        # Only the reference can change
-        self.assertNotEqual(same_membership.reference, reference)
+        self.assertFalse(same_membership)
         return
 
     def test_former_member2(self):
@@ -311,7 +291,7 @@ class TestMembershipLine(TransactionCase):
         instance = self.instance
         partner = self.partner_marc
         product = self.product_subscription
-        state = partner.membership_state_id
+        state = self.env.ref("mozaik_membership.member")
         date_from = '2015-06-05'
         values = self._get_membership_line_values(
             price=price, ref=reference, partner=partner, product=product,
