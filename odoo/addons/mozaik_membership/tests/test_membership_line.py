@@ -1,15 +1,12 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from uuid import uuid4
 from odoo import fields
 from odoo.tests.common import TransactionCase
 
 
 class TestMembershipLine(TransactionCase):
-    """
-    Tests for
-    """
 
     def setUp(self):
         super(TestMembershipLine, self).setUp()
@@ -214,14 +211,13 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = partner.membership_state_id
-        date_from = '2018-06-05'
+        date_from = date.today() - timedelta(days=1)
         values = self._get_membership_line_values(
             price=price, ref=reference, partner=partner, product=product,
             date_from=date_from, state=state, instance=instance)
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
-        new_date_from = fields.Date.to_string(
-            fields.Date.from_string('2018-11-09'))
+        new_date_from = fields.Date.to_string(date.today() + timedelta(days=1))
         # The product should be saved before the renew
         # Renew it
         created = membership._renew(date_from=new_date_from)
@@ -351,14 +347,13 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = partner.membership_state_id
-        date_from = '2018-06-05'
+        date_from = date.today() - timedelta(days=1)
         values = self._get_membership_line_values(
             price=price, ref=reference, partner=partner, product=product,
             date_from=date_from, state=state, instance=instance)
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
-        new_date_from = fields.Date.to_string(
-            fields.Date.from_string('2018-11-09'))
+        new_date_from = fields.Date.to_string(date.today() + timedelta(days=1))
         # The product should be saved before the former member
         # Former member it
         created = membership._former_member(date_from=new_date_from)
