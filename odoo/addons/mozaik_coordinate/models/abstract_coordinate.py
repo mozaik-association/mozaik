@@ -18,6 +18,7 @@ class AbstractCoordinate(models.AbstractModel):
         readonly=True,
         required=True,
         index=True,
+        auto_join=True,
     )
     coordinate_category_id = fields.Many2one(
         'coordinate.category',

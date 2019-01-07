@@ -19,7 +19,9 @@ class MembershipLine(models.Model):
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Member',
-        ondelete='cascade', required=True, index=True)
+        ondelete='cascade', required=True, index=True,
+        auto_join=True,
+    )
     product_id = fields.Many2one(
         comodel_name='product.product', string='Subscription',
         domain="[('membership', '!=', False)]",

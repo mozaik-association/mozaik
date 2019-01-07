@@ -24,6 +24,7 @@ class PartnerInvolvement(models.Model):
         index=True,
         track_visibility='onchange',
         domain=[('is_assembly', '=', False)],
+        auto_join=True,
     )
     involvement_category_id = fields.Many2one(
         comodel_name='partner.involvement.category',
