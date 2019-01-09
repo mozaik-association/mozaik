@@ -12,13 +12,6 @@ class IntInstance(models.Model):
 
     member_count = fields.Integer(
         compute='_compute_member_count', string='Members')
-    partner_ids = fields.Many2many(
-        comodel_name="res.partner",
-        string="Partners",
-        relation="res_partner_int_instance",
-        column2="partner_id",
-        column1="int_instance_id",
-    )
     partner_m2m_ids = fields.Many2many(
         comodel_name="res.partner",
         string="Users",
@@ -28,11 +21,14 @@ class IntInstance(models.Model):
     )
 
     @api.multi
-    @api.depends("partner_ids")
+    @api.depends("name")  # pseudo-depend
     def _compute_member_count(self):
+        partner_obj = self.env['res.partner']
         for inst in self:
-            inst.member_count = len(inst.partner_ids.filtered(
-                lambda p: not p.is_company))
+            inst.member_count = len(
+                partner_obj.search(
+                    [('int_instance_ids', 'in', [inst.id]),
+                     ('is_company', '=', False)]))
 
     @api.multi
     def get_member_action(self):
