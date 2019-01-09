@@ -1,5 +1,3 @@
-# Copyright 2018 ACSONE SA/NV
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Mozaik: Sample Customization',
     'summary': """
@@ -29,6 +27,10 @@
         # 'data/mandate_data.xml',
         # 'data/communication_data.xml',
         'data/res_company.xml',
+        'data/product_product.xml',
+        'data/membership_tarification.xml',
     ],
     'installable': True,
 }
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).

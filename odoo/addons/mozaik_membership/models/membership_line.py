@@ -388,8 +388,7 @@ class MembershipLine(models.Model):
         :return: membership.line recordset
         """
         domain = self._get_lines_to_close_renew_domain()
-        self._get_lines_to_close(domain)
-        return self._get_lines_to_renew()
+        return self._get_lines_to_close(domain)
 
     @api.model
     def _get_lines_to_close_former_member_domain(self):
@@ -447,10 +446,40 @@ class MembershipLine(models.Model):
                 lambda l:
                 fields.Date.from_string(l.date_from) <= limit_date)
         if lines:
-            values = {
-                'date_to': date_to,
+
+            # get membership with paid history
+            sql_query = """
+            SELECT id
+            FROM membership_line
+            WHERE
+              id IN %(line_ids)s AND
+              CONCAT(partner_id, '#', int_instance_id) IN
+              (
+                SELECT CONCAT(partner_id, '#', int_instance_id)
+                FROM membership_line
+                WHERE
+                  paid IS TRUE
+              );"""
+            sql_values = {
+                'line_ids': tuple(lines.ids),
             }
-            lines.action_invalidate(values)
+            self.env.cr.execute(sql_query, sql_values)
+            paid_instance_lines_ids = [r[0] for r in self.env.cr.fetchall()]
+            paid_instance_lines = self.browse(paid_instance_lines_ids)
+            if paid_instance_lines:
+                values = {
+                    'date_to': date_to,
+                }
+                paid_instance_lines.action_invalidate(values)
+
+            # people who never paid become member candidate
+            unpaid_instance_line = lines - paid_instance_lines
+            if unpaid_instance_line:
+                unpaid_instance_line.write({
+                    "state_id": self.env.ref(
+                        "mozaik_membership.member_candidate").id,
+                })
+            lines = paid_instance_lines  # renew only the closed one
         return lines
 
     @api.model
@@ -463,7 +492,7 @@ class MembershipLine(models.Model):
         ]
 
     @api.model
-    def _get_lines_to_renew(self):
+    def _get_lines_to_renew(self, force_lines=False):
         """
         Get membership lines to renew.
         Load every lines where the date_from <= the limit_date
@@ -472,7 +501,12 @@ class MembershipLine(models.Model):
         partner/instance.
         :return: membership.line recordset
         """
-        return self._get_membership_line(self._get_lines_to_renew_domain())
+        membership = self._get_membership_line(
+            self._get_lines_to_renew_domain())
+        if force_lines:
+            # Use the intersection between these 2 recordset
+            membership = membership & force_lines
+        return membership
 
     @api.model
     def _get_membership_line(self, domain):
@@ -543,7 +577,11 @@ class MembershipLine(models.Model):
         :return: membership.line recordset
         """
         state = self.env.ref('mozaik_membership.member')
-        return self._update_membership(state, date_from=date_from)
+        lines = self._get_lines_to_renew(force_lines=self)
+        renewed = lines._update_membership(state, date_from=date_from)
+        to_former = self - lines
+        former = to_former._former_member(date_from=date_from)
+        return renewed + former
 
     @api.model
     def _launch_renew(self, date_from=False):
@@ -555,8 +593,8 @@ class MembershipLine(models.Model):
         :param date_from: str/date
         :return: membership.line recordset
         """
-        self._get_lines_to_close_renew()._close(date_to=date_from)
-        return self._get_lines_to_renew()._renew(date_from=date_from)
+        lines = self._get_lines_to_close_renew()._close(date_to=date_from)
+        return lines._renew(date_from=date_from)
 
     @api.multi
     def _former_member(self, date_from=False):
@@ -565,42 +603,7 @@ class MembershipLine(models.Model):
         :param date_from: str/date
         :return: membership.line recordset
         """
-        state = self.env.ref('mozaik_membership.former_member')
-        return self._update_membership(state, date_from=date_from)
-
-    @api.model
-    def _launch_former_member(self, date_from=False):
-        """
-        Steps:
-        - Get every lines to close
-        - Close them
-        - Former member them
-        :param date_from: str/date
-        :return: membership.line recordset
-        """
-        ml = self._get_lines_to_close_former_member()._close(date_to=date_from)
-        return ml._former_member(date_from=date_from)
-
-    @api.model
-    def _get_lines_to_former_member(self):
-        """
-        Get membership lines to former member.
-        Load every lines where the date_from <= the limit_date
-        (cfr: _get_date_no_renew() function)
-        Then filter these lines to have only 1 line to former member per
-        partner/instance.
-        :return: membership.line recordset
-        """
-        return self._get_membership_line(
-            self._get_lines_to_former_member_domain())
-
-    @api.model
-    def _get_lines_to_former_member_domain(self):
-        limit_date = self._get_date_no_renew()
-        domain = [
-            # Active should be False to avoid constraint error during
-            # former member
-            ('active', '=', False),
-            ('date_from', '<=', limit_date),
-        ]
-        return domain
+        former_state = self.env.ref('mozaik_membership.former_member')
+        member_state = self.env.ref('mozaik_membership.member')
+        lines = self.filtered(lambda s, m=member_state: s.state_id == m)
+        return lines._update_membership(former_state, date_from=date_from)
