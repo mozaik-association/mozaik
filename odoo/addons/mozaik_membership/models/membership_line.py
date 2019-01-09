@@ -462,22 +462,22 @@ class MembershipLine(models.Model):
                 'line_ids': tuple(lines.ids),
             }
             self.env.cr.execute(sql_query, sql_values)
-            payed_instance_lines_ids = [r[0] for r in self.env.cr.fetchall()]
-            payed_instance_lines = self.browse(payed_instance_lines_ids)
-            if payed_instance_lines:
+            paid_instance_lines_ids = [r[0] for r in self.env.cr.fetchall()]
+            paid_instance_lines = self.browse(paid_instance_lines_ids)
+            if paid_instance_lines:
                 values = {
                     'date_to': date_to,
                 }
-                payed_instance_lines.action_invalidate(values)
+                paid_instance_lines.action_invalidate(values)
 
-            # people who never payed become member candidate
-            unpayed_instance_line = lines - payed_instance_lines
-            if unpayed_instance_line:
-                unpayed_instance_line.write({
+            # people who never paid become member candidate
+            unpaid_instance_line = lines - paid_instance_lines
+            if unpaid_instance_line:
+                unpaid_instance_line.write({
                     "state_id": self.env.ref(
                         "mozaik_membership.member_candidate").id,
                 })
-            lines = payed_instance_lines  # renew only the closed one
+            lines = paid_instance_lines  # renew only the closed one
         return lines
 
     @api.model
