@@ -14,6 +14,12 @@ class MembershipLine(models.Model):
         readonly=True,
         copy=False,
     )
+    bank_account_id = fields.Many2one(
+        comodel_name="res.partner.bank",
+        string="Bank account",
+        readonly=True,
+        copy=False,
+    )
     paid = fields.Boolean(
         default=False,
         help="Define if this line is paid or not",
@@ -60,7 +66,7 @@ class MembershipLine(models.Model):
         return self._get_membership_line_by_ref(reference).product_id
 
     @api.multi
-    def _mark_as_paid(self, amount, move_id):
+    def _mark_as_paid(self, amount, move_id, bank_id=False):
         """
         Mark as paid current recordset
         Can be inherited to create new lines if any
@@ -73,6 +79,7 @@ class MembershipLine(models.Model):
             'paid': True,
             'price': amount,
             'move_id': move_id,
+            'bank_account_id': bank_id,
         })
         return self
 

@@ -73,7 +73,8 @@ class AccountBankStatementLine(models.Model):
         if mode == 'membership':
             move_id = vals.get('move_id', False)
             membership = memb_obj._get_membership_line_by_ref(reference)
-            membership._mark_as_paid(amount_paid, move_id)
+            bank_account_id = self.bank_account_id.id
+            membership._mark_as_paid(amount_paid, move_id, bank_account_id)
 
         if mode == 'donation':
             involvements = self.env['partner.involvement'].search([
@@ -96,7 +97,8 @@ class AccountBankStatementLine(models.Model):
                 partner, amount_paid)
             if membership:
                 move_id = vals.get('move_id', False)
-                membership._mark_as_paid(amount_paid, move_id)
+                bank_account_id = self.bank_account_id.id
+                membership._mark_as_paid(amount_paid, move_id, bank_account_id)
         return
 
     @api.multi

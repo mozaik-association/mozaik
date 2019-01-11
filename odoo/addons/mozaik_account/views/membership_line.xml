@@ -39,6 +39,8 @@
             <xpath expr="//field[@name='date_to']" position="after">
                 <field name="move_id"
                     attrs="{'invisible': [('move_id', '=', False)]}" />
+                <field name="bank_account_id"
+                    attrs="{'invisible': [('bank_account_id', '=', False)]}"/>
             </xpath>
         </field>
     </record>
