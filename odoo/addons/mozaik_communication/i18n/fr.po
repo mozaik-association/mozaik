@@ -644,7 +644,7 @@ msgstr "Nom"
 #. module: mozaik_communication
 #: model:ir.ui.view,arch_db:mozaik_communication.distribution_list_mass_function_wizard
 msgid "Launch"
-msgstr "Exécuter"
+msgstr "Lancer"
 
 #. module: mozaik_communication
 #: model:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-30 17:34+0000\n"
-"PO-Revision-Date: 2018-11-30 17:34+0000\n"
+"POT-Creation-Date: 2019-01-11 18:50+0000\n"
+"PO-Revision-Date: 2019-01-11 18:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,11 @@ msgstr "Relevé bancaire"
 #: model:ir.model,name:mozaik_account.model_account_bank_statement_line
 msgid "Bank Statement Line"
 msgstr "Ligne de relevé bancaire"
+
+#. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line_bank_account_id
+msgid "Bank account"
+msgstr "Compte bancaire"
 
 #. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_res_partner
@@ -67,7 +72,7 @@ msgid "Membership update"
 msgstr "Mise à jour d'une adhésion"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:46
+#: code:addons/mozaik_account/models/membership_line.py:52
 #, python-format
 msgid "More than one membership to reconcile are available"
 msgstr "Plus d'une adhésion à réconcilier sont disponibles"
@@ -100,7 +105,7 @@ msgid "Unpaid"
 msgstr "Impayé"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/account_bank_statement_line.py:155
+#: code:addons/mozaik_account/models/account_bank_statement_line.py:157
 #, python-format
 msgid "You must first select a partner!"
 msgstr "Vous devez selectionner un partenaire !"

@@ -50,7 +50,7 @@ msgid "Allow Multiple Involvements"
 msgstr "Permettre plusieurs participations"
 
 #. module: mozaik_involvement
-#: code:addons/mozaik_involvement/models/partner_involvement.py:164
+#: code:addons/mozaik_involvement/models/partner_involvement.py:165
 #, python-format
 msgid "An active involvement cannot be duplicated."
 msgstr "Une participation active ne peut être dupliquée."

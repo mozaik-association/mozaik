@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 16:56+0000\n"
-"PO-Revision-Date: 2018-11-14 16:56+0000\n"
+"POT-Creation-Date: 2019-01-11 18:50+0000\n"
+"PO-Revision-Date: 2019-01-11 18:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr "Poursuivre l'archivage/réactivation du niveau de pouvoir ?"
 #: model:ir.ui.view,arch_db:mozaik_structure.abstract_instance_search_view
 #: model:ir.ui.view,arch_db:mozaik_structure.abstract_power_level_search_view
 msgid "Archived"
-msgstr "Archivé/s"
+msgstr "Archivé"
 
 #. module: mozaik_structure
 #: model:ir.ui.view,arch_db:mozaik_structure.abstract_assembly_search_view
@@ -343,6 +343,14 @@ msgid "Commercial Entity"
 msgstr "Entité commerciale"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_commercial_partner_country_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_commercial_partner_country_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_commercial_partner_country_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_commercial_partner_country_id
+msgid "Commercial Entity's Country"
+msgstr "Pays de l'entité commerciale"
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_ref_company_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_ref_company_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_ref_company_ids
@@ -434,13 +442,9 @@ msgid "Counter of the number of bounced emails for this contact"
 msgstr "Le compteur du nombre de mails rejetés pour ce contact"
 
 #. module: mozaik_structure
-#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_commercial_partner_country_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_country_id
-#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_commercial_partner_country_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_country_id
-#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_commercial_partner_country_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_country_id
-#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_commercial_partner_country_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_country_id
 msgid "Country"
 msgstr "Pays"
@@ -487,7 +491,7 @@ msgstr "Devise"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_property_payment_term_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_property_payment_term_id
 msgid "Customer Payment Terms"
-msgstr "Conditions de paiement client"
+msgstr "Conditions de Paiement Client"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_date
@@ -686,7 +690,7 @@ msgstr "Prénom"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_property_account_position_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_property_account_position_id
 msgid "Fiscal Position"
-msgstr "Position fiscale"
+msgstr "Position Fiscale"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_email_formatted
@@ -977,7 +981,7 @@ msgstr "Est une assemblée"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_function
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_function
 msgid "Job Position"
-msgstr "Poste occupé"
+msgstr "Poste Occupé"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_journal_item_count

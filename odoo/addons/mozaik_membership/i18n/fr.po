@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-30 17:30+0000\n"
-"PO-Revision-Date: 2018-11-30 17:30+0000\n"
+"POT-Creation-Date: 2019-01-11 18:50+0000\n"
+"PO-Revision-Date: 2019-01-11 18:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid "A partner without membership must be linked to an internal instance"
 msgstr "Un partenaire sans adhésion doit être lié à une instance interne"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:69
+#: code:addons/mozaik_membership/models/membership_line.py:71
 #, python-format
 msgid "A reference is mandatory when the price is greater than 0:\n"
 "- %s"
@@ -107,17 +107,6 @@ msgstr "Annuler"
 #: model:ir.model,name:mozaik_membership.model_change_main_address
 msgid "Change Main Address Wizard"
 msgstr "Assistant de changement d'adresse principale"
-
-#. module: mozaik_membership
-#: model:ir.actions.act_window,name:mozaik_membership.membership_former_member_membership_action
-#: model:ir.actions.act_window,name:mozaik_membership.membership_former_member_partner_action
-msgid "Change Member to Former Member"
-msgstr "Changement de membre à ancien membre"
-
-#. module: mozaik_membership
-#: model:ir.actions.act_window,name:mozaik_membership.mass_membership_former_member_act_window
-msgid "Change Members to Former Members"
-msgstr "Changement des membres en anciens membres"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_partner_change_instance_change_main_address_id
@@ -420,7 +409,7 @@ msgid "Is Excluded"
 msgstr "Est exclu"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:83
+#: code:addons/mozaik_membership/models/membership_line.py:85
 #, python-format
 msgid "It's not possible to create membership line for a legal person:\n"
 "- %s"
@@ -510,6 +499,11 @@ msgstr "Volontaire local"
 #: model:res.groups,name:mozaik_membership.res_groups_membership_manager
 msgid "Manager"
 msgstr "Gestionnaire"
+
+#. module: mozaik_membership
+#: model:ir.ui.menu,name:mozaik_membership.mass_membership_renew_menu
+msgid "Mass renew"
+msgstr "Renouvellement de masse"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line_partner_id
@@ -743,11 +737,6 @@ msgid "Partner wishing to be contacted only by the local"
 msgstr "Partenaire souhaitant être uniquement contacté par la locale"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_instance_partner_ids
-msgid "Partners"
-msgstr "Partenaires"
-
-#. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.partner_involvement_form_view
 msgid "Payment"
 msgstr "Paiement"
@@ -956,13 +945,13 @@ msgid "The new instance defined by partner should be unique!"
 msgstr "La nouvelle instance défine par partenaire doit être unique!"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:145
+#: code:addons/mozaik_membership/models/membership_line.py:147
 #, python-format
 msgid "The partner already have an active subscription to this instance"
 msgstr "Le partenaire a déjà une adhésion active à cette instance"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:104
+#: code:addons/mozaik_membership/models/membership_line.py:106
 #, python-format
 msgid "These partners are excluded but you're trying to add new membership lines without disabled exclusion lines:\n"
 "- %s"
@@ -1012,7 +1001,7 @@ msgstr "Cette référence est déjà utilisée"
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line_date_to
 msgid "To"
-msgstr "A"
+msgstr "Jusqu'au"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_line_search_view
