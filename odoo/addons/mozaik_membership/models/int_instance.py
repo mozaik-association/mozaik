@@ -21,14 +21,12 @@ class IntInstance(models.Model):
     )
 
     @api.multi
-    @api.depends("name")  # pseudo-depend
     def _compute_member_count(self):
         partner_obj = self.env['res.partner']
         for inst in self:
-            inst.member_count = len(
-                partner_obj.search(
+            inst.member_count = partner_obj.search_count(
                     [('int_instance_ids', 'in', [inst.id]),
-                     ('is_company', '=', False)]))
+                     ('is_company', '=', False)])
 
     @api.multi
     def get_member_action(self):
