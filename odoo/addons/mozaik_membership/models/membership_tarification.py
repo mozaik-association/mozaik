@@ -10,6 +10,7 @@ class MembershipTarification(models.Model):
     """
     _name = 'membership.tarification'
     _description = "Membership tarification"
+    _order = 'sequence'
 
     name = fields.Char(
         help="Name of the tarification",
@@ -49,6 +50,7 @@ class MembershipTarification(models.Model):
             'partner': partner,
             'uid': self.env.uid,
             'user': self.env.user,
+            'self': self,
         }
         return values
 

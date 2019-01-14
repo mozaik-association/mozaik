@@ -22,6 +22,7 @@
                         <label colspan="2" string="partner => res.partner to evaluate the tarification"/>
                         <label colspan="2" string="uid => Current user id"/>
                         <label colspan="2" string="user => Current res.users"/>
+                        <label colspan="2" string="self => Current membership.tarification"/>
                     </group>
                 </sheet>
             </form>
