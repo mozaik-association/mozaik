@@ -1,10 +1,14 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+import logging
 from datetime import date
 from odoo import api, exceptions, models, fields, _
 from odoo.tools import float_is_zero
 import odoo.addons.decimal_precision as dp
 from odoo.osv import expression
+from odoo.addons.queue_job.job import job
+
+logger = logging.getLogger(__name__)
 
 
 class MembershipLine(models.Model):
@@ -435,6 +439,7 @@ class MembershipLine(models.Model):
         :param force: bool
         :return: current recordset
         """
+        logger.info("Closing %s membership.lines", len(self))
         if not date_to:
             date_to = fields.Date.today()
         limit_date = self._get_date_no_renew()
@@ -470,10 +475,14 @@ class MembershipLine(models.Model):
                 values = {
                     'date_to': date_to,
                 }
+                logger.info("Invalidate %s membership.lines",
+                            len(paid_instance_lines))
                 paid_instance_lines.action_invalidate(values)
 
             # people who never paid become member candidate
             unpaid_instance_line = lines - paid_instance_lines
+            logger.info("Member candidate %s membership.lines",
+                        len(unpaid_instance_line))
             if unpaid_instance_line:
                 unpaid_instance_line.write({
                     "state_id": self.env.ref(
@@ -483,13 +492,16 @@ class MembershipLine(models.Model):
         return lines
 
     @api.model
-    def _get_lines_to_renew_domain(self):
+    def _get_lines_to_renew_domain(self, force_lines=None):
         limit_date = self._get_date_no_renew()
-        return [
+        res = [
             # Active should be False to avoid constraint error during renew
             ('active', '=', False),
             ('date_from', '<=', limit_date),
         ]
+        if force_lines:
+            res.append(("id", "in", force_lines.ids))
+        return res
 
     @api.model
     def _get_lines_to_renew(self, force_lines=False):
@@ -502,10 +514,7 @@ class MembershipLine(models.Model):
         :return: membership.line recordset
         """
         membership = self._get_membership_line(
-            self._get_lines_to_renew_domain())
-        if force_lines:
-            # Use the intersection between these 2 recordset
-            membership = membership & force_lines
+            self._get_lines_to_renew_domain(force_lines=force_lines))
         return membership
 
     @api.model
@@ -550,7 +559,10 @@ class MembershipLine(models.Model):
             lambda l: fields.Date.from_string(l.date_from) <= limit_date)
         # Save which membership line are created/updated
         membership_altered = membership_line_obj.browse()
-        for membership_line in membership_lines:
+        membership_size = len(membership_lines)
+        for i, membership_line in enumerate(membership_lines, start=1):
+            logger.info("Create %s membership, follow-up of %s (%s/%s)",
+                        state.code, membership_line, i, membership_size)
             partner = membership_line.partner_id
             instance = membership_line.int_instance_id
             values = self._build_membership_values(
@@ -578,8 +590,10 @@ class MembershipLine(models.Model):
         """
         state = self.env.ref('mozaik_membership.member')
         lines = self._get_lines_to_renew(force_lines=self)
+        logger.info("Renewing %s membership.lines", len(lines))
         renewed = lines._update_membership(state, date_from=date_from)
         to_former = self - lines
+        logger.info("Former member %s membership.lines", len(to_former))
         former = to_former._former_member(date_from=date_from)
         return renewed + former
 
@@ -591,10 +605,28 @@ class MembershipLine(models.Model):
         - Close them
         - Renew them
         :param date_from: str/date
-        :return: membership.line recordset
         """
-        lines = self._get_lines_to_close_renew()._close(date_to=date_from)
+        close_lines = self._get_lines_to_close_renew()
+
+        last_i = 0
+        step = int(self.env['ir.config_parameter'].get_param(
+            'membership.number_slice_renew', default='300'))
+        for i in range(step, len(close_lines), step):
+            close_lines[last_i:i]._close_and_renew(date_from=date_from)
+            last_i = i
+        close_lines[last_i:]._close_and_renew(date_from=date_from)
+
+    @api.multi
+    @job(default_channel="root.membership_close_and_renew")
+    def _job_close_and_renew(self, date_from=False):
+        lines = self._close(date_to=date_from)
         return lines._renew(date_from=date_from)
+
+    @api.multi
+    def _close_and_renew(self, date_from=False):
+        self.with_delay(
+                description="Renew %s memberships" % len(self)
+        )._job_close_and_renew(date_from=date_from)
 
     @api.multi
     def _former_member(self, date_from=False):

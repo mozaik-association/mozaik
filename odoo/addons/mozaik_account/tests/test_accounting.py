@@ -55,11 +55,14 @@ class TestAccounting(object):
         amount += additional_amount
         statement_line_vals = {
             'statement_id': b_statement_id.id,
-            'name': reference,
             'amount': amount,
+            'name': "%s" % b_statement_id.id,
         }
         if with_partner:
-            statement_line_vals['partner_id'] = self.partner.id
+            statement_line_vals.update({
+                'partner_id': self.partner.id,
+                'name': reference,
+            })
 
         self.bsl_obj.create(statement_line_vals)
 

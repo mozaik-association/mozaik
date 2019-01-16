@@ -12,6 +12,14 @@ class AccountBankStatementLine(models.Model):
     _inherit = 'account.bank.statement.line'
 
     @api.model
+    def create(self, vals):
+        if not vals.get("partner_id"):
+            mode, partner = self._get_info_from_reference(vals.get("name"))
+            if partner:
+                vals["partner_id"] = partner.id
+        return super().create(vals)
+
+    @api.model
     def _get_models(self):
         return {
             'membership.line': {'mode': 'membership', 'map': 'partner_id'},

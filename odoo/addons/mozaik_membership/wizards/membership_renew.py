@@ -48,7 +48,7 @@ class MembershipRenew(models.TransientModel):
                 lines = targets
             else:  # We work on res.partner
                 lines = targets.mapped("membership_line_ids").filtered(
-                    lambda l: l.active)
+                    lambda l: l.active and l.state_code == "member")
             result.update({
                 'membership_line_ids': [(6, False, lines.ids)],
             })
