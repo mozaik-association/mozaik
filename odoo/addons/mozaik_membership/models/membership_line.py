@@ -610,7 +610,7 @@ class MembershipLine(models.Model):
 
         last_i = 0
         step = int(self.env['ir.config_parameter'].get_param(
-            'membership.number_slice_renew', default='300'))
+            'membership.renewal_slice_size', default='300'))
         for i in range(step, len(close_lines), step):
             close_lines[last_i:i]._close_and_renew(date_from=date_from)
             last_i = i

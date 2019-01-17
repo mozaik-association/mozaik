@@ -14,7 +14,7 @@ class AccountBankStatementLine(models.Model):
     @api.model
     def create(self, vals):
         if not vals.get("partner_id"):
-            mode, partner = self._get_info_from_reference(vals.get("name"))
+            __, partner = self._get_info_from_reference(vals.get("name"))
             if partner:
                 vals["partner_id"] = partner.id
         return super().create(vals)
