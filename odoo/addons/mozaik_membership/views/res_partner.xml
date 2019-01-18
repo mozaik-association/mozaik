@@ -47,8 +47,6 @@
             <xpath expr="//filter[@name='group_country']" position="after">
                 <filter name="group_membership_state" string="Membership State"
                     context="{'group_by': 'membership_state_id'}" />
-                <filter name="group_subscription_product" string="Subscription"
-                    context="{'group_by': 'subscription_product_id'}" />
             </xpath>
         </field>
     </record>

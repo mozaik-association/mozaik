@@ -106,9 +106,6 @@ class UpdateMembership(models.TransientModel):
         """
         self.ensure_one()
         self.product_id.ensure_one()
-        if self.membership_line_id.product_id == self.product_id:
-            raise exceptions.UserError(
-                _("This product is already set on the membership line"))
         vals = self._prepare_update_product_price()
         return self.membership_line_id.write(vals)
 
