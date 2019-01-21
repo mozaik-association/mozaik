@@ -8,8 +8,8 @@ from odoo.fields import first
 from odoo.tools.config import config as system_base_config
 
 RUNNING_ENV = system_base_config.get('running_env', '')
-MASK = system_base_config.misc.get('ir.config_parameter', {}).get(
-    'email.sanitize.mask', '').replace('%%', '%')
+MASK = (system_base_config.misc.get('ir.config_parameter', {}).get(
+    'email.sanitize.mask') or '').replace('%%', '%')
 RE_MASK = re.compile(r'^%s$' % re.escape(MASK).replace('\\%s', '.*'))
 
 
