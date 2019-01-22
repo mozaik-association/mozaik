@@ -59,6 +59,17 @@ class ResPartner(models.Model):
         track_visibility='onchange',
     )
 
+    # When the field isn't redefined, Odoo will sometimes not see the
+    # definition of display_name in the base addon,
+    # so it's the default one (magic field) which will be used,
+    # and this field is not store. The result can change on every restart,
+    # and this will lead on possible blank display_name for certain partner.
+    # (partner which was created when store=False will have empty value when
+    # store=True)
+    # Redefining it here somehow forces odoo to notice the field in base.
+    display_name = fields.Char(
+    )
+
     @api.depends(
         'is_company', 'name', 'parent_id.name', 'type', 'company_name',
         'identifier', 'select_name')
