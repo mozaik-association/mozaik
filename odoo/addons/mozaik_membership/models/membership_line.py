@@ -210,8 +210,8 @@ class MembershipLine(models.Model):
         :param vals: dict
         :return: self recordset
         """
-        if self.env.context.get(
-                'no_invalidate_previous_membership_line', True):
+        if not self.env.context.get(
+                'no_invalidate_previous_membership_line'):
             partner_id = vals.get('partner_id')
             date_from = vals.get('date_from')
             int_instance_id = vals.get('int_instance_id')
