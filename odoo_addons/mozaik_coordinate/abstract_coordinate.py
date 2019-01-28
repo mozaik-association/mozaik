@@ -98,7 +98,9 @@ class abstract_coordinate(orm.AbstractModel):
         'bounce_description': fields.text(
             'Last Failure Description', track_visibility='onchange'),
         'bounce_date': fields.datetime(
-            'Last Failure Date', track_visibility='onchange')
+            'Last Failure Date', track_visibility='onchange'),
+        'first_bounce_date': fields.datetime(
+            'First Failure Date', track_visibility='onchange')
     }
 
     _defaults = {
@@ -306,7 +308,9 @@ class abstract_coordinate(orm.AbstractModel):
         Reset the bounce counter
         """
         self.write(cr, uid, ids,
-                   {'bounce_counter': 0}, context=context)
+                   {'bounce_counter': 0,
+                    'first_bounce_date': False
+                   },context=context)
 
 # public methods
 
