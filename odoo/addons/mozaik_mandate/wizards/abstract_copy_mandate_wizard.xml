@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="abstract_copy_mandate_wizard_form_view">
+        <field name="name">abstract.copy.mandate.wizard.form (in mozaik_mandate)</field>
+        <field name="model">abstract.copy.mandate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Mandate">
+                <div class="oe_title" attrs="{'invisible': [('action', '!=', 'renew')]}">
+                   <separator string="Renew Mandate"/>
+                </div>
+                <div class="oe_title" attrs="{'invisible': [('action', '!=', 'add')]}">
+                   <separator string="Add Complementary Mandate"/>
+                </div>
+                <group name="data_1">
+                    <field name="mandate_category_id"
+                           attrs="{'readonly':[('action', '=', 'renew')],
+                                   'invisible': [('action', '=', 'add')]}"
+                           options='{"no_open":True}'/>
+                    <field name="new_mandate_category_id"
+                           attrs="{'invisible':[('action', '=', 'renew')],
+                                   'required': [('action', '=', 'add')]}"
+                           options='{"no_open":True}'/>
+                    <field name="assembly_id"
+                           attrs="{'invisible': [('action', '=', 'add')]}"
+                           options='{"no_open":True}'/>
+                    <field name="new_assembly_id"
+                           attrs="{'invisible':[('action', '=', 'renew')],
+                                   'required': [('action', '=', 'add')]}"
+                           domain="[('instance_id', '=', instance_id)]"
+                           options='{"no_open":True}'/>
+                    <field name="partner_id" options='{"no_open":True}'/>
+
+                </group>
+                <notebook>
+                    <page name="dates" string="Dates">
+                        <group name="dates">
+                            <group name="date1">
+                                <field name="start_date" required="1"/>
+                            </group>
+                            <group name="date2">
+                                <field name="deadline_date" required="1"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="dev" string="More Info" groups="base.group_erp_manager">
+                        <group name="moreinfo">
+                            <field name="action"/>
+                            <field name="instance_id"/>
+                        </group>
+                    </page>
+                </notebook>
+                <footer>
+                    <field name="message" readonly="1" attrs="{'invisible': [('message', '=', False)]}"/>
+                    <button string="Renew" name="renew_mandate"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible':[('action', '!=', 'renew')]}"/>
+                    <button string="Create" name="add_mandate"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible':[('action', '!=', 'add')]}"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+               </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

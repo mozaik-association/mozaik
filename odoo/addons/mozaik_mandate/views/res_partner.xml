@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form (in mozaik_mandate)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mozaik_person.res_partner_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" icon="fa-check-circle-o"
+                    type="object" name="get_mandate_action"
+                    attrs="{'invisible':['|', '|', ('id','=', False), ('is_company','=', False),
+                        '&amp;', ('is_assembly', '=', True), ('ext_mandate_count', '=', 0)]}">
+                    <field name="ext_mandate_count" widget="statinfo" string="Mandates"/>
+                </button>
+                <button class="oe_stat_button" icon="fa-university"
+                    type="action" name="mozaik_structure.ext_assembly_action"
+                    context="{'search_default_ref_partner_id': active_id}"
+                    attrs="{'invisible':['|', '|', ('id','=', False), ('is_company','=', False), ('is_assembly', '=', True)]}">
+                    <field name="ext_assembly_count" widget="statinfo" string="Assemblies"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='identifier']" position="after">
+                <span attrs="{'invisible':[('sta_mandate_ids','=',[])]}">
+                    <br/>
+                    <label class="oe_representative" string="⇒ State Representative"/>
+                </span>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page name="mandates" string="Mandates" attrs="{'invisible': [('is_company','=',True)]}">
+                    <span class="oe_horizontal_separator oe_clear oe_inline">
+                        State Mandates
+                    </span>
+                    <button class="oe_right" string="All Details" name="%(sta_mandate_action)d"
+                                    type="action" attrs="{'invisible': [('id','=',False)]}"
+                                    context="{'search_default_partner_id': active_id,
+                                              'default_partner_id': active_id,
+                                              'search_default_all': True}" />
+                    <field name="sta_mandate_ids" attrs="{'invisible': [('active', '=', False)], 'readonly': [('id','=',False)]}"
+                            context="{'default_partner_id': active_id}">
+                        <tree decoration-danger="is_duplicate_detected==True">
+                            <field name="mandate_category_id"/>
+                            <field name="sta_assembly_id"/>
+                            <field name="start_date"/>
+                            <field name="deadline_date"/>
+                            <field name="is_duplicate_detected" invisible="1"/>
+                        </tree>
+                    </field>
+                    <field name="sta_mandate_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                           readonly="1">
+                        <tree>
+                            <field name="mandate_category_id"/>
+                            <field name="sta_assembly_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </tree>
+                    </field>
+                    <span class="oe_horizontal_separator oe_clear oe_inline">
+                        Internal Mandates
+                    </span>
+                    <button class="oe_right" string="All Details" name="%(int_mandate_action)d"
+                                    type="action" attrs="{'invisible': [('id','=',False)]}"
+                                    context="{'search_default_partner_id': active_id,
+                                              'default_partner_id': active_id,
+                                              'search_default_all': True}" />
+                    <field name="int_mandate_ids" attrs="{'invisible': [('active', '=', False)], 'readonly': [('id','=',False)]}"
+                            context="{'default_partner_id': active_id}">
+                        <tree decoration-danger="is_duplicate_detected==True">
+                            <field name="mandate_category_id"/>
+                            <field name="int_assembly_id"/>
+                            <field name="start_date"/>
+                            <field name="deadline_date"/>
+                            <field name="is_duplicate_detected" invisible="1"/>
+                        </tree>
+                    </field>
+                    <field name="int_mandate_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                           readonly="1">
+                        <tree>
+                            <field name="mandate_category_id"/>
+                            <field name="int_assembly_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </tree>
+                    </field>
+                    <span class="oe_horizontal_separator oe_clear oe_inline">
+                        External Mandates
+                    </span>
+                    <button class="oe_right" string="All Details" name="%(ext_mandate_action)d"
+                                    type="action" attrs="{'invisible': [('id','=',False)]}"
+                                    context="{'search_default_partner_id': active_id,
+                                              'default_partner_id': active_id,
+                                              'search_default_all': True}" />
+                    <field name="ext_mandate_ids" attrs="{'invisible': [('active', '=', False)], 'readonly': [('id','=',False)]}"
+                            context="{'default_partner_id': active_id}">
+                        <tree decoration-danger="is_duplicate_detected==True">
+                            <field name="mandate_category_id"/>
+                            <field name="ext_assembly_id"/>
+                            <field name="start_date"/>
+                            <field name="deadline_date"/>
+                            <field name="is_duplicate_detected" invisible="1"/>
+                        </tree>
+                    </field>
+                    <field name="ext_mandate_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                           readonly="1">
+                        <tree>
+                            <field name="mandate_category_id"/>
+                            <field name="ext_assembly_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

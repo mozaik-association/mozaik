@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_virtual_partner_mandate_res_group_mandate_reader,mozaik.virtual.partner.mandate.res.group.base,model_virtual_partner_mandate,mozaik_mandate.res_groups_mandate_reader,1,0,0,0

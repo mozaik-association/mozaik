@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="generic_mandate_form_view">
+        <field name="name">generic.mandate.form (in mozaik_mandate)</field>
+        <field name="model">generic.mandate</field>
+        <field name="arch" type="xml">
+            <form edit="0" create="0" delete="0" string="Incompatible Mandate">
+                <sheet>
+                    <div class="oe_button_box" name="buttons">
+                        <button class="oe_stat_button" name="button_view_mandate" type="object" string="Mandate" icon="fa-file-text"/>
+                    </div>
+                    <group name="data">
+                        <group name="data_1">
+                            <field name="partner_id"/>
+                            <field name="mandate_category_id"/>
+                            <field name="assembly_name"/>
+                         </group>
+                        <group name="data_2">
+                            <field name="start_date"/>
+                            <field name="deadline_date"/>
+                            <label for="is_duplicate_detected" style="color:red;" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
+                            <field name="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}" style="color:red;" nolabel="1"/>
+                         </group>
+                     </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="generic_mandate_search_view">
+        <field name="name">generic.mandate.search (in mozaik_mandate)</field>
+        <field name="model">generic.mandate</field>
+        <field name="arch" type="xml">
+            <search string="Incompatible Mandates">
+                <field name="partner_id" domain="[('is_company','=',False)]"/>
+
+                <filter name="duplicate" string="Incompatible Mandates"
+                        domain="[('is_duplicate_detected','=',True)]" />
+                <separator/>
+                <filter name="allow_duplicate" string="Allowed Incompatible Mandates" domain="[('is_duplicate_allowed','=',True)]"/>
+
+                <group expand="0" string="Group By..." name="group_by">
+                    <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
+                    <filter name="category" string="Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="generic_mandate_tree_view">
+        <field name="name">generic.mandate.tree (in mozaik_mandate)</field>
+        <field name="model">generic.mandate</field>
+        <field name="arch" type="xml">
+            <tree create="0" delete="0" decoration-danger="is_duplicate_detected==True">
+                <field name="partner_id"/>
+                <field name="mandate_category_id"/>
+                <field name="assembly_name"/>
+                <field name="start_date"/>
+                <field name="deadline_date"/>
+                <field name="is_duplicate_detected" invisible="1"/>
+                <button name="button_view_mandate" type="object" string="View" icon="fa-file-text"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="generic_mandate_action" model="ir.actions.act_window">
+        <field name="name">Incompatible Mandates</field>
+        <field name="res_model">generic.mandate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="generic_mandate_search_view" />
+        <field name="view_id" ref="generic_mandate_tree_view" />
+        <field name="context">{'search_default_duplicate': True}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="incompatible_mandates_submenu">
+        <field name="name">Incompatible Mandates</field>
+        <field name="parent_id" ref="all_mandates_submenu"/>
+        <field name="action" ref="generic_mandate_action"/>
+        <field name="sequence" eval="10"/>
+    </record>
+
+</odoo>

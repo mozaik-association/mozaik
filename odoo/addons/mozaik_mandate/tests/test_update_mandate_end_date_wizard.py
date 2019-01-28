@@ -1,49 +1,17 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_mandate, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_mandate is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_mandate is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_mandate.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-import logging
-from openerp.osv import orm
-from anybox.testing.openerp import SharedSetupTransactionCase
+# Copyright 2019 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from datetime import datetime, timedelta
+from odoo.tests.common import SavepointCase
+from odoo.exceptions import ValidationError
 
-_logger = logging.getLogger(__name__)
 
-
-class test_update_mandate_end_date_wizard(object):
-    _data_files = (
-        '../../mozaik_base/tests/data/res_partner_data.xml',
-        '../../mozaik_structure/tests/data/structure_data.xml',
-        'data/mandate_data.xml',
-    )
+class TestUpdateMandateEndDateWizard:
 
     _module_ns = 'mozaik_mandate'
     mandate = False
     model = False
     wizard = False
-
-    def setUp(self):
-        super(test_update_mandate_end_date_wizard, self).setUp()
 
     def test_update_mandate_end_date(self):
         '''
@@ -60,42 +28,21 @@ class test_update_mandate_end_date_wizard(object):
         last_week = datetime.now() - timedelta(days=7)
         last_month = datetime.now() - timedelta(days=30)
 
-        wizard_pool = self.registry(self.wizard)
-        wiz_id = wizard_pool.create(self.cr,
-                                    self.uid,
-                                    {'mandate_end_date': tomorrow},
-                                    context=context)
-        self.assertRaises(orm.except_orm,
-                          wizard_pool.set_mandate_end_date,
-                          self.cr,
-                          self.uid,
-                          wiz_id,
-                          {})
+        wizard_object = self.env[self.wizard]
+        wiz_id = wizard_object.with_context(context).create(
+            {'mandate_end_date': tomorrow})
+        self.assertRaises(ValidationError,
+                          wiz_id.set_mandate_end_date)
         # Finish and inactive an opened mandate
-        wizard_pool.write(self.cr,
-                          self.uid,
-                          wiz_id,
-                          {'mandate_end_date': last_week})
-        wizard_pool.set_mandate_end_date(self.cr,
-                                         self.uid,
-                                         wiz_id,
-                                         context=context)
-        self.mandate = self.registry[self.model].browse(self.cr,
-                                                        self.uid,
-                                                        self.mandate.id)
+        wiz_id.write({'mandate_end_date': last_week})
+        wiz_id.set_mandate_end_date()
         self.assertFalse(self.mandate.active)
         self.assertEqual(self.mandate.end_date, last_week.strftime('%Y-%m-%d'))
 
         # Update end date of a finished mandate
-        wizard_pool.write(self.cr,
-                          self.uid,
-                          wiz_id,
-                          {'mandate_end_date': last_month})
+        wiz_id.write({'mandate_end_date': last_month})
 
-        wizard_pool.set_mandate_end_date(self.cr,
-                                         self.uid,
-                                         wiz_id,
-                                         context=context)
+        wiz_id.set_mandate_end_date()
 
         self.assertFalse(self.mandate.active)
         self.assertEqual(self.mandate.end_date,
@@ -114,40 +61,23 @@ class test_update_mandate_end_date_wizard(object):
         last_month = datetime.now() - timedelta(days=30)
         next_month = datetime.now() + timedelta(days=30)
 
-        wizard_pool = self.registry(self.wizard)
+        wizard_object = self.env[self.wizard]
 
         # Inactivate mandate
-        wiz_id = wizard_pool.create(self.cr,
-                                    self.uid,
-                                    {'mandate_end_date': last_week},
-                                    context=context)
-        wizard_pool.set_mandate_end_date(self.cr,
-                                         self.uid,
-                                         wiz_id,
-                                         context=context)
+        wiz_id = wizard_object.with_context(context).create(
+            {'mandate_end_date': last_week})
+        wiz_id.set_mandate_end_date()
         self.assertFalse(self.mandate.active)
 
         # Reactivate mandate
-        wiz_id = wizard_pool.create(self.cr,
-                                    self.uid,
-                                    {'mandate_deadline_date': last_month},
-                                    context=context)
-        self.assertRaises(orm.except_orm,
-                          wizard_pool.reactivate_mandate,
-                          self.cr,
-                          self.uid,
-                          wiz_id,
-                          {})
+        wiz_id = wizard_object.with_context(context).create(
+            {'mandate_deadline_date': last_month})
+        self.assertRaises(ValidationError,
+                          wiz_id.reactivate_mandate)
 
-        wizard_pool.write(self.cr,
-                          self.uid,
-                          wiz_id,
-                          {'mandate_deadline_date': next_month})
+        wiz_id.write({'mandate_deadline_date': next_month})
 
-        wizard_pool.reactivate_mandate(self.cr,
-                                       self.uid,
-                                       wiz_id,
-                                       context=context)
+        wiz_id.reactivate_mandate()
 
         self.assertTrue(self.mandate.active)
         self.assertEqual(self.mandate.deadline_date,
@@ -164,29 +94,26 @@ class test_update_mandate_end_date_wizard(object):
         }
         next_month = datetime.now() + timedelta(days=30)
 
-        wizard_pool = self.registry(self.wizard)
+        wizard_object = self.env[self.wizard]
 
         self.assertTrue(self.mandate.active)
 
         # Reactivate mandate
-        wiz_id = wizard_pool.create(self.cr,
-                                    self.uid,
-                                    {'mandate_deadline_date': next_month},
-                                    context=context)
-        wizard = wizard_pool.browse(self.cr, self.uid, wiz_id, context=context)
-        self.assertEqual(wizard.message,
+        wiz_id = wizard_object.with_context(
+            context).create({'mandate_deadline_date': next_month})
+        self.assertEqual(wiz_id.message,
                          "The selected mandate is already active!")
 
 
-class update_sta_mandate_end_date_wizard(test_update_mandate_end_date_wizard,
-                                         SharedSetupTransactionCase):
+class TestUpdateStaMandateEndDateWizard(TestUpdateMandateEndDateWizard,
+                                        SavepointCase):
 
     def setUp(self):
-        self.mandate = self.browse_ref('%s.stam_thierry_bourgmestre'
+        self.mandate = self.browse_ref('%s.stam_paul_bourgmestre'
                                        % self._module_ns)
         self.model = 'sta.mandate'
         self.wizard = 'update.sta.mandate.end.date.wizard'
-        super(update_sta_mandate_end_date_wizard, self).setUp()
+        super().setUp()
 
     def test_reactivate_mandate(self):
         return
@@ -195,23 +122,23 @@ class update_sta_mandate_end_date_wizard(test_update_mandate_end_date_wizard,
         return
 
 
-class update_int_mandate_end_date_wizard(test_update_mandate_end_date_wizard,
-                                         SharedSetupTransactionCase):
+class TestUpdateIntMandateEndDateWizard(TestUpdateMandateEndDateWizard,
+                                        SavepointCase):
 
     def setUp(self):
         self.mandate = self.browse_ref('%s.intm_paul_regional'
                                        % self._module_ns)
         self.model = 'int.mandate'
         self.wizard = 'update.int.mandate.end.date.wizard'
-        super(update_int_mandate_end_date_wizard, self).setUp()
+        super().setUp()
 
 
-class update_ext_mandate_end_date_wizard(test_update_mandate_end_date_wizard,
-                                         SharedSetupTransactionCase):
+class TestUpdateExtMandateEndDateWizard(TestUpdateMandateEndDateWizard,
+                                        SavepointCase):
 
     def setUp(self):
         self.mandate = self.browse_ref('%s.extm_paul_membre_ag'
                                        % self._module_ns)
         self.model = 'ext.mandate'
         self.wizard = 'update.ext.mandate.end.date.wizard'
-        super(update_ext_mandate_end_date_wizard, self).setUp()
+        super().setUp()

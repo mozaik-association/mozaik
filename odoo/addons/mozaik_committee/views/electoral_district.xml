@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="electoral_district_form_view">
+        <field name="name">electoral.district.form (in mozaik_committee)</field>
+        <field name="model">electoral.district</field>
+        <field name="inherit_id" ref="mozaik_structure.electoral_district_form_view"/>
+        <field name="arch" type="xml">
+        <xpath expr="//sheet/div[@name='buttons']" position="inside">
+            <button string="Candidatures" name="%(sta_candidature_action)d"
+                    type="action" attrs="{'invisible': [('id','=',False)]}"
+                    context="{'search_default_electoral_district_id': active_id,
+                              'default_electoral_district_id': active_id}" />
+        </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="mc_conseiller_provincial" model="mandate.category">
+        <field name="type">sta</field>
+        <field name="name">Conseiller provincial</field>
+        <field name="sta_assembly_category_id" ref="mozaik_structure.sta_assembly_category_01"/>
+    </record>
+
+    <record id="mc_conseiller_communal" model="mandate.category">
+        <field name="type">sta</field>
+        <field name="name">Conseiller communal</field>
+        <field name="sta_assembly_category_id" ref="mozaik_structure.sta_assembly_category_02"/>
+    </record>
+
+    <record id="mc_bourgmestre" model="mandate.category">
+        <field name="type">sta</field>
+        <field name="name">Bourgmestre</field>
+        <field name="sta_assembly_category_id" ref="mozaik_structure.sta_assembly_category_01"/>
+        <field name="exclusive_category_m2m_ids" eval="[
+            (4, ref('mc_conseiller_provincial')),
+        ]"/>
+    </record>
+
+    <record id="mc_membre_effectif_ag" model="mandate.category">
+        <field name="type">ext</field>
+        <field name="name">Membre effectif AG</field>
+        <field name="ext_assembly_category_id" ref="mozaik_structure.ext_assembly_category_01"/>
+    </record>
+
+    <record id="mc_membre_assemblee_regionale" model="mandate.category">
+        <field name="type">int</field>
+        <field name="name">Membre de l'assemblée régionale</field>
+        <field name="int_assembly_category_id" ref="mozaik_structure.int_assembly_category_01"/>
+    </record>
+
+    <record id="mc_secretaire_regional" model="mandate.category">
+        <field name="type">int</field>
+        <field name="name">Secrétaire régional</field>
+        <field name="int_assembly_category_id" ref="mozaik_structure.int_assembly_category_02"/>
+    </record>
+
+    <record id="mc_administrateur" model="mandate.category">
+        <field name="type">ext</field>
+        <field name="name">Administrateur</field>
+        <field name="ext_assembly_category_id" ref="mozaik_structure.ext_assembly_category_01"/>
+        <field name="exclusive_category_m2m_ids" eval="[
+            (4, ref('mc_bourgmestre')),
+        ]"/>
+    </record>
+</odoo>

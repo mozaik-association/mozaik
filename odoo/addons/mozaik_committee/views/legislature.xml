@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="legislature_form_view">
+        <field name="name">legislature.form (in mozaik_mandate)</field>
+        <field name="model">legislature</field>
+        <field name="inherit_id" ref="mozaik_structure.legislature_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='buttons_box']" position="inside">
+                <button string="Candidatures" name="%(sta_candidature_action)d"
+                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                        context="{'search_default_legislature_id': active_id,
+                                'default_legislature_id': active_id}" />
+             </xpath>
+        </field>
+    </record>
+
+</odoo>
