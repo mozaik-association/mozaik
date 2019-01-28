@@ -236,7 +236,9 @@ class DistributionListLine(models.Model):
                 if field_name == 'id':
                     targets |= results
                 else:
-                    targets |= results.mapped(field_name)
+                    # to speedup use read and not mapped
+                    ids = set(r[field_name][0] for r in results.read([field_name]))
+                    targets |= self.env[target_model].browse(ids)
             except Exception as e:
                 message = _("A filter for the target model %s is not valid.\n"
                             "Details: %s") % (target_model, tools.ustr(e))
