@@ -237,7 +237,8 @@ class DistributionListLine(models.Model):
                     targets |= results
                 else:
                     # to speedup use read and not mapped
-                    ids = set(r[field_name][0] for r in results.read([field_name]))
+                    ids = set(r[field_name] for r in results.read(
+                        [field_name], load='_classic_write'))
                     targets |= self.env[target_model].browse(ids)
             except Exception as e:
                 message = _("A filter for the target model %s is not valid.\n"

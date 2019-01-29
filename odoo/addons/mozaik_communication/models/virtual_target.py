@@ -13,8 +13,7 @@ class VirtualTarget(models.Model):
     _auto = False
 
     result_id = fields.Many2one(
-        compute='_compute_result_id',
-    )
+        store=False)
     membership_state_id = fields.Many2one(
         comodel_name='membership.state', string='Membership State')
     display_name = fields.Char()
@@ -28,19 +27,6 @@ class VirtualTarget(models.Model):
     zip = fields.Char("Zip Code")
     country_id = fields.Many2one(
         comodel_name='res.country', string='Country')
-
-    @api.multi
-    @api.depends('common_id')
-    def _compute_result_id(self):
-        """
-        Compute result id based on common_id field
-        """
-        common_ids = self.mapped('common_id')
-        vts = self.env['virtual.target'].search(
-            [('common_id', 'in', common_ids)])
-        ids = {vt.common_id: vt.id for vt in vts}
-        for record in self:
-            record.result_id = ids.get(record.common_id, False)
 
     @api.model
     def _get_select(self):

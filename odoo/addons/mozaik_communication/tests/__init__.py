@@ -4,4 +4,3 @@ from . import test_distribution_list
 from . import test_mass_function
 from . import test_mail_template
 from . import test_email_template_placeholder
-from . import test_abstract_virtual_model
