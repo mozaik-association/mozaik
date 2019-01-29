@@ -12,6 +12,8 @@ class VirtualTarget(models.Model):
     ]
     _auto = False
 
+    result_id = fields.Many2one(
+        store=False)
     membership_state_id = fields.Many2one(
         comodel_name='membership.state', string='Membership State')
     display_name = fields.Char()
@@ -83,3 +85,11 @@ class VirtualTarget(models.Model):
         :return: str
         """
         return "WHERE p.active IS TRUE"
+
+    @api.model
+    def _select_virtual_target(self):
+        return ""
+
+    @api.model
+    def _from_virtual_target(self):
+        return ""

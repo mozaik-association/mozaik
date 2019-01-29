@@ -21,7 +21,6 @@ class AbstractVirtualModel(models.AbstractModel):
     result_id = fields.Many2one(
         comodel_name='virtual.target',
         string='Result',
-        compute='_compute_result_id',
     )
     email_coordinate_id = fields.Many2one(
         comodel_name="email.coordinate",
@@ -88,19 +87,6 @@ class AbstractVirtualModel(models.AbstractModel):
         store=False,
         search='_search_int_instance_id',
     )
-
-    @api.multi
-    @api.depends('common_id')
-    def _compute_result_id(self):
-        """
-        Compute result id based on common_id field
-        """
-        common_ids = self.mapped('common_id')
-        vts = self.env['virtual.target'].search(
-            [('common_id', 'in', common_ids)])
-        ids = {vt.common_id: vt.id for vt in vts}
-        for record in self:
-            record.result_id = ids.get(record.common_id, False)
 
     @api.model
     def _search_int_instance_id(self, operator, value):
@@ -200,6 +186,25 @@ class AbstractVirtualModel(models.AbstractModel):
         """
         return ""
 
+    @api.model
+    def _select_virtual_target(self):
+        return """
+            ,vt.id AS result_id
+        """
+
+    @api.model
+    def _from_virtual_target(self):
+        return """
+        LEFT OUTER JOIN 
+            virtual_target as vt 
+        ON 
+            vt.partner_id = p.id AND
+            (vt.email_coordinate_id = e.id OR 
+            (vt.email_coordinate_id is NULL AND e.id is NULL)) AND
+            (vt.postal_coordinate_id = pc.id OR 
+            (vt.postal_coordinate_id is NULL AND pc.id is NULL))
+            """
+
     @api.model_cr
     def init(self):
         if self._abstract:
@@ -211,8 +216,10 @@ class AbstractVirtualModel(models.AbstractModel):
         parameters = self._get_union_parameters() or [False]
         sub_queries = []
         for parameter in parameters:
-            select_query = self._get_select()
-            from_query = self._get_from()
+            select_query = "%s %s" % (self._get_select(),
+                                      self._select_virtual_target())
+            from_query = "%s %s" % (self._get_from(),
+                                    self._from_virtual_target())
             where_query = self._get_where()
             # Get values to replace into the sub-query
             values = self._get_query_parameters(parameter=parameter)

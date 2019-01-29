@@ -133,3 +133,19 @@ class VirtualPartnerRelation(models.Model):
         return """
             WHERE (r.date_start is null OR r.date_start<=current_date)
             AND (r.date_end is null OR current_date<=r.date_end)"""
+
+    @api.model
+    def _from_virtual_target(self):
+        return """
+    LEFT OUTER JOIN 
+        virtual_target as vt 
+    ON 
+        vt.partner_id = p.id AND 
+        ((ec1.id IS NOT NULL AND vt.email_coordinate_id = ec1.id) OR 
+        (ec2.id IS NOT NULL AND vt.email_coordinate_id = ec2.id) OR
+        (vt.email_coordinate_id IS NULL AND ec1.id IS NULL AND ec2.id IS NULL))
+        AND
+        ((pc1.id IS NOT NULL AND vt.postal_coordinate_id = pc1.id) OR
+        (pc2.id IS NOT NULL AND vt.postal_coordinate_id = pc2.id) OR
+        (vt.email_coordinate_id IS NULL AND pc1.id IS NULL AND pc2.id IS NULL))
+            """
