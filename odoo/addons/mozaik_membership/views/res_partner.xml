@@ -84,7 +84,7 @@
                     )
                     <span attrs="{'invisible': [('membership_state_code', 'not in', ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member'])]}">
                         <br/>
-                        <label class="oe_attention" string="⇒ Pay Attention"/>
+                        <label class="bg-danger-full" string="⇒ Pay Attention"/>
                     </span>
                 </span>
             </xpath>
