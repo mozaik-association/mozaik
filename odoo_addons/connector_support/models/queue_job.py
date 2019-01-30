@@ -17,3 +17,13 @@ class QueueJob(models.Model):
             domain = [dom for dom in domain if dom[0] != 'groups_id']
             domain = [('groups_id', '=', group.id)] + domain
         return domain
+
+    @api.multi
+    def _message_failed_job(self):
+        """ Add users's language in context
+        """
+        self.ensure_one()
+        lang = self.env.context.get('lang') or self.user_id.lang or False
+        res = super(
+            QueueJob, self.with_context(lang=lang))._message_failed_job()
+        return res
