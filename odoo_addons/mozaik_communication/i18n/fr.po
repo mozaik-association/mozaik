@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-14 18:25+0000\n"
-"PO-Revision-Date: 2018-06-14 18:25+0000\n"
+"POT-Creation-Date: 2019-01-30 22:08+0000\n"
+"PO-Revision-Date: 2019-01-30 22:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -601,7 +601,7 @@ msgstr "Modèle de courriel"
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_email_template_placeholder
 msgid "Email Template Placeholder"
-msgstr "Paramètre fictif de modèle de courriel"
+msgstr "Champ de fusion de modèle de courriel"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_email_template
@@ -1401,6 +1401,8 @@ msgstr "Courriels de masse"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:49
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,main_postal:0
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: field:virtual.partner.instance,main_postal:0
 #, python-format
@@ -1409,6 +1411,8 @@ msgstr "Adresse principale"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:70
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,main_email:0
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: field:virtual.partner.instance,main_email:0
 #, python-format
@@ -1964,12 +1968,12 @@ msgstr "Téléphone"
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,placeholder_id:0
 msgid "Placeholder"
-msgstr "Paramètre fictif"
+msgstr "Champ de fusion"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,placeholder_value:0
 msgid "Placeholder value"
-msgstr "Valeur de paramètre fictif"
+msgstr "Valeur du champ de fusion"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/email_coordinate.py:39
@@ -2070,6 +2074,11 @@ msgstr "Adresse principale"
 #, python-format
 msgid "Power Level"
 msgstr "Niveau de pouvoir"
+
+#. module: mozaik_communication
+#: model:ir.ui.menu,name:mozaik_communication.template_placeholders_menu
+msgid "Predefined Placeholders"
+msgstr "Champs de fusion prédéfinis"
 
 #. module: mozaik_communication
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
@@ -2244,6 +2253,11 @@ msgid "Sort by"
 msgstr "Trier par"
 
 #. module: mozaik_communication
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "Specify the donation, the event or the petition for which an url must be built"
+msgstr "Spécifier la campagne (de don, d'invitation à un événement, d'appel à signature, etc) pour laquelle il faut construire une URL"
+
+#. module: mozaik_communication
 #: field:virtual.partner.mandate,start_date:0
 msgid "Start Date"
 msgstr "Date de début"
@@ -2335,11 +2349,6 @@ msgstr "Résumé"
 #: field:virtual.target,technical_name:0
 msgid "Technical Name"
 msgstr "Nom technique"
-
-#. module: mozaik_communication
-#: model:ir.ui.menu,name:mozaik_communication.template_placeholders_menu
-msgid "Template Placeholders"
-msgstr "Paramètres fictifs de modèles"
 
 #. module: mozaik_communication
 #: model:ir.ui.menu,name:mozaik_communication.templates_menu
@@ -2691,4 +2700,3 @@ msgstr "ou"
 #: field:mail.compose.message,contact_ab_pc:0
 msgid "unknown"
 msgstr "inconnu"
-

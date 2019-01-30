@@ -68,9 +68,10 @@
                             </group>
                             <field name="body"/>
                             <group>
-                                <field name="involvement_category_id" />
                                 <field name="placeholder_id"
                                        options="{'no_quick_create':True,'no_create_edit':True}"/>
+                                <field name="involvement_category_id"
+                                       help="Specify the donation, the event or the petition for which an url must be built" />
                                 <field name="placeholder_value"/>
                             </group>
                             <separator/>

@@ -96,7 +96,6 @@ class DistributionListMassFunction(models.TransientModel):
         for wizard in self:
             if wizard.placeholder_id:
                 placeholder_value = wizard.placeholder_id.placeholder
-                wizard.placeholder_id = False
                 if '{{CODE}}' in placeholder_value \
                    and wizard.involvement_category_id:
                     placeholder_value = placeholder_value.replace(
