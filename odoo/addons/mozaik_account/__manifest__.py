@@ -24,6 +24,7 @@
         'views/product_template.xml',
         'views/res_partner.xml',
         'views/membership_line.xml',
+        'security/ir.model.access.csv',
     ],
     'demo': [
         'demo/product_product.xml',
