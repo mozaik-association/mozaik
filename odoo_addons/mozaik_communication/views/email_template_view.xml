@@ -11,7 +11,8 @@
         <field name="inherit_id" ref="email_template_configurator.email_template_form_view"/>
         <field name="arch" type="xml">
             <field name="placeholder_id" position="after">
-                <field name="involvement_category_id"/>
+                <field name="involvement_category_id"
+                       help="Specify the donation, the event or the petition for which an url must be built"/>
             </field>
         </field>
     </record>
