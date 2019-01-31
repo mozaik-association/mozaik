@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
-from datetime import date
+from datetime import date, timedelta
 from odoo import api, exceptions, models, fields, _
 from odoo.tools import float_is_zero
 import odoo.addons.decimal_precision as dp
@@ -619,7 +619,8 @@ class MembershipLine(models.Model):
     @api.multi
     @job(default_channel="root.membership_close_and_renew")
     def _job_close_and_renew(self, date_from=False):
-        lines = self._close(date_to=date_from)
+        date_to = fields.Date.from_string(date_from) - timedelta(days=1)
+        lines = self._close(date_to=fields.Date.to_string(date_to))
         return lines._renew(date_from=date_from)
 
     @api.multi
