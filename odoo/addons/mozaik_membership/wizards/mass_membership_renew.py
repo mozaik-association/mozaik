@@ -9,7 +9,7 @@ class MassMembershipRenew(models.TransientModel):
     _name = 'mass.membership.renew'
 
     date_from = fields.Date(
-        default=fields.Date.today(),
+        required=True,
         help="Start date of new membership lines",
     )
 
