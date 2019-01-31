@@ -10,12 +10,12 @@ class MassMailing(models.Model):
 
     _inherit = 'mail.mass_mailing'
 
-    create_uid =  fields.Many2one('res.users', readonly=True)
+    create_uid = fields.Many2one('res.users', readonly=True)
     group_id = fields.Many2one(
         'mail.mass_mailing.group', string='Group', copy=True)
     group_total_sent = fields.Integer(
         related='group_id.total_sent')
-    mailing_model = fields.Char(default='email.coordinate')
+    mailing_model = fields.Selection(default='email.coordinate')
 
     @api.model
     def _get_mailing_model(self):
@@ -66,8 +66,12 @@ class MassMailing(models.Model):
             'contact_ab_pc': unsent_percent,
             'distribution_list_id': group.distribution_list_id.id,
             'include_unauthorized': group.include_unauthorized,
+            'bounce_counter': group.bounce_counter,
             'internal_instance_id': group.internal_instance_id.id,
+            'partner_from_id': group.partner_from_id.id,
+            'partner_name': group.partner_name,
         })
+        ctx = dict(self.env.context, mailing_group_id=group.id)
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
@@ -75,7 +79,7 @@ class MassMailing(models.Model):
             'res_id': wiz.id,
             'res_model': wiz._name,
             'target': 'new',
-            'context': dict(self.env.context, mailing_group_id=group.id),
+            'context': ctx,
         }
 
     @api.multi

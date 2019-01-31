@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-30 22:08+0000\n"
-"PO-Revision-Date: 2019-01-30 22:08+0000\n"
+"POT-Creation-Date: 2019-01-31 22:15+0000\n"
+"PO-Revision-Date: 2019-01-31 22:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -666,7 +666,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:196
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:300
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:310
 #: code:addons/mozaik_communication/wizard/export_csv.py:172
 #, python-format
 msgid "Error"
@@ -888,6 +888,7 @@ msgstr "Français"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,partner_from_id:0
+#: field:mail.mass_mailing.group,partner_from_id:0
 msgid "From"
 msgstr "De"
 
@@ -1016,6 +1017,7 @@ msgstr "En cours"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,include_unauthorized:0
+#: field:mail.mass_mailing.group,include_unauthorized:0
 msgid "Include Unauthorized"
 msgstr "Inclure les interdits"
 
@@ -1023,11 +1025,6 @@ msgstr "Inclure les interdits"
 #: field:distribution.list.line,distribution_list_in_ids:0
 msgid "Include in"
 msgstr "Inclu dans"
-
-#. module: mozaik_communication
-#: field:mail.mass_mailing.group,include_unauthorized:0
-msgid "Include unauthorized"
-msgstr "Inclure les interdits"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,include_without_coordinate:0
@@ -1075,6 +1072,7 @@ msgstr "Candidature interne"
 #: field:email.template,int_instance_id:0
 #: view:event.event:mozaik_communication.view_event_search
 #: field:event.event,int_instance_id:0
+#: field:mail.mass_mailing.group,internal_instance_id:0
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
 #: field:virtual.assembly.instance,int_instance_id:0
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
@@ -1137,11 +1135,6 @@ msgstr "Mandat interne"
 #: field:virtual.assembly.instance,int_power_level_id:0
 msgid "Internal Power Level"
 msgstr "Niveau de pouvoir interne"
-
-#. module: mozaik_communication
-#: field:mail.mass_mailing.group,internal_instance_id:0
-msgid "Internal instance id"
-msgstr "Internal instance id"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/mass_mailing.py:60
@@ -1508,7 +1501,7 @@ msgid "Mass Action"
 msgstr "Fonctionnalité de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:418
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:428
 #: field:distribution.list.mass.function,e_mass_function:0
 #: field:distribution.list.mass.function,p_mass_function:0
 #: model:ir.actions.act_window,name:mozaik_communication.distribution_list_mass_function_action
@@ -1542,6 +1535,7 @@ msgstr "Statistiques de courriel de masse"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,bounce_counter:0
+#: field:mail.mass_mailing.group,bounce_counter:0
 msgid "Maximum of Fails"
 msgstr "Nombre d'échecs maximum"
 
@@ -1847,6 +1841,7 @@ msgstr "Instance interne du partenaire"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,partner_name:0
+#: field:mail.mass_mailing.group,partner_name:0
 msgid "Partner name"
 msgstr "Nom du contact"
 
@@ -2254,6 +2249,7 @@ msgstr "Trier par"
 
 #. module: mozaik_communication
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+#: view:email.template:mozaik_communication.email_template_form_view
 msgid "Specify the donation, the event or the petition for which an url must be built"
 msgstr "Spécifier la campagne (de don, d'invitation à un événement, d'appel à signature, etc) pour laquelle il faut construire une URL"
 
@@ -2362,7 +2358,7 @@ msgid "The alias of the distribution list %s has been changed by %s."
 msgstr "Le pseudonyme de la liste de distribution %s a été modifié par %s."
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:300
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:310
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"

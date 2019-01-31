@@ -14,8 +14,8 @@ class DistributionListMassFunction(models.TransientModel):
         model = self._context.get('active_model')
         active_id = self._context.get('active_id') or False
         dl = active_id and self.env[model].browse([active_id]) or False
-        if dl and model == self._name:
-            # in case of wizard reloading
+        if dl and model in [self._name, 'mail.mass_mailing']:
+            # in case of wizard reloading or next AB testing group
             dl = dl.distribution_list_id
         if dl:
             # first: the sender partner
@@ -63,12 +63,12 @@ class DistributionListMassFunction(models.TransientModel):
         default=lambda s: s._get_default_partner_from_id(),
         context={'show_email': 1})
     partner_name = fields.Char()
-    email_from = fields.Char(readonly=True)
+    email_from = fields.Char(compute='_compute_partner_from')
     email_template_id = fields.Many2one(
         'email.template', string='Email Template')
 
-    @api.onchange('partner_from_id', 'partner_name')
-    def _onchange_partner_from(self):
+    @api.depends('partner_from_id', 'partner_name')
+    def _compute_partner_from(self):
         self.ensure_one()
         name = ''
         email = ''

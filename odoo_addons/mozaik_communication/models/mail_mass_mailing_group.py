@@ -16,11 +16,17 @@ class MassMailingGroup(models.Model):
         'mail.mass_mailing', 'group_id', string='Mailings')
     distribution_list_id = fields.Many2one(
         'distribution.list', string='Distribution List')
-    include_unauthorized = fields.Boolean()
-    internal_instance_id = fields.Many2one('int.instance')
     total_sent = fields.Integer(
         compute='_compute_total_sent', store=True,
         string="Total sent (%)")
+
+    # save fields from wizard
+    include_unauthorized = fields.Boolean(string='Include Unauthorized')
+    bounce_counter = fields.Integer(string='Maximum of Fails')
+    internal_instance_id = fields.Many2one(
+        'int.instance', string='Internal Instance')
+    partner_from_id = fields.Many2one('res.partner', string='From')
+    partner_name = fields.Char()
 
     @api.multi
     @api.depends(
@@ -37,4 +43,5 @@ class MassMailingGroup(models.Model):
     )
     def _compute_name(self):
         for group in self:
-            group.name = '%s (#%s)' % (group.distribution_list_id.name, group.id)
+            group.name = '%s (#%s)' % (
+                group.distribution_list_id.name, group.id)

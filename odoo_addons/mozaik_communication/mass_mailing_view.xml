@@ -14,7 +14,22 @@
                     <attribute name="create">0</attribute>
                     <attribute name="edit">0</attribute>
                 </xpath>
-                <xpath expr="//header" position="attributes">
+                <xpath expr="//button[@name='action_test_mailing'][1]" position="attributes">
+                    <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_test_mailing'][2]" position="attributes">
+                    <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//button[@name='send_mail'][1]" position="attributes">
+                    <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//button[@name='send_mail'][2]" position="attributes">
+                    <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//header/following-sibling::div[1]" position="attributes">
                     <attribute name="groups" translation="off">mozaik_base.res_groups_developper</attribute>
                 </xpath>
                 <xpath expr="//button[@name='action_edit_html']" position="attributes">
@@ -28,10 +43,10 @@
                         <field name="bounced" string="Bounced" widget="statinfo" />
                     </button>
                 </xpath>
-                <form position="inside">
-                    <field name="group_id" invisible="1" />
-                    <field name="group_total_sent" invisible="1" />
-                </form>
+                <xpath expr="//group[field[@name='mass_mailing_campaign_id']]" position="inside">
+                    <field name="group_id" groups="mozaik_base.res_groups_developper" />
+                    <field name="group_total_sent" />
+                </xpath>
                 <header position="inside">
                     <button name="send_custom" type="object" string="Send next batch" attrs="{'invisible': ['|', ('group_id', '=', False), ('group_total_sent', '&gt;', 99)]}"/>
                     <button name="compare_group" type="object" string="Compare batches" attrs="{'invisible': [('group_id', '=', False)]}"/>

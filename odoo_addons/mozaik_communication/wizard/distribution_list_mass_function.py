@@ -164,6 +164,13 @@ class DistributionListMassFunction(orm.TransientModel):
         file_exported = False
         composer = self.pool['mail.compose.message']
         for wizard in self.browse(cr, uid, ids, context=context):
+            if context.get('active_model', '') != 'distribution.list':
+                # next AB Testing group
+                context.update({
+                    'active_model': 'distribution.list',
+                    'active_id': wizard.distribution_list_id.id,
+                    'active_ids': [wizard.distribution_list_id.id],
+                })
             domains = []
             if wizard.internal_instance_id:
                 domains.append(
@@ -278,8 +285,11 @@ class DistributionListMassFunction(orm.TransientModel):
                                     wizard.distribution_list_id.id,
                                 'include_unauthorized':
                                     wizard.include_unauthorized,
+                                'bounce_counter': wizard.bounce_counter,
                                 'internal_instance_id':
                                     wizard.internal_instance_id.id,
+                                'partner_from_id': wizard.partner_from_id.id,
+                                'partner_name': wizard.partner_name,
                             }, context=context)
                             context['mailing_group_id'] = new_group_id
                             remaining = active_ids
