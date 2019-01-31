@@ -116,8 +116,13 @@ class TestMassFunction(SharedSetupTransactionCase):
         }
         dl.write(vals)
         p2.is_company = False
-        # from now, allowed "From" are: nobody
+        # from now, allowed "From" are: nobody or the user is a mozaik user
         partners = mfct_obj._get_partner_from()
         # check for possible "From" choices
-        self.assertFalse(partners)
+        self.assertTrue(
+            not partners or len(partners) == 1 and
+            partners == self.env.user.partner_id and
+            self.env.user.has_group(
+                'mozaik_base.mozaik_res_groups_user')
+        )
         return

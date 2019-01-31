@@ -33,6 +33,9 @@ class DistributionListMassFunction(models.TransientModel):
             u_pids = self.env['res.partner'].search([('id', 'in', u_pids.ids)])
             if u_pids:
                 pids |= u_pids.filtered(lambda s: s.is_company)
+            if not pids and self.env.user.has_group(
+                    'mozaik_base.mozaik_res_groups_user'):
+                pids = self.env.user.partner_id
         return pids.filtered(lambda s: s.email)
 
     @api.model
@@ -42,8 +45,11 @@ class DistributionListMassFunction(models.TransientModel):
 
     @api.model
     def _get_default_partner_from_id(self):
-        if self.env.user.partner_id in self._get_partner_from():
+        pids = self._get_partner_from()
+        if self.env.user.partner_id in pids:
             return self.env.user.partner_id
+        if len(pids) == 1:
+            return pids
         return False
 
     # Fake field for auto-completing placeholder
