@@ -101,7 +101,7 @@ class AddMembership(models.TransientModel):
         if self.partner_id:
             self.product_id = self.partner_id.subscription_product_id
 
-    @api.onchange('product_id')
+    @api.onchange('product_id', 'int_instance_id')
     def _onchange_product_id(self):
         """
         Onchange for product_id field.
