@@ -90,7 +90,7 @@ class AddMembership(models.TransientModel):
             })
         return result
 
-    @api.onchange('partner_id')
+    @api.onchange('partner_id', 'state_code')
     def _onchange_partner_id(self):
         """
         Onchange for partner_id field.
@@ -98,10 +98,13 @@ class AddMembership(models.TransientModel):
         defined on the partner (subscription_product_id)
         :return:
         """
-        if self.partner_id:
+        if self.partner_id and self.state_code == "member":
             self.product_id = self.partner_id.subscription_product_id
+        else:
+            self.product_id = False
 
-    @api.onchange('product_id')
+
+    @api.onchange('product_id', 'int_instance_id')
     def _onchange_product_id(self):
         """
         Onchange for product_id field.
@@ -113,6 +116,8 @@ class AddMembership(models.TransientModel):
                 self.product_id, partner=self.partner_id,
                 instance=self.int_instance_id)
             self.price = price
+        else:
+            self.price = 0
 
     @api.multi
     def action_add(self):

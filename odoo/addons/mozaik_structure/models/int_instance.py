@@ -15,6 +15,10 @@ class IntInstance(models.Model):
     parent_id = fields.Many2one(
         comodel_name='int.instance',
     )
+    child_ids = fields.One2many(
+        comodel_name='int.instance',
+        inverse_name='parent_id',
+    )
     power_level_id = fields.Many2one(
         comodel_name='int.power.level',
         required=True,
