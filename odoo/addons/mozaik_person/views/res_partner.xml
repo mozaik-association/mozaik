@@ -105,6 +105,10 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
 
+            <xpath expr="//button[@name='toggle_active']" position="attributes">
+                <attribute name="confirm">Archive/reactivate partner: proceed anyway?</attribute>
+            </xpath>
+
             <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="attrs">{'readonly': ['|',('is_company', '=', False),('is_assembly', '=', True)], 'required': [('is_company', '=', True),('is_assembly', '=', False)]}</attribute>
             </xpath>

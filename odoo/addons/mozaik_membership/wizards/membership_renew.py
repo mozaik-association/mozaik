@@ -1,5 +1,6 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from datetime import timedelta
 from odoo import api, fields, models
 
 
@@ -78,6 +79,8 @@ class MembershipRenew(models.TransientModel):
         :return: membership.line recordset
         """
         self.ensure_one()
+        date_to = fields.Date.from_string(self.date_from) - timedelta(days=1)
         renewed_lines = self.membership_line_ids._close(
-            date_to=self.date_from)._renew(date_from=self.date_from)
+            date_to=fields.Date.to_string(date_to))._renew(
+            date_from=self.date_from)
         return renewed_lines

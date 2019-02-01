@@ -104,12 +104,9 @@ class ChangeMainAddress(models.TransientModel):
                     'new_instance_id': new_instance,
                 })
                 # For the others, we have to close them
-                # We can't not remove the new_instance_id in case of the user
-                # change many time the address_id. We have to keep the
-                # possibility to execute the onchange many times
-                # (not possible if we remove the new_instance_id)
                 (lines_same_instance - original_line).update({
                     'close_subscription': True,
+                    'new_instance_id': False,
                 })
 
     @api.multi
