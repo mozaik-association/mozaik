@@ -32,3 +32,11 @@ class ResCity(models.Model):
             name = "%s %s" % (record.zipcode, record.name)
             result.append((record.id, name))
         return result
+
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        if not (name == '' and operator == 'ilike'):
+            args = list(args or [])
+            args += ['|', ('zipcode', operator, name)]
+        return super().name_search(
+            name=name, args=args, operator=operator, limit=limit)

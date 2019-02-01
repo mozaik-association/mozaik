@@ -36,7 +36,7 @@
 
     <record model="ir.ui.menu" id="mass_membership_renew_menu">
         <field name="name">Mass renew</field>
-        <field name="parent_id" ref="mozaik_membership.membership_menu"/>
+        <field name="parent_id" ref="mozaik_membership.membership_submenu"/>
         <field name="action" ref="mass_membership_renew_act_window"/>
         <field name="sequence" eval="20"/>
     </record>
