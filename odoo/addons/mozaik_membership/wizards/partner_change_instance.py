@@ -120,9 +120,11 @@ class PartnerChangeInstance(models.TransientModel):
             if record.close_subscription:
                 record.new_instance_id = False
             else:
-                instance = record.change_main_address_id.address_id.city_id.int_instance_id
-                other_lines = record.change_main_address_id.partner_change_instance_ids - record
-                if instance in other_lines.mapped('actual_instance_id'):
+                instance = record.change_main_address_id.address_id\
+                    .city_id.int_instance_id
+                other_lines = record.change_main_address_id\
+                    .partner_change_instance_ids - record
+                if instance in other_lines.mapped('new_instance_id'):
                     instance = record.actual_instance_id
                 record.new_instance_id = instance
 
