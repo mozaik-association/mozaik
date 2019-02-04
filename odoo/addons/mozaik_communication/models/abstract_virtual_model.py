@@ -234,11 +234,16 @@ class AbstractVirtualModel(models.AbstractModel):
         query = """CREATE OR REPLACE VIEW %(table_name)s AS (
             SELECT
                 e.*, row_number() OVER(ORDER BY
-                    partner_id, postal_coordinate_id, email_coordinate_id
+                    %(order_by)s
                 ) AS id
             FROM (%(main_query)s) AS e);"""
         main_values = {
             "table_name": AsIs(view_name),
             "main_query": AsIs(main_query),
+            "order_by": AsIs(self._get_order_by()),
         }
         cr.execute(query, main_values)
+
+    @api.model
+    def _get_order_by(self):
+        return "partner_id, postal_coordinate_id, email_coordinate_id"

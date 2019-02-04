@@ -398,8 +398,8 @@ class DistributionListMassFunction(models.TransientModel):
         :param group_by: bool
         :return: bool
         """
-        csv_content = self.env['export.csv'].get_csv(
-            model, targets, group_by=group_by)
+        csv_content = self.env['export.csv']._get_csv(
+            model, targets.ids, group_by=group_by)
         csv_content = base64.encodebytes(csv_content.encode())
         return self.write({
             'export_file': csv_content,

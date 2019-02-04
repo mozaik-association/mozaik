@@ -36,6 +36,7 @@ class VirtualPartnerMembership(models.Model):
         :return: str
         """
         select = super()._get_select() + """,
+            m.id as membership_id,
             m.int_instance_id,
             m.state_id as membership_state_id,
             m.reference as reference,
@@ -70,3 +71,7 @@ class VirtualPartnerMembership(models.Model):
         :return: str
         """
         return "WHERE p.active = TRUE"
+
+    @api.model
+    def _get_order_by(self):
+        return "%s, %s" % (super()._get_order_by(), "membership_id")
