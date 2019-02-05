@@ -199,7 +199,9 @@ class DistributionListMassFunction(models.TransientModel):
         main_domain = []
         if self.internal_instance_id:
             main_domain.append(
-                ('int_instance_id', 'child_of', self.internal_instance_id.ids)
+                ('partner_instance_ids',
+                 'child_of',
+                 self.internal_instance_id.ids)
             )
         context.update({
             'main_object_domain': main_domain,
