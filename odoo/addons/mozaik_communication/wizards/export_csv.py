@@ -28,8 +28,6 @@ class ExportCsv(models.TransientModel):
                  p.firstname,
                  p.usual_lastname,
                  p.usual_firstname,
-                 p.int_instance_id,
-                 p.reference,
                  p.birthdate_date,
                  p.gender,
                  p.lang,
@@ -47,9 +45,7 @@ class ExportCsv(models.TransientModel):
                  END AS printable_name,
                  cc.id as co_residency_id,
                  cc.line2 as co_residency,
-                 instance.name as instance,
                  p.membership_state_id as state_id,
-                 ipl.name as power_name,
                  pc.is_main as adr_main,
                  pc.unauthorized as adr_unauthorized,
                  pc.vip as adr_vip,
@@ -80,11 +76,6 @@ class ExportCsv(models.TransientModel):
     @api.model
     def _common_joins(self):
         return """
-                LEFT OUTER JOIN int_instance instance
-                ON instance.id = p.int_instance_id
-
-                LEFT OUTER JOIN int_power_level ipl
-                ON ipl.id = instance.power_level_id
 
                 LEFT OUTER JOIN address_address address
                 ON address.id = pc.address_id
@@ -185,10 +176,7 @@ class ExportCsv(models.TransientModel):
             _('Usual Firstname'),
             _('Co-residency Line 1'),
             _('Co-residency Line 2'),
-            _('Internal Instance'),
-            _('Power Level'),
             _('State'),
-            _('Reference'),
             _('Birth Date'),
             _('Gender'),
             _('Language'),
@@ -258,10 +246,7 @@ class ExportCsv(models.TransientModel):
             'usual_firstname',
             'printable_name',
             'co_residency',
-            'instance',
-            'power_name',
             'state',
-            'reference',
             'birthdate_date',
             'gender',
             'lang',
@@ -313,10 +298,13 @@ class ExportCsv(models.TransientModel):
         where_query = "%(table_join)s.id IN %(model_ids)s"
         if model == 'email.coordinate':
             table_join = 'ec'
+            from_sql = self._from_email_coordinate()
         elif model == 'postal.coordinate':
             table_join = 'pc'
+            from_sql = self._from_postal_coordinate()
         elif model == 'virtual.target':
             table_join = 'vt'
+            from_sql = self._from_virtual_target()
         else:
             raise exceptions.UserError(
                 _('Model %s not supported for csv export!') % model)
@@ -326,16 +314,18 @@ class ExportCsv(models.TransientModel):
         }
         where_query = self.env.cr.mogrify(where_query, where_values)
         select = self._get_select()
-        select_values = {
+        from_values = {
             'common_join': AsIs(self._common_joins()),
         }
-        select = self.env.cr.mogrify(select, select_values)
+        from_sql = self.env.cr.mogrify(from_sql, from_values)
         order_by = self._get_order_by(self.env.context.get('sort_by'))
-        query = "%(select)s WHERE %(where_query)s ORDER BY %(order_by)s"
+        query = "%(select)s %(from)s WHERE %(where_query)s " \
+                "ORDER BY %(order_by)s"
         values = {
-            'where_query': where_query,
+            'where_query': AsIs(where_query.decode()),
             'order_by': AsIs(order_by),
-            'select': select,
+            'select': AsIs(select),
+            'from': AsIs(from_sql.decode()),
         }
         self.env.cr.execute(query, values)
         for row in self.env.cr.dictfetchall():
@@ -401,7 +391,8 @@ class ExportCsv(models.TransientModel):
             'export_file': base64.b64encode(csv_content.encode('utf-8')),
             'export_filename': _('Extract') + '.csv',
         })
-        action = self.env.ref("export_csv_postal_action").read()[0]
+        action = self.env.ref(
+            "mozaik_communication.export_csv_postal_action").read()[0]
         action.update({
             'res_id': self.id,
             'target': 'new',

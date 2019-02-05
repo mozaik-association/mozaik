@@ -199,7 +199,9 @@ class DistributionListMassFunction(models.TransientModel):
         main_domain = []
         if self.internal_instance_id:
             main_domain.append(
-                ('int_instance_id', 'child_of', self.internal_instance_id.ids)
+                ('partner_instance_ids',
+                 'child_of',
+                 self.internal_instance_id.ids)
             )
         context.update({
             'main_object_domain': main_domain,
@@ -398,8 +400,8 @@ class DistributionListMassFunction(models.TransientModel):
         :param group_by: bool
         :return: bool
         """
-        csv_content = self.env['export.csv'].get_csv(
-            model, targets, group_by=group_by)
+        csv_content = self.env['export.csv']._get_csv(
+            model, targets.ids, group_by=group_by)
         csv_content = base64.encodebytes(csv_content.encode())
         return self.write({
             'export_file': csv_content,
