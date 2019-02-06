@@ -611,7 +611,7 @@ class MembershipLine(models.Model):
         FROM membership_line AS ml
         INNER JOIN membership_line as active_ml
         ON active_ml.active IS TRUE and active_ml.partner_id = ml.partner_id
-        WHERE ml.id in %(ids)s AND ml.state_id = %(member_state_id)s
+        WHERE ml.id in %(ids)s AND active_ml.state_id = %(member_state_id)s
         """
         sql_values = {
             'ids': tuple(self.ids),
