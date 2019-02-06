@@ -451,44 +451,10 @@ class MembershipLine(models.Model):
                 lambda l:
                 fields.Date.from_string(l.date_from) <= limit_date)
         if lines:
-
-            # get membership with paid history
-            sql_query = """
-            SELECT id
-            FROM membership_line
-            WHERE
-              id IN %(line_ids)s AND
-              CONCAT(partner_id, '#', int_instance_id) IN
-              (
-                SELECT CONCAT(partner_id, '#', int_instance_id)
-                FROM membership_line
-                WHERE
-                  paid IS TRUE
-              );"""
-            sql_values = {
-                'line_ids': tuple(lines.ids),
+            values = {
+                'date_to': date_to,
             }
-            self.env.cr.execute(sql_query, sql_values)
-            paid_instance_lines_ids = [r[0] for r in self.env.cr.fetchall()]
-            paid_instance_lines = self.browse(paid_instance_lines_ids)
-            if paid_instance_lines:
-                values = {
-                    'date_to': date_to,
-                }
-                logger.info("Invalidate %s membership.lines",
-                            len(paid_instance_lines))
-                paid_instance_lines.action_invalidate(values)
-
-            # people who never paid become member candidate
-            unpaid_instance_line = lines - paid_instance_lines
-            logger.info("Member candidate %s membership.lines",
-                        len(unpaid_instance_line))
-            if unpaid_instance_line:
-                unpaid_instance_line.write({
-                    "state_id": self.env.ref(
-                        "mozaik_membership.member_candidate").id,
-                })
-            lines = paid_instance_lines  # renew only the closed one
+            lines.action_invalidate(values)
         return lines
 
     @api.model
@@ -594,7 +560,9 @@ class MembershipLine(models.Model):
         renewed = lines._update_membership(state, date_from=date_from)
         to_former = self - lines
         logger.info("Former member %s membership.lines", len(to_former))
-        former = to_former._former_member(date_from=date_from)
+        former = self.env["membership.line"]
+        if to_former:
+            former = to_former._former_member(date_from=date_from)
         return renewed + former
 
     @api.model
@@ -638,5 +606,20 @@ class MembershipLine(models.Model):
         """
         former_state = self.env.ref('mozaik_membership.former_member')
         member_state = self.env.ref('mozaik_membership.member')
-        lines = self.filtered(lambda s, m=member_state: s.state_id == m)
+        sql_query = """
+        SELECT ml.id
+        FROM membership_line AS ml
+        INNER JOIN membership_line as active_ml
+        ON active_ml.active IS TRUE and active_ml.partner_id = ml.partner_id
+        WHERE ml.id in %(ids)s AND ml.state_id = %(member_state_id)s
+        """
+        sql_values = {
+            'ids': tuple(self.ids),
+            'member_state_id': member_state.id
+        }
+        self.env.cr.execute(sql_query, sql_values)
+        lines_result = [r[0] for r in self.env.cr.fetchall()]
+        lines_keep_closed = self.browse(lines_result)
+        lines = self - lines_keep_closed
+        lines = lines.filtered(lambda s, m=member_state: s.state_id == m)
         return lines._update_membership(former_state, date_from=date_from)
