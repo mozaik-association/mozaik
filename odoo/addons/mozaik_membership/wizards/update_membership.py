@@ -61,8 +61,8 @@ class UpdateMembership(models.TransientModel):
                 'membership_line_id': active_id,
                 # Fill with the next subscription product by default
                 'product_id':
-                membership.partner_id.subscription_product_id.id or
-                membership.product_id.id,
+                membership.product_id.id or
+                membership.partner_id.subscription_product_id.id,
                 'price': membership.price,
                 'reference': membership.reference,
             })

@@ -26,8 +26,8 @@ class AddMembership(models.TransientModel):
         help="Partner to affiliate",
     )
     date_from = fields.Date(
-        help="End of subscription",
-        default=fields.Date.today(),
+        help="Start of subscription",
+        default=lambda s: fields.Date.today(),
         required=True,
     )
     product_id = fields.Many2one(
