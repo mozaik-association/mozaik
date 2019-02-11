@@ -20,7 +20,7 @@
         <field name="model">membership.line</field>
         <field name="inherit_id" ref="mozaik_membership.membership_line_tree_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='reference']" position="after">
+            <xpath expr="//field[@name='price']" position="after">
                 <field name="paid"
                     attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}" />
             </xpath>
