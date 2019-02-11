@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//filter[1]" position="before">
                 <field name="int_instance_ids" widget="many2one"/>
-                <field name="subscription_product_id" />
+                <field name="int_instance_ids" widget="many2one" string="Children of..." operator="child_of"/>
                 <field name="membership_state_id" />
 
                 <filter string="Local Voluntary"

@@ -20,29 +20,6 @@ class TestPartner(TransactionCase):
             "mozaik_membership.membership_tarification_default_rule")
         self.member_state = self.env.ref('mozaik_membership.member')
 
-    def test_change_instance(self):
-        '''
-        Check that instance well updated into the partner when its main postal
-        coordinate is changed
-        '''
-        postal_obj = self.env['postal.coordinate']
-        address = self.browse_ref('mozaik_address.address_1')
-        address.country_id.write({
-            'enforce_cities': True,
-        })
-        # Ensure it's defined
-        self.assertTrue(bool(address.city_id.int_instance_id))
-        jacques = self.partner_jacques_id
-        vals = {
-            'address_id': address.id,
-            'partner_id': jacques.id,
-            'is_main': True,
-        }
-        postal_obj.create(vals)
-        self.assertIn(
-            address.city_id.int_instance_id, jacques.int_instance_ids)
-        return
-
     def test_create_user_from_partner(self):
         """
         Test the propagation of int_instance_ids into the int_instance_m2m_ids

@@ -100,7 +100,6 @@ class ResPartner(models.Model):
     @api.depends(
         'is_assembly',
         'force_int_instance_id',
-        'city_id', 'city_id.int_instance_id',
         'membership_line_ids', 'membership_line_ids.state_id',
         'membership_line_ids.int_instance_id', 'membership_line_ids.active',
         'postal_coordinate_ids', 'postal_coordinate_ids.is_main',
@@ -125,8 +124,6 @@ class ResPartner(models.Model):
             instances = memberships.mapped("int_instance_id")
             if not instances and record.force_int_instance_id:
                 instances = record.force_int_instance_id
-            if not instances and record.country_id.enforce_cities:
-                instances = record.city_id.int_instance_id
             if not instances:
                 instances = default_instance
             state = record._get_current_state()
