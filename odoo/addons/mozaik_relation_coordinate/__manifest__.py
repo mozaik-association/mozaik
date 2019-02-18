@@ -18,6 +18,7 @@
         'mozaik_phone',
     ],
     'data': [
+        'security/partner_relation_security.xml',
         'views/res_partner_relation_all.xml',
         'views/res_partner.xml',
     ],
