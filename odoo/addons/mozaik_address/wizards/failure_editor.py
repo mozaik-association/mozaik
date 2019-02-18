@@ -1,9 +1,10 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields
+from odoo import _, api, models, fields
 
 FAILURE_AVAILABLE_TYPES = [
+    ('returned2sender', 'Returned to sender'),
     ('nomail', 'No longer receives mail at the mentioned address'),
     ('moved', 'Moved'),
     ('bad', 'Incomplete/Invalid address'),
@@ -21,6 +22,10 @@ class FailureEditor(models.TransientModel):
     _inherit = 'failure.editor'
 
     reason = fields.Selection(FAILURE_AVAILABLE_TYPES, default=False)
+    description = fields.Text(
+        default=lambda s: _('Returned to sender'),
+        required=True,
+    )
 
     @api.multi
     @api.onchange("reason")
