@@ -152,13 +152,16 @@ class PartnerChangeInstance(models.TransientModel):
                 from_date = fields.Date.today()
                 line._close(date_to=from_date, force=True)
                 if not record.close_subscription:
-                    line.copy({
-                        'int_instance_id': record.new_instance_id.id,
-                        # Force the product because the new subscription is
-                        # quite equals to the previous. It's not really a
-                        # new subscription
-                        'product_id': line.product_id.id,
-                        'price': 0,
-                        'reference': False,
-                    })
+                    product = line.partner_id.subscription_product_id
+                    record._create_new_membership(line, product)
         return True
+
+    @api.multi
+    def _create_new_membership(self, line, product):
+        self.ensure_one()
+        line.copy({
+            'int_instance_id': self.new_instance_id.id,
+            'product_id': product.id,
+            'price': 0,
+            'reference': False,
+        })
