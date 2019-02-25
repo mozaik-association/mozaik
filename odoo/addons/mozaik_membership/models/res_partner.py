@@ -219,17 +219,22 @@ class ResPartner(models.Model):
         """
         membership_obj = self.env['membership.line']
         state_obj = self.env['membership.state']
-        # Use sudo to also disable other membership lines
-        domain = membership_obj._get_lines_to_close_renew_domain()
-        membership_obj.sudo()._get_lines_to_close(
-            domain, partners=self)._close(force=True)
+        all_excl_states = state_obj._get_all_exclusion_states()
+        actual_states = {p.id: p.membership_state_id for p in self}
+        # Use sudo to disable all membership lines
+        membership_obj.sudo().search([
+            ('date_to', '=', False),
+            ('active', '=', True),
+            ('partner_id', 'in', self.ids),
+            ('state_id', 'not in', all_excl_states.ids),
+        ])._close(force=True)
         instance = self.env['int.instance']._get_default_int_instance()
         lines = membership_obj.browse()
         # Create the exclusion line only if the partner doesn't have
         # an active exclusion line (based on the state)
         for partner in self.filtered(lambda p: not p.is_excluded):
             excl_state = state_obj._get_next_state(
-                actual_state=partner.membership_state_id, event=event)
+                actual_state=actual_states[partner.id], event=event)
             if excl_state:
                 values = membership_obj._build_membership_values(
                     partner, instance, excl_state, price=0)

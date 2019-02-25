@@ -1,5 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo import fields
 from odoo.tests.common import TransactionCase
 
 
@@ -102,4 +103,62 @@ class TestPartner(TransactionCase):
         partner.invalidate_cache()
         self.assertEqual(
             partner.subscription_product_id, self.tarification2.product_id)
+        return
+
+    def test_resignation(self):
+        """
+        Test the resignation of a member, former_member or supporter.
+        All of its opened membership must be closed.
+        :return:
+        """
+        partner = self.partner1
+        membership_obj = self.env['membership.line']
+
+        values = {
+            'partner_id': partner.id,
+            'date_from': fields.Date.from_string(fields.Date.today()),
+        }
+        vals = dict(
+            values,
+            int_instance_id=self.ref("mozaik_structure.int_instance_01"),
+            state_id=self.ref("mozaik_membership.former_member"),
+        )
+        membership_obj.create(vals)
+        vals = dict(
+            values,
+            int_instance_id=self.ref("mozaik_membership.int_instance_03"),
+            state_id=self.ref("mozaik_membership.member"),
+        )
+        membership_obj.create(vals)
+        vals = dict(
+            values,
+            int_instance_id=self.ref("mozaik_structure.int_instance_02"),
+            state_id=self.ref("mozaik_membership.supporter"),
+        )
+        membership_obj.create(vals)
+        # partner has now 3 opened membership lines
+        self.assertEqual(
+            3,
+            len(partner.membership_line_ids.filtered(lambda s: s.active)))
+        # and it is no longer 'without_membership'
+        before_resignation_state_code = partner.membership_state_code
+        self.assertNotEqual(
+            'without_membership', before_resignation_state_code)
+        # resign it
+        partner.action_resignation()
+        # partner has now only 1 membership line
+        opened_lines = partner.membership_line_ids.filtered(
+            lambda s: s.active)
+        self.assertEqual(1, len(opened_lines))
+        # and it is excluded
+        self.assertTrue(partner.is_excluded)
+        # and its state has changed
+        self.assertNotEqual(
+            before_resignation_state_code, partner.membership_state_code)
+        # resign it again
+        partner.action_resignation()
+        # collection of membership lines did not change
+        self.assertEqual(
+            opened_lines, partner.membership_line_ids.filtered(
+                lambda s: s.active))
         return

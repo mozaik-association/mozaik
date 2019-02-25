@@ -66,6 +66,8 @@ class MembershipState(models.Model):
         if not actual_state:
             return self.browse()
         code = actual_state.code
+        if code == 'supporter':
+            return self._get_by_code('former_supporter')
         if event == 'expulsion':
             if code == 'member':
                 return self._get_by_code('expulsion_former_member')
@@ -76,8 +78,6 @@ class MembershipState(models.Model):
                 return self._get_by_code('resignation_former_member')
             if code == 'former_member':
                 return self._get_by_code('break_former_member')
-            if code == 'supporter':
-                return self._get_by_code('former_member')
         return self.browse()
 
     @api.model
