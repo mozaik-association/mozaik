@@ -3,3 +3,4 @@
 
 from . import update_membership
 from . import partner_change_instance
+from . import add_membership

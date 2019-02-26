@@ -130,7 +130,7 @@ class AddMembership(models.TransientModel):
         return {}
 
     @api.multi
-    def _create_membership_line(self):
+    def _create_membership_line(self, reference=None):
         """
         Create a new membership line for the partner
         :return: bool
@@ -140,5 +140,5 @@ class AddMembership(models.TransientModel):
         values = membership_obj._build_membership_values(
             self.partner_id, self.int_instance_id, self.state_id,
             date_from=self.date_from, product=self.product_id,
-            price=self.price)
+            price=self.price, reference=reference)
         return membership_obj.create(values)

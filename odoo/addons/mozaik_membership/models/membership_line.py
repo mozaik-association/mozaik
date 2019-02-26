@@ -290,7 +290,8 @@ class MembershipLine(models.Model):
     @api.model
     def _build_membership_values(
             self, partner, instance, state,
-            date_from=False, previous=False, product=False, price=None):
+            date_from=False, previous=False, product=False, price=None,
+            reference=None):
         """
         Build membership values based on given parameters
         :param partner: res.partner recordset
@@ -312,8 +313,7 @@ class MembershipLine(models.Model):
         if price is None:
             price = previous._get_subscription_price(
                 product, partner=partner, instance=instance)
-        reference = False
-        if price > 0:
+        if price > 0 and reference is None:
             reference = previous._generate_membership_reference(
                 partner, instance, ref_date=date_from)
         values = {
@@ -623,3 +623,15 @@ class MembershipLine(models.Model):
         lines = self - lines_keep_closed
         lines = lines.filtered(lambda s, m=member_state: s.state_id == m)
         return lines._update_membership(former_state, date_from=date_from)
+
+    @api.model
+    def _get_fields_to_update(self, mode):
+        """
+        When a line is reactivated remove the date_to
+        """
+        result = super()._get_fields_to_update(mode)
+        if mode == 'activate':
+            result.update({
+                'date_to': False,
+            })
+        return result
