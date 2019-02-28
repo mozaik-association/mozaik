@@ -57,6 +57,7 @@ class ChangeMainAddress(models.TransientModel):
                         res['message'] = _('Due to security restrictions'
                                            ' you are not allowed to move'
                                            ' all co-residency members !')
+            res['address_id'] = res['old_address_id']
         return res
 
     @api.multi

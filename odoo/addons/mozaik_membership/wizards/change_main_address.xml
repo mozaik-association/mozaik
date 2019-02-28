@@ -26,4 +26,8 @@
         </field>
     </record>
 
+    <record id="mozaik_address.change_main_address_action" model="ir.actions.act_window">
+        <field name="name">Change Address or Instance</field>
+    </record>
+
 </odoo>
