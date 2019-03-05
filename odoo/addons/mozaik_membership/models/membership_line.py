@@ -323,11 +323,7 @@ class MembershipLine(models.Model):
             'state_id': state.id,
             'int_instance_id': instance.id,
         }
-        # TODO: add a awaiting_payment flag on membership.state model
-        subscription_state_codes = [
-            'member', 'member_candidate',
-            'former_member_committee', 'member_committee',
-        ]
+        subscription_state_codes = state._get_all_subscription_codes()
         if state.code in subscription_state_codes:
             values.update({
                 'price': price,

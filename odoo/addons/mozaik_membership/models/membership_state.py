@@ -97,3 +97,18 @@ class MembershipState(models.Model):
             ('code', 'in', codes),
         ]
         return self.search(domain)
+
+    @api.model
+    def _get_all_subscription_codes(self):
+        """
+        Get every possible subscription states codes
+        :return: list
+        """
+        # TODO: add a awaiting_payment flag on membership.state model
+        codes = [
+            'member',
+            'member_candidate',
+            'former_member_committee',
+            'member_committee',
+        ]
+        return codes

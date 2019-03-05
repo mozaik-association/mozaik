@@ -12,7 +12,12 @@ class PartnerChangeInstance(models.TransientModel):
     @api.multi
     def _create_new_membership(self, line, product):
         self.ensure_one()
-        if line.paid:
+        without_ref = (
+            line.paid or
+            line.state_id.code not in
+            line.state_id._get_all_subscription_codes()
+        )
+        if without_ref:
             super()._create_new_membership(line, product)
         else:
             price = line._get_subscription_price(
