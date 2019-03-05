@@ -67,9 +67,9 @@
                     <group name="data">
                         <group name="main">
                             <field name="state_id" />
-                            <field name="product_id" attrs="{'invisible': ['|', ('product_id','=',False), ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
-                            <field name="price" readonly="not context.get('in_mozaik_configurator')" attrs="{'invisible': ['|', ('product_id','=',False), ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}" />
-                            <field name="reference" attrs="{'invisible': [('reference','=',False)]}" />
+                            <field name="product_id"/>
+                            <field name="price" attrs="{'invisible': [('state_code', 'not in', ['member_candidate', 'member', 'former_member_committee','member_committee'])]}" />
+                            <field name="reference" attrs="{'invisible': [('state_code', 'not in', ['member_candidate', 'member', 'former_member_committee','member_committee'])]}" />
                         </group>
                         <group name="other">
                             <field name="int_instance_id" />
@@ -85,7 +85,7 @@
                                 </group>
                                 <group name="dates">
                                     <field name="date_from" />
-                                    <field name="date_to" attrs="{'invisible': [('date_to','=',False)]}" />
+                                    <field name="date_to" />
                                 </group>
                             </group>
                         </page>

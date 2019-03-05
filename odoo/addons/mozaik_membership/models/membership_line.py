@@ -41,8 +41,11 @@ class MembershipLine(models.Model):
     reference = fields.Char(
         copy=False,
     )
-    date_from = fields.Date(string='From', readonly=True)
-    date_to = fields.Date(string='To', readonly=True, copy=False)
+    date_from = fields.Date(
+        string='From', required=True,
+        default=lambda s: fields.Date.today()
+    )
+    date_to = fields.Date(string='To', copy=False)
     price = fields.Float(
         digits=dp.get_precision('Product Price'),
         copy=False,
