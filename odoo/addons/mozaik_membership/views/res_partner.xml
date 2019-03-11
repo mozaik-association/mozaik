@@ -110,8 +110,8 @@
                     <div name="state_management">
 
                         <button name="action_add_membership" string="Add subscription" type="object" groups="mozaik_membership.res_groups_membership_user" attrs="{'invisible': [('active', '=', False)]}"/>
-                        <button name="action_exclude" type="object" icon="fa-exclamation-triangle" string="Exclude" groups="mozaik_membership.res_groups_membership_user" attrs="{'invisible': ['|', ('is_excluded', '=', True), ('membership_state_code', 'not in', ['member', 'former_member'])]}" confirm="Exclude this partner: proceed anyway?"/>
-                        <button name="action_resignation" type="object" icon="fa-exclamation-triangle" string="Resignation" groups="mozaik_membership.res_groups_membership_user" attrs="{'invisible': ['|', ('is_excluded', '=', True), ('membership_state_code', 'not in', ['member', 'former_member', 'supporter'])]}" confirm="Resign this partner: proceed anyway?"/>
+                        <button name="action_exclude" type="object" icon="fa-exclamation-triangle" string="Exclude" groups="mozaik_membership.res_groups_membership_manager" attrs="{'invisible': ['|', ('is_excluded', '=', True), ('membership_state_code', 'not in', ['member', 'former_member'])]}" confirm="Exclude this partner: proceed anyway?"/>
+                        <button name="action_resignation" type="object" icon="fa-exclamation-triangle" string="Resignation" groups="mozaik_membership.res_groups_membership_manager" attrs="{'invisible': ['|', ('is_excluded', '=', True), ('membership_state_code', 'not in', ['member', 'former_member', 'supporter'])]}" confirm="Resign this partner: proceed anyway?"/>
 
                     </div>
                     <group name="voluntary" col="3" attrs="{'invisible': [('membership_state_code', 'in', ['without_membership', 'supporter', 'former_supporter'])]}">
