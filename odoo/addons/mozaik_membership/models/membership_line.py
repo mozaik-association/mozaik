@@ -221,6 +221,16 @@ class MembershipLine(models.Model):
             self._invalidate_previous_lines(
                 partner_ids=[partner_id], date_to=date_from,
                 int_instance_id=int_instance_id)
+        state = self.env["membership.state"].browse(vals["state_id"])
+        if state.code == "member":
+            partner = self.env["res.partner"].browse(vals["partner_id"])
+            if partner.membership_state_id.code not in [
+                    "member", "without_membership"]:
+                memberships = self.env["membership.line"].search([
+                    ("active", "=", True),
+                    ("partner_id", "=", partner.id)
+                ])
+                memberships._close(force=True)
         result = super(MembershipLine, self).create(vals)
         if result.partner_id.force_int_instance_id:
             # With membership lines the force instance must be reset
@@ -506,7 +516,7 @@ class MembershipLine(models.Model):
         return membership_lines
 
     @api.multi
-    def _update_membership(self, state, date_from=False):
+    def _update_membership(self, state, date_from=False, force=False):
         """
 
         :param state: membership.state recordset
@@ -520,8 +530,10 @@ class MembershipLine(models.Model):
             real_date_from = date.today()
         limit_date = self._get_date_no_renew()
         # We have to renew every (active) membership lines of the partner
-        membership_lines = self.filtered(
-            lambda l: fields.Date.from_string(l.date_from) <= limit_date)
+        membership_lines = self
+        if not force:
+            membership_lines = self.filtered(
+                lambda l: fields.Date.from_string(l.date_from) <= limit_date)
         # Save which membership line are created/updated
         membership_altered = membership_line_obj.browse()
         membership_size = len(membership_lines)
@@ -529,6 +541,8 @@ class MembershipLine(models.Model):
             logger.info("Create %s membership, follow-up of %s (%s/%s)",
                         state.code, membership_line, i, membership_size)
             partner = membership_line.partner_id
+            if state.code != "member" and partner.membership_state_id.code != "without_membership":
+                continue
             instance = membership_line.int_instance_id
             values = self._build_membership_values(
                 partner, instance, state, date_from=real_date_from,
@@ -597,7 +611,7 @@ class MembershipLine(models.Model):
         )._job_close_and_renew(date_from=date_from)
 
     @api.multi
-    def _former_member(self, date_from=False):
+    def _former_member(self, date_from=False, force=False):
         """
         Former member current membership.line
         :param date_from: str/date
@@ -621,7 +635,7 @@ class MembershipLine(models.Model):
         lines_keep_closed = self.browse(lines_result)
         lines = self - lines_keep_closed
         lines = lines.filtered(lambda s, m=member_state: s.state_id == m)
-        return lines._update_membership(former_state, date_from=date_from)
+        return lines._update_membership(former_state, date_from=date_from, force=force)
 
     @api.model
     def _get_fields_to_update(self, mode):

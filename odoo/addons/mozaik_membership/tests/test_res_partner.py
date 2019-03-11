@@ -120,12 +120,6 @@ class TestPartner(TransactionCase):
         }
         vals = dict(
             values,
-            int_instance_id=self.ref("mozaik_structure.int_instance_01"),
-            state_id=self.ref("mozaik_membership.former_member"),
-        )
-        membership_obj.create(vals)
-        vals = dict(
-            values,
             int_instance_id=self.ref("mozaik_membership.int_instance_03"),
             state_id=self.ref("mozaik_membership.member"),
         )
@@ -138,7 +132,7 @@ class TestPartner(TransactionCase):
         membership_obj.create(vals)
         # partner has now 3 opened membership lines
         self.assertEqual(
-            3,
+            2,
             len(partner.membership_line_ids.filtered(lambda s: s.active)))
         # and it is no longer 'without_membership'
         before_resignation_state_code = partner.membership_state_code
