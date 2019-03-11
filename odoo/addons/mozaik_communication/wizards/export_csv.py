@@ -31,13 +31,8 @@ class ExportCsv(models.TransientModel):
                  p.birthdate_date,
                  p.gender,
                  p.lang,
-                 p.website,
-                 p.secondary_website,
+                 p.title,
                  p.technical_name,
-                 p.local_voluntary,
-                 p.regional_voluntary,
-                 p.national_voluntary,
-                 p.local_only,
                  CASE
                     WHEN cc.line IS NOT NULL
                     THEN cc.line
@@ -64,10 +59,6 @@ class ExportCsv(models.TransientModel):
                  mobile.unauthorized as mobile_unauthorized,
                  mobile.vip as mobile_vip,
                  mobile_phone.name as mobile,
-                 fax.is_main as fax_main,
-                 fax.unauthorized as fax_unauthorized,
-                 fax.vip as fax_vip,
-                 fax_phone.name as fax,
                  ec.is_main as email_main,
                  ec.unauthorized as email_unauthorized,
                  ec.vip as email_vip,
@@ -102,16 +93,7 @@ class ExportCsv(models.TransientModel):
                 mobile.active = True
 
                 LEFT OUTER JOIN phone_phone mobile_phone
-                ON mobile_phone.id = mobile.phone_id
-
-                LEFT OUTER JOIN phone_coordinate fax
-                ON fax.partner_id = p.id AND
-                fax.is_main = True AND
-                fax.coordinate_type = 'fax' AND
-                fax.active = True
-
-                LEFT OUTER JOIN phone_phone fax_phone
-                ON fax_phone.id = fax.phone_id"""
+                ON mobile_phone.id = mobile.phone_id"""
 
     @api.model
     def _from_virtual_target(self):
@@ -180,6 +162,7 @@ class ExportCsv(models.TransientModel):
             _('Birth Date'),
             _('Gender'),
             _('Language'),
+            _('Title'),
             _('Main Address'),
             _('Unauthorized Address'),
             _('Vip Address'),
@@ -197,20 +180,10 @@ class ExportCsv(models.TransientModel):
             _('Unauthorized Mobile'),
             _('Vip Mobile'),
             _('Mobile'),
-            _('Main Fax'),
-            _('Unauthorized Fax'),
-            _('Vip Fax'),
-            _('Fax'),
             _('Main Email'),
             _('Unauthorized Email'),
             _('Vip Email'),
             _('Email'),
-            _('Website'),
-            _('Secondary Website'),
-            _('Local voluntary'),
-            _('Regional voluntary'),
-            _('National voluntary'),
-            _('Local only'),
         ]
         return header
 
@@ -250,39 +223,30 @@ class ExportCsv(models.TransientModel):
             'birthdate_date',
             'gender',
             'lang',
+            'title',
             'adr_main',
             'adr_unauthorized',
             'adr_vip',
-            'adr_vip' and obfuscation or 'street2',
-            'adr_vip' and obfuscation or 'street',
-            'adr_vip' and obfuscation or 'final_zip',
-            'adr_vip' and obfuscation or 'city',
+            obfuscation and values['adr_vip'] and 'obfuscation' or 'street2',
+            obfuscation and values['adr_vip'] and 'obfuscation' or 'street',
+            obfuscation and values['adr_vip'] and 'obfuscation' or 'final_zip',
+            obfuscation and values['adr_vip'] and 'obfuscation' or 'city',
             'country_code',
             'country_name',
             'fix_main',
             'fix_unauthorized',
             'fix_vip',
-            'fix_vip' and obfuscation or 'fix',
+            obfuscation and values['fix_vip'] and 'obfuscation' or 'fix',
             'mobile_main',
             'mobile_unauthorized',
             'mobile_vip',
-            'mobile_vip' and obfuscation or 'mobile',
-            'fax_main',
-            'fax_unauthorized',
-            'fax_vip',
-            'fax_vip' and obfuscation or 'fax',
+            obfuscation and values['mobile_vip'] and 'obfuscation' or 'mobile',
             'email_main',
             'email_unauthorized',
             'email_vip',
-            'email_vip' and obfuscation or 'email',
-            'website',
-            'secondary_website',
-            'local_voluntary',
-            'regional_voluntary',
-            'national_voluntary',
-            'local_only',
+            obfuscation and values['email_vip'] and 'obfuscation' or 'email',
         ]
-        export_values = [values.get(k, '') for k in keys]
+        export_values = [values.get(k, '*****') for k in keys]
         return export_values
 
     @api.model
@@ -346,6 +310,8 @@ class ExportCsv(models.TransientModel):
             'mozaik_coordinate.res_groups_coordinate_vip_reader')
         states = self.env['membership.state'].search([])
         states = {st.id: st.name for st in states}
+        titles = self.env['res.partner.title'].search([])
+        titles = {title.id: title.name for title in titles}
         countries = self.env['res.country'].search([])
         countries = {cnt.id: cnt.name for cnt in countries}
         selections = self.env['res.partner'].fields_get(
@@ -369,12 +335,16 @@ class ExportCsv(models.TransientModel):
                 data.update({
                     'state': states.get(
                         data.get('state_id'), data.get('state')),
+                    'title': titles.get(data.get('title'), ''),
                     'country_name': countries.get(
                         data.get('country_id'), data.get('country_name')),
                     'gender': genders.get(
                         data.get('gender'), data.get('gender')),
                     'lang': langs.get(data.get('lang'), data.get('lang')),
                 })
+                if not data.get('co_residency_id') and data.get('title'):
+                    data['printable_name'] = '%s %s' % (
+                        data['title'], data['printable_name'],)
                 export_values = self._get_csv_values(data, vip)
                 writer.writerow(export_values)
             csv_content = memory_file.getvalue()

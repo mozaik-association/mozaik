@@ -96,9 +96,6 @@
                             </group>
                         </group>
                     </page>
-                    <page string="More Info" name="dev" groups="base.group_erp_manager">
-                        <group name="moreinfo"/>
-                    </page>
                 </notebook>
                 <footer>
                     <span name="go-wizard"
