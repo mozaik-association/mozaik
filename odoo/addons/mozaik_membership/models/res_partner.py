@@ -282,6 +282,11 @@ class ResPartner(models.Model):
         Invalidate some caches when changing set of instances related to
         the user
         """
+        if not vals.get("active", True):
+            self.write({
+                "force_int_instance_id":
+                    self._default_force_int_instance_id().id
+            })
         if vals.get('is_company'):
             if self.filtered(
                     lambda s: not s.is_company and s.membership_line_ids):
