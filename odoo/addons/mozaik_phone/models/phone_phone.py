@@ -24,6 +24,11 @@ class PhonePhone(models.Model):
         index=True,
         track_visibility='onchange',
     )
+    sanitize_number = fields.Char(
+        compute="_compute_sanitize_number",
+        index=True,
+        store=True,
+    )
     type = fields.Selection(
         [
             ('fix', 'Fix'),
@@ -51,6 +56,24 @@ class PhonePhone(models.Model):
         'Phone Coordinates',
         domain=[('active', '=', False)],
     )
+
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        args = args or []
+        domain = []
+        if name:
+            domain = [
+                '|',
+                ('sanitize_number', operator, name),
+                ('name', operator, name)
+            ]
+        return self.search(domain + args, limit=limit).name_get()
+
+    @api.multi
+    @api.depends("name")
+    def _compute_sanitize_number(self):
+        for phone in self:
+            phone.sanitize_number = phone.name.replace(" ", "")
 
     @api.model
     def _update_values(self, vals, mode='write'):
