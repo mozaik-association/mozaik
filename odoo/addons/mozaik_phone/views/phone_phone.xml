@@ -70,6 +70,7 @@
                         </page>
                         <page name="dev" string="More Info" groups="base.group_erp_manager">
                             <group name="moreinfo">
+                                <field name="sanitize_number"/>
                             </group>
                         </page>
                     </notebook>
@@ -87,7 +88,7 @@
         <field name="model">phone.phone</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" />
+                <field name="name" filter_domain="['|', ('name','like',self), ('sanitize_number','like',self)]"/>
                 <field name="type" />
 
                 <filter name="malformed" string="Malformed Phones" domain="[('name','not like',' % ')]"/>
