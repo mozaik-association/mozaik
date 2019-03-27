@@ -78,7 +78,7 @@ msgstr "Doublons autorisés"
 #. module: mozaik_person
 #: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
 msgid "Archive/reactivate partner: proceed anyway?"
-msgstr ""
+msgstr "Poursuivre l'archivage/la réactivation du contact ?"
 
 #. module: mozaik_person
 #: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view

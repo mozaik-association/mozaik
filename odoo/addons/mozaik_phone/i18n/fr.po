@@ -306,7 +306,7 @@ msgstr "Téléphones"
 #: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_sanitize_number
 #, fuzzy
 msgid "Sanitize Number"
-msgstr "Numéro de téléphone"
+msgstr "Numéro purifié"
 
 #. module: mozaik_phone
 #: model:ir.actions.act_window,name:mozaik_phone.set_as_main_action

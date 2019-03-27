@@ -321,7 +321,7 @@ msgstr ""
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_instance_child_ids
 msgid "Child"
-msgstr ""
+msgstr "Enfant"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_city
@@ -1302,7 +1302,7 @@ msgstr "Notes"
 #: model:ir.ui.menu,name:mozaik_structure.state_configuration_menu
 #: model:ir.ui.menu,name:mozaik_structure.state_structure_menu
 msgid "Of the State"
-msgstr ""
+msgstr "De l'État"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_opt_out
@@ -1812,7 +1812,7 @@ msgid ""
 "These instance codes are not valid:\n"
 "- %s"
 msgstr ""
-"These instance codes are not valid:\n"
+"Ces codes d'instances sont invalides:\n"
 "- %s"
 
 #. module: mozaik_structure

@@ -118,7 +118,7 @@ msgid ""
 "Invalid email address:\n"
 "- %s"
 msgstr ""
-"Address électronique invalide:\n"
+"Adresse électronique invalide:\n"
 "- %s"
 
 #. module: mozaik_email

@@ -108,7 +108,7 @@ msgstr "Impayé"
 #. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_partner_change_instance
 msgid "Update instances of partner"
-msgstr ""
+msgstr "Changement d'instance du contact"
 
 #. module: mozaik_account
 #: code:addons/mozaik_account/models/account_bank_statement_line.py:165
