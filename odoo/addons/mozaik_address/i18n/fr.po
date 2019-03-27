@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_address
+# 	* mozaik_address
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2019-02-18 18:32+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -91,6 +92,12 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.change_main_address_action
+#, fuzzy
+msgid "Change Address or Instance"
+msgstr "Changer l'adresse principale"
+
+#. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.change_co_residency_address_action
 msgid "Change Co-Residency Address"
 msgstr "Modifier l'adresse de co-résidence"
@@ -101,19 +108,18 @@ msgid "Change Co-Residency Address Wizard"
 msgstr "Assistant de changement d'adresse d'une co-résidence"
 
 #. module: mozaik_address
-#: model:ir.actions.act_window,name:mozaik_address.change_main_address_action
-msgid "Change Main Address"
-msgstr "Changer l'adresse principale"
-
-#. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_change_main_address
 msgid "Change Main Address Wizard"
 msgstr "Assistant de changement d'adresse principale"
 
 #. module: mozaik_address
 #: model:ir.model.fields,help:mozaik_address.field_address_address_enforce_cities
-msgid "Check this box to ensure every address created in that country has a 'City' chosen in the list of the country's cities."
-msgstr "Cochez cette case afin de s'assurer que chaque adresse ait une \"Ville\" sélectionnée dans la liste des villes du pays."
+msgid ""
+"Check this box to ensure every address created in that country has a 'City' "
+"chosen in the list of the country's cities."
+msgstr ""
+"Cochez cette case afin de s'assurer que chaque adresse ait une \"Ville\" "
+"sélectionnée dans la liste des villes du pays."
 
 #. module: mozaik_address
 #: model:ir.ui.menu,name:mozaik_address.address_local_zip_menu
@@ -223,8 +229,12 @@ msgstr "Nom à afficher"
 #. module: mozaik_address
 #: code:addons/mozaik_address/wizards/change_main_address.py:57
 #, python-format
-msgid "Due to security restrictions you are not allowed to move all co-residency members !"
-msgstr "Pour des raisons de sécurité, vous n'êtes pas autorisé à déménager tous les membres de cette co-résidence !"
+msgid ""
+"Due to security restrictions you are not allowed to move all co-residency "
+"members !"
+msgstr ""
+"Pour des raisons de sécurité, vous n'êtes pas autorisé à déménager tous les "
+"membres de cette co-résidence !"
 
 #. module: mozaik_address
 #: model:ir.ui.view,arch_db:mozaik_address.co_residency_search_view
@@ -426,6 +436,7 @@ msgstr "Refusé"
 #. module: mozaik_address
 #: code:addons/mozaik_address/wizards/failure_editor.py:26
 #: selection:failure.editor.address,reason:0
+#, python-format
 msgid "Returned to sender"
 msgstr "Retour courrier"
 
@@ -463,16 +474,21 @@ msgstr "Nom technique"
 
 #. module: mozaik_address
 #: model:ir.model.fields,help:mozaik_address.field_address_address_country_code
-msgid "The ISO country code in two chars. \n"
+msgid ""
+"The ISO country code in two chars. \n"
 "You can use this field for quick search."
-msgstr "Code de pays ISO en deux caractères. \n"
+msgstr ""
+"Code de pays ISO en deux caractères. \n"
 "Vous pouvez utiliser ce champ pour une recherche rapide."
 
 #. module: mozaik_address
 #: code:addons/mozaik_address/models/postal_coordinate.py:35
 #, python-format
-msgid "Unauthorizing a coordinate usually involves a change in its co-residency."
-msgstr "Interdire une coordonnée implique généralement une modification de sa co-résidence."
+msgid ""
+"Unauthorizing a coordinate usually involves a change in its co-residency."
+msgstr ""
+"Interdire une coordonnée implique généralement une modification de sa co-"
+"résidence."
 
 #. module: mozaik_address
 #: selection:failure.editor.address,reason:0
@@ -516,4 +532,3 @@ msgstr "failure.editor.address"
 #: model:ir.ui.view,arch_db:mozaik_address.change_co_residency_address_wizard
 msgid "or"
 msgstr "ou"
-

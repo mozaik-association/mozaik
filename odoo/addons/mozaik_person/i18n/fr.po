@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_person
+# 	* mozaik_person
 #
 msgid ""
 msgstr ""
@@ -10,25 +10,26 @@ msgstr ""
 "PO-Revision-Date: 2019-01-11 18:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/res_partner.py:222
+#: code:addons/mozaik_person/models/res_partner.py:233
 #, python-format
 msgid "%s cannot be a company to become a user!"
 msgstr "%s ne peut être une personne morale pour devenir un utilisateur !"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/res_partner.py:218
+#: code:addons/mozaik_person/models/res_partner.py:229
 #, python-format
 msgid "%s is already a user!"
 msgstr "%s est déjà un utilisateur !"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/res_partner.py:227
+#: code:addons/mozaik_person/models/res_partner.py:238
 #, python-format
 msgid "%s must be active to become a user!"
 msgstr "%s doit être actif pour devenir un utilisateur !"
@@ -73,6 +74,11 @@ msgstr "Autoriser les doublons"
 #: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
+
+#. module: mozaik_person
+#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+msgid "Archive/reactivate partner: proceed anyway?"
+msgstr ""
 
 #. module: mozaik_person
 #: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
@@ -126,7 +132,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/res_partner.py:109
+#: code:addons/mozaik_person/models/res_partner.py:120
 #, python-format
 msgid "Identifier %s is already assigned"
 msgstr "L'identifiant %s est déjà assigné"
@@ -322,4 +328,3 @@ msgstr "ou"
 #: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
 msgid "⇒ Show all duplicates"
 msgstr "⇒ Voir tous les doublons"
-

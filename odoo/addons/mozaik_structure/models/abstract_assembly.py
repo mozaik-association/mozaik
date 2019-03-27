@@ -8,9 +8,6 @@ class AbstractAssembly(models.AbstractModel):
 
     _name = 'abstract.assembly'
     _inherit = ['mozaik.abstract.model']
-    _inherits = {
-        'res.partner': 'partner_id',
-    }
     _description = 'Abstract Assembly'
     _order = 'partner_id, assembly_category_id'
     _unicity_keys = 'instance_id, assembly_category_id'
@@ -38,6 +35,7 @@ class AbstractAssembly(models.AbstractModel):
         readonly=True,
         ondelete='restrict',
         auto_join=True,
+        delegate=True,
     )
     designation_int_assembly_id = fields.Many2one(
         'int.assembly',

@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_phone
+# 	* mozaik_phone
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2018-11-14 16:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -21,7 +22,7 @@ msgid "+32 476 81 37 00"
 msgstr "+32 476 81 37 00"
 
 #. module: mozaik_phone
-#: code:addons/mozaik_phone/models/phone_phone.py:136
+#: code:addons/mozaik_phone/models/phone_phone.py:159
 #, python-format
 msgid "A phone number cannot be duplicated!"
 msgstr "Un numéro de téléphone ne peut être dupliqué !"
@@ -147,7 +148,7 @@ msgid "Fix"
 msgstr "Fixe"
 
 #. module: mozaik_phone
-#: code:addons/mozaik_phone/models/phone_phone.py:100
+#: code:addons/mozaik_phone/models/phone_phone.py:123
 #, python-format
 msgid "Fix + Fax"
 msgstr "Fixe + Fax"
@@ -166,7 +167,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_phone
-#: code:addons/mozaik_phone/models/phone_phone.py:85
+#: code:addons/mozaik_phone/models/phone_phone.py:108
 #, python-format
 msgid "Invalid phone number: %s"
 msgstr "Numéro de téléphone invalide: %s"
@@ -302,6 +303,12 @@ msgid "Phones"
 msgstr "Téléphones"
 
 #. module: mozaik_phone
+#: model:ir.model.fields,field_description:mozaik_phone.field_phone_phone_sanitize_number
+#, fuzzy
+msgid "Sanitize Number"
+msgstr "Numéro de téléphone"
+
+#. module: mozaik_phone
 #: model:ir.actions.act_window,name:mozaik_phone.set_as_main_action
 #: model:ir.model.fields,field_description:mozaik_phone.field_change_phone_type_is_main
 msgid "Set as main"
@@ -319,4 +326,3 @@ msgstr "Type"
 #: model:ir.ui.view,arch_db:mozaik_phone.change_phone_type_form
 msgid "or"
 msgstr "ou"
-

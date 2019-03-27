@@ -11,7 +11,7 @@
     </record>
 
     <record model="ir.ui.menu" id="state_structure_menu">
-        <field name="name">State</field>
+        <field name="name">Of the State</field>
         <field name="parent_id" ref="structure_root_menu"/>
         <field name="sequence" eval="10"/>
     </record>
@@ -87,7 +87,7 @@
     </record>
 
     <record model="ir.ui.menu" id="state_configuration_menu">
-        <field name="name">State</field>
+        <field name="name">Of the State</field>
         <field name="parent_id" ref="structure_configuration_menu"/>
         <field name="sequence" eval="10"/>
     </record>

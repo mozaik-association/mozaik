@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_membership
+# 	* mozaik_membership
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2019-02-28 19:21+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -18,16 +19,22 @@ msgstr ""
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/models/res_partner.py:95
 #, python-format
-msgid "A legal person shouldn't have membership lines:\n"
+msgid ""
+"A legal person shouldn't have membership lines:\n"
 "- %s"
-msgstr "Une personne morale ne peut avoir d'adhésions:\n"
+msgstr ""
+"Une personne morale ne peut avoir d'adhésions:\n"
 "- %s"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/res_partner.py:289
+#: code:addons/mozaik_membership/models/res_partner.py:294
 #, python-format
-msgid "A natural person with membership history cannot be transformed to a legal person"
-msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
+msgid ""
+"A natural person with membership history cannot be transformed to a legal "
+"person"
+msgstr ""
+"Une personne physique avec un historique d'ahésions ne peut être transformée "
+"en une personne morale"
 
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/models/res_partner.py:163
@@ -36,11 +43,13 @@ msgid "A partner without membership must be linked to an internal instance"
 msgstr "Un partenaire sans adhésion doit être lié à une instance interne"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:75
+#: code:addons/mozaik_membership/models/membership_line.py:78
 #, python-format
-msgid "A reference is mandatory when the price is greater than 0:\n"
+msgid ""
+"A reference is mandatory when the price is greater than 0:\n"
 "- %s"
-msgstr "Une reference est obligatoire lorsqu'un prix est mentionné:\n"
+msgstr ""
+"Une reference est obligatoire lorsqu'un prix est mentionné:\n"
 "- %s"
 
 #. module: mozaik_membership
@@ -410,11 +419,13 @@ msgid "Is Excluded"
 msgstr "Est exclu"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:89
+#: code:addons/mozaik_membership/models/membership_line.py:92
 #, python-format
-msgid "It's not possible to create membership line for a legal person:\n"
+msgid ""
+"It's not possible to create membership line for a legal person:\n"
 "- %s"
-msgstr "Il n'est pas permis de créer une adhésion pour une personne morale:\n"
+msgstr ""
+"Il n'est pas permis de créer une adhésion pour une personne morale:\n"
 "- %s"
 
 #. module: mozaik_membership
@@ -776,9 +787,11 @@ msgstr "Promesse"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_membership_tarification_code
-msgid "Python code to evaluate; should return a boolean.\n"
+msgid ""
+"Python code to evaluate; should return a boolean.\n"
 "Example of code: partner.is_customer == True"
-msgstr "Code Python à évaluer; doit renvoyer un booléen.\n"
+msgstr ""
+"Code Python à évaluer; doit renvoyer un booléen.\n"
 "Exemple: partner.is_customer == True"
 
 #. module: mozaik_membership
@@ -950,17 +963,21 @@ msgid "The new instance defined by partner should be unique!"
 msgstr "La nouvelle instance défine par partenaire doit être unique!"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:151
+#: code:addons/mozaik_membership/models/membership_line.py:154
 #, python-format
 msgid "The partner already have an active subscription to this instance"
 msgstr "Le partenaire a déjà une adhésion active à cette instance"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:110
+#: code:addons/mozaik_membership/models/membership_line.py:113
 #, python-format
-msgid "These partners are excluded but you're trying to add new membership lines without disabled exclusion lines:\n"
+msgid ""
+"These partners are excluded but you're trying to add new membership lines "
+"without disabled exclusion lines:\n"
 "- %s"
-msgstr "Ces partenaires sont exclus mais vous essayez d'ajouter une nouvelle adhésion sans désactiver les lignes d'exclusion:\n"
+msgstr ""
+"Ces partenaires sont exclus mais vous essayez d'ajouter une nouvelle "
+"adhésion sans désactiver les lignes d'exclusion:\n"
 "- %s"
 
 #. module: mozaik_membership
@@ -982,15 +999,22 @@ msgstr "Ce nom existe déjà"
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/models/postal_coordinate.py:101
 #, python-format
-msgid "This partner (%s) has many membership lines. The system can not update automatically related instances.\n"
+msgid ""
+"This partner (%s) has many membership lines. The system can not update "
+"automatically related instances.\n"
 "Please use the wizard to change the main address on the related partner"
-msgstr "Ce partenaire (%s) a trop d'ahésions. Le système ne peut mettre à jour automatiquement leur instance.\n"
+msgstr ""
+"Ce partenaire (%s) a trop d'ahésions. Le système ne peut mettre à jour "
+"automatiquement leur instance.\n"
 "Merci d'utiliser l'assitant pour changer l'adresse principale du partenaire"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.add_membership_form
-msgid "This partner is actually excluded. Add a new membership line will re-integrate him."
-msgstr "Ce partenaire est actuellment exclu. Lui ajouter une adhésion le réintègrera."
+msgid ""
+"This partner is actually excluded. Add a new membership line will re-"
+"integrate him."
+msgstr ""
+"Ce partenaire est actuellment exclu. Lui ajouter une adhésion le réintègrera."
 
 #. module: mozaik_membership
 #: sql_constraint:membership.line:0
@@ -1103,4 +1127,3 @@ msgstr "user => res.users courant"
 #: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "⇒ Pay Attention"
 msgstr "⇒ Précaution à prendre"
-

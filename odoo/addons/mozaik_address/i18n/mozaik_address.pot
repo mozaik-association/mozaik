@@ -1,0 +1,517 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_address
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.res_city_form_view
+msgid "1050, 4000..."
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_address_address
+#: model:ir.model.fields,field_description:mozaik_address.field_abstract_assembly_address
+#: model:ir.model.fields,field_description:mozaik_address.field_abstract_assembly_postal_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_name
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_address_id
+#: model:ir.model.fields,field_description:mozaik_address.field_ext_assembly_address
+#: model:ir.model.fields,field_description:mozaik_address.field_ext_assembly_postal_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_address.field_int_assembly_address
+#: model:ir.model.fields,field_description:mozaik_address.field_int_assembly_postal_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_address.field_postal_coordinate_address_id
+#: model:ir.model.fields,field_description:mozaik_address.field_res_partner_address
+#: model:ir.model.fields,field_description:mozaik_address.field_res_partner_postal_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users_address
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users_postal_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_address.field_sta_assembly_address
+#: model:ir.model.fields,field_description:mozaik_address.field_sta_assembly_postal_coordinate_id
+#: model:ir.ui.view,arch_db:mozaik_address.postal_coordinate_search_view
+msgid "Address"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.address_address_action
+#: model:ir.ui.menu,name:mozaik_address.address_address_menu
+#: model:ir.ui.view,arch_db:mozaik_address.res_city_form_view
+msgid "Addresses"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.view_partner_form
+msgid "All Addresses"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.address_address_form_view
+#: model:ir.ui.view,arch_db:mozaik_address.co_residency_form_view
+msgid "All Details"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.allow_duplicate_action
+msgid "Allow Duplicates"
+msgstr ""
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/models/address_address.py:187
+#, python-format
+msgid "An Address without sequence number cannot be duplicated!"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.address_address_form_view
+msgid "Archive/reactivate address: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.co_residency_form_view
+msgid "Archive/reactivate co-residency: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_box
+msgid "Box"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.change_co_residency_address_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.change_main_address_action
+msgid "Change Address or Instance"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.change_co_residency_address_action
+msgid "Change Co-Residency Address"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_change_co_residency_address
+msgid "Change Co-Residency Address Wizard"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_change_main_address
+msgid "Change Main Address Wizard"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,help:mozaik_address.field_address_address_enforce_cities
+msgid "Check this box to ensure every address created in that country has a 'City' chosen in the list of the country's cities."
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.menu,name:mozaik_address.address_local_zip_menu
+msgid "Cities"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_res_city
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_city
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_city_id
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_city_man
+msgid "City"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.co_residency_action
+#: model:ir.ui.menu,name:mozaik_address.co_residency_menu
+msgid "Co-Residencies"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_co_residency
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard_address_id
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard_co_residency_id
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_co_residency_id
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_co_residency_id
+#: model:ir.model.fields,field_description:mozaik_address.field_postal_coordinate_co_residency_id
+#: model:ir.ui.view,arch_db:mozaik_address.change_main_address_wizard
+#: model:ir.ui.view,arch_db:mozaik_address.postal_coordinate_search_view
+msgid "Co-Residency"
+msgstr ""
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/models/co_residency.py:38
+#, python-format
+msgid "Co-Residency to complete"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.address_address_form_view
+#: model:ir.ui.view,arch_db:mozaik_address.co_residency_form_view
+msgid "Coordinates"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_res_country
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_country_id
+#: model:ir.ui.view,arch_db:mozaik_address.address_address_search_view
+msgid "Country"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_country_code
+msgid "Country Code"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_create_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard_create_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_create_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_create_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_create_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_failure_editor_address_create_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_postal_coordinate_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard_create_date
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_create_date
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_create_date
+#: model:ir.model.fields,field_description:mozaik_address.field_failure_editor_address_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_old_address_id
+msgid "Current Address"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_old_address_id
+msgid "Current Main Address"
+msgstr ""
+
+#. module: mozaik_address
+#: selection:failure.editor.address,reason:0
+msgid "Deceased"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard_display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_failure_editor_address_display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_postal_coordinate_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/wizards/change_main_address.py:57
+#, python-format
+msgid "Due to security restrictions you are not allowed to move all co-residency members !"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.co_residency_search_view
+msgid "Empty Co-Residencies"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_enforce_cities
+msgid "Enforce Cities"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.failure_editor_act_window
+msgid "Failure Editor"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.address_address_search_view
+msgid "Group By..."
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_id
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard_id
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_id
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_id
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_id
+#: model:ir.model.fields,field_description:mozaik_address.field_failure_editor_address_id
+#: model:ir.model.fields,field_description:mozaik_address.field_postal_coordinate_id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_address
+#: selection:failure.editor.address,reason:0
+msgid "Improper box number"
+msgstr ""
+
+#. module: mozaik_address
+#: selection:failure.editor.address,reason:0
+msgid "Incomplete/Invalid address"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.res_city_form_view
+msgid "Info"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_invalidate
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_invalidate_co_residency
+msgid "Invalidate Co-Residency"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.res_city_form_view
+msgid "Ixelles, Liège..."
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.co_residency_search_view
+msgid "Label Lines"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address___last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard___last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address___last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address___last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency___last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_failure_editor_address___last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_postal_coordinate___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_write_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard_write_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_write_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_write_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_write_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_failure_editor_address_write_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_postal_coordinate_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_write_date
+#: model:ir.model.fields,field_description:mozaik_address.field_allow_duplicate_address_wizard_write_date
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_write_date
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_write_date
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_write_date
+#: model:ir.model.fields,field_description:mozaik_address.field_failure_editor_address_write_date
+#: model:ir.model.fields,field_description:mozaik_address.field_postal_coordinate_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_line
+msgid "Line 1"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_line2
+msgid "Line 2"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_message
+msgid "Message"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.change_co_residency_address_wizard
+msgid "Modify"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.address_address_form_view
+#: model:ir.ui.view,arch_db:mozaik_address.change_co_residency_address_wizard
+#: model:ir.ui.view,arch_db:mozaik_address.co_residency_form_view
+#: model:ir.ui.view,arch_db:mozaik_address.res_city_form_view
+msgid "More Info"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_move_allowed
+msgid "Move Allowed"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_move_co_residency
+msgid "Move Co-Residency"
+msgstr ""
+
+#. module: mozaik_address
+#: selection:failure.editor.address,reason:0
+msgid "Moved"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_address_id
+msgid "New Address"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_main_address_address_id
+msgid "New Main Address"
+msgstr ""
+
+#. module: mozaik_address
+#: selection:failure.editor.address,reason:0
+msgid "No longer receives mail at the mentioned address"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_number
+msgid "Number"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_postal_coordinate
+msgid "Postal Coordinate"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.postal_coordinate_action
+#: model:ir.model.fields,field_description:mozaik_address.field_abstract_assembly_postal_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_abstract_assembly_postal_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_postal_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_postal_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency_postal_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_ext_assembly_postal_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_ext_assembly_postal_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_int_assembly_postal_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_int_assembly_postal_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_res_partner_postal_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_res_partner_postal_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users_postal_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users_postal_coordinate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_sta_assembly_postal_coordinate_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_sta_assembly_postal_coordinate_inactive_ids
+#: model:ir.ui.menu,name:mozaik_address.postal_coordinate_menu
+#: model:ir.ui.menu,name:mozaik_address.postal_coordinate_submenu
+#: model:ir.ui.view,arch_db:mozaik_address.coordinate_category_form_view
+#: model:ir.ui.view,arch_db:mozaik_address.view_partner_form
+msgid "Postal Coordinates"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_failure_editor_address_reason
+msgid "Reason"
+msgstr ""
+
+#. module: mozaik_address
+#: selection:failure.editor.address,reason:0
+msgid "Refused"
+msgstr ""
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/wizards/failure_editor.py:26
+#: selection:failure.editor.address,reason:0
+#, python-format
+msgid "Returned to sender"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.allow_duplicate_wizard_inherit
+msgid "Selected duplicates will be associated to the following co-residency:"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_sequence
+#: model:ir.model.fields,field_description:mozaik_address.field_res_city_sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.set_as_main_action
+msgid "Set as main"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_street
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_street_man
+msgid "Street"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_street2
+msgid "Street2"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_technical_name
+msgid "Technical Name"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,help:mozaik_address.field_address_address_country_code
+msgid "The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/models/postal_coordinate.py:35
+#, python-format
+msgid "Unauthorizing a coordinate usually involves a change in its co-residency."
+msgstr ""
+
+#. module: mozaik_address
+#: selection:failure.editor.address,reason:0
+msgid "Unclaimed"
+msgstr ""
+
+#. module: mozaik_address
+#: selection:failure.editor.address,reason:0
+msgid "Unknown"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_co_residency_address_use_allowed
+msgid "Use Allowed"
+msgstr ""
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/models/postal_coordinate.py:34
+#, python-format
+msgid "Warning"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_zip
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address_zip_man
+#: model:ir.ui.view,arch_db:mozaik_address.address_address_search_view
+msgid "Zip"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_allow_duplicate_address_wizard
+msgid "allow.duplicate.address.wizard"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_failure_editor_address
+msgid "failure.editor.address"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.ui.view,arch_db:mozaik_address.change_co_residency_address_wizard
+msgid "or"
+msgstr ""
+

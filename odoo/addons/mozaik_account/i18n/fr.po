@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_account
+# 	* mozaik_account
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2019-01-11 18:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -78,7 +79,6 @@ msgid "More than one membership to reconcile are available"
 msgstr "Plus d'une adhésion à réconcilier sont disponibles"
 
 #. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_membership_line_paid
 #: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Paid"
 msgstr "Payé"
@@ -106,8 +106,18 @@ msgid "Unpaid"
 msgstr "Impayé"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/account_bank_statement_line.py:157
+#: model:ir.model,name:mozaik_account.model_partner_change_instance
+msgid "Update instances of partner"
+msgstr ""
+
+#. module: mozaik_account
+#: code:addons/mozaik_account/models/account_bank_statement_line.py:165
 #, python-format
 msgid "You must first select a partner!"
 msgstr "Vous devez selectionner un partenaire !"
 
+#. module: mozaik_account
+#: model:ir.model,name:mozaik_account.model_add_membership
+#, fuzzy
+msgid "add.membership"
+msgstr "Historique d'adhésion"

@@ -1,0 +1,269 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_thesaurus
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_thesaurus
+#: code:addons/mozaik_thesaurus/models/thesaurus_term.py:149
+#, python-format
+msgid "%s (copy)"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model,name:mozaik_thesaurus.model_abstract_term_finder
+msgid "Abstract Term Finder"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
+msgid "All"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_form_view
+msgid "Archive/reactivate thesaurus: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Cancel Term"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: selection:thesaurus.term,state:0
+msgid "Cancelled"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_child_ids
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Child Terms"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_form_view
+msgid "Competencies"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_search_view
+msgid "Competencies & Topics"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_assembly_competency_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_ext_assembly_competency_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_int_assembly_competency_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_partner_competency_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_users_competency_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_sta_assembly_competency_ids
+msgid "Competency"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Confirm Term"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
+#: selection:thesaurus.term,state:0
+msgid "Confirmed"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model,name:mozaik_thesaurus.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_create_uid
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_term_finder_display_name
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_display_name
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Expired"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Expired Terms"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Group By..."
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_term_finder_id
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_id
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_form_view
+msgid "Indexation"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_assembly_interest_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_ext_assembly_interest_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_int_assembly_interest_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_partner_interest_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_users_interest_ids
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_sta_assembly_interest_ids
+msgid "Interest"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_form_view
+msgid "Interests"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_term_finder___last_update
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus___last_update
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_write_uid
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_write_date
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:res.groups,name:mozaik_thesaurus.thesaurus_manager
+msgid "Manager"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_form_view
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
+msgid "More Info"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:mail.message.subtype,description:mozaik_thesaurus.new_term_to_validate
+#: model:mail.message.subtype,name:mozaik_thesaurus.new_term_to_validate
+msgid "New Term to Validate"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_parent_ids
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Parent Terms"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:res.groups,name:mozaik_thesaurus.thesaurus_reader
+msgid "Reader"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Reset Term"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_select_name
+msgid "Select Name"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_state
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Status"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_name
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_tree_view
+msgid "Term"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_search_name
+msgid "Term (Full Path)"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:mail.message.subtype,name:mozaik_thesaurus.term_to_validate
+msgid "Term to Validate"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.actions.act_window,name:mozaik_thesaurus.thesaurus_action
+#: model:ir.model,name:mozaik_thesaurus.model_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_name
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term_thesaurus_id
+#: model:ir.module.category,name:mozaik_thesaurus.module_category_thesaurus
+#: model:ir.ui.menu,name:mozaik_thesaurus.mozaik_thesaurus_menu
+#: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_menu
+msgid "Thesaurus"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model,name:mozaik_thesaurus.model_thesaurus_term
+msgid "Thesaurus Term"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.actions.act_window,name:mozaik_thesaurus.thesaurus_term_action
+#: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_term_menu
+msgid "Thesaurus Terms"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: sql_constraint:thesaurus:0
+msgid "Thesaurus name already exists !"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
+msgid "To confirm"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_form_view
+msgid "Topics"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: selection:thesaurus.term,state:0
+msgid "Unconfirmed"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:res.groups,name:mozaik_thesaurus.thesaurus_user
+msgid "User"
+msgstr ""
+

@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* partner_usual_firstname
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_usual_firstname
+#: model:ir.model,name:partner_usual_firstname.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: partner_usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner_usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users_usual_firstname
+msgid "Usual Firstname"
+msgstr ""
+
+#. module: partner_usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner_usual_lastname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users_usual_lastname
+msgid "Usual Lastname"
+msgstr ""
+
+#. module: partner_usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner_usual_name
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users_usual_name
+msgid "Usual Name"
+msgstr ""
+

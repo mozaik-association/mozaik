@@ -1,0 +1,25 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* user_bypass_security
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: user_bypass_security
+#: model:ir.model,name:user_bypass_security.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: user_bypass_security
+#: model:ir.model,name:user_bypass_security.model_res_users
+msgid "Users"
+msgstr ""
+

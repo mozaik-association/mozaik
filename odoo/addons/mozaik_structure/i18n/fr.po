@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_structure
+# 	* mozaik_structure
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2019-01-11 18:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -290,8 +291,12 @@ msgstr "Cochez cette case si le contact est un client."
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_supplier
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_supplier
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_supplier
-msgid "Check this box if this contact is a vendor. If it's not checked, purchase people will not see it when encoding a purchase order."
-msgstr "Cocher cette case si ce contact est un fournisseur. Si elle n'est pas cochée, les acheteurs ne le verront pas lors de la saisie d'un ordre d'achat."
+msgid ""
+"Check this box if this contact is a vendor. If it's not checked, purchase "
+"people will not see it when encoding a purchase order."
+msgstr ""
+"Cocher cette case si ce contact est un fournisseur. Si elle n'est pas "
+"cochée, les acheteurs ne le verront pas lors de la saisie d'un ordre d'achat."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_employee
@@ -306,8 +311,17 @@ msgstr "Cochez cette case si ce contact est un employé."
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_country_enforce_cities
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_country_enforce_cities
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_country_enforce_cities
-msgid "Check this box to ensure every address created in that country has a 'City' chosen in the list of the country's cities."
-msgstr "Cochez cette case afin de s'assurer que chaque adresse ait une \"Ville\" sélectionnée dans la liste des villes du pays."
+msgid ""
+"Check this box to ensure every address created in that country has a 'City' "
+"chosen in the list of the country's cities."
+msgstr ""
+"Cochez cette case afin de s'assurer que chaque adresse ait une \"Ville\" "
+"sélectionnée dans la liste des villes du pays."
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_instance_child_ids
+msgid "Child"
+msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_city
@@ -562,8 +576,14 @@ msgstr "Durée des mandats"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_partner_share
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_partner_share
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_partner_share
-msgid "Either customer (no user), either shared user. Indicated the current partner is a customer without access or with a limited access created for sharing data."
-msgstr "Client (pas un utilisateur) ou utilisateur partagé. Indique que le partenaire actuel est un client qui ne dispose pas d'accès ou qui dispose d'un accès limité pour le partage des données."
+msgid ""
+"Either customer (no user), either shared user. Indicated the current partner "
+"is a customer without access or with a limited access created for sharing "
+"data."
+msgstr ""
+"Client (pas un utilisateur) ou utilisateur partagé. Indique que le "
+"partenaire actuel est un client qui ne dispose pas d'accès ou qui dispose "
+"d'un accès limité pour le partage des données."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_legislature_election_date
@@ -791,24 +811,40 @@ msgstr "Statut de messagerie instantanée"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_opt_out
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_opt_out
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_opt_out
-msgid "If opt-out is checked, this contact has refused to receive emails for mass mailing and marketing campaign. Filter 'Available for Mass Mailing' allows users to filter the partners when performing mass mailing."
-msgstr "Si l’option de retrait est cochée, ce contact a refusé de recevoir des e-mails pour l'envoi de masse et de la campagne de commercialisation. Le filtre « Disponible pour l'envoi de masse » permet aux utilisateurs de filtrer les partenaires lors de l'exécution de l'envoi de masse"
+msgid ""
+"If opt-out is checked, this contact has refused to receive emails for mass "
+"mailing and marketing campaign. Filter 'Available for Mass Mailing' allows "
+"users to filter the partners when performing mass mailing."
+msgstr ""
+"Si l’option de retrait est cochée, ce contact a refusé de recevoir des e-"
+"mails pour l'envoi de masse et de la campagne de commercialisation. Le "
+"filtre « Disponible pour l'envoi de masse » permet aux utilisateurs de "
+"filtrer les partenaires lors de l'exécution de l'envoi de masse"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_team_id
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_team_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_team_id
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_team_id
-msgid "If set, this sales channel will be used for sales and assignations related to this partner"
-msgstr "Si défini, ce canal de vente sera utilisé pour les ventes et les attributions associées à ce partenaire"
+msgid ""
+"If set, this sales channel will be used for sales and assignations related "
+"to this partner"
+msgstr ""
+"Si défini, ce canal de vente sera utilisé pour les ventes et les "
+"attributions associées à ce partenaire"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_lang
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_lang
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_lang
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_lang
-msgid "If the selected language is loaded in the system, all documents related to this contact will be printed in this language. If not, it will be English."
-msgstr "Si la langue sélectionnée est chargée dans le système, tous les documents de ce contact seront imprimés dans cette langue. Dans le cas contraire, ils le seront en anglais."
+msgid ""
+"If the selected language is loaded in the system, all documents related to "
+"this contact will be printed in this language. If not, it will be English."
+msgstr ""
+"Si la langue sélectionnée est chargée dans le système, tous les documents de "
+"ce contact seront imprimés dans cette langue. Dans le cas contraire, ils le "
+"seront en anglais."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_image
@@ -1072,8 +1108,15 @@ msgstr "Nom"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_last_time_entries_checked
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_last_time_entries_checked
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_last_time_entries_checked
-msgid "Last time the invoices & payments matching was performed for this partner. It is set either if there's not at least an unreconciled debit and an unreconciled credit or if you click the \"Done\" button."
-msgstr "Dernière fois où les factures et les paiements ont été mis en correspondance pour ce partenaire. Cela se produit lorsqu'il n'y a pas au moins un débit non rapproché et un crédit non rapproché, ou lorsque vous cliquez sur « Terminé »."
+msgid ""
+"Last time the invoices & payments matching was performed for this partner. "
+"It is set either if there's not at least an unreconciled debit and an "
+"unreconciled credit or if you click the \"Done\" button."
+msgstr ""
+"Dernière fois où les factures et les paiements ont été mis en correspondance "
+"pour ce partenaire. Cela se produit lorsqu'il n'y a pas au moins un débit "
+"non rapproché et un crédit non rapproché, ou lorsque vous cliquez sur "
+"« Terminé »."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_last_time_entries_checked
@@ -1148,8 +1191,14 @@ msgstr "Image de taille moyenne"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_image_medium
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_image_medium
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_image_medium
-msgid "Medium-sized image of this contact. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
-msgstr "Image de taille moyenne de ce contact. Elle est automatiquement redimensionnée en 128x128px, avec un ratio d'aspect préservé. Utiliser ce champ dans les vues formulaires ou dans certaines vues kanban."
+msgid ""
+"Medium-sized image of this contact. It is automatically resized as a "
+"128x128px image, with aspect ratio preserved. Use this field in form views "
+"or some kanban views."
+msgstr ""
+"Image de taille moyenne de ce contact. Elle est automatiquement "
+"redimensionnée en 128x128px, avec un ratio d'aspect préservé. Utiliser ce "
+"champ dans les vues formulaires ou dans certaines vues kanban."
 
 #. module: mozaik_structure
 #: model:ir.ui.view,arch_db:mozaik_structure.int_instance_form_view
@@ -1250,6 +1299,12 @@ msgid "Notes"
 msgstr "Notes"
 
 #. module: mozaik_structure
+#: model:ir.ui.menu,name:mozaik_structure.state_configuration_menu
+#: model:ir.ui.menu,name:mozaik_structure.state_structure_menu
+msgid "Of the State"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_opt_out
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_opt_out
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_opt_out
@@ -1325,13 +1380,15 @@ msgstr "Niveaux de pouvoir"
 #: code:addons/mozaik_structure/models/abstract_instance.py:84
 #, python-format
 msgid "Power level is inconsistent with power level of all related assemblies"
-msgstr "Le niveau de pouvoir est inconsistent avec celui des assemblées associées"
+msgstr ""
+"Le niveau de pouvoir est inconsistent avec celui des assemblées associées"
 
 #. module: mozaik_structure
-#: code:addons/mozaik_structure/models/abstract_assembly.py:68
+#: code:addons/mozaik_structure/models/abstract_assembly.py:66
 #, python-format
 msgid "Power level of category and instance are inconsistent"
-msgstr "Le niveau de pouvoir de la catégorie et de l'instance sont incompatibles"
+msgstr ""
+"Le niveau de pouvoir de la catégorie et de l'instance sont incompatibles"
 
 #. module: mozaik_structure
 #: model:res.groups,name:mozaik_structure.res_groups_structure_reader
@@ -1449,8 +1506,15 @@ msgstr "Secrétariats"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_invoice_warn
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_invoice_warn
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_invoice_warn
-msgid "Selecting the \"Warning\" option will notify user with the message, Selecting \"Blocking Message\" will throw an exception with the message and block the flow. The Message has to be written in the next field."
-msgstr "Sélectionner l'option 'Avertissement' notifiera l'utilisateur avec le Message. Sélectionner 'Message Bloquant' lancera une exception avec le message et bloquera le flux. Le Message doit être encodé dans le champ suivant."
+msgid ""
+"Selecting the \"Warning\" option will notify user with the message, "
+"Selecting \"Blocking Message\" will throw an exception with the message and "
+"block the flow. The Message has to be written in the next field."
+msgstr ""
+"Sélectionner l'option 'Avertissement' notifiera l'utilisateur avec le "
+"Message. Sélectionner 'Message Bloquant' lancera une exception avec le "
+"message et bloquera le flux. Le Message doit être encodé dans le champ "
+"suivant."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_self
@@ -1528,8 +1592,14 @@ msgstr "Image de petite taille"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_image_small
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_image_small
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_image_small
-msgid "Small-sized image of this contact. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
-msgstr "Image de petite taille de ce contact. Elle est automatiquement redimensionnée en une image de 64x64px, avec un ratio d'aspect préservé. Utiliser ce champ partout où une petite image est nécessaire."
+msgid ""
+"Small-sized image of this contact. It is automatically resized as a 64x64px "
+"image, with aspect ratio preserved. Use this field anywhere a small image is "
+"required."
+msgstr ""
+"Image de petite taille de ce contact. Elle est automatiquement "
+"redimensionnée en une image de 64x64px, avec un ratio d'aspect préservé. "
+"Utiliser ce champ partout où une petite image est nécessaire."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_legislature_start_date
@@ -1538,25 +1608,15 @@ msgstr "Date de début"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_activity_state
-#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_activity_state
-#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_activity_state
-#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_activity_state
-msgid "State"
-msgstr "Statut"
-
-#. module: mozaik_structure
-#: model:ir.ui.menu,name:mozaik_structure.state_configuration_menu
-#: model:ir.ui.menu,name:mozaik_structure.state_structure_menu
-msgid "State"
-msgstr "De l'État"
-
-#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_state_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_activity_state
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_state_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_activity_state
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_state_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_activity_state
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_state_id
 msgid "State"
-msgstr "Région"
+msgstr "État"
 
 #. module: mozaik_structure
 #: model:ir.actions.act_window,name:mozaik_structure.sta_assembly_action
@@ -1608,11 +1668,13 @@ msgstr "Niveaux de pouvoir de l'État"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_activity_state
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_activity_state
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_activity_state
-msgid "Status based on activities\n"
+msgid ""
+"Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
-msgstr "Statut basé sur les activités\n"
+msgstr ""
+"Statut basé sur les activités\n"
 "En retard : la date d'échéance est déjà dépassée\n"
 "Aujourd'hui : la date d'activité est aujourd'hui\n"
 "Planifiée : activités futures"
@@ -1664,8 +1726,12 @@ msgstr "Étiquettes"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_vat
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_vat
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_vat
-msgid "Tax Identification Number. Fill it if the company is subjected to taxes. Used by the some of the legal statements."
-msgstr "Numéro de TVA. Remplissez cette case si cette société est soumise à la Taxe sur la Valeur Ajoutée."
+msgid ""
+"Tax Identification Number. Fill it if the company is subjected to taxes. "
+"Used by the some of the legal statements."
+msgstr ""
+"Numéro de TVA. Remplissez cette case si cette société est soumise à la Taxe "
+"sur la Valeur Ajoutée."
 
 #. module: mozaik_structure
 #: sql_constraint:legislature:0
@@ -1682,16 +1748,23 @@ msgstr "L'identifiant externe (INS) doit être unique."
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_property_account_position_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_property_account_position_id
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_property_account_position_id
-msgid "The fiscal position will determine taxes and accounts used for the partner."
-msgstr "La position fiscale déterminera les taxes et les comptes comptables utilisés par le partneraire"
+msgid ""
+"The fiscal position will determine taxes and accounts used for the partner."
+msgstr ""
+"La position fiscale déterminera les taxes et les comptes comptables utilisés "
+"par le partneraire"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_user_id
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_user_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_user_id
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_user_id
-msgid "The internal user that is in charge of communicating with this contact if any."
-msgstr "L'utilisateur interne qui est en charge de la communication avec ce contact, le cas échéant."
+msgid ""
+"The internal user that is in charge of communicating with this contact if "
+"any."
+msgstr ""
+"L'utilisateur interne qui est en charge de la communication avec ce contact, "
+"le cas échéant."
 
 #. module: mozaik_structure
 #: sql_constraint:electoral.district:0
@@ -1703,16 +1776,29 @@ msgstr "Le nom doit être unique."
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_has_unreconciled_entries
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_has_unreconciled_entries
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_has_unreconciled_entries
-msgid "The partner has at least one unreconciled debit and credit since last time the invoices & payments matching was performed."
-msgstr "Le partenaire a au moins un débit et un crédit non lettré depuis le dernier lettrage des factures et des paiements."
+msgid ""
+"The partner has at least one unreconciled debit and credit since last time "
+"the invoices & payments matching was performed."
+msgstr ""
+"Le partenaire a au moins un débit et un crédit non lettré depuis le dernier "
+"lettrage des factures et des paiements."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_tz
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_tz
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_tz
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_tz
-msgid "The partner's timezone, used to output proper date and time values inside printed reports. It is important to set a value for this field. You should use the same timezone that is otherwise used to pick and render date and time values: your computer's timezone."
-msgstr "Le fuseau horaire du partenaire, utilisé pour les valeurs de sortie de date et d'heure correcte à l'intérieur de rapports imprimés. Il est important de définir une valeur pour ce champ. Vous devez utiliser le même fuseau horaire qui est par ailleurs utilisé pour sélectionner et afficher les  valeurs de date et d'heure : le fuseau horaire de votre ordinateur."
+msgid ""
+"The partner's timezone, used to output proper date and time values inside "
+"printed reports. It is important to set a value for this field. You should "
+"use the same timezone that is otherwise used to pick and render date and "
+"time values: your computer's timezone."
+msgstr ""
+"Le fuseau horaire du partenaire, utilisé pour les valeurs de sortie de date "
+"et d'heure correcte à l'intérieur de rapports imprimés. Il est important de "
+"définir une valeur pour ce champ. Vous devez utiliser le même fuseau horaire "
+"qui est par ailleurs utilisé pour sélectionner et afficher les  valeurs de "
+"date et d'heure : le fuseau horaire de votre ordinateur."
 
 #. module: mozaik_structure
 #: sql_constraint:legislature:0
@@ -1720,11 +1806,13 @@ msgid "The start date must be anterior to the deadline date."
 msgstr "La date de début doit être antérieure à la date d'échéance."
 
 #. module: mozaik_structure
-#: code:addons/mozaik_structure/models/int_instance.py:80
+#: code:addons/mozaik_structure/models/int_instance.py:84
 #, python-format
-msgid "These instance codes are not valid:\n"
+msgid ""
+"These instance codes are not valid:\n"
 "- %s"
-msgstr "These instance codes are not valid:\n"
+msgstr ""
+"These instance codes are not valid:\n"
 "- %s"
 
 #. module: mozaik_structure
@@ -1732,7 +1820,9 @@ msgstr "These instance codes are not valid:\n"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_property_account_payable_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_property_account_payable_id
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_property_account_payable_id
-msgid "This account will be used instead of the default one as the payable account for the current partner"
+msgid ""
+"This account will be used instead of the default one as the payable account "
+"for the current partner"
 msgstr "Ce compte de tiers remplacera le compte par défaut du partenaire. "
 
 #. module: mozaik_structure
@@ -1740,7 +1830,9 @@ msgstr "Ce compte de tiers remplacera le compte par défaut du partenaire. "
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_property_account_receivable_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_property_account_receivable_id
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_property_account_receivable_id
-msgid "This account will be used instead of the default one as the receivable account for the current partner"
+msgid ""
+"This account will be used instead of the default one as the receivable "
+"account for the current partner"
 msgstr "Ce compte remplacera le compte de tiers par défaut pour ce partenaire."
 
 #. module: mozaik_structure
@@ -1748,32 +1840,48 @@ msgstr "Ce compte remplacera le compte de tiers par défaut pour ce partenaire."
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_image
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_image
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_image
-msgid "This field holds the image used as avatar for this contact, limited to 1024x1024px"
-msgstr "Ce champ contient l'image utilisée comme photo d'identité pour ce contact, limitée à 1024x1024px."
+msgid ""
+"This field holds the image used as avatar for this contact, limited to "
+"1024x1024px"
+msgstr ""
+"Ce champ contient l'image utilisée comme photo d'identité pour ce contact, "
+"limitée à 1024x1024px."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_property_supplier_payment_term_id
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_property_supplier_payment_term_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_property_supplier_payment_term_id
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_property_supplier_payment_term_id
-msgid "This payment term will be used instead of the default one for purchase orders and vendor bills"
-msgstr "Ce délai de paiement sera utilisé à la place de celui par défaut pour les bons de commande et les factures fournisseurs"
+msgid ""
+"This payment term will be used instead of the default one for purchase "
+"orders and vendor bills"
+msgstr ""
+"Ce délai de paiement sera utilisé à la place de celui par défaut pour les "
+"bons de commande et les factures fournisseurs"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_property_payment_term_id
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_property_payment_term_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_property_payment_term_id
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_property_payment_term_id
-msgid "This payment term will be used instead of the default one for sales orders and customer invoices"
-msgstr "Ce délai de paiement sera utilisé à la place de celui par défaut pour les commandes et les factures clients"
+msgid ""
+"This payment term will be used instead of the default one for sales orders "
+"and customer invoices"
+msgstr ""
+"Ce délai de paiement sera utilisé à la place de celui par défaut pour les "
+"commandes et les factures clients"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_property_product_pricelist
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_property_product_pricelist
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_property_product_pricelist
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_property_product_pricelist
-msgid "This pricelist will be used, instead of the default one, for sales to the current partner"
-msgstr "Cette liste de prix sera utilisée, à la place de la liste par défaut, pour les ventes faites au partenaire actuel."
+msgid ""
+"This pricelist will be used, instead of the default one, for sales to the "
+"current partner"
+msgstr ""
+"Cette liste de prix sera utilisée, à la place de la liste par défaut, pour "
+"les ventes faites au partenaire actuel."
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_tz
@@ -1852,8 +1960,12 @@ msgstr "Compte Twitter"
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_type
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_type
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_type
-msgid "Used to select automatically the right address according to the context in sales and purchases documents."
-msgstr "Utilisé pour sélectionner automatiquement la bonne adresse selon le contexte des documents de vente et d'achats"
+msgid ""
+"Used to select automatically the right address according to the context in "
+"sales and purchases documents."
+msgstr ""
+"Utilisé pour sélectionner automatiquement la bonne adresse selon le contexte "
+"des documents de vente et d'achats"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_user_ids
@@ -1938,4 +2050,3 @@ msgstr "Vous ne pouvez pas créer d'instances récursives"
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_zip
 msgid "Zip"
 msgstr "Code postal"
-

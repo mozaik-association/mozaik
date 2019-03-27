@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_virtual_partner_membership
+# 	* mozaik_virtual_partner_membership
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2018-11-14 16:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -161,4 +162,3 @@ msgstr "Volontaire"
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
-
