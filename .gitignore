@@ -1,15 +1,18 @@
-*.dump
 /src
 release
 *.swp
 .project
-.pydevproject
 .settings
+.pydevproject
+dist
+*.dump
+/tmp
+/extra_addons
 odoo.cfg
 test.cfg
-acsoo.cfg
-venv
-bin
+/venv
+.idea
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -37,6 +40,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*.eggs
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -61,7 +65,6 @@ coverage.xml
 
 # Translations
 *.mo
-*.pot
 
 # Django stuff:
 *.log
@@ -74,9 +77,6 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
-
-#Temporary ODT
-*.~*odt*
 
 acsoo.cfg
 freeze.sh
