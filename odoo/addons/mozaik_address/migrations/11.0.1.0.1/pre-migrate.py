@@ -20,5 +20,8 @@ def migrate(cr, version):
     cr.execute(
         """
         UPDATE res_partner AS rp SET postal_coordinate_id = pc.id
-         FROM postal_coordinate AS pc WHERE pc.partner_id = rp.id AND pc.is_main IS TRUE AND pc.active IS TRUE
+         FROM postal_coordinate AS pc 
+         WHERE pc.partner_id = rp.id AND 
+               pc.is_main IS TRUE AND 
+               pc.active = rp.active
         """)
