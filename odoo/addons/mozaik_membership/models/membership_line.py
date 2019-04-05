@@ -524,10 +524,7 @@ class MembershipLine(models.Model):
         :return: membership.line recordset
         """
         membership_line_obj = self.env[self._name]
-        if date_from:
-            real_date_from = fields.Date.from_string(date_from)
-        else:
-            real_date_from = date.today()
+        real_date_from = date_from or fields.Date.today()
         limit_date = self._get_date_no_renew()
         # We have to renew every (active) membership lines of the partner
         membership_lines = self
