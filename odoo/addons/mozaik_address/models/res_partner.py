@@ -21,7 +21,7 @@ class ResPartner(models.Model):
 
     postal_coordinate_id = fields.Many2one(
         "postal.coordinate", compute="_compute_main_address_componant",
-        string='Address')
+        string='Address', store=True, index=True)
 
     address = fields.Char(
         compute="_compute_main_address_componant", index=True, store=True)
