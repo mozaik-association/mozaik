@@ -25,13 +25,11 @@ class IntInstance(models.Model):
             ('instance_id', '=', self.id),
             ('is_designation_assembly', '=', True)
         ]
-        assembly_ids =\
-            [assembly.id for assembly in assembly_obj.search(domain)]
+        assembly_ids = assembly_obj.search(domain).ids
         domain = [
             ('designation_int_assembly_id', 'in', assembly_ids),
         ]
-        res_ids =\
-            [object_ids.id for object_ids in model_obj.search(domain)]
+        res_ids = model_obj.search(domain).ids
         return res_ids
 
     @api.multi
@@ -74,11 +72,11 @@ class IntInstance(models.Model):
             inst.sta_mandate_count = len(inst._get_model_ids('sta.mandate'))
 
     sta_mandate_count = fields.Integer(
-        compute='_compute_mandate_count', type='integer',
+        compute='_compute_mandate_count',
         string='State Mandates')
     ext_mandate_count = fields.Integer(
-        compute='_compute_mandate_count', type='integer',
+        compute='_compute_mandate_count',
         string='External Mandates')
     int_mandate_count = fields.Integer(
-        compute='_compute_mandate_count', type='integer',
+        compute='_compute_mandate_count',
         string='Internal Mandates')

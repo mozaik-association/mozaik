@@ -57,16 +57,16 @@ class AbstractMandate(models.AbstractModel):
     end_date = fields.Date(
         default=False,
         track_visibility='onchange')
-    is_submission_mandate = fields.Boolean(
-        related='mandate_category_id.is_submission_mandate',
-        string='With Wages Declaration',
-        help='Submission to a Mandates and Wages Declaration',
-        store=True)
-    is_submission_assets = fields.Boolean(
-        related='mandate_category_id.is_submission_assets',
-        string='With Assets Declaration',
-        help='Submission to a Mandates and Assets Declaration',
-        store=True)
+    with_revenue_declaration = fields.Boolean(
+        related='mandate_category_id.with_revenue_declaration',
+        help='Representative is subject to a declaration of income',
+        store=True,
+        oldname="is_submission_mandate")
+    with_assets_declaration = fields.Boolean(
+        related='mandate_category_id.with_assets_declaration',
+        help='Representative is subject to a declaration of assets',
+        store=True,
+        oldname="is_submission_assets")
     email_coordinate_id = fields.Many2one(
         comodel_name='email.coordinate',
         string='Email Coordinate',
@@ -79,11 +79,10 @@ class AbstractMandate(models.AbstractModel):
     # Duplicates: redefine string
     is_duplicate_detected = fields.Boolean(
         string='Incompatible Mandate',
-        readonly=True)
+    )
     is_duplicate_allowed = fields.Boolean(
         string='Allowed Incompatible Mandate',
-        readonly=True,
-        track_visibility='onchange')
+    )
 
     @api.multi
     @api.depends("create_date")
@@ -122,7 +121,8 @@ class AbstractMandate(models.AbstractModel):
                  ('mandate_category_id', 'in', categories.ids)] + args,
                 limit=limit)
         else:
-            mandates = self.search(args, limit=limit)
+            mandates = super().name_search(
+                name=name, args=args, operator=operator, limit=limit)
         return mandates.name_get()
 
     @api.model
@@ -159,7 +159,8 @@ class AbstractMandate(models.AbstractModel):
     @api.multi
     def action_invalidate(self, vals=None):
         """
-        Invalidates mandates at the current date
+        Invalidate mandates
+        Use current date if no date is given
         :rparam: True
         :rtype: boolean
         """
@@ -167,21 +168,18 @@ class AbstractMandate(models.AbstractModel):
         end_date = vals.get('end_date') or fields.Date.today()
         res = True
         for mandate in self:
-            if end_date >= mandate.deadline_date:
+            if end_date > mandate.deadline_date:
                 end_date = mandate.deadline_date
-            if end_date <= mandate.start_date:
+            if end_date < mandate.start_date:
                 end_date = mandate.start_date
-            res = res and super().action_invalidate(
-                vals={'end_date': end_date})
+            vals['end_date'] = end_date
+            res = res and super().action_invalidate(vals=vals)
         return res
 
     @api.model
     def _detect_and_repair_duplicate(
             self, values, field_model=None, field_id=None):
         """
-        ===========================
-        _detect_and_repair_duplicate
-        ===========================
         Detect automatically duplicates (setting the is_duplicate_detected
         flag)
         Repair orphan allowed or detected duplicate (resetting the
@@ -195,9 +193,6 @@ class AbstractMandate(models.AbstractModel):
     @api.model
     def process_finish_and_invalidate_mandates(self):
         """
-        ======================================
-        process_finish_and_invalidate_mandates
-        ======================================
         This method is used to finish and invalidate mandates after deadline
         date
         :rparam: True

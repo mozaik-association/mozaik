@@ -35,8 +35,8 @@
                         </group>
                         <group name="data_2">
                             <field name="designation_int_assembly_id" required="1"/>
-                            <field name="is_submission_mandate" readonly="1"/>
-                            <field name="is_submission_assets" readonly="1"/>
+                            <field name="with_revenue_declaration" readonly="1"/>
+                            <field name="with_assets_declaration" readonly="1"/>
                         </group>
                         <group name="duplicate">
                             <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
@@ -88,11 +88,11 @@
                 <field name="mandate_category_id"/>
                 <field name="designation_int_assembly_id"/>
 
-                <filter name="is_submission_mandate" string="Wage Declaration"
-                        domain="[('is_submission_mandate','=',True)]" />
+                <filter name="with_revenue_declaration" string="Wage Declaration"
+                        domain="[('with_revenue_declaration','=',True)]" />
                 <separator />
-                <filter name="is_submission_assets" string="Assets Declaration"
-                        domain="[('is_submission_assets','=',True)]" />
+                <filter name="with_assets_declaration" string="Assets Declaration"
+                        domain="[('with_assets_declaration','=',True)]" />
                 <separator />
                 <filter name="duplicate" string="Incompatible Mandates"
                         domain="[('is_duplicate_detected','=',True)]" />

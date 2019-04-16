@@ -16,8 +16,8 @@
                         domain="[('assembly_category_id', '=', int_assembly_category_id)]"/>
             </xpath>
 
-            <xpath expr="//field[@name='is_submission_mandate']" position="replace"/>
-            <xpath expr="//field[@name='is_submission_assets']" position="replace"/>
+            <xpath expr="//field[@name='with_revenue_declaration']" position="replace"/>
+            <xpath expr="//field[@name='with_assets_declaration']" position="replace"/>
 
             <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                 <attribute name="context" translation="off">{'default_type': 'int'}</attribute>
@@ -29,8 +29,8 @@
 
             <xpath expr="//group[@name='moreinfo']" position="inside">
                 <field name="int_assembly_category_id"/>
-                <field name="is_submission_mandate"/>
-                <field name="is_submission_assets"/>
+                <field name="with_revenue_declaration"/>
+                <field name="with_assets_declaration"/>
             </xpath>
         </field>
     </record>
@@ -44,8 +44,8 @@
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="int_assembly_id"/>
             </xpath>
-            <xpath expr="//filter[@name='is_submission_mandate']" position="replace"/>
-            <xpath expr="//filter[@name='is_submission_assets']" position="replace"/>
+            <xpath expr="//filter[@name='with_revenue_declaration']" position="replace"/>
+            <xpath expr="//filter[@name='with_assets_declaration']" position="replace"/>
             <xpath expr="//filter[@name='partner']" position="after">
                 <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
             </xpath>

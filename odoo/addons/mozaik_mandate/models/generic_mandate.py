@@ -26,6 +26,7 @@ class GenericMandate(models.Model):
         :param force_field: str
         :return: str, int, float, bool
         """
+        self.ensure_one()
         model, m_id = self.mandate_ref.split(',')
         return self.env[self.model].browse(int(m_id))\
             ._get_discriminant_value(force_field=force_field)
@@ -126,9 +127,6 @@ class GenericMandate(models.Model):
     @api.multi
     def button_view_mandate(self):
         """
-        ======
-        button_view_mandate
-        ======
         View mandates in its form view depending on model
         """
         self.ensure_one()

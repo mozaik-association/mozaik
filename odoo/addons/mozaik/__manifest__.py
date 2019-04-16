@@ -43,7 +43,7 @@
         'partner_usual_firstname',
         'mozaik_mandate',
         'mozaik_membership_mandate',
-        'mozaik_virtual_partner_instance',
+        'mozaik_virtual_partner_mandate',
     ],
     'data': [
         'views/mail_followers.xml',

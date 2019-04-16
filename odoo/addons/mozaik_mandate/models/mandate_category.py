@@ -66,12 +66,12 @@ class MandateCategory(models.Model):
         comodel_name='ext.mandate',
         inverse_name='mandate_category_id',
         string='External Mandates')
-    is_submission_mandate = fields.Boolean(
-        string='With Wages Declaration',
-        help='Submission to a Mandates and Wages Declaration')
-    is_submission_assets = fields.Boolean(
-        string='With Assets Declaration',
-        help='Submission to a Mandates and Assets Declaration')
+    with_revenue_declaration = fields.Boolean(
+        help='Submission to a Mandates and Wages Declaration',
+        oldname="is_submission_mandate")
+    with_assets_declaration = fields.Boolean(
+        help='Submission to a Mandates and Assets Declaration',
+        oldname="is_submission_assets")
 
     @api.multi
     def copy_data(self, default=None):

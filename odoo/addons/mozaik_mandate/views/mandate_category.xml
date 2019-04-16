@@ -47,8 +47,8 @@
                                                                           'required':[('type','=','ext')] }"/>
                         </group>
                         <group name="other">
-                            <field name="is_submission_mandate" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
-                            <field name="is_submission_assets" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
+                            <field name="with_revenue_declaration" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
+                            <field name="with_assets_declaration" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
                         </group>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -90,11 +90,11 @@
                 <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
                 <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
 
-                <filter name="is_submission_mandate" string="Wage Declaration"
-                        domain="[('is_submission_mandate','=',True)]" invisible="context.get('default_type', False)=='int'" />
+                <filter name="with_revenue_declaration" string="Wage Declaration"
+                        domain="[('with_revenue_declaration','=',True)]" invisible="context.get('default_type', False)=='int'" />
                 <separator />
-                <filter name="is_submission_assets" string="Assets Declaration"
-                        domain="[('is_submission_assets','=',True)]" invisible="context.get('default_type', False)=='int'" />
+                <filter name="with_assets_declaration" string="Assets Declaration"
+                        domain="[('with_assets_declaration','=',True)]" invisible="context.get('default_type', False)=='int'" />
                 <separator />
                 <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"

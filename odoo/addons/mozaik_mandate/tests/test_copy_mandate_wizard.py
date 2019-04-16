@@ -59,10 +59,10 @@ class TestCopyMandateWizard(SavepointCase):
                             new_mandate.legislature_id)
         self.assertEqual(base_mandate.sta_assembly_id,
                          new_mandate.sta_assembly_id)
-        self.assertEqual(base_mandate.is_submission_mandate,
-                         new_mandate.is_submission_mandate)
-        self.assertEqual(base_mandate.is_submission_assets,
-                         new_mandate.is_submission_assets)
+        self.assertEqual(base_mandate.with_revenue_declaration,
+                         new_mandate.with_revenue_declaration)
+        self.assertEqual(base_mandate.with_assets_declaration,
+                         new_mandate.with_assets_declaration)
 
     def test_renew_internal_mandate(self):
         '''
@@ -97,10 +97,10 @@ class TestCopyMandateWizard(SavepointCase):
                          new_mandate.mandate_category_id)
         self.assertEqual(base_mandate.int_assembly_id,
                          new_mandate.int_assembly_id)
-        self.assertEqual(base_mandate.is_submission_mandate,
-                         new_mandate.is_submission_mandate)
-        self.assertEqual(base_mandate.is_submission_assets,
-                         new_mandate.is_submission_assets)
+        self.assertEqual(base_mandate.with_revenue_declaration,
+                         new_mandate.with_revenue_declaration)
+        self.assertEqual(base_mandate.with_assets_declaration,
+                         new_mandate.with_assets_declaration)
 
     def test_create_complementary_internal_mandate(self):
         '''
@@ -141,10 +141,10 @@ class TestCopyMandateWizard(SavepointCase):
                             new_mandate.mandate_category_id)
         self.assertNotEqual(base_mandate.int_assembly_id,
                             new_mandate.int_assembly_id)
-        self.assertEqual(base_mandate.is_submission_mandate,
-                         new_mandate.is_submission_mandate)
-        self.assertEqual(base_mandate.is_submission_assets,
-                         new_mandate.is_submission_assets)
+        self.assertEqual(base_mandate.with_revenue_declaration,
+                         new_mandate.with_revenue_declaration)
+        self.assertEqual(base_mandate.with_assets_declaration,
+                         new_mandate.with_assets_declaration)
 
     def test_renew_external_mandate(self):
         '''
@@ -179,10 +179,10 @@ class TestCopyMandateWizard(SavepointCase):
                          new_mandate.mandate_category_id)
         self.assertEqual(base_mandate.ext_assembly_id,
                          new_mandate.ext_assembly_id)
-        self.assertEqual(base_mandate.is_submission_mandate,
-                         new_mandate.is_submission_mandate)
-        self.assertEqual(base_mandate.is_submission_assets,
-                         new_mandate.is_submission_assets)
+        self.assertEqual(base_mandate.with_revenue_declaration,
+                         new_mandate.with_revenue_declaration)
+        self.assertEqual(base_mandate.with_assets_declaration,
+                         new_mandate.with_assets_declaration)
 
     def test_create_complementary_external_mandate(self):
         '''
@@ -225,7 +225,7 @@ class TestCopyMandateWizard(SavepointCase):
                             new_mandate.mandate_category_id)
         self.assertNotEqual(extm_paul_membre_ag.ext_assembly_id,
                             new_mandate.ext_assembly_id)
-        self.assertEqual(extm_paul_membre_ag.is_submission_mandate,
-                         new_mandate.is_submission_mandate)
-        self.assertEqual(extm_paul_membre_ag.is_submission_assets,
-                         new_mandate.is_submission_assets)
+        self.assertEqual(extm_paul_membre_ag.with_revenue_declaration,
+                         new_mandate.with_revenue_declaration)
+        self.assertEqual(extm_paul_membre_ag.with_assets_declaration,
+                         new_mandate.with_assets_declaration)
