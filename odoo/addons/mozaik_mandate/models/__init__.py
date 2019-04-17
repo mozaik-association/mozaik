@@ -10,3 +10,4 @@ from . import sta_assembly_category
 from . import int_assembly_category
 from . import ext_assembly_category
 from . import int_instance
+from . import ext_assembly

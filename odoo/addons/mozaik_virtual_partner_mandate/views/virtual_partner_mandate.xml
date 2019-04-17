@@ -58,7 +58,7 @@
                 <filter string="French" name="french"
                         domain="[('lang','=','fr_FR')]" />
                 <filter string="German" name="german"
-                        domain="[('lang','=','g')]" /> <!-- TODO -->
+                        domain="[('lang','=','de_DE')]" />
                 <separator />
                 <filter string="Employee" name="employee"
                         domain="[('employee','!=',0)]" />
@@ -79,7 +79,7 @@
                 <separator />
                 <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
-                <group expand="0" string="Group By..." name="group_by">
+                <group name="group_by">
                     <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
                     <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}" />
                     <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />

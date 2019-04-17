@@ -12,19 +12,12 @@ class CopyIntMandateWizard(models.TransientModel):
 
     mandate_id = fields.Many2one(
         comodel_name='int.mandate',
-        string='Internal Mandate',
-        readonly=True,
-        ondelete='cascade')
+        string='Internal Mandate')
     assembly_id = fields.Many2one(
         comodel_name='int.assembly',
-        string='Internal Assembly',
-        readonly=True,
-        ondelete='cascade')
+        string='Internal Assembly')
     new_assembly_id = fields.Many2one(
         comodel_name='int.assembly',
-        string='Internal Assembly',
-        ondelete='cascade')
+        string='Internal Assembly')
     instance_id = fields.Many2one(
-        comodel_name='int.instance',
-        string='Internal Instance',
-        ondelete='cascade')
+        string='Internal Instance')

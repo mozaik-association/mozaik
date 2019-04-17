@@ -8,7 +8,7 @@
         <field name="name">abstract.update.mandate.end.date.wizard.form (in mozaik_mandate)</field>
         <field name="model">abstract.update.mandate.end.date.wizard</field>
         <field name="arch" type="xml">
-            <form string="Set end date">
+            <form>
                 <group name="data_1">
                     <field name="mandate_id"/>
                     <field name="mandate_end_date" required="context.get('mode','x') == 'end_date'"

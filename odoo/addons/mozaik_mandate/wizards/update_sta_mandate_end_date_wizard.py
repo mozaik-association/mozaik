@@ -10,6 +10,4 @@ class UpdateStaMandateEndDateWizard(models.TransientModel):
     _name = 'update.sta.mandate.end.date.wizard'
 
     mandate_id = fields.Many2one(
-        comodel_name='sta.mandate',
-        string='Mandate',
-        readonly=True)
+        comodel_name='sta.mandate')

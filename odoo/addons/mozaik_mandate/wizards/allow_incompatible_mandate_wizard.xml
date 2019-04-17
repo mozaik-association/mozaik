@@ -19,7 +19,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="allow_incompatible_mandate_wizard_act_window">
-        <field name="name">Allow Incompatible Mandate</field>
+        <field name="name">Allow Incompatible Mandates</field>
         <field name="res_model">allow.incompatible.mandate.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

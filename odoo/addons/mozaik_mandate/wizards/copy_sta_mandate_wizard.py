@@ -15,22 +15,15 @@ class CopyStaMandateWizard(models.TransientModel):
 
     mandate_id = fields.Many2one(
         comodel_name='sta.mandate',
-        string='State Mandate',
-        readonly=True,
-        ondelete='cascade')
+        string='State Mandate')
     assembly_id = fields.Many2one(
         comodel_name='sta.assembly',
-        string='State Assembly',
-        readonly=True,
-        ondelete='cascade')
+        string='State Assembly')
     new_assembly_id = fields.Many2one(
         comodel_name='sta.assembly',
-        string='State Assembly',
-        ondelete='cascade')
+        string='State Assembly')
     instance_id = fields.Many2one(
-        comodel_name='sta.instance',
-        string='State Instance',
-        ondelete='cascade')
+        string='State Instance')
     is_legislative = fields.Boolean(
         default=False)
     legislature_id = fields.Many2one(
@@ -89,9 +82,6 @@ class CopyStaMandateWizard(models.TransientModel):
     @api.multi
     def _copy_mandate(self, vals):
         """
-        ====================
-        renew_mandate
-        ====================
         Renew a mandate
         """
         self.ensure_one()

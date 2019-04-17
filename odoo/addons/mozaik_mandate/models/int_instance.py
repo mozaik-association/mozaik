@@ -41,20 +41,19 @@ class IntInstance(models.Model):
         context = self.env.context
         action =\
             context.get('action') and context.get('action').split('.') or []
-        model = context.get('model')
-        if not model or not len(action) == 2:
+        if not len(action) == 2:
             raise Warning(
                 _('A model and an action for this model are required for '
                   'this operation'))
 
         module = action[0]
         action_name = action[1]
-        res_ids = self._get_model_ids(model)
-        domain = [('id', 'in', res_ids)]
-
         # get model's action to update its domain
         action = self.env['ir.actions.act_window'].for_xml_id(
             module, action_name)
+        model = action['res_model']
+        res_ids = self._get_model_ids(model)
+        domain = [('id', 'in', res_ids)]
         action['domain'] = domain
         return action
 

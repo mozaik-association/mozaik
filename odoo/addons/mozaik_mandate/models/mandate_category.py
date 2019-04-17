@@ -67,10 +67,10 @@ class MandateCategory(models.Model):
         inverse_name='mandate_category_id',
         string='External Mandates')
     with_revenue_declaration = fields.Boolean(
-        help='Submission to a Mandates and Wages Declaration',
+        help='Representative is subject to a declaration of income',
         oldname="is_submission_mandate")
     with_assets_declaration = fields.Boolean(
-        help='Submission to a Mandates and Assets Declaration',
+        help='Representative is subject to a declaration of assets',
         oldname="is_submission_assets")
 
     @api.multi
@@ -86,69 +86,47 @@ class MandateCategory(models.Model):
     def create(self, vals):
         res_id = super().create(vals)
         if 'exclusive_category_m2m_ids' in vals:
-            res_id._check_exclusive_consistency(
-                [], vals['exclusive_category_m2m_ids'])
+            res_id._update_exclusive_inverse_relation(
+                self, res_id.exclusive_category_m2m_ids)
         return res_id
 
     @api.multi
     def write(self, vals):
+        res = True
         if 'exclusive_category_m2m_ids' in vals:
             for category in self:
-                cat_ids = [record.id
-                           for record in category.exclusive_category_m2m_ids]
-                category._check_exclusive_consistency(
-                    cat_ids, vals['exclusive_category_m2m_ids'])
-
-        res = super().write(vals)
+                cat_before = category.exclusive_category_m2m_ids
+                res = res and super().write(vals)
+                cat_after = category.exclusive_category_m2m_ids
+                category._update_exclusive_inverse_relation(
+                    cat_before, cat_after)
+        else:
+            res = super().write(vals)
         return res
 
     @api.multi
-    def _check_exclusive_consistency(
-            self, initial_exclu_ids, magic_categories):
+    def _update_exclusive_inverse_relation(self, initial_exclu, after_exclu):
         """
         Check balance between exclusive categories
         :rparam: mandate_category ids, list of initial exclusive ids,
                  list of new exclusive ids
         :rtype: Boolean
         """
-        new_exclu_ids = []
-        if magic_categories[0][0] == 6:
-            new_exclu_ids = magic_categories[0][2]
-        if magic_categories[0][0] == 4:
-            new_exclu_ids = [c[1] for c in magic_categories]
-            new_exclu_ids += initial_exclu_ids
+        self.ensure_one()
+        removed_ids = initial_exclu - after_exclu
+        added_ids = after_exclu - initial_exclu
 
-        removed_ids = list(set(initial_exclu_ids) - set(new_exclu_ids))
-        added_ids = list(set(new_exclu_ids) - set(initial_exclu_ids))
-
+        res = True
         if removed_ids:
             # category are not exclusives anymore
-            self._impact_related_exclusive_category(
-                removed_ids, 'in',)
+            # super to avoid cyclic call to write
+            res = res and super(MandateCategory, removed_ids).write({
+                "exclusive_category_m2m_ids": [(3, self.id)]
+            })
         if added_ids:
             # category are exclusives from now
-            self._impact_related_exclusive_category(
-                added_ids, 'not in', exclu_ids=self.ids)
-
-        return True
-
-    @api.multi
-    def _impact_related_exclusive_category(
-            self, linked_ids, operator, exclu_ids=None):
-        """
-        ==============================
-        _impact_related_exclusive_category
-        ==============================
-        Impact relative categories to add or remove a link to current id
-        """
-        exclu_ids = exclu_ids or []
-        for exclu in self.search(
-                [('id', 'in', linked_ids),
-                 ('exclusive_category_m2m_ids', operator, self.ids)]):
-            exclu_ids.extend([exclu_id.id for exclu_id in
-                              exclu.exclusive_category_m2m_ids
-                              if exclu_id not in self])
-            vals = dict(exclusive_category_m2m_ids=[[6, False, exclu_ids]])
             # super to avoid cyclic call to write
-            super(MandateCategory, exclu).write(vals)
-        return True
+            res = res and super(MandateCategory, added_ids).write({
+                "exclusive_category_m2m_ids": [(4, self.id)]
+            })
+        return res

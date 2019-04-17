@@ -8,10 +8,6 @@ class IntMandate(models.Model):
 
     _inherit = 'int.mandate'
 
-    partner_instance_ids = fields.Many2many(
-        related='partner_id.int_instance_ids',
-        string='Partner Internal Instance',
-    )
     mandate_instance_id = fields.Many2one(
         related='int_assembly_id.instance_id',
     )

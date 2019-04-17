@@ -4,12 +4,6 @@
 from odoo import api, fields, models
 
 
-def _get_document_types(s):
-    s.env.cr.execute("SELECT model, name from ir_model WHERE model IN \
-                ('sta.mandate', 'int.mandate', 'ext.mandate') ORDER BY name")
-    return s.env.cr.fetchall()
-
-
 class GenericMandate(models.Model):
     _name = "generic.mandate"
     _description = 'Generic Mandate'
@@ -40,12 +34,11 @@ class GenericMandate(models.Model):
     mandate_id = fields.Integer(
         string='Mandate ID',
         group_operator='min')
-    mandate_ref = fields.Selection(
-        string='Mandate Reference',
-        selection=_get_document_types)
+    mandate_ref = fields.Char(
+        string='Mandate Reference')
     mandate_category_id = fields.Many2one(
         comodel_name='mandate.category',
-        string='Mandate Category')
+        string='Exclusive Categories')
     assembly_name = fields.Char(
         string="Assembly")
     partner_id = fields.Many2one(

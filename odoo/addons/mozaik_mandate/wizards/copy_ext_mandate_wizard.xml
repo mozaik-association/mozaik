@@ -19,7 +19,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="copy_ext_mandate_wizard_act_window">
-        <field name="name">Duplicate</field>
+        <field name="name">Duplicate Mandate</field>
         <field name="res_model">copy.ext.mandate.wizard</field>
         <field name="view_mode">form</field>
         <field name="context">{}</field>

@@ -35,12 +35,14 @@ class StaMandate(models.Model):
         string='State Assembly Category',
         type='many2one',
         comodel_name="sta.assembly.category",
-        store=False)
+        store=False,
+        readonly=True)
     sta_power_level_id = fields.Many2one(
         related='sta_assembly_category_id.power_level_id',
         string='Power Level',
         comodel_name="sta.power.level",
-        store=False)
+        store=False,
+        readonly=True)
     is_legislative = fields.Boolean(
         related='sta_assembly_id.is_legislative',
         store=True)
@@ -78,13 +80,10 @@ class StaMandate(models.Model):
     @api.onchange("sta_assembly_id")
     def _onchange_sta_assembly_id(self):
         self.ensure_one()
-        sta_power_level_id = False
         designation_int_assembly_id = False
         domain = [('is_designation_assembly', '=', True)]
         if self.sta_assembly_id:
             assembly = self.sta_assembly_id
-            power_level_id = assembly.assembly_category_id.power_level_id
-            sta_power_level_id = power_level_id
             if assembly.assembly_category_id.is_legislative:
                 designation_int_assemblies = assembly.electoral_district_ids\
                     .mapped("designation_int_assembly_id")
@@ -98,7 +97,6 @@ class StaMandate(models.Model):
             if len(designation_int_assemblies) == 1:
                 designation_int_assembly_id = \
                     designation_int_assemblies[0].id
-        self.sta_power_level_id = sta_power_level_id
         self.designation_int_assembly_id = designation_int_assembly_id
         return {
             'domain': {

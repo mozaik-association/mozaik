@@ -8,7 +8,7 @@
         <field name="name">generic.mandate.form (in mozaik_mandate)</field>
         <field name="model">generic.mandate</field>
         <field name="arch" type="xml">
-            <form edit="0" create="0" delete="0" string="Incompatible Mandate">
+            <form edit="0" create="0" delete="0">
                 <sheet>
                     <div class="oe_button_box" name="buttons">
                         <button class="oe_stat_button" name="button_view_mandate" type="object" string="Mandate" icon="fa-file-text"/>
@@ -35,7 +35,7 @@
         <field name="name">generic.mandate.search (in mozaik_mandate)</field>
         <field name="model">generic.mandate</field>
         <field name="arch" type="xml">
-            <search string="Incompatible Mandates">
+            <search>
                 <field name="partner_id" domain="[('is_company','=',False)]"/>
 
                 <filter name="duplicate" string="Incompatible Mandates"
@@ -43,7 +43,7 @@
                 <separator/>
                 <filter name="allow_duplicate" string="Allowed Incompatible Mandates" domain="[('is_duplicate_allowed','=',True)]"/>
 
-                <group expand="0" string="Group By..." name="group_by">
+                <group name="group_by">
                     <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
                     <filter name="category" string="Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
                 </group>

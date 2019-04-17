@@ -12,13 +12,13 @@
             <xpath expr="//notebook" position="inside">
                 <page name="mandate categories" string="Mandate Categories">
                     <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
-                           readonly="1" context="{'default_mandate_category_id': active_id}">
+                           context="{'default_sta_assembly_category_id': active_id, 'default_type': 'sta'}">
                        <tree>
                            <field name="name"/>
                        </tree>
                    </field>
                    <field name="mandate_category_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                           readonly="1" context="{'default_mandate_category_id': active_id}">
+                           readonly="1">
                        <tree>
                            <field name="name"/>
                        </tree>

@@ -4,11 +4,11 @@
 from odoo import fields, models
 
 
-class StaMandate(models.Model):
+class AbstractMandate(models.AbstractModel):
 
-    _inherit = 'sta.mandate'
+    _inherit = 'abstract.mandate'
 
     partner_instance_ids = fields.Many2many(
         related='partner_id.int_instance_ids',
-        string='Partner Internal Instance',
+        string='Partner Internal Instances',
     )

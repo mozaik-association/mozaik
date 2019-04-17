@@ -8,17 +8,16 @@
         <field name="name">abstract.copy.mandate.wizard.form (in mozaik_mandate)</field>
         <field name="model">abstract.copy.mandate.wizard</field>
         <field name="arch" type="xml">
-            <form string="Mandate">
+            <form>
                 <div class="oe_title" attrs="{'invisible': [('action', '!=', 'renew')]}">
                    <separator string="Renew Mandate"/>
                 </div>
                 <div class="oe_title" attrs="{'invisible': [('action', '!=', 'add')]}">
-                   <separator string="Add Complementary Mandate"/>
+                   <separator string="Add New Mandate"/>
                 </div>
                 <group name="data_1">
                     <field name="mandate_category_id"
-                           attrs="{'readonly':[('action', '=', 'renew')],
-                                   'invisible': [('action', '=', 'add')]}"
+                           attrs="{'invisible': [('action', '=', 'add')]}"
                            options='{"no_open":True}'/>
                     <field name="new_mandate_category_id"
                            attrs="{'invisible':[('action', '=', 'renew')],
@@ -33,7 +32,9 @@
                            domain="[('instance_id', '=', instance_id)]"
                            options='{"no_open":True}'/>
                     <field name="partner_id" options='{"no_open":True}'/>
-
+                    <!-- partner_id anc mandate_category_id are not compute at the wizard creation
+                         if we don't give the mandate to the js (related) -->
+                    <field name="mandate_id" invisible="1"/>
                 </group>
                 <notebook>
                     <page name="dates" string="Dates">

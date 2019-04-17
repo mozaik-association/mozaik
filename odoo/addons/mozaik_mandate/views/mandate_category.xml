@@ -8,7 +8,7 @@
         <field name="name">mandate.category.form (in mozaik_mandate)</field>
         <field name="model">mandate.category</field>
         <field name="arch" type="xml">
-            <form string="Mandate Category">
+            <form>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button string="Mandates" name="%(sta_mandate_action)d" class="oe_stat_button" icon="fa-file-text"
@@ -84,16 +84,16 @@
         <field name="name">mandate.category.search (in mozaik_mandate)</field>
         <field name="model">mandate.category</field>
         <field name="arch" type="xml">
-            <search string="Mandate Categories">
+            <search>
                 <field name="name"/>
                 <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
                 <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
                 <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
 
-                <filter name="with_revenue_declaration" string="Wage Declaration"
+                <filter name="with_revenue_declaration" string="With revenue declaration"
                         domain="[('with_revenue_declaration','=',True)]" invisible="context.get('default_type', False)=='int'" />
                 <separator />
-                <filter name="with_assets_declaration" string="Assets Declaration"
+                <filter name="with_assets_declaration" string="With assets declaration"
                         domain="[('with_assets_declaration','=',True)]" invisible="context.get('default_type', False)=='int'" />
                 <separator />
                 <filter name="expired" string="Expired"
@@ -119,14 +119,11 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-
                 <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
                 <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
                 <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
-
                 <field name="expire_date"
                        invisible="context.get('invisible_expire_date', True)"/>
-                <field name="type" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -162,21 +159,21 @@
     </record>
 
     <record model="ir.ui.menu" id="sta_mandate_categories_submenu">
-        <field name="name">State Categories</field>
+        <field name="name">For State Mandates</field>
         <field name="parent_id" ref="mandate_category_configuration_submenu"/>
         <field name="action" ref="sta_mandate_category_action"/>
         <field name="sequence" eval="10"/>
     </record>
 
     <record model="ir.ui.menu" id="int_mandate_categories_submenu">
-        <field name="name">Internal Categories</field>
+        <field name="name">For Internal Mandates</field>
         <field name="parent_id" ref="mandate_category_configuration_submenu"/>
         <field name="action" ref="int_mandate_category_action"/>
         <field name="sequence" eval="20"/>
     </record>
 
     <record model="ir.ui.menu" id="ext_mandate_categories_submenu">
-        <field name="name">External Categories</field>
+        <field name="name">For External Mandates</field>
         <field name="parent_id" ref="mandate_category_configuration_submenu"/>
         <field name="action" ref="ext_mandate_category_action"/>
         <field name="sequence" eval="30"/>

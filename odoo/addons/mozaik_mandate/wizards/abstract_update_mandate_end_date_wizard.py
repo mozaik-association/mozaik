@@ -44,21 +44,19 @@ class AbstractUpdateMandateEndDateWizard(models.TransientModel):
 
             if mandate.active:
                 res['message'] = _('Mandate will be invalidated'
-                                   ' by setting end date !')
+                                   ' by setting its end date!')
         elif mode == 'reactivate':
             if mandate.active:
                 res['message'] = _(
                     'The selected mandate is already active!')
             if not mandate.mandate_category_id.active:
-                res['message'] = _('The mandate category is not active'
-                                   ' anymore!')
+                res['message'] = _('The mandate category is no longer active!')
             if mandate.designation_int_assembly_id and \
                     not mandate.designation_int_assembly_id.active:
-                res['message'] = _('The designation assembly is not active'
-                                   ' anymore!')
+                res['message'] = _('The designation assembly '
+                                   'is no longer active!')
             if not mandate.partner_id.active:
-                res['message'] = _('The representative is not active'
-                                   ' anymore!')
+                res['message'] = _('The representative is no longer active!')
         return res
 
     @api.multi

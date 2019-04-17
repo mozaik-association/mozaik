@@ -23,38 +23,30 @@ class AbstractCopyMandateWizard(models.TransientModel):
     _mandate_assembly_foreign_key = False
 
     mandate_category_id = fields.Many2one(
-        comodel_name='mandate.category',
-        string='Mandate Category',
-        ondelete='cascade')
+        related='mandate_id.mandate_category_id',
+        readonly=True)
     new_mandate_category_id = fields.Many2one(
         comodel_name='mandate.category',
-        string='Mandate Category',
-        ondelete='cascade')
+        string='Mandate Category')
     mandate_id = fields.Many2one(
         comodel_name='abstract.mandate',
         string='Abstract Mandate',
-        readonly=True,
-        ondelete='cascade')
+        readonly=True)
     assembly_id = fields.Many2one(
         comodel_name='abstract.assembly',
         string='Abstract Assembly',
-        readonly=True,
-        ondelete='cascade')
+        readonly=True)
     new_assembly_id = fields.Many2one(
         comodel_name='abstract.assembly',
-        string='Abstract Assembly',
-        ondelete='cascade')
+        string='Abstract Assembly')
     instance_id = fields.Many2one(
-        comodel_name='abstract.instance',
-        string='Abstract Instance',
-        ondelete='cascade')
+        related="assembly_id.instance_id")
     action = fields.Selection(
         selection=WIZARD_AVAILABLE_ACTIONS)
     partner_id = fields.Many2one(
-        comodel_name='res.partner',
+        related="mandate_id.partner_id",
         string='Partner',
-        readonly=True,
-        ondelete='cascade')
+        readonly=True)
     start_date = fields.Date()
     deadline_date = fields.Date()
     message = fields.Char()
@@ -84,17 +76,14 @@ class AbstractCopyMandateWizard(models.TransientModel):
             else:
                 action = WIZARD_AVAILABLE_ACTIONS[0][0]
 
-            res['partner_id'] = mandate.partner_id.id
-            res['mandate_category_id'] = mandate.mandate_category_id.id
+            # res['mandate_category_id'] = mandate.mandate_category_id.id TODO
             res['assembly_id'] = res['new_assembly_id'] \
                 = mandate[self._mandate_assembly_foreign_key].id
             res['mandate_id'] = mandate.id
-            res['instance_id'] = \
-                mandate[self._mandate_assembly_foreign_key].instance_id.id
             if action == 'add':
                 res['start_date'] = mandate.start_date
                 res['deadline_date'] = mandate.deadline_date
-            if action == 'renew':
+            else:
                 start_date = mandate.end_date if mandate.end_date \
                     else mandate.deadline_date
                 start_date = (datetime.strptime(start_date,
@@ -109,9 +98,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
     @api.multi
     def renew_mandate(self):
         """
-        ====================
-        renew_mandate
-        ====================
         Renew a mandate
         """
         self.ensure_one()
@@ -124,9 +110,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
 
     def add_mandate(self):
         """
-        ===========
-        add_mandate
-        ===========
         Add a complementary mandate
         """
         values = dict(mandate_category_id=self.new_mandate_category_id.id,
@@ -138,9 +121,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
     @api.multi
     def _copy_mandate(self, vals):
         """
-        ===========
-        copy_mandate
-        ===========
         Copy a mandate with new default values
         """
         self.ensure_one()

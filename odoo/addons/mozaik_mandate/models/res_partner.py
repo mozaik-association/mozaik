@@ -44,9 +44,11 @@ class ResPartner(models.Model):
         string='External Mandates',
         domain=[('active', '=', False)])
     ext_mandate_count = fields.Integer(
-        string='External Mandates', compute='_compute_mandate_count')
+        string='External Mandates',
+        compute='_compute_mandate_assembly_count')
     ext_assembly_count = fields.Integer(
-        string='External Assemblies', compute='_compute_assembly_count')
+        string='External Assemblies',
+        compute='_compute_mandate_assembly_count')
 
     @api.multi
     def get_mandate_action(self):
@@ -57,7 +59,7 @@ class ResPartner(models.Model):
         self.ensure_one()
         module = 'mozaik_mandate'
         action_name = 'ext_mandate_action'
-        res_ids = self._get_mandates().ids
+        res_ids = self._get_assemblies()._get_mandates().ids
         domain = [('id', 'in', res_ids)]
 
         # get model's action to update its domain
@@ -85,35 +87,13 @@ class ResPartner(models.Model):
         return assemblies
 
     @api.multi
-    def _get_mandates(self):
+    def _compute_mandate_assembly_count(self):
         """
-        return list of mandates linked to the assemblies of the
-        current partner
-        """
-        self.ensure_one()
-        mandate_model = 'ext.mandate'
-        prefix = 'ext'
-        mandate_obj = self.env[mandate_model]
-
-        assemblies = self._get_assemblies()
-        domain = [('%s_assembly_id' % prefix, 'in', assemblies.ids)]
-        mandates = mandate_obj.search(domain)
-
-        return mandates
-
-    @api.multi
-    def _compute_mandate_count(self):
-        """
+        count the number of assemblies linked to the current partner
         count the number of mandates linked to the assemblies of the
         current partner
         """
         for partner in self:
-            partner.ext_mandate_count = len(partner._get_mandates())
-
-    @api.multi
-    def _compute_assembly_count(self):
-        """
-        count the number of assemblies linked to the current partner
-        """
-        for partner in self:
-            partner.ext_assembly_count = len(partner._get_assemblies())
+            assemblies = partner._get_assemblies()
+            partner.ext_assembly_count = len(assemblies)
+            partner.ext_mandate_count = len(assemblies._get_mandates())

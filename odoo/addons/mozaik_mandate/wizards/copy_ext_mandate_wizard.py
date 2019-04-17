@@ -13,19 +13,12 @@ class CopyExtMandateWizard(models.TransientModel):
 
     mandate_id = fields.Many2one(
         comodel_name='ext.mandate',
-        string='External Mandate',
-        readonly=True,
-        ondelete='cascade')
+        string='External Mandate')
     assembly_id = fields.Many2one(
         comodel_name='ext.assembly',
-        string='External Assembly',
-        readonly=True,
-        ondelete='cascade')
+        string='External Assembly')
     new_assembly_id = fields.Many2one(
         comodel_name='ext.assembly',
-        string='External Assembly',
-        ondelete='cascade')
+        string='External Assembly')
     instance_id = fields.Many2one(
-        comodel_name='int.instance',
-        string='Internal Instance',
-        ondelete='cascade')
+        string='Internal Instance')

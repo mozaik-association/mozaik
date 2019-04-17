@@ -115,15 +115,14 @@ class AbstractMandate(models.AbstractModel):
                 [('name', operator, name)])
             categories = self.env['mandate.category'].search(
                 [('name', operator, name)])
-            mandates = self.search(
+            return self.search(
                 ['|',
                  ('partner_id', 'in', partners.ids),
                  ('mandate_category_id', 'in', categories.ids)] + args,
-                limit=limit)
+                limit=limit).name_get()
         else:
-            mandates = super().name_search(
+            return super().name_search(
                 name=name, args=args, operator=operator, limit=limit)
-        return mandates.name_get()
 
     @api.model
     def _get_duplicates(self, value):

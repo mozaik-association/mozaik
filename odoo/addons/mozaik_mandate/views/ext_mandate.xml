@@ -25,7 +25,6 @@
 
             <xpath expr="//page[@name='date']" position="after">
                 <page name="index" string="Indexation">
-                    <separator string="Remits"/>
                     <field name="competencies_m2m_ids"/>
                 </page>
             </xpath>

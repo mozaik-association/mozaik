@@ -35,10 +35,8 @@ class UpdateExtMandateEndDateWizard(models.TransientModel):
             or (context.get('active_id') and [context.get('active_id')]) \
             or []
 
-        mandate = self.env[model].browse(ids[0])
-
         if mode == 'reactivate':
+            mandate = self.env[model].browse(ids[0])
             if not mandate.ext_assembly_id.active:
-                res['message'] = _('The assembly is not active'
-                                   ' anymore!')
+                res['message'] = _('Assembly is no longer active!')
         return res

@@ -10,4 +10,4 @@ class GenericMandate(models.Model):
 
     partner_instance_ids = fields.Many2many(
         related='partner_id.int_instance_ids',
-        string='Partner Internal Instance')
+        string='Partner Internal Instances')
