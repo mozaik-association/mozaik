@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="int_mandate_form_view">
+        <field name="name">int.mandate.form (in mozaik_committee)</field>
+        <field name="model">int.mandate</field>
+        <field name="inherit_id" ref="mozaik_mandate.int_mandate_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email_coordinate_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('candidature_id','!=',False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

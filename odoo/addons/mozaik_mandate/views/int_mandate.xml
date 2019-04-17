@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="int_mandate_form_view">
+        <field name="name">int.mandate.form (in mozaik_mandate)</field>
+        <field name="model">int.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_form_view"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email_coordinate_id']" position="before">
+                <field name="int_assembly_id"
+                        required="1"
+                        domain="[('assembly_category_id', '=', int_assembly_category_id)]"/>
+            </xpath>
+
+            <xpath expr="//field[@name='with_revenue_declaration']" position="replace"/>
+            <xpath expr="//field[@name='with_assets_declaration']" position="replace"/>
+
+            <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                <attribute name="context" translation="off">{'default_type': 'int'}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='end_date']" position="after">
+                <field name="months_before_end_of_mandate"/>
+            </xpath>
+
+            <xpath expr="//group[@name='moreinfo']" position="inside">
+                <field name="int_assembly_category_id"/>
+                <field name="with_revenue_declaration"/>
+                <field name="with_assets_declaration"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="int_mandate_search_view">
+        <field name="name">int.mandate.search (in mozaik_mandate)</field>
+        <field name="model">int.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_search_view"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="int_assembly_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='with_revenue_declaration']" position="replace"/>
+            <xpath expr="//filter[@name='with_assets_declaration']" position="replace"/>
+            <xpath expr="//filter[@name='partner']" position="after">
+                <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="int_mandate_tree_view">
+        <field name="name">int.mandate.tree (in mozaik_mandate)</field>
+        <field name="model">int.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <field name="int_assembly_id"/>
+            </xpath>
+            <xpath expr="//field[@name='expire_date']" position="before">
+                <button name="%(copy_int_mandate_wizard_act_window)d" string="Renew or Add Complementary Mandate" type="action" icon="fa-clone"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="int_mandate_action" model="ir.actions.act_window">
+        <field name="name">Internal Mandates</field>
+        <field name="res_model">int.mandate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.menu" id="int_mandate_submenu">
+        <field name="name">Internal Mandates</field>
+        <field name="parent_id" ref="int_submenu"/>
+        <field name="action" ref="int_mandate_action"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+</odoo>

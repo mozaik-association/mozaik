@@ -179,25 +179,23 @@ class AbstractDuplicate(models.AbstractModel):
         return result
 
     @api.model
-    def _detect_and_repair_duplicate(self, values, columns_to_read=None):
+    def _detect_and_repair_duplicate(
+            self, values, field_model=None, field_id=None):
         """
         Detect automatically duplicates (setting the is_duplicate_detected
         flag)
         Repair orphan allowed or detected duplicate (resetting the
         corresponding flag)
+        field_model and field_id must be both set to be used
         :param values: list
-        :param columns_to_read: list
+        :param field_model: name of the field to get the model
+        :param field_id: name of the field to read to get the id
         :return:
         """
         if not isinstance(values, list):
             values = [values]
         else:
             values = list(set(values))
-        columns_to_read = columns_to_read or []
-        columns_to_read.extend([
-            'is_duplicate_allowed',
-            'is_duplicate_detected',
-        ])
         for value in values:
             duplicates = self._get_duplicates(value)
             values_write = {}
@@ -221,9 +219,11 @@ class AbstractDuplicate(models.AbstractModel):
                     values_write = self._get_fields_to_update('reset')
 
             if values_write:
-                # super write method must be called here to avoid to cycle
-                if 'model' in columns_to_read:
-                    super(AbstractDuplicate, duplicates).write(values_write)
+                if field_model and field_id:
+                    for duplicate in duplicates:
+                        record = self.env[duplicate[field_model]].browse(duplicate[field_id])
+                        # super write method must be called here to avoid to cycle
+                        super(AbstractDuplicate, record).write(values_write)
                 else:
                     duplicates.write(values_write)
         return True

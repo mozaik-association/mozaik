@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.module.category" id="module_category_mandate">
+        <field name="name">Mandate</field>
+        <field name="parent_id" ref="base.module_category_political_association"/>
+        <field name="sequence" eval="75" />
+    </record>
+
+    <record model="res.groups" id="res_groups_mandate_reader">
+        <field name="name">Reader</field>
+        <field name="category_id" ref="module_category_mandate"/>
+    </record>
+
+    <record model="res.groups" id="res_groups_mandate_user">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_mandate"/>
+        <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_mandate.res_groups_mandate_reader'),
+            ])]" />
+    </record>
+
+    <record model="res.groups" id="res_groups_mandate_manager">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_mandate"/>
+        <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_mandate.res_groups_mandate_user'),
+            ])]" />
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+</odoo>

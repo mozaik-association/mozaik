@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="legislature_01" model="legislature">
+        <field name="name" eval="'Communale '+(DateTime.today() + relativedelta(years=2)).strftime('%Y')"/>
+        <field name="power_level_id" ref="mozaik_structure.sta_power_level_01"/>
+        <field name="start_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"/>
+        <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"/>
+        <field name="election_date" eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-09-15')"/>
+    </record>
+
+    <record id="legislature_closed_01" model="legislature">
+        <field name="name" eval="'Communale '+(DateTime.today() - relativedelta(years=7)).strftime('%Y')"/>
+        <field name="power_level_id" ref="mozaik_structure.sta_power_level_01"/>
+        <field name="start_date" eval="(DateTime.today() - relativedelta(years=7)).strftime('%Y-10-01')"/>
+        <field name="deadline_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-09-30')"/>
+        <field name="election_date" eval="(DateTime.today() - relativedelta(years=7)).strftime('%Y-09-15')"/>
+    </record>
+
+    <record id="legislature_03_opened" model="legislature">
+        <field name="name" eval="'Communale '+(DateTime.today() - relativedelta(years=1)).strftime('%Y')"/>
+        <field name="power_level_id" ref="mozaik_structure.sta_power_level_01"/>
+        <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-10-01')"/>
+        <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-09-30')"/>
+        <field name="election_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-09-15')"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="sta_selection_committee_form_view">
+        <field name="name">sta.selection.committee.form (in mozaik_committee)</field>
+        <field name="model">sta.selection.committee</field>
+        <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='assembly_id']" position="attributes">
+                <attribute name="attrs" translation="off">{'readonly': [('electoral_district_id','!=', False)]}</attribute>
+                <attribute name="domain" translation="off">[('is_legislative', '=', False)]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='assembly_id']" position="before">
+                   <field name="electoral_district_id"
+                         attrs="{'required': [('assembly_id','=', False),],
+                                 'invisible': [('assembly_id','!=', False),('electoral_district_id','=', False)]}"
+                         on_change="onchange_electoral_district_id(electoral_district_id)"/>
+            </xpath>
+
+            <xpath expr="//field[@name='assembly_id']" position="after">
+                <field name="legislature_id" readonly="1"
+                         required="1"
+                         on_change="onchange_legislature_id(legislature_id)"
+                         domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
+            </xpath>
+
+            <xpath expr="//field[@name='mandate_start_date']" position="before">
+                <field name="mandate_category_id"
+                       required="1"
+                       domain="[('type', '=', 'sta'), ('sta_assembly_category_id', '=', assembly_category_id)]"
+                       context="{'default_type': 'sta'}"
+                       on_change="onchange_mandate_category_id(mandate_category_id)"/>
+            </xpath>
+
+            <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                <attribute name="attrs" translation="off">{'readonly': [('electoral_district_id','!=', False),]}</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='candidatures']" position="inside">
+                <button string="All Details" name="%(sta_candidature_action)d"
+                                    type="action" attrs="{'invisible': [('id','=',False)]}"
+                                    context="{'search_default_selection_committee_id': active_id,
+                                              'default_selection_committee_id': active_id,
+                                              'search_default_all': True}" />
+                <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('state','=','done')]}"
+                        confirm="Accept all candidatures: proceed anyway?"/>
+                <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('state','=','done')]}"
+                        confirm="Refuse all candidatures: proceed anyway?"/>
+                <field name="candidature_ids" context="{'default_selection_committee_id': active_id}" attrs="{'readonly': [('decision_date', '!=', False)]}">
+                    <tree colors="red:state=='declared';grey:active==False">
+                        <field name="list_effective_position" string="#EP"
+                               attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
+                        <field name="list_substitute_position" string="#SP"
+                               attrs="{'invisible': [('is_substitute', '=', False)]}"/>
+                        <field name="partner_name"/>
+                        <field name="state"/>
+                        <button name="button_suggest" string="Suggest" icon="gtk-apply"
+                                attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+                        <button name="button_reject" string="Reject" icon="gtk-cancel"
+                                attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+                        <button name="button_declare" string="Back to Declared" icon="gtk-undo"
+                                attrs="{'invisible': ['|',('state', 'not in',['rejected','suggested']),('is_selection_committee_active', '=', False)]}"/>
+                        <field name="active" invisible="1"/>
+                        <field name="is_effective" invisible="1"/>
+                        <field name="is_substitute" invisible="1"/>
+                        <field name="is_selection_committee_active" invisible="1"/>
+                    </tree>
+                </field>
+            </xpath>
+
+            <xpath expr="//page[@name='note']" position="after">
+                <page string="List" name="list"
+                      attrs="{'invisible': [('electoral_district_id', '=', False)]}">
+                    <group>
+                        <field name="listname"/>
+                        <field name="is_cartel"/>
+                        <field name="cartel_composition"
+                               attrs="{'invisible': [('is_cartel', '=', False)]}"/>
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sta_selection_committee_officer_form_view" model="ir.ui.view">
+        <field name="name">sta.selection.committee.officer.form (in mozaik_committee)</field>
+        <field name="model">sta.selection.committee</field>
+        <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+        <field name="groups_id" eval="[(6,0,[
+            ref('mozaik_base.mozaik_res_groups_officer'),
+        ])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='candidatures']" position="after">
+                <page string="Members" name="members" invisible="context.get('popup')">
+                    <field name="partner_ids" context="{'default_is_company': False}">
+                        <tree>
+                            <field name="display_name"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sta_selection_committee_search_view">
+        <field name="name">sta.selection.committee.search (in mozaik_committee)</field>
+        <field name="model">sta.selection.committee</field>
+        <field name="inherit_id" ref="abstract_selection_committee_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='assembly_id']" position="after">
+               <field name="electoral_district_id"/>
+               <field name="legislature_id" domain="[('active', '&lt;=', 1)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='assembly']" position="after">
+               <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'electoral_district_id'}" />
+               <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sta_selection_committee_tree_view">
+        <field name="name">sta.selection.committee.tree (in mozaik_committee)</field>
+        <field name="model">sta.selection.committee</field>
+        <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='assembly_id']" position="after">
+               <field name="electoral_district_id"/>
+            </xpath>
+            <xpath expr="//field[@name='mandate_start_date']" position="replace">
+               <field name="legislature_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sta_selection_committee_action" model="ir.actions.act_window">
+        <field name="name">Selection Committee</field>
+        <field name="res_model">sta.selection.committee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="sta_selection_committee_submenu" action="sta_selection_committee_action"
+          sequence="10" parent="mozaik_mandate.sta_submenu"/>
+
+</odoo>

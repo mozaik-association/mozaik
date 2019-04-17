@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="ext_mandate_form_view">
+        <field name="name">ext.mandate.form (in mozaik_mandate)</field>
+        <field name="model">ext.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email_coordinate_id']" position="before">
+                <field name="ext_assembly_id"
+                        required="1"
+                        domain="[('assembly_category_id', '=', ext_assembly_category_id)]"/>
+            </xpath>
+
+            <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                <attribute name="context" translation="off">{'default_type': 'ext'}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='end_date']" position="after">
+                <field name="months_before_end_of_mandate"/>
+            </xpath>
+
+            <xpath expr="//page[@name='date']" position="after">
+                <page name="index" string="Indexation">
+                    <field name="competencies_m2m_ids"/>
+                </page>
+            </xpath>
+
+            <xpath expr="//group[@name='moreinfo']" position="inside">
+                <field name="ext_assembly_category_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ext_mandate_search_view">
+        <field name="name">ext.mandate.search (in mozaik_mandate)</field>
+        <field name="model">ext.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="ext_assembly_id"/>
+                <field name="competencies_m2m_ids" widget="many2one" />
+            </xpath>
+            <xpath expr="//filter[@name='partner']" position="after">
+                <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'ext_assembly_id'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ext_mandate_tree_view">
+        <field name="name">ext.mandate.tree (in mozaik_mandate)</field>
+        <field name="model">ext.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <field name="ext_assembly_id"/>
+            </xpath>
+            <xpath expr="//field[@name='expire_date']" position="before">
+                <button name="%(copy_ext_mandate_wizard_act_window)d" string="Renew or Add Complementary Mandate" type="action" icon="fa-clone"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ext_mandate_action" model="ir.actions.act_window">
+        <field name="name">External Mandates</field>
+        <field name="res_model">ext.mandate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.menu" id="ext_mandate_submenu">
+        <field name="name">External Mandates</field>
+        <field name="parent_id" ref="ext_submenu"/>
+        <field name="action" ref="ext_mandate_action"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+</odoo>

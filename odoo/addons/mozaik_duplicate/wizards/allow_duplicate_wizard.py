@@ -74,7 +74,7 @@ class AllowDuplicateWizard(models.TransientModel):
                 model_id_name_value = target[model_id_name]
                 model_obj = self.env[target.model]
                 vals = model_obj._get_fields_to_update("allow")
-                model_id_name_value.write(vals)
+                model_obj.browse(model_id_name_value).write(vals)
         else:
             vals = target_obj._get_fields_to_update("allow")
             targets.write(vals)

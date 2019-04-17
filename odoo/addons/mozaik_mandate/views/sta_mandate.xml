@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="sta_mandate_form_view">
+        <field name="name">sta.mandate.form (in mozaik_mandate)</field>
+        <field name="model">sta.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email_coordinate_id']" position="before">
+                <field name="sta_assembly_id"
+                        required="1"
+                        domain="[('assembly_category_id', '=', sta_assembly_category_id)]"/>
+                <field name="legislature_id"
+                       domain="[('power_level_id','=',sta_power_level_id),('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
+            </xpath>
+
+            <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                <attribute name="context" translation="off">{'default_type': 'sta'}</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='date']" position="after">
+                <page name="index" string="Indexation">
+                    <field name="competencies_m2m_ids"/>
+                </page>
+            </xpath>
+
+            <xpath expr="//group[@name='moreinfo']" position="inside">
+                <field name="sta_assembly_category_id"/>
+                <field name="sta_power_level_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sta_mandate_search_view">
+        <field name="name">sta.mandate.search (in mozaik_mandate)</field>
+        <field name="model">sta.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="sta_assembly_id"/>
+                <field name="legislature_id" domain="[('active', '&lt;=', 1)]"/>
+                <field name="competencies_m2m_ids" widget="many2one" />
+            </xpath>
+            <xpath expr="//filter[@name='partner']" position="after">
+                <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'sta_assembly_id'}" />
+                <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sta_mandate_tree_view">
+        <field name="name">sta.mandate.tree (in mozaik_mandate)</field>
+        <field name="model">sta.mandate</field>
+        <field name="inherit_id" ref="abstract_mandate_tree_view"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <field name="sta_assembly_id"/>
+                <field name="legislature_id"/>
+            </xpath>
+            <xpath expr="//field[@name='start_date']" position="replace"/>
+            <xpath expr="//field[@name='deadline_date']" position="replace"/>
+            <xpath expr="//field[@name='expire_date']" position="before">
+            <button name="%(copy_sta_mandate_wizard_act_window)d" string="Renew or Add Complementary Mandate" type="action" icon="fa-clone"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sta_mandate_action" model="ir.actions.act_window">
+        <field name="name">State Mandates</field>
+        <field name="res_model">sta.mandate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.menu" id="sta_mandate_submenu">
+        <field name="name">State Mandates</field>
+        <field name="parent_id" ref="sta_submenu"/>
+        <field name="action" ref="sta_mandate_action"/>
+        <field name="sequence" eval="30"/>
+    </record>
+
+</odoo>
