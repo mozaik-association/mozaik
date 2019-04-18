@@ -201,6 +201,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_wizard_act_window
 #: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_wizard_act_window
 #: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_wizard_act_window
+#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Close Mandate"
 msgstr ""
 
@@ -891,11 +892,6 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_mandate.field_mandate_category_with_revenue_declaration
 #: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate_with_revenue_declaration
 msgid "Representative is subject to a declaration of income"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
-msgid "Set End Date"
 msgstr ""
 
 #. module: mozaik_mandate

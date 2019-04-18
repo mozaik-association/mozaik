@@ -98,7 +98,7 @@ msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_ext_competencies_m2m_ids
-msgid "External Mandate Remits"
+msgid "External Mandate Competences"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
@@ -229,7 +229,7 @@ msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_sta_competencies_m2m_ids
-msgid "State Mandate Remits"
+msgid "State Mandate Competences"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate

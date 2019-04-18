@@ -220,10 +220,10 @@ msgid "Category"
 msgstr "Catégorie"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_wizard_act_window
 #: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_wizard_act_window
 #: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_wizard_act_window
+#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Close Mandate"
 msgstr "Finir le mandat"
 
