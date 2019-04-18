@@ -198,6 +198,13 @@ msgid "Category"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_wizard_act_window
+#: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_wizard_act_window
+#: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_wizard_act_window
+msgid "Close Mandate"
+msgstr ""
+
+#. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.configuration_submenu
 msgid "Configuration"
 msgstr ""
@@ -887,9 +894,6 @@ msgid "Representative is subject to a declaration of income"
 msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_wizard_act_window
-#: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_wizard_act_window
-#: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_wizard_act_window
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Set End Date"
 msgstr ""
@@ -1039,7 +1043,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_unique_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_unique_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_unique_id
-msgid "Unique"
+msgid "Unique ID"
 msgstr ""
 
 #. module: mozaik_mandate

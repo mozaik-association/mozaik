@@ -220,6 +220,13 @@ msgid "Category"
 msgstr "Catégorie"
 
 #. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_wizard_act_window
+#: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_wizard_act_window
+#: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_wizard_act_window
+msgid "Close Mandate"
+msgstr "Finir le mandat"
+
+#. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.configuration_submenu
 msgid "Configuration"
 msgstr "Configuration"
@@ -909,9 +916,6 @@ msgid "Representative is subject to a declaration of income"
 msgstr "Le mandataire est sujet à une déclaration de revenus"
 
 #. module: mozaik_mandate
-#: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_wizard_act_window
-#: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_wizard_act_window
-#: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_wizard_act_window
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 #, fuzzy
 msgid "Set End Date"
@@ -1060,7 +1064,7 @@ msgstr "Poursuivre le rétablissement des mandats incompatibles ?"
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_unique_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_unique_id
 #, fuzzy
-msgid "Unique"
+msgid "Unique ID"
 msgstr "ID Unique"
 
 #. module: mozaik_mandate
@@ -1160,6 +1164,3 @@ msgstr "⇒ Voir tous les mandats incompatibles"
 #: model:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
 msgid "⇒ State Representative"
 msgstr "⇒ Mandataire politique"
-
-#~ msgid "Close Mandate"
-#~ msgstr "Finir le mandat"

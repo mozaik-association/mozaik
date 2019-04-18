@@ -440,6 +440,18 @@ msgid "Export Filename"
 msgstr ""
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_ext_assembly_count
+msgid "External Assemblies"
+msgstr ""
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_ext_mandate_inactive_ids
+msgid "External Mandates"
+msgstr ""
+
+#. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:362
 #, python-format
 msgid "Extract"
@@ -561,6 +573,12 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Internal Instance descending of..."
+msgstr ""
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_int_mandate_inactive_ids
+msgid "Internal Mandates"
 msgstr ""
 
 #. module: mozaik_communication
@@ -1005,6 +1023,12 @@ msgstr ""
 #: code:addons/mozaik_communication/wizards/export_csv.py:161
 #, python-format
 msgid "State"
+msgstr ""
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_sta_mandate_inactive_ids
+msgid "State Mandates"
 msgstr ""
 
 #. module: mozaik_communication

@@ -243,8 +243,24 @@ msgid "Expired Memberships"
 msgstr ""
 
 #. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_assembly_count
+msgid "External Assemblies"
+msgstr ""
+
+#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_ext_assembly
 msgid "External Assembly"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_inactive_ids
+msgid "External Mandates"
 msgstr ""
 
 #. module: mozaik_membership
@@ -382,6 +398,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_int_instance_m2m_ids
 #: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "Internal Instances"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_int_mandate_inactive_ids
+msgid "Internal Mandates"
 msgstr ""
 
 #. module: mozaik_membership
@@ -898,6 +922,14 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_sta_assembly
 msgid "State Assembly"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_sta_mandate_inactive_ids
+msgid "State Mandates"
 msgstr ""
 
 #. module: mozaik_membership
