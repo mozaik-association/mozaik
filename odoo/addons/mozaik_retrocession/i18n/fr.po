@@ -1436,7 +1436,7 @@ msgstr "Mandat politique"
 #. module: mozaik_retrocession
 #: help:abstract.mandate.retrocession,is_submission_assets:0
 msgid "Submission to a Mandates and Assets Declaration"
-msgstr "Soumission à une déclaration de mandats et de patrimoines"
+msgstr "Soumission à une déclaration de mandats et de patrimoine"
 
 #. module: mozaik_retrocession
 #: help:abstract.mandate.retrocession,is_submission_mandate:0
@@ -1620,7 +1620,7 @@ msgstr "Historique de communication de site web"
 #. module: mozaik_retrocession
 #: field:abstract.mandate.retrocession,is_submission_assets:0
 msgid "With Assets Declaration"
-msgstr "Avec déclaration de patrimoines"
+msgstr "Avec déclaration de patrimoine"
 
 #. module: mozaik_retrocession
 #: field:abstract.mandate.retrocession,is_submission_mandate:0

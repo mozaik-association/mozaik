@@ -29,7 +29,7 @@
                     </page>
                 </notebook>
                 <footer>
-                    <button string="Set End Date" name="set_mandate_end_date"
+                    <button string="Close Mandate" name="set_mandate_end_date"
                             type="object" class="oe_highlight" confirm="Set end date, proceed anyway?"
                             invisible="not context.get('mode','x') == 'end_date'"/>
                     <button string="Reactivate" name="reactivate_mandate"

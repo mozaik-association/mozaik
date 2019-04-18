@@ -459,14 +459,14 @@ msgstr "Fichier d'export"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_ext_assembly_count
 msgid "External Assemblies"
-msgstr ""
+msgstr "Assemblées externes"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_ext_mandate_count
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_ext_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_ext_mandate_inactive_ids
 msgid "External Mandates"
-msgstr ""
+msgstr "Mandats externes"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:362
@@ -595,9 +595,8 @@ msgstr "Instance Interne descendant de..."
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_int_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_int_mandate_inactive_ids
-#, fuzzy
 msgid "Internal Mandates"
-msgstr "Instance interne"
+msgstr "Mandats internes"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_int_instance_id
@@ -1047,7 +1046,7 @@ msgstr "Statut"
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_sta_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_sta_mandate_inactive_ids
 msgid "State Mandates"
-msgstr ""
+msgstr "Mandats politiques"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:170

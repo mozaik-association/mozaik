@@ -258,7 +258,6 @@ msgstr "Adhésions expirées"
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_assembly_count
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_assembly_count
-#, fuzzy
 msgid "External Assemblies"
 msgstr "Assemblée externe"
 
@@ -274,9 +273,8 @@ msgstr "Assemblée externe"
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_count
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_inactive_ids
-#, fuzzy
 msgid "External Mandates"
-msgstr "Instances internes"
+msgstr "Mandats externes"
 
 #. module: mozaik_membership
 #: sql_constraint:partner.involvement:0
@@ -420,9 +418,8 @@ msgstr "Instances internes"
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_int_mandate_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_int_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_int_mandate_inactive_ids
-#, fuzzy
 msgid "Internal Mandates"
-msgstr "Instances internes"
+msgstr "Mandats internes"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_state_form_view
@@ -952,7 +949,7 @@ msgstr "Assemblée de l'État"
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_sta_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_sta_mandate_inactive_ids
 msgid "State Mandates"
-msgstr ""
+msgstr "Mandats politiques"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly_subscription_product_id

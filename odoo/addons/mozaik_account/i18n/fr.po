@@ -118,6 +118,5 @@ msgstr "Vous devez selectionner un partenaire !"
 
 #. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_add_membership
-#, fuzzy
 msgid "add.membership"
 msgstr "Historique d'adhésion"

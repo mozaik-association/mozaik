@@ -55,10 +55,10 @@ class VirtualPartnerMandate(models.Model):
 
     sta_competencies_m2m_ids = fields.Many2many(
         related='sta_mandate_id.competencies_m2m_ids',
-        string='State Mandate Remits')
+        string='State Mandate Competences')
     ext_competencies_m2m_ids = fields.Many2many(
         related='ext_mandate_id.competencies_m2m_ids',
-        string='External Mandate Remits')
+        string='External Mandate Competences')
     sta_instance_id = fields.Many2one(
         comodel_name='sta.instance', string='State Instance')
     in_progress = fields.Boolean("In Progress")

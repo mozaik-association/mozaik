@@ -220,6 +220,7 @@ msgid "Category"
 msgstr "Catégorie"
 
 #. module: mozaik_mandate
+#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_wizard_act_window
 #: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_wizard_act_window
 #: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_wizard_act_window
@@ -917,12 +918,6 @@ msgstr "Le mandataire est sujet à une déclaration de revenus"
 
 #. module: mozaik_mandate
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
-#, fuzzy
-msgid "Set End Date"
-msgstr "Date de fin"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Set end date, proceed anyway?"
 msgstr "Poursuivre l'arrêt du mandat ?"
 
@@ -1063,7 +1058,6 @@ msgstr "Poursuivre le rétablissement des mandats incompatibles ?"
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_unique_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_unique_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_unique_id
-#, fuzzy
 msgid "Unique ID"
 msgstr "ID Unique"
 

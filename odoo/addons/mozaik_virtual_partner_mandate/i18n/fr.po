@@ -18,9 +18,8 @@ msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_active
-#, fuzzy
 msgid "Active"
-msgstr "Action"
+msgstr "Actif"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.actions.act_window,name:mozaik_virtual_partner_mandate.add_filter_from_relation_action
@@ -50,27 +49,23 @@ msgstr "Date d'échéance"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Designated by descendants of..."
-msgstr "Instance Interne descendant de..."
+msgstr "Désignés par une descendance de..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Designated by non descendants of..."
-msgstr "Instance Interne descendant de..."
+msgstr "Désignés par une non descendance de..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Designated to descendants of..."
-msgstr "Instance Interne descendant de..."
+msgstr "Désignés à une descendance de..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Designated to non descendants of..."
-msgstr "Instance Interne descendant de..."
+msgstr "Désignés à une non descendance de..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_designation_int_assembly_id
@@ -80,9 +75,8 @@ msgstr "Assemblée de désignation"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_designation_instance_id
-#, fuzzy
 msgid "Designation Instance"
-msgstr "Assemblée de désignation"
+msgstr "Instance de désignation"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_display_name
@@ -107,9 +101,8 @@ msgstr "Mandat externe"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_ext_competencies_m2m_ids
-#, fuzzy
-msgid "External Mandate Remits"
-msgstr "Mandats externes"
+msgid "External Mandate Competences"
+msgstr "Compétences de mandat externe"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
@@ -119,12 +112,12 @@ msgstr "Femme"
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "German"
-msgstr ""
+msgstr "Allemand"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_id
@@ -135,7 +128,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_in_progress
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "In Progress"
-msgstr ""
+msgstr "En cours"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_int_instance_ids
@@ -149,9 +142,8 @@ msgstr "Instance Interne descendant de..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Internal Instance not descending of..."
-msgstr "Instance Interne descendant de..."
+msgstr "Instance Interne non descendant de..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
@@ -176,33 +168,28 @@ msgstr "Catégorie de mandat"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Mandate End Date < ..."
-msgstr "Date de fin du mandat"
+msgstr "Fin du mandat < ..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Mandate End Date > ..."
-msgstr "Date de fin du mandat"
+msgstr "Fin du mandat > ..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Mandate Start Date < ..."
-msgstr "Date de naissance < ..."
+msgstr "Début du mandat < ..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
 msgid "Mandate Start Date > ..."
-msgstr "Date de naissance > ..."
+msgstr "Début du mandat > ..."
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_model
-#, fuzzy
 msgid "Model"
-msgstr "Modèles"
+msgstr "Modèle"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
@@ -218,14 +205,12 @@ msgstr "Partenaire"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model,name:mozaik_virtual_partner_mandate.model_virtual_partner_mandate
-#, fuzzy
 msgid "Partner/Mandate"
-msgstr "Mandat politique"
+msgstr "Partenaire/Mandat"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.actions.act_window,name:mozaik_virtual_partner_mandate.virtual_partner_mandate_act_window
 #: model:ir.ui.menu,name:mozaik_virtual_partner_mandate.virtual_partner_mandate_menu
-#, fuzzy
 msgid "Partners/Mandates"
 msgstr "Partenaires/Instances"
 
@@ -247,14 +232,13 @@ msgstr "Mandat politique"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_sta_competencies_m2m_ids
-#, fuzzy
-msgid "State Mandate Remits"
-msgstr "Mandats politiques"
+msgid "State Mandate Competences"
+msgstr "Compétences de mandat politique"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_ref_partner_competency_ids
 msgid "Topics"
-msgstr ""
+msgstr "Thèmes"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
@@ -280,487 +264,3 @@ msgstr "Adresse électronique VIP"
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
-
-#~ msgid "Competencies & Topics"
-#~ msgstr "Compétences & thèmes"
-
-#~ msgid "Donor"
-#~ msgstr "Donateur"
-
-#~ msgid "Email Coordinate Category"
-#~ msgstr "Catégorie de coordonnée électronique"
-
-#~ msgid "Is a donor"
-#~ msgstr "Est un donateur"
-
-#~ msgid "Is a volunteer"
-#~ msgstr "Est un volontaire"
-
-#~ msgid "Legal Persons"
-#~ msgstr "Personnes morales"
-
-#~ msgid "Local Only"
-#~ msgstr "Est contact local"
-
-#~ msgid "Local Voluntary"
-#~ msgstr "Volontaire local"
-
-#~ msgid "Main Address"
-#~ msgstr "Adresse principale"
-
-#~ msgid "Main Email"
-#~ msgstr "Adresse électronique principale"
-
-#~ msgid "National Voluntary"
-#~ msgstr "Volontaire national"
-
-#~ msgid "Nationality"
-#~ msgstr "Nationalité"
-
-#~ msgid "Natural Persons"
-#~ msgstr "Personnes physiques"
-
-#~ msgid "Non Local Voluntary"
-#~ msgstr "Volontaire non local"
-
-#~ msgid "Non National Voluntary"
-#~ msgstr "Volontaire non national"
-
-#~ msgid "Non Regional Voluntary"
-#~ msgstr "Volontaire non régional"
-
-#~ msgid "Not Local Only"
-#~ msgstr "Contact non local"
-
-#~ msgid "Partner/Instance"
-#~ msgstr "Partenaire/Instance"
-
-#~ msgid "Postal Coordinate Category"
-#~ msgstr "Catégorie de coordonnée postale"
-
-#~ msgid "Regional Voluntary"
-#~ msgstr "Volontaire régional"
-
-#~ msgid "State"
-#~ msgstr "Statut"
-
-#~ msgid "Volunteer"
-#~ msgstr "Volontaire"
-
-#~ msgid "%s (copy)"
-#~ msgstr "%s (copie)"
-
-#~ msgid ""
-#~ "<span class=\"oe_grey\">(Empty Coordinates = Use of Main Coordinates)</"
-#~ "span>"
-#~ msgstr ""
-#~ "<span class=\"oe_grey\">(Coordonnées vides = Utilisation des coordonnées "
-#~ "principales)</span>"
-
-#~ msgid ""
-#~ "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-#~ "                        External Mandates\n"
-#~ "                    </span>"
-#~ msgstr ""
-#~ "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-#~ "                        Mandats externes\n"
-#~ "                    </span>"
-
-#~ msgid ""
-#~ "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-#~ "                        Internal Mandates\n"
-#~ "                    </span>"
-#~ msgstr ""
-#~ "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-#~ "                        Mandats internes\n"
-#~ "                    </span>"
-
-#~ msgid ""
-#~ "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-#~ "                        State Mandates\n"
-#~ "                    </span>"
-#~ msgstr ""
-#~ "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-#~ "                        Mandats politiques\n"
-#~ "                    </span>"
-
-#~ msgid ""
-#~ "<strong>\n"
-#~ "                Selected mandates are compatible. Are you sure?\n"
-#~ "                </strong>"
-#~ msgstr ""
-#~ "<strong>\n"
-#~ "                Les mandats sélectionnés sont compatibles. Ok?\n"
-#~ "                </strong>"
-
-#~ msgid "A model and an action for this model are required for this operation"
-#~ msgstr "Un modèle et une action sont requis pour cette opération"
-
-#~ msgid "Abstract Assembly"
-#~ msgstr "Assemblée abstraite"
-
-#~ msgid "Abstract Mandate"
-#~ msgstr "Mandat abstrait"
-
-#~ msgid "Add Complementary Mandate"
-#~ msgstr "Ajouter un mandat complémentaire"
-
-#~ msgid "Add New Mandate"
-#~ msgstr "Ajouter un nouveau mandat"
-
-#~ msgid "Alert Date"
-#~ msgstr "Date d'alerte"
-
-#~ msgid "Alert Delay (#Months)"
-#~ msgstr "Délai d'alerte (#mois)"
-
-#~ msgid "All"
-#~ msgstr "Tous"
-
-#~ msgid "All Categories, expired or not"
-#~ msgstr "Toutes les catégories, expirées ou non"
-
-#~ msgid "All Details"
-#~ msgstr "Tous les détails"
-
-#~ msgid "All Mandates"
-#~ msgstr "Tous les mandats"
-
-#~ msgid "All Mandates, expired or not"
-#~ msgstr "Tous les mandats, expirés ou non"
-
-#~ msgid "Allow Incompatible Mandates"
-#~ msgstr "Autoriser les mandats incompatibles"
-
-#~ msgid "Allowed Incompatible Mandate"
-#~ msgstr "Mandat incompatible autorisé"
-
-#~ msgid "Allowed Incompatible Mandates"
-#~ msgstr "Mandats incompatibles autorisés"
-
-#~ msgid "An Assembly Category is required."
-#~ msgstr "Une catégorie d'assemblée est obligatoire."
-
-#~ msgid "Assemblies"
-#~ msgstr "Assemblées"
-
-#~ msgid "Assembly Category"
-#~ msgstr "Catégorie d'assemblée"
-
-#~ msgid "Assembly is no longer active!"
-#~ msgstr "L'assemblée n'est plus active!"
-
-#~ msgid "Assets Declaration"
-#~ msgstr "Déclaration de patrimoine"
-
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
-
-#~ msgid "Category"
-#~ msgstr "Catégorie"
-
-#~ msgid "Configuration"
-#~ msgstr "Configuration"
-
-#~ msgid "Contact"
-#~ msgstr "Contact"
-
-#~ msgid "Create"
-#~ msgstr "Créer"
-
-#~ msgid "Created by"
-#~ msgstr "Créé par"
-
-#~ msgid "Created on"
-#~ msgstr "Date de création"
-
-#~ msgid "Dates"
-#~ msgstr "Dates"
-
-#~ msgid "Duplicate Mandate"
-#~ msgstr "Dupliquer le mandat"
-
-#~ msgid "Email Coordinate"
-#~ msgstr "Coordonnée électronique"
-
-#~ msgid "End Date"
-#~ msgstr "Date de fin"
-
-#~ msgid "End date must be greater or equal than start date!"
-#~ msgstr "La date de fin doit être antérieure à la date de début!"
-
-#~ msgid "End date must be lower or equal than deadline date!"
-#~ msgstr "La date de fin doit être antérieure à la date d'échéance!"
-
-#~ msgid "End date must be lower or equal than today!"
-#~ msgstr "La date de fin doit être antérieure à la date du jour!"
-
-#~ msgid "Exclusive Categories"
-#~ msgstr "Catégories exclusives"
-
-#~ msgid "Exclusive Category"
-#~ msgstr "Catégorie exclusive"
-
-#~ msgid "Expired"
-#~ msgstr "Expiré"
-
-#~ msgid "Expired Categories"
-#~ msgstr "Catégories expirées"
-
-#~ msgid "Expired Mandates"
-#~ msgstr "Mandats expirés"
-
-#~ msgid "Ext. Mandates"
-#~ msgstr "Mandats ext."
-
-#~ msgid "External"
-#~ msgstr "Externe"
-
-#~ msgid "External Assemblies"
-#~ msgstr "Assemblées externes"
-
-#~ msgid "External Assembly"
-#~ msgstr "Assemblée externe"
-
-#~ msgid "External Assembly Category"
-#~ msgstr "Catégorie d'assemblée externe"
-
-#~ msgid "External Categories"
-#~ msgstr "Catégories externes"
-
-#~ msgid "External Mandates closure"
-#~ msgstr "Clôture de mandats externes"
-
-#~ msgid "For External Mandates"
-#~ msgstr "Pour mandats externes"
-
-#~ msgid "For Internal Mandates"
-#~ msgstr "Pour mandats internes"
-
-#~ msgid "For State Mandates"
-#~ msgstr "Pour mandats politiques"
-
-#~ msgid "Generic Mandate"
-#~ msgstr "Mandat générique"
-
-#~ msgid "Group By..."
-#~ msgstr "Grouper par..."
-
-#~ msgid "Incompatible Mandate"
-#~ msgstr "Mandat incompatible"
-
-#~ msgid "Incompatible Mandates"
-#~ msgstr "Mandats incompatibles"
-
-#~ msgid "Indexation"
-#~ msgstr "Indexation"
-
-#~ msgid "Info"
-#~ msgstr "Info"
-
-#~ msgid "Instance"
-#~ msgstr "Instance"
-
-#~ msgid "Int. Mandates"
-#~ msgstr "Mandats int."
-
-#~ msgid "Internal"
-#~ msgstr "Interne"
-
-#~ msgid "Internal Assembly"
-#~ msgstr "Assemblée interne"
-
-#~ msgid "Internal Assembly Category"
-#~ msgstr "Catégorie d'assemblée interne"
-
-#~ msgid "Internal Categories"
-#~ msgstr "Catégories internes"
-
-#~ msgid "Internal Mandates"
-#~ msgstr "Mandats internes"
-
-#~ msgid "Internal Mandates closure"
-#~ msgstr "Clôture de mandats internes"
-
-#~ msgid "Invalidate mandate: proceed anyway?"
-#~ msgstr "Poursuivre l'invalidation du mandat ?"
-
-#~ msgid "Is Legislative"
-#~ msgstr "Assemblée législative"
-
-#~ msgid "Last Updated by"
-#~ msgstr "Dernière mise à jour par"
-
-#~ msgid "Last Updated on"
-#~ msgstr "Date de dernière mise à jour"
-
-#~ msgid "Legislature"
-#~ msgstr "Législature"
-
-#~ msgid "Manager"
-#~ msgstr "Gestionnaire"
-
-#~ msgid "Mandate"
-#~ msgstr "Mandat"
-
-#~ msgid "Mandate Categories"
-#~ msgstr "Catégories de mandat"
-
-#~ msgid "Mandate Deadline Date"
-#~ msgstr "Date d'échéance"
-
-#~ msgid "Mandate ID"
-#~ msgstr "ID de mandat"
-
-#~ msgid "Mandate Reference"
-#~ msgstr "Référence du mandat"
-
-#~ msgid "Mandate period is inconsistent with legislature period!"
-#~ msgstr "La période du mandat est incohérente avec celle de la législature !"
-
-#~ msgid "Mandate will be invalidated by setting its end date!"
-#~ msgstr "Le mandat sera invalidé en spécifiant sa date de fin !"
-
-#~ msgid "Mandate:"
-#~ msgstr "Mandat:"
-
-#~ msgid "Mandates"
-#~ msgstr "Mandats"
-
-#~ msgid "Message"
-#~ msgstr "Message"
-
-#~ msgid "More Info"
-#~ msgstr "Plus d'info"
-
-#~ msgid "Name"
-#~ msgstr "Nom"
-
-#~ msgid "New deadline date must be greater or equal than today !"
-#~ msgstr "La date d'échéance doit être supérieur ou égale à la date du jour !"
-
-#~ msgid "New deadline date must be greater than today !"
-#~ msgstr ""
-#~ "La nouvelle date d'échéance doit être supérieure à la date du jour !"
-
-#~ msgid "Postal Coordinate"
-#~ msgstr "Coordonnée postale"
-
-#~ msgid "Power Level"
-#~ msgstr "Niveau de pouvoir"
-
-#~ msgid "Reactivate"
-#~ msgstr "Prolonger"
-
-#~ msgid "Reactivate Mandate"
-#~ msgstr "Prolonger le mandat"
-
-#~ msgid "Reactivate mandate, proceed anyway?"
-#~ msgstr "Poursuivre le prolongement du mandat?"
-
-#~ msgid "Reader"
-#~ msgstr "Lecteur"
-
-#~ msgid "Remits"
-#~ msgstr "Attributions"
-
-#~ msgid "Renew"
-#~ msgstr "Renouveler"
-
-#~ msgid "Renew Mandate"
-#~ msgstr "Renouveler le mandat"
-
-#~ msgid "Renew not allowed on a legislative mandate"
-#~ msgstr "Le renouvellement d'un mandat législatif n'est pas permis"
-
-#~ msgid "Renew or Add Complementary Mandate"
-#~ msgstr "Renouveler ou ajouter un mandat complémentaire"
-
-#~ msgid "Representative"
-#~ msgstr "Mandataire"
-
-#~ msgid "Representative is subject to a declaration of assets"
-#~ msgstr "Le mandataire est sujet à une déclaration de patrimoine"
-
-#~ msgid "Representative is subject to a declaration of income"
-#~ msgstr "Le mandataire est sujet à une déclaration de revenus"
-
-#~ msgid "Close Mandate"
-#~ msgstr "Finir le mandat"
-
-#~ msgid "Set end date, proceed anyway?"
-#~ msgstr "Poursuivre l'arrêt du mandat ?"
-
-#~ msgid "St. Mandates"
-#~ msgstr "Mandats pol."
-
-#~ msgid "State Assembly"
-#~ msgstr "Assemblée de l'État"
-
-#~ msgid "State Assembly Category"
-#~ msgstr "Catégorie d'assemblée de l'État"
-
-#~ msgid "State Categories"
-#~ msgstr "Catégories politiques"
-
-#~ msgid "State Mandates closure"
-#~ msgstr "Clôture de mandats politiques"
-
-#~ msgid "The designation assembly is no longer active!"
-#~ msgstr "L'assemblée de désignation n'est plus active!"
-
-#~ msgid "The end date must be between start date and deadline date."
-#~ msgstr ""
-#~ "La date de fin doit être comprise entre la date de début et la date "
-#~ "d'échéance."
-
-#~ msgid "The mandate category is no longer active!"
-#~ msgstr "La catégorie de mandat n'est plus active!"
-
-#~ msgid "The representative is no longer active!"
-#~ msgstr "Le mandataire n'est plus actif!"
-
-#~ msgid "The selected mandate is already active!"
-#~ msgstr "Le mandat sélectionné est toujours actif!"
-
-#~ msgid "The start date must be anterior to the deadline date."
-#~ msgstr "La date de début doit être antérieure à la date d'échéance."
-
-#~ msgid "Type"
-#~ msgstr "Type"
-
-#~ msgid "Undo Allow Incompatible Mandate"
-#~ msgstr "Rétablir les mandats incompatibles"
-
-#~ msgid "Undo allow incompatible mandate: proceed anyway?"
-#~ msgstr "Poursuivre le rétablissement des mandats incompatibles ?"
-
-#~ msgid "Unique ID"
-#~ msgstr "ID Unique"
-
-#~ msgid "User"
-#~ msgstr "Utilisateur"
-
-#~ msgid "View"
-#~ msgstr "Voir"
-
-#~ msgid "Wage Declaration"
-#~ msgstr "Déclaration de rémunération"
-
-#~ msgid "With Assets Declaration"
-#~ msgstr "Avec déclaration de patrimoine"
-
-#~ msgid "With Revenue Declaration"
-#~ msgstr "Avec déclaration de revenus"
-
-#~ msgid "With assets declaration"
-#~ msgstr "Avec déclaration de patrimoine"
-
-#~ msgid "With revenue declaration"
-#~ msgstr "Avec déclaration de revenue"
-
-#~ msgid "⇒ Show all incompatible mandates"
-#~ msgstr "⇒ Voir tous les mandats incompatibles"
-
-#~ msgid "⇒ State Representative"
-#~ msgstr "⇒ Mandataire politique"

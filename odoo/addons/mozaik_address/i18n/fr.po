@@ -93,7 +93,6 @@ msgstr "Annuler"
 
 #. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.change_main_address_action
-#, fuzzy
 msgid "Change Address or Instance"
 msgstr "Changer l'adresse principale"
 
