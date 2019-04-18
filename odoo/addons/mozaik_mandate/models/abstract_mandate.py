@@ -29,6 +29,7 @@ class AbstractMandate(models.AbstractModel):
 
     unique_id = fields.Integer(
         compute="_compute_unique_id",
+        string="Unique ID",
         store=True)
     partner_id = fields.Many2one(
         comodel_name='res.partner',

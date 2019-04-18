@@ -14,7 +14,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="update_int_mandate_end_date_wizard_act_window">
-        <field name="name">Set End Date</field>
+        <field name="name">Close Mandate</field>
         <field name="res_model">update.int.mandate.end.date.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
