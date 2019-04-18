@@ -22,6 +22,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_coordinate_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_duplicate_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_instance_active
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_mandate_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_power_level_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_address_address_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_co_residency_active
@@ -32,11 +33,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_email_coordinate_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_category_active
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_mandate_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_category_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_instance_active
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_mandate_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_active
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_active
@@ -49,6 +53,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_category_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_instance_active
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_mandate_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_power_level_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_term_active
@@ -66,6 +71,7 @@ msgstr "Gestionnaire d'archivation"
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_coordinate_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_duplicate_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_instance_create_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_mandate_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_power_level_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_address_address_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_co_residency_create_date
@@ -74,11 +80,14 @@ msgstr "Gestionnaire d'archivation"
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_email_coordinate_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_category_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_create_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_mandate_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_category_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_instance_create_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_mandate_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_create_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_create_date
@@ -90,6 +99,7 @@ msgstr "Gestionnaire d'archivation"
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_category_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_instance_create_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_mandate_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_power_level_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_term_create_date
@@ -107,6 +117,7 @@ msgstr "Nom à afficher"
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_coordinate_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_duplicate_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_instance_expire_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_mandate_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_power_level_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_address_address_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_co_residency_expire_date
@@ -117,11 +128,14 @@ msgstr "Nom à afficher"
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_email_coordinate_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_category_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_expire_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_mandate_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_category_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_instance_expire_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_mandate_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_expire_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_expire_date
@@ -135,6 +149,7 @@ msgstr "Nom à afficher"
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_category_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_instance_expire_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_mandate_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_power_level_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_term_expire_date

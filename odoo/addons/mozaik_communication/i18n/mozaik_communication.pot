@@ -106,6 +106,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_birth_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_birth_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_birth_date
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_birth_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_birth_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_birth_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_birth_date
@@ -185,6 +186,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_common_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_common_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_common_id
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_common_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_common_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_common_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_common_id
@@ -207,6 +209,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_competency_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_competency_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_competency_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_competency_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_competency_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_competency_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_competency_ids
@@ -321,6 +324,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_email_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_email_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_email
@@ -370,6 +374,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_email_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_email_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_email_vip
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_email_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_email_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_email_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_email_vip
@@ -386,6 +391,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_employee
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_employee
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_employee
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_employee
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_employee
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_employee
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_employee
@@ -468,6 +474,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_gender
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_gender
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_gender
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_gender
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_gender
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_gender
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_gender
@@ -526,6 +533,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_interest_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_interest_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_interest_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_interest_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_interest_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_interest_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_interest_ids
@@ -540,6 +548,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_int_instance_id
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_int_instance_id
@@ -578,6 +587,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_is_company
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_is_company
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_is_company
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_is_company
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_is_company
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_is_company
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_is_company
@@ -590,6 +600,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_lang
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_lang
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_lang
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_lang
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_lang
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_lang
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_lang
@@ -781,6 +792,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_identifier
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_identifier
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_identifier
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_identifier
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_identifier
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_identifier
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_identifier
@@ -843,6 +855,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_partner_instance_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_partner_instance_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_partner_instance_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_partner_instance_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_partner_instance_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_partner_instance_ids
@@ -887,6 +900,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_postal_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_postal_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_postal_coordinate_id
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_postal_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_postal_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_postal_coordinate_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_postal
@@ -930,6 +944,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_result_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_result_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_result_id
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_result_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_result_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_result_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_result_id
@@ -1053,6 +1068,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_postal_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_postal_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_postal_unauthorized
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_postal_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_postal_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_postal_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_postal_unauthorized
@@ -1067,6 +1083,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_email_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_email_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_email_unauthorized
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_email_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_email_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_email_unauthorized
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_email_unauthorized
@@ -1115,6 +1132,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_assembly_instance_postal_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_postal_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_postal_vip
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_postal_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_postal_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_postal_vip
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_postal_vip
