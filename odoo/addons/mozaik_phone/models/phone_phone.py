@@ -72,7 +72,7 @@ class PhonePhone(models.Model):
     @api.multi
     @api.depends("name")
     def _compute_sanitize_number(self):
-        for phone in self:
+        for phone in self.filtered(lambda s: s.name):
             phone.sanitize_number = phone.name.replace(" ", "")
 
     @api.model

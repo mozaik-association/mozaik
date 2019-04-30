@@ -1,7 +1,8 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from psycopg2.extensions import AsIs
+from odoo import api, fields, models, tools
 
 
 class GenericMandate(models.Model):
@@ -51,20 +52,56 @@ class GenericMandate(models.Model):
     is_duplicate_allowed = fields.Boolean(
         string='Allowed Incompatible Mandate')
 
+    def _select_int_mandate(self):
+        return """
+        'int.mandate' AS model,
+        mandate.unique_id as id,
+        mandate.id as mandate_id,
+        concat('int.mandate,', mandate.id) as mandate_ref,
+        mandate.mandate_category_id,
+        mandate.partner_id,
+        mandate.start_date,
+        mandate.deadline_date,
+        mandate.is_duplicate_detected,
+        mandate.is_duplicate_allowed,
+        partner.name as assembly_name
+        """
+
+    def _select_ext_mandate(self):
+        return """
+        'ext.mandate' AS model,
+        mandate.unique_id as id,
+        mandate.id as mandate_id,
+        concat('ext.mandate,', mandate.id),
+        mandate.mandate_category_id,
+        mandate.partner_id,
+        mandate.start_date,
+        mandate.deadline_date,
+        mandate.is_duplicate_detected,
+        mandate.is_duplicate_allowed,
+        partner.name as assembly_name
+        """
+
+    def _select_sta_mandate(self):
+        return """
+        'sta.mandate' AS model,
+        mandate.unique_id as id,
+        mandate.id as mandate_id,
+        concat('sta.mandate,', mandate.id),
+        mandate.mandate_category_id,
+        mandate.partner_id,
+        mandate.start_date,
+        mandate.deadline_date,
+        mandate.is_duplicate_detected,
+        mandate.is_duplicate_allowed,
+        partner.name as assembly_name
+        """
+
     def init(self):
+        tools.drop_view_if_exists(self._cr, 'generic_mandate')
         self.env.cr.execute("""
             create or replace view generic_mandate as (
-                    SELECT 'int.mandate' AS model,
-                           mandate.unique_id as id,
-                           mandate.id as mandate_id,
-                           concat('int.mandate,', mandate.id) as mandate_ref,
-                           mandate.mandate_category_id,
-                           mandate.partner_id,
-                           mandate.start_date,
-                           mandate.deadline_date,
-                           mandate.is_duplicate_detected,
-                           mandate.is_duplicate_allowed,
-                           partner.name as assembly_name
+                    SELECT %(select_int_mandate)s
                         FROM int_mandate  AS mandate
                         JOIN int_assembly AS assembly
                           ON assembly.id = mandate.int_assembly_id
@@ -75,17 +112,7 @@ class GenericMandate(models.Model):
 
                     UNION
 
-                    SELECT 'sta.mandate' AS model,
-                           mandate.unique_id as id,
-                           mandate.id as mandate_id,
-                           concat('sta.mandate,', mandate.id),
-                           mandate.mandate_category_id,
-                           mandate.partner_id,
-                           mandate.start_date,
-                           mandate.deadline_date,
-                           mandate.is_duplicate_detected,
-                           mandate.is_duplicate_allowed,
-                           partner.name as assembly_name
+                    SELECT %(select_sta_mandate)s
                         FROM sta_mandate  AS mandate
                         JOIN sta_assembly AS assembly
                           ON assembly.id = mandate.sta_assembly_id
@@ -96,17 +123,7 @@ class GenericMandate(models.Model):
 
                     UNION
 
-                    SELECT 'ext.mandate' AS model,
-                           mandate.unique_id as id,
-                           mandate.id as mandate_id,
-                           concat('ext.mandate,', mandate.id),
-                           mandate.mandate_category_id,
-                           mandate.partner_id,
-                           mandate.start_date,
-                           mandate.deadline_date,
-                           mandate.is_duplicate_detected,
-                           mandate.is_duplicate_allowed,
-                           partner.name as assembly_name
+                    SELECT %(select_ext_mandate)s
                         FROM ext_mandate  AS mandate
                         JOIN ext_assembly AS assembly
                           ON assembly.id = mandate.ext_assembly_id
@@ -115,7 +132,11 @@ class GenericMandate(models.Model):
                         WHERE mandate.active = True
                         AND mandate.end_date is NULL
                 )
-            """)
+            """, {
+            "select_int_mandate": AsIs(self._select_int_mandate()),
+            "select_sta_mandate": AsIs(self._select_sta_mandate()),
+            "select_ext_mandate": AsIs(self._select_ext_mandate()),
+        })
 
     @api.multi
     def button_view_mandate(self):
