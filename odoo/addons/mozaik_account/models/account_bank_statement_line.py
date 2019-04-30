@@ -172,3 +172,27 @@ class AccountBankStatementLine(models.Model):
         for data in new_aml_dicts or []:
             self._propagate_payment(data)
         return res
+
+    @api.multi
+    def _auto_reconcile(self):
+        reconciled_lines = self.env["account.bank.statement.line"]
+        for bank_line in self.filtered(
+                lambda l: not (not l.partner_id or l.journal_entry_ids)):
+            mode, __ = bank_line._get_info_from_reference(bank_line.name)
+            if mode == 'membership':
+                bank_line._create_membership_move(bank_line.name)
+            elif mode == 'donation':
+                bank_line._create_donation_move(bank_line.name)
+            elif not mode:
+                bank_line._create_membership_move_from_partner()
+            if bank_line.journal_entry_ids:
+                reconciled_lines += bank_line
+        return reconciled_lines
+
+    @api.multi
+    def reconciliation_widget_auto_reconcile(
+            self, num_already_reconciled_lines):
+        reconciled_lines = self._auto_reconcile()
+        num_already_reconciled_lines += len(reconciled_lines)
+        return super(AccountBankStatementLine, self - reconciled_lines)\
+            .reconciliation_widget_auto_reconcile(num_already_reconciled_lines)
