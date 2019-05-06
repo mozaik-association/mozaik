@@ -125,15 +125,6 @@ class AccountBankStatementLine(models.Model):
         Method to create account move linked to membership payment
         """
         self.ensure_one()
-        bsl_obj = self.env['account.bank.statement.line']
-        # Search if already exist
-        domain = [
-            ('id', '!=', self.id),
-            ('name', '=', reference),
-        ]
-        if bsl_obj.search_count(domain):
-            # do not auto reconcile if reference has been used previously
-            return
         membership = self.env['membership.line']._get_membership_line_by_ref(
             reference)
         self._reconcile_membership_move(membership)
@@ -141,6 +132,8 @@ class AccountBankStatementLine(models.Model):
     @api.multi
     def _reconcile_membership_move(self, membership):
         self.ensure_one()
+        if membership.paid:
+            return
         product = membership.product_id
         account = product.property_subscription_account
         precision = membership._fields.get('price').digits[1]
