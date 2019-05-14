@@ -120,13 +120,13 @@ class AccountBankStatementLine(models.Model):
         self._reconcile_membership_move(membership)
 
     @api.multi
-    def _create_membership_move(self, reference):
+    def _create_membership_move(self, reference, include_inactive=True):
         """
         Method to create account move linked to membership payment
         """
         self.ensure_one()
         membership = self.env['membership.line']._get_membership_line_by_ref(
-            reference)
+            reference, include_inactive=include_inactive)
         self._reconcile_membership_move(membership)
 
     @api.multi
@@ -173,7 +173,7 @@ class AccountBankStatementLine(models.Model):
                 lambda l: not (not l.partner_id or l.journal_entry_ids)):
             mode, __ = bank_line._get_info_from_reference(bank_line.name)
             if mode == 'membership':
-                bank_line._create_membership_move(bank_line.name)
+                bank_line._create_membership_move(bank_line.name, include_inactive=False)
             elif mode == 'donation':
                 bank_line._create_donation_move(bank_line.name)
             elif not mode:
