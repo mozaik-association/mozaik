@@ -28,8 +28,8 @@ class MembershipLine(models.Model):
     )
 
     @api.model
-    @tools.ormcache('reference')
-    def _get_membership_line_by_ref(self, reference):
+    @tools.ormcache('reference', 'include_inactive')
+    def _get_membership_line_by_ref(self, reference, include_inactive=True):
         """
         Get a membership.line based on given reference.
         As the reference is unique, we can put the result in cache to avoid
@@ -40,6 +40,8 @@ class MembershipLine(models.Model):
         domain = [
             ('reference', '=', reference),
         ]
+        if not include_inactive:
+            domain.append(('active', '=', True))
         return self.search(domain, limit=1)
 
     @api.model
@@ -125,6 +127,11 @@ class MembershipLine(models.Model):
             operator = '!='
         domain.append(('paid', operator, True))
         return domain
+
+    @api.multi
+    def _renew(self, date_from=False):
+        self.clear_caches()
+        return super()._renew(date_from=date_from)
 
     @api.model
     def _get_lines_to_renew_domain(self, force_lines=None):
