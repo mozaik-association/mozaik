@@ -87,10 +87,10 @@ class MozaikAbstractModel(models.AbstractModel):
         if sql_res:
             previous = sql_res.get('indexdef', '').replace(
                 ' ON public.', ' ON ')
-            if previous != index_query % index_values:
+            if not drop_index and previous != index_query % index_values:
                 _logger.info(
                     'Rebuild index %s_unique_idx:\n%s\n%s',
-                    self._name, previous, index_query)
+                    self._name, previous, index_query % index_values)
                 drop_index = True
             else:
                 create_index = False
