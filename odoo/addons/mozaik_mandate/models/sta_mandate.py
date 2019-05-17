@@ -14,8 +14,7 @@ class StaMandate(models.Model):
     _allowed_inactive_link_models = ['sta.candidature']
     _undo_redirect_action = 'mozaik_mandate.sta_mandate_action'
     _unique_id_sequence = 200000000
-    _unicity_keys = 'partner_id, sta_assembly_id, legislature_id,\
-                         mandate_category_id'
+    _unicity_keys = 'N/A'
 
     mandate_category_id = fields.Many2one(
         domain=[('type', '=', 'sta')])
@@ -49,6 +48,32 @@ class StaMandate(models.Model):
     competencies_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.term',
         string='Remits')
+
+    @api.constrains(
+        'partner_id', 'sta_assembly_id', 'mandate_category_id',
+        'start_date', 'deadline_date')
+    def _check_duplicate_mandates(self):
+        self_sudo = self.sudo()
+        allm = self_sudo.search([
+            ('partner_id', 'in', self_sudo.mapped('partner_id').ids),
+            ('sta_assembly_id', 'in', self_sudo.mapped('sta_assembly_id').ids),
+            ('mandate_category_id', 'in',
+             self_sudo.mapped('mandate_category_id').ids),
+        ])
+        for m in self_sudo:
+            duplicates = allm.filtered(
+                lambda s,
+                p=m.partner_id, a=m.sta_assembly_id, c=m.mandate_category_id,
+                start=m.start_date, end=m.deadline_date:
+                s.partner_id == p and
+                s.sta_assembly_id == a and
+                s.mandate_category_id == c and
+                s.start_date <= end and s.deadline_date >= start)
+            if len(duplicates) > 1:
+                raise ValidationError(_(
+                    'A representative cannot have 2 identical mandates '
+                    'during the same period!'
+                ))
 
     @api.constrains('legislature_id', 'start_date', 'deadline_date')
     def _check_legislature_date_consistency(self):
