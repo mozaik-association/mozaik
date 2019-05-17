@@ -61,7 +61,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='mandate_category_id']" position="after">
                 <field name="sta_assembly_id"/>
-                <field name="legislature_id"/>
             </xpath>
             <xpath expr="//field[@name='expire_date']" position="before">
             <button name="%(copy_sta_mandate_wizard_act_window)d" string="Renew or Add Complementary Mandate" type="action" icon="fa-clone"/>

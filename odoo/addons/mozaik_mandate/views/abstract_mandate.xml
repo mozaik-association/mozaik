@@ -127,6 +127,7 @@
                 <field name="partner_id"/>
                 <field name="mandate_category_id"/>
                 <field name="start_date"/>
+                <field name="end_date"/>
                 <field name="deadline_date"/>
                 <field name="is_duplicate_detected" invisible ="1"/>
                 <field name="is_duplicate_allowed" invisible ="1"/>

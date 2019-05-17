@@ -64,11 +64,12 @@ class StaMandate(models.Model):
             duplicates = allm.filtered(
                 lambda s,
                 p=m.partner_id, a=m.sta_assembly_id, c=m.mandate_category_id,
-                start=m.start_date, end=m.deadline_date:
+                start=m.start_date, end=m.end_date or m.deadline_date:
                 s.partner_id == p and
                 s.sta_assembly_id == a and
                 s.mandate_category_id == c and
-                s.start_date <= end and s.deadline_date >= start)
+                s.start_date <= end and
+                (s.end_date or s.deadline_date) >= start)
             if len(duplicates) > 1:
                 raise ValidationError(_(
                     'A representative cannot have 2 identical mandates '
