@@ -41,6 +41,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_active
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_income_declaration_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_active
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_active
@@ -88,6 +89,7 @@ msgstr "Gestionnaire d'archivation"
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_create_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_income_declaration_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_create_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_create_date
@@ -136,6 +138,7 @@ msgstr "Nom à afficher"
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_expire_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_income_declaration_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_expire_date
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_expire_date

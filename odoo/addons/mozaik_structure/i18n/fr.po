@@ -729,6 +729,22 @@ msgid "Formatted Email"
 msgstr "Courriel mis en forme"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_locomotive_partner_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_locomotive_partner_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_locomotive_partner_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_locomotive_partner_id
+msgid "Front-end User"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_locomotive_partner_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_locomotive_partner_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_locomotive_partner_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_locomotive_partner_ids
+msgid "Front-end Users"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_gender
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_gender
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_gender
@@ -791,7 +807,7 @@ msgstr "A une relation avec un partenaire dans la catégorie"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_power_level_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_legislature_id
-#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category_id_5141
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category_id_5229
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level_id
@@ -1714,9 +1730,9 @@ msgid "TIN"
 msgstr "TVA"
 
 #. module: mozaik_structure
-#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category_id_4881
-#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_category_id_5313
-#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_category_id_5533
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category_id_4967
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_category_id_5405
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_category_id_5628
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category_id
 msgid "Tags"
 msgstr "Étiquettes"
@@ -2050,3 +2066,11 @@ msgstr "Vous ne pouvez pas créer d'instances récursives"
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_zip
 msgid "Zip"
 msgstr "Code postal"
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_mymr_code
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_mymr_code
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_mymr_code
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_mymr_code
+msgid "myMR code"
+msgstr ""

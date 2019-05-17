@@ -59,6 +59,12 @@ msgid "A model and an action for this model are required for this operation"
 msgstr ""
 
 #. module: mozaik_mandate
+#: code:addons/mozaik_mandate/models/sta_mandate.py:74
+#, python-format
+msgid "A representative cannot have 2 identical mandates during the same period!"
+msgstr ""
+
+#. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_assembly_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_new_assembly_id
 msgid "Abstract Assembly"
@@ -378,8 +384,10 @@ msgstr ""
 
 #. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_ext_assembly_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_ext_assembly_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_ext_assembly_count
 msgid "External Assemblies"
 msgstr ""
 
@@ -414,6 +422,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_ext_mandate_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_ext_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_ext_mandate_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance_ext_mandate_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_ext_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_ext_mandate_count
@@ -422,6 +433,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_ext_mandate_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_ext_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_ext_mandate_inactive_ids
 #: model:ir.ui.menu,name:mozaik_mandate.ext_mandate_submenu
 msgid "External Mandates"
 msgstr ""
@@ -558,12 +572,16 @@ msgstr ""
 #: model:ir.actions.act_window,name:mozaik_mandate.int_mandate_action
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_int_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_int_mandate_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance_int_mandate_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_int_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_int_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_int_mandate_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_int_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_int_mandate_inactive_ids
 #: model:ir.ui.menu,name:mozaik_mandate.int_mandate_submenu
 msgid "Internal Mandates"
 msgstr ""
@@ -723,7 +741,7 @@ msgid "Mandate Reference"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/sta_mandate.py:60
+#: code:addons/mozaik_mandate/models/sta_mandate.py:86
 #, python-format
 msgid "Mandate period is inconsistent with legislature period!"
 msgstr ""
@@ -732,11 +750,6 @@ msgstr ""
 #: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:46
 #, python-format
 msgid "Mandate will be invalidated by setting its end date!"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
-msgid "Mandate:"
 msgstr ""
 
 #. module: mozaik_mandate
@@ -957,12 +970,16 @@ msgstr ""
 #: model:ir.actions.act_window,name:mozaik_mandate.sta_mandate_action
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_sta_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_sta_mandate_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance_sta_mandate_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_sta_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_sta_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_sta_mandate_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_sta_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_sta_mandate_inactive_ids
 #: model:ir.ui.menu,name:mozaik_mandate.sta_mandate_submenu
 msgid "State Mandates"
 msgstr ""

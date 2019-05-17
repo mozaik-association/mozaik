@@ -505,7 +505,7 @@ msgid "Get a CSV file for partners without email"
 msgstr ""
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group_id_6624
+#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group_id_6671
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_statistics_report_group_id
 msgid "Group"
 msgstr ""
@@ -561,7 +561,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_instance_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_involvement_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_mandate_int_instance_id
-#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_membership_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_partner_relation_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target_int_instance_id
 #: model:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
@@ -1077,7 +1076,7 @@ msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group_total_sent
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group_total_sent_6625
+#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group_total_sent_6672
 msgid "Total sent (%)"
 msgstr ""
 

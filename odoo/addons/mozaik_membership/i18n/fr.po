@@ -213,11 +213,6 @@ msgid "Date From"
 msgstr "Date de début"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,help:mozaik_membership.field_membership_line_paid
-msgid "Define if this line is paid or not"
-msgstr "Define if this line is paid or not"
-
-#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership_display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin_display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_renew_display_name
@@ -256,25 +251,9 @@ msgid "Expired Memberships"
 msgstr "Adhésions expirées"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_assembly_count
-#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_assembly_count
-msgid "External Assemblies"
-msgstr "Assemblée externe"
-
-#. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_ext_assembly
 msgid "External Assembly"
 msgstr "Assemblée externe"
-
-#. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_mandate_count
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_ext_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_count
-#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_ext_mandate_inactive_ids
-msgid "External Mandates"
-msgstr "Mandats externes"
 
 #. module: mozaik_membership
 #: sql_constraint:partner.involvement:0
@@ -412,14 +391,6 @@ msgstr "Instance interne"
 #: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "Internal Instances"
 msgstr "Instances internes"
-
-#. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_int_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_int_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_int_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_int_mandate_inactive_ids
-msgid "Internal Mandates"
-msgstr "Mandats internes"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_state_form_view
@@ -712,11 +683,6 @@ msgid "Other Partner Internal Instances"
 msgstr "Instances internes de l'autre partenaire"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_membership_line_paid
-msgid "Paid"
-msgstr "Payé"
-
-#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership_partner_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_partner_change_instance_partner_id
 #: selection:res.partner,kind:0
@@ -944,14 +910,6 @@ msgid "State Assembly"
 msgstr "Assemblée de l'État"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_sta_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly_sta_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_sta_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly_sta_mandate_inactive_ids
-msgid "State Mandates"
-msgstr "Mandats politiques"
-
-#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly_subscription_product_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership_product_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly_subscription_product_id
@@ -1159,3 +1117,21 @@ msgstr "user => res.users courant"
 #: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "⇒ Pay Attention"
 msgstr "⇒ Précaution à prendre"
+
+#~ msgid "Define if this line is paid or not"
+#~ msgstr "Define if this line is paid or not"
+
+#~ msgid "External Assemblies"
+#~ msgstr "Assemblée externe"
+
+#~ msgid "External Mandates"
+#~ msgstr "Mandats externes"
+
+#~ msgid "Internal Mandates"
+#~ msgstr "Mandats internes"
+
+#~ msgid "Paid"
+#~ msgstr "Payé"
+
+#~ msgid "State Mandates"
+#~ msgstr "Mandats politiques"

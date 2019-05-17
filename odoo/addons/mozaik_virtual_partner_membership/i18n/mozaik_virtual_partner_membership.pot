@@ -64,6 +64,7 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership_int_instance_id
 #: model:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
 msgid "Internal Instance"
 msgstr ""
