@@ -39,6 +39,7 @@ class ExtMandate(models.Model):
     def _onchange_mandate_category_id(self):
         for ext_mandate in self:
             ext_mandate.ext_assembly_id = False
+        return super()._onchange_mandate_category_id()
 
     @api.multi
     @api.onchange("ext_assembly_id")

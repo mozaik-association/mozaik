@@ -37,6 +37,7 @@ class IntMandate(models.Model):
     def _onchange_mandate_category_id(self):
         for int_mandate in self:
             int_mandate.int_assembly_id = False
+        return super()._onchange_mandate_category_id()
 
     @api.multi
     @api.onchange("int_assembly_id")

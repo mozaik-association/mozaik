@@ -9,7 +9,7 @@
         <field name="model">ext.mandate</field>
         <field name="inherit_id" ref="abstract_mandate_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='email_coordinate_id']" position="before">
+            <xpath expr="//field[@name='mandate_category_id']" position="after">
                 <field name="ext_assembly_id"
                         required="1"
                         domain="[('assembly_category_id', '=', ext_assembly_category_id)]"/>

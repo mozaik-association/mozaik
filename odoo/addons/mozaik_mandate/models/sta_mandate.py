@@ -50,7 +50,7 @@ class StaMandate(models.Model):
         comodel_name='thesaurus.term',
         string='Remits')
 
-    @api.constrains('start_date', 'deadline_date')
+    @api.constrains('legislature_id', 'start_date', 'deadline_date')
     def _check_legislature_date_consistency(self):
         self_sudo = self.sudo()
         for mandate in self_sudo:
@@ -64,9 +64,13 @@ class StaMandate(models.Model):
     @api.multi
     @api.onchange("mandate_category_id")
     def _onchange_mandate_category_id(self):
-        for sta_mandate in self:
-            sta_mandate.sta_assembly_id = False
-            sta_mandate.legislature_id = False
+        for mdt in self:
+            if not mdt.mandate_category_id or \
+                    mdt.mandate_category_id.sta_assembly_category_id != \
+                    mdt.sta_assembly_id.assembly_category_id:
+                mdt.sta_assembly_id = False
+                continue
+        return super()._onchange_mandate_category_id()
 
     @api.multi
     @api.onchange("legislature_id")
@@ -97,6 +101,8 @@ class StaMandate(models.Model):
             if len(designation_int_assemblies) == 1:
                 designation_int_assembly_id = \
                     designation_int_assemblies[0].id
+        else:
+            self.legislature_id = False
         self.designation_int_assembly_id = designation_int_assembly_id
         return {
             'domain': {

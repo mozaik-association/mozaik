@@ -41,9 +41,6 @@
             <xpath expr="//field[@name='assembly_category_id']" position="after">
                 <field name="instance_id" />
             </xpath>
-            <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
-                 <attribute name="required">1</attribute>
-            </xpath>
         </field>
         <field name="priority" eval="99"/>
     </record>

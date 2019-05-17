@@ -212,3 +212,11 @@ class AbstractMandate(models.AbstractModel):
             mandates.action_invalidate()
 
         return True
+
+    @api.multi
+    @api.onchange("mandate_category_id")
+    def _onchange_mandate_category_id(self):
+        """
+        Intended to be inherited
+        """
+        pass
