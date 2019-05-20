@@ -19,12 +19,23 @@ class MandateCategory(models.Model):
     _inherit = ['mozaik.abstract.model']
     _order = 'name'
 
-    _unicity_keys = 'type, name'
+    _unicity_keys = 'type, assembly_categoryid, name'
 
     _sql_constraints = [
         ('ref_categ_check',
-         'CHECK(sta_assembly_category_id+int_assembly_category_id+'
-         'ext_assembly_category_id > 0)',
+         'CHECK('
+         '(sta_assembly_category_id>0 and '
+         ' int_assembly_category_id is null and '
+         ' ext_assembly_category_id is null)'
+         ' OR '
+         '(int_assembly_category_id>0 and '
+         ' sta_assembly_category_id is null and '
+         ' ext_assembly_category_id is null)'
+         ' OR '
+         '(ext_assembly_category_id>0 and '
+         ' int_assembly_category_id is null and '
+         ' sta_assembly_category_id is null)'
+         ')',
          'An Assembly Category is required.'),
     ]
 
@@ -54,6 +65,14 @@ class MandateCategory(models.Model):
         comodel_name='int.assembly.category',
         string='Internal Assembly Category',
         track_visibility='onchange')
+    assembly_categoryid = fields.Integer(
+        string='Assembly category',
+        compute='_compute_assembly_categoryid',
+        store=True,
+        required=True,
+        # to avoid null for required=True
+        default=0,
+    )
     sta_mandate_ids = fields.One2many(
         comodel_name='sta.mandate',
         inverse_name='mandate_category_id',
@@ -72,6 +91,20 @@ class MandateCategory(models.Model):
     with_assets_declaration = fields.Boolean(
         help='Representative is subject to a declaration of assets',
         oldname="is_submission_assets")
+
+    @api.multi
+    @api.depends(
+        'sta_assembly_category_id', 'int_assembly_category_id',
+        'ext_assembly_category_id')
+    def _compute_assembly_categoryid(self):
+        """
+        Compute pseudo assembly category m2o for unicity key
+        """
+        for record in self:
+            record.assembly_categoryid = (
+                record.sta_assembly_category_id.id or
+                record.int_assembly_category_id.id or
+                record.ext_assembly_category_id.id or 0)
 
     @api.multi
     def copy_data(self, default=None):

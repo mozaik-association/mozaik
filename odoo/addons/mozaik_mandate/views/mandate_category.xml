@@ -68,6 +68,7 @@
                         </page>
                         <page name="dev" string="More Info" groups="base.group_erp_manager">
                             <group name="moreinfo">
+                                <field name="assembly_categoryid"/>
                             </group>
                         </page>
                     </notebook>

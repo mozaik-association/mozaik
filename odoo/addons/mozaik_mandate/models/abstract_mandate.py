@@ -8,6 +8,7 @@ class AbstractMandate(models.AbstractModel):
     _name = 'abstract.mandate'
     _description = 'Abstract Mandate'
     _inherit = ['abstract.duplicate']
+    _order = 'start_date desc, mandate_category_id'
 
     _inactive_cascade = True
     _reset_allowed = True

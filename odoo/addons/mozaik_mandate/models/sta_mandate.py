@@ -9,7 +9,6 @@ class StaMandate(models.Model):
     _name = 'sta.mandate'
     _description = "State Mandate"
     _inherit = ['abstract.mandate']
-    _order = 'partner_id, sta_assembly_id, legislature_id, mandate_category_id'
 
     _allowed_inactive_link_models = ['sta.candidature']
     _undo_redirect_action = 'mozaik_mandate.sta_mandate_action'

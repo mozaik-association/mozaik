@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/mandate_category.py:81
+#: code:addons/mozaik_mandate/models/mandate_category.py:114
 #, python-format
 msgid "%s (copy)"
 msgstr ""
@@ -59,7 +59,8 @@ msgid "A model and an action for this model are required for this operation"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/sta_mandate.py:74
+#: code:addons/mozaik_mandate/models/int_mandate.py:56
+#: code:addons/mozaik_mandate/models/sta_mandate.py:73
 #, python-format
 msgid "A representative cannot have 2 identical mandates during the same period!"
 msgstr ""
@@ -178,6 +179,11 @@ msgstr ""
 #. module: mozaik_mandate
 #: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "Assembly Category"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_assembly_categoryid
+msgid "Assembly category"
 msgstr ""
 
 #. module: mozaik_mandate
@@ -741,7 +747,7 @@ msgid "Mandate Reference"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/sta_mandate.py:86
+#: code:addons/mozaik_mandate/models/sta_mandate.py:85
 #, python-format
 msgid "Mandate period is inconsistent with legislature period!"
 msgstr ""

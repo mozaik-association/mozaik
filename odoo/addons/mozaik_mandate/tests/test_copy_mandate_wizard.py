@@ -1,7 +1,11 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo import fields
 from odoo.tests.common import SavepointCase
+
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 
 class TestCopyMandateWizard(SavepointCase):
@@ -69,11 +73,11 @@ class TestCopyMandateWizard(SavepointCase):
         Try to renew an internal mandate
         '''
         mandate_object = self.env['int.mandate']
-        stam_thierry_secretaire_id = self.ref(
+        base_mandate = self.browse_ref(
             '%s.intm_thierry_secretaire_done' % self._module_ns)
 
         context = {
-            'active_ids': [stam_thierry_secretaire_id],
+            'active_ids': [base_mandate.id],
             'active_model': 'int.mandate',
         }
         wizard_object = self.env['copy.int.mandate.wizard']
@@ -81,15 +85,17 @@ class TestCopyMandateWizard(SavepointCase):
         self.assertEqual(wizard.action, 'renew')
         self.assertEqual(wizard.message, False)
 
-        values = dict(start_date='2014-12-03',
-                      deadline_date='2020-12-03')
+        new_start = fields.Date.to_string(fields.Date.from_string(
+            base_mandate.end_date) + relativedelta(days=1))
+        new_deadline = fields.Date.to_string(
+            date.today() + relativedelta(years=1))
+        values = {'start_date': new_start, 'deadline_date': new_deadline}
 
         wizard.write(values)
         res = wizard.renew_mandate()
         new_mandate_id = res['res_id']
-        self.assertNotEqual(new_mandate_id, False)
+        self.assertTrue(new_mandate_id)
 
-        base_mandate = mandate_object.browse(stam_thierry_secretaire_id)
         new_mandate = mandate_object.browse(new_mandate_id)
 
         self.assertEqual(base_mandate.partner_id, new_mandate.partner_id)
@@ -97,10 +103,9 @@ class TestCopyMandateWizard(SavepointCase):
                          new_mandate.mandate_category_id)
         self.assertEqual(base_mandate.int_assembly_id,
                          new_mandate.int_assembly_id)
-        self.assertEqual(base_mandate.with_revenue_declaration,
-                         new_mandate.with_revenue_declaration)
-        self.assertEqual(base_mandate.with_assets_declaration,
-                         new_mandate.with_assets_declaration)
+        self.assertEqual(new_start, new_mandate.start_date)
+        self.assertEqual(new_deadline, new_mandate.deadline_date)
+        self.assertFalse(new_mandate.end_date)
 
     def test_create_complementary_internal_mandate(self):
         '''
