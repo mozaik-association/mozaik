@@ -1117,21 +1117,3 @@ msgstr "user => res.users courant"
 #: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "⇒ Pay Attention"
 msgstr "⇒ Précaution à prendre"
-
-#~ msgid "Define if this line is paid or not"
-#~ msgstr "Define if this line is paid or not"
-
-#~ msgid "External Assemblies"
-#~ msgstr "Assemblée externe"
-
-#~ msgid "External Mandates"
-#~ msgstr "Mandats externes"
-
-#~ msgid "Internal Mandates"
-#~ msgstr "Mandats internes"
-
-#~ msgid "Paid"
-#~ msgstr "Payé"
-
-#~ msgid "State Mandates"
-#~ msgstr "Mandats politiques"

@@ -49,7 +49,7 @@ msgstr "Contact"
 #. module: mozaik_account
 #: model:ir.model.fields,help:mozaik_account.field_membership_line_paid
 msgid "Define if this line is paid or not"
-msgstr ""
+msgstr "Spécifie si cette adhésion est payée ou non"
 
 #. module: mozaik_account
 #: model:product.product,name:mozaik_account.product_template_donation

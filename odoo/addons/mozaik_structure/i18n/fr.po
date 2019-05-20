@@ -734,7 +734,7 @@ msgstr "Courriel mis en forme"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_locomotive_partner_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_locomotive_partner_id
 msgid "Front-end User"
-msgstr ""
+msgstr "Utilisateur front-end"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_locomotive_partner_ids
@@ -742,7 +742,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_locomotive_partner_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_locomotive_partner_ids
 msgid "Front-end Users"
-msgstr ""
+msgstr "Utilisateurs front-end"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_gender
