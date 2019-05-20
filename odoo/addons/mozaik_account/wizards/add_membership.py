@@ -19,17 +19,8 @@ class AddMembership(models.TransientModel):
 
         reference = membership_obj._generate_membership_reference(
             self.partner_id, self.int_instance_id, ref_date=self.date_from)
-        membership = membership_obj.search([
-            ("reference", "=", reference),
-            ("active", "=", False)]
-        )
-        if membership:
-            if any(membership.mapped("paid")):
-                reference = False
-                self.price = 0
-            else:
-                membership.write({"reference": False})
-        else:
-            reference = None
+
+        reference, self.price = self.env["membership.line"]._prepare_custom_renew(
+            reference, self.price)
 
         return super()._create_membership_line(reference)

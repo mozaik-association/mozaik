@@ -26,7 +26,7 @@ class PostalCoordinate(models.Model):
             res._become_main_coordinate()
         return res
 
-    @api.model
+    @api.multi
     def write(self, vals):
         '''
         Recompute followers and change partner instance if any
