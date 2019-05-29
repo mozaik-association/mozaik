@@ -106,3 +106,17 @@ class IntInstance(models.Model):
             s.instance_id.power_level_id.level_for_followers)
         partners = assemblies.mapped('partner_id')
         return partners
+
+    @api.multi
+    def _get_ancestor(self, power_level):
+        '''
+        Get instance ancestor of a given power level
+        '''
+        self.ensure_one()
+        ancestor = self.sudo()
+        while ancestor:
+            if ancestor.power_level_id == power_level:
+                break
+            ancestor = ancestor.parent_id
+
+        return ancestor
