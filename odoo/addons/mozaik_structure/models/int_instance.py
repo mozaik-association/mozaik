@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
-from odoo import api, exceptions, fields, models, _
+from odoo import api, fields, models
 from odoo.fields import first
 
 _logger = logging.getLogger(__name__)
@@ -66,23 +66,6 @@ class IntInstance(models.Model):
     _sql_constraints = [
         ('unique_code', 'unique(code)', 'Instance code must be unique'),
     ]
-
-    @api.multi
-    @api.constrains('code')
-    def _check_code_size(self):
-        """
-        Check if the code has the correct size and is digit
-        :return:
-        """
-        size = int(self.env['ir.config_parameter'].sudo().get_param(
-            'structure.instance_code_size', default=3))
-        # If size is not equals to size in parameters or value is not digit
-        bad_instances = self.filtered(
-            lambda l: l.code and (len(l.code) != size or not l.code.isdigit()))
-        if bad_instances:
-            details = "\n- ".join(bad_instances.mapped("code"))
-            message = _("These instance codes are not valid:\n- %s") % details
-            raise exceptions.ValidationError(message)
 
     @api.model
     def _get_default_int_instance(self):
