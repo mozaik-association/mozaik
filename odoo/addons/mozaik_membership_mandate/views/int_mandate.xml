@@ -10,7 +10,8 @@
         <field name="inherit_id" ref="mozaik_mandate.int_mandate_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='moreinfo']" position="inside">
-                <field name="partner_instance_ids"/>
+                <field name="mandate_instance_id"/>
+                <field name="partner_instance_ids" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
