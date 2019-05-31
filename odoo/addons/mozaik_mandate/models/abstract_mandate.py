@@ -37,6 +37,7 @@ class AbstractMandate(models.AbstractModel):
         string='Representative',
         required=True,
         index=True,
+        auto_join=True,
         track_visibility='onchange')
     mandate_category_id = fields.Many2one(
         comodel_name='mandate.category',
