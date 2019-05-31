@@ -17,6 +17,7 @@
         'views/email_coordinate.xml',
         'views/coordinate_category.xml',
         'views/res_partner.xml',
+        'views/res_users.xml',
         'wizards/change_main_email.xml',
         'wizards/allow_duplicate_wizard.xml',
         'wizards/failure_editor.xml',
