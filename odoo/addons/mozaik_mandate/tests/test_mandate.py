@@ -137,3 +137,17 @@ class TestMandate(SavepointCase):
 
         self.assertTrue(mandate_id_2.is_duplicate_detected)
         self.assertFalse(mandate_id_2.is_duplicate_allowed)
+
+    def test_invalidate_mandates(self):
+        '''
+        Test mandate closing and invalidation
+        '''
+        m1 = self.env.ref('mozaik_mandate.stam_thierry_communal_2012')
+        m2 = self.env.ref('mozaik_mandate.stam_thierry_bourgmestre_2012')
+        mandates = m1 | m2
+        self.assertFalse(any(mandates.mapped('end_date')))
+
+        mandates.action_invalidate()
+        self.assertFalse(any(mandates.mapped('active')))
+        self.assertEqual(
+            mandates.mapped('end_date'), mandates.mapped('deadline_date'))

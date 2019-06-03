@@ -171,11 +171,13 @@ class AbstractMandate(models.AbstractModel):
         res = True
         for mandate in self:
             if end_date > mandate.deadline_date:
-                end_date = mandate.deadline_date
-            if end_date < mandate.start_date:
-                end_date = mandate.start_date
-            vals['end_date'] = end_date
-            res = res and super().action_invalidate(vals=vals)
+                vals['end_date'] = mandate.deadline_date
+            elif end_date < mandate.start_date:
+                vals['end_date'] = mandate.start_date
+            else:
+                vals['end_date'] = end_date
+            res = res and super(AbstractMandate, mandate).action_invalidate(
+                vals=vals)
         return res
 
     @api.model
