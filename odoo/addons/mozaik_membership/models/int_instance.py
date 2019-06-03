@@ -77,5 +77,5 @@ class IntInstance(models.Model):
         """
         res = super()._get_default_int_instance()
         if not res:
-            res = first(self.env['res.users']._internal_instances())
+            res = first(self.env.user._internal_instances())
         return res
