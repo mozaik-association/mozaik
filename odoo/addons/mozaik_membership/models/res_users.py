@@ -25,7 +25,7 @@ class ResUsers(models.Model):
         Cache the int_instance_m2m_ids domain result
         """
         self.ensure_one()
-        self_sudo = self.sudo()
+        self_sudo = self.sudo().with_context(active_test=False)
         if not self_sudo.int_instance_m2m_ids:
             return self.env['int.instance'].browse().ids
         dom = [(
