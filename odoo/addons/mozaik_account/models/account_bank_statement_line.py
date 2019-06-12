@@ -1,6 +1,7 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from itertools import groupby
 from odoo import api, models, _
 from odoo.fields import first
 from odoo.exceptions import ValidationError
@@ -72,10 +73,10 @@ class AccountBankStatementLine(models.Model):
             self.process_reconciliation(new_aml_dicts=move_dicts)
 
     @api.multi
-    def _propagate_payment(self, vals):
+    def _propagate_payment(self, vals, amount=False):
         self.ensure_one()
         memb_obj = self.env['membership.line']
-        amount_paid = vals.get('credit') or 0.0
+        amount_paid = amount or vals.get('credit') or 0.0
         reference = vals.get('name') or ''
         mode, partner = self._get_info_from_reference(reference)
         if mode == 'membership':
@@ -154,6 +155,7 @@ class AccountBankStatementLine(models.Model):
     def process_reconciliation(
             self, counterpart_aml_dicts=None, payment_aml_rec=None,
             new_aml_dicts=None):
+        memb_obj = self.env['membership.line']
         if self.filtered(lambda l: not l.partner_id):
             raise ValidationError(_("You must first select a partner!"))
 
@@ -162,9 +164,65 @@ class AccountBankStatementLine(models.Model):
             payment_aml_rec=payment_aml_rec,
             new_aml_dicts=new_aml_dicts)
 
-        for data in new_aml_dicts or []:
-            self._propagate_payment(data)
+        if new_aml_dicts:
+            # grouped by the move_id (to be sure to have 1 statement line)
+            # and by the name, since they can pay for multiple membership
+            for key, datas in groupby(
+                    sorted(new_aml_dicts,
+                           key=lambda s: (s.get("move_id"), s.get("name"))),
+                    lambda s: (s.get("move_id"), s.get("name"))):
+                # datas is a generator, and we iterate more than 1 time
+                datas = list(datas)
+
+                # optimization for automatic reconciliation
+                if len(datas) == 1:
+                    self._propagate_payment(datas[0])
+                    continue
+
+                amount = False
+                # they all have the same name
+                reference = datas[0].get("name", "")
+                mode, partner = self._get_info_from_reference(reference)
+                if mode == 'membership':
+                    membership = memb_obj._get_membership_line_by_ref(
+                        reference)
+                    amount = self._get_best_amount(
+                        datas, membership.price,
+                        membership.product_id.property_account_income_id)
+                for data in datas:
+                    self._propagate_payment(data, amount=amount)
         return res
+
+    @api.model
+    def _get_best_amount(self, datas, price, account):
+        """
+        :param datas: list of vals of the move line
+        :return: the best amount found
+        """
+        ratings = {}
+        for data in datas:
+            rating = 0
+            account_id = data.get('account_id', False)
+            amount_paid = data.get('credit') or 0.0
+            if price == amount_paid:
+                rating += 1
+            if account.id == account_id:
+                rating += 2  # account is more important
+            r = ratings.get(rating, [])
+            r.append(data)
+            ratings[rating] = r
+
+        best_data = ratings[sorted(ratings.keys(), reverse=True)[0]]
+        if len(best_data) == 1:
+            amount = best_data[0].get('credit') or 0.0
+        else:
+            # found more than one move corresponding,
+            # for example the donation equals the membership and the
+            # account given by the user was wrong
+            amount = 0
+            for data in datas:
+                amount += data.get('credit') or 0.0
+        return amount
 
     @api.multi
     def _auto_reconcile(self):
