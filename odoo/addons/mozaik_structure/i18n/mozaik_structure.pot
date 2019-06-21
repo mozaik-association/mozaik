@@ -1943,11 +1943,3 @@ msgstr ""
 msgid "Zip"
 msgstr ""
 
-#. module: mozaik_structure
-#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_mymr_code
-#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_mymr_code
-#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_mymr_code
-#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_mymr_code
-msgid "myMR code"
-msgstr ""
-

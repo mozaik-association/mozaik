@@ -92,7 +92,7 @@ msgstr "Payé"
 #. module: mozaik_account
 #: model:ir.model.fields,field_description:mozaik_account.field_membership_line_price_paid
 msgid "Price Paid"
-msgstr ""
+msgstr "Montant payé"
 
 #. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_product_template
