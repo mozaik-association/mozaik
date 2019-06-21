@@ -26,6 +26,7 @@ class MembershipLine(models.Model):
         copy=False,
         readonly=True,
     )
+    price_paid = fields.Float()
 
     @api.model
     @tools.ormcache('reference', 'include_inactive')
@@ -79,7 +80,7 @@ class MembershipLine(models.Model):
         self.ensure_one()
         self.write({
             'paid': True,
-            'price': amount,
+            'price_paid': amount,
             'move_id': move_id,
             'bank_account_id': bank_id,
         })

@@ -155,7 +155,6 @@ class AccountBankStatementLine(models.Model):
     def process_reconciliation(
             self, counterpart_aml_dicts=None, payment_aml_rec=None,
             new_aml_dicts=None):
-        memb_obj = self.env['membership.line']
         if self.filtered(lambda l: not l.partner_id):
             raise ValidationError(_("You must first select a partner!"))
 
@@ -184,45 +183,12 @@ class AccountBankStatementLine(models.Model):
                 reference = datas[0].get("name", "")
                 mode, partner = self._get_info_from_reference(reference)
                 if mode == 'membership':
-                    membership = memb_obj._get_membership_line_by_ref(
-                        reference)
-                    amount = self._get_best_amount(
-                        datas, membership.price,
-                        membership.product_id.property_account_income_id)
+                    amount = 0
+                    for data in datas:
+                        amount += data.get('credit') or 0.0
                 for data in datas:
                     self._propagate_payment(data, amount=amount)
         return res
-
-    @api.model
-    def _get_best_amount(self, datas, price, account):
-        """
-        :param datas: list of vals of the move line
-        :return: the best amount found
-        """
-        ratings = {}
-        for data in datas:
-            rating = 0
-            account_id = data.get('account_id', False)
-            amount_paid = data.get('credit') or 0.0
-            if price == amount_paid:
-                rating += 1
-            if account.id == account_id:
-                rating += 2  # account is more important
-            r = ratings.get(rating, [])
-            r.append(data)
-            ratings[rating] = r
-
-        best_data = ratings[sorted(ratings.keys(), reverse=True)[0]]
-        if len(best_data) == 1:
-            amount = best_data[0].get('credit') or 0.0
-        else:
-            # found more than one move corresponding,
-            # for example the donation equals the membership and the
-            # account given by the user was wrong
-            amount = 0
-            for data in datas:
-                amount += data.get('credit') or 0.0
-        return amount
 
     @api.multi
     def _auto_reconcile(self):

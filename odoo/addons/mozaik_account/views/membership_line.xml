@@ -36,6 +36,9 @@
                 <field name="paid"
                     attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}" />
             </xpath>
+            <xpath expr="//field[@name='price']" position="after">
+                <field name="price_paid"/>
+            </xpath>
             <xpath expr="//field[@name='date_to']" position="after">
                 <field name="move_id"
                     attrs="{'invisible': [('move_id', '=', False)]}" />

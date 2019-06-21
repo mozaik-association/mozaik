@@ -109,7 +109,8 @@ class TestAccounting(object):
 
         self.assertTrue(self.partner.membership_line_ids.paid)
         self.assertAlmostEqual(
-            self.partner.membership_line_ids.price, bank_s.line_ids.amount)
+            self.partner.membership_line_ids.price_paid,
+            bank_s.line_ids.amount)
         self.assertEqual(
             bank_s.line_ids.journal_entry_ids.mapped('move_id'),
             self.partner.membership_line_ids.move_id)
@@ -132,7 +133,8 @@ class TestAccounting(object):
             new_aml_dicts=move_dicts)
 
         self.assertTrue(self.partner.membership_line_ids.paid)
-        self.assertAlmostEqual(self.partner.membership_line_ids.price, price)
+        self.assertAlmostEqual(
+            self.partner.membership_line_ids.price_paid, price)
         self.assertEqual(
             bank_s.line_ids.journal_entry_ids.mapped('move_id'),
             self.partner.membership_line_ids.move_id)
@@ -272,7 +274,7 @@ class TestAccountingGroupedPayment(TestAccounting, SavepointCase):
         for partner in [self.partner, self.partner_2]:
             self.assertTrue(partner.membership_line_ids.paid)
             self.assertAlmostEqual(
-                partner.membership_line_ids.price, self.product.list_price)
+                partner.membership_line_ids.price_paid, self.product.list_price)
             self.assertEqual(
                 b_statement_id.line_ids.journal_entry_ids.mapped('move_id'),
                 partner.membership_line_ids.move_id)
