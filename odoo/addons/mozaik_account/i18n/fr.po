@@ -78,7 +78,7 @@ msgid "Membership update"
 msgstr "Mise à jour d'une adhésion"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:54
+#: code:addons/mozaik_account/models/membership_line.py:55
 #, python-format
 msgid "More than one membership to reconcile are available"
 msgstr "Plus d'une adhésion à réconcilier sont disponibles"
@@ -88,6 +88,11 @@ msgstr "Plus d'une adhésion à réconcilier sont disponibles"
 #: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Paid"
 msgstr "Payé"
+
+#. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line_price_paid
+msgid "Price Paid"
+msgstr ""
 
 #. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_product_template
@@ -117,7 +122,7 @@ msgid "Update instances of partner"
 msgstr "Changement d'instance du contact"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/account_bank_statement_line.py:158
+#: code:addons/mozaik_account/models/account_bank_statement_line.py:159
 #, python-format
 msgid "You must first select a partner!"
 msgstr "Vous devez selectionner un partenaire !"

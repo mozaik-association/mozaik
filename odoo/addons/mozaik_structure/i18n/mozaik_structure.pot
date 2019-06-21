@@ -1732,13 +1732,6 @@ msgid "The start date must be anterior to the deadline date."
 msgstr ""
 
 #. module: mozaik_structure
-#: code:addons/mozaik_structure/models/int_instance.py:84
-#, python-format
-msgid "These instance codes are not valid:\n"
-"- %s"
-msgstr ""
-
-#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_property_account_payable_id
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_property_account_payable_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_property_account_payable_id

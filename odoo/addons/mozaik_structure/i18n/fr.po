@@ -1822,16 +1822,6 @@ msgid "The start date must be anterior to the deadline date."
 msgstr "La date de début doit être antérieure à la date d'échéance."
 
 #. module: mozaik_structure
-#: code:addons/mozaik_structure/models/int_instance.py:84
-#, python-format
-msgid ""
-"These instance codes are not valid:\n"
-"- %s"
-msgstr ""
-"Ces codes d'instances sont invalides:\n"
-"- %s"
-
-#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_property_account_payable_id
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_property_account_payable_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_property_account_payable_id
@@ -2074,3 +2064,10 @@ msgstr "Code postal"
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_mymr_code
 msgid "myMR code"
 msgstr ""
+
+#~ msgid ""
+#~ "These instance codes are not valid:\n"
+#~ "- %s"
+#~ msgstr ""
+#~ "Ces codes d'instances sont invalides:\n"
+#~ "- %s"
