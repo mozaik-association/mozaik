@@ -62,13 +62,9 @@ class TestDistributionList(SavepointCase):
         self.assertEqual(len(distribution_list_line), 1)
         with self.assertRaises(exceptions.AccessError) as e:
             distribution_list_line.sudo(user_no_access.id).read()
-        self.assertIn("Document type: distribution.list.line, Operation: read",
-                      e.exception.name)
         self.assertEqual(len(distribution_list), 1)
         with self.assertRaises(exceptions.AccessError) as e:
             distribution_list.sudo(user_no_access.id).read()
-        self.assertIn("Document type: distribution.list, Operation: read",
-                      e.exception.name)
         return
 
     def test_compute_distribution_list_ids(self):
