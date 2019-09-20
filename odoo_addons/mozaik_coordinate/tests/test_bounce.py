@@ -28,7 +28,7 @@ import psycopg2
 from openerp.addons.mozaik_base import testtool
 
 DESC = 'Bad Coordinate'
-
+FIRSTBOUNCEDATE = '2019-09-10 00:00:00'
 
 class test_bounce(object):
     """ unittest2 run test for the abstract class too
@@ -60,6 +60,7 @@ class test_bounce(object):
         wiz_vals = {
             'increase': inc,
             'description': DESC,
+            'date': FIRSTBOUNCEDATE
         }
         wiz_id = self.model_wizard.create(cr, uid, wiz_vals, context=context)
         return wiz_id
@@ -88,21 +89,25 @@ class test_bounce(object):
             cr, uid, [wiz_id], context=context)
         coord = self.model_coordinate.read(
             cr, uid, self.model_coordinate_id,
-            ['bounce_counter', 'bounce_description'], context=context)
+            ['bounce_counter', 'bounce_description', 'first_bounce_date'], context=context)
         self.assertEqual(
             coord['bounce_counter'], 2,
             'Update coordinate fails with wrong bounce_counter')
         self.assertEqual(
             coord['bounce_description'], DESC,
             'Update coordinate fails with wrong bounce_description')
+        self.assertEqual(
+            coord['first_bounce_date'], FIRSTBOUNCEDATE,
+            '2019-09-10 00:00:00')
 
         # 4/ Reset counter
         self.model_coordinate.button_reset_counter(
             cr, uid, self.model_coordinate_id, context=context)
         bc = self.model_coordinate.read(
-            cr, uid, self.model_coordinate_id, ['bounce_counter'],
-            context=context)['bounce_counter']
-        self.assertFalse(bc, 'Reset counter fails with wrong bounce_counter')
+            cr, uid, self.model_coordinate_id,
+            ['bounce_counter', 'first_bounce_date'], context=context)
+        self.assertFalse(bc['bounce_counter'], 'Reset counter fails with wrong bounce_counter')
+        self.assertEqual(bc['first_bounce_date'], False)
 
         # 5/ Try to create an invalid wizard record
         with testtool.disable_log_error(cr):
