@@ -25,8 +25,10 @@
 
 import psycopg2
 import logging
+from datetime import timedelta as TD
 from anybox.testing.openerp import SharedSetupTransactionCase
 
+from openerp import fields
 from openerp.osv import orm
 
 from openerp.addons.mozaik_base import testtool
@@ -307,24 +309,25 @@ class test_sta_mandate(SharedSetupTransactionCase):
         Test the mass update of mandates if deadline date of legislature
         is changed
         '''
-        cr, uid, context = self.cr, self.uid, {}
-        legislature_obj = self.registry['legislature']
-        mandate_obj = self.registry['sta.mandate']
-        legislature_id = self.ref('%s.legislature_01' % self._module_ns)
-        mandate_id = self.ref('%s.stam_pauline_bourgmestre' % self._module_ns)
+        mandate = self.browse_ref(
+            '%s.stam_pauline_bourgmestre' % self._module_ns)
+        legislature = mandate.legislature_id
+        start = mandate.start_date
+        dstart = fields.Date.from_string(start)
+        today = fields.Date.today()
+        dtoday = fields.Date.from_string(today)
 
-        self.assertRaises(orm.except_orm,
-                          legislature_obj.write,
-                          cr,
-                          uid,
-                          legislature_id,
-                          {'deadline_date': '2015-01-01'})
-        new_deadline_date = '2020-12-02'
-        legislature_obj.write(cr, uid, legislature_id, {'deadline_date':
-                                                        new_deadline_date},
-                              context=context)
-        mandate = mandate_obj.browse(cr, uid, mandate_id, context=context)
-        legislature = legislature_obj.browse(cr, uid, legislature_id,
-                                             context=context)
-        self.assertEquals(legislature.deadline_date, new_deadline_date)
-        self.assertEquals(mandate.deadline_date, new_deadline_date)
+        dpast = dtoday - TD(days=1)
+        with self.assertRaises(orm.except_orm):
+            legislature.write({'deadline_date': fields.Date.to_string(dpast)})
+        if dtoday < dstart:
+            dfuture = dstart + TD(days=3)
+            future = fields.Date.to_string(dfuture)
+            legislature.write({'deadline_date': future})
+            self.assertEqual(legislature.deadline_date, future)
+            self.assertEqual(mandate.deadline_date, future)
+            dpast = dstart - TD(days=1)
+            with testtool.disable_log_error(self.env.cr):
+                with self.assertRaises(psycopg2.IntegrityError):
+                    legislature.write(
+                        {'deadline_date': fields.Date.to_string(dpast)})
