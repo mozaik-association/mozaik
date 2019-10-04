@@ -20,9 +20,6 @@ env:
   - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="l10n_mozaik,mozaik_sample_accounting,mozaik_sample_customization"
   - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="l10n_mozaik,mozaik_sample_accounting,mozaik_sample_customization"
 
-virtualenv:
-  system_site_packages: true
-
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
