@@ -309,7 +309,7 @@ class abstract_coordinate(orm.AbstractModel):
         """
         self.write(cr, uid, ids,
                    {'bounce_counter': 0,
-                    'bounce_date': False
+                    'bounce_date': False,
                     'first_bounce_date': False
                    }, context=context)
 
