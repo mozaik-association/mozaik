@@ -28,7 +28,6 @@ import psycopg2
 from openerp.addons.mozaik_base import testtool
 
 DESC = 'Bad Coordinate'
-FIRSTBOUNCEDATE = '2019-09-10 00:00:00'
 
 class test_bounce(object):
     """ unittest2 run test for the abstract class too
@@ -75,10 +74,10 @@ class test_bounce(object):
         cr, uid, context = self.cr, self.uid, self.context
 
         # 1/ Check for reference data
-        bc = self.model_coordinate.browse(
+        coord = self.model_coordinate.browse(
             cr, uid, self.model_coordinate_id,
             context=context)
-        self.assertFalse(bc.bounce_counter, 'Wrong expected reference data for this test')
+        self.assertFalse(coord.bounce_counter, '')
 
         # 2/ Create wizard record
         wiz_id = self.create_bounce_data(2)
@@ -86,24 +85,20 @@ class test_bounce(object):
         # 3/ Execute wizard
         self.model_wizard.update_bounce_datas(
             cr, uid, [wiz_id], context=context)
-        coord = self.model_coordinate.browse(
-            cr, uid, self.model_coordinate_id, context=context)
         self.assertEqual(
             coord.bounce_counter, 2,
-            'Update coordinate fails with wrong bounce_counter')
+            '')
         self.assertEqual(
             coord.bounce_description, DESC,
-            'Update coordinate fails with wrong bounce_description')
-        self.assertEqual(bc.first_bounce_date, bc.bounce_date)
+            'Bad Coordinate')
+        self.assertEqual(coord.first_bounce_date, coord.bounce_date)
 
         # 4/ Reset counter
         self.model_coordinate.button_reset_counter(
             cr, uid, self.model_coordinate_id, context=context)
-        bc = self.model_coordinate.browse(
-            cr, uid, self.model_coordinate_id, context=context)
-        self.assertFalse(bc.bounce_counter, 'Reset counter fails with wrong bounce_counter')
-        self.assertFalse(bc.bounce_date, False)
-        self.assertFalse(bc.first_bounce_date, False)
+        self.assertFalse(coord.bounce_counter, '')
+        self.assertFalse(coord.bounce_date, False)
+        self.assertFalse(coord.first_bounce_date, False)
 
         # 5/ Try to create an invalid wizard record
         with testtool.disable_log_error(cr):
