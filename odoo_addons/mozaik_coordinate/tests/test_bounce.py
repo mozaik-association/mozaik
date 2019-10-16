@@ -77,7 +77,7 @@ class test_bounce(object):
         coord = self.model_coordinate.browse(
             cr, uid, self.model_coordinate_id,
             context=context)
-        self.assertFalse(coord.bounce_counter, '')
+        self.assertFalse(coord.bounce_counter)
 
         # 2/ Create wizard record
         wiz_id = self.create_bounce_data(2)
@@ -86,19 +86,17 @@ class test_bounce(object):
         self.model_wizard.update_bounce_datas(
             cr, uid, [wiz_id], context=context)
         self.assertEqual(
-            coord.bounce_counter, 2,
-            '')
+            coord.bounce_counter, 2)
         self.assertEqual(
-            coord.bounce_description, DESC,
-            'Bad Coordinate')
+            coord.bounce_description, DESC)
         self.assertEqual(coord.first_bounce_date, coord.bounce_date)
 
         # 4/ Reset counter
         self.model_coordinate.button_reset_counter(
             cr, uid, self.model_coordinate_id, context=context)
-        self.assertFalse(coord.bounce_counter, '')
-        self.assertFalse(coord.bounce_date, False)
-        self.assertFalse(coord.first_bounce_date, False)
+        self.assertFalse(coord.bounce_counter)
+        self.assertFalse(coord.bounce_date)
+        self.assertFalse(coord.first_bounce_date)
 
         # 5/ Try to create an invalid wizard record
         with testtool.disable_log_error(cr):
