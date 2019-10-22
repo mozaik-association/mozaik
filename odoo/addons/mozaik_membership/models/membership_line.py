@@ -80,6 +80,23 @@ class MembershipLine(models.Model):
             raise exceptions.ValidationError(message)
 
     @api.multi
+    @api.constrains('active', 'date_to')
+    def _constrains_active_date_to(self):
+        """
+        Constrain function for fields active and date_to
+        Active is True if date_to is False and vice versa
+        :return:
+        """
+        bad_records = self.filtered(
+            lambda r: r.active == bool(r.date_to))
+        if bad_records:
+            details = "\n- ".join(bad_records.mapped("display_name"))
+            message = _(
+                "The active boolean is incompatible with "
+                "the 'To' date:\n- %s") % details
+            raise exceptions.ValidationError(message)
+
+    @api.multi
     @api.constrains('partner_id')
     def _constrains_partner_id(self):
         """
