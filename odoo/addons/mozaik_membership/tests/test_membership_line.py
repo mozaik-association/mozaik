@@ -4,6 +4,7 @@ from datetime import date, datetime, timedelta
 from uuid import uuid4
 from odoo import fields
 from odoo.tests.common import TransactionCase
+from odoo.exceptions import ValidationError
 
 
 class TestMembershipLine(TransactionCase):
@@ -168,6 +169,7 @@ class TestMembershipLine(TransactionCase):
         # Force False to create a new one instead of updating the existing
         membership.write({
             'active': False,
+            'date_to': date_from,
         })
         # We have to transform the date in correct format
         new_date_from = fields.Date.to_string(
@@ -296,6 +298,7 @@ class TestMembershipLine(TransactionCase):
         # Force False to create a new one instead of updating the existing
         membership.write({
             'active': False,
+            'date_to': date_from,
         })
         # We have to transform the date in correct format
         new_date_from = fields.Date.to_string(
@@ -370,4 +373,37 @@ class TestMembershipLine(TransactionCase):
         created = membership._former_member(date_from=new_date_from)
         # Due to the date set into parameters, we shouldn't have a new line
         self.assertFalse(created)
+        return
+
+    def test_active_vs_date_to(self):
+        """
+        Test the compatibility between active and date_to field
+        """
+        membership_obj = self.membership_obj
+        price = 0
+        reference = str(uuid4())
+        instance = self.instance
+        partner = self.partner_marc
+        product = self.product_subscription
+        state = partner.membership_state_id
+        date_from = '2015-06-05'
+        values = self._get_membership_line_values(
+            price=price, ref=reference, partner=partner, product=product,
+            date_from=date_from, state=state, instance=instance)
+        membership = membership_obj.create(values)
+        # OK: active != bool(date_to)
+        self.assertNotEqual(membership.active, bool(membership.date_to))
+        # NOK: active=False; date_to=False
+        with self.assertRaises(ValidationError):
+            membership.active = False
+        membership.active = True
+        # NOK: active=True; date_to!=False
+        with self.assertRaises(ValidationError):
+            membership.date_to = date_from
+        membership.write({
+            'active': False,
+            'date_to': date_from,
+        })
+        # OK: active != bool(date_to)
+        self.assertNotEqual(membership.active, bool(membership.date_to))
         return
