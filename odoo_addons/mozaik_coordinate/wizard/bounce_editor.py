@@ -104,12 +104,15 @@ class bounce_editor(orm.TransientModel):
                 'bounce_date': datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
             }
             active_model = self.pool[wiz.model]
-            coordinate_values = active_model.read(
-                cr, uid, res_ids, ['bounce_counter'], context=context)
-            for coordinate_value in coordinate_values:
-                bounce_counter = coordinate_value['bounce_counter']
+            coordinates = active_model.browse(
+                cr, uid, res_ids, context=context)
+            for coordinate in coordinates:
+                if coordinate.first_bounce_date:
+                    vals.pop('first_bounce_date', None)
+                else:
+                    vals['first_bounce_date'] = vals['bounce_date']
+
                 vals.update({
-                    'bounce_counter': bounce_counter + wiz.increase,
+                    'bounce_counter': coordinate.bounce_counter + wiz.increase,
                 })
-                active_model.write(
-                    cr, uid, [coordinate_value['id']], vals, context=context)
+                coordinate.write(vals)
