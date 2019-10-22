@@ -35,7 +35,7 @@
         <field name="name">membership.line.tree (mozaik_membership)</field>
         <field name="model">membership.line</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="active==False" decoration-success="state_code=='member'" decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']" create="0" delete="0">
+            <tree decoration-muted="expire_date!=False" decoration-success="state_code=='member'" decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']" create="0" delete="0">
                 <field name="partner_id"/>
                 <field name="int_instance_id"/>
                 <field name="state_id"/>
@@ -44,7 +44,6 @@
                 <field name="price" />
                 <field name="date_from"/>
                 <field name="date_to"/>
-                <field name="active" invisible="1"/>
                 <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 <field name="state_code" invisible="1"/>
             </tree>
