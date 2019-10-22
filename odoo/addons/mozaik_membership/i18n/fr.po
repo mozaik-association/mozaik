@@ -953,6 +953,8 @@ msgid ""
 "The active boolean is incompatible with the 'To' date:\n"
 "- %s"
 msgstr ""
+"Le champ 'actif' est incompatible avec la date de fin"
+"- %s"
 
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/wizards/partner_change_instance.py:78

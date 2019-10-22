@@ -2063,4 +2063,4 @@ msgstr "Code postal"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_mymr_code
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_mymr_code
 msgid "myMR code"
-msgstr ""
+msgstr "Code myMR"

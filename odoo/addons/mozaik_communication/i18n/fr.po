@@ -418,7 +418,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_event_count
 msgid "Events"
-msgstr ""
+msgstr "Événements"
 
 #. module: mozaik_communication
 #: model:ir.actions.act_window,name:mozaik_communication.distribution_list_mass_function_action
@@ -842,7 +842,7 @@ msgstr "Numéro"
 #. module: mozaik_communication
 #: model:ir.model.fields,help:mozaik_communication.field_abstract_assembly_event_count
 msgid "Number of events the partner has participated."
-msgstr ""
+msgstr "Le nombre d'évènements auxquels le partenaire a participé."
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_distribution_list_opt_in_ids
