@@ -414,7 +414,7 @@ msgid "Is Excluded"
 msgstr "Est exclu"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:92
+#: code:addons/mozaik_membership/models/membership_line.py:109
 #, python-format
 msgid ""
 "It's not possible to create membership line for a legal person:\n"
@@ -947,19 +947,27 @@ msgid "Technical"
 msgstr "Technique"
 
 #. module: mozaik_membership
+#: code:addons/mozaik_membership/models/membership_line.py:94
+#, python-format
+msgid ""
+"The active boolean is incompatible with the 'To' date:\n"
+"- %s"
+msgstr ""
+
+#. module: mozaik_membership
 #: code:addons/mozaik_membership/wizards/partner_change_instance.py:78
 #, python-format
 msgid "The new instance defined by partner should be unique!"
 msgstr "La nouvelle instance défine par partenaire doit être unique!"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:154
+#: code:addons/mozaik_membership/models/membership_line.py:171
 #, python-format
 msgid "The partner already have an active subscription to this instance"
 msgstr "Le partenaire a déjà une adhésion active à cette instance"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/models/membership_line.py:113
+#: code:addons/mozaik_membership/models/membership_line.py:130
 #, python-format
 msgid ""
 "These partners are excluded but you're trying to add new membership lines "

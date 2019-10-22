@@ -416,6 +416,11 @@ msgid "Employee"
 msgstr "Employé"
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_event_count
+msgid "Events"
+msgstr ""
+
+#. module: mozaik_communication
 #: model:ir.actions.act_window,name:mozaik_communication.distribution_list_mass_function_action
 msgid "Execute Distribution List"
 msgstr "Exécuter la liste de distribution"
@@ -833,6 +838,11 @@ msgstr "Pas de coordonnée unique trouvée avec l'email: %s"
 #, python-format
 msgid "Number"
 msgstr "Numéro"
+
+#. module: mozaik_communication
+#: model:ir.model.fields,help:mozaik_communication.field_abstract_assembly_event_count
+msgid "Number of events the partner has participated."
+msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly_distribution_list_opt_in_ids
