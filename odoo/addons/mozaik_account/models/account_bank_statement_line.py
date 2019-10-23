@@ -158,6 +158,11 @@ class AccountBankStatementLine(models.Model):
         if self.filtered(lambda l: not l.partner_id):
             raise ValidationError(_("You must first select a partner!"))
 
+        for aml in new_aml_dicts:
+            name = aml.get("name")
+            if name:
+                aml["name"] = name.strip()
+
         res = super().process_reconciliation(
             counterpart_aml_dicts=counterpart_aml_dicts,
             payment_aml_rec=payment_aml_rec,
