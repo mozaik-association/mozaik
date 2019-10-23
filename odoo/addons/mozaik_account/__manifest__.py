@@ -18,13 +18,14 @@
         'l10n_generic_coa',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/product_product.xml',
         'data/ir_config_parameter.xml',
         'views/account_bank_statement.xml',
         'views/product_template.xml',
         'views/res_partner.xml',
         'views/membership_line.xml',
-        'security/ir.model.access.csv',
+        'views/account_move_line.xml',
     ],
     'demo': [
         'demo/product_product.xml',

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo noupdate="0">
+
+    <record id="account_move_line_form_view" model="ir.ui.view">
+        <field name="name">account.move.line.form (mozaik_account)</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='statement_id']" position="after">
+                <field name="statement_line_id" readonly="True" attrs="{'invisible': [('statement_line_id','=',False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
