@@ -78,6 +78,9 @@ class MembershipLine(models.Model):
         :return: self
         """
         self.ensure_one()
+        if self.paid:
+            raise UserError(
+                _("The membership %s is already paid") % self.display_name)
         self.write({
             'paid': True,
             'price_paid': amount,
