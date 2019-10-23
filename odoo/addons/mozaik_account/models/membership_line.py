@@ -13,6 +13,7 @@ class MembershipLine(models.Model):
         string="Account move",
         readonly=True,
         copy=False,
+        track_visibility='onchange',
     )
     bank_account_id = fields.Many2one(
         comodel_name="res.partner.bank",
