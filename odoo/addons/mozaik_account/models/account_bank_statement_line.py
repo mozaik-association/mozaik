@@ -104,7 +104,7 @@ class AccountBankStatementLine(models.Model):
             partner = self.env['res.partner'].browse(partner_id)
             membership = memb_obj._get_membership_line_by_partner_amount(
                 partner, amount_paid)
-            if membership:
+            if membership and not membership.paid:
                 move_id = vals.get('move_id', False)
                 bank_account_id = self.bank_account_id.id
                 membership._mark_as_paid(amount_paid, move_id, bank_account_id)
