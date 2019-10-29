@@ -6,4 +6,8 @@
         <field name="key">membership.renew_must_paid</field>
         <field name="value">1</field>
     </record>
+    <record id="membership_renew_past_date" model="ir.config_parameter">
+        <field name="key">membership.renew.past.date</field>
+        <field name="value">0</field>
+    </record>
 </odoo>

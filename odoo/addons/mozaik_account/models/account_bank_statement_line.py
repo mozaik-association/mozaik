@@ -111,23 +111,23 @@ class AccountBankStatementLine(models.Model):
         return
 
     @api.multi
-    def _create_membership_move_from_partner(self):
+    def _create_membership_move_from_partner(self, raise_exception=True):
         self.ensure_one()
         memb_obj = self.env['membership.line']
         partner = self.partner_id
         amount_paid = self.amount
         membership = memb_obj._get_membership_line_by_partner_amount(
-            partner, amount_paid)
+            partner, amount_paid, raise_exception=raise_exception)
         self._reconcile_membership_move(membership)
 
     @api.multi
-    def _create_membership_move(self, reference, include_inactive=True):
+    def _create_membership_move(self, reference, raise_exception=True):
         """
         Method to create account move linked to membership payment
         """
         self.ensure_one()
         membership = self.env['membership.line']._get_membership_line_by_ref(
-            reference, include_inactive=include_inactive)
+            reference, raise_exception=raise_exception)
         self._reconcile_membership_move(membership)
 
     @api.multi
@@ -197,11 +197,13 @@ class AccountBankStatementLine(models.Model):
                 lambda l: not (not l.partner_id or l.journal_entry_ids)):
             mode, __ = bank_line._get_info_from_reference(bank_line.name)
             if mode == 'membership':
-                bank_line._create_membership_move(bank_line.name, include_inactive=False)
+                bank_line._create_membership_move(
+                    bank_line.name, raise_exception=False)
             elif mode == 'donation':
                 bank_line._create_donation_move(bank_line.name)
             elif not mode:
-                bank_line._create_membership_move_from_partner()
+                bank_line._create_membership_move_from_partner(
+                    raise_exception=False)
             if bank_line.journal_entry_ids:
                 reconciled_lines += bank_line
         return reconciled_lines

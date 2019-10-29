@@ -1,5 +1,6 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import datetime
 from odoo import api, fields, models, tools, _
 from odoo.tools import float_compare
 from odoo.exceptions import UserError
@@ -29,8 +30,17 @@ class MembershipLine(models.Model):
     price_paid = fields.Float()
 
     @api.model
-    @tools.ormcache('reference', 'include_inactive')
-    def _get_membership_line_by_ref(self, reference, include_inactive=True):
+    def _get_min_reconciliation_date(self):
+        min_date_from = datetime.date.today().replace(day=1, month=1)
+        param = self.env["ir.config_parameter"].get_param(
+            "membership.renew.past.date", default="0")
+        if param != "0":
+            min_date_from = min_date_from.replace(year=min_date_from.year - 1)
+        return fields.Date.to_string(min_date_from)
+
+    @api.model
+    @tools.ormcache('reference', 'raise_exception')
+    def _get_membership_line_by_ref(self, reference, raise_exception=True):
         """
         Get a membership.line based on given reference.
         As the reference is unique, we can put the result in cache to avoid
@@ -41,12 +51,18 @@ class MembershipLine(models.Model):
         domain = [
             ('reference', '=', reference),
         ]
-        if not include_inactive:
-            domain.append(('active', '=', True))
-        return self.search(domain, limit=1)
+        membership = self.search(domain, limit=1)
+        min_date_from = self._get_min_reconciliation_date()
+        if membership and membership.date_from < min_date_from:
+            if raise_exception:
+                raise UserError(_(
+                    "The membership you want to reconciled is too old"))
+            return self.browse()
+        return membership
 
     @api.model
-    def _get_membership_line_by_partner_amount(self, partner, amount):
+    def _get_membership_line_by_partner_amount(self, partner, amount,
+                                               raise_exception=True):
         precision = self._fields.get('price').digits[1]
         memberships = partner.membership_line_ids.filtered(
             lambda s: s.active and not s.move_id and not float_compare(
@@ -54,6 +70,12 @@ class MembershipLine(models.Model):
         if len(memberships) > 1:
             raise UserError(_(
                 "More than one membership to reconcile are available"))
+        min_date_from = self._get_min_reconciliation_date()
+        if memberships and memberships.date_from < min_date_from:
+            if raise_exception:
+                raise UserError(_(
+                    "The membership you want to reconciled is too old"))
+            return self.browse()
         return memberships
 
     @api.model
