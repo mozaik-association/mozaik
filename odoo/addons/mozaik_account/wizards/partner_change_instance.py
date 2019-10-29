@@ -26,7 +26,7 @@ class PartnerChangeInstance(models.TransientModel):
                 line.partner_id, self.new_instance_id)
             reference, price = self.env["membership.line"]._prepare_custom_renew(
                 ref, price)
-            if not reference:
+            if reference is None:
                 reference = ref
             line.copy({
                 'int_instance_id': self.new_instance_id.id,
