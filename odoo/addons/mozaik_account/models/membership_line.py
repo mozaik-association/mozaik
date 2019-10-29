@@ -33,7 +33,7 @@ class MembershipLine(models.Model):
     def _get_min_reconciliation_date(self):
         min_date_from = datetime.date.today().replace(day=1, month=1)
         param = self.env["ir.config_parameter"].get_param(
-            "membership.renew.past.date", default="0")
+            "membership.allow.reconcile.last.year", default="0")
         if param != "0":
             min_date_from = min_date_from.replace(year=min_date_from.year - 1)
         return fields.Date.to_string(min_date_from)
@@ -56,7 +56,7 @@ class MembershipLine(models.Model):
         if membership and membership.date_from < min_date_from:
             if raise_exception:
                 raise UserError(_(
-                    "The membership you want to reconciled is too old"))
+                    "The membership you want to reconcile is too old"))
             return self.browse()
         return membership
 
@@ -74,7 +74,7 @@ class MembershipLine(models.Model):
         if memberships and memberships.date_from < min_date_from:
             if raise_exception:
                 raise UserError(_(
-                    "The membership you want to reconciled is too old"))
+                    "The membership you want to reconcile is too old"))
             return self.browse()
         return memberships
 
