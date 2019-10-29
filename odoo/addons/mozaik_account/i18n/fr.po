@@ -78,7 +78,7 @@ msgid "Membership update"
 msgstr "Mise à jour d'une adhésion"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:56
+#: code:addons/mozaik_account/models/membership_line.py:72
 #, python-format
 msgid "More than one membership to reconcile are available"
 msgstr "Plus d'une adhésion à réconcilier sont disponibles"
@@ -112,10 +112,17 @@ msgid "Subscription Account"
 msgstr "Compte de cotisation"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:84
+#: code:addons/mozaik_account/models/membership_line.py:106
 #, python-format
 msgid "The membership %s is already paid"
 msgstr "L'adhésion %s est déjà payée"
+
+#. module: mozaik_account
+#: code:addons/mozaik_account/models/membership_line.py:59
+#: code:addons/mozaik_account/models/membership_line.py:77
+#, python-format
+msgid "The membership you want to reconcile is too old"
+msgstr "L'adhésion que vous souhaitez réconcilier est trop ancienne"
 
 #. module: mozaik_account
 #: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
