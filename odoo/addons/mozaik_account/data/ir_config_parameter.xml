@@ -6,4 +6,8 @@
         <field name="key">membership.renew_must_paid</field>
         <field name="value">1</field>
     </record>
+    <record id="membership_allow_reconcile_last_year" model="ir.config_parameter">
+        <field name="key">membership.allow.reconcile.last.year</field>
+        <field name="value">0</field>
+    </record>
 </odoo>
