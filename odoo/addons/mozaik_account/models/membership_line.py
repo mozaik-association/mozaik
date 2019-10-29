@@ -179,3 +179,22 @@ class MembershipLine(models.Model):
     def _get_lines_to_close_former_member_domain(self):
         res = super()._get_lines_to_close_former_member_domain()
         return self._update_domain_payment(res, inverse=True)
+
+    @api.model
+    def _prepare_custom_renew(self, reference, price):
+        """
+        make sure that no membership exist with the same reference
+        """
+        membership = self.env["membership.line"].search([
+            ("reference", "=", reference),
+            ("active", "=", False),
+        ])
+        if membership:
+            if any(membership.mapped("paid")):
+                reference = False
+                price = 0
+            else:
+                membership.write({"reference": False})
+        else:
+            reference = None
+        return reference, price

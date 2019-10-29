@@ -24,9 +24,13 @@ class PartnerChangeInstance(models.TransientModel):
                 product, line.partner_id, self.new_instance_id)
             ref = line._generate_membership_reference(
                 line.partner_id, self.new_instance_id)
+            reference, price = self.env["membership.line"]._prepare_custom_renew(
+                ref, price)
+            if reference is None:
+                reference = ref
             line.copy({
                 'int_instance_id': self.new_instance_id.id,
                 'product_id': product.id,
                 'price': price,
-                'reference': ref,
+                'reference': reference,
             })
