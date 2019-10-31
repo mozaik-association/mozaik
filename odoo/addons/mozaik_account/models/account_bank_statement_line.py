@@ -151,6 +151,15 @@ class AccountBankStatementLine(models.Model):
             self.process_reconciliation(
                 new_aml_dicts=move_dicts)
 
+    @api.model
+    def _get_available_account_reconciliation(self):
+        subscription_product = self.env["product.product"].search(
+            [("membership", "=", True)])
+        subscription_accounts = subscription_product.mapped(
+            "property_subscription_account")
+        donation_p = self.env.ref("mozaik_account.product_template_donation")
+        return subscription_accounts | donation_p.property_account_income_id
+
     @api.multi
     def process_reconciliation(
             self, counterpart_aml_dicts=None, payment_aml_rec=None,
@@ -169,29 +178,35 @@ class AccountBankStatementLine(models.Model):
             new_aml_dicts=new_aml_dicts)
 
         if new_aml_dicts:
+            reconcilable_accounts = self._get_available_account_reconciliation()
             # grouped by the move_id (to be sure to have 1 statement line)
             # and by the name, since they can pay for multiple membership
             for key, datas in groupby(
                     sorted(new_aml_dicts,
                            key=lambda s: (s.get("move_id"), s.get("name"))),
                     lambda s: (s.get("move_id"), s.get("name"))):
-                # datas is a generator, and we iterate more than 1 time
-                datas = list(datas)
+                reconcilable_datas = []
+                for data in datas:
+                    if data["account_id"] in reconcilable_accounts.ids:
+                        reconcilable_datas.append(data)
+
+                if not reconcilable_datas:
+                    continue
 
                 # optimization for automatic reconciliation
-                if len(datas) == 1:
-                    self._propagate_payment(datas[0])
+                if len(reconcilable_datas) == 1:
+                    self._propagate_payment(reconcilable_datas[0])
                     continue
 
                 amount = False
                 # they all have the same name
-                reference = datas[0].get("name", "")
+                reference = reconcilable_datas[0].get("name", "")
                 mode, partner = self._get_info_from_reference(reference)
                 if mode == 'membership':
                     amount = 0
-                    for data in datas:
+                    for data in reconcilable_datas:
                         amount += data.get('credit') or 0.0
-                for data in datas:
+                for data in reconcilable_datas:
                     self._propagate_payment(data, amount=amount)
         return res
 

@@ -66,7 +66,7 @@ class MembershipLine(models.Model):
                                                raise_exception=True):
         precision = self._fields.get('price').digits[1]
         memberships = partner.membership_line_ids.filtered(
-            lambda s: s.active and not s.move_id and not float_compare(
+            lambda s: not s.paid and not float_compare(
                 s.price, amount, precision_digits=precision))
         if len(memberships) > 1:
             raise UserError(_(
