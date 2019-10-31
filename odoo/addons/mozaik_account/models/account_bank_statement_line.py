@@ -157,7 +157,8 @@ class AccountBankStatementLine(models.Model):
             [("membership", "=", True)])
         subscription_accounts = subscription_product.mapped(
             "property_subscription_account")
-        return subscription_accounts
+        donation_p = self.env.ref("mozaik_account.product_template_donation")
+        return subscription_accounts | donation_p.property_account_income_id
 
     @api.multi
     def process_reconciliation(
