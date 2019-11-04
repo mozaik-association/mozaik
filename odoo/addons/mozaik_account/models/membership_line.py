@@ -40,7 +40,6 @@ class MembershipLine(models.Model):
         return fields.Date.to_string(min_date_from)
 
     @api.model
-    @tools.ormcache('reference', 'raise_exception')
     def _get_membership_line_by_ref(self, reference, raise_exception=True):
         """
         Get a membership.line based on given reference.
@@ -78,18 +77,6 @@ class MembershipLine(models.Model):
                     "The membership you want to reconcile is too old"))
             return self.browse()
         return memberships
-
-    @api.model
-    @tools.ormcache('reference')
-    def _get_product_by_ref(self, reference):
-        """
-        Get a product from the line related to the given reference
-        As the reference is unique, we can put the result in cache to avoid
-        multi-search
-        :param reference: str
-        :return: self recordset
-        """
-        return self._get_membership_line_by_ref(reference).product_id
 
     @api.multi
     def _mark_as_paid(self, amount, move_id, bank_id=False):
