@@ -89,14 +89,18 @@ class MembershipLine(models.Model):
         """
         self.ensure_one()
         if self.paid:
-            raise UserError(
-                _("The membership %s is already paid") % self.display_name)
-        self.write({
-            'paid': True,
-            'price_paid': amount,
-            'move_id': move_id,
-            'bank_account_id': bank_id,
-        })
+            if self.move_id.id == move_id:
+                self.price_paid += amount
+            else:
+                raise UserError(
+                    _("The membership %s is already paid") % self.display_name)
+        else:
+            self.write({
+                'paid': True,
+                'price_paid': amount,
+                'move_id': move_id,
+                'bank_account_id': bank_id,
+            })
         return self
 
     @api.model

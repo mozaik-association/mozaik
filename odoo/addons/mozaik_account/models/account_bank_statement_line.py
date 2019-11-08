@@ -1,7 +1,6 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from itertools import groupby
 from odoo import api, models, _
 from odoo.fields import first
 from odoo.exceptions import ValidationError
@@ -73,10 +72,10 @@ class AccountBankStatementLine(models.Model):
             self.process_reconciliation(new_aml_dicts=move_dicts)
 
     @api.multi
-    def _propagate_payment(self, vals, amount=False):
+    def _propagate_payment(self, vals):
         self.ensure_one()
         memb_obj = self.env['membership.line']
-        amount_paid = amount or vals.get('credit') or 0.0
+        amount_paid = vals.get('credit') or 0.0
         reference = vals.get('name') or ''
         mode, partner = self._get_info_from_reference(reference)
         if mode == 'membership':
@@ -179,35 +178,10 @@ class AccountBankStatementLine(models.Model):
 
         if new_aml_dicts:
             reconcilable_accounts = self._get_available_account_reconciliation()
-            # grouped by the move_id (to be sure to have 1 statement line)
-            # and by the name, since they can pay for multiple membership
-            for key, datas in groupby(
-                    sorted(new_aml_dicts,
-                           key=lambda s: (s.get("move_id"), s.get("name"))),
-                    lambda s: (s.get("move_id"), s.get("name"))):
-                reconcilable_datas = []
-                for data in datas:
-                    if data["account_id"] in reconcilable_accounts.ids:
-                        reconcilable_datas.append(data)
 
-                if not reconcilable_datas:
-                    continue
-
-                # optimization for automatic reconciliation
-                if len(reconcilable_datas) == 1:
-                    self._propagate_payment(reconcilable_datas[0])
-                    continue
-
-                amount = False
-                # they all have the same name
-                reference = reconcilable_datas[0].get("name", "")
-                mode, partner = self._get_info_from_reference(reference)
-                if mode == 'membership':
-                    amount = 0
-                    for data in reconcilable_datas:
-                        amount += data.get('credit') or 0.0
-                for data in reconcilable_datas:
-                    self._propagate_payment(data, amount=amount)
+            for data in new_aml_dicts:
+                if data["account_id"] in reconcilable_accounts.ids:
+                    self._propagate_payment(data)
         return res
 
     @api.multi
