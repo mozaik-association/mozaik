@@ -1090,6 +1090,17 @@ msgid "With Assets Declaration"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_with_remuneration
+#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+msgid "With Remuneration"
+msgstr ""
+
+#. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_with_revenue_declaration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_with_revenue_declaration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_with_revenue_declaration
@@ -1106,6 +1117,12 @@ msgstr ""
 #. module: mozaik_mandate
 #: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "With revenue declaration"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+msgid "Without Remuneration"
 msgstr ""
 
 #. module: mozaik_mandate
