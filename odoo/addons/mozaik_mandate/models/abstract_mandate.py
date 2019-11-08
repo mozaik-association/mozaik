@@ -60,6 +60,7 @@ class AbstractMandate(models.AbstractModel):
     end_date = fields.Date(
         default=False,
         track_visibility='onchange')
+    with_remuneration = fields.Boolean()
     with_revenue_declaration = fields.Boolean(
         related='mandate_category_id.with_revenue_declaration',
         help='Representative is subject to a declaration of income',
@@ -220,7 +221,6 @@ class AbstractMandate(models.AbstractModel):
     @api.multi
     @api.onchange("mandate_category_id")
     def _onchange_mandate_category_id(self):
-        """
-        Intended to be inherited
-        """
-        pass
+        for mandate in self:
+            mandate.with_remuneration = mandate.mandate_category_id\
+                .with_remuneration

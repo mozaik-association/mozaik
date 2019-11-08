@@ -50,6 +50,11 @@
                 <filter name="ext_mod" string="External Mandate"
                         domain="[('model','=','ext.mandate')]" />
                 <separator />
+                <filter name="with_remuneration" string="With Remuneration"
+                        domain="[('with_remuneration','=',True)]" />
+                <filter name="without_remuneration" string="Without Remuneration"
+                        domain="[('with_remuneration','=',False)]" />
+                <separator />
                 <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
                 <filter string="Female" name="female"
@@ -98,6 +103,7 @@
                 <field name="assembly_id" />
                 <field name="designation_int_assembly_id" />
                 <field name="mandate_category_id" />
+                <field name="with_remuneration" />
             </xpath>
         </field>
     </record>
