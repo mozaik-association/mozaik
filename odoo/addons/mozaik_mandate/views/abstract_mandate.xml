@@ -41,6 +41,7 @@
                             <field name="designation_int_assembly_id"/>
                             <field name="with_revenue_declaration" readonly="1"/>
                             <field name="with_assets_declaration" readonly="1"/>
+                            <field name="with_remuneration"/>
                         </group>
                         <group name="duplicate">
                             <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
@@ -97,6 +98,11 @@
                 <separator />
                 <filter name="with_assets_declaration" string="Assets Declaration"
                         domain="[('with_assets_declaration','=',True)]" />
+                <separator />
+                <filter name="with_remuneration" string="With Remuneration"
+                        domain="[('with_remuneration','=',True)]" />
+                <filter name="without_remuneration" string="Without Remuneration"
+                        domain="[('with_remuneration','=',False)]" />
                 <separator />
                 <filter name="duplicate" string="Incompatible Mandates"
                         domain="[('is_duplicate_detected','=',True)]" />

@@ -49,6 +49,7 @@
                         <group name="other">
                             <field name="with_revenue_declaration" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
                             <field name="with_assets_declaration" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
+                            <field name="with_remuneration"/>
                         </group>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -96,6 +97,11 @@
                 <separator />
                 <filter name="with_assets_declaration" string="With assets declaration"
                         domain="[('with_assets_declaration','=',True)]" invisible="context.get('default_type', False)=='int'" />
+                <separator />
+                <filter name="with_remuneration" string="With Remuneration"
+                        domain="[('with_remuneration','=',True)]" />
+                <filter name="without_remuneration" string="Without Remuneration"
+                        domain="[('with_remuneration','=',False)]" />
                 <separator />
                 <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"

@@ -91,6 +91,7 @@ class MandateCategory(models.Model):
     with_assets_declaration = fields.Boolean(
         help='Representative is subject to a declaration of assets',
         oldname="is_submission_assets")
+    with_remuneration = fields.Boolean()
 
     @api.multi
     @api.depends(

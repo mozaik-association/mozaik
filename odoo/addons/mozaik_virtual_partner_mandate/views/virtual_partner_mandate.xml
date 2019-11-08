@@ -98,6 +98,7 @@
                 <field name="assembly_id" />
                 <field name="designation_int_assembly_id" />
                 <field name="mandate_category_id" />
+                <field name="with_remuneration" />
             </xpath>
         </field>
     </record>

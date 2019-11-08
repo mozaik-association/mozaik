@@ -31,6 +31,7 @@ class VirtualPartnerMandate(models.Model):
         domain=[('is_assembly', '=', True)])
     mandate_category_id = fields.Many2one(
         comodel_name='mandate.category', string='Mandate Category')
+    with_remuneration = fields.Boolean()
     designation_int_assembly_id = fields.Many2one(
         comodel_name='int.assembly', string='Designation Assembly')
     designation_instance_id = fields.Many2one(
@@ -84,6 +85,7 @@ class VirtualPartnerMandate(models.Model):
             %(ext_mandate_id)s as ext_mandate_id,
             %(ref_partner_id)s as ref_partner_id,
             mandate.mandate_category_id,
+            mandate.with_remuneration,
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
