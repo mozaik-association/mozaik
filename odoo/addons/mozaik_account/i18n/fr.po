@@ -78,7 +78,7 @@ msgid "Membership update"
 msgstr "Mise à jour d'une adhésion"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:72
+#: code:addons/mozaik_account/models/membership_line.py:71
 #, python-format
 msgid "More than one membership to reconcile are available"
 msgstr "Plus d'une adhésion à réconcilier sont disponibles"
@@ -112,14 +112,14 @@ msgid "Subscription Account"
 msgstr "Compte de cotisation"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:106
+#: code:addons/mozaik_account/models/membership_line.py:96
 #, python-format
 msgid "The membership %s is already paid"
 msgstr "L'adhésion %s est déjà payée"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:59
-#: code:addons/mozaik_account/models/membership_line.py:77
+#: code:addons/mozaik_account/models/membership_line.py:58
+#: code:addons/mozaik_account/models/membership_line.py:76
 #, python-format
 msgid "The membership you want to reconcile is too old"
 msgstr "L'adhésion que vous souhaitez réconcilier est trop ancienne"
@@ -135,7 +135,7 @@ msgid "Update instances of partner"
 msgstr "Changement d'instance du contact"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/account_bank_statement_line.py:159
+#: code:addons/mozaik_account/models/account_bank_statement_line.py:167
 #, python-format
 msgid "You must first select a partner!"
 msgstr "Vous devez selectionner un partenaire !"

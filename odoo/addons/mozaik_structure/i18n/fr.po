@@ -635,6 +635,11 @@ msgid "Enforce Cities"
 msgstr "Appliquer les villes"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_event_count
+msgid "Events"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.ui.view,arch_db:mozaik_structure.int_assembly_search_view
 #: model:ir.ui.view,arch_db:mozaik_structure.sta_assembly_search_view
 msgid "Executive Assemblies"
@@ -1313,6 +1318,11 @@ msgstr "Type d'Activités à Venir"
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_comment
 msgid "Notes"
 msgstr "Notes"
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_event_count
+msgid "Number of events the partner has participated."
+msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.ui.menu,name:mozaik_structure.state_configuration_menu

@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/mandate_category.py:114
+#: code:addons/mozaik_mandate/models/mandate_category.py:115
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
