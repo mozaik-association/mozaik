@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/mandate_category.py:115
+#: code:addons/mozaik_mandate/models/mandate_category.py:124
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
@@ -822,10 +822,11 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/legislature.py:25
+#: code:addons/mozaik_mandate/models/legislature.py:19
 #, python-format
-msgid "New deadline date must be greater or equal than today !"
-msgstr "La date d'échéance doit être supérieur ou égale à la date du jour !"
+msgid ""
+"New deadline date must be greater or equal than the previous deadline date !"
+msgstr "La date d'échéance doit être supérieure ou égale à la précédente date d'échéance !"
 
 #. module: mozaik_mandate
 #: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:85
