@@ -91,7 +91,9 @@ class MandateCategory(models.Model):
     with_assets_declaration = fields.Boolean(
         help='Representative is subject to a declaration of assets',
         oldname="is_submission_assets")
-    with_remuneration = fields.Boolean()
+    with_remuneration = fields.Boolean(
+        default=lambda s: s._default_with_remuneration(),
+    )
 
     @api.multi
     @api.depends(
@@ -106,6 +108,13 @@ class MandateCategory(models.Model):
                 record.sta_assembly_category_id.id or
                 record.int_assembly_category_id.id or
                 record.ext_assembly_category_id.id or 0)
+
+    @api.model
+    def _default_with_remuneration(self):
+        res = False
+        if self.env.context.get('default_type', '') == 'sta':
+            res = True
+        return res
 
     @api.multi
     def copy_data(self, default=None):
