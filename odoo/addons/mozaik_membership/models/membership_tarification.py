@@ -51,6 +51,7 @@ class MembershipTarification(models.Model):
             'uid': self.env.uid,
             'user': self.env.user,
             'self': self,
+            'today': fields.Date.today(),
         }
         return values
 
