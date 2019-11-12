@@ -71,7 +71,7 @@ class MembershipLine(models.Model):
         :return:
         """
         bad_records = self.filtered(
-            lambda r: not r.price_is_zero(r.price) and not r.reference and
+            lambda r: not r._price_is_zero(r.price) and not r.reference and
             r.active)
         if bad_records:
             details = "\n- ".join(bad_records.mapped("display_name"))
@@ -360,7 +360,7 @@ class MembershipLine(models.Model):
         return values
 
     @api.model
-    def price_is_zero(self, price):
+    def _price_is_zero(self, price):
         """
         Check if the given price is a zero (using the precision of the field)
         :param price: float

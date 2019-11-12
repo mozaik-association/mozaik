@@ -10,27 +10,32 @@ class PartnerChangeInstance(models.TransientModel):
     _inherit = "partner.change.instance"
 
     @api.multi
-    def _create_new_membership(self, line, product):
+    def _get_new_membership_values(self):
         self.ensure_one()
+        line = self.membership_line_id
         without_ref = (
             line.paid or
             line.state_id.code not in
             line.state_id._get_all_subscription_codes()
         )
         if without_ref:
-            super()._create_new_membership(line, product)
+            this = self.with_context(already_paid=line.paid)
+            vals = super(
+                PartnerChangeInstance, this)._get_new_membership_values()
         else:
+            product = line.partner_id.subscription_product_id
             price = line._get_subscription_price(
                 product, line.partner_id, self.new_instance_id)
             ref = line._generate_membership_reference(
                 line.partner_id, self.new_instance_id)
-            reference, price = self.env["membership.line"]._prepare_custom_renew(
-                ref, price)
+            reference, price = line._prepare_custom_renew(ref, price)
             if reference is None:
                 reference = ref
-            line.copy({
+            vals = {
                 'int_instance_id': self.new_instance_id.id,
                 'product_id': product.id,
                 'price': price,
                 'reference': reference,
-            })
+            }
+        vals['paid'] = line._price_is_zero(vals.get('price', 0.0))
+        return vals

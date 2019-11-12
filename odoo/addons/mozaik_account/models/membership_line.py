@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import datetime
-from odoo import api, fields, models, tools, _
+from odoo import api, fields, models, _
 from odoo.tools import float_compare
 from odoo.exceptions import UserError
 
@@ -28,7 +28,7 @@ class MembershipLine(models.Model):
         copy=False,
         readonly=True,
     )
-    price_paid = fields.Float()
+    price_paid = fields.Float(copy=False)
 
     @api.model
     def _get_min_reconciliation_date(self):
@@ -104,15 +104,6 @@ class MembershipLine(models.Model):
         return self
 
     @api.model
-    def _get_paid_based_on_price(self, price):
-        """
-        Based on the given price, set the default value for the paid bool
-        :param price: float
-        :return: bool
-        """
-        return self.price_is_zero(price)
-
-    @api.model
     def _build_membership_values(
             self, partner, instance, state,
             date_from=False, product=False, price=None,
@@ -124,7 +115,7 @@ class MembershipLine(models.Model):
             partner, instance, state,
             date_from=date_from,
             product=product, price=price, reference=reference)
-        vals['paid'] = self._get_paid_based_on_price(vals.get('price', 0.0))
+        vals['paid'] = self._price_is_zero(vals.get('price', 0.0))
         return vals
 
     @api.model
@@ -145,11 +136,6 @@ class MembershipLine(models.Model):
             operator = '!='
         domain.append(('paid', operator, True))
         return domain
-
-    @api.multi
-    def _renew(self, date_from=False):
-        self.clear_caches()
-        return super()._renew(date_from=date_from)
 
     @api.model
     def _get_lines_to_renew_domain(self, force_lines=None):

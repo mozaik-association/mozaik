@@ -14,6 +14,6 @@ class UpdateMembership(models.TransientModel):
         """
         self.ensure_one()
         vals = super()._prepare_update_product_price()
-        paid = self.membership_line_id._get_paid_based_on_price(self.price)
+        paid = self.membership_line_id._price_is_zero(vals.get('price', 0.0))
         vals['paid'] = paid
         return vals

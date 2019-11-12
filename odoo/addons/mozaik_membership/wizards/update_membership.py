@@ -148,7 +148,7 @@ class UpdateMembership(models.TransientModel):
         """
         membership = self.membership_line_id
         if self.product_id:
-            price_zero = membership.price_is_zero(self.price)
+            price_zero = membership._price_is_zero(self.price)
             if price_zero:
                 self.reference = ''
             else:
