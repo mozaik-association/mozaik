@@ -102,7 +102,7 @@ msgstr "Assemblée"
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
 msgid "Available variables"
-msgstr "Available variables"
+msgstr "Variables disponibles"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.add_membership_form
@@ -952,8 +952,7 @@ msgstr "Technique"
 msgid ""
 "The active boolean is incompatible with the 'To' date:\n"
 "- %s"
-msgstr ""
-"Le champ 'actif' est incompatible avec la date de fin"
+msgstr "Le champ 'actif' est incompatible avec la date de fin:\n"
 "- %s"
 
 #. module: mozaik_membership
@@ -1105,13 +1104,18 @@ msgstr "mass.membership.renew"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
-msgid "partner => res.partner to evaluate the tarification"
-msgstr "partner => res.partner dont on évalue le tarif"
+msgid "partner => Partner whose tarification is evaluated"
+msgstr "partner => contact dont on évalue le tarif"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
-msgid "self => Current membership.tarification"
-msgstr "self => membership.tarification courant"
+msgid "self => Current tarification"
+msgstr "self => tarification courante"
+
+#. module: mozaik_membership
+#: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
+msgid "today => Current date (YYYY-MM-DD)"
+msgstr "today => Date courante (AAAA-MM-JJ)"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
@@ -1120,8 +1124,8 @@ msgstr "uid => Current user id"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
-msgid "user => Current res.users"
-msgstr "user => res.users courant"
+msgid "user => Current user"
+msgstr "user => utilisateur courant"
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view

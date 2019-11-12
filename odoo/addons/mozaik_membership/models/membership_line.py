@@ -312,15 +312,15 @@ class MembershipLine(models.Model):
         :return:
         """
         partner.ensure_one()
-        ref_date = ref_date or fields.Date.from_string(
-            fields.Date.today()).year
+        ref_date = fields.Date.from_string(
+            ref_date or fields.Date.today()).year
         ref = 'MS: %s/%s/%s' % (ref_date, instance.id, partner.id)
         return ref
 
     @api.model
     def _build_membership_values(
             self, partner, instance, state,
-            date_from=False, previous=False, product=False, price=None,
+            date_from=False, product=False, price=None,
             reference=None):
         """
         Build membership values based on given parameters
@@ -328,23 +328,20 @@ class MembershipLine(models.Model):
         :param instance: int.instance recordset
         :param state: membership.state recordset
         :param date_from: date/str
-        :param previous: membership.line recordset
         :param product: product.product recordset
         :param price: float
         :return: dict
         """
-        if not previous:
-            previous = self.env[self._name].browse()
         if not product:
             product = self._get_subscription_product(
                 partner=partner, instance=instance)
         date_from = date_from or fields.Date.today()
         # If the price is not given, we have to compute it
         if price is None:
-            price = previous._get_subscription_price(
+            price = self._get_subscription_price(
                 product, partner=partner, instance=instance)
         if price > 0 and reference is None:
-            reference = previous._generate_membership_reference(
+            reference = self._generate_membership_reference(
                 partner, instance, ref_date=date_from)
         values = {
             'date_from': date_from,
@@ -555,12 +552,12 @@ class MembershipLine(models.Model):
             logger.info("Create %s membership, follow-up of %s (%s/%s)",
                         state.code, membership_line, i, membership_size)
             partner = membership_line.partner_id
-            if state.code != "member" and partner.membership_state_id.code != "without_membership":
+            if state.code != "member" and \
+                    partner.membership_state_id.code != "without_membership":
                 continue
             instance = membership_line.int_instance_id
             values = self._build_membership_values(
-                partner, instance, state, date_from=real_date_from,
-                previous=membership_line)
+                partner, instance, state, date_from=real_date_from)
             # If the line still active, we only have to renew the reference
             # Because membership lines are supposed to be closed.
             # If there are not, it's because we have to renew them, without
@@ -649,7 +646,8 @@ class MembershipLine(models.Model):
         lines_keep_closed = self.browse(lines_result)
         lines = self - lines_keep_closed
         lines = lines.filtered(lambda s, m=member_state: s.state_id == m)
-        return lines._update_membership(former_state, date_from=date_from, force=force)
+        return lines._update_membership(
+            former_state, date_from=date_from, force=force)
 
     @api.model
     def _get_fields_to_update(self, mode):

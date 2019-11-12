@@ -115,14 +115,14 @@ class MembershipLine(models.Model):
     @api.model
     def _build_membership_values(
             self, partner, instance, state,
-            date_from=False, previous=False, product=False, price=None,
+            date_from=False, product=False, price=None,
             reference=None):
         """
         Add paid boolean to values
         """
         vals = super()._build_membership_values(
             partner, instance, state,
-            date_from=date_from, previous=previous,
+            date_from=date_from,
             product=product, price=price, reference=reference)
         vals['paid'] = self._get_paid_based_on_price(vals.get('price', 0.0))
         return vals

@@ -1070,12 +1070,17 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
-msgid "partner => res.partner to evaluate the tarification"
+msgid "partner => Partner whose tarification is evaluated"
 msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
-msgid "self => Current membership.tarification"
+msgid "self => Current tarification"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
+msgid "today => Current date (YYYY-MM-DD)"
 msgstr ""
 
 #. module: mozaik_membership
@@ -1085,7 +1090,7 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
-msgid "user => Current res.users"
+msgid "user => Current user"
 msgstr ""
 
 #. module: mozaik_membership

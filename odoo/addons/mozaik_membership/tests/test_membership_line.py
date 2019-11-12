@@ -23,32 +23,19 @@ class TestMembershipLine(TransactionCase):
         self.product_free = self.env.ref(
             "mozaik_membership.membership_product_free")
 
-    def test_generate_membership_reference1(self):
+    def test_generate_membership_reference(self):
         """
         Check if the membership reference match the arbitrary pattern:
-        'MS: given ref_date/<partner-id>'
+        'MS: year(given ref_date)/<instance-id>/<partner-id>'
         """
         partner = self.partner_marc
         instance = self.instance
-        ref_date = str(datetime.today().year)
+        ref_date = fields.Date.today()
         # generate the reference
         genref = self.membership_obj._generate_membership_reference(
             partner, instance, ref_date=ref_date)
-        ref = 'MS: %s/%s/%s' % (ref_date, instance.id, partner.id)
-        self.assertEqual(genref, ref)
-
-    def test_generate_membership_reference2(self):
-        """
-        Check if the membership reference match the arbitrary pattern:
-        'MS: given ref_date/<partner-id>'
-        """
-        partner = self.partner_marc
-        instance = self.instance
-        ref_date = str(uuid4())
-        # generate the reference
-        genref = self.membership_obj._generate_membership_reference(
-            partner, instance, ref_date=ref_date)
-        ref = 'MS: %s/%s/%s' % (ref_date, instance.id, partner.id)
+        year = fields.Date.from_string(ref_date).year
+        ref = 'MS: %s/%s/%s' % (year, instance.id, partner.id)
         self.assertEqual(genref, ref)
 
     def test_get_subscription_price1(self):
