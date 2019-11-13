@@ -16,6 +16,7 @@
                    on_change="onchange_legislature_id(legislature_id)"
                    domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
                    options='{"no_open":True}'/>
+                <field name="sta_assembly_category_id" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                 <attribute name="domain" translation="off">[('type', '=', 'sta')]</attribute>
@@ -24,7 +25,8 @@
                 <attribute name="domain" translation="off">[('id', '!=', mandate_category_id),('type', '=', 'sta')]</attribute>
             </xpath>
             <xpath expr="//field[@name='new_assembly_id']" position="attributes">
-                <attribute name="domain" translation="off">[('instance_id', '=', instance_id), ('is_legislative', '=', False)]</attribute>
+                <attribute name="domain" translation="off">[('instance_id', '=', instance_id), ('is_legislative', '=', False), ('assembly_category_id', '=', sta_assembly_category_id)]</attribute>
+                <attribute name="context" translation="off">{'default_instance_id': instance_id, 'default_is_legislative': False, 'default_assembly_category_id': sta_assembly_category_id}</attribute>
             </xpath>
             <xpath expr="//field[@name='instance_id']" position="before">
                 <field name="is_legislative"/>

@@ -21,3 +21,6 @@ class CopyIntMandateWizard(models.TransientModel):
         string='Internal Assembly')
     instance_id = fields.Many2one(
         string='Internal Instance')
+    int_assembly_category_id = fields.Many2one(
+        related='new_mandate_category_id.int_assembly_category_id',
+    )

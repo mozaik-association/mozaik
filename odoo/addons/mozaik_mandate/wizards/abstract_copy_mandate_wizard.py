@@ -101,22 +101,36 @@ class AbstractCopyMandateWizard(models.TransientModel):
         Renew a mandate
         """
         self.ensure_one()
-        vals = {
+        vals = self._renew_mandate_vals()
+        return self._copy_mandate(vals)
+
+    @api.multi
+    def _renew_mandate_vals(self):
+        self.ensure_one()
+        return {
             'start_date': self.start_date,
             'deadline_date': self.deadline_date,
             'end_date': False,
         }
-        return self._copy_mandate(vals)
 
+    @api.multi
     def add_mandate(self):
         """
         Add a complementary mandate
         """
-        values = dict(mandate_category_id=self.new_mandate_category_id.id,
-                      start_date=self.start_date,
-                      deadline_date=self.deadline_date)
-        values[self._mandate_assembly_foreign_key] = self.new_assembly_id.id
+        self.ensure_one()
+        values = self._add_mandate_vals()
         return self._copy_mandate(values)
+
+    @api.multi
+    def _add_mandate_vals(self):
+        self.ensure_one()
+        return {
+            "mandate_category_id": self.new_mandate_category_id.id,
+            "start_date": self.start_date,
+            "deadline_date": self.deadline_date,
+            self._mandate_assembly_foreign_key: self.new_assembly_id.id,
+        }
 
     @api.multi
     def _copy_mandate(self, vals):
@@ -126,3 +140,9 @@ class AbstractCopyMandateWizard(models.TransientModel):
         self.ensure_one()
         new_mandate_id = self.mandate_id.copy(default=vals)
         return new_mandate_id.get_formview_action()
+
+    @api.multi
+    @api.onchange("new_mandate_category_id")
+    def _onchange_new_mandate_category_id(self):
+        for wiz in self:
+            wiz.new_assembly_id = False

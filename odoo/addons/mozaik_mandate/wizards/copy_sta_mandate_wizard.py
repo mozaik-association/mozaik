@@ -18,7 +18,11 @@ class CopyStaMandateWizard(models.TransientModel):
         string='State Mandate')
     assembly_id = fields.Many2one(
         comodel_name='sta.assembly',
-        string='State Assembly')
+        string='State Assembly',
+    )
+    sta_assembly_category_id = fields.Many2one(
+        related='new_mandate_category_id.sta_assembly_category_id',
+    )
     new_assembly_id = fields.Many2one(
         comodel_name='sta.assembly',
         string='State Assembly')

@@ -15,6 +15,13 @@
             <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
                 <attribute name="domain" translation="off">[('id', '!=', mandate_category_id),('type', '=', 'ext')]</attribute>
             </xpath>
+            <xpath expr="//field[@name='new_assembly_id']" position="attributes">
+                <attribute name="domain" translation="off">[('assembly_category_id', '=', ext_assembly_category_id)]</attribute>
+                <attribute name="context" translation="off">{'default_assembly_category_id':  ext_assembly_category_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='new_assembly_id']" position="after">
+                <field name="ext_assembly_category_id" invisible="1"/>
+            </xpath>
         </field>
     </record>
 
