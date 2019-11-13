@@ -18,6 +18,7 @@
                             <field name="partner_id"/>
                             <field name="mandate_category_id"/>
                             <field name="assembly_name"/>
+                            <field name="with_remuneration"/>
                          </group>
                         <group name="data_2">
                             <field name="start_date"/>

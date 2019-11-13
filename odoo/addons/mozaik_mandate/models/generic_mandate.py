@@ -28,13 +28,19 @@ class GenericMandate(models.Model):
         return isinstance(self._columns[self._discriminant_field],
                           fields.Many2one)
 
+    @api.multi
+    @api.depends("partner_id", "mandate_category_id")
+    def _compute_name(self):
+        for mandate in self:
+            mandate.name = "%s (%s)" % (self.partner_id.display_name,
+                                        self.mandate_category_id.display_name)
+
+    name = fields.Char(compute="_compute_name")
     model = fields.Char(
         string='Models')
     mandate_id = fields.Integer(
         string='Mandate ID',
         group_operator='min')
-    mandate_ref = fields.Char(
-        string='Mandate Reference')
     mandate_category_id = fields.Many2one(
         comodel_name='mandate.category',
         string='Exclusive Categories')
@@ -49,6 +55,7 @@ class GenericMandate(models.Model):
         string='Incompatible Mandate')
     is_duplicate_allowed = fields.Boolean(
         string='Allowed Incompatible Mandate')
+    with_remuneration = fields.Boolean()
 
     def _select_mandate(self):
         return """
@@ -60,24 +67,18 @@ class GenericMandate(models.Model):
         mandate.deadline_date,
         mandate.is_duplicate_detected,
         mandate.is_duplicate_allowed,
+        mandate.with_remuneration as with_remuneration,
         partner.name as assembly_name
         """
 
     def _select_int_mandate(self):
-        return """
-        'int.mandate' AS model,
-        concat('int.mandate,', mandate.id) as mandate_ref,""" + \
-            self._select_mandate()
+        return "'int.mandate' AS model, " + self._select_mandate()
 
     def _select_ext_mandate(self):
-        return """
-        'ext.mandate' AS model,
-        concat('ext.mandate,', mandate.id),""" + self._select_mandate()
+        return "'ext.mandate' AS model, " + self._select_mandate()
 
     def _select_sta_mandate(self):
-        return """
-        'sta.mandate' AS model,
-        concat('sta.mandate,', mandate.id),""" + self._select_mandate()
+        return "'sta.mandate' AS model, " + self._select_mandate()
 
     def init(self):
         tools.drop_view_if_exists(self._cr, 'generic_mandate')
