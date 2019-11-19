@@ -43,6 +43,11 @@
                         domain="[('is_duplicate_detected','=',True)]" />
                 <separator/>
                 <filter name="allow_duplicate" string="Allowed Incompatible Mandates" domain="[('is_duplicate_allowed','=',True)]"/>
+                <separator />
+                <filter name="with_remuneration" string="With Remuneration"
+                        domain="[('with_remuneration','=',True)]" />
+                <filter name="without_remuneration" string="Without Remuneration"
+                        domain="[('with_remuneration','=',False)]" />
 
                 <group name="group_by">
                     <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
@@ -62,6 +67,7 @@
                 <field name="assembly_name"/>
                 <field name="start_date"/>
                 <field name="deadline_date"/>
+                <field name="with_remuneration"/>
                 <field name="is_duplicate_detected" invisible="1"/>
                 <button name="button_view_mandate" type="object" string="View" icon="fa-file-text"/>
             </tree>

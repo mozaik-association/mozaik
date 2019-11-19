@@ -1119,6 +1119,7 @@ msgstr "Avec déclaration de patrimoine"
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_with_remuneration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_with_remuneration
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
 #: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "With Remuneration"
 msgstr "Avec rémunération"
@@ -1144,6 +1145,7 @@ msgstr "Avec déclaration de revenue"
 
 #. module: mozaik_mandate
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
 #: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "Without Remuneration"
 msgstr "Sans rémunération"
