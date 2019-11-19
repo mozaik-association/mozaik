@@ -407,6 +407,7 @@ msgstr ""
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_ext_assembly_category
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_ext_assembly_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_ext_assembly_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_ext_assembly_category_id
 msgid "External Assembly Category"
@@ -551,6 +552,7 @@ msgstr ""
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_int_assembly_category
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_int_assembly_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_int_assembly_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_int_assembly_category_id
 msgid "Internal Assembly Category"
@@ -742,11 +744,6 @@ msgid "Mandate ID"
 msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_mandate_ref
-msgid "Mandate Reference"
-msgstr ""
-
-#. module: mozaik_mandate
 #: code:addons/mozaik_mandate/models/sta_mandate.py:85
 #, python-format
 msgid "Mandate period is inconsistent with legislature period!"
@@ -874,7 +871,7 @@ msgid "Renew Mandate"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/copy_sta_mandate_wizard.py:52
+#: code:addons/mozaik_mandate/wizards/copy_sta_mandate_wizard.py:56
 #, python-format
 msgid "Renew not allowed on a legislative mandate"
 msgstr ""
@@ -951,6 +948,7 @@ msgstr ""
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_sta_assembly_category
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_sta_assembly_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_sta_assembly_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_sta_assembly_category_id
 msgid "State Assembly Category"
@@ -1092,6 +1090,7 @@ msgstr ""
 #. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_with_remuneration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_with_remuneration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_with_remuneration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_with_remuneration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_with_remuneration
