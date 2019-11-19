@@ -40,7 +40,8 @@ class AbstractCopyMandateWizard(models.TransientModel):
         comodel_name='abstract.assembly',
         string='Abstract Assembly')
     instance_id = fields.Many2one(
-        related="assembly_id.instance_id")
+        related="assembly_id.instance_id",
+        readonly=True)
     action = fields.Selection(
         selection=WIZARD_AVAILABLE_ACTIONS)
     partner_id = fields.Many2one(
