@@ -38,6 +38,8 @@
         <field name="arch" type="xml">
             <search>
                 <field name="partner_id" domain="[('is_company','=',False)]"/>
+                <field name="mandate_category_id"/>
+                <field name="assembly_name"/>
 
                 <filter name="duplicate" string="Incompatible Mandates"
                         domain="[('is_duplicate_detected','=',True)]" />
@@ -75,20 +77,20 @@
     </record>
 
     <record id="generic_mandate_action" model="ir.actions.act_window">
-        <field name="name">Incompatible Mandates</field>
+        <field name="name">All Mandates</field>
         <field name="res_model">generic.mandate</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="generic_mandate_search_view" />
         <field name="view_id" ref="generic_mandate_tree_view" />
-        <field name="context">{'search_default_duplicate': True}</field>
+        <field name="context">{}</field>
     </record>
 
-    <record model="ir.ui.menu" id="incompatible_mandates_submenu">
-        <field name="name">Incompatible Mandates</field>
-        <field name="parent_id" ref="all_mandates_submenu"/>
+    <record model="ir.ui.menu" id="all_mandates_submenu">
+        <field name="name">All Mandates</field>
+        <field name="parent_id" ref="mandates_root_menu"/>
         <field name="action" ref="generic_mandate_action"/>
-        <field name="sequence" eval="10"/>
+        <field name="sequence" eval="50"/>
     </record>
 
 </odoo>

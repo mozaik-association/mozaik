@@ -32,8 +32,10 @@ class GenericMandate(models.Model):
     @api.depends("partner_id", "mandate_category_id")
     def _compute_name(self):
         for mandate in self:
-            mandate.name = "%s (%s)" % (self.partner_id.display_name,
-                                        self.mandate_category_id.display_name)
+            mandate.name = "%s (%s)" % (
+                mandate.partner_id.display_name,
+                mandate.mandate_category_id.display_name,
+            )
 
     name = fields.Char(compute="_compute_name")
     model = fields.Char(
@@ -42,8 +44,7 @@ class GenericMandate(models.Model):
         string='Mandate ID',
         group_operator='min')
     mandate_category_id = fields.Many2one(
-        comodel_name='mandate.category',
-        string='Exclusive Categories')
+        comodel_name='mandate.category')
     assembly_name = fields.Char(
         string="Assembly")
     partner_id = fields.Many2one(
@@ -120,16 +121,6 @@ class GenericMandate(models.Model):
             "select_sta_mandate": AsIs(self._select_sta_mandate()),
             "select_ext_mandate": AsIs(self._select_ext_mandate()),
         })
-
-    @api.multi
-    def name_get(self):
-        res = []
-        for mandate in self:
-            display_name = '{name} ({mandate_category})'.format(
-                name=mandate.partner_id.name,
-                mandate_category=mandate.mandate_category_id.name)
-            res.append((mandate.id, display_name))
-        return res
 
     @api.multi
     def button_view_mandate(self):

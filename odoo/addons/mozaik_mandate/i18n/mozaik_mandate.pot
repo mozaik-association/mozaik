@@ -129,6 +129,7 @@ msgid "All Details"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.generic_mandate_action
 #: model:ir.ui.menu,name:mozaik_mandate.all_mandates_submenu
 msgid "All Mandates"
 msgstr ""
@@ -351,7 +352,6 @@ msgid "End date must be lower or equal than today!"
 msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_mandate_category_id
 #: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_form_view
 msgid "Exclusive Categories"
 msgstr ""
@@ -509,8 +509,6 @@ msgid "Incompatible Mandate"
 msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.actions.act_window,name:mozaik_mandate.generic_mandate_action
-#: model:ir.ui.menu,name:mozaik_mandate.incompatible_mandates_submenu
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 #: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
 msgid "Incompatible Mandates"
@@ -716,6 +714,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_mandate_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_new_mandate_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_mandate_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_mandate_category_id
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_mandate_category_id
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view

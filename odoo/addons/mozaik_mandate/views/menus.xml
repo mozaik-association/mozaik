@@ -28,12 +28,6 @@
         <field name="sequence" eval="30"/>
     </record>
 
-    <record model="ir.ui.menu" id="all_mandates_submenu">
-        <field name="name">All Mandates</field>
-        <field name="parent_id" ref="mandates_root_menu"/>
-        <field name="sequence" eval="50"/>
-    </record>
-
     <record model="ir.ui.menu" id="configuration_submenu">
         <field name="name">Configuration</field>
         <field name="parent_id" ref="mandates_root_menu"/>
