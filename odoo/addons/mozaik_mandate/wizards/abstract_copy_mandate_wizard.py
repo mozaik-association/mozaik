@@ -139,7 +139,9 @@ class AbstractCopyMandateWizard(models.TransientModel):
         Copy a mandate with new default values
         """
         self.ensure_one()
-        new_mandate_id = self.mandate_id.copy(default=vals)
+        # copy() reset lang, thus form will be displayed in en_US
+        new_mandate_id = self.mandate_id.copy(
+            default=vals).with_context(lang=self._context.get('lang'))
         return new_mandate_id.get_formview_action()
 
     @api.multi
