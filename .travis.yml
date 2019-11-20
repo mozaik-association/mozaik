@@ -28,6 +28,7 @@ install:
 
 script:
   - pip install --no-deps odoo11-addon-base-suspend-security==11.0.1.0.1.99.dev2
+  - pip install --no-deps odoo11-addon-base-user-role
   - export TRAVIS_BUILD_DIR=${TRAVIS_BUILD_DIR}/odoo/addons
   - travis_run_tests
 
