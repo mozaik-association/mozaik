@@ -1,3 +1,0 @@
-odoo11-addon-base-suspend-security
-odoo11-addon-base-user-role
-
