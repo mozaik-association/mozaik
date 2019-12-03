@@ -23,10 +23,10 @@
 #
 ##############################################################################
 
+from datetime import datetime, timedelta
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
-
 
 # Available Coordinate Types:
 # N/A
@@ -310,8 +310,8 @@ class abstract_coordinate(orm.AbstractModel):
         self.write(cr, uid, ids,
                    {'bounce_counter': 0,
                     'bounce_date': False,
-                    'first_bounce_date': False
-                   }, context=context)
+                    'first_bounce_date': False},
+                   context=context)
 
 # public methods
 
@@ -505,3 +505,37 @@ class abstract_coordinate(orm.AbstractModel):
             cr, uid, ids, invalidate=True, context=context)
         return super(abstract_coordinate, self).action_invalidate(
             cr, uid, rejected_ids, context=context, vals=vals)
+
+    def update_bounce_counter_mass_mailing(self):
+        """
+        This method reset the bounce counter on last mailing list
+        where no bounce return on coordinate
+        """
+        # Get mailing lists the period define in the parameters
+        check_bounce_date = datetime.today() - timedelta(
+            days=int(self.env['ir.config_parameter'].get_param(
+                'mozaik_coordinate.bounce_counter_reset_time_delay')))
+        domain = [('sent_date',
+                   '>=',
+                   datetime.strftime(check_bounce_date, '%Y-%m-%d 00:00:00')),
+                  ('sent_date',
+                   '<=',
+                   datetime.strftime(check_bounce_date, '%Y-%m-%d 23:59:59'))]
+        last_mass_mailing = self.env['mail.mass_mailing'].search(domain)
+
+        if last_mass_mailing:
+            for mailing_list in last_mass_mailing:
+                # Getting coordinates in each mailing list
+                mailing_list_coordinates = \
+                    self.env['mail.mass_mailing'].get_recipients(mailing_list)
+                coordinates = \
+                    self.env['email.coordinate']\
+                        .browse(mailing_list_coordinates)
+                # If the last bounce date
+                # is before the mailing list date we reset
+                for coordinate in coordinates:
+                    # Check if the date of the last bounce
+                    # is before the mailing list sending date
+                    if coordinate.bounce_counter > 0:
+                        if mailing_list.sent_date > coordinate.bounce_date:
+                            coordinate.button_reset_counter()
