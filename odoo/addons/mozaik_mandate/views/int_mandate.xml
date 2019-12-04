@@ -70,6 +70,7 @@
         <field name="name">Internal Mandates</field>
         <field name="res_model">int.mandate</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
     </record>
 
     <record model="ir.ui.menu" id="int_mandate_submenu">

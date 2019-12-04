@@ -937,6 +937,11 @@ msgid "Representative is subject to a declaration of income"
 msgstr "Le mandataire est sujet à une déclaration de revenus"
 
 #. module: mozaik_mandate
+#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
+msgid "Revenue"
+msgstr "Revenu"
+
+#. module: mozaik_mandate
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Set end date, proceed anyway?"
 msgstr "Poursuivre l'arrêt du mandat ?"
