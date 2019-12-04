@@ -533,9 +533,10 @@ class abstract_coordinate(orm.AbstractModel):
                         .browse(mailing_list_coordinates)
                 # If the last bounce date
                 # is before the mailing list date we reset
-                for coordinate in coordinates:
-                    # Check if the date of the last bounce
-                    # is before the mailing list sending date
-                    if coordinate.bounce_counter > 0:
-                        if mailing_list.sent_date > coordinate.bounce_date:
-                            coordinate.button_reset_counter()
+                if coordinates:
+                    for coordinate in coordinates:
+                        # Check if the date of the last bounce
+                        # is before the mailing list sending date
+                        if coordinate.bounce_counter > 0:
+                            if mailing_list.sent_date > coordinate.bounce_date:
+                                coordinate.button_reset_counter()
