@@ -20,11 +20,11 @@
                     </div>
                     <group name="mandate">
                         <group name="mandate_1">
-                            <field name="mandate_category_id"/>
-                        </group>
-                        <group name="mandate_2">
                             <field name="partner_id" domain="[('is_company','=',False)]"
                                    context="{'default_is_company': False}"/>
+                        </group>
+                        <group name="mandate_2">
+                            <field name="mandate_category_id"/>
                         </group>
                     </group>
 
@@ -39,9 +39,6 @@
                         </group>
                         <group name="data_2">
                             <field name="designation_int_assembly_id"/>
-                            <field name="with_revenue_declaration" readonly="1"/>
-                            <field name="with_assets_declaration" readonly="1"/>
-                            <field name="with_remuneration"/>
                         </group>
                         <group name="duplicate">
                             <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
@@ -67,6 +64,17 @@
                                     <field name="deadline_date"/>
                                     <field name="end_date" readonly="1" attrs="{'invisible': [('end_date','=',False)]}"/>
                                     <field name="alert_date" readonly="1" attrs="{'invisible': [('alert_date','=', False)]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="revenue" string="Revenue">
+                            <group>
+                                <group name="revenue_1">
+                                    <field name="with_revenue_declaration" readonly="1"/>
+                                    <field name="with_assets_declaration" readonly="1"/>
+                                </group>
+                                <group name="revenue_2">
+                                    <field name="with_remuneration"/>
                                 </group>
                             </group>
                         </page>

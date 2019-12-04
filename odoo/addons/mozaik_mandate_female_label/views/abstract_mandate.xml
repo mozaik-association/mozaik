@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <!-- inheriting from an abstract view doesn't work, so we apply inheritance on all specific view -->
+
+    <record model="ir.ui.view" id="sta_mandate_form_view">
+        <field name="name">sta.mandate.form (in mozaik_mandate_female_label)</field>
+        <field name="model">sta.mandate</field>
+        <field name="inherit_id" ref="mozaik_mandate.sta_mandate_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mandate_category_id']" position="before">
+                <field name="gender" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                <attribute name="context">{'default_type': 'sta', 'gender': gender}</attribute>
+                <attribute name="options">{'always_reload': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="int_mandate_form_view">
+        <field name="name">int.mandate.form (in mozaik_mandate_female_label)</field>
+        <field name="model">int.mandate</field>
+        <field name="inherit_id" ref="mozaik_mandate.int_mandate_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mandate_category_id']" position="before">
+                <field name="gender" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                <attribute name="context">{'default_type': 'int', 'gender': gender}</attribute>
+                <attribute name="options">{'always_reload': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ext_mandate_form_view">
+        <field name="name">ext.mandate.form (in mozaik_mandate_female_label)</field>
+        <field name="model">ext.mandate</field>
+        <field name="inherit_id" ref="mozaik_mandate.ext_mandate_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mandate_category_id']" position="before">
+                <field name="gender" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                <attribute name="context">{'default_type': 'ext', 'gender': gender}</attribute>
+                <attribute name="options">{'always_reload': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

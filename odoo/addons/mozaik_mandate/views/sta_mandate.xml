@@ -13,8 +13,6 @@
                 <field name="sta_assembly_id"
                         required="1"
                         domain="[('assembly_category_id', '=', sta_assembly_category_id)]"/>
-            </xpath>
-            <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="legislature_id"
                        domain="[('power_level_id','=',sta_power_level_id)]"/>
             </xpath>
@@ -72,6 +70,7 @@
         <field name="name">State Mandates</field>
         <field name="res_model">sta.mandate</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
     </record>
 
     <record model="ir.ui.menu" id="sta_mandate_submenu">
