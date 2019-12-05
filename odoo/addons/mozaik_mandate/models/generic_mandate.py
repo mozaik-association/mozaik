@@ -72,14 +72,34 @@ class GenericMandate(models.Model):
         partner.name as assembly_name
         """
 
+    def _join_mandate(self):
+        return """
+        JOIN res_partner AS partner
+          ON partner.id = assembly.partner_id"""
+
     def _select_int_mandate(self):
         return "'int.mandate' AS model, " + self._select_mandate()
+
+    def _join_int_mandate(self):
+        return """
+        JOIN int_assembly AS assembly
+          ON assembly.id = mandate.int_assembly_id""" + self._join_mandate()
 
     def _select_ext_mandate(self):
         return "'ext.mandate' AS model, " + self._select_mandate()
 
+    def _join_ext_mandate(self):
+        return """
+        JOIN ext_assembly AS assembly
+          ON assembly.id = mandate.ext_assembly_id""" + self._join_mandate()
+
     def _select_sta_mandate(self):
         return "'sta.mandate' AS model, " + self._select_mandate()
+
+    def _join_sta_mandate(self):
+        return """
+        JOIN sta_assembly AS assembly
+          ON assembly.id = mandate.sta_assembly_id""" + self._join_mandate()
 
     def init(self):
         tools.drop_view_if_exists(self._cr, 'generic_mandate')
@@ -87,10 +107,7 @@ class GenericMandate(models.Model):
             create or replace view generic_mandate as (
                 SELECT %(select_int_mandate)s
                     FROM int_mandate  AS mandate
-                    JOIN int_assembly AS assembly
-                      ON assembly.id = mandate.int_assembly_id
-                    JOIN res_partner  AS partner
-                      ON partner.id = assembly.partner_id
+                    %(join_int_mandate)s
                     WHERE mandate.active = True
                     AND mandate.end_date is NULL
 
@@ -98,10 +115,7 @@ class GenericMandate(models.Model):
 
                 SELECT %(select_sta_mandate)s
                     FROM sta_mandate  AS mandate
-                    JOIN sta_assembly AS assembly
-                      ON assembly.id = mandate.sta_assembly_id
-                    JOIN res_partner  AS partner
-                      ON partner.id = assembly.partner_id
+                    %(join_sta_mandate)s
                     WHERE mandate.active = True
                     AND mandate.end_date is NULL
 
@@ -109,17 +123,17 @@ class GenericMandate(models.Model):
 
                 SELECT %(select_ext_mandate)s
                     FROM ext_mandate  AS mandate
-                    JOIN ext_assembly AS assembly
-                      ON assembly.id = mandate.ext_assembly_id
-                    JOIN res_partner  AS partner
-                      ON partner.id = assembly.partner_id
+                    %(join_ext_mandate)s
                     WHERE mandate.active = True
                     AND mandate.end_date is NULL
             )
             """, {
             "select_int_mandate": AsIs(self._select_int_mandate()),
+            "join_int_mandate": AsIs(self._join_int_mandate()),
             "select_sta_mandate": AsIs(self._select_sta_mandate()),
+            "join_sta_mandate": AsIs(self._join_sta_mandate()),
             "select_ext_mandate": AsIs(self._select_ext_mandate()),
+            "join_ext_mandate": AsIs(self._join_ext_mandate()),
         })
 
     @api.multi
