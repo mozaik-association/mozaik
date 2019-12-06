@@ -39,7 +39,7 @@ from dateutil.relativedelta import relativedelta
 AVAILABLE_GENDERS = [
     ('m', 'Male'),
     ('f', 'Female'),
-    ('o', 'Other'),
+    ('other', 'Other'),
 ]
 
 available_genders = dict(AVAILABLE_GENDERS)
