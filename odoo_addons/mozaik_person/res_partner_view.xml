@@ -28,7 +28,7 @@
                     <separator />
                     <filter string="Male" name="male" domain="[('gender','=','m')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <filter string="Female" name="female" domain="[('gender','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
-                    <filter string="Other" name="other" domain="[('gender','=','o')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                    <filter string="Other" name="other" domain="[('gender','=','other')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <separator />
                     <filter string="French" name="french" domain="[('tongue','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <filter string="German" name="german" domain="[('tongue','=','g')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>

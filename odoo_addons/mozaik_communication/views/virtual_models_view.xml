@@ -414,7 +414,7 @@
                     <filter string="Donor" name="donor"
                         domain="[('is_donor','=',True)]" />
                     <separator />
-                    <filter string="Volunteer"  name="volunteer"
+                    <filter string="Volunteer" name="volunteer"
                         domain="[('is_volunteer','=',True)]" />
                     <separator />
                     <filter string="Employee" name="employee"
