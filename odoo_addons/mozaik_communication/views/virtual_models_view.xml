@@ -97,6 +97,8 @@
                         domain="[('gender','=','m')]" />
                     <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
+                    <filter string="Other" name="other"
+                        domain="[('gender','=','other')]" />
                     <separator />
                     <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
@@ -268,6 +270,8 @@
                         domain="[('gender','=','m')]" />
                     <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
+                    <filter string="Other" name="other"
+                        domain="[('gender','=','other')]" />
                     <separator />
                     <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
@@ -399,6 +403,8 @@
                         domain="[('gender','=','m')]" />
                     <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
+                    <filter string="Other" name="other"
+                        domain="[('gender','=','other')]" />
                     <separator />
                     <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
@@ -575,6 +581,8 @@
                         domain="[('gender','=','m')]" />
                     <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
+                    <filter string="Other" name="other"
+                        domain="[('gender','=','other')]" />
                     <separator />
                     <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
@@ -712,6 +720,8 @@
                         domain="[('gender','=','m')]" />
                     <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
+                    <filter string="Other" name="other"
+                        domain="[('gender','=','other')]" />
                     <separator />
                     <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
@@ -1089,6 +1099,8 @@
                         domain="[('gender','=','m')]" />
                     <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
+                    <filter string="Other" name="other"
+                        domain="[('gender','=','other')]" />
                     <separator />
                     <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />
@@ -1215,6 +1227,8 @@
                         domain="[('gender','=','m')]" />
                     <filter string="Female" name="female"
                         domain="[('gender','=','f')]" />
+                    <filter string="Other" name="other"
+                        domain="[('gender','=','other')]" />
                     <separator />
                     <filter string="French" name="french"
                         domain="[('tongue','=','f')]" />

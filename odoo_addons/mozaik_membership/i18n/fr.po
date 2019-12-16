@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-14 18:25+0000\n"
-"PO-Revision-Date: 2018-06-14 18:25+0000\n"
+"POT-Creation-Date: 2019-12-05 12:11+0000\n"
+"PO-Revision-Date: 2019-12-05 12:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,13 +22,13 @@ msgstr "#Jours"
 
 #. module: mozaik_membership
 #: selection:generate.reference,reference_date:0
-msgid "2018"
-msgstr "2018"
+msgid "2019"
+msgstr "2019"
 
 #. module: mozaik_membership
 #: selection:generate.reference,reference_date:0
-msgid "2019"
-msgstr "2019"
+msgid "2020"
+msgstr "2020"
 
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/models/res_partner.py:242
@@ -1372,7 +1372,6 @@ msgstr "Actif pol. niv. national"
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_search_view
 #: field:membership.request,nationality_id:0
-#: field:res.users,nationality_id:0
 msgid "Nationality"
 msgstr "Nationalité"
 
@@ -1458,6 +1457,7 @@ msgid "Old Value"
 msgstr "Valeur actuelle"
 
 #. module: mozaik_membership
+#: selection:membership.request,gender:0
 #: selection:membership.request,request_type:0
 msgid "Other"
 msgstr "Autre"

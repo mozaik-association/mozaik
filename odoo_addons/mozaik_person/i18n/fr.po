@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 22:00+0000\n"
-"PO-Revision-Date: 2018-04-20 22:00+0000\n"
+"POT-Creation-Date: 2019-12-05 12:10+0000\n"
+"PO-Revision-Date: 2019-12-05 12:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:464
+#: code:addons/mozaik_person/res_partner.py:465
 #, python-format
 msgid "A partner and a login must be provided to create a user!"
 msgstr "Un partenaire et un login sont requis pour créer un utilisateur !"
@@ -126,7 +126,7 @@ msgid "Assemblies"
 msgstr "Assemblées"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:470
+#: code:addons/mozaik_person/res_partner.py:471
 #, python-format
 msgid "Bad partner id: %s!"
 msgstr "Identifiant de partenaire incorrect: %s!"
@@ -290,11 +290,11 @@ msgid "Enterprise Number"
 msgstr "Numéro d'enterprise"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:463
-#: code:addons/mozaik_person/res_partner.py:469
-#: code:addons/mozaik_person/res_partner.py:475
-#: code:addons/mozaik_person/res_partner.py:481
-#: code:addons/mozaik_person/res_partner.py:488
+#: code:addons/mozaik_person/res_partner.py:464
+#: code:addons/mozaik_person/res_partner.py:470
+#: code:addons/mozaik_person/res_partner.py:476
+#: code:addons/mozaik_person/res_partner.py:482
+#: code:addons/mozaik_person/res_partner.py:489
 #: code:addons/mozaik_person/wizard/create_user_from_partner.py:61
 #, python-format
 msgid "Error"
@@ -629,6 +629,11 @@ msgid "Number"
 msgstr "Numéro"
 
 #. module: mozaik_person
+#: selection:res.partner,gender:0
+msgid "Other"
+msgstr "Autre"
+
+#. module: mozaik_person
 #: field:partner.involvement.category,res_users_ids:0
 msgid "Owners"
 msgstr "Propriétaires"
@@ -744,19 +749,19 @@ msgid "Technical Name"
 msgstr "Nom technique"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:482
+#: code:addons/mozaik_person/res_partner.py:483
 #, python-format
 msgid "The partner %s cannot be a company to be associated to a user!"
 msgstr "Le partenaire %s ne peut être une personne morale pour devenir un utilisateur !"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:489
+#: code:addons/mozaik_person/res_partner.py:490
 #, python-format
 msgid "The partner %s has to be active!"
 msgstr "Le partenaire %s doit être actif !"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:476
+#: code:addons/mozaik_person/res_partner.py:477
 #, python-format
 msgid "The partner %s is already a user!"
 msgstr "Le partenaire %s est déjà un utilisateur !"
@@ -777,7 +782,7 @@ msgid "The selected partner is deactivated."
 msgstr "Le partenaire sélectionné est désactivé."
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/res_partner.py:305
+#: code:addons/mozaik_person/res_partner.py:306
 #: constraint:res.partner:0
 #, python-format
 msgid "This identifier is already assigned"
