@@ -1,10 +1,10 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_mandate_category_res_group_mandate_reader,mozaik.mandate.category.res.group.base,model_mandate_category,mozaik_mandate.res_groups_mandate_reader,1,0,0,0
-access_mandate_category_res_group_mandate_user,mozaik.mandate.category.res.group.configurator,model_mandate_category,mozaik_mandate.res_groups_mandate_user,1,1,1,1
+access_mandate_category_res_group_mandate_user,mozaik.mandate.category.res.group.user,model_mandate_category,mozaik_mandate.res_groups_mandate_user,1,1,1,1
 access_sta_mandate_res_group_mandate_reader,mozaik.sta.mandate.res.group.base,model_sta_mandate,mozaik_mandate.res_groups_mandate_reader,1,0,0,0
 access_sta_mandate_res_group_mandate_user,mozaik.sta.mandate.res.group.user,model_sta_mandate,mozaik_mandate.res_groups_mandate_user,1,1,1,1
 access_int_mandate_res_group_mandate_reader,mozaik.int.mandate.res.group.base,model_int_mandate,mozaik_mandate.res_groups_mandate_reader,1,0,0,0
 access_int_mandate_res_group_mandate_user,mozaik.int.mandate.res.group.user,model_int_mandate,mozaik_mandate.res_groups_mandate_user,1,1,1,1
 access_ext_mandate_res_group_mandate_reader,mozaik.ext.mandate.res.group.base,model_ext_mandate,mozaik_mandate.res_groups_mandate_reader,1,0,0,0
 access_ext_mandate_res_group_mandate_user,mozaik.ext.mandate.res.group.user,model_ext_mandate,mozaik_mandate.res_groups_mandate_user,1,1,1,1
-access_generic_mandate_res_group_mandate_user,mozaik.generic.mandate.res.group.user,model_generic_mandate,mozaik_mandate.res_groups_mandate_user,1,0,0,0
+access_generic_mandate_res_group_mandate_reader,mozaik.generic.mandate.res.group.reader,model_generic_mandate,mozaik_mandate.res_groups_mandate_reader,1,0,0,0

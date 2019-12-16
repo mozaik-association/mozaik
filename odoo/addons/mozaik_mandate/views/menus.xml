@@ -7,7 +7,7 @@
     <record model="ir.ui.menu" id="mandates_root_menu">
         <field name="name">Mandates</field>
         <field name="sequence" eval="30"/>
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_user')])]" />
+        <field name="groups_id" eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_reader')])]" />
     </record>
 
     <record model="ir.ui.menu" id="sta_submenu">
