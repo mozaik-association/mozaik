@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
 from datetime import date, timedelta
+from dateutil.relativedelta import relativedelta
 from odoo import api, exceptions, models, fields, _
 from odoo.tools import float_is_zero
 import odoo.addons.decimal_precision as dp
@@ -556,7 +557,7 @@ class MembershipLine(models.Model):
                     partner.membership_state_id.code != "without_membership":
                 continue
             instance = membership_line.int_instance_id
-            values = self._build_membership_values(
+            values = membership_line._update_membership_values(
                 partner, instance, state, date_from=real_date_from)
             # If the line still active, we only have to renew the reference
             # Because membership lines are supposed to be closed.
@@ -570,6 +571,12 @@ class MembershipLine(models.Model):
             else:
                 membership_altered |= membership_line_obj.create(values)
         return membership_altered
+
+    @api.multi
+    def _update_membership_values(self, partner, instance, state, date_from):
+        self.ensure_one()
+        return self._build_membership_values(
+            partner, instance, state, date_from=date_from)
 
     @api.multi
     def _renew(self, date_from=False):
