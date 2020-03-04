@@ -152,8 +152,17 @@ class PartnerChangeInstance(models.TransientModel):
                 from_date = fields.Date.today()
                 line._close(date_to=from_date, force=True)
                 if not record.close_subscription:
+                    # if no registration left, will not have a int_instance_ids,
+                    # which will then failed at the copy
+                    old_force_instance = False
+                    partner_sudo = line.partner_id.sudo()
+                    if not line.partner_id.membership_line_ids.filtered(lambda s: s.active):
+                        old_force_instance = partner_sudo.force_int_instance_id
+                        partner_sudo.force_int_instance_id = line.int_instance_id
                     vals = record._get_new_membership_values()
                     line.copy(vals)
+                    if old_force_instance is not False:
+                        partner_sudo.force_int_instance_id = old_force_instance
         return True
 
     @api.multi
