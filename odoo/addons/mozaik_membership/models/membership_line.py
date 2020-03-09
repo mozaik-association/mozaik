@@ -240,9 +240,9 @@ class MembershipLine(models.Model):
                 partner_ids=[partner_id], date_to=date_from,
                 int_instance_id=int_instance_id)
             partner = self.env["res.partner"].sudo().browse(partner_id)
-            if not partner.membership_line_ids.filtered(
+            if int_instance_id and not partner.membership_line_ids.filtered(
                     lambda s, i=int_instance_id:
-                    s.active and s.int_instance_id == i):
+                    s.active and s.int_instance_id.id == i):
                 partner.force_int_instance_id = int_instance_id
         state = self.env["membership.state"].browse(vals["state_id"])
         if state.code == "member":
