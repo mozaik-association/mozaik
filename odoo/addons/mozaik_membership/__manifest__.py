@@ -15,6 +15,7 @@
         'partner_contact_birthdate',
         'partner_multi_relation',
         'queue_job',
+        'base_suspend_security',
         'mozaik_email',
         'mozaik_address',
         'mozaik_phone',

@@ -239,6 +239,11 @@ class MembershipLine(models.Model):
             self._invalidate_previous_lines(
                 partner_ids=[partner_id], date_to=date_from,
                 int_instance_id=int_instance_id)
+            partner = self.env["res.partner"].sudo().browse(partner_id)
+            if not partner.membership_line_ids.filtered(
+                    lambda s, i=int_instance_id:
+                    s.active and s.int_instance_id == i):
+                partner.force_int_instance_id = int_instance_id
         state = self.env["membership.state"].browse(vals["state_id"])
         if state.code == "member":
             partner = self.env["res.partner"].browse(vals["partner_id"])
@@ -249,7 +254,12 @@ class MembershipLine(models.Model):
                     ("partner_id", "=", partner.id)
                 ])
                 memberships._close(force=True)
-        result = super(MembershipLine, self).create(vals)
+        # because of the related store, most users will failed since
+        # they don't have the right to write on membership line model
+        self.check_access_rights('create')
+        result = super(MembershipLine, self.suspend_security()).create(vals)
+        result = self.browse(result.ids)
+        result.check_access_rule('create')
         if result.partner_id.force_int_instance_id:
             # With membership lines the force instance must be reset
             result.partner_id.force_int_instance_id = False
