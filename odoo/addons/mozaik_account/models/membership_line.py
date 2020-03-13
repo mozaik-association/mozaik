@@ -16,6 +16,12 @@ class MembershipLine(models.Model):
         copy=False,
         track_visibility='onchange',
     )
+    donation_move_ids = fields.Many2many(
+        comodel_name="account.move",
+        string="Donations",
+        readonly=True,
+        copy=False,
+    )
     bank_account_id = fields.Many2one(
         comodel_name="res.partner.bank",
         string="Bank account",
@@ -89,11 +95,13 @@ class MembershipLine(models.Model):
         """
         self.ensure_one()
         if self.paid:
-            if self.move_id.id == move_id:
-                self.price_paid += amount
-            else:
-                raise UserError(
-                    _("The membership %s is already paid") % self.display_name)
+            vals = {
+                "price_paid": self.price_paid + amount,
+            }
+            if self.move_id.id != move_id and \
+                    move_id not in self.donation_move_ids.ids:
+                vals["donation_move_ids"] = [(4, move_id, 0)]
+            self.write(vals)
         else:
             self.write({
                 'paid': True,
