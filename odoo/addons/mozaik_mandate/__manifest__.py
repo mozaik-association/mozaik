@@ -14,6 +14,7 @@
         'mozaik_address',
         'mozaik_email',
         'mozaik_person',
+        'mozaik_membership',
     ],
     'description': """
 MOZAIK Mandate

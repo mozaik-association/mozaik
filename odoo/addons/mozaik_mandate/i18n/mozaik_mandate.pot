@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-23 12:01+0000\n"
+"PO-Revision-Date: 2020-03-23 12:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -59,8 +61,8 @@ msgid "A model and an action for this model are required for this operation"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/int_mandate.py:56
-#: code:addons/mozaik_mandate/models/sta_mandate.py:73
+#: code:addons/mozaik_mandate/models/int_mandate.py:59
+#: code:addons/mozaik_mandate/models/sta_mandate.py:76
 #, python-format
 msgid "A representative cannot have 2 identical mandates during the same period!"
 msgstr ""
@@ -531,6 +533,11 @@ msgid "Instance"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+msgid "Instance Partner Descendants of ..."
+msgstr ""
+
+#. module: mozaik_mandate
 #: model:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
 msgid "Int. Mandates"
 msgstr ""
@@ -743,7 +750,7 @@ msgid "Mandate ID"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/sta_mandate.py:85
+#: code:addons/mozaik_mandate/models/sta_mandate.py:88
 #, python-format
 msgid "Mandate period is inconsistent with legislature period!"
 msgstr ""
@@ -789,6 +796,7 @@ msgid "More Info"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_name
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_name
 msgid "Name"
 msgstr ""
@@ -813,6 +821,14 @@ msgstr ""
 #: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 #: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
 msgid "Partner"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_partner_instance_ids
+msgid "Partner Internal Instances"
 msgstr ""
 
 #. module: mozaik_mandate

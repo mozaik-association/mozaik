@@ -30,6 +30,9 @@ class IntMandate(models.Model):
     months_before_end_of_mandate = fields.Integer(
         string='Alert Delay (#Months)',
         track_visibility='onchange', group_operator='max')
+    partner_instance_ids = fields.Many2many(
+        relation="int_mandate_partner_instance_membership_rel",
+    )
 
     @api.constrains(
         'partner_id', 'int_assembly_id', 'mandate_category_id',

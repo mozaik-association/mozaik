@@ -81,8 +81,8 @@ msgid "A model and an action for this model are required for this operation"
 msgstr "Un modèle et une action sont requis pour cette opération"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/int_mandate.py:56
-#: code:addons/mozaik_mandate/models/sta_mandate.py:73
+#: code:addons/mozaik_mandate/models/int_mandate.py:59
+#: code:addons/mozaik_mandate/models/sta_mandate.py:76
 #, python-format
 msgid ""
 "A representative cannot have 2 identical mandates during the same period!"
@@ -555,6 +555,11 @@ msgid "Instance"
 msgstr "Instance"
 
 #. module: mozaik_mandate
+#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+msgid "Instance Partner Descendants of ..."
+msgstr "Instance du contact descendance de ..."
+
+#. module: mozaik_mandate
 #: model:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
 msgid "Int. Mandates"
 msgstr "Mandats int."
@@ -767,7 +772,7 @@ msgid "Mandate ID"
 msgstr "ID de mandat"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/sta_mandate.py:85
+#: code:addons/mozaik_mandate/models/sta_mandate.py:88
 #, python-format
 msgid "Mandate period is inconsistent with legislature period!"
 msgstr "La période du mandat est incohérente avec celle de la législature !"
@@ -813,6 +818,7 @@ msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_name
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_name
 msgid "Name"
 msgstr "Nom"
@@ -841,6 +847,14 @@ msgstr "La nouvelle date d'échéance doit être supérieure à la date du jour 
 #: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_partner_instance_ids
+msgid "Partner Internal Instances"
+msgstr "Instances internes du partenaire"
 
 #. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_postal_coordinate_id
@@ -1033,8 +1047,10 @@ msgid "The designation assembly is no longer active!"
 msgstr "L'assemblée de désignation n'est plus active!"
 
 #. module: mozaik_mandate
-#: sql_constraint:abstract.mandate:0 sql_constraint:ext.mandate:0
-#: sql_constraint:int.mandate:0 sql_constraint:sta.mandate:0
+#: sql_constraint:abstract.mandate:0
+#: sql_constraint:ext.mandate:0
+#: sql_constraint:int.mandate:0
+#: sql_constraint:sta.mandate:0
 msgid "The end date must be between start date and deadline date."
 msgstr ""
 "La date de fin doit être comprise entre la date de début et la date "
@@ -1060,10 +1076,13 @@ msgstr "Le mandat sélectionné est toujours actif!"
 
 #. module: mozaik_mandate
 #: sql_constraint:abstract.copy.mandate.wizard:0
-#: sql_constraint:abstract.mandate:0 sql_constraint:copy.ext.mandate.wizard:0
+#: sql_constraint:abstract.mandate:0
+#: sql_constraint:copy.ext.mandate.wizard:0
 #: sql_constraint:copy.int.mandate.wizard:0
-#: sql_constraint:copy.sta.mandate.wizard:0 sql_constraint:ext.mandate:0
-#: sql_constraint:int.mandate:0 sql_constraint:sta.mandate:0
+#: sql_constraint:copy.sta.mandate.wizard:0
+#: sql_constraint:ext.mandate:0
+#: sql_constraint:int.mandate:0
+#: sql_constraint:sta.mandate:0
 msgid "The start date must be anterior to the deadline date."
 msgstr "La date de début doit être antérieure à la date d'échéance."
 
