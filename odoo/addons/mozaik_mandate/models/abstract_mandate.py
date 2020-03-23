@@ -39,6 +39,13 @@ class AbstractMandate(models.AbstractModel):
         index=True,
         auto_join=True,
         track_visibility='onchange')
+    partner_instance_ids = fields.Many2many(
+        comodel_name="int.instance",
+        related="partner_id.int_instance_ids",
+        store=True,
+        column1="mandate_id",
+        column2="instance_id",
+    )
     mandate_category_id = fields.Many2one(
         comodel_name='mandate.category',
         string='Mandate Category',

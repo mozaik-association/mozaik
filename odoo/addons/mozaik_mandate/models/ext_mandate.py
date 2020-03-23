@@ -33,6 +33,9 @@ class ExtMandate(models.Model):
         string='Alert Delay (#Months)',
         track_visibility='onchange',
         group_operator='max')
+    partner_instance_ids = fields.Many2many(
+        relation="ext_mandate_partner_instance_membership_rel",
+    )
 
     @api.multi
     @api.onchange("mandate_category_id")
