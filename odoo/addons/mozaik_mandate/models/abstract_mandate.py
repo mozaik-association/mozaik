@@ -39,7 +39,7 @@ class AbstractMandate(models.AbstractModel):
         index=True,
         auto_join=True,
         track_visibility='onchange')
-    partner_instance_ids = fields.Many2many(
+    partner_instance_search_ids = fields.Many2many(
         comodel_name="int.instance",
         related="partner_id.int_instance_ids",
         store=True,

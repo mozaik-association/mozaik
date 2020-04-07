@@ -47,7 +47,7 @@ class StaMandate(models.Model):
     competencies_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.term',
         string='Remits')
-    partner_instance_ids = fields.Many2many(
+    partner_instance_search_ids = fields.Many2many(
         relation="sta_mandate_partner_instance_membership_rel",
     )
 
