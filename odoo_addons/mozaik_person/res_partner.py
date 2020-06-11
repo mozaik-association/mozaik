@@ -233,6 +233,7 @@ class res_partner(orm.Model):
         'interests_m2m_ids': fields.many2many(
             'thesaurus.term', 'res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'indexation_comments': fields.text('Comments'),
 
         'partner_involvement_ids': fields.one2many(
             'partner.involvement', 'partner_id', string='Partner Involvements',
