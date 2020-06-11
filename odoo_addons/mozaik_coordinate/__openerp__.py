@@ -42,8 +42,6 @@ MOZAIK Coordinate
     'images': [
     ],
     'data': [
-        'data/ir_config_parameter.xml',
-        'data/ir_cron_data.xml',
         'security/ir.model.access.csv',
         'coordinate_category_view.xml',
         'abstract_coordinate_view.xml',

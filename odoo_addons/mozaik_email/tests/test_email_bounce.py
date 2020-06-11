@@ -22,9 +22,12 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import datetime, timedelta
+from openerp import fields
 from openerp.addons.mozaik_coordinate.tests.test_bounce import test_bounce
 from anybox.testing.openerp import SharedSetupTransactionCase
 
+DESC = 'Bad Coordinate'
 
 class test_email_bounce(test_bounce, SharedSetupTransactionCase):
 
@@ -42,3 +45,44 @@ class test_email_bounce(test_bounce, SharedSetupTransactionCase):
         self.model_coordinate = self.registry('email.coordinate')
         self.model_coordinate_id = self.ref(
             '%s.email_coordinate_thierry_two' % self._module_ns)
+
+    def test_reset_bounce(self):
+        """
+        1/ test reference data
+        2/ create a valid wz
+        3/ execute it and test the new counter value
+        4/ reset the counter and test its value
+        5/ create an invalid wz
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+
+        # 1/ Check for reference data
+        coord = self.model_coordinate.browse(
+            cr, uid, self.model_coordinate_id,
+            context=context)
+        self.assertFalse(coord.bounce_counter)
+
+        # 2/ Create wizard record
+        wiz_id = self.create_bounce_data(2)
+
+        # 3/ Execute wizard
+        self.model_wizard.update_bounce_datas(
+            cr, uid, [wiz_id], context=context)
+        self.assertEqual(
+            coord.bounce_counter, 2)
+        self.assertEqual(
+            coord.bounce_description, DESC)
+        self.assertEqual(coord.first_bounce_date, coord.bounce_date)
+
+        # 4/ Reset counter
+        check_bounce_date = datetime.today() - timedelta(
+            days=int(self.env['ir.config_parameter'].get_param(
+                'mozaik_coordinate.bounce_counter_reset_time_delay')))
+        coord.partner_id.customer = True
+        coord.bounce_date = fields.Datetime.to_string(check_bounce_date - timedelta(days=100))
+        coord.change_main_coordinate(coord.partner_id.ids, coord.email)
+        self.env['mail.mass_mailing'].search([]).write({
+            "sent_date": fields.Datetime.to_string(check_bounce_date)})
+        self.env["email.coordinate"].update_bounce_counter_mass_mailing()
+        self.assertEqual(
+            coord.bounce_counter, 0)
