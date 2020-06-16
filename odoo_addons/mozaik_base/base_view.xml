@@ -128,6 +128,9 @@
 		
         <record id="connector.menu_connector_root" model="ir.ui.menu">
             <field name="sequence">350</field>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_res_groups_officer'),
+            ])]" />
         </record>
         
         <record id="base.menu_reporting" model="ir.ui.menu">
