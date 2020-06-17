@@ -50,6 +50,8 @@ This module manages email coordinates.
         'wizard/bounce_editor_view.xml',
         'wizard/export_vcard_view.xml',
         'data/email_data.xml',
+        'data/ir_config_parameter.xml',
+        'data/ir_cron_data.xml',
     ],
     'qweb': [
     ],

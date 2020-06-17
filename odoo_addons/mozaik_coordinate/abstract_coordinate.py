@@ -27,7 +27,6 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
-
 # Available Coordinate Types:
 # N/A
 COORDINATE_AVAILABLE_TYPES = [
@@ -310,8 +309,8 @@ class abstract_coordinate(orm.AbstractModel):
         self.write(cr, uid, ids,
                    {'bounce_counter': 0,
                     'bounce_date': False,
-                    'first_bounce_date': False
-                   }, context=context)
+                    'first_bounce_date': False},
+                   context=context)
 
 # public methods
 
