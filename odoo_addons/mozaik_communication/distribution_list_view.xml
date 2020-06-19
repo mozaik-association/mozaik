@@ -60,8 +60,8 @@
                     <field name="dst_model_id" invisible="1"/>
                     <field name="int_instance_id"/>
                     <field name="active" invisible="1"/>
+                    <field name="note"/>
                 </xpath>
-                <field name="note"/>
                 <!-- No more mass mailing but mass function in our case -->
                 <xpath expr="//button[@name='mass_mailing']" position="replace">
                     <button name="%(distribution_list_mass_function_action)d" type="action" icon="terp-partner"
