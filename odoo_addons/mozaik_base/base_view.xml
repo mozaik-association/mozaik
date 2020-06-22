@@ -128,6 +128,12 @@
 		
         <record id="connector.menu_connector_root" model="ir.ui.menu">
             <field name="sequence">350</field>
+<<<<<<< HEAD
+=======
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_res_groups_officer'),
+            ])]" />
+>>>>>>> 26001-hide-connector-menu-ara
         </record>
         
         <record id="base.menu_reporting" model="ir.ui.menu">
