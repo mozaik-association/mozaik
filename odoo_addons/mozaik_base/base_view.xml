@@ -78,8 +78,12 @@
 
         <!-- Structures -->
 
-        <menuitem id="structures_root_menu" name="Structures"
-                  sequence="32" groups="res_groups_base" />
+        <record id="structures_root_menu" model="ir.ui.menu">
+            <field name="sequence">32</field>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_res_groups_officer'),
+            ])]" />
+        </record>
 
         <!-- Re-base standard menus -->
 
@@ -128,12 +132,9 @@
 		
         <record id="connector.menu_connector_root" model="ir.ui.menu">
             <field name="sequence">350</field>
-<<<<<<< HEAD
-=======
             <field name="groups_id" eval="[(6, 0, [
                 ref('mozaik_res_groups_officer'),
             ])]" />
->>>>>>> 26001-hide-connector-menu-ara
         </record>
         
         <record id="base.menu_reporting" model="ir.ui.menu">

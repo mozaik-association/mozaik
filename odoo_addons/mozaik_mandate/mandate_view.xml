@@ -945,6 +945,11 @@
 
          <menuitem id="sta_selection_committee_submenu" action="sta_selection_committee_action"
                   sequence="10" parent="sta_submenu"/>
+        <!-- Limit menu to mozaik officer -->
+        <record id="sta_selection_committee_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
 
         <menuitem id="sta_candidature_submenu" action="sta_candidature_action"
                   sequence="20" parent="sta_submenu"/>
@@ -958,8 +963,20 @@
         <menuitem id="int_selection_committee_submenu" action="int_selection_committee_action"
                   sequence="10" parent="int_submenu"/>
 
+        <!-- Limit menu to mozaik officer -->
+        <record id="int_selection_committee_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
+
         <menuitem id="int_candidature_submenu" action="int_candidature_action"
                   sequence="20" parent="int_submenu"/>
+
+        <!-- Limit menu to mozaik officer -->
+        <record id="int_candidature_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
 
         <menuitem id="int_mandate_submenu" action="int_mandate_action"
                   sequence="30" parent="int_submenu"/>
@@ -970,14 +987,35 @@
         <menuitem id="ext_selection_committee_submenu" action="ext_selection_committee_action"
                   sequence="10" parent="ext_submenu"/>
 
+        <!-- Limit menu to mozaik officer -->
+
+        <record id="ext_selection_committee_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
+
         <menuitem id="ext_candidature_submenu" action="ext_candidature_action"
                   sequence="20" parent="ext_submenu"/>
+
+        <!-- Limit menu to mozaik officer -->
+
+        <record id="ext_candidature_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
 
         <menuitem id="ext_mandate_submenu" action="ext_mandate_action"
                   sequence="30" parent="ext_submenu"/>
 
         <menuitem id="all_mandates_submenu" name="All Mandates"
                   sequence="50" parent="mozaik_base.mandates_root_menu" />
+
+        <!-- Limit menu to mozaik officer -->
+
+        <record id="all_mandates_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
 
         <menuitem id="incompatible_mandates_submenu" action="generic_mandate_action"
                   sequence="10" parent="all_mandates_submenu"/>
