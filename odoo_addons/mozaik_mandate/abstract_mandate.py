@@ -135,6 +135,7 @@ class abstract_selection_committee(orm.AbstractModel):
         'note': fields.text('Notes',
                             track_visibility='onchange'),
         'auto_mandate': fields.boolean("Create Mandates after Election"),
+
     }
 
     _defaults = {
@@ -525,6 +526,7 @@ class abstract_mandate(orm.AbstractModel):
         'is_duplicate_allowed': fields.boolean('Allowed Incompatible Mandate',
                                                readonly=True,
                                                track_visibility='onchange'),
+        'mandate_notes': fields.text('Notes'),
     }
 
     _defaults = {

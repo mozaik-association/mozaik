@@ -611,6 +611,9 @@
                     <field name="sta_assembly_category_id"/>
                     <field name="sta_power_level_id"/>
                 </xpath>
+                <xpath expr="//group[@name='mandate_notes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
             </field>
         </record>
 
@@ -667,7 +670,7 @@
                     <field name="months_before_end_of_mandate"/>
                 </xpath>
 
-                <xpath expr="//group[@name='data']" position="after">
+                <xpath expr="//group[@name='mandate_notes']" position="after">
                     <notebook>
                         <page name="index" string="Indexation">
                             <separator string="Remits"/>

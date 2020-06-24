@@ -303,6 +303,9 @@
                                 <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
                             </group>
                         </group>
+                        <group name="mandate_notes">
+                            <field name="mandate_notes"/>
+                        </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
