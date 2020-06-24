@@ -58,8 +58,13 @@
             Postal Mailing
         -->
 
-        <menuitem id="postal_mailings_submenu" name="Postal Mailings"
-                  sequence="40" parent="mozaik_base.communication_root_menu" />
+        <record model="ir.ui.menu" id="postal_mailings_submenu">
+            <field name="name">Postal Mailings</field>
+            <field name="parent_id" ref="mozaik_base.communication_root_menu"/>
+            <field name="sequence" eval="40"/>
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
 
         <menuitem id="postal_mailing_postal_mail_menu" action="postal_mail_action"
                   sequence="15" parent="postal_mailings_submenu"/>
@@ -69,8 +74,13 @@
 
         <!-- Virtual Models -->
 
-        <menuitem id="virtual_models_submenu" name="Searching Models"
-                  sequence="60" parent="mozaik_base.communication_root_menu" />
+        <record model="ir.ui.menu" id="virtual_models_submenu">
+            <field name="name">Searching Models</field>
+            <field name="parent_id" ref="mozaik_base.communication_root_menu"/>
+            <field name="sequence" eval="60"/>
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
 
         <!-- Configuration -->
 

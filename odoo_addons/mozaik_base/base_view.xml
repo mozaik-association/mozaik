@@ -78,8 +78,13 @@
 
         <!-- Structures -->
 
-        <menuitem id="structures_root_menu" name="Structures"
-                  sequence="32" groups="res_groups_base" />
+        <record id="structures_root_menu" model="ir.ui.menu">
+            <field name="name">Structures</field>
+            <field name="sequence">32</field>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_res_groups_officer'),
+            ])]" />
+        </record>
 
         <!-- Re-base standard menus -->
 
@@ -123,6 +128,22 @@
                   name="Table of Contents"
                   sequence="50" parent="help_online.menu_help"
                   groups="help_online.help_online_group_reader" />
+                  
+		<!-- Show Reporting for Mozaik officer group -->
+		
+        <record id="connector.menu_connector_root" model="ir.ui.menu">
+            <field name="sequence">350</field>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_res_groups_officer'),
+            ])]" />
+        </record>
+        
+        <record id="base.menu_reporting" model="ir.ui.menu">
+            <field name="sequence">170</field>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_res_groups_officer'),
+            ])]" />
+        </record>
 
         <record id="event.act_register_event_partner" model="ir.actions.act_window">
             <field name="groups_id" eval="[(6, 0, [
