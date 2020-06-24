@@ -18,7 +18,7 @@
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[('state','=','confirm')]</field>
             <field name="groups" eval="[(6,0,[ref('mozaik_base.mozaik_res_groups_user')])]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
