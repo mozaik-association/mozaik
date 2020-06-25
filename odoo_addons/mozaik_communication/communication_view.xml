@@ -110,6 +110,5 @@
                 ref('settings_improvement.unused_features'),
             ])]" />
         </record>
-
     </data>
 </openerp>
