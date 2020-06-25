@@ -500,6 +500,9 @@ class membership_request(orm.Model):
 
         'note': fields.text('Notes'),
 
+        'indexation_comments': fields.text(string='Comments',
+                                           related='partner_id.'
+                                                   'indexation_comments'),
         # references
         'partner_id': fields.many2one(
             'res.partner', string='Partner',
