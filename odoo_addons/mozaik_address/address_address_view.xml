@@ -364,6 +364,11 @@
 
         <menuitem id="postal_coordinate_submenu" name="Postal Coordinates"
                   sequence="40" parent="mozaik_base.persons_root_menu" />
+        <!-- Hide menu for mozaik users -->
+        <record id="postal_coordinate_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
 
         <menuitem id="postal_coordinate_menu" action="postal_coordinate_action"
                   sequence="10" parent="postal_coordinate_submenu" />

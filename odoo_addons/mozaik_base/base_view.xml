@@ -108,6 +108,12 @@
             ])]" />
         </record>
 
+        <!-- Hide menu for mozaik users -->
+        <record id="mail.mail_feeds" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
+
         <record id="help_online.menu_help_main" model="ir.ui.menu">
             <field name="name">Help</field>
             <field name="sequence">390</field>

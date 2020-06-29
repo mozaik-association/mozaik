@@ -75,7 +75,11 @@
 
         <menuitem id="email_coordinate_submenu" name="Email Coordinates"
                   sequence="20" parent="mozaik_base.persons_root_menu" />
-
+        <!-- Hide menu for mozaik users -->
+        <record id="email_coordinate_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
         <menuitem id="email_coordinate_menu" action="email_coordinate_action"
                   sequence="10" parent="email_coordinate_submenu" />
 

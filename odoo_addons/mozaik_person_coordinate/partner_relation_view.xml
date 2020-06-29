@@ -329,6 +329,12 @@
         <!-- Relations menu -->
         <menuitem id="relations_submenu" name="Relations"
                   sequence="50" parent="mozaik_base.persons_root_menu" />
+
+        <!-- Hide menu for mozaik users -->
+        <record id="relations_submenu" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
         <menuitem id="subject_relation_menu" action="subject_relation_action"
                   sequence="10" parent="relations_submenu" />
         <menuitem id="object_relation_menu" action="object_relation_action"
