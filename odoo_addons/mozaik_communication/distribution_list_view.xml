@@ -60,6 +60,8 @@
                     <field name="dst_model_id" invisible="1"/>
                     <field name="int_instance_id"/>
                     <field name="active" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='alias_name']" position="after">
                     <field name="note"/>
                 </xpath>
                 <!-- No more mass mailing but mass function in our case -->
