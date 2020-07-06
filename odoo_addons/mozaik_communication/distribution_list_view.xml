@@ -15,6 +15,7 @@
 
                 <xpath expr="//field[@name='alias_name']" position="replace">
                     <field name="code"/>
+                    <field name="note"/>
                     <field name="alias_id"/>
                     <field name="int_instance_id"/>
                     <field name="partner_id"/>
