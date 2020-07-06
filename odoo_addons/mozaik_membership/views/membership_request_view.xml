@@ -290,6 +290,8 @@
                                 <field name="competencies_m2m_ids"/>
                                 <separator string="Interests" attrs="{'invisible':[('is_company', '=', True)]}"/>
                                 <field name="interests_m2m_ids" attrs="{'invisible':[('is_company', '=', True)]}"/>
+                                <separator string="Comments" attrs="{'invisible': [('is_company','=',True)]}" />
+                                <field name="indexation_comments" attrs="{'invisible': [('is_company','=',True)]}"/>
                             </page>
                             <page string="Coordinates" name="coordinates" groups="mozaik_base.mozaik_res_groups_officer,mozaik_base.mozaik_res_groups_reader">
                                 <group>
