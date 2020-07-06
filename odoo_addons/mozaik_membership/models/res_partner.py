@@ -206,6 +206,7 @@ class ResPartner(models.Model):
                 'national_voluntary': self.national_voluntary,
                 'local_only': self.local_only,
                 'nationality_id': self.nationality_id.id or False,
+                'indexation_comments': self.indexation_comments,
             }
             # create mr in sudo mode for portal user allowing to avoid create
             # rights on this model for these users

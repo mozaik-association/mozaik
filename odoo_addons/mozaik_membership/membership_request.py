@@ -533,6 +533,7 @@ class membership_request(orm.Model):
                                                string='Changes',
                                                domain=[('active',
                                                         '=', False)]),
+        'indexation_comments': fields.text('Comments'),
     }
 
     age = new_fields.Integer(
@@ -1110,6 +1111,8 @@ class membership_request(orm.Model):
             if not mr.is_company:
                 partner_values.update(self._get_status_values(
                     cr, uid, mr.request_type, date_from=mr.effective_time))
+            if mr.indexation_comments:
+                partner_values["indexation_comments"] = mr.indexation_comments
             if partner_values:
                 partner_obj.write(
                     cr, uid, [partner_id], partner_values, context=ctx)
