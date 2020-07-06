@@ -10,7 +10,7 @@
             <field name="doall" eval="False"/>
             <!-- Each day at 2:00 -->
             <field name="nextcall" eval="(DateTime.today() + relativedelta(day=1)).strftime('%Y-%m-%d 2:00:00')"/>
-            <field name="model" eval="'abstract.coordinate'"/>
+            <field name="model" eval="'email.coordinate'"/>
             <field name="function" eval="'update_bounce_counter_mass_mailing'"/>
             <field name="args">()</field>
         </record>
