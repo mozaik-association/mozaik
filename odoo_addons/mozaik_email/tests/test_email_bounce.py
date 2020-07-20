@@ -45,6 +45,8 @@ class test_email_bounce(test_bounce, SharedSetupTransactionCase):
         self.model_coordinate = self.registry('email.coordinate')
         self.model_coordinate_id = self.ref(
             '%s.email_coordinate_thierry_two' % self._module_ns)
+        self.model_coordinate_id2 = self.ref(
+            '%s.email_coordinate_thierry_one' % self._module_ns)
 
     def test_reset_bounce(self):
         """
@@ -60,10 +62,14 @@ class test_email_bounce(test_bounce, SharedSetupTransactionCase):
         coord = self.model_coordinate.browse(
             cr, uid, self.model_coordinate_id,
             context=context)
+        coord2 = self.model_coordinate.browse(
+            cr, uid, self.model_coordinate_id2,
+            context=context)
         self.assertFalse(coord.bounce_counter)
 
         # 2/ Create wizard record
         wiz_id = self.create_bounce_data(2)
+        coord2.bounce_counter = 1
 
         # 3/ Execute wizard
         self.model_wizard.update_bounce_datas(
@@ -78,11 +84,29 @@ class test_email_bounce(test_bounce, SharedSetupTransactionCase):
         check_bounce_date = datetime.today() - timedelta(
             days=int(self.env['ir.config_parameter'].get_param(
                 'mozaik_coordinate.bounce_counter_reset_time_delay')))
-        coord.partner_id.customer = True
-        coord.bounce_date = fields.Datetime.to_string(check_bounce_date - timedelta(days=100))
-        coord.change_main_coordinate(coord.partner_id.ids, coord.email)
+        self.env["mail.mail.statistics"].create({
+            "res_id": coord.id,
+            "model": "email.coordinate",
+            "sent": "2000-01-01 01:01:01",
+            "bounced": "2000-01-01 01:01:01",
+        })
+        self.env["mail.mail.statistics"].create({
+            "res_id": coord2.id,
+            "model": "email.coordinate",
+            "sent": "2000-01-01 01:01:01",
+            "bounced": "2000-01-01 01:01:01",
+        })
+
+        self.env["mail.mail.statistics"].create({
+            "res_id": coord.id,
+            "model": "email.coordinate",
+            "sent": "2010-01-01 01:01:01",
+        })
+
         self.env['mail.mass_mailing'].search([]).write({
             "sent_date": fields.Datetime.to_string(check_bounce_date)})
         self.env["email.coordinate"].update_bounce_counter_mass_mailing()
         self.assertEqual(
             coord.bounce_counter, 0)
+        self.assertEqual(
+            coord2.bounce_counter, 1)

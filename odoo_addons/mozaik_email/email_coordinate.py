@@ -118,24 +118,19 @@ class email_coordinate(orm.Model):
         check_bounce_date = datetime.today() - timedelta(
             days=int(self.env['ir.config_parameter'].get_param(
                 'mozaik_coordinate.bounce_counter_reset_time_delay')))
-        domain = [('sent_date',
-                   '<=',
-                   datetime.strftime(check_bounce_date, '%Y-%m-%d 23:59:59'))]
-        last_mass_mailing = self.env['mail.mass_mailing'].search(domain)
 
-        if last_mass_mailing:
-            for mailing_list in last_mass_mailing:
-                # Getting coordinates in each mailing list
-                mailing_list_partners = \
-                    self.env['mail.mass_mailing'].get_recipients(mailing_list)
-                mailing_list_partners = self.env["res.partner"].browse(mailing_list_partners)
-                coordinates = mailing_list_partners.mapped("email_coordinate_id")
-                # If the last bounce date
-                # is before the mailing list date we reset
-                if coordinates:
-                    for coordinate in coordinates:
-                        # Check if the date of the last bounce
-                        # is before the mailing list sending date
-                        if coordinate.bounce_counter > 0:
-                            if mailing_list.sent_date > coordinate.bounce_date:
-                                coordinate.button_reset_counter()
+        query = """
+        SELECT mms1.res_id
+        FROM mail_mail_statistics AS mms1
+        WHERE mms1.bounced IS NOT NULL and mms1.bounced <= %s AND 
+        mms1.model = 'email.coordinate' AND  
+        mms1.sent < (SELECT mms2.sent
+                FROM mail_mail_statistics AS mms2 
+                WHERE mms2.bounced IS NULL AND mms2.sent IS NOT NULL AND
+                 mms1.res_id = mms2.res_id AND
+                 mms2.model = 'email.coordinate' 
+                ORDER BY mms2.sent LIMIT 1)
+        """
+        self.env.cr.execute(query, (datetime.strftime(check_bounce_date, '%Y-%m-%d 23:59:59'),))
+        stats = self.env.cr.fetchall()
+        self.env["email.coordinate"].browse([s[0] for s in stats]).button_reset_counter()
