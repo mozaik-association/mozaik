@@ -119,9 +119,6 @@ class email_coordinate(orm.Model):
             days=int(self.env['ir.config_parameter'].get_param(
                 'mozaik_coordinate.bounce_counter_reset_time_delay')))
         domain = [('sent_date',
-                   '>=',
-                   datetime.strftime(check_bounce_date, '%Y-%m-%d 00:00:00')),
-                  ('sent_date',
                    '<=',
                    datetime.strftime(check_bounce_date, '%Y-%m-%d 23:59:59'))]
         last_mass_mailing = self.env['mail.mass_mailing'].search(domain)
