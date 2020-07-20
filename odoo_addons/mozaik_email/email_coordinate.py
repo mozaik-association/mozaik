@@ -129,7 +129,8 @@ class email_coordinate(orm.Model):
                 WHERE mms2.bounced IS NULL AND mms2.sent IS NOT NULL AND
                  mms1.res_id = mms2.res_id AND
                  mms2.model = 'email.coordinate' 
-                ORDER BY mms2.sent LIMIT 1)
+                ORDER BY mms2.sent DESC LIMIT 1)
+        ORDER BY mms1.sent DESC LIMIT 1000
         """
         self.env.cr.execute(query, (datetime.strftime(check_bounce_date, '%Y-%m-%d 23:59:59'),))
         stats = self.env.cr.fetchall()
