@@ -130,7 +130,7 @@ class email_coordinate(orm.Model):
                  mms1.res_id = mms2.res_id AND
                  mms2.model = 'email.coordinate' 
                 ORDER BY mms2.sent DESC LIMIT 1)
-        ORDER BY mms1.sent DESC LIMIT 1000
+        ORDER BY mms1.sent DESC LIMIT 100
         """
         self.env.cr.execute(query, (datetime.strftime(check_bounce_date, '%Y-%m-%d 23:59:59'),))
         stats = self.env.cr.fetchall()
