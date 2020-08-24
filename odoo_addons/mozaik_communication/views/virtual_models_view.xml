@@ -196,6 +196,7 @@
                     <field name="is_volunteer" />
                     <field name="postal_unauthorized" invisible="1" />
                     <field name="email_unauthorized" invisible="1" />
+
                 </tree>
             </field>
         </record>
@@ -563,6 +564,9 @@
                     <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
                     <field name="mandate_category_id" />
 
+                    <field name="interests_m2m_ids" widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    
                     <field name="ext_competencies_m2m_ids" widget="many2one" />
                     <field name="sta_competencies_m2m_ids" widget="many2one" />
 
