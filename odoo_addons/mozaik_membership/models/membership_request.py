@@ -87,6 +87,10 @@ class MembershipRequest(models.Model):
         zip_man = vals.get('zip_man', False)
         street_man = vals.get('street_man', False)
 
+        competencies_m2m_ids = vals.get('competencies_m2m_ids', False)
+        interests_m2m_ids = vals.get('interests_m2m_ids', False)
+        indexation_comments = vals.get('indexation_comments', False)
+
         partner_id = vals.get('partner_id', False)
 
         request_type = vals.get('request_type', False)
@@ -167,6 +171,10 @@ class MembershipRequest(models.Model):
             'town_man': town_man,
 
             'technical_name': technical_name,
+
+            'competencies_m2m_ids': competencies_m2m_ids,
+            'interests_m2m_ids': interests_m2m_ids,
+            'indexation_comments': indexation_comments,
         })
 
         return vals
