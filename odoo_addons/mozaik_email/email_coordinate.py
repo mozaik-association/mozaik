@@ -137,5 +137,11 @@ class email_coordinate(orm.Model):
         cr.execute(query, (datetime.strftime(
             check_bounce_date, '%Y-%m-%d 23:59:59'),))
         stats = cr.fetchall()
-        self.pool["email.coordinate"].browse(
-            cr, uid, set([s[0] for s in stats])).button_reset_counter()
+        ids = self.pool["email.coordinate"].search(
+            cr, uid, [
+                ("id", "in", list(set([s[0] for s in stats]))),
+                ("bounce_counter", "=", 0),
+            ],
+        )
+        self.pool["email.coordinate"].browse(cr, uid, ids)\
+            .button_reset_counter()
