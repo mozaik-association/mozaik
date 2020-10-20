@@ -563,9 +563,6 @@
                     <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
                     <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
                     <field name="mandate_category_id" />
-
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     
                     <field name="ext_competencies_m2m_ids" widget="many2one" />
                     <field name="sta_competencies_m2m_ids" widget="many2one" />
@@ -712,6 +709,9 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" widget="many2one" />
+
+                    <field name="interests_m2m_ids" widget="many2one" operator="child_of"/>
+                    <field name="competencies_m2m_ids" widget="many2one" operator="not child_of"/>
 
                     <filter name="sta_mod" string="State Candidature"
                         domain="[('model','=','sta.candidature')]" />
@@ -957,6 +957,9 @@
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" widget="many2one" />
 
+                    <field name="interests_m2m_ids" widget="many2one" operator="child_of"/>
+                    <field name="competencies_m2m_ids" widget="many2one" operator="not child_of"/>
+
                     <filter name="sta_mod" string="State Mandate"
                         domain="[('sta_mandate_id','!=',False)]" />
                     <filter name="ext_mod" string="External Mandate"
@@ -1081,6 +1084,9 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" widget="many2one" />
+
+                    <field name="interests_m2m_ids" widget="many2one" string="Interests descending of..." operator="child_of"/>
+                    <field name="competencies_m2m_ids" widget="many2one" string="Competencies descending of..." operator="child_of"/>
 
                     <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
@@ -1226,6 +1232,9 @@
 
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+
+                    <field name="interests_m2m_ids" widget="many2one" operator="child_of"/>
+                    <field name="competencies_m2m_ids" widget="many2one" operator="not child_of"/>
 
                     <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
