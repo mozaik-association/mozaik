@@ -600,7 +600,7 @@ msgstr "Champ"
 #. module: mozaik_membership
 #: field:sub.abstract.coordinate,first_bounce_date:0
 msgid "First Failure Date"
-msgstr "First Failure Date"
+msgstr "Date du premier échec"
 
 #. module: mozaik_membership
 #: model:product.template,name:mozaik_membership.membership_product_first_product_template
