@@ -140,7 +140,7 @@ class email_coordinate(orm.Model):
         ids = self.pool["email.coordinate"].search(
             cr, uid, [
                 ("id", "in", list(set([s[0] for s in stats]))),
-                ("bounce_counter", "=", 0),
+                ("bounce_counter", "!=", 0),
             ],
         )
         self.pool["email.coordinate"].browse(cr, uid, ids)\
