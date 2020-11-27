@@ -85,7 +85,9 @@
                         filter_domain="[('effective_time','&lt;',self)]" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
+                    <field name="interests_m2m_ids" string="Interests descending of..." operator="child_of"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics descending of..." operator="child_of"/>
                     <field name="nationality_id"/>
 
                     <filter string="Natural Persons" name="type_person"
@@ -258,7 +260,9 @@
                     <field name="object_partner_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
+<field name="interests_m2m_ids" string="Interests descending of..." operator="child_of"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics descending of..." operator="child_of"/>
 
                     <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
@@ -383,7 +387,9 @@
                     <field name="membership_state_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
+<field name="interests_m2m_ids" string="Interests descending of..." operator="child_of"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics descending of..." operator="child_of"/>
 
                     <field name="email_category_id" />
                     <field name="postal_category_id" />
@@ -708,6 +714,7 @@
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
+<field name="interests_m2m_ids" string="Interests descending of..." operator="child_of"/>
                     <field name="competencies_m2m_ids" widget="many2one" />
 
                     <field name="interests_m2m_ids" widget="many2one" operator="child_of"/>
@@ -955,6 +962,7 @@
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
+<field name="interests_m2m_ids" string="Interests descending of..." operator="child_of"/>
                     <field name="competencies_m2m_ids" widget="many2one" />
 
                     <field name="interests_m2m_ids" widget="many2one" operator="child_of"/>
@@ -1083,6 +1091,7 @@
                         filter_domain="[('del_mem_card_date','&lt;',self)]" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
+<field name="interests_m2m_ids" string="Interests descending of..." operator="child_of"/>
                     <field name="competencies_m2m_ids" widget="many2one" />
 
                     <field name="interests_m2m_ids" widget="many2one" string="Interests descending of..." operator="child_of"/>
@@ -1231,7 +1240,9 @@
                     <field name="event_registration_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
+<field name="interests_m2m_ids" string="Interests descending of..." operator="child_of"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics descending of..." operator="child_of"/>
 
                     <field name="interests_m2m_ids" widget="many2one" operator="child_of"/>
                     <field name="competencies_m2m_ids" widget="many2one" operator="not child_of"/>
