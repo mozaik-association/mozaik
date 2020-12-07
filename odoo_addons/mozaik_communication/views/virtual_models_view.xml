@@ -87,7 +87,7 @@
                     <field name="interests_m2m_ids" widget="many2one" />
                     <field name="interests_m2m_ids" string="Interests descending of..."  filter_domain="[('parent_m2m_ids','ilike',self)]"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics descending of..."  filter_domain="[('parent_m2m_ids','ilike',self)]"/>
+                    <field name="search_competencies_m2m_ids" string="Competencies &amp; Topics descending of..."/>
                     <field name="nationality_id"/>
 
                     <filter string="Natural Persons" name="type_person"
@@ -1240,7 +1240,7 @@
                     <field name="event_registration_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="interests_m2m_ids" string="Interests descending of..."  filter_domain="[('thesaurus.term.parent_m2m_ids','ilike',self)]"/>
+                    <field name="interests_m2m_ids" string="Interests descending of..."  filter_domain="[('interests_m2m_ids.parent_m2m_ids','ilike',self)]"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics descending of..."  filter_domain="[('parent_m2m_ids','ilike',self)]"/>
 

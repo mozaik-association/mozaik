@@ -10,7 +10,8 @@ from openerp.addons.mozaik_person.models.partner_involvement \
 
 class VirtualPartnerInvolvement(models.Model):
 
-    _inherit = "virtual.partner.involvement"
+    _inherit = ["virtual.partner.involvement","virtual.partner.thesaurus.child.search"]
+    _name = "virtual.partner.involvement"
 
     local_voluntary = fields.Boolean()
     regional_voluntary = fields.Boolean()
@@ -34,3 +35,20 @@ class VirtualPartnerInstance(models.Model):
     local_only = fields.Boolean()
     nationality_id = fields.Many2one(
         comodel_name='res.country', string='Nationality')
+
+class VirtualPartnerThesaurusChildSearch(model.AbstractModel):
+
+    name = "virtual.partner.thesaurus.child.search"
+
+    search_interests_m2m_ids = fields.many2many(
+        comodel_name='thesaurus.terms', store=False,
+        search="_search_interests_m2m_ids")
+
+    search_competencies_m2m_ids = fields.many2many(
+        comodel_name='thesaurus.terms', store=False,
+        search="_search_competencies_m2m_ids")
+
+    def _search_competencies_m2m_ids(self, operator, value):
+        list_id = "A Chercher"
+        return [('competenciens_m2m_ids', 'in', list_id)]
+
