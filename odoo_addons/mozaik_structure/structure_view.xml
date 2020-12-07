@@ -617,6 +617,13 @@
                 <xpath expr="//field[@name='assembly_category_id']" position="attributes">
                      <attribute name="on_change" translation="off">onchange_assembly_category_id(assembly_category_id)</attribute>
                 </xpath>
+                <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                     <page string="Notes" name="notes">
+                        <field name="notes" />
+                    </page>
+                    </notebook>
+                </xpath>
             </field>
         </record>
 
