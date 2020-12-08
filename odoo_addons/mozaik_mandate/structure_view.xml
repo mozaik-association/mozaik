@@ -171,8 +171,7 @@
                                 context="{'search_default_ext_assembly_id': active_id,
                                           'default_ext_assembly_id': active_id}" />
                 </xpath>
-                <xpath expr="//group[@name='status']" position="after">
-                    <notebook invisible="context.get('popup')">
+                <xpath expr="//page[@name='notes']" position="before">
                         <page name="selection committees" string="Selection Committees">
                             <field name="selection_committee_ids" attrs="{'invisible': [('active', '=', False)]}"
                                    readonly="1" context="{'default_assembly_id': active_id}">
@@ -187,7 +186,6 @@
                                </tree>
                            </field>
                         </page>
-                    </notebook>
                 </xpath>
             </field>
          </record>

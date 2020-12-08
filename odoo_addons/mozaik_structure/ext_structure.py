@@ -108,6 +108,7 @@ class ext_assembly(orm.Model):
                                           required=True,
                                           ondelete='restrict',
                                           track_visibility='onchange'),
+        'notes' : fields.text('Notes'),
     }
 
     _defaults = {
