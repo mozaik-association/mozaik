@@ -112,7 +112,9 @@ class FileTermsLoader(models.TransientModel):
         ids = []
         for identifier in to_create_identifiers:
             vals = dict(datas[identifier], state='confirm')
-            vals.pop('relations')
+            #Add check if relations exist to avoid error on first import
+            if('relations' in vals.values()):
+                vals.pop('relations')
             ids.append(self.env['thesaurus.term'].create(vals))
         return len(ids)
 
@@ -172,20 +174,22 @@ class FileTermsLoader(models.TransientModel):
         """
         t_t_model = self.env['thesaurus.term']
         for identifier in identifier_datas.keys():
-            ext_relations_ids = identifier_datas[identifier]['relations']
-            if ext_relations_ids:
-                ext_relations_ids = ext_relations_ids.split(',')
-                ext_relations_ids.append(identifier)
-                domain = [
-                    ('ext_identifier', 'in', ext_relations_ids)
-                ]
-                term_ids = t_t_model.search(domain)
-                if len(term_ids) > 1:
-                    main_term = term_ids.filtered(
-                        lambda t: t.ext_identifier == identifier)
-                    parent_term_ids = term_ids.filtered(
-                        lambda t: t.ext_identifier != identifier).ids
-                    main_term.set_relation_terms(parent_term_ids)
+            # Check if 'relations' keys exist to avoid first import error
+            if 'relations' in identifier_datas[identifier].keys():
+                ext_relations_ids = identifier_datas[identifier]['relations']
+                if ext_relations_ids:
+                    ext_relations_ids = ext_relations_ids.split(',')
+                    ext_relations_ids.append(identifier)
+                    domain = [
+                        ('ext_identifier', 'in', ext_relations_ids)
+                    ]
+                    term_ids = t_t_model.search(domain)
+                    if len(term_ids) > 1:
+                        main_term = term_ids.filtered(
+                            lambda t: t.ext_identifier == identifier)
+                        parent_term_ids = term_ids.filtered(
+                            lambda t: t.ext_identifier != identifier).ids
+                        main_term.set_relation_terms(parent_term_ids)
         t_t_model.search([]).compute_search_name()
 
     @api.multi

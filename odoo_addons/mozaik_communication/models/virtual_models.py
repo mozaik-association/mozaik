@@ -2,15 +2,14 @@
 # Copyright 2017 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import fields, models
+from openerp import fields, models, api
 
 from openerp.addons.mozaik_person.models.partner_involvement \
     import CATEGORY_TYPE
 
-
 class VirtualPartnerInvolvement(models.Model):
 
-    _inherit = ["virtual.partner.involvement","virtual.partner.thesaurus.child.search"]
+    _inherit = ["virtual.partner.involvement"]
     _name = "virtual.partner.involvement"
 
     local_voluntary = fields.Boolean()
@@ -38,7 +37,8 @@ class VirtualPartnerInstance(models.Model):
 
 class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
 
-    name = "virtual.partner.thesaurus.child.search"
+    _inherit = ["virtual.partner.involvement"]
+    _name = "virtual.partner.thesaurus.child.search"
 
     search_interests_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.terms', store=False,
@@ -48,7 +48,12 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
         comodel_name='thesaurus.terms', store=False,
         search="_search_competencies_m2m_ids")
 
+    @api.multi
     def _search_competencies_m2m_ids(self, operator, value):
         list_id = "A Chercher"
         return [('competenciens_m2m_ids', 'in', list_id)]
 
+    @api.multi
+    def _search_interests_m2m_ids(self, operator, value):
+        list_id = "A Chercher"
+        return [('_search_interests_m2m_ids', 'in', list_id)]
