@@ -35,6 +35,7 @@
         'mozaik_structure',
         'mozaik_membership',
         'mozaik_retrocession',
+        'mozaik_thesaurus',
         # from https://github.com/OCA/social
         'email_template_configurator',
     ],
