@@ -36,15 +36,15 @@ class VirtualPartnerInstance(models.Model):
     nationality_id = fields.Many2one(
         comodel_name='res.country', string='Nationality')
 
-class VirtualPartnerThesaurusChildSearch(model.AbstractModel):
+class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
 
     name = "virtual.partner.thesaurus.child.search"
 
-    search_interests_m2m_ids = fields.many2many(
+    search_interests_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.terms', store=False,
         search="_search_interests_m2m_ids")
 
-    search_competencies_m2m_ids = fields.many2many(
+    search_competencies_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.terms', store=False,
         search="_search_competencies_m2m_ids")
 
