@@ -9,7 +9,8 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
     _name = "virtual.partner.thesaurus.child.search"
 
     search_interests_m2m_ids = fields.Many2many(
-        comodel_name='thesaurus.term', store=False,
+        comodel_name='thesaurus.term',
+        store=False,
         search="_search_interests_m2m_ids")
 
     search_competencies_m2m_ids = fields.Many2many(
@@ -24,8 +25,7 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
         """
         query_list_id = self.env.cr.execute(query)
         list_id = query_list_id.fetchall()
-        #return [('thesaurus.term.id', 'in', list_id)]
-        return list_id
+        return [('competencies_m2m_ids', 'in', list_id)]
 
     @api.model
     def _search_interests_m2m_ids(self, value):
@@ -35,5 +35,4 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
         """
         query_list_id = self.env.cr.execute(query)
         list_id = query_list_id.fetchall()
-        #return [('thesaurus.term.id', 'in', list_id)]
-        return list_id
+        return [('interests_m2m_ids', 'in', list_id)]
