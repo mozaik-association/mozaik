@@ -85,7 +85,9 @@
                         filter_domain="[('effective_time','&lt;',self)]" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="search_interests_m2m_ids" string="Interests and Children Term" widget="many2one"/>
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one"/>
+                    <field name="search_competencies_m2m_ids" string="Topics and Children Term" widget="many2one"/>
                     <field name="nationality_id"/>
 
                     <filter string="Natural Persons" name="type_person"

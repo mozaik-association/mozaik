@@ -17,11 +17,23 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
         search="_search_competencies_m2m_ids")
 
     @api.model
-    def _search_competencies_m2m_ids(self, operator, value):
-        list_id = "A Chercher"
-        return [('competenciens_m2m_ids', 'in', list_id)]
+    def _search_competencies_m2m_ids(self, value):
+        query = """SELECT * FROM thesaurus_term 
+        WHERE lower(search_name) 
+        LIKE lower('value%'); 
+        """
+        query_list_id = self.env.cr.execute(query)
+        list_id = query_list_id.fetchall()
+        #return [('thesaurus.term.id', 'in', list_id)]
+        return list_id
 
     @api.model
-    def _search_interests_m2m_ids(self, operator, value):
-        list_id = "A Chercher"
-        return [('_search_interests_m2m_ids', 'in', list_id)]
+    def _search_interests_m2m_ids(self, value):
+        query = """SELECT * FROM thesaurus_term 
+        WHERE lower(search_name) 
+        LIKE lower('value%'); 
+        """
+        query_list_id = self.env.cr.execute(query)
+        list_id = query_list_id.fetchall()
+        #return [('thesaurus.term.id', 'in', list_id)]
+        return list_id
