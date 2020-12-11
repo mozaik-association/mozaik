@@ -9,30 +9,42 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
     _name = "virtual.partner.thesaurus.child.search"
 
     search_interests_m2m_ids = fields.Many2many(
+        compute=lambda s: [],
         comodel_name='thesaurus.term',
         store=False,
         search="_search_interests_m2m_ids")
 
     search_competencies_m2m_ids = fields.Many2many(
+        compute=lambda s: [],
         comodel_name='thesaurus.term', store=False,
         search="_search_competencies_m2m_ids")
 
     @api.model
-    def _search_competencies_m2m_ids(self, value):
-        query = """SELECT * FROM thesaurus_term 
-        WHERE lower(search_name) 
-        LIKE lower('value%'); 
-        """
-        query_list_id = self.env.cr.execute(query)
-        list_id = query_list_id.fetchall()
-        return [('competencies_m2m_ids', 'in', list_id)]
+    def _search_competencies_m2m_ids(self, operator, value):
+        if isinstance(value, str):
+            # the user doesn't select a item in the list
+            query = """SELECT id FROM thesaurus_term 
+            WHERE lower(search_name) 
+            LIKE lower(%s); 
+            """
+            self.env.cr.execute(query, (value, ))
+            list_ids = self.env.cr.fetchall()
+        else:  # value is a id TODO
+            list_ids = []
+            pass
+        return [('competencies_m2m_ids', 'in', [l[0] for l in list_ids])]
 
     @api.model
-    def _search_interests_m2m_ids(self, value):
-        query = """SELECT * FROM thesaurus_term 
-        WHERE lower(search_name) 
-        LIKE lower('value%'); 
-        """
-        query_list_id = self.env.cr.execute(query)
-        list_id = query_list_id.fetchall()
-        return [('interests_m2m_ids', 'in', list_id)]
+    def _search_interests_m2m_ids(self, operator, value):
+        if isinstance(value, str):
+            # the user doesn't select a item in the list
+            query = """SELECT id FROM thesaurus_term 
+            WHERE lower(search_name) 
+            LIKE lower(%s); 
+            """
+            self.env.cr.execute(query, (value, ))
+            list_ids = self.env.cr.fetchall()
+        else:  # value is a id TODO
+            list_ids = []
+            pass
+        return [('interests_m2m_ids', 'in', [l[0] for l in list_ids])]
