@@ -146,8 +146,9 @@ class MembershipLine(models.Model):
         return domain
 
     @api.model
-    def _get_lines_to_renew_domain(self, force_lines=None):
-        res = super()._get_lines_to_renew_domain(force_lines=force_lines)
+    def _get_lines_to_renew_domain(self, force_lines=None, ref_date=None):
+        res = super()._get_lines_to_renew_domain(
+            force_lines=force_lines, ref_date=ref_date)
         return self._update_domain_payment(res)
 
     @api.model

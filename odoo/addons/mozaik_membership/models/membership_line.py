@@ -382,14 +382,18 @@ class MembershipLine(models.Model):
         return is_zero
 
     @api.model
-    def _get_date_no_renew(self):
+    def _get_date_no_renew(self, ref_date=None):
         """
         Get the date where we don't have to renew the membership.line
+        :param ref_date: Date the date of reference (today by default)
         :return: date
         """
-        today = date.today()
+        if isinstance(ref_date, str):
+            ref_date = fields.Date.from_string(ref_date)
+        if not ref_date:
+            ref_date = date.today()
         # Minus 1 because it's launched at the beginning of year
-        year = today.year - 1
+        year = ref_date.year - 1
         default = '31/12'
         # If we don't have a value, use the last day of year
         value = self.env['ir.config_parameter'].sudo().get_param(
@@ -398,7 +402,7 @@ class MembershipLine(models.Model):
         # Check if the renew is done at the end of the year. If it's the case,
         # we don't have to use this current year (and not the previous one).
         current_year_date = date(year=year+1, month=month, day=day)
-        if today >= current_year_date:
+        if ref_date >= current_year_date:
             return current_year_date
         return date(year=year, month=month, day=day)
 
@@ -476,7 +480,8 @@ class MembershipLine(models.Model):
         logger.info("Closing %s membership.lines", len(self))
         if not date_to:
             date_to = fields.Date.today()
-        limit_date = self._get_date_no_renew()
+        date_from = fields.Date.from_string(date_to)
+        limit_date = self._get_date_no_renew(date_from)
         # We can not renew if the date_from is < limit_date
         if force:
             lines = self
@@ -492,8 +497,8 @@ class MembershipLine(models.Model):
         return lines
 
     @api.model
-    def _get_lines_to_renew_domain(self, force_lines=None):
-        limit_date = self._get_date_no_renew()
+    def _get_lines_to_renew_domain(self, force_lines=None, ref_date=None):
+        limit_date = self._get_date_no_renew(ref_date)
         res = [
             # Active should be False to avoid constraint error during renew
             ('active', '=', False),
@@ -504,7 +509,7 @@ class MembershipLine(models.Model):
         return res
 
     @api.model
-    def _get_lines_to_renew(self, force_lines=False):
+    def _get_lines_to_renew(self, force_lines=False, ref_date=None):
         """
         Get membership lines to renew.
         Load every lines where the date_from <= the limit_date
@@ -514,7 +519,8 @@ class MembershipLine(models.Model):
         :return: membership.line recordset
         """
         membership = self._get_membership_line(
-            self._get_lines_to_renew_domain(force_lines=force_lines))
+            self._get_lines_to_renew_domain(
+                force_lines=force_lines, ref_date=ref_date))
         return membership
 
     @api.model
@@ -550,7 +556,7 @@ class MembershipLine(models.Model):
         """
         membership_line_obj = self.env[self._name]
         real_date_from = date_from or fields.Date.today()
-        limit_date = self._get_date_no_renew()
+        limit_date = self._get_date_no_renew(real_date_from)
         # We have to renew every (active) membership lines of the partner
         membership_lines = self
         if not force:
@@ -596,7 +602,7 @@ class MembershipLine(models.Model):
         :return: membership.line recordset
         """
         state = self.env.ref('mozaik_membership.member')
-        lines = self._get_lines_to_renew(force_lines=self)
+        lines = self._get_lines_to_renew(force_lines=self, ref_date=date_from)
         logger.info("Renewing %s membership.lines", len(lines))
         renewed = lines._update_membership(state, date_from=date_from)
         to_former = self - lines
@@ -619,7 +625,7 @@ class MembershipLine(models.Model):
 
         last_i = 0
         step = int(self.env['ir.config_parameter'].get_param(
-            'membership.renewal_slice_size', default='300'))
+            'membership.renewal_slice_size', default='2'))
         for i in range(step, len(close_lines), step):
             close_lines[last_i:i]._close_and_renew(date_from=date_from)
             last_i = i
