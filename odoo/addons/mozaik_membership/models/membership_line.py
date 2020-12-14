@@ -390,7 +390,7 @@ class MembershipLine(models.Model):
         """
         if isinstance(ref_date, str):
             ref_date = fields.Date.from_string(ref_date)
-        if not ref_date:
+        if not ref_date or ref_date < date.today():
             ref_date = date.today()
         # Minus 1 because it's launched at the beginning of year
         year = ref_date.year - 1
@@ -625,7 +625,7 @@ class MembershipLine(models.Model):
 
         last_i = 0
         step = int(self.env['ir.config_parameter'].get_param(
-            'membership.renewal_slice_size', default='2'))
+            'membership.renewal_slice_size', default='300'))
         for i in range(step, len(close_lines), step):
             close_lines[last_i:i]._close_and_renew(date_from=date_from)
             last_i = i
