@@ -24,27 +24,53 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
         if isinstance(value, str):
             # the user doesn't select a item in the list
             query = """SELECT id FROM thesaurus_term 
-            WHERE lower(search_name) 
+            WHERE lower(name) 
             LIKE lower(%s); 
             """
             self.env.cr.execute(query, (value, ))
+            term_id = self.env.cr.fetchone()
+            if term_id != None:
+                value = term_id[0]
+        if isinstance(value, int):
+            query = """WITH RECURSIVE c AS (
+               SELECT %s as stc FROM public.child_term_parent_term_rel
+               UNION
+               SELECT sa.child_term_id
+               FROM public.child_term_parent_term_rel AS sa
+               JOIN c ON c.stc = sa.parent_term_id
+            )
+            SELECT * FROM c ORDER BY stc ASC ;"""
+            self.env.cr.execute(query, (value,))
             list_ids = self.env.cr.fetchall()
-        else:  # value is a id TODO
-            list_ids = []
-            pass
+        else:
+            list_ids =[]
         return [('competencies_m2m_ids', 'in', [l[0] for l in list_ids])]
+
 
     @api.model
     def _search_interests_m2m_ids(self, operator, value):
         if isinstance(value, str):
             # the user doesn't select a item in the list
             query = """SELECT id FROM thesaurus_term 
-            WHERE lower(search_name) 
+            WHERE lower(name) 
             LIKE lower(%s); 
             """
             self.env.cr.execute(query, (value, ))
+            term_id = self.env.cr.fetchone()
+            if term_id != None:
+                value = term_id[0]
+        if isinstance(value, int):
+            query = """WITH RECURSIVE c AS (
+               SELECT %s as stc FROM public.child_term_parent_term_rel
+               UNION
+               SELECT sa.child_term_id
+               FROM public.child_term_parent_term_rel AS sa
+               JOIN c ON c.stc = sa.parent_term_id
+            )
+            SELECT * FROM c ORDER BY stc ASC ;"""
+            self.env.cr.execute(query, (value,))
             list_ids = self.env.cr.fetchall()
-        else:  # value is a id TODO
-            list_ids = []
-            pass
+        else:
+            list_ids =[]
         return [('interests_m2m_ids', 'in', [l[0] for l in list_ids])]
+
