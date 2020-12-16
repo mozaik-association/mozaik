@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-05 12:08+0000\n"
-"PO-Revision-Date: 2019-12-05 12:08+0000\n"
+"POT-Creation-Date: 2020-12-16 14:28+0000\n"
+"PO-Revision-Date: 2020-12-16 14:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -342,12 +342,26 @@ msgid "Competencies"
 msgstr "Compétences"
 
 #. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
 #: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 msgid "Competencies & Topics"
 msgstr "Compétences & thèmes"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Competencies & Topics descending of..."
+msgstr "Compétences & thèmes descendant de..."
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,extract_csv:0
@@ -396,7 +410,6 @@ msgstr "Code pays"
 #. module: mozaik_communication
 #: field:add.registration,create_uid:0
 #: field:distribution.list.mass.function,create_uid:0
-#: field:export.csv,create_uid:0
 #: field:mail.mass_mailing.group,create_uid:0
 #: field:postal.mail,create_uid:0
 #: field:postal.mail.log,create_uid:0
@@ -406,7 +419,6 @@ msgstr "Créé par"
 #. module: mozaik_communication
 #: field:add.registration,create_date:0
 #: field:distribution.list.mass.function,create_date:0
-#: field:export.csv,create_date:0
 #: field:mail.mass_mailing.group,create_date:0
 msgid "Created on"
 msgstr "Créé le"
@@ -416,11 +428,6 @@ msgstr "Créé le"
 #: field:postal.mail.log,create_date:0
 msgid "Creation Date"
 msgstr "Date de création"
-
-#. module: mozaik_communication
-#: field:export.csv,export_file:0
-msgid "Csv"
-msgstr "Csv"
 
 #. module: mozaik_communication
 #: help:distribution.list.line,message_last_post:0
@@ -488,7 +495,6 @@ msgstr "Courriel de masse direct"
 #: field:abstract.virtual.target,display_name:0
 #: field:add.registration,display_name:0
 #: field:distribution.list.mass.function,display_name:0
-#: field:export.csv,display_name:0
 #: field:export.csv.queries,display_name:0
 #: field:mail.mass_mailing.group,display_name:0
 #: field:postal.mail,display_name:0
@@ -502,6 +508,7 @@ msgstr "Courriel de masse direct"
 #: field:virtual.partner.membership,display_name:0
 #: field:virtual.partner.relation,display_name:0
 #: field:virtual.partner.retrocession,display_name:0
+#: field:virtual.partner.thesaurus.child.search,display_name:0
 #: field:virtual.target,display_name:0
 msgid "Display Name"
 msgstr "Nom à afficher"
@@ -763,11 +770,6 @@ msgid "Export CSV"
 msgstr "Export CSV"
 
 #. module: mozaik_communication
-#: field:export.csv,export_filename:0
-msgid "Export CSV Filename"
-msgstr "Fichier d'export CSV"
-
-#. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_export_csv
 msgid "Export CSV Wizard"
 msgstr "Assistant d'exportation CSV"
@@ -979,7 +981,6 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:abstract.virtual.target,id:0
 #: field:add.registration,id:0
 #: field:distribution.list.mass.function,id:0
-#: field:export.csv,id:0
 #: field:export.csv.queries,id:0
 #: field:mail.mass_mailing.group,id:0
 #: field:postal.mail,id:0
@@ -993,6 +994,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:virtual.partner.membership,id:0
 #: field:virtual.partner.relation,id:0
 #: field:virtual.partner.retrocession,id:0
+#: field:virtual.partner.thesaurus.child.search,id:0
 #: field:virtual.target,id:0
 msgid "ID"
 msgstr "ID"
@@ -1046,6 +1048,17 @@ msgstr "Inclu dans les listes de distribution suivantes:"
 #: field:virtual.partner.retrocession,interests_m2m_ids:0
 msgid "Interests"
 msgstr "Intérêts"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Interests descending of..."
+msgstr "Intérêts descendant de..."
 
 #. module: mozaik_communication
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
@@ -1289,7 +1302,6 @@ msgstr "Date du dernier message"
 #: field:abstract.virtual.target,__last_update:0
 #: field:add.registration,__last_update:0
 #: field:distribution.list.mass.function,__last_update:0
-#: field:export.csv,__last_update:0
 #: field:export.csv.queries,__last_update:0
 #: field:mail.mass_mailing.group,__last_update:0
 #: field:postal.mail,__last_update:0
@@ -1303,6 +1315,7 @@ msgstr "Date du dernier message"
 #: field:virtual.partner.membership,__last_update:0
 #: field:virtual.partner.relation,__last_update:0
 #: field:virtual.partner.retrocession,__last_update:0
+#: field:virtual.partner.thesaurus.child.search,__last_update:0
 #: field:virtual.target,__last_update:0
 msgid "Last Modified on"
 msgstr "Modifié le"
@@ -1310,7 +1323,6 @@ msgstr "Modifié le"
 #. module: mozaik_communication
 #: field:add.registration,write_uid:0
 #: field:distribution.list.mass.function,write_uid:0
-#: field:export.csv,write_uid:0
 #: field:mail.mass_mailing.group,write_uid:0
 #: field:postal.mail,write_uid:0
 #: field:postal.mail.log,write_uid:0
@@ -1320,7 +1332,6 @@ msgstr "Dernière mise à jour par"
 #. module: mozaik_communication
 #: field:add.registration,write_date:0
 #: field:distribution.list.mass.function,write_date:0
-#: field:export.csv,write_date:0
 #: field:mail.mass_mailing.group,write_date:0
 #: field:postal.mail,write_date:0
 #: field:postal.mail.log,write_date:0
@@ -1366,7 +1377,7 @@ msgstr "Actif pol. niv. Local"
 #: field:virtual.partner.involvement,local_only:0
 #, python-format
 msgid "Local only"
-msgstr "Contact local"
+msgstr "A donné son accord pour contact local"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/export_csv.py:76
@@ -1776,12 +1787,19 @@ msgstr "Opt-Out"
 
 #. module: mozaik_communication
 #: view:membership.request:mozaik_communication.membership_request_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: selection:virtual.partner.candidature,gender:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: selection:virtual.partner.event,gender:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: selection:virtual.partner.instance,gender:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
 #: selection:virtual.partner.involvement,gender:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 #: selection:virtual.partner.mandate,gender:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
 #: selection:virtual.partner.membership,gender:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
 #: selection:virtual.partner.relation,gender:0
 #: selection:virtual.partner.retrocession,gender:0
 msgid "Other"
@@ -2167,6 +2185,32 @@ msgid "Save as new template"
 msgstr "Enregistrer comme un nouveau modèle"
 
 #. module: mozaik_communication
+#: field:virtual.partner.candidature,search_competencies_m2m_ids:0
+#: field:virtual.partner.event,search_competencies_m2m_ids:0
+#: field:virtual.partner.instance,search_competencies_m2m_ids:0
+#: field:virtual.partner.involvement,search_competencies_m2m_ids:0
+#: field:virtual.partner.mandate,search_competencies_m2m_ids:0
+#: field:virtual.partner.membership,search_competencies_m2m_ids:0
+#: field:virtual.partner.relation,search_competencies_m2m_ids:0
+#: field:virtual.partner.retrocession,search_competencies_m2m_ids:0
+#: field:virtual.partner.thesaurus.child.search,search_competencies_m2m_ids:0
+msgid "Search competencies m2m ids"
+msgstr "Search competencies m2m ids"
+
+#. module: mozaik_communication
+#: field:virtual.partner.candidature,search_interests_m2m_ids:0
+#: field:virtual.partner.event,search_interests_m2m_ids:0
+#: field:virtual.partner.instance,search_interests_m2m_ids:0
+#: field:virtual.partner.involvement,search_interests_m2m_ids:0
+#: field:virtual.partner.mandate,search_interests_m2m_ids:0
+#: field:virtual.partner.membership,search_interests_m2m_ids:0
+#: field:virtual.partner.relation,search_interests_m2m_ids:0
+#: field:virtual.partner.retrocession,search_interests_m2m_ids:0
+#: field:virtual.partner.thesaurus.child.search,search_interests_m2m_ids:0
+msgid "Search interests m2m ids"
+msgstr "Search interests m2m ids"
+
+#. module: mozaik_communication
 #: model:ir.ui.menu,name:mozaik_communication.virtual_models_submenu
 msgid "Searching Models"
 msgstr "Modèles de recherche"
@@ -2363,7 +2407,7 @@ msgstr "Modèles"
 #: code:addons/mozaik_communication/distribution_list.py:340
 #, python-format
 msgid "The alias of the distribution list %s has been changed by %s."
-msgstr "Le pseudonyme de la liste de distribution %s a été modifié par %s."
+msgstr "L'adresse email de la liste de distribution %s a été modifiée par %s."
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:310
@@ -2704,4 +2748,3 @@ msgstr "ou"
 #: field:mail.compose.message,contact_ab_pc:0
 msgid "unknown"
 msgstr "inconnu"
-

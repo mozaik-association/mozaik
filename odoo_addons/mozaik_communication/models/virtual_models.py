@@ -9,7 +9,8 @@ from openerp.addons.mozaik_person.models.partner_involvement \
 
 class VirtualPartnerInvolvement(models.Model):
 
-    _inherit = ["virtual.partner.involvement","virtual.partner.thesaurus.child.search"]
+    _inherit = ["virtual.partner.involvement",
+                "virtual.partner.thesaurus.child.search"]
     _name = "virtual.partner.involvement"
 
     local_voluntary = fields.Boolean()
@@ -26,7 +27,9 @@ class VirtualPartnerInvolvement(models.Model):
 
 class VirtualPartnerInstance(models.Model):
 
-    _inherit = "virtual.partner.instance"
+    _inherit = ["virtual.partner.instance",
+                "virtual.partner.thesaurus.child.search"]
+    _name = "virtual.partner.instance"
 
     local_voluntary = fields.Boolean()
     regional_voluntary = fields.Boolean()
@@ -34,3 +37,35 @@ class VirtualPartnerInstance(models.Model):
     local_only = fields.Boolean()
     nationality_id = fields.Many2one(
         comodel_name='res.country', string='Nationality')
+
+class VirtualPartnerMandate(models.Model):
+
+    _inherit = ["virtual.partner.mandate",
+                "virtual.partner.thesaurus.child.search"]
+    _name = "virtual.partner.mandate"
+
+class VirtualPartnerCandidature(models.Model):
+    _inherit = ["virtual.partner.candidature",
+                "virtual.partner.thesaurus.child.search"]
+    _name = "virtual.partner.candidature"
+
+class VirtualPartnerRetrocession(models.Model):
+    _inherit = ["virtual.partner.retrocession",
+                "virtual.partner.thesaurus.child.search"]
+    _name = "virtual.partner.retrocession"
+
+
+class VirtualPartnerMembership(models.Model):
+    _inherit = ["virtual.partner.membership",
+                "virtual.partner.thesaurus.child.search"]
+    _name = "virtual.partner.membership"
+
+class VirtualPartnerEvent(models.Model):
+    _inherit = ["virtual.partner.event",
+                "virtual.partner.thesaurus.child.search"]
+    _name = "virtual.partner.event"
+
+class VirtualPartnerRelation(models.Model):
+    _inherit = ["virtual.partner.relation",
+                "virtual.partner.thesaurus.child.search"]
+    _name = "virtual.partner.relation"
