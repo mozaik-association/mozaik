@@ -23,13 +23,18 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
     @api.model
     def _search_competencies_m2m_ids(self, operator, value):
         if isinstance(value, str):
-            # the user doesn't select a item in the list
+            # if the user doesn't select a item in the list
+            # we get the id of the search term to put in the next
+            # recursive query
             query = """SELECT id FROM thesaurus_term
             WHERE lower(name)
             LIKE lower(%s); 
             """
+
             self.env.cr.execute(query, (value, ))
             term_id = self.env.cr.fetchone()
+            # if the query give an idea we put it in value for
+            # the recursive query
             if term_id is not None:
                 value = term_id[0]
         if isinstance(value, int):
@@ -50,13 +55,18 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
     @api.model
     def _search_interests_m2m_ids(self, operator, value):
         if isinstance(value, str):
-            # the user doesn't select a item in the list
+            # if the user doesn't select a item in the list
+            # we get the id of the search term to put in the next
+            # recursive query
             query = """SELECT id FROM thesaurus_term
-            WHERE lower(name) 
+            WHERE lower(name)
             LIKE lower(%s); 
             """
-            self.env.cr.execute(query, (value, ))
+
+            self.env.cr.execute(query, (value,))
             term_id = self.env.cr.fetchone()
+            # if the query give an idea we put it in value for
+            # the recursive query
             if term_id is not None:
                 value = term_id[0]
         if isinstance(value, int):
