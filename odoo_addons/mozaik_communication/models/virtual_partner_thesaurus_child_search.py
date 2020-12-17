@@ -33,7 +33,7 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
 
             self.env.cr.execute(query, (value, ))
             term_id = self.env.cr.fetchone()
-            # if the query give an idea we put it in value for
+            # if the query give an id we put it in value for
             # the recursive query
             if term_id is not None:
                 value = term_id[0]
@@ -65,7 +65,7 @@ class VirtualPartnerThesaurusChildSearch(models.AbstractModel):
 
             self.env.cr.execute(query, (value,))
             term_id = self.env.cr.fetchone()
-            # if the query give an idea we put it in value for
+            # if the query give an id we put it in value for
             # the recursive query
             if term_id is not None:
                 value = term_id[0]
