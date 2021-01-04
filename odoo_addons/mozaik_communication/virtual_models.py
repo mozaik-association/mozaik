@@ -533,6 +533,17 @@ class virtual_partner_mandate(orm.Model):
             'email_coordinate_id', 'unauthorized', string='Unauthorized Email',
             type='boolean', relation='email.coordinate'),
 
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'interests_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+
         'ref_partner_competencies_m2m_ids': fields.related(
             'ref_partner_id', 'competencies_m2m_ids',
             type='many2many',
