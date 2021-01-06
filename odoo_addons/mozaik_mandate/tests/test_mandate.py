@@ -147,8 +147,8 @@ class test_mandate(SharedSetupTransactionCase):
                                                          self._module_ns),
                     legislature_id=self.ref('%s.legislature_01' %
                                             self._module_ns),
-                    start_date="2022-12-03",
-                    deadline_date="2024-04-15",
+                    start_date="2023-12-03",
+                    deadline_date="2025-04-15",
                     sta_assembly_id=self.ref('%s.sta_assembly_01' %
                                              self._module_ns),
                     partner_id=jacques_partner_id)
@@ -159,8 +159,8 @@ class test_mandate(SharedSetupTransactionCase):
         data = dict(mandate_category_id=mc_membre_effectif_ag_id,
                     designation_int_assembly_id=self.ref('%s.int_assembly_01' %
                                                          self._module_ns),
-                    start_date="2022-12-03",
-                    deadline_date="2024-04-15",
+                    start_date="2023-12-03",
+                    deadline_date="2025-04-15",
                     ext_assembly_id=self.ref('%s.ext_assembly_02' %
                                              self._module_ns),
                     partner_id=jacques_partner_id)
