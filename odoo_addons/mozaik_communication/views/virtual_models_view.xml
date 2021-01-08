@@ -569,6 +569,11 @@
                     <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
                     <field name="mandate_category_id" />
 
+                    <field name="interests_m2m_ids" widget="many2one" />
+                    <field name="search_interests_m2m_ids" string="Interests descending of..." widget="many2one"/>
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one"/>
+                    <field name="search_competencies_m2m_ids" string="Competencies &amp; Topics descending of..." widget="many2one"/>
+
                     <field name="ext_competencies_m2m_ids" widget="many2one" />
                     <field name="sta_competencies_m2m_ids" widget="many2one" />
 
