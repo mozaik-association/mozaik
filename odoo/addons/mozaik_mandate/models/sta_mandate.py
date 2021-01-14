@@ -51,6 +51,7 @@ class StaMandate(models.Model):
         relation="sta_mandate_partner_instance_membership_rel",
     )
     instance_id = fields.Many2one(
+        comodel_name="sta.instance",
         related="sta_assembly_id.instance_id",
     )
 

@@ -41,7 +41,8 @@ class AbstractMandate(models.AbstractModel):
         track_visibility='onchange')
     instance_id = fields.Many2one(
         string="Instance Mandate Descendant of",
-        related="",  # overwrite in children
+        # overwrite in children with the assembly, but mus be set to something
+        comodel_name="int.instance",
         store=True,
     )
     partner_instance_search_ids = fields.Many2many(

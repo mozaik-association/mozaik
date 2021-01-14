@@ -37,6 +37,7 @@ class ExtMandate(models.Model):
         relation="ext_mandate_partner_instance_membership_rel",
     )
     instance_id = fields.Many2one(
+        comodel_name="int.instance",
         related="ext_assembly_id.instance_id",
     )
 

@@ -34,6 +34,7 @@ class IntMandate(models.Model):
         relation="int_mandate_partner_instance_membership_rel",
     )
     instance_id = fields.Many2one(
+        comodel_name="int.instance",
         related="int_assembly_id.instance_id",
     )
 
