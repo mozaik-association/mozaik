@@ -39,6 +39,11 @@ class AbstractMandate(models.AbstractModel):
         index=True,
         auto_join=True,
         track_visibility='onchange')
+    instance_id = fields.Many2one(
+        string="Instance Mandate Descendant of",
+        related="",  # overwrite in children
+        store=True,
+    )
     partner_instance_search_ids = fields.Many2many(
         comodel_name="int.instance",
         related="partner_id.int_instance_ids",

@@ -101,6 +101,7 @@
                 <field name="mandate_category_id"/>
                 <field name="designation_int_assembly_id"/>
                 <field name="partner_instance_search_ids" widget="many2one"/>
+                <field name="instance_id" operator="child_of"/>
                 <field name="partner_instance_search_ids" operator="child_of" widget="many2one" string="Instance Partner Descendants of ..."/>
                 <filter name="with_revenue_declaration" string="Wage Declaration"
                         domain="[('with_revenue_declaration','=',True)]" />

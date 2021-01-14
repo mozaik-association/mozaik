@@ -36,6 +36,9 @@ class ExtMandate(models.Model):
     partner_instance_search_ids = fields.Many2many(
         relation="ext_mandate_partner_instance_membership_rel",
     )
+    instance_id = fields.Many2one(
+        related="ext_assembly_id.instance_id",
+    )
 
     @api.multi
     @api.onchange("mandate_category_id")

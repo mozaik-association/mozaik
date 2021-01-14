@@ -50,6 +50,10 @@ class StaMandate(models.Model):
     partner_instance_search_ids = fields.Many2many(
         relation="sta_mandate_partner_instance_membership_rel",
     )
+    instance_id = fields.Many2one(
+        related="sta_assembly_id.instance_id",
+    )
+
 
     @api.constrains(
         'partner_id', 'sta_assembly_id', 'mandate_category_id',
