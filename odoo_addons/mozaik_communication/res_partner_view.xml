@@ -27,6 +27,7 @@
             <field name="inherit_id" ref="mozaik_person.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='involvement']/field[@name='partner_involvement_inactive_ids']" position="after">
+                    <div attrs="{'invisible': [('is_assembly','=',True)]}">
                     <span class="oe_horizontal_separator oe_clear oe_inline">
                             Opt-In
                     </span>
@@ -45,6 +46,7 @@
                             <field name="name" />
                         </tree>
                     </field>
+                </div>
                 </xpath>
             </field>
         </record>
