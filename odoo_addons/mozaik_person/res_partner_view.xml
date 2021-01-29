@@ -278,7 +278,7 @@
                         <separator string="Comments" attrs="{'invisible': [('is_company','=',True)]}" />
                         <field name="indexation_comments" attrs="{'invisible': [('is_company','=',True)]}"/>
                     </page>
-                    <page name="involvement" string="Involvements" invisible="context.get('popup')" attrs="{'invisible': [('is_assembly','=',True)]}">
+                    <page name="involvement" string="Involvements" invisible="context.get('popup')">
                         <span class="oe_horizontal_separator oe_clear oe_inline">
                             Involvements
                         </span>
@@ -288,8 +288,8 @@
                                           'default_partner_id': active_id,
                                           'search_default_all': True}" />
                         <button class="oe_right" string="Donations" name="%(partner_involvement_donation_action)d"
-                                type="action" attrs="{'invisible': [('id','=',False)]}" />
-                        <group name="donor-volunteer">
+                                type="action" attrs="{'invisible': ['|',('id','=',False),('is_assembly','=',True)]}" />
+                        <group name="donor-volunteer" attrs="{'invisible': [('is_assembly','=',True)]}">
                             <group>
                                 <field name="is_donor" />
                             </group>
