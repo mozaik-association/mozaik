@@ -404,6 +404,7 @@ class ext_mandate(orm.Model):
         'months_before_end_of_mandate': fields.integer(
             'Alert Delay (#Months)',
             track_visibility='onchange', group_operator='max'),
+        'derivative_mandate': fields.boolean('Derivative Mandate')
     }
 
     _order = 'partner_id, ext_assembly_id, start_date, mandate_category_id'

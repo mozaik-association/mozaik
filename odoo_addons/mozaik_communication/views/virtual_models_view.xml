@@ -588,6 +588,9 @@
                     <filter name="ext_mod" string="External Mandate"
                         domain="[('model','=','ext.mandate')]" />
                     <separator />
+                    <filter name="derivative_mandate" string="Derivative Mandate"
+                            domain="[('model','=','ext.mandate'),('derivative_mandate', '=', True)]" help="Derivative Mandates" />
+                    <separator/>
                     <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
                     <filter string="Female" name="female"

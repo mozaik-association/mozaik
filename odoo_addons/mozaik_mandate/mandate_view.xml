@@ -201,6 +201,12 @@
                 <xpath expr="//filter[@name='partner']" position="after">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'ext_assembly_id'}" />
                 </xpath>
+                <xpath expr="//filter[@name='is_submission_assets']" position="after">
+                    <separator/>
+                    <filter name="derivative_mandate" string="Derivative Mandate"
+                            domain="[('derivative_mandate', '=', True)]" help="Derivative Mandates" />
+                    <separator/>
+                </xpath>
             </field>
         </record>
 
@@ -665,6 +671,9 @@
 
                 <xpath expr="//field[@name='end_date']" position="after">
                     <field name="months_before_end_of_mandate"/>
+                </xpath>
+                <xpath expr="//field[@name='candidature_id']" position="after">
+                    <field name="derivative_mandate"/>
                 </xpath>
 
                 <xpath expr="//group[@name='mandate_notes']" position="after">
