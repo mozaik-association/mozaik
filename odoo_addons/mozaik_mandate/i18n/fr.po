@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-12 21:15+0000\n"
-"PO-Revision-Date: 2018-03-12 21:15+0000\n"
+"POT-Creation-Date: 2021-02-04 07:55+0000\n"
+"PO-Revision-Date: 2021-02-04 07:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgid "#SP"
 msgstr "#PS"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/abstract_mandate.py:241
+#: code:addons/mozaik_mandate/abstract_mandate.py:242
 #: code:addons/mozaik_mandate/mandate.py:233
 #, python-format
 msgid "%s (copy)"
@@ -39,11 +39,11 @@ msgstr "%s (copie)"
 #. module: mozaik_mandate
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
 msgid "(Empty Coordinates = Use of Main Coordinates)"
-msgstr "(Coordonnées vides = Utilisation des coordonnées principales)"
+msgstr "(ATTENTION: Merci de ne remplir ces champs que si vous désirez introduire des coordonnées différentes de la coordonnée principale de la personne)"
 
 #. module: mozaik_mandate
 #: constraint:abstract.candidature:0
-#: code:addons/mozaik_mandate/abstract_mandate.py:828
+#: code:addons/mozaik_mandate/abstract_mandate.py:830
 #: constraint:ext.candidature:0
 #: constraint:int.candidature:0
 #: constraint:sta.candidature:0
@@ -53,7 +53,7 @@ msgstr "Une candidature existe déjà pour ce partenaire dans cette catégorie"
 
 #. module: mozaik_mandate
 #: constraint:abstract.selection.committee:0
-#: code:addons/mozaik_mandate/abstract_mandate.py:174
+#: code:addons/mozaik_mandate/abstract_mandate.py:175
 #: constraint:ext.selection.committee:0
 #: constraint:int.selection.committee:0
 #: constraint:sta.selection.committee:0
@@ -537,6 +537,17 @@ msgid "Declared Candidatures"
 msgstr "Candidatures déclarées"
 
 #. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_search_view
+#: field:ext.mandate,derivative_mandate:0
+msgid "Derivative Mandate"
+msgstr "Mandat dérivé"
+
+#. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_search_view
+msgid "Derivative Mandates"
+msgstr "Mandats dérivés"
+
+#. module: mozaik_mandate
 #: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
 #: selection:abstract.candidature,state:0
 #: selection:sta.candidature,state:0
@@ -904,6 +915,11 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_mandate
+#: field:sta.assembly,grh_identifier:0
+msgid "GRH identifier"
+msgstr "GRH identifier"
+
+#. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_generic_mandate
 msgid "Generic Mandate"
 msgstr "Mandat générique"
@@ -1210,6 +1226,20 @@ msgstr "Virtuel"
 #: field:sta.selection.committee,message_is_follower:0
 msgid "Is a Follower"
 msgstr "Est abonné"
+
+#. module: mozaik_mandate
+#: field:ext.assembly,is_donor:0
+#: field:int.assembly,is_donor:0
+#: field:sta.assembly,is_donor:0
+msgid "Is a donor"
+msgstr "Est un donateur"
+
+#. module: mozaik_mandate
+#: field:ext.assembly,is_volunteer:0
+#: field:int.assembly,is_volunteer:0
+#: field:sta.assembly,is_volunteer:0
+msgid "Is a volunteer"
+msgstr "Est un volontaire"
 
 #. module: mozaik_mandate
 #: field:abstract.candidature,message_last_post:0
@@ -1644,9 +1674,13 @@ msgid "Note"
 msgstr "Note"
 
 #. module: mozaik_mandate
+#: field:abstract.mandate,mandate_notes:0
 #: field:abstract.selection.committee,note:0
+#: field:ext.mandate,mandate_notes:0
 #: field:ext.selection.committee,note:0
+#: field:int.mandate,mandate_notes:0
 #: field:int.selection.committee,note:0
+#: field:sta.mandate,mandate_notes:0
 #: field:sta.selection.committee,note:0
 msgid "Notes"
 msgstr "Notes"
@@ -2399,4 +2433,3 @@ msgstr "⇒ Voir tous les mandats incompatibles"
 #: view:res.partner:mozaik_mandate.view_partner_form
 msgid "⇒ State Representative"
 msgstr "⇒ Mandataire politique"
-
