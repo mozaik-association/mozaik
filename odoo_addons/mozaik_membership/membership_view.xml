@@ -113,6 +113,8 @@
                     <field name="int_instance_id"/>
                     <field name="state_id"/>
                     <field name="product_id"/>
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
 
                     <filter name="active" string="Active"
                         domain="[('active','=',True)]" help="Active Memberships" />
