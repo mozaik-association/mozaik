@@ -257,10 +257,12 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>Mandate: <field name="mandate_category_id" class="oe_inline"
-                                                attrs="{'readonly': [('candidature_id','!=',False)]}"/></h1>
+                                                attrs="{'readonly': [('candidature_id','!=',False)]}"
+                                                placeholder="Mandate category"/></h1>
                             <h2><field name="partner_id" domain="[('is_company','=',False)]"
                                        attrs="{'readonly': [('candidature_id','!=',False)]}"
-                                       context="{'default_is_company': False}"/></h2>
+                                       context="{'default_is_company': False}"
+                                       placeholder="Person"/></h2>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
