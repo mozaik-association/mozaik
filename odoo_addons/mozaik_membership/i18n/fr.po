@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 14:47+0000\n"
-"PO-Revision-Date: 2020-11-18 14:47+0000\n"
+"POT-Creation-Date: 2021-02-08 08:55+0000\n"
+"PO-Revision-Date: 2021-02-08 08:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,13 +22,13 @@ msgstr "#Jours"
 
 #. module: mozaik_membership
 #: selection:generate.reference,reference_date:0
-msgid "2020"
-msgstr "2020"
+msgid "2021"
+msgstr "2021"
 
 #. module: mozaik_membership
 #: selection:generate.reference,reference_date:0
-msgid "2021"
-msgstr "2021"
+msgid "2022"
+msgstr "2022"
 
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/models/res_partner.py:243
@@ -661,7 +661,7 @@ msgstr "Ancien membre (démission)"
 #. module: mozaik_membership
 #: model:membership.state,name:mozaik_membership.former_member_committee
 msgid "Former Member Committee"
-msgstr "Comité des anciens membres"
+msgstr "CMb anciens membres"
 
 #. module: mozaik_membership
 #: field:generate.reference,nb_former_concerned:0
@@ -866,6 +866,16 @@ msgstr "Instance interne"
 #: field:membership.request,force_int_instance_id:0
 msgid "Internal Instance (to Force)"
 msgstr "Instance interne (à forcer)"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "Internal Instance descending of..."
+msgstr "Instance Interne descendant de..."
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "Internal Instance not descending of..."
+msgstr "Instance Interne ne descendant pas de..."
 
 #. module: mozaik_membership
 #: field:ext.assembly,int_instance_m2m_ids:0
@@ -1384,6 +1394,7 @@ msgstr "Actif pol. niv. national"
 #. module: mozaik_membership
 #: view:membership.request:mozaik_membership.membership_request_search_view
 #: field:membership.request,nationality_id:0
+#: field:res.users,nationality_id:0
 msgid "Nationality"
 msgstr "Nationalité"
 
@@ -2035,7 +2046,7 @@ msgstr "Messages non lus"
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_res_users
 msgid "Users"
-msgstr "Utilisateurs"
+msgstr "Utilisateur"
 
 #. module: mozaik_membership
 #: field:res.users,usual_firstname:0
@@ -2208,4 +2219,3 @@ msgstr "⇒ Précaution à prendre"
 #: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "⇒ Reset"
 msgstr "⇒ Réinitialiser"
-
