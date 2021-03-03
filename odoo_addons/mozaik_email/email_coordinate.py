@@ -117,7 +117,7 @@ class email_coordinate(orm.Model):
         # Get mailing lists the period define in the parameters
         check_bounce_date = datetime.today() - timedelta(
             days=int(self.pool["ir.config_parameter"].get_param(
-                cr, uid, "mozaik_email.bounce_counter_reset_time_delay")))
+                cr, uid, "bounce_counter_reset_time_delay")))
 
         query = """
         SELECT DISTINCT(mms1.res_id)
@@ -131,8 +131,11 @@ class email_coordinate(orm.Model):
             ) AS mms_sent ON mms_sent.res_id = mms1.res_id
         WHERE mms1.bounced IS NOT NULL and mms1.bounced <= %s AND
         mms1.model = 'email.coordinate' AND
-        mms1.sent < mms_sent.sent
-        """
+        mms1.sent < mms_sent.sent LIMIT 
+        """ + str(self.pool["ir.config_parameter"].get_param(
+                cr, uid,
+                "bounce_counter_reset_limit_query_size"))
+
         cr.execute(query, (datetime.strftime(
             check_bounce_date, '%Y-%m-%d 23:59:59'),))
         stats = cr.fetchall()

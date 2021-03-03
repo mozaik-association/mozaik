@@ -5,5 +5,9 @@
       <field name="key">bounce_counter_reset_time_delay</field>
       <field name="value">2</field>
     </record>
+    <record forcecreate="1" id="mozaik_coordinate.bounce_counter_reset_limit_query_size" model="ir.config_parameter">
+      <field name="key">bounce_counter_reset_limit_query_size</field>
+      <field name="value">1000</field>
+    </record>
   </data>
 </openerp>
