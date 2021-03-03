@@ -120,7 +120,7 @@ class email_coordinate(orm.Model):
                 cr, uid, "mozaik_email.bounce_counter_reset_time_delay")))
 
         query = """
-        SELECT mms1.res_id
+        SELECT DISTINCT(mms1.res_id)
         FROM mail_mail_statistics AS mms1
         JOIN (SELECT MAX(mms2.sent) as sent, res_id
             FROM mail_mail_statistics AS mms2
@@ -132,7 +132,6 @@ class email_coordinate(orm.Model):
         WHERE mms1.bounced IS NOT NULL and mms1.bounced <= %s AND
         mms1.model = 'email.coordinate' AND
         mms1.sent < mms_sent.sent
-        ORDER BY mms1.sent DESC
         """
         cr.execute(query, (datetime.strftime(
             check_bounce_date, '%Y-%m-%d 23:59:59'),))
