@@ -23,12 +23,16 @@
 #
 ##############################################################################
 
+import logging
 from datetime import datetime, timedelta
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
 from openerp.addons.mozaik_base.base_tools import format_email, check_email
+
+
+_logger = logging.getLogger(__name__)
 
 
 class email_coordinate(orm.Model):
@@ -117,10 +121,10 @@ class email_coordinate(orm.Model):
         # Get mailing lists the period define in the parameters
         check_bounce_date = datetime.today() - timedelta(
             days=int(self.pool["ir.config_parameter"].get_param(
-                cr, uid, "mozaik_email.bounce_counter_reset_time_delay")))
+                cr, uid, "bounce_counter_reset_time_delay")))
 
         query = """
-        SELECT mms1.res_id
+        SELECT DISTINCT(mms1.res_id)
         FROM mail_mail_statistics AS mms1
         JOIN (SELECT MAX(mms2.sent) as sent, res_id
             FROM mail_mail_statistics AS mms2
@@ -131,9 +135,8 @@ class email_coordinate(orm.Model):
             ) AS mms_sent ON mms_sent.res_id = mms1.res_id
         WHERE mms1.bounced IS NOT NULL and mms1.bounced <= %s AND
         mms1.model = 'email.coordinate' AND
-        mms1.sent < mms_sent.sent
-        ORDER BY mms1.sent DESC
-        """
+        mms1.sent < mms_sent.sent """
+
         cr.execute(query, (datetime.strftime(
             check_bounce_date, '%Y-%m-%d 23:59:59'),))
         stats = cr.fetchall()
@@ -141,7 +144,10 @@ class email_coordinate(orm.Model):
             cr, uid, [
                 ("id", "in", list(set([s[0] for s in stats]))),
                 ("bounce_counter", "!=", 0),
-            ],
+            ], limit=int(self.pool["ir.config_parameter"].get_param(
+                cr, uid,
+                "bounce_counter_reset_limit_query_size"))
         )
+        _logger.info("bounce_counter_reset_cron: ids treated : %s", ids)
         self.pool["email.coordinate"].browse(cr, uid, ids)\
             .button_reset_counter()
