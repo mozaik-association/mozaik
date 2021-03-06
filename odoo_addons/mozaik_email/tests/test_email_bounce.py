@@ -83,30 +83,24 @@ class test_email_bounce(test_bounce, SharedSetupTransactionCase):
         # 4/ Reset counter
         check_bounce_date = datetime.today() - timedelta(
             days=int(self.env['ir.config_parameter'].get_param(
-                'mozaik_coordinate.bounce_counter_reset_time_delay')))
+                'bounce_counter_reset_time_delay')))
         self.env["mail.mail.statistics"].create({
             "res_id": coord.id,
             "model": "email.coordinate",
-            "sent": "2000-01-01 01:01:01",
-            "bounced": "2000-01-01 01:01:01",
+            "sent": check_bounce_date,
+            "bounced": check_bounce_date + timedelta(days=1),
         })
         self.env["mail.mail.statistics"].create({
             "res_id": coord2.id,
             "model": "email.coordinate",
-            "sent": "2000-01-01 01:01:01",
-            "bounced": "2000-01-01 01:01:01",
+            "sent": check_bounce_date,
         })
-
-        self.env["mail.mail.statistics"].create({
-            "res_id": coord.id,
-            "model": "email.coordinate",
-            "sent": "2010-01-01 01:01:01",
-        })
+        coord2.bounce_date = check_bounce_date - timedelta(days=1)
 
         self.env['mail.mass_mailing'].search([]).write({
             "sent_date": fields.Datetime.to_string(check_bounce_date)})
         self.env["email.coordinate"].update_bounce_counter_mass_mailing()
         self.assertEqual(
-            coord.bounce_counter, 0)
+            coord.bounce_counter, 2)
         self.assertEqual(
-            coord2.bounce_counter, 1)
+            coord2.bounce_counter, 0)

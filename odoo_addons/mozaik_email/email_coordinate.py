@@ -124,26 +124,21 @@ class email_coordinate(orm.Model):
                 cr, uid, "bounce_counter_reset_time_delay")))
 
         query = """
-        SELECT DISTINCT(mms1.res_id)
-        FROM mail_mail_statistics AS mms1
-        JOIN (SELECT MAX(mms2.sent) as sent, res_id
-            FROM mail_mail_statistics AS mms2
-            WHERE
-                mms2.bounced IS NULL AND mms2.sent IS NOT NULL AND
-                mms2.model = 'email.coordinate'
-            GROUP BY mms2.res_id
-            ) AS mms_sent ON mms_sent.res_id = mms1.res_id
-        WHERE mms1.bounced IS NOT NULL and mms1.bounced <= %s AND
-        mms1.model = 'email.coordinate' AND
-        mms1.sent < mms_sent.sent """
+        		SELECT DISTINCT res_id
+                FROM mail_mail_statistics
+                WHERE bounced IS NULL AND
+                model = 'email.coordinate' AND
+				DATE (sent) = DATE (%s) """
 
         cr.execute(query, (datetime.strftime(
-            check_bounce_date, '%Y-%m-%d 23:59:59'),))
+            check_bounce_date, '%Y-%m-%d'),))
         stats = cr.fetchall()
         ids = self.pool["email.coordinate"].search(
             cr, uid, [
                 ("id", "in", list(set([s[0] for s in stats]))),
                 ("bounce_counter", "!=", 0),
+                ("bounce_date", "<" , datetime.strftime(
+                check_bounce_date, '%Y-%m-%d'))
             ], limit=int(self.pool["ir.config_parameter"].get_param(
                 cr, uid,
                 "bounce_counter_reset_limit_query_size"))
