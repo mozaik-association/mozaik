@@ -55,5 +55,16 @@
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
+        <record id="partner_involvement_base_cud_officer_rule" model="ir.rule">
+            <field name="name">Partner Involvement (CUD) for Mozaik Officer</field>
+            <field name="model_id" ref="mozaik_person.model_partner_involvement" />
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_officer'),
+            ])]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
     </data>
 </openerp>
