@@ -509,6 +509,10 @@ class membership_request(orm.Model):
             'int.instance',
             string='Internal Instance',
         ),
+        'old_instance_id': fields.many2one(
+            'int.instance',
+            string='Internal Instance',
+        ),
         'force_int_instance_id': fields.many2one(
             'int.instance',
             string='Internal Instance (to Force)',
