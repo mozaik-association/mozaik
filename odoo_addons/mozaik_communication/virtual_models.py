@@ -571,7 +571,21 @@ class virtual_partner_mandate(orm.Model):
         'sta_instance_id': fields.many2one(
             'sta.instance', string='State Instance'),
         'in_progress': fields.boolean("In Progress"),
-        'active': fields.boolean("Active")
+        'active': fields.boolean("Active"),
+        'is_submission_mandate':fields.related(
+            'ext_mandate_id', 'is_submission_mandate',
+            type='many2many',
+            obj='ext.mandate',
+            rel='ext_mandate_submission_rel',
+            id1='ext_mandate_id', id2='is_submission_mandate',
+            string='Is Submission Mandate'),
+        'is_submission_assets':fields.related(
+            'ext_mandate_id', 'is_submission_assets',
+            type='many2many',
+            obj='ext.mandate',
+            rel='ext_mandate_assets_rel',
+            id1='ext_mandate_id', id2='is_submission_assets',
+            string='Is Submission Assets'),
     }
 
     def _select(self, mandate_type):

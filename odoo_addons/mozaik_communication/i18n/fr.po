@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-04 13:17+0000\n"
-"PO-Revision-Date: 2021-01-04 13:17+0000\n"
+"POT-Creation-Date: 2021-03-23 21:40+0000\n"
+"PO-Revision-Date: 2021-03-23 21:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -413,7 +413,6 @@ msgstr "Code pays"
 #. module: mozaik_communication
 #: field:add.registration,create_uid:0
 #: field:distribution.list.mass.function,create_uid:0
-#: field:export.csv,create_uid:0
 #: field:mail.mass_mailing.group,create_uid:0
 #: field:postal.mail,create_uid:0
 #: field:postal.mail.log,create_uid:0
@@ -423,7 +422,6 @@ msgstr "Créé par"
 #. module: mozaik_communication
 #: field:add.registration,create_date:0
 #: field:distribution.list.mass.function,create_date:0
-#: field:export.csv,create_date:0
 #: field:mail.mass_mailing.group,create_date:0
 msgid "Created on"
 msgstr "Créé le"
@@ -433,11 +431,6 @@ msgstr "Créé le"
 #: field:postal.mail.log,create_date:0
 msgid "Creation Date"
 msgstr "Date de création"
-
-#. module: mozaik_communication
-#: field:export.csv,export_file:0
-msgid "Csv"
-msgstr "Csv"
 
 #. module: mozaik_communication
 #: help:distribution.list.line,message_last_post:0
@@ -505,7 +498,6 @@ msgstr "Courriel de masse direct"
 #: field:abstract.virtual.target,display_name:0
 #: field:add.registration,display_name:0
 #: field:distribution.list.mass.function,display_name:0
-#: field:export.csv,display_name:0
 #: field:export.csv.queries,display_name:0
 #: field:mail.mass_mailing.group,display_name:0
 #: field:postal.mail,display_name:0
@@ -781,11 +773,6 @@ msgid "Export CSV"
 msgstr "Export CSV"
 
 #. module: mozaik_communication
-#: field:export.csv,export_filename:0
-msgid "Export CSV Filename"
-msgstr "Export CSV Filename"
-
-#. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_export_csv
 msgid "Export CSV Wizard"
 msgstr "Assistant d'exportation CSV"
@@ -997,7 +984,6 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:abstract.virtual.target,id:0
 #: field:add.registration,id:0
 #: field:distribution.list.mass.function,id:0
-#: field:export.csv,id:0
 #: field:export.csv.queries,id:0
 #: field:mail.mass_mailing.group,id:0
 #: field:postal.mail,id:0
@@ -1258,6 +1244,18 @@ msgid "Is Company"
 msgstr "Personne morale"
 
 #. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,is_submission_assets:0
+msgid "Is Submission Assets"
+msgstr "Avec déclaration de patrimoines"
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,is_submission_mandate:0
+msgid "Is Submission Mandate"
+msgstr "Avec déclaration de rémunérations"
+
+#. module: mozaik_communication
 #: field:virtual.partner.instance,is_company:0
 #: field:virtual.partner.involvement,is_company:0
 #: field:virtual.partner.relation,is_company:0
@@ -1321,7 +1319,6 @@ msgstr "Date du dernier message"
 #: field:abstract.virtual.target,__last_update:0
 #: field:add.registration,__last_update:0
 #: field:distribution.list.mass.function,__last_update:0
-#: field:export.csv,__last_update:0
 #: field:export.csv.queries,__last_update:0
 #: field:mail.mass_mailing.group,__last_update:0
 #: field:postal.mail,__last_update:0
@@ -1343,7 +1340,6 @@ msgstr "Modifié le"
 #. module: mozaik_communication
 #: field:add.registration,write_uid:0
 #: field:distribution.list.mass.function,write_uid:0
-#: field:export.csv,write_uid:0
 #: field:mail.mass_mailing.group,write_uid:0
 #: field:postal.mail,write_uid:0
 #: field:postal.mail.log,write_uid:0
@@ -1353,7 +1349,6 @@ msgstr "Dernière mise à jour par"
 #. module: mozaik_communication
 #: field:add.registration,write_date:0
 #: field:distribution.list.mass.function,write_date:0
-#: field:export.csv,write_date:0
 #: field:mail.mass_mailing.group,write_date:0
 #: field:postal.mail,write_date:0
 #: field:postal.mail.log,write_date:0
