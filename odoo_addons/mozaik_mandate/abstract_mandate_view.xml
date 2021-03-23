@@ -278,8 +278,8 @@
                             </group>
                             <group name="data_2">
                                 <field name="designation_int_assembly_id" required="1"/>
-                                <field name="is_submission_mandate" readonly="1"/>
-                                <field name="is_submission_assets" readonly="1"/>
+                                <field name="is_submission_mandate"/>
+                                <field name="is_submission_assets"/>
                                 <field name="candidature_id" readonly="1"
                                        attrs="{'invisible': [('candidature_id','=',False)]}"/>
                             </group>
