@@ -556,10 +556,6 @@
                         filter_domain="[('deadline_date','>',self)]" />
                     <field string="Mandate End Date &lt; ..."
                         name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]" />
-                    <filter name="is_submission_mandate" string="Is Submission Mandate"
-                        domain="[('is_submission_mandate','=',True)]" />
-                    <filter name="is_submission_assets" string="Is Submission Assets"
-                        domain="[('is_submission_assets','=',True)]" />
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
