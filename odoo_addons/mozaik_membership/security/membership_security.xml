@@ -264,9 +264,11 @@
             <field name="domain_force">[
                 '|',
                 '|',
+                '|',
                 ('partner_id','=',user.partner_id.id),
                 ('int_instance_id','=',False),
-                ('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))
+                ('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('old_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>

@@ -263,6 +263,7 @@
                                     <group>
                                         <field name="int_instance_id" readonly="1" />
                                         <field name="force_int_instance_id" domain="[('id','!=',int_instance_id)]"/>
+                                        <field name="old_instance_id" invisible="1"/>
                                     </group>
                                 </group>
                             </page>

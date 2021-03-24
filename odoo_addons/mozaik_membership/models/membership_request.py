@@ -250,3 +250,12 @@ class MembershipRequest(models.Model):
         partner.write(vals)
 
         return res
+
+    # @api.multi
+    # def write(self, vals):
+    #    for membershiprequest in self:
+    #        old_instance_id = {
+    #            'old_instance_id' : membershiprequest.int_instance_id,
+    #        }
+    #        res = super(membership_request, self).write(old_instance_id)
+    #    return res
