@@ -373,28 +373,13 @@ class ext_mandate(orm.Model):
             store=False),
         'candidature_id': fields.many2one('ext.candidature',
                                           'Candidature'),
-        'is_submission_mandate': fields.related(
-            'mandate_category_id',
-            'is_submission_mandate',
+
+        'is_submission_mandate': fields.boolean(
             string='With Wages Declaration',
-            help='Submission to a Mandates and Wages Declaration',
-            type='boolean',
-            store={
-                'mandate.category': (
-                    mandate_category.get_linked_ext_mandate_ids,
-                    ['is_submission_mandate'], 20)
-            }),
-        'is_submission_assets': fields.related(
-            'mandate_category_id',
-            'is_submission_assets',
+            help='Submission to a Mandates and Wages Declaration'),
+        'is_submission_assets': fields.boolean(
             string='With Assets Declaration',
-            help='Submission to a Mandates and Assets Declaration',
-            type='boolean',
-            store={
-                'mandate.category': (
-                    mandate_category.get_linked_ext_mandate_ids,
-                    ['is_submission_assets'], 20)
-            }),
+            help='Submission to a Mandates and Assets Declaration'),
         'competencies_m2m_ids': fields.many2many(
             'thesaurus.term',
             'ext_mandate_term_competencies_rel',
