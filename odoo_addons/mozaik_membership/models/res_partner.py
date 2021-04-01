@@ -84,17 +84,6 @@ class ResPartner(models.Model):
                 'regional_voluntary': False,
                 'national_voluntary': False,
             })
-        elif any([
-            membership_state_code == 'member_candidate' and
-            self.membership_state_code in [
-                'without_membership', 'supporter'],
-            membership_state_code == 'member_committee' and
-                self.membership_state_code == 'supporter']):
-            vals.update({
-                'local_voluntary': True,
-                'regional_voluntary': True,
-                'national_voluntary': True,
-            })
 
         # force local only field if any
         if membership_state_code in [

@@ -117,7 +117,7 @@ class test_partner(SharedSetupTransactionCase):
         partner.write({'accepted_date': today, 'free_member': False})
         self.assertEqual(
             partner.membership_state_code, 'member_candidate')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
         self.assertFalse(partner.local_only)
 
         nbl = 0
@@ -147,7 +147,7 @@ class test_partner(SharedSetupTransactionCase):
         partner.write({'accepted_date': today, 'free_member': False})
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'member_candidate')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
         self.assertFalse(partner.del_doc_date)
 
         # member_candidate -> supporter
@@ -199,7 +199,7 @@ class test_partner(SharedSetupTransactionCase):
         partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'member_committee')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
 
         # member_committee -> member
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
