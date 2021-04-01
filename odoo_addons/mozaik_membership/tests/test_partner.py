@@ -301,7 +301,7 @@ class test_partner(SharedSetupTransactionCase):
         partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'former_member')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
 
         # number of membership lines ?
         self.assertEqual(len(partner.membership_line_ids), nbl)
