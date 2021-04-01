@@ -205,7 +205,7 @@ class test_partner(SharedSetupTransactionCase):
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'member')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
 
         # member -> former_member
         partner.write({'decline_payment_date': today})
