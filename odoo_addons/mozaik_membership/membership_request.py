@@ -389,7 +389,7 @@ class membership_request(orm.Model):
         chg_obj = self.pool.get('membership.request.change')
         self._clean_stored_changes(cr, uid, ids, context=context)
 
-        for request in self.browse(cr, uid, ids, context=context):
+        for request in self.browse(cr, SUPERUSER_ID, ids, context=context):
             if not request.partner_id:
                 res[request.id] = False
                 continue
@@ -509,6 +509,10 @@ class membership_request(orm.Model):
             'int.instance',
             string='Internal Instance',
         ),
+        'old_instance_id': fields.many2one(
+            'int.instance',
+            string='Internal Instance',
+        ),
         'force_int_instance_id': fields.many2one(
             'int.instance',
             string='Internal Instance (to Force)',
@@ -577,6 +581,13 @@ class membership_request(orm.Model):
                               address_local_zip_id, zip_man, town_man,
                               street_man, number, box, context=None):
         uid = SUPERUSER_ID
+        membership_request = self.pool['membership.request'].browse(
+            cr, uid, ids, context=None)
+
+        if (membership_request.state != "validate"):
+            old_instance_id = membership_request.partner_id.int_instance_id.id
+        else:
+            old_instance_id = None
         # local_zip used for domain
         local_zip = False
         if address_local_zip_id:
@@ -591,7 +602,8 @@ class membership_request(orm.Model):
                     country_id, context=context),
                 'local_zip': local_zip,
                 'int_instance_id': self.get_int_instance_id(
-                    cr, uid, address_local_zip_id, context=context)
+                    cr, uid, address_local_zip_id, context=context),
+                'old_instance_id': old_instance_id,
             }
         }
 
