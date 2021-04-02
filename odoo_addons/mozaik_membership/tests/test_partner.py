@@ -99,6 +99,8 @@ class test_partner(SharedSetupTransactionCase):
         * member -> resignation_former_member -> former_member
 
         * check also for voluntaries and local only fields automatic update
+        * voluntary no longer automaticaly to true when membership
+        * create a member
         """
         cr, uid = self.cr, self.uid
         partner_obj = self.partner_obj
