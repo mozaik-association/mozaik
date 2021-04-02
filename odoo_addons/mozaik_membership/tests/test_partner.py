@@ -99,6 +99,8 @@ class test_partner(SharedSetupTransactionCase):
         * member -> resignation_former_member -> former_member
 
         * check also for voluntaries and local only fields automatic update
+        * voluntary no longer automaticaly to true when membership
+        * create a member
         """
         cr, uid = self.cr, self.uid
         partner_obj = self.partner_obj
@@ -117,7 +119,7 @@ class test_partner(SharedSetupTransactionCase):
         partner.write({'accepted_date': today, 'free_member': False})
         self.assertEqual(
             partner.membership_state_code, 'member_candidate')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
         self.assertFalse(partner.local_only)
 
         nbl = 0
@@ -147,7 +149,7 @@ class test_partner(SharedSetupTransactionCase):
         partner.write({'accepted_date': today, 'free_member': False})
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'member_candidate')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
         self.assertFalse(partner.del_doc_date)
 
         # member_candidate -> supporter
@@ -199,13 +201,13 @@ class test_partner(SharedSetupTransactionCase):
         partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'member_committee')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
 
         # member_committee -> member
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'member')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
 
         # member -> former_member
         partner.write({'decline_payment_date': today})
@@ -301,7 +303,7 @@ class test_partner(SharedSetupTransactionCase):
         partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
         nbl += 1
         self.assertEqual(partner.membership_state_code, 'former_member')
-        self.assertTrue(partner.regional_voluntary)
+        self.assertFalse(partner.regional_voluntary)
 
         # number of membership lines ?
         self.assertEqual(len(partner.membership_line_ids), nbl)

@@ -726,17 +726,7 @@ class membership_request(orm.Model):
                 'regional_voluntary': False,
                 'national_voluntary': False,
             })
-        elif any([
-            result_code == 'member_candidate' and
-            membership_state_code in [
-                False, 'without_membership', 'supporter'],
-            result_code == 'member_committee' and
-                membership_state_code == 'supporter']):
-            res.update({
-                'local_voluntary': True,
-                'regional_voluntary': True,
-                'national_voluntary': True,
-            })
+
         if result_code in [
                 'supporter', 'former_supporter', 'member_candidate',
                 'member_committee', 'member', 'former_member',
@@ -1113,6 +1103,12 @@ class membership_request(orm.Model):
                     cr, uid, mr.request_type, date_from=mr.effective_time))
             if mr.indexation_comments:
                 partner_values["indexation_comments"] = mr.indexation_comments
+            #Add Voluntary Values
+
+            partner_values["local_voluntary"]= mr.local_voluntary
+            partner_values["regional_voluntary"] = mr.regional_voluntary
+            partner_values["national_voluntary"] = mr.national_voluntary
+
             if partner_values:
                 partner_obj.write(
                     cr, uid, [partner_id], partner_values, context=ctx)
