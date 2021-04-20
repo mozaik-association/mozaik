@@ -1247,13 +1247,13 @@ msgstr "Personne morale"
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 #: field:virtual.partner.mandate,is_submission_assets:0
 msgid "Is Submission Assets"
-msgstr "Avec déclaration de patrimoines"
+msgstr "Avec Déclaration de mandats et de patrimoine (Cour des Comptes)"
 
 #. module: mozaik_communication
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 #: field:virtual.partner.mandate,is_submission_mandate:0
 msgid "Is Submission Mandate"
-msgstr "Avec déclaration de rémunérations"
+msgstr "Avec Déclaration de mandats et de rémunérations (Rég. wal.)"
 
 #. module: mozaik_communication
 #: field:virtual.partner.instance,is_company:0

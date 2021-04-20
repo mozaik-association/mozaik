@@ -272,7 +272,7 @@ msgstr "Catégorie d'assemblée"
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
 #: view:mandate.category:mozaik_mandate.mandate_category_search_view
 msgid "Assets Declaration"
-msgstr "Déclaration de patrimoine"
+msgstr "Déclaration de mandats et de patrimoine (Cour des Comptes)"
 
 #. module: mozaik_mandate
 #: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
@@ -2322,7 +2322,7 @@ msgstr "Le nombre de voix de préférence doit être une valeur entière: %s"
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
 #: view:mandate.category:mozaik_mandate.mandate_category_search_view
 msgid "Wage Declaration"
-msgstr "Déclaration de rémunération"
+msgstr "Déclaration de mandats et de rémunérations (Rég. wal.)"
 
 #. module: mozaik_mandate
 #: code:addons/mozaik_mandate/structure.py:48
@@ -2375,7 +2375,7 @@ msgstr "Historique de communication de site web"
 #: field:mandate.category,is_submission_assets:0
 #: field:sta.mandate,is_submission_assets:0
 msgid "With Assets Declaration"
-msgstr "Avec déclaration de patrimoines"
+msgstr "Avec Déclaration de mandats et de patrimoine (Cour des Comptes)"
 
 #. module: mozaik_mandate
 #: field:abstract.mandate,is_submission_mandate:0
@@ -2384,7 +2384,7 @@ msgstr "Avec déclaration de patrimoines"
 #: field:mandate.category,is_submission_mandate:0
 #: field:sta.mandate,is_submission_mandate:0
 msgid "With Wages Declaration"
-msgstr "Avec déclaration de rémunérations"
+msgstr "Avec Déclaration de mandats et de rémunérations (Rég. wal.)"
 
 #. module: mozaik_mandate
 #: field:electoral.results.wizard.errors,wizard_id:0
