@@ -111,7 +111,7 @@ class virtual_partner_involvement(orm.Model):
     _columns = {
         'common_id': fields.char('Common ID'),
         'partner_id': fields.many2one(
-            'res.partner', 'Partner', domain=[('is_assembly', '=', False)]),
+            'res.partner', 'Partner'),
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
@@ -193,7 +193,8 @@ class virtual_partner_involvement(orm.Model):
         JOIN res_partner AS p
             ON (p.id = pi.partner_id
             AND p.active = TRUE
-            AND p.identifier > 0)
+            AND (p.identifier > 0
+            OR p.is_assembly = TRUE))
 
         JOIN partner_involvement_category AS pic
             ON (pic.id = pi.involvement_category_id
