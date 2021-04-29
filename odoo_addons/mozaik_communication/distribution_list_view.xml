@@ -266,7 +266,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='domain']" position="attributes">
-                    <attribute name="readonly" translation="off">not context.get('is_developper')</attribute>
+                    <attribute name="readonly" translation="off">not context.get('in_mozaik_configurator')</attribute>
                 </xpath>
 
                 <xpath expr="//sheet" position="inside">
