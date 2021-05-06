@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-23 21:40+0000\n"
-"PO-Revision-Date: 2021-03-23 21:40+0000\n"
+"POT-Creation-Date: 2021-05-06 13:33+0000\n"
+"PO-Revision-Date: 2021-05-06 13:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,6 @@ msgid "Awaiting payment"
 msgstr "En attente de paiement"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:46
 #: field:virtual.partner.candidature,birth_date:0
 #: field:virtual.partner.event,birth_date:0
 #: field:virtual.partner.instance,birth_date:0
@@ -224,7 +223,6 @@ msgstr "En attente de paiement"
 #: field:virtual.partner.relation,birth_date:0
 #: field:virtual.partner.retrocession,birth_date:0
 #: field:virtual.target,birth_date:0
-#, python-format
 msgid "Birth Date"
 msgstr "Date de naissance"
 
@@ -285,22 +283,10 @@ msgid "Cancelled"
 msgstr "Annulé"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:55
+#: code:addons/mozaik_communication/wizard/export_csv.py:43
 #, python-format
 msgid "City"
 msgstr "Ville"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:40
-#, python-format
-msgid "Co-residency Line 1"
-msgstr "Co-résidence Ligne 1"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:41
-#, python-format
-msgid "Co-residency Line 2"
-msgstr "Co-résidence Ligne 2"
 
 #. module: mozaik_communication
 #: field:distribution.list,code:0
@@ -398,17 +384,11 @@ msgid "Copy this text to the email body. It'll be replaced by the value from the
 msgstr "Copier ce texte vers le corps de l'email. Il sera remplacé par la valeur réelle issu de la fiche"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:57
+#: code:addons/mozaik_communication/wizard/export_csv.py:44
 #: field:virtual.target,country_id:0
 #, python-format
 msgid "Country"
 msgstr "Pays"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:56
-#, python-format
-msgid "Country Code"
-msgstr "Code pays"
 
 #. module: mozaik_communication
 #: field:add.registration,create_uid:0
@@ -562,7 +542,7 @@ msgid "Donor"
 msgstr "Donateur"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:73
+#: code:addons/mozaik_communication/wizard/export_csv.py:47
 #, python-format
 msgid "Email"
 msgstr "Courriel"
@@ -677,7 +657,7 @@ msgstr "Employé"
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:196
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:310
-#: code:addons/mozaik_communication/wizard/export_csv.py:172
+#: code:addons/mozaik_communication/wizard/export_csv.py:109
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -812,12 +792,6 @@ msgid "External Mandate Remits"
 msgstr "Attributions de mandat externe"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:69
-#, python-format
-msgid "Fax"
-msgstr "Fax"
-
-#. module: mozaik_communication
 #: selection:virtual.partner.retrocession,month:0
 msgid "February"
 msgstr "Février"
@@ -847,7 +821,7 @@ msgid "File"
 msgstr "Fichier"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:37
+#: code:addons/mozaik_communication/wizard/export_csv.py:36
 #: field:virtual.target,firstname:0
 #, python-format
 msgid "Firstname"
@@ -898,7 +872,7 @@ msgid "From"
 msgstr "De"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:47
+#: code:addons/mozaik_communication/wizard/export_csv.py:40
 #: field:virtual.partner.candidature,gender:0
 #: field:virtual.partner.event,gender:0
 #: field:virtual.partner.instance,gender:0
@@ -1082,7 +1056,7 @@ msgid "Internal Candidature"
 msgstr "Candidature interne"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:42
+#: code:addons/mozaik_communication/wizard/export_csv.py:37
 #: view:distribution.list:mozaik_communication.distribution_list_search
 #: field:distribution.list,int_instance_id:0
 #: field:distribution.list.mass.function,internal_instance_id:0
@@ -1356,7 +1330,7 @@ msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:36
+#: code:addons/mozaik_communication/wizard/export_csv.py:35
 #: field:virtual.target,lastname:0
 #, python-format
 msgid "Lastname"
@@ -1389,18 +1363,14 @@ msgid "Local Voluntary"
 msgstr "Actif pol. niv. Local"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:79
 #: field:virtual.partner.instance,local_only:0
 #: field:virtual.partner.involvement,local_only:0
-#, python-format
 msgid "Local only"
 msgstr "A donné son accord pour contact local"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:76
 #: field:virtual.partner.instance,local_voluntary:0
 #: field:virtual.partner.involvement,local_voluntary:0
-#, python-format
 msgid "Local voluntary"
 msgstr "Actif pol. niv. Local"
 
@@ -1421,42 +1391,20 @@ msgid "Mailings"
 msgstr "Courriels de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:49
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
 #: field:virtual.assembly.instance,main_postal:0
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: field:virtual.partner.instance,main_postal:0
-#, python-format
 msgid "Main Address"
 msgstr "Adresse principale"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:70
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
 #: field:virtual.assembly.instance,main_email:0
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: field:virtual.partner.instance,main_email:0
-#, python-format
 msgid "Main Email"
 msgstr "Adresse électronique principale"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:66
-#, python-format
-msgid "Main Fax"
-msgstr "Fax principal"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:62
-#, python-format
-msgid "Main Mobile"
-msgstr "Mobile principal"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:58
-#, python-format
-msgid "Main Phone"
-msgstr "Téléphone principal"
 
 #. module: mozaik_communication
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
@@ -1617,7 +1565,7 @@ msgid "Messages and communication history"
 msgstr "Historique des messages et communications"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:65
+#: code:addons/mozaik_communication/wizard/export_csv.py:46
 #, python-format
 msgid "Mobile"
 msgstr "Mobile"
@@ -1630,7 +1578,7 @@ msgid "Model"
 msgstr "Modèle"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:173
+#: code:addons/mozaik_communication/wizard/export_csv.py:110
 #, python-format
 msgid "Model %s not supported for csv export!"
 msgstr "Modèle %s non supporté pour l'epxortation csv!"
@@ -1664,12 +1612,10 @@ msgid "My Templates"
 msgstr "Mes modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:35
 #: selection:distribution.list.mass.function,sort_by:0
 #: field:mail.mass_mailing.group,name:0
 #: field:postal.mail,name:0
 #: field:postal.mail.log,name:0
-#, python-format
 msgid "Name"
 msgstr "Nom"
 
@@ -1680,10 +1626,8 @@ msgid "National Voluntary"
 msgstr "Actif pol. niv. national"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:78
 #: field:virtual.partner.instance,national_voluntary:0
 #: field:virtual.partner.involvement,national_voluntary:0
-#, python-format
 msgid "National voluntary"
 msgstr "Actif pol. niv. national"
 
@@ -1998,7 +1942,7 @@ msgid "Petition"
 msgstr "Pétition"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:61
+#: code:addons/mozaik_communication/wizard/export_csv.py:45
 #, python-format
 msgid "Phone"
 msgstr "Téléphone"
@@ -2108,12 +2052,6 @@ msgid "Postal is Main"
 msgstr "Adresse principale"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:43
-#, python-format
-msgid "Power Level"
-msgstr "Niveau de pouvoir"
-
-#. module: mozaik_communication
 #: model:ir.ui.menu,name:mozaik_communication.template_placeholders_menu
 msgid "Predefined Placeholders"
 msgstr "Champs de fusion prédéfinis"
@@ -2143,7 +2081,7 @@ msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:45
+#: code:addons/mozaik_communication/wizard/export_csv.py:39
 #: field:virtual.partner.membership,reference:0
 #, python-format
 msgid "Reference"
@@ -2156,10 +2094,8 @@ msgid "Regional Voluntary"
 msgstr "Actif pol. niv. régional"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:77
 #: field:virtual.partner.instance,regional_voluntary:0
 #: field:virtual.partner.involvement,regional_voluntary:0
-#, python-format
 msgid "Regional voluntary"
 msgstr "Actif pol. niv. régional"
 
@@ -2236,12 +2172,6 @@ msgstr "Modèles de recherche"
 #: model:ir.model,name:mozaik_communication.model_virtual_target
 msgid "Searching Result"
 msgstr "Résultat de la recherche"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:75
-#, python-format
-msgid "Secondary Website"
-msgstr "Site web secondaire"
 
 #. module: mozaik_communication
 #: view:distribution.list:mozaik_communication.distribution_list_form
@@ -2328,7 +2258,7 @@ msgid "Start Date"
 msgstr "Date de début"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:44
+#: code:addons/mozaik_communication/wizard/export_csv.py:38
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: field:virtual.partner.instance,membership_state_id:0
 #: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
@@ -2381,16 +2311,10 @@ msgid "State Power Level"
 msgstr "Niveau de pouvoir de l'État"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:53
+#: code:addons/mozaik_communication/wizard/export_csv.py:41
 #, python-format
 msgid "Street"
 msgstr "Rue"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:52
-#, python-format
-msgid "Street2"
-msgstr "Rue (suite)"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,subject:0
@@ -2438,7 +2362,6 @@ msgid "This wizard will export the selected coordinates into a CSV file"
 msgstr "Cet assistant exportera les coordonnées sélectionnées dans un fichier CSV"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:48
 #: field:virtual.partner.candidature,tongue:0
 #: field:virtual.partner.event,tongue:0
 #: field:virtual.partner.instance,tongue:0
@@ -2447,7 +2370,6 @@ msgstr "Cet assistant exportera les coordonnées sélectionnées dans un fichier
 #: field:virtual.partner.membership,tongue:0
 #: field:virtual.partner.relation,tongue:0
 #: field:virtual.partner.retrocession,tongue:0
-#, python-format
 msgid "Tongue"
 msgstr "Langue"
 
@@ -2469,7 +2391,6 @@ msgid "Trial"
 msgstr "Essai"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:50
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
 #: field:virtual.assembly.instance,postal_unauthorized:0
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
@@ -2488,12 +2409,10 @@ msgstr "Essai"
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 #: field:virtual.partner.retrocession,postal_unauthorized:0
 #: view:virtual.target:mozaik_communication.virtual_target_search_view
-#, python-format
 msgid "Unauthorized Address"
 msgstr "Adresse interdite"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:71
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
 #: field:virtual.assembly.instance,email_unauthorized:0
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
@@ -2512,27 +2431,8 @@ msgstr "Adresse interdite"
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 #: field:virtual.partner.retrocession,email_unauthorized:0
 #: view:virtual.target:mozaik_communication.virtual_target_search_view
-#, python-format
 msgid "Unauthorized Email"
 msgstr "Adresse électronique interdite"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:67
-#, python-format
-msgid "Unauthorized Fax"
-msgstr "Fax interdit"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:63
-#, python-format
-msgid "Unauthorized Mobile"
-msgstr "Mobile interdit"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:59
-#, python-format
-msgid "Unauthorized Phone"
-msgstr "Téléphone interdit"
 
 #. module: mozaik_communication
 #: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
@@ -2556,18 +2456,6 @@ msgstr "Messages non lus"
 #, python-format
 msgid "User %s(%s) has no visibility on list %s(%s)"
 msgstr "L'utilisateur %s(%s) n'a aucune visibilité sur la liste %s(%s)"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:39
-#, python-format
-msgid "Usual Firstname"
-msgstr "Prénom usuel"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:38
-#, python-format
-msgid "Usual Lastname"
-msgstr "Nom usuel"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:61
@@ -2631,36 +2519,6 @@ msgid "Validated"
 msgstr "Validé"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:51
-#, python-format
-msgid "Vip Address"
-msgstr "Adresse Vip"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:72
-#, python-format
-msgid "Vip Email"
-msgstr "Courriel Vip"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:68
-#, python-format
-msgid "Vip Fax"
-msgstr "Fax Vip"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:64
-#, python-format
-msgid "Vip Mobile"
-msgstr "Mobile Vip"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:60
-#, python-format
-msgid "Vip Phone"
-msgstr "Téléphone Vip"
-
-#. module: mozaik_communication
 #: view:virtual.target:mozaik_communication.virtual_target_search_view
 #: view:virtual.target:mozaik_communication.virtual_target_tree_view
 msgid "Virtual Target"
@@ -2679,7 +2537,7 @@ msgid "Volunteer"
 msgstr "Volontaire"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:74
+#: code:addons/mozaik_communication/wizard/export_csv.py:48
 #, python-format
 msgid "Website"
 msgstr "Site web"
@@ -2743,7 +2601,7 @@ msgid "Year"
 msgstr "Année"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/export_csv.py:54
+#: code:addons/mozaik_communication/wizard/export_csv.py:42
 #, python-format
 msgid "Zip"
 msgstr "Code postal"
