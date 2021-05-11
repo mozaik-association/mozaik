@@ -11,7 +11,7 @@
                         <field name="selection_committee_id" options='{"no_open":True}'/>
                         <field name="source_file"/>
                     </group>
-                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.mozaik_res_groups_configurator">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="id"/>
@@ -52,7 +52,7 @@
                     <div name="nok" attrs="{'invisible': [('import_lines', '!=', [])]}">
                         <p><strong>No candidature found in input file!</strong></p>
                     </div>
-                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.mozaik_res_groups_configurator">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="id"/>

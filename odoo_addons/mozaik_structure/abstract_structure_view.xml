@@ -79,7 +79,7 @@
                             </group>
                         </group>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.mozaik_res_groups_configurator">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -199,7 +199,7 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.mozaik_res_groups_configurator">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -295,7 +295,7 @@
                             </group>
                         </group>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.mozaik_res_groups_configurator">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -403,7 +403,7 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.mozaik_res_groups_configurator">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
