@@ -19,7 +19,7 @@
                         <field name="nb_former_concerned" readonly="1" />
                     </group>
 
-                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.mozaik_res_groups_configurator">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="partner_ids"/>

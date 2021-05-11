@@ -341,7 +341,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//div[@class='oe_chatter']" position="replace">
-                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.mozaik_res_groups_configurator">
                         <div class="oe_formview oe_form_sheet_width">
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Reactivate" type="object"

@@ -17,7 +17,7 @@
                         <p>This wizard is only intended in July, August or September to cancel memberships due to payement failure.</p>
                     </div>
 
-                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.mozaik_res_groups_configurator">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="concerned_partner_ids"/>
