@@ -1245,7 +1245,7 @@ msgstr "Historiques d'adhésion"
 #: field:membership.request.change,membership_request_id:0
 #: view:res.partner:mozaik_membership.view_partner_2_form
 msgid "Membership Request"
-msgstr "Demande d'adhésion"
+msgstr "Demande d'adhésion/modification"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_membership_request_change
