@@ -389,6 +389,7 @@ class distribution_list_line(orm.Model):
             'exclude_distribution_list_line_rel',
             'exclude_distribution_list_line_id',
             'exclude_distribution_list_id', string="Exclude from"),
+        'note': fields.text(string="Note")
     }
 
     _defaults = {
