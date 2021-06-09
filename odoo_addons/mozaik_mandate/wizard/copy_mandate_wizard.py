@@ -58,8 +58,7 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
             ondelete='cascade'),
         'action': fields.selection(WIZARD_AVAILABLE_ACTIONS, 'Action'),
         'partner_id': fields.many2one(
-            'res.partner', string='Partner',
-            readonly=True, ondelete='cascade'),
+            'res.partner', string='Partner', ondelete='cascade'),
         'start_date': fields.date('Start Date'),
         'deadline_date': fields.date('Deadline Date'),
         'message': fields.char('Message', size=250),
@@ -101,6 +100,7 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
 
             res['partner_id'] = mandate.partner_id.id
             res['mandate_category_id'] = mandate.mandate_category_id.id
+            res['new_mandate_category_id'] = mandate.mandate_category_id.id
             res['assembly_id'] = res['new_assembly_id']\
                                = mandate[self._mandate_assembly_foreign_key].id
             res['mandate_id'] = mandate.id
