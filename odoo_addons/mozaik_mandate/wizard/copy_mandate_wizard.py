@@ -145,7 +145,8 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
         Add a complementary mandate
         """
         wizard = self.browse(cr, uid, ids, context=context)[0]
-        values = dict(mandate_category_id=wizard.new_mandate_category_id.id,
+        values = dict(partner_id=wizard.partner_id.id,
+                      mandate_category_id=wizard.new_mandate_category_id.id,
                       start_date=wizard.start_date,
                       deadline_date=wizard.deadline_date,
                       candidature_id=False)
