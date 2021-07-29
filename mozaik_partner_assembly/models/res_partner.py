@@ -13,7 +13,6 @@ class ResPartner(models.Model):
         default=False,
     )
 
-    @api.multi
     @api.constrains('is_company', 'is_assembly')
     def _check_is_assembly(self):
         """
