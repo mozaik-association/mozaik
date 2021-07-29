@@ -31,5 +31,5 @@
         'demo/product_product.xml',
         'demo/ir_property.xml'
     ],
-    'installable': True,
+    "installable": False,
 }

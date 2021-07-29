@@ -44,5 +44,5 @@ MOZAIK Retrocession
     'test': [
     ],
     'license': 'AGPL-3',
-    'installable': False,
+    "installable": False,
 }

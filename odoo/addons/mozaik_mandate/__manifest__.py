@@ -61,5 +61,5 @@ MOZAIK Mandate
     'test': [
     ],
     'license': 'AGPL-3',
-    'installable': True,
+    "installable": False,
 }

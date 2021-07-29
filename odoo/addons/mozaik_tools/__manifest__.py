@@ -11,5 +11,5 @@
     'category': 'Hidden',
     'depends': [
     ],
-    'installable': True,
+    "installable": False,
 }

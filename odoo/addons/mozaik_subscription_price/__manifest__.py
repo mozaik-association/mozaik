@@ -24,5 +24,5 @@
         'demo/product_pricelist.xml',
         'demo/product_pricelist_item.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

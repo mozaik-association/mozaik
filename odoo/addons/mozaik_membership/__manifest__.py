@@ -56,5 +56,5 @@
         "demo/membership_tarification.xml",
         "demo/res_city.xml",
     ],
-    'installable': True,
+    "installable": False,
 }

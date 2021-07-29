@@ -19,5 +19,5 @@
         'views/virtual_partner_membership.xml',
     ],
     'license': 'AGPL-3',
-    'installable': True,
+    "installable": False,
 }

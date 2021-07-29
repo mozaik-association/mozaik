@@ -12,5 +12,5 @@
         'base',
         'mail',
     ],
-    'installable': True,
+    "installable": False,
 }

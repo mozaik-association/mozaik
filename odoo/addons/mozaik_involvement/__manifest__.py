@@ -30,6 +30,5 @@
     'demo': [
         'demo/partner_involvement_category.xml',
         'demo/res_partner.xml',
-    ],
-    'installable': True,
+    ],    "installable": False,
 }

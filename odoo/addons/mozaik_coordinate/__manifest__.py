@@ -29,5 +29,5 @@
     'demo': [
         'demo/res_partner.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

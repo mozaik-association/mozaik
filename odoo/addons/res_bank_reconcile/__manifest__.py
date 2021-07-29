@@ -12,4 +12,5 @@
     'depends': [
         'account',
     ],
+    "installable": False,
 }

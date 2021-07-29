@@ -50,5 +50,5 @@
         'demo/res_partner.xml',
         'demo/distribution_list.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

@@ -38,5 +38,5 @@
             'phonenumbers',
         ],
     },
-    'installable': True,
+    "installable": False,
 }

@@ -36,5 +36,5 @@
         'demo/address_address.xml',
         'demo/postal_coordinate.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

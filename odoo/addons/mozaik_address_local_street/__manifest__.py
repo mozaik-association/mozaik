@@ -23,5 +23,5 @@
         'demo/address_local_street.xml',
         'demo/address_address.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

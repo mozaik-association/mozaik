@@ -50,5 +50,5 @@
     'data': [
         'views/mail_followers.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

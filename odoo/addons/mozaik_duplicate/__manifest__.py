@@ -17,5 +17,5 @@
     'data': [
         'wizards/allow_duplicate_view.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

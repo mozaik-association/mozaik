@@ -19,5 +19,5 @@
         'views/distribution_list.xml',
         'wizards/merge_distribution_list.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

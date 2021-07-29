@@ -34,5 +34,5 @@
         'demo/distribution_list_line.xml',
     ],
     'sequence': 1000,
-    'installable': True,
+    "installable": False,
 }

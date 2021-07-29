@@ -30,5 +30,5 @@ MOZAIK Sample Accounting Localization
     'test': [
     ],
     'license': 'AGPL-3',
-    'installable': False,
+    "installable": False,
 }

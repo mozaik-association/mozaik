@@ -26,5 +26,5 @@
     'demo': [
         'demo/email_coordinate.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

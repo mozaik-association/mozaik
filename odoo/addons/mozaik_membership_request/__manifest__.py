@@ -25,5 +25,5 @@
     'demo': [
         'demo/membership_request.xml',
     ],
-    'installable': False,
+    "installable": False,
 }

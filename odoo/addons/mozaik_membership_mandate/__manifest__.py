@@ -20,4 +20,5 @@
     ],
     'demo': [
     ],
+    "installable": False,
 }

@@ -25,5 +25,5 @@
         'views/res_partner.xml',
         'views/thesaurus_menu.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

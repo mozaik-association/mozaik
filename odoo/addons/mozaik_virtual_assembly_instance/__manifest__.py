@@ -20,5 +20,5 @@
         'views/virtual_assembly_instance.xml',
     ],
     'license': 'AGPL-3',
-    'installable': True,
+    "installable": False,
 }

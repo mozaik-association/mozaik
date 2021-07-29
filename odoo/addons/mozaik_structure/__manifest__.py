@@ -41,5 +41,5 @@
         'demo/state_structure.xml',
         'demo/external_structure.xml',
     ],
-    'installable': True,
+    "installable": False,
 }

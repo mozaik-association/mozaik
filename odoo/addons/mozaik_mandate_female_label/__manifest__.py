@@ -22,4 +22,5 @@
         'demo/mandate_category.xml',
     ],
     'pre_init_hook': '_copy_name_to_female_name',
+    "installable": False,
 }

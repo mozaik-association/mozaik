@@ -1,5 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 {
     'name': 'Mail Job Priority',
     'description': """
@@ -13,5 +14,5 @@
         'mail',
         'mail_queue_job',
     ],
-    'installable': True,
+    "installable": False,
 }
