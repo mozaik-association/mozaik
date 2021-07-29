@@ -6,7 +6,7 @@
     'description': """
         Change the behavior of the ir_rule whith the child_of when it is
         used with a empty list""",
-    'version': '11.0.1.0.0',
+    'version': '14.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',

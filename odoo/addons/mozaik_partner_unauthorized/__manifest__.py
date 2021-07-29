@@ -5,7 +5,7 @@
     'summary': """
         Add a boolean 'unauthorized' on partners.
         It is computed from all its unauthorized main coordinates.""",
-    'version': '11.0.1.0.0',
+    'version': '14.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',

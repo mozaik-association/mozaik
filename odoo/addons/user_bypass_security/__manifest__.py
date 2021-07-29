@@ -5,7 +5,7 @@
     'name': 'User Bypass Security',
     'description': """
         bypass security for user""",
-    'version': '11.0.1.0.0',
+    'version': '14.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',

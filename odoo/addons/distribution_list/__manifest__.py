@@ -5,7 +5,7 @@
     'summary': """
         Manage distribution lists composed
         with multiple filters (odoo domain)""",
-    'version': '11.0.1.0.0',
+    'version': '14.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',

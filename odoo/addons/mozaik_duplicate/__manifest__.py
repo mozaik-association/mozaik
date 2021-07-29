@@ -4,7 +4,7 @@
     'name': 'Mozaik: Duplicate',
     'summary': """
         Abstract model wizard to detect, repair and allow duplicates""",
-    'version': '11.0.1.0.0',
+    'version': '14.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',

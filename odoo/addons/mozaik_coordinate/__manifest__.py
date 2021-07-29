@@ -5,7 +5,7 @@
     'summary': """
         Manage coordinates categories: private, professional, ...
         Provide an abstract model and wizard for all kinds of coordinates""",
-    'version': '11.0.1.0.0',
+    'version': '14.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',

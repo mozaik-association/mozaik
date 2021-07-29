@@ -7,7 +7,7 @@
     'description': """
         Transform automatically a contact into a supporter
         when creating involvements of such a category""",
-    'version': '11.0.1.0.0',
+    'version': '14.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://acsone.eu/',

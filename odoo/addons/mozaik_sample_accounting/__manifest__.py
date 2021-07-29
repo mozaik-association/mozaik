@@ -4,7 +4,7 @@
 
 {
     'name': 'MOZAIK: Sample Accounting Localization',
-    'version': '11.0.1.0.0',
+    'version': '14.0.1.0.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
