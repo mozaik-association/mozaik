@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="distribution_list_search" model="ir.ui.view">
+        <field name="name">distribution.list.search</field>
+        <field name="model">distribution.list</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="dst_model_id"/>
+                <field name="note"/>
+                <group>
+                    <filter name="dst_model" string="Target Model" domain="[]" context="{'group_by':'dst_model_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="distribution_list_tree" model="ir.ui.view">
+        <field name="name">distribution.list.tree</field>
+        <field name="model">distribution.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="dst_model_id" options="{'no_create_edit': True}"/>
+                <button name="action_show_result" string="Result" type="object" icon="fa-address-card text-success"/>
+                <button name="mass_mailing" string="Mass Mailing" type="object" icon="fa-at"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="distribution_list_form" model="ir.ui.view">
+        <field name="name">distribution.list.form</field>
+        <field name="model">distribution.list</field>
+        <field name="arch" type="xml">
+            <form>
+                <header attrs="{'invisible': [('id','=',False)]}">
+                    <button name="mass_mailing" type="object" string="Mass Mailing"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_show_result" class="oe_stat_button" string="List result" icon="fa-address-card text-success"
+                                type="object" attrs="{'invisible': [('id','=',False)]}" />
+                    </div>
+                    <div class="oe_title" name="title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group name="data">
+                        <group name="info">
+                            <field name="dst_model_id" widget="selection"/>
+                        </group>
+                        <group name="company">
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="note" string="Notes">
+                            <field name="note"/>
+                        </page>
+                        <page name="to_include" string="Filters to Include" autofocus="autofocus">
+                            <field name="to_include_distribution_list_line_ids"
+                                context="{'default_distribution_list_id': id, 'default_exclude': False}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="src_model_id"/>
+                                    <button name="action_show_filter_result" string="Result" type="object" icon="fa-address-card text-success"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="to_exclude" string="Filters to Exclude">
+                            <field name="to_exclude_distribution_list_line_ids"
+                                context="{'default_distribution_list_id': id, 'default_exclude': True}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="src_model_id"/>
+                                    <button name="action_show_filter_result" string="Result" type="object" icon="fa-address-card text-success"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="distribution_list_action" model="ir.actions.act_window">
+        <field name="name">Distribution Lists</field>
+        <field name="res_model">distribution.list</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="distribution_list_tree" />
+        <field name="search_view_id" ref="distribution_list_search" />
+    </record>
+
+
+    <menuitem name="Distribution Lists" id="distribution_list_menu_root" groups="base.group_user"
+        sequence="30" web_icon="distribution_list,static/description/icon.png"/>
+    <menuitem name="Distribution Lists" id="distribution_list_menu" parent="distribution_list_menu_root"
+        sequence="10"/>
+    <menuitem id="distribution_list_submenu" parent="distribution_list_menu"
+        sequence="1" action="distribution_list_action"/>
+
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="merge_distribution_list_wizard" model="ir.ui.view">
+        <field name="name">merge.distribution.list.form</field>
+        <field name="model">merge.distribution.list</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <div>
+                    <group>
+                        <field name="distribution_list_id"/>
+                    </group>
+                </div>
+                <footer>
+                    <button name="merge_distribution_list" string="Ok" type="object" class="btn-primary"/>
+                    or
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="merge_distribution_list_action" model="ir.actions.act_window">
+        <field name="name">Merge Distribution List(s)</field>
+        <field name="view_mode">form</field>
+        <field name="src_model">distribution.list</field>
+        <field name="res_model">merge.distribution.list</field>
+        <field name="multi" eval="1"/>
+        <field name="target">new</field>
+        <field name="view_id" ref="merge_distribution_list_wizard" />
+        <field name="binding_model_id" ref="model_distribution_list"/>
+        <field name="groups_id" eval="[(6, 0, [ref('res_groups_distribution_list_user')])]" />
+    </record>
+</odoo>
