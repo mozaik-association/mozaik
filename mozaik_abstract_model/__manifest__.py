@@ -12,11 +12,11 @@
     'depends': [
         'base',
         'mail',
-        'disable_tracking_installation',
+        #'disable_tracking_installation',
         'inherit_abstract_view',
     ],
     'data': [
         'security/res_groups.xml',
     ],
-    "installable": False,
+    "installable": True,
 }

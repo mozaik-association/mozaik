@@ -3,7 +3,7 @@
 import logging
 from psycopg2.extensions import AsIs
 from psycopg2 import IntegrityError
-from odoo import api, exceptions, fields, models, _
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ class MozaikAbstractModel(models.AbstractModel):
         'Expiration Date',
         readonly=True,
         default=False,
-        track_visibility='onchange',
+        tracking=True,
         copy=False,
     )
     active = fields.Boolean(
@@ -116,7 +116,6 @@ class MozaikAbstractModel(models.AbstractModel):
         """
         return {}
 
-    @api.multi
     def _display_error_message(self, exception):
         """
         Load error messages depending on index name and raise the
@@ -131,10 +130,10 @@ class MozaikAbstractModel(models.AbstractModel):
             # original expression but with a ValidationError
             constraint_name = exception.diag.constraint_name
         except AttributeError:
-            raise exceptions.ValidationError(str(exception))
+            raise ValidationError(str(exception))
         message = self._get_exception_messages().get(
             constraint_name, str(exception))
-        raise exceptions.ValidationError(message)
+        raise ValidationError(message)
 
     @api.model
     def create(self, vals):
@@ -160,7 +159,6 @@ class MozaikAbstractModel(models.AbstractModel):
             self.env.cr.execute(q, p)
         return res
 
-    @api.multi
     def write(self, vals):
         """
         If the current recordset is deactivate (active = False), deactivate
@@ -184,7 +182,6 @@ class MozaikAbstractModel(models.AbstractModel):
         except IntegrityError as e:
             self._display_error_message(e)
 
-    @api.multi
     def action_invalidate(self, vals=None):
         """
         Invalidates a recordset
@@ -195,7 +192,6 @@ class MozaikAbstractModel(models.AbstractModel):
         vals.update(self._get_fields_to_update('deactivate'))
         return self.write(vals)
 
-    @api.multi
     def action_revalidate(self, vals=None):
         """
         Reactivates a recordset
@@ -227,7 +223,6 @@ class MozaikAbstractModel(models.AbstractModel):
             })
         return result
 
-    @api.multi
     @api.constrains('expire_date')
     def _check_invalidate(self):
         """
@@ -248,7 +243,6 @@ class MozaikAbstractModel(models.AbstractModel):
                 raise ValidationError(_('Invalidation not allowed: at least '
                                         'one dependency is still active'))
 
-    @api.multi
     def _invalidate_active_relations(self):
         """
         Invalidate all dependencies of object ids

@@ -16,6 +16,7 @@ class TestResPartner(models.Model):
     _inactive_cascade = True
     _unicity_keys = 'N/A'
     _abstract = True
+    _description = "Test Res Partner"
 
     name = fields.Char()
     email = fields.Char()
@@ -69,7 +70,6 @@ class TestAnotherModel(models.Model):
         default=True,
     )
 
-    @api.multi
     def write(self, vals):
         """
         For this test, whatever is set into the active field, we set it to
@@ -121,7 +121,7 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         super().setUp()
         registry = self.registry
         # We must be in test mode before create/init new models
-        registry.enter_test_mode()
+        registry.enter_test_mode(self.env.cr)
         # Add the cleanup to disable test mode after this setup as finished
         self.addCleanup(registry.leave_test_mode)
         self._init_test_models()
