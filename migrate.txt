@@ -12,7 +12,7 @@ mozaik_partner_fields:
 * secondary_website (from mozaik_person)
 * twitter (from mozaik_person) => social_twitter
 * facebook (from mozaik_person) => social_facebook
- 
+
 mozaik_thesaurus:
 * partner/competencies_m2m_ids (from mozaik_person) => competency_ids
 * partner/interests_m2m_ids (from mozaik_person) => interest_ids
