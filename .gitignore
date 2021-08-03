@@ -1,24 +1,8 @@
-/src
-release
-*.swp
-.project
-.settings
-.pydevproject
-dist
-*.dump
-/tmp
-/extra_addons
-odoo.cfg
-test.cfg
-/venv
-.idea
-
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*$py.class
-*~
+/.venv
+/.pytest_cache
 
 # C extensions
 *.so
@@ -26,12 +10,11 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+bin/
 build/
 develop-eggs/
 dist/
-downloads/
 eggs/
-.eggs/
 lib/
 lib64/
 parts/
@@ -42,12 +25,6 @@ var/
 *.egg
 *.eggs
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -56,27 +33,43 @@ pip-delete-this-directory.txt
 htmlcov/
 .tox/
 .coverage
-.coverage.*
 .cache
 nosetests.xml
 coverage.xml
-*,cover
-.hypothesis/
 
 # Translations
 *.mo
 
+# Pycharm
+.idea
+
+# Eclipse
+.settings
+
+# Visual Studio cache/options directory
+.vs/
+.vscode
+
+# OSX Files
+.DS_Store
+
 # Django stuff:
 *.log
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
 
 # Sphinx documentation
 docs/_build/
 
-# PyBuilder
-target/
+# Backup files
+*~
+*.swp
 
-#Ipython Notebook
-.ipynb_checkpoints
-
-acsoo.cfg
-
+# OCA rules
+!static/lib/
