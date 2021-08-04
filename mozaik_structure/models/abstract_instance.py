@@ -19,30 +19,23 @@ class AbstractInstance(models.AbstractModel):
     name = fields.Char(
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     power_level_id = fields.Many2one(
         'abstract.power.level',
         string='Power Level',
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     parent_id = fields.Many2one(
         'abstract.instance',
         string='Parent Instance',
         index=True,
         ondelete='restrict',
-        track_visibility='onchange',
+        tracking=True,
     )
-    parent_left = fields.Integer(
-        'Left Parent',
-        index=True,
-    )
-    parent_right = fields.Integer(
-        'Right Parent',
-        index=True,
-    )
+    parent_path = fields.Char(index=True)
     assembly_ids = fields.One2many(
         'abstract.assembly',
         'instance_id',
@@ -56,7 +49,6 @@ class AbstractInstance(models.AbstractModel):
         domain=[('active', '=', False)],
     )
 
-    @api.multi
     @api.constrains('parent_id')
     def _check_instance_recursion(self):
         """
@@ -66,7 +58,6 @@ class AbstractInstance(models.AbstractModel):
             raise exceptions.ValidationError(
                 _('You can not create recursive instances'))
 
-    @api.multi
     @api.constrains('power_level_id')
     def _check_power_level(self):
         """
@@ -84,7 +75,6 @@ class AbstractInstance(models.AbstractModel):
                     _('Power level is inconsistent with '
                       'power level of all related assemblies'))
 
-    @api.multi
     @api.depends('name', 'power_level_id', 'power_level_id.name')
     def name_get(self):
         result = []

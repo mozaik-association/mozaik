@@ -18,14 +18,14 @@ class AbstractAssembly(models.AbstractModel):
         string='Category',
         index=True,
         required=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     instance_id = fields.Many2one(
         'abstract.instance',
         string='Instance',
         index=True,
         required=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     partner_id = fields.Many2one(
         'res.partner',
@@ -41,16 +41,15 @@ class AbstractAssembly(models.AbstractModel):
         'int.assembly',
         string='Designation Assembly',
         index=True,
-        track_visibility='onchange',
+        tracking=True,
         domain=[('is_designation_assembly', '=', True)],
     )
     months_before_end_of_mandate = fields.Integer(
         'Alert Delay (#Months)',
-        track_visibility='onchange',
+        tracking=True,
         group_operator='min',
     )
 
-    @api.multi
     @api.constrains('instance_id', 'assembly_category_id')
     def _check_power_level(self):
         """
@@ -99,7 +98,6 @@ class AbstractAssembly(models.AbstractModel):
         res = super().create(values)
         return res
 
-    @api.multi
     def unlink(self):
         """
         Reset is_assembly of related partners

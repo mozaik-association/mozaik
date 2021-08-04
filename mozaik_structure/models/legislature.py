@@ -15,27 +15,27 @@ class Legislature(models.Model):
     name = fields.Char(
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     power_level_id = fields.Many2one(
         'sta.power.level',
         string='Power Level',
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     start_date = fields.Date(
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     deadline_date = fields.Date(
         required=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     election_date = fields.Date(
         required=True,
-        track_visibility='onchange',
+        tracking=True,
     )
 
     _sql_constraints = [
@@ -45,12 +45,13 @@ class Legislature(models.Model):
          'The election date must be anterior to the start date.'),
     ]
 
-    @api.multi
     def name_get(self):
         res = []
         for record in self:
-            display_name = '%s (%s-%s)' % (
-                record.name, record.start_date[0:4], record.deadline_date[0:4]
+            display_name = "%s (%s-%s)" % (
+                record.name,
+                record.start_date.strftime("%Y"),
+                record.deadline_date.strftime("%Y"),
             )
             res.append((record.id, display_name))
         return res

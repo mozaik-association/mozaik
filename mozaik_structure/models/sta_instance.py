@@ -39,18 +39,18 @@ class StaInstance(models.Model):
         'sta.instance',
         string='Secondary Parent Instance',
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     int_instance_id = fields.Many2one(
         'int.instance',
         string='Internal Instance',
         index=True,
-        track_visibility='onchange',
+        tracking=True,
         default=lambda s: s._get_default_instance(),
     )
     identifier = fields.Char(
         'External Identifier (INS)',
-        track_visibility='onchange',
+        tracking=True,
     )
 
     _sql_constraints = [
@@ -61,7 +61,6 @@ class StaInstance(models.Model):
     def _get_default_instance(self):
         return self.env['int.instance']._get_default_int_instance()
 
-    @api.multi
     @api.constrains('secondary_parent_id')
     def _check_secondary_instance_recursion(self):
         """

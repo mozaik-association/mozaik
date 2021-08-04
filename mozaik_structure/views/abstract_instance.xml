@@ -49,11 +49,15 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
-                                confirm="Archive/reactivate instance: proceed anyway?"
-                                groups="mozaik_abstract_model.res_groups_archiving_manager">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
+                        
+            <field name="active" invisible="1" />
+            <widget
+                name="web_ribbon"
+                title="Archived"
+                bg_color="bg-danger"
+                attrs="{'invisible': [('active', '=', True)]}"
+            />
+            
                         <button name="children" string="Instances" type="action" class="oe_stat_button" icon="fa-indent"
                                 attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_parent_id': id,

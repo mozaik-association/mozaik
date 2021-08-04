@@ -16,23 +16,23 @@ class AbstractAssemblyCategory(models.AbstractModel):
     name = fields.Char(
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     duration = fields.Integer(
         'Duration of Mandates',
-        track_visibility='onchange',
+        tracking=True,
         group_operator='min',
     )
     months_before_end_of_mandate = fields.Integer(
         'Alert Delay (#Months)',
-        track_visibility='onchange',
+        tracking=True,
         group_operator='min',
     )
     power_level_id = fields.Many2one(
         'abstract.power.level',
         string='Power Level',
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     assembly_ids = fields.One2many(
         'abstract.assembly',
@@ -47,7 +47,6 @@ class AbstractAssemblyCategory(models.AbstractModel):
         domain=[('active', '=', False)],
     )
 
-    @api.multi
     @api.constrains('power_level_id')
     def _check_power_level(self):
         """

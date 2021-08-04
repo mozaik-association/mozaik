@@ -4,7 +4,7 @@
     'name': 'Mozaik: Structure',
     'summary': """
         Module to manage state and political hierarchy""",
-    'version': '14.0.1.0.0',
+    'version': "14.0.1.0.0",
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://github.com/OCA/mozaik',
@@ -41,5 +41,5 @@
         'demo/state_structure.xml',
         'demo/external_structure.xml',
     ],
-    "installable": False,
+    "installable": True,
 }

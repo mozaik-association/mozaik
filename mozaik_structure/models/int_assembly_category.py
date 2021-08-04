@@ -12,7 +12,7 @@ class IntAssemblyCategory(models.Model):
 
     is_secretariat = fields.Boolean(
         default=False,
-        track_visibility='onchange',
+        tracking=True,
     )
     power_level_id = fields.Many2one(
         comodel_name='int.power.level',

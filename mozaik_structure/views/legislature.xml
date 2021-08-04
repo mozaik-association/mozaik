@@ -50,11 +50,15 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="buttons_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
-                                confirm="Archive/reactivate legislature: proceed anyway?"
-                                groups="mozaik_abstract_model.res_groups_archiving_manager">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
+                        
+            <field name="active" invisible="1" />
+            <widget
+                name="web_ribbon"
+                title="Archived"
+                bg_color="bg-danger"
+                attrs="{'invisible': [('active', '=', True)]}"
+            />
+            
                         <button string="Electoral Districts" name="%(electoral_district_action)d" class="oe_stat_button" icon="fa-bullseye"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_power_level_id': power_level_id,}"/>

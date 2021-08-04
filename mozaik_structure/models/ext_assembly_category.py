@@ -23,7 +23,6 @@ class ExtAssemblyCategory(models.Model):
         comodel_name='int.assembly',
     )
 
-    @api.multi
     def _check_power_level(self):
         """
         Not relevant for external assembly

@@ -20,11 +20,10 @@ class IntAssembly(models.Model):
         comodel_name='int.instance',
     )
     is_designation_assembly = fields.Boolean(
-        track_visibility='onchange',
+        tracking=True,
     )
     is_secretariat = fields.Boolean(
         related='assembly_category_id.is_secretariat',
-        readonly=True,
         store=True,
     )
 
@@ -47,7 +46,6 @@ class IntAssembly(models.Model):
         ).name or False
         return (n1, n2)
 
-    @api.multi
     def _get_secretariat(self):
         '''
         Get the secretariat related to the same instance as

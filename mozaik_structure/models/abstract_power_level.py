@@ -16,11 +16,11 @@ class AbstractPowerLevel(models.AbstractModel):
     name = fields.Char(
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     sequence = fields.Integer(
         required=True,
-        track_visibility='onchange',
+        tracking=True,
         group_operator='min',
         default=5,
     )

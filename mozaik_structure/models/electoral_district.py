@@ -15,20 +15,19 @@ class ElectoralDistrict(models.Model):
     name = fields.Char(
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     sta_instance_id = fields.Many2one(
         'sta.instance',
         string='State Instance',
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     int_instance_id = fields.Many2one(
         'int.instance',
         string='Internal Instance',
         index=True,
-        readonly=True,
         related='sta_instance_id.int_instance_id',
         store=True,
     )
@@ -37,26 +36,24 @@ class ElectoralDistrict(models.Model):
         string='Assembly',
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
         domain=[('is_legislative', '=', True)],
     )
     power_level_id = fields.Many2one(
         'sta.power.level',
         string='Power Level',
-        readonly=True,
         related='assembly_id.assembly_category_id.power_level_id',
     )
     designation_int_assembly_id = fields.Many2one(
         'int.assembly',
         string='Designation Assembly',
         index=True,
-        track_visibility='onchange',
+        tracking=True,
         domain=[('is_designation_assembly', '=', True)],
     )
     assembly_category_id = fields.Many2one(
         'sta.assembly.category',
         string='State Assembly Category',
-        readonly=True,
         related='assembly_id.assembly_category_id',
     )
 

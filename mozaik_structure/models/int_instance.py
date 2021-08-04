@@ -48,7 +48,6 @@ class IntInstance(models.Model):
         column2='child_id',
         string='Multi-Instances',
         domain=[('active', '<=', True)],
-        oldname='multi_instance_pc_m2m_ids',
     )
     multi_instance_cp_ids = fields.Many2many(
         'int.instance',
@@ -57,7 +56,6 @@ class IntInstance(models.Model):
         column2='id',
         string='Multi-Instances',
         domain=[('active', '<=', True)],
-        oldname='multi_instance_cp_m2m_ids',
     )
     code = fields.Char(
         copy=False,
@@ -75,7 +73,6 @@ class IntInstance(models.Model):
         res_id = self.env.ref('mozaik_structure.int_instance_01')
         return res_id
 
-    @api.multi
     def _get_secretariat(self):
         '''
         Get the secretariat related to the given instance
@@ -89,7 +86,6 @@ class IntInstance(models.Model):
                 self.name)
         return first(secretariats)
 
-    @api.multi
     def _get_instance_followers(self):
         '''
         Get related partners of all secretariats associated to self
@@ -107,7 +103,6 @@ class IntInstance(models.Model):
         partners = assemblies.mapped('partner_id')
         return partners
 
-    @api.multi
     def _get_ancestor(self, power_level):
         '''
         Get instance ancestor of a given power level

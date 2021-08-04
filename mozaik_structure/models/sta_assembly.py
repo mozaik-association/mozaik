@@ -18,7 +18,6 @@ class StaAssembly(models.Model):
     )
     is_legislative = fields.Boolean(
         related='assembly_category_id.is_legislative',
-        readonly=True,
         store=True,
     )
     electoral_district_ids = fields.One2many(

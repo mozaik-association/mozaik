@@ -24,7 +24,7 @@ class ExtAssembly(models.Model):
         index=True,
         required=True,
         ondelete='restrict',
-        track_visibility='onchange',
+        tracking=True,
         context={
             'default_is_company': True,
         },
@@ -34,14 +34,12 @@ class ExtAssembly(models.Model):
     def _get_default_instance(self):
         return self.env['int.instance']._get_default_int_instance()
 
-    @api.multi
     def _check_power_level(self):
         """
         Not relevant for external assembly
         """
         pass
 
-    @api.multi
     @api.constrains('ref_partner_id')
     def _check_ref_partner_id(self):
         """
