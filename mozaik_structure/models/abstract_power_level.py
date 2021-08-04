@@ -33,6 +33,6 @@ class AbstractPowerLevel(models.AbstractModel):
     assembly_category_inactive_ids = fields.One2many(
         'abstract.assembly.category',
         'power_level_id',
-        string='Assembly Categories',
+        string='Assembly Categories (Inactive)',
         domain=[('active', '=', False)],
     )

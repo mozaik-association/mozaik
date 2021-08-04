@@ -17,7 +17,7 @@ class IntPowerLevel(models.Model):
     )
     assembly_category_inactive_ids = fields.One2many(
         comodel_name='int.assembly.category',
-        string='Internal Assembly Categories',
+        string='Internal Assembly Categories (Inactive)',
         domain=[('active', '=', False)],
     )
     level_for_followers = fields.Boolean(default=False)

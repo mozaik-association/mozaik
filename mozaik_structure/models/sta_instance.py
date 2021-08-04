@@ -32,7 +32,7 @@ class StaInstance(models.Model):
     electoral_district_inactive_ids = fields.One2many(
         'electoral.district',
         'int_instance_id',
-        string='Electoral Districts',
+        string='Electoral Districts (Inactive)',
         domain=[('active', '=', False)],
     )
     secondary_parent_id = fields.Many2one(

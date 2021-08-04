@@ -38,7 +38,7 @@ class IntInstance(models.Model):
     electoral_district_inactive_ids = fields.One2many(
         'electoral.district',
         'int_instance_id',
-        string='Electoral Districts',
+        string='Electoral Districts (Inactive)',
         domain=[('active', '=', False)],
     )
     multi_instance_pc_ids = fields.Many2many(
@@ -46,7 +46,7 @@ class IntInstance(models.Model):
         'int_instance_int_instance_rel',
         column1='id',
         column2='child_id',
-        string='Multi-Instances',
+        string='Multi-Instances (Composition)',
         domain=[('active', '<=', True)],
     )
     multi_instance_cp_ids = fields.Many2many(
@@ -54,7 +54,7 @@ class IntInstance(models.Model):
         'int_instance_int_instance_rel',
         column1='child_id',
         column2='id',
-        string='Multi-Instances',
+        string='Multi-Instances (Membership)',
         domain=[('active', '<=', True)],
     )
     code = fields.Char(

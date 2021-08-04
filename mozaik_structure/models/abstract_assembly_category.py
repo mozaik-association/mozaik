@@ -43,7 +43,7 @@ class AbstractAssemblyCategory(models.AbstractModel):
     assembly_inactive_ids = fields.One2many(
         'abstract.assembly',
         'assembly_category_id',
-        string='Assemblies',
+        string='Assemblies (Inactive)',
         domain=[('active', '=', False)],
     )
 

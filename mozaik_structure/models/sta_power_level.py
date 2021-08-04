@@ -17,6 +17,6 @@ class StaPowerLevel(models.Model):
     )
     assembly_category_inactive_ids = fields.One2many(
         comodel_name='sta.assembly.category',
-        string='State Assembly Categories',
+        string='State Assembly Categories (Inactive)',
         domain=[('active', '=', False)],
     )
