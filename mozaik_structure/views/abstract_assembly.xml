@@ -102,4 +102,12 @@
         </field>
     </record>
 
+    <record id="abstract_assembly_action" model="ir.actions.act_window">
+        <field name="name">Abstract Assemblies</field>
+        <field name="res_model">abstract.assembly</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="abstract_assembly_search_view" />
+        <field name="view_id" ref="abstract_assembly_tree_view" />
+    </record>
+
 </odoo>

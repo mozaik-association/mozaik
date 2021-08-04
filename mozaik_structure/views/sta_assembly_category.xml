@@ -32,7 +32,7 @@
         <field name="model">sta.assembly.category</field>
         <field name="inherit_id" ref="abstract_assembly_category_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='assemblies']" position="attributes">
+            <xpath expr="//button[@name='%(abstract_assembly_action)d']" position="attributes">
                 <attribute name="name">%(sta_assembly_action)d</attribute>
             </xpath>
             <xpath expr="//field[@name='power_level_id']" position="after">

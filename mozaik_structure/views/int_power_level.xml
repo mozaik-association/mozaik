@@ -15,7 +15,7 @@
             <xpath expr="//field[@name='sequence']" postion="after">
                 <field name="level_for_followers"/>
             </xpath>
-            <xpath expr="//button[@name='assembly_categories']" position="attributes">
+            <xpath expr="//button[@name='%(abstract_assembly_category_action)d']" position="attributes">
                 <attribute name="name">%(int_assembly_category_action)d</attribute>
             </xpath>
         </field>

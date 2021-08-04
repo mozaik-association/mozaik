@@ -38,6 +38,14 @@
         </field>
     </record>
 
+    <record id="abstract_instance_action" model="ir.actions.act_window">
+        <field name="name">Abstract Instances</field>
+        <field name="res_model">abstract.instance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="abstract_instance_search_view" />
+        <field name="view_id" ref="abstract_instance_tree_view" />
+    </record>
+
     <record id="abstract_instance_form_view" model="ir.ui.view">
         <field name="name">abstract.instance.form</field>
         <field name="model">abstract.instance</field>
@@ -50,19 +58,19 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         
-            <field name="active" invisible="1" />
-            <widget
-                name="web_ribbon"
-                title="Archived"
-                bg_color="bg-danger"
-                attrs="{'invisible': [('active', '=', True)]}"
-            />
-            
-                        <button name="children" string="Instances" type="action" class="oe_stat_button" icon="fa-indent"
+                    <field name="active" invisible="1" />
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    
+                        <button name="%(abstract_instance_action)d" string="Instances" type="action" class="oe_stat_button" icon="fa-indent"
                                 attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_parent_id': id,
                                           'default_parent_id' : id}" />
-                        <button string="Assemblies" name="assemblies" class="oe_stat_button" icon="fa-university"
+                        <button string="Assemblies" name="%(abstract_assembly_action)d" class="oe_stat_button" icon="fa-university"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_instance_id': id,
                                           'default_instance_id': id,

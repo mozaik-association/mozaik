@@ -14,7 +14,7 @@
         <field name="model">int.instance</field>
         <field name="inherit_id" ref="abstract_instance_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='assemblies']" position="after">
+            <xpath expr="//button[@name='%(abstract_assembly_action)d']" position="after">
                 <button string="State Instances" name="%(sta_instance_action)d" class="oe_stat_button" icon="fa-indent"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
                         context="{'search_default_int_instance_id': id,
@@ -29,10 +29,10 @@
                                   'default_int_instance_id': id,
                                   'search_default_all': True}"/>
             </xpath>
-            <xpath expr="//button[@name='children']" position="attributes">
+            <xpath expr="//button[@name='%(abstract_instance_action)d']" position="attributes">
                 <attribute name="name">%(int_instance_action)d</attribute>
             </xpath>
-            <xpath expr="//button[@name='assemblies']" position="attributes">
+            <xpath expr="//button[@name='%(abstract_assembly_action)d']" position="attributes">
                 <attribute name="name">%(int_assembly_action)d</attribute>
             </xpath>
             <xpath expr="//page[@name='assemblies']" position="after">

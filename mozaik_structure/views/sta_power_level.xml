@@ -16,7 +16,7 @@
                         context="{'search_default_power_level_id': id,
                                   'default_power_level_id': id}" />
             </xpath>
-            <xpath expr="//button[@name='assembly_categories']" position="attributes">
+            <xpath expr="//button[@name='%(abstract_assembly_category_action)d']" position="attributes">
                 <attribute name="name">%(sta_assembly_category_action)d</attribute>
             </xpath>
         </field>

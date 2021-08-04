@@ -57,7 +57,7 @@
                 attrs="{'invisible': [('active', '=', True)]}"
             />
             
-                        <button string="Assemblies" name="assemblies" class="oe_stat_button" icon="fa-university"
+                        <button string="Assemblies" name="%(abstract_assembly_action)d" class="oe_stat_button" icon="fa-university"
                             type="action" attrs="{'invisible': [('id','=',False)]}"
                             context="{'search_default_assembly_category_id': id,
                                       'default_assembly_category_id': id,
@@ -98,6 +98,14 @@
                 </div>
             </form>
         </field>
+    </record>
+
+    <record id="abstract_assembly_category_action" model="ir.actions.act_window">
+        <field name="name">Abstract Assembly Categories</field>
+        <field name="res_model">abstract.assembly.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="abstract_assembly_category_search_view" />
+        <field name="view_id" ref="abstract_assembly_category_tree_view" />
     </record>
 
 </odoo>
