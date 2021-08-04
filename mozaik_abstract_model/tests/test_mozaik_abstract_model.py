@@ -2,19 +2,20 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
 from uuid import uuid4
+
+from odoo import fields, models
 from odoo.tests.common import TransactionCase
-from odoo import api, fields, models
+
 from .common_mozaik_abstract_model import CommonMozaikAbstractModel
 
-
-test_partner_name = 'test.res.partner'
+test_partner_name = "test.res.partner"
 
 
 class TestResPartner(models.Model):
     _name = test_partner_name
-    _inherit = 'mozaik.abstract.model'
+    _inherit = "mozaik.abstract.model"
     _inactive_cascade = True
-    _unicity_keys = 'N/A'
+    _unicity_keys = "N/A"
     _abstract = True
     _description = "Test Res Partner"
 
@@ -25,17 +26,17 @@ class TestResPartner(models.Model):
     )
     child_ids = fields.One2many(
         test_partner_name,
-        'parent_id',
+        "parent_id",
     )
 
 
 class TestChildModel(models.Model):
-    _name = 'test.child.model'
+    _name = "test.child.model"
     _inherit = [
-        'mozaik.abstract.model',
+        "mozaik.abstract.model",
     ]
     _description = "Test child model"
-    _unicity_keys = 'N/A'
+    _unicity_keys = "N/A"
     _abstract = True
 
     name = fields.Char(
@@ -53,9 +54,10 @@ class TestAnotherModel(models.Model):
     Model who doesn't implements mozaik.abstract.model for the following
     tests
     """
-    _name = 'test.another.model'
+
+    _name = "test.another.model"
     _description = "Test another model"
-    _unicity_keys = 'N/A'
+    _unicity_keys = "N/A"
     _abstract = True
 
     name = fields.Char(
@@ -77,9 +79,11 @@ class TestAnotherModel(models.Model):
         :param vals: dict
         :return: bool
         """
-        vals.update({
-            'active': True,
-        })
+        vals.update(
+            {
+                "active": True,
+            }
+        )
         return super().write(vals)
 
 
@@ -126,33 +130,42 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         self.addCleanup(registry.leave_test_mode)
         self._init_test_models()
         # Concrete Odoo models who inherit mozaik.abstract.model
-        self.implemented_mozaik_abstract_obj = self.env[
-            TestResPartner._name]
+        self.implemented_mozaik_abstract_obj = self.env[TestResPartner._name]
         # Odoo model with _inactive_cascade = True to disable records
         self.child_obj = self.env[TestChildModel._name]
-        self.trigger1 = self.implemented_mozaik_abstract_obj.create({
-            'name': str(uuid4()),
-            'email': '%s@example.test' % str(uuid4()),
-        })
-        self.child1 = self.child_obj.create({
-            'partner_id': self.trigger1.id,
-            'name': str(uuid4()),
-        })
-        self.child2 = self.child_obj.create({
-            'partner_id': self.trigger1.id,
-            'name': str(uuid4()),
-        })
+        self.trigger1 = self.implemented_mozaik_abstract_obj.create(
+            {
+                "name": str(uuid4()),
+                "email": "%s@example.test" % str(uuid4()),
+            }
+        )
+        self.child1 = self.child_obj.create(
+            {
+                "partner_id": self.trigger1.id,
+                "name": str(uuid4()),
+            }
+        )
+        self.child2 = self.child_obj.create(
+            {
+                "partner_id": self.trigger1.id,
+                "name": str(uuid4()),
+            }
+        )
         self.invalidate_success = self.trigger1
         partner_invalid_fails = self.trigger1.copy()
         invalidate_obj = self.env[TestAnotherModel._name]
-        partner_invalid_fails.write({
-            'expire_date': fields.Date.today(),
-        })
-        invalidate_obj.create({
-            'name': str(uuid4()),
-            'partner_id': partner_invalid_fails.id,
-            'active': True,
-        })
+        partner_invalid_fails.write(
+            {
+                "expire_date": fields.Date.today(),
+            }
+        )
+        invalidate_obj.create(
+            {
+                "name": str(uuid4()),
+                "partner_id": partner_invalid_fails.id,
+                "active": True,
+            }
+        )
         self.invalidate_fails = partner_invalid_fails
         self.validates = self.trigger1
 
@@ -163,16 +176,20 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         Example with test.res.partner and related contacts
         :return: bool
         """
-        self.child1 = self.implemented_mozaik_abstract_obj.create({
-            'name': str(uuid4()),
-            'email': '%s@example.test' % str(uuid4()),
-            'parent_id': self.trigger1.id,
-        })
-        self.child2 = self.implemented_mozaik_abstract_obj.create({
-            'name': str(uuid4()),
-            'email': '%s@example.test' % str(uuid4()),
-            'parent_id': self.trigger1.id,
-        })
+        self.child1 = self.implemented_mozaik_abstract_obj.create(
+            {
+                "name": str(uuid4()),
+                "email": "%s@example.test" % str(uuid4()),
+                "parent_id": self.trigger1.id,
+            }
+        )
+        self.child2 = self.implemented_mozaik_abstract_obj.create(
+            {
+                "name": str(uuid4()),
+                "email": "%s@example.test" % str(uuid4()),
+                "parent_id": self.trigger1.id,
+            }
+        )
         self.test_disable_cascade1()
         return True
 
@@ -183,15 +200,19 @@ class TestMozaikAbstractModel(CommonMozaikAbstractModel, TransactionCase):
         Example with test.res.partner and related contacts
         :return: bool
         """
-        self.child1 = self.implemented_mozaik_abstract_obj.create({
-            'name': str(uuid4()),
-            'email': '%s@example.test' % str(uuid4()),
-            'parent_id': self.trigger1.id,
-        })
-        self.child2 = self.implemented_mozaik_abstract_obj.create({
-            'name': str(uuid4()),
-            'email': '%s@example.test' % str(uuid4()),
-            'parent_id': self.trigger1.id,
-        })
+        self.child1 = self.implemented_mozaik_abstract_obj.create(
+            {
+                "name": str(uuid4()),
+                "email": "%s@example.test" % str(uuid4()),
+                "parent_id": self.trigger1.id,
+            }
+        )
+        self.child2 = self.implemented_mozaik_abstract_obj.create(
+            {
+                "name": str(uuid4()),
+                "email": "%s@example.test" % str(uuid4()),
+                "parent_id": self.trigger1.id,
+            }
+        )
         self.test_disable_cascade2()
         return True
