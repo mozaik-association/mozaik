@@ -5,7 +5,7 @@
 
     <record id="int_power_level_02" model="int.power.level">
         <field name="name">Local</field>
-        <field name="level_for_followers" eval="1"/>
+        <field name="level_for_followers" eval="1" />
     </record>
 
     <!-- Instance -->
@@ -13,36 +13,36 @@
     <record id="int_instance_02" model="int.instance">
         <field name="name">Huy</field>
         <field name="code">002</field>
-        <field name="parent_id" ref="int_instance_01"/>
-        <field name="power_level_id" ref="int_power_level_02"/>
+        <field name="parent_id" ref="int_instance_01" />
+        <field name="power_level_id" ref="int_power_level_02" />
     </record>
 
     <!-- Assembly Category -->
 
     <record id="int_assembly_category_01" model="int.assembly.category">
         <field name="name">Bureau du plan</field>
-        <field name="power_level_id" ref="int_power_level_01"/>
-        <field name="is_secretariat" eval="0"/>
+        <field name="power_level_id" ref="int_power_level_01" />
+        <field name="is_secretariat" eval="0" />
     </record>
 
     <record id="int_assembly_category_02" model="int.assembly.category">
         <field name="name">Secrétariat local</field>
-        <field name="power_level_id" ref="int_power_level_02"/>
-        <field name="is_secretariat" eval="1"/>
+        <field name="power_level_id" ref="int_power_level_02" />
+        <field name="is_secretariat" eval="1" />
     </record>
 
     <!-- Assembly -->
 
     <record id="int_assembly_01" model="int.assembly">
         <field name="name">Mozaik Headquarter (Bureau du plan)</field>
-        <field name="assembly_category_id" ref="int_assembly_category_01"/>
-        <field name="instance_id" ref="int_instance_01"/>
+        <field name="assembly_category_id" ref="int_assembly_category_01" />
+        <field name="instance_id" ref="int_instance_01" />
     </record>
 
     <record id="int_assembly_02" model="int.assembly">
         <field name="name">Huy (Secrétariat local)</field>
-        <field name="assembly_category_id" ref="int_assembly_category_02"/>
-        <field name="instance_id" ref="int_instance_02"/>
+        <field name="assembly_category_id" ref="int_assembly_category_02" />
+        <field name="instance_id" ref="int_instance_02" />
     </record>
 
 </odoo>

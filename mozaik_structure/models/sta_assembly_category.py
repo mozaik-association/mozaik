@@ -6,22 +6,22 @@ from odoo import fields, models
 
 class StaAssemblyCategory(models.Model):
 
-    _name = 'sta.assembly.category'
-    _inherit = ['abstract.assembly.category']
-    _description = 'State Assembly Category'
-    _order = 'power_level_id, name'
-    _unicity_keys = 'power_level_id, name'
+    _name = "sta.assembly.category"
+    _inherit = ["abstract.assembly.category"]
+    _description = "State Assembly Category"
+    _order = "power_level_id, name"
+    _unicity_keys = "power_level_id, name"
 
     power_level_id = fields.Many2one(
-        comodel_name='sta.power.level',
+        comodel_name="sta.power.level",
         required=True,
     )
     is_legislative = fields.Boolean(
         default=False,
     )
     assembly_ids = fields.One2many(
-        comodel_name='sta.assembly',
+        comodel_name="sta.assembly",
     )
     assembly_inactive_ids = fields.One2many(
-        comodel_name='sta.assembly',
+        comodel_name="sta.assembly",
     )

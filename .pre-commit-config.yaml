@@ -35,7 +35,6 @@ exclude: |
   ^mozaik_retrocession/|
   ^mozaik_sample_accounting/|
   ^mozaik_sample_customization/|
-  ^mozaik_structure/|
   ^mozaik_subscription_price/|
   ^mozaik_thesaurus/|
   ^mozaik_tools/|

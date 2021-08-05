@@ -11,17 +11,38 @@
                 <field name="instance_id" />
                 <field name="designation_int_assembly_id" />
 
-                <filter name="expired" string="Archived"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Archived Assemblies" />
-                <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active', '&lt;=', 1)]" help="All Assemblies, archived or not" />
+                <filter
+                    name="expired"
+                    string="Archived"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]"
+                    help="Archived Assemblies"
+                />
+                <filter
+                    name="all"
+                    string="All"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active', '&lt;=', 1)]"
+                    help="All Assemblies, archived or not"
+                />
 
                 <group expand="0" string="Group By..." name="group_by">
-                    <filter name="category" string="Category" context="{'group_by':'assembly_category_id'}" />
-                    <filter name="instance" string="Instance" context="{'group_by':'instance_id'}" />
-                    <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
+                    <filter
+                        name="category"
+                        string="Category"
+                        context="{'group_by':'assembly_category_id'}"
+                    />
+                    <filter
+                        name="instance"
+                        string="Instance"
+                        context="{'group_by':'instance_id'}"
+                    />
+                    <filter
+                        name="designation_assembly"
+                        string="Designation Assembly"
+                        domain="[]"
+                        context="{'group_by':'designation_int_assembly_id'}"
+                    />
                 </group>
             </search>
         </field>
@@ -32,9 +53,12 @@
         <field name="model">abstract.assembly</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="instance_id"/>
-                <field name="assembly_category_id"/>
-                <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                <field name="instance_id" />
+                <field name="assembly_category_id" />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
             </tree>
         </field>
     </record>
@@ -45,57 +69,77 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                    <div
+                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                    >
                     </div>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        
+
             <field name="active" invisible="1" />
             <widget
-                name="web_ribbon"
-                title="Archived"
-                bg_color="bg-danger"
-                attrs="{'invisible': [('active', '=', True)]}"
-            />
-            
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
+
                     </div>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name" default_focus="1"/></h1>
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" default_focus="1" /></h1>
                         <group>
-                            <field name="partner_id" required="0" attrs="{'invisible': [('id','=',False)]}"/>
+                            <field
+                                name="partner_id"
+                                required="0"
+                                attrs="{'invisible': [('id','=',False)]}"
+                            />
                         </group>
                     </div>
 
                     <group>
                         <group name="assembly">
-                            <field name="instance_id"/>
-                            <field name="assembly_category_id"/>
+                            <field name="instance_id" />
+                            <field name="assembly_category_id" />
                         </group>
                         <group name="mandate">
-                            <field name="designation_int_assembly_id" domain="[('is_designation_assembly', '=', True), ('id', '!=', id)]"/>
-                            <field name="months_before_end_of_mandate"/>
+                            <field
+                                name="designation_int_assembly_id"
+                                domain="[('is_designation_assembly', '=', True), ('id', '!=', id)]"
+                            />
+                            <field name="months_before_end_of_mandate" />
                         </group>
                     </group>
 
                     <group name="status" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
                             <field name="create_date" />
-                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            <field
+                                name="expire_date"
+                                attrs="{'invisible': [('active','=',True)]}"
+                            />
                         </group>
                         <group name="other">
                         </group>
                     </group>
-                
+
                     <notebook>
-                        <page string="More Info" name="dev" groups="base.group_erp_manager">
-                            <group name="moreinfo"/>
+                        <page
+                            string="More Info"
+                            name="dev"
+                            groups="base.group_erp_manager"
+                        >
+                            <group name="moreinfo" />
                         </page>
                     </notebook>
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>

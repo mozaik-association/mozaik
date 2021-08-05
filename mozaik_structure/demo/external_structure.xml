@@ -5,7 +5,7 @@
 
     <record id="res_partner_legal_01" model="res.partner">
         <field name="name">Banque européenne d'investissement</field>
-        <field name="is_company" eval="1"/>
+        <field name="is_company" eval="1" />
     </record>
 
     <!-- Assembly Category -->
@@ -17,9 +17,11 @@
     <!-- Assembly -->
 
     <record id="ext_assembly_01" model="ext.assembly">
-        <field name="name">Banque européenne d'investissement (Conseil d'administration)</field>
-        <field name="assembly_category_id" ref="ext_assembly_category_01"/>
-        <field name="ref_partner_id" ref="res_partner_legal_01"/>
+        <field
+            name="name"
+        >Banque européenne d'investissement (Conseil d'administration)</field>
+        <field name="assembly_category_id" ref="ext_assembly_category_01" />
+        <field name="ref_partner_id" ref="res_partner_legal_01" />
     </record>
 
 </odoo>

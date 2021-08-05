@@ -15,40 +15,40 @@
 
     <record id="sta_instance_01" model="sta.instance">
         <field name="name">Pérou</field>
-        <field name="power_level_id" ref="sta_power_level_01"/>
+        <field name="power_level_id" ref="sta_power_level_01" />
     </record>
 
     <record id="sta_instance_02" model="sta.instance">
         <field name="name">Lima</field>
-        <field name="parent_id" ref="sta_instance_01"/>
-        <field name="power_level_id" ref="sta_power_level_02"/>
+        <field name="parent_id" ref="sta_instance_01" />
+        <field name="power_level_id" ref="sta_power_level_02" />
     </record>
 
     <!-- Assembly Category -->
 
     <record id="sta_assembly_category_01" model="sta.assembly.category">
         <field name="name">Grand Conseil National</field>
-        <field name="power_level_id" ref="sta_power_level_01"/>
+        <field name="power_level_id" ref="sta_power_level_01" />
     </record>
 
     <record id="sta_assembly_category_02" model="sta.assembly.category">
         <field name="name">Pow-pow communal</field>
-        <field name="power_level_id" ref="sta_power_level_02"/>
+        <field name="power_level_id" ref="sta_power_level_02" />
     </record>
 
     <!-- Assembly -->
 
     <record id="sta_assembly_01" model="sta.assembly">
         <field name="name">Pérou (Grand Conseil National)</field>
-        <field name="assembly_category_id" ref="sta_assembly_category_01"/>
-        <field name="instance_id" ref="sta_instance_01"/>
+        <field name="assembly_category_id" ref="sta_assembly_category_01" />
+        <field name="instance_id" ref="sta_instance_01" />
     </record>
 
     <record id="sta_assembly_02" model="sta.assembly">
         <field name="name">Lima (Pow-pow communal)</field>
-        <field name="assembly_category_id" ref="sta_assembly_category_02"/>
-        <field name="instance_id" ref="sta_instance_02"/>
-        <field name="designation_int_assembly_id" ref="int_assembly_02"/>
+        <field name="assembly_category_id" ref="sta_assembly_category_02" />
+        <field name="instance_id" ref="sta_instance_02" />
+        <field name="designation_int_assembly_id" ref="int_assembly_02" />
     </record>
 
 </odoo>

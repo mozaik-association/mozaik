@@ -6,19 +6,19 @@ from odoo import api, fields, models
 
 class IntPowerLevel(models.Model):
 
-    _name = 'int.power.level'
-    _inherit = ['abstract.power.level']
-    _description = 'Internal Power Level'
+    _name = "int.power.level"
+    _inherit = ["abstract.power.level"]
+    _description = "Internal Power Level"
 
     assembly_category_ids = fields.One2many(
-        comodel_name='int.assembly.category',
-        string='Internal Assembly Categories',
-        domain=[('active', '=', True)],
+        comodel_name="int.assembly.category",
+        string="Internal Assembly Categories",
+        domain=[("active", "=", True)],
     )
     assembly_category_inactive_ids = fields.One2many(
-        comodel_name='int.assembly.category',
-        string='Internal Assembly Categories (Inactive)',
-        domain=[('active', '=', False)],
+        comodel_name="int.assembly.category",
+        string="Internal Assembly Categories (Inactive)",
+        domain=[("active", "=", False)],
     )
     level_for_followers = fields.Boolean(default=False)
 
@@ -27,5 +27,5 @@ class IntPowerLevel(models.Model):
         """
         Returns the default Internal Power Level
         """
-        res_id = self.env.ref('mozaik_structure.int_power_level_01')
+        res_id = self.env.ref("mozaik_structure.int_power_level_01")
         return res_id

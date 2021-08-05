@@ -4,7 +4,7 @@
     <record id="int_assembly_category_tree_view" model="ir.ui.view">
         <field name="name">int.assembly.category.tree.view</field>
         <field name="model">int.assembly.category</field>
-        <field name="inherit_id" ref="abstract_assembly_category_tree_view"/>
+        <field name="inherit_id" ref="abstract_assembly_category_tree_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='power_level_id']" position="after">
                 <field name="is_secretariat" />
@@ -15,13 +15,16 @@
     <record id="int_assembly_category_form_view" model="ir.ui.view">
         <field name="name">int.assembly.category.form</field>
         <field name="model">int.assembly.category</field>
-        <field name="inherit_id" ref="abstract_assembly_category_form_view"/>
+        <field name="inherit_id" ref="abstract_assembly_category_form_view" />
         <field name="arch" type="xml">
-             <xpath expr="//button[@name='%(abstract_assembly_action)d']" position="attributes">
+             <xpath
+                expr="//button[@name='%(abstract_assembly_action)d']"
+                position="attributes"
+            >
                 <attribute name="name">%(int_assembly_action)d</attribute>
             </xpath>
             <xpath expr="//field[@name='power_level_id']" position="after">
-                <field name="is_secretariat"/>
+                <field name="is_secretariat" />
             </xpath>
         </field>
     </record>

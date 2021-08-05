@@ -4,13 +4,21 @@
     <record id="ext_assembly_search_view" model="ir.ui.view">
         <field name="name">ext.assembly.search</field>
         <field name="model">ext.assembly</field>
-        <field name="inherit_id" ref="abstract_assembly_search_view"/>
+        <field name="inherit_id" ref="abstract_assembly_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='instance_id']" position="before">
-                <field name="ref_partner_id" domain="[('is_company','=',True),('is_assembly','=',False)]" />
+                <field
+                    name="ref_partner_id"
+                    domain="[('is_company','=',True),('is_assembly','=',False)]"
+                />
             </xpath>
             <xpath expr="//filter[@name='instance']" position="before">
-                <filter name="partner" string="Partner" domain="[]" context="{'group_by':'ref_partner_id'}"/>
+                <filter
+                    name="partner"
+                    string="Partner"
+                    domain="[]"
+                    context="{'group_by':'ref_partner_id'}"
+                />
             </xpath>
         </field>
     </record>
@@ -18,7 +26,7 @@
     <record id="ext_assembly_tree_view" model="ir.ui.view">
         <field name="name">ext.assembly.tree</field>
         <field name="model">ext.assembly</field>
-        <field name="inherit_id" ref="abstract_assembly_tree_view"/>
+        <field name="inherit_id" ref="abstract_assembly_tree_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='instance_id']" position="replace">
                 <field name="ref_partner_id" />
@@ -27,22 +35,22 @@
                 <field name="instance_id" />
             </xpath>
         </field>
-        <field name="priority" eval="99"/>
+        <field name="priority" eval="99" />
     </record>
 
     <record id="ext_assembly_form_view" model="ir.ui.view">
         <field name="name">ext.assembly.form</field>
         <field name="model">ext.assembly</field>
-        <field name="inherit_id" ref="abstract_assembly_form_view"/>
+        <field name="inherit_id" ref="abstract_assembly_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='instance_id']" position="replace">
-                 <field name="ref_partner_id"/>
+                 <field name="ref_partner_id" />
             </xpath>
             <xpath expr="//field[@name='assembly_category_id']" position="after">
                 <field name="instance_id" />
             </xpath>
         </field>
-        <field name="priority" eval="99"/>
+        <field name="priority" eval="99" />
     </record>
 
     <record id="ext_assembly_action" model="ir.actions.act_window">
