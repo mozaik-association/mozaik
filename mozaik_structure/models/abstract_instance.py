@@ -49,15 +49,6 @@ class AbstractInstance(models.AbstractModel):
         domain=[('active', '=', False)],
     )
 
-    @api.constrains('parent_id')
-    def _check_instance_recursion(self):
-        """
-        Check for recursion in instances hierarchy
-        """
-        if not self._check_recursion():
-            raise exceptions.ValidationError(
-                _('You can not create recursive instances'))
-
     @api.constrains('power_level_id')
     def _check_power_level(self):
         """

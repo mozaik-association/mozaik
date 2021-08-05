@@ -201,7 +201,7 @@ class TestStructure(TransactionCase):
 
         # try a recursion: NOK
         self.assertRaises(
-            exceptions.ValidationError,
+            exceptions.UserError,
             self.browse_ref('mozaik_structure.int_instance_01').write,
             {'parent_id': instance2.id})
 
@@ -210,7 +210,7 @@ class TestStructure(TransactionCase):
 
         # try a recursion: NOK
         self.assertRaises(
-            exceptions.ValidationError,
+            exceptions.UserError,
             instance1.write, {'parent_id': instance2.id})
 
         instance2.secondary_parent_id = instance1
