@@ -6,33 +6,33 @@ from odoo import fields, models
 
 class AbstractPowerLevel(models.AbstractModel):
 
-    _name = 'abstract.power.level'
-    _inherit = ['mozaik.abstract.model']
-    _description = 'Abstract Power Level'
-    _order = 'sequence, name'
-    _unicity_keys = 'name'
+    _name = "abstract.power.level"
+    _inherit = ["mozaik.abstract.model"]
+    _description = "Abstract Power Level"
+    _order = "sequence, name"
+    _unicity_keys = "name"
     _log_access = True
 
     name = fields.Char(
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     sequence = fields.Integer(
         required=True,
-        track_visibility='onchange',
-        group_operator='min',
+        tracking=True,
+        group_operator="min",
         default=5,
     )
     assembly_category_ids = fields.One2many(
-        'abstract.assembly.category',
-        'power_level_id',
-        string='Assembly Categories',
-        domain=[('active', '=', True)],
+        "abstract.assembly.category",
+        "power_level_id",
+        string="Assembly Categories",
+        domain=[("active", "=", True)],
     )
     assembly_category_inactive_ids = fields.One2many(
-        'abstract.assembly.category',
-        'power_level_id',
-        string='Assembly Categories',
-        domain=[('active', '=', False)],
+        "abstract.assembly.category",
+        "power_level_id",
+        string="Assembly Categories (Inactive)",
+        domain=[("active", "=", False)],
     )

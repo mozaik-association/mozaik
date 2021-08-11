@@ -12,7 +12,7 @@
     <record forcecreate="True" id="int_instance_01" model="int.instance">
         <field name="name">Mozaik Headquarter</field>
         <field name="code">000</field>
-        <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
+        <field name="power_level_id" ref="mozaik_structure.int_power_level_01" />
     </record>
 
 </odoo>

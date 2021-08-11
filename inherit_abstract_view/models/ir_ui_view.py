@@ -6,11 +6,11 @@ from odoo import api, models
 
 class IrUiView(models.Model):
 
-    _inherit = 'ir.ui.view'
+    _inherit = "ir.ui.view"
 
     @api.model
     def default_view(self, model, view_type):
-        """ Get the default view for the provided (model, view_type) pair:
+        """Get the default view for the provided (model, view_type) pair:
         if native method returns nothing try to search without the condition
         'mode==primary', maybe a view based on a primary abstract view exists
 
@@ -21,6 +21,6 @@ class IrUiView(models.Model):
         """
         view_id = super().default_view(model, view_type)
         if not view_id:
-            domain = [('model', '=', model), ('type', '=', view_type)]
+            domain = [("model", "=", model), ("type", "=", view_type)]
             view_id = self.search(domain, limit=1).id
         return view_id

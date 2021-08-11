@@ -4,14 +4,20 @@
     <record id="sta_assembly_category_search_view" model="ir.ui.view">
         <field name="name">sta.assembly.category.search.view</field>
         <field name="model">sta.assembly.category</field>
-        <field name="inherit_id" ref="abstract_assembly_category_search_view"/>
+        <field name="inherit_id" ref="abstract_assembly_category_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='expired']" position="before">
-                <filter name="legislative" string="Legislative Categories"
-                        domain="[('is_legislative','=',True)]" />
-                <filter name="executive_assemblies" string="Executive Categories"
-                        domain="[('is_legislative','=',False)]" />
-                <separator/>
+                <filter
+                    name="legislative"
+                    string="Legislative Categories"
+                    domain="[('is_legislative','=',True)]"
+                />
+                <filter
+                    name="executive_assemblies"
+                    string="Executive Categories"
+                    domain="[('is_legislative','=',False)]"
+                />
+                <separator />
             </xpath>
         </field>
     </record>
@@ -19,7 +25,7 @@
     <record id="sta_assembly_category_tree_view" model="ir.ui.view">
         <field name="name">sta.assembly.category.tree.view</field>
         <field name="model">sta.assembly.category</field>
-        <field name="inherit_id" ref="abstract_assembly_category_tree_view"/>
+        <field name="inherit_id" ref="abstract_assembly_category_tree_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='power_level_id']" position="after">
                 <field name="is_legislative" />
@@ -30,13 +36,16 @@
     <record id="sta_assembly_category_form_view" model="ir.ui.view">
         <field name="name">sta.assembly.category.form</field>
         <field name="model">sta.assembly.category</field>
-        <field name="inherit_id" ref="abstract_assembly_category_form_view"/>
+        <field name="inherit_id" ref="abstract_assembly_category_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='assemblies']" position="attributes">
+            <xpath
+                expr="//button[@name='%(abstract_assembly_action)d']"
+                position="attributes"
+            >
                 <attribute name="name">%(sta_assembly_action)d</attribute>
             </xpath>
             <xpath expr="//field[@name='power_level_id']" position="after">
-                <field name="is_legislative"/>
+                <field name="is_legislative" />
             </xpath>
         </field>
     </record>

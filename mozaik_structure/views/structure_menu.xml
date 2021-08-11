@@ -3,140 +3,146 @@
 
     <record model="ir.ui.menu" id="structure_root_menu">
         <field name="name">Structures</field>
-        <field name="sequence" eval="32"/>
-        <field name="groups_id" eval="[(6, 0, [
+        <field name="sequence" eval="32" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [
             ref('res_groups_structure_reader'),
-        ])]" />
+        ])]"
+        />
         <field name="web_icon">mozaik_structure,static/description/icon.png</field>
     </record>
 
     <record model="ir.ui.menu" id="state_structure_menu">
         <field name="name">Of the State</field>
-        <field name="parent_id" ref="structure_root_menu"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="structure_root_menu" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="sta_instance_menu">
         <field name="name">Instances</field>
-        <field name="parent_id" ref="state_structure_menu"/>
-        <field name="action" ref="sta_instance_action"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="state_structure_menu" />
+        <field name="action" ref="sta_instance_action" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="sta_assembly_menu">
         <field name="name">Assemblies</field>
-        <field name="parent_id" ref="state_structure_menu"/>
-        <field name="action" ref="sta_assembly_action"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="state_structure_menu" />
+        <field name="action" ref="sta_assembly_action" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="electoral_district_menu">
         <field name="name">Electoral Districts</field>
-        <field name="parent_id" ref="state_structure_menu"/>
-        <field name="action" ref="electoral_district_action"/>
-        <field name="sequence" eval="30"/>
+        <field name="parent_id" ref="state_structure_menu" />
+        <field name="action" ref="electoral_district_action" />
+        <field name="sequence" eval="30" />
     </record>
 
     <record model="ir.ui.menu" id="legislatures_menu">
         <field name="name">Legislatures</field>
-        <field name="parent_id" ref="state_structure_menu"/>
-        <field name="action" ref="legislature_action"/>
-        <field name="sequence" eval="40"/>
+        <field name="parent_id" ref="state_structure_menu" />
+        <field name="action" ref="legislature_action" />
+        <field name="sequence" eval="40" />
     </record>
 
     <record model="ir.ui.menu" id="internal_structure_menu">
         <field name="name">Internal</field>
-        <field name="parent_id" ref="structure_root_menu"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="structure_root_menu" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="int_instance_menu">
         <field name="name">Instances</field>
-        <field name="parent_id" ref="internal_structure_menu"/>
-        <field name="action" ref="int_instance_action"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="internal_structure_menu" />
+        <field name="action" ref="int_instance_action" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="int_assembly_menu">
         <field name="name">Assemblies</field>
-        <field name="parent_id" ref="internal_structure_menu"/>
-        <field name="action" ref="int_assembly_action"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="internal_structure_menu" />
+        <field name="action" ref="int_assembly_action" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="external_structure_menu">
         <field name="name">External</field>
-        <field name="parent_id" ref="structure_root_menu"/>
-        <field name="sequence" eval="30"/>
+        <field name="parent_id" ref="structure_root_menu" />
+        <field name="sequence" eval="30" />
     </record>
 
     <record model="ir.ui.menu" id="ext_assembly_menu">
         <field name="name">Assemblies</field>
-        <field name="parent_id" ref="external_structure_menu"/>
-        <field name="action" ref="ext_assembly_action"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="external_structure_menu" />
+        <field name="action" ref="ext_assembly_action" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="structure_configuration_menu">
         <field name="name">Configuration</field>
-        <field name="parent_id" ref="structure_root_menu"/>
-        <field name="sequence" eval="90"/>
-        <field name="groups_id" eval="[(6, 0, [
+        <field name="parent_id" ref="structure_root_menu" />
+        <field name="sequence" eval="90" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [
             ref('res_groups_structure_manager'),
-        ])]" />
+        ])]"
+        />
     </record>
 
     <record model="ir.ui.menu" id="state_configuration_menu">
         <field name="name">Of the State</field>
-        <field name="parent_id" ref="structure_configuration_menu"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="structure_configuration_menu" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="sta_power_level_menu">
         <field name="name">Power Levels</field>
-        <field name="parent_id" ref="state_configuration_menu"/>
-        <field name="action" ref="sta_power_level_action"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="state_configuration_menu" />
+        <field name="action" ref="sta_power_level_action" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="sta_assembly_category_menu">
         <field name="name">Assembly Categories</field>
-        <field name="parent_id" ref="state_configuration_menu"/>
-        <field name="action" ref="sta_assembly_category_action"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="state_configuration_menu" />
+        <field name="action" ref="sta_assembly_category_action" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="internal_configuration_menu">
         <field name="name">Internal</field>
-        <field name="parent_id" ref="structure_configuration_menu"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="structure_configuration_menu" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="int_power_level_menu">
         <field name="name">Power Levels</field>
-        <field name="parent_id" ref="internal_configuration_menu"/>
-        <field name="action" ref="int_power_level_action"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="internal_configuration_menu" />
+        <field name="action" ref="int_power_level_action" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="int_assembly_category_menu">
         <field name="name">Assembly Categories</field>
-        <field name="parent_id" ref="internal_configuration_menu"/>
-        <field name="action" ref="int_assembly_category_action"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="internal_configuration_menu" />
+        <field name="action" ref="int_assembly_category_action" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="external_configuration_menu">
         <field name="name">External</field>
-        <field name="parent_id" ref="structure_configuration_menu"/>
-        <field name="sequence" eval="30"/>
+        <field name="parent_id" ref="structure_configuration_menu" />
+        <field name="sequence" eval="30" />
     </record>
 
     <record model="ir.ui.menu" id="ext_assembly_category_menu">
         <field name="name">Assembly Categories</field>
-        <field name="parent_id" ref="external_configuration_menu"/>
-        <field name="action" ref="ext_assembly_category_action"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="external_configuration_menu" />
+        <field name="action" ref="ext_assembly_category_action" />
+        <field name="sequence" eval="20" />
     </record>
 
 </odoo>

@@ -9,14 +9,20 @@
                 <field name="name" />
                 <field name="sequence" />
 
-                <filter name="expired" string="Archived"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
-                <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active', '&lt;=', 1)]" />
+                <filter
+                    name="expired"
+                    string="Archived"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]"
+                />
+                <filter
+                    name="all"
+                    string="All"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active', '&lt;=', 1)]"
+                />
 
-                <group expand="0" string="Group By..." name="group_by"/>
+                <group expand="0" string="Group By..." name="group_by" />
             </search>
         </field>
     </record>
@@ -26,9 +32,12 @@
         <field name="model">abstract.power.level</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="sequence"/>
-                <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                <field name="name" />
+                <field name="sequence" />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
             </tree>
         </field>
     </record>
@@ -39,63 +48,98 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                    <div
+                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                    >
                     </div>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
-                                confirm="Archive/reactivate power level: proceed anyway?"
-                                groups="mozaik_abstract_model.res_groups_archiving_manager">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
-                        <button string="Assembly Categories" name="assembly_categories" class="oe_stat_button" icon="fa-cog"
-                                type="action" attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_power_level_id': id,
+
+            <field name="active" invisible="1" />
+            <widget
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
+
+                        <button
+                            string="Assembly Categories"
+                            name="%(abstract_assembly_category_action)d"
+                            class="oe_stat_button"
+                            icon="fa-cog"
+                            type="action"
+                            attrs="{'invisible': [('id','=',False)]}"
+                            context="{'search_default_power_level_id': id,
                                           'default_power_level_id': id,
-                                          'search_default_all': True}" />
+                                          'search_default_all': True}"
+                        />
                     </div>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name" default_focus="1"/></h1>
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" default_focus="1" /></h1>
                     </div>
 
                     <group>
                         <group name="data">
-                            <field name="sequence"/>
+                            <field name="sequence" />
                         </group>
                     </group>
 
                     <group name="status" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
                             <field name="create_date" />
-                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            <field
+                                name="expire_date"
+                                attrs="{'invisible': [('active','=',True)]}"
+                            />
                         </group>
                         <group name="other">
                         </group>
                     </group>
 
                     <notebook>
-                        <page string="Assembly Categories" name="assembly_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                            <field name="assembly_category_ids" attrs="{'invisible': [('active','=',False)]}"
-                                   context="{'default_power_level_id': id}">
+                        <page
+                            string="Assembly Categories"
+                            name="assembly_categories"
+                            attrs="{'invisible': [('id','=',False)]}"
+                            autofocus="autofocus"
+                        >
+                            <field
+                                name="assembly_category_ids"
+                                attrs="{'invisible': [('active','=',False)]}"
+                                context="{'default_power_level_id': id}"
+                            >
                                 <tree>
-                                    <field name="name"/>
+                                    <field name="name" />
                                 </tree>
                             </field>
-                            <field name="assembly_category_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}">
+                            <field
+                                name="assembly_category_inactive_ids"
+                                readonly="1"
+                                attrs="{'invisible': [('active','=',True)]}"
+                            >
                                 <tree>
-                                    <field name="name"/>
+                                    <field name="name" />
                                 </tree>
                             </field>
                         </page>
-                        <page string="More Info" name="dev" groups="base.group_erp_manager">
-                            <group name="moreinfo"/>
+                        <page
+                            string="More Info"
+                            name="dev"
+                            groups="base.group_erp_manager"
+                        >
+                            <group name="moreinfo" />
                         </page>
                     </notebook>
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>

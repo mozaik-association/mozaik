@@ -4,19 +4,34 @@
     <record id="sta_power_level_form_view" model="ir.ui.view">
         <field name="name">sta.power.level.form</field>
         <field name="model">sta.power.level</field>
-        <field name="inherit_id" ref="abstract_power_level_form_view"/>
+        <field name="inherit_id" ref="abstract_power_level_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
-                <button string="Legislatures" name="%(legislature_action)d" class="oe_stat_button" icon="fa-edit"
-                        type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_power_level_id': id,
-                                  'default_power_level_id': id}" />
-                <button string="Instances" name="%(sta_instance_action)d" class="oe_stat_button" icon="fa-indent"
-                        type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_power_level_id': id,
-                                  'default_power_level_id': id}" />
+                <button
+                    string="Legislatures"
+                    name="%(legislature_action)d"
+                    class="oe_stat_button"
+                    icon="fa-edit"
+                    type="action"
+                    attrs="{'invisible': [('id','=',False)]}"
+                    context="{'search_default_power_level_id': id,
+                                  'default_power_level_id': id}"
+                />
+                <button
+                    string="Instances"
+                    name="%(sta_instance_action)d"
+                    class="oe_stat_button"
+                    icon="fa-indent"
+                    type="action"
+                    attrs="{'invisible': [('id','=',False)]}"
+                    context="{'search_default_power_level_id': id,
+                                  'default_power_level_id': id}"
+                />
             </xpath>
-            <xpath expr="//button[@name='assembly_categories']" position="attributes">
+            <xpath
+                expr="//button[@name='%(abstract_assembly_category_action)d']"
+                position="attributes"
+            >
                 <attribute name="name">%(sta_assembly_category_action)d</attribute>
             </xpath>
         </field>

@@ -6,21 +6,21 @@ from odoo import fields, models
 
 class IntAssemblyCategory(models.Model):
 
-    _name = 'int.assembly.category'
-    _inherit = ['abstract.assembly.category']
-    _description = 'Internal Assembly Category'
+    _name = "int.assembly.category"
+    _inherit = ["abstract.assembly.category"]
+    _description = "Internal Assembly Category"
 
     is_secretariat = fields.Boolean(
         default=False,
-        track_visibility='onchange',
+        tracking=True,
     )
     power_level_id = fields.Many2one(
-        comodel_name='int.power.level',
+        comodel_name="int.power.level",
         required=True,
     )
     assembly_ids = fields.One2many(
-        comodel_name='int.assembly',
+        comodel_name="int.assembly",
     )
     assembly_inactive_ids = fields.One2many(
-        comodel_name='int.assembly',
+        comodel_name="int.assembly",
     )

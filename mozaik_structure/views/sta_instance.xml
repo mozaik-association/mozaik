@@ -4,18 +4,28 @@
     <record id="sta_instance_search_view" model="ir.ui.view">
         <field name="name">sta.instance.search</field>
         <field name="model">sta.instance</field>
-        <field name="inherit_id" ref="abstract_instance_search_view"/>
+        <field name="inherit_id" ref="abstract_instance_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="identifier"/>
+                <field name="identifier" />
             </xpath>
             <xpath expr="//field[@name='parent_id']" position="after">
-                <field name="secondary_parent_id"/>
-                <field name="int_instance_id"/>
+                <field name="secondary_parent_id" />
+                <field name="int_instance_id" />
             </xpath>
             <xpath expr="//filter[@name='parent']" position="after">
-                <filter name="secondary_parent" string="Secondary Parent" domain="[]" context="{'group_by':'secondary_parent_id'}" />
-                <filter name="int_instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+                <filter
+                    name="secondary_parent"
+                    string="Secondary Parent"
+                    domain="[]"
+                    context="{'group_by':'secondary_parent_id'}"
+                />
+                <filter
+                    name="int_instance"
+                    string="Internal Instance"
+                    domain="[]"
+                    context="{'group_by':'int_instance_id'}"
+                />
             </xpath>
         </field>
     </record>
@@ -23,12 +33,12 @@
     <record id="sta_instance_tree_view" model="ir.ui.view">
         <field name="name">sta.instance.tree</field>
         <field name="model">sta.instance</field>
-        <field name="inherit_id" ref="abstract_instance_tree_view"/>
+        <field name="inherit_id" ref="abstract_instance_tree_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='power_level_id']" position="after">
-                <field name="identifier"/>
-                <field name="int_instance_id"/>
-                <field name="secondary_parent_id" invisible="1"/>
+                <field name="identifier" />
+                <field name="int_instance_id" />
+                <field name="secondary_parent_id" invisible="1" />
             </xpath>
         </field>
     </record>
@@ -44,39 +54,65 @@
     <record id="sta_instance_form_view" model="ir.ui.view">
         <field name="name">sta.instance.form</field>
         <field name="model">sta.instance</field>
-        <field name="inherit_id" ref="abstract_instance_form_view"/>
+        <field name="inherit_id" ref="abstract_instance_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='assemblies']" position="after">
-                <button string="Electoral Districts" name="%(electoral_district_action)d" class="oe_stat_button" icon="fa-bullseye"
-                        type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_sta_instance_id': id,
+            <xpath
+                expr="//button[@name='%(abstract_assembly_action)d']"
+                position="after"
+            >
+                <button
+                    string="Electoral Districts"
+                    name="%(electoral_district_action)d"
+                    class="oe_stat_button"
+                    icon="fa-bullseye"
+                    type="action"
+                    attrs="{'invisible': [('id','=',False)]}"
+                    context="{'search_default_sta_instance_id': id,
                                   'default_sta_instance_id': id,
-                                  'search_default_all': True}"/>
+                                  'search_default_all': True}"
+                />
             </xpath>
-            <xpath expr="//button[@name='children']" position="attributes">
+            <xpath
+                expr="//button[@name='%(abstract_instance_action)d']"
+                position="attributes"
+            >
                 <attribute name="name">%(sta_instance_action)d</attribute>
             </xpath>
-            <xpath expr="//button[@name='assemblies']" position="attributes">
+            <xpath
+                expr="//button[@name='%(abstract_assembly_action)d']"
+                position="attributes"
+            >
                 <attribute name="name">%(sta_assembly_action)d</attribute>
             </xpath>
             <xpath expr="//field[@name='parent_id']" position="after">
-                <field name="secondary_parent_id"/>
-                <field name="identifier"/>
+                <field name="secondary_parent_id" />
+                <field name="identifier" />
             </xpath>
             <xpath expr="//group[@name='data_2']" position="inside">
-                <field name="int_instance_id"/>
+                <field name="int_instance_id" />
             </xpath>
             <xpath expr="//notebook/page[@name='assemblies']" position="after">
-                <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}">
-                    <field name="electoral_district_ids" context="{'default_sta_instance_id': id}"
-                           attrs="{'invisible': [('active','=',False)]}">
+                <page
+                    string="Electoral Districts"
+                    name="electoral_districts"
+                    attrs="{'invisible': [('id','=',False)]}"
+                >
+                    <field
+                        name="electoral_district_ids"
+                        context="{'default_sta_instance_id': id}"
+                        attrs="{'invisible': [('active','=',False)]}"
+                    >
                         <tree>
-                            <field name="name"/>
+                            <field name="name" />
                         </tree>
                     </field>
-                    <field name="electoral_district_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}">
+                    <field
+                        name="electoral_district_inactive_ids"
+                        readonly="1"
+                        attrs="{'invisible': [('active','=',True)]}"
+                    >
                         <tree>
-                            <field name="name"/>
+                            <field name="name" />
                         </tree>
                     </field>
                 </page>
