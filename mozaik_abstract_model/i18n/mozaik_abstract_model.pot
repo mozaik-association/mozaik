@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_abstract_model
+# 	* mozaik_abstract_model
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,47 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_abstract_model
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_assembly_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_assembly_category_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_coordinate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_duplicate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_instance_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_mandate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_power_level_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_address_address_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_co_residency_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_coordinate_category_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_distribution_list_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_distribution_list_line_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_electoral_district_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_email_coordinate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_category_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_mandate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_category_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_instance_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_mandate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_income_declaration_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_partner_involvement_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_partner_involvement_category_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_phone_coordinate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_phone_phone_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_postal_coordinate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_res_city_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_category_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_instance_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_mandate_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_power_level_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_active
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_term_active
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__active
 msgid "Active"
 msgstr ""
 
@@ -64,96 +29,39 @@ msgid "Archiving Manager"
 msgstr ""
 
 #. module: mozaik_abstract_model
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_assembly_category_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_assembly_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_coordinate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_duplicate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_instance_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_mandate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_power_level_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_address_address_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_co_residency_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_coordinate_category_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_electoral_district_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_email_coordinate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_category_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_mandate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_category_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_instance_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_mandate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_income_declaration_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_partner_involvement_category_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_partner_involvement_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_phone_coordinate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_phone_phone_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_postal_coordinate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_category_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_instance_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_mandate_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_power_level_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_create_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_term_create_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__create_date
 msgid "Create Date"
 msgstr ""
 
 #. module: mozaik_abstract_model
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_display_name
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ir_model__display_name
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_abstract_model
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_assembly_category_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_assembly_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_coordinate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_duplicate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_instance_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_mandate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_abstract_power_level_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_address_address_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_co_residency_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_coordinate_category_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_distribution_list_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_distribution_list_line_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_electoral_district_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_email_coordinate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_category_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_assembly_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ext_mandate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_category_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_assembly_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_instance_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_mandate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_int_power_level_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_legislature_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_category_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mandate_income_declaration_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_line_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_membership_state_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_partner_involvement_category_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_partner_involvement_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_phone_coordinate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_phone_phone_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_postal_coordinate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_res_city_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_res_partner_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_category_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_assembly_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_instance_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_mandate_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_sta_power_level_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_expire_date
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_thesaurus_term_expire_date
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__expire_date
 msgid "Expiration Date"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_partner_ids
+msgid "Followers (Partners)"
 msgstr ""
 
 #. module: mozaik_abstract_model
@@ -162,19 +70,53 @@ msgid "Followers manager"
 msgstr ""
 
 #. module: mozaik_abstract_model
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model_id
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ir_model__id
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_abstract_model
-#: code:addons/mozaik_abstract_model/models/mozaik_abstract_model.py:248
+#: model:ir.model.fields,help:mozaik_abstract_model.field_mozaik_abstract_model__message_needaction
+#: model:ir.model.fields,help:mozaik_abstract_model.field_mozaik_abstract_model__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,help:mozaik_abstract_model.field_mozaik_abstract_model__message_has_error
+#: model:ir.model.fields,help:mozaik_abstract_model.field_mozaik_abstract_model__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: code:addons/mozaik_abstract_model/models/mozaik_abstract_model.py:0
 #, python-format
 msgid "Invalidation not allowed: at least one dependency is still active"
 msgstr ""
 
 #. module: mozaik_abstract_model
-#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model___last_update
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_ir_model____last_update
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_ids
+msgid "Messages"
 msgstr ""
 
 #. module: mozaik_abstract_model
@@ -187,3 +129,42 @@ msgstr ""
 msgid "Mozaik abstract model"
 msgstr ""
 
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,help:mozaik_abstract_model.field_mozaik_abstract_model__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,help:mozaik_abstract_model.field_mozaik_abstract_model__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,help:mozaik_abstract_model.field_mozaik_abstract_model__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
