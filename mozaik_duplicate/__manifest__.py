@@ -11,11 +11,10 @@
     'category': 'Political Association',
     'depends': [
         'mail',
-        'base_suspend_security',
         'mozaik_abstract_model',
     ],
     'data': [
         'wizards/allow_duplicate_view.xml',
     ],
-    "installable": False,
+    "installable": True,
 }

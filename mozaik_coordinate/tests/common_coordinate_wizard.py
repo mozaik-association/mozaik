@@ -13,7 +13,7 @@ class CommonCoordinateWizard(CommonCoordinate):
 
     def setUp(self):
         super(CommonCoordinateWizard, self).setUp()
-        self.partner_obj = self.env['res.partner']
+        self.partner_obj = self.env["res.partner"]
         self.partner1 = self.env.ref("mozaik_coordinate.res_partner_thierry")
         self.partner2 = self.env.ref("mozaik_coordinate.res_partner_pauline")
         self.partner3 = self.env.ref("mozaik_coordinate.res_partner_nicolas")
@@ -30,18 +30,21 @@ class CommonCoordinateWizard(CommonCoordinate):
         """
         coordinates = self.coordinate1 | self.coordinate2
         context = self.env.context.copy()
-        context.update({
-            'active_model': self.model_coordinate._name,
-            'active_ids': coordinates.ids,
-            'target_model': self.model_coordinate._name,
-        })
+        context.update(
+            {
+                "active_model": self.model_coordinate._name,
+                "active_ids": coordinates.ids,
+                "target_model": self.model_coordinate._name,
+            }
+        )
         disc_value = first(coordinates)._get_discriminant_value()
         wiz_vals = {
             self.model_coordinate._discriminant_field: disc_value,
-            'invalidate_previous_coordinate': invalidate,
+            "invalidate_previous_coordinate": invalidate,
         }
-        wizard = self.model_coordinate_wizard.with_context(
-            context).new(wiz_vals)
+        wizard = self.model_coordinate_wizard.with_context(context).new(
+            wiz_vals
+        )
         return wizard.button_change_main_coordinate()
 
     def switch_main_coordinate(self, new_main_coordinate, invalidate):
@@ -52,28 +55,33 @@ class CommonCoordinateWizard(CommonCoordinate):
         :return: dict
         """
         context = self.env.context.copy()
-        context.update({
-            'active_model': new_main_coordinate._name,
-            'active_id': new_main_coordinate.partner_id.id,
-            'res_id': new_main_coordinate.partner_id.id,
-            'target_id': new_main_coordinate.id,
-            'active_ids': new_main_coordinate.partner_id.ids,
-            'target_model': 'res.partner',
-        })
+        context.update(
+            {
+                "active_model": new_main_coordinate._name,
+                "active_id": new_main_coordinate.partner_id.id,
+                "res_id": new_main_coordinate.partner_id.id,
+                "target_id": new_main_coordinate.id,
+                "active_ids": new_main_coordinate.partner_id.ids,
+                "target_model": "res.partner",
+            }
+        )
         value = new_main_coordinate._get_discriminant_value()
         wiz_vals = {
             self.model_coordinate._discriminant_field: value,
-            'invalidate_previous_coordinate': invalidate,
+            "invalidate_previous_coordinate": invalidate,
         }
-        wizard = self.model_coordinate_wizard.with_context(
-            context).new(wiz_vals)
-        context.update({
-            'active_id': new_main_coordinate.id,
-            'active_ids': new_main_coordinate.ids,
-            'active_model': self.model_coordinate._name,
-            'target_model': self.model_coordinate._name,
-            'mode': 'switch',
-        })
+        wizard = self.model_coordinate_wizard.with_context(context).new(
+            wiz_vals
+        )
+        context.update(
+            {
+                "active_id": new_main_coordinate.id,
+                "active_ids": new_main_coordinate.ids,
+                "active_model": self.model_coordinate._name,
+                "target_model": self.model_coordinate._name,
+                "mode": "switch",
+            }
+        )
         return wizard.with_context(context).button_change_main_coordinate()
 
     def test_mass_replication(self):
@@ -88,21 +96,21 @@ class CommonCoordinateWizard(CommonCoordinate):
         self.change_main_coordinate(True)
         partners = self.partner1 | self.partner2 | self.partner3
         values = {
-            'partner_id': self.partner1.id,
+            "partner_id": self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': True,
+            "is_main": True,
         }
         self.model_coordinate.create(values)
         values = {
-            'partner_id': self.partner2.id,
+            "partner_id": self.partner2.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': True,
+            "is_main": True,
         }
         self.model_coordinate.create(values)
         values = {
-            'partner_id': self.partner3.id,
+            "partner_id": self.partner3.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': True,
+            "is_main": True,
         }
         self.model_coordinate.create(values)
         for partner in partners:
@@ -110,8 +118,10 @@ class CommonCoordinateWizard(CommonCoordinate):
             coord_value = coordinate._get_discriminant_value()
             value = coord_value == self.field_id_1 and coordinate.is_main
             self.assertTrue(
-                value, 'Coordinate Should Be Replicate Into The Associated '
-                       'Partner')
+                value,
+                "Coordinate Should Be Replicate Into The Associated "
+                "Partner",
+            )
         return
 
     def test_mass_replication_with_invalidate(self):
@@ -138,11 +148,13 @@ class CommonCoordinateWizard(CommonCoordinate):
         self.change_main_coordinate(True)
         self.assertTrue(
             self.coordinate1.active,
-            'Should not invalidate a model coordinate that is already the '
-            'main for the selected partner with this selected number')
+            "Should not invalidate a model coordinate that is already the "
+            "main for the selected partner with this selected number",
+        )
         self.assertFalse(
             self.coordinate2.active,
-            'Previous model Coordinate should be invalidate')
+            "Previous model Coordinate should be invalidate",
+        )
         return
 
     def test_mass_replication_without_invalidate(self):
@@ -165,7 +177,8 @@ class CommonCoordinateWizard(CommonCoordinate):
         self.change_main_coordinate(False)
         self.assertTrue(
             self.coordinate2.active,
-            'Previous model Coordinate should not be invalidate')
+            "Previous model Coordinate should not be invalidate",
+        )
         return
 
     def test_switch_main_coordinate(self):
@@ -175,12 +188,12 @@ class CommonCoordinateWizard(CommonCoordinate):
         and eventually invalidate it
         """
         vals = {
-            'partner_id': self.partner4.id,
+            "partner_id": self.partner4.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
         }
         coordinate1 = self.model_coordinate.create(vals)
         vals = {
-            'partner_id': self.partner4.id,
+            "partner_id": self.partner4.id,
             self.model_coordinate._discriminant_field: self.field_id_2,
         }
         coordinate2 = self.model_coordinate.create(vals)

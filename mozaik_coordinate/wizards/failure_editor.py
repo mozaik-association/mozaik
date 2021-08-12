@@ -5,40 +5,40 @@ from odoo.exceptions import UserError
 
 
 class FailureEditor(models.TransientModel):
-    _name = 'failure.editor'
-    _description = 'Failure Editor'
+    _name = "failure.editor"
+    _description = "Failure Editor"
 
-    increase = fields.Integer(
-        'Increase by',
-        required=True,
-        default=1)
+    increase = fields.Integer("Increase by", required=True, default=1)
     description = fields.Text(
         required=True,
     )
 
     _sql_constraints = [
-        ('increase_check',
-         'CHECK(increase > 0)',
-         'The increment must be positive'),
+        (
+            "increase_check",
+            "CHECK(increase > 0)",
+            "The increment must be positive",
+        ),
     ]
 
     @api.model
     def view_init(self, fields_list):
         context = self.env.context
-        active_model = context.get('active_model', False)
-        active_ids = context.get('active_ids', [])
+        active_model = context.get("active_model", False)
+        active_ids = context.get("active_ids", [])
         if not active_model:
-            raise UserError(_('Missing active_model in context!'))
+            raise UserError(_("Missing active_model in context!"))
 
         if not active_ids:
-            raise UserError(_('Missing active_ids in context!'))
+            raise UserError(_("Missing active_ids in context!"))
         domain = [
-            ('id', 'in', active_ids),
-            ('active', '=', False),
+            ("id", "in", active_ids),
+            ("active", "=", False),
         ]
         if self.env[active_model].search_count(domain):
             raise UserError(
-                _('This action is not allowed on inactive documents!'))
+                _("This action is not allowed on inactive documents!")
+            )
         return super().view_init(fields_list)
 
     @api.multi
@@ -50,18 +50,21 @@ class FailureEditor(models.TransientModel):
         :return: {}
         """
         self.ensure_one()
-        active_ids = self.env.context.get('active_ids', False)
+        active_ids = self.env.context.get("active_ids", False)
         if not active_ids:
             return {}
         vals = {
-            'failure_description': self.description,
-            'failure_date': fields.Datetime.now(),
+            "failure_description": self.description,
+            "failure_date": fields.Datetime.now(),
         }
-        active_model = self.env.context.get('active_model', False)
+        active_model = self.env.context.get("active_model", False)
         coordinates = self.env[active_model].browse(active_ids)
         for coordinate in coordinates:
-            vals.update({
-                'failure_counter': coordinate.failure_counter + self.increase,
-            })
+            vals.update(
+                {
+                    "failure_counter": coordinate.failure_counter
+                    + self.increase,
+                }
+            )
             coordinate.write(vals)
         return {}

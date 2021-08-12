@@ -2,7 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from psycopg2 import IntegrityError
 from .common import CommonCoordinate
-DESC = 'Bad Coordinate'
+
+DESC = "Bad Coordinate"
 
 
 class CommonFailureEditor(CommonCoordinate):
@@ -13,7 +14,7 @@ class CommonFailureEditor(CommonCoordinate):
 
     def setUp(self):
         super(CommonFailureEditor, self).setUp()
-        self.model_wizard = self.env['failure.editor']
+        self.model_wizard = self.env["failure.editor"]
         self.partner1 = self.env.ref("mozaik_coordinate.res_partner_thierry")
         self.model_coordinate = None
         self.coordinate = None
@@ -25,14 +26,16 @@ class CommonFailureEditor(CommonCoordinate):
         :return: failure.editor wizard
         """
         context = self.env.context.copy()
-        context.update({
-            'active_ids': self.coordinate.ids,
-            'active_model': self.model_coordinate._name,
-            'default_model': self.model_coordinate._name,
-        })
+        context.update(
+            {
+                "active_ids": self.coordinate.ids,
+                "active_model": self.model_coordinate._name,
+                "default_model": self.model_coordinate._name,
+            }
+        )
         wiz_vals = {
-            'increase': inc,
-            'description': DESC,
+            "increase": inc,
+            "description": DESC,
         }
         return self.model_wizard.with_context(context).create(wiz_vals)
 
@@ -45,8 +48,11 @@ class CommonFailureEditor(CommonCoordinate):
         5/ create an invalid wz
         """
         # 1/ Check for reference data
-        self.assertEqual(self.coordinate.failure_counter, 0,
-                         'Wrong expected reference data for this test')
+        self.assertEqual(
+            self.coordinate.failure_counter,
+            0,
+            "Wrong expected reference data for this test",
+        )
 
         # 2/ Create wizard record
         counter = 2
@@ -54,16 +60,24 @@ class CommonFailureEditor(CommonCoordinate):
 
         # 3/ Execute wizard
         wizard.update_failure_data()
-        self.assertEqual(self.coordinate.failure_counter, counter,
-                         'Update coordinate fails with wrong failure_counter')
-        self.assertEqual(self.coordinate.failure_description, DESC,
-                         'Update coordinate fails with wrong failure_'
-                         'description')
+        self.assertEqual(
+            self.coordinate.failure_counter,
+            counter,
+            "Update coordinate fails with wrong failure_counter",
+        )
+        self.assertEqual(
+            self.coordinate.failure_description,
+            DESC,
+            "Update coordinate fails with wrong failure_" "description",
+        )
 
         # 4/ Reset counter
         self.coordinate.button_reset_counter()
-        self.assertEqual(self.coordinate.failure_counter, 0,
-                         'Reset counter fails with wrong failure_counter')
+        self.assertEqual(
+            self.coordinate.failure_counter,
+            0,
+            "Reset counter fails with wrong failure_counter",
+        )
         self.env.cr._default_log_exceptions = False
         with self.assertRaises(IntegrityError):
             self.create_failure_data(-2)

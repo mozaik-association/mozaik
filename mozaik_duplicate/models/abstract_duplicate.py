@@ -19,7 +19,7 @@ class AbstractDuplicate(models.AbstractModel):
     is_duplicate_detected = fields.Boolean(
         readonly=True,
         copy=False,
-        track_visibility='onchange',
+        tracking=True,
     )
     is_duplicate_allowed = fields.Boolean(
         readonly=True,
@@ -37,7 +37,6 @@ class AbstractDuplicate(models.AbstractModel):
             return self.env.get(self._discriminant_model).browse()
         return self.browse()
 
-    @api.multi
     def _get_discriminant_value(self, force_field=False):
         """
         Get the value of the discriminant field
@@ -62,10 +61,9 @@ class AbstractDuplicate(models.AbstractModel):
         if result:
             result = result.sudo()
             value = result._get_discriminant_value()
-            self.suspend_security()._detect_and_repair_duplicate(value)
+            self.sudo()._detect_and_repair_duplicate(value)
         return result
 
-    @api.multi
     def write(self, vals):
         """
         Override write method to detect and repair duplicates.
@@ -76,12 +74,12 @@ class AbstractDuplicate(models.AbstractModel):
         detect = self and trigger_fields and \
             not self._context.get('escape_detection')
         if detect:
-            self_suspend = self.suspend_security()
-            values = [d._get_discriminant_value() for d in self_suspend]
+            self_sudo = self.sudo()
+            values = [d._get_discriminant_value() for d in self_sudo]
         result = super().write(vals)
         if detect:
-            values += [d._get_discriminant_value() for d in self_suspend]
-            self_suspend._detect_and_repair_duplicate(values)
+            values += [d._get_discriminant_value() for d in self_sudo]
+            self_sudo._detect_and_repair_duplicate(values)
         return result
 
     def _get_trigger_fields(self, fields_list):
@@ -98,22 +96,20 @@ class AbstractDuplicate(models.AbstractModel):
         ])
         return list(set(trigger_fields).intersection(fields_list))
 
-    @api.multi
     def unlink(self):
         """
         Override unlink method to detect and repair duplicates.
         :return: bool
         """
-        self_suspend = self.suspend_security()
+        self_sudo = self.sudo()
         values = False
         if self:
-            values = [d._get_discriminant_value() for d in self_suspend]
+            values = [d._get_discriminant_value() for d in self_sudo]
         result = super().unlink()
         if values:
-            self_suspend._detect_and_repair_duplicate(values)
+            self_sudo._detect_and_repair_duplicate(values)
         return result
 
-    @api.multi
     def button_undo_allow_duplicate(self):
         """
         Undo the effect of the "Allow duplicate" wizard.

@@ -5,7 +5,8 @@ from uuid import uuid4
 from odoo.tests.common import TransactionCase
 from .common_failure_editor import CommonFailureEditor
 from .test_abstract_coordinate import ResPartner, NotAbstractCoordinate
-DESC = 'Bad Coordinate'
+
+DESC = "Bad Coordinate"
 
 
 class TestCommonFailureEditor(CommonFailureEditor, TransactionCase):
@@ -50,9 +51,11 @@ class TestCommonFailureEditor(CommonFailureEditor, TransactionCase):
         self.addCleanup(self.registry.leave_test_mode)
         self._init_test_models()
         self.model_coordinate = self.env[NotAbstractCoordinate._name]
-        self.coo_into_partner = 'not_abstract_coordinate_id'
-        self.coordinate = self.model_coordinate.create({
-            'name': str(uuid4()),
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: str(uuid4()),
-        })
+        self.coo_into_partner = "not_abstract_coordinate_id"
+        self.coordinate = self.model_coordinate.create(
+            {
+                "name": str(uuid4()),
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: str(uuid4()),
+            }
+        )
