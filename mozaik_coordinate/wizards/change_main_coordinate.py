@@ -14,7 +14,6 @@ class ChangeMainCoordinate(models.AbstractModel):
         default=True,
     )
 
-    @api.multi
     def _get_discriminant_value(self, force_field=False):
         """
         Get the value of the discriminant field
@@ -55,7 +54,6 @@ class ChangeMainCoordinate(models.AbstractModel):
             target_model = self.env.context.get("active_model")
         return target_model
 
-    @api.multi
     def button_change_main_coordinate(self):
         """
         Change main coordinate for a list of partners

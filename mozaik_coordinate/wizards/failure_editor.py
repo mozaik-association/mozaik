@@ -41,7 +41,6 @@ class FailureEditor(models.TransientModel):
             )
         return super().view_init(fields_list)
 
-    @api.multi
     def update_failure_data(self):
         """
         Update the failure information of coordinate.

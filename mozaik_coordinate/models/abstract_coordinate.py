@@ -86,7 +86,6 @@ class AbstractCoordinate(models.AbstractModel):
                 }
             )
 
-    @api.multi
     @api.constrains("partner_id", "is_main", "active", "coordinate_type")
     def _check_one_main_coordinate(self, for_unlink=False):
         """
@@ -133,7 +132,6 @@ class AbstractCoordinate(models.AbstractModel):
                     )
                 )
 
-    @api.multi
     def copy(self, default=None):
         """
         Inherit some default values
@@ -147,7 +145,6 @@ class AbstractCoordinate(models.AbstractModel):
             )
         return super().copy(default=default)
 
-    @api.multi
     def name_get(self):
         """
         Update the name_get depending on the discriminant value and
@@ -210,7 +207,6 @@ class AbstractCoordinate(models.AbstractModel):
             self._search_and_update(domain_other_active_main, validate_fields)
         return super().create(vals)
 
-    @api.multi
     def unlink(self):
         """
         During unlink, check if a one main coordinate still available
@@ -226,14 +222,12 @@ class AbstractCoordinate(models.AbstractModel):
             result = super(AbstractCoordinate, main_coordinates).unlink()
         return result
 
-    @api.multi
     def button_reset_counter(self):
         """
         Reset the failure counter
         """
         self.write({"failure_counter": 0})
 
-    @api.multi
     def _set_as_main(self):
         """
         This method allows to switch main coordinate:
@@ -339,7 +333,6 @@ class AbstractCoordinate(models.AbstractModel):
             )
         return result
 
-    @api.multi
     def ensure_one_main_coordinate(self, invalidate=False, vals=False):
         """
         Ensure that at least 1 main coordinate will remain after an action
@@ -371,7 +364,6 @@ class AbstractCoordinate(models.AbstractModel):
                 rejected |= coordinate
         return rejected
 
-    @api.multi
     def action_invalidate(self, vals=None):
         rejected_ids = self.ensure_one_main_coordinate(invalidate=True)
         if rejected_ids:

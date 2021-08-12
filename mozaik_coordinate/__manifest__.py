@@ -5,7 +5,7 @@
     "summary": """
         Manage coordinates categories: private, professional, ...
         Provide an abstract model and wizard for all kinds of coordinates""",
-    "version": "14.0.1.0.0",
+    "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
@@ -29,5 +29,5 @@
     "demo": [
         "demo/res_partner.xml",
     ],
-    "installable": False,
+    "installable": True,
 }

@@ -45,7 +45,6 @@ class ResPartner(models.Model):
         "A test field",
     )
 
-    @api.multi
     @api.depends("not_abstract_coordinate_ids")
     def _compute_not_abstract_coordinate_id(self):
         """
