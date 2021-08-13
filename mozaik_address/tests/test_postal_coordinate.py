@@ -6,20 +6,20 @@ from odoo.tests.common import TransactionCase
 
 def allow_duplicate(wz):
     action = wz.button_allow_duplicate()
-    cor_id = action['res_id']
-    return wz.env['co.residency'].browse(cor_id)
+    cor_id = action["res_id"]
+    return wz.env["co.residency"].browse(cor_id)
 
 
 class TestPostalCoordinate(TransactionCase):
-
     def setUp(self):
         super().setUp()
 
         self.allow_duplicate_wizard_model = self.env[
-            'allow.duplicate.address.wizard']
-        self.postal_model = self.env['postal.coordinate']
-        self.co_residency_model = self.env['co.residency']
-        self.cores_change_adr_model = self.env['change.co.residency.address']
+            "allow.duplicate.address.wizard"
+        ]
+        self.postal_model = self.env["postal.coordinate"]
+        self.co_residency_model = self.env["co.residency"]
+        self.cores_change_adr_model = self.env["change.co.residency.address"]
 
     def test_all_duplicate_co_residency(self):
         """
@@ -41,10 +41,10 @@ class TestPostalCoordinate(TransactionCase):
         """
         pc_mod, wz_mod = self.postal_model, self.allow_duplicate_wizard_model
         postal_XIDS = [
-            'mozaik_address.postal_coordinate_2',
-            'mozaik_address.postal_coordinate_2_duplicate_1',
-            'mozaik_address.postal_coordinate_2_duplicate_2',
-            'mozaik_address.postal_coordinate_2_duplicate_3',
+            "mozaik_address.postal_coordinate_2",
+            "mozaik_address.postal_coordinate_2_duplicate_1",
+            "mozaik_address.postal_coordinate_2_duplicate_2",
+            "mozaik_address.postal_coordinate_2_duplicate_3",
         ]
 
         all_pcs = pc_mod.browse()
@@ -54,8 +54,8 @@ class TestPostalCoordinate(TransactionCase):
         # Step One
         postal_coordinates = all_pcs[0] + all_pcs[1]
         ctx = {
-            'active_model': pc_mod._name,
-            'active_ids': postal_coordinates.ids,
+            "active_model": pc_mod._name,
+            "active_ids": postal_coordinates.ids,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
@@ -64,30 +64,38 @@ class TestPostalCoordinate(TransactionCase):
         # check allowed
         self.assertTrue(
             postal_coordinates[0].is_duplicate_allowed,
-            'Postal Coordinate 1 Must Be Allowed')
+            "Postal Coordinate 1 Must Be Allowed",
+        )
         self.assertTrue(
             postal_coordinates[1].is_duplicate_allowed,
-            'Postal Coordinate 2 Must Be Allowed')
+            "Postal Coordinate 2 Must Be Allowed",
+        )
         # check no more detected
         self.assertFalse(
             postal_coordinates[0].is_duplicate_detected,
-            'Postal Coordinate 1 Should not Be Duplicate Detected')
+            "Postal Coordinate 1 Should not Be Duplicate Detected",
+        )
         self.assertFalse(
             postal_coordinates[1].is_duplicate_detected,
-            'Postal Coordinate 2 Should not Be Duplicate Detected')
+            "Postal Coordinate 2 Should not Be Duplicate Detected",
+        )
         # check co residency
         self.assertEqual(
-            postal_coordinates[0].co_residency_id, cor_id,
-            'Wrong Co-Residency associated to Postal Coordinate 1')
+            postal_coordinates[0].co_residency_id,
+            cor_id,
+            "Wrong Co-Residency associated to Postal Coordinate 1",
+        )
         self.assertEqual(
-            postal_coordinates[1].co_residency_id, cor_id,
-            'Wrong Co-Residency associated to Postal Coordinate 2')
+            postal_coordinates[1].co_residency_id,
+            cor_id,
+            "Wrong Co-Residency associated to Postal Coordinate 2",
+        )
 
         # Step Two
         postal_coordinates = all_pcs[2] + all_pcs[3]
         ctx = {
-            'active_model': pc_mod._name,
-            'active_ids': postal_coordinates.ids,
+            "active_model": pc_mod._name,
+            "active_ids": postal_coordinates.ids,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
@@ -95,35 +103,44 @@ class TestPostalCoordinate(TransactionCase):
         cor2_id = allow_duplicate(wz_id)
         # check co residency
         self.assertEqual(
-            postal_coordinates[0].co_residency_id, cor2_id,
-            'Wrong Co-Residency associated to Postal Coordinate 3')
+            postal_coordinates[0].co_residency_id,
+            cor2_id,
+            "Wrong Co-Residency associated to Postal Coordinate 3",
+        )
         self.assertEqual(
-            postal_coordinates[1].co_residency_id, cor2_id,
-            'Wrong Co-Residency associated to Postal Coordinate 4')
+            postal_coordinates[1].co_residency_id,
+            cor2_id,
+            "Wrong Co-Residency associated to Postal Coordinate 4",
+        )
         self.assertEqual(
-            cor_id, cor2_id,
-            'Wrong Co-Residency associated to '
-            'Postal Coordinates: [1,2] != [3,4]')
+            cor_id,
+            cor2_id,
+            "Wrong Co-Residency associated to "
+            "Postal Coordinates: [1,2] != [3,4]",
+        )
 
         # Step Three
         all_pcs[2].button_undo_allow_duplicate()
         for i in range(4):
             self.assertFalse(
                 all_pcs[i].is_duplicate_allowed,
-                'Postal Coordinate %s Must Be Not Allowed Duplicate' % i)
+                "Postal Coordinate %s Must Be Not Allowed Duplicate" % i,
+            )
             self.assertTrue(
                 all_pcs[i].is_duplicate_detected,
-                'Postal Coordinate %s Must Be Detected Duplicate' % i)
+                "Postal Coordinate %s Must Be Detected Duplicate" % i,
+            )
             self.assertFalse(
                 all_pcs[i].co_residency_id.id,
-                'No co-all_pcs Must Be associated '
-                'to Postal Coordinate %s' % i)
+                "No co-all_pcs Must Be associated "
+                "to Postal Coordinate %s" % i,
+            )
 
         # Step Four
         postal_coordinates = all_pcs[0] + all_pcs[1]
         ctx = {
-            'active_model': pc_mod._name,
-            'active_ids': postal_coordinates.ids,
+            "active_model": pc_mod._name,
+            "active_ids": postal_coordinates.ids,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
@@ -135,14 +152,17 @@ class TestPostalCoordinate(TransactionCase):
         for i in range(2):
             self.assertFalse(
                 postal_coordinates[i].is_duplicate_allowed,
-                'Postal Coordinate %s Must Be Not Allowed Duplicate' % i)
+                "Postal Coordinate %s Must Be Not Allowed Duplicate" % i,
+            )
             self.assertTrue(
                 postal_coordinates[i].is_duplicate_detected,
-                'Postal Coordinate %s Must Be Detected Duplicate' % i)
+                "Postal Coordinate %s Must Be Detected Duplicate" % i,
+            )
             self.assertFalse(
                 postal_coordinates[i].co_residency_id,
-                'No co-residency Must Be associated '
-                'to Postal Coordinate %s' % i)
+                "No co-residency Must Be associated "
+                "to Postal Coordinate %s" % i,
+            )
 
     def test_change_co_residency_address(self):
         """
@@ -156,21 +176,20 @@ class TestPostalCoordinate(TransactionCase):
             - create new postal coordinates
             - create new co-residency
         """
-        pc_mod, wz_mod = self.postal_model,\
-            self.allow_duplicate_wizard_model
+        pc_mod, wz_mod = self.postal_model, self.allow_duplicate_wizard_model
         cr_mod = self.co_residency_model
         wiz_adr_mod = self.cores_change_adr_model
-        new_adr = self.env.ref('mozaik_address.address_4')
+        new_adr = self.env.ref("mozaik_address.address_4")
 
         postal_XIDS = [
-            'mozaik_address.postal_coordinate_2',
-            'mozaik_address.postal_coordinate_2_duplicate_1',
-            'mozaik_address.postal_coordinate_2_duplicate_2',
+            "mozaik_address.postal_coordinate_2",
+            "mozaik_address.postal_coordinate_2_duplicate_1",
+            "mozaik_address.postal_coordinate_2_duplicate_2",
         ]
 
-        cor_ids = cr_mod.search([('address_id', '=', new_adr.id)])
+        cor_ids = cr_mod.search([("address_id", "=", new_adr.id)])
         self.assertFalse(cor_ids)
-        pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
+        pc_ids = pc_mod.search([("address_id", "=", new_adr.id)])
         self.assertFalse(pc_ids)
 
         postal_coordinates = pc_mod.browse()
@@ -179,8 +198,8 @@ class TestPostalCoordinate(TransactionCase):
 
         # Step One
         ctx = {
-            'active_model': pc_mod._name,
-            'active_ids': postal_coordinates.ids,
+            "active_model": pc_mod._name,
+            "active_ids": postal_coordinates.ids,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
@@ -188,18 +207,19 @@ class TestPostalCoordinate(TransactionCase):
         cor_id = allow_duplicate(wz_id)
 
         ctx = {
-            'active_model': cr_mod._name,
-            'active_ids': cor_id.ids,
+            "active_model": cr_mod._name,
+            "active_ids": cor_id.ids,
         }
         wiz_adr_mod_ctx = wiz_adr_mod.with_context(ctx)
-        wz_id = wiz_adr_mod_ctx.create({'address_id': new_adr.id,
-                                        'invalidate': False})
+        wz_id = wiz_adr_mod_ctx.create(
+            {"address_id": new_adr.id, "invalidate": False}
+        )
         wz_id.change_address()
 
-        cor_ids = cr_mod.search([('address_id', '=', new_adr.id)])
+        cor_ids = cr_mod.search([("address_id", "=", new_adr.id)])
         self.assertNotEqual(cor_ids, False)
         self.assertNotEqual(cor_ids, cor_id)
-        pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
+        pc_ids = pc_mod.search([("address_id", "=", new_adr.id)])
         self.assertNotEqual(pc_ids, False)
         self.assertNotEqual(pc_ids, postal_coordinates)
 
@@ -219,21 +239,20 @@ class TestPostalCoordinate(TransactionCase):
             - create new co-residency
             - invalidate old co-residency and postal coordinates
         """
-        pc_mod, wz_mod = self.postal_model,\
-            self.allow_duplicate_wizard_model
+        pc_mod, wz_mod = self.postal_model, self.allow_duplicate_wizard_model
         cr_mod = self.co_residency_model
         wiz_adr_mod = self.cores_change_adr_model
-        new_adr = self.env.ref('mozaik_address.address_4')
+        new_adr = self.env.ref("mozaik_address.address_4")
 
         postal_XIDS = [
-            'mozaik_address.postal_coordinate_2',
-            'mozaik_address.postal_coordinate_2_duplicate_1',
-            'mozaik_address.postal_coordinate_2_duplicate_2',
+            "mozaik_address.postal_coordinate_2",
+            "mozaik_address.postal_coordinate_2_duplicate_1",
+            "mozaik_address.postal_coordinate_2_duplicate_2",
         ]
 
-        cor_ids = cr_mod.search([('address_id', '=', new_adr.id)])
+        cor_ids = cr_mod.search([("address_id", "=", new_adr.id)])
         self.assertFalse(cor_ids)
-        pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
+        pc_ids = pc_mod.search([("address_id", "=", new_adr.id)])
         self.assertFalse(pc_ids)
 
         postal_coordinates = pc_mod.browse()
@@ -242,8 +261,8 @@ class TestPostalCoordinate(TransactionCase):
 
         # Step One
         ctx = {
-            'active_model': pc_mod._name,
-            'active_ids': postal_coordinates.ids,
+            "active_model": pc_mod._name,
+            "active_ids": postal_coordinates.ids,
         }
         wz_mod_ctx = wz_mod.with_context(ctx)
         vals = wz_mod_ctx.default_get([])
@@ -251,18 +270,19 @@ class TestPostalCoordinate(TransactionCase):
         cor_id = allow_duplicate(wz_id)
 
         ctx = {
-            'active_model': cr_mod._name,
-            'active_ids': cor_id.ids,
+            "active_model": cr_mod._name,
+            "active_ids": cor_id.ids,
         }
         wiz_adr_mod_ctx = wiz_adr_mod.with_context(ctx)
-        wz_id = wiz_adr_mod_ctx .create({'address_id': new_adr.id,
-                                         'invalidate': True})
+        wz_id = wiz_adr_mod_ctx.create(
+            {"address_id": new_adr.id, "invalidate": True}
+        )
         wz_id.change_address()
 
-        cor_ids = cr_mod.search([('address_id', '=', new_adr.id)])
+        cor_ids = cr_mod.search([("address_id", "=", new_adr.id)])
         self.assertNotEqual(cor_ids, False)
         self.assertNotEqual(cor_ids, cor_id)
-        pc_ids = pc_mod.search([('address_id', '=', new_adr.id)])
+        pc_ids = pc_mod.search([("address_id", "=", new_adr.id)])
         self.assertNotEqual(pc_ids, False)
         self.assertNotEqual(pc_ids, postal_coordinates)
 

@@ -10,12 +10,14 @@ def migrate(cr, version):
     cr.execute(
         """
         ALTER TABLE res_partner ADD postal_coordinate_id INTEGER
-        """)
+        """
+    )
     cr.execute(
         """
         ALTER TABLE res_partner ADD FOREIGN KEY (postal_coordinate_id) 
         REFERENCES postal_coordinate (id)
-        """)
+        """
+    )
     _logger.info("updating postal_coordinate_id column")
     cr.execute(
         """
@@ -24,4 +26,5 @@ def migrate(cr, version):
          WHERE pc.partner_id = rp.id AND 
                pc.is_main IS TRUE AND 
                pc.active = rp.active
-        """)
+        """
+    )

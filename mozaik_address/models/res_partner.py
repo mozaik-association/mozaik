@@ -9,36 +9,49 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     _inactive_cascade = True
-    _allowed_inactive_link_models = ['res.partner']
+    _allowed_inactive_link_models = ["res.partner"]
 
     postal_coordinate_ids = fields.One2many(
-        'postal.coordinate', 'partner_id', 'Postal Coordinates',
-        domain=[('active', '=', True)], copy=False,
-        context={'force_recompute': True})
+        "postal.coordinate",
+        "partner_id",
+        "Postal Coordinates",
+        domain=[("active", "=", True)],
+        copy=False,
+        context={"force_recompute": True},
+    )
     postal_coordinate_inactive_ids = fields.One2many(
-        'postal.coordinate', 'partner_id', 'Postal Coordinates',
-        domain=[('active', '=', False)], copy=False)
+        "postal.coordinate",
+        "partner_id",
+        "Postal Coordinates",
+        domain=[("active", "=", False)],
+        copy=False,
+    )
 
     postal_coordinate_id = fields.Many2one(
-        "postal.coordinate", compute="_compute_main_address_componant",
-        string='Address', store=True, index=True)
+        "postal.coordinate",
+        compute="_compute_main_address_componant",
+        string="Address",
+        store=True,
+        index=True,
+    )
 
     address = fields.Char(
-        compute="_compute_main_address_componant", index=True, store=True)
+        compute="_compute_main_address_componant", index=True, store=True
+    )
 
     # Standard fields redefinition
     country_id = fields.Many2one(
-        compute="_compute_main_address_componant", index=True, store=True)
+        compute="_compute_main_address_componant", index=True, store=True
+    )
     city_id = fields.Many2one(
-        compute="_compute_main_address_componant", index=True, store=True)
-    zip = fields.Char(
-        compute="_compute_main_address_componant", store=True)
-    city = fields.Char(
-        compute="_compute_main_address_componant", store=True)
-    street = fields.Char(
-        compute="_compute_main_address_componant", store=True)
+        compute="_compute_main_address_componant", index=True, store=True
+    )
+    zip = fields.Char(compute="_compute_main_address_componant", store=True)
+    city = fields.Char(compute="_compute_main_address_componant", store=True)
+    street = fields.Char(compute="_compute_main_address_componant", store=True)
     street2 = fields.Char(
-        compute="_compute_main_address_componant", store=True)
+        compute="_compute_main_address_componant", store=True
+    )
 
     @api.multi
     @api.depends(
@@ -56,15 +69,19 @@ class ResPartner(models.Model):
         """
         Reset address fields with corresponding main postal coordinate ids
         """
-        coord_obj = self.env['postal.coordinate']
+        coord_obj = self.env["postal.coordinate"]
         coordinate_ids = coord_obj.sudo().search(
-            [('partner_id', 'in', self.ids),
-             ('is_main', '=', True),
-             ('active', '<=', True)])
+            [
+                ("partner_id", "in", self.ids),
+                ("is_main", "=", True),
+                ("active", "<=", True),
+            ]
+        )
         for partner in self:
             coord = coordinate_ids.filtered(
-                lambda s, p=partner: s.partner_id.id == p.id and
-                s.active == p.active)
+                lambda s, p=partner: s.partner_id.id == p.id
+                and s.active == p.active
+            )
             partner.postal_coordinate_id = coord
             partner.country_id = coord.address_id.country_id
             partner.city_id = coord.address_id.city_id
@@ -73,10 +90,11 @@ class ResPartner(models.Model):
             partner.street = coord.address_id.street
             partner.street2 = coord.address_id.street2
             if coord.vip:
-                partner.address = 'VIP'
+                partner.address = "VIP"
             elif coord.co_residency_id:
-                partner.address = '%s (%s)' % (
+                partner.address = "%s (%s)" % (
                     coord.address_id.name,
-                    coord.co_residency_id.display_name)
+                    coord.co_residency_id.display_name,
+                )
             else:
                 partner.address = coord.address_id.name
