@@ -58,7 +58,6 @@ class ChangeCoResidencyAddress(models.TransientModel):
 
         return res
 
-    @api.multi
     def change_address(self):
         self.ensure_one()
         co_res_obj = self.env["co.residency"]

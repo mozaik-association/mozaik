@@ -29,7 +29,6 @@ class PostalCoordinate(models.Model):
 
     _unicity_keys = "partner_id, %s" % _discriminant_field
 
-    @api.multi
     @api.onchange("unauthorized", "co_residency_id")
     def _onchange_unauthorized(self):
         self.ensure_one()
@@ -45,7 +44,6 @@ class PostalCoordinate(models.Model):
             }
         return {}
 
-    @api.multi
     def name_get(self):
         result = super().name_get()
         new_result = []

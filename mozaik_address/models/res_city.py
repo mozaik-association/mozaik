@@ -28,7 +28,6 @@ class ResCity(models.Model):
             .filtered("enforce_cities")
         )
 
-    @api.multi
     def name_get(self):
         result = []
         for record in self:

@@ -94,7 +94,6 @@ class AddressAddress(models.Model):
             self._get_default_country_code()
         )
 
-    @api.multi
     @api.depends(
         "zip_man",
         "city_man",
@@ -111,7 +110,6 @@ class AddressAddress(models.Model):
                 adrs.city_id and adrs.city_id.name or adrs.city_man or False
             )
 
-    @api.multi
     @api.depends(
         "box",
         "number",
@@ -124,7 +122,6 @@ class AddressAddress(models.Model):
             street = adrs.street_man or False
             adrs.street = " ".join([el for el in [street, number] if el])
 
-    @api.multi
     @api.depends(
         "zip",
         "box",
@@ -185,13 +182,11 @@ class AddressAddress(models.Model):
             ]
         )
 
-    @api.multi
     @api.onchange("country_id")
     def _onchange_country_id(self):
         for record in self:
             record.city_id = False
 
-    @api.multi
     @api.onchange("city_id")
     def _onchange_city_id(self):
         for record in self:
@@ -200,7 +195,6 @@ class AddressAddress(models.Model):
             record.zip_man = False
             record.city_man = False
 
-    @api.multi
     def copy_data(self, default=None):
         """
         Increase sequence value when duplicating address

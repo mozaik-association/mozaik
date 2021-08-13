@@ -53,7 +53,6 @@ class ResPartner(models.Model):
         compute="_compute_main_address_componant", store=True
     )
 
-    @api.multi
     @api.depends(
         "postal_coordinate_ids",
         "postal_coordinate_ids.address_id",

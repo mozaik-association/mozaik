@@ -72,7 +72,6 @@ class ChangeMainAddress(models.TransientModel):
             res["address_id"] = res["old_address_id"]
         return res
 
-    @api.multi
     def button_change_main_coordinate(self):
         postal_coordinate_ids = False
         if self.co_residency_id and self.move_co_residency:

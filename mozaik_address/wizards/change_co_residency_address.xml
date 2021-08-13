@@ -37,7 +37,6 @@
 
     <record id="change_co_residency_address_action" model="ir.actions.act_window">
         <field name="name">Change Co-Residency Address</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="src_model">co.residency</field>
         <field name="res_model">change.co.residency.address</field>

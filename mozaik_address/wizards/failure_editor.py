@@ -27,7 +27,6 @@ class FailureEditor(models.TransientModel):
         required=True,
     )
 
-    @api.multi
     @api.onchange("reason")
     def onchange_reason(self):
         self.ensure_one()

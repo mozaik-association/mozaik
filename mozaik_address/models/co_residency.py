@@ -28,7 +28,6 @@ class CoResidency(models.Model):
         "postal.coordinate", "co_residency_id", string="Postal Coordinates"
     )
 
-    @api.multi
     def name_get(self):
         """
         :rparam: list of (id, name)
@@ -47,7 +46,6 @@ class CoResidency(models.Model):
             res.append((record["id"], name))
         return res
 
-    @api.multi
     def unlink(self):
         """
         Force "undo allow duplicate" when deleting a co-residency

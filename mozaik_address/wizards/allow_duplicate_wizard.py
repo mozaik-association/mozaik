@@ -42,7 +42,6 @@ class AllowDuplicateWizard(models.TransientModel):
 
         return res
 
-    @api.multi
     def button_allow_duplicate(self):
         """
         Create co_residency if any.
