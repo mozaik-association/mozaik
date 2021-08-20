@@ -6,13 +6,16 @@ from odoo import api, models, fields
 
 class AddressAddress(models.Model):
 
-    _inherit = ['address.address']
+    _inherit = ["address.address"]
 
     address_local_street_id = fields.Many2one(
-        'address.local.street', string='Reference Street',
-        track_visibility='onchange')
+        "address.local.street",
+        string="Reference Street",
+        track_visibility="onchange",
+    )
     select_alternative_address_local_street = fields.Boolean(
-        'Use Alternative Reference Street', track_visibility='onchange')
+        "Use Alternative Reference Street", track_visibility="onchange"
+    )
 
     @api.multi
     @api.depends(
@@ -28,15 +31,20 @@ class AddressAddress(models.Model):
         res = super()._compute_street()
         for adrs in self:
             if adrs.address_local_street_id:
-                number = adrs.number or '-'
-                number = adrs.box and '%s/%s' % (number, adrs.box) or \
-                    adrs.number or False
+                number = adrs.number or "-"
+                number = (
+                    adrs.box
+                    and "%s/%s" % (number, adrs.box)
+                    or adrs.number
+                    or False
+                )
 
-                street = \
-                    adrs.address_local_street_id.local_street_alternative if \
-                    adrs.select_alternative_address_local_street else \
-                    adrs.address_local_street_id.local_street
-                adrs.street = ' '.join([el for el in [street, number] if el])
+                street = (
+                    adrs.address_local_street_id.local_street_alternative
+                    if adrs.select_alternative_address_local_street
+                    else adrs.address_local_street_id.local_street
+                )
+                adrs.street = " ".join([el for el in [street, number] if el])
         return res
 
     @api.multi
@@ -61,9 +69,9 @@ class AddressAddress(models.Model):
     @api.model
     def _get_key_field(self):
         key_fields = super()._get_key_field()
-        key_fields.update([('address_local_street_id', 'id')])
+        key_fields.update([("address_local_street_id", "id")])
         # reorder the OrderedDict
-        for value in ['street_man', 'number', 'box']:
+        for value in ["street_man", "number", "box"]:
             key_fields.move_to_end(value)
         return key_fields
 
