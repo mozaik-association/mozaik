@@ -27,7 +27,6 @@ class AddressLocalStreet(models.Model):
         )
     ]
 
-    @api.multi
     def name_get(self):
         """
         If a ``local_street_alternative`` is defined then name must be show

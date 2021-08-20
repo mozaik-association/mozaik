@@ -17,7 +17,6 @@ class AddressAddress(models.Model):
         "Use Alternative Reference Street", track_visibility="onchange"
     )
 
-    @api.multi
     @api.depends(
         "box",
         "number",
@@ -47,7 +46,6 @@ class AddressAddress(models.Model):
                 adrs.street = " ".join([el for el in [street, number] if el])
         return res
 
-    @api.multi
     @api.depends(
         "zip",
         "box",
@@ -75,13 +73,11 @@ class AddressAddress(models.Model):
             key_fields.move_to_end(value)
         return key_fields
 
-    @api.multi
     @api.onchange("zip")
     def _onchange_zip(self):
         for record in self:
             record.address_local_street_id = False
 
-    @api.multi
     @api.onchange("address_local_street_id")
     def _onchange_address_local_street_id(self):
         for record in self:
