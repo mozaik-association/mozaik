@@ -3,8 +3,9 @@
 
 from collections import OrderedDict
 
-from odoo import api, models, fields, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+
 from odoo.addons.mozaik_tools.tools import format_value
 
 
@@ -31,45 +32,52 @@ class AddressAddress(models.Model):
         "Country",
         required=True,
         index=True,
-        track_visibility="onchange",
+        tracking=True,
         default=lambda s: s._default_country_id(),
     )
-    enforce_cities = fields.Boolean(
-        related="country_id.enforce_cities", readonly=True
-    )
+    enforce_cities = fields.Boolean(related="country_id.enforce_cities", readonly=True)
     country_code = fields.Char(related="country_id.code", readonly=True)
     zip = fields.Char(compute="_compute_zip", store=True)
     city_id = fields.Many2one(
         "res.city",
-        string="City",
-        track_visibility="onchange",
-        oldname="address_local_zip_id",
+        string="City (Rel)",
+        tracking=True,
     )
-    zip_man = fields.Char(string="Zip", track_visibility="onchange")
+    zip_man = fields.Char(string="Zip (Text)", tracking=True)
     city = fields.Char(compute="_compute_zip", store=True)
     city_man = fields.Char(
-        string="City", track_visibility="onchange", oldname="town_man"
+        string="City (Text)",
+        tracking=True,
     )
     street = fields.Char(compute="_compute_street", store=True)
-    street_man = fields.Char("Street", track_visibility="onchange")
-    street2 = fields.Char(track_visibility="onchange")
-    number = fields.Char(track_visibility="onchange")
-    box = fields.Char(track_visibility="onchange")
-    sequence = fields.Integer(
-        track_visibility="onchange", default=0, group_operator="min"
+    street_man = fields.Char("Street (Text)", tracking=True)
+    street2 = fields.Char(
+        tracking=True,
     )
-    postal_coordinate_ids = fields.One2many(
-        "postal.coordinate",
-        "address_id",
-        string="Postal Coordinates",
+    number = fields.Char(
+        tracking=True,
+    )
+    box = fields.Char(
+        tracking=True,
+    )
+    sequence = fields.Integer(tracking=True, default=0, group_operator="min")
+    partner_ids = fields.One2many(
+        "res.partner",
+        "address_address_id",
+        string="Partners",
         domain=[("active", "=", True)],
         context={"force_recompute": True},
     )
-    postal_coordinate_inactive_ids = fields.One2many(
-        "postal.coordinate",
-        "address_id",
-        string="Postal Coordinates",
+    partner_inactive_ids = fields.One2many(
+        "res.partner",
+        "address_address_id",
+        string="Partners (inactive)",
         domain=[("active", "=", False)],
+    )
+    failure_date = fields.Datetime(
+        "Last Failure Date",
+        copy=False,
+        tracking=True,
     )
 
     @api.model
@@ -103,12 +111,8 @@ class AddressAddress(models.Model):
     )
     def _compute_zip(self):
         for adrs in self:
-            adrs.zip = (
-                adrs.city_id and adrs.city_id.zipcode or adrs.zip_man or False
-            )
-            adrs.city = (
-                adrs.city_id and adrs.city_id.name or adrs.city_man or False
-            )
+            adrs.zip = adrs.city_id and adrs.city_id.zipcode or adrs.zip_man or False
+            adrs.city = adrs.city_id and adrs.city_id.name or adrs.city_man or False
 
     @api.depends(
         "box",
@@ -146,9 +150,7 @@ class AddressAddress(models.Model):
                 (adrs.country_code == country_code) and adrs.zip or False,
                 adrs.city or False,
                 (adrs.country_code != country_code) and "-" or False,
-                (adrs.country_code != country_code)
-                and adrs.country_id.name
-                or False,
+                (adrs.country_code != country_code) and adrs.country_id.name or False,
             ]
             adr = " ".join([el for el in elts if el])
 
@@ -202,8 +204,7 @@ class AddressAddress(models.Model):
         self.ensure_one()
         cr = self.env.cr
         cr.execute(
-            "SELECT MAX(sequence) FROM address_address "
-            "WHERE technical_name=%s",
+            "SELECT MAX(sequence) FROM address_address " "WHERE technical_name=%s",
             (self.technical_name,),
         )
         sequence = cr.fetchone()

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+    <record model="res.partner" id="res_partner_thierry">
+        <field name="name">Thierry</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_pauline">
+        <field name="name">Pauline</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_paul">
+        <field name="name">Paul</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_nicolas">
+        <field name="name">Nicolas</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_sandra">
+        <field name="name">Sandra</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_marc">
+        <field name="name">Marc</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_jacques">
+        <field name="name">Jacques</field>
+    </record>
+
+</odoo>

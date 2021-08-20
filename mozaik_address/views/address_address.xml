@@ -7,13 +7,21 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name" />
-                <field name="street_man" />
-                <field name="city_id" />
+                <field name="street_man" string="Street" />
+                <field name="city_id" string="City" />
                 <field name="country_id" />
 
                 <group expand="0" string="Group By..." name="group_by">
-                    <filter string="Zip" context="{'group_by': 'city_id'}"/>
-                    <filter string="Country" context="{'group_by': 'country_id'}"/>
+                    <filter
+                        string="Zip"
+                        name="group_zip"
+                        context="{'group_by': 'city_id'}"
+                    />
+                    <filter
+                        string="Country"
+                        name="group_country_id"
+                        context="{'group_by': 'country_id'}"
+                    />
                 </group>
             </search>
         </field>
@@ -25,7 +33,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
-                <field name="city_id" />
+                <field name="city_id" string="City" />
                 <field name="country_id" />
             </tree>
         </field>
@@ -37,97 +45,111 @@
         <field name="arch" type="xml">
             <form>
                <header>
-                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                    <div
+                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                    >
                     </div>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
-                                confirm="Archive/reactivate address: proceed anyway?"
-                                groups="mozaik_abstract_model.res_groups_archiving_manager">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                            confirm="Archive/reactivate address: proceed anyway?"
+                            groups="mozaik_abstract_model.res_groups_archiving_manager"
+                        >
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options="{&quot;terminology&quot;: &quot;archive&quot;}"
+                            />
                         </button>
-                        <button string="All Details" class="oe_stat_button" icon="fa-address-card" name="%(postal_coordinate_action)d"
-                                type="action" attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_address_id': id,
-                                          'default_address_id': id,
-                                          'search_default_all': True}" />
                     </div>
                     <div class="oe_title" attrs="{'invisible': [('id','=',False)]}">
                         <h1><field name="name" /></h1>
                     </div>
-                    <group name="country_zip" >
+                    <group name="country_zip">
                         <group>
-                            <field name="country_id"/>
+                            <field name="country_id" />
                         </group>
                         <group>
-                            <field name="enforce_cities" invisible="1"/>
-                            <field name="city_id"
-                                   attrs="{'invisible': [('enforce_cities','!=', True)],
-                                           'required': [('enforce_cities','=', True)]}"/>
-                            <field name="zip_man"
-                                   attrs="{'invisible': [('enforce_cities','=', True)],
-                                           'required': [('enforce_cities','!=', True)]}"/>
-                            <field name="city_man"
-                                   attrs="{'invisible': [('enforce_cities','=', True)],
-                                           'required': [('enforce_cities','!=', True)]}"/>
+                            <field name="enforce_cities" invisible="1" />
+                            <field
+                                name="city_id"
+                                string="City"
+                                attrs="{'invisible': [('enforce_cities','!=', True)],
+                                           'required': [('enforce_cities','=', True)]}"
+                            />
+                            <field
+                                name="zip_man"
+                                string="Zip"
+                                attrs="{'invisible': [('enforce_cities','=', True)],
+                                           'required': [('enforce_cities','!=', True)]}"
+                            />
+                            <field
+                                name="city_man"
+                                string="City"
+                                attrs="{'invisible': [('enforce_cities','=', True)],
+                                           'required': [('enforce_cities','!=', True)]}"
+                            />
                         </group>
                     </group>
                     <group>
                         <group name="streets">
-                            <field name="street_man"/>
+                            <field name="street_man" string="Street" />
                             <field name="street2" />
                         </group>
                         <group name="numbers">
-                            <field name="number"/>
-                            <field name="box"/>
+                            <field name="number" />
+                            <field name="box" />
                             <field name="sequence" />
+                            <field name="failure_date" />
                         </group>
                     </group>
                     <group name="status" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
-                            <field name="create_date" />
-                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            <field
+                                name="expire_date"
+                                attrs="{'invisible': [('active','=',True)]}"
+                            />
                         </group>
                         <group name="other">
                         </group>
                     </group>
                     <notebook>
-                        <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                            <field name="postal_coordinate_ids" context="{'default_address_id': id}">
-                                <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
-                                    <field name="partner_id"/>
-                                    <field name="coordinate_category_id" />
-                                    <field name="is_main" />
-                                    <field name="unauthorized" />
-                                    <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
-                                    <field name="is_duplicate_detected" invisible="1"/>
+                        <page
+                            string="Partners"
+                            attrs="{'invisible': [('id','=',False)]}"
+                            autofocus="autofocus"
+                        >
+                            <field
+                                name="partner_ids"
+                                context="{'default_address_address_id': id}"
+                            >
+                                <tree>
+                                    <field name="name" />
                                 </tree>
                             </field>
-                            <field name="postal_coordinate_inactive_ids"
-                                   readonly="1" attrs="{'invisible': [('active','=',True)]}">
-                                <tree decoration-danger="unauthorized==True">
-                                    <field name="partner_id"/>
-                                    <field name="coordinate_category_id" />
-                                    <field name="is_main" />
-                                    <field name="unauthorized" />
-                                    <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
+                            <field
+                                name="partner_inactive_ids"
+                                readonly="1"
+                                attrs="{'invisible': [('active','=',True)]}"
+                            >
+                                <tree>
+                                    <field name="name" />
                                 </tree>
                             </field>
-                        </page>
-                        <page name="dev" string="More Info" groups="base.group_erp_manager">
-                            <group name="moreinfo">
-                                <field name="country_code"/>
-                                <field name="zip"/>
-                                <field name="city" />
-                                <field name="street"/>
-                                <field name="technical_name"/>
-                            </group>
                         </page>
                     </notebook>
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -142,11 +164,21 @@
         <field name="search_view_id" ref="address_address_search_view" />
     </record>
 
+    <record model="ir.ui.menu" id="postal_coordinate_submenu">
+        <field name="name">Postal Coordinates</field>
+        <field name="sequence">2</field>
+        <field name="parent_id" ref="contacts.menu_contacts" />
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.res_partner_menu_config">
+        <field name="sequence">50</field>
+    </record>
+
     <record model="ir.ui.menu" id="address_address_menu">
         <field name="name">Addresses</field>
-        <field name="parent_id" ref="postal_coordinate_submenu"/>
-        <field name="action" ref="address_address_action"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="postal_coordinate_submenu" />
+        <field name="action" ref="address_address_action" />
+        <field name="sequence" eval="20" />
     </record>
 
 

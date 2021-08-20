@@ -10,7 +10,6 @@ exclude: |
   ^mass_mail_queue_job/|
   ^mass_mailing_distribution_list/|
   ^mozaik_account/|
-  ^mozaik_address/|
   ^mozaik_address_local_street/|
   ^mozaik_automatic_supporter/|
   ^mozaik_committee/|
@@ -37,7 +36,6 @@ exclude: |
   ^mozaik_sample_customization/|
   ^mozaik_subscription_price/|
   ^mozaik_thesaurus/|
-  ^mozaik_tools/|
   ^mozaik_virtual_assembly_instance/|
   ^mozaik_virtual_model/|
   ^mozaik_virtual_partner_instance/|

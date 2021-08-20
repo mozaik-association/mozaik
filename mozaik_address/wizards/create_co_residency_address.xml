@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="create_co_residency_address_wizard" model="ir.ui.view">
+        <field name="name">create.co.residency.address.wizard</field>
+        <field name="model">create.co.residency.address</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="line" />
+                    <field name="line2" />
+                    <field
+                        name="partner_ids"
+                        invisible="1"
+                    /> <!-- To trigger the on change-->
+                </group>
+                <footer>
+                    <button
+                        string="Create"
+                        name="create_co_residency"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+               </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="create_co_residency_address_action" model="ir.actions.act_window">
+        <field name="name">Create Co-Residency Address</field>
+        <field name="view_mode">form</field>
+        <field name="res_model">create.co.residency.address</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="create_co_residency_address_wizard" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
+    </record>
+
+</odoo>

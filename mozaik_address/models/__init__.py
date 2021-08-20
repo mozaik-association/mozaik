@@ -4,6 +4,5 @@
 from . import res_country
 from . import res_city
 from . import address_address
-from . import postal_coordinate
 from . import co_residency
 from . import res_partner

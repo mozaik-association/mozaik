@@ -1,7 +1,8 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields, _
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class CoResidency(models.Model):
@@ -15,18 +16,17 @@ class CoResidency(models.Model):
     _inactive_cascade = True
 
     address_id = fields.Many2one(
-        "address.address",
+        comodel_name="address.address",
         string="Address",
-        required=True,
+        compute="_compute_address_id",
+        store=True,
         readonly=True,
         index=True,
     )
-    line = fields.Char("Line 1", track_visibility="onchange")
-    line2 = fields.Char("Line 2", track_visibility="onchange")
+    line = fields.Char("Line 1", tracking=True)
+    line2 = fields.Char("Line 2", tracking=True)
 
-    postal_coordinate_ids = fields.One2many(
-        "postal.coordinate", "co_residency_id", string="Postal Coordinates"
-    )
+    partner_ids = fields.One2many("res.partner", "co_residency_id", string="Partners")
 
     def name_get(self):
         """
@@ -40,20 +40,21 @@ class CoResidency(models.Model):
             if not record.line and not record.line2:
                 name = _("Co-Residency to complete")
             else:
-                name = "/".join(
-                    [line for line in [record.line, record.line2] if line]
-                )
+                name = "/".join([line for line in [record.line, record.line2] if line])
             res.append((record["id"], name))
         return res
 
-    def unlink(self):
-        """
-        Force "undo allow duplicate" when deleting a co-residency
-        """
-        cids = self.env["postal.coordinate"]
-        for c in self:
-            cids += c.postal_coordinate_ids
-        if cids:
-            cids.button_undo_allow_duplicate()
-        res = super().unlink()
-        return res
+    @api.constrains("partner_ids")
+    def _check_partner_ids(self):
+        for co_residency in self:
+            if any(not p.address_address_id for p in co_residency.partner_ids):
+                raise ValidationError(_("All co-resident must have a address"))
+            if len(co_residency.partner_ids.mapped("address_address_id")) != 1:
+                raise ValidationError(_("All co-resident must share the same address"))
+
+    @api.depends("partner_ids", "partner_ids.address_address_id")
+    def _compute_address_id(self):
+        for co_residency in self:
+            co_residency.address_id = co_residency.partner_ids.mapped(
+                "address_address_id"
+            )

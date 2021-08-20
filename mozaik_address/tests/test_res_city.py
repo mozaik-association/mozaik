@@ -19,9 +19,7 @@ class TestResCity(TransactionCase):
         def_country = self.env["res.city"]._default_country_id()
         self.assertFalse(def_country)
         # enforce cities
-        self.env["res.country"]._country_default_get("BE")[
-            "enforce_cities"
-        ] = True
+        self.env["res.country"]._country_default_get("BE")["enforce_cities"] = True
         def_country = self.env["res.city"]._default_country_id()
         self.assertTrue(def_country)
         return

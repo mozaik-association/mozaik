@@ -46,7 +46,7 @@ class TestCommonFailureEditor(CommonFailureEditor, TransactionCase):
         super(TestCommonFailureEditor, self).setUp()
         registry = self.env.registry
         # We must be in test mode before create/init new models
-        registry.enter_test_mode()
+        registry.enter_test_mode(self.env.cr)
         # Add the cleanup to disable test mode after this setup as finished
         self.addCleanup(self.registry.leave_test_mode)
         self._init_test_models()

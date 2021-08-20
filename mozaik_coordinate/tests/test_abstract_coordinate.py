@@ -18,7 +18,7 @@ class NotAbstractCoordinate(models.Model):
     _abstract = True
 
     _discriminant_field = "discr_field"
-    _unicity_keys = "id"
+    _unicity_keys = "partner_id"
 
     name = fields.Char()
     discr_field = fields.Char()
@@ -42,7 +42,7 @@ class ResPartner(models.Model):
     not_abstract_coordinate_ids = fields.One2many(
         NotAbstractCoordinate._name,
         "partner_id",
-        "A test field",
+        "A test field (o2m)",
     )
 
     @api.depends("not_abstract_coordinate_ids")
@@ -105,7 +105,7 @@ class TestAbstractCoordinate(CommonAbstractCoordinate, TransactionCase):
         super(TestAbstractCoordinate, self).setUp()
         registry = self.env.registry
         # We must be in test mode before create/init new models
-        registry.enter_test_mode()
+        registry.enter_test_mode(self.env.cr)
         # Add the cleanup to disable test mode after this setup as finished
         self.addCleanup(self.registry.leave_test_mode)
         self._init_test_models()

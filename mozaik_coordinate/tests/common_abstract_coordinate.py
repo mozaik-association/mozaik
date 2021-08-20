@@ -45,6 +45,7 @@ class CommonAbstractCoordinate(CommonCoordinate):
         self.env.cr._default_log_exceptions = False
         with self.assertRaises(ValidationError):
             self.model_coordinate.create(values)
+            self.model_coordinate.flush()
         self.env.cr._default_log_exceptions = True
         return
 

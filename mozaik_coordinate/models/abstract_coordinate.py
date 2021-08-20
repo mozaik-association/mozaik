@@ -7,7 +7,7 @@ class AbstractCoordinate(models.AbstractModel):
     _name = "abstract.coordinate"
     _inherit = ["abstract.duplicate"]
     _description = "Abstract Coordinate"
-    _order = "partner_id, expire_date, is_main desc, coordinate_type"
+    _order = "expire_date, is_main desc, coordinate_type"
 
     _discriminant_field = None
     _log_access = True
@@ -23,7 +23,7 @@ class AbstractCoordinate(models.AbstractModel):
     coordinate_category_id = fields.Many2one(
         "coordinate.category",
         string="Coordinate Category",
-        track_visibility="onchange",
+        tracking=True,
         index=True,
     )
     coordinate_type = fields.Selection(
@@ -39,31 +39,28 @@ class AbstractCoordinate(models.AbstractModel):
     )
     unauthorized = fields.Boolean(
         default=False,
-        track_visibility="onchange",
+        tracking=True,
     )
     vip = fields.Boolean(
         "VIP",
         default=False,
-        track_visibility="onchange",
+        tracking=True,
     )
     failure_counter = fields.Integer(
         "Failures Counter",
         default=0,
         copy=False,
-        track_visibility="onchange",
-        oldname="bounce_counter",
+        tracking=True,
     )
     failure_description = fields.Text(
         "Last Failure Description",
         copy=False,
-        track_visibility="onchange",
-        oldname="bounce_description",
+        tracking=True,
     )
     failure_date = fields.Datetime(
         "Last Failure Date",
         copy=False,
-        track_visibility="onchange",
-        oldname="bounce_date",
+        tracking=True,
     )
 
     @api.model
@@ -228,60 +225,6 @@ class AbstractCoordinate(models.AbstractModel):
         """
         self.write({"failure_counter": 0})
 
-    def _set_as_main(self):
-        """
-        This method allows to switch main coordinate:
-        1) Reset is_main of previous main coordinate
-        2) Set is_main of new main coordinate
-        :return: bool
-        """
-        self.ensure_one()
-        # 1) Reset is_main of previous main coordinate
-        target_domain = self._get_target_domain(
-            self.partner_id.id, self.coordinate_type
-        )
-        mode = (
-            "deactivate" if self.env.context.get("invalidate") else "secondary"
-        )
-        fields_to_update = self._get_fields_to_update(mode)
-        self._search_and_update(target_domain, fields_to_update)
-        # 2) Set is_main of new main coordinate
-        return self.write({"is_main": True})
-
-    @api.model
-    def _change_main_coordinate(self, partners, value):
-        """
-        Update main coordinate for given partners with given values.
-        The coordinate is created if not exists
-        :param partners: res.partner recordset
-        :param value: int or str
-        :return: self recordset
-        """
-        main_coordinates = self.browse()
-        domain = [
-            ("partner_id", "in", partners.ids),
-            (self._discriminant_field, "=", value),
-        ]
-        all_coordinates = self.sudo().search(domain)
-        for partner in partners:
-            coordinates = all_coordinates.filtered(
-                lambda s, p=partner: s.partner_id == p
-            )
-            if not coordinates:
-                coordinate = self.create(
-                    {
-                        "partner_id": partner.id,
-                        self._discriminant_field: value,
-                        "is_main": True,
-                    }
-                )
-                all_coordinates |= coordinate
-                main_coordinates |= coordinate
-            elif not any(coordinates.mapped("is_main")):
-                coordinates._set_as_main()
-                main_coordinates |= coordinates
-        return main_coordinates
-
     @api.model
     def _search_and_update(self, target_domain, fields_to_update):
         """
@@ -298,15 +241,13 @@ class AbstractCoordinate(models.AbstractModel):
             )
 
     @api.model
-    def _get_target_domain(self, partner_id, coordinate_type):
+    def _get_target_domain(self, coordinate_type):
         """
         Get a domain to look for the target
-        :param partner_id: int
         :param coordinate_type: str
         :return: list of tuple (domain)
         """
         return [
-            ("partner_id", "=", partner_id),
             ("coordinate_type", "=", coordinate_type),
             ("is_main", "=", True),
         ]

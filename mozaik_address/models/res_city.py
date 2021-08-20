@@ -23,9 +23,7 @@ class ResCity(models.Model):
     @api.model
     def _default_country_id(self):
         return (
-            self.env["address.address"]
-            ._default_country_id()
-            .filtered("enforce_cities")
+            self.env["address.address"]._default_country_id().filtered("enforce_cities")
         )
 
     def name_get(self):
@@ -40,6 +38,4 @@ class ResCity(models.Model):
         if not (name == "" and operator == "ilike"):
             args = list(args or [])
             args += ["|", ("zipcode", operator, name)]
-        return super().name_search(
-            name=name, args=args, operator=operator, limit=limit
-        )
+        return super().name_search(name=name, args=args, operator=operator, limit=limit)

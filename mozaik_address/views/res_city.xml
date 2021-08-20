@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='state_id']" position="after">
-                <field name="sequence"/>
+                <field name="sequence" />
             </xpath>
 
         </field>
@@ -23,45 +23,61 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button string="Addresses"
-                                name="%(address_address_action)d"
-                                type="action"
-                                icon="fa-envelope"
-                                class="oe_stat_button"
-                                context="{'search_default_city_id': id,'default_city_id': id}"/>
+                        <button
+                            string="Addresses"
+                            name="%(address_address_action)d"
+                            type="action"
+                            icon="fa-envelope"
+                            class="oe_stat_button"
+                            context="{'search_default_city_id': id,'default_city_id': id}"
+                        />
                     </div>
                     <div class="oe_title" name="title">
-                        <label for="zipcode" class="oe_edit_only"/>
+                        <label for="zipcode" class="oe_edit_only" />
                         <h1><field name="zipcode" placeholder="1050, 4000..." /></h1>
-                        <label for="name" class="oe_edit_only"/>
+                        <label for="name" class="oe_edit_only" />
                         <h1><field name="name" placeholder="Ixelles, Liège..." /></h1>
-                        <label for="country_id" class="oe_edit_only"/>
-                        <h1><field name="country_id"/></h1>
+                        <label for="country_id" class="oe_edit_only" />
+                        <h1><field name="country_id" /></h1>
                     </div>
                     <notebook>
                         <page name="info" string="Info">
                             <group name="data">
-                                <field name="sequence"/>
+                                <field name="sequence" />
                             </group>
-                            <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group
+                                name="state"
+                                attrs="{'invisible': [('id','=',False)]}"
+                            >
                                 <group name="validity">
                                     <field name="create_date" />
-                                    <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                                    <field
+                                        name="expire_date"
+                                        attrs="{'invisible': [('active','=',True)]}"
+                                    />
                                 </group>
                                 <group name="other">
                                 </group>
                             </group>
                         </page>
-                        <page name="dev" string="More Info" groups="base.group_erp_manager">
+                        <page
+                            name="dev"
+                            string="More Info"
+                            groups="base.group_erp_manager"
+                        >
                             <group name="moreinfo">
-                                <field name="active"/>
+                                <field name="active" />
                             </group>
                         </page>
                     </notebook>
 
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -70,9 +86,9 @@
 
     <record model="ir.ui.menu" id="address_local_zip_menu">
         <field name="name">Cities</field>
-        <field name="parent_id" ref="contacts.menu_localisation"/>
-        <field name="action" ref="base_address_city.action_res_city_tree"/>
-        <field name="sequence" eval="9"/>
+        <field name="parent_id" ref="contacts.menu_localisation" />
+        <field name="action" ref="base_address_city.action_res_city_tree" />
+        <field name="sequence" eval="9" />
     </record>
 
 </odoo>
