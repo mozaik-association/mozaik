@@ -6,15 +6,35 @@
         <field name="model">address.local.street</field>
         <field name="arch" type="xml">
             <search>
-                <field name="local_street" string="Street" filter_domain="['|',('local_street','ilike', self),('local_street_alternative','ilike', self)]" />
-                <field name="local_zip" string="Zip"/>
+                <field
+                    name="local_street"
+                    string="Street"
+                    filter_domain="['|',('local_street','ilike', self),('local_street_alternative','ilike', self)]"
+                />
+                <field name="local_zip" string="Zip" />
 
-                <filter name="disabled" string="Obsolete Streets" domain="[('disabled','=',True)]" />
-                <separator/>
-                <filter name="with_alt" string="With Alternative" domain="[('local_street_alternative','!=',False)]" />
-                <filter name="without_alt" string="Without Alternative" domain="[('local_street_alternative','=',False)]" />
+                <filter
+                    name="disabled"
+                    string="Obsolete Streets"
+                    domain="[('disabled','=',True)]"
+                />
+                <separator />
+                <filter
+                    name="with_alt"
+                    string="With Alternative"
+                    domain="[('local_street_alternative','!=',False)]"
+                />
+                <filter
+                    name="without_alt"
+                    string="Without Alternative"
+                    domain="[('local_street_alternative','=',False)]"
+                />
                 <group expand="0" name="group_by">
-                    <filter name="group_by_zip" string="Zip" context="{'group_by': 'local_zip'}"/>
+                    <filter
+                        name="group_by_zip"
+                        string="Zip"
+                        context="{'group_by': 'local_zip'}"
+                    />
                 </group>
             </search>
         </field>
@@ -43,23 +63,33 @@
                 </header>
                 <sheet>
                     <div class="oe_title" name="title">
-                        <label for="local_zip" class="oe_edit_only"/>
+                        <label for="local_zip" class="oe_edit_only" />
                         <h1><field name="local_zip" placeholder="1040, 4000,..." /></h1>
-                        <label for="local_street" class="oe_edit_only"/>
-                        <h1><field name="local_street" placeholder="Local Street..." /></h1>
+                        <label for="local_street" class="oe_edit_only" />
+                        <h1><field
+                                name="local_street"
+                                placeholder="Local Street..."
+                            /></h1>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons"/>
+                    <div class="oe_right oe_button_box" name="buttons" />
                     <notebook>
                         <page string="Info" autofocus="autofocus">
                             <group>
-                                <field name="local_street_alternative" placeholder="Local Street Alternative..." />
+                                <field
+                                    name="local_street_alternative"
+                                    placeholder="Local Street Alternative..."
+                                />
                                 <field name="disabled" />
                             </group>
                         </page>
-                        <page name="dev" string="More Info" groups="base.group_erp_manager">
+                        <page
+                            name="dev"
+                            string="More Info"
+                            groups="base.group_erp_manager"
+                        >
                             <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="identifier"/>
+                                <field name="id" />
+                                <field name="identifier" />
                             </group>
                         </page>
                     </notebook>
@@ -79,9 +109,9 @@
 
     <record model="ir.ui.menu" id="address_local_street_menu">
         <field name="name">Streets</field>
-        <field name="parent_id" ref="contacts.menu_localisation"/>
-        <field name="action" ref="address_local_street_action"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="contacts.menu_localisation" />
+        <field name="action" ref="address_local_street_action" />
+        <field name="sequence" eval="10" />
     </record>
 
 </odoo>

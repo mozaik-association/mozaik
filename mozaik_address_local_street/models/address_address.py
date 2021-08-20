@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields
+from odoo import api, fields, models
 
 
 class AddressAddress(models.Model):
@@ -11,10 +11,11 @@ class AddressAddress(models.Model):
     address_local_street_id = fields.Many2one(
         "address.local.street",
         string="Reference Street",
-        track_visibility="onchange",
+        tracking=True,
     )
     select_alternative_address_local_street = fields.Boolean(
-        "Use Alternative Reference Street", track_visibility="onchange"
+        "Use Alternative Reference Street",
+        tracking=True,
     )
 
     @api.depends(
@@ -32,10 +33,7 @@ class AddressAddress(models.Model):
             if adrs.address_local_street_id:
                 number = adrs.number or "-"
                 number = (
-                    adrs.box
-                    and "%s/%s" % (number, adrs.box)
-                    or adrs.number
-                    or False
+                    adrs.box and "%s/%s" % (number, adrs.box) or adrs.number or False
                 )
 
                 street = (

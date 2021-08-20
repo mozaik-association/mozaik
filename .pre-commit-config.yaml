@@ -10,7 +10,6 @@ exclude: |
   ^mass_mail_queue_job/|
   ^mass_mailing_distribution_list/|
   ^mozaik_account/|
-  ^mozaik_address_local_street/|
   ^mozaik_automatic_supporter/|
   ^mozaik_committee/|
   ^mozaik_communication/|

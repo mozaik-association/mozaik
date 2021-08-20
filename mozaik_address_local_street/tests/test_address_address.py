@@ -25,9 +25,7 @@ class TestAddressAddress(TransactionCase):
             "Grand-Place -/4b - 4500 Huy",
             "Create address fails with wrong name",
         )
-        self.assertEqual(
-            adr.zip, "4500", "Create address fails with wrong zip"
-        )
+        self.assertEqual(adr.zip, "4500", "Create address fails with wrong zip")
         self.assertEqual(
             adr.street,
             "Grand-Place -/4b",

@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields, _
+from odoo import _, api, fields, models
 
 
 class AddressLocalStreet(models.Model):
@@ -21,9 +21,7 @@ class AddressLocalStreet(models.Model):
         (
             "check_unicity_street",
             "unique(local_zip,identifier)",
-            _(
-                "This local street identifier already exists for this zip code!"
-            ),
+            _("This local street identifier already exists for this zip code!"),
         )
     ]
 

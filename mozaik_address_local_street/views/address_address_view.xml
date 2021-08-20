@@ -2,14 +2,19 @@
 <odoo>
 
     <record id="address_address_search_view" model="ir.ui.view">
-        <field name="name">address.address.search (in mozaik_address_local_street)</field>
+        <field
+            name="name"
+        >address.address.search (in mozaik_address_local_street)</field>
         <field name="model">address.address</field>
         <field name="inherit_id" ref="mozaik_address.address_address_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='country_id']" position="after">
-                <filter name="non_standard_streets" string="Non-standard Streets"
-                        domain="[('address_local_street_id', '=', False),('enforce_cities', '=', True),('street_man', '!=', False)]"
-                        help="Not standard streets" />
+                <filter
+                    name="non_standard_streets"
+                    string="Non-standard Streets"
+                    domain="[('address_local_street_id', '=', False),('enforce_cities', '=', True),('street_man', '!=', False)]"
+                    help="Not standard streets"
+                />
             </xpath>
         </field>
     </record>
@@ -20,15 +25,22 @@
         <field name="inherit_id" ref="mozaik_address.address_address_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='street_man']" position="before">
-                <field name="address_local_street_id"
-                       domain="[('local_zip','=',zip),('disabled','=',False)]"
-                       attrs="{'invisible': [('enforce_cities','!=', True)]}"/>
-                <field name="select_alternative_address_local_street"
-                       attrs="{'invisible': [('address_local_street_id','=', False)]}"/>
+                <field name="zip" invisible="1" />
+                <field
+                    name="address_local_street_id"
+                    domain="[('local_zip','=',zip),('disabled','=',False)]"
+                    attrs="{'invisible': [('enforce_cities','!=', True)]}"
+                />
+                <field
+                    name="select_alternative_address_local_street"
+                    attrs="{'invisible': [('address_local_street_id','=', False)]}"
+                />
             </xpath>
 
             <xpath expr="//field[@name='street_man']" position="attributes">
-                <attribute name="attrs">{'invisible': [('address_local_street_id','!=', False)]}</attribute>
+                <attribute
+                    name="attrs"
+                >{'invisible': [('address_local_street_id','!=', False)]}</attribute>
             </xpath>
         </field>
     </record>
