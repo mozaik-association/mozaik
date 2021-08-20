@@ -23,3 +23,10 @@ class TestResCity(TransactionCase):
         def_country = self.env["res.city"]._default_country_id()
         self.assertTrue(def_country)
         return
+
+    def test_res_city(self):
+        c1 = self.env.ref("mozaik_address.res_city_1")
+        self.assertEqual(c1.display_name, c1.zipcode + " " + c1.name)
+        c1.zipcode = "2541"
+        c1.invalidate_cache()
+        self.assertEqual(c1.display_name, c1.zipcode + " " + c1.name)
