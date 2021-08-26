@@ -25,7 +25,6 @@ exclude: |
   ^mozaik_membership_mandate/|
   ^mozaik_membership_request/|
   ^mozaik_partner_unauthorized/|
-  ^mozaik_person/|
   ^mozaik_phone/|
   ^mozaik_postal_mail/|
   ^mozaik_relation_coordinate/|
