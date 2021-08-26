@@ -16,7 +16,6 @@ class ResPartner(models.Model):
         index=True,
     )
 
-    @api.multi
     def _get_names(self, reverse=False, usual=False):
         """
         Return firstname and lastname in an iterable for one partner
@@ -31,7 +30,6 @@ class ResPartner(models.Model):
             names = list(reversed(names))
         return names
 
-    @api.multi
     @api.depends(
         'is_company',
         'firstname', 'lastname', 'usual_firstname', 'usual_lastname')
@@ -49,7 +47,6 @@ class ResPartner(models.Model):
 
             partner.usual_name = u_name
 
-    @api.multi
     def _sanitize_names(self):
         """
         Coerce *name and usual_*name
@@ -78,7 +75,6 @@ class ResPartner(models.Model):
         res.with_context(escape_sanitize=True)._sanitize_names()
         return res
 
-    @api.multi
     def write(self, values):
         """
         Sanitize names after write()
