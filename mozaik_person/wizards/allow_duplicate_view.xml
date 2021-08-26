@@ -4,7 +4,7 @@
     <record id="allow_duplicate_action" model="ir.actions.act_window">
         <field name="name">Allow Duplicates</field>
         <field name="view_mode">form</field>
-        <field name="src_model">res.partner</field>
+        <field name="binding_model">res.partner</field>
         <field name="res_model">allow.duplicate.wizard</field>
         <field name="multi" eval="1"/>
         <field name="target">new</field>

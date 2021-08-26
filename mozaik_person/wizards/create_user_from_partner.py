@@ -53,7 +53,6 @@ class CreateUserFromPartner(models.TransientModel):
 
         return res
 
-    @api.multi
     def create_user_from_partner(self):
         """
         Create a user based on the selected partner (active_id) and associate

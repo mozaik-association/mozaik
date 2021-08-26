@@ -4,14 +4,14 @@
     'name': 'Mozaik: Persons',
     'summary': """
         Manage duplicates, add several names and identifier""",
-    'version': '14.0.1.0.0',
+    'version': "14.0.1.0.0",
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://github.com/OCA/mozaik',
     'category': 'Political Association',
     'depends': [
         'base',
-        'contacts',
+        'mail',
 
         'base_user_role',
         'partner_usual_firstname',
@@ -35,5 +35,5 @@
     'demo': [
         'demo/res_partner.xml',
     ],
-    "installable": False,
+    "installable": True,
 }

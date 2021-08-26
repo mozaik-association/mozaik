@@ -41,7 +41,7 @@
     <record id="create_user_from_partner_action" model="ir.actions.act_window">
         <field name="name">Transform to a User</field>
         <field name="view_mode">form</field>
-        <field name="src_model">res.partner</field>
+        <field name="binding_model">res.partner</field>
         <field name="res_model">create.user.from.partner</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="base.model_res_partner" />

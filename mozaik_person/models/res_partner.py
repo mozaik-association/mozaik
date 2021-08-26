@@ -27,7 +27,7 @@ class ResPartner(models.Model):
         group_operator='min',
     )
     acronym = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     select_name = fields.Char(
         compute='_compute_names',
@@ -47,16 +47,16 @@ class ResPartner(models.Model):
 
     # complete existing fields
     firstname = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     lastname = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     usual_firstname = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     usual_lastname = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
 
     # When the field isn't redefined, Odoo will sometimes not see the
@@ -76,7 +76,6 @@ class ResPartner(models.Model):
     def _compute_display_name(self):
         return super()._compute_display_name()
 
-    @api.multi
     @api.depends(
         'is_company', 'acronym', 'identifier', 'name', 'usual_name',
         'firstname', 'lastname', 'usual_firstname', 'usual_lastname')
@@ -100,7 +99,6 @@ class ResPartner(models.Model):
             partner.technical_name = format_value(s_name, remove_blanks=True)
             partner.printable_name = p_name
 
-    @api.multi
     @api.constrains('identifier')
     def _check_identifier(self):
         """
@@ -160,7 +158,6 @@ class ResPartner(models.Model):
                     values_write)
         return detected_duplicates
 
-    @api.multi
     def name_get(self):
         """
         Add identifier to name_get result
@@ -213,7 +210,6 @@ class ResPartner(models.Model):
         res = super().create(vals)
         return res
 
-    @api.multi
     def _create_user(self, login, role_id):
         """
         Create a user from an existing partner
