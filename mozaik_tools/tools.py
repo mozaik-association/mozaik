@@ -1,14 +1,12 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import re
 import string
 import unicodedata
-import re
 
-
-CHARS_TO_ESCAPE = re.compile(r'[%s\s]+' % re.escape(string.punctuation))
-CHARS_AND_DIGIT_TO_ESCAPE = re.compile(
-    r'[%s\s\d]+' % re.escape(string.punctuation))
+CHARS_TO_ESCAPE = re.compile(r"[%s\s]+" % re.escape(string.punctuation))
+CHARS_AND_DIGIT_TO_ESCAPE = re.compile(r"[%s\s\d]+" % re.escape(string.punctuation))
 
 
 def format_value(value, escape_digit=False, remove_blanks=False):
@@ -18,12 +16,12 @@ def format_value(value, escape_digit=False, remove_blanks=False):
     :rtype: char
     """
     if value:
-        value = ''.join(
+        value = "".join(
             c
-            for c in unicodedata.normalize('NFD', str(value))
-            if unicodedata.category(c) != 'Mn'
+            for c in unicodedata.normalize("NFD", str(value))
+            if unicodedata.category(c) != "Mn"
         )
-        esc = '' if remove_blanks else ' '
+        esc = "" if remove_blanks else " "
         regexp = CHARS_AND_DIGIT_TO_ESCAPE if escape_digit else CHARS_TO_ESCAPE
         value = re.sub(regexp, esc, value)
         value = value.strip().lower()

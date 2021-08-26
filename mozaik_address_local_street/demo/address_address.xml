@@ -2,16 +2,16 @@
 <odoo noupdate="0">
 
     <record id="mozaik_address.address_1" model="address.address">
-        <field name="address_local_street_id" ref="local_street_1"/>
+        <field name="address_local_street_id" ref="local_street_1" />
     </record>
 
     <record id="mozaik_address.address_2" model="address.address">
-        <field name="address_local_street_id" ref="local_street_2"/>
+        <field name="address_local_street_id" ref="local_street_2" />
     </record>
 
     <record id="mozaik_address.address_4" model="address.address">
-        <field name="address_local_street_id" ref="local_street_3"/>
-        <field name="select_alternative_address_local_street" eval="1"/>
+        <field name="address_local_street_id" ref="local_street_3" />
+        <field name="select_alternative_address_local_street" eval="1" />
     </record>
 
 </odoo>

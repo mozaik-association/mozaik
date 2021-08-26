@@ -2,28 +2,48 @@
 <odoo noupdate="1">
 
     <record id="address_1" model="address.address">
-        <field name="country_id" ref="base.be"/>
-        <field name="city_id" ref="res_city_1"/>
+        <field name="country_id" ref="base.be" />
+        <field name="city_id" ref="res_city_1" />
         <field name="number">5</field>
+        <field
+            name="partner_ids"
+            eval="[
+            (4, ref('mozaik_address.res_partner_thierry')),
+        ]"
+        />
     </record>
 
     <record id="address_2" model="address.address">
-        <field name="country_id" ref="base.be"/>
-        <field name="city_id" ref="res_city_2"/>
+        <field name="country_id" ref="base.be" />
+        <field name="city_id" ref="res_city_2" />
         <field name="number">6</field>
         <field name="box">2B</field>
+        <field
+            name="partner_ids"
+            eval="[
+            (4, ref('mozaik_address.res_partner_jacques')),
+            (4, ref('mozaik_address.res_partner_marc')),
+            (4, ref('mozaik_address.res_partner_paul')),
+        ]"
+        />
     </record>
 
     <record id="address_3" model="address.address">
-        <field name="country_id" ref="base.us"/>
+        <field name="country_id" ref="base.us" />
         <field name="zip_man">20301</field>
         <field name="city_man">Washington DC</field>
         <field name="street_man">White House</field>
+        <field
+            name="partner_ids"
+            eval="[
+            (4, ref('mozaik_address.res_partner_pauline')),
+        ]"
+        />
     </record>
 
     <record id="address_4" model="address.address">
-        <field name="country_id" ref="base.be"/>
-        <field name="city_id" ref="res_city_3"/>
+        <field name="country_id" ref="base.be" />
+        <field name="city_id" ref="res_city_3" />
         <field name="number">6</field>
         <field name="sequence">1</field>
     </record>

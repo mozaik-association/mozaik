@@ -45,7 +45,7 @@
         <field name="implied_ids" eval="[(6, 0, [
                 ref('mozaik_coordinate.res_groups_coordinate_vip_user'),
             ])]" />
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
 
 </odoo>

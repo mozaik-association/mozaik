@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_address_local_street_res_group_base,mozaik.address.local.street.res.group.base,model_address_local_street,mozaik_coordinate.res_groups_coordinate_reader,1,0,0,0
-access_address_local_street_res_group_user,mozaik.address.local.street.res.group.configurator,model_address_local_street,mozaik_coordinate.res_groups_coordinate_user,1,1,1,1
+access_address_local_street_res_group_base,mozaik.address.local.street.res.group.base,model_address_local_street,mozaik_address.res_groups_address_reader,1,0,0,0
+access_address_local_street_res_group_user,mozaik.address.local.street.res.group.configurator,model_address_local_street,mozaik_address.res_groups_address_user,1,1,1,1

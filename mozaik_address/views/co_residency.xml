@@ -7,10 +7,17 @@
         <field name="arch" type="xml">
             <search>
                 <field name="address_id" />
-                <field name="line" string="Label Lines" filter_domain="['|',('line','ilike', self),('line2','ilike', self)]"/>
+                <field
+                    name="line"
+                    string="Label Lines"
+                    filter_domain="['|',('line','ilike', self),('line2','ilike', self)]"
+                />
 
-                <filter name="empty" string="Empty Co-Residencies"
-                        domain="[('postal_coordinate_ids', '=', False)]" />
+                <filter
+                    name="empty"
+                    string="Empty Co-Residencies"
+                    domain="[('partner_ids', '=', False)]"
+                />
                 <separator />
             </search>
         </field>
@@ -20,7 +27,7 @@
         <field name="name">co.residency.tree</field>
         <field name="model">co.residency</field>
         <field name="arch" type="xml">
-            <tree create="0">
+            <tree>
                 <field name="address_id" />
                 <field name="line" />
                 <field name="line2" />
@@ -32,58 +39,49 @@
         <field name="name">co.residency.form</field>
         <field name="model">co.residency</field>
         <field name="arch" type="xml">
-            <form create="0">
-                <header/>
+            <form>
+                <header />
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
-                                confirm="Archive/reactivate co-residency: proceed anyway?"
-                                groups="mozaik_abstract_model.res_groups_archiving_manager">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                            confirm="Archive/reactivate co-residency: proceed anyway?"
+                            groups="mozaik_abstract_model.res_groups_archiving_manager"
+                        >
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options="{&quot;terminology&quot;: &quot;archive&quot;}"
+                            />
                         </button>
                     </div>
                     <div class="oe_title">
                         <h1><field name="address_id" /></h1>
                     </div>
-                    <group name="lines" >
-                        <field name="line"/>
-                        <field name="line2"/>
-                    </group>
-                    <group name="status" attrs="{'invisible': [('id','=',False)]}">
-                        <group name="validity">
-                            <field name="create_date" />
-                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
-                        </group>
-                        <group name="other">
-                        </group>
+                    <group name="lines">
+                        <field name="line" />
+                        <field name="line2" />
                     </group>
                     <notebook>
-                        <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                            <button string="All Details" name="%(postal_coordinate_action)d"
-                                    type="action" attrs="{'invisible': [('id','=',False)]}"
-                                    context="{'search_default_co_residency_id': id,
-                                              'search_default_all': True}" />
-                            <field name="postal_coordinate_ids"
-                                   readonly="1" attrs="{'invisible': [('active','=',False)]}">
-                                <tree decoration-danger="unauthorized==True" decoration-warning="is_duplicate_detected==True">
-                                    <field name="partner_id"/>
-                                    <field name="coordinate_category_id" />
-                                    <field name="is_main" />
-                                    <field name="unauthorized" />
-                                    <field name="vip" groups="mozaik_coordinate.res_groups_coordinate_vip_reader" />
-                                    <field name="is_duplicate_detected" invisible="1"/>
+                        <page string="Partners" autofocus="autofocus">
+                            <field name="partner_ids" widget="many2many" create="0">
+                                <tree>
+                                    <field name="name" />
                                 </tree>
                             </field>
-                        </page>
-                        <page name="dev" string="More Info" groups="base.group_erp_manager">
-                            <group name="moreinfo">
-                            </group>
                         </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>
@@ -92,7 +90,6 @@
     <record id="co_residency_action" model="ir.actions.act_window">
         <field name="name">Co-Residencies</field>
         <field name="res_model">co.residency</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="co_residency_tree_view" />
         <field name="search_view_id" ref="co_residency_search_view" />
@@ -100,9 +97,9 @@
 
     <record model="ir.ui.menu" id="co_residency_menu">
         <field name="name">Co-Residencies</field>
-        <field name="parent_id" ref="mozaik_address.postal_coordinate_submenu"/>
-        <field name="action" ref="co_residency_action"/>
-        <field name="sequence" eval="50"/>
+        <field name="parent_id" ref="mozaik_address.postal_coordinate_submenu" />
+        <field name="action" ref="co_residency_action" />
+        <field name="sequence" eval="50" />
     </record>
 
 </odoo>

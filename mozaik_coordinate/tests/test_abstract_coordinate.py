@@ -11,13 +11,14 @@ class NotAbstractCoordinate(models.Model):
     """
     A concrete Odoo model used for these tests only
     """
-    _description = 'Test abstract coordinate'
-    _name = 'not.abstract.coordinate'
-    _inherit = ['abstract.coordinate']
+
+    _description = "Test abstract coordinate"
+    _name = "not.abstract.coordinate"
+    _inherit = ["abstract.coordinate"]
     _abstract = True
 
-    _discriminant_field = 'discr_field'
-    _unicity_keys = 'id'
+    _discriminant_field = "discr_field"
+    _unicity_keys = "partner_id"
 
     name = fields.Char()
     discr_field = fields.Char()
@@ -29,22 +30,22 @@ class ResPartner(models.Model):
     just before.
     Also, add a computed field to know which one is the main.
     """
-    _name = 'res.partner'
-    _inherit = 'res.partner'
+
+    _name = "res.partner"
+    _inherit = "res.partner"
 
     not_abstract_coordinate_id = fields.Many2one(
         NotAbstractCoordinate._name,
         "A test field",
-        compute='_compute_not_abstract_coordinate_id',
+        compute="_compute_not_abstract_coordinate_id",
     )
     not_abstract_coordinate_ids = fields.One2many(
         NotAbstractCoordinate._name,
-        'partner_id',
-        "A test field",
+        "partner_id",
+        "A test field (o2m)",
     )
 
-    @api.multi
-    @api.depends('not_abstract_coordinate_ids')
+    @api.depends("not_abstract_coordinate_ids")
     def _compute_not_abstract_coordinate_id(self):
         """
         Compute function to have the coordinate when is_main is True
@@ -52,14 +53,17 @@ class ResPartner(models.Model):
         :return:
         """
         coord_obj = self.env[NotAbstractCoordinate._name].sudo()
-        coordinates = coord_obj.search([
-            ('partner_id', 'in', self.ids),
-            ('is_main', '=', True),
-            ('active', '=', True),
-        ])
+        coordinates = coord_obj.search(
+            [
+                ("partner_id", "in", self.ids),
+                ("is_main", "=", True),
+                ("active", "=", True),
+            ]
+        )
         for record in self:
             coordinate = coordinates.filtered(
-                lambda c, r=record: c.partner_id.id == r.id and c.is_main)
+                lambda c, r=record: c.partner_id.id == r.id and c.is_main
+            )
             coordinate = first(coordinate)
             record.not_abstract_coordinate_id = coordinate
 
@@ -101,10 +105,10 @@ class TestAbstractCoordinate(CommonAbstractCoordinate, TransactionCase):
         super(TestAbstractCoordinate, self).setUp()
         registry = self.env.registry
         # We must be in test mode before create/init new models
-        registry.enter_test_mode()
+        registry.enter_test_mode(self.env.cr)
         # Add the cleanup to disable test mode after this setup as finished
         self.addCleanup(self.registry.leave_test_mode)
         self._init_test_models()
         self.model_coordinate = self.env[NotAbstractCoordinate._name]
         # Use the inverse field set on the res.partner
-        self.coo_into_partner = 'not_abstract_coordinate_id'
+        self.coo_into_partner = "not_abstract_coordinate_id"

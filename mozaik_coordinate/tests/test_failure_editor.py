@@ -5,7 +5,8 @@ from uuid import uuid4
 from odoo.tests.common import TransactionCase
 from .common_failure_editor import CommonFailureEditor
 from .test_abstract_coordinate import ResPartner, NotAbstractCoordinate
-DESC = 'Bad Coordinate'
+
+DESC = "Bad Coordinate"
 
 
 class TestCommonFailureEditor(CommonFailureEditor, TransactionCase):
@@ -45,14 +46,16 @@ class TestCommonFailureEditor(CommonFailureEditor, TransactionCase):
         super(TestCommonFailureEditor, self).setUp()
         registry = self.env.registry
         # We must be in test mode before create/init new models
-        registry.enter_test_mode()
+        registry.enter_test_mode(self.env.cr)
         # Add the cleanup to disable test mode after this setup as finished
         self.addCleanup(self.registry.leave_test_mode)
         self._init_test_models()
         self.model_coordinate = self.env[NotAbstractCoordinate._name]
-        self.coo_into_partner = 'not_abstract_coordinate_id'
-        self.coordinate = self.model_coordinate.create({
-            'name': str(uuid4()),
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: str(uuid4()),
-        })
+        self.coo_into_partner = "not_abstract_coordinate_id"
+        self.coordinate = self.model_coordinate.create(
+            {
+                "name": str(uuid4()),
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: str(uuid4()),
+            }
+        )

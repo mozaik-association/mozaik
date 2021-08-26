@@ -4,6 +4,14 @@
 
 <odoo>
 
+    <record id="abstract_coordinate_action" model="ir.actions.act_window">
+        <field name="name">Postal Coordinates</field>
+        <field name="res_model">abstract.coordinate</field>
+        <field name="view_mode">tree,form</field>
+<!--        <field name="view_id" ref="postal_coordinate_tree_view" />-->
+<!--        <field name="search_view_id" ref="postal_coordinate_search_view" />-->
+    </record>
+
     <record model="ir.ui.view" id="abstract_coordinate_form_view">
         <field name="name">abstract.coordinate.form (in mozaik_coordinate)</field>
         <field name="model">abstract.coordinate</field>
@@ -43,7 +51,7 @@
                             <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
                             <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
                                 <field name="is_duplicate_detected" class="oe_inline" />
-                                <button name="button_all_duplicates" type="action" class="oe_red_link" string="⇒ Show all duplicates"/>
+                                <button name="%(abstract_coordinate_action)d" type="action" class="oe_red_link" string="⇒ Show all duplicates"/>
                             </div>
 
                             <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />

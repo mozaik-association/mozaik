@@ -16,7 +16,7 @@ class CommonAbstractCoordinate(CommonCoordinate):
 
     def setUp(self):
         super(CommonAbstractCoordinate, self).setUp()
-        self.partner_obj = self.env['res.partner']
+        self.partner_obj = self.env["res.partner"]
         self.partner1 = self.env.ref("mozaik_coordinate.res_partner_thierry")
         self.partner2 = self.env.ref("mozaik_coordinate.res_partner_pauline")
         self.partner3 = self.env.ref("mozaik_coordinate.res_partner_nicolas")
@@ -31,18 +31,21 @@ class CommonAbstractCoordinate(CommonCoordinate):
         partner_id, model_id when no expire date
         """
         values = {
-            'partner_id': self.partner1.id,
+            "partner_id": self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': True,
+            "is_main": True,
         }
         self.model_coordinate.create(values)
-        values.update({
-            'is_main': False,
-        })
+        values.update(
+            {
+                "is_main": False,
+            }
+        )
         # Disable error into logs
         self.env.cr._default_log_exceptions = False
         with self.assertRaises(ValidationError):
             self.model_coordinate.create(values)
+            self.model_coordinate.flush()
         self.env.cr._default_log_exceptions = True
         return
 
@@ -53,23 +56,30 @@ class CommonAbstractCoordinate(CommonCoordinate):
         **Note**
         Check also that the new is right main
         """
-        self.model_coordinate.search([
-            ('partner_id', '=', self.partner1.id),
-        ]).unlink()
-        pc1 = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': True,
-        })
+        self.model_coordinate.search(
+            [
+                ("partner_id", "=", self.partner1.id),
+            ]
+        ).unlink()
+        pc1 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+                "is_main": True,
+            }
+        )
         self.assertTrue(pc1.is_main)
-        pc2 = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_2,
-            'is_main': True,
-        })
+        pc2 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_2,
+                "is_main": True,
+            }
+        )
         self.assertFalse(
-            pc1.is_main, 'Previous model Coordinate Should Not Be Main')
-        self.assertTrue(pc2.is_main, 'New model Coordinate Should Be Main')
+            pc1.is_main, "Previous model Coordinate Should Not Be Main"
+        )
+        self.assertTrue(pc2.is_main, "New model Coordinate Should Be Main")
         return
 
     def test_check_at_least_one_main(self):
@@ -78,16 +88,21 @@ class CommonAbstractCoordinate(CommonCoordinate):
         at least one main coordinate.
         """
         # Clean existing coordinates
-        self.model_coordinate.search([
-            ('partner_id', '=', self.partner1.id),
-        ]).unlink()
-        pc = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': False,
-        })
-        self.assertEqual(pc.is_main, True,
-                         'First model Coordinate Must Be Main')
+        self.model_coordinate.search(
+            [
+                ("partner_id", "=", self.partner1.id),
+            ]
+        ).unlink()
+        pc = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+                "is_main": False,
+            }
+        )
+        self.assertEqual(
+            pc.is_main, True, "First model Coordinate Must Be Main"
+        )
         return
 
     def test_set_as_main(self):
@@ -102,19 +117,25 @@ class CommonAbstractCoordinate(CommonCoordinate):
         model_coo_2 : main    active
         """
         # Clean existing coordinates
-        self.model_coordinate.search([
-            ('partner_id', '=', self.partner1.id),
-        ]).unlink()
-        pc1 = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': True,
-        })
-        pc2 = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_2,
-            'is_main': False,
-        })
+        self.model_coordinate.search(
+            [
+                ("partner_id", "=", self.partner1.id),
+            ]
+        ).unlink()
+        pc1 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+                "is_main": True,
+            }
+        )
+        pc2 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_2,
+                "is_main": False,
+            }
+        )
         pc2.with_context(invalidate=True)._set_as_main()
         coordinate = self.partner1[self.coo_into_partner]
         self.assertTrue(pc1.is_main)
@@ -123,8 +144,9 @@ class CommonAbstractCoordinate(CommonCoordinate):
         self.assertTrue(pc2.active)
         self.assertTrue(
             coordinate.id == pc2.id,
-            'Replication Failed: Should be the new selected as main model '
-            'coordinate')
+            "Replication Failed: Should be the new selected as main model "
+            "coordinate",
+        )
         return
 
     def test_bad_unlink_abstract_coordinate(self):
@@ -134,19 +156,25 @@ class CommonAbstractCoordinate(CommonCoordinate):
         * try to unlink the main coordinate
         * check that is raise an ``orm.except_orm`` exception
         """
-        self.model_coordinate.search([
-            ('partner_id', '=', self.partner1.id),
-        ]).unlink()
-        main_abstract_coordinate = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': True,
-        })
-        self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_2,
-            'is_main': False,
-        })
+        self.model_coordinate.search(
+            [
+                ("partner_id", "=", self.partner1.id),
+            ]
+        ).unlink()
+        main_abstract_coordinate = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+                "is_main": True,
+            }
+        )
+        self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_2,
+                "is_main": False,
+            }
+        )
         with self.assertRaises(ValidationError):
             main_abstract_coordinate.unlink()
         return
@@ -158,59 +186,77 @@ class CommonAbstractCoordinate(CommonCoordinate):
         * try to unlink the two main coordinate
         * check that it succeed
         """
-        self.model_coordinate.search([
-            ('partner_id', '=', self.partner1.id),
-        ]).unlink()
-        self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-            'is_main': True,
-        })
-        self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_2,
-            'is_main': False,
-        })
+        self.model_coordinate.search(
+            [
+                ("partner_id", "=", self.partner1.id),
+            ]
+        ).unlink()
+        self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+                "is_main": True,
+            }
+        )
+        self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_2,
+                "is_main": False,
+            }
+        )
         # We have to load every coordinates (even if created by others
         # models)
-        coordinates = self.model_coordinate.search([
-            ('partner_id', '=', self.partner1.id),
-        ])
-        self.assertTrue(coordinates.unlink(),
-                        'Should be able to delete all coordinate of the same '
-                        'type for the same partner')
+        coordinates = self.model_coordinate.search(
+            [
+                ("partner_id", "=", self.partner1.id),
+            ]
+        )
+        self.assertTrue(
+            coordinates.unlink(),
+            "Should be able to delete all coordinate of the same "
+            "type for the same partner",
+        )
         return
 
     def check_state_of_duplicate(self, is_duplicate_values, detected=None):
         for is_duplicate_value in is_duplicate_values:
             if detected is None:
                 self.assertFalse(
-                    is_duplicate_value['is_duplicate_detected'],
-                    'Should be duplicate detected')
+                    is_duplicate_value["is_duplicate_detected"],
+                    "Should be duplicate detected",
+                )
                 self.assertFalse(
-                    is_duplicate_value['is_duplicate_allowed'],
-                    'Should not be duplicate allowed')
+                    is_duplicate_value["is_duplicate_allowed"],
+                    "Should not be duplicate allowed",
+                )
             else:
                 if detected:
                     self.assertTrue(
-                        is_duplicate_value['is_duplicate_detected'],
-                        'Should be duplicate detected')
+                        is_duplicate_value["is_duplicate_detected"],
+                        "Should be duplicate detected",
+                    )
                     self.assertFalse(
-                        is_duplicate_value['is_duplicate_allowed'],
-                        'Should not be duplicate allowed')
+                        is_duplicate_value["is_duplicate_allowed"],
+                        "Should not be duplicate allowed",
+                    )
                 else:
                     self.assertTrue(
-                        is_duplicate_value['is_duplicate_allowed'],
-                        'Should be duplicate allowed')
+                        is_duplicate_value["is_duplicate_allowed"],
+                        "Should be duplicate allowed",
+                    )
                     self.assertFalse(
-                        is_duplicate_value['is_duplicate_detected'],
-                        'Should not be duplicate detected')
+                        is_duplicate_value["is_duplicate_detected"],
+                        "Should not be duplicate detected",
+                    )
 
     def get_value_detected(self, coordinates):
-        return coordinates.read([
-            'is_duplicate_detected',
-            'is_duplicate_allowed',
-        ])
+        return coordinates.read(
+            [
+                "is_duplicate_detected",
+                "is_duplicate_allowed",
+            ]
+        )
 
     def test_management_of_duplicate_create(self):
         """
@@ -225,29 +271,37 @@ class CommonAbstractCoordinate(CommonCoordinate):
           check that ``is_duplicate_detected`` is set to True
           check that ``is_duplicate_allowed`` is set to False
         """
-        coordinate1 = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-        })
-        coordinate2 = self.model_coordinate.create({
-            'partner_id': self.partner2.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-        })
+        coordinate1 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+            }
+        )
+        coordinate2 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner2.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+            }
+        )
         coordinates = coordinate1 | coordinate2
         is_duplicate_values = self.get_value_detected(coordinates)
         self.check_state_of_duplicate(is_duplicate_values, True)
         coordinates = coordinate1 | coordinate2
-        coordinates.write({
-            'is_duplicate_detected': False,
-            'is_duplicate_allowed': True,
-        })
+        coordinates.write(
+            {
+                "is_duplicate_detected": False,
+                "is_duplicate_allowed": True,
+            }
+        )
         is_duplicate_values = self.get_value_detected(coordinates)
         self.check_state_of_duplicate(is_duplicate_values, False)
 
-        self.model_coordinate.create({
-            'partner_id': self.partner3.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-        })
+        self.model_coordinate.create(
+            {
+                "partner_id": self.partner3.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+            }
+        )
         is_duplicate_values = self.get_value_detected(coordinates)
         self.check_state_of_duplicate(is_duplicate_values, True)
 
@@ -259,14 +313,18 @@ class CommonAbstractCoordinate(CommonCoordinate):
           check that ``is_duplicate_detected`` is set to False
           check that ``is_duplicate_allowed`` is set to False
         """
-        coordinate1 = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-        })
-        coordinate2 = self.model_coordinate.create({
-            'partner_id': self.partner2.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-        })
+        coordinate1 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+            }
+        )
+        coordinate2 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner2.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+            }
+        )
         coordinate2.unlink()
         is_duplicate_values = self.get_value_detected(coordinate1)
         self.check_state_of_duplicate(is_duplicate_values)
@@ -282,14 +340,18 @@ class CommonAbstractCoordinate(CommonCoordinate):
           check that the active one ``is_duplicate_allowed``
               is set to False
         """
-        coordinate1 = self.model_coordinate.create({
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-        })
-        coordinate2 = self.model_coordinate.create({
-            'partner_id': self.partner2.id,
-            self.model_coordinate._discriminant_field: self.field_id_1,
-        })
+        coordinate1 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+            }
+        )
+        coordinate2 = self.model_coordinate.create(
+            {
+                "partner_id": self.partner2.id,
+                self.model_coordinate._discriminant_field: self.field_id_1,
+            }
+        )
         coordinate2.action_invalidate()
         is_duplicate_values = self.get_value_detected(coordinate1)
         self.check_state_of_duplicate(is_duplicate_values)
@@ -303,21 +365,23 @@ class CommonAbstractCoordinate(CommonCoordinate):
         * check that it fails
         """
         # Clean existing coordinates
-        self.model_coordinate.search([
-            ('partner_id', '=', self.partner1.id),
-        ]).unlink()
+        self.model_coordinate.search(
+            [
+                ("partner_id", "=", self.partner1.id),
+            ]
+        ).unlink()
         vals = {
-            'partner_id': self.partner1.id,
+            "partner_id": self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
         }
         coordinate = self.model_coordinate.create(vals)
         vals = {
-            'partner_id': self.partner1.id,
+            "partner_id": self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_2,
         }
         self.model_coordinate.create(vals)
         vals = {
-            'partner_id': self.partner1.id,
+            "partner_id": self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_3,
         }
         self.model_coordinate.create(vals)
@@ -333,16 +397,18 @@ class CommonAbstractCoordinate(CommonCoordinate):
         * check if the second one is now the main coordinate
         """
         # Clean existing coordinates
-        self.model_coordinate.search([
-            ('partner_id', '=', self.partner1.id),
-        ]).unlink()
+        self.model_coordinate.search(
+            [
+                ("partner_id", "=", self.partner1.id),
+            ]
+        ).unlink()
         vals = {
-            'partner_id': self.partner1.id,
+            "partner_id": self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_1,
         }
         coordinate1 = self.model_coordinate.create(vals)
         vals = {
-            'partner_id': self.partner1.id,
+            "partner_id": self.partner1.id,
             self.model_coordinate._discriminant_field: self.field_id_2,
         }
         coordinate2 = self.model_coordinate.create(vals)

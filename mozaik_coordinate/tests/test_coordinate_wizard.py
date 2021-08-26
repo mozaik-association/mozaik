@@ -12,16 +12,16 @@ class TestChangeMainCoordinate(models.Model):
     """
     A concrete Odoo Wizard used for these tests only
     """
-    _description = 'Test change main coordinate'
-    _name = 'test.change.main.coordinate'
-    _inherit = ['change.main.coordinate']
+
+    _description = "Test change main coordinate"
+    _name = "test.change.main.coordinate"
+    _inherit = ["change.main.coordinate"]
     _abstract = True
 
     discr_field = fields.Char()
 
 
 class TestCoordinateWizard(CommonCoordinateWizard, TransactionCase):
-
     def _get_odoo_models(self):
         """
         Inherit to add a new model to instantiate
@@ -53,20 +53,24 @@ class TestCoordinateWizard(CommonCoordinateWizard, TransactionCase):
         super(TestCoordinateWizard, self).setUp()
         registry = self.env.registry
         # We must be in test mode before create/init new models
-        registry.enter_test_mode()
+        registry.enter_test_mode(self.env.cr)
         # Add the cleanup to disable test mode after this setup as finished
         self.addCleanup(self.registry.leave_test_mode)
         self._init_test_models()
         self.model_coordinate_wizard = self.env[TestChangeMainCoordinate._name]
         self.model_coordinate = self.env[NotAbstractCoordinate._name]
-        self.coo_into_partner = 'not_abstract_coordinate_id'
-        self.coordinate1 = self.model_coordinate.create({
-            'name': str(uuid4()),
-            'partner_id': self.partner1.id,
-            self.model_coordinate._discriminant_field: str(uuid4()),
-        })
-        self.coordinate2 = self.model_coordinate.create({
-            'name': str(uuid4()),
-            'partner_id': self.partner2.id,
-            self.model_coordinate._discriminant_field: str(uuid4()),
-        })
+        self.coo_into_partner = "not_abstract_coordinate_id"
+        self.coordinate1 = self.model_coordinate.create(
+            {
+                "name": str(uuid4()),
+                "partner_id": self.partner1.id,
+                self.model_coordinate._discriminant_field: str(uuid4()),
+            }
+        )
+        self.coordinate2 = self.model_coordinate.create(
+            {
+                "name": str(uuid4()),
+                "partner_id": self.partner2.id,
+                self.model_coordinate._discriminant_field: str(uuid4()),
+            }
+        )

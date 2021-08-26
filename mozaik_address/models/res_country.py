@@ -9,4 +9,4 @@ class ResCountry(models.Model):
     _inherit = "res.country"
 
     def _country_default_get(self, country_code):
-        return self.search([('code', '=', country_code)], limit=1)
+        return self.search([("code", "=", country_code)], limit=1)
