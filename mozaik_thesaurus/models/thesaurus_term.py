@@ -22,7 +22,6 @@ class ThesaurusTerm(models.Model):
     _unicity_keys = 'name'
     _rec_name = 'search_name'
 
-    @api.multi
     @api.depends('search_name')
     def _compute_select_name(self):
         for record in self:
@@ -34,7 +33,7 @@ class ThesaurusTerm(models.Model):
         string='Term',
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     search_name = fields.Char(
         string='Term (Full Path)',
@@ -57,7 +56,7 @@ class ThesaurusTerm(models.Model):
         string='Status',
         readonly=True,
         required=True,
-        track_visibility='onchange',
+        tracking=True,
         default=TERM_AVAILABLE_STATES[0][0],
         copy=False,
     )
@@ -82,7 +81,6 @@ class ThesaurusTerm(models.Model):
     def _get_default_thesaurus_id(self):
         return self.env['thesaurus'].search([], order='id desc', limit=1)
 
-    @api.multi
     def _track_subtype(self, init_values):
         record = first(self)
         if 'state' in init_values and record.state == 'draft':
@@ -99,7 +97,6 @@ class ThesaurusTerm(models.Model):
             vals['search_name'] = vals.get('name')
         return super(ThesaurusTerm, self).create(vals)
 
-    @api.multi
     def write(self, vals):
         """
         :param: vals
@@ -109,7 +106,6 @@ class ThesaurusTerm(models.Model):
             vals['search_name'] = vals['name']
         return super(ThesaurusTerm, self).write(vals)
 
-    @api.multi
     def _get_child_terms(self):
         """
         Returns all child terms of self recursively including self itself
@@ -141,7 +137,6 @@ class ThesaurusTerm(models.Model):
         term_ids = self.search(args, limit=limit)
         return term_ids.name_get()
 
-    @api.multi
     def copy(self, default=None):
         self.ensure_one()
         default = default or {}
@@ -168,7 +163,6 @@ class ThesaurusTerm(models.Model):
             })
         return result
 
-    @api.multi
     def button_confirm(self):
         """
         Confirm terms
@@ -180,7 +174,6 @@ class ThesaurusTerm(models.Model):
         }
         return self.write(vals)
 
-    @api.multi
     def button_cancel(self):
         """
         Cancel terms
@@ -189,7 +182,6 @@ class ThesaurusTerm(models.Model):
         """
         return self.action_invalidate()
 
-    @api.multi
     def button_reset(self):
         """
         Cancel the term

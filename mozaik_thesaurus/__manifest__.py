@@ -4,14 +4,14 @@
     'name': 'Mozaik: Thesaurus',
     'summary': """
         Implements a light thesaurus for indexation purpose""",
-    'version': '14.0.1.0.0',
+    'version': "14.0.1.0.0",
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://github.com/OCA/mozaik',
     'category': 'Political Association',
     'depends': [
         'base',
-        'contacts',
+        'mail',
         'mozaik_tools',
         'mozaik_abstract_model',
     ],
@@ -25,5 +25,5 @@
         'views/res_partner.xml',
         'views/thesaurus_menu.xml',
     ],
-    "installable": False,
+    "installable": True,
 }

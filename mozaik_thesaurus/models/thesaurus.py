@@ -15,7 +15,7 @@ class Thesaurus(models.Model):
     name = fields.Char(
         string='Thesaurus',
         required=True,
-        track_visibility='onchange',
+        tracking=True,
     )
 
     _sql_constraints = [
