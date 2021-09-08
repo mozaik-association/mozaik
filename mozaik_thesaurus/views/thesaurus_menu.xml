@@ -1,30 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!-- Copyright 2017 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo noupdate="0">
-
-    <record model="ir.ui.menu" id="mozaik_thesaurus_menu" >
-        <field name="name">Thesaurus</field>
-        <field name="sequence">40</field>
-        <field name="parent_id" ref="contacts.menu_contacts" />
-    </record>
 
     <record model="ir.ui.menu" id="thesaurus_term_menu">
         <field name="name">Thesaurus Terms</field>
-        <field name="parent_id" ref="mozaik_thesaurus_menu"/>
-        <field name="action" ref="thesaurus_term_action"/>
-        <field name="sequence" eval="10"/>
-    </record>
-
-    <record model="ir.ui.menu" id="thesaurus_menu">
-        <field name="name">Thesaurus</field>
-        <field name="parent_id" ref="mozaik_thesaurus_menu"/>
-        <field name="action" ref="thesaurus_action"/>
-        <field name="sequence" eval="30"/>
-        <field name="groups_id" eval="[(6, 0, [
-            ref('thesaurus_manager'),
-        ])]" />
+        <field name="parent_id" ref="contacts.menu_contacts" />
+        <field name="action" ref="thesaurus_term_action" />
+        <field name="sequence" eval="40" />
     </record>
 
 </odoo>
