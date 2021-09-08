@@ -37,19 +37,19 @@ class ResPartner(models.Model):
             ('widower', 'Widower'),
             ('divorced', 'Divorced'),
         ],
-        track_visibility='onchange',
+        tracking=True,
     )
     secondary_website = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     social_twitter = fields.Char(
         'Twitter Account',
-        track_visibility='onchange',
+        tracking=True,
         oldname='twitter',
     )
     social_facebook = fields.Char(
         'Facebook Account',
-        track_visibility='onchange',
+        tracking=True,
         oldname='facebook',
     )
     age = fields.Integer(
@@ -59,24 +59,23 @@ class ResPartner(models.Model):
 
     # complete existing fields
     website = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     comment = fields.Text(
-        track_visibility='onchange',
+        tracking=True,
     )
     birthdate_date = fields.Date(
         index=True,
-        track_visibility='onchange',
+        tracking=True,
         oldname='birth_date',
     )
     nationality_id = fields.Many2one(
-        track_visibility='onchange',
+        tracking=True,
     )
     gender = fields.Selection(
-        track_visibility='onchange',
+        tracking=True,
     )
 
-    @api.multi
     @api.depends('birthdate_date')
     def _compute_age(self):
         """
