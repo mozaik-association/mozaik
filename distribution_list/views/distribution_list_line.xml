@@ -10,14 +10,14 @@
             <search>
                 <field name="name"/>
                 <field name="distribution_list_id"/>
-                <field name="src_model_id"/>
+                <field name="binding_model_id"/>
 
                 <separator/>
                 <filter name="exclude" string="Excluded" domain="[('exclude','=',True)]"/>
                 <filter name="include" string="Included" domain="[('exclude','=',False)]"/>
 
                 <group>
-                    <filter name="src_model" string="Model" domain="[]" context="{'group_by':'src_model_id'}" />
+                    <filter name="binding_model" string="Model" domain="[]" context="{'group_by':'binding_model_id'}" />
                 </group>
             </search>
         </field>
@@ -30,7 +30,7 @@
             <tree>
                 <field name="distribution_list_id"/>
                 <field name="name"/>
-                <field name="src_model_id"/>
+                <field name="binding_model_id"/>
                 <field name="exclude"/>
                 <button name="action_show_filter_result" string="Result" type="object" icon="fa-address-card text-success"/>
             </tree>
@@ -58,7 +58,7 @@
                     <group name="data">
                         <group name="info">
                             <field name="distribution_list_id" invisible="context.get('default_distribution_list_id')" attrs="{'readonly': [('id','!=',False)]}"/>
-                            <field name="src_model_id" widget="selection" attrs="{'readonly': [('id','!=',False)]}"/>
+                            <field name="binding_model_id" widget="selection" attrs="{'readonly': [('id','!=',False)]}"/>
                             <field name="trg_model" invisible="1"/>
                             <field name="bridge_field_id" widget="selection" attrs="{'readonly': [('id','!=',False)]}"/>
                         </group>
@@ -71,7 +71,7 @@
                             <group name="expr">
                                 <field name="exclude" invisible="'default_exclude' in context"/>
                                 <field name="domain" readonly="1"/>
-                                <field name="src_model_model" invisible="1"/>
+                                <field name="binding_model_model" invisible="1"/>
                                 <button class="oe_read_only" name="action_redefine_domain" type="object" string="Define New Expression" groups="distribution_list.res_groups_distribution_list_user"/>
                             </group>
                         </page>
