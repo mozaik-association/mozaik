@@ -110,7 +110,6 @@ class DistributionListLine(models.Model):
             model = model or self.env.ref('base.model_res_partner')
         return model
 
-    @api.multi
     def _get_valid_bridge_fields(self):
         """
         Get every fields available for each distribution.list.line
@@ -146,7 +145,6 @@ class DistributionListLine(models.Model):
             })
         return results
 
-    @api.multi
     @api.constrains('bridge_field_id', 'src_model_id', 'distribution_list_id')
     def _constraint_valid_bridge_field_id(self):
         """
@@ -165,7 +163,6 @@ class DistributionListLine(models.Model):
                 "the distribution list!\n- %s") % details
             raise exceptions.ValidationError(message)
 
-    @api.multi
     def _get_eval_domain(self):
         """
         Eval the domain
@@ -196,7 +193,6 @@ class DistributionListLine(models.Model):
             "domain": domain,
         })
 
-    @api.multi
     def write(self, vals):
         """
         If `src_model_id` is changed and not `domain`, reset domain to its
@@ -210,7 +206,6 @@ class DistributionListLine(models.Model):
             })
         return super().write(vals)
 
-    @api.multi
     def _get_target_recordset(self):
         """
         Get target recordset where the related domain is applied with a OR
@@ -246,7 +241,6 @@ class DistributionListLine(models.Model):
                 raise exceptions.UserError(message)
         return targets
 
-    @api.multi
     def action_show_filter_result(self):
         """
         Show the result of the filter

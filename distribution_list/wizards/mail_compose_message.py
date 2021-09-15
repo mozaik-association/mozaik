@@ -32,7 +32,6 @@ class MailComposeMessage(models.TransientModel):
         return super(
             MailComposeMessage, self.with_context(context)).create(vals)
 
-    @api.multi
     def send_mail(self, auto_commit=False):
         """
         With a distribution list active ids must be computed here

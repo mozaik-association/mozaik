@@ -41,7 +41,7 @@
     <record id="distribution_list_add_filter_action" model="ir.actions.act_window">
         <field name="name">Add Current Filter To Distribution List</field>
         <field name="view_mode">form</field>
-        <field name="src_model">res.partner</field>
+        <field name="binding_model">res.partner</field>
         <field name="res_model">distribution.list.add.filter</field>
         <field name="multi" eval="1"/>
         <field name="target">new</field>

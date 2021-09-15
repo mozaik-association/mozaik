@@ -18,7 +18,6 @@ class MergeDistributionList(models.TransientModel):
         ondelete="cascade",
     )
 
-    @api.multi
     def merge_distribution_list(self):
         """
         Merge selected distribution list (lines) into the distribution list

@@ -4,7 +4,7 @@
 <odoo noupdate="1">
     <record id="distribution_list_line_one" model="distribution.list.line">
         <field name="name">Customer</field>
-        <field name="src_model_id" ref='base.model_res_partner'/>
+        <field name="binding_model_id" ref='base.model_res_partner'/>
         <field name="company_id" ref='base.main_company'/>
         <field name="bridge_field_id" ref="base.field_res_partner_id"/>
         <field name="distribution_list_id" ref='distribution_list_one'/>
@@ -13,7 +13,7 @@
 
     <record id="distribution_list_line_two" model="distribution.list.line">
         <field name="name">Sendable</field>
-        <field name="src_model_id" ref='base.model_res_partner'/>
+        <field name="binding_model_id" ref='base.model_res_partner'/>
         <field name="bridge_field_id" ref="base.field_res_partner_id"/>
         <field name="company_id" ref='base.main_company'/>
         <field name="distribution_list_id" ref='distribution_list_two'/>
