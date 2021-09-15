@@ -32,7 +32,6 @@ class DistributionListAddFilter(models.TransientModel):
         ondelete="cascade",
     )
 
-    @api.multi
     def add_distribution_list_line(self):
         """
         Create a new distribution list line with the data filled into the
@@ -60,7 +59,6 @@ class DistributionListAddFilter(models.TransientModel):
         })
         return {}
 
-    @api.multi
     def _get_valid_bridge_fields(self):
         """
         Get available bridge fields between src and dst models

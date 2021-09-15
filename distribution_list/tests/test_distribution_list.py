@@ -41,7 +41,7 @@ class TestDistributionList(SavepointCase):
         user_no_access = self.second_user
         # create distribution_list_line and distribution_list with the first
         # user
-        distri_list_obj = distri_list_obj.sudo(user_creator.id)
+        distri_list_obj = distri_list_obj.with_user(user_creator.id)
         dist_list_line_values = {
             'name': 'employee',
             'domain': "[('employee', '=', True)]",
@@ -61,10 +61,10 @@ class TestDistributionList(SavepointCase):
             to_include_distribution_list_line_ids
         self.assertEqual(len(distribution_list_line), 1)
         with self.assertRaises(exceptions.AccessError) as e:
-            distribution_list_line.sudo(user_no_access.id).read()
+            distribution_list_line.with_user(user_no_access.id).read()
         self.assertEqual(len(distribution_list), 1)
         with self.assertRaises(exceptions.AccessError) as e:
-            distribution_list.sudo(user_no_access.id).read()
+            distribution_list.with_user(user_no_access.id).read()
         return
 
     def test_compute_distribution_list_ids(self):
@@ -77,7 +77,7 @@ class TestDistributionList(SavepointCase):
         distri_list_line_obj = self.dist_list_line_obj
 
         user_creator = self.first_user
-        partner_obj = partner_obj.sudo(user_creator.id)
+        partner_obj = partner_obj.with_user(user_creator.id)
         customer = partner_obj.create({
             'active': True,
             'type': 'contact',
@@ -107,8 +107,8 @@ class TestDistributionList(SavepointCase):
         # create distribution_list_line and distribution_list with the first
         # user
         partner_obj = self.partner_model
-        distri_list_line_obj = distri_list_line_obj.sudo(user_creator.id)
-        distri_list_obj = distri_list_obj.sudo(user_creator.id)
+        distri_list_line_obj = distri_list_line_obj.with_user(user_creator.id)
+        distri_list_obj = distri_list_obj.with_user(user_creator.id)
 
         distribution_list = distri_list_obj.create({
             'name': str(uuid4()),
@@ -380,7 +380,7 @@ class TestDistributionList(SavepointCase):
             'bridge_field_id': self.partner_id_field.id,
         })
 
-        distribution_list_copy = distribution_list.sudo(user.id).copy()
+        distribution_list_copy = distribution_list.with_user(user.id).copy()
         self.assertEqual(
             distribution_list.dst_model_id.id,
             distribution_list_copy.dst_model_id.id)

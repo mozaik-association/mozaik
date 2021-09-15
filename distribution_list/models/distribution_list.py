@@ -79,13 +79,11 @@ class DistributionList(models.Model):
             model = model or self.env.ref('base.model_res_partner')
         return model
 
-    @api.multi
     def _get_target_if_no_included_filter(self):
         self.ensure_one()
         target_model = self.dst_model_id.model
         return self.env[target_model].browse()
 
-    @api.multi
     def copy(self, default=None):
         """
         Copy the name (with a 'copy' after) and also copy include/exclude
@@ -101,7 +99,6 @@ class DistributionList(models.Model):
         result = super(DistributionList, self).copy(default=default)
         return result
 
-    @api.multi
     def mass_mailing(self):
         """
         Get mass mailing wizard (using action) related to current list.
@@ -128,7 +125,6 @@ class DistributionList(models.Model):
             'context': context,
         }
 
-    @api.multi
     def _get_target_from_distribution_list(self):
         """
         Computes records matching the entire distribution list
@@ -201,7 +197,6 @@ class DistributionList(models.Model):
                     [('id', 'in', results.ids)])
         return results
 
-    @api.multi
     def _get_complex_distribution_list_ids(self):
         """
         Simple case:
@@ -243,7 +238,6 @@ class DistributionList(models.Model):
                 alternative_target_model, sort)
         return mains, alternatives
 
-    @api.multi
     def _complete_distribution_list(self, src_dist_list_ids):
         """
         Function to put include and exclude lines of given
@@ -264,7 +258,6 @@ class DistributionList(models.Model):
                     'distribution_list_id': record.id,
                 })
 
-    @api.multi
     def action_show_result(self):
         """
         Show the result of the distribution list
