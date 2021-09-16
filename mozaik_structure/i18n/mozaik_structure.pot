@@ -161,6 +161,14 @@ msgid "Address Type"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__age
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__age
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__age
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__age
+msgid "Age"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__months_before_end_of_mandate
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__months_before_end_of_mandate
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__months_before_end_of_mandate
@@ -317,6 +325,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__barcode
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__barcode
 msgid "Barcode"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__birthdate_date
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__birthdate_date
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__birthdate_date
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__birthdate_date
+msgid "Birthdate"
 msgstr ""
 
 #. module: mozaik_structure
@@ -771,6 +787,14 @@ msgid "External Identifier (INS)"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_facebook
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_facebook
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_facebook
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__social_facebook
+msgid "Facebook Account"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__phone_sanitized
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__phone_sanitized
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__phone_sanitized
@@ -862,6 +886,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__email_formatted
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__email_formatted
 msgid "Formatted Email"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__gender
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__gender
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__gender
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__gender
+msgid "Gender"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1377,6 +1409,14 @@ msgid "Manager"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__marital
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__marital
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__marital
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__marital
+msgid "Marital"
+msgstr ""
+
+#. module: mozaik_structure
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.int_instance_form_view
 msgid "Membership"
 msgstr ""
@@ -1480,6 +1520,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__name
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__name
 msgid "Name"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__nationality_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__nationality_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__nationality_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__nationality_id
+msgid "Nationality"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1815,6 +1863,14 @@ msgid "Secondary Parent Instance"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__secondary_website
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__secondary_website
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__secondary_website
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__secondary_website
+msgid "Secondary Website"
+msgstr ""
+
+#. module: mozaik_structure
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.int_assembly_search_view
 msgid "Secretariats"
 msgstr ""
@@ -2068,6 +2124,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__title
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__title
 msgid "Title"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_twitter
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_twitter
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_twitter
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__social_twitter
+msgid "Twitter Account"
 msgstr ""
 
 #. module: mozaik_structure
