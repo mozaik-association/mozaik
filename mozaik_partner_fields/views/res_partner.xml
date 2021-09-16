@@ -7,16 +7,47 @@
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field string="Birth Date > ..." name="birthdate_date" filter_domain="[('birthdate_date','>', self)]" invisible="context.get('default_is_company', True)" />
-                <field string="Birth Date &lt;= ..." name="birthdate_date" filter_domain="[('birthdate_date','&lt;=', self)]" invisible="context.get('default_is_company', True)" />
-                <field string="Age >= ..." name="age" filter_domain="[('age','>=', self)]" invisible="context.get('default_is_company', True)" />
-                <field string="Age &lt; ..." name="age" filter_domain="[('age','&lt;', self)]" invisible="context.get('default_is_company', True)" />
+                <field
+                    string="Birth Date > ..."
+                    name="birthdate_date"
+                    filter_domain="[('birthdate_date','>', self)]"
+                    invisible="context.get('default_is_company', True)"
+                />
+                <field
+                    string="Birth Date &lt;= ..."
+                    name="birthdate_date"
+                    filter_domain="[('birthdate_date','&lt;=', self)]"
+                    invisible="context.get('default_is_company', True)"
+                />
+                <field
+                    string="Age >= ..."
+                    name="age"
+                    filter_domain="[('age','>=', self)]"
+                    invisible="context.get('default_is_company', True)"
+                />
+                <field
+                    string="Age &lt; ..."
+                    name="age"
+                    filter_domain="[('age','&lt;', self)]"
+                    invisible="context.get('default_is_company', True)"
+                />
                 <field name="comment" />
-                <field name="nationality_id" invisible="context.get('default_is_company', True)" />
-                <field name="gender" invisible="context.get('default_is_company', True)" />
+                <field
+                    name="nationality_id"
+                    invisible="context.get('default_is_company', True)"
+                />
+                <field
+                    name="gender"
+                    invisible="context.get('default_is_company', True)"
+                />
             </xpath>
             <xpath expr="//group" position="inside">
-                <filter name="nationality" string="Nationality" context="{'group_by': 'nationality_id'}" invisible="context.get('default_is_company', True)"/>
+                <filter
+                    name="nationality"
+                    string="Nationality"
+                    context="{'group_by': 'nationality_id'}"
+                    invisible="context.get('default_is_company', True)"
+                />
             </xpath>
         </field>
     </record>
@@ -27,17 +58,20 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='personal_information_group']" position="inside">
-                <field name="marital"/>
+                <field name="marital" />
             </xpath>
             <xpath expr="//field[@name='birthdate_date']" position="after">
-                <field name="age" attrs="{'invisible': [('birthdate_date', '=', False)]}"/>
+                <field
+                    name="age"
+                    attrs="{'invisible': [('birthdate_date', '=', False)]}"
+                />
             </xpath>
             <xpath expr="//field[@name='website']" position="after">
-                <field name="secondary_website"/>
+                <field name="secondary_website" />
             </xpath>
             <xpath expr="//field[@name='website']" position="before">
-                <field name="social_twitter"/>
-                <field name="social_facebook"/>
+                <field name="social_twitter" />
+                <field name="social_facebook" />
             </xpath>
         </field>
     </record>
@@ -48,7 +82,10 @@
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='user_id']" position="before">
-                <field name="birthdate_date" invisible="context.get('default_is_company', True)" />
+                <field
+                    name="birthdate_date"
+                    invisible="context.get('default_is_company', True)"
+                />
             </xpath>
         </field>
     </record>

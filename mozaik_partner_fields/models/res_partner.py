@@ -1,13 +1,14 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import datetime, date
+from datetime import date, datetime
+
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
-inverse_operators = str.maketrans('<>', '><')
+inverse_operators = str.maketrans("<>", "><")
 
 
 def compute_age(birth_date):
@@ -18,66 +19,62 @@ def compute_age(birth_date):
     """
     if not birth_date:
         return False
-    born = datetime.strptime(birth_date, DEFAULT_SERVER_DATE_FORMAT)
+    born = datetime.strptime(
+        birth_date.strftime(DEFAULT_SERVER_DATE_FORMAT), DEFAULT_SERVER_DATE_FORMAT
+    )
     today = date.today()
-    return (
-        today.year - born.year -
-        ((today.month, today.day) < (born.month, born.day)))
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 
 class ResPartner(models.Model):
 
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     marital = fields.Selection(
         [
-            ('single', 'Single'),
-            ('married', 'Married'),
-            ('cohabitant', 'Legal Cohabitant'),
-            ('widower', 'Widower'),
-            ('divorced', 'Divorced'),
+            ("single", "Single"),
+            ("married", "Married"),
+            ("cohabitant", "Legal Cohabitant"),
+            ("widower", "Widower"),
+            ("divorced", "Divorced"),
         ],
-        track_visibility='onchange',
+        tracking=True,
     )
     secondary_website = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     social_twitter = fields.Char(
-        'Twitter Account',
-        track_visibility='onchange',
-        oldname='twitter',
+        "Twitter Account",
+        tracking=True,
     )
     social_facebook = fields.Char(
-        'Facebook Account',
-        track_visibility='onchange',
-        oldname='facebook',
+        "Facebook Account",
+        tracking=True,
     )
     age = fields.Integer(
-        compute='_compute_age',
-        search='_search_age',
+        compute="_compute_age",
+        search="_search_age",
     )
 
     # complete existing fields
     website = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     comment = fields.Text(
-        track_visibility='onchange',
+        tracking=True,
     )
     birthdate_date = fields.Date(
         index=True,
-        track_visibility='onchange',
-        oldname='birth_date',
+        tracking=True,
     )
     nationality_id = fields.Many2one(
-        track_visibility='onchange',
+        tracking=True,
     )
     gender = fields.Selection(
-        track_visibility='onchange',
+        tracking=True,
     )
 
-    @api.multi
-    @api.depends('birthdate_date')
+    @api.depends("birthdate_date")
     def _compute_age(self):
         """
         Compute age of partner depending of the birth date
@@ -94,4 +91,4 @@ class ResPartner(models.Model):
         birth_date = date.today() - relativedelta(years=age)
         birth_date = datetime.strftime(birth_date, DEFAULT_SERVER_DATE_FORMAT)
         op = operator.translate(inverse_operators)
-        return [('birthdate_date', op, birth_date)]
+        return [("birthdate_date", op, birth_date)]
