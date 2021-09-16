@@ -6,13 +6,18 @@ from odoo.tools.safe_eval import safe_eval
 
 
 class AbstractDuplicate(models.AbstractModel):
-    _name = 'abstract.duplicate'
-    _inherit = ['mozaik.abstract.model']
+    _name = "abstract.duplicate"
+    _inherit = ["mozaik.abstract.model"]
     _description = "Abstract Duplicate Model"
 
-    _discriminant_field = None
-    _discriminant_model = None
-    _reset_allowed = False
+    _discriminant_fields = {}
+    # dict of:
+    #   key: model field
+    #   value: dict
+    #     reset_allowed: boolean
+    #     field_allowed: str
+    #     field_duplicate: str
+
     _trigger_fields = []
     _undo_redirect_action = None
 
@@ -20,35 +25,42 @@ class AbstractDuplicate(models.AbstractModel):
         readonly=True,
         copy=False,
         tracking=True,
-    )
-    is_duplicate_allowed = fields.Boolean(
-        readonly=True,
-        copy=False,
+        store=True,
+        compute="_compute_is_duplicate_detected",
     )
 
     @api.model
-    def _is_discriminant_m2o(self):
-        return isinstance(
-            self._fields[self._discriminant_field], fields.Many2one)
+    def _is_duplicate_detected_depends_fields(self):
+        res = []
+        for field_data in self._discriminant_fields.values():
+            res.append(field_data["field_duplicate"])
+        return res
 
-    @api.model
-    def _get_discriminant_model(self):
-        if self._discriminant_model:
-            return self.env.get(self._discriminant_model).browse()
-        return self.browse()
+    @api.depends(_is_duplicate_detected_depends_fields)
+    def _compute_is_duplicate_detected(self):
+        for o in self:
+            duplicate_detected = False
+            for field_data in self._discriminant_fields.values():
+                if o[field_data["field_duplicate"]]:
+                    duplicate_detected = True
+                    break
+            o.is_duplicate_detected = duplicate_detected
 
-    def _get_discriminant_value(self, force_field=False):
+    def _get_discriminant_values(self):
         """
         Get the value of the discriminant field
         :param force_field: str
         :return: str, int, float, bool
         """
         self.ensure_one()
-        if self._is_discriminant_m2o():
-            force_field = force_field or 'id'
-            value = self[self._discriminant_field]
-            return value[force_field]
-        return self[self._discriminant_field]
+        vals = {}
+        for discriminant_field in self._discriminant_fields:
+            value = self[discriminant_field]
+            if isinstance(self._fields[discriminant_field], fields.Many2one):
+                value = value.id
+            if value:
+                vals[discriminant_field] = value
+        return vals
 
     @api.model
     def create(self, vals):
@@ -60,7 +72,7 @@ class AbstractDuplicate(models.AbstractModel):
         result = super().create(vals)
         if result:
             result = result.sudo()
-            value = result._get_discriminant_value()
+            value = result._get_discriminant_values()
             self.sudo()._detect_and_repair_duplicate(value)
         return result
 
@@ -71,14 +83,13 @@ class AbstractDuplicate(models.AbstractModel):
         :return: bool
         """
         trigger_fields = self._get_trigger_fields(vals.keys())
-        detect = self and trigger_fields and \
-            not self._context.get('escape_detection')
+        detect = self and trigger_fields and not self._context.get("escape_detection")
         if detect:
             self_sudo = self.sudo()
-            values = [d._get_discriminant_value() for d in self_sudo]
+            values = [d._get_discriminant_values() for d in self_sudo]
         result = super().write(vals)
         if detect:
-            values += [d._get_discriminant_value() for d in self_sudo]
+            values += [d._get_discriminant_values() for d in self_sudo]
             self_sudo._detect_and_repair_duplicate(values)
         return result
 
@@ -89,11 +100,14 @@ class AbstractDuplicate(models.AbstractModel):
         :param fields_list: list of str
         :return:
         """
-        trigger_fields = self._trigger_fields or [self._discriminant_field]
-        trigger_fields.extend([
-            'is_duplicate_detected',
-            'is_duplicate_allowed',
-        ])
+        trigger_fields = self._trigger_fields or list(self._discriminant_fields.keys())
+        for v in self._discriminant_fields.values():
+            field_allowed = v.get("field_allowed")
+            if field_allowed:
+                trigger_fields.append(field_allowed)
+            field_duplicate = v.get("field_duplicate")
+            if field_duplicate:
+                trigger_fields.append(field_duplicate)
         return list(set(trigger_fields).intersection(fields_list))
 
     def unlink(self):
@@ -104,7 +118,7 @@ class AbstractDuplicate(models.AbstractModel):
         self_sudo = self.sudo()
         values = False
         if self:
-            values = [d._get_discriminant_value() for d in self_sudo]
+            values = [d._get_discriminant_values() for d in self_sudo]
         result = super().unlink()
         if values:
             self_sudo._detect_and_repair_duplicate(values)
@@ -117,24 +131,67 @@ class AbstractDuplicate(models.AbstractModel):
         (see _detect_and_repair_duplicate).
         :return: dict
         """
-        self.write({'is_duplicate_allowed': False})
+        self.write(
+            {
+                self._discriminant_fields[self.env.context["discriminant_field"]][
+                    "field_allowed"
+                ]: False
+            }
+        )
 
         if len(self) != 1:
             return True
 
         # Reload the tree with all duplicates
-        value = self._get_discriminant_value()
+        value = self._get_discriminant_values()
         action = self.env.ref(self._undo_redirect_action).read()[0]
         # force the tree view
-        action['view_mode'] = 'tree,' + action['view_mode'].replace(
-            'tree,', '')
-        action.pop('search_view', False)
+        action["view_mode"] = "tree," + action["view_mode"].replace("tree,", "")
+        action.pop("search_view", False)
         context = safe_eval(action["context"])
-        context['search_default_%s' % self._discriminant_field] = value
-        action.update({
-            'context': context,
-        })
+        for discriminant_field in self._discriminant_fields:
+            if value.get(discriminant_field):
+                context["search_default_%s" % discriminant_field] = value[
+                    discriminant_field
+                ]
+        action.update(
+            {
+                "context": context,
+            }
+        )
         return action
+
+    @api.model
+    def _get_fields_to_update_duplicate(self, mode, field):
+        """
+        Depending on a mode, builds a dictionary allowing to update duplicate
+        fields
+        :param mode: str
+        :return: dict
+        """
+        result = {}
+        if mode in ["reset", "deactivate"]:
+            result.update(
+                {
+                    self._discriminant_fields[field]["field_duplicate"]: False,
+                    self._discriminant_fields[field]["field_allowed"]: False,
+                }
+            )
+        elif mode == "duplicate":
+            result.update(
+                {
+                    self._discriminant_fields[field]["field_duplicate"]: True,
+                    self._discriminant_fields[field]["field_allowed"]: False,
+                }
+            )
+        elif mode == "allow":
+            result.update(
+                {
+                    self._discriminant_fields[field]["field_duplicate"]: False,
+                    self._discriminant_fields[field]["field_allowed"]: True,
+                }
+            )
+        return result
 
     @api.model
     def _get_fields_to_update(self, mode):
@@ -145,38 +202,28 @@ class AbstractDuplicate(models.AbstractModel):
         :return: dict
         """
         result = super()._get_fields_to_update(mode)
-        if mode in ['reset', 'deactivate']:
-            result.update({
-                'is_duplicate_detected': False,
-                'is_duplicate_allowed': False,
-            })
-        elif mode == 'duplicate':
-            result.update({
-                'is_duplicate_detected': True,
-                'is_duplicate_allowed': False,
-            })
-        elif mode == 'allow':
-            result.update({
-                'is_duplicate_detected': False,
-                'is_duplicate_allowed': True,
-            })
+        if mode in ["reset", "deactivate"]:
+            for key in self._discriminant_fields:
+                result.update(
+                    {
+                        self._discriminant_fields[key]["field_duplicate"]: False,
+                        self._discriminant_fields[key]["field_allowed"]: False,
+                    }
+                )
         return result
 
     @api.model
-    def _get_duplicates(self, value):
+    def _get_duplicates(self, value, discriminant_field):
         """
         Get duplicates
-        :param value: str, int, float, bool
+        :param value: dict of field: value
         :return: self recordset
         """
-        result = self.browse()
-        if self._discriminant_field:
-            result = self.search([(self._discriminant_field, '=', value)])
-        return result
+        domain = [(discriminant_field, "=", value[discriminant_field])]
+        return self.search(domain)
 
     @api.model
-    def _detect_and_repair_duplicate(
-            self, values, field_model=None, field_id=None):
+    def _detect_and_repair_duplicate(self, values, field_model=None, field_id=None):
         """
         Detect automatically duplicates (setting the is_duplicate_detected
         flag)
@@ -190,36 +237,60 @@ class AbstractDuplicate(models.AbstractModel):
         """
         if not isinstance(values, list):
             values = [values]
-        else:
-            values = list(set(values))
         for value in values:
-            duplicates = self._get_duplicates(value)
-            values_write = {}
-            if len(duplicates) > 1:
-                val = {}
-                nb_duplicates = len(duplicates.filtered(
-                    lambda d: not d.is_duplicate_detected and
-                    d.is_duplicate_allowed))
-                if nb_duplicates == 1 or self._reset_allowed:
-                    val.update({
-                        'is_duplicate_allowed': False,
-                    })
-                nb_duplicates = len(duplicates.filtered(
-                    lambda d: not d.is_duplicate_detected and not
-                    d.is_duplicate_allowed))
-                if nb_duplicates >= 1:
-                    values_write = self._get_fields_to_update('duplicate')
-            elif len(duplicates) == 1:
-                if duplicates.is_duplicate_allowed or \
-                        duplicates.is_duplicate_detected:
-                    values_write = self._get_fields_to_update('reset')
+            for discriminant_field in value:
+                duplicates = self._get_duplicates(value, discriminant_field)
+                values_write = {}
+                if len(duplicates) > 1:
+                    val = {}
+                    field_value = self._discriminant_fields[discriminant_field]
 
-            if values_write:
-                if field_model and field_id:
-                    for duplicate in duplicates:
-                        record = self.env[duplicate[field_model]].browse(duplicate[field_id])
-                        # super write method must be called here to avoid to cycle
-                        super(AbstractDuplicate, record).write(values_write)
-                else:
-                    duplicates.write(values_write)
+                    nb_duplicates = len(
+                        duplicates.filtered(
+                            lambda d: not d[field_value["field_duplicate"]]
+                            and d[field_value["field_allowed"]]
+                        )
+                    )
+                    if nb_duplicates == 1 or self._discriminant_fields[
+                        discriminant_field
+                    ].get("reset_allowed", False):
+                        val.update(
+                            {
+                                field_value["field_allowed"]: False,
+                            }
+                        )
+                    nb_duplicates = len(
+                        duplicates.filtered(
+                            lambda d: not d[field_value["field_duplicate"]]
+                            and not d[field_value["field_allowed"]]
+                        )
+                    )
+                    if nb_duplicates >= 1:
+                        values_write.update(
+                            self._get_fields_to_update_duplicate(
+                                "duplicate", discriminant_field
+                            )
+                        )
+                elif len(duplicates) == 1:
+                    field_value = self._discriminant_fields[discriminant_field]
+                    if (
+                        duplicates[field_value["field_allowed"]]
+                        or duplicates[field_value["field_duplicate"]]
+                    ):
+                        values_write.update(
+                            self._get_fields_to_update_duplicate(
+                                "reset", discriminant_field
+                            )
+                        )
+
+                if values_write:
+                    if field_model and field_id:
+                        for duplicate in duplicates:
+                            record = self.env[duplicate[field_model]].browse(
+                                duplicate[field_id]
+                            )
+                            # super write method must be called here to avoid to cycle
+                            super(AbstractDuplicate, record).write(values_write)
+                    else:
+                        duplicates.write(values_write)
         return True

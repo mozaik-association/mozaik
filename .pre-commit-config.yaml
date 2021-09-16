@@ -14,7 +14,6 @@ exclude: |
   ^mozaik_committee/|
   ^mozaik_communication/|
   ^mozaik_coordinate/|
-  ^mozaik_duplicate/|
   ^mozaik_email/|
   ^mozaik_involvement/|
   ^mozaik_involvement_followup/|
@@ -39,7 +38,6 @@ exclude: |
   ^mozaik_virtual_partner_mandate/|
   ^mozaik_virtual_partner_membership/|
   ^mozaik_virtual_partner_relation/|
-  ^partner_usual_firstname/|
   ^res_bank_reconcile/|
   ^user_bypass_security/|
   # END NOT INSTALLABLE ADDONS

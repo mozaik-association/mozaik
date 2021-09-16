@@ -6,12 +6,12 @@ from odoo import api, fields, models
 
 class ResPartner(models.Model):
 
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     usual_firstname = fields.Char()
     usual_lastname = fields.Char()
     usual_name = fields.Char(
-        compute='_compute_usual_name',
+        compute="_compute_usual_name",
         store=True,
         index=True,
     )
@@ -23,16 +23,16 @@ class ResPartner(models.Model):
         Optionaly the result can be reversed
         """
         names = [
-            usual and self.usual_lastname or self.lastname or '',
-            usual and self.usual_firstname or self.firstname or '',
+            usual and self.usual_lastname or self.lastname or "",
+            usual and self.usual_firstname or self.firstname or "",
         ]
         if reverse:
             names = list(reversed(names))
         return names
 
     @api.depends(
-        'is_company',
-        'firstname', 'lastname', 'usual_firstname', 'usual_lastname')
+        "is_company", "firstname", "lastname", "usual_firstname", "usual_lastname"
+    )
     def _compute_usual_name(self):
         """
         Compute selected names from all available names
@@ -42,8 +42,7 @@ class ResPartner(models.Model):
                 u_name = partner.name
             else:
                 names = partner._get_names(usual=True)
-                u_name = partner._get_computed_name(
-                    names[0], names[1])
+                u_name = partner._get_computed_name(names[0], names[1])
 
             partner.usual_name = u_name
 
@@ -54,15 +53,15 @@ class ResPartner(models.Model):
         for p in self:
             vals = {}
             if not p.lastname and p.usual_lastname:
-                vals['lastname'] = p.usual_lastname
-                vals['usual_lastname'] = False
+                vals["lastname"] = p.usual_lastname
+                vals["usual_lastname"] = False
             if p.lastname == p.usual_lastname and p.lastname:
-                vals['usual_lastname'] = False
+                vals["usual_lastname"] = False
             if not p.firstname and p.usual_firstname:
-                vals['firstname'] = p.usual_firstname
-                vals['usual_firstname'] = False
+                vals["firstname"] = p.usual_firstname
+                vals["usual_firstname"] = False
             if p.firstname == p.usual_firstname and p.firstname:
-                vals['usual_firstname'] = False
+                vals["usual_firstname"] = False
             if vals:
                 p.write(vals)
 
@@ -80,6 +79,6 @@ class ResPartner(models.Model):
         Sanitize names after write()
         """
         res = super().write(values)
-        if not self._context.get('escape_sanitize'):
+        if not self._context.get("escape_sanitize"):
             self.with_context(escape_sanitize=True)._sanitize_names()
         return res

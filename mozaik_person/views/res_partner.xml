@@ -4,34 +4,87 @@
    <record id="res_partner_search_view" model="ir.ui.view">
         <field name="name">res.partner.search (in mozaik_person)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="identifier" string="Number"/>
+                <field name="identifier" string="Number" />
             </xpath>
             <xpath expr="//field[@name='name']" position="attributes">
-                <attribute name="filter_domain" translation="off">['|',('select_name','ilike',self),('technical_name','ilike',self)]</attribute>
+                <attribute
+                    name="filter_domain"
+                    translation="off"
+                >['|',('select_name','ilike',self),('technical_name','ilike',self)]</attribute>
             </xpath>
             <xpath expr="//filter[@name='inactive']" position="before">
                 <separator />
-                <filter string="Employee" name="employee" domain="[('employee','!=',0)]" invisible="context.get('default_is_company')"/>
-                <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" invisible="context.get('default_is_company')"/>
+                <filter
+                    string="Employee"
+                    name="employee"
+                    domain="[('employee','!=',0)]"
+                    invisible="context.get('default_is_company')"
+                />
+                <filter
+                    string="Not Employee"
+                    name="not_employee"
+                    domain="[('employee','=',0)]"
+                    invisible="context.get('default_is_company')"
+                />
                 <separator />
-                <filter string="User" name="user" domain="[('user_ids', '!=', False)]" invisible="context.get('default_is_company')"/>
-                <filter string="Not User" name="not_user" domain="[('user_ids', '=', False)]" invisible="context.get('default_is_company')"/>
+                <filter
+                    string="User"
+                    name="user"
+                    domain="[('user_ids', '!=', False)]"
+                    invisible="context.get('default_is_company')"
+                />
+                <filter
+                    string="Not User"
+                    name="not_user"
+                    domain="[('user_ids', '=', False)]"
+                    invisible="context.get('default_is_company')"
+                />
                 <separator />
-                <filter name="duplicate" string="Duplicates" domain="[('is_duplicate_detected','=',True)]" />
+                <filter
+                    name="duplicate"
+                    string="Duplicates"
+                    domain="[('is_duplicate_detected','=',True)]"
+                />
                 <separator />
-                <filter name="allow_duplicate" string="Allowed Duplicates" domain="[('is_duplicate_allowed','=',True)]" />
+                <filter
+                    name="is_name_duplicate_allowed"
+                    string="Allowed Duplicates (Name)"
+                    domain="[('is_name_duplicate_allowed','=',True)]"
+                />
+                <filter
+                    name="is_email_duplicate_allowed"
+                    string="Allowed Duplicates (Email)"
+                    domain="[('is_email_duplicate_allowed','=',True)]"
+                />
+                <filter
+                    name="is_mobile_duplicate_allowed"
+                    string="Allowed Duplicates (Mobile)"
+                    domain="[('is_mobile_duplicate_allowed','=',True)]"
+                />
+                <filter
+                    name="is_phone_duplicate_allowed"
+                    string="Allowed Duplicates (Phone)"
+                    domain="[('is_phone_duplicate_allowed','=',True)]"
+                />
                 <separator />
             </xpath>
             <xpath expr="//filter[@name='inactive']" position="attributes">
-                <attribute name="context" translation="off">{'invisible_expire_date': False}</attribute>
+                <attribute
+                    name="context"
+                    translation="off"
+                >{'invisible_expire_date': False}</attribute>
             </xpath>
             <xpath expr="//filter[@name='inactive']" position="after">
-                <filter name="all" string="All"
+                <filter
+                    name="all"
+                    string="All"
                     context="{'invisible_expire_date': False}"
-                    domain="[('active', '&lt;=', True)]" help="All Contacts, archived or not" />
+                    domain="[('active', '&lt;=', True)]"
+                    help="All Contacts, archived or not"
+                />
             </xpath>
         </field>
     </record>
@@ -43,29 +96,29 @@
         <field name="arch" type="xml">
 
             <xpath expr="//tree" position="attributes">
-                <attribute name="decoration-muted" translation="off">not active</attribute>
-                <attribute name="decoration-warning" translation="off">is_duplicate_detected</attribute>
+                <attribute
+                    name="decoration-muted"
+                    translation="off"
+                >not active</attribute>
+                <attribute
+                    name="decoration-warning"
+                    translation="off"
+                >is_duplicate_detected</attribute>
             </xpath>
 
             <xpath expr="//field[@name='display_name']" position="attributes">
                 <attribute name="invisible" translation="off">1</attribute>
             </xpath>
             <xpath expr="//field[@name='display_name']" position="after">
-                <field name="identifier" attrs="{'invisible':[('identifier', '=', False)]}"/>
-                <field name="select_name" string="Name"/>
+                <field
+                    name="identifier"
+                    attrs="{'invisible':[('identifier', '=', False)]}"
+                />
+                <field name="select_name" string="Name" />
             </xpath>
 
             <xpath expr="//field[@name='active']" position="after">
-                <field name="is_duplicate_detected" invisible="1"/>
-                <field name="is_duplicate_allowed" invisible="1"/>
-                <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
-                        attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
-                        icon="fa-undo text-warning"
-                        confirm="Undo allow duplicate: proceed anyway?"
-                        groups="mozaik_person.res_groups_partner_user" />
-
-                <field name="expire_date"
-                       invisible="context.get('invisible_expire_date', True)" />
+                <field name="is_duplicate_detected" invisible="1" />
             </xpath>
 
         </field>
@@ -83,7 +136,9 @@
         <field name="name">Legal Persons</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">kanban,tree,form</field>
-        <field name="domain">[('is_company', '=', True),('is_assembly', '=', False)]</field>
+        <field
+            name="domain"
+        >[('is_company', '=', True),('is_assembly', '=', False)]</field>
         <field name="context">{'default_is_company': True}</field>
     </record>
 
@@ -96,7 +151,9 @@
         <field name="res_model">res.partner</field>
         <field name="view_mode">tree,kanban,form</field>
         <field name="domain">[]</field>
-        <field name="context">{'search_default_duplicate': True, 'default_is_company': False}</field>
+        <field
+            name="context"
+        >{'search_default_duplicate': True, 'default_is_company': False}</field>
     </record>
 
     <record id="res_partner_form_view" model="ir.ui.view">
@@ -105,78 +162,113 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
 
-            <xpath expr="//button[@name='toggle_active']" position="attributes">
-                <attribute name="confirm">Archive/reactivate partner: proceed anyway?</attribute>
-            </xpath>
-
             <xpath expr="//field[@name='name']" position="attributes">
-                <attribute name="attrs">{'readonly': ['|',('is_company', '=', False),('is_assembly', '=', True)], 'required': [('is_company', '=', True),('is_assembly', '=', False)]}</attribute>
+                <attribute
+                    name="attrs"
+                >{'readonly': ['|',('is_company', '=', False),('is_assembly', '=', True)], 'required': [('is_company', '=', True),('is_assembly', '=', False)]}</attribute>
             </xpath>
 
             <xpath expr="//sheet" position="before">
                 <header>
-                    <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
-                        <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
-                                attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
-                                confirm="Undo allow duplicate: proceed anyway?"
-                                groups="mozaik_person.res_groups_partner_user" />
-                    </div>
+                    <field name="is_name_duplicate_allowed" invisible="1" />
+                    <button
+                        name="button_undo_allow_duplicate"
+                        string="Undo Allow Duplicate (Name)"
+                        type="object"
+                        attrs="{'invisible': ['|','|',('id','=',False),('active','=',False), ('is_name_duplicate_allowed','=',False)]}"
+                        confirm="Undo allow duplicate: proceed anyway?"
+                        context="{'discriminant_field': 'name'}"
+                        groups="mozaik_person.res_groups_partner_user"
+                    />
+                    <field name="is_email_duplicate_allowed" invisible="1" />
+                    <button
+                        name="button_undo_allow_duplicate"
+                        string="Undo Allow Duplicate (Email)"
+                        type="object"
+                        attrs="{'invisible': ['|','|',('id','=',False),('active','=',False), ('is_email_duplicate_allowed','=',False)]}"
+                        confirm="Undo allow duplicate: proceed anyway?"
+                        context="{'discriminant_field': 'email'}"
+                        groups="mozaik_person.res_groups_partner_user"
+                    />
+                    <field name="is_phone_duplicate_allowed" invisible="1" />
+                    <button
+                        name="button_undo_allow_duplicate"
+                        string="Undo Allow Duplicate (Phone)"
+                        type="object"
+                        attrs="{'invisible': ['|','|',('id','=',False),('active','=',False), ('is_phone_duplicate_allowed','=',False)]}"
+                        confirm="Undo allow duplicate: proceed anyway?"
+                        context="{'discriminant_field': 'phone'}"
+                        groups="mozaik_person.res_groups_partner_user"
+                    />
+                    <field name="is_mobile_duplicate_allowed" invisible="1" />
+                    <button
+                        name="button_undo_allow_duplicate"
+                        string="Undo Allow Duplicate (Mobile)"
+                        type="object"
+                        attrs="{'invisible': ['|','|',('id','=',False),('active','=',False), ('is_mobile_duplicate_allowed','=',False)]}"
+                        confirm="Undo allow duplicate: proceed anyway?"
+                        context="{'discriminant_field': 'mobile'}"
+                        groups="mozaik_person.res_groups_partner_user"
+                    />
                 </header>
             </xpath>
 
-            <xpath expr="//button[@name='toggle_active']" position="attributes">
-                <attribute name="groups">mozaik_abstract_model.res_groups_archiving_manager</attribute>
-            </xpath>
-
             <xpath expr="//field[@name='company_type']" position="before">
-                <h3 attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}">
-                    <label string="#"/>
-                    <field name="identifier" readonly="1" class="oe_inline"/>
+                <h3
+                    attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}"
+                >
+                    <label for="identifier" string="#" />
+                    <field name="identifier" readonly="1" class="oe_inline" />
                 </h3>
             </xpath>
 
             <xpath expr="//group[@name='usual']" position="after">
-                <group name="abbrev" attrs="{'invisible': ['|',('is_company', '=', False),('is_assembly', '=', True)]}">
+                <group
+                    name="abbrev"
+                    attrs="{'invisible': ['|',('is_company', '=', False),('is_assembly', '=', True)]}"
+                >
                     <field name="acronym" />
                 </group>
             </xpath>
 
             <xpath expr="//field[@name='is_assembly']" position="after">
-                <field name="employee" readonly="1" attrs="{'invisible': [('is_company','=', True)]}" />
+                <field
+                    name="employee"
+                    readonly="1"
+                    attrs="{'invisible': [('is_company','=', True)]}"
+                />
             </xpath>
 
             <xpath expr="//group[field[@name='user_ids']]" position="after">
                 <group name="validity" attrs="{'invisible': [('id','=',False)]}">
                     <field name="create_date" />
-                    <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                    <field
+                        name="expire_date"
+                        attrs="{'invisible': [('active','=',True)]}"
+                    />
                 </group>
                 <group name="duplicate">
-                    <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
+                    <label
+                        for="is_duplicate_detected"
+                        attrs="{'invisible': [('is_duplicate_detected','=',False)]}"
+                    />
                     <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
                         <field name="is_duplicate_detected" class="oe_inline" />
-                        <button name="%(res_partner_duplicate_action)d" type="action" class="oe_red_link" string="⇒ Show all duplicates"
-                                context="{'search_default_name': name}"/>
+                        <button
+                            name="%(res_partner_duplicate_action)d"
+                            type="action"
+                            class="oe_red_link"
+                            string="⇒ Show all duplicates"
+                            context="{'search_default_name': name, 'search_default_email': email, 'search_default_phone': phone, 'search_default_mobile': mobile, 'search_default_address_address_id': address_address_id}"
+                        />
                     </div>
-
-                    <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
                 </group>
-            </xpath>
-
-            <xpath expr="//notebook" position="inside">
-                <page string="More Info" name="dev" groups="base.group_erp_manager">
-                    <group name="moreinfo">
-                        <field name="display_name" />
-                        <field name="usual_name" />
-                        <field name="technical_name" />
-                        <field name="printable_name" />
-                        <field name="select_name" />
-                        <field name="tz" />
-                    </group>
-                </page>
             </xpath>
 
             <xpath expr="//field[@name='message_follower_ids']" position="attributes">
-                <attribute name="groups">mozaik_abstract_model.res_groups_follower_manager</attribute>
+                <attribute
+                    name="groups"
+                >mozaik_abstract_model.res_groups_follower_manager</attribute>
             </xpath>
 
         </field>

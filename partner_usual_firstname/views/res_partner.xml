@@ -1,27 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="res_partner_form_view">
         <field name="name">res.partner.form (in partner_usual_firstname)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='lastname'][1]/.." position="after">
                 <group attrs="{'invisible': [('is_company', '=', True)]}" name="usual">
-                    <field name="usual_lastname"/>
-                    <field name="usual_firstname"/>
+                    <field name="usual_lastname" />
+                    <field name="usual_firstname" />
                 </group>
             </xpath>
 
-            <xpath expr="//field[@name='child_ids']/form//field[@name='lastname']/../.."
-                position="after">
+            <xpath
+                expr="//field[@name='child_ids']/form//field[@name='lastname']/../.."
+                position="after"
+            >
                 <div class="oe_edit_only" colspan="2">
-                    <group attrs="{'invisible': [('is_company', '=', True)]}" name="inner_usual">
-                        <field name="usual_lastname"/>
-                        <field name="usual_firstname"/>
+                    <group
+                        attrs="{'invisible': [('is_company', '=', True)]}"
+                        name="inner_usual"
+                    >
+                        <field name="usual_lastname" />
+                        <field name="usual_firstname" />
                     </group>
                 </div>
             </xpath>

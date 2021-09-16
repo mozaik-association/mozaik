@@ -1,39 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
     <record model="ir.module.category" id="module_category_partner">
         <field name="name">Partner</field>
-        <field name="parent_id" ref="base.module_category_political_association"/>
+        <field name="parent_id" ref="base.module_category_political_association" />
         <field name="sequence" eval="65" />
     </record>
 
     <record model="res.groups" id="res_groups_partner_reader">
         <field name="name">Reader</field>
-        <field name="category_id" ref="module_category_partner"/>
+        <field name="category_id" ref="module_category_partner" />
     </record>
 
     <record model="res.groups" id="res_groups_partner_user">
         <field name="name">User</field>
-        <field name="category_id" ref="module_category_partner"/>
-        <field name="implied_ids" eval="[(6, 0, [
+        <field name="category_id" ref="module_category_partner" />
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
             ref('res_groups_partner_reader'),
-        ])]" />
+        ])]"
+        />
     </record>
 
     <record model="res.groups" id="base.group_partner_manager">
         <field name="name">Partner manager</field>
-        <field name="category_id" ref="module_category_partner"/>
-        <field name="implied_ids" eval="[(6, 0, [
+        <field name="category_id" ref="module_category_partner" />
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
             ref('res_groups_partner_user'),
-        ])]" />
+        ])]"
+        />
     </record>
 
     <record model="res.users" id="base.user_root">
-        <field name="groups_id" eval="[
+        <field
+            name="groups_id"
+            eval="[
             (4, ref('base.group_partner_manager')),
-        ]" />
+        ]"
+        />
     </record>
 
 </odoo>
