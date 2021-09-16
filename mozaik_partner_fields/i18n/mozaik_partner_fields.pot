@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_partner_fields
+# 	* mozaik_partner_fields
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,29 +14,35 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_partner_fields
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner_age
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users_age
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__age
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__age
 msgid "Age"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Age < ..."
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Age >= ..."
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Birth Date <= ..."
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Birth Date > ..."
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__birthdate_date
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__birthdate_date
+msgid "Birthdate"
 msgstr ""
 
 #. module: mozaik_partner_fields
@@ -45,56 +51,90 @@ msgid "Contact"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: selection:res.partner,marital:0
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__divorced
 msgid "Divorced"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner_social_facebook
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users_social_facebook
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_facebook
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_facebook
 msgid "Facebook Account"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: selection:res.partner,marital:0
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__gender
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__gender
+msgid "Gender"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__cohabitant
 msgid "Legal Cohabitant"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner_marital
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users_marital
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__marital
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__marital
 msgid "Marital"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: selection:res.partner,marital:0
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__married
 msgid "Married"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__nationality_id
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__nationality_id
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Nationality"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner_secondary_website
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users_secondary_website
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__comment
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__comment
+msgid "Notes"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__secondary_website
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__secondary_website
 msgid "Secondary Website"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: selection:res.partner,marital:0
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__single
 msgid "Single"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner_social_twitter
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users_social_twitter
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_twitter
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_twitter
 msgid "Twitter Account"
 msgstr ""
 
 #. module: mozaik_partner_fields
-#: selection:res.partner,marital:0
-msgid "Widower"
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__website
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__website
+msgid "Website Link"
 msgstr ""
 
+#. module: mozaik_partner_fields
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__widower
+msgid "Widower"
+msgstr ""
