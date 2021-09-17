@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_person
+# 	* mozaik_person
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,41 +14,51 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/res_partner.py:233
+#: code:addons/mozaik_person/models/res_partner.py:0
 #, python-format
 msgid "%s cannot be a company to become a user!"
 msgstr ""
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/res_partner.py:229
+#: code:addons/mozaik_person/models/res_partner.py:0
 #, python-format
 msgid "%s is already a user!"
 msgstr ""
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/res_partner.py:238
+#: code:addons/mozaik_person/models/res_partner.py:0
 #, python-format
 msgid "%s must be active to become a user!"
 msgstr ""
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/wizards/create_user_from_partner.py:37
+#: code:addons/mozaik_person/wizards/create_user_from_partner.py:0
 #, python-format
 msgid "A partner is required to create a new user!"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_acronym
-#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_acronym
-#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_acronym
-#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_acronym
-#: model:ir.model.fields,field_description:mozaik_person.field_res_users_acronym
-#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__acronym
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__acronym
 msgid "Acronym"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__active
+msgid "Active"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "All"
 msgstr ""
 
@@ -58,27 +68,57 @@ msgid "All Contacts"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "All Contacts, archived or not"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action
-msgid "Allow Duplicates"
+#: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_email
+msgid "Allow Duplicates (Email)"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
-msgid "Allowed Duplicates"
+#: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_mobile
+msgid "Allow Duplicates (Mobile)"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
-msgid "Archive/reactivate partner: proceed anyway?"
+#: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_name
+msgid "Allow Duplicates (Name)"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
+#: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_phone
+msgid "Allow Duplicates (Phone)"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+msgid "Allowed Duplicates (Email)"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+msgid "Allowed Duplicates (Mobile)"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+msgid "Allowed Duplicates (Name)"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+msgid "Allowed Duplicates (Phone)"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "Cancel"
 msgstr ""
 
@@ -88,83 +128,220 @@ msgid "Contact"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "Create"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_create_uid
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__create_date
+msgid "Create Date"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_create_date
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_display_name
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.res_partner_duplicate_action
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Duplicates"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Employee"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_res_users_expire_date
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__expire_date
 msgid "Expiration Date"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_id
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__firstname
+msgid "First name"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__id
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_person
-#: code:addons/mozaik_person/models/res_partner.py:120
+#: code:addons/mozaik_person/models/res_partner.py:0
 #, python-format
 msgid "Identifier %s is already assigned"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_is_duplicate_allowed
-#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_is_duplicate_allowed
-#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_is_duplicate_allowed
-#: model:ir.model.fields,field_description:mozaik_person.field_res_users_is_duplicate_allowed
-#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_is_duplicate_allowed
-msgid "Is Duplicate Allowed"
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__message_needaction
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__message_unread
+msgid "If checked, new messages require your attention."
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_is_duplicate_detected
-#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_is_duplicate_detected
-#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_is_duplicate_detected
-#: model:ir.model.fields,field_description:mozaik_person.field_res_users_is_duplicate_detected
-#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_is_duplicate_detected
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__message_has_error
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_address_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_address_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_address_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_address_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_address_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_address_duplicate_detected
+msgid "Is Address Duplicate Detected"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_duplicate_detected
 msgid "Is Duplicate Detected"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner___last_update
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_email_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_email_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_email_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_email_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_email_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_email_duplicate_allowed
+msgid "Is Email Duplicate Allowed"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_email_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_email_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_email_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_email_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_email_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_email_duplicate_detected
+msgid "Is Email Duplicate Detected"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_mobile_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_mobile_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_mobile_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_mobile_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_mobile_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_mobile_duplicate_allowed
+msgid "Is Mobile Duplicate Allowed"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_mobile_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_mobile_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_mobile_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_mobile_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_mobile_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_mobile_duplicate_detected
+msgid "Is Mobile Duplicate Detected"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_name_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_name_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_name_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_name_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_name_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_name_duplicate_allowed
+msgid "Is Name Duplicate Allowed"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_name_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_name_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_name_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_name_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_name_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_name_duplicate_detected
+msgid "Is Name Duplicate Detected"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_phone_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_phone_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_phone_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_phone_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_phone_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_phone_duplicate_allowed
+msgid "Is Phone Duplicate Allowed"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_phone_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_phone_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_phone_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_phone_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_phone_duplicate_detected
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_phone_duplicate_detected
+msgid "Is Phone Duplicate Detected"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_write_uid
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_write_date
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__lastname
+msgid "Last name"
 msgstr ""
 
 #. module: mozaik_person
@@ -174,18 +351,32 @@ msgid "Legal Persons"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_login
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__login
 msgid "Login"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "More Info"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.view_partner_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.view_partner_tree_view
 msgid "Name"
 msgstr ""
 
@@ -196,24 +387,49 @@ msgid "Natural Persons"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Not Employee"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Not User"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_identifier
-#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_identifier
-#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_identifier
-#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_identifier
-#: model:ir.model.fields,field_description:mozaik_person.field_res_users_identifier
-#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_identifier
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__identifier
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__identifier
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Number"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__message_unread_counter
+msgid "Number of unread messages"
 msgstr ""
 
 #. module: mozaik_person
@@ -222,12 +438,12 @@ msgid "Partner"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_printable_name
-#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_printable_name
-#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_printable_name
-#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_printable_name
-#: model:ir.model.fields,field_description:mozaik_person.field_res_users_printable_name
-#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__printable_name
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__printable_name
 msgid "Printable Name"
 msgstr ""
 
@@ -237,7 +453,7 @@ msgid "Reader"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_nok
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__nok
 msgid "Reason"
 msgstr ""
 
@@ -249,37 +465,42 @@ msgid "Reset sequence 'Partner Identifier Sequence'"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_select_name
-#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_select_name
-#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_select_name
-#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_select_name
-#: model:ir.model.fields,field_description:mozaik_person.field_res_users_select_name
-#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__select_name
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__select_name
 msgid "Select Name"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly_technical_name
-#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly_technical_name
-#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly_technical_name
-#: model:ir.model.fields,field_description:mozaik_person.field_res_partner_technical_name
-#: model:ir.model.fields,field_description:mozaik_person.field_res_users_technical_name
-#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly_technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__technical_name
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__technical_name
 msgid "Technical Name"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "The selected partner is a legal person."
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "The selected partner is already a user."
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "The selected partner is deactivated."
 msgstr ""
 
@@ -289,26 +510,69 @@ msgid "Transform to a User"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
-#: model:ir.ui.view,arch_db:mozaik_person.view_partner_tree_view
-msgid "Undo Allow Duplicate"
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+msgid "Undo Allow Duplicate (Email)"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
-#: model:ir.ui.view,arch_db:mozaik_person.view_partner_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+msgid "Undo Allow Duplicate (Mobile)"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+msgid "Undo Allow Duplicate (Name)"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+msgid "Undo Allow Duplicate (Phone)"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
 msgid "Undo allow duplicate: proceed anyway?"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mozaik_person
 #: model:res.groups,name:mozaik_person.res_groups_partner_user
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "User"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner_role_id
+#: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner__role_id
 msgid "User's role"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__usual_firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__usual_firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__usual_firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__usual_firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__usual_firstname
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__usual_firstname
+msgid "Usual Firstname"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__usual_lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__usual_lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__usual_lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__usual_lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__usual_lastname
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__usual_lastname
+msgid "Usual Lastname"
 msgstr ""
 
 #. module: mozaik_person
@@ -317,12 +581,11 @@ msgid "Wizard to Create a User from a Partner"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.create_user_from_partner_form_view
 msgid "or"
 msgstr ""
 
 #. module: mozaik_person
-#: model:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
 msgid "⇒ Show all duplicates"
 msgstr ""
-
