@@ -26,7 +26,7 @@
         # 'mozaik_involvement',
         # 'mozaik_membership',
         "mozaik_partner_assembly",
-        # "mozaik_partner_fields",
+        "mozaik_partner_fields",
         # 'mozaik_partner_unauthorized',
         "mozaik_person",
         # 'mozaik_phone',
