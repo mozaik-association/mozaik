@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* partner_usual_firstname
+# 	* partner_usual_firstname
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,20 +19,34 @@ msgid "Contact"
 msgstr ""
 
 #. module: partner_usual_firstname
-#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner_usual_firstname
-#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users_usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: partner_usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: partner_usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: partner_usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner__usual_firstname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users__usual_firstname
 msgid "Usual Firstname"
 msgstr ""
 
 #. module: partner_usual_firstname
-#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner_usual_lastname
-#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users_usual_lastname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner__usual_lastname
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users__usual_lastname
 msgid "Usual Lastname"
 msgstr ""
 
 #. module: partner_usual_firstname
-#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner_usual_name
-#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users_usual_name
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner__usual_name
+#: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users__usual_name
 msgid "Usual Name"
 msgstr ""
-
