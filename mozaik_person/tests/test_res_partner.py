@@ -106,6 +106,13 @@ class TestResPartner(TransactionCase):
 
         ctx = {
             "active_model": "res.partner",
+            "active_ids": set(),
+            "discriminant_field": "name",
+        }
+        with self.assertRaises(UserError):
+            self.env["allow.duplicate.wizard"].with_context(ctx).view_init([])
+        ctx = {
+            "active_model": "res.partner",
             "active_ids": (admin + partners).ids,
             "discriminant_field": "name",
         }

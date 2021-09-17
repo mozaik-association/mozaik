@@ -52,6 +52,9 @@ class TestUsualFirstname(TransactionCase):
         self.assertFalse(poutine.usual_firstname)
         self.assertFalse(poutine.usual_lastname)
         self.assertEqual(poutine.name, poutine.usual_name)
+        poutine.lastname = False
+        poutine.usual_lastname = "lastname"
+        self.assertFalse(poutine.usual_firstname)
         return
 
     def test_get_names(self):
