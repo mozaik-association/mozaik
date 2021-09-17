@@ -1,16 +1,16 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, exceptions, fields, models, _
+from odoo import _, api, exceptions, fields, models
 
 
 class CreateUserFromPartner(models.TransientModel):
 
-    _name = 'create.user.from.partner'
-    _description = 'Wizard to Create a User from a Partner'
+    _name = "create.user.from.partner"
+    _description = "Wizard to Create a User from a Partner"
 
     nok = fields.Char(
-        string='Reason',
+        string="Reason",
         default=False,
         readonly=True,
     )
@@ -18,10 +18,10 @@ class CreateUserFromPartner(models.TransientModel):
         required=True,
     )
     role_id = fields.Many2one(
-        comodel_name='res.users.role',
+        comodel_name="res.users.role",
         string="User's role",
         required=True,
-        ondelete='cascade',
+        ondelete="cascade",
     )
 
     @api.model
@@ -31,29 +31,27 @@ class CreateUserFromPartner(models.TransientModel):
         Compute the reason for which the wizard is not working
         :raise: ERROR if no active_id found in the context
         """
-        partner_id = self._context.get('active_id', False) or False
+        partner_id = self._context.get("active_id", False) or False
         if not partner_id:
-            raise exceptions.UserError(
-                _('A partner is required to create a new user!'))
+            raise exceptions.UserError(_("A partner is required to create a new user!"))
 
         res = super().default_get(fields_list)
 
-        partner = self.env['res.partner'].browse([partner_id])
+        partner = self.env["res.partner"].browse([partner_id])
 
-        if 'nok' in fields_list:
+        if "nok" in fields_list:
             nok = False
             if partner.user_ids:
-                nok = 'user'
+                nok = "user"
             elif not partner.active:
-                nok = 'active'
+                nok = "active"
             elif partner.is_company and not partner.is_assembly:
-                nok = 'company'
+                nok = "company"
 
-            res.update({'nok': nok})
+            res.update({"nok": nok})
 
         return res
 
-    @api.multi
     def create_user_from_partner(self):
         """
         Create a user based on the selected partner (active_id) and associate
@@ -61,8 +59,8 @@ class CreateUserFromPartner(models.TransientModel):
         """
         self.ensure_one()
 
-        partner_id = self._context.get('active_id', False)
-        partner = self.env['res.partner'].browse([partner_id])
+        partner_id = self._context.get("active_id", False)
+        partner = self.env["res.partner"].browse([partner_id])
 
         role_id = self.role_id
         login = self.login

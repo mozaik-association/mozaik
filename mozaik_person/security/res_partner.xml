@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
     <record model="ir.model.access" id="res_partner_access_reader_R">
         <field name="name">res.partner reader R</field>
-        <field name="model_id" ref="model_res_partner"/>
-        <field name="group_id" ref="mozaik_person.res_groups_partner_reader"/>
-        <field name="perm_read" eval="1"/>
-        <field name="perm_create" eval="0"/>
-        <field name="perm_write" eval="0"/>
-        <field name="perm_unlink" eval="0"/>
+        <field name="model_id" ref="model_res_partner" />
+        <field name="group_id" ref="mozaik_person.res_groups_partner_reader" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_unlink" eval="0" />
     </record>
 
     <record model="ir.model.access" id="res_partner_access_user_CU">
         <field name="name">res.partner user CU</field>
-        <field name="model_id" ref="model_res_partner"/>
-        <field name="group_id" ref="mozaik_person.res_groups_partner_user"/>
-        <field name="perm_read" eval="0"/>
-        <field name="perm_create" eval="1"/>
-        <field name="perm_write" eval="1"/>
-        <field name="perm_unlink" eval="0"/>
+        <field name="model_id" ref="model_res_partner" />
+        <field name="group_id" ref="mozaik_person.res_groups_partner_user" />
+        <field name="perm_read" eval="0" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="0" />
     </record>
 
 </odoo>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -12,9 +12,14 @@
                     Allow selected duplicates, proceed anyway?
                 </strong>
                 <footer>
-                    <button string="Ok" name="button_allow_duplicate" type="object" class="oe_highlight" />
+                    <button
+                        string="Ok"
+                        name="button_allow_duplicate"
+                        type="object"
+                        class="oe_highlight"
+                    />
                     or
-                    <button string="Cancel" class="oe_link" special="cancel"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
             </form>
         </field>

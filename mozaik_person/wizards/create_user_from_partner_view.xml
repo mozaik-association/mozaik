@@ -11,25 +11,38 @@
                         <field name="login" />
                     </group>
                     <group name="other">
-                        <field name="role_id" options='{"no_open":True, "no_create":True}' />
+                        <field
+                            name="role_id"
+                            options='{"no_open":True, "no_create":True}'
+                        />
                     </group>
                 </group>
                 <div name="noway">
-                    <p attrs="{'invisible': [('nok','!=','user')]}">The selected partner is already a user.</p>
-                    <p attrs="{'invisible': [('nok','!=','company')]}">The selected partner is a legal person.</p>
-                    <p attrs="{'invisible': [('nok','!=','active')]}">The selected partner is deactivated.</p>
+                    <p
+                        attrs="{'invisible': [('nok','!=','user')]}"
+                    >The selected partner is already a user.</p>
+                    <p
+                        attrs="{'invisible': [('nok','!=','company')]}"
+                    >The selected partner is a legal person.</p>
+                    <p
+                        attrs="{'invisible': [('nok','!=','active')]}"
+                    >The selected partner is deactivated.</p>
                 </div>
                 <notebook>
                     <page name="dev" string="More Info" groups="base.group_erp_manager">
                         <group name="moreinfo">
-                            <field name="nok"/>
+                            <field name="nok" />
                         </group>
                     </page>
                 </notebook>
                 <footer>
                     <span name="go-wizard" attrs="{'invisible': [('nok','!=',False)]}">
-                        <button string="Create" name="create_user_from_partner"
-                                type="object" class="oe_highlight" />
+                        <button
+                            string="Create"
+                            name="create_user_from_partner"
+                            type="object"
+                            class="oe_highlight"
+                        />
                         or
                     </span>
                     <button string="Cancel" class="oe_link" special="cancel" />
@@ -41,15 +54,16 @@
     <record id="create_user_from_partner_action" model="ir.actions.act_window">
         <field name="name">Transform to a User</field>
         <field name="view_mode">form</field>
-        <field name="src_model">res.partner</field>
         <field name="res_model">create.user.from.partner</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="base.model_res_partner" />
-        <field name="view_id" ref="create_user_from_partner_form_view"/>
-        <field name="groups_id"
-               eval="[(6, 0, [
+        <field name="view_id" ref="create_user_from_partner_form_view" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [
                        ref('base.group_erp_manager'),
-                     ]),]" />
+                     ]),]"
+        />
         <field name="context">{}</field>
     </record>
 
