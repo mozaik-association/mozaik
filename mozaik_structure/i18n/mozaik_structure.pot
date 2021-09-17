@@ -805,6 +805,14 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__firstname
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__firstname
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__firstname
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__firstname
+msgid "First name"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_follower_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__message_follower_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__message_follower_ids
@@ -1349,6 +1357,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__write_date
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__lastname
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__lastname
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__lastname
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__lastname
+msgid "Last name"
 msgstr ""
 
 #. module: mozaik_structure
@@ -2196,6 +2212,30 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__user_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__user_ids
 msgid "Users"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__usual_firstname
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__usual_firstname
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__usual_firstname
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__usual_firstname
+msgid "Usual Firstname"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__usual_lastname
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__usual_lastname
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__usual_lastname
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__usual_lastname
+msgid "Usual Lastname"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__usual_name
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__usual_name
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__usual_name
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__usual_name
+msgid "Usual Name"
 msgstr ""
 
 #. module: mozaik_structure
