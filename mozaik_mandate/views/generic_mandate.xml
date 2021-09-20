@@ -79,7 +79,6 @@
     <record id="generic_mandate_action" model="ir.actions.act_window">
         <field name="name">All Mandates</field>
         <field name="res_model">generic.mandate</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="generic_mandate_search_view" />
         <field name="view_id" ref="generic_mandate_tree_view" />

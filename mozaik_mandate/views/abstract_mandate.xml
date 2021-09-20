@@ -11,12 +11,15 @@
             <form string="Mandate" duplicate="0">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_invalidate" type="object" class="oe_stat_button" icon="fa-archive"
-                                confirm="Invalidate mandate: proceed anyway?"
-                                attrs="{'invisible': ['|','|',('id','=',False),('active','=',False),('end_date','=',False)]}"
-                                groups="mozaik_abstract_model.res_groups_archiving_manager">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
+                        
+            <field name="active" invisible="1" />
+            <widget
+                name="web_ribbon"
+                title="Archived"
+                bg_color="bg-danger"
+                attrs="{'invisible': [('active', '=', True)]}"
+            />
+            
                     </div>
                     <group name="mandate">
                         <group name="mandate_1">

@@ -42,7 +42,7 @@ class MandateCategory(models.Model):
     name = fields.Char(
         required=True,
         index=True,
-        track_visibility='onchange')
+        tracking=True)
     type = fields.Selection(
         selection=MANDATE_CATEGORY_AVAILABLE_TYPES,
         index=True,
@@ -56,15 +56,15 @@ class MandateCategory(models.Model):
     sta_assembly_category_id = fields.Many2one(
         comodel_name='sta.assembly.category',
         string='State Assembly Category',
-        track_visibility='onchange')
+        tracking=True)
     ext_assembly_category_id = fields.Many2one(
         comodel_name='ext.assembly.category',
         string='External Assembly Category',
-        track_visibility='onchange')
+        tracking=True)
     int_assembly_category_id = fields.Many2one(
         comodel_name='int.assembly.category',
         string='Internal Assembly Category',
-        track_visibility='onchange')
+        tracking=True)
     assembly_categoryid = fields.Integer(
         string='Assembly category',
         compute='_compute_assembly_categoryid',
@@ -95,7 +95,6 @@ class MandateCategory(models.Model):
         default=lambda s: s._default_with_remuneration(),
     )
 
-    @api.multi
     @api.depends(
         'sta_assembly_category_id', 'int_assembly_category_id',
         'ext_assembly_category_id')
@@ -116,7 +115,6 @@ class MandateCategory(models.Model):
             res = True
         return res
 
-    @api.multi
     def copy_data(self, default=None):
         res = super().copy_data(default=default)
 
@@ -133,7 +131,6 @@ class MandateCategory(models.Model):
                 self, res_id.exclusive_category_m2m_ids)
         return res_id
 
-    @api.multi
     def write(self, vals):
         res = True
         if 'exclusive_category_m2m_ids' in vals:
@@ -147,7 +144,6 @@ class MandateCategory(models.Model):
             res = super().write(vals)
         return res
 
-    @api.multi
     def _update_exclusive_inverse_relation(self, initial_exclu, after_exclu):
         """
         Check balance between exclusive categories

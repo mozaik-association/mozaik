@@ -3,7 +3,7 @@
 
 {
     'name': 'MOZAIK: Mandate',
-    'version': '14.0.1.0.0',
+    'version': "14.0.1.0.0",
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
@@ -61,5 +61,5 @@ MOZAIK Mandate
     'test': [
     ],
     'license': 'AGPL-3',
-    "installable": False,
+    "installable": True,
 }

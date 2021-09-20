@@ -29,7 +29,7 @@ class IntMandate(models.Model):
         comodel_name="int.assembly.category")
     months_before_end_of_mandate = fields.Integer(
         string='Alert Delay (#Months)',
-        track_visibility='onchange', group_operator='max')
+        tracking=True, group_operator='max')
     partner_instance_search_ids = fields.Many2many(
         relation="int_mandate_partner_instance_membership_rel",
     )
@@ -65,14 +65,12 @@ class IntMandate(models.Model):
                     'during the same period!'
                 ))
 
-    @api.multi
     @api.onchange("mandate_category_id")
     def _onchange_mandate_category_id(self):
         for int_mandate in self:
             int_mandate.int_assembly_id = False
         return super()._onchange_mandate_category_id()
 
-    @api.multi
     @api.onchange("int_assembly_id")
     def _onchange_int_assembly_id(self):
         for int_mandate in self:

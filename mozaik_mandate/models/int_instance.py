@@ -8,7 +8,6 @@ class IntInstance(models.Model):
 
     _inherit = 'int.instance'
 
-    @api.multi
     def _get_model_ids(self, model):
         """
         Get all ids for a given model that are linked to an designation
@@ -32,7 +31,6 @@ class IntInstance(models.Model):
         res_ids = model_obj.search(domain).ids
         return res_ids
 
-    @api.multi
     def get_model_action(self):
         """
         return an action for a specific model contains into the context
@@ -57,7 +55,6 @@ class IntInstance(models.Model):
         action['domain'] = domain
         return action
 
-    @api.multi
     def _compute_mandate_count(self):
         """
         This method will set the value for

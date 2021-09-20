@@ -13,7 +13,6 @@ class GenericMandate(models.Model):
 
     _discriminant_field = 'partner_id'
 
-    @api.multi
     def _get_discriminant_value(self, force_field=False):
         """
         Get the value of the discriminant field
@@ -28,7 +27,6 @@ class GenericMandate(models.Model):
         return isinstance(self._columns[self._discriminant_field],
                           fields.Many2one)
 
-    @api.multi
     @api.depends("partner_id", "mandate_category_id")
     def _compute_name(self):
         for mandate in self:
@@ -136,7 +134,6 @@ class GenericMandate(models.Model):
             "join_ext_mandate": AsIs(self._join_ext_mandate()),
         })
 
-    @api.multi
     def button_view_mandate(self):
         """
         View mandates in its form view depending on model

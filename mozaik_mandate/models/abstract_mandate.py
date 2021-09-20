@@ -38,7 +38,7 @@ class AbstractMandate(models.AbstractModel):
         required=True,
         index=True,
         auto_join=True,
-        track_visibility='onchange')
+        tracking=True)
     instance_id = fields.Many2one(
         string="Instance Mandate Descendant of",
         # overwrite in children with the assembly, but mus be set to something
@@ -57,22 +57,22 @@ class AbstractMandate(models.AbstractModel):
         string='Mandate Category',
         required=True,
         index=True,
-        track_visibility='onchange')
+        tracking=True)
     designation_int_assembly_id = fields.Many2one(
         comodel_name='int.assembly',
         string='Designation Assembly',
         index=True,
-        track_visibility='onchange',
+        tracking=True,
         domain=[('is_designation_assembly', '=', True)])
     start_date = fields.Date(
         required=True,
-        track_visibility='onchange')
+        tracking=True)
     deadline_date = fields.Date(
         required=True,
-        track_visibility='onchange')
+        tracking=True)
     end_date = fields.Date(
         default=False,
-        track_visibility='onchange')
+        tracking=True)
     with_remuneration = fields.Boolean()
     with_revenue_declaration = fields.Boolean(
         related='mandate_category_id.with_revenue_declaration',
@@ -87,11 +87,11 @@ class AbstractMandate(models.AbstractModel):
     email_coordinate_id = fields.Many2one(
         comodel_name='email.coordinate',
         string='Email Coordinate',
-        track_visibility='onchange')
+        tracking=True)
     postal_coordinate_id = fields.Many2one(
         comodel_name='postal.coordinate',
         string='Postal Coordinate',
-        track_visibility='onchange')
+        tracking=True)
     alert_date = fields.Date()
     # Duplicates: redefine string
     is_duplicate_detected = fields.Boolean(
@@ -101,7 +101,6 @@ class AbstractMandate(models.AbstractModel):
         string='Allowed Incompatible Mandate',
     )
 
-    @api.multi
     @api.depends("create_date")
     def _compute_unique_id(self):
         # unique_id as compute and not set in the create because it need
@@ -113,7 +112,6 @@ class AbstractMandate(models.AbstractModel):
         for mandate in self:
             mandate.unique_id = mandate.id + self._unique_id_sequence
 
-    @api.multi
     def name_get(self):
         res = []
         for mandate in self:
@@ -172,7 +170,6 @@ class AbstractMandate(models.AbstractModel):
                 duplicate_ids |= mandate
         return duplicate_ids
 
-    @api.multi
     def action_invalidate(self, vals=None):
         """
         Invalidate mandates
@@ -231,7 +228,6 @@ class AbstractMandate(models.AbstractModel):
 
         return True
 
-    @api.multi
     @api.onchange("mandate_category_id")
     def _onchange_mandate_category_id(self):
         for mandate in self:

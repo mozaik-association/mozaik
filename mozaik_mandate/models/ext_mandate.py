@@ -31,7 +31,7 @@ class ExtMandate(models.Model):
         string='Remits')
     months_before_end_of_mandate = fields.Integer(
         string='Alert Delay (#Months)',
-        track_visibility='onchange',
+        tracking=True,
         group_operator='max')
     partner_instance_search_ids = fields.Many2many(
         relation="ext_mandate_partner_instance_membership_rel",
@@ -41,14 +41,12 @@ class ExtMandate(models.Model):
         related="ext_assembly_id.instance_id",
     )
 
-    @api.multi
     @api.onchange("mandate_category_id")
     def _onchange_mandate_category_id(self):
         for ext_mandate in self:
             ext_mandate.ext_assembly_id = False
         return super()._onchange_mandate_category_id()
 
-    @api.multi
     @api.onchange("ext_assembly_id")
     def _onchange_ext_assembly_id(self):
         for ext_mandate in self:

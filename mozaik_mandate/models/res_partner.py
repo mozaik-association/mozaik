@@ -50,7 +50,6 @@ class ResPartner(models.Model):
         string='External Assemblies',
         compute='_compute_mandate_assembly_count')
 
-    @api.multi
     def get_mandate_action(self):
         """
         return an action for an ext.mandate contains into the domain a
@@ -68,7 +67,6 @@ class ResPartner(models.Model):
         action['domain'] = domain
         return action
 
-    @api.multi
     def _get_assemblies(self):
         """
         return the assemblies  of the current partner
@@ -86,7 +84,6 @@ class ResPartner(models.Model):
 
         return assemblies
 
-    @api.multi
     def _compute_mandate_assembly_count(self):
         """
         count the number of assemblies linked to the current partner

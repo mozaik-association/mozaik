@@ -96,7 +96,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
 
         return res
 
-    @api.multi
     def renew_mandate(self):
         """
         Renew a mandate
@@ -105,7 +104,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
         vals = self._renew_mandate_vals()
         return self._copy_mandate(vals)
 
-    @api.multi
     def _renew_mandate_vals(self):
         self.ensure_one()
         return {
@@ -114,7 +112,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
             'end_date': False,
         }
 
-    @api.multi
     def add_mandate(self):
         """
         Add a complementary mandate
@@ -123,7 +120,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
         values = self._add_mandate_vals()
         return self._copy_mandate(values)
 
-    @api.multi
     def _add_mandate_vals(self):
         self.ensure_one()
         return {
@@ -133,7 +129,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
             self._mandate_assembly_foreign_key: self.new_assembly_id.id,
         }
 
-    @api.multi
     def _copy_mandate(self, vals):
         """
         Copy a mandate with new default values
@@ -144,7 +139,6 @@ class AbstractCopyMandateWizard(models.TransientModel):
             default=vals).with_context(lang=self._context.get('lang'))
         return new_mandate_id.get_formview_action()
 
-    @api.multi
     @api.onchange("new_mandate_category_id")
     def _onchange_new_mandate_category_id(self):
         for wiz in self:

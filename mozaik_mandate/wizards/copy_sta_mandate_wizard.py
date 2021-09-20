@@ -73,7 +73,6 @@ class CopyStaMandateWizard(models.TransientModel):
             break
         return res
 
-    @api.multi
     @api.onchange("legislature_id")
     def onchange_legislature_id(self):
         self.ensure_one()
@@ -83,7 +82,6 @@ class CopyStaMandateWizard(models.TransientModel):
             self.start_date = self.legislature_id.start_date
             self.deadline_date = self.legislature_id.deadline_date
 
-    @api.multi
     def _copy_mandate(self, vals):
         """
         Renew a mandate

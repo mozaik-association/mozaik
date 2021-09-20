@@ -22,7 +22,7 @@ class StaMandate(models.Model):
         string='Legislature',
         index=True,
         required=True,
-        track_visibility='onchange')
+        tracking=True)
     sta_assembly_id = fields.Many2one(
         comodel_name='sta.assembly',
         string='State Assembly',
@@ -94,7 +94,6 @@ class StaMandate(models.Model):
                     'Mandate period is inconsistent with legislature period!'
                 ))
 
-    @api.multi
     @api.onchange("mandate_category_id")
     def _onchange_mandate_category_id(self):
         for mdt in self:
@@ -105,7 +104,6 @@ class StaMandate(models.Model):
                 continue
         return super()._onchange_mandate_category_id()
 
-    @api.multi
     @api.onchange("legislature_id")
     def _onchange_legislature_id(self):
         for sta_mandate in self:
@@ -113,7 +111,6 @@ class StaMandate(models.Model):
             sta_mandate.deadline_date = sta_mandate.legislature_id\
                 .deadline_date
 
-    @api.multi
     @api.onchange("sta_assembly_id")
     def _onchange_sta_assembly_id(self):
         self.ensure_one()

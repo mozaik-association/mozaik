@@ -23,12 +23,15 @@
                             type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','ext')]}"
                             context="{'search_default_mandate_category_id': active_id,
                                       'default_mandate_category_id': active_id}" />
-                        <button name="action_invalidate" type="object" class="oe_stat_button" icon="fa-archive"
-                                confirm="Invalidate mandate: proceed anyway?"
-                                attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                                groups="mozaik_abstract_model.res_groups_archiving_manager">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
+                        
+            <field name="active" invisible="1" />
+            <widget
+                name="web_ribbon"
+                title="Archived"
+                bg_color="bg-danger"
+                attrs="{'invisible': [('active', '=', True)]}"
+            />
+            
                     </div>
 
                     <div class="oe_title">

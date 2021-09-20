@@ -59,7 +59,6 @@ class AbstractUpdateMandateEndDateWizard(models.TransientModel):
                 res['message'] = _('The representative is no longer active!')
         return res
 
-    @api.multi
     def set_mandate_end_date(self):
         self.ensure_one()
         if self.mandate_end_date > fields.Date.today():
@@ -77,7 +76,6 @@ class AbstractUpdateMandateEndDateWizard(models.TransientModel):
         else:
             self.mandate_id.write(vals=vals)
 
-    @api.multi
     def reactivate_mandate(self):
         self.ensure_one()
         if self.mandate_deadline_date <= fields.Date.today():

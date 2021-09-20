@@ -8,7 +8,6 @@ class ExtAssembly(models.Model):
 
     _inherit = 'ext.assembly'
 
-    @api.multi
     def _get_mandates(self):
         """
         return list of mandates linked to the assemblies
