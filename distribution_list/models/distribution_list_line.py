@@ -49,6 +49,7 @@ class DistributionListLine(models.Model):
         index=True,
         default=lambda self: self._get_default_src_model_id(),
         domain=lambda self: self._get_domain_src_model_id(),
+        ondelete='cascade',
     )
     src_model_model = fields.Char(
         string="Model name",
@@ -71,6 +72,7 @@ class DistributionListLine(models.Model):
         "('ttype', '=', 'many2one'), "
         "('relation', '=', trg_model), "
         "]",
+        ondelete='cascade',
     )
 
     _sql_constraints = [
