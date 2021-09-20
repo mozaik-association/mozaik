@@ -39,6 +39,7 @@ class DistributionList(models.Model):
         required=True,
         default=lambda self: self._get_default_dst_model_id(),
         domain=lambda self: self._get_domain_dst_model_id(),
+        ondelete='cascade',
     )
     note = fields.Text(
     )
