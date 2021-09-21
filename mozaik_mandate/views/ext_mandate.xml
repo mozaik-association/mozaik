@@ -29,10 +29,6 @@
                     <field name="competencies_m2m_ids"/>
                 </page>
             </xpath>
-
-            <xpath expr="//group[@name='moreinfo']" position="inside">
-                <field name="ext_assembly_category_id"/>
-            </xpath>
         </field>
     </record>
 

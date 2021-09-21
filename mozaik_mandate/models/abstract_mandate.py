@@ -75,14 +75,6 @@ class AbstractMandate(models.AbstractModel):
         related='mandate_category_id.with_assets_declaration',
         help='Representative is subject to a declaration of assets',
         store=True)
-    email_coordinate_id = fields.Many2one(
-        comodel_name='email.coordinate',
-        string='Email Coordinate',
-        tracking=True)
-    postal_coordinate_id = fields.Many2one(
-        comodel_name='postal.coordinate',
-        string='Postal Coordinate',
-        tracking=True)
     alert_date = fields.Date()
     # Duplicates: redefine string
     is_duplicate_detected = fields.Boolean(

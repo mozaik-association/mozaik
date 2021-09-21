@@ -27,12 +27,6 @@
             <xpath expr="//field[@name='end_date']" position="after">
                 <field name="months_before_end_of_mandate"/>
             </xpath>
-
-            <xpath expr="//group[@name='moreinfo']" position="inside">
-                <field name="int_assembly_category_id"/>
-                <field name="with_revenue_declaration"/>
-                <field name="with_assets_declaration"/>
-            </xpath>
         </field>
     </record>
 

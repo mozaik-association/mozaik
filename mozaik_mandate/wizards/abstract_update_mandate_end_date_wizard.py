@@ -87,12 +87,4 @@ class AbstractUpdateMandateEndDateWizard(models.TransientModel):
             'deadline_date': self.mandate_deadline_date,
             'end_date': False,
         }
-        if self.mandate_id.postal_coordinate_id and \
-                not self.mandate_id.postal_coordinate_id.active:
-            vals['postal_coordinate_id'] = False
-
-        if self.mandate_id.email_coordinate_id and \
-                not self.mandate_id.email_coordinate_id.active:
-            vals['email_coordinate_id'] = False
-
         self.mandate_id.action_revalidate(vals=vals)
