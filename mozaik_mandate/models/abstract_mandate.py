@@ -7,17 +7,10 @@ from odoo import api, fields, models
 class AbstractMandate(models.AbstractModel):
     _name = 'abstract.mandate'
     _description = 'Abstract Mandate'
-    _inherit = ['abstract.duplicate']
+    _inherit = ['mozaik.abstract.model']
     _order = 'start_date desc, mandate_category_id'
 
     _inactive_cascade = True
-    _reset_allowed = True
-    _discriminant_field = 'partner_id'
-    _discriminant_model = 'generic.mandate'
-    _trigger_fields = ['mandate_category_id',
-                       'partner_id',
-                       'start_date',
-                       'deadline_date']
     _unicity_keys = 'N/A'
     _sql_constraints = [
         ('date_check', "CHECK(start_date <= deadline_date)",
@@ -76,13 +69,6 @@ class AbstractMandate(models.AbstractModel):
         help='Representative is subject to a declaration of assets',
         store=True)
     alert_date = fields.Date()
-    # Duplicates: redefine string
-    is_duplicate_detected = fields.Boolean(
-        string='Incompatible Mandate',
-    )
-    is_duplicate_allowed = fields.Boolean(
-        string='Allowed Incompatible Mandate',
-    )
 
     @api.depends("create_date")
     def _compute_unique_id(self):
@@ -122,37 +108,6 @@ class AbstractMandate(models.AbstractModel):
             return super().name_search(
                 name=name, args=args, operator=operator, limit=limit)
 
-    @api.model
-    def _get_duplicates(self, value):
-        duplicate_ids = self._get_discriminant_model().browse()
-        mandates = self._get_discriminant_model().search(
-            [(self._discriminant_field, '=', value)])
-        for mandate in mandates:
-            category = mandate.mandate_category_id
-            if category.exclusive_category_m2m_ids:
-                mandate_ids = self._get_discriminant_model().search([
-                    (self._discriminant_field, '=', value),
-                    ('mandate_category_id', 'in', [
-                        exclu.id
-                        for exclu in category.exclusive_category_m2m_ids]),
-                    ('start_date', '<=', mandate.deadline_date),
-                    ('deadline_date', '>=', mandate.start_date)],
-                )
-                if mandate_ids:
-                    mandate_ids |= mandate
-                    for mandate_id in mandate_ids:
-                        if mandate_id not in duplicate_ids:
-                            duplicate_ids |= mandate_id
-                elif mandate.is_duplicate_detected or \
-                        mandate.is_duplicate_allowed:
-                    # reset the current duplicate
-                    duplicate_ids |= mandate
-            elif mandate.is_duplicate_detected or \
-                    mandate.is_duplicate_allowed:
-                # reset the current duplicate
-                duplicate_ids |= mandate
-        return duplicate_ids
-
     def action_invalidate(self, vals=None):
         """
         Invalidate mandates
@@ -173,20 +128,6 @@ class AbstractMandate(models.AbstractModel):
             res = res and super(AbstractMandate, mandate).action_invalidate(
                 vals=vals)
         return res
-
-    @api.model
-    def _detect_and_repair_duplicate(
-            self, values, field_model=None, field_id=None):
-        """
-        Detect automatically duplicates (setting the is_duplicate_detected
-        flag)
-        Repair orphan allowed or detected duplicate (resetting the
-        corresponding flag)
-        :param vals: discriminant values
-        :type vals: list
-        """
-        return super()._detect_and_repair_duplicate(
-            values, field_model='model', field_id='mandate_id')
 
     @api.model
     def process_finish_and_invalidate_mandates(self):

@@ -10,7 +10,6 @@
     'category': 'Political Association',
     'depends': [
         'mozaik_structure',
-        'mozaik_duplicate',
         'mozaik_address',
         'mozaik_person',
         'mozaik_thesaurus',
@@ -37,8 +36,6 @@ MOZAIK Mandate
         'views/ext_assembly_category.xml',
         'views/int_assembly_category.xml',
         'views/sta_assembly_category.xml',
-        'wizards/allow_incompatible_mandate_wizard.xml',
-        'views/generic_mandate.xml',
         'views/abstract_mandate.xml',
         'views/sta_mandate.xml',
         'views/int_mandate.xml',

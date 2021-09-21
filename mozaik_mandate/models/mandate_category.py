@@ -47,12 +47,6 @@ class MandateCategory(models.Model):
         selection=MANDATE_CATEGORY_AVAILABLE_TYPES,
         index=True,
         required=True)
-    exclusive_category_m2m_ids = fields.Many2many(
-        comodel_name='mandate.category',
-        relation='mandate_category_mandate_category_rel',
-        column1='id',
-        column2='exclu_id',
-        string='Exclusive Category')
     sta_assembly_category_id = fields.Many2one(
         comodel_name='sta.assembly.category',
         string='State Assembly Category',
@@ -119,51 +113,4 @@ class MandateCategory(models.Model):
         res[0].update({
             'name': _('%s (copy)') % res[0].get('name'),
         })
-        return res
-
-    @api.model
-    def create(self, vals):
-        res_id = super().create(vals)
-        if 'exclusive_category_m2m_ids' in vals:
-            res_id._update_exclusive_inverse_relation(
-                self, res_id.exclusive_category_m2m_ids)
-        return res_id
-
-    def write(self, vals):
-        res = True
-        if 'exclusive_category_m2m_ids' in vals:
-            for category in self:
-                cat_before = category.exclusive_category_m2m_ids
-                res = res and super().write(vals)
-                cat_after = category.exclusive_category_m2m_ids
-                category._update_exclusive_inverse_relation(
-                    cat_before, cat_after)
-        else:
-            res = super().write(vals)
-        return res
-
-    def _update_exclusive_inverse_relation(self, initial_exclu, after_exclu):
-        """
-        Check balance between exclusive categories
-        :rparam: mandate_category ids, list of initial exclusive ids,
-                 list of new exclusive ids
-        :rtype: Boolean
-        """
-        self.ensure_one()
-        removed_ids = initial_exclu - after_exclu
-        added_ids = after_exclu - initial_exclu
-
-        res = True
-        if removed_ids:
-            # category are not exclusives anymore
-            # super to avoid cyclic call to write
-            res = res and super(MandateCategory, removed_ids).write({
-                "exclusive_category_m2m_ids": [(3, self.id)]
-            })
-        if added_ids:
-            # category are exclusives from now
-            # super to avoid cyclic call to write
-            res = res and super(MandateCategory, added_ids).write({
-                "exclusive_category_m2m_ids": [(4, self.id)]
-            })
         return res

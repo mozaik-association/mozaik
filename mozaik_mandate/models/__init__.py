@@ -3,7 +3,6 @@ from . import ext_mandate
 from . import int_mandate
 from . import sta_mandate
 from . import mandate_category
-from . import generic_mandate
 from . import res_partner
 from . import legislature
 from . import sta_assembly_category

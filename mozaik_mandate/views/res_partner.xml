@@ -44,12 +44,11 @@
                                               'search_default_all': True}" />
                     <field name="sta_mandate_ids" attrs="{'invisible': [('active', '=', False)], 'readonly': [('id','=',False)]}"
                             context="{'default_partner_id': active_id}">
-                        <tree decoration-danger="is_duplicate_detected==True">
+                        <tree>
                             <field name="mandate_category_id"/>
                             <field name="sta_assembly_id"/>
                             <field name="start_date"/>
                             <field name="deadline_date"/>
-                            <field name="is_duplicate_detected" invisible="1"/>
                         </tree>
                     </field>
                     <field name="sta_mandate_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
@@ -71,12 +70,11 @@
                                               'search_default_all': True}" />
                     <field name="int_mandate_ids" attrs="{'invisible': [('active', '=', False)], 'readonly': [('id','=',False)]}"
                             context="{'default_partner_id': active_id}">
-                        <tree decoration-danger="is_duplicate_detected==True">
+                        <tree>
                             <field name="mandate_category_id"/>
                             <field name="int_assembly_id"/>
                             <field name="start_date"/>
                             <field name="deadline_date"/>
-                            <field name="is_duplicate_detected" invisible="1"/>
                         </tree>
                     </field>
                     <field name="int_mandate_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
@@ -98,12 +96,11 @@
                                               'search_default_all': True}" />
                     <field name="ext_mandate_ids" attrs="{'invisible': [('active', '=', False)], 'readonly': [('id','=',False)]}"
                             context="{'default_partner_id': active_id}">
-                        <tree decoration-danger="is_duplicate_detected==True">
+                        <tree>
                             <field name="mandate_category_id"/>
                             <field name="ext_assembly_id"/>
                             <field name="start_date"/>
                             <field name="deadline_date"/>
-                            <field name="is_duplicate_detected" invisible="1"/>
                         </tree>
                     </field>
                     <field name="ext_mandate_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"

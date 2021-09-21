@@ -1,4 +1,3 @@
-from . import allow_incompatible_mandate_wizard
 from . import abstract_copy_mandate_wizard
 from . import copy_sta_mandate_wizard
 from . import copy_int_mandate_wizard

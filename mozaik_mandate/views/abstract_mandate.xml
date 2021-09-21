@@ -35,17 +35,6 @@
                         <group name="data_2">
                             <field name="designation_int_assembly_id"/>
                         </group>
-                        <group name="duplicate">
-                            <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
-                            <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
-                                <field name="is_duplicate_detected" class="oe_inline" />
-                                <button name="%(generic_mandate_action)d" type="action" class="oe_red_link"
-                                        string="⇒ Show all incompatible mandates"
-                                        context="{'search_default_partner_id': partner_id}"/>
-                            </div>
-
-                            <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
-                        </group>
                     </group>
                     <notebook>
                         <page name="date" string="Dates">
@@ -102,11 +91,6 @@
                         domain="[('with_remuneration','=',True)]" />
                 <filter name="without_remuneration" string="Without Remuneration"
                         domain="[('with_remuneration','=',False)]" />
-                <separator />
-                <filter name="duplicate" string="Incompatible Mandates"
-                        domain="[('is_duplicate_detected','=',True)]" />
-                <separator/>
-                <filter name="allow_duplicate" string="Allowed Incompatible Mandates" domain="[('is_duplicate_allowed','=',True)]"/>
                 <separator/>
                 <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
@@ -128,19 +112,12 @@
         <field name="name">abstract.mandate.tree (in mozaik_mandate)</field>
         <field name="model">abstract.mandate</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="is_duplicate_detected==True">
+            <tree>
                 <field name="partner_id"/>
                 <field name="mandate_category_id"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="deadline_date"/>
-                <field name="is_duplicate_detected" invisible ="1"/>
-                <field name="is_duplicate_allowed" invisible ="1"/>
-                <button name="button_undo_allow_duplicate" string="Undo Allow Incompatible Mandate" type="object"
-                        groups="mozaik_mandate.res_groups_mandate_user"
-                        attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
-                        icon="fa-undo text-warning"
-                        confirm="Undo allow incompatible mandate: proceed anyway?" />
                 <field name="expire_date"
                        invisible="context.get('invisible_expire_date', True)" />
             </tree>

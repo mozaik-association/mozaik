@@ -7,7 +7,6 @@ access_int_mandate_res_group_mandate_reader,mozaik.int.mandate.res.group.base,mo
 access_int_mandate_res_group_mandate_user,mozaik.int.mandate.res.group.user,model_int_mandate,mozaik_mandate.res_groups_mandate_user,1,1,1,1
 access_ext_mandate_res_group_mandate_reader,mozaik.ext.mandate.res.group.base,model_ext_mandate,mozaik_mandate.res_groups_mandate_reader,1,0,0,0
 access_ext_mandate_res_group_mandate_user,mozaik.ext.mandate.res.group.user,model_ext_mandate,mozaik_mandate.res_groups_mandate_user,1,1,1,1
-access_generic_mandate_res_group_mandate_reader,mozaik.generic.mandate.res.group.reader,model_generic_mandate,mozaik_mandate.res_groups_mandate_reader,1,0,0,0
 access_abstract_copy_mandate_wizard,access_abstract_copy_mandate_wizard,model_abstract_copy_mandate_wizard,base.group_user,1,1,1,1
 access_copy_sta_mandate_wizard,access_copy_sta_mandate_wizard,model_copy_sta_mandate_wizard,base.group_user,1,1,1,1
 access_copy_int_mandate_wizard,access_copy_int_mandate_wizard,model_copy_int_mandate_wizard,base.group_user,1,1,1,1

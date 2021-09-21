@@ -63,13 +63,6 @@
                     </group>
 
                     <notebook>
-                        <page string="Exclusive Categories" name="exclusive_categories" autofocus="autofocus">
-                            <field name="exclusive_category_m2m_ids">
-                                <tree>
-                                    <field name="name"/>
-                                </tree>
-                            </field>
-                        </page>
                         <page name="dev" string="More Info" groups="base.group_erp_manager">
                             <group name="moreinfo">
                                 <field name="assembly_categoryid"/>
