@@ -86,11 +86,9 @@ class MandateCategory(models.Model):
         inverse_name='mandate_category_id',
         string='External Mandates')
     with_revenue_declaration = fields.Boolean(
-        help='Representative is subject to a declaration of income',
-        oldname="is_submission_mandate")
+        help='Representative is subject to a declaration of income')
     with_assets_declaration = fields.Boolean(
-        help='Representative is subject to a declaration of assets',
-        oldname="is_submission_assets")
+        help='Representative is subject to a declaration of assets')
     with_remuneration = fields.Boolean(
         default=lambda s: s._default_with_remuneration(),
     )

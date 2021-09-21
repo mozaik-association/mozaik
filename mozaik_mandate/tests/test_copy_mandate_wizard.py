@@ -85,10 +85,8 @@ class TestCopyMandateWizard(SavepointCase):
         self.assertEqual(wizard.action, 'renew')
         self.assertEqual(wizard.message, False)
 
-        new_start = fields.Date.to_string(fields.Date.from_string(
-            base_mandate.end_date) + relativedelta(days=1))
-        new_deadline = fields.Date.to_string(
-            date.today() + relativedelta(years=1))
+        new_start = base_mandate.end_date + relativedelta(days=1)
+        new_deadline = date.today() + relativedelta(years=1)
         values = {'start_date': new_start, 'deadline_date': new_deadline}
 
         wizard.write(values)

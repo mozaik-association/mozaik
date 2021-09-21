@@ -11,6 +11,7 @@
         <field name="priority" eval="100"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <field name="int_assembly_category_id" invisible="1"/>
                 <field name="int_assembly_id"
                         required="1"
                         domain="[('assembly_category_id', '=', int_assembly_category_id)]"/>

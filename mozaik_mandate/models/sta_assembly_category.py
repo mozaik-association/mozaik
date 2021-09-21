@@ -16,5 +16,5 @@ class StaAssemblyCategory(models.Model):
     mandate_category_inactive_ids = fields.One2many(
         comodel_name='mandate.category',
         inverse_name='sta_assembly_category_id',
-        string='Mandate Categories',
+        string='Mandate Categories (Inactive)',
         domain=[('active', '=', False)])

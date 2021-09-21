@@ -14,6 +14,7 @@ WIZARD_AVAILABLE_ACTIONS = [
 class AbstractCopyMandateWizard(models.TransientModel):
 
     _name = 'abstract.copy.mandate.wizard'
+    _description = 'Abstract Copy Mandate Wizard'
 
     _sql_constraints = [
         ('date_check', "CHECK(start_date <= deadline_date)",
@@ -27,7 +28,7 @@ class AbstractCopyMandateWizard(models.TransientModel):
         readonly=True)
     new_mandate_category_id = fields.Many2one(
         comodel_name='mandate.category',
-        string='Mandate Category')
+        string='New Mandate Category')
     mandate_id = fields.Many2one(
         comodel_name='abstract.mandate',
         string='Abstract Mandate',
@@ -38,7 +39,7 @@ class AbstractCopyMandateWizard(models.TransientModel):
         readonly=True)
     new_assembly_id = fields.Many2one(
         comodel_name='abstract.assembly',
-        string='Abstract Assembly')
+        string='New Abstract Assembly')
     instance_id = fields.Many2one(
         related="assembly_id.instance_id",
         readonly=True)
@@ -72,7 +73,7 @@ class AbstractCopyMandateWizard(models.TransientModel):
         for mandate in self.env[model].browse(ids):
             limit_date = mandate.end_date or mandate.deadline_date
 
-            if limit_date > fields.Datetime.now():
+            if limit_date > fields.Date.today():
                 action = WIZARD_AVAILABLE_ACTIONS[1][0]
             else:
                 action = WIZARD_AVAILABLE_ACTIONS[0][0]
@@ -87,10 +88,7 @@ class AbstractCopyMandateWizard(models.TransientModel):
             else:
                 start_date = mandate.end_date if mandate.end_date \
                     else mandate.deadline_date
-                start_date = (datetime.strptime(start_date,
-                                                '%Y-%m-%d') +
-                              relativedelta(days=1))
-                res['start_date'] = start_date.strftime('%Y-%m-%d')
+                res['start_date'] = start_date + relativedelta(days=1)
             res['action'] = action
             break
 

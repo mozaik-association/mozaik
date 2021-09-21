@@ -45,13 +45,6 @@ class AbstractMandate(models.AbstractModel):
         comodel_name="int.instance",
         store=True,
     )
-    partner_instance_search_ids = fields.Many2many(
-        comodel_name="int.instance",
-        related="partner_id.int_instance_ids",
-        store=True,
-        column1="mandate_id",
-        column2="instance_id",
-    )
     mandate_category_id = fields.Many2one(
         comodel_name='mandate.category',
         string='Mandate Category',
@@ -77,13 +70,11 @@ class AbstractMandate(models.AbstractModel):
     with_revenue_declaration = fields.Boolean(
         related='mandate_category_id.with_revenue_declaration',
         help='Representative is subject to a declaration of income',
-        store=True,
-        oldname="is_submission_mandate")
+        store=True)
     with_assets_declaration = fields.Boolean(
         related='mandate_category_id.with_assets_declaration',
         help='Representative is subject to a declaration of assets',
-        store=True,
-        oldname="is_submission_assets")
+        store=True)
     email_coordinate_id = fields.Many2one(
         comodel_name='email.coordinate',
         string='Email Coordinate',

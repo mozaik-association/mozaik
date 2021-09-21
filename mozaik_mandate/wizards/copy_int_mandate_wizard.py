@@ -7,6 +7,7 @@ from odoo import fields, models
 class CopyIntMandateWizard(models.TransientModel):
     _inherit = 'abstract.copy.mandate.wizard'
     _name = "copy.int.mandate.wizard"
+    _description = 'Copy Int Mandate Wizard'
 
     _mandate_assembly_foreign_key = 'int_assembly_id'
 
@@ -18,7 +19,7 @@ class CopyIntMandateWizard(models.TransientModel):
         string='Internal Assembly')
     new_assembly_id = fields.Many2one(
         comodel_name='int.assembly',
-        string='Internal Assembly')
+        string='New Internal Assembly')
     instance_id = fields.Many2one(
         string='Internal Instance')
     int_assembly_category_id = fields.Many2one(

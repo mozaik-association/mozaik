@@ -33,23 +33,18 @@ class StaMandate(models.Model):
         string='State Assembly Category',
         type='many2one',
         comodel_name="sta.assembly.category",
-        store=False,
-        readonly=True)
+        store=False)
     sta_power_level_id = fields.Many2one(
         related='sta_assembly_category_id.power_level_id',
         string='Power Level',
         comodel_name="sta.power.level",
-        store=False,
-        readonly=True)
+        store=False)
     is_legislative = fields.Boolean(
         related='sta_assembly_id.is_legislative',
         store=True)
     competencies_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.term',
         string='Remits')
-    partner_instance_search_ids = fields.Many2many(
-        relation="sta_mandate_partner_instance_membership_rel",
-    )
     instance_id = fields.Many2one(
         comodel_name="sta.instance",
         related="sta_assembly_id.instance_id",

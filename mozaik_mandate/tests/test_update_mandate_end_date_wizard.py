@@ -1,7 +1,7 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import datetime, timedelta
+from datetime import date, timedelta
 from odoo.tests.common import SavepointCase
 from odoo.exceptions import ValidationError
 
@@ -24,9 +24,9 @@ class TestUpdateMandateEndDateWizard:
             'active_model': self.model,
             'mode': 'end_date',
         }
-        tomorrow = datetime.now() + timedelta(days=1)
-        last_week = datetime.now() - timedelta(days=7)
-        last_month = datetime.now() - timedelta(days=30)
+        tomorrow = date.today() + timedelta(days=1)
+        last_week = date.today() - timedelta(days=7)
+        last_month = date.today() - timedelta(days=30)
 
         wizard_object = self.env[self.wizard]
         wiz_id = wizard_object.with_context(context).create(
@@ -37,7 +37,7 @@ class TestUpdateMandateEndDateWizard:
         wiz_id.write({'mandate_end_date': last_week})
         wiz_id.set_mandate_end_date()
         self.assertFalse(self.mandate.active)
-        self.assertEqual(self.mandate.end_date, last_week.strftime('%Y-%m-%d'))
+        self.assertEqual(self.mandate.end_date, last_week)
 
         # Update end date of a finished mandate
         wiz_id.write({'mandate_end_date': last_month})
@@ -45,8 +45,7 @@ class TestUpdateMandateEndDateWizard:
         wiz_id.set_mandate_end_date()
 
         self.assertFalse(self.mandate.active)
-        self.assertEqual(self.mandate.end_date,
-                         last_month.strftime('%Y-%m-%d'))
+        self.assertEqual(self.mandate.end_date, last_month)
 
     def test_reactivate_mandate(self):
         '''
@@ -57,9 +56,9 @@ class TestUpdateMandateEndDateWizard:
             'active_model': self.model,
             'mode': 'reactivate',
         }
-        last_week = datetime.now() - timedelta(days=7)
-        last_month = datetime.now() - timedelta(days=30)
-        next_month = datetime.now() + timedelta(days=30)
+        last_week = date.today() - timedelta(days=7)
+        last_month = date.today() - timedelta(days=30)
+        next_month = date.today() + timedelta(days=30)
 
         wizard_object = self.env[self.wizard]
 
@@ -80,8 +79,7 @@ class TestUpdateMandateEndDateWizard:
         wiz_id.reactivate_mandate()
 
         self.assertTrue(self.mandate.active)
-        self.assertEqual(self.mandate.deadline_date,
-                         next_month.strftime('%Y-%m-%d'))
+        self.assertEqual(self.mandate.deadline_date, next_month)
 
     def test_reactivate_active_mandate(self):
         '''
@@ -92,7 +90,7 @@ class TestUpdateMandateEndDateWizard:
             'active_model': self.model,
             'mode': 'reactivate',
         }
-        next_month = datetime.now() + timedelta(days=30)
+        next_month = date.today() + timedelta(days=30)
 
         wizard_object = self.env[self.wizard]
 

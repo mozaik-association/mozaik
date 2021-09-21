@@ -19,7 +19,7 @@ class ResPartner(models.Model):
     sta_mandate_inactive_ids = fields.One2many(
         comodel_name='sta.mandate',
         inverse_name='partner_id',
-        string='State Mandates',
+        string='State Mandates (Inactive)',
         domain=[('active', '=', False)])
     int_mandate_ids = fields.One2many(
         comodel_name='int.mandate',
@@ -30,7 +30,7 @@ class ResPartner(models.Model):
     int_mandate_inactive_ids = fields.One2many(
         comodel_name='int.mandate',
         inverse_name='partner_id',
-        string='Internal Mandates',
+        string='Internal Mandates (Inactive)',
         domain=[('active', '=', False)])
     ext_mandate_ids = fields.One2many(
         comodel_name='ext.mandate',
@@ -41,10 +41,10 @@ class ResPartner(models.Model):
     ext_mandate_inactive_ids = fields.One2many(
         comodel_name='ext.mandate',
         inverse_name='partner_id',
-        string='External Mandates',
+        string='External Mandates (Inactive)',
         domain=[('active', '=', False)])
     ext_mandate_count = fields.Integer(
-        string='External Mandates',
+        string='External Mandates Nbr',
         compute='_compute_mandate_assembly_count')
     ext_assembly_count = fields.Integer(
         string='External Assemblies',

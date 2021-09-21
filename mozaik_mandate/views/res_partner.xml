@@ -28,7 +28,7 @@
             <xpath expr="//field[@name='identifier']" position="after">
                 <span attrs="{'invisible':[('sta_mandate_ids','=',[])]}">
                     <br/>
-                    <label class="oe_representative" string="⇒ State Representative"/>
+                    <label for="identifier" class="oe_representative" string="⇒ State Representative"/>
                 </span>
             </xpath>
 

@@ -10,7 +10,7 @@
         <field name="ext_assembly_id" ref="mozaik_structure.ext_assembly_01"/>
         <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')"/>
         <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-12-31')"/>
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_paul"/>
+        <field name="partner_id" ref="mozaik_mandate.res_partner_paul"/>
     </record>
 
     <record id="extm_thierry_membre_ag_done" model="ext.mandate">
@@ -20,7 +20,7 @@
         <field name="start_date" eval="(DateTime.today() - relativedelta(years=8)).strftime('%Y-%m-%d')"/>
         <field name="deadline_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-12-31')"/>
         <field name="end_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-12-31')"/>
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_thierry"/>
+        <field name="partner_id" ref="mozaik_mandate.res_partner_thierry"/>
     </record>
 
 </odoo>

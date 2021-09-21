@@ -12,7 +12,7 @@ class TestResPartner(SavepointCase):
         """
         legal_person = self.env.ref('mozaik_structure.res_partner_legal_01')
         mandate_count = legal_person.ext_mandate_count
-        self.assertEquals(mandate_count, 2)
+        self.assertEqual(mandate_count, 2)
 
     def test_assembly_count(self):
         """
@@ -20,4 +20,4 @@ class TestResPartner(SavepointCase):
         """
         legal_person = self.env.ref('mozaik_structure.res_partner_legal_01')
         assembly_count = legal_person.ext_assembly_count
-        self.assertEquals(assembly_count, 1)
+        self.assertEqual(assembly_count, 1)

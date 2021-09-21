@@ -12,9 +12,8 @@
         'mozaik_structure',
         'mozaik_duplicate',
         'mozaik_address',
-        'mozaik_email',
         'mozaik_person',
-        'mozaik_membership',
+        'mozaik_thesaurus',
     ],
     'description': """
 MOZAIK Mandate
@@ -52,6 +51,7 @@ MOZAIK Mandate
     'qweb': [
     ],
     'demo': [
+        'demo/res_partner.xml',
         'demo/mandate_category.xml',
         'demo/legislature.xml',
         'demo/ext_mandate.xml',

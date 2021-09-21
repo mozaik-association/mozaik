@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 class AbstractUpdateMandateEndDateWizard(models.TransientModel):
 
     _name = 'abstract.update.mandate.end.date.wizard'
+    _description = 'Abstract Update Mandate End Date Wizard'
 
     mandate_end_date = fields.Date()
     mandate_deadline_date = fields.Date()

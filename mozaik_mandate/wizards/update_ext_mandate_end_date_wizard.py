@@ -8,6 +8,7 @@ class UpdateExtMandateEndDateWizard(models.TransientModel):
 
     _inherit = "abstract.update.mandate.end.date.wizard"
     _name = "update.ext.mandate.end.date.wizard"
+    _description = "Update Ext Mandate End Date Wizard"
 
     mandate_id = fields.Many2one(
         comodel_name='ext.mandate',

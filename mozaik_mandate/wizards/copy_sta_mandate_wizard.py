@@ -10,6 +10,7 @@ class CopyStaMandateWizard(models.TransientModel):
 
     _inherit = 'abstract.copy.mandate.wizard'
     _name = 'copy.sta.mandate.wizard'
+    _description = 'Copy Sta Mandate Wizard'
 
     _mandate_assembly_foreign_key = 'sta_assembly_id'
 
@@ -25,7 +26,7 @@ class CopyStaMandateWizard(models.TransientModel):
     )
     new_assembly_id = fields.Many2one(
         comodel_name='sta.assembly',
-        string='State Assembly')
+        string='New State Assembly')
     instance_id = fields.Many2one(
         string='State Instance')
     is_legislative = fields.Boolean(
