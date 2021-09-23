@@ -5,12 +5,11 @@ from odoo.tests.common import SavepointCase
 
 
 class TestResPartner(SavepointCase):
-
     def test_mandate_count(self):
         """
         Check the number of mandate of an assembly linked to a partner
         """
-        legal_person = self.env.ref('mozaik_structure.res_partner_legal_01')
+        legal_person = self.env.ref("mozaik_structure.res_partner_legal_01")
         mandate_count = legal_person.ext_mandate_count
         self.assertEqual(mandate_count, 2)
 
@@ -18,6 +17,6 @@ class TestResPartner(SavepointCase):
         """
         Check the number of assembly linked to a partner
         """
-        legal_person = self.env.ref('mozaik_structure.res_partner_legal_01')
+        legal_person = self.env.ref("mozaik_structure.res_partner_legal_01")
         assembly_count = legal_person.ext_assembly_count
         self.assertEqual(assembly_count, 1)

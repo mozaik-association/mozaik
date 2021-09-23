@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="mandate_category_form_view">
@@ -11,67 +10,116 @@
             <form>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button string="Mandates" name="%(sta_mandate_action)d" class="oe_stat_button" icon="fa-file-text"
-                            type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','sta')]}"
+                        <button
+                            string="Mandates"
+                            name="%(sta_mandate_action)d"
+                            class="oe_stat_button"
+                            icon="fa-file-text"
+                            type="action"
+                            attrs="{'invisible': ['|',('id','=',False),('type','!=','sta')]}"
                             context="{'search_default_mandate_category_id': active_id,
-                                      'default_mandate_category_id': active_id}" />
-                        <button string="Mandates" name="%(int_mandate_action)d" class="oe_stat_button" icon="fa-file-text"
-                            type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','int')]}"
+                                      'default_mandate_category_id': active_id}"
+                        />
+                        <button
+                            string="Mandates"
+                            name="%(int_mandate_action)d"
+                            class="oe_stat_button"
+                            icon="fa-file-text"
+                            type="action"
+                            attrs="{'invisible': ['|',('id','=',False),('type','!=','int')]}"
                             context="{'search_default_mandate_category_id': active_id,
-                                      'default_mandate_category_id': active_id}" />
-                        <button string="Mandates" name="%(ext_mandate_action)d" class="oe_stat_button" icon="fa-file-text"
-                            type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','ext')]}"
+                                      'default_mandate_category_id': active_id}"
+                        />
+                        <button
+                            string="Mandates"
+                            name="%(ext_mandate_action)d"
+                            class="oe_stat_button"
+                            icon="fa-file-text"
+                            type="action"
+                            attrs="{'invisible': ['|',('id','=',False),('type','!=','ext')]}"
                             context="{'search_default_mandate_category_id': active_id,
-                                      'default_mandate_category_id': active_id}" />
-                        
+                                      'default_mandate_category_id': active_id}"
+                        />
+
             <field name="active" invisible="1" />
             <widget
-                name="web_ribbon"
-                title="Archived"
-                bg_color="bg-danger"
-                attrs="{'invisible': [('active', '=', True)]}"
-            />
-            
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
+
                     </div>
 
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name"/></h1>
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" /></h1>
                     </div>
 
                     <group name="data">
                         <group name="main">
-                            <field name="type" invisible="context.get('default_type')" attrs="{'invisible': [('id','!=',False)]}"/>
-                            <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=','sta')],
-                                                                           'required':[('type','=','sta')] }"/>
-                            <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=','int')],
-                                                                           'required':[('type','=','int')] }"/>
-                           <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=','ext')],
-                                                                          'required':[('type','=','ext')] }"/>
+                            <field
+                                name="type"
+                                invisible="context.get('default_type')"
+                                attrs="{'invisible': [('id','!=',False)]}"
+                            />
+                            <field
+                                name="sta_assembly_category_id"
+                                attrs="{'invisible': [('type','!=','sta')],
+                                                                           'required':[('type','=','sta')] }"
+                            />
+                            <field
+                                name="int_assembly_category_id"
+                                attrs="{'invisible': [('type','!=','int')],
+                                                                           'required':[('type','=','int')] }"
+                            />
+                           <field
+                                name="ext_assembly_category_id"
+                                attrs="{'invisible': [('type','!=','ext')],
+                                                                          'required':[('type','=','ext')] }"
+                            />
                         </group>
                         <group name="other">
-                            <field name="with_revenue_declaration" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
-                            <field name="with_assets_declaration" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
-                            <field name="with_remuneration"/>
+                            <field
+                                name="with_revenue_declaration"
+                                attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"
+                            />
+                            <field
+                                name="with_assets_declaration"
+                                attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"
+                            />
+                            <field name="with_remuneration" />
                         </group>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
-                            <field name="create_date" readonly="1"/>
-                            <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                            <field name="create_date" readonly="1" />
+                            <field
+                                name="expire_date"
+                                readonly="1"
+                                attrs="{'invisible': [('active','=', True)]}"
+                            />
                         </group>
                     </group>
 
                     <notebook>
-                        <page name="dev" string="More Info" groups="base.group_erp_manager">
+                        <page
+                            name="dev"
+                            string="More Info"
+                            groups="base.group_erp_manager"
+                        >
                             <group name="moreinfo">
-                                <field name="assembly_categoryid"/>
+                                <field name="assembly_categoryid" />
                             </group>
                         </page>
                     </notebook>
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -83,34 +131,89 @@
         <field name="model">mandate.category</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
-                <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
-                <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
-                <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
+                <field name="name" />
+                <field
+                    name="sta_assembly_category_id"
+                    invisible="context.get('default_type', False)!='sta'"
+                />
+                <field
+                    name="int_assembly_category_id"
+                    invisible="context.get('default_type', False)!='int'"
+                />
+                <field
+                    name="ext_assembly_category_id"
+                    invisible="context.get('default_type', False)!='ext'"
+                />
 
-                <filter name="with_revenue_declaration" string="With revenue declaration"
-                        domain="[('with_revenue_declaration','=',True)]" invisible="context.get('default_type', False)=='int'" />
+                <filter
+                    name="with_revenue_declaration"
+                    string="With revenue declaration"
+                    domain="[('with_revenue_declaration','=',True)]"
+                    invisible="context.get('default_type', False)=='int'"
+                />
                 <separator />
-                <filter name="with_assets_declaration" string="With assets declaration"
-                        domain="[('with_assets_declaration','=',True)]" invisible="context.get('default_type', False)=='int'" />
+                <filter
+                    name="with_assets_declaration"
+                    string="With assets declaration"
+                    domain="[('with_assets_declaration','=',True)]"
+                    invisible="context.get('default_type', False)=='int'"
+                />
                 <separator />
-                <filter name="with_remuneration" string="With Remuneration"
-                        domain="[('with_remuneration','=',True)]" />
-                <filter name="without_remuneration" string="Without Remuneration"
-                        domain="[('with_remuneration','=',False)]" />
+                <filter
+                    name="with_remuneration"
+                    string="With Remuneration"
+                    domain="[('with_remuneration','=',True)]"
+                />
+                <filter
+                    name="without_remuneration"
+                    string="Without Remuneration"
+                    domain="[('with_remuneration','=',False)]"
+                />
                 <separator />
-                <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expired Categories" />
-                <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Categories, expired or not" />
+                <filter
+                    name="expired"
+                    string="Expired"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]"
+                    help="Expired Categories"
+                />
+                <filter
+                    name="all"
+                    string="All"
+                    context="{'invisible_expire_date': False}"
+                    domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                    help="All Categories, expired or not"
+                />
 
                 <group expand="0" string="Group By..." name="group_by">
-                    <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" invisible="context.get('default_type', False)"/>
-                    <filter name="sta_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'sta_assembly_category_id'}" invisible="context.get('default_type', False)!='sta'"/>
-                    <filter name="int_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'int_assembly_category_id'}" invisible="context.get('default_type', False)!='int'"/>
-                    <filter name="ext_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'ext_assembly_category_id'}" invisible="context.get('default_type', False)!='ext'"/>
+                    <filter
+                        name="type"
+                        string="Type"
+                        domain="[]"
+                        context="{'group_by':'type'}"
+                        invisible="context.get('default_type', False)"
+                    />
+                    <filter
+                        name="sta_assembly_category_id"
+                        string="Assembly Category"
+                        domain="[]"
+                        context="{'group_by':'sta_assembly_category_id'}"
+                        invisible="context.get('default_type', False)!='sta'"
+                    />
+                    <filter
+                        name="int_assembly_category_id"
+                        string="Assembly Category"
+                        domain="[]"
+                        context="{'group_by':'int_assembly_category_id'}"
+                        invisible="context.get('default_type', False)!='int'"
+                    />
+                    <filter
+                        name="ext_assembly_category_id"
+                        string="Assembly Category"
+                        domain="[]"
+                        context="{'group_by':'ext_assembly_category_id'}"
+                        invisible="context.get('default_type', False)!='ext'"
+                    />
                 </group>
             </search>
         </field>
@@ -121,12 +224,23 @@
         <field name="model">mandate.category</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
-                <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
-                <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
-                <field name="expire_date"
-                       invisible="context.get('invisible_expire_date', True)"/>
+                <field name="name" />
+                <field
+                    name="sta_assembly_category_id"
+                    invisible="context.get('default_type', False)!='sta'"
+                />
+                <field
+                    name="int_assembly_category_id"
+                    invisible="context.get('default_type', False)!='int'"
+                />
+                <field
+                    name="ext_assembly_category_id"
+                    invisible="context.get('default_type', False)!='ext'"
+                />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
             </tree>
         </field>
     </record>
@@ -157,29 +271,29 @@
 
     <record model="ir.ui.menu" id="mandate_category_configuration_submenu">
         <field name="name">Mandate Categories</field>
-        <field name="parent_id" ref="configuration_submenu"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="configuration_submenu" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="sta_mandate_categories_submenu">
         <field name="name">For State Mandates</field>
-        <field name="parent_id" ref="mandate_category_configuration_submenu"/>
-        <field name="action" ref="sta_mandate_category_action"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="mandate_category_configuration_submenu" />
+        <field name="action" ref="sta_mandate_category_action" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="int_mandate_categories_submenu">
         <field name="name">For Internal Mandates</field>
-        <field name="parent_id" ref="mandate_category_configuration_submenu"/>
-        <field name="action" ref="int_mandate_category_action"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="mandate_category_configuration_submenu" />
+        <field name="action" ref="int_mandate_category_action" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="ext_mandate_categories_submenu">
         <field name="name">For External Mandates</field>
-        <field name="parent_id" ref="mandate_category_configuration_submenu"/>
-        <field name="action" ref="ext_mandate_category_action"/>
-        <field name="sequence" eval="30"/>
+        <field name="parent_id" ref="mandate_category_configuration_submenu" />
+        <field name="action" ref="ext_mandate_category_action" />
+        <field name="sequence" eval="30" />
     </record>
 
 </odoo>
