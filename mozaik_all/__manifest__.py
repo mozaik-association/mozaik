@@ -42,7 +42,7 @@
         # 'mozaik_virtual_partner_relation',
         # 'partner_usual_firstname',
         "mozaik_mandate",
-        # 'mozaik_mandate_female_label',
+        "mozaik_mandate_female_label",
         "mozaik_mandate_category_sequence",
         # 'mozaik_membership_mandate',
         # 'mozaik_virtual_partner_mandate',

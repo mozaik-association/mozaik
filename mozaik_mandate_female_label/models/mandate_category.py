@@ -11,10 +11,9 @@ class MandateCategory(models.Model):
     female_name = fields.Char(
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
 
-    @api.multi
     def name_get(self):
         """
         Returns female_name if context contains gender=female
@@ -51,10 +50,8 @@ class MandateCategory(models.Model):
         access_rights_uid = name_get_uid or self._uid
         ids = self._search(
             args, limit=limit, access_rights_uid=access_rights_uid)
-        recs = self.browse(ids)
-        return recs.sudo(access_rights_uid).name_get()
+        return ids
 
-    @api.multi
     def copy_data(self, default=None):
         res = super().copy_data(default=default)
 
