@@ -6,10 +6,10 @@ from odoo import fields, models
 
 class AbstractMandate(models.AbstractModel):
 
-    _inherit = 'abstract.mandate'
+    _inherit = "abstract.mandate"
 
     gender = fields.Selection(
-        related='partner_id.gender',
+        related="partner_id.gender",
         readonly=True,
         store=False,
     )
