@@ -5,7 +5,7 @@
     'name': 'Mozaik Mandate Category Sequence',
     'description': """
         Add sequence on mandate category""",
-    'version': '14.0.1.0.0',
+    'version': "14.0.1.0.0",
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://github.com/OCA/mozaik',
@@ -13,10 +13,9 @@
         "mozaik_mandate",
     ],
     'data': [
-        'views/generic_mandate.xml',
         'views/mandate_category.xml',
     ],
     'demo': [
     ],
-    "installable": False,
+    "installable": True,
 }
