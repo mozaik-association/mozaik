@@ -7,7 +7,7 @@ from odoo import fields, models
 class UpdateStaMandateEndDateWizard(models.TransientModel):
 
     _inherit = "abstract.update.mandate.end.date.wizard"
-    _name = 'update.sta.mandate.end.date.wizard'
+    _name = "update.sta.mandate.end.date.wizard"
+    _description = "Update Sta Mandate End Date Wizard"
 
-    mandate_id = fields.Many2one(
-        comodel_name='sta.mandate')
+    mandate_id = fields.Many2one(comodel_name="sta.mandate")

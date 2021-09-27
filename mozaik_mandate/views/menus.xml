@@ -1,38 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.menu" id="mandates_root_menu">
         <field name="name">Mandates</field>
-        <field name="sequence" eval="30"/>
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_reader')])]" />
+        <field name="sequence" eval="30" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_reader')])]"
+        />
     </record>
 
     <record model="ir.ui.menu" id="sta_submenu">
         <field name="name">State</field>
-        <field name="parent_id" ref="mandates_root_menu"/>
-        <field name="sequence" eval="10"/>
+        <field name="parent_id" ref="mandates_root_menu" />
+        <field name="sequence" eval="10" />
     </record>
 
     <record model="ir.ui.menu" id="int_submenu">
         <field name="name">Internal</field>
-        <field name="parent_id" ref="mandates_root_menu"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="mandates_root_menu" />
+        <field name="sequence" eval="20" />
     </record>
 
     <record model="ir.ui.menu" id="ext_submenu">
         <field name="name">External</field>
-        <field name="parent_id" ref="mandates_root_menu"/>
-        <field name="sequence" eval="30"/>
+        <field name="parent_id" ref="mandates_root_menu" />
+        <field name="sequence" eval="30" />
     </record>
 
     <record model="ir.ui.menu" id="configuration_submenu">
         <field name="name">Configuration</field>
-        <field name="parent_id" ref="mandates_root_menu"/>
-        <field name="sequence" eval="90"/>
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_manager')])]" />
+        <field name="parent_id" ref="mandates_root_menu" />
+        <field name="sequence" eval="90" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_manager')])]"
+        />
     </record>
 
 </odoo>

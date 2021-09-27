@@ -6,15 +6,17 @@ from odoo import fields, models
 
 class IntAssemblyCategory(models.Model):
 
-    _inherit = 'int.assembly.category'
+    _inherit = "int.assembly.category"
 
     mandate_category_ids = fields.One2many(
-        comodel_name='mandate.category',
-        inverse_name='int_assembly_category_id',
-        string='Mandate Categories',
-        domain=[('active', '=', True)])
+        comodel_name="mandate.category",
+        inverse_name="int_assembly_category_id",
+        string="Mandate Categories",
+        domain=[("active", "=", True)],
+    )
     mandate_category_inactive_ids = fields.One2many(
-        comodel_name='mandate.category',
-        inverse_name='int_assembly_category_id',
-        string='Mandate Categories',
-        domain=[('active', '=', False)])
+        comodel_name="mandate.category",
+        inverse_name="int_assembly_category_id",
+        string="Mandate Categories (Inactive)",
+        domain=[("active", "=", False)],
+    )

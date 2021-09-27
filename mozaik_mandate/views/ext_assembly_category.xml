@@ -1,26 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="ext_assembly_category_form_view">
         <field name="name">ext.assembly.category.form (in mozaik_mandate)</field>
         <field name="model">ext.assembly.category</field>
-        <field name="inherit_id" ref="mozaik_structure.ext_assembly_category_form_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_structure.ext_assembly_category_form_view"
+        />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="mandate_categories" string="Mandate Categories">
-                    <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
-                           context="{'default_ext_assembly_category_id': active_id, 'default_type': 'ext'}">
+                    <field
+                        name="mandate_category_ids"
+                        attrs="{'invisible': [('active', '=', False)]}"
+                        context="{'default_ext_assembly_category_id': active_id, 'default_type': 'ext'}"
+                    >
                        <tree>
-                           <field name="name"/>
+                           <field name="name" />
                        </tree>
                    </field>
-                   <field name="mandate_category_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                          readonly="1">
+                   <field
+                        name="mandate_category_inactive_ids"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                        readonly="1"
+                    >
                        <tree>
-                           <field name="name"/>
+                           <field name="name" />
                        </tree>
                    </field>
                 </page>

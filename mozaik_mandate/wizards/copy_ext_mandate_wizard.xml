@@ -1,26 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="copy_ext_mandate_wizard_form_view">
         <field name="name">copy.ext.mandate.wizard.form (in mozaik_mandate)</field>
         <field name="model">copy.ext.mandate.wizard</field>
-        <field name="inherit_id" ref="abstract_copy_mandate_wizard_form_view"/>
+        <field name="inherit_id" ref="abstract_copy_mandate_wizard_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                <attribute name="domain" translation="off">[('type', '=', 'ext')]</attribute>
+                <attribute
+                    name="domain"
+                    translation="off"
+                >[('type', '=', 'ext')]</attribute>
             </xpath>
-            <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
-                <attribute name="domain" translation="off">[('id', '!=', mandate_category_id),('type', '=', 'ext')]</attribute>
+            <xpath
+                expr="//field[@name='new_mandate_category_id']"
+                position="attributes"
+            >
+                <attribute
+                    name="domain"
+                    translation="off"
+                >[('id', '!=', mandate_category_id),('type', '=', 'ext')]</attribute>
             </xpath>
             <xpath expr="//field[@name='new_assembly_id']" position="attributes">
-                <attribute name="domain" translation="off">[('assembly_category_id', '=', ext_assembly_category_id)]</attribute>
-                <attribute name="context" translation="off">{'default_assembly_category_id':  ext_assembly_category_id}</attribute>
+                <attribute
+                    name="domain"
+                    translation="off"
+                >[('assembly_category_id', '=', ext_assembly_category_id)]</attribute>
+                <attribute
+                    name="context"
+                    translation="off"
+                >{'default_assembly_category_id':  ext_assembly_category_id}</attribute>
             </xpath>
             <xpath expr="//field[@name='new_assembly_id']" position="after">
-                <field name="ext_assembly_category_id" invisible="1"/>
+                <field name="ext_assembly_category_id" invisible="1" />
             </xpath>
         </field>
     </record>
@@ -32,7 +46,10 @@
         <field name="context">{}</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="mozaik_mandate.model_ext_mandate" />
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_user')])]" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_user')])]"
+        />
     </record>
 
 </odoo>
