@@ -9,8 +9,8 @@ class ProductTemplate(models.Model):
     _inherit = ['product.template']
 
     membership = fields.Boolean('Subscription')
-    name = fields.Char(track_visibility='onchange')
-    list_price = fields.Float(track_visibility='onchange')
+    name = fields.Char(tracking=True)
+    list_price = fields.Float(tracking=True)
 
     @api.model
     def _get_default_subscription(self):

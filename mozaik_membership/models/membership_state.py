@@ -13,7 +13,7 @@ class MembershipState(models.Model):
     _unicity_keys = 'code'
 
     name = fields.Char(string='Membership State', required=True,
-                       track_visibility='onchange', translate=True)
+                       tracking=True, translate=True)
     code = fields.Char(required=True)
     sequence = fields.Integer(
         default=10,

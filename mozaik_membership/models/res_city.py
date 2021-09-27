@@ -9,7 +9,7 @@ class ResCity(models.Model):
     _inherit = 'res.city'
 
     int_instance_id = fields.Many2one(
-        'int.instance', 'Internal Instance', track_visibility='onchange',
+        'int.instance', 'Internal Instance', tracking=True,
         default=lambda s: s._default_int_instance_id(), required=True,
         index=True,
         )

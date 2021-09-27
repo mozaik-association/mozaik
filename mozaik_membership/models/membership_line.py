@@ -5,7 +5,6 @@ from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
 from odoo import api, exceptions, models, fields, _
 from odoo.tools import float_is_zero
-import odoo.addons.decimal_precision as dp
 from odoo.osv import expression
 from odoo.addons.queue_job.job import job
 
@@ -48,7 +47,7 @@ class MembershipLine(models.Model):
     )
     date_to = fields.Date(string='To', copy=False)
     price = fields.Float(
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         copy=False,
     )
 
@@ -63,7 +62,6 @@ class MembershipLine(models.Model):
         ('unique_ref', 'unique(reference)', 'This reference is already used'),
     ]
 
-    @api.multi
     @api.constrains('reference', 'price')
     def _constrains_reference(self):
         """
@@ -80,7 +78,6 @@ class MembershipLine(models.Model):
                         "than 0:\n- %s") % details
             raise exceptions.ValidationError(message)
 
-    @api.multi
     @api.constrains('active', 'date_to')
     def _constrains_active_date_to(self):
         """
@@ -97,7 +94,6 @@ class MembershipLine(models.Model):
                 "the 'To' date:\n- %s") % details
             raise exceptions.ValidationError(message)
 
-    @api.multi
     @api.constrains('partner_id')
     def _constrains_partner_id(self):
         """
@@ -111,7 +107,6 @@ class MembershipLine(models.Model):
                         "a legal person:\n- %s") % details
             raise exceptions.ValidationError(message)
 
-    @api.multi
     @api.constrains('partner_id')
     def _constrains_exclusion(self):
         """
@@ -146,7 +141,6 @@ class MembershipLine(models.Model):
         active_test &= self._context.get('active_test', False)
         return super()._where_calc(domain, active_test=active_test)
 
-    @api.multi
     def action_invalidate(self, vals=None):
         """
         Invalidates membership lines
@@ -257,7 +251,7 @@ class MembershipLine(models.Model):
         # because of the related store, most users will failed since
         # they don't have the right to write on membership line model
         self.check_access_rights('create')
-        result = super(MembershipLine, self.suspend_security()).create(vals)
+        result = super(MembershipLine, self.sudo()).create(vals)
         result = self.browse(result.ids)
         result.check_access_rule('create')
         if result.partner_id.force_int_instance_id:
@@ -265,7 +259,6 @@ class MembershipLine(models.Model):
             result.partner_id.force_int_instance_id = False
         return result
 
-    @api.multi
     def copy(self, default=None):
         """
 
@@ -467,7 +460,6 @@ class MembershipLine(models.Model):
             domain = expression.AND([domain, active_domain])
         return self.search(domain)
 
-    @api.multi
     def _close(self, date_to=False, force=False):
         """
         Close current recordset (only when the date_from is <= to the limit
@@ -546,7 +538,6 @@ class MembershipLine(models.Model):
             membership_lines |= line
         return membership_lines
 
-    @api.multi
     def _update_membership(self, state, date_from=False, force=False):
         """
 
@@ -588,13 +579,11 @@ class MembershipLine(models.Model):
                 membership_altered |= membership_line_obj.create(values)
         return membership_altered
 
-    @api.multi
     def _update_membership_values(self, partner, instance, state, date_from):
         self.ensure_one()
         return self._build_membership_values(
             partner, instance, state, date_from=date_from)
 
-    @api.multi
     def _renew(self, date_from=False):
         """
         Renew current membership.line
@@ -631,20 +620,17 @@ class MembershipLine(models.Model):
             last_i = i
         close_lines[last_i:]._close_and_renew(date_from=date_from)
 
-    @api.multi
     @job(default_channel="root.membership_close_and_renew")
     def _job_close_and_renew(self, date_from=False):
         date_to = fields.Date.from_string(date_from) - timedelta(days=1)
         lines = self._close(date_to=fields.Date.to_string(date_to))
         return lines._renew(date_from=date_from)
 
-    @api.multi
     def _close_and_renew(self, date_from=False):
         self.with_delay(
                 description="Renew %s memberships" % len(self)
         )._job_close_and_renew(date_from=date_from)
 
-    @api.multi
     def _former_member(self, date_from=False, force=False):
         """
         Former member current membership.line

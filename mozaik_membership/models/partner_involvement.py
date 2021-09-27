@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
-import odoo.addons.decimal_precision as dp
 
 
 class PartnerInvolvement(models.Model):
@@ -10,9 +9,9 @@ class PartnerInvolvement(models.Model):
     _inherit = 'partner.involvement'
 
     amount = fields.Float(
-        digits=dp.get_precision('Product Price'),
-        copy=False, track_visibility='onchange')
-    reference = fields.Char(copy=False, track_visibility='onchange')
+        digits='Product Price',
+        copy=False, tracking=True)
+    reference = fields.Char(copy=False, tracking=True)
     promise = fields.Boolean(
         string='Just a promise',
         compute='_compute_promise', store=True)
@@ -33,7 +32,6 @@ class PartnerInvolvement(models.Model):
         ),
     ]
 
-    @api.multi
     @api.depends("effective_time", "reference", "involvement_type")
     def _compute_promise(self):
         for involvement in self:

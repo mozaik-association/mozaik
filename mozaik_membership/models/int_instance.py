@@ -20,7 +20,6 @@ class IntInstance(models.Model):
         column1="int_instance_id",
     )
 
-    @api.multi
     def _compute_member_count(self):
         partner_obj = self.env['res.partner']
         for inst in self:
@@ -28,7 +27,6 @@ class IntInstance(models.Model):
                     [('int_instance_ids', 'in', [inst.id]),
                      ('is_company', '=', False)])
 
-    @api.multi
     def get_member_action(self):
         self.ensure_one()
         action = self.env.ref(
@@ -57,14 +55,12 @@ class IntInstance(models.Model):
         self.env['ir.rule'].clear_caches()
         return res
 
-    @api.multi
     def write(self, vals):
         res = super().write(vals)
         if 'parent_id' in vals:
             self.env['ir.rule'].clear_caches()
         return res
 
-    @api.multi
     def unlink(self):
         res = super().unlink()
         self.env['ir.rule'].clear_caches()

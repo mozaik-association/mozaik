@@ -17,7 +17,6 @@ class StaAssembly(models.Model):
         res = super().create(vals)
         return res
 
-    @api.multi
     def write(self, vals):
         '''
         Update the Responsible Internal Instance linked to the result Partner

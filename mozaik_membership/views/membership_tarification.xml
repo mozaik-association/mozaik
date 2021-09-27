@@ -47,7 +47,6 @@
     <record model="ir.actions.act_window" id="membership_tarification_act_window">
         <field name="name">Membership tarification</field>
         <field name="res_model">membership.tarification</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

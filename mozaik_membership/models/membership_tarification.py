@@ -38,7 +38,6 @@ class MembershipTarification(models.Model):
         ('unique_name', 'unique(name)', "This name already exists"),
     ]
 
-    @api.multi
     def _get_eval_context(self, partner):
         """
         Get the context for the safe_eval
@@ -55,7 +54,6 @@ class MembershipTarification(models.Model):
         }
         return values
 
-    @api.multi
     def _evaluate_code(self, partner):
         """
         Evaluate the code of current recordset

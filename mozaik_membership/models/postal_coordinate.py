@@ -26,7 +26,6 @@ class PostalCoordinate(models.Model):
             res._become_main_coordinate()
         return res
 
-    @api.multi
     def write(self, vals):
         '''
         Recompute followers and change partner instance if any
@@ -49,7 +48,6 @@ class PostalCoordinate(models.Model):
             self._become_main_coordinate()
         return res
 
-    @api.multi
     def _auto_instance_assign(self, partners, address):
         """
         Auto-update the membership line with the new address (if possible).
@@ -104,7 +102,6 @@ class PostalCoordinate(models.Model):
                 "related partner") % partner.display_name
         raise exceptions.ValidationError(msg)
 
-    @api.multi
     def _become_main_coordinate(self):
         """
         Current recordset become main postal coordinate

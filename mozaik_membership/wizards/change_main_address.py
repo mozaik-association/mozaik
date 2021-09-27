@@ -109,7 +109,6 @@ class ChangeMainAddress(models.TransientModel):
                     'new_instance_id': False,
                 })
 
-    @api.multi
     def _update_instances(self):
         """
         Update instance if necessary
@@ -119,7 +118,6 @@ class ChangeMainAddress(models.TransientModel):
             self.partner_change_instance_ids._execute_update()
         return True
 
-    @api.multi
     def button_change_main_coordinate(self):
         """
         Change main coordinate for a list of partners

@@ -13,7 +13,6 @@ class MassMembershipRenew(models.TransientModel):
         help="Start date of new membership lines",
     )
 
-    @api.multi
     def doit(self):
         self.ensure_one()
         self.env["membership.line"]._launch_renew(date_from=self.date_from)

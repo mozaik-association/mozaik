@@ -19,7 +19,6 @@ class ResUsers(models.Model):
         self.SELF_READABLE_FIELDS.append('int_instance_m2m_ids')
         return init_res
 
-    @api.multi
     def _internal_instances(self, power_level_id=False):
         """
         Cache the int_instance_m2m_ids domain result

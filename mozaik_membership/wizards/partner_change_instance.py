@@ -54,7 +54,6 @@ class PartnerChangeInstance(models.TransientModel):
         readonly=True,
     )
 
-    @api.multi
     @api.constrains('change_main_address_id', 'partner_id', 'new_instance_id')
     def _check_wizard_partner_instance(self):
         """
@@ -108,7 +107,6 @@ class PartnerChangeInstance(models.TransientModel):
             })
         return items
 
-    @api.multi
     @api.onchange('close_subscription')
     def _onchange_close_subscription(self):
         """
@@ -128,7 +126,6 @@ class PartnerChangeInstance(models.TransientModel):
                     instance = record.actual_instance_id
                 record.new_instance_id = instance
 
-    @api.multi
     def _execute_update(self):
         """
         Execute the update on the partner
@@ -165,7 +162,6 @@ class PartnerChangeInstance(models.TransientModel):
                         partner_sudo.force_int_instance_id = old_force_instance
         return True
 
-    @api.multi
     def _get_new_membership_values(self):
         self.ensure_one()
         line = self.membership_line_id

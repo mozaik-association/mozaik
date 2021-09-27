@@ -42,7 +42,7 @@ class ResPartner(models.Model):
         index=True,
         compute="_compute_int_instance_ids",
         store=True,
-        track_visibility='onchange',
+        tracking=True,
         compute_sudo=True,
     )
     membership_state_code = fields.Char(
@@ -53,11 +53,11 @@ class ResPartner(models.Model):
     kind = fields.Selection(
         compute="_compute_kind", string='Partner Kind', compute_sudo=True,
         selection=AVAILABLE_PARTNER_KINDS, store=True)
-    local_voluntary = fields.Boolean(track_visibility='onchange')
-    regional_voluntary = fields.Boolean(track_visibility='onchange')
-    national_voluntary = fields.Boolean(track_visibility='onchange')
+    local_voluntary = fields.Boolean(tracking=True)
+    regional_voluntary = fields.Boolean(tracking=True)
+    national_voluntary = fields.Boolean(tracking=True)
     local_only = fields.Boolean(
-        track_visibility='onchange',
+        tracking=True,
         help='Partner wishing to be contacted only by the local')
 
     int_instance_ids = fields.Many2many(
@@ -81,7 +81,6 @@ class ResPartner(models.Model):
     def _default_force_int_instance_id(self):
         return first(self.env.user.partner_id.int_instance_m2m_ids)
 
-    @api.multi
     @api.constrains('membership_line_ids', 'is_company')
     def _constrains_membership_line_ids(self):
         """
@@ -96,7 +95,6 @@ class ResPartner(models.Model):
                         "lines:\n- %s") % details
             raise exceptions.ValidationError(message)
 
-    @api.multi
     @api.depends(
         'is_assembly',
         'force_int_instance_id',
@@ -132,7 +130,6 @@ class ResPartner(models.Model):
             record.membership_state_id = state
             record.is_excluded = is_excluded
 
-    @api.multi
     def _get_current_state(self):
         """
         Get the state of the current partner.
@@ -151,7 +148,6 @@ class ResPartner(models.Model):
                 state = state_obj._get_default_state()
         return state
 
-    @api.multi
     @api.constrains('force_int_instance_id', 'membership_line_ids')
     def _check_force_int_instance_id(self):
         """
@@ -164,7 +160,6 @@ class ResPartner(models.Model):
                     "A partner without membership "
                     "must be linked to an internal instance"))
 
-    @api.multi
     @api.depends('is_assembly', 'is_company',
                  'identifier', 'membership_state_id')
     def _compute_kind(self):
@@ -192,7 +187,6 @@ class ResPartner(models.Model):
         """
         return self.env['product.product'].browse()
 
-    @api.multi
     def action_exclude(self):
         """
         Action to exclude current recordset (partners)
@@ -201,7 +195,6 @@ class ResPartner(models.Model):
         self._action_expulsion('expulsion')
         return {}
 
-    @api.multi
     def action_resignation(self):
         """
         Action to launch the resignation of current recordset (partners)
@@ -210,7 +203,6 @@ class ResPartner(models.Model):
         self._action_expulsion('resignation')
         return {}
 
-    @api.multi
     def _action_expulsion(self, event):
         """
         Action to exclude current recordset (partners)
@@ -241,7 +233,6 @@ class ResPartner(models.Model):
                 lines |= membership_obj.create(values)
         return lines
 
-    @api.multi
     def _renew_membership_line(self, date_from=False):
         """
         Renew a subscription of current partners.
@@ -255,7 +246,6 @@ class ResPartner(models.Model):
         partners.mapped("membership_line_ids").filtered(
             lambda l: l.active)._renew(date_from=date_from)
 
-    @api.multi
     def _create_user(self, login, group_ids):
         """
         When creating a user from a partner,
@@ -266,7 +256,6 @@ class ResPartner(models.Model):
         self.int_instance_m2m_ids = self.int_instance_ids
         return user
 
-    @api.multi
     @api.depends("membership_line_ids", "membership_line_ids.product_id")
     def _compute_subscription_product_id(self):
         tarification_obj = self.env['membership.tarification']
@@ -274,7 +263,6 @@ class ResPartner(models.Model):
             product = tarification_obj._get_product_by_partner(partner)
             partner.subscription_product_id = product
 
-    @api.multi
     def write(self, vals):
         """
         Update followers when changing internal instance
@@ -298,7 +286,6 @@ class ResPartner(models.Model):
             self.env['ir.rule'].clear_cache()
         return res
 
-    @api.multi
     def _open_co_residency(self):
         '''
         When excluding or resigning a member open its co-residency,
@@ -312,7 +299,6 @@ class ResPartner(models.Model):
                 res = coord.co_residency_id.get_formview_action()
         return res
 
-    @api.multi
     def _write(self, vals):
         '''
         Update additional flags together with the recomputing
@@ -331,7 +317,6 @@ class ResPartner(models.Model):
             res = super()._write(vals)
         return res
 
-    @api.multi
     def _update_flags(self, new_state_code):
         """
         Update additional flags when changing state
@@ -371,7 +356,6 @@ class ResPartner(models.Model):
 
         return vals
 
-    @api.multi
     def action_add_membership(self):
         """
 

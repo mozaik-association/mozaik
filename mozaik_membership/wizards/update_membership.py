@@ -68,7 +68,6 @@ class UpdateMembership(models.TransientModel):
             })
         return result
 
-    @api.multi
     def action_update(self):
         """
         Action to execute the action
@@ -81,7 +80,6 @@ class UpdateMembership(models.TransientModel):
             self._update_product_price()
         return {}
 
-    @api.multi
     def _prepare_update_product_price(self):
         """
         Prepare a dictionary ready to use with the write() method
@@ -96,7 +94,6 @@ class UpdateMembership(models.TransientModel):
         }
         return vals
 
-    @api.multi
     def _update_product_price(self):
         """
         Update product and price on membership.line
@@ -109,7 +106,6 @@ class UpdateMembership(models.TransientModel):
         vals = self._prepare_update_product_price()
         return self.membership_line_id.write(vals)
 
-    @api.multi
     def _update_instance(self):
         """
         Update int_instance_id on membership.line

@@ -14,7 +14,6 @@ class AssemblyMixin(models.AbstractModel):
         res = super().create(vals)
         return res
 
-    @api.multi
     def write(self, vals):
         self._sanitize_instance(vals)
         res = super().write(vals)

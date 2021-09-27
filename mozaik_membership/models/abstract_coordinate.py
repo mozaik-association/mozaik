@@ -20,7 +20,6 @@ class AbstractCoordinate(models.AbstractModel):
         readonly=True,
     )
 
-    @api.multi
     def _update_followers(self):
         """
         Update followers list for each coordinate of the same partner

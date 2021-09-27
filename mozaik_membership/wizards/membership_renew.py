@@ -55,7 +55,6 @@ class MembershipRenew(models.TransientModel):
             })
         return result
 
-    @api.multi
     def action_close_and_renew(self):
         """
         Action to close existing
@@ -72,7 +71,6 @@ class MembershipRenew(models.TransientModel):
         })
         return action
 
-    @api.multi
     def _action_close_and_renew(self):
         """
         Close membership lines and renew them automatically

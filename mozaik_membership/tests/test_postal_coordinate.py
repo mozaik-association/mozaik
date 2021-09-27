@@ -78,6 +78,6 @@ class TestPostalCoordinate(TransactionCase):
         }
         partners.write(vals)
 
-        use_allowed = wiz_adr_mod.with_context(ctx).sudo(user=usr_marc.id)\
+        use_allowed = wiz_adr_mod.with_context(ctx).with_user(user=usr_marc.id)\
             ._use_allowed(cor_id)
         self.assertFalse(use_allowed)
