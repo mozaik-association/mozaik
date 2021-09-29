@@ -60,10 +60,10 @@ class TestDistributionList(SavepointCase):
         )
         distribution_list_line = distribution_list.to_include_distribution_list_line_ids
         self.assertEqual(len(distribution_list_line), 1)
-        with self.assertRaises(exceptions.AccessError) as e:
+        with self.assertRaises(exceptions.AccessError):
             distribution_list_line.with_user(user_no_access.id).read()
         self.assertEqual(len(distribution_list), 1)
-        with self.assertRaises(exceptions.AccessError) as e:
+        with self.assertRaises(exceptions.AccessError):
             distribution_list.with_user(user_no_access.id).read()
         return
 
