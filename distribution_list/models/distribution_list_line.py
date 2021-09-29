@@ -258,3 +258,6 @@ class DistributionListLine(models.Model):
             'domain': self._get_eval_domain(),
             'target': 'current',
         }
+
+    def action_redefine_domain(self):
+        pass

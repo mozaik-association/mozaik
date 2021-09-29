@@ -15,8 +15,8 @@ class TestDistributionList(SavepointCase):
         self.first_user = self.env.ref("distribution_list.first_user")
         self.second_user = self.env.ref("distribution_list.second_user")
         self.partner_model = self.env.ref("base.model_res_partner")
-        self.partner_id_field = self.env.ref("base.field_res_partner_id")
-        self.parent_id_field = self.env.ref("base.field_res_partner_parent_id")
+        self.partner_id_field = self.env.ref("base.field_res_partner__id")
+        self.parent_id_field = self.env.ref("base.field_res_partner__parent_id")
         # inactive RR define elsewhere (for test db reusing purpose)
         model_ids = [
             self.ref('distribution_list.model_distribution_list'),
@@ -84,7 +84,6 @@ class TestDistributionList(SavepointCase):
             'is_company': False,
             'lang': 'en_US',
             'child_ids': [],
-            'customer': True,
             'user_ids': [],
             'name': 'customer',
             'category_id': [[6, False, []]],
@@ -97,7 +96,6 @@ class TestDistributionList(SavepointCase):
             'is_company': False,
             'lang': 'en_US',
             'child_ids': [],
-            'supplier': True,
             'user_ids': [],
             'name': 'supplier',
             'category_id': [[6, False, []]],
@@ -117,19 +115,20 @@ class TestDistributionList(SavepointCase):
         })
         line1 = distri_list_line_obj.create({
             'name': str(uuid4()),
-            'domain': "[('supplier', '=', True)]",
             'src_model_id': partner_obj.id,
             'company_id': user_creator.company_id.id,
             'distribution_list_id': distribution_list.id,
             'bridge_field_id': self.partner_id_field.id,
+            'domain': "[('company_id','=',"+str(user_creator.company_id.id)+")]",
         })
         line2 = distri_list_line_obj.create({
             'name': 'employee_2',
-            'domain': "[('customer', '=', True)]",
             'src_model_id': partner_obj.id,
             'company_id': user_creator.company_id.id,
             'distribution_list_id': distribution_list.id,
             'bridge_field_id': self.partner_id_field.id,
+            'domain':
+                "[('company_id','='," +str(user_creator.company_id.id)+ ")]",
         })
 
         distribution_list_exclusion = distri_list_obj.create({
@@ -147,21 +146,6 @@ class TestDistributionList(SavepointCase):
             'exclude': True,
             'name': str(uuid4()),
         })
-        distribution_list_cust_nosupl = distri_list_obj.create({
-            'name': 'tee meeting 3',
-            'company_id': user_creator.company_id.id,
-            'dst_model_id': partner_obj.id,
-        })
-        line1.copy({
-            'distribution_list_id': distribution_list_cust_nosupl.id,
-            'exclude': True,
-            'name': str(uuid4()),
-        })
-        line2.copy({
-            'distribution_list_id': distribution_list_cust_nosupl.id,
-            'exclude': False,
-            'name': str(uuid4()),
-        })
 
         targets = distribution_list._get_target_from_distribution_list()
         self.assertIn(customer.id, targets.ids)
@@ -172,9 +156,6 @@ class TestDistributionList(SavepointCase):
         self.assertNotIn(customer.id, targets.ids)
         self.assertNotIn(supplier.id, targets.ids)
 
-        targets = distribution_list_cust_nosupl.\
-            _get_target_from_distribution_list()
-        self.assertIn(customer.id, targets.ids)
         return
 
     def test_get_ids_from_distribution_list(self):
@@ -266,6 +247,7 @@ class TestDistributionList(SavepointCase):
 
         p9 = partner_obj.create({
             'name': 'p9',
+            'company_id': self.browse_ref('base.main_company').id,
         })
         p8 = partner_obj.create({
             'name': 'p8 more_filter filter_three',
@@ -278,9 +260,11 @@ class TestDistributionList(SavepointCase):
 
         p6 = partner_obj.create({
             'name': 'p6',
+            'company_id': self.browse_ref('base.main_company').id,
         })
         p5 = partner_obj.create({
             'name': 'p5',
+            'company_id': self.browse_ref('base.main_company').id,
         })
         p4 = partner_obj.create({
             'name': 'p4',
