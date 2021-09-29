@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo noupdate="1">
     <record id="distribution_list_line_one" model="distribution.list.line">
         <field name="name">Customer</field>
-        <field name="src_model_id" ref='base.model_res_partner'/>
-        <field name="company_id" ref='base.main_company'/>
-        <field name="bridge_field_id" ref="base.field_res_partner__id"/>
-        <field name="distribution_list_id" ref='distribution_list_one'/>
-        <field name="domain" eval="[['customer','=',True]]"/>
+        <field name="src_model_id" ref='base.model_res_partner' />
+        <field name="company_id" ref='base.main_company' />
+        <field name="bridge_field_id" ref="base.field_res_partner__id" />
+        <field name="distribution_list_id" ref='distribution_list_one' />
+        <field name="domain" eval="[['customer','=',True]]" />
     </record>
 
     <record id="distribution_list_line_two" model="distribution.list.line">
         <field name="name">Sendable</field>
-        <field name="src_model_id" ref='base.model_res_partner'/>
-        <field name="bridge_field_id" ref="base.field_res_partner__id"/>
-        <field name="company_id" ref='base.main_company'/>
-        <field name="distribution_list_id" ref='distribution_list_two'/>
-        <field name="domain" eval="[['email','ilike','+']]"/>
+        <field name="src_model_id" ref='base.model_res_partner' />
+        <field name="bridge_field_id" ref="base.field_res_partner__id" />
+        <field name="company_id" ref='base.main_company' />
+        <field name="distribution_list_id" ref='distribution_list_two' />
+        <field name="domain" eval="[['email','ilike','+']]" />
     </record>
 </odoo>

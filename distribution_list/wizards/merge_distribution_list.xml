@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -10,11 +10,16 @@
 
                 <div>
                     <group>
-                        <field name="distribution_list_id"/>
+                        <field name="distribution_list_id" />
                     </group>
                 </div>
                 <footer>
-                    <button name="merge_distribution_list" string="Ok" type="object" class="btn-primary"/>
+                    <button
+                        name="merge_distribution_list"
+                        string="Ok"
+                        type="object"
+                        class="btn-primary"
+                    />
                     or
                     <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
@@ -30,7 +35,9 @@
         <field name="res_model">merge.distribution.list</field>
         <field name="target">new</field>
         <field name="view_id" ref="merge_distribution_list_wizard" />
-        <field name="binding_model_id" ref="model_distribution_list"/>
-        <field name="groups_id" eval="[(6, 0, [ref('res_groups_distribution_list_user')])]" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('res_groups_distribution_list_user')])]"
+        />
     </record>
 </odoo>

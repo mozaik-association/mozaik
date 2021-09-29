@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -8,16 +8,29 @@
         <field name="model">distribution.list.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
-                <field name="distribution_list_id"/>
-                <field name="src_model_id"/>
+                <field name="name" />
+                <field name="distribution_list_id" />
+                <field name="src_model_id" />
 
-                <separator/>
-                <filter name="exclude" string="Excluded" domain="[('exclude','=',True)]"/>
-                <filter name="include" string="Included" domain="[('exclude','=',False)]"/>
+                <separator />
+                <filter
+                    name="exclude"
+                    string="Excluded"
+                    domain="[('exclude','=',True)]"
+                />
+                <filter
+                    name="include"
+                    string="Included"
+                    domain="[('exclude','=',False)]"
+                />
 
                 <group>
-                    <filter name="binding_model" string="Model" domain="[]" context="{'group_by':'src_model_id'}" />
+                    <filter
+                        name="binding_model"
+                        string="Model"
+                        domain="[]"
+                        context="{'group_by':'src_model_id'}"
+                    />
                 </group>
             </search>
         </field>
@@ -28,11 +41,16 @@
         <field name="model">distribution.list.line</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="distribution_list_id"/>
-                <field name="name"/>
-                <field name="src_model_id"/>
-                <field name="exclude"/>
-                <button name="action_show_filter_result" string="Result" type="object" icon="fa-address-card text-success"/>
+                <field name="distribution_list_id" />
+                <field name="name" />
+                <field name="src_model_id" />
+                <field name="exclude" />
+                <button
+                    name="action_show_filter_result"
+                    string="Result"
+                    type="object"
+                    icon="fa-address-card text-success"
+                />
             </tree>
         </field>
     </record>
@@ -46,33 +64,62 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_show_filter_result" class="oe_stat_button" string="Filter result" icon="fa-address-card text-success"
-                                type="object" attrs="{'invisible': [('id','=',False)]}" />
+                        <button
+                            name="action_show_filter_result"
+                            class="oe_stat_button"
+                            string="Filter result"
+                            icon="fa-address-card text-success"
+                            type="object"
+                            attrs="{'invisible': [('id','=',False)]}"
+                        />
                     </div>
                     <div class="oe_title" name="title">
-                        <label for="name" class="oe_edit_only"/>
+                        <label for="name" class="oe_edit_only" />
                         <h1>
-                            <field name="name" placeholder="Name"/>
+                            <field name="name" placeholder="Name" />
                         </h1>
                     </div>
                     <group name="data">
                         <group name="info">
-                            <field name="distribution_list_id" invisible="context.get('default_distribution_list_id')" attrs="{'readonly': [('id','!=',False)]}"/>
-                            <field name="src_model_id" widget="selection" attrs="{'readonly': [('id','!=',False)]}"/>
-                            <field name="trg_model" invisible="1"/>
-                            <field name="bridge_field_id" widget="selection" attrs="{'readonly': [('id','!=',False)]}"/>
+                            <field
+                                name="distribution_list_id"
+                                invisible="context.get('default_distribution_list_id')"
+                                attrs="{'readonly': [('id','!=',False)]}"
+                            />
+                            <field
+                                name="src_model_id"
+                                widget="selection"
+                                attrs="{'readonly': [('id','!=',False)]}"
+                            />
+                            <field name="trg_model" invisible="1" />
+                            <field
+                                name="bridge_field_id"
+                                widget="selection"
+                                attrs="{'readonly': [('id','!=',False)]}"
+                            />
                         </group>
                         <group name="company">
-                            <field name="company_id" groups="base.group_multi_company" options="{'no_create_edit': True}"/>
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                options="{'no_create_edit': True}"
+                            />
                         </group>
                     </group>
                     <notebook>
                         <page name="filter" string="Filter">
                             <group name="expr">
-                                <field name="exclude" invisible="'default_exclude' in context"/>
-                                <field name="src_model_id" invisible="1"/>
-                                <field name="trg_model" invisible="1"/>
-                                <field name="domain" widget="domain" options="{'model': 'trg_model'}"/>
+                                <field
+                                    name="exclude"
+                                    invisible="'default_exclude' in context"
+                                />
+                                <field name="src_model_id" invisible="1" />
+                                <field name="trg_model" invisible="1" />
+                                <field
+                                    name="domain"
+                                    widget="domain"
+                                    options="{'model': 'trg_model'}"
+                                />
                             </group>
                         </page>
                     </notebook>
@@ -91,8 +138,8 @@
 
     <record model="ir.ui.menu" id="distribution_list_line">
         <field name="name">Filters</field>
-        <field name="parent_id" ref="distribution_list_menu"/>
-        <field name="action" ref="distribution_list_line_action"/>
-        <field name="sequence" eval="2"/>
+        <field name="parent_id" ref="distribution_list_menu" />
+        <field name="action" ref="distribution_list_line_action" />
+        <field name="sequence" eval="2" />
     </record>
 </odoo>
