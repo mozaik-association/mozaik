@@ -15,9 +15,9 @@ class TestDistributionListLine(TransactionCase):
             'name': str(uuid4()),
             'dst_model_id': self.partner_model.id,
         })
-        self.partner_id_field = self.env.ref("base.field_res_partner_id")
+        self.partner_id_field = self.env.ref("base.field_res_partner__id")
         self.mail_tmpl_id_field = self.env.ref(
-            "base.field_res_company_partner_id")
+            "base.field_res_company__partner_id")
 
     def test_write(self):
         """

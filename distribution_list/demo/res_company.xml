@@ -6,8 +6,6 @@
     <record id="first_partner" model="res.partner" context="{'default_is_company': True}">
         <field name="name">first partner</field>
         <field name="company_id" eval="None"/>
-        <field name="image" eval="False"/>
-        <field name="customer" eval="False"/>
         <field name="is_company" eval="True"/>
         <field name="email">first@first.com</field>
         <field name="website">www.first.com</field>
@@ -16,8 +14,6 @@
     <record id="second_partner" model="res.partner" context="{'default_is_company': True}">
         <field name="name">second partner</field>
         <field name="company_id" eval="None"/>
-        <field name="image" eval="False"/>
-        <field name="customer" eval="False"/>
         <field name="is_company" eval="True"/>
         <field name="email">second@second.com</field>
         <field name="website">www.second.com</field>
