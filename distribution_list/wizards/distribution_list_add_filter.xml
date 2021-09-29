@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -10,15 +10,19 @@
             <form>
 
                 <div invisible="not context.get('active_domain')">
-                    <div class="oe_title"  name="title">
+                    <div class="oe_title" name="title">
                         <h1>
-                            <field name="name" nolabel="1" placeholder="New Filter Name" />
+                            <field
+                                name="name"
+                                nolabel="1"
+                                placeholder="New Filter Name"
+                            />
                         </h1>
                     </div>
                     <group>
-                        <field name="distribution_list_id"/>
-                        <field name="bridge_field_id" widget="selection"/>
-                        <field name="exclude"/>
+                        <field name="distribution_list_id" />
+                        <field name="bridge_field_id" widget="selection" />
+                        <field name="exclude" />
                     </group>
                 </div>
                 <div invisible="context.get('active_domain')">
@@ -26,7 +30,12 @@
                 </div>
 
                 <footer invisible="not context.get('active_domain')">
-                    <button name="add_distribution_list_line" string="Add" type="object" class="btn-primary"/>
+                    <button
+                        name="add_distribution_list_line"
+                        string="Add"
+                        type="object"
+                        class="btn-primary"
+                    />
                     or
                     <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
@@ -45,7 +54,10 @@
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list_add_filter" />
         <field name="binding_model_id" ref="base.model_res_partner" />
-        <field name="groups_id" eval="[(6, 0, [ref('res_groups_distribution_list_user')])]" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('res_groups_distribution_list_user')])]"
+        />
     </record>
 
 </odoo>

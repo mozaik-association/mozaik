@@ -1,35 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo noupdate="1">
     <!--Partner used to create companies-->
-    <record id="first_partner" model="res.partner" context="{'default_is_company': True}">
+    <record
+        id="first_partner"
+        model="res.partner"
+        context="{'default_is_company': True}"
+    >
         <field name="name">first partner</field>
-        <field name="company_id" eval="None"/>
-        <field name="is_company" eval="True"/>
+        <field name="company_id" eval="None" />
+        <field name="is_company" eval="True" />
         <field name="email">first@first.com</field>
         <field name="website">www.first.com</field>
     </record>
 
-    <record id="second_partner" model="res.partner" context="{'default_is_company': True}">
+    <record
+        id="second_partner"
+        model="res.partner"
+        context="{'default_is_company': True}"
+    >
         <field name="name">second partner</field>
-        <field name="company_id" eval="None"/>
-        <field name="is_company" eval="True"/>
+        <field name="company_id" eval="None" />
+        <field name="is_company" eval="True" />
         <field name="email">second@second.com</field>
         <field name="website">www.second.com</field>
     </record>
 
     <record id="first_company" model="res.company">
         <field name="name">first company</field>
-        <field name="partner_id" ref="first_partner"/>
-        <field name="currency_id" ref="base.EUR"/>
-        <field name="parent_id" ref="base.main_company"/>
+        <field name="partner_id" ref="first_partner" />
+        <field name="currency_id" ref="base.EUR" />
+        <field name="parent_id" ref="base.main_company" />
     </record>
 
     <record id="second_company" model="res.company">
         <field name="name">second company</field>
-        <field name="partner_id" ref="second_partner"/>
-        <field name="currency_id" ref="base.EUR"/>
-        <field name="parent_id" ref="base.main_company"/>
+        <field name="partner_id" ref="second_partner" />
+        <field name="currency_id" ref="base.EUR" />
+        <field name="parent_id" ref="base.main_company" />
     </record>
 </odoo>
