@@ -26,9 +26,8 @@
     <record id="merge_distribution_list_action" model="ir.actions.act_window">
         <field name="name">Merge Distribution List(s)</field>
         <field name="view_mode">form</field>
-        <field name="binding_model">distribution.list</field>
+        <field name="binding_model_id" ref="model_distribution_list" />
         <field name="res_model">merge.distribution.list</field>
-        <field name="multi" eval="1"/>
         <field name="target">new</field>
         <field name="view_id" ref="merge_distribution_list_wizard" />
         <field name="binding_model_id" ref="model_distribution_list"/>

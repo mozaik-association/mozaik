@@ -18,7 +18,6 @@ class DistributionListAddFilter(models.TransientModel):
     )
     name = fields.Char(
         required=True,
-        oldname="distribution_list_line_name",
     )
     exclude = fields.Boolean(
         help="Check this box to exclude the filter result "
