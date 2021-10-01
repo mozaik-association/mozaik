@@ -10,9 +10,9 @@ class TestPartner(TransactionCase):
         super().setUp()
 
         self.partner1 = self.env.ref(
-            'mozaik_coordinate.res_partner_thierry')
+            'mozaik_membership.res_partner_thierry')
         self.partner_jacques_id = self.env.ref(
-            'mozaik_coordinate.res_partner_jacques')
+            'mozaik_membership.res_partner_jacques')
         self.tarification1 = self.env.ref(
             "mozaik_membership.membership_tarification_first_rule")
         self.tarification2 = self.env.ref(

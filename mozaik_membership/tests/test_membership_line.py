@@ -17,7 +17,7 @@ class TestMembershipLine(TransactionCase):
         self.instance_obj = self.env['int.instance']
         self.product_obj = self.env['product.product']
         self.instance = self.env.ref("mozaik_membership.int_instance_03")
-        self.partner_marc = self.env.ref("mozaik_coordinate.res_partner_marc")
+        self.partner_marc = self.env.ref("mozaik_membership.res_partner_marc")
         self.product_subscription = self.env.ref(
             "mozaik_membership.membership_product_isolated")
         self.product_free = self.env.ref(
@@ -64,7 +64,7 @@ class TestMembershipLine(TransactionCase):
             'list_price': price,
         })
         # Use the precision defined on the price field
-        precision = membership_obj._fields.get('price').digits[1]
+        precision = membership_obj._fields.get('price').get_digits(self.env)[1]
         # get the price
         result_price = membership_obj._get_subscription_price(
             self.product_free, partner=partner, instance=instance)
@@ -159,12 +159,11 @@ class TestMembershipLine(TransactionCase):
             'date_to': date_from,
         })
         # We have to transform the date in correct format
-        new_date_from = fields.Date.to_string(
-            fields.Date.from_string('2015-11-09'))
+        new_date_from = fields.Date.from_string('2015-11-09')
         # The product should be saved before the renew
         theoric_product = partner.subscription_product_id
         # Renew it
-        created = membership._renew(date_from=new_date_from)
+        created = membership._renew(date_from=fields.Date.to_string(new_date_from))
         self.assertEqual(created.date_from, new_date_from)
         self.assertEqual(created.partner_id, partner)
         self.assertEqual(created.int_instance_id, instance)
@@ -287,11 +286,11 @@ class TestMembershipLine(TransactionCase):
             'active': False,
             'date_to': date_from,
         })
+        membership.flush()
         # We have to transform the date in correct format
-        new_date_from = fields.Date.to_string(
-            fields.Date.from_string('2015-11-09'))
+        new_date_from = fields.Date.from_string('2015-11-09')
         # Former member it
-        created = membership._former_member(date_from=new_date_from)
+        created = membership._former_member(date_from=fields.Date.to_string(new_date_from))
         self.assertEqual(created.date_from, new_date_from)
         self.assertEqual(created.partner_id, partner)
         self.assertEqual(created.int_instance_id, instance)

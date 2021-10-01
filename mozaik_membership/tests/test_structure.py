@@ -104,6 +104,7 @@ class TestStructure(TransactionCase):
             'code': '100',
         }
         ctx = res_users_model.context_get()
+        ctx = dict(ctx)
         ctx.update(tracking_disable=True)
         model_int_instance = model_int_instance.with_context(ctx)
         model_int_instance.create(vals)

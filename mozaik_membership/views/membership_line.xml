@@ -21,12 +21,10 @@
                 <filter name="active" string="Active" domain="[('active','=',True)]" help="Active Memberships" />
                 <filter name="expired" string="Expired" context="{'invisible_expire_date': False}" domain="[('active','=',False)]" help="Expired Memberships" />
 
-                <group name="group_by">
-                    <filter string="Member" context="{'group_by': 'partner_id'}"/>
-                    <filter string="Instance" context="{'group_by': 'int_instance_id'}"/>
-                    <filter string="Subscription" context="{'group_by': 'product_id'}"/>
-                    <filter string="Membership State" context="{'group_by': 'state_id'}"/>
-                </group>
+                <filter name="group_by_member" string="Member" context="{'group_by': 'partner_id'}"/>
+                <filter name="group_by_instance" string="Instance" context="{'group_by': 'int_instance_id'}"/>
+                <filter name="group_by_subscription" string="Subscription" context="{'group_by': 'product_id'}"/>
+                <filter name="group_by_state" string="Membership State" context="{'group_by': 'state_id'}"/>
             </search>
         </field>
     </record>

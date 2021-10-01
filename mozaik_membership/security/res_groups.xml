@@ -28,7 +28,7 @@
         <field name="implied_ids" eval="[(6, 0, [
                 ref('mozaik_membership.res_groups_membership_user'),
             ])]" />
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
 
 </odoo>

@@ -10,7 +10,7 @@
                     <group>
                         <field name="partner_id" force_save="1"/>
                         <field name="is_excluded" invisible="True"/>
-                        <div class="alert alert-danger" attrs="{'invisible':[('is_excluded','!=', True)]}" colspan="2">
+                        <div attrs="{'invisible':[('is_excluded','!=', True)]}" colspan="2">
                             This partner is actually excluded. Add a new membership line will re-integrate him.
                         </div>
                         <field name="int_instance_id" options="{'no_create_edit': True, 'no_create': True}"/>

@@ -6,14 +6,14 @@ from odoo import api, fields, models
 
 class MassMembershipRenew(models.TransientModel):
 
-    _name = 'mass.membership.renew'
-    _description = 'Renew in mass the membership'
+    _name = 'mass.membership.close'
+    _description = 'Former member in mass the memberships'
 
     date_from = fields.Date(
         required=True,
-        help="Start date of new membership lines",
+        help="End date of membership lines to close",
     )
 
     def doit(self):
         self.ensure_one()
-        self.env["membership.line"]._launch_renew(date_from=self.date_from)
+        self.env["membership.line"]._launch_former_member(date_from=self.date_from)

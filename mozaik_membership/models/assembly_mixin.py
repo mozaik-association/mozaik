@@ -7,6 +7,7 @@ from odoo import api, models
 class AssemblyMixin(models.AbstractModel):
 
     _name = 'assembly.mixin'
+    _description = "Mixin to sanitize the instance of an assembly"
 
     @api.model
     def create(self, vals):

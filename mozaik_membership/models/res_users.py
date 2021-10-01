@@ -8,15 +8,12 @@ class ResUsers(models.Model):
 
     _inherit = 'res.users'
 
-    @api.model
-    def _register_hook(self):
+    def __init__(self, pool, cr):
         """
         Add read access rights on int_instance_m2m_ids
         """
-        init_res = super()._register_hook()
-        # duplicate list to avoid modifying the original reference
-        self.SELF_READABLE_FIELDS = list(self.SELF_READABLE_FIELDS)
-        self.SELF_READABLE_FIELDS.append('int_instance_m2m_ids')
+        init_res = super().__init__(pool, cr)
+        type(self).SELF_READABLE_FIELDS = self.SELF_READABLE_FIELDS + ['int_instance_m2m_ids']
         return init_res
 
     def _internal_instances(self, power_level_id=False):

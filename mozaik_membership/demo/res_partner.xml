@@ -1,7 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo noupdate="1">
 
-    <record id="mozaik_coordinate.res_partner_marc" model="res.partner">
+    <record model="res.partner" id="res_partner_thierry">
+        <field name="name">Thierry</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_jacques">
+        <field name="name">Jacques</field>
+    </record>
+
+    <record model="res.partner" id="res_partner_marc">
+        <field name="name">Marc</field>
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
+            ref('mozaik_structure.int_instance_01'),
+        ])]"/>
+        <field name="force_int_instance_id" ref="mozaik_structure.int_instance_01"/>
+    </record>
+
+    <record model="res.partner" id="base.partner_admin">
+        <field name="int_instance_m2m_ids" eval="[(6, 0, [
+            ref('mozaik_structure.int_instance_01'),
+        ])]"/>
+        <field name="force_int_instance_id" ref="mozaik_structure.int_instance_01"/>
+    </record>
+
+    <record model="res.partner" id="base.partner_root">
         <field name="int_instance_m2m_ids" eval="[(6, 0, [
             ref('mozaik_structure.int_instance_01'),
         ])]"/>

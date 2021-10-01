@@ -6,7 +6,6 @@ from dateutil.relativedelta import relativedelta
 from odoo import api, exceptions, models, fields, _
 from odoo.tools import float_is_zero
 from odoo.osv import expression
-from odoo.addons.queue_job.job import job
 
 logger = logging.getLogger(__name__)
 
@@ -370,7 +369,7 @@ class MembershipLine(models.Model):
         :param price: float
         :return: bool
         """
-        precision = self._fields.get('price').digits[1]
+        precision = self._fields.get('price').get_digits(self.env)[1]
         is_zero = float_is_zero(price, precision_digits=precision)
         return is_zero
 
@@ -620,7 +619,6 @@ class MembershipLine(models.Model):
             last_i = i
         close_lines[last_i:]._close_and_renew(date_from=date_from)
 
-    @job(default_channel="root.membership_close_and_renew")
     def _job_close_and_renew(self, date_from=False):
         date_to = fields.Date.from_string(date_from) - timedelta(days=1)
         lines = self._close(date_to=fields.Date.to_string(date_to))
@@ -628,8 +626,40 @@ class MembershipLine(models.Model):
 
     def _close_and_renew(self, date_from=False):
         self.with_delay(
-                description="Renew %s memberships" % len(self)
+            description="Renew %s memberships" % len(self),
+            channel="root.membership_close_and_renew"
         )._job_close_and_renew(date_from=date_from)
+
+    @api.model
+    def _launch_former_member(self, date_from=False):
+        """
+        Steps:
+        - Get every lines to close
+        - Close them
+        - Renew them
+        :param date_from: str/date
+        """
+        close_lines = self._get_lines_to_close_former_member()
+
+        last_i = 0
+        step = int(self.env['ir.config_parameter'].get_param(
+            'membership.renewal_slice_size', default='300'))
+        for i in range(step, len(close_lines), step):
+            close_lines[last_i:i]._close_and_former_member(date_from=date_from)
+            last_i = i
+        close_lines[last_i:]._close_and_former_member(date_from=date_from)
+
+    def _close_and_former_member(self, date_from=False):
+        # self.with_delay(
+        #     description="Former member %s memberships" % len(self),
+        #     channel="root.membership_close_and_former_member"
+        # )._job_close_and_former_member(date_from=date_from)
+        self._job_close_and_former_member(date_from=date_from)
+
+    def _job_close_and_former_member(self, date_from):
+        date_to = fields.Date.from_string(date_from) - timedelta(days=1)
+        lines = self._close(date_to=fields.Date.to_string(date_to), force=True)
+        return lines._former_member(date_from=date_from, force=True)
 
     def _former_member(self, date_from=False, force=False):
         """

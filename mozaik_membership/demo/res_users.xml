@@ -2,12 +2,12 @@
 <odoo noupdate="0">
 
     <record id="res_users_marc" model="res.users">
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_marc"/>
+        <field name="partner_id" ref="mozaik_membership.res_partner_marc"/>
         <field name="login">marc</field>
         <field name="password">a</field>
         <field name="signature">Marc</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_reader')])]"/>
+<!--        <field name="groups_id" eval="[(6, 0, [ref('mozaik_coordinate.res_groups_coordinate_reader')])]"/>-->
     </record>
 
 </odoo>

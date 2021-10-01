@@ -18,12 +18,12 @@
                         </group>
                     </group>
                     <group string="Available variables" name="group_note">
-                        <label colspan="2" string="context => Current context"/>
-                        <label colspan="2" string="partner => Partner whose tarification is evaluated"/>
-                        <label colspan="2" string="uid => Current user id"/>
-                        <label colspan="2" string="user => Current user"/>
-                        <label colspan="2" string="self => Current tarification"/>
-                        <label colspan="2" string="today => Current date (YYYY-MM-DD)"/>
+                        <label for="code" colspan="2" string="context => Current context"/>
+                        <label for="code" colspan="2" string="partner => Partner whose tarification is evaluated"/>
+                        <label for="code" colspan="2" string="uid => Current user id"/>
+                        <label for="code" colspan="2" string="user => Current user"/>
+                        <label for="code" colspan="2" string="self => Current tarification"/>
+                        <label for="code" colspan="2" string="today => Current date (YYYY-MM-DD)"/>
                     </group>
                 </sheet>
             </form>

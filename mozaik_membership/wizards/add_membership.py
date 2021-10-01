@@ -9,6 +9,7 @@ class AddMembership(models.TransientModel):
     Wizard used to create a new membership.line
     """
     _name = "add.membership"
+    _description = "Wizard to create a new membership"
 
     int_instance_id = fields.Many2one(
         comodel_name="int.instance",
