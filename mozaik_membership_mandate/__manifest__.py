@@ -20,5 +20,5 @@
         "views/sta_mandate.xml",
     ],
     "demo": [],
-    "installable": False,
+    "installable": True,
 }
