@@ -2,21 +2,19 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Mozaik Mandate Category Sequence',
-    'description': """
+    "name": "Mozaik Mandate Category Sequence",
+    "summary": """
         Add sequence on mandate category""",
-    'version': '14.0.1.0.0',
-    'license': 'AGPL-3',
-    'author': 'ACSONE SA/NV',
-    'website': 'https://github.com/OCA/mozaik',
-    'depends': [
+    "version": "14.0.1.0.0",
+    "license": "AGPL-3",
+    "author": "ACSONE SA/NV",
+    "website": "https://github.com/OCA/mozaik",
+    "depends": [
         "mozaik_mandate",
     ],
-    'data': [
-        'views/generic_mandate.xml',
-        'views/mandate_category.xml',
+    "data": [
+        "views/mandate_category.xml",
     ],
-    'demo': [
-    ],
-    "installable": False,
+    "demo": [],
+    "installable": True,
 }

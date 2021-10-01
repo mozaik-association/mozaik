@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="abstract_mandate_membership_search_view">
+        <field name="name">abstract.mandate.search (in mozaik_membership_mandate)</field>
+        <field name="model">abstract.mandate</field>
+        <field name="inherit_id" ref="mozaik_mandate.abstract_mandate_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='instance_id']" position="before">
+                <field name="partner_instance_search_ids" widget="many2one"/>
+            </xpath>
+            <xpath expr="//field[@name='instance_id']" position="after">
+                <field name="partner_instance_search_ids" operator="child_of" widget="many2one" string="Instance Partner Descendants of ..."/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="abstract_mandate_form_view">
@@ -11,81 +10,86 @@
             <form string="Mandate" duplicate="0">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_invalidate" type="object" class="oe_stat_button" icon="fa-archive"
-                                confirm="Invalidate mandate: proceed anyway?"
-                                attrs="{'invisible': ['|','|',('id','=',False),('active','=',False),('end_date','=',False)]}"
-                                groups="mozaik_abstract_model.res_groups_archiving_manager">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
+
+            <field name="active" invisible="1" />
+            <widget
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
+
                     </div>
                     <group name="mandate">
                         <group name="mandate_1">
-                            <field name="partner_id" domain="[('is_company','=',False)]"
-                                   context="{'default_is_company': False}"/>
+                            <field
+                                name="partner_id"
+                                domain="[('is_company','=',False)]"
+                                context="{'default_is_company': False}"
+                            />
                         </group>
                         <group name="mandate_2">
-                            <field name="mandate_category_id"/>
+                            <field name="mandate_category_id" />
                         </group>
                     </group>
 
                     <group name="data">
-                        <group name="data_1">
-                            <field name="email_coordinate_id" domain="[('partner_id', '=', partner_id),('is_main', '=', False)]" context="{'default_partner_id': partner_id}"/>
-                            <label for="postal_coordinate_id"/>
-                            <div>
-                                <field name="postal_coordinate_id" domain="[('partner_id', '=', partner_id),('is_main', '=', False)]" context="{'default_partner_id': partner_id}"/>
-                                <span class="oe_grey">(Empty Coordinates = Use of Main Coordinates)</span>
-                            </div>
-                        </group>
                         <group name="data_2">
-                            <field name="designation_int_assembly_id"/>
-                        </group>
-                        <group name="duplicate">
-                            <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
-                            <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
-                                <field name="is_duplicate_detected" class="oe_inline" />
-                                <button name="%(generic_mandate_action)d" type="action" class="oe_red_link"
-                                        string="⇒ Show all incompatible mandates"
-                                        context="{'search_default_partner_id': partner_id}"/>
-                            </div>
-
-                            <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
+                            <field name="designation_int_assembly_id" />
                         </group>
                     </group>
                     <notebook>
                         <page name="date" string="Dates">
                             <group>
                                 <group name="technical_dates">
-                                    <field name="create_date" readonly="1"/>
-                                    <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                                    <field name="create_date" readonly="1" />
+                                    <field
+                                        name="expire_date"
+                                        readonly="1"
+                                        attrs="{'invisible': [('active','=', True)]}"
+                                    />
                                 </group>
                                 <group name="dates">
-                                    <field name="start_date"/>
-                                    <field name="deadline_date"/>
-                                    <field name="end_date" readonly="1" attrs="{'invisible': [('end_date','=',False)]}"/>
-                                    <field name="alert_date" readonly="1" attrs="{'invisible': [('alert_date','=', False)]}"/>
+                                    <field name="start_date" />
+                                    <field name="deadline_date" />
+                                    <field
+                                        name="end_date"
+                                        readonly="1"
+                                        attrs="{'invisible': [('end_date','=',False)]}"
+                                    />
+                                    <field
+                                        name="alert_date"
+                                        readonly="1"
+                                        attrs="{'invisible': [('alert_date','=', False)]}"
+                                    />
                                 </group>
                             </group>
                         </page>
                         <page name="revenue" string="Revenue">
                             <group>
                                 <group name="revenue_1">
-                                    <field name="with_revenue_declaration" readonly="1"/>
-                                    <field name="with_assets_declaration" readonly="1"/>
+                                    <field
+                                        name="with_revenue_declaration"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="with_assets_declaration"
+                                        readonly="1"
+                                    />
                                 </group>
                                 <group name="revenue_2">
-                                    <field name="with_remuneration"/>
+                                    <field name="with_remuneration" />
                                 </group>
-                            </group>
-                        </page>
-                        <page name="dev" string="More Info" groups="base.group_erp_manager">
-                            <group name="moreinfo">
                             </group>
                         </page>
                     </notebook>
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -97,39 +101,67 @@
         <field name="model">abstract.mandate</field>
         <field name="arch" type="xml">
             <search string="Mandates">
-                <field name="partner_id" domain="[('is_company','=',False)]"/>
-                <field name="mandate_category_id"/>
-                <field name="designation_int_assembly_id"/>
-                <field name="partner_instance_search_ids" widget="many2one"/>
-                <field name="instance_id" operator="child_of"/>
-                <field name="partner_instance_search_ids" operator="child_of" widget="many2one" string="Instance Partner Descendants of ..."/>
-                <filter name="with_revenue_declaration" string="Wage Declaration"
-                        domain="[('with_revenue_declaration','=',True)]" />
+                <field name="partner_id" domain="[('is_company','=',False)]" />
+                <field name="mandate_category_id" />
+                <field name="designation_int_assembly_id" />
+                <field name="instance_id" operator="child_of" />
+                <filter
+                    name="with_revenue_declaration"
+                    string="Wage Declaration"
+                    domain="[('with_revenue_declaration','=',True)]"
+                />
                 <separator />
-                <filter name="with_assets_declaration" string="Assets Declaration"
-                        domain="[('with_assets_declaration','=',True)]" />
+                <filter
+                    name="with_assets_declaration"
+                    string="Assets Declaration"
+                    domain="[('with_assets_declaration','=',True)]"
+                />
                 <separator />
-                <filter name="with_remuneration" string="With Remuneration"
-                        domain="[('with_remuneration','=',True)]" />
-                <filter name="without_remuneration" string="Without Remuneration"
-                        domain="[('with_remuneration','=',False)]" />
+                <filter
+                    name="with_remuneration"
+                    string="With Remuneration"
+                    domain="[('with_remuneration','=',True)]"
+                />
+                <filter
+                    name="without_remuneration"
+                    string="Without Remuneration"
+                    domain="[('with_remuneration','=',False)]"
+                />
                 <separator />
-                <filter name="duplicate" string="Incompatible Mandates"
-                        domain="[('is_duplicate_detected','=',True)]" />
-                <separator/>
-                <filter name="allow_duplicate" string="Allowed Incompatible Mandates" domain="[('is_duplicate_allowed','=',True)]"/>
-                <separator/>
-                <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expired Mandates" />
-                <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Mandates, expired or not" />
+                <filter
+                    name="expired"
+                    string="Expired"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]"
+                    help="Expired Mandates"
+                />
+                <filter
+                    name="all"
+                    string="All"
+                    context="{'invisible_expire_date': False}"
+                    domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                    help="All Mandates, expired or not"
+                />
 
                 <group expand="0" string="Group By..." name="group_by">
-                    <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
-                    <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
-                    <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
+                    <filter
+                        name="partner"
+                        string="Partner"
+                        domain="[]"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        name="category"
+                        string="Mandate Category"
+                        domain="[]"
+                        context="{'group_by':'mandate_category_id'}"
+                    />
+                    <filter
+                        name="designation_assembly"
+                        string="Designation Assembly"
+                        domain="[]"
+                        context="{'group_by':'designation_int_assembly_id'}"
+                    />
                 </group>
             </search>
         </field>
@@ -139,21 +171,16 @@
         <field name="name">abstract.mandate.tree (in mozaik_mandate)</field>
         <field name="model">abstract.mandate</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="is_duplicate_detected==True">
-                <field name="partner_id"/>
-                <field name="mandate_category_id"/>
-                <field name="start_date"/>
-                <field name="end_date"/>
-                <field name="deadline_date"/>
-                <field name="is_duplicate_detected" invisible ="1"/>
-                <field name="is_duplicate_allowed" invisible ="1"/>
-                <button name="button_undo_allow_duplicate" string="Undo Allow Incompatible Mandate" type="object"
-                        groups="mozaik_mandate.res_groups_mandate_user"
-                        attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
-                        icon="fa-undo text-warning"
-                        confirm="Undo allow incompatible mandate: proceed anyway?" />
-                <field name="expire_date"
-                       invisible="context.get('invisible_expire_date', True)" />
+            <tree>
+                <field name="partner_id" />
+                <field name="mandate_category_id" />
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="deadline_date" />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
             </tree>
         </field>
     </record>

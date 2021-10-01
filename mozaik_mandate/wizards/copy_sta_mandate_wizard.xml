@@ -1,44 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="copy_sta_mandate_wizard_form_view">
         <field name="name">copy.sta.mandate.wizard.form (in mozaik_mandate)</field>
         <field name="model">copy.sta.mandate.wizard</field>
-        <field name="inherit_id" ref="abstract_copy_mandate_wizard_form_view"/>
+        <field name="inherit_id" ref="abstract_copy_mandate_wizard_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="before">
-                <field name="legislature_id"
-                   required="1"
-                   attrs="{'readonly':[('action', '!=', 'renew')]}"
-                   on_change="onchange_legislature_id(legislature_id)"
-                   domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
-                   options='{"no_open":True}'/>
-                <field name="sta_assembly_category_id" invisible="1"/>
+                <field
+                    name="legislature_id"
+                    required="1"
+                    attrs="{'readonly':[('action', '!=', 'renew')]}"
+                    on_change="onchange_legislature_id(legislature_id)"
+                    domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
+                    options='{"no_open":True}'
+                />
+                <field name="sta_assembly_category_id" invisible="1" />
             </xpath>
             <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                <attribute name="domain" translation="off">[('type', '=', 'sta')]</attribute>
+                <attribute
+                    name="domain"
+                    translation="off"
+                >[('type', '=', 'sta')]</attribute>
             </xpath>
-            <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
-                <attribute name="domain" translation="off">[('id', '!=', mandate_category_id),('type', '=', 'sta')]</attribute>
+            <xpath
+                expr="//field[@name='new_mandate_category_id']"
+                position="attributes"
+            >
+                <attribute
+                    name="domain"
+                    translation="off"
+                >[('id', '!=', mandate_category_id),('type', '=', 'sta')]</attribute>
             </xpath>
             <xpath expr="//field[@name='new_assembly_id']" position="attributes">
-                <attribute name="domain" translation="off">[('instance_id', '=', instance_id), ('is_legislative', '=', False), ('assembly_category_id', '=', sta_assembly_category_id)]</attribute>
-                <attribute name="context" translation="off">{'default_instance_id': instance_id, 'default_is_legislative': False, 'default_assembly_category_id': sta_assembly_category_id}</attribute>
+                <attribute
+                    name="domain"
+                    translation="off"
+                >[('instance_id', '=', instance_id), ('is_legislative', '=', False), ('assembly_category_id', '=', sta_assembly_category_id)]</attribute>
+                <attribute
+                    name="context"
+                    translation="off"
+                >{'default_instance_id': instance_id, 'default_is_legislative': False, 'default_assembly_category_id': sta_assembly_category_id}</attribute>
             </xpath>
             <xpath expr="//field[@name='instance_id']" position="before">
-                <field name="is_legislative"/>
+                <field name="is_legislative" />
             </xpath>
             <xpath expr="//button[@name='renew_mandate']" position="attributes">
-                <attribute name="attrs" translation="off">{'invisible':['|', ('action', '!=', 'renew'), ('is_legislative', '=', True)]}</attribute>
+                <attribute
+                    name="attrs"
+                    translation="off"
+                >{'invisible':['|', ('action', '!=', 'renew'), ('is_legislative', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='start_date']" position="attributes">
-                <attribute name="attrs" translation="off">{'readonly':[('action', '!=', 'renew')]}</attribute>
+                <attribute
+                    name="attrs"
+                    translation="off"
+                >{'readonly':[('action', '!=', 'renew')]}</attribute>
             </xpath>
             <xpath expr="//field[@name='deadline_date']" position="attributes">
-                <attribute name="attrs" translation="off">{'readonly':[('action', '!=', 'renew')]}</attribute>
+                <attribute
+                    name="attrs"
+                    translation="off"
+                >{'readonly':[('action', '!=', 'renew')]}</attribute>
             </xpath>
         </field>
     </record>
@@ -50,7 +75,10 @@
         <field name="context">{}</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="mozaik_mandate.model_sta_mandate" />
-        <field name="groups_id" eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_user')])]" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_user')])]"
+        />
     </record>
 
 </odoo>

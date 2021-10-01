@@ -12,3 +12,6 @@ class IntMandate(models.Model):
         related='int_assembly_id.instance_id',
         store='True', index='True', readonly=True,
     )
+    partner_instance_search_ids = fields.Many2many(
+        relation="int_mandate_partner_instance_membership_rel",
+    )

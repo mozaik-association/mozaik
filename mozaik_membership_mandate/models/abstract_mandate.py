@@ -13,3 +13,10 @@ class AbstractMandate(models.AbstractModel):
         string='Partner Internal Instances',
         readonly=True,
     )
+    partner_instance_search_ids = fields.Many2many(
+        comodel_name="int.instance",
+        related="partner_id.int_instance_ids",
+        store=True,
+        column1="mandate_id",
+        column2="instance_id",
+    )

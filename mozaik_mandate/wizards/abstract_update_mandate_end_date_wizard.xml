@@ -1,26 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="abstract_update_mandate_end_date_wizard_form_view">
-        <field name="name">abstract.update.mandate.end.date.wizard.form (in mozaik_mandate)</field>
+        <field
+            name="name"
+        >abstract.update.mandate.end.date.wizard.form (in mozaik_mandate)</field>
         <field name="model">abstract.update.mandate.end.date.wizard</field>
         <field name="arch" type="xml">
             <form>
                 <group name="data_1">
-                    <field name="mandate_id"/>
-                    <field name="mandate_end_date" required="context.get('mode','x') == 'end_date'"
-                           invisible="not context.get('mode','x') == 'end_date'"/>
-                    <field name="mandate_deadline_date" required="context.get('mode','x') == 'reactivate'"
-                           invisible="not context.get('mode','x') == 'reactivate'"
-                           attrs="{'invisible': [('message', '!=', False)]}"/>
+                    <field name="mandate_id" />
+                    <field
+                        name="mandate_end_date"
+                        required="context.get('mode','x') == 'end_date'"
+                        invisible="not context.get('mode','x') == 'end_date'"
+                    />
+                    <field
+                        name="mandate_deadline_date"
+                        required="context.get('mode','x') == 'reactivate'"
+                        invisible="not context.get('mode','x') == 'reactivate'"
+                        attrs="{'invisible': [('message', '!=', False)]}"
+                    />
                 </group>
                 <notebook>
                     <page name="info" string="Info">
                         <h3>
-                            <field name='message' nolabel="1"/>
+                            <field name='message' nolabel="1" />
                         </h3>
                     </page>
                     <page name="dev" string="More Info" groups="base.group_erp_manager">
@@ -29,12 +36,23 @@
                     </page>
                 </notebook>
                 <footer>
-                    <button string="Close Mandate" name="set_mandate_end_date"
-                            type="object" class="oe_highlight" confirm="Set end date, proceed anyway?"
-                            invisible="not context.get('mode','x') == 'end_date'"/>
-                    <button string="Reactivate" name="reactivate_mandate"
-                            type="object" class="oe_highlight" confirm="Reactivate mandate, proceed anyway?"
-                            invisible="not context.get('mode','x') == 'reactivate'" attrs="{'invisible': [('message', '!=', False)]}"/>
+                    <button
+                        string="Close Mandate"
+                        name="set_mandate_end_date"
+                        type="object"
+                        class="oe_highlight"
+                        confirm="Set end date, proceed anyway?"
+                        invisible="not context.get('mode','x') == 'end_date'"
+                    />
+                    <button
+                        string="Reactivate"
+                        name="reactivate_mandate"
+                        type="object"
+                        class="oe_highlight"
+                        confirm="Reactivate mandate, proceed anyway?"
+                        invisible="not context.get('mode','x') == 'reactivate'"
+                        attrs="{'invisible': [('message', '!=', False)]}"
+                    />
                     <button string="Cancel" class="oe_link" special="cancel" />
                </footer>
             </form>

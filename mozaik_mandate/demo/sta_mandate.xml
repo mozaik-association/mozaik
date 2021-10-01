@@ -1,37 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record id="stam_thierry_communal_2012" model="sta.mandate">
-        <field name="mandate_category_id" ref="mc_conseiller_communal"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_01"/>
-        <field name="legislature_id" ref="legislature_closed_01"/>
-        <field name="start_date" eval="(DateTime.today() - relativedelta(years=7)).strftime('%Y-10-01')"/>
-        <field name="deadline_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-09-30')"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_01"/>
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_thierry"/>
+        <field name="mandate_category_id" ref="mc_conseiller_communal" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field name="legislature_id" ref="legislature_closed_01" />
+        <field
+            name="start_date"
+            eval="(DateTime.today() - relativedelta(years=7)).strftime('%Y-10-01')"
+        />
+        <field
+            name="deadline_date"
+            eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-09-30')"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_01" />
+        <field name="partner_id" ref="mozaik_mandate.res_partner_thierry" />
     </record>
 
     <record id="stam_thierry_bourgmestre_2012" model="sta.mandate">
-        <field name="mandate_category_id" ref="mc_bourgmestre"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_01"/>
-        <field name="legislature_id" ref="legislature_closed_01"/>
-        <field name="start_date" eval="(DateTime.today() - relativedelta(years=7)).strftime('%Y-10-01')"/>
-        <field name="deadline_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-09-30')"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_01"/>
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_thierry"/>
+        <field name="mandate_category_id" ref="mc_bourgmestre" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field name="legislature_id" ref="legislature_closed_01" />
+        <field
+            name="start_date"
+            eval="(DateTime.today() - relativedelta(years=7)).strftime('%Y-10-01')"
+        />
+        <field
+            name="deadline_date"
+            eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-09-30')"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_01" />
+        <field name="partner_id" ref="mozaik_mandate.res_partner_thierry" />
     </record>
 
     <record id="stam_paul_bourgmestre" model="sta.mandate">
-        <field name="mandate_category_id" ref="mc_bourgmestre"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_01"/>
-        <field name="legislature_id" ref="legislature_03_opened"/>
-        <field name="start_date" eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-10-01')"/>
-        <field name="deadline_date" eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-09-30')"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_01"/>
-        <field name="partner_id" ref="mozaik_coordinate.res_partner_paul"/>
+        <field name="mandate_category_id" ref="mc_bourgmestre" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field name="legislature_id" ref="legislature_03_opened" />
+        <field
+            name="start_date"
+            eval="(DateTime.today() - relativedelta(years=1)).strftime('%Y-10-01')"
+        />
+        <field
+            name="deadline_date"
+            eval="(DateTime.today() + relativedelta(years=6)).strftime('%Y-09-30')"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_01" />
+        <field name="partner_id" ref="mozaik_mandate.res_partner_paul" />
     </record>
 
 </odoo>
