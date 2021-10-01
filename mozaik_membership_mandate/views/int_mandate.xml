@@ -11,9 +11,6 @@
             <xpath expr="//field[@name='int_assembly_id']" position="after">
                 <field name="mandate_instance_id" />
             </xpath>
-            <xpath expr="//group[@name='moreinfo']" position="inside">
-                <field name="partner_instance_ids" widget="many2many_tags" />
-            </xpath>
         </field>
     </record>
 

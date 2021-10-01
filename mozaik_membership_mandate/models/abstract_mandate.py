@@ -19,4 +19,5 @@ class AbstractMandate(models.AbstractModel):
         store=True,
         column1="mandate_id",
         column2="instance_id",
+        ondelete="restrict",
     )

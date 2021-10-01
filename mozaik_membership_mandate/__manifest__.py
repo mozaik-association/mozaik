@@ -4,7 +4,7 @@
 {
     "name": "Mozaik Membership Mandate",
     "description": """
-        TODO""",
+        Add fields on mandate depending of the membership""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
@@ -16,8 +16,6 @@
     "data": [
         "views/abstract_mandate.xml",
         "views/int_mandate.xml",
-        "views/ext_mandate.xml",
-        "views/sta_mandate.xml",
     ],
     "demo": [],
     "installable": True,
