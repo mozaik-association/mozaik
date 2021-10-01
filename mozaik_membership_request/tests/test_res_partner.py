@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #     This file is part of mozaik_membership, an Odoo module.
@@ -27,7 +26,7 @@ import uuid
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
-from openerp.osv import orm
+from odoo.osv import orm
 from anybox.testing.openerp import SharedSetupTransactionCase
 
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #     This file is part of mozaik_membership, an Odoo module.
@@ -29,15 +28,15 @@ from operator import attrgetter
 from uuid import uuid4, uuid1
 from dateutil.relativedelta import relativedelta
 
-from openerp.addons.mozaik_base.base_tools import format_email, check_email
-from openerp.addons.mozaik_base.base_tools import get_age
-from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
-from openerp.osv import orm, fields
-from openerp.tools import SUPERUSER_ID
-from openerp.tools import logging
-from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
-from openerp.exceptions import ValidationError
-from openerp import _, api, fields as new_fields
+from odoo.addons.mozaik_base.base_tools import format_email, check_email
+from odoo.addons.mozaik_base.base_tools import get_age
+from odoo.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
+from odoo.osv import orm, fields
+from odoo.tools import SUPERUSER_ID
+from odoo.tools import logging
+from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
+from odoo.exceptions import ValidationError
+from odoo import _, api, fields as new_fields
 
 
 _logger = logging.getLogger(__name__)
@@ -65,7 +64,6 @@ class membership_request(orm.Model):
     _inactive_cascade = True
     _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
 
-    @api.multi
     @api.constrains('birth_date', 'is_company', 'state')
     def _check_age(self):
         required_age = int(self.env['ir.config_parameter'].sudo().get_param(
@@ -92,7 +90,6 @@ class membership_request(orm.Model):
             operator = '>'
         return [('birth_date', operator, computed_birth_date)]
 
-    @api.multi
     @api.depends('is_company', 'birth_date')
     def _compute_age(self):
         """
@@ -433,58 +430,58 @@ class membership_request(orm.Model):
                                      type='integer'),
         'is_company': fields.boolean('Is a Company'),
         'lastname': fields.char('Name', required=True,
-                                track_visibility='onchange'),
-        'firstname': fields.char('Firstname', track_visibility='onchange'),
+                                tracking=True),
+        'firstname': fields.char('Firstname', tracking=True),
 
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender',
-                                   select=True, track_visibility='onchange'),
-        'email': fields.char('Email', track_visibility='onchange'),
-        'phone': fields.char('Phone', track_visibility='onchange'),
-        'mobile': fields.char('Mobile', track_visibility='onchange'),
+                                   index=True, tracking=True),
+        'email': fields.char('Email', tracking=True),
+        'phone': fields.char('Phone', tracking=True),
+        'mobile': fields.char('Mobile', tracking=True),
         'day': fields.char('Day'),
         'month': fields.char('Month'),
         'year': fields.char('Year'),
-        'birth_date': fields.date('Birth Date', track_visibility='onchange'),
+        'birth_date': fields.date('Birth Date', tracking=True),
 
         # request and states
         'request_type': fields.selection(MEMBERSHIP_REQUEST_TYPE,
                                          'Request Type',
-                                         track_visibility='onchange'),
+                                         tracking=True),
         'membership_state_id': fields.many2one('membership.state',
                                                'Current State'),
         'result_type_id': fields.many2one('membership.state',
                                           'Expected State'),
         'is_update': fields.boolean('Is Update'),
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES,
-                                  'State', track_visibility='onchange'),
+                                  'State', tracking=True),
 
         # address
-        'country_id': fields.many2one('res.country', 'Country', select=True,
-                                      track_visibility='onchange'),
+        'country_id': fields.many2one('res.country', 'Country', index=True,
+                                      tracking=True),
         'country_code': fields.related('country_id', 'code',
                                        string='Country Code', type='char'),
 
         'address_local_zip_id': fields.many2one('address.local.zip',
                                                 string='City',
-                                                track_visibility='onchange'),
+                                                tracking=True),
         'local_zip': fields.related('address_local_zip_id', 'local_zip',
                                     string='Local Zip', type='char'),
-        'zip_man': fields.char(string='Zip', track_visibility='onchange'),
+        'zip_man': fields.char(string='Zip', tracking=True),
 
-        'town_man': fields.char(string='Town', track_visibility='onchange'),
+        'town_man': fields.char(string='Town', tracking=True),
 
         'address_local_street_id': fields.many2one(
             'address.local.street', string='Reference Street',
-            track_visibility='onchange'),
+            tracking=True),
         'street_man': fields.char(string='Street',
-                                  track_visibility='onchange'),
+                                  tracking=True),
         'street2': fields.char(string='Street2',
-                               track_visibility='onchange'),
+                               tracking=True),
 
-        'number': fields.char(string='Number', track_visibility='onchange'),
-        'box': fields.char(string='Box', track_visibility='onchange'),
+        'number': fields.char(string='Number', tracking=True),
+        'box': fields.char(string='Box', tracking=True),
         'sequence': fields.integer('Sequence',
-                                   track_visibility='onchange',
+                                   tracking=True,
                                    group_operator='min'),
 
         'technical_name': fields.char(string='Technical Name'),
@@ -512,18 +509,18 @@ class membership_request(orm.Model):
         'force_int_instance_id': fields.many2one(
             'int.instance',
             string='Internal Instance (to Force)',
-            track_visibility='onchange',
+            tracking=True,
         ),
 
         'address_id': fields.many2one('address.address',
                                       string='Address',
-                                      track_visibility='onchange'),
+                                      tracking=True),
         'mobile_id': fields.many2one('phone.phone',
                                      string='Mobile',
-                                     track_visibility='onchange'),
+                                     tracking=True),
         'phone_id': fields.many2one('phone.phone',
                                     string='Phone',
-                                    track_visibility='onchange'),
+                                    tracking=True),
         'change_ids': fields.one2many('membership.request.change',
                                       'membership_request_id',
                                       string='Changes',

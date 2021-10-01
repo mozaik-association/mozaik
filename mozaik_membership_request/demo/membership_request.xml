@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<openerp>
-    <data noupdate="0">
+<odoo>
 
         <!-- Add a birthdate to Marois Pauline -->
         <record id="res_partner_pauline" model="res.partner">
@@ -56,5 +55,4 @@
             <field name="year">1991</field>
         </record>
 
-    </data>
-</openerp>
+</odoo>

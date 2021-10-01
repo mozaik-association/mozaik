@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<openerp>
-    <data noupdate="0">
+<odoo>
 
         <record id="membership_request_search_view" model="ir.ui.view">
             <field name="name">membership.request.search</field>
@@ -394,7 +393,6 @@
         <record id="membership_request_action" model="ir.actions.act_window">
             <field name="name">Membership Requests</field>
             <field name="res_model">membership.request</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="membership_request_tree_view" />
             <field name="search_view_id" ref="membership_request_search_view" />
@@ -407,5 +405,4 @@
             <field name="sequence" eval="10"/>
         </record>
 
-    </data>
-</openerp>
+</odoo>

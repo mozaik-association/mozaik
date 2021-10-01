@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #     This file is part of mozaik_membership, an Odoo module.
@@ -28,11 +27,11 @@ from uuid import uuid4
 from anybox.testing.openerp import SharedSetupTransactionCase
 from dateutil.relativedelta import relativedelta
 
-from openerp.addons.mozaik_membership.membership_request\
+from odoo.addons.mozaik_membership.membership_request\
     import MR_REQUIRED_AGE_KEY
-from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
-from openerp.exceptions import ValidationError
-from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
+from odoo.addons.mozaik_address.address_address import COUNTRY_CODE
+from odoo.exceptions import ValidationError
+from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 
 class test_membership(SharedSetupTransactionCase):

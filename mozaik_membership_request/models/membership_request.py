@@ -1,23 +1,21 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
-import openerp.addons.decimal_precision as dp
 
-from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+from odoo.addons.mozaik_address.address_address import COUNTRY_CODE
 
 
 class MembershipRequest(models.Model):
 
     _inherit = 'membership.request'
 
-    local_voluntary = fields.Boolean(track_visibility='onchange')
-    regional_voluntary = fields.Boolean(track_visibility='onchange')
-    national_voluntary = fields.Boolean(track_visibility='onchange')
+    local_voluntary = fields.Boolean(tracking=True)
+    regional_voluntary = fields.Boolean(tracking=True)
+    national_voluntary = fields.Boolean(tracking=True)
     local_only = fields.Boolean(
-        track_visibility='onchange',
+        tracking=True,
         help='Partner wishing to be contacted only by the local')
 
     involvement_category_ids = fields.Many2many(
@@ -27,13 +25,13 @@ class MembershipRequest(models.Model):
         string='Involvement Categories')
 
     amount = fields.Float(
-        digits=dp.get_precision('Product Price'), copy=False)
+        digits='Product Price', copy=False)
     reference = fields.Char(copy=False)
     effective_time = fields.Datetime(copy=False, string='Involvement Date')
 
     nationality_id = fields.Many2one(
         comodel_name='res.country', string='Nationality',
-        track_visibility='onchange')
+        tracking=True)
 
     @api.model
     def _pre_process(self, vals):
@@ -155,7 +153,6 @@ class MembershipRequest(models.Model):
 
         return vals
 
-    @api.multi
     def validate_request(self):
         """
         * create additional involvements

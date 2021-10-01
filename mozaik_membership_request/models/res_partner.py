@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
 
-from openerp import _, api, fields, models
-from openerp.exceptions import ValidationError
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
-import openerp.addons.decimal_precision as dp
 
 _logger = logging.getLogger(__name__)
 
@@ -16,7 +14,6 @@ class ResPartner(models.Model):
 
     _inherit = 'res.partner'
 
-    @api.multi
     def button_modification_request(self):
         """
         Create a `membership.request` from a partner
