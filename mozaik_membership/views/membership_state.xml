@@ -17,7 +17,7 @@
         <field name="model">membership.state</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="sequence" widget="handle"/>
+                <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="code" />
             </tree>
@@ -29,10 +29,16 @@
         <field name="model">membership.state</field>
         <field name="arch" type="xml">
             <form>
-                <header attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
-                    <button name="action_invalidate" string="Invalidate" type="object"
-                            confirm="Invalidate Membership State: proceed anyway?"
-                            groups="mozaik_abstract_model.res_groups_archiving_manager"/>
+                <header
+                    attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                >
+                    <button
+                        name="action_invalidate"
+                        string="Invalidate"
+                        type="object"
+                        confirm="Invalidate Membership State: proceed anyway?"
+                        groups="mozaik_abstract_model.res_groups_archiving_manager"
+                    />
                 </header>
                 <sheet>
                     <div class="oe_title" name="title">
@@ -43,25 +49,41 @@
                     </div>
                     <group>
                         <group>
-                            <field name="code"
-                                attrs="{'readonly': [('id','!=',False)]}" />
+                            <field
+                                name="code"
+                                attrs="{'readonly': [('id','!=',False)]}"
+                            />
                         </group>
                     </group>
                     <notebook>
                         <page name="info" string="Info">
-                             <group name="state"
-                                attrs="{'invisible': [('id','=',False)]}">
+                             <group
+                                name="state"
+                                attrs="{'invisible': [('id','=',False)]}"
+                            >
                                 <group name="validity">
                                     <field name="create_date" />
-                                    <field name="expire_date"
-                                        attrs="{'invisible': [('active','=',True)]}" />
+                                    <field
+                                        name="expire_date"
+                                        attrs="{'invisible': [('active','=',True)]}"
+                                    />
                                 </group>
                             </group>
                         </page>
-                        <page name="dev" string="More Info" groups="base.group_erp_manager">
-                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_revalidate" string="Reactivate" type="object"
-                                        confirm="Reactivate document: proceed anyway?" />
+                        <page
+                            name="dev"
+                            string="More Info"
+                            groups="base.group_erp_manager"
+                        >
+                            <div
+                                attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
+                            >
+                                <button
+                                    name="action_revalidate"
+                                    string="Reactivate"
+                                    type="object"
+                                    confirm="Reactivate document: proceed anyway?"
+                                />
                             </div>
                             <group name="moreinfo">
                                 <field name="id" />
@@ -74,8 +96,11 @@
 
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"
-                        groups="mozaik_abstract_model.res_groups_follower_manager" />
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>

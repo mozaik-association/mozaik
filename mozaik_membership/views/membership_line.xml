@@ -6,25 +6,75 @@
         <field name="model">membership.line</field>
         <field name="arch" type="xml">
             <search>
-                <field string="From > ..." name="date_from" filter_domain="[('date_from','>', self)]" />
-                <field string="From &lt; ..." name="date_from" filter_domain="[('date_from','&lt;', self)]" />
-                <field string="To > ..." name="date_to" filter_domain="[('date_to','>', self)]" />
-                <field string="To &lt; ..." name="date_to" filter_domain="[('date_to','&lt;', self)]" />
+                <field
+                    string="From > ..."
+                    name="date_from"
+                    filter_domain="[('date_from','>', self)]"
+                />
+                <field
+                    string="From &lt; ..."
+                    name="date_from"
+                    filter_domain="[('date_from','&lt;', self)]"
+                />
+                <field
+                    string="To > ..."
+                    name="date_to"
+                    filter_domain="[('date_to','>', self)]"
+                />
+                <field
+                    string="To &lt; ..."
+                    name="date_to"
+                    filter_domain="[('date_to','&lt;', self)]"
+                />
 
-                <field name="reference"/>
-                <field name="partner_id" domain="[('is_company','=',False),('identifier','!=',0)]"/>
-                <field name="int_instance_id"/>
-                <field name="int_instance_id" string="Children of..." operator="child_of"/>
-                <field name="state_id"/>
-                <field name="product_id"/>
+                <field name="reference" />
+                <field
+                    name="partner_id"
+                    domain="[('is_company','=',False),('identifier','!=',0)]"
+                />
+                <field name="int_instance_id" />
+                <field
+                    name="int_instance_id"
+                    string="Children of..."
+                    operator="child_of"
+                />
+                <field name="state_id" />
+                <field name="product_id" />
 
-                <filter name="active" string="Active" domain="[('active','=',True)]" help="Active Memberships" />
-                <filter name="expired" string="Expired" context="{'invisible_expire_date': False}" domain="[('active','=',False)]" help="Expired Memberships" />
+                <filter
+                    name="active"
+                    string="Active"
+                    domain="[('active','=',True)]"
+                    help="Active Memberships"
+                />
+                <filter
+                    name="expired"
+                    string="Expired"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]"
+                    help="Expired Memberships"
+                />
 
-                <filter name="group_by_member" string="Member" context="{'group_by': 'partner_id'}"/>
-                <filter name="group_by_instance" string="Instance" context="{'group_by': 'int_instance_id'}"/>
-                <filter name="group_by_subscription" string="Subscription" context="{'group_by': 'product_id'}"/>
-                <filter name="group_by_state" string="Membership State" context="{'group_by': 'state_id'}"/>
+                <filter
+                    name="group_by_member"
+                    string="Member"
+                    context="{'group_by': 'partner_id'}"
+                />
+                <filter
+                    name="group_by_instance"
+                    string="Instance"
+                    context="{'group_by': 'int_instance_id'}"
+                />
+                <filter
+                    name="group_by_subscription"
+                    string="Subscription"
+                    context="{'group_by': 'product_id'}"
+                />
+                <filter
+                    name="group_by_state"
+                    string="Membership State"
+                    context="{'group_by': 'state_id'}"
+                />
             </search>
         </field>
     </record>
@@ -33,18 +83,27 @@
         <field name="name">membership.line.tree (mozaik_membership)</field>
         <field name="model">membership.line</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="active==False" decoration-success="active and state_code=='member'" decoration-danger="active and state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']" create="0" delete="0">
-                <field name="partner_id"/>
-                <field name="int_instance_id"/>
-                <field name="state_id"/>
-                <field name="product_id"/>
+            <tree
+                decoration-muted="active==False"
+                decoration-success="active and state_code=='member'"
+                decoration-danger="active and state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']"
+                create="0"
+                delete="0"
+            >
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field name="state_id" />
+                <field name="product_id" />
                 <field name="reference" />
                 <field name="price" />
-                <field name="date_from"/>
-                <field name="date_to"/>
-                <field name="active" invisible="1"/>
-                <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
-                <field name="state_code" invisible="1"/>
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="active" invisible="1" />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
+                <field name="state_code" invisible="1" />
             </tree>
         </field>
     </record>
@@ -56,7 +115,7 @@
             <form edit="0" create="0" delete="0">
                 <sheet>
                     <div class="oe_title" name="title">
-                        <label for="partner_id"/>
+                        <label for="partner_id" />
                         <h1><field name="partner_id" /></h1>
                     </div>
                     <div class="oe_right oe_button_box" name="buttons">
@@ -65,9 +124,15 @@
                     <group name="data">
                         <group name="main">
                             <field name="state_id" />
-                            <field name="product_id"/>
-                            <field name="price" attrs="{'invisible': [('state_code', 'not in', ['member_candidate', 'member', 'former_member_committee','member_committee'])]}" />
-                            <field name="reference" attrs="{'invisible': [('state_code', 'not in', ['member_candidate', 'member', 'former_member_committee','member_committee'])]}" />
+                            <field name="product_id" />
+                            <field
+                                name="price"
+                                attrs="{'invisible': [('state_code', 'not in', ['member_candidate', 'member', 'former_member_committee','member_committee'])]}"
+                            />
+                            <field
+                                name="reference"
+                                attrs="{'invisible': [('state_code', 'not in', ['member_candidate', 'member', 'former_member_committee','member_committee'])]}"
+                            />
                         </group>
                         <group name="other">
                             <field name="int_instance_id" />
@@ -76,10 +141,16 @@
 
                     <notebook>
                         <page name="info" string="Info">
-                            <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group
+                                name="state"
+                                attrs="{'invisible': [('id','=',False)]}"
+                            >
                                 <group name="validity">
                                     <field name="create_date" />
-                                    <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                                    <field
+                                        name="expire_date"
+                                        attrs="{'invisible': [('active','=',True)]}"
+                                    />
                                 </group>
                                 <group name="dates">
                                     <field name="date_from" />
@@ -87,21 +158,39 @@
                                 </group>
                             </group>
                         </page>
-                        <page name="dev" string="More Info" groups="base.group_erp_manager">
-                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_revalidate" string="Reactivate" type="object" confirm="Reactivate document: proceed anyway?" />
+                        <page
+                            name="dev"
+                            string="More Info"
+                            groups="base.group_erp_manager"
+                        >
+                            <div
+                                attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
+                            >
+                                <button
+                                    name="action_revalidate"
+                                    string="Reactivate"
+                                    type="object"
+                                    confirm="Reactivate document: proceed anyway?"
+                                />
                             </div>
                             <group name="moreinfo">
-                                <field name="active"/>
+                                <field name="active" />
                                 <field name="state_code" />
-                                <field name="partner_instance_ids" widget="many2many_tags"/>
+                                <field
+                                    name="partner_instance_ids"
+                                    widget="many2many_tags"
+                                />
                             </group>
                         </page>
                     </notebook>
 
                 </sheet>
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -113,7 +202,7 @@
         <field name="res_model">membership.line</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="membership_line_search_view" />
-        <field name="view_id" eval="membership_line_tree_view"/>
+        <field name="view_id" eval="membership_line_tree_view" />
         <field name="context">{'search_default_active': 1}</field>
     </record>
 

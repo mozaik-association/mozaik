@@ -8,9 +8,10 @@ class MembershipTarification(models.Model):
     """
     Model to represents the dynamic members tarification
     """
-    _name = 'membership.tarification'
+
+    _name = "membership.tarification"
     _description = "Membership tarification"
-    _order = 'sequence'
+    _order = "sequence"
 
     name = fields.Char(
         help="Name of the tarification",
@@ -21,21 +22,21 @@ class MembershipTarification(models.Model):
     )
     code = fields.Char(
         help="Python code to evaluate; should return a boolean.\n"
-             "Example of code: partner.is_customer == True",
+        "Example of code: partner.is_customer == True",
         required=True,
     )
     product_id = fields.Many2one(
         comodel_name="product.product",
         string="Product",
         required=True,
-        domain=[('membership', '=', True)],
+        domain=[("membership", "=", True)],
     )
     active = fields.Boolean(
         default=True,
     )
 
     _sql_constraints = [
-        ('unique_name', 'unique(name)', "This name already exists"),
+        ("unique_name", "unique(name)", "This name already exists"),
     ]
 
     def _get_eval_context(self, partner):
@@ -45,12 +46,12 @@ class MembershipTarification(models.Model):
         :return:
         """
         values = {
-            'context': self.env.context.copy(),
-            'partner': partner,
-            'uid': self.env.uid,
-            'user': self.env.user,
-            'self': self,
-            'today': fields.Date.today(),
+            "context": self.env.context.copy(),
+            "partner": partner,
+            "uid": self.env.uid,
+            "user": self.env.user,
+            "self": self,
+            "today": fields.Date.today(),
         }
         return values
 
@@ -71,10 +72,13 @@ class MembershipTarification(models.Model):
         :param partner: res.partner recordset
         :return: product.product recordset
         """
-        rules = self.search([
-            ('active', '=', True),
-        ], order='sequence ASC, id ASC')
+        rules = self.search(
+            [
+                ("active", "=", True),
+            ],
+            order="sequence ASC, id ASC",
+        )
         for rule in rules:
             if rule._evaluate_code(partner):
                 return rule.product_id
-        return self.env['product.product'].browse()
+        return self.env["product.product"].browse()

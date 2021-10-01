@@ -1,14 +1,14 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields
+from odoo import api, fields, models
 
 
 class ProductTemplate(models.Model):
 
-    _inherit = ['product.template']
+    _inherit = ["product.template"]
 
-    membership = fields.Boolean('Subscription')
+    membership = fields.Boolean("Subscription")
     name = fields.Char(tracking=True)
     list_price = fields.Float(tracking=True)
 
@@ -17,4 +17,4 @@ class ProductTemplate(models.Model):
         """
         return the record set of a default membership product
         """
-        return self.env.ref('mozaik_membership.membership_product_isolated')
+        return self.env.ref("mozaik_membership.membership_product_isolated")

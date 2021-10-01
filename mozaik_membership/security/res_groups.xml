@@ -1,34 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
     <record model="ir.module.category" id="module_category_membership">
         <field name="name">Membership</field>
-        <field name="parent_id" ref="base.module_category_political_association"/>
+        <field name="parent_id" ref="base.module_category_political_association" />
         <field name="sequence" eval="95" />
     </record>
 
     <record model="res.groups" id="res_groups_membership_reader">
         <field name="name">Reader</field>
-        <field name="category_id" ref="module_category_membership"/>
+        <field name="category_id" ref="module_category_membership" />
     </record>
 
     <record model="res.groups" id="res_groups_membership_user">
         <field name="name">User</field>
-        <field name="category_id" ref="module_category_membership"/>
-        <field name="implied_ids" eval="[(6, 0, [
+        <field name="category_id" ref="module_category_membership" />
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
                 ref('mozaik_membership.res_groups_membership_reader'),
-            ])]" />
+            ])]"
+        />
     </record>
 
     <record model="res.groups" id="res_groups_membership_manager">
         <field name="name">Manager</field>
-        <field name="category_id" ref="module_category_membership"/>
-        <field name="implied_ids" eval="[(6, 0, [
+        <field name="category_id" ref="module_category_membership" />
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
                 ref('mozaik_membership.res_groups_membership_user'),
-            ])]" />
-        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            ])]"
+        />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
     </record>
 
 </odoo>

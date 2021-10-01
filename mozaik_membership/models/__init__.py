@@ -8,6 +8,7 @@ from . import membership_tarification
 from . import res_partner
 from . import res_users
 from . import res_city
+
 # from . import partner_involvement
 from . import res_partner_relation
 from . import res_partner_relation_all

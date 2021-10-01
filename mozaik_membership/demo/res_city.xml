@@ -2,7 +2,7 @@
 <odoo noupdate="1">
 
     <record id="mozaik_address.res_city_1" model="res.city">
-        <field name="int_instance_id" ref="mozaik_structure.int_instance_02"/>
+        <field name="int_instance_id" ref="mozaik_structure.int_instance_02" />
     </record>
 
 </odoo>

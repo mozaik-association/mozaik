@@ -6,5 +6,5 @@ from odoo import models
 
 class ExtAssembly(models.Model):
 
-    _name = 'ext.assembly'
-    _inherit = ['ext.assembly', 'assembly.mixin']
+    _name = "ext.assembly"
+    _inherit = ["ext.assembly", "assembly.mixin"]

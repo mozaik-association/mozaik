@@ -4,8 +4,8 @@
     <record id="int_instance_03" model="int.instance">
         <field name="name">Liège</field>
         <field name="code">003</field>
-        <field name="parent_id" ref="mozaik_structure.int_instance_02"/>
-        <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
+        <field name="parent_id" ref="mozaik_structure.int_instance_02" />
+        <field name="power_level_id" ref="mozaik_structure.int_power_level_01" />
     </record>
 
 </odoo>

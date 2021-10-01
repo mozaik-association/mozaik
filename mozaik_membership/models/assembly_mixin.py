@@ -6,7 +6,7 @@ from odoo import api, models
 
 class AssemblyMixin(models.AbstractModel):
 
-    _name = 'assembly.mixin'
+    _name = "assembly.mixin"
     _description = "Mixin to sanitize the instance of an assembly"
 
     @api.model
@@ -22,8 +22,8 @@ class AssemblyMixin(models.AbstractModel):
 
     @api.model
     def _sanitize_instance(self, vals):
-        '''
+        """
         Link result Partner to the Assembly Internal Instance
-        '''
-        if 'instance_id' in vals:
-            vals.update({'force_int_instance_id': vals['instance_id']})
+        """
+        if "instance_id" in vals:
+            vals.update({"force_int_instance_id": vals["instance_id"]})
