@@ -11,6 +11,7 @@
     "category": "Political Association",
     "depends": [
         "base",
+        "contacts",
         "mail",
         "mozaik_tools",
         "mozaik_abstract_model",
