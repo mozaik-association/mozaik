@@ -1,6 +1,7 @@
-# -*- encoding: utf-8 -*-
 import logging
-from odoo import api, SUPERUSER_ID
+
+from odoo import SUPERUSER_ID, api
+
 _logger = logging.getLogger(__name__)
 
 
@@ -9,7 +10,7 @@ def migrate(cr, version):
 
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        for model_name in ['sta.mandate', 'ext.mandate', 'int.mandate']:
+        for model_name in ["sta.mandate", "ext.mandate", "int.mandate"]:
             model = env[model_name]
-            env.add_to_compute(model._fields['gender'], model.search([]))
+            env.add_to_compute(model._fields["gender"], model.search([]))
             model.recompute()
