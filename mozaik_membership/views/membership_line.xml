@@ -33,6 +33,7 @@
                     domain="[('is_company','=',False),('identifier','!=',0)]"
                 />
                 <field name="int_instance_id" />
+<!--                pylint: disable=duplicate-xml-fields-->
                 <field
                     name="int_instance_id"
                     string="Children of..."

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo noupdate="1">
 
-    <record model="res.partner" id="res_partner_thierry">
-        <field name="name">Thierry</field>
+    <record model="res.partner" id="mozaik_address.res_partner_thierry">
+        <field name="force_int_instance_id" ref="mozaik_structure.int_instance_01" />
     </record>
 
     <record model="res.partner" id="res_partner_jacques">

@@ -1,58 +1,62 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo>
+    <record model="res.partner" id="res_partner_pauline">
+        <field name="name">Pauline</field>
+        <field name="birthdate_date">1949-03-29</field>
+    </record>
 
-        <!-- Add a birthdate to Marois Pauline -->
-        <record id="res_partner_pauline" model="res.partner">
-            <field name="birth_date">1949-03-29</field>
-        </record>
+    <!-- in reference to Marois Pauline -->
+    <record id="membership_request_mp" model="membership.request">
+        <field name="lastname">MAROIS</field>
+        <field name="firstname">Paulinne</field>
+        <field name="gender">female</field>
+        <field name="email">pauline_marois@gmail.com</field>
+        <field name="request_type">m</field>
+        <field name="is_update" eval="1" />
 
-        <!-- in reference to Marois Pauline -->
-        <record id="membership_request_mp" model="membership.request">
-            <field name="lastname">MAROIS</field>
-            <field name="firstname">Paulinne</field>
-            <field name="gender">f</field>
-            <field name="email">pauline_marois@gmail.com</field>
-            <field name="request_type">m</field>
-            <field name="is_update" eval="1" />
+        <field name="country_id" ref="base.be" />
+        <field name="address_id" ref="mozaik_address.address_2" />
+        <field name="partner_id" ref="mozaik_membership_request.res_partner_pauline" />
+        <field name="city_id" ref="mozaik_address.res_city_2" />
+        <field
+            name="address_local_street_id"
+            ref="mozaik_address_local_street.local_street_2"
+        />
+        <field name="number">6</field>
+        <field name="box">2B</field>
+        <field
+            name="int_instance_ids"
+            eval="[(4, ref('mozaik_membership.int_instance_03'))]"
+        />
+        <field name="force_int_instance_id" ref="mozaik_structure.int_instance_02" />
 
-            <field name="country_id" ref="base.be" />
-            <field name="address_id" ref="address_2" />
-            <field name="partner_id" ref="res_partner_pauline" />
-            <field name="address_local_zip_id" ref="local_zip_2" />
-            <field name="address_local_street_id" ref="local_street_2" />
-            <field name="number">6</field>
-            <field name="box">2B</field>
-            <field name="int_instance_id" ref="int_instance_06" />
-            <field name="force_int_instance_id" ref="int_instance_07" />
-            <field name="phone_id" ref="fix_for_test_update_1" />
+        <field name="phone">061458978</field>
+        <field name="mobile">0475451232</field>
+    </record>
 
-            <field name="phone">061458978</field>
-            <field name="mobile">0475451232</field>
-        </record>
+    <!-- new partner -->
+    <record id="membership_request_eh" model="membership.request">
+        <field name="state">confirm</field>
+        <field name="lastname">HAZARD</field>
+        <field name="firstname">Eden</field>
+        <field name="gender">male</field>
+        <field name="email">eden.hazard@fifa.eu</field>
+        <field name="request_type">s</field>
 
-        <!-- new partner -->
-        <record id="membership_request_eh" model="membership.request">
-            <field name="state">confirm</field>
-            <field name="lastname">HAZARD</field>
-            <field name="firstname">Eden</field>
-            <field name="gender">m</field>
-            <field name="email">eden.hazard@fifa.eu</field>
-            <field name="request_type">s</field>
+<!--            <field name="interest_ids" eval="[[6,False,[ref('term_confirmed_one')]]]"/>-->
 
-            <field name="interests_m2m_ids" eval="[[6,False,[ref('term_confirmed_one')]]]"/>
+        <field name="phone">064784512</field>
+        <field name="mobile">0498785612</field>
 
-            <field name="phone">064784512</field>
-            <field name="mobile">0498785612</field>
+        <field name="country_id" ref="base.be" />
+        <field name="street_man">Rue du tir</field>
+        <field name="number">59</field>
+        <field name="zip_man">7100</field>
+        <field name="city_man">La Louvière</field>
 
-            <field name="country_id" ref="base.be" />
-            <field name="street_man">Rue du tir</field>
-            <field name="number">59</field>
-            <field name="zip_man">7100</field>
-            <field name="town_man">La Louvière</field>
-
-            <field name="day">01</field>
-            <field name="month">07</field>
-            <field name="year">1991</field>
-        </record>
+        <field name="day">01</field>
+        <field name="month">07</field>
+        <field name="year">1991</field>
+    </record>
 
 </odoo>

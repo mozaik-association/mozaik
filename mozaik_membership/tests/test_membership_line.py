@@ -145,8 +145,6 @@ class TestMembershipLine(TransactionCase):
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
         new_date_from = fields.Date.to_string(fields.Date.from_string("2015-11-09"))
-        # The product should be saved before the renew
-        partner.subscription_product_id
         # Renew it (should not create a new membership)
         same_membership = membership._renew(date_from=new_date_from)
         self.assertFalse(same_membership)
@@ -299,8 +297,6 @@ class TestMembershipLine(TransactionCase):
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
         new_date_from = fields.Date.to_string(fields.Date.from_string("2015-11-09"))
-        # The product should be saved before the former member
-        partner.subscription_product_id
         # Former member it (should not create a new membership)
         same_membership = membership._former_member(date_from=new_date_from)
         self.assertFalse(same_membership)

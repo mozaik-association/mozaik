@@ -12,11 +12,10 @@ class ResUsers(models.Model):
         """
         Add read access rights on int_instance_m2m_ids
         """
-        init_res = super().__init__(pool, cr)
+        super().__init__(pool, cr)
         type(self).SELF_READABLE_FIELDS = self.SELF_READABLE_FIELDS + [
             "int_instance_m2m_ids"
         ]
-        return init_res
 
     def _internal_instances(self, power_level_id=False):
         """

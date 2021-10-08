@@ -4,21 +4,34 @@
         <record id="res_partner_form_view" model="ir.ui.view">
             <field name="name">res.partner.form (mozaik_membership_request)</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="inherit_id" ref="mozaik_membership.res_partner_form_view" />
             <field name="arch" type="xml">
 
-                <xpath expr="//header/div" position="inside">
-                    <button name="button_modification_request" string="Modification Request" 
-                            type="object" attrs="{'invisible': [('membership_state_code', 'not in', ['member', 'member_committee', 'former_member_committee', 'member_candidate'])]}"
-                            invisible="(context.get('uid',0)!=1) and (context.get('in_mozaik_officer') or not context.get('in_mozaik_user'))"/>
-                    <button name="button_modification_request" string="Membership Request" 
-                            type="object" attrs="{'invisible': ['|', ('kind', 'in', ['a','t','c']), ('membership_state_code', 'in', ['member', 'member_committee', 'former_member_committee', 'member_candidate'])]}"
-                            groups="mozaik_base.mozaik_res_groups_user"/>
+                <xpath expr="//header" position="inside">
+                    <button
+                    name="button_modification_request"
+                    string="Modification Request"
+                    type="object"
+                    attrs="{'invisible': [('membership_state_code', 'not in', ['member', 'member_committee', 'former_member_committee', 'member_candidate'])]}"
+                />
+                    <button
+                    name="button_modification_request"
+                    string="Membership Request"
+                    type="object"
+                    attrs="{'invisible': ['|', ('kind', 'in', ['a','t','c']), ('membership_state_code', 'in', ['member', 'member_committee', 'former_member_committee', 'member_candidate'])]}"
+                    groups="mozaik_membership.res_groups_membership_user"
+                />
                 </xpath>
 
                 <xpath expr="//div[@name='state_management']" position="inside">
-                    <button name="%(mozaik_membership.membership_request_action)d" string="Membership Requests" type="action" class="oe_right"
-                            context="{'search_default_partner_id': active_id, 'search_default_all': True}"/>
+                    <field name="kind" invisible="1" />
+                    <button
+                    name="%(mozaik_membership_request.membership_request_action)d"
+                    string="Membership Requests"
+                    type="action"
+                    class="oe_right"
+                    context="{'search_default_partner_id': active_id, 'search_default_all': True}"
+                />
                 </xpath>
 
             </field>

@@ -8,7 +8,7 @@ class TestPartner(TransactionCase):
     def setUp(self):
         super().setUp()
 
-        self.partner1 = self.env.ref("mozaik_membership.res_partner_thierry")
+        self.partner1 = self.env.ref("mozaik_address.res_partner_thierry")
         self.partner_jacques_id = self.env.ref("mozaik_membership.res_partner_jacques")
         self.tarification1 = self.env.ref(
             "mozaik_membership.membership_tarification_first_rule"

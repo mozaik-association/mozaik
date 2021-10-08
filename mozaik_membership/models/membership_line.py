@@ -182,9 +182,7 @@ class MembershipLine(models.Model):
         """
         result = super(MembershipLine, self)._get_exception_messages()
         index_name = self._get_index_name()
-        message = _(
-            "The partner already have an active subscription " "to this instance"
-        )
+        message = _("The partner already have an active subscription to this instance")
         result.update(
             {
                 index_name: message,
@@ -339,6 +337,7 @@ class MembershipLine(models.Model):
         This method is intended to be overriden regarding
         locale conventions.
         Here is an arbitrary convention: "MS: YYYY/id/id"
+        Add also a random value, to avoid unique problem
         :param partner: res.partner recordset
         :param instance: int.instance recordset
         :param ref_date: str/date
@@ -346,7 +345,11 @@ class MembershipLine(models.Model):
         """
         partner.ensure_one()
         ref_date = fields.Date.from_string(ref_date or fields.Date.today()).year
-        ref = "MS: %s/%s/%s" % (ref_date, instance.id, partner.id)
+        ref = "MS: %s/%s/%s" % (
+            ref_date,
+            instance.id,
+            partner.id,
+        )
         return ref
 
     @api.model
@@ -570,7 +573,7 @@ class MembershipLine(models.Model):
         # only 1 membership line.
         # And thanks to the order (during search), the membership line should
         # be the last (more recent) membership line (so the one to renew)
-        data = {(l.partner_id, l.int_instance_id): l for l in lines}
+        data = {(line.partner_id, line.int_instance_id): line for line in lines}
         # Now we have to get only membership lines (so dict values)
         membership_lines = self.browse()
         # .values() return a list but we need a multi-recordset

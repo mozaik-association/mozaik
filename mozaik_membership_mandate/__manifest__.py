@@ -3,7 +3,7 @@
 
 {
     "name": "Mozaik Membership Mandate",
-    "description": """
+    "summary": """
         Add fields on mandate depending of the membership""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",

@@ -1,29 +1,35 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': 'Mozaik: Membership Request',
-    'summary': """
+    "name": "Mozaik: Membership Request",
+    "summary": """
         Manage membership and modification requests""",
-    'version': "14.0.1.0.0",
-    'license': 'AGPL-3',
-    'author': 'ACSONE SA/NV',
-    'website': 'https://github.com/OCA/mozaik',
-    'category': 'Political Association',
-    'depends': [
-        'base',
-        'mozaik_abstract_model',
-        'mozaik_structure',
-        'mozaik_membership',
-        'mozaik_thesaurus',
-        'mozaik_involvement',
+    "version": "14.0.1.0.0",
+    "license": "AGPL-3",
+    "author": "ACSONE SA/NV",
+    "website": "https://github.com/OCA/mozaik",
+    "category": "Political Association",
+    "depends": [
+        "base",
+        "mozaik_abstract_model",
+        "mozaik_structure",
+        "mozaik_membership",
+        "mozaik_address_local_street",
+        "mozaik_thesaurus",
+        "mozaik_tools",
+        "statechart",
+        # 'mozaik_involvement',
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/res_partner.xml',
-        'views/membership_request.xml',
+    "data": [
+        "security/ir.model.access.csv",
+        "security/res_groups.xml",
+        "security/membership_security.xml",
+        "data/ir_config_parameter.xml",
+        "views/membership_request.xml",
+        "views/res_partner.xml",
     ],
-    'demo': [
-        'demo/membership_request.xml',
+    "demo": [
+        "demo/membership_request.xml",
     ],
     "installable": True,
 }
