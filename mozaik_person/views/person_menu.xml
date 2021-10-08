@@ -12,6 +12,7 @@
 
     <record model="ir.ui.menu" id="contacts.res_partner_menu_contacts">
         <field name="action" eval="False" />
+        <field name="sequence" eval="1" />
     </record>
 
     <record model="ir.ui.menu" id="natural_person_menu">
