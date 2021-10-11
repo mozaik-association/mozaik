@@ -1,6 +1,6 @@
 import logging
 
-from odoo import SUPERUSER_ID, api
+from psycopg2.extensions import AsIs
 
 _logger = logging.getLogger(__name__)
 
@@ -8,9 +8,12 @@ _logger = logging.getLogger(__name__)
 def migrate(cr, version):
     _logger.info("Recompute the related gender on mandate")
 
-    with api.Environment.manage():
-        env = api.Environment(cr, SUPERUSER_ID, {})
-        for model_name in ["sta.mandate", "ext.mandate", "int.mandate"]:
-            model = env[model_name]
-            env.add_to_compute(model._fields["gender"], model.search([]))
-            model.recompute()
+    for table_name in ["sta_mandate", "ext_mandate", "int_mandate"]:
+        cr.execute(
+            "UPDATE %(table_name)s SET gender = 'male' WHERE gender = 'm'",
+            {"table_name": AsIs(table_name)},
+        )
+        cr.execute(
+            "UPDATE %(table_name)s SET gender = 'female' WHERE gender = 'f'",
+            {"table_name": AsIs(table_name)},
+        )
