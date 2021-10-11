@@ -18,7 +18,6 @@
     "data": [
         "security/distribution_list_security.xml",
         "security/ir.model.access.csv",
-        "views/assets.xml",
         "views/distribution_list.xml",
         "views/distribution_list_line.xml",
         "wizards/distribution_list_add_filter.xml",
