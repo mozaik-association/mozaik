@@ -5,7 +5,7 @@
     "name": "Mozaik Mandate Female Label",
     "summary": """
         Add a female name on mandate category""",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
