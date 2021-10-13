@@ -4,12 +4,16 @@
     <record id="view_city_filter" model="ir.ui.view">
         <field name="name">res_city.search (mozaik_membership)</field>
         <field name="model">res.city</field>
-        <field name="inherit_id" ref="base_address_city.view_city_filter"/>
+        <field name="inherit_id" ref="base_address_city.view_city_filter" />
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='name']" position="after">
                 <field name="int_instance_id" />
-                <filter name="instance" string="Instance" context="{'group_by': 'int_instance_id'}"/>
+                <filter
+                    name="instance"
+                    string="Instance"
+                    context="{'group_by': 'int_instance_id'}"
+                />
             </xpath>
 
         </field>
@@ -18,7 +22,7 @@
     <record id="view_city_tree" model="ir.ui.view">
         <field name="name">res.city.tree (mozaik_membership)</field>
         <field name="model">res.city</field>
-        <field name="inherit_id" ref="base_address_city.view_city_tree"/>
+        <field name="inherit_id" ref="base_address_city.view_city_tree" />
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='name']" position="after">
@@ -31,7 +35,7 @@
     <record id="res_city_form_view" model="ir.ui.view">
         <field name="name">res.city.form (mozaik_membership)</field>
         <field name="model">res.city</field>
-        <field name="inherit_id" ref="mozaik_address.res_city_form_view"/>
+        <field name="inherit_id" ref="mozaik_address.res_city_form_view" />
         <field name="arch" type="xml">
 
             <xpath expr="//group[@name='data']" position="inside">

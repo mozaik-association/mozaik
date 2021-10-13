@@ -2,5 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from . import membership_request
-from . import membership_request_2
+from . import membership_request_change
 from . import res_partner
+from . import virtual_master_partner
+from . import virtual_custom_partner

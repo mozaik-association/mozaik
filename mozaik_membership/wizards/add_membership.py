@@ -8,7 +8,9 @@ class AddMembership(models.TransientModel):
     """
     Wizard used to create a new membership.line
     """
+
     _name = "add.membership"
+    _description = "Wizard to create a new membership"
 
     int_instance_id = fields.Many2one(
         comodel_name="int.instance",
@@ -18,8 +20,8 @@ class AddMembership(models.TransientModel):
         help="Select a new instance for the membership line",
     )
     partner_id = fields.Many2one(
-        comodel_name='res.partner',
-        string='Partner',
+        comodel_name="res.partner",
+        string="Partner",
         required=True,
         readonly=True,
         ondelete="cascade",
@@ -33,19 +35,18 @@ class AddMembership(models.TransientModel):
     product_id = fields.Many2one(
         comodel_name="product.product",
         string="Subscription",
-        domain=[('membership', '=', True)],
+        domain=[("membership", "=", True)],
     )
     price = fields.Float(
         help="Subscription price",
     )
     state_id = fields.Many2one(
-        comodel_name='membership.state',
-        string='State',
+        comodel_name="membership.state",
+        string="State",
         required=True,
         domain=lambda self: self._get_state_domain(),
     )
-    state_code = fields.Char(
-        related='state_id.code', readonly=True)
+    state_code = fields.Char(related="state_id.code", readonly=True)
     is_excluded = fields.Boolean(
         help="Checked if the partner is currently excluded",
         related="partner_id.is_excluded",
@@ -70,8 +71,8 @@ class AddMembership(models.TransientModel):
         result = super(AddMembership, self).default_get(fields_list)
         # Only if the active_model is res.partner
         partner_model = self.partner_id._name
-        if self.env.context.get('active_model') == partner_model:
-            active_id = self.env.context.get('active_id')
+        if self.env.context.get("active_model") == partner_model:
+            active_id = self.env.context.get("active_id")
             partner = self.env[self.partner_id._name].browse()
             instance = self.int_instance_id
             if active_id:
@@ -83,14 +84,16 @@ class AddMembership(models.TransientModel):
             if not product:
                 membership = first(partner.membership_line_ids)
                 product = membership.product_id
-            result.update({
-                'partner_id': partner.id,
-                'int_instance_id': instance.id,
-                'product_id': product.id,
-            })
+            result.update(
+                {
+                    "partner_id": partner.id,
+                    "int_instance_id": instance.id,
+                    "product_id": product.id,
+                }
+            )
         return result
 
-    @api.onchange('partner_id', 'state_code')
+    @api.onchange("partner_id", "state_code")
     def _onchange_partner_id(self):
         """
         Onchange for partner_id field.
@@ -103,8 +106,7 @@ class AddMembership(models.TransientModel):
         else:
             self.product_id = False
 
-
-    @api.onchange('product_id', 'int_instance_id')
+    @api.onchange("product_id", "int_instance_id")
     def _onchange_product_id(self):
         """
         Onchange for product_id field.
@@ -112,14 +114,13 @@ class AddMembership(models.TransientModel):
         :return:
         """
         if self.product_id:
-            price = self.env['membership.line']._get_subscription_price(
-                self.product_id, partner=self.partner_id,
-                instance=self.int_instance_id)
+            price = self.env["membership.line"]._get_subscription_price(
+                self.product_id, partner=self.partner_id, instance=self.int_instance_id
+            )
             self.price = price
         else:
             self.price = 0
 
-    @api.multi
     def action_add(self):
         """
         Action to create the membership line for the partner
@@ -129,16 +130,20 @@ class AddMembership(models.TransientModel):
         self._create_membership_line()
         return {}
 
-    @api.multi
     def _create_membership_line(self, reference=None):
         """
         Create a new membership line for the partner
         :return: bool
         """
         self.ensure_one()
-        membership_obj = self.env['membership.line']
+        membership_obj = self.env["membership.line"]
         values = membership_obj._build_membership_values(
-            self.partner_id, self.int_instance_id, self.state_id,
-            date_from=self.date_from, product=self.product_id,
-            price=self.price, reference=reference)
+            self.partner_id,
+            self.int_instance_id,
+            self.state_id,
+            date_from=self.date_from,
+            product=self.product_id,
+            price=self.price,
+            reference=reference,
+        )
         return membership_obj.create(values)

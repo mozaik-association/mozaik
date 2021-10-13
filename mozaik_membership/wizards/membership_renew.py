@@ -1,6 +1,7 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from datetime import timedelta
+
 from odoo import api, fields, models
 
 
@@ -8,6 +9,7 @@ class MembershipRenew(models.TransientModel):
     """
     Wizard used to help users to renew selected/existing membership.line
     """
+
     _name = "membership.renew"
     _description = "Renew membership line"
 
@@ -15,7 +17,7 @@ class MembershipRenew(models.TransientModel):
         comodel_name="membership.line",
         string="Lines",
         help="Lines to renew existing subscription",
-        domain=[('active', '=', True)],
+        domain=[("active", "=", True)],
     )
     date_from = fields.Date(
         default=fields.Date.today(),
@@ -34,11 +36,11 @@ class MembershipRenew(models.TransientModel):
         """
         result = super(MembershipRenew, self).default_get(fields_list)
         context = self.env.context
-        active_model = context.get('active_model')
-        active_ids = context.get('active_ids')
+        active_model = context.get("active_model")
+        active_ids = context.get("active_ids")
         allowed_models = [
             self.membership_line_ids._name,
-            'res.partner',
+            "res.partner",
         ]
         if active_model in allowed_models and active_ids:
             target_obj = self.env[active_model]
@@ -49,13 +51,15 @@ class MembershipRenew(models.TransientModel):
                 lines = targets
             else:  # We work on res.partner
                 lines = targets.mapped("membership_line_ids").filtered(
-                    lambda l: l.active and l.state_code == "member")
-            result.update({
-                'membership_line_ids': [(6, False, lines.ids)],
-            })
+                    lambda l: l.active and l.state_code == "member"
+                )
+            result.update(
+                {
+                    "membership_line_ids": [(6, False, lines.ids)],
+                }
+            )
         return result
 
-    @api.multi
     def action_close_and_renew(self):
         """
         Action to close existing
@@ -63,16 +67,16 @@ class MembershipRenew(models.TransientModel):
         """
         self.ensure_one()
         lines = self._action_close_and_renew()
-        action = self.env.ref(
-            "mozaik_membership.membership_line_action").read()[0]
-        domain = [('id', 'in', lines.ids)]
-        action.update({
-            'domain': domain,
-            'context': {},
-        })
+        action = self.env.ref("mozaik_membership.membership_line_action").read()[0]
+        domain = [("id", "in", lines.ids)]
+        action.update(
+            {
+                "domain": domain,
+                "context": {},
+            }
+        )
         return action
 
-    @api.multi
     def _action_close_and_renew(self):
         """
         Close membership lines and renew them automatically
@@ -81,6 +85,6 @@ class MembershipRenew(models.TransientModel):
         self.ensure_one()
         date_to = fields.Date.from_string(self.date_from) - timedelta(days=1)
         renewed_lines = self.membership_line_ids._close(
-            date_to=fields.Date.to_string(date_to))._renew(
-            date_from=self.date_from)
+            date_to=fields.Date.to_string(date_to)
+        )._renew(date_from=self.date_from)
         return renewed_lines

@@ -2,67 +2,80 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from odoo import api, exceptions, models, fields, _
-from odoo.fields import first
+
+from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
+from odoo.fields import first
 
 _logger = logging.getLogger(__name__)
 
 AVAILABLE_PARTNER_KINDS = [
-    ('a', 'Assembly'),
-    ('t', 'Technical'),
-    ('c', 'Company'),
-    ('p', 'Partner'),
-    ('m', 'Member'),
+    ("a", "Assembly"),
+    ("t", "Technical"),
+    ("c", "Company"),
+    ("p", "Partner"),
+    ("m", "Member"),
 ]
 
 
 class ResPartner(models.Model):
 
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     int_instance_m2m_ids = fields.Many2many(
-        comodel_name='int.instance',
-        string='Internal Instances',
+        comodel_name="int.instance",
+        string="Internal Instances",
         relation="res_partner_int_instance_manager",
         column1="partner_id",
         column2="int_instance_id",
     )
     force_int_instance_id = fields.Many2one(
-        comodel_name='int.instance',
+        comodel_name="int.instance",
         string="Force instance",
         default=lambda s: s._default_force_int_instance_id(),
     )
     membership_line_ids = fields.One2many(
-        comodel_name='membership.line', inverse_name='partner_id',
-        string='Memberships', readonly=True)
+        comodel_name="membership.line",
+        inverse_name="partner_id",
+        string="Memberships",
+        readonly=True,
+        context={"active_test": False},
+    )
     membership_state_id = fields.Many2one(
-        comodel_name='membership.state',
-        string='Membership State',
+        comodel_name="membership.state",
+        string="Membership State",
         index=True,
         compute="_compute_int_instance_ids",
         store=True,
-        track_visibility='onchange',
+        tracking=True,
         compute_sudo=True,
     )
     membership_state_code = fields.Char(
-        related='membership_state_id.code', readonly=True)
+        related="membership_state_id.code", readonly=True
+    )
     subscription_product_id = fields.Many2one(
         compute="_compute_subscription_product_id",
-        comodel_name="product.product", string='Subscription', store=False)
+        comodel_name="product.product",
+        string="Subscription",
+        store=False,
+    )
     kind = fields.Selection(
-        compute="_compute_kind", string='Partner Kind', compute_sudo=True,
-        selection=AVAILABLE_PARTNER_KINDS, store=True)
-    local_voluntary = fields.Boolean(track_visibility='onchange')
-    regional_voluntary = fields.Boolean(track_visibility='onchange')
-    national_voluntary = fields.Boolean(track_visibility='onchange')
+        compute="_compute_kind",
+        string="Partner Kind",
+        compute_sudo=True,
+        selection=AVAILABLE_PARTNER_KINDS,
+        store=True,
+    )
+    local_voluntary = fields.Boolean(tracking=True)
+    regional_voluntary = fields.Boolean(tracking=True)
+    national_voluntary = fields.Boolean(tracking=True)
     local_only = fields.Boolean(
-        track_visibility='onchange',
-        help='Partner wishing to be contacted only by the local')
+        tracking=True, help="Partner wishing to be contacted only by the local"
+    )
 
     int_instance_ids = fields.Many2many(
-        comodel_name='int.instance',
-        string='Instances',
+        comodel_name="int.instance",
+        string="Instances",
         compute="_compute_int_instance_ids",
         relation="res_partner_int_instance",
         column1="partner_id",
@@ -72,7 +85,7 @@ class ResPartner(models.Model):
     )
     is_excluded = fields.Boolean(
         help="Checked if the partner is currently excluded",
-        compute='_compute_int_instance_ids',
+        compute="_compute_int_instance_ids",
         store=True,
         compute_sudo=True,
     )
@@ -81,28 +94,27 @@ class ResPartner(models.Model):
     def _default_force_int_instance_id(self):
         return first(self.env.user.partner_id.int_instance_m2m_ids)
 
-    @api.multi
-    @api.constrains('membership_line_ids', 'is_company')
+    @api.constrains("membership_line_ids", "is_company")
     def _constrains_membership_line_ids(self):
         """
         Constrain function for the field membership_line_ids
         :return:
         """
-        bad_records = self.filtered(
-            lambda r: r.is_company and r.membership_line_ids)
+        bad_records = self.filtered(lambda r: r.is_company and r.membership_line_ids)
         if bad_records:
             details = "\n- ".join(bad_records.mapped("display_name"))
-            message = _("A legal person shouldn't have membership "
-                        "lines:\n- %s") % details
+            message = (
+                _("A legal person shouldn't have membership " "lines:\n- %s") % details
+            )
             raise exceptions.ValidationError(message)
 
-    @api.multi
     @api.depends(
-        'is_assembly',
-        'force_int_instance_id',
-        'membership_line_ids', 'membership_line_ids.state_id',
-        'membership_line_ids.int_instance_id', 'membership_line_ids.active',
-        'postal_coordinate_ids', 'postal_coordinate_ids.is_main',
+        "is_assembly",
+        "force_int_instance_id",
+        "membership_line_ids",
+        "membership_line_ids.state_id",
+        "membership_line_ids.int_instance_id",
+        "membership_line_ids.active",
     )
     def _compute_int_instance_ids(self):
         """
@@ -115,12 +127,11 @@ class ResPartner(models.Model):
         - IF NO instances found: use the default instance
         :return:
         """
-        state_obj = self.env['membership.state']
-        default_instance = self.env['int.instance']._get_default_int_instance()
+        state_obj = self.env["membership.state"]
+        default_instance = self.env["int.instance"]._get_default_int_instance()
         all_excl_states = state_obj._get_all_exclusion_states()
         for record in self:
-            memberships = record.membership_line_ids.filtered(
-                lambda l: l.active)
+            memberships = record.membership_line_ids.filtered(lambda l: l.active)
             instances = memberships.mapped("int_instance_id")
             if not instances and record.force_int_instance_id:
                 instances = record.force_int_instance_id
@@ -132,14 +143,13 @@ class ResPartner(models.Model):
             record.membership_state_id = state
             record.is_excluded = is_excluded
 
-    @api.multi
     def _get_current_state(self):
         """
         Get the state of the current partner.
         :return: membership.state recordset
         """
         self.ensure_one()
-        state_obj = self.env['membership.state']
+        state_obj = self.env["membership.state"]
         state = state_obj.browse()
         if not self.is_assembly:
             memberships = self.membership_line_ids.filtered("active")
@@ -151,8 +161,7 @@ class ResPartner(models.Model):
                 state = state_obj._get_default_state()
         return state
 
-    @api.multi
-    @api.constrains('force_int_instance_id', 'membership_line_ids')
+    @api.constrains("force_int_instance_id", "membership_line_ids")
     def _check_force_int_instance_id(self):
         """
         Check if partner has an instance if no membership
@@ -160,28 +169,29 @@ class ResPartner(models.Model):
         self_sudo = self.sudo()
         for partner in self_sudo.filtered(lambda s: not s.membership_line_ids):
             if not partner.force_int_instance_id:
-                raise exceptions.ValidationError(_(
-                    "A partner without membership "
-                    "must be linked to an internal instance"))
+                raise exceptions.ValidationError(
+                    _(
+                        "A partner without membership "
+                        "must be linked to an internal instance"
+                    )
+                )
 
-    @api.multi
-    @api.depends('is_assembly', 'is_company',
-                 'identifier', 'membership_state_id')
+    @api.depends("is_assembly", "is_company", "identifier", "membership_state_id")
     def _compute_kind(self):
-        '''
+        """
         Compute the kind of partner, computed field used in ir.rule
-        '''
+        """
         for partner in self:
             if partner.is_assembly:
-                k = 'a'
+                k = "a"
             elif not partner.identifier:
-                k = 't'
+                k = "t"
             elif partner.is_company:
-                k = 'c'
-            elif partner.membership_state_id.code == 'without_membership':
-                k = 'p'
+                k = "c"
+            elif partner.membership_state_id.code == "without_membership":
+                k = "p"
             else:
-                k = 'm'
+                k = "m"
             partner.kind = k
 
     @api.model
@@ -190,58 +200,58 @@ class ResPartner(models.Model):
 
         :return: product.template
         """
-        return self.env['product.product'].browse()
+        return self.env["product.product"].browse()
 
-    @api.multi
     def action_exclude(self):
         """
         Action to exclude current recordset (partners)
         :return: dict/action
         """
-        self._action_expulsion('expulsion')
+        self._action_expulsion("expulsion")
         return {}
 
-    @api.multi
     def action_resignation(self):
         """
         Action to launch the resignation of current recordset (partners)
         :return: dict/action
         """
-        self._action_expulsion('resignation')
+        self._action_expulsion("resignation")
         return {}
 
-    @api.multi
     def _action_expulsion(self, event):
         """
         Action to exclude current recordset (partners)
         :param date_from: str
         :return: membership.line recordset
         """
-        membership_obj = self.env['membership.line']
-        state_obj = self.env['membership.state']
+        membership_obj = self.env["membership.line"]
+        state_obj = self.env["membership.state"]
         all_excl_states = state_obj._get_all_exclusion_states()
         actual_states = {p.id: p.membership_state_id for p in self}
         # Use sudo to disable all membership lines
-        membership_obj.sudo().search([
-            ('date_to', '=', False),
-            ('active', '=', True),
-            ('partner_id', 'in', self.ids),
-            ('state_id', 'not in', all_excl_states.ids),
-        ])._close(force=True)
-        instance = self.env['int.instance']._get_default_int_instance()
+        membership_obj.sudo().search(
+            [
+                ("date_to", "=", False),
+                ("active", "=", True),
+                ("partner_id", "in", self.ids),
+                ("state_id", "not in", all_excl_states.ids),
+            ]
+        )._close(force=True)
+        instance = self.env["int.instance"]._get_default_int_instance()
         lines = membership_obj.browse()
         # Create the exclusion line only if the partner doesn't have
         # an active exclusion line (based on the state)
         for partner in self.filtered(lambda p: not p.is_excluded):
             excl_state = state_obj._get_next_state(
-                actual_state=actual_states[partner.id], event=event)
+                actual_state=actual_states[partner.id], event=event
+            )
             if excl_state:
                 values = membership_obj._build_membership_values(
-                    partner, instance, excl_state, price=0)
+                    partner, instance, excl_state, price=0
+                )
                 lines |= membership_obj.create(values)
         return lines
 
-    @api.multi
     def _renew_membership_line(self, date_from=False):
         """
         Renew a subscription of current partners.
@@ -252,10 +262,10 @@ class ResPartner(models.Model):
         """
         partners = self.filtered(lambda s: not s.is_company)
         # We have to renew every (active) membership lines of the partner
-        partners.mapped("membership_line_ids").filtered(
-            lambda l: l.active)._renew(date_from=date_from)
+        partners.mapped("membership_line_ids").filtered(lambda l: l.active)._renew(
+            date_from=date_from
+        )
 
-    @api.multi
     def _create_user(self, login, group_ids):
         """
         When creating a user from a partner,
@@ -266,15 +276,13 @@ class ResPartner(models.Model):
         self.int_instance_m2m_ids = self.int_instance_ids
         return user
 
-    @api.multi
     @api.depends("membership_line_ids", "membership_line_ids.product_id")
     def _compute_subscription_product_id(self):
-        tarification_obj = self.env['membership.tarification']
+        tarification_obj = self.env["membership.tarification"]
         for partner in self:
             product = tarification_obj._get_product_by_partner(partner)
             partner.subscription_product_id = product
 
-    @api.multi
     def write(self, vals):
         """
         Update followers when changing internal instance
@@ -283,27 +291,27 @@ class ResPartner(models.Model):
         the user
         """
         if not vals.get("active", True):
-            self.write({
-                "force_int_instance_id":
-                    self._default_force_int_instance_id().id
-            })
-        if vals.get('is_company'):
-            if self.filtered(
-                    lambda s: not s.is_company and s.membership_line_ids):
+            self.write(
+                {"force_int_instance_id": self._default_force_int_instance_id().id}
+            )
+        if vals.get("is_company"):
+            if self.filtered(lambda s: not s.is_company and s.membership_line_ids):
                 raise ValidationError(
-                    _('A natural person with membership history '
-                      'cannot be transformed to a legal person'))
+                    _(
+                        "A natural person with membership history "
+                        "cannot be transformed to a legal person"
+                    )
+                )
         res = super().write(vals)
-        if 'int_instance_m2m_ids' in vals:
-            self.env['ir.rule'].clear_cache()
+        if "int_instance_m2m_ids" in vals:
+            self.env["ir.rule"].clear_cache()
         return res
 
-    @api.multi
     def _open_co_residency(self):
-        '''
+        """
         When excluding or resigning a member open its co-residency,
         maybe some infos have to be accordingly changed
-        '''
+        """
         res = None
         if self.ids and len(self.ids) == 1:
             # go directly to the co-residency form if any
@@ -312,16 +320,16 @@ class ResPartner(models.Model):
                 res = coord.co_residency_id.get_formview_action()
         return res
 
-    @api.multi
     def _write(self, vals):
-        '''
+        """
         Update additional flags together with the recomputing
         of membership_state_id by inheriting the _write() low level
         implementation
-        '''
-        if self and vals.get('membership_state_id'):
-            new_state_code = self.env['membership.state'].browse(
-                vals['membership_state_id']).code
+        """
+        if self and vals.get("membership_state_id"):
+            new_state_code = (
+                self.env["membership.state"].browse(vals["membership_state_id"]).code
+            )
             dic = vals.copy()
             res = True
             for partner in self:
@@ -331,7 +339,6 @@ class ResPartner(models.Model):
             res = super()._write(vals)
         return res
 
-    @api.multi
     def _update_flags(self, new_state_code):
         """
         Update additional flags when changing state
@@ -343,49 +350,65 @@ class ResPartner(models.Model):
         vals = {}
 
         # force voluntaries fields if any
-        if new_state_code in [
-                'without_membership', 'supporter', 'former_supporter']:
-            vals.update({
-                'local_voluntary': False,
-                'regional_voluntary': False,
-                'national_voluntary': False,
-            })
-        elif any([
-                new_state_code == 'member_candidate' and
-                self.membership_state_code in [
-                    'without_membership', 'supporter'],
-                new_state_code == 'member_committee' and
-                self.membership_state_code == 'supporter']):
-            vals.update({
-                'local_voluntary': True,
-                'regional_voluntary': True,
-                'national_voluntary': True,
-            })
+        if new_state_code in ["without_membership", "supporter", "former_supporter"]:
+            vals.update(
+                {
+                    "local_voluntary": False,
+                    "regional_voluntary": False,
+                    "national_voluntary": False,
+                }
+            )
+        elif any(
+            [
+                new_state_code == "member_candidate"
+                and self.membership_state_code in ["without_membership", "supporter"],
+                new_state_code == "member_committee"
+                and self.membership_state_code == "supporter",
+            ]
+        ):
+            vals.update(
+                {
+                    "local_voluntary": True,
+                    "regional_voluntary": True,
+                    "national_voluntary": True,
+                }
+            )
 
         # force local only field if any
-        if new_state_code in [
-                'supporter', 'former_supporter', 'member_candidate',
-                'member_committee', 'member', 'former_member',
-                'former_member_committee'] and self.local_only:
-            vals['local_only'] = False
+        if (
+            new_state_code
+            in [
+                "supporter",
+                "former_supporter",
+                "member_candidate",
+                "member_committee",
+                "member",
+                "former_member",
+                "former_member_committee",
+            ]
+            and self.local_only
+        ):
+            vals["local_only"] = False
 
         return vals
 
-    @api.multi
     def action_add_membership(self):
         """
 
         :return: dict
         """
         self.ensure_one()
-        action = self.env.ref(
-            "mozaik_membership.add_membership_action").read()[0]
+        action = self.env.ref("mozaik_membership.add_membership_action").read()[0]
         context = self.env.context.copy()
-        context.update({
-            'active_id': self.id,
-            'active_model': self._name,
-        })
-        action.update({
-            'context': context,
-        })
+        context.update(
+            {
+                "active_id": self.id,
+                "active_model": self._name,
+            }
+        )
+        action.update(
+            {
+                "context": context,
+            }
+        )
         return action

@@ -8,5 +8,6 @@
     "website": "https://github.com/OCA/mozaik",
     "category": "Hidden",
     "depends": [],
+    "external_dependencies": {"python": ["phonenumbers"]},
     "installable": True,
 }

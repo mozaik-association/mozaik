@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="mass_membership_renew_form_view">
@@ -10,16 +9,11 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="date_from"/>
+                    <field name="date_from" />
                 </group>
                 <footer>
-                    <button name="doit"
-                            string="OK"
-                            class="btn-primary"
-                            type="object"/>
-                    <button string="Cancel"
-                            class="btn-default"
-                            special="cancel"/>
+                    <button name="doit" string="OK" class="btn-primary" type="object" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
             </form>
         </field>
@@ -30,15 +24,15 @@
         <field name="res_model">mass.membership.renew</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="view_id" ref="mass_membership_renew_form_view"/>
-        <field name="binding_model_id" eval="False"/>
+        <field name="view_id" ref="mass_membership_renew_form_view" />
+        <field name="binding_model_id" eval="False" />
     </record>
 
     <record model="ir.ui.menu" id="mass_membership_renew_menu">
         <field name="name">Mass renew</field>
-        <field name="parent_id" ref="mozaik_membership.membership_submenu"/>
-        <field name="action" ref="mass_membership_renew_act_window"/>
-        <field name="sequence" eval="20"/>
+        <field name="parent_id" ref="mozaik_membership.membership_submenu" />
+        <field name="action" ref="mass_membership_renew_act_window" />
+        <field name="sequence" eval="20" />
     </record>
 
 </odoo>

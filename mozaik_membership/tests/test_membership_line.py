@@ -1,27 +1,27 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from uuid import uuid4
+
 from odoo import fields
-from odoo.tests.common import TransactionCase
 from odoo.exceptions import ValidationError
+from odoo.tests.common import TransactionCase
 
 
 class TestMembershipLine(TransactionCase):
-
     def setUp(self):
         super(TestMembershipLine, self).setUp()
-        self.membership_obj = self.env['membership.line']
-        self.partner_obj = self.env['res.partner']
-        self.state_obj = self.env['membership.state']
-        self.instance_obj = self.env['int.instance']
-        self.product_obj = self.env['product.product']
+        self.membership_obj = self.env["membership.line"]
+        self.partner_obj = self.env["res.partner"]
+        self.state_obj = self.env["membership.state"]
+        self.instance_obj = self.env["int.instance"]
+        self.product_obj = self.env["product.product"]
         self.instance = self.env.ref("mozaik_membership.int_instance_03")
-        self.partner_marc = self.env.ref("mozaik_coordinate.res_partner_marc")
+        self.partner_marc = self.env.ref("mozaik_membership.res_partner_marc")
         self.product_subscription = self.env.ref(
-            "mozaik_membership.membership_product_isolated")
-        self.product_free = self.env.ref(
-            "mozaik_membership.membership_product_free")
+            "mozaik_membership.membership_product_isolated"
+        )
+        self.product_free = self.env.ref("mozaik_membership.membership_product_free")
 
     def test_generate_membership_reference(self):
         """
@@ -33,9 +33,10 @@ class TestMembershipLine(TransactionCase):
         ref_date = fields.Date.today()
         # generate the reference
         genref = self.membership_obj._generate_membership_reference(
-            partner, instance, ref_date=ref_date)
+            partner, instance, ref_date=ref_date
+        )
         year = fields.Date.from_string(ref_date).year
-        ref = 'MS: %s/%s/%s' % (year, instance.id, partner.id)
+        ref = "MS: %s/%s/%s" % (year, instance.id, partner.id)
         self.assertEqual(genref, ref)
 
     def test_get_subscription_price1(self):
@@ -47,7 +48,8 @@ class TestMembershipLine(TransactionCase):
         instance = self.instance
         # get the price
         price = self.membership_obj._get_subscription_price(
-            self.product_free, partner=partner, instance=instance)
+            self.product_free, partner=partner, instance=instance
+        )
         self.assertAlmostEqual(price, self.product_free.list_price)
 
     def test_get_subscription_price2(self):
@@ -60,19 +62,30 @@ class TestMembershipLine(TransactionCase):
         instance = self.instance
         price = 1256.369
         # update the product price
-        self.product_free.write({
-            'list_price': price,
-        })
+        self.product_free.write(
+            {
+                "list_price": price,
+            }
+        )
         # Use the precision defined on the price field
-        precision = membership_obj._fields.get('price').digits[1]
+        precision = membership_obj._fields.get("price").get_digits(self.env)[1]
         # get the price
         result_price = membership_obj._get_subscription_price(
-            self.product_free, partner=partner, instance=instance)
+            self.product_free, partner=partner, instance=instance
+        )
         self.assertAlmostEqual(price, result_price, places=precision)
 
     def _get_membership_line_values(
-            self, date_from=False, date_to=False, partner=False, state=False,
-            instance=False, price=False, ref=False, product=False):
+        self,
+        date_from=False,
+        date_to=False,
+        partner=False,
+        state=False,
+        instance=False,
+        price=False,
+        ref=False,
+        product=False,
+    ):
         """
 
         :param date_from: date
@@ -94,14 +107,14 @@ class TestMembershipLine(TransactionCase):
         if isinstance(product, bool):
             product = self.product_obj.browse()
         values = {
-            'date_from': date_from,
-            'date_to': date_to,
-            'partner_id': partner.id,
-            'state_id': state.id,
-            'int_instance_id': instance.id,
-            'price': price,
-            'reference': ref,
-            'product_id': product.id,
+            "date_from": date_from,
+            "date_to": date_to,
+            "partner_id": partner.id,
+            "state_id": state.id,
+            "int_instance_id": instance.id,
+            "price": price,
+            "reference": ref,
+            "product_id": product.id,
         }
         return values
 
@@ -119,16 +132,19 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = partner.membership_state_id
-        date_from = '2015-06-05'
+        date_from = "2015-06-05"
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
-        new_date_from = fields.Date.to_string(
-            fields.Date.from_string('2015-11-09'))
-        # The product should be saved before the renew
-        __ = partner.subscription_product_id
+        new_date_from = fields.Date.to_string(fields.Date.from_string("2015-11-09"))
         # Renew it (should not create a new membership)
         same_membership = membership._renew(date_from=new_date_from)
         self.assertFalse(same_membership)
@@ -148,23 +164,30 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = partner.membership_state_id
-        date_from = '2015-06-05'
+        date_from = "2015-06-05"
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # Force False to create a new one instead of updating the existing
-        membership.write({
-            'active': False,
-            'date_to': date_from,
-        })
+        membership.write(
+            {
+                "active": False,
+                "date_to": date_from,
+            }
+        )
         # We have to transform the date in correct format
-        new_date_from = fields.Date.to_string(
-            fields.Date.from_string('2015-11-09'))
+        new_date_from = fields.Date.from_string("2015-11-09")
         # The product should be saved before the renew
         theoric_product = partner.subscription_product_id
         # Renew it
-        created = membership._renew(date_from=new_date_from)
+        created = membership._renew(date_from=fields.Date.to_string(new_date_from))
         self.assertEqual(created.date_from, new_date_from)
         self.assertEqual(created.partner_id, partner)
         self.assertEqual(created.int_instance_id, instance)
@@ -179,8 +202,9 @@ class TestMembershipLine(TransactionCase):
         is the date interval (from parameter) where it shouldn't be renewed
         :return:
         """
-        self.env['ir.config_parameter'].set_param(
-            'membership.no_subscription_renew', '01/01')
+        self.env["ir.config_parameter"].set_param(
+            "membership.no_subscription_renew", "01/01"
+        )
         membership_obj = self.membership_obj
         # For the current test, remove every other membership.line records
         membership_obj.search([]).unlink()
@@ -192,8 +216,14 @@ class TestMembershipLine(TransactionCase):
         state = partner.membership_state_id
         date_from = date.today() - timedelta(days=1)
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
         new_date_from = fields.Date.to_string(date.today() + timedelta(days=1))
@@ -222,8 +252,14 @@ class TestMembershipLine(TransactionCase):
         date_from = fields.Date.from_string(fields.Date.today())
         date_from += timedelta(days=25)
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
         new_date_from = fields.Date.today()
@@ -248,16 +284,19 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = partner.membership_state_id
-        date_from = '2015-06-05'
+        date_from = "2015-06-05"
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
-        new_date_from = fields.Date.to_string(
-            fields.Date.from_string('2015-11-09'))
-        # The product should be saved before the former member
-        __ = partner.subscription_product_id
+        new_date_from = fields.Date.to_string(fields.Date.from_string("2015-11-09"))
         # Former member it (should not create a new membership)
         same_membership = membership._former_member(date_from=new_date_from)
         self.assertFalse(same_membership)
@@ -277,21 +316,31 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = self.env.ref("mozaik_membership.member")
-        date_from = '2015-06-05'
+        date_from = "2015-06-05"
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # Force False to create a new one instead of updating the existing
-        membership.write({
-            'active': False,
-            'date_to': date_from,
-        })
+        membership.write(
+            {
+                "active": False,
+                "date_to": date_from,
+            }
+        )
+        membership.flush()
         # We have to transform the date in correct format
-        new_date_from = fields.Date.to_string(
-            fields.Date.from_string('2015-11-09'))
+        new_date_from = fields.Date.from_string("2015-11-09")
         # Former member it
-        created = membership._former_member(date_from=new_date_from)
+        created = membership._former_member(
+            date_from=fields.Date.to_string(new_date_from)
+        )
         self.assertEqual(created.date_from, new_date_from)
         self.assertEqual(created.partner_id, partner)
         self.assertEqual(created.int_instance_id, instance)
@@ -306,8 +355,9 @@ class TestMembershipLine(TransactionCase):
         shouldn't be former member
         :return:
         """
-        self.env['ir.config_parameter'].set_param(
-            'membership.no_subscription_renew', '01/01')
+        self.env["ir.config_parameter"].set_param(
+            "membership.no_subscription_renew", "01/01"
+        )
         membership_obj = self.membership_obj
         # For the current test, remove every other membership.line records
         membership_obj.search([]).unlink()
@@ -319,8 +369,14 @@ class TestMembershipLine(TransactionCase):
         state = partner.membership_state_id
         date_from = date.today() - timedelta(days=1)
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
         new_date_from = fields.Date.to_string(date.today() + timedelta(days=1))
@@ -350,8 +406,14 @@ class TestMembershipLine(TransactionCase):
         date_from = fields.Date.from_string(fields.Date.today())
         date_from += timedelta(days=25)
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # We have to transform the date in correct format
         new_date_from = fields.Date.today()
@@ -373,10 +435,16 @@ class TestMembershipLine(TransactionCase):
         partner = self.partner_marc
         product = self.product_subscription
         state = partner.membership_state_id
-        date_from = '2015-06-05'
+        date_from = "2015-06-05"
         values = self._get_membership_line_values(
-            price=price, ref=reference, partner=partner, product=product,
-            date_from=date_from, state=state, instance=instance)
+            price=price,
+            ref=reference,
+            partner=partner,
+            product=product,
+            date_from=date_from,
+            state=state,
+            instance=instance,
+        )
         membership = membership_obj.create(values)
         # OK: active != bool(date_to)
         self.assertNotEqual(membership.active, bool(membership.date_to))
@@ -387,10 +455,12 @@ class TestMembershipLine(TransactionCase):
         # NOK: active=True; date_to!=False
         with self.assertRaises(ValidationError):
             membership.date_to = date_from
-        membership.write({
-            'active': False,
-            'date_to': date_from,
-        })
+        membership.write(
+            {
+                "active": False,
+                "date_to": date_from,
+            }
+        )
         # OK: active != bool(date_to)
         self.assertNotEqual(membership.active, bool(membership.date_to))
         return

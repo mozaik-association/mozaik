@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -9,16 +9,21 @@
             <form>
                 <group>
                     <group>
-                        <field name="date_from"/>
+                        <field name="date_from" />
                     </group>
-                    <group></group>
+                    <group />
                 </group>
                 <group name="main_group" string="Selected lines">
-                    <field name="membership_line_ids" colspan="2" nolabel="1"/>
+                    <field name="membership_line_ids" colspan="2" nolabel="1" />
                 </group>
                 <footer>
-                    <button string="Close and renew" name="action_close_and_renew" type="object" class="oe_highlight"/>
-                    <button string="Cancel" special="cancel"/>
+                    <button
+                        string="Close and renew"
+                        name="action_close_and_renew"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" special="cancel" />
                 </footer>
             </form>
         </field>
@@ -27,12 +32,13 @@
     <record id="membership_renew_membership_action" model="ir.actions.act_window">
         <field name="name">Renew Membership</field>
         <field name="view_mode">form</field>
-        <field name="src_model">membership.line</field>
         <field name="res_model">membership.renew</field>
         <field name="target">new</field>
-        <field name="view_id" ref="membership_renew_form_view"/>
-        <field name="binding_model_id" ref="model_membership_line"/>
-        <field name="groups_id" eval="[
+        <field name="view_id" ref="membership_renew_form_view" />
+        <field name="binding_model_id" ref="model_membership_line" />
+        <field
+            name="groups_id"
+            eval="[
             (4, ref('base.group_erp_manager'))
             ]"
         />
@@ -41,12 +47,13 @@
     <record id="membership_renew_partner_action" model="ir.actions.act_window">
         <field name="name">Renew Membership</field>
         <field name="view_mode">form</field>
-        <field name="src_model">res.partner</field>
         <field name="res_model">membership.renew</field>
         <field name="target">new</field>
-        <field name="view_id" ref="membership_renew_form_view"/>
-        <field name="binding_model_id" ref="base.model_res_partner"/>
-        <field name="groups_id" eval="[
+        <field name="view_id" ref="membership_renew_form_view" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field
+            name="groups_id"
+            eval="[
             (4, ref('base.group_erp_manager'))
             ]"
         />

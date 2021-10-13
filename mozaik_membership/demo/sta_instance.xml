@@ -3,7 +3,7 @@
 
     <record id="sta_instance_03" model="sta.instance">
         <field name="name">Liège</field>
-        <field name="power_level_id" ref="mozaik_structure.sta_power_level_01"/>
+        <field name="power_level_id" ref="mozaik_structure.sta_power_level_01" />
     </record>
 
 </odoo>

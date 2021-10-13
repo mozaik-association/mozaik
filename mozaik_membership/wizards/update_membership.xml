@@ -10,21 +10,40 @@
             <form>
                 <group>
                     <group>
-                        <field name="membership_line_id" options="{'no_open': True}"/>
-                        <field name="update_type" attrs="{'invisible': [('update_type', '!=', False)]}"/>
+                        <field name="membership_line_id" options="{'no_open': True}" />
+                        <field
+                            name="update_type"
+                            attrs="{'invisible': [('update_type', '!=', False)]}"
+                        />
                     </group>
                     <group attrs="{'invisible': [('update_type', '!=', 'instance')]}">
-                        <field name="int_instance_id" attrs="{'required': [('update_type', '=', 'instance')]}" options="{'no_create_edit': True, 'no_create': True}"/>
+                        <field
+                            name="int_instance_id"
+                            attrs="{'required': [('update_type', '=', 'instance')]}"
+                            options="{'no_create_edit': True, 'no_create': True}"
+                        />
                     </group>
                     <group attrs="{'invisible': [('update_type', '!=', 'product')]}">
-                        <field name="product_id" attrs="{'required': [('update_type', '=', 'product')]}" options="{'no_create_edit': True, 'no_create': True}"/>
-                        <field name="price"/>
-                        <field name="reference" attrs="{'required': [('price', '&gt;', 0)]}"/>
+                        <field
+                            name="product_id"
+                            attrs="{'required': [('update_type', '=', 'product')]}"
+                            options="{'no_create_edit': True, 'no_create': True}"
+                        />
+                        <field name="price" />
+                        <field
+                            name="reference"
+                            attrs="{'required': [('price', '&gt;', 0)]}"
+                        />
                     </group>
                 </group>
                 <footer>
-                    <button string="Update" name="action_update" type="object" class="oe_highlight"/>
-                    <button string="Cancel" special="cancel"/>
+                    <button
+                        string="Update"
+                        name="action_update"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" special="cancel" />
                 </footer>
             </form>
         </field>
@@ -34,7 +53,6 @@
     <record model="ir.actions.act_window" id="update_membership_instance_action">
         <field name="name">Update instance</field>
         <field name="res_model">update.membership</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="context">{'default_update_type': 'instance'}</field>
         <field name="target">new</field>
@@ -43,7 +61,6 @@
     <record model="ir.actions.act_window" id="update_membership_product_action">
         <field name="name">Update product/price</field>
         <field name="res_model">update.membership</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="context">{'default_update_type': 'product'}</field>
         <field name="target">new</field>

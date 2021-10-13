@@ -6,11 +6,13 @@ from odoo import fields, models
 
 class IntMandate(models.Model):
 
-    _inherit = 'int.mandate'
+    _inherit = "int.mandate"
 
     mandate_instance_id = fields.Many2one(
-        related='int_assembly_id.instance_id',
-        store='True', index='True', readonly=True,
+        related="int_assembly_id.instance_id",
+        store="True",
+        index="True",
+        readonly=True,
     )
     partner_instance_search_ids = fields.Many2many(
         relation="int_mandate_partner_instance_membership_rel",

@@ -8,22 +8,38 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="code"/>
-                            <field name="product_id"/>
+                            <field name="name" />
+                            <field name="code" />
+                            <field name="product_id" />
                         </group>
                         <group>
-                            <field name="sequence"/>
-                            <field name="active"/>
+                            <field name="sequence" />
+                            <field name="active" />
                         </group>
                     </group>
                     <group string="Available variables" name="group_note">
-                        <label colspan="2" string="context => Current context"/>
-                        <label colspan="2" string="partner => Partner whose tarification is evaluated"/>
-                        <label colspan="2" string="uid => Current user id"/>
-                        <label colspan="2" string="user => Current user"/>
-                        <label colspan="2" string="self => Current tarification"/>
-                        <label colspan="2" string="today => Current date (YYYY-MM-DD)"/>
+                        <label
+                            for="code"
+                            colspan="2"
+                            string="context => Current context"
+                        />
+                        <label
+                            for="code"
+                            colspan="2"
+                            string="partner => Partner whose tarification is evaluated"
+                        />
+                        <label for="code" colspan="2" string="uid => Current user id" />
+                        <label for="code" colspan="2" string="user => Current user" />
+                        <label
+                            for="code"
+                            colspan="2"
+                            string="self => Current tarification"
+                        />
+                        <label
+                            for="code"
+                            colspan="2"
+                            string="today => Current date (YYYY-MM-DD)"
+                        />
                     </group>
                 </sheet>
             </form>
@@ -35,11 +51,11 @@
         <field name="model">membership.tarification</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="sequence" widget="handle"/>
-                <field name="name"/>
-                <field name="code"/>
-                <field name="product_id"/>
-                <field name="active"/>
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="code" />
+                <field name="product_id" />
+                <field name="active" />
             </tree>
         </field>
     </record>
@@ -47,14 +63,13 @@
     <record model="ir.actions.act_window" id="membership_tarification_act_window">
         <field name="name">Membership tarification</field>
         <field name="res_model">membership.tarification</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.ui.menu" id="membership_tarification_menu">
         <field name="name">Membership tarification</field>
-        <field name="parent_id" ref="mozaik_membership.membership_submenu"/>
-        <field name="action" ref="membership_tarification_act_window"/>
-        <field name="sequence" eval="40"/>
+        <field name="parent_id" ref="mozaik_membership.membership_submenu" />
+        <field name="action" ref="membership_tarification_act_window" />
+        <field name="sequence" eval="40" />
     </record>
 </odoo>

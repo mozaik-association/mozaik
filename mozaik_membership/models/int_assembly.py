@@ -6,5 +6,5 @@ from odoo import models
 
 class IntAssembly(models.Model):
 
-    _name = 'int.assembly'
-    _inherit = ['int.assembly', 'assembly.mixin']
+    _name = "int.assembly"
+    _inherit = ["int.assembly", "assembly.mixin"]

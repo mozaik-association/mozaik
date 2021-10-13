@@ -2,7 +2,10 @@
 <odoo>
 
     <record id="base.partner_root" model="res.partner">
-        <field name="int_instance_m2m_ids" eval="[(4, ref('mozaik_structure.int_instance_01'))]"/>
+        <field
+            name="int_instance_m2m_ids"
+            eval="[(4, ref('mozaik_structure.int_instance_01'))]"
+        />
     </record>
 
 </odoo>

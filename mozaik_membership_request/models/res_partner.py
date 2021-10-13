@@ -1,88 +1,114 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import json
 import logging
 
-from openerp import _, api, fields, models
-from openerp.exceptions import ValidationError
-
-import openerp.addons.decimal_precision as dp
+from odoo import fields, models
 
 _logger = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
 
-    _inherit = 'res.partner'
+    _name = "res.partner"
+    _inherit = ["res.partner", "statechart.mixin"]
+    _statechart_file = "mozaik_membership_request/data/res_partner_statechart.yml"
 
-    @api.multi
+    accepted_date = fields.Date()
+    free_member = fields.Boolean()
+    decline_payment_date = fields.Date()
+    rejected_date = fields.Date()
+    resignation_date = fields.Date()
+    exclusion_date = fields.Date()
+
+    def simulate_next_state(self):
+        self.ensure_one()
+        self.sc_state = json.dumps(
+            {"configuration": ["root", self.membership_state_code]}
+        )
+
+        interpreter = self.sc_interpreter
+        transitions = interpreter._statechart.transitions
+        evaluator = interpreter._evaluator
+        next_state = False
+        for transition in transitions:
+            if not transition.event and transition.source in interpreter._configuration:
+                if transition.guard is None:
+                    next_state = transition.target
+                    break
+                try:
+                    if evaluator.evaluate_guard(transition, None):
+                        next_state = transition.target
+                        break
+                except Exception:  # pylint: disable=broad-except
+                    # Guard could not be evaluated
+                    continue
+        return next_state
+
     def button_modification_request(self):
         """
         Create a `membership.request` from a partner
         """
         self.ensure_one()
-        membership_request = self.env['membership.request']
+        membership_request = self.env["membership.request"]
         mr = membership_request.search(
-            [('partner_id', '=', self.id), ('state', '=', 'draft')])
+            [("partner_id", "=", self.id), ("state", "=", "draft")]
+        )
         if not mr:
-            postal_coordinate_id = self.postal_coordinate_id
-            address_id = postal_coordinate_id.address_id
-            birth_date = self.birth_date
+            address_id = self.address_address_id
+            birthdate_date = self.birthdate_date
             day = False
             month = False
             year = False
-            if birth_date:
-                dt = birth_date.split('-')
-                day = dt[2]
-                month = dt[1]
-                year = dt[0]
+            if birthdate_date:
+                day = birthdate_date.day
+                month = birthdate_date.month
+                year = birthdate_date.year
 
             state_id = self.membership_state_id.id or False
-            competencies = self.competencies_m2m_ids
+            competencies = self.competency_ids
             values = {
-                'membership_state_id': state_id,
-                'result_type_id': state_id,
-                'identifier': self.identifier,
-                'lastname': self.lastname,
-                'firstname': self.firstname,
-                'gender': self.gender,
-                'birth_date': birth_date,
-                'day': day,
-                'month': month,
-                'year': year,
-                'is_update': True,
-                'country_id': address_id.country_id.id or False,
-                'address_local_street_id': (
-                    address_id.address_local_street_id.id or False),
-                'street_man': address_id.street_man or False,
-                'street2': address_id.street2 or False,
-                'address_local_zip_id': (
-                    address_id.address_local_zip_id.id or False),
-                'zip_man': address_id.zip_man or False,
-                'town_man': address_id.town_man or False,
-                'box': address_id.box or False,
-                'number': address_id.number or False,
-                'mobile': self.mobile_coordinate_id.phone_id.name or False,
-                'phone': self.fix_coordinate_id.phone_id.name or False,
-                'mobile_id': self.mobile_coordinate_id.phone_id.id or False,
-                'phone_id': self.fix_coordinate_id.phone_id.id or False,
-                'email': self.email_coordinate_id.email or False,
-                'partner_id': self.id,
-                'address_id': address_id.id or False,
-                'int_instance_id': self.int_instance_id.id or False,
-                'interests_m2m_ids': [(6, 0, self.interests_m2m_ids.ids)],
-                'competencies_m2m_ids': [(6, 0, competencies.ids)],
-                'local_voluntary': self.local_voluntary,
-                'regional_voluntary': self.regional_voluntary,
-                'national_voluntary': self.national_voluntary,
-                'local_only': self.local_only,
-                'nationality_id': self.nationality_id.id or False,
+                "membership_state_id": state_id,
+                "result_type_id": state_id,
+                "identifier": self.identifier,
+                "lastname": self.lastname,
+                "firstname": self.firstname,
+                "gender": self.gender,
+                "birthdate_date": birthdate_date,
+                "day": day,
+                "month": month,
+                "year": year,
+                "is_update": True,
+                "country_id": address_id.country_id.id or False,
+                "address_local_street_id": (
+                    address_id.address_local_street_id.id or False
+                ),
+                "street_man": address_id.street_man or False,
+                "street2": address_id.street2 or False,
+                "city_id": (address_id.city_id.id or False),
+                "zip_man": address_id.zip_man or False,
+                "city_man": address_id.city_man or False,
+                "box": address_id.box or False,
+                "number": address_id.number or False,
+                "mobile": self.mobile or False,
+                "phone": self.phone or False,
+                "email": self.email or False,
+                "partner_id": self.id,
+                "address_id": address_id.id or False,
+                "int_instance_ids": [(6, 0, self.int_instance_ids.ids)],
+                "interest_ids": [(6, 0, self.interest_ids.ids)],
+                "competency_ids": [(6, 0, competencies.ids)],
+                "local_voluntary": self.local_voluntary,
+                "regional_voluntary": self.regional_voluntary,
+                "national_voluntary": self.national_voluntary,
+                "local_only": self.local_only,
+                "nationality_id": self.nationality_id.id or False,
             }
             # create mr in sudo mode for portal user allowing to avoid create
             # rights on this model for these users
-            if 'default_open_partner_user' in self.env.context:
+            if "default_open_partner_user" in self.env.context:
                 membership_request = membership_request.sudo()
             mr = membership_request.create(values)
-        res = mr.display_object_in_form_view()[0]
+        res = mr.get_formview_action()
         return res

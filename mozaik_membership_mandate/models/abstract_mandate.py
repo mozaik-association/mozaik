@@ -6,11 +6,11 @@ from odoo import fields, models
 
 class AbstractMandate(models.AbstractModel):
 
-    _inherit = 'abstract.mandate'
+    _inherit = "abstract.mandate"
 
     partner_instance_ids = fields.Many2many(
-        related='partner_id.int_instance_ids',
-        string='Partner Internal Instances',
+        related="partner_id.int_instance_ids",
+        string="Partner Internal Instances",
         readonly=True,
     )
     partner_instance_search_ids = fields.Many2many(
@@ -19,4 +19,5 @@ class AbstractMandate(models.AbstractModel):
         store=True,
         column1="mandate_id",
         column2="instance_id",
+        ondelete="restrict",
     )
