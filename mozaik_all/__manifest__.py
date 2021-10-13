@@ -42,6 +42,7 @@
         "mozaik_mandate_female_label",
         "mozaik_mandate_category_sequence",
         "mozaik_membership_mandate",
+        "mozaik_membership_request",
         # 'mozaik_virtual_partner_mandate',
     ],
     "data": [

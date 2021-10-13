@@ -712,11 +712,10 @@ class MembershipLine(models.Model):
         close_lines[last_i:]._close_and_former_member(date_from=date_from)
 
     def _close_and_former_member(self, date_from=False):
-        # self.with_delay(
-        #     description="Former member %s memberships" % len(self),
-        #     channel="root.membership_close_and_former_member"
-        # )._job_close_and_former_member(date_from=date_from)
-        self._job_close_and_former_member(date_from=date_from)
+        self.with_delay(
+            description="Former member %s memberships" % len(self),
+            channel="root.membership_close_and_former_member",
+        )._job_close_and_former_member(date_from=date_from)
 
     def _job_close_and_former_member(self, date_from):
         date_to = fields.Date.from_string(date_from) - timedelta(days=1)
