@@ -255,11 +255,10 @@
                     <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
                         <field name="is_duplicate_detected" class="oe_inline" />
                         <button
-                            name="%(res_partner_duplicate_action)d"
-                            type="action"
+                            name="show_duplicates"
+                            type="object"
                             class="oe_red_link"
                             string="⇒ Show all duplicates"
-                            context="{'search_default_name': name, 'search_default_email': email, 'search_default_phone': phone, 'search_default_mobile': mobile, 'search_default_address_address_id': address_address_id}"
                         />
                     </div>
                 </group>
