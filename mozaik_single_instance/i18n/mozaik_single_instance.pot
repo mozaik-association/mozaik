@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_single_instance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_single_instance
+#: code:addons/mozaik_single_instance/models/res_partner.py:0
+#, python-format
+msgid "A partner cannot have more than one instance"
+msgstr ""
+
+#. module: mozaik_single_instance
+#: model:ir.model,name:mozaik_single_instance.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_single_instance
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_single_instance
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_single_instance
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_abstract_assembly__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_ext_assembly__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_int_assembly__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_res_partner__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_res_users__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_sta_assembly__int_instance_id
+msgid "Int Instance"
+msgstr ""
+
+#. module: mozaik_single_instance
+#: model:ir.model.fields,field_description:mozaik_single_instance.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
