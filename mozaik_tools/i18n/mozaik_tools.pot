@@ -1,5 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+# 	* mozaik_tools
 #
 msgid ""
 msgstr ""
@@ -11,3 +12,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: mozaik_tools
+#: code:addons/mozaik_tools/tools.py:0
+#, python-format
+msgid "Invalid phone number: %s"
+msgstr ""
