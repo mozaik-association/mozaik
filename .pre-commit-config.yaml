@@ -4,7 +4,6 @@ exclude: |
   ^connector_support/|
   ^disable_tracking_installation/|
   ^disable_user_welcome_message/|
-  ^distribution_list/|
   ^ir_rule_child_of/|
   ^mail_job_priority/|
   ^mass_mail_queue_job/|
