@@ -206,6 +206,14 @@ msgid "All Instances, archived or not"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__relation_all_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__relation_all_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__relation_all_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__relation_all_ids
+msgid "All relations with current partner"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__lang
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__lang
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__lang
@@ -931,6 +939,30 @@ msgid "Group By..."
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__search_relation_type_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__search_relation_type_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__search_relation_type_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__search_relation_type_id
+msgid "Has relation of type"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__search_relation_partner_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__search_relation_partner_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__search_relation_partner_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__search_relation_partner_id
+msgid "Has relation with"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__search_relation_partner_category_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__search_relation_partner_category_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__search_relation_partner_category_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__search_relation_partner_category_id
+msgid "Has relation with a partner in category"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__id
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__id
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__id
@@ -1045,6 +1077,16 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_structure.field_sta_power_level__message_has_error
 #: model:ir.model.fields,help:mozaik_structure.field_sta_power_level__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__team_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__team_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__team_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__team_id
+msgid ""
+"If set, this Sales Team will be used for sales and assignments related to "
+"this partner"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1784,6 +1826,14 @@ msgid "Power level of category and instance are inconsistent"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__property_product_pricelist
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__property_product_pricelist
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_product_pricelist
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__property_product_pricelist
+msgid "Pricelist"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:res.groups,name:mozaik_structure.res_groups_structure_reader
 msgid "Reader"
 msgstr ""
@@ -1825,6 +1875,22 @@ msgid "Related Partner"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__relation_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__relation_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__relation_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__relation_count
+msgid "Relation Count"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__search_relation_date
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__search_relation_date
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__search_relation_date
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__search_relation_date
+msgid "Relation valid"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__activity_user_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__activity_user_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__activity_user_id
@@ -1850,6 +1916,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__message_has_sms_error
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__message_has_sms_error
 msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__team_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__team_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__team_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__team_id
+msgid "Sales Team"
 msgstr ""
 
 #. module: mozaik_structure
@@ -2116,6 +2190,16 @@ msgstr ""
 msgid ""
 "This field is used to search on email address as the primary email field can"
 " contain more than strictly an email address."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__property_product_pricelist
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__property_product_pricelist
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__property_product_pricelist
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__property_product_pricelist
+msgid ""
+"This pricelist will be used, instead of the default one, for sales to the "
+"current partner"
 msgstr ""
 
 #. module: mozaik_structure
