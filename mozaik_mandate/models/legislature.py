@@ -2,6 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import _, api, models
 from odoo.exceptions import ValidationError
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+
+from datetime import datetime
 
 
 class Legislature(models.Model):
@@ -12,6 +15,9 @@ class Legislature(models.Model):
     def write(self, vals):
         new_deadline_date = vals.get("deadline_date", False)
         if new_deadline_date:
+            new_deadline_date = datetime.strptime(
+                new_deadline_date, DEFAULT_SERVER_DATE_FORMAT
+            ).date()
             for legis in self:
                 if legis.deadline_date != new_deadline_date:
                     if new_deadline_date < legis.deadline_date:

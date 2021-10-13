@@ -16,7 +16,7 @@ class ResPartner(models.Model):
     sta_candidature_inactive_ids = fields.One2many(
         comodel_name='sta.candidature',
         inverse_name='partner_id',
-        string='State Candidatures',
+        string='State Candidatures (Inactive)',
         domain=[('active', '=', False)])
     int_candidature_ids = fields.One2many(
         comodel_name='int.candidature',
@@ -26,7 +26,7 @@ class ResPartner(models.Model):
     int_candidature_inactive_ids = fields.One2many(
         comodel_name='int.candidature',
         inverse_name='partner_id',
-        string='Internal Candidatures',
+        string='Internal Candidatures (Inactive)',
         domain=[('active', '=', False)])
     ext_candidature_ids = fields.One2many(
         comodel_name='ext.candidature',
@@ -36,5 +36,5 @@ class ResPartner(models.Model):
     ext_candidature_inactive_ids = fields.One2many(
         comodel_name='ext.candidature',
         inverse_name='partner_id',
-        string='External Candidatures',
+        string='External Candidatures (Inactive)',
         domain=[('active', '=', False)])

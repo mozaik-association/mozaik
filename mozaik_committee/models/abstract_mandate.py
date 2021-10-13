@@ -4,7 +4,7 @@
 from odoo import fields, models
 
 
-class AbstractMandate(models.Model):
+class AbstractMandate(models.AbstractModel):
 
     _inherit = 'abstract.mandate'
 

@@ -127,7 +127,7 @@ class TestPartner(TransactionCase):
         }
         vals = dict(
             values,
-            int_instance_id=self.ref("mozaik_membership.int_instance_03"),
+            int_instance_id=self.ref("mozaik_structure.int_instance_03"),
             state_id=self.ref("mozaik_membership.member"),
         )
         membership_obj.create(vals)

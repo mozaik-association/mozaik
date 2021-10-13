@@ -26,7 +26,7 @@
         <field name="box">2B</field>
         <field
             name="int_instance_ids"
-            eval="[(4, ref('mozaik_membership.int_instance_03'))]"
+            eval="[(4, ref('mozaik_structure.int_instance_03'))]"
         />
         <field name="force_int_instance_id" ref="mozaik_structure.int_instance_02" />
 

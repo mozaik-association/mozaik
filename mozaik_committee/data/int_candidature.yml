@@ -1,0 +1,30 @@
+statechart:
+  name: int.candidature
+  root state:
+    name: root
+    initial: draft
+    states:
+      - name: draft
+        transitions:
+          - target: declared
+      - name: declared
+        on entry: self.write({'state':'declared'})
+        transitions:
+          - event: button_suggest
+            target: suggested
+          - event: button_reject
+            target: rejected
+      - name: suggested
+        on entry: self.write({'state':'suggested'})
+        transitions:
+          - event: button_declare
+            target: declared
+          - event: button_accept
+            target: elected
+      - name: rejected
+        on entry: self.write({'state':'rejected'})
+        transitions:
+          - event: button_declare
+            target: declared
+      - name: elected
+        on entry: self.action_elected()

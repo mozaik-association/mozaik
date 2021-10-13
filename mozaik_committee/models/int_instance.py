@@ -8,7 +8,6 @@ class IntInstance(models.Model):
 
     _inherit = 'int.instance'
 
-    @api.one
     def _compute_candidature_count(self):
         """
         This method will set the value for

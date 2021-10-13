@@ -9,7 +9,7 @@
         <field name="model">electoral.district</field>
         <field name="inherit_id" ref="mozaik_structure.electoral_district_form_view"/>
         <field name="arch" type="xml">
-        <xpath expr="//sheet/div[@name='buttons']" position="inside">
+        <xpath expr="//header" position="inside">
             <button string="Candidatures" name="%(sta_candidature_action)d"
                     type="action" attrs="{'invisible': [('id','=',False)]}"
                     context="{'search_default_electoral_district_id': active_id,

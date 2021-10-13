@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<openerp>
+<odoo>
 
     <data noupdate="1">
         <record id="sta_candidature_invalidation_delay" model="ir.config_parameter">
@@ -22,4 +22,4 @@
         </record>
     </data>
 
-</openerp>
+</odoo>

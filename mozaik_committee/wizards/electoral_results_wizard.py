@@ -1,33 +1,11 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_mandate, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_mandate is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_mandate is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_mandate.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2021 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 import base64
 import csv
-from StringIO import StringIO
+from io import StringIO
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+from odoo import api, fields, models, _
 
 file_import_structure = ['district',
                          'E/S',
@@ -45,27 +23,31 @@ def is_integer(s):
         return False
 
 
-class electoral_results_wizard(orm.TransientModel):
+class ElectoralResultsWizard(models.TransientModel):
     _name = "electoral.results.wizard"
+    _description = "Electoral Results Wizard"
 
-    _columns = {
-        'legislature_id': fields.many2one('legislature',
-                                          string='Legislature',),
-        'source_file': fields.binary('Source File'),
-        'error_lines': fields.one2many('electoral.results.wizard.errors',
-                                       'wizard_id',
-                                       'Errors'),
-        'file_lines': fields.one2many('electoral.results.wizard.lines',
-                                      'wizard_id',
-                                      'File Lines'),
-    }
 
-    def default_get(self, cr, uid, flds, context):
+    legislature_id = fields.Many2one(comodel_name="legislature", string="Legislature")
+    source_file = fields.Binary(string="Source File")
+    error_lines = fields.One2many(
+        comodel_name="electoral.results.wizard.errors",
+        inverse_name="wizard_id",
+        string="Errors",
+    )
+    file_lines = fields.One2many(
+        comodel_name="electoral.results.wizard.lines",
+        inverse_name="wizard_id",
+        string="File Lines",
+    )
+
+    @api.model
+    def default_get(self, fields):
         """
         To get default values for the object.
         """
-        res = {}
-        context = context or {}
+        res = super().default_get(fields)
+        context = self.env.context
 
         model = context.get('active_model', False)
         if not model:
@@ -75,23 +57,28 @@ class electoral_results_wizard(orm.TransientModel):
             or (context.get('active_id') and [context.get('active_id')]) \
             or []
 
-        legislature = self.pool[model].browse(cr, uid, ids[0], context=context)
+        legislature = self.env[model].browse(ids[0])
         res['legislature_id'] = legislature.id
 
         return res
 
-    def validate_file(self, cr, uid, ids, context=None):
+    def validate_file(self):
         def save_error():
-            error_obj.create(cr, uid,
-                             {'wizard_id': wizard.id,
-                              'line_number': line_number,
-                              'error_msg': error_msg})
-        district_obj = self.pool.get('electoral.district')
-        candi_obj = self.pool.get('sta.candidature')
-        error_obj = self.pool.get('electoral.results.wizard.errors')
-        line_obj = self.pool.get('electoral.results.wizard.lines')
-        wizard = self.browse(cr, uid, ids, context=context)[0]
-        source_file = base64.decodestring(wizard.source_file)
+            error_obj.create(
+                {
+                    'wizard_id': self.id,
+                    'line_number': line_number,
+                    'error_msg': error_msg,
+                }
+            )
+
+        self.ensure_one()
+
+        district_obj = self.env['electoral.district']
+        candi_obj = self.env['sta.candidature']
+        error_obj = self.env['electoral.results.wizard.errors']
+        line_obj = self.env['electoral.results.wizard.lines']
+        source_file = base64.b64decode(self.source_file).decode("utf-8")
         csv_reader = csv.reader(StringIO(source_file))
         known_districts = {}
 
@@ -117,7 +104,7 @@ class electoral_results_wizard(orm.TransientModel):
             name = line[2]
             votes = line[3]
             position = line[4]
-            position_non_elected = line[5]
+            position_non_elected = line[5] or 0
 
             if not is_integer(votes):
                 error_msg = _('Votes value should be integer: %s' %
@@ -141,40 +128,32 @@ class electoral_results_wizard(orm.TransientModel):
 
             district_id = False
             if district not in known_districts:
-                district_id = district_obj.search(cr, uid,
-                                                  [('name', '=', district)],
-                                                  limit=1,
-                                                  context=context)
+                district_id = district_obj.search([('name', '=', district)], limit=1)
                 if not district_id:
                     error_msg = _('Unknown district: %s' %
                                   district)
                     save_error()
                     continue
                 else:
-                    known_districts[name] = district_id[0]
+                    known_districts[name] = district_id.id
 
-            candidature_ids = candi_obj.search(cr, uid,
-                                               [('partner_name',
-                                                 '=',
-                                                 name),
-                                                ('electoral_district_id',
-                                                 '=',
-                                                 district_id[0]),
-                                                ('legislature_id',
-                                                 '=',
-                                                 wizard.legislature_id.id),
-                                                ('active', '<=', True)],
-                                               limit=1,
-                                               context=context)
+            candidature_id = candi_obj.search(
+                [
+                    ("partner_id", "=", name),
+                    ("electoral_district_id", "=", district_id.id),
+                    ("legislature_id", "=", self.legislature_id.id),
+                    ("active", "<=", True),
+                ],
+                limit=1,
+            )
 
-            if not candidature_ids:
+            if not candidature_id:
                 error_msg = _('Unknown candidate: %s' %
                               name)
                 save_error()
                 continue
 
-            candidature = candi_obj.browse(cr, uid, candidature_ids[0],
-                                           context=context)
+            candidature = candi_obj.browse(candidature_id.id)
 
             if not e_s:
                 if candidature.is_effective or candidature.is_substitute:
@@ -216,7 +195,7 @@ class electoral_results_wizard(orm.TransientModel):
             if candidature.state == 'designated':
                 pass
             elif candidature.state == 'elected':
-                if position_non_elected > 0:
+                if int(position_non_elected) > 0:
                     error_msg = _('Candidate is elected but position '
                                   'non elected (%s) is set' %
                                   position_non_elected)
@@ -230,27 +209,29 @@ class electoral_results_wizard(orm.TransientModel):
                 save_error()
                 continue
 
-            line_obj.create(cr, uid, {'wizard_id': wizard.id,
-                                      'sta_candidature_id': candidature.id,
-                                      'data': str(line)},
-                            context=context)
+            line_obj.create(
+                {
+                    "wizard_id": self.id,
+                    "sta_candidature_id": candidature.id,
+                    "data": str(line),
+                }
+            )
 
-        model, res_id =\
-            self.pool.get('ir.model.data').get_object_reference(
-                cr,
-                uid,
-                'mozaik_mandate',
-                'electoral_results_wizard_step2_action')
-        action = self.pool[model].read(cr, uid, res_id, context=context)
-        action['res_id'] = ids[0]
-        action.pop('context', '')
-        return action
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Import Electoral Results"),
+            "res_model": "electoral.results.wizard",
+            "view_mode": "form",
+            "target": "new",
+            "view_id": self.env.ref("mozaik_committee.electoral_results_wizard_step2").id,
+            "res_id": self.id,
+        }
 
-    def import_file(self, cr, uid, ids, context=None):
-        wizard = self.browse(cr, uid, ids, context=context)[0]
+    def import_file(self):
+        self.ensure_one()
 
-        for line in wizard.file_lines:
-            candi_obj = self.pool.get('sta.candidature')
+        for line in self.file_lines:
+            candi_obj = self.env['sta.candidature']
             file_line = eval(line.data)
 
             e_s = file_line[1]
@@ -261,7 +242,7 @@ class electoral_results_wizard(orm.TransientModel):
             position_col = 'election_effective_position'
             votes_col = 'effective_votes'
 
-            signal = 'button_elected'
+            sc_event = 'button_elected'
 
             if not e_s and position_non_elected:
                 position = position_non_elected
@@ -271,45 +252,45 @@ class electoral_results_wizard(orm.TransientModel):
                 position_col = 'election_substitute_position'
                 votes_col = 'substitute_votes'
                 if not line.sta_candidature_id.is_effective:
-                    signal = 'button_non_elected'
+                    sc_event = 'button_non_elected'
                 else:
-                    signal = False
+                    sc_event = False
 
             if e_s == 'E':
                 if not position or int(position) == 0:
-                    signal = 'button_non_elected'
+                    sc_event = 'button_non_elected'
 
             vals = {position_col: position,
                     votes_col: votes}
 
-            candi_obj.write(cr, uid,
-                            line.sta_candidature_id.id, vals, context=context)
+            candi_obj.browse(line.sta_candidature_id.id).write(vals)
 
-            if line.sta_candidature_id.state == 'designated' and signal:
-                candi_obj.signal_workflow(cr,
-                                          uid,
-                                          [line.sta_candidature_id.id],
-                                          signal, context=context)
+            if line.sta_candidature_id.state == 'designated' and sc_event:
+                getattr(line.sta_candidature_id, sc_event)()
 
 
-class electoral_results_wizard_errors(orm.TransientModel):
+class ElectoralResultsWizardErrors(models.TransientModel):
     _name = "electoral.results.wizard.errors"
+    _description = "Electoral Results Wizard Errors"
 
-    _columns = {
-        'wizard_id': fields.many2one('electoral.results.wizard',
-                                     string='Wizard'),
-        'line_number': fields.integer('Line Number'),
-        'error_msg': fields.text('Message')
-    }
+    wizard_id = fields.Many2one(
+        comodel_name="electoral.results.wizard",
+        string="Wizard",
+    )
+    line_number = fields.Integer(string="Line Number")
+    error_msg = fields.Text(string="Message")
 
 
-class electoral_results_wizard_lines(orm.TransientModel):
+class ElectoralResultsWizardLines(models.TransientModel):
     _name = "electoral.results.wizard.lines"
+    _description = "Electoral Results Wizard Lines"
 
-    _columns = {
-        'wizard_id': fields.many2one('electoral.results.wizard',
-                                     string='Wizard'),
-        'sta_candidature_id': fields.many2one('sta.candidature',
-                                              string='Candidature'),
-        'data': fields.text('File Values')
-    }
+    wizard_id = fields.Many2one(
+        comodel_name="electoral.results.wizard",
+        string="Wizard",
+    )
+    sta_candidature_id = fields.Many2one(
+        comodel_name="sta.candidature",
+        string="Candidature",
+    )
+    data = fields.Text(string="File Values")

@@ -64,7 +64,14 @@ class TestStructure(TransactionCase):
         assembly.write(data)
 
         # 2/ For a State Assembly
-        instance_id = self.env.ref("mozaik_membership.sta_instance_03")
+        instance_id = self.env["sta.instance"].create(
+            {
+                "name": "Test instance",
+                "power_level_id": self.env.ref(
+                    "mozaik_structure.sta_power_level_01"
+                ).id,
+            }
+        )
 
         # 2.1/ Create the assembly
         data = dict(

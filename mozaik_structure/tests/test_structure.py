@@ -177,29 +177,6 @@ class TestStructure(TransactionCase):
 
         return
 
-    def test_get_followers(self):
-        """
-        Check for followers associated to an internal instance reagrding
-        the level_for_followers flag of the power level of all its ancestors
-        """
-        instance = self.browse_ref("mozaik_structure.int_instance_02")
-        assembly = self.browse_ref("mozaik_structure.int_assembly_02")
-
-        # check for demo data
-        self.assertEqual(assembly.partner_id, instance._get_instance_followers())
-
-        # mega update on power levels and assembly categories
-        self.env["int.power.level"].search([]).write({"level_for_followers": True})
-        self.env["int.assembly.category"].search([]).write({"is_secretariat": True})
-
-        # get all internal assembly partners
-        partners = self.env["int.assembly"].search([]).mapped("partner_id")
-
-        # check for followers
-        self.assertEqual(partners, instance._get_instance_followers())
-
-        return
-
     def test_instance_recursion(self):
         """
         Check for recursion in the instance hirerachies

@@ -12,6 +12,7 @@
             <xpath expr="//field[@name='selection_committee_id']" position="after">
                  <field name="ext_assembly_id" readonly="1"/>
                  <field name="mandate_start_date" readonly="1"/>
+                 <field name="mandate_ids" invisible="1"/>
             </xpath>
             <xpath expr="//button[@name='button_create_mandate']" position="attributes">
                  <attribute name="attrs" translation="off">{'invisible': ['|', ('state','!=', 'elected'), ('mandate_ids', '!=', [])]}</attribute>

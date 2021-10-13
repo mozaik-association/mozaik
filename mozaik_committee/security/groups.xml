@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.module.category" id="module_category_committee">
+        <field name="name">Committee</field>
+        <field name="parent_id" ref="base.module_category_political_association" />
+    </record>
+
+    <record model="res.groups" id="res_groups_committee_user">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_committee" />
+    </record>
+
+    <record model="res.groups" id="res_groups_committee_manager">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_committee" />
+        <field name="implied_ids"
+               eval="[(4, ref('mozaik_committee.res_groups_committee_user'))]"/>
+        <field name="users"
+               eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>

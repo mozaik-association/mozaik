@@ -48,8 +48,6 @@
         "demo/product_product.xml",
         "demo/res_partner.xml",
         "demo/res_users.xml",
-        "demo/int_instance.xml",
-        "demo/sta_instance.xml",
         "demo/membership_tarification.xml",
         "demo/res_city.xml",
     ],

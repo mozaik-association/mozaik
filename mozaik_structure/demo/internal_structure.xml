@@ -1,20 +1,58 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<odoo noupdate="1">
+<odoo noupdate="0">
 
     <!-- Power Level -->
 
     <record id="int_power_level_02" model="int.power.level">
+        <field name="name">Fédéral</field>
+        <field name="level_for_followers" eval="1" />
+    </record>
+
+    <record id="int_power_level_03" model="int.power.level">
+        <field name="name">Provincial</field>
+        <field name="sequence">3</field>
+    </record>
+
+    <record id="int_power_level_04" model="int.power.level">
+        <field name="name">Régional</field>
+        <field name="sequence">2</field>
+        <field name="level_for_followers" eval="1" />
+    </record>
+
+    <record id="int_power_level_05" model="int.power.level">
         <field name="name">Local</field>
+        <field name="sequence">1</field>
         <field name="level_for_followers" eval="1" />
     </record>
 
     <!-- Instance -->
 
     <record id="int_instance_02" model="int.instance">
-        <field name="name">Huy</field>
+        <field name="name">Belgique</field>
         <field name="code">002</field>
         <field name="parent_id" ref="int_instance_01" />
         <field name="power_level_id" ref="int_power_level_02" />
+    </record>
+
+    <record id="int_instance_03" model="int.instance">
+        <field name="name">Liège</field>
+        <field name="code">003</field>
+        <field name="parent_id" ref="int_instance_02" />
+        <field name="power_level_id" ref="int_power_level_03" />
+    </record>
+
+    <record id="int_instance_04" model="int.instance">
+        <field name="name">Huy-Waremme</field>
+        <field name="parent_id" ref="int_instance_03"/>
+        <field name="power_level_id" ref="int_power_level_04"/>
+        <field name="code">004</field>
+    </record>
+
+    <record id="int_instance_05" model="int.instance">
+        <field name="name">Huy</field>
+        <field name="parent_id" ref="int_instance_04"/>
+        <field name="power_level_id" ref="int_power_level_05"/>
+        <field name="code">005</field>
     </record>
 
     <!-- Assembly Category -->
@@ -31,18 +69,43 @@
         <field name="is_secretariat" eval="1" />
     </record>
 
+    <record id="int_assembly_category_03" model="int.assembly.category">
+        <field name="name">Assemblée régionale</field>
+        <field name="power_level_id" ref="int_power_level_03"/>
+    </record>
+
+    <record id="int_assembly_category_04" model="int.assembly.category">
+        <field name="name">Secrétariat local</field>
+        <field name="power_level_id" ref="int_power_level_04"/>
+        <field name="is_secretariat" eval="1"/>
+    </record>
+
     <!-- Assembly -->
 
     <record id="int_assembly_01" model="int.assembly">
         <field name="name">Mozaik Headquarter (Bureau du plan)</field>
         <field name="assembly_category_id" ref="int_assembly_category_01" />
         <field name="instance_id" ref="int_instance_01" />
+        <field name="is_designation_assembly" eval="1"/>
     </record>
 
     <record id="int_assembly_02" model="int.assembly">
         <field name="name">Huy (Secrétariat local)</field>
         <field name="assembly_category_id" ref="int_assembly_category_02" />
         <field name="instance_id" ref="int_instance_02" />
+        <field name="is_designation_assembly" eval="1"/>
+    </record>
+
+    <record id="int_assembly_03" model="int.assembly">
+        <field name="instance_id" ref="int_instance_03"/>
+        <field name="assembly_category_id" ref="int_assembly_category_03"/>
+        <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+    </record>
+
+    <record id="int_assembly_04" model="int.assembly">
+        <field name="instance_id" ref="int_instance_04"/>
+        <field name="assembly_category_id" ref="int_assembly_category_04"/>
+        <field name="is_designation_assembly" eval="1"/>
     </record>
 
 </odoo>

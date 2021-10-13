@@ -1,0 +1,47 @@
+statechart:
+  name: sta.candidature
+  root state:
+    name: root
+    initial: draft
+    states:
+      - name: draft
+        transitions:
+          - target: declared
+      - name: declared
+        on entry: self.write({'state':'declared'})
+        transitions:
+          - event: button_suggest
+            target: suggested
+          - event: button_reject
+            target: rejected
+      - name: suggested
+        on entry: self.write({'state':'suggested'})
+        transitions:
+          - event: button_declare
+            target: declared
+          - event: button_accept
+            target: accepted
+      - name: rejected
+        on entry: self.write({'state':'rejected','list_effective_position':0,'list_substitute_position':0})
+        transitions:
+          - event: button_declare
+            target: declared
+      - name: accepted
+        transitions:
+          - target: designated
+            guard: self.is_legislative
+          - target: elected
+            guard: not self.is_legislative
+      - name: designated
+        on entry: self.write({'state':'designated'})
+        transitions:
+          - event: button_reject
+            target: rejected
+          - event: button_elected
+            target: elected
+          - event: button_non_elected
+            target: non-elected
+      - name: elected
+        on entry: self.action_elected()
+      - name: non-elected
+        on entry: self.write({'state':'non-elected'})

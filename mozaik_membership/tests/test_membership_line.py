@@ -16,7 +16,7 @@ class TestMembershipLine(TransactionCase):
         self.state_obj = self.env["membership.state"]
         self.instance_obj = self.env["int.instance"]
         self.product_obj = self.env["product.product"]
-        self.instance = self.env.ref("mozaik_membership.int_instance_03")
+        self.instance = self.env.ref("mozaik_structure.int_instance_03")
         self.partner_marc = self.env.ref("mozaik_membership.res_partner_marc")
         self.product_subscription = self.env.ref(
             "mozaik_membership.membership_product_isolated"

@@ -8,23 +8,25 @@
         <field name="name">abstract.candidature.form (in mozaik_committee)</field>
         <field name="model">abstract.candidature</field>
         <field name="arch" type="xml">
-            <form string="Candidature" version="7.0">
+            <form string="Candidature">
                 <header>
-                    <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                         invisible="context.get('popup')"
-                         groups="mozaik_base.mozaik_res_groups_user" name="invalidate">
-                        <button name="action_invalidate" string="Invalidate" type="object"
-                                confirm="Invalidate candidature: proceed anyway?" />
-                        <button name="button_suggest" string="Suggest" class="oe_highlight"
-                                confirm="Suggest candidature: proceed anyway?" states="declared"/>
-                        <button name="button_reject" string="Reject" class="oe_highlight"
-                                confirm="Reject candidature: proceed anyway?" states="declared,designated"/>
-                        <button name="button_declare" string="Declare" class="oe_highlight"
-                                attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'suggested'])]}"
-                                confirm="Declare candidature: proceed anyway?"/>
-                        <button name="button_create_mandate" string="Mandate" type="object"
-                                confirm="Create mandate from candidature: proceed anyway?"/>
-                    </span>
+                    <field name="is_selection_committee_active" invisible="1"/>
+                    <button name="action_invalidate" string="Invalidate" type="object"
+                            confirm="Invalidate candidature: proceed anyway?"
+                            groups="mozaik_committee.res_groups_committee_user" />
+                    <button name="button_suggest_candidature" string="Suggest" class="oe_highlight" type="object"
+                            confirm="Suggest candidature: proceed anyway?" states="declared"
+                            groups="mozaik_committee.res_groups_committee_user" />
+                    <button name="button_reject_candidature" string="Reject" class="oe_highlight" type="object"
+                            confirm="Reject candidature: proceed anyway?" states="declared,designated"
+                            groups="mozaik_committee.res_groups_committee_user" />
+                    <button name="button_declare_candidature" string="Declare" class="oe_highlight" type="object"
+                            attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'suggested'])]}"
+                            confirm="Declare candidature: proceed anyway?"
+                            groups="mozaik_committee.res_groups_committee_user" />
+                    <button name="button_create_mandate" string="Mandate" type="object"
+                            confirm="Create mandate from candidature: proceed anyway?"
+                            groups="mozaik_committee.res_groups_committee_user" />
                     <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected'/>
                 </header>
                 <sheet>
@@ -33,7 +35,6 @@
                                                  readonly ="1"/></h1>
                         <h2><field name="partner_id" domain="[('is_company','=',False)]"
                                    attrs="{'readonly': [('id','!=',False)]}"
-                                   on_change="onchange_partner_id(partner_id)"
                                    context="{'default_is_company': False}"/></h2>
                     </div>
                     <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
@@ -41,39 +42,23 @@
 
                     <group>
                         <group name="data_1">
-                            <field name="partner_name"/>
                             <field name="selection_committee_id" required="1"
                                     attrs="{'readonly': [('id','!=',False)]}"
                                     readonly="context.get('default_selection_committee_id')"
-                                    domain="[('decision_date', '=', False)]"
-                                    on_change="onchange_selection_committee_id(selection_committee_id or context.get('default_selection_committee_id'))"/><!-- tmp work around I hope: existing commitee id is not given to the onchange method when adding  new cand. from the o2m in the commitee form -->
+                                    domain="[('decision_date', '=', False)]" />
                         </group>
                         <group name="data_2">
                             <field name="designation_int_assembly_id" readonly="1"/>
                         </group>
                         <group name="Dates">
                             <field name="create_date" readonly="1"/>
+                            <field name="active" invisible="1"/>
                             <field name="expire_date" readonly="1"  attrs="{'invisible': [('active','=', True)]}"/>
                         </group>
                     </group>
                 </sheet>
-                <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
-                    <div class="oe_formview oe_form_sheet_width">
-                        <h3>More Info</h3>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                            <button name="action_revalidate" string="Validate" type="object"
-                                    confirm="Reactivate document: proceed anyway?" />
-                        </div>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="active"/>
-                            <field name="mandate_ids"/>
-                            <field name="is_selection_committee_active"/>
-                        </group>
-                    </div>
-                </div>
                 <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_committee.res_groups_committee_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -84,7 +69,7 @@
         <field name="name">abstract.candidature.search (in mozaik_committee)</field>
         <field name="model">abstract.candidature</field>
         <field name="arch" type="xml">
-            <search string="Candidatures" version="7.0">
+            <search string="Candidatures">
                 <field name="selection_committee_id"/>
                 <field name="partner_id" domain="[('is_company','=',False)]"/>
                 <field name="mandate_category_id"/>
@@ -124,15 +109,15 @@
         <field name="name">abstract.candidature.tree (in mozaik_committee)</field>
         <field name="model">abstract.candidature</field>
         <field name="arch" type="xml">
-            <tree string="Candidatures" version="7.0">
+            <tree string="Candidatures">
                 <field name="selection_committee_id"/>
-                <field name="partner_name"/>
+                <field name="partner_id"/>
                 <field name="mandate_start_date"/>
                 <field name="mandate_category_id"/>
                 <field name="state"/>
-                <button name="button_suggest" string="Suggest"  icon="gtk-apply"
+                <button name="button_suggest_candidature" string="Suggest"  icon="fa-check" type="object"
                         confirm="Suggest candidature: proceed anyway?" states="declared"/>
-                <button name="button_reject" string="Reject"  icon="gtk-cancel"
+                <button name="button_reject_candidature" string="Reject"  icon="fa-times" type="object"
                         confirm="Reject candidature: proceed anyway?" states="declared"/>
                 <field name="expire_date"
                        invisible="context.get('invisible_expire_date', True)" />

@@ -8,7 +8,7 @@
         <field name="name">abstract.selection.committee.search (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
-            <search string="Selection Committees" version="7.0">
+            <search string="Selection Committees">
                 <field name="name"/>
                 <field name="assembly_id"/>
                 <field name="mandate_category_id"/>
@@ -34,18 +34,13 @@
         <field name="name">abstract.selection.committee.form (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
-            <form string="Selection Committee" version="7.0">
+            <form string="Selection Committee">
                 <header>
-                     <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                         invisible="context.get('popup')"
-                         groups="mozaik_base.mozaik_res_groups_user">
-                        <button name="action_invalidate" string="Invalidate" type="object"
-                                confirm="Invalidate committee: proceed anyway?" />
-                    </span>
-                    <span attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
-                         invisible="context.get('popup')"
-                         groups="mozaik_base.mozaik_res_groups_user">
-                    </span>
+                    <field name="active" invisible="1"/>
+                    <button name="action_invalidate" string="Invalidate" type="object"
+                            confirm="Invalidate committee: proceed anyway?"
+                            attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                            groups="mozaik_committee.res_groups_committee_user" />
                     <field name='state' widget='statusbar'/>
                 </header>
                 <sheet>
@@ -60,8 +55,7 @@
                     </div>
                     <group>
                          <group name="assembly">
-                            <field name="assembly_id" required="1"
-                                   on_change="onchange_assembly_id(assembly_id)"/>
+                            <field name="assembly_id" required="1"/>
                         </group>
 
                         <group>
@@ -90,23 +84,9 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
-                    <div class="oe_formview oe_form_sheet_width">
-                        <h3>More Info</h3>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                            <button name="action_revalidate" string="Validate" type="object"
-                                    confirm="Reactivate document: proceed anyway?" />
-                        </div>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="active"/>
-                            <field name="assembly_category_id"/>
-                        </group>
-                    </div>
-                </div>
 
                 <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_committee.res_groups_committee_manager"/>
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -118,7 +98,7 @@
         <field name="name">abstract.selection.committee.tree (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
-            <tree string="Selection Committees" version="7.0">
+            <tree string="Selection Committees">
                 <field name="name"/>
                 <field name="assembly_id"/>
                 <field name="mandate_start_date"/>
