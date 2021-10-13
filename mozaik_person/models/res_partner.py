@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, exceptions, fields, models
+from odoo.osv.expression import OR
 
 from odoo.addons.mozaik_tools.tools import format_value
 
@@ -367,3 +368,22 @@ class ResPartner(models.Model):
         next_value = self.env.cr.fetchone()[0] or 1
         seq = self.env.ref("mozaik_person.res_partner_identifier_sequence")
         seq.number_next = next_value
+
+    def show_duplicates(self):
+        self.ensure_one()
+        duplicate_form = self.env.ref(
+            "mozaik_person.res_partner_duplicate_action"
+        ).read()[0]
+        domain = []
+        if self.name:
+            domain.append([("name", "ilike", self.name)])
+        if self.email:
+            domain.append([("email", "ilike", self.email)])
+        if self.phone:
+            domain.append([("phone", "ilike", self.phone)])
+        if self.mobile:
+            domain.append([("mobile", "ilike", self.mobile)])
+        if self.address_address_id:
+            domain.append([("address_address_id", "=", self.address_address_id.id)])
+        duplicate_form["domain"] = OR(domain)
+        return duplicate_form
