@@ -4,7 +4,7 @@
     'name': 'Mass Mailing Distribution List',
     'summary': """
         Make the bridge between distribution list and mass mailing""",
-    'version': '14.0.1.0.0',
+    'version': "14.0.1.0.0",
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://github.com/OCA/mozaik',
@@ -15,9 +15,10 @@
     ],
     'data': [
         'data/ir_config_parameter.xml',
+        'data/mail_alias.xml',
         'views/mass_mailing.xml',
         'views/distribution_list.xml',
         'wizards/merge_distribution_list.xml',
     ],
-    "installable": False,
+    "installable": True,
 }

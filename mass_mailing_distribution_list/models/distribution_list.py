@@ -44,6 +44,13 @@ class DistributionList(models.Model):
         oldname="opt_in_ids",
     )
 
+    alias_id = fields.Many2one(
+        default=lambda s:s._default_alias_id(),
+    )
+
+    def _default_alias_id(self):
+        return self.env.ref('mass_mailing_distribution_list.alias_distribution_list').id
+
     def get_alias_model_name(self, vals):
         return vals.get('alias_model', self._name)
 
@@ -72,7 +79,6 @@ class DistributionList(models.Model):
         alias_name = self.env['mail.alias']._clean_and_make_unique(alias)
         return alias_name
 
-    @api.multi
     def _get_mailing_object(self, email_from, mailing_model=False,
                             email_field='email'):
         """
@@ -110,7 +116,6 @@ class DistributionList(models.Model):
         }
         return self.env['ir.attachment'].create(values)
 
-    @api.multi
     def _get_mail_compose_message_vals(self, msg, mailing_model=False):
         """
         Prepare values for a composer from an incomming message
@@ -137,7 +142,6 @@ class DistributionList(models.Model):
             'attachment_ids': [[6, 0, attachments.ids]],
         }
 
-    @api.multi
     def _get_opt_res_ids(self, domain):
         """
         Get destination model opt/in opt/out records
@@ -148,7 +152,6 @@ class DistributionList(models.Model):
         opt_ids = self.env[self.dst_model_id.model].search(domain)
         return opt_ids
 
-    @api.multi
     @api.constrains('mail_forwarding', 'alias_name')
     def _check_forwarding(self):
         """
@@ -181,7 +184,6 @@ class DistributionList(models.Model):
         return super(
             DistributionList, self.with_context(context)).create(vals)
 
-    @api.multi
     def write(self, vals):
         """
 
@@ -223,7 +225,6 @@ class DistributionList(models.Model):
                     dist_list_id, msg_dict.get('email_from', '??'))
         return dist_list
 
-    @api.multi
     def message_update(self, msg_dict, update_vals=None):
         """
         Do not allow update case of mail forwarding
@@ -233,7 +234,6 @@ class DistributionList(models.Model):
         """
         return True
 
-    @api.multi
     def _get_target_from_distribution_list(self):
         """
         manage opt in/out.
@@ -258,7 +258,6 @@ class DistributionList(models.Model):
 
         return targets
 
-    @api.multi
     def _update_opt(self, partner_ids, mode='out'):
         """
         Update list of opt out/in
@@ -288,7 +287,6 @@ class DistributionList(models.Model):
             return res
         return False
 
-    @api.multi
     def _distribution_list_forwarding(self, msg):
         """
         Create a 'mail.compose.message' depending of the message msg and then
