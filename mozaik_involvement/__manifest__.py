@@ -1,34 +1,35 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': 'Mozaik: Involvement',
-    'summary': """
+    "name": "Mozaik: Involvement",
+    "summary": """
         Manage involvements (and all kind of segmentation) on partners""",
-    'version': "14.0.1.0.0",
-    'license': 'AGPL-3',
-    'author': 'ACSONE SA/NV',
-    'website': 'https://github.com/OCA/mozaik',
-    'category': 'Political Association',
-    'depends': [
-        'base',
-        'base_suspend_security',
-        'mail',
-        'user_bypass_security',
-        'mozaik_abstract_model',
-        'mozaik_partner_assembly',
-        'mozaik_thesaurus',
+    "version": "14.0.1.0.0",
+    "license": "AGPL-3",
+    "author": "ACSONE SA/NV",
+    "website": "https://github.com/OCA/mozaik",
+    "category": "Political Association",
+    "depends": [
+        "base",
+        "base_suspend_security",
+        "mail",
+        "user_bypass_security",
+        "mozaik_abstract_model",
+        "mozaik_partner_assembly",
+        "mozaik_thesaurus",
     ],
-    'data': [
-        'security/res_groups.xml',
-        'security/partner_involvement_category.xml',
-        'security/partner_involvement.xml',
-        'views/partner_involvement.xml',
-        'views/partner_involvement_category.xml',
-        'views/involvement_menu.xml',
-        'views/res_partner.xml',
+    "data": [
+        "security/res_groups.xml",
+        "security/partner_involvement_category.xml",
+        "security/partner_involvement.xml",
+        "views/partner_involvement.xml",
+        "views/partner_involvement_category.xml",
+        "views/involvement_menu.xml",
+        "views/res_partner.xml",
     ],
-    'demo': [
-        'demo/partner_involvement_category.xml',
-        'demo/res_partner.xml',
-    ],    "installable": True,
+    "demo": [
+        "demo/partner_involvement_category.xml",
+        "demo/res_partner.xml",
+    ],
+    "installable": True,
 }
