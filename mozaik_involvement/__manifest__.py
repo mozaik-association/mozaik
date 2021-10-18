@@ -11,8 +11,7 @@
     "category": "Political Association",
     "depends": [
         "base",
-        "base_suspend_security",
-        "mail",
+                "mail",
         "user_bypass_security",
         "mozaik_abstract_model",
         "mozaik_partner_assembly",
