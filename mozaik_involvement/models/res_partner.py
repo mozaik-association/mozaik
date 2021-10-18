@@ -34,7 +34,6 @@ class ResPartner(models.Model):
         domain=[('active', '=', False)],
     )
 
-    @api.multi
     @api.depends(
         'partner_involvement_ids',
         'partner_involvement_ids.active',
