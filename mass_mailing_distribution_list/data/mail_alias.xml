@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <!--Code used to detect some email used for test (email where the subject starts with this text (case-insensitive)-->
+    <record id="alias_distribution_list" model="mail.alias">
+        <field name="alias_name">distribution_list</field>
+        <field name="model_id" ref="mass_mailing_distribution_list.model_distribution_list"/>
+    </record>
+</odoo>

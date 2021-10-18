@@ -25,7 +25,6 @@ class MailComposeMessage(models.TransientModel):
                 })
         return super().create(vals)
 
-    @api.multi
     def get_mail_values(self, res_ids):
         """
         If result of super has a `mailing_id` and `wizard` has a

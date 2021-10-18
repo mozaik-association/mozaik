@@ -4,7 +4,7 @@ from odoo import api, fields, models
 
 
 class MassMailing(models.Model):
-    _inherit = 'mail.mass_mailing'
+    _inherit = 'mailing.mailing'
 
     distribution_list_id = fields.Many2one(
         comodel_name="distribution.list",
@@ -17,7 +17,6 @@ class MassMailing(models.Model):
         self.distribution_list_id = False
         return result
 
-    @api.multi
     def update_opt_out(self, email, res_ids, value):
         """
         Unsubscribe from distribution list if any
