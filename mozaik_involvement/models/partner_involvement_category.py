@@ -31,26 +31,26 @@ class PartnerInvolvementCategory(models.Model):
     name = fields.Char(
         string='Involvement Category',
         required=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     code = fields.Char(
         copy=False,
-        track_visibility='onchange',
+        tracking=True,
     )
     note = fields.Text(
         string='Notes',
-        track_visibility='onchange',
+        tracking=True,
     )
     involvement_type = fields.Selection(
         selection=CATEGORY_TYPE,
         string='Type',
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     allow_multi = fields.Boolean(
         string='Allow Multiple Involvements',
         default=False,
-        track_visibility='onchange',
+        tracking=True,
     )
 
     res_users_ids = Many2manySudoRead(
@@ -118,7 +118,6 @@ class PartnerInvolvementCategory(models.Model):
 
         return result
 
-    @api.multi
     def write(self, vals):
         """
         Force an effective time on an allow_multi category
@@ -131,7 +130,6 @@ class PartnerInvolvementCategory(models.Model):
         res = super().write(vals)
         return res
 
-    @api.multi
     def copy(self, default=None):
         """
         Mark the name as (copy)

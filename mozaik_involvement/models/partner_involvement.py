@@ -22,7 +22,7 @@ class PartnerInvolvement(models.Model):
         string='Partner',
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
         domain=[('is_assembly', '=', False)],
         auto_join=True,
     )
@@ -32,11 +32,11 @@ class PartnerInvolvement(models.Model):
         oldname='partner_involvement_category_id',
         required=True,
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     note = fields.Text(
         string='Notes',
-        track_visibility='onchange',
+        tracking=True,
     )
     involvement_type = fields.Selection(
         related='involvement_category_id.involvement_type',
@@ -53,7 +53,7 @@ class PartnerInvolvement(models.Model):
     effective_time = fields.Datetime(
         string='Involvement Date',
         copy=False,
-        track_visibility='onchange',
+        tracking=True,
     )
     creation_time = fields.Datetime(
         string='Involvement Date',
@@ -71,7 +71,6 @@ class PartnerInvolvement(models.Model):
         ),
     ]
 
-    @api.multi
     @api.depends("effective_time")
     def _compute_creation_time(self):
         for involvement in self:
@@ -153,11 +152,10 @@ class PartnerInvolvement(models.Model):
             interests = [
                 (4, term.id) for term in terms
             ]
-            res.partner_id.suspend_security().write(
+            res.partner_id.sudo().write(
                 {'interest_ids': interests})
         return res
 
-    @api.multi
     def copy(self, default=None):
         self.ensure_one()
         if self.active and not self.allow_multi:
