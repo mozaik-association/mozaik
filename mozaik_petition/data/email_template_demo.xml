@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="petition_subscription" model="mail.template">
+            <field name="name">Petition: Registration</field>
+            <field name="model_id" ref="mozaik_petition.model_petition_registration" />
+            <field
+            name="subject"
+        >Your registration at ${object.petition_id.title}</field>
+            <field
+            name="email_from"
+        >${( object.petition_id.user_id.company_id.email_formatted or object.petition_id.user_id.email_formatted or '') | safe}</field>
+            <field
+            name="email_to"
+        >${(object.email and '"%s" &lt;%s&gt;' % (object.lastname, object.email) or object.partner_id.email_formatted or '') | safe}</field>
+            <field name="body_html" type="html">
+<table
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"
+            ><tr><td align="center">
+% set date_begin = format_date(object.petition_id.date_begin)
+% set date_end = format_date(object.petition_id.date_end)
+<table
+                            border="0"
+                            cellpadding="0"
+                            cellspacing="0"
+                            width="590"
+                            style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;"
+                        >
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table
+                                            width="590"
+                                            border="0"
+                                            cellpadding="0"
+                                            cellspacing="0"
+                                            style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                        >
+                <tr><td valign="middle">
+                    <span style="font-size: 10px;">Your registration</span><br />
+                    <span style="font-size: 20px; font-weight: bold;">
+                        ${object.lastname}
+                    </span>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr
+                                                        width="100%"
+                                                        style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"
+                                                    />
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    <!-- PETITION DESCRIPTION -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table
+                                            width="590"
+                                            border="0"
+                                            cellpadding="0"
+                                            cellspacing="0"
+                                            style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;"
+                                        >
+                <tr><td valign="top" style="font-size: 14px;">
+                    <div>
+                        Hello ${object.lastname or ''},<br />
+                        We are happy to confirm your registration to the petition
+                        <strong>${object.petition_id.title}</strong>
+                        for attendee ${object.lastname}.
+                    </div>
+
+                </td></tr>
+                <tr><td style="text-align:center;">
+                  <hr
+                                                        width="100%"
+                                                        style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"
+                                                    />
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+
+</tbody>
+</table>
+</td></tr>
+
+
+</table>
+            </field>
+    </record>
+
+</odoo>

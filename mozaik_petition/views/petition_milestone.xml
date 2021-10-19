@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="petition_milestone_view_tree" model="ir.ui.view">
+        <field name="name">petition.milestone.tree</field>
+        <field name="model">petition.milestone</field>
+        <field name="arch" type="xml">
+            <tree string="Milestones" editable="bottom" default_order="value">
+                <field name="value" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>
