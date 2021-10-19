@@ -384,6 +384,14 @@ msgid "Bounce"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__can_publish
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__can_publish
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__can_publish
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__can_publish
+msgid "Can Publish"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__assembly_category_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__assembly_category_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__assembly_category_id
@@ -1325,6 +1333,14 @@ msgid "Is Legislative"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__is_published
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__is_published
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__is_published
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__is_published
+msgid "Is Published"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__is_secretariat
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_category__is_secretariat
 msgid "Is Secretariat"
@@ -1931,6 +1947,22 @@ msgid "Responsible User"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__website_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__website_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__website_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__website_id
+msgid "Restrict publishing to this website."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__is_seo_optimized
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__is_seo_optimized
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__is_seo_optimized
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__is_seo_optimized
+msgid "SEO optimized"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_has_sms_error
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__message_has_sms_error
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__message_has_sms_error
@@ -2003,6 +2035,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__self
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__self
 msgid "Self"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__seo_name
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__seo_name
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__seo_name
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__seo_name
+msgid "Seo name"
 msgstr ""
 
 #. module: mozaik_structure
@@ -2197,6 +2237,14 @@ msgid "The external identifier (INS) must be unique."
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__website_url
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__website_url
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__website_url
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__website_url
+msgid "The full URL to access the document through the website."
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__user_id
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__user_id
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__user_id
@@ -2355,6 +2403,30 @@ msgid "Usual Name"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_published
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_published
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_published
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_published
+msgid "Visible on current website"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__visitor_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__visitor_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__visitor_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__visitor_ids
+msgid "Visitors"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_id
+msgid "Website"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website
@@ -2383,6 +2455,30 @@ msgid "Website Messages"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_description
+msgid "Website Partner Full Description"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_short_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_short_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_short_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_short_description
+msgid "Website Partner Short Description"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_url
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_url
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_url
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_url
+msgid "Website URL"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__website_message_ids
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_category__website_message_ids
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_instance__website_message_ids
@@ -2400,6 +2496,38 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_structure.field_sta_instance__website_message_ids
 #: model:ir.model.fields,help:mozaik_structure.field_sta_power_level__website_message_ids
 msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_meta_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_meta_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_meta_description
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_meta_description
+msgid "Website meta description"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_meta_keywords
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_meta_keywords
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_meta_keywords
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_meta_keywords
+msgid "Website meta keywords"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_meta_title
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_meta_title
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_meta_title
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_meta_title
+msgid "Website meta title"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_meta_og_img
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_meta_og_img
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_meta_og_img
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_meta_og_img
+msgid "Website opengraph image"
 msgstr ""
 
 #. module: mozaik_structure
