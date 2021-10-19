@@ -576,6 +576,16 @@ msgid "Usual Lastname"
 msgstr ""
 
 #. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_person
 #: model:ir.model,name:mozaik_person.model_create_user_from_partner
 msgid "Wizard to Create a User from a Partner"
 msgstr ""
