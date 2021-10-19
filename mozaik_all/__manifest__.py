@@ -23,6 +23,7 @@
         "mozaik_duplicate",
         "mozaik_event_is_private",
         "mozaik_event_publish_date",
+        "mozaik_event_thesaurus",
         # 'mozaik_involvement',
         "mozaik_membership",
         "mozaik_partner_assembly",
