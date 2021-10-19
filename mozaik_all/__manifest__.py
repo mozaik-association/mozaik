@@ -44,6 +44,7 @@
         "mozaik_membership_mandate",
         "mozaik_membership_request",
         "mozaik_petition",
+        "mozaik_survey_publish_date",
         # 'mozaik_virtual_partner_mandate',
     ],
     "data": [
