@@ -385,6 +385,14 @@ msgid "Category"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__certifications_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__certifications_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__certifications_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__certifications_count
+msgid "Certifications Count"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__channel_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__channel_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__channel_ids
@@ -474,6 +482,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__company_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__company_id
 msgid "Company"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__certifications_company_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__certifications_company_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__certifications_company_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__certifications_company_count
+msgid "Company Certifications Count"
 msgstr ""
 
 #. module: mozaik_structure
