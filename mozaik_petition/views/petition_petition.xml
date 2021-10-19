@@ -122,6 +122,7 @@
                                     name="petition_type_id"
                                     string="Template"
                                     options="{'no_create': True}"
+                                    attrs="{'readonly':[('signatory_count','>',0)]}"
                                 />
                             </group>
                             <field name="question_ids" nolabel="1">

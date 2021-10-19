@@ -71,33 +71,11 @@ class PetitionPetition(models.Model):
         petition_type_id itself to emulate an onchange. Changing petition type content
         itself should not trigger this method.
 
-        When synchronizing questions:
-
-          * lines that have no answer are removed;
-          * type lines are added;
+        When synchronizing questions, we delete all questions (since template_id becomes
+        readonly when there are registered signatories) and copy type questions.
         """
-        if self._origin.question_ids:
-            # lines to keep: those with already sent emails or registrations
-            questions_tokeep_ids = (
-                self.env["petition.registration.answer"]
-                .search([("question_id", "in", self._origin.question_ids.ids)])
-                .question_id.ids
-            )
-        else:
-            questions_tokeep_ids = []
         for petition in self:
-            if not petition.petition_type_id and not petition.question_ids:
-                petition.question_ids = False
-                continue
-
-            if questions_tokeep_ids:
-                questions_toremove = petition._origin.question_ids.filtered(
-                    lambda question: question.id not in questions_tokeep_ids
-                )
-                command = [(3, question.id) for question in questions_toremove]
-            else:
-                command = [(5, 0)]
-
+            command = [(5, 0)]
             command += [
                 (
                     0,

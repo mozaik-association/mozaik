@@ -98,10 +98,6 @@ class TestPetition(TransactionCase):
             there are 3 associated questions.
             - When self.petition.petition_type_id turns to template2,
             there is only 1 associated question.
-            - Then if someone signs the petition and answers the question,
-            when switching self.petition.petition_type_id again to template 1,
-            we keep the question that has a related answer.
-
         """
         self.template1 = (self.env["petition.type"]).create(
             {
@@ -175,29 +171,4 @@ class TestPetition(TransactionCase):
             self.petition.question_ids[0].title,
             "Mandatory tickbox",
             "The remaining question should be the one of template 2",
-        )
-
-        # Adding a registration to self.petition
-        # with an answer to the question of template 2.
-        self.signatory = (self.env["petition.registration"]).create(
-            {
-                "petition_id": self.petition.id,
-                "registration_answer_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "question_id": self.petition.question_ids[0].id,
-                            "value_tickbox": True,
-                        },
-                    )
-                ],
-            }
-        )
-
-        # Changing again template to template 1: we keep the question
-        # coming from template 2 since there is a related answer.
-        self.petition.write({"petition_type_id": self.template1})
-        self.assertEqual(
-            len(self.petition.question_ids), 4, "There should be 4 questions."
         )
