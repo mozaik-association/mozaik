@@ -538,6 +538,20 @@ msgid "User"
 msgstr ""
 
 #. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_address.field_res_city__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,help:mozaik_address.field_address_address__website_message_ids
+#: model:ir.model.fields,help:mozaik_address.field_co_residency__website_message_ids
+#: model:ir.model.fields,help:mozaik_address.field_res_city__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__zip
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__zipcode
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__zip

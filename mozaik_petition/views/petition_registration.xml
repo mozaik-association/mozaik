@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="action_petition_registration_report" model="ir.actions.act_window">
+        <field name="name">Answer Breakdown</field>
+        <field name="res_model">petition.registration.answer</field>
+        <field name="view_mode">search,tree,graph,pivot</field>
+    </record>
+
+    <record id="petition_registration_tree_view" model="ir.ui.view">
+        <field name="name">petition.registration.tree (in mozaik_petition)</field>
+        <field name="model">petition.registration</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date_open" />
+                <field name="name" />
+                <field name="email" />
+                <field name="mobile" />
+                <field name="zip" />
+                <field name="country_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="petition_registration_form_view" model="ir.ui.view">
+        <field name="name">petition.registration.form (in mozaik_petition)</field>
+        <field name="model">petition.registration</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Signatory" name="signatory">
+                            <field name="partner_id" string="Signed by" />
+                            <field name="lastname" />
+                            <field name="firstname" />
+                            <field name="email" />
+                            <field name="mobile" />
+                            <field name="zip" />
+                            <field name="country_id" />
+                        </group>
+                        <group
+                            string="Petition Information"
+                            name="petition_information"
+                        >
+                            <field
+                                name="petition_id"
+                                readonly="1"
+                                options="{'no_create': True}"
+                            />
+                            <field name="date_open" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Questions" name="questions">
+                            <field name="registration_answer_ids" widget="one2many">
+                                <tree editable="bottom">
+                                    <field name="petition_id" invisible="1" />
+                                    <field
+                                        name="question_id"
+                                        domain="[('petition_id','=',petition_id)]"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="question_type" string="Type" />
+                                    <field
+                                        name="is_mandatory"
+                                        attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                                    />
+                                    <field
+                                        name="value_answer_id"
+                                        attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
+                                        domain="[('question_id', '=', question_id)]"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="value_text_box"
+                                        attrs="{'invisible': [('question_type', '!=', 'text_box')]}"
+                                    />
+                                    <field
+                                        name="value_tickbox"
+                                        attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="petition_registration_answer_tree_view" model="ir.ui.view">
+        <field
+            name="name"
+        >petition.registration.answer.tree (in mozaik_petition)</field>
+        <field name="model">petition.registration.answer</field>
+        <field name="arch" type="xml">
+            <tree string="Answer Breakdown" create="0">
+                <field name="question_type" invisible="1" />
+                <field name="registration_id" optional="show" />
+                <field name="partner_id" optional="hide" />
+                <field name="question_id" optional="show" />
+                <field name="value_text_box" />
+                <field name="value_answer_id" string="Selected answer" />
+                <field
+                    name="value_tickbox"
+                    string="Tickbox"
+                    attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="petition_registration_answer_graph_view" model="ir.ui.view">
+        <field
+            name="name"
+        >petition.registration.answer.graph (in mozaik_petition)</field>
+        <field name="model">petition.registration.answer</field>
+        <field name="arch" type="xml">
+            <graph string="Answer Breakdown" sample="1">
+                <field name="value_answer_id" />
+            </graph>
+        </field>
+    </record>
+
+</odoo>

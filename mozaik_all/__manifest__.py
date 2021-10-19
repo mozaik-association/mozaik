@@ -21,6 +21,8 @@
         "mozaik_address_local_street",
         # 'mozaik_communication',
         "mozaik_duplicate",
+        "mozaik_event_is_private",
+        "mozaik_event_publish_date",
         "mozaik_event_thesaurus",
         # 'mozaik_involvement',
         "mozaik_membership",
@@ -44,6 +46,9 @@
         "mozaik_mandate_category_sequence",
         "mozaik_membership_mandate",
         "mozaik_membership_request",
+        "mozaik_petition",
+        "mozaik_survey_publish_date",
+        "mozaik_survey_thesaurus",
         # 'mozaik_virtual_partner_mandate',
     ],
     "data": [

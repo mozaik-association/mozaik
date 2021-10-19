@@ -168,3 +168,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,field_description:mozaik_abstract_model.field_mozaik_abstract_model__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_abstract_model
+#: model:ir.model.fields,help:mozaik_abstract_model.field_mozaik_abstract_model__website_message_ids
+msgid "Website communication history"
+msgstr ""

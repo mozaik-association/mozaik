@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="petition_question_view_form" model="ir.ui.view">
+        <field name="name">petition.question.form (in mozaik_petition)</field>
+        <field name="model">petition.question</field>
+        <field name="arch" type="xml">
+            <form string="Question">
+                <sheet>
+                    <h1><field name="title" /></h1>
+                    <group>
+                        <group>
+                            <field
+                                name="question_type"
+                                widget="radio"
+                                options="{'horizontal': true}"
+                            />
+                            <field
+                                name="is_mandatory"
+                                attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                            />
+                        </group>
+                    </group>
+                    <notebook
+                        attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
+                    >
+                        <page string="Answers" name="answers">
+                            <field name="answer_ids">
+                                <tree editable="bottom">
+<!--                                    'display_name' is necessary for the many2many_tags -->
+<!--                                    to work on the petition view -->
+                                    <field name="display_name" invisible="1" />
+                                    <field name="sequence" widget="handle" />
+                                    <field name="name" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

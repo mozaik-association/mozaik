@@ -203,6 +203,16 @@ msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: mozaik_duplicate
+#: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_duplicate
+#: model:ir.model.fields,help:mozaik_duplicate.field_abstract_duplicate__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_duplicate
 #: code:addons/mozaik_duplicate/wizards/allow_duplicate_wizard.py:0
 #, python-format
 msgid "You must only select duplicated entries!"
