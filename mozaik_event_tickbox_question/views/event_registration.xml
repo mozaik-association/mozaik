@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="event_registration_form_view">
+        <field
+            name="name"
+        >event.registration.form (in mozaik_event_tickbox_question)</field>
+        <field name="model">event.registration</field>
+        <field
+            name="inherit_id"
+            ref="website_event_questions.event_registration_view_form_inherit_question"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='registration_answer_ids']/tree/field[@name='question_type']"
+                position="after"
+            >
+                <field
+                    name="is_mandatory"
+                    attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='registration_answer_ids']/tree/field[@name='value_text_box']"
+                position="after"
+            >
+                <field
+                    name="value_tickbox"
+                    attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="event_registration_answer_form_view">
+        <field
+            name="name"
+        >event.registration.answer.form (in mozaik_event_tickbox_question)</field>
+        <field name="model">event.registration.answer</field>
+        <field
+            name="inherit_id"
+            ref="website_event_questions.event_registration_answer_view_tree"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='value_answer_id']" position="after">
+                <field name="question_type" invisible="1" />
+                <field
+                    name="value_tickbox"
+                    string="Tickbox"
+                    attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

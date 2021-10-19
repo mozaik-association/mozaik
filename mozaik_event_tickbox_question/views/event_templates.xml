@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template
+        id="registration_event_question_tickbox"
+        inherit_id="website_event_questions.registration_event_question"
+    >
+        <xpath expr="//label" position="after">
+            <t t-if="question.question_type == 'tickbox'">
+                <t t-if="question.is_mandatory">
+                    <input
+                        t-attf-name="question_answer-#{registration_index}-#{question.id}"
+                        class="opt_in_checkbox"
+                        type="checkbox"
+                        id="Tickbox"
+                        name="tickbox_1"
+                        required=""
+                    />
+                </t>
+                <t t-if="not question.is_mandatory">
+                    <input
+                        t-attf-name="question_answer-#{registration_index}-#{question.id}"
+                        class="opt_in_checkbox"
+                        type="checkbox"
+                        id="Tickbox"
+                        name="tickbox_1"
+                    />
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

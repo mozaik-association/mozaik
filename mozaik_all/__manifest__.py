@@ -25,6 +25,7 @@
         "mozaik_event_partner_firstname",
         "mozaik_event_publish_date",
         "mozaik_event_thesaurus",
+        "mozaik_event_tickbox_question",
         # 'mozaik_involvement',
         "mozaik_membership",
         "mozaik_partner_assembly",
