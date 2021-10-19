@@ -13,27 +13,20 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-
-
 #. module: mozaik_event_partner_firstname
 #: model:ir.model.fields,field_description:mozaik_event_partner_firstname.field_event_registration__name
 msgid "Attendee Name"
 msgstr ""
-
-
 
 #. module: mozaik_event_partner_firstname
 #: model:ir.model.fields,field_description:mozaik_event_partner_firstname.field_event_registration__display_name
 msgid "Display Name"
 msgstr ""
 
-
-
 #. module: mozaik_event_partner_firstname
 #: model:ir.model,name:mozaik_event_partner_firstname.model_event_registration
 msgid "Event Registration"
 msgstr ""
-
 
 #. module: mozaik_event_partner_firstname
 #: model:ir.model.fields,field_description:mozaik_event_partner_firstname.field_event_registration__firstname
@@ -46,7 +39,6 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-
 #. module: mozaik_event_partner_firstname
 #: model:ir.model.fields,field_description:mozaik_event_partner_firstname.field_event_registration____last_update
 msgid "Last Modified on"
@@ -57,4 +49,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_event_partner_firstname.registration_event_firstname
 msgid "Last Name"
 msgstr ""
-
