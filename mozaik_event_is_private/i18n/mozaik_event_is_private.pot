@@ -37,4 +37,3 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_event_is_private.field_event_event____last_update
 msgid "Last Modified on"
 msgstr ""
-
