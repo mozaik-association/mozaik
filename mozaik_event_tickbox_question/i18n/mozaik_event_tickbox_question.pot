@@ -90,3 +90,9 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_event_tickbox_question.event_registration_answer_form_view
 msgid "Tickbox"
 msgstr ""
+
+#. module: mozaik_event_tickbox_question
+#: code:addons/mozaik_event_tickbox_question/models/event_event.py:0
+#, python-format
+msgid "You cannot change the type of an event when there are attendees."
+msgstr ""

@@ -1,12 +1,29 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import _, api, models
+from odoo.exceptions import ValidationError
 
 
 class EventEvent(models.Model):
 
     _inherit = "event.event"
+
+    def write(self, vals):
+        """We add a check to prevent changing the type of an event
+        if there are already attendees."""
+        for rec in self:
+            if (
+                "event_type_id" in vals
+                and vals["event_type_id"] != rec.event_type_id.id
+                and rec.seats_expected > 0
+            ):
+                raise ValidationError(
+                    _(
+                        "You cannot change the type of an event when there are attendees."
+                    )
+                )
+        return super(EventEvent, self).write(vals)
 
     @api.depends("event_type_id")
     def _compute_question_ids(self):
@@ -14,10 +31,8 @@ class EventEvent(models.Model):
         event_type_id itself to emulate an onchange. Changing event type content
         itself should not trigger this method.
 
-        When synchronizing questions:
-
-          * lines that no answer are removed;
-          * type lines are added;
+        When synchronizing questions: event_type_id cannot be modified if attendees already
+        registered hence we do not have any question with answers.
         """
         super()._compute_question_ids()
 
