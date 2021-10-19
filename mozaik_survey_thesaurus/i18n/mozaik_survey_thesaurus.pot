@@ -33,7 +33,6 @@ msgstr ""
 msgid "Last Modified on"
 msgstr ""
 
-
 #. module: mozaik_survey_thesaurus
 #: model:ir.model,name:mozaik_survey_thesaurus.model_survey_survey
 msgid "Survey"
