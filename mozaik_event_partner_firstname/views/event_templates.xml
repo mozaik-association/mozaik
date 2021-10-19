@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template
+        id="registration_event_firstname"
+        inherit_id="website_event.registration_attendee_details"
+    >
+        <xpath expr="//div[hasclass('col-lg','my-2')]" position="replace">
+             <div class="col-lg my-2">
+                <label>Last Name</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    t-attf-name="#{counter}-lastname"
+                    required="This field is required"
+                />
+            </div>
+            <div class="col-lg my-2">
+                <label>First Name</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    t-attf-name="#{counter}-firstname"
+                    required="This field is required"
+                />
+            </div>
+        </xpath>
+
+
+    </template>
+
+
+</odoo>
