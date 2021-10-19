@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <menuitem
+        id="petition_menu_root"
+        name="Petitions"
+        web_icon="mozaik_petition,static/src/img/icon.png"
+    >
+        <menuitem id="petition_first_level_menu" action="petition_model_action" />
+        <menuitem id="configuration_first_level_menu" name="Configuration">
+            <menuitem
+                id="petition_configuration_petition_template_menu"
+                action="petition_type_model_action"
+            />
+        </menuitem>
+    </menuitem>
+
+</odoo>

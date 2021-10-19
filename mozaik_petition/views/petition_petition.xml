@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="petition_petition_form_view">
+        <field name="name">petition.petition.form (in mozaik_petition)</field>
+        <field name="model">petition.petition</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                   <field name="state" widget="statusbar" clickable="1" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            class="oe_stat_button"
+                            name="display_signatories_action"
+                            type="object"
+                            icon="fa-users"
+                            help="Total Registrations for this Petition"
+                        >
+                            <field
+                                name="signatory_count"
+                                widget="statinfo"
+                                string="Attendees"
+                            />
+                        </button>
+                    </div>
+                    <div class="oe_title">
+
+                        <label
+                            for="title"
+                            class="oe_edit_only"
+                            string="Petition Title"
+                        />
+                        <h1>
+                            <field name="title" />
+                        </h1>
+                    </div>
+                        <field name="image" widget="image" class="oe_avatar" />
+
+                    <group>
+                        <group>
+                            <field name="user_id" />
+                            <label for="date_begin" string="Date" modifiers="{}" />
+                            <div class="o_row" modifiers="{}">
+                                <field
+                                    name="date_begin"
+                                    widget="daterange"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                    options="{'related_end_date': 'date_end'}"
+                                    id="date_begin"
+                                />
+                                <i
+                                    class="fa fa-long-arrow-right mx-2"
+                                    aria-label="Arrow icon"
+                                    title="Arrow"
+                                    modifiers="{}"
+                                />
+                                <field
+                                    name="date_end"
+                                    widget="daterange"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                    options="{'related_start_date': 'date_begin'}"
+                                    id="date_end"
+                                />
+                            </div>
+                            <field name="date_publish" />
+                            <field name="is_private" />
+                            <field name="url" widget="url" />
+                            <field
+                                name="interest_ids"
+                                string="Interests"
+                                widget="many2many_tags"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" widget="html" />
+                        </page>
+                        <page string="Partners">
+                            <field name="partner_ids">
+                                <tree string="Partners">
+                                    <field name="display_name" string="Name" />
+                                    <field name="phone" />
+                                    <field name="email" />
+                                    <field name="city" />
+                                    <field name="country_id" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Milestones">
+                            <field name="milestone_ids" />
+                        </page>
+                        <page string="Communications" name="petition_communication">
+                            <field name="petition_mail_ids">
+                                <tree string="Communication" editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="notification_type" invisible="1" />
+                                    <field
+                                        name="template_id"
+                                        attrs="{'required': [('notification_type', '=', 'mail')]}"
+                                        context="{'default_model': 'petition.registration'}"
+                                    />
+                                    <field
+                                        name="interval_nbr"
+                                        attrs="{'readonly':[('interval_unit','=','now')]}"
+                                    />
+                                    <field name="interval_unit" />
+                                    <field name="interval_type" />
+                                    <field name="done" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Questions">
+                            <group>
+                                <field
+                                    name="petition_type_id"
+                                    string="Template"
+                                    options="{'no_create': True}"
+                                />
+                            </group>
+                            <field name="question_ids" nolabel="1">
+                                <tree>
+                                    <field name="sequence" widget="handle" />
+                                    <field name="title" />
+                                    <field name="question_type" string="Type" />
+                                    <field
+                                        name="is_mandatory"
+                                        attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                                    />
+                                    <field
+                                        name="answer_ids"
+                                        widget="many2many_tags"
+                                        attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
+                                    />
+                                    <button
+                                        name="action_view_question_answers"
+                                        type="object"
+                                        class="fa fa-bar-chart p-0"
+                                        title="Answer Breakdown"
+                                    />
+                                </tree>
+                            <!-- Need to repeat the whole tree form here to be able to create answers properly
+                                Without this, the sub-fields of answer_ids are unknown to the web framework.
+                                We need this because we create questions and answers when the petition type changes. -->
+                                <form string="Question">
+                                    <sheet>
+                                        <h1><field name="title" /></h1>
+                                        <group class="mb-0">
+                                           <group class="mb-0">
+                                                <field
+                                                    name="question_type"
+                                                    widget="radio"
+                                                    options="{'horizontal': true}"
+                                                />
+                                               <field
+                                                    name="is_mandatory"
+                                                    attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
+                                                />
+                                            </group>
+                                        </group>
+                                        <notebook
+                                            attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
+                                        >
+                                            <page string="Answers" name="answers">
+                                                <field name="answer_ids">
+                                                    <tree editable="bottom">
+<!--                                                        'display_name' is necessary for -->
+<!--                                                        the many2many_tags to work on the petition view-->
+                                                        <field
+                                                            name="display_name"
+                                                            invisible="1"
+                                                        />
+                                                        <field
+                                                            name="sequence"
+                                                            widget="handle"
+                                                        />
+                                                        <field name="name" />
+                                                    </tree>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter" />
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="petition_petition_tree_view">
+        <field name="name">petition.petition.tree (in mozaik_petition)</field>
+        <field name="model">petition.petition</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="title" />
+                <field name="description" widget="html" />
+                <field name="date_begin" />
+                <field name="date_end" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="petition_petition_view_form_quick_create" model="ir.ui.view">
+        <field name="name">petition.petition.form.quick_create</field>
+        <field name="model">petition.petition</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="title" />
+                    <field name="date_begin" />
+                    <field name="date_end" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="petition_petition_view_kanban" model="ir.ui.view">
+        <field name="name">petition.petition.kanban (in mozaik_petition)</field>
+        <field name="model">petition.petition</field>
+        <field name="arch" type="xml">
+            <kanban
+                class="o_event_kanban_view"
+                default_group_by="state"
+                quick_create_view="mozaik_petition.petition_petition_view_form_quick_create"
+            >
+                <field name="title" />
+                <field name="date_begin" />
+                <field name="date_end" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click"
+                        >
+                                <div
+                                class="o_kanban_content p-0 m-0 position-relative row d-flex flex-fill"
+                            >
+                                    <div
+                                    class="col-3 bg-primary p-2 text-center d-flex flex-column justify-content-center"
+                                >
+                                        <div
+                                        t-esc="record.date_begin.raw_value.getDate()"
+                                        class="o_event_fontsize_20"
+                                    />
+                                        <div>
+                                            <t
+                                            t-esc="moment(record.date_begin.raw_value).format('MMM')"
+                                        />
+                                            <t
+                                            t-esc="record.date_begin.raw_value.getFullYear()"
+                                        />
+                                        </div>
+                                        <div
+                                        t-if="moment(record.date_begin.raw_value).dayOfYear() !== moment(record.date_end.raw_value).dayOfYear()"
+                                    >
+                                            <i
+                                            class="fa fa-arrow-right o_event_fontsize_09"
+                                            title="End date"
+                                        />
+                                            <t
+                                            t-esc="moment(record.date_end.raw_value).format('D MMM')"
+                                        />
+                                         </div>
+                                    </div>
+                                    <div
+                                    class="col-9 py-2 px-3 d-flex flex-column justify-content-between pt-3"
+                                >
+                                        <div>
+                                            <div
+                                            class="o_kanban_record_title o_text_overflow"
+                                            t-att-title="record.title.value"
+                                        >
+                                                <field name="title" />
+                                            </div>
+                                            <div>
+                                                <field name="image" widget="image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_petition_calendar">
+        <field name="name">petition.petition.calendar (in mozaik_petition)</field>
+        <field name="model">petition.petition</field>
+        <field name="priority" eval="2" />
+        <field name="arch" type="xml">
+            <calendar
+                date_start="date_begin"
+                date_stop="date_end"
+                string="Petition Organization"
+                mode="month"
+            >
+                <field name="user_id" avatar_field="image_128" />
+            </calendar>
+        </field>
+    </record>
+
+
+    <record id="petition_model_action" model="ir.actions.act_window">
+        <field name="name">Petitions</field>
+        <field name="res_model">petition.petition</field>
+        <field name="view_mode">kanban,calendar,tree,form</field>
+    </record>
+
+
+</odoo>
