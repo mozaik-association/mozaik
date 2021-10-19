@@ -21,6 +21,7 @@
         "mozaik_address_local_street",
         # 'mozaik_communication',
         "mozaik_duplicate",
+        "mozaik_event_thesaurus",
         # 'mozaik_involvement',
         "mozaik_membership",
         "mozaik_partner_assembly",
