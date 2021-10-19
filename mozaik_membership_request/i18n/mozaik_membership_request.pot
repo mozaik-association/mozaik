@@ -845,6 +845,18 @@ msgid "Virtual Master Partner"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,help:mozaik_membership_request.field_membership_request__website_message_ids
+#: model:ir.model.fields,help:mozaik_membership_request.field_membership_request_change__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "YYYY"
 msgstr ""

@@ -1187,6 +1187,18 @@ msgid "Usual Subscription"
 msgstr ""
 
 #. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.fields,help:mozaik_membership.field_membership_line__website_message_ids
+#: model:ir.model.fields,help:mozaik_membership.field_membership_state__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_membership
 #: model:membership.state,name:mozaik_membership.without_membership
 msgid "Without Status"
 msgstr ""

@@ -255,3 +255,13 @@ msgstr ""
 #: model:res.groups,name:mozaik_thesaurus.thesaurus_user
 msgid "User"
 msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: model:ir.model.fields,help:mozaik_thesaurus.field_thesaurus_term__website_message_ids
+msgid "Website communication history"
+msgstr ""

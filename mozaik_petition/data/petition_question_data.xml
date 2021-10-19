@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="petition_question_project_evolution" model="petition.question">
+        <field
+            name="title"
+        >Do you want to be kept informed of further modifications?</field>
+        <field name="question_type">tickbox</field>
+        <field name="petition_type_id" ref="petition_type_petition" />
+    </record>
+
+    <record id="petition_question_mozaik_newsletter" model="petition.question">
+        <field name="title">Do you want to be kept informed of our activities?</field>
+        <field name="question_type">tickbox</field>
+        <field name="petition_type_id" ref="petition_type_petition" />
+    </record>
+
+    <record id="petition_question_mozaik_membership" model="petition.question">
+        <field name="title">Would you like to become a member?</field>
+        <field name="question_type">tickbox</field>
+        <field name="petition_type_id" ref="petition_type_petition" />
+    </record>
+
+    <record id="petition_question_age_privacy_policy" model="petition.question">
+        <field name="title">I am at least 16 and I agree with privacy policy</field>
+        <field name="question_type">tickbox</field>
+        <field name="is_mandatory" eval="True" />
+        <field name="petition_type_id" ref="petition_type_petition" />
+    </record>
+
+    <record id="petition_question_reason_why" model="petition.question">
+        <field name="title">I am signing this petition because...</field>
+        <field name="question_type">text_box</field>
+        <field name="petition_type_id" ref="petition_type_petition" />
+    </record>
+
+</odoo>

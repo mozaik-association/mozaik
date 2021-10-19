@@ -1281,6 +1281,24 @@ msgid "Wage Declaration"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__website_message_ids
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__website_message_ids
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__website_message_ids
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__website_message_ids
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__with_assets_declaration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__with_assets_declaration
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__with_assets_declaration

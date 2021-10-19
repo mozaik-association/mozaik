@@ -14,6 +14,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__event_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__event_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__event_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__event_count
+msgid "# Events"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.actions.act_window,name:mozaik_structure.abstract_assembly_action
 msgid "Abstract Assemblies"
 msgstr ""
@@ -385,6 +393,14 @@ msgid "Category"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__certifications_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__certifications_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__certifications_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__certifications_count
+msgid "Certifications Count"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__channel_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__channel_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__channel_ids
@@ -474,6 +490,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__company_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__company_id
 msgid "Company"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__certifications_company_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__certifications_company_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__certifications_company_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__certifications_company_count
+msgid "Company Certifications Count"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1669,6 +1693,14 @@ msgid "Number of errors"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__event_count
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__event_count
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__event_count
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__event_count
+msgid "Number of events the partner has participated."
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__message_needaction_counter
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_category__message_needaction_counter
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_instance__message_needaction_counter
@@ -2328,6 +2360,46 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website
 msgid "Website Link"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_power_level__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_electoral_district__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_category__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_category__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_instance__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_power_level__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_legislature__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_category__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_instance__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_power_level__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_electoral_district__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_category__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly_category__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_int_instance__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_int_power_level__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_legislature__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_category__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_sta_instance__website_message_ids
+#: model:ir.model.fields,help:mozaik_structure.field_sta_power_level__website_message_ids
+msgid "Website communication history"
 msgstr ""
 
 #. module: mozaik_structure
