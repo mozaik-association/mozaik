@@ -991,7 +991,9 @@ msgstr ""
 #. module: mozaik_petition
 #: code:addons/mozaik_petition/models/petition_petition.py:0
 #, python-format
-msgid "You cannot change the template questions of a petition when there are signatories."
+msgid ""
+"You cannot change the template questions of a petition when there are "
+"signatories."
 msgstr ""
 
 #. module: mozaik_petition
