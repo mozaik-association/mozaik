@@ -60,6 +60,23 @@ class PetitionPetition(models.Model):
         "petition.mail", "petition_id", string="Mail Schedule", copy=True
     )
 
+    def write(self, vals):
+        """We add a check to prevent changing the template questions
+        of a petition if there are already signatories."""
+        for rec in self:
+            if (
+                "template_id" in vals
+                and vals["template_id"] != rec.template_id.id
+                and rec.signatory_count > 0
+            ):
+                raise ValidationError(
+                    _(
+                        "You cannot change the template questions "
+                        "of a petition when there are signatories."
+                    )
+                )
+        return super(PetitionPetition, self).write(vals)
+
     @api.depends("registration_ids")
     def _compute_signatory_count(self):
         for record in self:
