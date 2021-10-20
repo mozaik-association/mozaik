@@ -21,7 +21,7 @@ _logger = logging.getLogger(__name__)
 class PartnerInvolvementCategory(models.Model):
 
     _name = "partner.involvement.category"
-    _inherit = ["mozaik.abstract.model", "abstract.term.finder"]
+    _inherit = ["mozaik.abstract.model"]
     _description = "Partner Involvement Category"
     _terms = ["interest_ids"]
     _unicity_keys = "name"

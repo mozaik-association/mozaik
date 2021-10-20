@@ -4,6 +4,7 @@
 from datetime import datetime, timedelta
 
 from odoo import exceptions
+from psycopg2 import errors
 from odoo.tests.common import SavepointCase
 from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT, mute_logger
 
@@ -81,14 +82,15 @@ class TestPartnerInvolvement(SavepointCase):
         # copy it: OK
         involvement.copy()
         # create an already existing involvement: NOK
-        with self.assertRaises(exceptions.ValidationError), mute_logger("odoo.sql_db"):
-            self.env["partner.involvement"].create(
+        with self.assertRaises(errors.UniqueViolation), mute_logger("odoo.sql_db"):
+            test_creation = self.env["partner.involvement"].create(
                 {
                     "partner_id": paul.id,
                     "involvement_category_id": cat.id,
                     "effective_time": now,
                 }
             )
+            test_creation.flush()
         return
 
     def test_onchange_type(self):
