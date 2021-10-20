@@ -989,6 +989,12 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_petition
+#: code:addons/mozaik_petition/models/petition_petition.py:0
+#, python-format
+msgid "You cannot change the template questions of a petition when there are signatories."
+msgstr ""
+
+#. module: mozaik_petition
 #: model:mail.template,subject:mozaik_petition.petition_subscription
 msgid "Your registration at ${object.petition_id.title}"
 msgstr ""
