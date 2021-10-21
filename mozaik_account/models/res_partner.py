@@ -7,7 +7,7 @@ from odoo.tools import float_compare
 
 class ResPartner(models.Model):
 
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     @api.multi
     def _get_membership_prod_info(self, amount, reference):
@@ -18,24 +18,29 @@ class ResPartner(models.Model):
         :return: tuple: int (product.product id), account.account recordset
         """
         self.ensure_one()
-        first = self.env.ref('mozaik_membership.membership_product_first')
-        precision = self._fields.get('amount').digits[1]
+        first = self.env.ref("mozaik_membership.membership_product_first")
+        precision = self._fields.get("amount").digits[1]
         # float_compare return 0 is values are equals
         cmp = float_compare(self.amount, amount, precision_digits=precision)
-        if self.membership_state_code == 'member_candidate' and \
-                self.reference == reference and not cmp:
+        if (
+            self.membership_state_code == "member_candidate"
+            and self.reference == reference
+            and not cmp
+        ):
             return first.id, first.property_subscription_account
 
         domain = [
-            ('membership', '=', True),
-            ('list_price', '=', amount),
+            ("membership", "=", True),
+            ("list_price", "=", amount),
         ]
 
-        prod_ids = self.env['product.product'].search(domain)
+        prod_ids = self.env["product.product"].search(domain)
         for prod in prod_ids:
             if prod == first:
-                if not (self.membership_state_code == 'member_candidate' and
-                        self.reference == reference):
+                if not (
+                    self.membership_state_code == "member_candidate"
+                    and self.reference == reference
+                ):
                     continue
             return prod.id, prod.property_subscription_account
 

@@ -9,7 +9,11 @@
 
             <xpath expr="//group[@name='properties']" position="inside">
                 <group>
-                    <field name="property_subscription_account" domain="[('internal_type','=','other')]" groups="account.group_account_invoice"/>
+                    <field
+                        name="property_subscription_account"
+                        domain="[('internal_type','=','other')]"
+                        groups="account.group_account_invoice"
+                    />
                 </group>
             </xpath>
 
@@ -27,9 +31,9 @@
 
     <record model="ir.ui.menu" id="product_template_menu">
         <field name="name">Products</field>
-        <field name="action" ref="product_template_act_window"/>
-        <field name="parent_id" ref="account.menu_finance_configuration"/>
-        <field name="sequence" eval="25"/>
+        <field name="action" ref="product_template_act_window" />
+        <field name="parent_id" ref="account.menu_finance_configuration" />
+        <field name="sequence" eval="25" />
     </record>
 
 </odoo>

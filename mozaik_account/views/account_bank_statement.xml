@@ -1,13 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_bank_statement_form" model="ir.ui.view">
         <field name="name">account.bank.statement.form (mozaik_account)</field>
         <field name="model">account.bank.statement</field>
-        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="inherit_id" ref="account.view_bank_statement_form" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='%(account.action_bank_reconcile_bank_statements)d']" position="after">
-                <button name="auto_reconcile" states="open" string="Auto-reconcile" type="object" class="oe_highlight"/>
+            <xpath
+                expr="//button[@name='%(account.action_bank_reconcile_bank_statements)d']"
+                position="after"
+            >
+                <button
+                    name="auto_reconcile"
+                    states="open"
+                    string="Auto-reconcile"
+                    type="object"
+                    class="oe_highlight"
+                />
             </xpath>
         </field>
     </record>

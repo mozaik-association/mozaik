@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
 
     <record id="mozaik_membership.membership_product_first" model="product.product">
@@ -7,7 +7,10 @@
     <record id="mozaik_membership.membership_product_isolated" model="product.product">
         <field name="list_price" eval="25.0" />
     </record>
-    <record id="mozaik_membership.membership_product_live_together" model="product.product">
+    <record
+        id="mozaik_membership.membership_product_live_together"
+        model="product.product"
+    >
         <field name="list_price" eval="18.0" />
     </record>
     <record id="mozaik_membership.membership_product_other" model="product.product">

@@ -1,20 +1,21 @@
 # Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import datetime
-from odoo import api, fields, models, _
-from odoo.tools import float_compare
+
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools import float_compare
 
 
 class MembershipLine(models.Model):
-    _inherit = 'membership.line'
+    _inherit = "membership.line"
 
     move_id = fields.Many2one(
         comodel_name="account.move",
         string="Account move",
         readonly=True,
         copy=False,
-        track_visibility='onchange',
+        track_visibility="onchange",
     )
     donation_move_ids = fields.Many2many(
         comodel_name="account.move",
@@ -40,7 +41,8 @@ class MembershipLine(models.Model):
     def _get_min_reconciliation_date(self):
         min_date_from = datetime.date.today().replace(day=1, month=1)
         param = self.env["ir.config_parameter"].get_param(
-            "membership.allow.reconcile.last.year", default="0")
+            "membership.allow.reconcile.last.year", default="0"
+        )
         if param != "0":
             min_date_from = min_date_from.replace(year=min_date_from.year - 1)
         return fields.Date.to_string(min_date_from)
@@ -55,32 +57,31 @@ class MembershipLine(models.Model):
         :return: self recordset
         """
         domain = [
-            ('reference', '=', reference),
+            ("reference", "=", reference),
         ]
         membership = self.search(domain, limit=1)
         min_date_from = self._get_min_reconciliation_date()
         if membership and membership.date_from < min_date_from:
             if raise_exception:
-                raise UserError(_(
-                    "The membership you want to reconcile is too old"))
+                raise UserError(_("The membership you want to reconcile is too old"))
             return self.browse()
         return membership
 
     @api.model
-    def _get_membership_line_by_partner_amount(self, partner, amount,
-                                               raise_exception=True):
-        precision = self._fields.get('price').digits[1]
+    def _get_membership_line_by_partner_amount(
+        self, partner, amount, raise_exception=True
+    ):
+        precision = self._fields.get("price").digits[1]
         memberships = partner.membership_line_ids.filtered(
-            lambda s: not s.paid and not float_compare(
-                s.price, amount, precision_digits=precision))
+            lambda s: not s.paid
+            and not float_compare(s.price, amount, precision_digits=precision)
+        )
         if len(memberships) > 1:
-            raise UserError(_(
-                "More than one membership to reconcile are available"))
+            raise UserError(_("More than one membership to reconcile are available"))
         min_date_from = self._get_min_reconciliation_date()
         if memberships and memberships.date_from < min_date_from:
             if raise_exception:
-                raise UserError(_(
-                    "The membership you want to reconcile is too old"))
+                raise UserError(_("The membership you want to reconcile is too old"))
             return self.browse()
         return memberships
 
@@ -98,32 +99,44 @@ class MembershipLine(models.Model):
             vals = {
                 "price_paid": self.price_paid + amount,
             }
-            if self.move_id.id != move_id and \
-                    move_id not in self.donation_move_ids.ids:
+            if self.move_id.id != move_id and move_id not in self.donation_move_ids.ids:
                 vals["donation_move_ids"] = [(4, move_id, 0)]
             self.write(vals)
         else:
-            self.write({
-                'paid': True,
-                'price_paid': amount,
-                'move_id': move_id,
-                'bank_account_id': bank_id,
-            })
+            self.write(
+                {
+                    "paid": True,
+                    "price_paid": amount,
+                    "move_id": move_id,
+                    "bank_account_id": bank_id,
+                }
+            )
         return self
 
     @api.model
     def _build_membership_values(
-            self, partner, instance, state,
-            date_from=False, product=False, price=None,
-            reference=None):
+        self,
+        partner,
+        instance,
+        state,
+        date_from=False,
+        product=False,
+        price=None,
+        reference=None,
+    ):
         """
         Add paid boolean to values
         """
         vals = super()._build_membership_values(
-            partner, instance, state,
+            partner,
+            instance,
+            state,
             date_from=date_from,
-            product=product, price=price, reference=reference)
-        vals['paid'] = self._price_is_zero(vals.get('price', 0.0))
+            product=product,
+            price=price,
+            reference=reference,
+        )
+        vals["paid"] = self._price_is_zero(vals.get("price", 0.0))
         return vals
 
     @api.model
@@ -135,20 +148,24 @@ class MembershipLine(models.Model):
         :return: list (domain)
         """
         domain = domain or []
-        value = self.env['ir.config_parameter'].sudo().get_param(
-            'membership.renew_must_paid', default='1')
-        if value not in [True, 1, '1', 'True']:
+        value = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("membership.renew_must_paid", default="1")
+        )
+        if value not in [True, 1, "1", "True"]:
             return domain
-        operator = '='
+        operator = "="
         if inverse:
-            operator = '!='
-        domain.append(('paid', operator, True))
+            operator = "!="
+        domain.append(("paid", operator, True))
         return domain
 
     @api.model
     def _get_lines_to_renew_domain(self, force_lines=None, ref_date=None):
         res = super()._get_lines_to_renew_domain(
-            force_lines=force_lines, ref_date=ref_date)
+            force_lines=force_lines, ref_date=ref_date
+        )
         return self._update_domain_payment(res)
 
     @api.model
@@ -171,10 +188,12 @@ class MembershipLine(models.Model):
         """
         make sure that no membership exist with the same reference
         """
-        membership = self.env["membership.line"].search([
-            ("reference", "=", reference),
-            ("active", "=", False),
-        ])
+        membership = self.env["membership.line"].search(
+            [
+                ("reference", "=", reference),
+                ("active", "=", False),
+            ]
+        )
         if membership:
             if any(membership.mapped("paid")):
                 reference = False
