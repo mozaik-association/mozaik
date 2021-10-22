@@ -243,9 +243,13 @@ msgid "Involvement Category"
 msgstr ""
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__creation_time
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__effective_time
 msgid "Involvement Date"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__creation_time
+msgid "Involvement Date (Creation)"
 msgstr ""
 
 #. module: mozaik_involvement
@@ -418,18 +422,22 @@ msgstr ""
 
 #. module: mozaik_involvement
 #: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__partner_involvement_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__partner_involvement_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__partner_involvement_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__partner_involvement_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__partner_involvement_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__partner_involvement_inactive_ids
 msgid "Partner Involvements"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__partner_involvement_inactive_ids
+msgid "Partner Involvements (Inactive)"
 msgstr ""
 
 #. module: mozaik_involvement
