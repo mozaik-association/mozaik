@@ -3,7 +3,7 @@
 
 {
     "name": "User Bypass Security",
-    "description": """
+    "summary": """
         bypass security for user""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
