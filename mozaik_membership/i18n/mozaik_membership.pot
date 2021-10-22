@@ -84,6 +84,11 @@ msgid "All (non-inverse + inverse) relations between partners"
 msgstr ""
 
 #. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__amount
+msgid "Amount"
+msgstr ""
+
+#. module: mozaik_membership
 #: model:ir.model.fields.selection,name:mozaik_membership.selection__res_partner__kind__a
 msgid "Assembly"
 msgstr ""
@@ -218,6 +223,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification__display_name
+#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_product_template__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_city__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__display_name
@@ -227,6 +233,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_membership
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_search_view
+msgid "Donation"
 msgstr ""
 
 #. module: mozaik_membership
@@ -287,6 +298,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__message_partner_ids
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__message_partner_ids
 msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.constraint,message:mozaik_membership.constraint_partner_involvement_donation
+msgid "For a donation amount must be positive !"
 msgstr ""
 
 #. module: mozaik_membership
@@ -372,6 +388,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification__id
+#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_product_template__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_city__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__id
@@ -488,6 +505,11 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__promise
+msgid "Just a promise"
+msgstr ""
+
+#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly____last_update
@@ -499,6 +521,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification____last_update
+#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_product_template____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_city____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner____last_update
@@ -803,7 +826,13 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__partner_instance_ids
 msgid "Partner Internal Instances"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_partner_involvement
+msgid "Partner Involvement"
 msgstr ""
 
 #. module: mozaik_membership
@@ -837,6 +866,11 @@ msgid "Partner wishing to be contacted only by the local"
 msgstr ""
 
 #. module: mozaik_membership
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_form_view
+msgid "Payment"
+msgstr ""
+
+#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__price
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__price
 msgid "Price"
@@ -862,6 +896,11 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.fields.selection,name:mozaik_membership.selection__update_membership__update_type__product
 msgid "Product/Price"
+msgstr ""
+
+#. module: mozaik_membership
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_search_view
+msgid "Promise"
 msgstr ""
 
 #. module: mozaik_membership
@@ -906,6 +945,7 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__reference
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__reference
 msgid "Reference"
 msgstr ""
