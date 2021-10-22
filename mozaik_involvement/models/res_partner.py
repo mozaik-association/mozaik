@@ -30,7 +30,7 @@ class ResPartner(models.Model):
     partner_involvement_inactive_ids = fields.One2many(
         comodel_name="partner.involvement",
         inverse_name="partner_id",
-        string="Partner Involvements",
+        string="Partner Involvements (Inactive)",
         domain=[("active", "=", False)],
     )
 

@@ -401,26 +401,29 @@
                                     </group>
                                 </group>
                             </page>
-<!--                            TODO -->
-<!--                            <page string="Involvements" name="involvement">-->
-<!--                                <group name="voluntary" string="Voluntary" col="6"-->
-<!--                                     attrs="{'invisible': [('result_type_id', 'in', [False, %(mozaik_membership.without_membership)d, %(mozaik_membership.supporter)d, %(mozaik_membership.former_supporter)d])]}">-->
-<!--                                    <field name="local_voluntary"/>-->
-<!--                                    <field name="regional_voluntary"/>-->
-<!--                                    <field name="national_voluntary"/>-->
-<!--                                </group>-->
-<!--                                <group name="involvements" string="Involvements">-->
-<!--                                    <field name="effective_time"/>-->
-<!--                                </group>-->
-<!--                                <field name="involvement_category_ids" nolabel="1">-->
-<!--                                    <tree>-->
-<!--                                        <field name="name"/>-->
-<!--                                        <field name="involvement_type" />-->
-<!--                                        <field name="allow_multi" />-->
-<!--                                        <field name="code"/>-->
-<!--                                    </tree>-->
-<!--                                </field>-->
-<!--                            </page>-->
+                            <page string="Involvements" name="involvement">
+                                <group
+                                name="voluntary"
+                                string="Voluntary"
+                                col="6"
+                                attrs="{'invisible': [('result_type_id', 'in', [False, %(mozaik_membership.without_membership)d, %(mozaik_membership.supporter)d, %(mozaik_membership.former_supporter)d])]}"
+                            >
+                                    <field name="local_voluntary" />
+                                    <field name="regional_voluntary" />
+                                    <field name="national_voluntary" />
+                                </group>
+                                <group name="involvements" string="Involvements">
+                                    <field name="effective_time" />
+                                </group>
+                                <field name="involvement_category_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="involvement_type" />
+                                        <field name="allow_multi" />
+                                        <field name="code" />
+                                    </tree>
+                                </field>
+                            </page>
                             <page string="Indexation" name="indexation">
                                 <separator string="Competencies &amp; Topics" />
                                 <field name="competency_ids" />

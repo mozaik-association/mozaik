@@ -171,12 +171,13 @@ class MembershipRequest(models.Model):
         tracking=True, help="Partner wishing to be contacted only by the local"
     )
 
-    # TODO
-    # involvement_category_ids = fields.Many2many(
-    #     'partner.involvement.category',
-    #     relation='membership_request_involvement_category_rel',
-    #     column1='request_id', column2='category_id',
-    #     string='Involvement Categories')
+    involvement_category_ids = fields.Many2many(
+        "partner.involvement.category",
+        relation="membership_request_involvement_category_rel",
+        column1="request_id",
+        column2="category_id",
+        string="Involvement Categories",
+    )
 
     amount = fields.Float(digits="Product Price", copy=False)
     reference = fields.Char(copy=False)
@@ -1143,29 +1144,8 @@ class MembershipRequest(models.Model):
                 mr_vals["partner_id"] = partner.id
                 partner_values = {}
 
-            # if not mr.is_company: TODO
-            #     partner_values.update(mr._get_status_values(
-            #         mr.request_type, date_from=mr.effective_time))
-
-            # TODO
-            # # create new involvements
-            # current_categories = partner.partner_involvement_ids.mapped(
-            #     'involvement_category_id')
-            # new_categories = mr.involvement_category_ids.filtered(
-            #     lambda s, cc=current_categories:
-            #     s not in cc or s.allow_multi)
-            # for ic in new_categories:
-            #     vals = {
-            #         'partner_id': partner.id,
-            #         'effective_time': mr.effective_time,
-            #         'involvement_category_id': ic.id,
-            #     }
-            #     if ic.involvement_type == 'donation':
-            #         vals.update({
-            #             'reference': mr.reference,
-            #             'amount': mr.amount,
-            #         })
-            #     self.env['partner.involvement'].create(vals)
+            # create new involvements
+            self._validate_request_involvement(mr, partner)
 
             # save membership amount
             # if mr.amount > 0.0 and mr.reference: TODO
@@ -1284,6 +1264,29 @@ class MembershipRequest(models.Model):
                 )
                 w._onchange_product_id()  # compute the price
                 w.action_add()
+
+    @api.model
+    def _validate_request_involvement(self, mr, partner):
+        current_categories = partner.partner_involvement_ids.mapped(
+            "involvement_category_id"
+        )
+        new_categories = mr.involvement_category_ids.filtered(
+            lambda s, cc=current_categories: s not in cc or s.allow_multi
+        )
+        for ic in new_categories:
+            vals = {
+                "partner_id": partner.id,
+                "effective_time": mr.effective_time,
+                "involvement_category_id": ic.id,
+            }
+            if ic.involvement_type == "donation":
+                vals.update(
+                    {
+                        "reference": mr.reference,
+                        "amount": mr.amount,
+                    }
+                )
+            self.env["partner.involvement"].create(vals)
 
     @api.model
     def _validate_request_coordinates(self, mr, partner_values):

@@ -19,7 +19,7 @@
         "mozaik_partner_assembly",
         "mozaik_structure",
         "mozaik_person",
-        # 'mozaik_involvement',
+        "mozaik_involvement",
     ],
     "data": [
         "data/membership_state.xml",
@@ -32,7 +32,7 @@
         "views/membership_state.xml",
         "views/membership_line.xml",
         "views/res_city.xml",
-        # 'views/partner_involvement.xml',
+        "views/partner_involvement.xml",
         "views/int_instance.xml",
         "wizards/add_membership.xml",
         "wizards/update_membership.xml",

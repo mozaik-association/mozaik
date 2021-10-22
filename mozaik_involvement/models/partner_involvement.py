@@ -30,7 +30,6 @@ class PartnerInvolvement(models.Model):
     involvement_category_id = fields.Many2one(
         comodel_name="partner.involvement.category",
         string="Involvement Category",
-        oldname="partner_involvement_category_id",
         required=True,
         index=True,
         tracking=True,
@@ -57,7 +56,7 @@ class PartnerInvolvement(models.Model):
         tracking=True,
     )
     creation_time = fields.Datetime(
-        string="Involvement Date",
+        string="Involvement Date (Creation)",
         compute="_compute_creation_time",
         store=True,
     )
