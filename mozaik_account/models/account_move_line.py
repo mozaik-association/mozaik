@@ -17,7 +17,6 @@ class AccountMoveLine(models.Model):
                 vals["partner_id"] = partner.id
         return super().create(vals)
 
-    @api.multi
     def _remove_membership(self):
         memberships = self.env["membership.line"].search(
             [
@@ -33,14 +32,12 @@ class AccountMoveLine(models.Model):
             }
         )
 
-    @api.multi
     def remove_move_reconcile(self):
         # when undoing the bank statement reconciliation
         # (will be deleted by ondelete='cascade')
         self._remove_membership()
         return super().remove_move_reconcile()
 
-    @api.multi
     def unlink(self):
         self._remove_membership()
         super().unlink()

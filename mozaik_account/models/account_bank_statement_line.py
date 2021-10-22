@@ -51,7 +51,6 @@ class AccountBankStatementLine(models.Model):
 
         return False, False
 
-    @api.multi
     def _create_donation_move(self, reference):
         """
         Create an account move related to a donation
@@ -76,7 +75,6 @@ class AccountBankStatementLine(models.Model):
             ]
             self.process_reconciliation(new_aml_dicts=move_dicts)
 
-    @api.multi
     def _propagate_payment(self, vals):
         self.ensure_one()
         memb_obj = self.env["membership.line"]
@@ -117,7 +115,6 @@ class AccountBankStatementLine(models.Model):
                 membership._mark_as_paid(amount_paid, move_id, bank_account_id)
         return
 
-    @api.multi
     def _create_membership_move_from_partner(self, raise_exception=True):
         self.ensure_one()
         memb_obj = self.env["membership.line"]
@@ -128,7 +125,6 @@ class AccountBankStatementLine(models.Model):
         )
         self._reconcile_membership_move(membership)
 
-    @api.multi
     def _create_membership_move(self, reference, raise_exception=True):
         """
         Method to create account move linked to membership payment
@@ -139,7 +135,6 @@ class AccountBankStatementLine(models.Model):
         )
         self._reconcile_membership_move(membership)
 
-    @api.multi
     def _reconcile_membership_move(self, membership):
         self.ensure_one()
         if membership.paid:
@@ -171,7 +166,6 @@ class AccountBankStatementLine(models.Model):
         donation_p = self.env.ref("mozaik_account.product_template_donation")
         return subscription_accounts | donation_p.property_account_income_id
 
-    @api.multi
     def process_reconciliation(
         self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None
     ):
@@ -197,7 +191,6 @@ class AccountBankStatementLine(models.Model):
                     self._propagate_payment(data)
         return res
 
-    @api.multi
     def _auto_reconcile(self):
         reconciled_lines = self.env["account.bank.statement.line"]
         for bank_line in self.filtered(
@@ -214,7 +207,6 @@ class AccountBankStatementLine(models.Model):
                 reconciled_lines += bank_line
         return reconciled_lines
 
-    @api.multi
     def reconciliation_widget_auto_reconcile(self, num_already_reconciled_lines):
         reconciled_lines = self._auto_reconcile()
         num_already_reconciled_lines += len(reconciled_lines)

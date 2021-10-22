@@ -16,6 +16,8 @@
         "mozaik_involvement",
         "mozaik_membership",
         "l10n_generic_coa",
+        # OCA/bank-statement-import
+        # 'account_statement_import',
     ],
     "data": [
         "security/ir.model.access.csv",

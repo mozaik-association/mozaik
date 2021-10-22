@@ -6,10 +6,7 @@
         <field name="model">account.bank.statement</field>
         <field name="inherit_id" ref="account.view_bank_statement_form" />
         <field name="arch" type="xml">
-            <xpath
-                expr="//button[@name='%(account.action_bank_reconcile_bank_statements)d']"
-                position="after"
-            >
+            <xpath expr="//button[@name='button_reprocess']" position="after">
                 <button
                     name="auto_reconcile"
                     states="open"

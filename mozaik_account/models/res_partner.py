@@ -1,7 +1,7 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import models
 from odoo.tools import float_compare
 
 
@@ -9,7 +9,6 @@ class ResPartner(models.Model):
 
     _inherit = "res.partner"
 
-    @api.multi
     def _get_membership_prod_info(self, amount, reference):
         """
         Get membership product info

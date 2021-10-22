@@ -15,7 +15,7 @@ class MembershipLine(models.Model):
         string="Account move",
         readonly=True,
         copy=False,
-        track_visibility="onchange",
+        tracking=True,
     )
     donation_move_ids = fields.Many2many(
         comodel_name="account.move",
@@ -85,7 +85,6 @@ class MembershipLine(models.Model):
             return self.browse()
         return memberships
 
-    @api.multi
     def _mark_as_paid(self, amount, move_id, bank_id=False):
         """
         Mark as paid current recordset

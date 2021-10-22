@@ -1,14 +1,13 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import models
 
 
 class AddMembership(models.TransientModel):
 
     _inherit = "add.membership"
 
-    @api.multi
     def _create_membership_line(self, reference=None):
         """
         Create a new membership line for the partner
