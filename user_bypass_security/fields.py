@@ -7,6 +7,7 @@ class Many2manySudoRead(fields.Many2many):
     """
     Read M2M without applying ir_rule for read access
     """
+
     def read(self, records):
         recs = records.sudo()
         res = super().read(recs)

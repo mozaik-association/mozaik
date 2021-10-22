@@ -1,22 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
    <record id="res_partner_search_view" model="ir.ui.view">
         <field name="name">res.partner.search (in mozaik_person)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="partner_involvement_ids"/>
+                <field name="partner_involvement_ids" />
             </xpath>
             <xpath expr="//separator[position()=last()]" position="before">
                 <separator />
-                <filter string="Donor" name="donor" domain="[('is_donor','=',True)]"/>
+                <filter string="Donor" name="donor" domain="[('is_donor','=',True)]" />
                 <separator />
-                <filter string="Volunteer" name="volunteer" domain="[('is_volunteer','=',True)]"/>
+                <filter
+                    string="Volunteer"
+                    name="volunteer"
+                    domain="[('is_volunteer','=',True)]"
+                />
             </xpath>
         </field>
     </record>
@@ -24,19 +27,33 @@
     <record model="ir.ui.view" id="res_partner_form_view">
         <field name="name">res.partner.form (in mozaik_involvement)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='toggle_active']" position="after">
-                <button string="All Involvements" class="oe_stat_button" icon="fa-share-square" name="%(partner_involvement_act_window)d"
-                        type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_partner_id': id,
-                                  'default_partner_id': id,
-                                  'search_default_all': True}" />
-                <button string="Donations" class="oe_stat_button" icon="fa-thumbs-up" name="%(partner_involvement_donation_act_window)d"
-                        type="action" attrs="{'invisible': [('id','=',False)]}" />
-            </xpath>
             <xpath expr="//notebook" position="inside">
-                <page name="involvement" string="Involvements" attrs="{'invisible': [('is_assembly','=',True)]}">
+                <page
+                    name="involvement"
+                    string="Involvements"
+                    attrs="{'invisible': [('is_assembly','=',True)]}"
+                >
+                    <button
+                        string="All Involvements"
+                        class="oe_stat_button oe_right"
+                        icon="fa-share-square"
+                        name="%(partner_involvement_act_window)d"
+                        type="action"
+                        attrs="{'invisible': [('id','=',False)]}"
+                        context="{'search_default_partner_id': id,
+                                      'default_partner_id': id,
+                                      'search_default_all': True}"
+                    />
+                    <button
+                        string="Donations"
+                        class="oe_stat_button oe_right"
+                        icon="fa-thumbs-up"
+                        name="%(partner_involvement_donation_act_window)d"
+                        type="action"
+                        attrs="{'invisible': [('id','=',False)]}"
+                    />
                     <group name="donor-volunteer">
                         <group>
                             <field name="is_donor" />
@@ -45,16 +62,22 @@
                             <field name="is_volunteer" />
                         </group>
                     </group>
-                    <field name="partner_involvement_ids" context="{'default_partner_id': id}"
-                           attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                    <field
+                        name="partner_involvement_ids"
+                        context="{'default_partner_id': id}"
+                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}"
+                    >
                         <tree>
                             <field name="involvement_category_id" />
                             <field name="involvement_type" />
                             <field name="creation_time" />
                         </tree>
                     </field>
-                    <field name="partner_involvement_inactive_ids"
-                           readonly="1" attrs="{'invisible': [('active','=',True)]}">
+                    <field
+                        name="partner_involvement_inactive_ids"
+                        readonly="1"
+                        attrs="{'invisible': [('active','=',True)]}"
+                    >
                         <tree>
                             <field name="involvement_category_id" />
                             <field name="involvement_type" />
