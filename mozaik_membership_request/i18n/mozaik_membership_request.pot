@@ -412,8 +412,18 @@ msgid "Invalid Data"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__involvement_category_ids
+msgid "Involvement Categories"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__effective_time
 msgid "Involvement Date"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
+msgid "Involvements"
 msgstr ""
 
 #. module: mozaik_membership_request
@@ -842,6 +852,11 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_virtual_master_partner
 msgid "Virtual Master Partner"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
+msgid "Voluntary"
 msgstr ""
 
 #. module: mozaik_membership_request
