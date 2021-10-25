@@ -32,7 +32,10 @@
             ref('res_groups_distribution_list_user'),
         ])]"
         />
-        <field name="users" eval="[(4, ref('base.user_root'))]" />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
     </record>
 
     <record model="ir.rule" id="distribution_list_company_rule">
