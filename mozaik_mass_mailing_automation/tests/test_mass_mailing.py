@@ -47,6 +47,7 @@ class TestMassMailing(SavepointCase):
         """
         Data (defined in setUp):
             self.mailing, a mass mailing with a list of 3 contacts
+            and automation set to True
         Test case:
             - When executing the cron, mails are sent
             and next_execution is scheduled for the next day.
@@ -125,6 +126,7 @@ class TestMassMailing(SavepointCase):
         """
         Data (defined in the function):
             self.mailing2: a mass mailing whose next_execution is tomorrow
+            and with automation set to True
         Test case:
             No mail is sent since next_execution is only tomorrow.
         """
@@ -157,3 +159,31 @@ class TestMassMailing(SavepointCase):
             self.creation_time + relativedelta(days=1),
             "Next execution did not change.",
         )
+
+    def test_mass_mailing_without_automation(self):
+        """
+        Data (defined in the function):
+            self.mailing3: a mass mailing with no automation process
+        Test case:
+            Field schedule_date is set to False for self.mailing3.
+        """
+        self.mailing3 = (self.env["mailing.mailing"]).create(
+            {
+                "subject": "Third mass mailing",
+                "automation": False,
+                "contact_list_ids": [(6, 0, self.mailing_list.ids)],
+            }
+        )
+        self.assertEqual(self.mailing3.schedule_date, False)
+
+    def test_mass_mailing_removing_automation(self):
+        """
+        Data (defined in setUp):
+            self.mailing: a mass mailing with an automation process
+        Test case:
+            schedule_date is set to be equal to next_execution.
+            When cancelling the automation process, schedule_date becomes False.
+        """
+        self.assertEqual(self.mailing.schedule_date, self.mailing.next_execution)
+        self.mailing.write({"automation": False})
+        self.assertEqual(self.mailing.schedule_date, False)
