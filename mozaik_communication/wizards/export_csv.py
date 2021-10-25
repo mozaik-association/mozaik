@@ -350,7 +350,6 @@ class ExportCsv(models.TransientModel):
             csv_content = memory_file.getvalue()
         return csv_content
 
-    @api.multi
     def export(self):
         self.ensure_one()
         context = self.env.context

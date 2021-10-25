@@ -21,10 +21,10 @@ class DistributionList(models.Model):
     _unicity_keys = 'name, int_instance_id'
 
     name = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     public = fields.Boolean(
-        track_visibility='onchange',
+        tracking=True,
     )
     res_users_ids = Many2manySudoRead(
         comodel_name="res.users",
@@ -39,13 +39,13 @@ class DistributionList(models.Model):
         comodel_name="int.instance",
         string="Internal instance",
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         string="Diffusion partner",
         index=True,
-        track_visibility='onchange',
+        tracking=True,
     )
     res_partner_ids = fields.Many2many(
         comodel_name="res.partner",
@@ -55,7 +55,7 @@ class DistributionList(models.Model):
         string="Allowed partners",
     )
     code = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     partner_path = fields.Char(
         default="partner_id",
@@ -90,7 +90,6 @@ class DistributionList(models.Model):
             email_from, mailing_model=mailing_model,
             email_field=email_field)
 
-    @api.multi
     def _get_mail_compose_message_vals(self, msg, mailing_model=False):
         """
         Prepare values for a composer from an incomming message
@@ -141,7 +140,6 @@ class DistributionList(models.Model):
             domain = expression.AND(domain, domain_mail, domain_postal)
         return super()._get_opt_res_ids(model_name, domain, in_mode)
 
-    @api.multi
     def _distribution_list_forwarding(self, msg):
         """
         check if the associated user of the email_coordinate (found with
@@ -181,7 +179,7 @@ class DistributionList(models.Model):
         if user:
             try:
                 # business logic continue with this user
-                self_sudo = self.sudo(user.id)
+                self_sudo = self.with_user(user.id)
                 # Force access rules
                 self_sudo.check_access_rule('read')
                 has_visibility = True
@@ -206,7 +204,6 @@ class DistributionList(models.Model):
             self._reply_error_to_owners(msg, noway)
         return res
 
-    @api.multi
     def _reply_error_to_owners(self, msg, reason):
         """
         Send an email to distribution list owners to explain
@@ -245,7 +242,6 @@ class DistributionList(models.Model):
         composer = composer_obj.create(vals)
         composer.send_mail()
 
-    @api.multi
     def action_show_result_without_coordinate(self):
         """
         Show the result of the distribution list without coordinate
@@ -263,7 +259,6 @@ class DistributionList(models.Model):
         })
         return result
 
-    @api.multi
     def write(self, vals):
         """
         Destroy code when invalidating distribution lists

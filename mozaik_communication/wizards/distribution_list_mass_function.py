@@ -144,7 +144,6 @@ class DistributionListMassFunction(models.TransientModel):
         string='Email Template',
     )
 
-    @api.multi
     @api.depends('partner_from_id', 'partner_name')
     def _compute_email_from(self):
         for wz in self:
@@ -187,7 +186,6 @@ class DistributionListMassFunction(models.TransientModel):
         if not self.mass_mailing_name:
             self.mass_mailing_name = self.subject
 
-    @api.multi
     def mass_function(self):
         """
         This method allow to make mass function on
@@ -254,7 +252,6 @@ class DistributionListMassFunction(models.TransientModel):
             }
         return {}
 
-    @api.multi
     def _mass_postal_coordinate(self, fct, main_domain):
         """
         Manage mass function when the target model is postal.coordinate
@@ -277,7 +274,6 @@ class DistributionListMassFunction(models.TransientModel):
             mains, alternatives = dl._get_complex_distribution_list_ids()
         return alternatives, mains
 
-    @api.multi
     def _mass_email_coordinate(self, fct, main_domain):
         """
         Manage mass function when the target model is email.coordinate
@@ -489,7 +485,6 @@ class DistributionListMassFunction(models.TransientModel):
                         code_key, wizard.involvement_category_id.code)
                 wizard.placeholder_value = placeholder_value
 
-    @api.multi
     def save_as_template(self):
         self.ensure_one()
         template_name = u"Mass Function: {subject}"

@@ -10,7 +10,7 @@
 
     <record id="distribution_list_line_all_nat_pers_1" model="distribution.list.line">
         <field name="name">All Natural Persons</field>
-        <field name="src_model_id" ref="base.model_res_partner" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
         <field name="domain">[('is_company', '=', False)]</field>
         <field name="distribution_list_id" ref="everybody_list" />
         <field name="bridge_field_id" ref="base.field_res_partner_id"/>
@@ -26,7 +26,7 @@
 
     <record id="distribution_list_line_all_nat_pers_2" model="distribution.list.line">
         <field name="name">All Natural Persons</field>
-        <field name="src_model_id" ref="base.model_res_partner" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
         <field name="domain">[('is_company', '=', False)]</field>
         <field name="distribution_list_id" ref="distribution_list_newsletter" />
         <field name="bridge_field_id" ref="base.field_res_partner_id"/>

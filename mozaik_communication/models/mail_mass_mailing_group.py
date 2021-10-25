@@ -30,7 +30,6 @@ class MassMailingGroup(models.Model):
         string="Total sent (%)",
     )
 
-    @api.multi
     @api.depends(
         'mailings_ids.group_id',
         'mailings_ids.contact_ab_pc'
@@ -39,7 +38,6 @@ class MassMailingGroup(models.Model):
         for group in self:
             group.total_sent = sum(group.mailings_ids.mapped('contact_ab_pc'))
 
-    @api.multi
     @api.depends(
         'distribution_list_id',
     )

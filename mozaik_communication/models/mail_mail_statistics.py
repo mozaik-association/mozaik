@@ -14,7 +14,6 @@ class MailMailStats(models.Model):
         ondelete='cascade',
     )
 
-    @api.multi
     @api.depends('res_id', 'model')
     def _compute_email_coordinate_id(self):
         """

@@ -163,7 +163,7 @@ class TestDistributionList(SavepointCase):
         })
 
         dl = self.evr_lst_id
-        dl_usr = dl.sudo(user=self.usr.id)
+        dl_usr = dl.with_user(user=self.usr.id)
         partner_obj = self.partner_obj
 
         # res.partner, admin
@@ -178,7 +178,7 @@ class TestDistributionList(SavepointCase):
 
         # res.partner, other user
         u_mains, __ = dl_usr._get_complex_distribution_list_ids()
-        u_partners = partner_obj.sudo(user=self.usr.id).search(dom)
+        u_partners = partner_obj.with_user(user=self.usr.id).search(dom)
         self.assertEqual(u_mains, u_partners)
 
         context = dict(

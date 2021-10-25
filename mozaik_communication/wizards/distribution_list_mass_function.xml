@@ -118,7 +118,7 @@
     <record id="distribution_list_mass_function_action" model="ir.actions.act_window">
         <field name="name">Execute Distribution List</field>
         <field name="view_mode">form</field>
-        <field name="src_model">distribution.list</field>
+        <field name="binding_model">distribution.list</field>
         <field name="res_model">distribution.list.mass.function</field>
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list_mass_function_wizard" />

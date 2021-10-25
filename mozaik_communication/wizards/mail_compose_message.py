@@ -10,7 +10,6 @@ class MailComposeMessage(models.TransientModel):
 
     contact_ab_pc = fields.Integer()
 
-    @api.multi
     def get_mail_values(self, res_ids):
         """
         If the wizard's model is `email.coordinate` then the recipient is the
@@ -41,7 +40,6 @@ class MailComposeMessage(models.TransientModel):
                     result[coord.id]['email_to'] = email
         return result
 
-    @api.multi
     def send_mail(self, auto_commit=False):
         """
         Do not recompute ids if sending mails asynchronously

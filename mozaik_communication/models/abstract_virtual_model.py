@@ -100,7 +100,6 @@ class AbstractVirtualModel(models.AbstractModel):
             instances = instance_mod.search([('name', operator, value)])
         return [('partner_instance_ids', 'in', instances.ids)]
 
-    @api.multi
     def see_partner_action(self):
         self.ensure_one()
         return {

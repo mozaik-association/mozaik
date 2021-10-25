@@ -35,7 +35,6 @@ class MassMailing(models.Model):
             result.pop()
         return result
 
-    @api.multi
     def get_recipients(self):
         """
         Override this method to get resulting ids of the distribution list
@@ -64,7 +63,6 @@ class MassMailing(models.Model):
                 return res_ids
         return super().get_recipients()
 
-    @api.multi
     def send_custom(self):
         self.ensure_one()
         group = self.group_id
@@ -89,7 +87,6 @@ class MassMailing(models.Model):
             'context': dict(self.env.context, mailing_group_id=group.id),
         }
 
-    @api.multi
     def compare_group(self):
         self.ensure_one()
         group = self.group_id

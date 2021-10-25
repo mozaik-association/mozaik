@@ -14,16 +14,15 @@ class DistributionListLine(models.Model):
     _unicity_keys = 'N/A'
 
     name = fields.Char(
-        track_visibility='onchange',
+        tracking=True,
     )
     domain = fields.Text(
-        track_visibility='onchange',
+        tracking=True,
     )
     src_model_id = fields.Many2one(
-        track_visibility='onchange',
+        tracking=True,
     )
 
-    @api.multi
     def _get_target_recordset(self):
         """
         For excluding filters the result is transformed
@@ -42,7 +41,6 @@ class DistributionListLine(models.Model):
                 results = results.search(domain)
         return results
 
-    @api.multi
     def action_show_filter_result_without_coordinate(self):
         """
         Show the result of the list without coordinate
