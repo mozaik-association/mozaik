@@ -143,7 +143,6 @@
     <menuitem
         name="Distribution Lists"
         id="distribution_list_menu_root"
-        groups="base.group_user"
         sequence="30"
         web_icon="distribution_list,static/description/icon.png"
     />
