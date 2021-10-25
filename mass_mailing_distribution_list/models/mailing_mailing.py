@@ -4,14 +4,14 @@ from odoo import api, fields, models
 
 
 class MassMailing(models.Model):
-    _inherit = 'mailing.mailing'
+    _inherit = "mailing.mailing"
 
     distribution_list_id = fields.Many2one(
         comodel_name="distribution.list",
         string="Distribution List",
     )
 
-    @api.onchange('mailing_model_id', 'contact_list_ids')
+    @api.onchange("mailing_model_id", "contact_list_ids")
     def _onchange_model_and_list(self):
         result = super()._onchange_model_and_list()
         self.distribution_list_id = False

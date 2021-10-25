@@ -4,7 +4,7 @@ from odoo import api, models
 
 
 class MailComposeMessage(models.TransientModel):
-    _inherit = 'mail.compose.message'
+    _inherit = "mail.compose.message"
 
     @api.model
     def create(self, vals):
@@ -14,15 +14,15 @@ class MailComposeMessage(models.TransientModel):
         :param vals: dict
         :return: self recordset
         """
-        mass_mailing_id = vals.get('mass_mailing_id')
+        mass_mailing_id = vals.get("mass_mailing_id")
         if mass_mailing_id:
-            mass_mailing = self.env['mail.mass_mailing'].browse(
-                mass_mailing_id)
+            mass_mailing = self.env["mailing.mailing"].browse(mass_mailing_id)
             if mass_mailing.distribution_list_id:
-                vals.update({
-                    'distribution_list_id':
-                        mass_mailing.distribution_list_id.id,
-                })
+                vals.update(
+                    {
+                        "distribution_list_id": mass_mailing.distribution_list_id.id,
+                    }
+                )
         return super().create(vals)
 
     def get_mail_values(self, res_ids):
@@ -41,14 +41,14 @@ class MailComposeMessage(models.TransientModel):
         result = super().get_mail_values(res_ids)
         if self.distribution_list_id:
             mailing_ids = [
-                v['mailing_id']
-                for v in result.values()
-                if v.get('mailing_id')
+                v["mailing_id"] for v in result.values() if v.get("mailing_id")
             ]
             if mailing_ids:
                 # Only the first
-                mass_mailing_obj = self.env['mail.mass_mailing']
-                mass_mailing_obj.browse(mailing_ids[0]).write({
-                    'distribution_list_id': self.distribution_list_id.id,
-                })
+                mass_mailing_obj = self.env["mailing.mailing"]
+                mass_mailing_obj.browse(mailing_ids[0]).write(
+                    {
+                        "distribution_list_id": self.distribution_list_id.id,
+                    }
+                )
         return result

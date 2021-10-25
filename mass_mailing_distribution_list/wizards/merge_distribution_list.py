@@ -4,7 +4,7 @@ from odoo import api, fields, models
 
 
 class MergeDistributionList(models.TransientModel):
-    _inherit = 'merge.distribution.list'
+    _inherit = "merge.distribution.list"
 
     @api.model
     def _default_is_newsletter(self):
@@ -14,9 +14,10 @@ class MergeDistributionList(models.TransientModel):
         :return: bool
         """
         active_ids = self.env.context.get(
-            'active_ids', self.env.context.get('active_id'))
+            "active_ids", self.env.context.get("active_id")
+        )
         if active_ids:
-            dist_list = self.env['distribution.list'].browse(active_ids)
+            dist_list = self.env["distribution.list"].browse(active_ids)
             return all(dist_list.mapped("newsletter"))
         return False
 

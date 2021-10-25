@@ -2,4 +2,4 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from . import distribution_list
-from . import mass_mailing
+from . import mailing_mailing
