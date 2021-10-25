@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
-from openerp.exceptions import ValidationError
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class PartnerInvolvementCategory(models.Model):
@@ -12,13 +11,13 @@ class PartnerInvolvementCategory(models.Model):
 
     nb_deadline_days = fields.Integer(
         string='Number of days before deadline',
-        default=0, track_visibility='onchange',
+        default=0, tracking=True,
         help="0 = no follow-up on children involvements")
 
     mandate_category_id = fields.Many2one(
         'mandate.category', string='Mandate Category',
         domain=[('type', '=', 'int')],
-        index=True, track_visibility='onchange')
+        index=True, tracking=True)
 
     involvement_category_ids = fields.Many2many(
         'partner.involvement.category',
@@ -105,7 +104,6 @@ class PartnerInvolvementCategory(models.Model):
             res.involvement_category_ids.check_access_rule('write')
         return res
 
-    @api.multi
     def write(self, vals):
         '''
         Protect use of followup categories delegating rules check

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-<data noupdate="0">
+<odoo>
 
     <record id="partner_involvement_to_follow_mms" model="mail.message.subtype">
         <field name="name">Involvement To Follow</field>
@@ -16,5 +15,4 @@
         <field name="description">The follow-up of this involvement is not yet done.</field>
     </record>
 
-</data>
-</openerp>
+</odoo>

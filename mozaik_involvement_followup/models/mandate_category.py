@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, models
+from odoo import api, models
 
 
 class MandateCategory(models.Model):
 
     _inherit = 'mandate.category'
 
-    @api.multi
     def _get_active_representative(self, instance_id, users_only):
         '''
         Search for active representatives of a given mandate category

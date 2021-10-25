@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -6,7 +5,7 @@
     'name': 'MOZAIK: Involvement Follow-up',
     'description': """
         Manage follow-up of partner involvements""",
-    'version': '14.0.1.0.0',
+    'version': "14.0.1.0.0",
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV',
     'website': 'https://github.com/OCA/mozaik',
@@ -30,5 +29,5 @@
     ],
     'demo': [
     ],
-    "installable": False,
+    "installable": True,
 }

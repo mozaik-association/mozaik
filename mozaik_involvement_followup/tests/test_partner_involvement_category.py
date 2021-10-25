@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -8,8 +7,8 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from anybox.testing.openerp import SharedSetupTransactionCase
 
-from openerp.exceptions import ValidationError
-from openerp.addons.mozaik_base import testtool
+from odoo.exceptions import ValidationError
+from odoo.addons.mozaik_base import testtool
 
 
 class TestPartnerInvolvementCategory(SharedSetupTransactionCase):

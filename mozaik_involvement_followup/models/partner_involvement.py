@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import date, timedelta
 
-from openerp import api, fields, models
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
+from odoo import api, fields, models
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 
 
 STATE_TYPE = [
@@ -31,7 +30,7 @@ class PartnerInvolvement(models.Model):
 
     state = fields.Selection(
         selection=STATE_TYPE, index=True,
-        track_visibility='onchange', copy=False,
+        tracking=True, copy=False,
         default='nofollowup')
 
     deadline = fields.Date(
@@ -40,7 +39,6 @@ class PartnerInvolvement(models.Model):
 
     from_date = fields.Date(copy=False)  # only to trigger a recompute
 
-    @api.multi
     @api.depends('involvement_category_id', 'from_date')
     def _compute_deadline(self):
         for involvement in self:

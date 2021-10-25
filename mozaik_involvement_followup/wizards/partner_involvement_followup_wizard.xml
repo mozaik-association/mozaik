@@ -2,8 +2,7 @@
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 
-<openerp>
-<data>
+<odoo>
 
     <record model="ir.ui.view" id="partner_involvement_followup_wizard_form_view">
         <field name="name">partner.involvement.followup.wizard.form (in mozaik_involvement_followup)</field>
@@ -51,5 +50,4 @@
         <field name="value" eval="'ir.actions.act_window,%s' % ref('partner_involvement_followup_wizard_act_window')" />
     </record>
 
-</data>
-</openerp>
+</odoo>

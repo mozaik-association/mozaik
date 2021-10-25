@@ -8,7 +8,6 @@ exclude: |
   ^mail_job_priority/|
   ^mozaik_coordinate/|
   ^mozaik_email/|
-  ^mozaik_involvement_followup/|
   ^mozaik_partner_unauthorized/|
   ^mozaik_phone/|
   ^mozaik_postal_mail/|

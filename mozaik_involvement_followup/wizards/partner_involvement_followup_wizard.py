@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
+from odoo import api, fields, models, _
 
 
 class PartnerInvolvementFollowupWizard(models.TransientModel):
@@ -61,7 +60,6 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
         string='Next Follow-up Categories',
         domain=lambda s: s._next_category_ids_domain())
 
-    @api.multi
     def doit(self):
         self.ensure_one()
         inv_ids = self.env.context.get(
