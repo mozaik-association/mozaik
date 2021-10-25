@@ -1,15 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-    <delete model="ir.config_parameter" search="[('key','=','mail_restrict_follower_selection.domain')]"/>
+    <delete
+        model="ir.config_parameter"
+        search="[('key','=','mail_restrict_follower_selection.domain')]"
+    />
 
     <record id="parameter_domain_partner_involvement" model="ir.config_parameter">
-        <field name="key">mail_restrict_follower_selection.domain.partner.involvement</field>
+        <field
+            name="key"
+        >mail_restrict_follower_selection.domain.partner.involvement</field>
         <field name="value">[('user_ids', '!=', False)]</field>
     </record>
 
-    <record id="parameter_domain_partner_involvement_category" model="ir.config_parameter">
-        <field name="key">mail_restrict_follower_selection.domain.partner.involvement.category</field>
+    <record
+        id="parameter_domain_partner_involvement_category"
+        model="ir.config_parameter"
+    >
+        <field
+            name="key"
+        >mail_restrict_follower_selection.domain.partner.involvement.category</field>
         <field name="value">[('user_ids', '!=', False)]</field>
     </record>
 

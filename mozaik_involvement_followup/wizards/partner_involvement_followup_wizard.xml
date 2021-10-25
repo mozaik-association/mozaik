@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="partner_involvement_followup_wizard_form_view">
-        <field name="name">partner.involvement.followup.wizard.form (in mozaik_involvement_followup)</field>
+        <field
+            name="name"
+        >partner.involvement.followup.wizard.form (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement.followup.wizard</field>
         <field name="arch" type="xml">
             <form string="Partner Involvement Followup Wizard">
                 <group>
-                    <field name="followup" widget="radio"/>
-                    <field name="next_category_ids" attrs="{'required': [('followup', '=', 'continue')], 'invisible': [('followup', '!=', 'continue')]}"
-                           options="{'no_create': 1, 'no_open': 1}"
-                           widget="many2many_tags"/>
+                    <field name="followup" widget="radio" />
+                    <field
+                        name="next_category_ids"
+                        attrs="{'required': [('followup', '=', 'continue')], 'invisible': [('followup', '!=', 'continue')]}"
+                        options="{'no_create': 1, 'no_open': 1}"
+                        widget="many2many_tags"
+                    />
                 </group>
                 <div class="oe_clear">
                     <br />
@@ -22,20 +26,23 @@
                     <br />
                 </div>
                 <footer>
-                    <button name="doit"
-                            string="OK"
-                            class="oe_highlight"
-                            type="object"/>
+                    <button
+                        name="doit"
+                        string="OK"
+                        class="oe_highlight"
+                        type="object"
+                    />
                     or
-                    <button string="Cancel"
-                            class="oe_link"
-                            special="cancel"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
             </form>
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="partner_involvement_followup_wizard_act_window">
+    <record
+        model="ir.actions.act_window"
+        id="partner_involvement_followup_wizard_act_window"
+    >
         <field name="name">Follow-up</field>
         <field name="res_model">partner.involvement.followup.wizard</field>
         <field name="view_mode">form</field>
@@ -47,7 +54,10 @@
         <field name="name">Follow-up</field>
         <field name="model">partner.involvement</field>
         <field name="key2">client_action_multi</field>
-        <field name="value" eval="'ir.actions.act_window,%s' % ref('partner_involvement_followup_wizard_act_window')" />
+        <field
+            name="value"
+            eval="'ir.actions.act_window,%s' % ref('partner_involvement_followup_wizard_act_window')"
+        />
     </record>
 
 </odoo>
