@@ -13,11 +13,13 @@
     "depends": [
         "product",
         "account",
-        "mozaik_involvement",
+        # "mozaik_involvement",
         "mozaik_membership",
         "l10n_generic_coa",
+        # OCA/account-reconcile
+        "account_reconciliation_widget",
         # OCA/bank-statement-import
-        # 'account_statement_import',
+        "account_statement_import",
     ],
     "data": [
         "security/ir.model.access.csv",
