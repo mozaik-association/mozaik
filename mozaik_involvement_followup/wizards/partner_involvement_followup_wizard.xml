@@ -3,8 +3,6 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-<odoo>
-
     <record model="ir.ui.view" id="partner_involvement_followup_wizard_form_view">
         <field
             name="name"
@@ -56,5 +54,14 @@
         />
     </record>
 
+    <record model="ir.values" id="partner_involvement_followup_wizard_act_multi">
+        <field name="name">Follow-up</field>
+        <field name="model">partner.involvement</field>
+        <field name="key2">client_action_multi</field>
+        <field
+            name="value"
+            eval="'ir.actions.act_window,%s' % ref('partner_involvement_followup_wizard_act_window')"
+        />
+    </record>
 
 </odoo>

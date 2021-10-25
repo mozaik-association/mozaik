@@ -3,17 +3,12 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-<odoo>
-
     <record model="ir.ui.view" id="partner_involvement_form_view">
         <field
             name="name"
         >partner.involvement.form (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement</field>
-        <field
-            name="inherit_id"
-            ref="mozaik_involvement.partner_involvement_form_view"
-        />
+        <field name="inherit_id" ref="mozaik_person.partner_involvement_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//header/div" position="inside">
                 <button
@@ -48,7 +43,7 @@
                 <attribute
                     name="groups"
                     translation="off"
-                >mozaik_involvement.res_groups_involvement_manager</attribute>
+                >mozaik_base.mozaik_res_groups_officer</attribute>
             </xpath>
         </field>
     </record>
@@ -58,10 +53,7 @@
             name="name"
         >partner.involvement.search (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement</field>
-        <field
-            name="inherit_id"
-            ref="mozaik_involvement.partner_involvement_search_view"
-        />
+        <field name="inherit_id" ref="mozaik_person.partner_involvement_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='without_type']" position="after">
                 <filter
@@ -92,10 +84,7 @@
             name="name"
         >partner.involvement.tree (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement</field>
-        <field
-            name="inherit_id"
-            ref="mozaik_involvement.partner_involvement_tree_view"
-        />
+        <field name="inherit_id" ref="mozaik_person.partner_involvement_tree_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='creation_time']" position="after">
                 <field name="deadline" />
@@ -108,10 +97,10 @@
         <field name="name">To follow</field>
         <field name="res_model">partner.involvement</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="mozaik_involvement.partner_involvement_tree_view" />
+        <field name="view_id" ref="mozaik_person.partner_involvement_tree_view" />
         <field
             name="search_view_id"
-            ref="mozaik_involvement.partner_involvement_search_view"
+            ref="mozaik_person.partner_involvement_search_view"
         />
         <field
             name="context"
@@ -120,7 +109,7 @@
 
     <record model="ir.ui.menu" id="partner_involvement_menu">
         <field name="name">To follow</field>
-        <field name="parent_id" ref="mozaik_involvement.involvement_menu" />
+        <field name="parent_id" ref="mozaik_person.involvements_submenu" />
         <field name="action" ref="partner_involvement_act_window" />
         <field name="sequence" eval="5" />
     </record>

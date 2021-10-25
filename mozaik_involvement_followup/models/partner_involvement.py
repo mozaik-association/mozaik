@@ -17,21 +17,24 @@ STATE_TYPE = [
 class PartnerInvolvement(models.Model):
     _inherit = "partner.involvement"
 
+    _inherit = "partner.involvement"
+
     _track = {
         "state": {
-            "mozaik_involvement_followup.partner_involvement_to_follow_mms":
-                lambda self, cr, uid, brec, c=None: brec.state
-                == "followup",
-            "mozaik_involvement_followup"".partner_involvement_late_mms":
-                lambda self, cr, uid, brec, c=None: brec.state
-                == "late",
+            "mozaik_involvement_followup.partner_involvement_to_follow_mms": lambda self, cr, uid, brec, c=None: brec.state
+            == "followup",
+            "mozaik_involvement_followup.partner_involvement_late_mms": lambda self, cr, uid, brec, c=None: brec.state
+            == "late",
         },
     }
 
     state = fields.Selection(
-        selection=STATE_TYPE, index=True,
-        tracking=True, copy=False,
-        default='nofollowup')
+        selection=STATE_TYPE,
+        index=True,
+        tracking=True,
+        copy=False,
+        default="nofollowup",
+    )
 
     deadline = fields.Date(
         index=True, copy=False, store=True, compute="_compute_deadline"
@@ -39,7 +42,7 @@ class PartnerInvolvement(models.Model):
 
     from_date = fields.Date(copy=False)  # only to trigger a recompute
 
-    @api.depends('involvement_category_id', 'from_date')
+    @api.depends("involvement_category_id", "from_date")
     def _compute_deadline(self):
         for involvement in self:
             if involvement.involvement_category_id.nb_deadline_days:
