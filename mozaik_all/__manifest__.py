@@ -19,6 +19,7 @@
         # 'mozaik_account',
         "mozaik_address",
         "mozaik_address_local_street",
+        "mass_mailing_distribution_list",
         # 'mozaik_communication',
         "mozaik_duplicate",
         "mozaik_event_is_private",
