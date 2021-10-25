@@ -7,7 +7,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 
 from odoo.exceptions import ValidationError
-from odoo.tests.common import SavepointCase
+from odoo.addons.mozaik_base import testtool
 
 
 class TestPartnerInvolvementCategory(SavepointCase):

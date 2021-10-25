@@ -3,6 +3,8 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
+<odoo>
+
     <record model="ir.ui.view" id="partner_involvement_followup_wizard_form_view">
         <field
             name="name"
