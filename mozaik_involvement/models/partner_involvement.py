@@ -60,6 +60,12 @@ class PartnerInvolvement(models.Model):
         compute="_compute_creation_time",
         store=True,
     )
+    importance_level = fields.Selection(
+        [("low", "Low"), ("high", "High")],
+        string="Importance Level",
+        default="low",
+        required=True,
+    )
 
     _sql_constraints = [
         (
