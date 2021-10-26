@@ -62,7 +62,11 @@ class MassMailing(models.Model):
         mass_mailings.write({"state": "in_queue"})
         super()._process_mass_mailing_queue()
         for mailing in mass_mailings.filtered(lambda l: l.automation):
-            mailing.write(
-                {"next_execution": mailing.next_execution + relativedelta(days=1)}
+            next_execution = fields.Datetime.now() + relativedelta(days=1)
+            next_execution = next_execution.replace(
+                hour=mailing.next_execution.hour,
+                minute=mailing.next_execution.minute,
+                second=mailing.next_execution.second,
             )
+            mailing.write({"next_execution": next_execution})
         return 0
