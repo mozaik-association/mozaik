@@ -53,36 +53,6 @@ class test_int_mandate(SharedSetupTransactionCase):
         self._committee_pool = self.registry('int.selection.committee')
         self._mandate_pool = self.registry('int.mandate')
 
-    def test_copy_int_selection_committee(self):
-        '''
-            Test copy selection committee and keep rejected candidatures
-        '''
-        cr, uid, context = self.cr, self.uid, {}
-
-        selection_committee = self.browse_ref('%s.sc_secretaire_regional' %
-                                              self._module_ns)
-
-        rejected_id = selection_committee.candidature_ids[0]
-        self._candidature_pool.signal_workflow(cr,
-                                               uid,
-                                               [rejected_id.id],
-                                               'button_reject',
-                                               context=context)
-
-        res = self._committee_pool.action_copy(cr,
-                                               uid,
-                                               [selection_committee.id])
-        new_committee_id = res['res_id']
-        self.assertNotEqual(new_committee_id, False)
-
-        candidature_commitee_id =\
-            self._candidature_pool.read(self.cr,
-                                        self.uid,
-                                        rejected_id.id,
-                                        ['selection_committee_id']
-                                        )['selection_committee_id']
-        self.assertEqual(new_committee_id, candidature_commitee_id[0])
-
     def test_duplicate_int_candidature_in_same_category(self):
         '''
         Try to create twice a candidature in the same category for a partner

@@ -205,42 +205,6 @@ class AbstractSelectionCommittee(models.Model):
 
     # view methods: onchange, button
 
-    def action_copy(self, cr, uid, ids, context=None):
-        """
-        ==========================
-        action_copy
-        ==========================
-        Duplicate committee and keep rejected candidatures
-        :rparam: True
-        :rtype: boolean
-        """
-        copied_committee_id = ids[0]
-        candidature_pool = self.pool.get(self._candidature_model)
-        rejected_candidature_ids = candidature_pool.search(
-            cr,
-            uid,
-            [('selection_committee_id', '=', copied_committee_id),
-             ('state', '=', 'rejected')])
-        new_committee_id = self.copy(cr,
-                                     uid,
-                                     copied_committee_id,
-                                     None,
-                                     context)
-        if rejected_candidature_ids:
-            candidature_pool.write(
-                cr,
-                uid,
-                rejected_candidature_ids,
-                {'selection_committee_id': new_committee_id})
-            candidature_pool.signal_workflow(cr,
-                                             uid,
-                                             rejected_candidature_ids,
-                                             'button_declare',
-                                             context=context)
-
-        return self.display_object_in_form_view(cr, uid, new_committee_id,
-                                                context=context)
-
     def button_accept_candidatures(self, cr, uid, ids, context=None):
         """
         ==========================

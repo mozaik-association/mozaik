@@ -45,8 +45,6 @@
                     <span attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
                          invisible="context.get('popup')"
                          groups="mozaik_base.mozaik_res_groups_user">
-                        <button name="action_copy" string="Copy" type="object"
-                                confirm="Copy committee and keep rejected candidatures: proceed anyway?" />
                     </span>
                     <field name='state' widget='statusbar'/>
                 </header>
