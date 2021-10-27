@@ -8,7 +8,6 @@ class MailMail(models.Model):
 
     _inherit = 'mail.mail'
 
-    @api.multi
     def send(self, auto_commit=False, raise_exception=False):
         """ Do not send mails otherwise than by job except if explicitly force
             It is because mass_mail composition mode of mail.compose.message

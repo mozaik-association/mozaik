@@ -15,7 +15,6 @@ class MailComposeMessage(models.TransientModel):
 
     _inherit = 'mail.compose.message'
 
-    @api.multi
     def _prepare_vals(self):
         """
         Remove useless keys and transform all o2m list values with magic number
@@ -54,7 +53,6 @@ class MailComposeMessage(models.TransientModel):
             res = super()._transient_vacuum(force=force)
         return res
 
-    @api.multi
     def send_mail(self, auto_commit=False):
         """
         Build mass mails by queue job
