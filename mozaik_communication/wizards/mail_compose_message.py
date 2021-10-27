@@ -29,7 +29,7 @@ class MailComposeMessage(models.TransientModel):
             context = self._context
             if context.get('mailing_group_id'):
                 mailing_values['group_id'] = context['mailing_group_id']
-            self.env['mail.mass_mailing'].browse(mailing_ids).write(
+            self.env['mailing.mailing'].browse(mailing_ids).write(
                 mailing_values)
         return result
 

@@ -4,8 +4,8 @@
 <odoo>
     <record id="view_mail_mail_statistics_search" model="ir.ui.view">
         <field name="name">view.mail.mail.statistics.search (mozaik_communication)</field>
-        <field name="model">mail.mail.statistics</field>
-        <field name="inherit_id" ref="mass_mailing.view_mail_mail_statistics_search" />
+        <field name="model">mailing.trace</field>
+        <field name="inherit_id" ref="mass_mailing.mailing_trace_view_search" />
         <field name="arch" type="xml">
             <xpath expr="//group" position="before">
                 <filter string="Bounced" name="filter_bounced" domain="[('bounced', '!=', False)]"/>

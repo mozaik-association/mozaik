@@ -100,7 +100,6 @@ class DistributionList(models.Model):
         if not self.newsletter:
             self.code = False
 
-# TODO*--------------------------------------------------------------
     def _distribution_list_forwarding(self, msg):
         """
         check if the associated user of the email_coordinate (found with
@@ -118,7 +117,7 @@ class DistributionList(models.Model):
         email_from = msg.get('email_from')
         noway = _('No unique coordinate found with address: %s') % email_from
         partner = self._get_mailing_object(email_from)
-        if partner:
+        if partner and len(partner) == 1:
             noway = _('Partner %s is not an owner nor '
                       'an allowed partner') % partner.display_name
             if partner in self.res_partner_ids:
@@ -147,7 +146,6 @@ class DistributionList(models.Model):
             if self.dst_model_id.model == 'virtual.target':
                 dom.append(('email_unauthorized', '=', False))
             self = self_sudo.with_context(
-                main_object_field='id',
                 main_target_model='res.partner',
                 main_object_domain=dom,
                 async_send_mail=True,
@@ -189,7 +187,7 @@ class DistributionList(models.Model):
             'model': self._name,
             'record_name': self.name,
             'res_id': self.id,
-            'email_from': composer_obj._get_default_from(),
+            'email_from': formataddr((self.env.user.name, self.env.user.email)),
             'subject': _('Forwarding Failure: %s') % msg.get('subject', False),
             'body': body,
         }

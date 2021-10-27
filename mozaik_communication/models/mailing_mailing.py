@@ -5,7 +5,7 @@ from odoo import api, fields, models
 
 
 class MassMailing(models.Model):
-    _inherit = 'mail.mass_mailing'
+    _inherit = 'mailing.mailing'
 
     create_uid = fields.Many2one(
         comodel_name='res.users',

@@ -61,8 +61,8 @@ class TestMassFunction(SavepointCase):
         * email_from computed value
         '''
         # get 2 partners
-        p1 = self.browse_ref('mozaik_coordinate.res_partner_thierry')
-        p2 = self.browse_ref('mozaik_coordinate.res_partner_pauline')
+        p1 = self.browse_ref('mozaik_address.res_partner_thierry')
+        p2 = self.browse_ref('mozaik_address.res_partner_pauline')
         p2.is_company = True
         # add a partner_id and a res_partner_ids to a distribution list
         dl = self.evr_lst_id
@@ -78,7 +78,7 @@ class TestMassFunction(SavepointCase):
 
         # check for possible "From" choices
         mfct_obj = self.env['distribution.list.mass.function'].with_context(
-            {'active_model': 'distribution.list', 'active_id': dl.id})
+            {'active_model': 'distribution.list', 'active_id': dl.id, 'active_test': False})
         partners = mfct_obj._get_partner_from()
         p_ids = [p1.id, p2.id, self.env.user.partner_id.id]
         self.assertEqual(set(partners.ids), set(p_ids))
@@ -96,7 +96,7 @@ class TestMassFunction(SavepointCase):
 
         # check for possible "From" choices simulating a wizard reload
         mfct_obj = mfct_obj.with_context(
-            {'active_model': mfct_obj._name, 'active_id': wizard.id})
+            {'active_model': mfct_obj._name, 'active_id': wizard.id, 'active_test': False})
         partners = mfct_obj._get_partner_from()
         self.assertEqual(set(partners.ids), set(p_ids))
 

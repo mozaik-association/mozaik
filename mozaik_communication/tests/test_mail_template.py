@@ -17,8 +17,9 @@ class TestEmailTemplate(TransactionCase):
         vals = {
             'name': 'Sébastien parmi les hommes...',
         }
-        tmpl = self.env['mail.template'].create(vals)
+        tmpl = self.env['mail.template'].with_context(active_test=False).create(vals)
         # Check for default values
-        self.assertEqual(tmpl.model_id.model, 'email.coordinate')
+        self.assertEqual(tmpl.model_id.model, 'res.partner')
+        tmpl.invalidate_cache()
         self.assertIn(self.env.user, tmpl.res_users_ids)
         self.assertEqual(tmpl.int_instance_id, int_instance)

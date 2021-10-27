@@ -19,8 +19,6 @@ class TestDistributionList(SavepointCase):
         self.dl_obj = self.env['distribution.list']
         self.mail_obj = self.env['mail.mail']
         self.int_instance_obj = self.env['int.instance']
-        self.ec_obj = self.env['email.coordinate']
-        self.pc_obj = self.env['postal.coordinate']
         self.evr_lst_id = self.browse_ref(
             'mozaik_communication.everybody_list')
         self.partner_model_id = self.ref('base.model_res_partner')
@@ -42,7 +40,7 @@ class TestDistributionList(SavepointCase):
             'company_id': self.ref('base.main_company'),
             'groups_id': [(6, 0, [
                 self.ref('mozaik_communication.res_groups_communication_user'),
-                self.ref('mozaik_coordinate.res_groups_coordinate_reader'),
+                self.ref('mozaik_address.res_groups_address_reader'),
             ])],
             'int_instance_m2m_ids': [(6, 0, [default_instance_id.id])]
         }
@@ -52,11 +50,8 @@ class TestDistributionList(SavepointCase):
         email = 'alibaba@test.eu'
 
         # set email after to avoid MailDeliveryException
-        vals = {
-            'partner_id': self.usr.partner_id.id,
-            'email': email,
-        }
-        self.ec_obj.create(vals)
+        self.usr.partner_id.email = email
+        self.usr.partner_id.flush()
 
         # take a DL where user is not an owner nor an allowed partner
         dl = self.evr_lst_id
@@ -89,11 +84,7 @@ class TestDistributionList(SavepointCase):
         partner = self.browse_ref('mozaik_communication.res_partner_cmpy_1')
         # add it an email coordinate
         email = 'emmanuel.vals.noway@rf.fr'
-        vals = {
-            'partner_id': partner.id,
-            'email': email,
-        }
-        self.ec_obj.create(vals)
+        partner.email = email
         # use it as a sender
         msg['email_from'] = email
         forward = dl._distribution_list_forwarding(msg)
@@ -123,11 +114,7 @@ class TestDistributionList(SavepointCase):
         # reactive the user
         self.usr.active = True
         # but with the same ec as the legal person
-        vals = {
-            'partner_id': self.usr.partner_id.id,
-            'email': email,
-        }
-        self.ec_obj.create(vals)
+        self.usr.partner_id.email =email
         forward = dl._distribution_list_forwarding(msg)
         self.assertFalse(forward)
         return
@@ -146,21 +133,11 @@ class TestDistributionList(SavepointCase):
 
     def test_get_complex_distribution_list_ids(self):
         # create a vip email
-        thierry = self.browse_ref('mozaik_coordinate.res_partner_thierry')
-        ec = self.ec_obj.create({
-            'partner_id': thierry.id,
-            'email': 'x23@example.com',
-            'vip': True,
-            'is_main': True,
-        })
+        thierry = self.browse_ref('mozaik_address.res_partner_thierry')
+        thierry.email = 'x23@example.com'
         # create a vip address
-        paul = self.browse_ref('mozaik_coordinate.res_partner_paul')
-        pc = self.env['postal.coordinate'].create({
-            'partner_id': paul.id,
-            'address_id': self.ref('mozaik_address.address_4'),
-            'vip': True,
-            'is_main': True,
-        })
+        paul = self.browse_ref('mozaik_address.res_partner_paul')
+        paul.address_address_id = self.ref('mozaik_address.address_4')
 
         dl = self.evr_lst_id
         dl_usr = dl.with_user(user=self.usr.id)
@@ -182,58 +159,33 @@ class TestDistributionList(SavepointCase):
         self.assertEqual(u_mains, u_partners)
 
         context = dict(
-            main_object_field='email_coordinate_id',
             main_object_domain=[],
-            main_target_model='email.coordinate',
-            alternative_object_field='postal_coordinate_id',
+            main_target_model='res.partner',
+            alternative_object_field='address_address_id',
             alternative_object_domain=[('email', '=', False)],
-            alternative_target_model='postal.coordinate',
+            alternative_target_model='address.address',
         )
         dl_ctx = dl.with_context(context)
         dl_usr_ctx = dl_usr.with_context(context)
 
         # email_coordinate_id, postal_coordinate_id, admin
         ac_mains, ac_alternatives = dl_ctx._get_complex_distribution_list_ids()
-        self.assertIn(ec, ac_mains)
-        self.assertIn(pc, ac_alternatives)
+        self.assertIn(thierry, ac_mains)
+        self.assertIn(paul.address_address_id, ac_alternatives)
         dom = [
             ('is_company', '=', False),
             ('email', '!=', False),
         ]
         ac_partners = partner_obj.search(dom)
-        ac_emails = ac_partners.mapped('email_coordinate_id')
-        self.assertEqual(ac_mains, ac_emails)
+        ac_emails = ac_partners
+        self.assertEqual(ac_mains.filtered(lambda s: s.email), ac_emails)
         dom = [
             ('is_company', '=', False),
             ('email', '=', False),
             ('address', '!=', False),
         ]
         ac_partners = partner_obj.search(dom)
-        ac_postals = ac_partners.mapped('postal_coordinate_id')
+        ac_postals = ac_partners.mapped('address_address_id')
         self.assertEqual(ac_alternatives, ac_postals)
-
-        e_vips = ac_emails.filtered(lambda s: s.vip)
-        p_vips = ac_postals.filtered(lambda s: s.vip)
-
-        # email_coordinate_id, postal_coordinate_id, other user
-        uc_mains, uc_alternatives = \
-            dl_usr_ctx._get_complex_distribution_list_ids()
-        self.assertNotIn(ec, uc_mains)
-        self.assertNotIn(pc, uc_alternatives)
-        dom = [
-            ('is_company', '=', False),
-            ('email', '!=', False),
-        ]
-        uc_partners = partner_obj.search(dom)
-        uc_emails = uc_partners.mapped('email_coordinate_id')
-        self.assertEqual(uc_mains, uc_emails - e_vips)
-        dom = [
-            ('is_company', '=', False),
-            ('email', '=', False),
-            ('address', '!=', False),
-        ]
-        uc_partners = partner_obj.search(dom)
-        uc_postals = uc_partners.mapped('postal_coordinate_id')
-        self.assertEqual(uc_alternatives, uc_postals - p_vips)
 
         return

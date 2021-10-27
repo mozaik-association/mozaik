@@ -51,7 +51,7 @@
 
             </xpath>
 
-            <xpath expr="//button[@name='action_redefine_domain']" position="attributes">
+            <xpath expr="//field[@name='domain']" position="attributes">
                 <attribute name="attrs" translation="off">{'invisible':[('active', '=', False)]}</attribute>
             </xpath>
 

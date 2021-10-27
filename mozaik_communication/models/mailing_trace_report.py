@@ -6,7 +6,7 @@ from odoo import api, models, fields, tools
 
 
 class MassMailingReport(models.Model):
-    _inherit = 'mail.statistics.report'
+    _inherit = 'mailing.trace.report'
 
     group_id = fields.Many2one(
         comodel_name='mail.mass_mailing.group',
@@ -44,12 +44,10 @@ SELECT
         ORDER BY mm.id
     ))||')' AS trial
 FROM
-    mail_mail_statistics as ms
-    left join mail_mass_mailing as mm ON (ms.mass_mailing_id=mm.id)
-    left join mail_mass_mailing_campaign as mc ON (
-        ms.mass_mailing_campaign_id=mc.id)
+    mailing_trace as ms
+    left join mailing_mailing as mm ON (ms.mass_mailing_id=mm.id)
     left join utm_campaign as utm_campaign ON (
-        mc.campaign_id = utm_campaign.id)
+        mm.campaign_id = utm_campaign.id)
     left join utm_source as utm_source ON (mm.source_id = utm_source.id)
 GROUP BY
     ms.scheduled, utm_source.name, utm_campaign.name, mm.state, mm.email_from,

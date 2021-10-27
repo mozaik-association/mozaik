@@ -13,7 +13,6 @@ class ResPartner(models.Model):
         column2='distribution_list_id',
         string='Opt-Out',
         domain=[('newsletter', '=', True)],
-        oldname="opt_out_ids",
     )
     distribution_list_opt_in_ids = fields.Many2many(
         comodel_name='distribution.list',
@@ -22,10 +21,9 @@ class ResPartner(models.Model):
         column2='distribution_list_id',
         string='Opt-In',
         domain=[('newsletter', '=', True)],
-        oldname="opt_in_ids",
     )
     responsible_user_id = fields.Many2one(
         comodel_name='res.users',
-        string='Responsible User',
+        string='Responsible User (Communication)',
         index=True,
     )

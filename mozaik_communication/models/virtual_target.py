@@ -8,7 +8,6 @@ class VirtualTarget(models.Model):
     _description = "Searching Result"
     _inherit = [
         'abstract.virtual.model',
-        'abstract.term.finder',
     ]
     _auto = False
 

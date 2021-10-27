@@ -5,7 +5,7 @@
 
     <record id="view_mail_mass_mailing_form" model="ir.ui.view">
         <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing)</field>
-        <field name="model">mail.mass_mailing</field>
+        <field name="model">mailing.mailing</field>
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
         <field name="arch" type="xml">
             <xpath expr="//form" position="attributes">
@@ -13,16 +13,16 @@
                 <attribute name="duplicate">0</attribute>
                 <attribute name="edit">0</attribute>
             </xpath>
-            <xpath expr="//button[@name='action_test_mailing']" position="attributes">
+            <xpath expr="//button[@name='action_test']" position="attributes">
                 <attribute name="groups" translation="off">base.group_erp_manager</attribute>
             </xpath>
-            <xpath expr="//button[@name='put_in_queue']" position="attributes">
+            <xpath expr="//button[@name='action_put_in_queue']" position="attributes">
                 <attribute name="groups" translation="off">base.group_erp_manager</attribute>
             </xpath>
-            <xpath expr="//button[@name='cancel_mass_mailing']" position="attributes">
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
                 <attribute name="groups" translation="off">base.group_erp_manager</attribute>
             </xpath>
-            <xpath expr="//button[@name='retry_failed_mail']" position="attributes">
+            <xpath expr="//button[@name='action_retry_failed']" position="attributes">
                 <attribute name="groups" translation="off">base.group_erp_manager</attribute>
             </xpath>
             <xpath expr="//form" position="inside">
@@ -38,16 +38,16 @@
 
     <record id="view_mail_mass_mailing_search" model="ir.ui.view">
         <field name="name">mail.mass_mailing.search (mozaik_communication mass_mailing)</field>
-        <field name="model">mail.mass_mailing</field>
+        <field name="model">mailing.mailing</field>
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_search" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <field name="create_uid" string="Sender" />
             </xpath>
-            <xpath expr="//field[@name='mass_mailing_campaign_id']" position="attributes">
+            <xpath expr="//field[@name='campaign_id']" position="attributes">
                 <attribute name="groups" translation="off">base.group_erp_manager</attribute>
             </xpath>
-            <xpath expr="//field[@name='mass_mailing_campaign_id']" position="after">
+            <xpath expr="//field[@name='campaign_id']" position="after">
                 <field name="distribution_list_id" />
             </xpath>
             <xpath expr="//filter[@name='sent_by']" position="attributes">
@@ -61,15 +61,15 @@
 
     <record id="view_mail_mass_mailing_tree" model="ir.ui.view">
         <field name="name">mail.mass_mailing.tree (mozaik_communication mass_mailing)</field>
-        <field name="model">mail.mass_mailing</field>
+        <field name="model">mailing.mailing</field>
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
+            <xpath expr="//field[@name='subject']" position="after">
                 <field name="distribution_list_id" />
                 <field name="create_uid" string="Sender" />
                 <field name="create_date" />
             </xpath>
-            <xpath expr="//field[@name='replied']" position="after">
+            <xpath expr="//field[@name='replied_ratio']" position="after">
                 <field name="bounced" />
                 <field name="active" groups="base.group_erp_manager"/>
             </xpath>

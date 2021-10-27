@@ -28,8 +28,6 @@
                                widget="radio" />
                     </group>
                     <group name="modifiers">
-                        <field name="include_unauthorized"
-                               readonly="bool(context.get('mailing_group_id'))" />
                         <field name="bounce_counter" />
                         <field name="internal_instance_id"
                                readonly="bool(context.get('mailing_group_id'))" />
@@ -118,7 +116,7 @@
     <record id="distribution_list_mass_function_action" model="ir.actions.act_window">
         <field name="name">Execute Distribution List</field>
         <field name="view_mode">form</field>
-        <field name="binding_model">distribution.list</field>
+        <field name="binding_model_id" ref="mozaik_communication.model_distribution_list"/>
         <field name="res_model">distribution.list.mass.function</field>
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list_mass_function_wizard" />

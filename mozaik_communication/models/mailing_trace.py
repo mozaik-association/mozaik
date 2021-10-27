@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 
 
 class MailMailStats(models.Model):
-    _inherit = 'mail.mail.statistics'
+    _inherit = 'mailing.trace'
 
     def set_bounced(self, mail_mail_ids=None, mail_message_ids=None):
         """

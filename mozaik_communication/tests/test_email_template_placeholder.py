@@ -16,5 +16,5 @@ class TestEmailTemplatePlaceholder(TransactionCase):
         }
         ph = self.env['email.template.placeholder'].create(vals)
         # Check for default value
-        self.assertEqual(ph.model_id.model, 'email.coordinate')
-        self.assertEqual(ph.placeholder, '${object.partner_id.}')
+        self.assertEqual(ph.model_id.model, 'res.partner')
+        self.assertEqual(ph.placeholder, '${object.}')

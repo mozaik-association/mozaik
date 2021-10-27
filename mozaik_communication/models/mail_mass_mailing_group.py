@@ -12,7 +12,7 @@ class MassMailingGroup(models.Model):
         store=True,
     )
     mailings_ids = fields.One2many(
-        comodel_name='mailing_mailing',
+        comodel_name='mailing.mailing',
         inverse_name='group_id',
         string='Mailings',
     )
