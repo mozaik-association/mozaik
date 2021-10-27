@@ -72,7 +72,8 @@
                     <field
                         name="partner_involvement_ids"
                         context="{'default_partner_id': id}"
-                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}"
+                        attrs="{'invisible': [('active','=',False)]}"
+                        readonly="1"
                     >
                         <tree>
                             <field name="involvement_category_id" />
