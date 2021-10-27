@@ -1,17 +1,17 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import _, fields, models
 from odoo.osv import expression
 
 
 class DistributionListLine(models.Model):
     _name = "distribution.list.line"
     _inherit = [
-        'mozaik.abstract.model',
-        'distribution.list.line',
+        "mozaik.abstract.model",
+        "distribution.list.line",
     ]
-    _unicity_keys = 'N/A'
+    _unicity_keys = "N/A"
 
     name = fields.Char(
         tracking=True,
@@ -31,12 +31,12 @@ class DistributionListLine(models.Model):
         :return: target recordset
         """
         results = super()._get_target_recordset()
-        partner_path = self.mapped('distribution_list_id').partner_path
-        if results and all(self.mapped('exclude')) and partner_path:
+        partner_path = self.mapped("distribution_list_id").partner_path
+        if results and all(self.mapped("exclude")) and partner_path:
             partners = results.mapped(partner_path)
             if partners:
                 domain = [
-                    (partner_path, 'in', partners.ids),
+                    (partner_path, "in", partners.ids),
                 ]
                 results = results.search(domain)
         return results
@@ -48,12 +48,12 @@ class DistributionListLine(models.Model):
         """
         self.ensure_one()
         result = self.action_show_filter_result()
-        result.update({
-            'name': _('Result of %s without coordinate') % self.name
-        })
-        domain = result.get('domain', [])
-        domain = expression.AND([domain, [('active', '=', False)]])
-        result.update({
-            'domain': domain,
-        })
+        result.update({"name": _("Result of %s without coordinate") % self.name})
+        domain = result.get("domain", [])
+        domain = expression.AND([domain, [("active", "=", False)]])
+        result.update(
+            {
+                "domain": domain,
+            }
+        )
         return result

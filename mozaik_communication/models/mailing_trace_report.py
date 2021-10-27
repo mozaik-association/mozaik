@@ -2,15 +2,16 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from psycopg2.extensions import AsIs
-from odoo import api, models, fields, tools
+
+from odoo import fields, models, tools
 
 
 class MassMailingReport(models.Model):
-    _inherit = 'mailing.trace.report'
+    _inherit = "mailing.trace.report"
 
     group_id = fields.Many2one(
-        comodel_name='mail.mass_mailing.group',
-        string='Group',
+        comodel_name="mail.mass_mailing.group",
+        string="Group",
         readonly=True,
     )
     trial = fields.Char(

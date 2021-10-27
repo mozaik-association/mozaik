@@ -1,10 +1,10 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import api, fields, models, _
+from odoo import _, models
 
 
 class MailMailStats(models.Model):
-    _inherit = 'mailing.trace'
+    _inherit = "mailing.trace"
 
     def set_bounced(self, mail_mail_ids=None, mail_message_ids=None):
         """
@@ -14,9 +14,10 @@ class MailMailStats(models.Model):
         :return: self recordset
         """
         results = super().set_bounced(
-            mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids)
+            mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids
+        )
         active_ids = []
-        active_model = 'res.partner'
+        active_model = "res.partner"
         for record in self:
             target_obj = self.env[record.model]
             if record.model == active_model and record.res_id:
@@ -29,22 +30,31 @@ class MailMailStats(models.Model):
 
             if active_ids:
                 ctx = self.env.context.copy()
-                ctx.update({
-                    'active_ids': active_ids,
-                    'active_model': active_ids,
-                })
-                wizard = self.env['failure.editor'].with_context(ctx).create({ # TODO wizrd doesnt' exist enymore
-                    'increase': 1,
-                    'description': _('Invalid Email Address'),
-                })
+                ctx.update(
+                    {
+                        "active_ids": active_ids,
+                        "active_model": active_ids,
+                    }
+                )
+                wizard = (
+                    self.env["failure.editor"]
+                    .with_context(ctx)
+                    .create(
+                        {  # TODO wizrd doesnt' exist enymore
+                            "increase": 1,
+                            "description": _("Invalid Email Address"),
+                        }
+                    )
+                )
                 wizard.update_failure_data()
                 # post technical details of the bounce on the sender document
-                keep_bounce = self.env['ir.config_parameter'].sudo().get_param(
-                    'mail.bounce.keep', default='1')
-                bounce_body = ctx.get('bounce_body')
-                if bounce_body and keep_bounce.lower() in ['1', 'true']:
-                    partner = self.env[active_model].browse(
-                        active_ids)
-                    partner.message_post(
-                        subject=_('Bounce Details'), body=bounce_body)
+                keep_bounce = (
+                    self.env["ir.config_parameter"]
+                    .sudo()
+                    .get_param("mail.bounce.keep", default="1")
+                )
+                bounce_body = ctx.get("bounce_body")
+                if bounce_body and keep_bounce.lower() in ["1", "true"]:
+                    partner = self.env[active_model].browse(active_ids)
+                    partner.message_post(subject=_("Bounce Details"), body=bounce_body)
         return results

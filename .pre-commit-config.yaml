@@ -6,7 +6,6 @@ exclude: |
   ^disable_user_welcome_message/|
   ^ir_rule_child_of/|
   ^mail_job_priority/|
-  ^mass_mail_queue_job/|
   ^mozaik_account/|
   ^mozaik_automatic_supporter/|
   ^mozaik_committee/|

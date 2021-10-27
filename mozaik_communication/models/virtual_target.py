@@ -7,25 +7,24 @@ class VirtualTarget(models.Model):
     _name = "virtual.target"
     _description = "Searching Result"
     _inherit = [
-        'abstract.virtual.model',
+        "abstract.virtual.model",
     ]
     _auto = False
 
-    result_id = fields.Many2one(
-        store=False)
+    result_id = fields.Many2one(store=False)
     membership_state_id = fields.Many2one(
-        comodel_name='membership.state', string='Membership State')
+        comodel_name="membership.state", string="Membership State"
+    )
     display_name = fields.Char()
     technical_name = fields.Char()
     lastname = fields.Char()
     firstname = fields.Char()
-    email = fields.Char(string='Email Coordinate')
-    postal = fields.Char(string='Postal Coordinate')
-    email_failure_counter = fields.Integer(string='Email Bounce Counter')
-    postal_failure_counter = fields.Integer(string='Postal Bounce Counter')
+    email = fields.Char(string="Email Coordinate")
+    postal = fields.Char(string="Postal Coordinate")
+    email_failure_counter = fields.Integer(string="Email Bounce Counter")
+    postal_failure_counter = fields.Integer(string="Postal Bounce Counter")
     zip = fields.Char("Zip Code")
-    country_id = fields.Many2one(
-        comodel_name='res.country', string='Country')
+    country_id = fields.Many2one(comodel_name="res.country", string="Country")
 
     @api.model
     def _get_select(self):
@@ -33,7 +32,9 @@ class VirtualTarget(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = super()._get_select() + """,
+        select = (
+            super()._get_select()
+            + """,
             adr.name as postal,
             adr.zip as zip,
             adr.country_id as country_id,
@@ -43,6 +44,7 @@ class VirtualTarget(models.Model):
             p.technical_name AS technical_name,
             p.lastname AS lastname,
             p.firstname AS firstname"""
+        )
         return select
 
     @api.model

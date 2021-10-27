@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -9,17 +9,30 @@
         <field name="arch" type="xml">
             <form>
                 <div>
-                    <label for="export_file" string="This wizard will export the selected coordinates into a CSV file"/>
+                    <label
+                        for="export_file"
+                        string="This wizard will export the selected coordinates into a CSV file"
+                    />
                 </div>
                 <group>
-                    <field name="export_file" nolabel="1" readonly="1" filename="export_filename"/>
+                    <field
+                        name="export_file"
+                        nolabel="1"
+                        readonly="1"
+                        filename="export_filename"
+                    />
                 </group>
                 <footer>
                     <span attrs="{'invisible': [('export_file', '!=', False)]}">
-                        <button name="export" string="Generate" type="object" class="oe_highlight"/>
+                        <button
+                            name="export"
+                            string="Generate"
+                            type="object"
+                            class="oe_highlight"
+                        />
                         or
                     </span>
-                    <button string="Cancel" class="oe_link" special="cancel"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
             </form>
         </field>
@@ -30,7 +43,7 @@
         <field name="view_mode">form</field>
         <field name="res_model">export.csv</field>
         <field name="target">new</field>
-        <field name="view_id" ref="export_csv_wizard"/>
+        <field name="view_id" ref="export_csv_wizard" />
         <field name="binding_model_id" ref="base.model_res_partner" />
     </record>
 

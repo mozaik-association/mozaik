@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo noupdate="1">
@@ -13,15 +13,18 @@
         <field name="src_model_id" ref="base.model_res_partner" />
         <field name="domain">[('is_company', '=', False)]</field>
         <field name="distribution_list_id" ref="everybody_list" />
-        <field name="bridge_field_id" ref="base.field_res_partner__id"/>
+        <field name="bridge_field_id" ref="base.field_res_partner__id" />
     </record>
 
     <record id="distribution_list_newsletter" model="distribution.list">
         <field name="name">Sample Newsletter</field>
         <field name="dst_model_id" ref="base.model_res_partner" />
         <field name="code">NEWS</field>
-        <field name="newsletter" eval="1"/>
-        <field name="res_partner_opt_out_ids" eval="[(6, 0, [ref('mozaik_address.res_partner_paul')])]"/>
+        <field name="newsletter" eval="1" />
+        <field
+            name="res_partner_opt_out_ids"
+            eval="[(6, 0, [ref('mozaik_address.res_partner_paul')])]"
+        />
     </record>
 
     <record id="distribution_list_line_all_nat_pers_2" model="distribution.list.line">
@@ -29,7 +32,7 @@
         <field name="src_model_id" ref="base.model_res_partner" />
         <field name="domain">[('is_company', '=', False)]</field>
         <field name="distribution_list_id" ref="distribution_list_newsletter" />
-        <field name="bridge_field_id" ref="base.field_res_partner__id"/>
+        <field name="bridge_field_id" ref="base.field_res_partner__id" />
     </record>
 
 </odoo>

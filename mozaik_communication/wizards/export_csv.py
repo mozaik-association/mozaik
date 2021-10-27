@@ -1,15 +1,17 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import csv
 import base64
+import csv
 from io import StringIO
+
 from psycopg2.extensions import AsIs
-from odoo import api, exceptions, models, fields, _
+
+from odoo import _, api, exceptions, fields, models
 
 
 class ExportCsv(models.TransientModel):
-    _name = 'export.csv'
-    _description = 'Export CSV Wizard'
+    _name = "export.csv"
+    _description = "Export CSV Wizard"
 
     export_file = fields.Binary(
         string="CSV",
@@ -82,28 +84,28 @@ class ExportCsv(models.TransientModel):
         :return: list of str
         """
         header = [
-            _('Number'),
-            _('Name'),
-            _('Lastname'),
-            _('Firstname'),
-            _('Usual Lastname'),
-            _('Usual Firstname'),
-            _('Co-residency Line 1'),
-            _('Co-residency Line 2'),
-            _('State'),
-            _('Birth Date'),
-            _('Gender'),
-            _('Language'),
-            _('Title'),
-            _('Street2'),
-            _('Street'),
-            _('Zip'),
-            _('City'),
-            _('Country Code'),
-            _('Country'),
-            _('Phone'),
-            _('Mobile'),
-            _('Email'),
+            _("Number"),
+            _("Name"),
+            _("Lastname"),
+            _("Firstname"),
+            _("Usual Lastname"),
+            _("Usual Firstname"),
+            _("Co-residency Line 1"),
+            _("Co-residency Line 2"),
+            _("State"),
+            _("Birth Date"),
+            _("Gender"),
+            _("Language"),
+            _("Title"),
+            _("Street2"),
+            _("Street"),
+            _("Zip"),
+            _("City"),
+            _("Country Code"),
+            _("Country"),
+            _("Phone"),
+            _("Mobile"),
+            _("Email"),
         ]
         return header
 
@@ -115,7 +117,7 @@ class ExportCsv(models.TransientModel):
         :return: str
         """
         r_order_by = "p.id"
-        if order_by in ['identifier', 'technical_name']:
+        if order_by in ["identifier", "technical_name"]:
             r_order_by = "p.%s" % order_by
         elif order_by:
             r_order_by = "country_name, final_zip, p.technical_name"
@@ -131,30 +133,30 @@ class ExportCsv(models.TransientModel):
         :return: list of str
         """
         keys = [
-            'identifier',
-            'name',
-            'lastname',
-            'firstname',
-            'usual_lastname',
-            'usual_firstname',
-            'printable_name',
-            'co_residency',
-            'state',
-            'birthdate_date',
-            'gender',
-            'lang',
-            'title',
-            'street2',
-            'street',
-            'final_zip',
-            'city',
-            'country_code',
-            'country_name',
-            'fix',
-            'mobile',
-            'email',
+            "identifier",
+            "name",
+            "lastname",
+            "firstname",
+            "usual_lastname",
+            "usual_firstname",
+            "printable_name",
+            "co_residency",
+            "state",
+            "birthdate_date",
+            "gender",
+            "lang",
+            "title",
+            "street2",
+            "street",
+            "final_zip",
+            "city",
+            "country_code",
+            "country_name",
+            "fix",
+            "mobile",
+            "email",
         ]
-        export_values = [values.get(k, '*****') for k in keys]
+        export_values = [values.get(k, "*****") for k in keys]
         return export_values
 
     @api.model
@@ -168,30 +170,30 @@ class ExportCsv(models.TransientModel):
         if not model_ids:
             return
         where_query = "%(table_join)s.id IN %(model_ids)s"
-        if model == 'virtual.target':
-            table_join = 'vt'
+        if model == "virtual.target":
+            table_join = "vt"
             from_sql = self._from_virtual_target()
         else:
             raise exceptions.UserError(
-                _('Model %s not supported for csv export!') % model)
+                _("Model %s not supported for csv export!") % model
+            )
         where_values = {
-            'table_join': AsIs(table_join),
-            'model_ids': tuple(model_ids),
+            "table_join": AsIs(table_join),
+            "model_ids": tuple(model_ids),
         }
         where_query = self.env.cr.mogrify(where_query, where_values)
         select = self._get_select()
         from_values = {
-            'common_join': AsIs(self._common_joins()),
+            "common_join": AsIs(self._common_joins()),
         }
         from_sql = self.env.cr.mogrify(from_sql, from_values)
-        order_by = self._get_order_by(self.env.context.get('sort_by'))
-        query = "%(select)s %(from)s WHERE %(where_query)s " \
-                "ORDER BY %(order_by)s"
+        order_by = self._get_order_by(self.env.context.get("sort_by"))
+        query = "%(select)s %(from)s WHERE %(where_query)s " "ORDER BY %(order_by)s"
         values = {
-            'where_query': AsIs(where_query.decode()),
-            'order_by': AsIs(order_by),
-            'select': AsIs(select),
-            'from': AsIs(from_sql.decode()),
+            "where_query": AsIs(where_query.decode()),
+            "order_by": AsIs(order_by),
+            "select": AsIs(select),
+            "from": AsIs(from_sql.decode()),
         }
         self.env.cr.execute(query, values)
         for row in self.env.cr.dictfetchall():
@@ -207,37 +209,38 @@ class ExportCsv(models.TransientModel):
         :return: str
         """
         if not model or not model_ids:
-            return ''
-        states = self.env['membership.state'].search([])
+            return ""
+        states = self.env["membership.state"].search([])
         states = {st.id: st.name for st in states}
-        titles = self.env['res.partner.title'].search([])
+        titles = self.env["res.partner.title"].search([])
         titles = {title.id: title.name for title in titles}
-        countries = self.env['res.country'].search([])
+        countries = self.env["res.country"].search([])
         countries = {cnt.id: cnt.name for cnt in countries}
-        selections = self.env['res.partner'].fields_get(
-            allfields=['gender', 'lang'])
-        genders = {k: v for k, v in selections['gender']['selection']}
-        langs = {k: v for k, v in selections['lang']['selection']}
+        selections = self.env["res.partner"].fields_get(allfields=["gender", "lang"])
+        genders = {k: v for k, v in selections["gender"]["selection"]}
+        langs = {k: v for k, v in selections["lang"]["selection"]}
         headers = self._get_csv_rows()
-        co_residencies = []
         with StringIO() as memory_file:
             writer = csv.writer(memory_file)
             writer.writerow(headers)
             for data in self._prefetch_csv_datas(model, model_ids):
                 # Update data depending on others models
-                data.update({
-                    'state': states.get(
-                        data.get('state_id'), data.get('state')),
-                    'title': titles.get(data.get('title'), ''),
-                    'country_name': countries.get(
-                        data.get('country_id'), data.get('country_name')),
-                    'gender': genders.get(
-                        data.get('gender'), data.get('gender')),
-                    'lang': langs.get(data.get('lang'), data.get('lang')),
-                })
-                if not data.get('co_residency_id') and data.get('title'):
-                    data['printable_name'] = '%s %s' % (
-                        data['title'], data['printable_name'],)
+                data.update(
+                    {
+                        "state": states.get(data.get("state_id"), data.get("state")),
+                        "title": titles.get(data.get("title"), ""),
+                        "country_name": countries.get(
+                            data.get("country_id"), data.get("country_name")
+                        ),
+                        "gender": genders.get(data.get("gender"), data.get("gender")),
+                        "lang": langs.get(data.get("lang"), data.get("lang")),
+                    }
+                )
+                if not data.get("co_residency_id") and data.get("title"):
+                    data["printable_name"] = "%s %s" % (
+                        data["title"],
+                        data["printable_name"],
+                    )
                 export_values = self._get_csv_values(data)
                 writer.writerow(export_values)
             csv_content = memory_file.getvalue()
@@ -246,17 +249,20 @@ class ExportCsv(models.TransientModel):
     def export(self):
         self.ensure_one()
         context = self.env.context
-        model = context.get('active_model')
-        model_ids = context.get('active_ids', context.get('active_id', []))
+        model = context.get("active_model")
+        model_ids = context.get("active_ids", context.get("active_id", []))
         csv_content = self._get_csv(model, model_ids)
-        self.write({
-            'export_file': base64.b64encode(csv_content.encode('utf-8')),
-            'export_filename': _('Extract') + '.csv',
-        })
-        action = self.env.ref(
-            "mozaik_communication.export_csv_postal_action").read()[0]
-        action.update({
-            'res_id': self.id,
-            'target': 'new',
-        })
+        self.write(
+            {
+                "export_file": base64.b64encode(csv_content.encode("utf-8")),
+                "export_filename": _("Extract") + ".csv",
+            }
+        )
+        action = self.env.ref("mozaik_communication.export_csv_postal_action").read()[0]
+        action.update(
+            {
+                "res_id": self.id,
+                "target": "new",
+            }
+        )
         return action

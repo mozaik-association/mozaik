@@ -1,11 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record id="virtual_target_tree_view" model="ir.ui.view">
         <field name="name">virtual.target.tree</field>
         <field name="model">virtual.target</field>
-        <field name="inherit_id" ref="mozaik_communication.abstract_virtual_model_tree_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.abstract_virtual_model_tree_view"
+        />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
@@ -23,26 +26,53 @@
             <search>
                 <field name="identifier" />
                 <!-- pylint: disable=duplicate-xml-fields -->
-                <field string="Birth Date > ..." name="birth_date"
-                       filter_domain="[('birth_date','>',self)]" />
-                <field string="Birth Date &lt; ..." name="birth_date"
-                       filter_domain="[('birth_date','&lt;',self)]" />
+                <field
+                    string="Birth Date > ..."
+                    name="birth_date"
+                    filter_domain="[('birth_date','>',self)]"
+                />
+                <field
+                    string="Birth Date &lt; ..."
+                    name="birth_date"
+                    filter_domain="[('birth_date','&lt;',self)]"
+                />
 
                 <field name="partner_id" />
                 <field name="int_instance_id" />
-                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                <field
+                    name="int_instance_id"
+                    string="Internal Instance descending of..."
+                    operator="child_of"
+                />
 
-                <filter string="Natural Persons" name="type_person"
-                        domain="[('is_company','=',0)]" />
-                <filter string="Legal Persons" name="type_company"
-                        domain="[('is_company','!=',0)]" />
+                <filter
+                    string="Natural Persons"
+                    name="type_person"
+                    domain="[('is_company','=',0)]"
+                />
+                <filter
+                    string="Legal Persons"
+                    name="type_company"
+                    domain="[('is_company','!=',0)]"
+                />
                 <separator />
-                <filter name="without_coordinate" string="Without Coordinate"
-                        domain="[('active','=',False)]" />
+                <filter
+                    name="without_coordinate"
+                    string="Without Coordinate"
+                    domain="[('active','=',False)]"
+                />
 
                 <group name="group_by">
-                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                    <filter
+                        name="partner"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        name="int_instance"
+                        string="Internal Instance"
+                        context="{'group_by':'int_instance_id'}"
+                    />
                 </group>
             </search>
         </field>

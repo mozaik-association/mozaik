@@ -5,21 +5,20 @@ from odoo.tests.common import TransactionCase
 
 
 class TestEmailTemplate(TransactionCase):
-
     def test_default_values(self):
         """
         Check for default value for several fields
         """
         # Give an instance to the user
-        int_instance = self.browse_ref('mozaik_structure.int_instance_01')
+        int_instance = self.browse_ref("mozaik_structure.int_instance_01")
         self.env.user.partner_id.int_instance_m2m_ids = int_instance
         # Create a template
         vals = {
-            'name': 'Sébastien parmi les hommes...',
+            "name": "Sébastien parmi les hommes...",
         }
-        tmpl = self.env['mail.template'].with_context(active_test=False).create(vals)
+        tmpl = self.env["mail.template"].with_context(active_test=False).create(vals)
         # Check for default values
-        self.assertEqual(tmpl.model_id.model, 'res.partner')
+        self.assertEqual(tmpl.model_id.model, "res.partner")
         tmpl.invalidate_cache()
         self.assertIn(self.env.user, tmpl.res_users_ids)
         self.assertEqual(tmpl.int_instance_id, int_instance)
