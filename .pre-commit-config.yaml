@@ -10,7 +10,6 @@ exclude: |
   ^mozaik_account/|
   ^mozaik_automatic_supporter/|
   ^mozaik_committee/|
-  ^mozaik_communication/|
   ^mozaik_coordinate/|
   ^mozaik_email/|
   ^mozaik_involvement_followup/|
