@@ -62,6 +62,13 @@
                             <field name="is_volunteer" />
                         </group>
                     </group>
+                    <button
+                        string="Add a new Involvement"
+                        class="btn-primary oe_stat_button oe_left"
+                        name="add_involvement_action"
+                        type="object"
+                        attrs="{'invisible': [('id','=',False)]}"
+                    />
                     <field
                         name="partner_involvement_ids"
                         context="{'default_partner_id': id}"
@@ -70,6 +77,7 @@
                         <tree>
                             <field name="involvement_category_id" />
                             <field name="involvement_type" />
+                            <field name="importance_level" />
                             <field name="creation_time" />
                         </tree>
                     </field>

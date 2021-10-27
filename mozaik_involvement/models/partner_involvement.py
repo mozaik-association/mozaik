@@ -16,7 +16,7 @@ class PartnerInvolvement(models.Model):
     _inherit = ["mozaik.abstract.model"]
     _description = "Partner Involvement"
     _rec_name = "involvement_category_id"
-    _order = "partner_id, id desc"
+    _order = "partner_id, importance_level, creation_time desc"
 
     partner_id = fields.Many2one(
         comodel_name="res.partner",
