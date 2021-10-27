@@ -33,7 +33,6 @@ class TestMailComposeMessage(TransactionCase):
         fname = 'license2kill.doc'
         vals = {
             'datas': 'bWlncmF0aW9uIHRlc3Q=',
-            'datas_fname': fname,
             'name': fname,
         }
         attach = self.env['ir.attachment'].create(vals)
@@ -47,7 +46,7 @@ class TestMailComposeMessage(TransactionCase):
             'subject': subject,
         }
         mcm_model = self.env['mail.compose.message'].with_context(
-            active_ids=[self.ref('base.res_partner_1')])
+            active_ids=[self.ref('base.res_partner_1')], async_send_mail=True)
         composer = mcm_model.create(vals)
         # execute the composer
         composer.send_mail()
@@ -66,8 +65,4 @@ class TestMailComposeMessage(TransactionCase):
         self.assertEqual(1, len(mail))
         self.assertEqual(1, len(mail.attachment_ids))
         self.assertEqual(fname, mail.attachment_ids.name)
-        # vacuum composers
-        vac_res = mcm_model._transient_vacuum()
-        # vacuum has been processed
-        self.assertTrue(vac_res)
         return

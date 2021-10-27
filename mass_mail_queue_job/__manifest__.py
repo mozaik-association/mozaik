@@ -11,6 +11,7 @@
     'category': 'Marketing',
     'depends': [
         'mail',
+        'mass_mailing',
         'queue_job',
     ],
     'data': [

@@ -4,7 +4,6 @@
 import logging
 
 from odoo import api, models, _
-from odoo.addons.queue_job.job import job
 
 _logger = logging.getLogger(__name__)
 
@@ -20,29 +19,13 @@ class MailComposeMessage(models.TransientModel):
         Remove useless keys and transform all o2m list values with magic number
         """
         self.ensure_one()
-        vals = self.read([
-            'attachment_ids',
-            'subject',
-            'model',
-            'reply_to',
-            'composition_mode',
-            'body',
-            'no_auto_thread',
-            'message_id',
-            'author_id',
-            'email_from',
-            'subtype_id',
-            'message_type',
-            'mass_mailing_name',
-            'distribution_list_id',
-            'contact_ab_pc',
-        ], load='_classic_write')[0]
+        vals = self.read(list(self._fields.keys()), load='_classic_write')[0]
         vals.pop('id', None)
         vals = self._convert_to_write(vals)
         return vals
 
     @api.model
-    def _transient_vacuum(self, force=False):
+    def _transient_vacuum(self):
         """
         Do not unlink mail composer wizards if unfinished jobs exist
         """
@@ -50,7 +33,7 @@ class MailComposeMessage(models.TransientModel):
         domain = [('state', '!=', 'done')]
         jobs = self.env['queue.job'].search(domain)
         if not jobs:
-            res = super()._transient_vacuum(force=force)
+            res = super()._transient_vacuum()
         return res
 
     def send_mail(self, auto_commit=False):
@@ -90,12 +73,11 @@ class MailComposeMessage(models.TransientModel):
             i = i + 1
             _logger.info(
                 'Delay %s for ids: %s', description, chunck_active_ids)
-            wz_model.with_delay(description=description)._build_mails_jobified(
+            wz_model.with_delay(channel='root.mail.build', description=description)._build_mails_jobified(
                 vals, chunck_active_ids, auto_commit)
         return {'type': 'ir.actions.act_window_close'}
 
     @api.model
-    @job(default_channel='root.mail.build')
     def _build_mails_jobified(self, vals, active_ids, auto_commit):
         """
         Build (and send) mails
