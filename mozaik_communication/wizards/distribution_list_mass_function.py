@@ -43,14 +43,14 @@ class DistributionListMassFunction(models.TransientModel):
     )
     e_mass_function = fields.Selection(
         selection=_get_e_mass_function,
-        string="Mass function",
+        string="Mass function (Email)",
         default=lambda self: self._get_default_e_mass_function(),
     )
     p_mass_function = fields.Selection(
         selection=[
             ("csv", "CSV Extraction"),
         ],
-        string="Mass function",
+        string="Mass function (Postal)",
         default="csv",
     )
     distribution_list_id = fields.Many2one(

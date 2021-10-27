@@ -1,6 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
+import odoo
 from odoo import models
 
 
@@ -14,7 +14,8 @@ class MailMail(models.Model):
         sends emails directly in V11 without using "Email Queue Manager".
         """
         res = None
-        send_it = self._context.get("force_send")
+        # ignore this behavior in test, it create bugs in some addons
+        send_it = self._context.get("force_send") or odoo.tools.config["test_enable"]
         if not send_it and self._context.get("job_uuid"):
             job = self.env["queue.job"].search(
                 [("uuid", "=", self._context["job_uuid"])]
