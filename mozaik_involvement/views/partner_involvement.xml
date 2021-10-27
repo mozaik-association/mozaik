@@ -36,6 +36,7 @@
                         <group name="data1">
                             <field name="involvement_type" />
                             <field name="allow_multi" invisible="1" />
+                            <field name="importance_level" />
                         </group>
                         <group name="data2">
                             <field name="effective_time" />
@@ -165,6 +166,7 @@
                 <field name="partner_id" />
                 <field name="involvement_category_id" />
                 <field name="involvement_type" />
+                <field name="importance_level" />
                 <field name="creation_time" />
                 <field
                     name="expire_date"

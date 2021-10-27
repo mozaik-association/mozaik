@@ -27,12 +27,24 @@ class ResPartner(models.Model):
         string="Partner Involvements",
         domain=[("active", "=", True)],
     )
+
     partner_involvement_inactive_ids = fields.One2many(
         comodel_name="partner.involvement",
         inverse_name="partner_id",
         string="Partner Involvements (Inactive)",
         domain=[("active", "=", False)],
     )
+
+    def add_involvement_action(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Add an involvement",
+            "res_model": "partner.involvement",
+            "context": {"default_partner_id": self.id},
+            "view_mode": "form",
+            "target": "new",
+        }
 
     @api.depends(
         "partner_involvement_ids",
