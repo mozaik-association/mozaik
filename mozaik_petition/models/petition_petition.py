@@ -47,6 +47,9 @@ class PetitionPetition(models.Model):
     user_id = fields.Many2one(
         "res.users", string="Responsible", default=lambda self: self.env.user
     )
+    int_instance_id = fields.Many2one(
+        "int.instance", compute="_compute_int_instance_id", store=True
+    )
     registration_ids = fields.One2many(
         "petition.registration", "petition_id", string="Signatories"
     )
@@ -76,6 +79,11 @@ class PetitionPetition(models.Model):
                     )
                 )
         return super(PetitionPetition, self).write(vals)
+
+    @api.depends("user_id")
+    def _compute_int_instance_id(self):
+        for rec in self:
+            rec.int_instance_id = rec.user_id.partner_id.int_instance_id
 
     @api.depends("registration_ids")
     def _compute_signatory_count(self):

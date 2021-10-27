@@ -3,26 +3,32 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record id="petition_petition_rule_write_user" model="ir.rule">
-        <field name="name">Petition: user write own petitions rule</field>
+    <record id="petition_petition_rule_read_user" model="ir.rule">
+        <field
+            name="name"
+        >Petition: read and write on petitions with same int_instance_id</field>
         <field name="model_id" ref="model_petition_petition" />
-        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field
+            name="domain_force"
+        >[('int_instance_id', '=', user.partner_id.int_instance_id.id)]</field>
         <field name="groups" eval="[(4, ref('mozaik_petition.group_petition_user'))]" />
-        <field name="perm_read" eval="False" />
+        <field name="perm_read" eval="True" />
         <field name="perm_write" eval="True" />
         <field name="perm_create" eval="False" />
         <field name="perm_unlink" eval="False" />
     </record>
 
-    <record id="petition_petition_rule_write_manager" model="ir.rule">
-        <field name="name">Petition: manager write on all petitions rule</field>
+    <record id="petition_petition_rule_read_manager" model="ir.rule">
+        <field
+            name="name"
+        >Petition: manager read and write on all petitions rule</field>
         <field name="model_id" ref="model_petition_petition" />
         <field name="domain_force">[(1, '=', 1)]</field>
         <field
             name="groups"
             eval="[(4, ref('mozaik_petition.group_petition_manager'))]"
         />
-        <field name="perm_read" eval="False" />
+        <field name="perm_read" eval="True" />
         <field name="perm_write" eval="True" />
         <field name="perm_create" eval="False" />
         <field name="perm_unlink" eval="False" />
