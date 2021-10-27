@@ -32,6 +32,11 @@ msgid "Active"
 msgstr ""
 
 #. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
+msgid "Add a new Involvement"
+msgstr ""
+
+#. module: mozaik_involvement
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "All"
@@ -204,6 +209,11 @@ msgid "Group By..."
 msgstr ""
 
 #. module: mozaik_involvement
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement__importance_level__high
+msgid "High"
+msgstr ""
+
+#. module: mozaik_involvement
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__id
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__id
 #: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__id
@@ -224,6 +234,11 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_has_error
 #: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__importance_level
+msgid "Importance Level"
 msgstr ""
 
 #. module: mozaik_involvement
@@ -316,6 +331,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__write_date
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement__importance_level__low
+msgid "Low"
 msgstr ""
 
 #. module: mozaik_involvement
