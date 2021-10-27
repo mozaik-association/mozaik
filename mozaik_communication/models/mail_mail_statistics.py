@@ -6,29 +6,6 @@ from odoo import api, fields, models, _
 class MailMailStats(models.Model):
     _inherit = 'mail.mail.statistics'
 
-    email_coordinate_id = fields.Many2one(
-        comodel_name='email.coordinate',
-        string='Email Coordinate',
-        compute='_compute_email_coordinate_id',
-        store=True,
-        ondelete='cascade',
-    )
-
-    @api.depends('res_id', 'model')
-    def _compute_email_coordinate_id(self):
-        """
-        Transform res_id integers to real email coordinates ids
-        """
-        model = 'email.coordinate'
-        coordinate_ids = self.filtered(
-            lambda s, m=model: s.res_id and s.model == m).mapped("res_id")
-        coordinates = self.env[model].browse(coordinate_ids).exists()
-        for stat in self:
-            if stat.model == model and stat.res_id in coordinates.ids:
-                stat.email_coordinate_id = stat.res_id
-            else:
-                stat.email_coordinate_id = False
-
     def set_bounced(self, mail_mail_ids=None, mail_message_ids=None):
         """
         Increase the bounce counter of the email_coordinate
@@ -39,7 +16,7 @@ class MailMailStats(models.Model):
         results = super().set_bounced(
             mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids)
         active_ids = []
-        active_model = 'email.coordinate'
+        active_model = 'res.partner'
         for record in self:
             target_obj = self.env[record.model]
             if record.model == active_model and record.res_id:
@@ -56,7 +33,7 @@ class MailMailStats(models.Model):
                     'active_ids': active_ids,
                     'active_model': active_ids,
                 })
-                wizard = self.env['failure.editor'].with_context(ctx).create({
+                wizard = self.env['failure.editor'].with_context(ctx).create({ # TODO wizrd doesnt' exist enymore
                     'increase': 1,
                     'description': _('Invalid Email Address'),
                 })
@@ -66,8 +43,8 @@ class MailMailStats(models.Model):
                     'mail.bounce.keep', default='1')
                 bounce_body = ctx.get('bounce_body')
                 if bounce_body and keep_bounce.lower() in ['1', 'true']:
-                    email_coordinate = self.env[active_model].browse(
+                    partner = self.env[active_model].browse(
                         active_ids)
-                    email_coordinate.message_post(
+                    partner.message_post(
                         subject=_('Bounce Details'), body=bounce_body)
         return results

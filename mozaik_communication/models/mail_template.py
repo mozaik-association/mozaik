@@ -14,7 +14,7 @@ class MailTemplate(models.Model):
         Get the default model
         :return: ir.model recordset
         """
-        return self.env.ref('mozaik_communication.model_email_coordinate')
+        return self.env.ref('base.model_res_partner')
 
     @api.model
     def _get_default_res_users_ids(self):

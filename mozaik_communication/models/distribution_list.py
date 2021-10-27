@@ -74,22 +74,6 @@ class DistributionList(models.Model):
         res = super()._get_dst_model_names()
         return res + ['virtual.target']
 
-    @api.model
-    def _get_mailing_object(
-            self, email_from,
-            mailing_model='email.coordinate', email_field='email'):
-        """
-        Get email coordinate(s) from a sanitized email
-        :param email_from: str
-        :param mailing_model: str
-        :param email_field: str
-        :return: email coordinate recordset
-        """
-        email_from = self.env['email.coordinate']._sanitize_email(email_from)
-        return super()._get_mailing_object(
-            email_from, mailing_model=mailing_model,
-            email_field=email_field)
-
     def _get_mail_compose_message_vals(self, msg, mailing_model=False):
         """
         Prepare values for a composer from an incomming message
@@ -99,8 +83,7 @@ class DistributionList(models.Model):
         :return: composer dict
         """
         self.ensure_one()
-        result = super()._get_mail_compose_message_vals(
-            msg, mailing_model='email.coordinate')
+        result = super()._get_mail_compose_message_vals(msg, mailing_model=mailing_model)
         if result.get('mass_mailing_name') and result.get('subject'):
             result.update({
                 'mass_mailing_name': result['subject'],
@@ -117,29 +100,7 @@ class DistributionList(models.Model):
         if not self.newsletter:
             self.code = False
 
-    @api.model
-    def _get_opt_res_ids(self, model_name, domain, in_mode):
-        """
-
-        :param model_name: str
-        :param domain: list
-        :param in_mode: bool
-        :return: model_name recordset
-        """
-        if in_mode:
-            domain_mail = [
-                '|',
-                ('email_is_main', '=', True),
-                ('email_coordinate_id', '=', False),
-            ]
-            domain_postal = [
-                '|',
-                ('postal_is_main', '=', True),
-                ('postal_coordinate_id', '=', False),
-            ]
-            domain = expression.AND(domain, domain_mail, domain_postal)
-        return super()._get_opt_res_ids(model_name, domain, in_mode)
-
+# TODO*--------------------------------------------------------------
     def _distribution_list_forwarding(self, msg):
         """
         check if the associated user of the email_coordinate (found with
@@ -156,13 +117,7 @@ class DistributionList(models.Model):
         has_visibility = False
         email_from = msg.get('email_from')
         noway = _('No unique coordinate found with address: %s') % email_from
-        coordinate = self._get_mailing_object(email_from)
-        if len(coordinate) == 1:
-            params = (coordinate.email, coordinate.id,
-                      coordinate.partner_id.display_name)
-            noway = _('Coordinate %s(%s) of %s is not main') % params
-            if coordinate.is_main:
-                partner = coordinate.partner_id
+        partner = self._get_mailing_object(email_from)
         if partner:
             noway = _('Partner %s is not an owner nor '
                       'an allowed partner') % partner.display_name
@@ -192,10 +147,9 @@ class DistributionList(models.Model):
             if self.dst_model_id.model == 'virtual.target':
                 dom.append(('email_unauthorized', '=', False))
             self = self_sudo.with_context(
-                main_object_field='email_coordinate_id',
-                main_target_model='email.coordinate',
+                main_object_field='id',
+                main_target_model='res.partner',
                 main_object_domain=dom,
-                additional_res_ids=coordinate.ids,
                 async_send_mail=True,
             )
             res = super()._distribution_list_forwarding(msg)

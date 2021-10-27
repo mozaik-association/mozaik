@@ -3,7 +3,6 @@
 
 from . import distribution_list
 from . import distribution_list_line
-from . import email_coordinate
 from . import email_template_placeholder
 from . import mail_mail_statistics
 from . import mail_mass_mailing_group

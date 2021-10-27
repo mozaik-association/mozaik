@@ -41,9 +41,6 @@ class ExportCsv(models.TransientModel):
                  cc.id as co_residency_id,
                  cc.line2 as co_residency,
                  p.membership_state_id as state_id,
-                 pc.is_main as adr_main,
-                 pc.unauthorized as adr_unauthorized,
-                 pc.vip as adr_vip,
                  address.street2 as street2,
                  address.street as street,
                  address.zip as final_zip,
@@ -51,49 +48,22 @@ class ExportCsv(models.TransientModel):
                  country.id as country_id,
                  country.name as country_name,
                  country.code as country_code,
-                 fix.is_main as fix_main,
-                 fix.unauthorized as fix_unauthorized,
-                 fix.vip as fix_vip,
-                 fix_phone.name as fix,
-                 mobile.is_main as mobile_main,
-                 mobile.unauthorized as mobile_unauthorized,
-                 mobile.vip as mobile_vip,
-                 mobile_phone.name as mobile,
-                 ec.is_main as email_main,
-                 ec.unauthorized as email_unauthorized,
-                 ec.vip as email_vip,
-                 ec.email"""
+                 p.pone as fix,
+                 p.mobile as mobile,
+                 p.email"""
 
     @api.model
     def _common_joins(self):
         return """
 
                 LEFT OUTER JOIN address_address address
-                ON address.id = pc.address_id
+                ON address.id = p.address_address_id
 
                 LEFT OUTER JOIN res_country country
                 ON country.id = address.country_id
 
                 LEFT OUTER JOIN co_residency cc
-                ON cc.id = pc.co_residency_id
-
-                LEFT OUTER JOIN phone_coordinate fix
-                ON fix.partner_id = p.id AND
-                fix.is_main = True AND
-                fix.coordinate_type= 'fix' AND
-                fix.active = True
-
-                LEFT OUTER JOIN phone_phone fix_phone
-                ON fix_phone.id = fix.phone_id
-
-                LEFT OUTER JOIN phone_coordinate mobile
-                ON mobile.partner_id = p.id AND
-                mobile.is_main = True AND
-                mobile.coordinate_type = 'mobile' AND
-                mobile.active = True
-
-                LEFT OUTER JOIN phone_phone mobile_phone
-                ON mobile_phone.id = mobile.phone_id"""
+                ON cc.id = p.co_residency_id"""
 
     @api.model
     def _from_virtual_target(self):
@@ -101,44 +71,6 @@ class ExportCsv(models.TransientModel):
 
                 JOIN res_partner p
                  ON p.id = vt.partner_id
-
-                LEFT OUTER JOIN email_coordinate ec
-                 ON ec.id = vt.email_coordinate_id AND
-                 ec.active = True
-
-                LEFT OUTER JOIN postal_coordinate pc
-                 ON pc.id = vt.postal_coordinate_id AND
-                 pc.active = True
-
-                %(common_join)s"""
-        return query
-
-    @api.model
-    def _from_email_coordinate(self):
-        query = """FROM email_coordinate ec
-
-                JOIN res_partner p
-                 ON p.id = ec.partner_id
-
-                LEFT OUTER JOIN postal_coordinate pc
-                 ON pc.partner_id = p.id AND
-                 pc.is_main = True AND
-                 pc.active = True
-
-                %(common_join)s"""
-        return query
-
-    @api.model
-    def _from_postal_coordinate(self):
-        query = """FROM postal_coordinate pc
-
-                JOIN res_partner p
-                 ON p.id = pc.partner_id
-
-                LEFT OUTER JOIN email_coordinate ec
-                 ON ec.partner_id = p.id AND
-                 ec.is_main = True AND
-                 ec.active = True
 
                 %(common_join)s"""
         return query
@@ -163,26 +95,14 @@ class ExportCsv(models.TransientModel):
             _('Gender'),
             _('Language'),
             _('Title'),
-            _('Main Address'),
-            _('Unauthorized Address'),
-            _('Vip Address'),
             _('Street2'),
             _('Street'),
             _('Zip'),
             _('City'),
             _('Country Code'),
             _('Country'),
-            _('Main Phone'),
-            _('Unauthorized Phone'),
-            _('Vip Phone'),
             _('Phone'),
-            _('Main Mobile'),
-            _('Unauthorized Mobile'),
-            _('Vip Mobile'),
             _('Mobile'),
-            _('Main Email'),
-            _('Unauthorized Email'),
-            _('Vip Email'),
             _('Email'),
         ]
         return header
@@ -202,7 +122,7 @@ class ExportCsv(models.TransientModel):
         return r_order_by
 
     @api.model
-    def _get_csv_values(self, values, obfuscation):
+    def _get_csv_values(self, values):
         """
         Get the values of the specified obj taking into account the VIP
         obfuscation principle
@@ -224,27 +144,15 @@ class ExportCsv(models.TransientModel):
             'gender',
             'lang',
             'title',
-            'adr_main',
-            'adr_unauthorized',
-            'adr_vip',
-            obfuscation and values['adr_vip'] and 'obfuscation' or 'street2',
-            obfuscation and values['adr_vip'] and 'obfuscation' or 'street',
-            obfuscation and values['adr_vip'] and 'obfuscation' or 'final_zip',
-            obfuscation and values['adr_vip'] and 'obfuscation' or 'city',
+            'street2',
+            'street',
+            'final_zip',
+            'city',
             'country_code',
             'country_name',
-            'fix_main',
-            'fix_unauthorized',
-            'fix_vip',
-            obfuscation and values['fix_vip'] and 'obfuscation' or 'fix',
-            'mobile_main',
-            'mobile_unauthorized',
-            'mobile_vip',
-            obfuscation and values['mobile_vip'] and 'obfuscation' or 'mobile',
-            'email_main',
-            'email_unauthorized',
-            'email_vip',
-            obfuscation and values['email_vip'] and 'obfuscation' or 'email',
+            'fix',
+            'mobile',
+            'email',
         ]
         export_values = [values.get(k, '*****') for k in keys]
         return export_values
@@ -260,13 +168,7 @@ class ExportCsv(models.TransientModel):
         if not model_ids:
             return
         where_query = "%(table_join)s.id IN %(model_ids)s"
-        if model == 'email.coordinate':
-            table_join = 'ec'
-            from_sql = self._from_email_coordinate()
-        elif model == 'postal.coordinate':
-            table_join = 'pc'
-            from_sql = self._from_postal_coordinate()
-        elif model == 'virtual.target':
+        if model == 'virtual.target':
             table_join = 'vt'
             from_sql = self._from_virtual_target()
         else:
@@ -306,8 +208,6 @@ class ExportCsv(models.TransientModel):
         """
         if not model or not model_ids:
             return ''
-        vip = not self.env.user.has_group(
-            'mozaik_coordinate.res_groups_coordinate_vip_reader')
         states = self.env['membership.state'].search([])
         states = {st.id: st.name for st in states}
         titles = self.env['res.partner.title'].search([])
@@ -324,13 +224,6 @@ class ExportCsv(models.TransientModel):
             writer = csv.writer(memory_file)
             writer.writerow(headers)
             for data in self._prefetch_csv_datas(model, model_ids):
-                if model == 'postal.coordinate' and group_by:
-                    # when grouping by co_residency, output only one row
-                    # by co_residency
-                    co_id = data.get('co_residency_id')
-                    if co_id and co_id in co_residencies:
-                        continue
-                    co_residencies.append(co_id)
                 # Update data depending on others models
                 data.update({
                     'state': states.get(
@@ -345,7 +238,7 @@ class ExportCsv(models.TransientModel):
                 if not data.get('co_residency_id') and data.get('title'):
                     data['printable_name'] = '%s %s' % (
                         data['title'], data['printable_name'],)
-                export_values = self._get_csv_values(data, vip)
+                export_values = self._get_csv_values(data)
                 writer.writerow(export_values)
             csv_content = memory_file.getvalue()
         return csv_content

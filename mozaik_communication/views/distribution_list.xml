@@ -78,7 +78,7 @@
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
                 <button name="action_show_result_without_coordinate" class="oe_stat_button" string="Without Coordinate" icon="fa-address-card text-danger"
                         type="object" attrs="{'invisible': [('id','=',False)]}" />
-                
+
             <field name="active" invisible="1" />
             <widget
                 name="web_ribbon"
@@ -86,7 +86,7 @@
                 bg_color="bg-danger"
                 attrs="{'invisible': [('active', '=', True)]}"
             />
-            
+
             </xpath>
 
             <xpath expr="//group[@name='company']" position="inside">
@@ -120,9 +120,6 @@
                         <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" context="{'bypass_ir_rule_read': '1'}"/>
                         <field name="res_partner_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
                     </group>
-                </page>
-                <page string="More Info" name="dev" groups="base.group_erp_manager">
-                    <group name="moreinfo"/>
                 </page>
             </xpath>
 

@@ -1,1 +1,2 @@
 odoo14-addon-statechart @ git+https://GitHub.com/acsone/scobidoo@14.0#subdirectory=setup/statechart
+odoo14-addon-email-template-configurator @ git+https://github.com/mozaik-association/social.git@14.0-mig-email_template_configurator#subdirectory=setup/email_template_configurator

@@ -87,9 +87,6 @@ class DistributionListMassFunction(models.TransientModel):
     bounce_counter = fields.Integer(
         string="Maximum of fails",
     )
-    include_unauthorized = fields.Boolean(
-        default=False,
-    )
     internal_instance_id = fields.Many2one(
         comodel_name="int.instance",
         string="Internal instance",
@@ -112,7 +109,7 @@ class DistributionListMassFunction(models.TransientModel):
     placeholder_id = fields.Many2one(
         comodel_name='email.template.placeholder',
         string="Placeholder",
-        domain=[('model_id', '=', 'email.coordinate')],
+        domain=[('model_id', '=', 'res.partner')],
     )
     placeholder_value = fields.Char(
         help="Copy this text to the email body. It'll be replaced by the "
@@ -211,7 +208,7 @@ class DistributionListMassFunction(models.TransientModel):
                 and self.include_without_coordinate:
             context.update({
                 'active_test': False,
-                'alternative_object_field': 'id',
+                'alternative_object_field': 'email',
                 'alternative_target_model':
                     self.distribution_list_id.dst_model_id.model,
                 'alternative_object_domain': main_domain,
@@ -259,8 +256,6 @@ class DistributionListMassFunction(models.TransientModel):
         :param main_domain: list (domain)
         :return: tuple of 2 recordset
         """
-        if not self.include_unauthorized:
-            main_domain.append(('postal_unauthorized', '=', False))
         if self.bounce_counter:
             bounce_counter = max([self.bounce_counter, 0])
             main_domain.append(('postal_bounce_counter', '<=', bounce_counter))
@@ -283,15 +278,13 @@ class DistributionListMassFunction(models.TransientModel):
         """
         context = self._context
         if self.distribution_list_id.dst_model_id.model == 'virtual.target':
-            if not self.include_unauthorized:
-                main_domain.append(('email_unauthorized', '=', False))
             if self.bounce_counter:
                 bounce_counter = max([self.bounce_counter, 0])
                 main_domain.append(
                     ('email_bounce_counter', '<=', bounce_counter))
         self = self.with_context(
-            main_object_field='email_coordinate_id',
-            main_target_model='email.coordinate',
+            main_object_field='id',
+            main_target_model='res.partner',
         )
         if fct == 'csv':
             # Get CSV containing email coordinates
@@ -300,12 +293,12 @@ class DistributionListMassFunction(models.TransientModel):
 
         elif fct == 'email_coordinate_id':
             if self.extract_csv:
-                if not self.include_without_coordinate:
+                if not self.include_without_coordinate:  # TODO ....
                     self = self.with_context(
-                        alternative_object_field='postal_coordinate_id',
-                        alternative_target_model='postal.coordinate',
+                        alternative_object_field='email',
+                        alternative_target_model='res.partner',
                         alternative_object_domain=[
-                            ('email_coordinate_id', '=', False),
+                            ('email', '=', False),
                         ],
                     )
             dl = self.distribution_list_id
@@ -325,7 +318,6 @@ class DistributionListMassFunction(models.TransientModel):
                     group_obj = self.env['mail.mass_mailing.group']
                     new_group = group_obj.create({
                         'distribution_list_id': dl.id,
-                        'include_unauthorized': self.include_unauthorized,
                         'internal_instance_id': self.internal_instance_id.id,
                     })
                     context.update({

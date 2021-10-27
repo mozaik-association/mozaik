@@ -40,7 +40,7 @@
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
                 <button name="action_show_filter_result_without_coordinate" class="oe_stat_button" string="Without Coordinate" icon="fa-address-card text-danger"
                         type="object" attrs="{'invisible': [('id','=',False)]}" />
-                
+
             <field name="active" invisible="1" />
             <widget
                 name="web_ribbon"
@@ -48,7 +48,7 @@
                 bg_color="bg-danger"
                 attrs="{'invisible': [('active', '=', True)]}"
             />
-            
+
             </xpath>
 
             <xpath expr="//button[@name='action_redefine_domain']" position="attributes">
@@ -64,12 +64,6 @@
                     <group name="other">
                     </group>
                 </group>
-            </xpath>
-
-            <xpath expr="//notebook" position="inside">
-                <page string="More Info" name="dev" groups="base.group_erp_manager">
-                    <group name="moreinfo"/>
-                </page>
             </xpath>
 
             <xpath expr="//form" position="inside">

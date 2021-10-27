@@ -17,7 +17,6 @@ class MassMailingReport(models.Model):
         readonly=True,
     )
 
-    @api.model_cr
     def init(self):
         cr = self.env.cr
         view_name = self._table

@@ -37,20 +37,12 @@
                 <filter string="Legal Persons" name="type_company"
                         domain="[('is_company','!=',0)]" />
                 <separator />
-                <filter name="p_unauthorized" string="Unauthorized Address"
-                        domain="[('postal_unauthorized','=',True)]" />
-                <separator />
-                <filter name="e_unauthorized" string="Unauthorized Email"
-                        domain="[('email_unauthorized','=',True)]" />
-                <separator />
                 <filter name="without_coordinate" string="Without Coordinate"
                         domain="[('active','=',False)]" />
 
                 <group name="group_by">
                     <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
                     <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                    <filter name="email_coordinate" string="Email Coordinate" context="{'group_by':'email_coordinate_id'}" />
-                    <filter name="postal_coordinate" string="Postal Coordinate" context="{'group_by':'postal_coordinate_id'}" />
                 </group>
             </search>
         </field>

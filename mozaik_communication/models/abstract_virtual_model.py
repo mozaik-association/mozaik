@@ -22,14 +22,6 @@ class AbstractVirtualModel(models.AbstractModel):
         comodel_name='virtual.target',
         string='Result',
     )
-    email_coordinate_id = fields.Many2one(
-        comodel_name="email.coordinate",
-        string="Email Coordinate",
-    )
-    postal_coordinate_id = fields.Many2one(
-        comodel_name='postal.coordinate',
-        string='Postal Coordinate',
-    )
     is_company = fields.Boolean(
         string='Is a Company',
     )
@@ -60,18 +52,6 @@ class AbstractVirtualModel(models.AbstractModel):
         comodel_name='thesaurus.term',
         string='Interests',
         related='partner_id.interest_ids',
-    )
-    postal_vip = fields.Boolean(
-        string='VIP Address',
-    )
-    postal_unauthorized = fields.Boolean(
-        string='Unauthorized Address',
-    )
-    email_vip = fields.Boolean(
-        string="Email VIP",
-    )
-    email_unauthorized = fields.Boolean(
-        string='Unauthorized Email',
     )
     partner_instance_ids = fields.Many2many(
         comodel_name="int.instance",
@@ -148,22 +128,16 @@ class AbstractVirtualModel(models.AbstractModel):
         :return: str
         """
         select = """SELECT
-            CONCAT(p.id, '/', pc.id, '/', e.id) AS common_id,
+            p.id AS common_id,
             p.id AS partner_id,
-            e.id AS email_coordinate_id,
-            pc.id AS postal_coordinate_id,
             p.is_company AS is_company,
             p.identifier AS identifier,
             p.birthdate_date AS birth_date,
             p.gender AS gender,
             p.lang AS lang,
             p.employee AS employee,
-            pc.unauthorized AS postal_unauthorized,
-            pc.vip AS postal_vip,
-            e.vip AS email_vip,
-            e.unauthorized AS email_unauthorized,
             CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                WHEN (p.email IS NOT NULL OR p.address_address_id IS NOT NULL)
                 THEN True
                 ELSE False
             END AS active"""
@@ -194,17 +168,12 @@ class AbstractVirtualModel(models.AbstractModel):
     @api.model
     def _from_virtual_target(self):
         return """
-        LEFT OUTER JOIN 
-            virtual_target as vt 
-        ON 
-            vt.partner_id = p.id AND
-            (vt.email_coordinate_id = e.id OR 
-            (vt.email_coordinate_id is NULL AND e.id is NULL)) AND
-            (vt.postal_coordinate_id = pc.id OR 
-            (vt.postal_coordinate_id is NULL AND pc.id is NULL))
+        LEFT OUTER JOIN
+            virtual_target as vt
+        ON
+            vt.partner_id = p.id
             """
 
-    @api.model_cr
     def init(self):
         if self._abstract:
             return
@@ -245,4 +214,4 @@ class AbstractVirtualModel(models.AbstractModel):
 
     @api.model
     def _get_order_by(self):
-        return "partner_id, postal_coordinate_id, email_coordinate_id"
+        return "partner_id"

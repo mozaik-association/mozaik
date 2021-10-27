@@ -31,13 +31,6 @@ class MailComposeMessage(models.TransientModel):
                 mailing_values['group_id'] = context['mailing_group_id']
             self.env['mail.mass_mailing'].browse(mailing_ids).write(
                 mailing_values)
-        if self.model == 'email.coordinate':
-            for coord in self.env['email.coordinate'].sudo().browse(
-                    result.keys()):
-                email = coord.email
-                if email:
-                    result[coord.id].pop('recipient_ids', None)
-                    result[coord.id]['email_to'] = email
         return result
 
     def send_mail(self, auto_commit=False):

@@ -12,7 +12,7 @@ class MassMailingGroup(models.Model):
         store=True,
     )
     mailings_ids = fields.One2many(
-        comodel_name='mail.mass_mailing',
+        comodel_name='mailing_mailing',
         inverse_name='group_id',
         string='Mailings',
     )
@@ -20,7 +20,6 @@ class MassMailingGroup(models.Model):
         comodel_name='distribution.list',
         string='Distribution List',
     )
-    include_unauthorized = fields.Boolean()
     internal_instance_id = fields.Many2one(
         comodel_name='int.instance',
     )

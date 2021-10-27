@@ -12,11 +12,11 @@ class EmailTemplatePlaceholder(models.Model):
         Get the default model
         :return: ir.model recordset
         """
-        return self.env.ref('mozaik_communication.model_email_coordinate')
+        return self.env.ref('base.model_res_partner')
 
     model_id = fields.Many2one(
         default=lambda s: s._get_default_model(),
     )
     placeholder = fields.Char(
-        default='${object.partner_id.}',
+        default='${object.}',
     )
