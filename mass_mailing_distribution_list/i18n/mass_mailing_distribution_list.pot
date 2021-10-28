@@ -67,13 +67,13 @@ msgid "Complete Distribution List"
 msgstr ""
 
 #. module: mass_mailing_distribution_list
-#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__create_uid
-msgid "Created by"
+#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__create_date
+msgid "Create Date"
 msgstr ""
 
 #. module: mass_mailing_distribution_list
-#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__create_date
-msgid "Created on"
+#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__create_uid
+msgid "Created by"
 msgstr ""
 
 #. module: mass_mailing_distribution_list
