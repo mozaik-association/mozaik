@@ -27,3 +27,5 @@ class ResPartner(models.Model):
         string="Responsible User (Communication)",
         index=True,
     )
+    email_bounced = fields.Integer()
+    email_bounced_description = fields.Char()

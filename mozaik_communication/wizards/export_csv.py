@@ -50,7 +50,7 @@ class ExportCsv(models.TransientModel):
                  country.id as country_id,
                  country.name as country_name,
                  country.code as country_code,
-                 p.pone as fix,
+                 p.phone as fix,
                  p.mobile as mobile,
                  p.email"""
 
@@ -73,6 +73,13 @@ class ExportCsv(models.TransientModel):
 
                 JOIN res_partner p
                  ON p.id = vt.partner_id
+
+                %(common_join)s"""
+        return query
+
+    @api.model
+    def _from_partner(self):
+        query = """FROM res_partner p
 
                 %(common_join)s"""
         return query
@@ -173,6 +180,9 @@ class ExportCsv(models.TransientModel):
         if model == "virtual.target":
             table_join = "vt"
             from_sql = self._from_virtual_target()
+        elif model == "res.partner":
+            table_join = "p"
+            from_sql = self._from_partner()
         else:
             raise exceptions.UserError(
                 _("Model %s not supported for csv export!") % model

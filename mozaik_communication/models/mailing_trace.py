@@ -16,45 +16,28 @@ class MailMailStats(models.Model):
         results = super().set_bounced(
             mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids
         )
-        active_ids = []
         active_model = "res.partner"
         for record in self:
-            target_obj = self.env[record.model]
             if record.model == active_model and record.res_id:
                 active_ids = [record.res_id]
-            else:
-                email_key = target_obj._get_relation_column_name(active_model)
-                if email_key:
-                    target = target_obj.browse(record.res_id)[email_key]
-                    active_ids = target.ids
-
-            if active_ids:
-                ctx = self.env.context.copy()
-                ctx.update(
-                    {
-                        "active_ids": active_ids,
-                        "active_model": active_ids,
-                    }
-                )
-                wizard = (
-                    self.env["failure.editor"]
-                    .with_context(ctx)
-                    .create(
-                        {  # TODO wizrd doesnt' exist enymore
-                            "increase": 1,
-                            "description": _("Invalid Email Address"),
+                if active_ids:
+                    ctx = self.env.context.copy()
+                    partner = self.env[active_model].browse(active_ids)
+                    partner.write(
+                        {
+                            "email_bounced": partner.email_bounced + 1,
+                            "email_bounced_description": _("Invalid Email Address"),
                         }
                     )
-                )
-                wizard.update_failure_data()
-                # post technical details of the bounce on the sender document
-                keep_bounce = (
-                    self.env["ir.config_parameter"]
-                    .sudo()
-                    .get_param("mail.bounce.keep", default="1")
-                )
-                bounce_body = ctx.get("bounce_body")
-                if bounce_body and keep_bounce.lower() in ["1", "true"]:
-                    partner = self.env[active_model].browse(active_ids)
-                    partner.message_post(subject=_("Bounce Details"), body=bounce_body)
+                    # post technical details of the bounce on the sender document
+                    keep_bounce = (
+                        self.env["ir.config_parameter"]
+                        .sudo()
+                        .get_param("mail.bounce.keep", default="1")
+                    )
+                    bounce_body = ctx.get("bounce_body")
+                    if bounce_body and keep_bounce.lower() in ["1", "true"]:
+                        partner.message_post(
+                            subject=_("Bounce Details"), body=bounce_body
+                        )
         return results
