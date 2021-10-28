@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="event_type_form_view">
+        <field name="name">event.type.form (in mozaik_event_thesaurus_question)</field>
+        <field name="model">event.type</field>
+        <field
+            name="inherit_id"
+            ref="website_event_questions.event_type_view_form_inherit_question"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='question_type']" position="before">
+                    <field name="interest_ids" widget="many2many_tags" />
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
