@@ -13,9 +13,7 @@ class MassMailing(models.Model):
 
     @api.onchange("mailing_model_id", "contact_list_ids")
     def _onchange_model_and_list(self):
-        result = super()._onchange_model_and_list()
         self.distribution_list_id = False
-        return result
 
     def update_opt_out(self, email, res_ids, value):
         """
