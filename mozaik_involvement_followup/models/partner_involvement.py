@@ -17,14 +17,14 @@ STATE_TYPE = [
 class PartnerInvolvement(models.Model):
     _inherit = "partner.involvement"
 
-    _inherit = "partner.involvement"
-
     _track = {
         "state": {
-            "mozaik_involvement_followup.partner_involvement_to_follow_mms": lambda self, cr, uid, brec, c=None: brec.state
-            == "followup",
-            "mozaik_involvement_followup.partner_involvement_late_mms": lambda self, cr, uid, brec, c=None: brec.state
-            == "late",
+            "mozaik_involvement_followup.partner_involvement_to_follow_mms":
+                lambda self, cr, uid, brec, c=None: brec.state
+                == "followup",
+            "mozaik_involvement_followup"".partner_involvement_late_mms":
+                lambda self, cr, uid, brec, c=None: brec.state
+                == "late",
         },
     }
 

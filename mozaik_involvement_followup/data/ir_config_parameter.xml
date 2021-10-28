@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-    <delete
+    <!--<delete
         model="ir.config_parameter"
         search="[('key','=','mail_restrict_follower_selection.domain')]"
     />
