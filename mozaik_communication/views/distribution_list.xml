@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -8,23 +8,49 @@
         <field name="inherit_id" ref="distribution_list.distribution_list_search" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='alias_name']" position="after">
-                <field name="code"/>
-                <field name="int_instance_id"/>
-                <field name="partner_id"/>
+                <field name="code" />
+                <field name="int_instance_id" />
+                <field name="partner_id" />
             </xpath>
             <xpath expr="//filter[@name='dst_model']" position="after">
-                <filter name="instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+                <filter
+                    name="instance"
+                    string="Internal Instance"
+                    domain="[]"
+                    context="{'group_by':'int_instance_id'}"
+                />
             </xpath>
             <xpath expr="//filter[@name='newsletter']" position="after">
-                <separator/>
-                <filter name="public" string="Public Newsletters" domain="[('newsletter','=',True),('public','=',True)]"/>
+                <separator />
+                <filter
+                    name="public"
+                    string="Public Newsletters"
+                    domain="[('newsletter','=',True),('public','=',True)]"
+                />
             </xpath>
             <xpath expr="//group" position="before">
-                <separator/>
-                <filter name="my_lists" string="My Lists" domain="[('res_users_ids', 'in', [uid])]" help="Distribution Lists of which I am an owner" />
-                <separator/>
-                <filter name="expired" string="Expired" context="{'invisible_expire_date': False}" domain="[('active','=',False)]" help="Expired Distribution Lists" />
-                <filter name="all" string="All" context="{'invisible_expire_date': False}" domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Distribution Lists, expired or not" />
+                <separator />
+                <filter
+                    name="my_lists"
+                    string="My Lists"
+                    domain="[('res_users_ids', 'in', [uid])]"
+                    help="Distribution Lists of which I am an owner"
+                />
+                <separator />
+                <filter
+                    name="expired"
+                    string="Expired"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]"
+                    help="Expired Distribution Lists"
+                />
+                <filter
+                    name="all"
+                    string="All"
+                    context="{'invisible_expire_date': False}"
+                    domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                    help="All Distribution Lists, expired or not"
+                />
             </xpath>
         </field>
     </record>
@@ -35,25 +61,46 @@
         <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="int_instance_id"/>
+                <field name="int_instance_id" />
             </xpath>
 
             <xpath expr="//button[@name='mass_mailing']" position="attributes">
-                <attribute name="groups" translation="off">base.group_erp_manager</attribute>
+                <attribute
+                    name="groups"
+                    translation="off"
+                >base.group_erp_manager</attribute>
             </xpath>
 
             <xpath expr="//button[@name='mass_mailing']" position="after">
-                <button name="%(distribution_list_mass_function_action)d" type="action" string="Mass Action" attrs="{'invisible':[('active', '=', False)]}" icon="fa-paper-plane"/>
-                <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
-                <field name="active" groups="base.group_erp_manager"/>
+                <button
+                    name="%(distribution_list_mass_function_action)d"
+                    type="action"
+                    string="Mass Action"
+                    attrs="{'invisible':[('active', '=', False)]}"
+                    icon="fa-paper-plane"
+                />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
+                <field name="active" groups="base.group_erp_manager" />
             </xpath>
 
             <xpath expr="//button[@name='action_show_result']" position="attributes">
-                <attribute name="attrs" translation="off">{'invisible':[('active', '=', False)]}</attribute>
+                <attribute
+                    name="attrs"
+                    translation="off"
+                >{'invisible':[('active', '=', False)]}</attribute>
             </xpath>
 
             <xpath expr="//button[@name='action_show_result']" position="after">
-                <button name="action_show_result_without_coordinate" string="Without Coordinate" attrs="{'invisible':[('active', '=', False)]}" type="object" icon="fa-address-card text-danger"/>
+                <button
+                    name="action_show_result_without_coordinate"
+                    string="Without Coordinate"
+                    attrs="{'invisible':[('active', '=', False)]}"
+                    type="object"
+                    icon="fa-address-card text-danger"
+                />
             </xpath>
         </field>
     </record>
@@ -64,37 +111,66 @@
         <field name="inherit_id" ref="distribution_list.distribution_list_form" />
         <field name="arch" type="xml">
             <xpath expr="//header" position="attributes">
-                <attribute name="attrs" translation="off">{'invisible': ['|',('id', '=', False),('active', '=', False)]}</attribute>
+                <attribute
+                    name="attrs"
+                    translation="off"
+                >{'invisible': ['|',('id', '=', False),('active', '=', False)]}</attribute>
             </xpath>
 
             <xpath expr="//button[@name='mass_mailing']" position="attributes">
-                <attribute name="groups" translation="off">base.group_erp_manager</attribute>
+                <attribute
+                    name="groups"
+                    translation="off"
+                >base.group_erp_manager</attribute>
             </xpath>
 
             <xpath expr="//button[@name='mass_mailing']" position="after">
-                <button name="%(distribution_list_mass_function_action)d" type="action" string="Mass Action" />
+                <button
+                    name="%(distribution_list_mass_function_action)d"
+                    type="action"
+                    string="Mass Action"
+                />
             </xpath>
 
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
-                <button name="action_show_result_without_coordinate" class="oe_stat_button" string="Without Coordinate" icon="fa-address-card text-danger"
-                        type="object" attrs="{'invisible': [('id','=',False)]}" />
-                <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive"
-                        confirm="Archive/reactivate distribution list: proceed anyway?"
-                        groups="mozaik_abstract_model.res_groups_archiving_manager">
-                    <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                </button>
+                <button
+                    name="action_show_result_without_coordinate"
+                    class="oe_stat_button"
+                    string="Without Coordinate"
+                    icon="fa-address-card text-danger"
+                    type="object"
+                    attrs="{'invisible': [('id','=',False)]}"
+                />
+
+            <field name="active" invisible="1" />
+            <widget
+                    name="web_ribbon"
+                    title="Archived"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': [('active', '=', True)]}"
+                />
+
             </xpath>
 
             <xpath expr="//group[@name='company']" position="inside">
-                <field name="public" attrs="{'invisible': [('newsletter', '=', False)]}"/>
-                <field name="code" attrs="{'invisible': [('newsletter', '=', False)]}"/>
+                <field
+                    name="public"
+                    attrs="{'invisible': [('newsletter', '=', False)]}"
+                />
+                <field
+                    name="code"
+                    attrs="{'invisible': [('newsletter', '=', False)]}"
+                />
             </xpath>
 
             <xpath expr="//group[@name='forward']" position="after">
                 <group name="status" attrs="{'invisible': [('id','=',False)]}">
                     <group name="validity">
                         <field name="create_date" />
-                        <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                        <field
+                            name="expire_date"
+                            attrs="{'invisible': [('active','=',True)]}"
+                        />
                     </group>
                     <group name="other">
                     </group>
@@ -102,29 +178,50 @@
             </xpath>
 
             <xpath expr="//group[@name='group_alias']" position="inside">
-                <field name="partner_id" attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}"/>
+                <field
+                    name="partner_id"
+                    attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}"
+                />
             </xpath>
 
-            <xpath expr="//field[@name='to_include_distribution_list_line_ids']//button[@name='action_show_filter_result']" position="after">
-                <button name="action_show_filter_result_without_coordinate" string="Without Coordinate" type="object" icon="fa-address-card text-danger"/>
+            <xpath
+                expr="//field[@name='to_include_distribution_list_line_ids']//button[@name='action_show_filter_result']"
+                position="after"
+            >
+                <button
+                    name="action_show_filter_result_without_coordinate"
+                    string="Without Coordinate"
+                    type="object"
+                    icon="fa-address-card text-danger"
+                />
             </xpath>
 
             <xpath expr="//notebook" position="inside">
                 <page name="security" string="Security">
                     <group name="validity">
                         <field name="int_instance_id" />
-                        <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" context="{'bypass_ir_rule_read': '1'}"/>
-                        <field name="res_partner_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                        <field
+                            name="res_users_ids"
+                            widget="many2many_tags"
+                            options="{'no_create_edit': True}"
+                            context="{'bypass_ir_rule_read': '1'}"
+                        />
+                        <field
+                            name="res_partner_ids"
+                            widget="many2many_tags"
+                            options="{'no_create_edit': True}"
+                        />
                     </group>
-                </page>
-                <page string="More Info" name="dev" groups="base.group_erp_manager">
-                    <group name="moreinfo"/>
                 </page>
             </xpath>
 
             <xpath expr="//form" position="inside">
                 <div name="chat" class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_abstract_model.res_groups_follower_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </xpath>

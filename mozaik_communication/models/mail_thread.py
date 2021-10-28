@@ -4,7 +4,7 @@ from odoo import api, models
 
 
 class MailThread(models.AbstractModel):
-    _inherit = 'mail.thread'
+    _inherit = "mail.thread"
 
     @api.model
     def _get_first_text_part(self, msg):
@@ -15,19 +15,20 @@ class MailThread(models.AbstractModel):
         :return:str
         """
         maintype = msg.get_content_maintype()
-        if maintype == 'multipart':
+        if maintype == "multipart":
             for part in msg.get_payload():
-                if part.get_content_maintype() == 'text':
+                if part.get_content_maintype() == "text":
                     return part.get_payload()
-                if part.get_content_maintype() == 'multipart':
+                if part.get_content_maintype() == "multipart":
                     return self._get_first_text_part(part)
-        elif maintype == 'text':
+        elif maintype == "text":
             return msg.get_payload()
-        return ''
+        return ""
 
     @api.model
-    def message_route(self, message, message_dict, model=None, thread_id=None,
-                      custom_values=None):
+    def message_route(
+        self, message, message_dict, model=None, thread_id=None, custom_values=None
+    ):
         """
         Prepare a new context with the bounce body allowing to post it later
         on the faulty email coordinate
@@ -42,5 +43,9 @@ class MailThread(models.AbstractModel):
         bounce_body = self._get_first_text_part(message)
         self = self.with_context(bounce_body=bounce_body)
         return super().message_route(
-            message, message_dict, model=model,
-            thread_id=thread_id, custom_values=custom_values)
+            message,
+            message_dict,
+            model=model,
+            thread_id=thread_id,
+            custom_values=custom_values,
+        )

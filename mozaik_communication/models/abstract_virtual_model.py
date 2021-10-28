@@ -1,91 +1,77 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from psycopg2.extensions import AsIs
-from odoo import api, fields, tools, models
+
+from odoo import api, fields, models, tools
 
 
 class AbstractVirtualModel(models.AbstractModel):
     """
     Abstract model used to contain common properties for virtual models
     """
-    _name = 'abstract.virtual.model'
-    _description = 'Abstract Virtual Model'
+
+    _name = "abstract.virtual.model"
+    _description = "Abstract Virtual Model"
 
     partner_id = fields.Many2one(
-        comodel_name='res.partner',
+        comodel_name="res.partner",
         string="Partner",
     )
     common_id = fields.Char(
         string="Common ID",
     )
     result_id = fields.Many2one(
-        comodel_name='virtual.target',
-        string='Result',
-    )
-    email_coordinate_id = fields.Many2one(
-        comodel_name="email.coordinate",
-        string="Email Coordinate",
-    )
-    postal_coordinate_id = fields.Many2one(
-        comodel_name='postal.coordinate',
-        string='Postal Coordinate',
+        comodel_name="virtual.target",
+        string="Result",
     )
     is_company = fields.Boolean(
-        string='Is a Company',
+        string="Is a Company",
     )
     identifier = fields.Integer(
-        string='Number',
-        group_operator='min',
+        string="Number",
+        group_operator="min",
     )
     birth_date = fields.Date()
     # Load dynamically selection values
     # If it doesn't work, better way is maybe the related (if selection
     # value come from the related)
     gender = fields.Selection(
-        selection=lambda s: s.env['res.partner'].fields_get(
-            allfields=['gender']).get('gender', {}).get('selection', [])
+        selection=lambda s: s.env["res.partner"]
+        .fields_get(allfields=["gender"])
+        .get("gender", {})
+        .get("selection", [])
     )
     lang = fields.Selection(
-        string='Language',
-        selection=lambda s: s.env['res.partner'].fields_get(
-            allfields=['lang']).get('lang', {}).get('selection', [])
+        string="Language",
+        selection=lambda s: s.env["res.partner"]
+        .fields_get(allfields=["lang"])
+        .get("lang", {})
+        .get("selection", []),
     )
     employee = fields.Boolean()
     competency_ids = fields.Many2many(
-        comodel_name='thesaurus.term',
-        string='Competencies',
-        related='partner_id.competency_ids',
+        comodel_name="thesaurus.term",
+        string="Competencies",
+        related="partner_id.competency_ids",
     )
     interest_ids = fields.Many2many(
-        comodel_name='thesaurus.term',
-        string='Interests',
-        related='partner_id.interest_ids',
-    )
-    postal_vip = fields.Boolean(
-        string='VIP Address',
-    )
-    postal_unauthorized = fields.Boolean(
-        string='Unauthorized Address',
-    )
-    email_vip = fields.Boolean(
-        string="Email VIP",
-    )
-    email_unauthorized = fields.Boolean(
-        string='Unauthorized Email',
+        comodel_name="thesaurus.term",
+        string="Interests",
+        related="partner_id.interest_ids",
     )
     partner_instance_ids = fields.Many2many(
         comodel_name="int.instance",
-        string='Partner Internal Instances',
-        related='partner_id.int_instance_ids',
+        string="Partner Internal Instances",
+        related="partner_id.int_instance_ids",
     )
     active = fields.Boolean()
 
     # search field
     int_instance_id = fields.Many2one(
-        comodel_name='int.instance',
-        string='Internal Instance',
+        comodel_name="int.instance",
+        string="Internal Instance",
         store=False,
-        search='_search_int_instance_id',
+        search="_search_int_instance_id",
     )
 
     @api.model
@@ -93,22 +79,21 @@ class AbstractVirtualModel(models.AbstractModel):
         """
         Use partner_instance_ids to search on int_instance_id
         """
-        instance_mod = self.env['int.instance']
+        instance_mod = self.env["int.instance"]
         if isinstance(value, (int, list)):
-            instances = instance_mod.search([('id', operator, value)])
+            instances = instance_mod.search([("id", operator, value)])
         else:
-            instances = instance_mod.search([('name', operator, value)])
-        return [('partner_instance_ids', 'in', instances.ids)]
+            instances = instance_mod.search([("name", operator, value)])
+        return [("partner_instance_ids", "in", instances.ids)]
 
-    @api.multi
     def see_partner_action(self):
         self.ensure_one()
         return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'res.partner',
-            'view_mode': 'form',
-            'res_id': self.partner_id.id,
-            'target': 'current',
+            "type": "ir.actions.act_window",
+            "res_model": "res.partner",
+            "view_mode": "form",
+            "res_id": self.partner_id.id,
+            "target": "current",
         }
 
     @api.model
@@ -149,22 +134,16 @@ class AbstractVirtualModel(models.AbstractModel):
         :return: str
         """
         select = """SELECT
-            CONCAT(p.id, '/', pc.id, '/', e.id) AS common_id,
+            p.id AS common_id,
             p.id AS partner_id,
-            e.id AS email_coordinate_id,
-            pc.id AS postal_coordinate_id,
             p.is_company AS is_company,
             p.identifier AS identifier,
             p.birthdate_date AS birth_date,
             p.gender AS gender,
             p.lang AS lang,
             p.employee AS employee,
-            pc.unauthorized AS postal_unauthorized,
-            pc.vip AS postal_vip,
-            e.vip AS email_vip,
-            e.unauthorized AS email_unauthorized,
             CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                WHEN (p.email IS NOT NULL OR p.address_address_id IS NOT NULL)
                 THEN True
                 ELSE False
             END AS active"""
@@ -195,17 +174,12 @@ class AbstractVirtualModel(models.AbstractModel):
     @api.model
     def _from_virtual_target(self):
         return """
-        LEFT OUTER JOIN 
-            virtual_target as vt 
-        ON 
-            vt.partner_id = p.id AND
-            (vt.email_coordinate_id = e.id OR 
-            (vt.email_coordinate_id is NULL AND e.id is NULL)) AND
-            (vt.postal_coordinate_id = pc.id OR 
-            (vt.postal_coordinate_id is NULL AND pc.id is NULL))
+        LEFT OUTER JOIN
+            virtual_target as vt
+        ON
+            vt.partner_id = p.id
             """
 
-    @api.model_cr
     def init(self):
         if self._abstract:
             return
@@ -216,10 +190,8 @@ class AbstractVirtualModel(models.AbstractModel):
         parameters = self._get_union_parameters() or [False]
         sub_queries = []
         for parameter in parameters:
-            select_query = "%s %s" % (self._get_select(),
-                                      self._select_virtual_target())
-            from_query = "%s %s" % (self._get_from(),
-                                    self._from_virtual_target())
+            select_query = "%s %s" % (self._get_select(), self._select_virtual_target())
+            from_query = "%s %s" % (self._get_from(), self._from_virtual_target())
             where_query = self._get_where()
             # Get values to replace into the sub-query
             values = self._get_query_parameters(parameter=parameter)
@@ -228,7 +200,7 @@ class AbstractVirtualModel(models.AbstractModel):
             # The string returned is exactly the one that would be sent to the
             # DB after an execute. So the returned string is safe.
             # cfr psycopg official documentation
-            sub_queries.append(cr.mogrify(sub_query, values).decode('utf-8'))
+            sub_queries.append(cr.mogrify(sub_query, values).decode("utf-8"))
         main_query = " \nUNION\n ".join(sub_queries)
         tools.drop_view_if_exists(cr, view_name)
         query = """CREATE OR REPLACE VIEW %(table_name)s AS (
@@ -246,4 +218,4 @@ class AbstractVirtualModel(models.AbstractModel):
 
     @api.model
     def _get_order_by(self):
-        return "partner_id, postal_coordinate_id, email_coordinate_id"
+        return "partner_id"

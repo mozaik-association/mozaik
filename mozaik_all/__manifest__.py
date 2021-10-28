@@ -19,8 +19,9 @@
         # 'mozaik_account',
         "mozaik_address",
         "mozaik_address_local_street",
+        "mozaik_mass_mailing_automation",
         "mass_mailing_distribution_list",
-        # 'mozaik_communication',
+        "mozaik_communication",
         "mozaik_duplicate",
         "mozaik_event_is_private",
         "mozaik_event_partner_firstname",
@@ -54,6 +55,7 @@
         "mozaik_survey_publish_date",
         "mozaik_survey_thesaurus",
         # 'mozaik_virtual_partner_mandate',
+        "mass_mail_queue_job",
     ],
     "data": [
         # 'views/mail_followers.xml',
