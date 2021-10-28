@@ -10,7 +10,7 @@
         <field name="model">partner.involvement.category</field>
         <field
             name="inherit_id"
-            ref="mozaik_person.partner_involvement_category_form_view"
+            ref="mozaik_involvement.partner_involvement_category_form_view"
         />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
@@ -51,7 +51,7 @@
         <field name="model">partner.involvement.category</field>
         <field
             name="inherit_id"
-            ref="mozaik_person.partner_involvement_category_search_view"
+            ref="mozaik_involvement.partner_involvement_category_search_view"
         />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='involvement_type']" position="after">
@@ -87,7 +87,7 @@
         <field name="model">partner.involvement.category</field>
         <field
             name="inherit_id"
-            ref="mozaik_person.partner_involvement_category_tree_view"
+            ref="mozaik_involvement.partner_involvement_category_tree_view"
         />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='code']" position="after">

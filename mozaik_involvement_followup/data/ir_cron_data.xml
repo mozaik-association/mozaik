@@ -9,9 +9,10 @@
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
         <field name="nextcall" eval="DateTime.today().strftime('%Y-%m-%d 03:00:00')" />
-        <field name="model" eval="'partner.involvement'" />
-        <field name="function" eval="'_set_state_as_late'" />
-        <field name="args">()</field>
+        <field name="model_id" ref="model_partner_involvement" />
+        <field name="code">
+            model._set_state_as_late()
+        </field>
     </record>
 </data>
 </odoo>

@@ -1,57 +1,48 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import logging
 from datetime import date
 
-import psycopg2
-from anybox.testing.openerp import SharedSetupTransactionCase
 from dateutil.relativedelta import relativedelta
 
 from odoo.exceptions import ValidationError
+from odoo.tests.common import SavepointCase
 
-from odoo.addons.mozaik_base import testtool
 
-
-class TestPartnerInvolvementCategory(SharedSetupTransactionCase):
-
-    _data_files = (
-        "../../mozaik_base/tests/data/res_partner_data.xml",
-        "../../mozaik_structure/tests/data/structure_data.xml",
-        "../../mozaik_mandate/tests/data/mandate_data.xml",
-    )
-
-    _module_ns = "mozaik_involvement_followup"
-
+class TestPartnerInvolvementCategory(SavepointCase):
     def test_involvement_category_integrity_1(self):
         # create a category with negative deadline rule: NOK
         vals = {
             "name": "Le tour du monde en 80 jours",
             "nb_deadline_days": -80,
         }
-        with testtool.disable_log_error(self.cr):
-            self.assertRaises(
-                psycopg2.IntegrityError,
-                self.env["partner.involvement.category"].create,
-                vals,
-            )
+        self.assertRaises(
+            ValidationError,
+            self.env["partner.involvement.category"].create,
+            vals,
+        )
 
     def test_involvement_category_integrity_2(self):
-        mc_id = self.ref("%s.mc_secretaire_regional" % self._module_ns)
+        mc_id = self.ref("mozaik_mandate.mc_secretaire_regional")
         # create a category without deadline rule but with a mandate: NOK
         vals = {
             "name": "Le tour du monde en 80 jours",
             "nb_deadline_days": 0,
             "mandate_category_id": mc_id,
         }
-        with testtool.disable_log_error(self.cr):
-            self.assertRaises(
-                psycopg2.IntegrityError,
-                self.env["partner.involvement.category"].create,
-                vals,
-            )
+        _logger = logging.getLogger("sql_db")
+        previous_level = _logger.level
+        _logger.setLevel(logging.CRITICAL)
+        self.assertRaises(
+            ValidationError,
+            self.env["partner.involvement.category"].create,
+            vals,
+        )
+        _logger.setLevel(previous_level)
 
     def test_involvement_category_onchange_deadline_rule(self):
-        mc_id = self.ref("%s.mc_secretaire_regional" % self._module_ns)
+        mc_id = self.ref("mozaik_mandate.mc_secretaire_regional")
         vals = {
             "name": "Blanche neige et les 7 nains",
         }
@@ -160,7 +151,7 @@ class TestPartnerInvolvementCategory(SharedSetupTransactionCase):
         )
         wiz.doit()
         deadline = (date.today() + relativedelta(days=4)).strftime("%Y-%m-%d")
-        self.assertEqual(deadline, involvement.deadline)
+        self.assertEqual(deadline, involvement.deadline.strftime("%Y-%m-%d"))
         # create another partner and an involvement
         vals = {
             "name": "Pocahontas",
@@ -191,9 +182,11 @@ class TestPartnerInvolvementCategory(SharedSetupTransactionCase):
             follower,
             partner.partner_involvement_ids.filtered(
                 lambda s, ic=ic3: s.involvement_category_id == ic
-            ).mapped("message_follower_ids"),
+            )
+            .mapped("message_follower_ids")
+            .partner_id,
         )
-        self.assertFalse(
+        self.assertTrue(
             partner.partner_involvement_ids.filtered(
                 lambda s, ic=ic2: s.involvement_category_id == ic
             ).mapped("message_follower_ids")
