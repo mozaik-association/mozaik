@@ -6,11 +6,10 @@
     <record id="petition_petition_rule_read_write_user" model="ir.rule">
         <field
             name="name"
-        >Petition: read and write on petitions with same int_instance_id</field>
+        >Petition: read and write on public petitions or private petitions with child int_instance_id</field>
         <field name="model_id" ref="model_petition_petition" />
-        <field
-            name="domain_force"
-        >[('int_instance_id', 'child_of', user.partner_id.int_instance_id.id)]</field>
+        <field name="domain_force">['|',('is_private','=',False),
+            ('int_instance_id', 'child_of', user.partner_id.int_instance_id.id)]</field>
         <field name="groups" eval="[(4, ref('mozaik_petition.group_petition_user'))]" />
         <field name="perm_read" eval="True" />
         <field name="perm_write" eval="True" />
