@@ -12,6 +12,7 @@
                     <h1><field name="title" /></h1>
                     <group>
                         <group>
+                            <field name="interest_ids" widget="many2many_tags" />
                             <field
                                 name="question_type"
                                 widget="radio"
