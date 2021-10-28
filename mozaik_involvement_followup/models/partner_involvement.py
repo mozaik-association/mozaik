@@ -19,12 +19,14 @@ class PartnerInvolvement(models.Model):
 
     _track = {
         "state": {
-            "mozaik_involvement_followup.partner_involvement_to_follow_mms":
-                lambda self, cr, uid, brec, c=None: brec.state
-                == "followup",
-            "mozaik_involvement_followup"".partner_involvement_late_mms":
-                lambda self, cr, uid, brec, c=None: brec.state
-                == "late",
+            "mozaik_involvement_followup"
+            ".partner_involvement_to_follow_mms": (
+                lambda self, cr, uid, brec, c=None: brec.state == "followup"
+            ),
+            "mozaik_involvement_followup"
+            ".partner_involvement_late_mms": (
+                lambda self, cr, uid, brec, c=None: brec.state == "late"
+            ),
         },
     }
 

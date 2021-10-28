@@ -186,7 +186,7 @@ class TestPartnerInvolvementCategory(SavepointCase):
             .mapped("message_follower_ids")
             .partner_id,
         )
-        self.assertTrue(
+        self.assertFalse(
             partner.partner_involvement_ids.filtered(
                 lambda s, ic=ic2: s.involvement_category_id == ic
             ).mapped("message_follower_ids")
