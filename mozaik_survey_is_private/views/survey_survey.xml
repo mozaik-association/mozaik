@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="survey_survey_form_view">
+        <field name="name">survey.survey.form (in mozaik_survey_is_private)</field>
+        <field name="model">survey.survey</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_survey_thesaurus.survey_survey_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='interest_ids']" position="after">
+                <field name="is_private" />
+                <field
+                    name="int_instance_id"
+                    attrs="{'invisible': [('is_private', '=', False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

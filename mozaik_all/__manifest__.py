@@ -4,7 +4,7 @@
     "name": "Mozaik: All Modules Loader",
     "summary": """
         Loads all Mozaik modules""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
@@ -52,6 +52,7 @@
         "mozaik_membership_mandate",
         "mozaik_membership_request",
         "mozaik_petition",
+        "mozaik_survey_is_private",
         "mozaik_survey_publish_date",
         "mozaik_survey_thesaurus",
         # 'mozaik_virtual_partner_mandate',
