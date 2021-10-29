@@ -1,23 +1,22 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import TransactionCase
 from odoo.exceptions import UserError, ValidationError
+from odoo.tests.common import TransactionCase
 
 
 class TestStaMandate(TransactionCase):
-
     def test_sta_candidature_legislative_process(self):
-        '''
+        """
         Test the process of states candidatures for a legislative assembly
         until mandate creation
-        '''
-        committee_id = self.env.ref('mozaik_committee.sc_tete_huy_communale')
-        sta_paul_communal_id = self.env.ref('mozaik_committee.sta_paul_communal')
-        sta_pauline_communal_id = self.env.ref('mozaik_committee.sta_pauline_communal')
-        sta_marc_communal_id = self.env.ref('mozaik_committee.sta_marc_communal')
-        sta_thierry_communal_id = self.env.ref('mozaik_committee.sta_thierry_communal')
-        sta_jacques_communal_id = self.env.ref('mozaik_committee.sta_jacques_communal')
+        """
+        committee_id = self.env.ref("mozaik_committee.sc_tete_huy_communale")
+        sta_paul_communal_id = self.env.ref("mozaik_committee.sta_paul_communal")
+        sta_pauline_communal_id = self.env.ref("mozaik_committee.sta_pauline_communal")
+        sta_marc_communal_id = self.env.ref("mozaik_committee.sta_marc_communal")
+        sta_thierry_communal_id = self.env.ref("mozaik_committee.sta_thierry_communal")
+        sta_jacques_communal_id = self.env.ref("mozaik_committee.sta_jacques_communal")
         candidature_ids = (
             sta_paul_communal_id
             | sta_pauline_communal_id
@@ -55,7 +54,7 @@ class TestStaMandate(TransactionCase):
             self.assertEqual(candidature.state, "suggested")
 
         # Accept Candidatures
-        committee_id.write({'decision_date': '2014-04-01'})
+        committee_id.write({"decision_date": "2014-04-01"})
         committee_id.button_accept_candidatures()
         for candidature in candidature_ids:
             self.assertEqual(candidature.state, "designated")
@@ -85,17 +84,17 @@ class TestStaMandate(TransactionCase):
         self.assertEqual(len(mandate_ids), len(elected_ids))
 
     def test_sta_candidature_not_legislative_process(self):
-        '''
+        """
         Test the process of states candidatures for a non legislative assembly
         until mandate creation
-        '''
-        committee_id = self.env.ref('mozaik_committee.sc_bourgmestre_huy')
-        sta_marc_id = self.env.ref('mozaik_committee.sta_marc_bourgmestre')
+        """
+        committee_id = self.env.ref("mozaik_committee.sc_bourgmestre_huy")
+        sta_marc_id = self.env.ref("mozaik_committee.sta_marc_bourgmestre")
 
         sta_marc_id.button_suggest()
         self.assertEqual(sta_marc_id.state, "suggested")
 
-        committee_id.write({'decision_date': '2014-04-01'})
+        committee_id.write({"decision_date": "2014-04-01"})
         committee_id.button_accept_candidatures()
         self.assertEqual(sta_marc_id.state, "elected")
         mandate_ids = self.env["sta.mandate"].search(
@@ -104,11 +103,11 @@ class TestStaMandate(TransactionCase):
         self.assertEqual(len(mandate_ids), 1)
 
     def test_no_decision_date(self):
-        '''
+        """
         Test the process of accepting states candidatures without decision date
-        '''
-        committee_id = self.env.ref('mozaik_committee.sc_bourgmestre_huy')
-        sta_marc_id = self.env.ref('mozaik_committee.sta_marc_bourgmestre')
+        """
+        committee_id = self.env.ref("mozaik_committee.sc_bourgmestre_huy")
+        sta_marc_id = self.env.ref("mozaik_committee.sta_marc_bourgmestre")
 
         sta_marc_id.button_suggest()
         with self.assertRaises(ValidationError):

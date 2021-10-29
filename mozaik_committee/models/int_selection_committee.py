@@ -5,16 +5,16 @@ from odoo import fields, models
 
 
 class IntSelectionCommittee(models.Model):
-    _name = 'int.selection.committee'
-    _description = 'Selection Committee'
-    _inherit = ['abstract.selection.committee']
-    _order = 'assembly_id, mandate_start_date, mandate_category_id, name'
-    _unicity_keys = 'assembly_id, mandate_start_date, mandate_category_id, name'
+    _name = "int.selection.committee"
+    _description = "Selection Committee"
+    _inherit = ["abstract.selection.committee"]
+    _order = "assembly_id, mandate_start_date, mandate_category_id, name"
+    _unicity_keys = "assembly_id, mandate_start_date, mandate_category_id, name"
 
-    _candidature_model = 'int.candidature'
-    _assembly_model = 'int.assembly'
-    _assembly_category_model = 'int.assembly.category'
-    _parameters_key = 'int_candidature_invalidation_delay'
+    _candidature_model = "int.candidature"
+    _assembly_model = "int.assembly"
+    _assembly_category_model = "int.assembly.category"
+    _parameters_key = "int_candidature_invalidation_delay"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "int")])
     is_virtual = fields.Boolean(string="Is Virtual", default=True)
@@ -26,7 +26,7 @@ class IntSelectionCommittee(models.Model):
     candidature_ids = fields.One2many(
         comodel_name=_candidature_model,
         string="Internal Candidatures",
-        context={'force_recompute': True},
+        context={"force_recompute": True},
     )
     assembly_category_id = fields.Many2one(
         comodel_name=_assembly_category_model,

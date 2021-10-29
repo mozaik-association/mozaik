@@ -6,7 +6,7 @@ from odoo import fields, models
 
 class ExtAssembly(models.Model):
 
-    _inherit = 'ext.assembly'
+    _inherit = "ext.assembly"
 
     selection_committee_ids = fields.One2many(
         comodel_name="ext.selection.committee",

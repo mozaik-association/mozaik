@@ -43,15 +43,15 @@
 
     <record id="int_instance_04" model="int.instance">
         <field name="name">Huy-Waremme</field>
-        <field name="parent_id" ref="int_instance_03"/>
-        <field name="power_level_id" ref="int_power_level_04"/>
+        <field name="parent_id" ref="int_instance_03" />
+        <field name="power_level_id" ref="int_power_level_04" />
         <field name="code">004</field>
     </record>
 
     <record id="int_instance_05" model="int.instance">
         <field name="name">Huy</field>
-        <field name="parent_id" ref="int_instance_04"/>
-        <field name="power_level_id" ref="int_power_level_05"/>
+        <field name="parent_id" ref="int_instance_04" />
+        <field name="power_level_id" ref="int_power_level_05" />
         <field name="code">005</field>
     </record>
 
@@ -71,13 +71,13 @@
 
     <record id="int_assembly_category_03" model="int.assembly.category">
         <field name="name">Assemblée régionale</field>
-        <field name="power_level_id" ref="int_power_level_03"/>
+        <field name="power_level_id" ref="int_power_level_03" />
     </record>
 
     <record id="int_assembly_category_04" model="int.assembly.category">
         <field name="name">Secrétariat local</field>
-        <field name="power_level_id" ref="int_power_level_04"/>
-        <field name="is_secretariat" eval="1"/>
+        <field name="power_level_id" ref="int_power_level_04" />
+        <field name="is_secretariat" eval="1" />
     </record>
 
     <!-- Assembly -->
@@ -86,26 +86,26 @@
         <field name="name">Mozaik Headquarter (Bureau du plan)</field>
         <field name="assembly_category_id" ref="int_assembly_category_01" />
         <field name="instance_id" ref="int_instance_01" />
-        <field name="is_designation_assembly" eval="1"/>
+        <field name="is_designation_assembly" eval="1" />
     </record>
 
     <record id="int_assembly_02" model="int.assembly">
         <field name="name">Huy (Secrétariat local)</field>
         <field name="assembly_category_id" ref="int_assembly_category_02" />
         <field name="instance_id" ref="int_instance_02" />
-        <field name="is_designation_assembly" eval="1"/>
+        <field name="is_designation_assembly" eval="1" />
     </record>
 
     <record id="int_assembly_03" model="int.assembly">
-        <field name="instance_id" ref="int_instance_03"/>
-        <field name="assembly_category_id" ref="int_assembly_category_03"/>
-        <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+        <field name="instance_id" ref="int_instance_03" />
+        <field name="assembly_category_id" ref="int_assembly_category_03" />
+        <field name="designation_int_assembly_id" ref="int_assembly_01" />
     </record>
 
     <record id="int_assembly_04" model="int.assembly">
-        <field name="instance_id" ref="int_instance_04"/>
-        <field name="assembly_category_id" ref="int_assembly_category_04"/>
-        <field name="is_designation_assembly" eval="1"/>
+        <field name="instance_id" ref="int_instance_04" />
+        <field name="assembly_category_id" ref="int_assembly_category_04" />
+        <field name="is_designation_assembly" eval="1" />
     </record>
 
 </odoo>

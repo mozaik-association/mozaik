@@ -6,7 +6,7 @@ from odoo import fields, models
 
 class IntAssembly(models.Model):
 
-    _inherit = 'int.assembly'
+    _inherit = "int.assembly"
 
     selection_committee_ids = fields.One2many(
         comodel_name="int.selection.committee",

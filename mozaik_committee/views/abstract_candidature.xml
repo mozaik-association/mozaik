@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="abstract_candidature_form_view">
@@ -10,55 +9,105 @@
         <field name="arch" type="xml">
             <form string="Candidature">
                 <header>
-                    <field name="is_selection_committee_active" invisible="1"/>
-                    <button name="action_invalidate" string="Invalidate" type="object"
-                            confirm="Invalidate candidature: proceed anyway?"
-                            groups="mozaik_committee.res_groups_committee_user" />
-                    <button name="button_suggest_candidature" string="Suggest" class="oe_highlight" type="object"
-                            confirm="Suggest candidature: proceed anyway?" states="declared"
-                            groups="mozaik_committee.res_groups_committee_user" />
-                    <button name="button_reject_candidature" string="Reject" class="oe_highlight" type="object"
-                            confirm="Reject candidature: proceed anyway?" states="declared,designated"
-                            groups="mozaik_committee.res_groups_committee_user" />
-                    <button name="button_declare_candidature" string="Declare" class="oe_highlight" type="object"
-                            attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'suggested'])]}"
-                            confirm="Declare candidature: proceed anyway?"
-                            groups="mozaik_committee.res_groups_committee_user" />
-                    <button name="button_create_mandate" string="Mandate" type="object"
-                            confirm="Create mandate from candidature: proceed anyway?"
-                            groups="mozaik_committee.res_groups_committee_user" />
-                    <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected'/>
+                    <field name="is_selection_committee_active" invisible="1" />
+                    <button
+                        name="action_invalidate"
+                        string="Invalidate"
+                        type="object"
+                        confirm="Invalidate candidature: proceed anyway?"
+                        groups="mozaik_committee.res_groups_committee_user"
+                    />
+                    <button
+                        name="button_suggest_candidature"
+                        string="Suggest"
+                        class="oe_highlight"
+                        type="object"
+                        confirm="Suggest candidature: proceed anyway?"
+                        states="declared"
+                        groups="mozaik_committee.res_groups_committee_user"
+                    />
+                    <button
+                        name="button_reject_candidature"
+                        string="Reject"
+                        class="oe_highlight"
+                        type="object"
+                        confirm="Reject candidature: proceed anyway?"
+                        states="declared,designated"
+                        groups="mozaik_committee.res_groups_committee_user"
+                    />
+                    <button
+                        name="button_declare_candidature"
+                        string="Declare"
+                        class="oe_highlight"
+                        type="object"
+                        attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'suggested'])]}"
+                        confirm="Declare candidature: proceed anyway?"
+                        groups="mozaik_committee.res_groups_committee_user"
+                    />
+                    <button
+                        name="button_create_mandate"
+                        string="Mandate"
+                        type="object"
+                        confirm="Create mandate from candidature: proceed anyway?"
+                        groups="mozaik_committee.res_groups_committee_user"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible='declared,suggested,designated,elected'
+                    />
                 </header>
                 <sheet>
                     <div class="oe_title">
-                         <h1>Candidature: <field name="mandate_category_id" class="oe_inline"
-                                                 readonly ="1"/></h1>
-                        <h2><field name="partner_id" domain="[('is_company','=',False)]"
-                                   attrs="{'readonly': [('id','!=',False)]}"
-                                   context="{'default_is_company': False}"/></h2>
+                         <h1>Candidature: <field
+                                name="mandate_category_id"
+                                class="oe_inline"
+                                readonly="1"
+                            /></h1>
+                        <h2><field
+                                name="partner_id"
+                                domain="[('is_company','=',False)]"
+                                attrs="{'readonly': [('id','!=',False)]}"
+                                context="{'default_is_company': False}"
+                            /></h2>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                    <div
+                        class="oe_right oe_button_box"
+                        name="buttons"
+                        invisible="context.get('popup')"
+                    >
                     </div>
 
                     <group>
                         <group name="data_1">
-                            <field name="selection_committee_id" required="1"
-                                    attrs="{'readonly': [('id','!=',False)]}"
-                                    readonly="context.get('default_selection_committee_id')"
-                                    domain="[('decision_date', '=', False)]" />
+                            <field
+                                name="selection_committee_id"
+                                required="1"
+                                attrs="{'readonly': [('id','!=',False)]}"
+                                readonly="context.get('default_selection_committee_id')"
+                                domain="[('decision_date', '=', False)]"
+                            />
                         </group>
                         <group name="data_2">
-                            <field name="designation_int_assembly_id" readonly="1"/>
+                            <field name="designation_int_assembly_id" readonly="1" />
                         </group>
                         <group name="Dates">
-                            <field name="create_date" readonly="1"/>
-                            <field name="active" invisible="1"/>
-                            <field name="expire_date" readonly="1"  attrs="{'invisible': [('active','=', True)]}"/>
+                            <field name="create_date" readonly="1" />
+                            <field name="active" invisible="1" />
+                            <field
+                                name="expire_date"
+                                readonly="1"
+                                attrs="{'invisible': [('active','=', True)]}"
+                            />
                         </group>
                     </group>
                 </sheet>
                 <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_committee.res_groups_committee_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_committee.res_groups_committee_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -70,36 +119,93 @@
         <field name="model">abstract.candidature</field>
         <field name="arch" type="xml">
             <search string="Candidatures">
-                <field name="selection_committee_id"/>
-                <field name="partner_id" domain="[('is_company','=',False)]"/>
-                <field name="mandate_category_id"/>
-                <field name="designation_int_assembly_id"/>
+                <field name="selection_committee_id" />
+                <field name="partner_id" domain="[('is_company','=',False)]" />
+                <field name="mandate_category_id" />
+                <field name="designation_int_assembly_id" />
 
-                <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expired Candidatures" />
-                <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Candidatures, expired or not" />
-                <separator/>
-                <filter name="declared" string="Declared"
-                        domain="[('state','=', 'declared')]" help="Declared Candidatures" />
-                <filter name="rejected" string="Rejected"
-                        domain="[('state','=', 'rejected')]" help="Rejected Candidatures" />
-                <filter name="suggested" string="Suggested"
-                        domain="[('state','=', 'suggested')]" help="Suggested Candidatures" />
-                <filter name="designated" string="Designated"
-                        domain="[('state','=', 'designated')]" help="Designated Candidatures"/>
-                <filter name="elected" string="Elected"
-                        domain="[('state','=', 'elected')]" help="Elected Candidatures"/>
-                <filter name="non-elected" string="Non-Elected"
-                        domain="[('state','=', 'non-elected')]" help="Non-Elected Candidatures"/>
+                <filter
+                    name="expired"
+                    string="Expired"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]"
+                    help="Expired Candidatures"
+                />
+                <filter
+                    name="all"
+                    string="All"
+                    context="{'invisible_expire_date': False}"
+                    domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                    help="All Candidatures, expired or not"
+                />
+                <separator />
+                <filter
+                    name="declared"
+                    string="Declared"
+                    domain="[('state','=', 'declared')]"
+                    help="Declared Candidatures"
+                />
+                <filter
+                    name="rejected"
+                    string="Rejected"
+                    domain="[('state','=', 'rejected')]"
+                    help="Rejected Candidatures"
+                />
+                <filter
+                    name="suggested"
+                    string="Suggested"
+                    domain="[('state','=', 'suggested')]"
+                    help="Suggested Candidatures"
+                />
+                <filter
+                    name="designated"
+                    string="Designated"
+                    domain="[('state','=', 'designated')]"
+                    help="Designated Candidatures"
+                />
+                <filter
+                    name="elected"
+                    string="Elected"
+                    domain="[('state','=', 'elected')]"
+                    help="Elected Candidatures"
+                />
+                <filter
+                    name="non-elected"
+                    string="Non-Elected"
+                    domain="[('state','=', 'non-elected')]"
+                    help="Non-Elected Candidatures"
+                />
                 <group expand="0" string="Group By..." name="group_by">
-                    <filter name="committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
-                    <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
-                    <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
-                    <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
-                    <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}" />
+                    <filter
+                        name="committee"
+                        string="Selection Committee"
+                        domain="[]"
+                        context="{'group_by':'selection_committee_id'}"
+                    />
+                    <filter
+                        name="partner"
+                        string="Partner"
+                        domain="[]"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        name="category"
+                        string="Mandate Category"
+                        domain="[]"
+                        context="{'group_by':'mandate_category_id'}"
+                    />
+                    <filter
+                        name="designation_assembly"
+                        string="Designation Assembly"
+                        domain="[]"
+                        context="{'group_by':'designation_int_assembly_id'}"
+                    />
+                    <filter
+                        name="state"
+                        string="Status"
+                        domain="[]"
+                        context="{'group_by':'state'}"
+                    />
                 </group>
             </search>
         </field>
@@ -110,17 +216,30 @@
         <field name="model">abstract.candidature</field>
         <field name="arch" type="xml">
             <tree string="Candidatures">
-                <field name="selection_committee_id"/>
-                <field name="partner_id"/>
-                <field name="mandate_start_date"/>
-                <field name="mandate_category_id"/>
-                <field name="state"/>
-                <button name="button_suggest_candidature" string="Suggest"  icon="fa-check" type="object"
-                        confirm="Suggest candidature: proceed anyway?" states="declared"/>
-                <button name="button_reject_candidature" string="Reject"  icon="fa-times" type="object"
-                        confirm="Reject candidature: proceed anyway?" states="declared"/>
-                <field name="expire_date"
-                       invisible="context.get('invisible_expire_date', True)" />
+                <field name="partner_id" />
+                <field name="mandate_start_date" />
+                <field name="mandate_category_id" />
+                <field name="state" />
+                <button
+                    name="button_suggest_candidature"
+                    string="Suggest"
+                    icon="fa-check"
+                    type="object"
+                    confirm="Suggest candidature: proceed anyway?"
+                    states="declared"
+                />
+                <button
+                    name="button_reject_candidature"
+                    string="Reject"
+                    icon="fa-times"
+                    type="object"
+                    confirm="Reject candidature: proceed anyway?"
+                    states="declared"
+                />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
             </tree>
         </field>
     </record>

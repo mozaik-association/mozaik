@@ -1,35 +1,35 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 
 from .abstract_candidature import AbstractCandidature
 
 CANDIDATURE_AVAILABLE_SORT_ORDERS = {
-    'elected': 0,
-    'non-elected': 10,
-    'designated': 20,
-    'suggested': 22,
-    'declared': 24,
-    'rejected': 30,
-    'draft': 90,
+    "elected": 0,
+    "non-elected": 10,
+    "designated": 20,
+    "suggested": 22,
+    "declared": 24,
+    "rejected": 30,
+    "draft": 90,
 }
 
 
 class StaCandidature(models.Model):
-    _name = 'sta.candidature'
-    _description = 'State Candidature'
-    _inherit = ['abstract.candidature']
-    _order = 'sta_assembly_id, electoral_district_id, legislature_id,\
+    _name = "sta.candidature"
+    _description = "State Candidature"
+    _inherit = ["abstract.candidature"]
+    _order = "sta_assembly_id, electoral_district_id, legislature_id,\
                   mandate_category_id, sort_order, election_effective_position,\
                   election_substitute_position, list_effective_position,\
-                  list_substitute_position, partner_id'
+                  list_substitute_position, partner_id"
     _statechart_file = "mozaik_committee/data/sta_candidature.yml"
 
-    _mandate_model = 'sta.mandate'
-    _selection_committee_model = 'sta.selection.committee'
+    _mandate_model = "sta.mandate"
+    _selection_committee_model = "sta.selection.committee"
     _init_mandate_fields = list(AbstractCandidature._init_mandate_fields)
-    _init_mandate_fields.extend(['legislature_id', 'sta_assembly_id'])
+    _init_mandate_fields.extend(["legislature_id", "sta_assembly_id"])
     _allowed_inactive_link_models = [_selection_committee_model]
     _unique_id_sequence = 200000000
 
@@ -37,7 +37,7 @@ class StaCandidature(models.Model):
         selection_add=[("designated", "Designated"), ("non-elected", "Non-Elected")]
     )
     selection_committee_id = fields.Many2one(comodel_name=_selection_committee_model)
-    mandate_category_id = fields.Many2one(domain=[('type', '=', 'sta')])
+    mandate_category_id = fields.Many2one(domain=[("type", "=", "sta")])
     sort_order = fields.Integer(
         compute="_compute_sort_order",
         string="Sort Order",
@@ -101,16 +101,13 @@ class StaCandidature(models.Model):
         related="sta_assembly_id.is_legislative",
         string="Is Legislative",
     )
-    mandate_ids = fields.One2many(
-        comodel_name=_mandate_model,
-        string="State Mandates"
-    )
+    mandate_ids = fields.One2many(comodel_name=_mandate_model, string="State Mandates")
 
     @api.depends("state", "is_effective", "is_substitute")
     def _compute_sort_order(self):
         for cand in self:
             sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, 99)
-            if cand.state == 'non-elected':
+            if cand.state == "non-elected":
                 if cand.is_effective and not cand.is_substitute:
                     sort_order += 1
             elif not cand.is_effective and cand.is_substitute:

@@ -1,29 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="abstract_selection_committee_search_view">
-        <field name="name">abstract.selection.committee.search (in mozaik_committee)</field>
+        <field
+            name="name"
+        >abstract.selection.committee.search (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
             <search string="Selection Committees">
-                <field name="name"/>
-                <field name="assembly_id"/>
-                <field name="mandate_category_id"/>
-                <field name="designation_int_assembly_id"/>
+                <field name="name" />
+                <field name="assembly_id" />
+                <field name="mandate_category_id" />
+                <field name="designation_int_assembly_id" />
 
-                <filter name="expired" string="Expired"
+                <filter
+                    name="expired"
+                    string="Expired"
                     context="{'invisible_expire_date': False}"
-                    domain="[('active','=',False)]" />
-                <filter name="all" string="All"
+                    domain="[('active','=',False)]"
+                />
+                <filter
+                    name="all"
+                    string="All"
                     context="{'invisible_expire_date': False}"
-                    domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                    domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                />
                 <group expand="0" string="Group By..." name="group_by">
-                    <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'assembly_id'}" />
-                    <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
-                    <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
+                    <filter
+                        name="assembly"
+                        string="Assembly"
+                        domain="[]"
+                        context="{'group_by':'assembly_id'}"
+                    />
+                    <filter
+                        name="category"
+                        string="Mandate Category"
+                        domain="[]"
+                        context="{'group_by':'mandate_category_id'}"
+                    />
+                    <filter
+                        name="designation_assembly"
+                        string="Designation Assembly"
+                        domain="[]"
+                        context="{'group_by':'designation_int_assembly_id'}"
+                    />
                 </group>
             </search>
         </field>
@@ -31,62 +53,85 @@
 
 
     <record model="ir.ui.view" id="abstract_selection_committee_form_view">
-        <field name="name">abstract.selection.committee.form (in mozaik_committee)</field>
+        <field
+            name="name"
+        >abstract.selection.committee.form (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
             <form string="Selection Committee">
                 <header>
-                    <field name="active" invisible="1"/>
-                    <button name="action_invalidate" string="Invalidate" type="object"
-                            confirm="Invalidate committee: proceed anyway?"
-                            attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                            groups="mozaik_committee.res_groups_committee_user" />
-                    <field name='state' widget='statusbar'/>
+                    <field name="active" invisible="1" />
+                    <button
+                        name="action_invalidate"
+                        string="Invalidate"
+                        type="object"
+                        confirm="Invalidate committee: proceed anyway?"
+                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                        groups="mozaik_committee.res_groups_committee_user"
+                    />
+                    <field name='state' widget='statusbar' />
                 </header>
                 <sheet>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name"/></h1>
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" /></h1>
                         <group>
-                            <field name="auto_mandate"/>
+                            <field name="auto_mandate" />
                         </group>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                    <div
+                        class="oe_right oe_button_box"
+                        name="buttons"
+                        invisible="context.get('popup')"
+                    >
                     </div>
                     <group>
                          <group name="assembly">
-                            <field name="assembly_id" required="1"/>
+                            <field name="assembly_id" required="1" />
                         </group>
 
                         <group>
-                            <field name="designation_int_assembly_id"/>
-                            <field name="meeting_date" widget="date"/>
-                            <field name="decision_date" widget="date"/>
+                            <field name="designation_int_assembly_id" />
+                            <field name="meeting_date" widget="date" />
+                            <field name="decision_date" widget="date" />
                         </group>
 
                         <group name="mandate">
-                            <field name="mandate_start_date" widget="date"/>
-                            <field name="mandate_deadline_date" widget="date"/>
+                            <field name="mandate_start_date" widget="date" />
+                            <field name="mandate_deadline_date" widget="date" />
                         </group>
 
                         <group name="Dates">
-                            <field name="create_date" readonly="1"/>
-                            <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                            <field name="create_date" readonly="1" />
+                            <field
+                                name="expire_date"
+                                readonly="1"
+                                attrs="{'invisible': [('active','=', True)]}"
+                            />
                         </group>
                     </group>
 
                     <notebook>
-                        <page string="Candidatures" name="candidatures" invisible="context.get('popup')"
-                              attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                        <page
+                            string="Candidatures"
+                            name="candidatures"
+                            invisible="context.get('popup')"
+                            attrs="{'invisible': [('id','=',False)]}"
+                            autofocus="autofocus"
+                        >
                         </page>
                         <page string="Note" name="note">
-                            <field name="note"/>
+                            <field name="note" />
                         </page>
                     </notebook>
                 </sheet>
 
                 <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_committee.res_groups_committee_manager"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_committee.res_groups_committee_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -95,16 +140,20 @@
 
 
     <record model="ir.ui.view" id="abstract_selection_committee_tree_view">
-        <field name="name">abstract.selection.committee.tree (in mozaik_committee)</field>
+        <field
+            name="name"
+        >abstract.selection.committee.tree (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
             <tree string="Selection Committees">
-                <field name="name"/>
-                <field name="assembly_id"/>
-                <field name="mandate_start_date"/>
-                <field name="mandate_category_id"/>
-                <field name="expire_date"
-                       invisible="context.get('invisible_expire_date', True)" />
+                <field name="name" />
+                <field name="assembly_id" />
+                <field name="mandate_start_date" />
+                <field name="mandate_category_id" />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
             </tree>
         </field>
     </record>

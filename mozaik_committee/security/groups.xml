@@ -14,10 +14,14 @@
     <record model="res.groups" id="res_groups_committee_manager">
         <field name="name">Manager</field>
         <field name="category_id" ref="module_category_committee" />
-        <field name="implied_ids"
-               eval="[(4, ref('mozaik_committee.res_groups_committee_user'))]"/>
-        <field name="users"
-               eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        <field
+            name="implied_ids"
+            eval="[(4, ref('mozaik_committee.res_groups_committee_user'))]"
+        />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
     </record>
 
 </odoo>

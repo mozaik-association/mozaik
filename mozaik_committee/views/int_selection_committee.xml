@@ -1,51 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="int_selection_committee_form_view">
         <field name="name">int.selection.committee.form (in mozaik_committee)</field>
         <field name="model">int.selection.committee</field>
-        <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+        <field name="inherit_id" ref="abstract_selection_committee_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='auto_mandate']" position="before">
-                <field name="is_virtual"/>
-                <field name="assembly_category_id" invisible="1"/>
+                <field name="is_virtual" />
+                <field name="assembly_category_id" invisible="1" />
             </xpath>
             <xpath expr="//field[@name='assembly_id']" position="attributes">
-                <attribute name="domain" translation="off">[('assembly_category_id', '=', assembly_category_id)]</attribute>
+                <attribute
+                    name="domain"
+                    translation="off"
+                >[('assembly_category_id', '=', assembly_category_id)]</attribute>
             </xpath>
             <xpath expr="//field[@name='assembly_id']" position="before">
-                    <field name="mandate_category_id"
-                       required="1"
-                       domain="[('type', '=', 'int')]"
-                       context="{'default_type': 'int'}"/>
+                    <field
+                    name="mandate_category_id"
+                    required="1"
+                    domain="[('type', '=', 'int')]"
+                    context="{'default_type': 'int'}"
+                />
             </xpath>
             <xpath expr="//page[@name='candidatures']" position="inside">
-                <button string="All Details" name="%(int_candidature_action)d"
-                                    type="action" attrs="{'invisible': [('id','=',False)]}"
-                                    context="{'search_default_selection_committee_id': active_id,
+                <button
+                    string="All Details"
+                    name="%(int_candidature_action)d"
+                    type="action"
+                    attrs="{'invisible': [('id','=',False)]}"
+                    context="{'search_default_selection_committee_id': active_id,
                                               'default_selection_committee_id': active_id,
-                                              'search_default_all': True}" />
-                <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
-                        attrs="{'invisible': [('state','=','done')]}"
-                        confirm="Accept all candidatures: proceed anyway?"/>
-                <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
-                        attrs="{'invisible': [('state','=','done')]}"
-                        confirm="Refuse all candidatures: proceed anyway?"/>
-                <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
+                                              'search_default_all': True}"
+                />
+                <button
+                    string="Accept"
+                    name="button_accept_candidatures"
+                    type="object"
+                    class="oe_highlight"
+                    attrs="{'invisible': [('state','=','done')]}"
+                    confirm="Accept all candidatures: proceed anyway?"
+                />
+                <button
+                    string="Refuse"
+                    name="button_refuse_candidatures"
+                    type="object"
+                    class="oe_highlight"
+                    attrs="{'invisible': [('state','=','done')]}"
+                    confirm="Refuse all candidatures: proceed anyway?"
+                />
+                <field
+                    name="candidature_ids"
+                    context="{'default_selection_committee_id': active_id}"
+                >
                     <tree colors="red:state=='declared';grey:active==False">
-                        <field name="partner_id"/>
-                        <field name="state"/>
-                        <button name="button_suggest_candidature" string="Suggest" icon="fa-check" type="object"
-                                attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
-                        <button name="button_reject_candidature" string="Reject" icon="fa-times" type="object"
-                                attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
-                        <button name="button_declare_candidature" string="Back to Declared" icon="fa-undo" type="object"
-                                attrs="{'invisible': ['|',('state', 'not in',['rejected','suggested']),('is_selection_committee_active', '=', False)]}"/>
-                        <field name="active" invisible="1"/>
-                        <field name="is_selection_committee_active" invisible="1"/>
+                        <field name="partner_id" />
+                        <field name="state" />
+                        <button
+                            name="button_suggest_candidature"
+                            string="Suggest"
+                            icon="fa-check"
+                            type="object"
+                            attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"
+                        />
+                        <button
+                            name="button_reject_candidature"
+                            string="Reject"
+                            icon="fa-times"
+                            type="object"
+                            attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"
+                        />
+                        <button
+                            name="button_declare_candidature"
+                            string="Back to Declared"
+                            icon="fa-undo"
+                            type="object"
+                            attrs="{'invisible': ['|',('state', 'not in',['rejected','suggested']),('is_selection_committee_active', '=', False)]}"
+                        />
+                        <field name="active" invisible="1" />
+                        <field name="is_selection_committee_active" invisible="1" />
                     </tree>
                 </field>
             </xpath>
@@ -53,19 +89,28 @@
     </record>
 
     <record id="int_selection_committee_officer_form_view" model="ir.ui.view">
-        <field name="name">int.selection.committee.officer.form  (in mozaik_committee)</field>
+        <field
+            name="name"
+        >int.selection.committee.officer.form  (in mozaik_committee)</field>
         <field name="model">int.selection.committee</field>
-        <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
-        <field name="groups_id" eval="[(6,0,[
+        <field name="inherit_id" ref="abstract_selection_committee_form_view" />
+        <field
+            name="groups_id"
+            eval="[(6,0,[
             ref('mozaik_committee.res_groups_committee_manager'),
-        ])]"/>
+        ])]"
+        />
         <field name="arch" type="xml">
             <xpath expr="//page[@name='candidatures']" position="after">
-                <page string="Members" name="members" invisible="context.get('popup')"
-                      attrs="{'invisible': [('is_virtual','=',True)]}" >
+                <page
+                    string="Members"
+                    name="members"
+                    invisible="context.get('popup')"
+                    attrs="{'invisible': [('is_virtual','=',True)]}"
+                >
                     <field name="partner_ids" context="{'default_is_company': False}">
                         <tree>
-                            <field name="display_name"/>
+                            <field name="display_name" />
                         </tree>
                     </field>
                 </page>
@@ -79,7 +124,11 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="int_selection_committee_submenu" action="int_selection_committee_action"
-              sequence="10" parent="mozaik_mandate.int_submenu"/>
+    <menuitem
+        id="int_selection_committee_submenu"
+        action="int_selection_committee_action"
+        sequence="10"
+        parent="mozaik_mandate.int_submenu"
+    />
 
 </odoo>

@@ -5,16 +5,16 @@ from odoo import fields, models
 
 
 class ExtSelectionCommittee(models.Model):
-    _name = 'ext.selection.committee'
-    _description = 'Selection Committee'
-    _inherit = ['abstract.selection.committee']
-    _order = 'assembly_id, mandate_start_date, mandate_category_id, name'
-    _unicity_keys = 'assembly_id, mandate_start_date, mandate_category_id, name'
+    _name = "ext.selection.committee"
+    _description = "Selection Committee"
+    _inherit = ["abstract.selection.committee"]
+    _order = "assembly_id, mandate_start_date, mandate_category_id, name"
+    _unicity_keys = "assembly_id, mandate_start_date, mandate_category_id, name"
 
-    _candidature_model = 'ext.candidature'
-    _assembly_model = 'ext.assembly'
-    _assembly_category_model = 'ext.assembly.category'
-    _parameters_key = 'ext_candidature_invalidation_delay'
+    _candidature_model = "ext.candidature"
+    _assembly_model = "ext.assembly"
+    _assembly_category_model = "ext.assembly.category"
+    _parameters_key = "ext_candidature_invalidation_delay"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "ext")])
     is_virtual = fields.Boolean(string="Is Virtual", default=True)
@@ -25,7 +25,7 @@ class ExtSelectionCommittee(models.Model):
     candidature_ids = fields.One2many(
         comodel_name=_candidature_model,
         string="External Candidatures",
-        context={'force_recompute': True},
+        context={"force_recompute": True},
     )
     assembly_category_id = fields.Many2one(
         comodel_name=_assembly_category_model,

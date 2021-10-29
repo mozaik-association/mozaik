@@ -3,9 +3,10 @@
 
 from odoo import fields, models
 
+
 class ElectoralDistrict(models.Model):
 
-    _inherit = 'electoral.district'
+    _inherit = "electoral.district"
 
     selection_committee_ids = fields.One2many(
         comodel_name="sta.selection.committee",

@@ -5,9 +5,9 @@ from odoo import api, fields, models
 
 
 class StaSelectionCommittee(models.Model):
-    _name = 'sta.selection.committee'
-    _description = 'Selection Committee'
-    _inherit = ['abstract.selection.committee']
+    _name = "sta.selection.committee"
+    _description = "Selection Committee"
+    _inherit = ["abstract.selection.committee"]
     _order = (
         "assembly_id, electoral_district_id, legislature_id, mandate_category_id, name"
     )
@@ -15,10 +15,10 @@ class StaSelectionCommittee(models.Model):
         "assembly_id, electoral_district_id, legislature_id, mandate_category_id, name"
     )
 
-    _candidature_model = 'sta.candidature'
-    _assembly_model = 'sta.assembly'
-    _assembly_category_model = 'sta.assembly.category'
-    _parameters_key = 'sta_candidature_invalidation_delay'
+    _candidature_model = "sta.candidature"
+    _assembly_model = "sta.assembly"
+    _assembly_category_model = "sta.assembly.category"
+    _parameters_key = "sta_candidature_invalidation_delay"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "sta")])
     assembly_id = fields.Many2one(
@@ -28,7 +28,7 @@ class StaSelectionCommittee(models.Model):
     candidature_ids = fields.One2many(
         comodel_name=_candidature_model,
         string="State Candidatures",
-        context={'force_recompute': True},
+        context={"force_recompute": True},
     )
     assembly_category_id = fields.Many2one(
         comodel_name=_assembly_category_model,
@@ -79,7 +79,7 @@ class StaSelectionCommittee(models.Model):
         return res
 
     @api.model
-    def _name_search(self, name, args=None, operator='ilike', limit=100):
+    def _name_search(self, name, args=None, operator="ilike", limit=100):
         if not args:
             args = []
         if name:
@@ -90,14 +90,18 @@ class StaSelectionCommittee(models.Model):
                 [("name", operator, name)]
             )
             records = self.search(
-                ['|',
-                 '|',
-                 ('name', operator, name),
-                 ('electoral_district_id', 'in', district_ids),
-                 '&',
-                 ('assembly_id', 'in', assembly_ids),
-                 ('electoral_district_id', '=', False)] + args,
-                limit=limit)
+                [
+                    "|",
+                    "|",
+                    ("name", operator, name),
+                    ("electoral_district_id", "in", district_ids),
+                    "&",
+                    ("assembly_id", "in", assembly_ids),
+                    ("electoral_district_id", "=", False),
+                ]
+                + args,
+                limit=limit,
+            )
         else:
             records = self.search(args, limit=limit)
         return records.ids

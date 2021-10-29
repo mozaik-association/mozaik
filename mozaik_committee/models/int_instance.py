@@ -1,12 +1,12 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import fields, models
 
 
 class IntInstance(models.Model):
 
-    _inherit = 'int.instance'
+    _inherit = "int.instance"
 
     def _compute_candidature_count(self):
         """
@@ -16,9 +16,10 @@ class IntInstance(models.Model):
         * ext_mandate_count
         * int_mandate_count
         """
-        self.sta_candidature_count = len(
-            self._get_model_ids('sta.candidature'))
+        self.sta_candidature_count = len(self._get_model_ids("sta.candidature"))
 
     sta_candidature_count = fields.Integer(
-        compute='_compute_candidature_count', type='integer',
-        string='State Candidatures')
+        compute="_compute_candidature_count",
+        type="integer",
+        string="State Candidatures",
+    )

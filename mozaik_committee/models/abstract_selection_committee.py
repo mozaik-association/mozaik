@@ -1,29 +1,29 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.exceptions import UserError, ValidationError
-
-from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
+from dateutil.relativedelta import relativedelta
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 SELECTION_COMMITTEE_AVAILABLE_STATES = [
-    ('draft', 'In Progress'),
-    ('done', 'Closed'),
+    ("draft", "In Progress"),
+    ("done", "Closed"),
 ]
 
 
 class AbstractSelectionCommittee(models.Model):
-    _name = 'abstract.selection.committee'
-    _description = 'Abstract Selection Committee'
-    _inherit = ['mozaik.abstract.model']
-    _unicity_keys = 'N/A'
+    _name = "abstract.selection.committee"
+    _description = "Abstract Selection Committee"
+    _inherit = ["mozaik.abstract.model"]
+    _unicity_keys = "N/A"
 
-    _candidature_model = 'abstract.candidature'
-    _assembly_model = 'abstract.assembly'
-    _assembly_category_model = 'abstract.assembly.category'
+    _candidature_model = "abstract.candidature"
+    _assembly_model = "abstract.assembly"
+    _assembly_category_model = "abstract.assembly.category"
     _parameters_key = False
 
     state = fields.Selection(
@@ -60,7 +60,7 @@ class AbstractSelectionCommittee(models.Model):
         string="Designation Assembly",
         required=True,
         tracking=True,
-        domain=[("is_designation_assembly", "=", True)]
+        domain=[("is_designation_assembly", "=", True)],
     )
     decision_date = fields.Date(
         string="Designation Date",
@@ -98,8 +98,11 @@ class AbstractSelectionCommittee(models.Model):
     # constraints
 
     _sql_constraints = [
-        ('date_check', "CHECK(mandate_start_date <= mandate_deadline_date)",
-         "The start date must be anterior to the deadline date."),
+        (
+            "date_check",
+            "CHECK(mandate_start_date <= mandate_deadline_date)",
+            "The start date must be anterior to the deadline date.",
+        ),
     ]
 
     @api.constrains("state", "decision_date")
@@ -111,10 +114,12 @@ class AbstractSelectionCommittee(models.Model):
         Check if decision_date is not null when accepting the proposal
         """
         for committee in self:
-            if committee.state == 'done' and not committee.decision_date:
+            if committee.state == "done" and not committee.decision_date:
                 raise ValidationError(
-                    "A decision date is mandatory when accepting "
-                    "the proposal of the committee"
+                    _(
+                        "A decision date is mandatory when accepting "
+                        "the proposal of the committee"
+                    )
                 )
 
     # orm methods
@@ -131,7 +136,7 @@ class AbstractSelectionCommittee(models.Model):
         return res
 
     @api.model
-    def _name_search(self, name, args=None, operator='ilike', limit=100):
+    def _name_search(self, name, args=None, operator="ilike", limit=100):
         if not args:
             args = []
         if name:
@@ -139,10 +144,10 @@ class AbstractSelectionCommittee(models.Model):
                 [("name", operator, name)]
             )
             records = self.search(
-                ['|',
-                 ('name', operator, name),
-                 ('assembly_id', 'in', assembly_ids)] + args,
-                limit=limit)
+                ["|", ("name", operator, name), ("assembly_id", "in", assembly_ids)]
+                + args,
+                limit=limit,
+            )
         else:
             records = self.search(args, limit=limit)
         return records.ids
@@ -150,15 +155,19 @@ class AbstractSelectionCommittee(models.Model):
     def copy_data(self, default=None):
         if default is None:
             default = {}
-        default.update({
-            'active': True,
-            'state': SELECTION_COMMITTEE_AVAILABLE_STATES[0][0],
-        })
+        default.update(
+            {
+                "active": True,
+                "state": SELECTION_COMMITTEE_AVAILABLE_STATES[0][0],
+            }
+        )
         res = super(AbstractSelectionCommittee, self).copy_data(default=default)
 
-        res.update({
-            'name': _('%s (copy)') % res.get('name'),
-        })
+        res.update(
+            {
+                "name": _("%s (copy)") % res.get("name"),
+            }
+        )
         return res
 
     # view methods: onchange, button
@@ -175,14 +184,16 @@ class AbstractSelectionCommittee(models.Model):
         self.ensure_one()
         res = self.env[self._candidature_model]
         for candidature in self.candidature_ids:
-            if candidature.state == 'rejected':
+            if candidature.state == "rejected":
                 continue
-            elif candidature.state == 'suggested':
+            elif candidature.state == "suggested":
                 res = res | candidature
             else:
                 raise UserError(
-                    "Operation Forbidden! "
-                    "Some candidatures are still in 'declared' state"
+                    _(
+                        "Operation Forbidden! "
+                        "Some candidatures are still in 'declared' state"
+                    )
                 )
         return res
 
@@ -199,7 +210,7 @@ class AbstractSelectionCommittee(models.Model):
         """
         for committee in self:
             committee._get_suggested_candidatures().button_accept()
-        self.action_invalidate({'state': 'done'})
+        self.action_invalidate({"state": "done"})
         return True
 
     def button_refuse_candidatures(self):
@@ -215,7 +226,7 @@ class AbstractSelectionCommittee(models.Model):
         """
         for committee in self:
             committee._get_suggested_candidatures().button_declare()
-            self.write({'decision_date': False})
+            self.write({"decision_date": False})
         return True
 
     @api.onchange("assembly_id")
@@ -229,7 +240,8 @@ class AbstractSelectionCommittee(models.Model):
                         "=",
                         self.assembly_id.assembly_category_id.id,
                     )
-                ], limit=1
+                ],
+                limit=1,
             )
             if "designation_int_assembly_id" in self.env[self._assembly_model]._fields:
                 self.designation_int_assembly_id = self.assembly_id.id
@@ -254,8 +266,15 @@ class AbstractSelectionCommittee(models.Model):
                 WHERE committee.active = False
                   AND candidature.active = True
               """
-        self.env.cr.execute(SQL_QUERY % (self._name.replace('.', '_'),
-                                self._candidature_model.replace('.', '_')))
+        self.env.cr.execute(
+            SQL_QUERY,
+            (
+                tuple(
+                    self._name.replace(".", "_"),
+                    self._candidature_model.replace(".", "_"),
+                )
+            ),
+        )
         committees = self.search(
             [
                 ("id", "in", [committee[0] for committee in self.env.cr.fetchall()]),

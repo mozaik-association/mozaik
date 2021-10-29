@@ -1,95 +1,158 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="ext_paul_membre_ag" model="ext.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_membre_effectif_ag"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_membre_effectif_ag"/>
-        <field name="ext_assembly_id" ref="mozaik_structure.ext_assembly_02"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_paul"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_membre_effectif_ag" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_membre_effectif_ag"
+        />
+        <field name="ext_assembly_id" ref="mozaik_structure.ext_assembly_02" />
+        <field name="partner_id" ref="mozaik_address.res_partner_paul" />
     </record>
 
     <record id="ext_thierry_membre_ag" model="ext.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_membre_effectif_ag"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_membre_effectif_ag"/>
-        <field name="ext_assembly_id" ref="mozaik_structure.ext_assembly_02"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_thierry"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_membre_effectif_ag" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_membre_effectif_ag"
+        />
+        <field name="ext_assembly_id" ref="mozaik_structure.ext_assembly_02" />
+        <field name="partner_id" ref="mozaik_address.res_partner_thierry" />
     </record>
 
     <record id="int_paul_secretaire" model="int.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_secretaire_regional"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_secretaire_regional"/>
-        <field name="int_assembly_id" ref="mozaik_structure.int_assembly_04"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_paul"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_secretaire_regional" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_secretaire_regional"
+        />
+        <field name="int_assembly_id" ref="mozaik_structure.int_assembly_04" />
+        <field name="partner_id" ref="mozaik_address.res_partner_paul" />
     </record>
 
     <record id="int_thierry_secretaire" model="int.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_secretaire_regional"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_secretaire_regional"/>
-        <field name="int_assembly_id" ref="mozaik_structure.int_assembly_04"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_thierry"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_secretaire_regional" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_secretaire_regional"
+        />
+        <field name="int_assembly_id" ref="mozaik_structure.int_assembly_04" />
+        <field name="partner_id" ref="mozaik_address.res_partner_thierry" />
     </record>
 
     <record id="sta_paul_communal" model="sta.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_tete_huy_communale"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_02"/>
-        <field name="legislature_id" ref="mozaik_mandate.legislature_02"/>
-        <field name="electoral_district_id" ref="mozaik_structure.electoral_district_02"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_paul"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_tete_huy_communale"
+        />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_02"
+        />
+        <field name="legislature_id" ref="mozaik_mandate.legislature_02" />
+        <field
+            name="electoral_district_id"
+            ref="mozaik_structure.electoral_district_02"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02" />
+        <field name="partner_id" ref="mozaik_address.res_partner_paul" />
     </record>
 
     <record id="sta_pauline_communal" model="sta.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_tete_huy_communale"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_02"/>
-        <field name="legislature_id" ref="mozaik_mandate.legislature_02"/>
-        <field name="electoral_district_id" ref="mozaik_structure.electoral_district_02"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_pauline"/>
-        <field name="is_effective" eval="1"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_tete_huy_communale"
+        />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_02"
+        />
+        <field name="legislature_id" ref="mozaik_mandate.legislature_02" />
+        <field
+            name="electoral_district_id"
+            ref="mozaik_structure.electoral_district_02"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02" />
+        <field name="partner_id" ref="mozaik_address.res_partner_pauline" />
+        <field name="is_effective" eval="1" />
     </record>
 
     <record id="sta_marc_communal" model="sta.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_tete_huy_communale"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_02"/>
-        <field name="legislature_id" ref="mozaik_mandate.legislature_02"/>
-        <field name="electoral_district_id" ref="mozaik_structure.electoral_district_02"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_marc"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_tete_huy_communale"
+        />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_02"
+        />
+        <field name="legislature_id" ref="mozaik_mandate.legislature_02" />
+        <field
+            name="electoral_district_id"
+            ref="mozaik_structure.electoral_district_02"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02" />
+        <field name="partner_id" ref="mozaik_address.res_partner_marc" />
     </record>
 
     <record id="sta_thierry_communal" model="sta.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_tete_huy_communale"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_02"/>
-        <field name="legislature_id" ref="mozaik_mandate.legislature_02"/>
-        <field name="electoral_district_id" ref="mozaik_structure.electoral_district_02"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_thierry"/>
-        <field name="is_substitute" eval="1"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_tete_huy_communale"
+        />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_02"
+        />
+        <field name="legislature_id" ref="mozaik_mandate.legislature_02" />
+        <field
+            name="electoral_district_id"
+            ref="mozaik_structure.electoral_district_02"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02" />
+        <field name="partner_id" ref="mozaik_address.res_partner_thierry" />
+        <field name="is_substitute" eval="1" />
     </record>
 
     <record id="sta_jacques_communal" model="sta.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_tete_huy_communale"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_02"/>
-        <field name="legislature_id" ref="mozaik_mandate.legislature_02"/>
-        <field name="electoral_district_id" ref="mozaik_structure.electoral_district_02"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_jacques"/>
-        <field name="is_effective" eval="1"/>
-        <field name="is_substitute" eval="1"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_tete_huy_communale"
+        />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_02"
+        />
+        <field name="legislature_id" ref="mozaik_mandate.legislature_02" />
+        <field
+            name="electoral_district_id"
+            ref="mozaik_structure.electoral_district_02"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_02" />
+        <field name="partner_id" ref="mozaik_address.res_partner_jacques" />
+        <field name="is_effective" eval="1" />
+        <field name="is_substitute" eval="1" />
     </record>
 
     <record id="sta_marc_bourgmestre" model="sta.candidature">
-        <field name="mandate_category_id" ref="mozaik_mandate.mc_bourgmestre"/>
-        <field name="selection_committee_id" ref="mozaik_committee.sc_bourgmestre_huy"/>
-        <field name="designation_int_assembly_id" ref="mozaik_structure.int_assembly_01"/>
-        <field name="legislature_id" ref="mozaik_mandate.legislature_01"/>
-        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_01"/>
-        <field name="partner_id" ref="mozaik_address.res_partner_marc"/>
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_bourgmestre" />
+        <field
+            name="selection_committee_id"
+            ref="mozaik_committee.sc_bourgmestre_huy"
+        />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field name="legislature_id" ref="mozaik_mandate.legislature_01" />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_01" />
+        <field name="partner_id" ref="mozaik_address.res_partner_marc" />
     </record>
 
 </odoo>

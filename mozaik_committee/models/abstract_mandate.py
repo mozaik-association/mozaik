@@ -6,8 +6,8 @@ from odoo import fields, models
 
 class AbstractMandate(models.AbstractModel):
 
-    _inherit = 'abstract.mandate'
+    _inherit = "abstract.mandate"
 
     candidature_id = fields.Many2one(
-        comodel_name='abstract.candidature',
-        string='Candidature')
+        comodel_name="abstract.candidature", string="Candidature"
+    )

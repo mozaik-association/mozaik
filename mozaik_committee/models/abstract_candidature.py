@@ -1,70 +1,77 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
-
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-
 CANDIDATURE_AVAILABLE_STATES = [
-    ('draft', 'Draft'),
-    ('declared', 'Declared'),
-    ('rejected', 'Rejected'),
-    ('suggested', 'Suggested'),
-    ('elected', 'Elected'),
+    ("draft", "Draft"),
+    ("declared", "Declared"),
+    ("rejected", "Rejected"),
+    ("suggested", "Suggested"),
+    ("elected", "Elected"),
 ]
 
 
 class AbstractCandidature(models.Model):
-    _name = 'abstract.candidature'
-    _description = 'Abstract Candidature'
-    _inherit = ['mozaik.abstract.model', 'statechart.mixin']
-    _unicity_keys = 'selection_committee_id, partner_id'
+    _name = "abstract.candidature"
+    _description = "Abstract Candidature"
+    _inherit = ["mozaik.abstract.model", "statechart.mixin"]
+    _unicity_keys = "selection_committee_id, partner_id"
 
-    _init_mandate_fields = ['mandate_category_id',
-                             'partner_id',
-                             'designation_int_assembly_id']
-    _mandate_model = 'abstract.mandate'
+    _init_mandate_fields = [
+        "mandate_category_id",
+        "partner_id",
+        "designation_int_assembly_id",
+    ]
+    _mandate_model = "abstract.mandate"
 
-    unique_id = fields.Integer("Unique id", group_operator='min')
-    partner_id = fields.Many2one('res.partner',
-        'Candidate',
-        required=True,
-        index=True,
-        tracking=True)
-    state = fields.Selection(CANDIDATURE_AVAILABLE_STATES,
-        'Status',
+    unique_id = fields.Integer("Unique id", group_operator="min")
+    partner_id = fields.Many2one(
+        "res.partner", "Candidate", required=True, index=True, tracking=True
+    )
+    state = fields.Selection(
+        CANDIDATURE_AVAILABLE_STATES,
+        "Status",
         readonly=True,
         tracking=True,
-        default="draft")
+        default="draft",
+    )
     selection_committee_id = fields.Many2one(
-        'abstract.selection.committee',
-        string='Selection Committee',
+        "abstract.selection.committee",
+        string="Selection Committee",
         required=True,
         index=True,
-        tracking=True)
+        tracking=True,
+    )
     mandate_start_date = fields.Date(
-        related='selection_committee_id.mandate_start_date',
-        string='Mandate Start Date',
-        store=True)
+        related="selection_committee_id.mandate_start_date",
+        string="Mandate Start Date",
+        store=True,
+    )
     mandate_category_id = fields.Many2one(
         comodel_name="mandate.category",
-        related='selection_committee_id.mandate_category_id',
-        string='Mandate Category',
-        store=True)
+        related="selection_committee_id.mandate_category_id",
+        string="Mandate Category",
+        store=True,
+    )
     designation_int_assembly_id = fields.Many2one(
         comodel_name="int.assembly",
-        related='selection_committee_id.designation_int_assembly_id',
-        string='Designation Assembly',
-        store=True)
+        related="selection_committee_id.designation_int_assembly_id",
+        string="Designation Assembly",
+        store=True,
+    )
     is_selection_committee_active = fields.Boolean(
-        related='selection_committee_id.active',
-        string='Is Selection Committee Active?',
-        type='boolean')
-    mandate_ids = fields.One2many(_mandate_model,
-                                    'candidature_id',
-                                    'Abstract Mandates',
-                                    domain=[('active', '<=', True)])
+        related="selection_committee_id.active",
+        string="Is Selection Committee Active?",
+        type="boolean",
+    )
+    mandate_ids = fields.One2many(
+        _mandate_model,
+        "candidature_id",
+        "Abstract Mandates",
+        domain=[("active", "<=", True)],
+    )
     # constraints
 
     @api.constrains("partner_id")
@@ -76,46 +83,65 @@ class AbstractCandidature(models.Model):
         Check if partner doesn't have several candidatures in the same category
         """
         for candidature in self:
-            if len(self.sudo().search([('partner_id',
-                                 '=', candidature.partner_id.id),
-                                ('id', '!=', candidature.id),
-                                ('mandate_category_id',
-                                 '=',
-                                 candidature.mandate_category_id.id)])) > 0:
-                raise ValidationError("A candidature already exists for this partner in this category")
+            if (
+                len(
+                    self.sudo().search(
+                        [
+                            ("partner_id", "=", candidature.partner_id.id),
+                            ("id", "!=", candidature.id),
+                            (
+                                "mandate_category_id",
+                                "=",
+                                candidature.mandate_category_id.id,
+                            ),
+                        ]
+                    )
+                )
+                > 0
+            ):
+                raise ValidationError(
+                    _("A candidature already exists for this partner in this category")
+                )
 
     # orm methods
 
     @api.model
     def create(self, vals):
         res = super(AbstractCandidature, self).create(vals)
-        res.write({'unique_id': res.id + self._unique_id_sequence})
+        res.write({"unique_id": res.id + self._unique_id_sequence})
         res._sc_execute(res.sc_interpreter, "[auto]")
         return res
 
     def name_get(self):
         res = []
         for candidature in self:
-            display_name = u'{name} ({mandate_category})'.format(
+            display_name = u"{name} ({mandate_category})".format(
                 name=candidature.partner_id.name,
-                mandate_category=candidature.mandate_category_id.name)
-            res.append((candidature['id'], display_name))
+                mandate_category=candidature.mandate_category_id.name,
+            )
+            res.append((candidature["id"], display_name))
         return res
 
     @api.model
-    def _name_search(self, name, args=None, operator='ilike', limit=100):
+    def _name_search(self, name, args=None, operator="ilike", limit=100):
         if not args:
             args = []
         if name:
-            partner_ids = self.env['res.partner'].search([('name', operator, name)])
-            category_ids = self.env['mandate.category'].search([('name', operator, name)])
-            records = self.search(['|',
-                                   '|',
-                                   ('partner_id', operator, name),
-                                   ('partner_id', 'in', partner_ids),
-                                   ('mandate_category_id',
-                                       'in', category_ids)] + args,
-                                   limit=limit)
+            partner_ids = self.env["res.partner"].search([("name", operator, name)])
+            category_ids = self.env["mandate.category"].search(
+                [("name", operator, name)]
+            )
+            records = self.search(
+                [
+                    "|",
+                    "|",
+                    ("partner_id", operator, name),
+                    ("partner_id", "in", partner_ids),
+                    ("mandate_category_id", "in", category_ids),
+                ]
+                + args,
+                limit=limit,
+            )
         else:
             records = self.search(args, limit=limit)
         return records.ids
@@ -123,12 +149,12 @@ class AbstractCandidature(models.Model):
     # view methods: onchange, button
 
     def action_elected(self):
-        self.write({'state': 'elected'})
+        self.write({"state": "elected"})
         for candidature in self:
             if candidature.selection_committee_id.auto_mandate:
                 candidature.create_mandate_from_candidature()
         return True
-        
+
     def button_create_mandate(self):
         for candidature in self:
             mandate_id = candidature.create_mandate_from_candidature()
@@ -163,9 +189,13 @@ class AbstractCandidature(models.Model):
                     mandate_values[field] = self[field]
 
         if mandate_values:
-            mandate_values['start_date'] = self.selection_committee_id.mandate_start_date
-            mandate_values['deadline_date'] = self.selection_committee_id.mandate_deadline_date
-            mandate_values['candidature_id'] = self.id
+            mandate_values[
+                "start_date"
+            ] = self.selection_committee_id.mandate_start_date
+            mandate_values[
+                "deadline_date"
+            ] = self.selection_committee_id.mandate_deadline_date
+            mandate_values["candidature_id"] = self.id
             res = mandate_model.create(mandate_values)
         return res
 
