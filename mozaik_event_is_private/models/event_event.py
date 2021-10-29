@@ -8,4 +8,17 @@ class EventEvent(models.Model):
 
     _inherit = "event.event"
 
-    is_private = fields.Boolean(string="Is Private", default=False)
+    visible_on_website = fields.Boolean(string="Visible on website", default=True)
+    is_private = fields.Boolean(
+        string="Is private",
+        help="If ticked, only members of authorized internal "
+        "instances have access to the event.",
+        default=False,
+    )
+
+    int_instance_id = fields.Many2one(
+        "int.instance",
+        string="Internal instance",
+        help="Internal instance of the event",
+        default=lambda self: self.env.user.partner_id.int_instance_id,
+    )
