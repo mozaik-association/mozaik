@@ -20,6 +20,7 @@
         # Odoo
         "contacts",
         "mail",
+        "mozaik_single_instance",
         "mozaik_thesaurus",
     ],
     "data": [
