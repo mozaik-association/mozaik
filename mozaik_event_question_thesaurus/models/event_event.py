@@ -40,6 +40,7 @@ class EventEvent(models.Model):
                             "question_type": question.question_type,
                             "sequence": question.sequence,
                             "once_per_order": question.once_per_order,
+                            "is_mandatory": question.is_mandatory,
                             "interest_ids": question.interest_ids,
                             "answer_ids": [
                                 (

@@ -3,12 +3,14 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record model="ir.ui.view" id="event_type_form_view">
-        <field name="name">event.type.form (in mozaik_event_thesaurus_question)</field>
-        <field name="model">event.type</field>
+    <record model="ir.ui.view" id="event_question_form_view">
+        <field
+            name="name"
+        >event.question.form (in mozaik_event_question_thesaurus)</field>
+        <field name="model">event.question</field>
         <field
             name="inherit_id"
-            ref="website_event_questions.event_type_view_form_inherit_question"
+            ref="website_event_questions.event_question_view_form"
         />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='question_type']" position="before">
