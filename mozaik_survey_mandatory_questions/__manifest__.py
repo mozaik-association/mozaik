@@ -12,6 +12,10 @@
     "depends": [
         "survey",
     ],
-    "data": [],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/survey_survey.xml",
+        "views/survey_question_by_default.xml",
+    ],
     "demo": [],
 }

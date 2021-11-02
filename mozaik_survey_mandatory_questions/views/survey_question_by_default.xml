@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="survey_question_by_default_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >survey.question.by.default.form (in mozaik_survey_mandatory_questions)</field>
+        <field name="model">survey.question.by.default</field>
+        <field name="arch" type="xml">
+            <form string="Survey Question by default">
+                <sheet>
+                    <div class="oe_title" style="width: 100%;">
+                        <label for="title" string="Question" />
+                        <separator />
+                        <field name="title" colspan="4" />
+                        <separator />
+                    </div>
+                    <group>
+                        <group>
+                            <field name="question_type" widget="radio" />
+                        </group>
+                        <group>
+                            <div class="col-lg-6 offset-lg-3 o_preview_questions">
+                                <!-- Multiple Lines Text Zone -->
+                                <div
+                                    attrs="{'invisible': [('question_type', '!=', 'text_box')]}"
+                                >
+                                        <i
+                                        class="fa fa-align-justify fa-4x"
+                                        role="img"
+                                        aria-label="Multiple lines"
+                                        title="Multiple Lines"
+                                    />
+                                </div>
+                                <!-- Single Line Text Zone -->
+                                <div
+                                    attrs="{'invisible': [('question_type', '!=', 'char_box')]}"
+                                >
+                                    <i
+                                        class="fa fa-minus fa-4x"
+                                        role="img"
+                                        aria-label="Single Line"
+                                        title="Single Line"
+                                    />
+                                </div>
+                                <!-- Numerical Value -->
+                                <div
+                                    attrs="{'invisible': [('question_type', '!=', 'numerical_box')]}"
+                                >
+                                    <i
+                                        class="fa fa-2x"
+                                        role="img"
+                                        aria-label="Numeric"
+                                        title="Numeric"
+                                    >123..</i>
+                                </div>
+                                <!-- Date -->
+                                <div
+                                    attrs="{'invisible': [('question_type', '!=', 'date')]}"
+                                >
+                                    <p class="o_datetime">YYYY-MM-DD
+                                        <i
+                                            class="fa fa-calendar fa-2x"
+                                            role="img"
+                                            aria-label="Calendar"
+                                            title="Calendar"
+                                        />
+                                    </p>
+                                </div>
+                                <!-- Date and Time -->
+                                <div
+                                    attrs="{'invisible': [('question_type', '!=', 'datetime')]}"
+                                >
+                                    <p class="o_datetime">YYYY-MM-DD hh:mm:ss
+                                        <i
+                                            class="fa fa-calendar fa-2x"
+                                            role="img"
+                                            aria-label="Calendar"
+                                            title="Calendar"
+                                        />
+                                    </p>
+                                </div>
+                                <!-- Multiple choice: only one answer -->
+                                <div
+                                    attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
+                                    role="img"
+                                    aria-label="Multiple choice with one answer"
+                                    title="Multiple choice with one answer"
+                                >
+                                    <div class="row"><i
+                                            class="fa fa-circle-o  fa-lg"
+                                        /> answer</div>
+                                    <div class="row"><i
+                                            class="fa fa-dot-circle-o fa-lg"
+                                        /> answer</div>
+                                    <div class="row"><i
+                                            class="fa fa-circle-o  fa-lg"
+                                        /> answer</div>
+                                </div>
+                                <!-- Multiple choice: multiple answers allowed -->
+                                <div
+                                    attrs="{'invisible': [('question_type', '!=', 'multiple_choice')]}"
+                                    role="img"
+                                    aria-label="Multiple choice with multiple answers"
+                                    title="Multiple choice with multiple answers"
+                                >
+                                    <div class="row"><i
+                                            class="fa fa-square-o fa-lg"
+                                        /> answer</div>
+                                    <div class="row"><i
+                                            class="fa fa-check-square-o fa-lg"
+                                        /> answer</div>
+                                    <div class="row"><i
+                                            class="fa fa-square-o fa-lg"
+                                        /> answer</div>
+                                </div>
+                                <!-- Matrix -->
+                                <div
+                                    attrs="{'invisible': [('question_type', '!=', 'matrix')]}"
+                                >
+                                    <div class="row o_matrix_head">
+                                        <div class="col-lg-3" />
+                                        <div class="col-lg-3">ans</div>
+                                        <div class="col-lg-3">ans</div>
+                                        <div class="col-lg-3">ans</div>
+                                    </div>
+                                    <div class="row o_matrix_row">
+                                        <div class="col-lg-3">Row1</div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Not checked"
+                                                title="Not checked"
+                                            /></div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-dot-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Checked"
+                                                title="Checked"
+                                            /></div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Not checked"
+                                                title="Not checked"
+                                            /></div>
+                                    </div>
+                                    <div class="row o_matrix_row">
+                                        <div class="col-lg-3">Row2</div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Not checked"
+                                                title="Not checked"
+                                            /></div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Not checked"
+                                                title="Not checked"
+                                            /></div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-dot-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Checked"
+                                                title="Checked"
+                                            /></div>
+                                    </div>
+                                    <div class="row o_matrix_row">
+                                        <div class="col-lg-3">Row3</div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-dot-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Checked"
+                                                title="Checked"
+                                            /></div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Not checked"
+                                                title="Not checked"
+                                            /></div>
+                                        <div class="col-lg-3"><i
+                                                class="fa fa-circle-o fa-lg"
+                                                role="img"
+                                                aria-label="Not checked"
+                                                title="Not checked"
+                                            /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                         <page string="Options" name="options">
+                            <group string="Constraints">
+                                <group>
+                                    <field
+                                        name="constr_mandatory"
+                                        string="Mandatory Answer"
+                                    />
+                                    <field
+                                        name="constr_error_msg"
+                                        attrs="{'invisible': [('constr_mandatory', '=', False)]}"
+                                    />
+                                </group>
+                            </group>
+                         </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="survey_question_by_default_view_tree" model="ir.ui.view">
+        <field
+            name="name"
+        >survey.question.by.default.tree (in mozaik_survey_mandatory_questions)</field>
+        <field name="model">survey.question.by.default</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title" />
+                <field name="question_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="survey_question_by_default_action" model="ir.actions.act_window">
+        <field name="name">Questions loaded by default</field>
+        <field name="res_model">survey.question.by.default</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        name="Questions loaded by default"
+        id="menu_survey_question_by_default"
+        action="survey_question_by_default_action"
+        parent="survey.survey_menu_questions"
+        sequence="2"
+    />
+
+
+</odoo>

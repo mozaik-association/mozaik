@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="survey_question_form_view">
+        <field
+            name="name"
+        >survey.survey.form (in mozaik_survey_mandatory_questions)</field>
+        <field name="model">survey.survey</field>
+        <field name="inherit_id" ref="survey.survey_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='question_type']" position="after">
+<!--                These fields have to be present in the view to be loaded correctly in default questions -->
+                <field name="constr_mandatory" invisible="1" />
+                <field name="constr_error_msg" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -9,57 +9,21 @@ class SurveySurvey(models.Model):
     _inherit = "survey.survey"
 
     question_and_page_ids = fields.One2many(
-        default=lambda self: self._get_personal_questions()
+        default=lambda self: self._load_questions_by_default()
     )
 
-    def _get_personal_questions(self):
+    def _load_questions_by_default(self):
         command = [
             (
                 0,
                 0,
                 {
-                    "title": "Personal information",
-                    "is_page": True,
+                    "title": question.title,
+                    "question_type": question.question_type,
+                    "constr_mandatory": question.constr_mandatory,
+                    "constr_error_msg": question.constr_error_msg,
                 },
-            ),
-            (
-                0,
-                0,
-                {
-                    "title": "Please enter your firstname",
-                    "is_page": False,
-                    "question_type": "char_box",
-                    "constr_mandatory": True,
-                },
-            ),
-            (
-                0,
-                0,
-                {
-                    "title": "Please enter your lastname",
-                    "is_page": False,
-                    "question_type": "char_box",
-                    "constr_mandatory": True,
-                },
-            ),
-            (
-                0,
-                0,
-                {
-                    "title": "Please enter your email",
-                    "is_page": False,
-                    "question_type": "char_box",
-                    "constr_mandatory": True,
-                },
-            ),
-            (
-                0,
-                0,
-                {
-                    "title": "Please enter your phone number",
-                    "is_page": False,
-                    "question_type": "char_box",
-                },
-            ),
+            )
+            for question in self.env["survey.question.by.default"].search([])
         ]
         return command
