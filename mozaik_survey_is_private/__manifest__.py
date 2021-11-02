@@ -16,9 +16,9 @@
         "mozaik_survey_thesaurus",
     ],
     "data": [
+        "security/groups.xml",
         "security/ir.model.access.csv",
         "security/rules_survey_survey.xml",
         "views/survey_survey.xml",
     ],
-    "pre_init_hook": "pre_init_hook",
 }
