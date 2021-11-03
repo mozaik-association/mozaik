@@ -4,21 +4,20 @@
 from odoo import fields, models
 
 
-class EventEvent(models.Model):
+class SurveySurvey(models.Model):
 
-    _inherit = "event.event"
+    _inherit = "survey.survey"
 
-    visible_on_website = fields.Boolean(string="Visible on website", default=True)
     is_private = fields.Boolean(
         string="Is private",
         help="If ticked, only members of authorized internal "
-        "instances have access to the event.",
+        "instances have access to the survey and its answers.",
         default=False,
     )
 
     int_instance_id = fields.Many2one(
         "int.instance",
         string="Internal instance",
-        help="Internal instance of the event",
+        help="Internal instance of the survey",
         default=lambda self: self.env.user.partner_id.int_instance_id,
     )

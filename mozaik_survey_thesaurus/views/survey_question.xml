@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="survey_question_form_view">
+        <field name="name">survey.question.form (in mozaik_survey_thesaurus)</field>
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='question_type']" position="before">
+                    <field name="interest_ids" widget="many2many_tags" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="survey_question_tree_view">
+        <field name="name">survey.question.tree (in mozaik_survey_thesaurus)</field>
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='question_type']" position="before">
+                    <field name="interest_ids" widget="many2many_tags" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

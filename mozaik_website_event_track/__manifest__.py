@@ -2,23 +2,19 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Event Is Private",
+    "name": "Mozaik Website Event Track",
     "summary": """
-        This module adds the field visible_on_website to Event and create
-        record rules depending on if the event is private or not.""",
+        This module allows to see the event menu configuration
+        even without activated debug mode""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        # Mozaik
-        "mozaik_single_instance",
         # Odoo
-        "event",
+        "website_event_track",
     ],
     "data": [
-        "security/ir.model.access.csv",
-        "security/rules_event_event.xml",
         "views/event_event.xml",
     ],
 }
