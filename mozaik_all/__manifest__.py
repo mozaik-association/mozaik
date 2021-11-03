@@ -57,6 +57,7 @@
         "mozaik_survey_publish_date",
         "mozaik_survey_thesaurus",
         # 'mozaik_virtual_partner_mandate',
+        "mozaik_website_event_track",
         "mass_mail_queue_job",
     ],
     "data": [
