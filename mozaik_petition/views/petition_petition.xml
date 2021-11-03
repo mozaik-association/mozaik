@@ -136,6 +136,10 @@
                                 <tree>
                                     <field name="sequence" widget="handle" />
                                     <field name="title" />
+                                    <field
+                                        name="interest_ids"
+                                        widget="many2many_tags"
+                                    />
                                     <field name="question_type" string="Type" />
                                     <field
                                         name="is_mandatory"
@@ -161,6 +165,10 @@
                                         <h1><field name="title" /></h1>
                                         <group class="mb-0">
                                            <group class="mb-0">
+                                               <field
+                                                    name="interest_ids"
+                                                    widget="many2many_tags"
+                                                />
                                                 <field
                                                     name="question_type"
                                                     widget="radio"

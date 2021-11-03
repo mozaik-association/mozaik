@@ -26,6 +26,7 @@
         "mozaik_event_is_private",
         "mozaik_event_partner_firstname",
         "mozaik_event_publish_date",
+        "mozaik_event_question_thesaurus",
         "mozaik_event_thesaurus",
         "mozaik_event_tickbox_question",
         "mozaik_involvement",
