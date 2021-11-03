@@ -14,21 +14,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_survey_thesaurus
+#: model:ir.model.fields,field_description:mozaik_survey_thesaurus.field_survey_question__display_name
 #: model:ir.model.fields,field_description:mozaik_survey_thesaurus.field_survey_survey__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_survey_thesaurus
+#: model:ir.model.fields,field_description:mozaik_survey_thesaurus.field_survey_question__id
 #: model:ir.model.fields,field_description:mozaik_survey_thesaurus.field_survey_survey__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_survey_thesaurus
+#: model:ir.model.fields,field_description:mozaik_survey_thesaurus.field_survey_question__interest_ids
 #: model:ir.model.fields,field_description:mozaik_survey_thesaurus.field_survey_survey__interest_ids
 msgid "Interests"
 msgstr ""
 
 #. module: mozaik_survey_thesaurus
+#: model:ir.model.fields,field_description:mozaik_survey_thesaurus.field_survey_question____last_update
 #: model:ir.model.fields,field_description:mozaik_survey_thesaurus.field_survey_survey____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -36,4 +40,9 @@ msgstr ""
 #. module: mozaik_survey_thesaurus
 #: model:ir.model,name:mozaik_survey_thesaurus.model_survey_survey
 msgid "Survey"
+msgstr ""
+
+#. module: mozaik_survey_thesaurus
+#: model:ir.model,name:mozaik_survey_thesaurus.model_survey_question
+msgid "Survey Question"
 msgstr ""
