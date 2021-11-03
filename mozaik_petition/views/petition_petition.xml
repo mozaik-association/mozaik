@@ -7,7 +7,7 @@
         <field name="name">petition.petition.form (in mozaik_petition)</field>
         <field name="model">petition.petition</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Petitions" class="o_event_form_view">
                 <header>
                    <field name="state" widget="statusbar" clickable="1" />
                 </header>
@@ -69,12 +69,19 @@
                                 />
                             </div>
                             <field name="date_publish" />
-                            <field name="is_private" />
                             <field name="url" widget="url" />
-                            <field
+                            <field name="visible_on_website" />
+                        </group>
+                        <group>
+                                <field
                                 name="interest_ids"
                                 string="Interests"
                                 widget="many2many_tags"
+                            />
+                                <field name="is_private" />
+                                <field
+                                name="int_instance_id"
+                                attrs="{'invisible': [('is_private', '=', False)]}"
                             />
                         </group>
                     </group>
@@ -129,6 +136,10 @@
                                 <tree>
                                     <field name="sequence" widget="handle" />
                                     <field name="title" />
+                                    <field
+                                        name="interest_ids"
+                                        widget="many2many_tags"
+                                    />
                                     <field name="question_type" string="Type" />
                                     <field
                                         name="is_mandatory"
@@ -154,6 +165,10 @@
                                         <h1><field name="title" /></h1>
                                         <group class="mb-0">
                                            <group class="mb-0">
+                                               <field
+                                                    name="interest_ids"
+                                                    widget="many2many_tags"
+                                                />
                                                 <field
                                                     name="question_type"
                                                     widget="radio"

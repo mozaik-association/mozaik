@@ -35,6 +35,7 @@ class PetitionQuestion(models.Model):
         "the box to continue the registration.",
         default=False,
     )
+    interest_ids = fields.Many2many("thesaurus.term", string="Interests")
 
     def name_get(self):
         res = []

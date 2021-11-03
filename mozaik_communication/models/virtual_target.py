@@ -7,26 +7,24 @@ class VirtualTarget(models.Model):
     _name = "virtual.target"
     _description = "Searching Result"
     _inherit = [
-        'abstract.virtual.model',
-        'abstract.term.finder',
+        "abstract.virtual.model",
     ]
     _auto = False
 
-    result_id = fields.Many2one(
-        store=False)
+    result_id = fields.Many2one(store=False)
     membership_state_id = fields.Many2one(
-        comodel_name='membership.state', string='Membership State')
+        comodel_name="membership.state", string="Membership State"
+    )
     display_name = fields.Char()
     technical_name = fields.Char()
     lastname = fields.Char()
     firstname = fields.Char()
-    email = fields.Char(string='Email Coordinate')
-    postal = fields.Char(string='Postal Coordinate')
-    email_failure_counter = fields.Integer(string='Email Bounce Counter')
-    postal_failure_counter = fields.Integer(string='Postal Bounce Counter')
+    email = fields.Char(string="Email Coordinate")
+    postal = fields.Char(string="Postal Coordinate")
+    email_failure_counter = fields.Integer(string="Email Bounce Counter")
+    postal_failure_counter = fields.Integer(string="Postal Bounce Counter")
     zip = fields.Char("Zip Code")
-    country_id = fields.Many2one(
-        comodel_name='res.country', string='Country')
+    country_id = fields.Many2one(comodel_name="res.country", string="Country")
 
     @api.model
     def _get_select(self):
@@ -34,28 +32,19 @@ class VirtualTarget(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = super()._get_select() + """,
-            pc.is_main AS main_postal,
-            pc.failure_counter as postal_failure_counter,
-            CASE
-                WHEN pc.vip is TRUE
-                THEN 'VIP'
-                ELSE adr.name
-            END as postal,
+        select = (
+            super()._get_select()
+            + """,
+            adr.name as postal,
             adr.zip as zip,
             adr.country_id as country_id,
-            e.is_main AS main_email,
-            e.failure_counter as email_failure_counter,
-            CASE
-                WHEN e.vip is TRUE
-                THEN 'VIP'
-                ELSE e.email
-            END as email,
+            p.email as email,
             p.membership_state_id AS membership_state_id,
             p.display_name AS display_name,
             p.technical_name AS technical_name,
             p.lastname AS lastname,
             p.firstname AS firstname"""
+        )
         return select
 
     @api.model
@@ -67,16 +56,8 @@ class VirtualTarget(models.Model):
         return """
             FROM res_partner p
 
-            LEFT OUTER JOIN email_coordinate e
-            ON (e.partner_id = p.id
-            AND e.active IS TRUE)
-
-            LEFT OUTER JOIN postal_coordinate pc
-            ON (pc.partner_id = p.id
-            AND pc.active IS TRUE)
-
             LEFT OUTER JOIN address_address adr
-            ON (adr.id = pc.address_id)"""
+            ON (adr.id = p.address_address_id)"""
 
     @api.model
     def _get_where(self):

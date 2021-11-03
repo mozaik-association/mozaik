@@ -79,6 +79,12 @@ msgid "Complete Distribution List"
 msgstr ""
 
 #. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__create_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__create_date
+msgid "Create Date"
+msgstr ""
+
+#. module: distribution_list
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list__create_uid
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__create_uid
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__create_uid
@@ -87,9 +93,7 @@ msgid "Created by"
 msgstr ""
 
 #. module: distribution_list
-#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__create_date
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__create_date
-#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__create_date
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__create_date
 msgid "Created on"
 msgstr ""

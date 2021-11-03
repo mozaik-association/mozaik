@@ -378,6 +378,13 @@ msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: mozaik_petition
+#: model:ir.model.fields,help:mozaik_petition.field_petition_petition__is_private
+msgid ""
+"If ticked, only members of authorized internal instances have access to the "
+"petition."
+msgstr ""
+
+#. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__image
 msgid "Image"
 msgstr ""
@@ -391,6 +398,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__interest_ids
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Interests"
+msgstr ""
+
+#. module: mozaik_petition
+#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__int_instance_id
+msgid "Internal instance"
+msgstr ""
+
+#. module: mozaik_petition
+#: model:ir.model.fields,help:mozaik_petition.field_petition_petition__int_instance_id
+msgid "Internal instance of the petition"
 msgstr ""
 
 #. module: mozaik_petition
@@ -711,6 +728,7 @@ msgstr ""
 #: model:ir.module.category,name:mozaik_petition.module_category_marketing_petition
 #: model:ir.ui.menu,name:mozaik_petition.petition_first_level_menu
 #: model:ir.ui.menu,name:mozaik_petition.petition_menu_root
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Petitions"
 msgstr ""
 
@@ -951,6 +969,11 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_milestone__value
 msgid "Value"
+msgstr ""
+
+#. module: mozaik_petition
+#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__visible_on_website
+msgid "Visible on website"
 msgstr ""
 
 #. module: mozaik_petition

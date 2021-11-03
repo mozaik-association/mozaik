@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_virtual_target_res_groups_communication_reader,virtual.target.res.groups.communication.reader,model_virtual_target,mozaik_communication.res_groups_communication_reader,1,0,0,0
+distribution_list_mass_function_res_groups_communication_reader,distribution.list.mass.function.user,model_distribution_list_mass_function,mozaik_communication.res_groups_communication_user,1,1,1,1
+export_csv_res_groups_communication_reader,export.csv.reader,model_export_csv,mozaik_communication.res_groups_communication_user,1,1,1,1
