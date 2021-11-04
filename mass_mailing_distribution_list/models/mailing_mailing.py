@@ -1,6 +1,11 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
+from odoo.osv import expression
+
+from odoo.addons.mass_mailing.models.mailing import MASS_MAILING_BUSINESS_MODELS
+
+MASS_MAILING_BUSINESS_MODELS += ["distribution.list"]
 
 
 class MassMailing(models.Model):
@@ -11,9 +16,39 @@ class MassMailing(models.Model):
         string="Distribution List",
     )
 
-    @api.onchange("mailing_model_id", "contact_list_ids")
+    @api.onchange("mailing_model_id")
     def _onchange_model_and_list(self):
         self.distribution_list_id = False
+
+    @api.depends("mailing_model_id")
+    def _compute_model(self):
+        super(MassMailing, self)._compute_model()
+        for record in self:
+            if record.mailing_model_name == "distribution.list":
+                record.mailing_model_real = "res.partner"
+
+    @api.depends("mailing_model_name", "contact_list_ids", "distribution_list_id")
+    def _compute_mailing_domain(self):
+        super(MassMailing, self)._compute_mailing_domain()
+
+    def _get_default_mailing_domain(self):
+        mailing_domain = super(MassMailing, self)._get_default_mailing_domain()
+
+        if self.mailing_model_name == "distribution.list" and self.distribution_list_id:
+            mailing_domain = expression.AND(
+                [
+                    [
+                        (
+                            "id",
+                            "in",
+                            self.distribution_list_id._get_target_from_distribution_list().ids,
+                        )
+                    ],
+                    mailing_domain,
+                ]
+            )
+
+        return mailing_domain
 
     def update_opt_out(self, email, res_ids, value):
         """
