@@ -25,16 +25,32 @@
         <field name="model">mailing.mailing</field>
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
         <field name="arch" type="xml">
-            <xpath expr="//group[field[@name='email_from']]" position="inside">
-                <field
-                    name="distribution_list_id"
-                    attrs="{'invisible': [('mailing_model_id', '=','mail.mass_mailing.contact')]}"
-                />
+            <xpath
+                expr="//div[@name='mailing_model_id_container']/div/div"
+                position="after"
+            >
+                <div
+                    attrs="{'invisible': [('mailing_model_name', '!=', 'distribution.list')]}"
+                    class="col-xs-12 col-md-9 pt-1"
+                >
+                    <label
+                        for="distribution_list_id"
+                        string="Select distribution list:"
+                        class="oe_edit_only"
+                    />
+                    <field
+                        name="distribution_list_id"
+                        widget="selection"
+                        placeholder="Select distribution list..."
+                        class="oe_inline"
+                        attrs="{'required':[('mailing_model_name','=','distribution.list')],'readonly': [('state', 'in', ('sending', 'done'))] }"
+                    />
+                </div>
             </xpath>
-            <xpath expr="//field[@name='mailing_domain']" position="attributes">
+            <xpath expr="//div[field[@name='mailing_domain']]" position="attributes">
                 <attribute
                     name="attrs"
-                >{'required': [('distribution_list_id', '=', False)], 'invisible': [('distribution_list_id', '!=', False)]}</attribute>
+                >{'invisible': [('mailing_model_name', 'in', ['mailing.list', 'distribution.list'])]}</attribute>
             </xpath>
         </field>
     </record>
