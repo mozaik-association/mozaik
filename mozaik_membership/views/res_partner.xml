@@ -80,9 +80,14 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
-            <field name="country_id" position="before">
+            <field name="email" position="after">
                 <field
                     name="membership_state_id"
+                    invisible="context.get('default_is_company')"
+                />
+                <field
+                    name="int_instance_m2m_ids"
+                    widget="many2many_tags"
                     invisible="context.get('default_is_company')"
                 />
                 <field name="local_only" />

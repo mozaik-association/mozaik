@@ -81,7 +81,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='user_id']" position="before">
+            <xpath expr="//field[@name='phone']" position="before">
                 <field
                     name="birthdate_date"
                     invisible="context.get('default_is_company', True)"
