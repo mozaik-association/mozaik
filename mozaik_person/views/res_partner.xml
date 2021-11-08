@@ -127,7 +127,7 @@
     <record id="res_partner_natural_person_action" model="ir.actions.act_window">
         <field name="name">Natural Persons</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="domain">[('is_company', '=', False)]</field>
         <field name="context">{'default_is_company': False}</field>
     </record>
@@ -135,7 +135,7 @@
     <record id="res_partner_legal_person_action" model="ir.actions.act_window">
         <field name="name">Legal Persons</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field
             name="domain"
         >[('is_company', '=', True),('is_assembly', '=', False)]</field>
@@ -144,6 +144,17 @@
 
     <record id="contacts.action_contacts" model="ir.actions.act_window">
         <field name="name">All Contacts</field>
+    </record>
+
+    <record
+        id="contacts.action_contacts_view_kanban"
+        model="ir.actions.act_window.view"
+    >
+        <field name="sequence" eval="1" />
+    </record>
+
+    <record id="contacts.action_contacts_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0" />
     </record>
 
     <record id="res_partner_duplicate_action" model="ir.actions.act_window">
