@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Event Question Add Fields",
+    "name": "Mozaik Event Question Event Type",
     "summary": """
         This feature extends _compute_question_ids so that it is easier to
         add new fields on event.question.

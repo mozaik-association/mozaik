@@ -25,6 +25,28 @@ class EventEvent(models.Model):
                 )
         return super(EventEvent, self).write(vals)
 
+    @api.model
+    def _get_question_copy_values(self, question):
+        """
+        Returns a dictionary of fields (along with their value) to copy
+        when loading a question from an event type to an event.
+        """
+        question.ensure_one()
+        return {
+            "title": question.title,
+            "question_type": question.question_type,
+            "sequence": question.sequence,
+            "once_per_order": question.once_per_order,
+            "answer_ids": [
+                (
+                    0,
+                    0,
+                    {"name": answer.name, "sequence": answer.sequence},
+                )
+                for answer in question.answer_ids
+            ],
+        }
+
     @api.depends("event_type_id")
     def _compute_question_ids(self):
         super()._compute_question_ids()
@@ -32,5 +54,5 @@ class EventEvent(models.Model):
             command = [(5, 0)]
             if event.event_type_id.use_mail_schedule:
                 for question in event.event_type_id.question_ids:
-                    command += [(0, 0, question.adding_new_question_to_event())]
+                    command += [(0, 0, self._get_question_copy_values(question))]
             event.write({"question_ids": command})

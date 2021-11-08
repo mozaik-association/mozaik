@@ -11,7 +11,7 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        "mozaik_event_question_add_fields",
+        "mozaik_event_question_event_type",
         "mozaik_thesaurus",
     ],
     "data": [
