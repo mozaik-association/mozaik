@@ -59,9 +59,6 @@ class DistributionList(models.Model):
     code = fields.Char(
         tracking=True,
     )
-    partner_path = fields.Char(
-        default="partner_id",
-    )
 
     _sql_constraints = [
         ("unique_code", "unique (code)", "Code already used!"),
