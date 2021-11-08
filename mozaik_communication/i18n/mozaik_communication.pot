@@ -915,11 +915,6 @@ msgid "Partner Name"
 msgstr ""
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__partner_path
-msgid "Partner Path"
-msgstr ""
-
-#. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #, python-format
 msgid "Phone"
