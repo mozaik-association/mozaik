@@ -9,8 +9,3 @@ class EventQuestion(models.Model):
     _inherit = "event.question"
 
     interest_ids = fields.Many2many("thesaurus.term", string="Interests")
-
-    def adding_new_question_to_event(self):
-        res = super().adding_new_question_to_event()
-        res["interest_ids"] = self.interest_ids
-        return res
