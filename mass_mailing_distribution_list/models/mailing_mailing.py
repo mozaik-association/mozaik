@@ -3,9 +3,11 @@
 from odoo import api, fields, models
 from odoo.osv import expression
 
-from odoo.addons.mass_mailing.models.mailing import MASS_MAILING_BUSINESS_MODELS
+from odoo.addons.mass_mailing.models.mailing import (
+    MASS_MAILING_BUSINESS_MODELS as BASE_MASS_MAILING_BUSINESS_MODELS,
+)
 
-MASS_MAILING_BUSINESS_MODELS += ["distribution.list"]
+MASS_MAILING_BUSINESS_MODELS = BASE_MASS_MAILING_BUSINESS_MODELS + ["distribution.list"]
 
 
 class MassMailing(models.Model):
