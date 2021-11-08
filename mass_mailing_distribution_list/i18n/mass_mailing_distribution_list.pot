@@ -325,6 +325,16 @@ msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mass_mailing_distribution_list
+#: model_terms:ir.ui.view,arch_db:mass_mailing_distribution_list.view_mail_mass_mailing_form
+msgid "Select distribution list..."
+msgstr ""
+
+#. module: mass_mailing_distribution_list
+#: model_terms:ir.ui.view,arch_db:mass_mailing_distribution_list.view_mail_mass_mailing_form
+msgid "Select distribution list:"
+msgstr ""
+
+#. module: mass_mailing_distribution_list
 #: model_terms:ir.ui.view,arch_db:mass_mailing_distribution_list.distribution_list_form
 msgid "Technical"
 msgstr ""
