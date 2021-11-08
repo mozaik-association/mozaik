@@ -31,27 +31,6 @@ class EventEvent(models.Model):
         for event in self:
             command = [(5, 0)]
             if event.event_type_id.use_mail_schedule:
-                command += [
-                    (
-                        0,
-                        0,
-                        {
-                            "title": question.title,
-                            "question_type": question.question_type,
-                            "sequence": question.sequence,
-                            "once_per_order": question.once_per_order,
-                            "is_mandatory": question.is_mandatory,
-                            "interest_ids": question.interest_ids,
-                            "answer_ids": [
-                                (
-                                    0,
-                                    0,
-                                    {"name": answer.name, "sequence": answer.sequence},
-                                )
-                                for answer in question.answer_ids
-                            ],
-                        },
-                    )
-                    for question in event.event_type_id.question_ids
-                ]
+                for question in event.event_type_id.question_ids:
+                    command += [(0, 0, question.adding_new_question_to_event())]
             event.write({"question_ids": command})

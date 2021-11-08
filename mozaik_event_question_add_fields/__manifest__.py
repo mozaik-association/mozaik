@@ -2,21 +2,21 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Event Question Thesaurus",
+    "name": "Mozaik Event Question Add Fields",
     "summary": """
-        This feature adds interests on every question
+        This feature extends _compute_question_ids so that it is easier to
+        add new fields on event.question.
+        Moreover it adds a check preventing from changing the event type
+        if there are already registered attendees.
         """,
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        "mozaik_event_question_add_fields",
-        "mozaik_thesaurus",
+        "website_event_questions",
     ],
     "data": [
         "views/event_event.xml",
-        "views/event_question.xml",
-        "views/event_type.xml",
     ],
 }

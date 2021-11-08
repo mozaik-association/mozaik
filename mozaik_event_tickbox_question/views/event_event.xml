@@ -8,12 +8,6 @@
         <field name="model">event.event</field>
         <field name="inherit_id" ref="website_event_questions.event_event_view_form" />
         <field name="arch" type="xml">
-            <field name="seats_expected" invisible="1" />
-            <xpath expr="//field[@name='event_type_id']" position="attributes">
-                <attribute name="attrs">
-                    {'readonly':[('seats_expected','>',0)]}
-                </attribute>
-            </xpath>
             <xpath
                 expr="//field[@name='question_ids']/tree/field[@name='question_type']"
                 position="after"

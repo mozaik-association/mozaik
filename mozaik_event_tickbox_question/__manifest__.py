@@ -11,8 +11,7 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        # Odoo
-        "website_event_questions",
+        "mozaik_event_question_add_fields",
     ],
     "data": [
         "views/event_question.xml",

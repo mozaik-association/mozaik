@@ -18,6 +18,11 @@ class EventQuestion(models.Model):
         default=False,
     )
 
+    def adding_new_question_to_event(self):
+        res = super().adding_new_question_to_event()
+        res["is_mandatory"] = self.is_mandatory
+        return res
+
     def action_view_question_answers(self):
         """Allow analyzing the attendees answers to petition questions
         in a convenient way:
