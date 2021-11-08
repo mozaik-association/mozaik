@@ -93,7 +93,6 @@
         <field name="name">res.partner.tree (in mozaik_person)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree" />
-        <field name="priority" eval="100" />
         <field name="arch" type="xml">
 
             <xpath expr="//tree" position="attributes">
@@ -117,21 +116,23 @@
                 />
                 <field name="select_name" string="Name" />
             </xpath>
-            <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone" class="o_force_ltr" />
+            <xpath expr="//field[@name='phone']" position="attributes">
+                <attribute name="optional" eval="0" />
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="after">
                 <field name="mobile" />
             </xpath>
-            <xpath expr="//field[@name='email']" position="replace">
-                <field name="email" />
+            <xpath expr="//field[@name='email']" position="attributes">
+                <attribute name="optional" eval="0" />
             </xpath>
-            <xpath expr="//field[@name='user_id']" position="replace">
-                <field name="user_id" invisible="1" />
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible"> 1</attribute>
             </xpath>
-            <xpath expr="//field[@name='city']" position="replace">
-                <field name="city" invisible="1" />
+            <xpath expr="//field[@name='city']" position="attributes">
+                <attribute name="invisible"> 1</attribute>
             </xpath>
-            <xpath expr="//field[@name='country_id']" position="replace">
-                <field name="country_id" invisible="1" />
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="invisible"> 1</attribute>
             </xpath>
 
 
