@@ -63,7 +63,7 @@ class PetitionPetition(models.Model):
         "petition.registration", "petition_id", string="Signatories"
     )
     signatory_count = fields.Integer(
-        string="Number of signatories", compute="_compute_signatory_count"
+        string="Number of signatories", compute="_compute_signatory_count", store=True
     )
     petition_type_id = fields.Many2one("petition.type", string="Petition Template")
     interest_ids = fields.Many2many("thesaurus.term", string="Interests")
