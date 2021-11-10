@@ -7,11 +7,11 @@ class VirtualPartnerInstance(models.Model):
     _name = "virtual.partner.instance"
     _description = "Partner/Instance"
     _inherit = [
-        'abstract.virtual.model',
-        'abstract.term.finder',
+        "abstract.virtual.model",
+        "abstract.term.finder",
     ]
     _auto = False
-    _terms = ['interest_ids', 'competency_ids']
+    _terms = ["interest_ids", "competency_ids"]
 
     local_voluntary = fields.Boolean()
     regional_voluntary = fields.Boolean()
@@ -24,26 +24,25 @@ class VirtualPartnerInstance(models.Model):
         string="Is a volunteer",
     )
     nationality_id = fields.Many2one(
-        comodel_name='res.country',
-        string='Nationality',
+        comodel_name="res.country",
+        string="Nationality",
     )
     membership_state_id = fields.Many2one(
-        comodel_name='membership.state',
-        string='State',
+        comodel_name="membership.state",
+        string="State",
     )
     postal_category_id = fields.Many2one(
-        comodel_name='coordinate.category',
-        string='Postal Coordinate Category',
+        comodel_name="coordinate.category",
+        string="Postal Coordinate Category",
     )
     main_postal = fields.Boolean(
-        string='Main Address',
+        string="Main Address",
     )
     email_category_id = fields.Many2one(
-        comodel_name='coordinate.category',
-        string='Email Coordinate Category',
+        comodel_name="coordinate.category",
+        string="Email Coordinate Category",
     )
-    main_email = fields.Boolean(
-    )
+    main_email = fields.Boolean()
 
     @api.model
     def _get_select(self):
@@ -51,7 +50,9 @@ class VirtualPartnerInstance(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = super()._get_select() + """,
+        select = (
+            super()._get_select()
+            + """,
             p.local_voluntary,
             p.regional_voluntary,
             p.national_voluntary,
@@ -64,6 +65,7 @@ class VirtualPartnerInstance(models.Model):
             pc.is_main AS main_postal,
             e.coordinate_category_id AS email_category_id,
             e.is_main AS main_email"""
+        )
         return select
 
     @api.model
