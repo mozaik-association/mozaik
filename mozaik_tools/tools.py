@@ -60,7 +60,7 @@ def check_and_format_number(num, default_country_code):
         normalized_number = pn.parse(numero, code) if code else pn.parse(numero)
     except pn.NumberParseException as e:
         errmsg = _("Invalid phone number: %s") % e
-        raise UserError(errmsg)
+        raise UserError(errmsg) from e
     return pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
 
 
