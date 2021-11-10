@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="distribution_list_line_form_view" model="ir.ui.view">
+        <field
+            name="name"
+        >distribution.list.line.form (in mozaik_dynamical_time_filter)</field>
+        <field name="model">distribution.list.line</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.distribution_list_line_form"
+        />
+        <field name="priority" eval="9999" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='domain']" position="before">
+                <field name="manually_edit_domain" />
+                <field name="src_model_model" invisible="1" />
+                <field
+                    name="domain_widget"
+                    widget="domain"
+                    options="{'model': 'src_model_model'}"
+                    attrs="{'invisible': ['|',('active','=',False),('manually_edit_domain', '=', True)]}"
+                />
+            </xpath>
+            <xpath expr="//field[@name='domain']" position="after">
+                <field
+                    name="domain_handwritten"
+                    widget="ace"
+                    options="{'mode': 'python'}"
+                    attrs="{'invisible': ['|',('active','=',False),('manually_edit_domain', '=', False)]}"
+                />
+            </xpath>
+            <!-- We need to remove domain from the view, otherwise compute_domain
+            will be triggered when we don't want to.
+            This is why this view has a super high priority. -->
+            <xpath expr="//field[@name='domain']" position="replace" />
+            <xpath expr="//group[@name='expr']" position="after">
+                <field name="manually_edit_domain" invisible="1" />
+                <div
+                    attrs="{'invisible': [('manually_edit_domain', '=', True)]}"
+                    name="manually_edit_domain_short_instructions"
+                >
+                    <h3>Manually edit the domain</h3>
+                        <p>In case you need to add dynamic values for date or datetime
+                            fields, please:
+                        </p>
+                            <ol>
+                                <li>
+                                    Write a domain using the concerned field, with a static date/datetime value.
+                                </li>
+                                <li>
+                                    Check <strong
+                            >Manually edit domain</strong> and follow the instructions.
+                                </li>
+                            </ol>
+                </div>
+                <div
+                    attrs="{'invisible': [('manually_edit_domain', '=', False)]}"
+                    name="manually_edit_domain_instructions"
+                >
+                        <h3>Manually edit the domain</h3>
+                        <p>Now to add dynamic values for date
+                            fields, use one of the following formulas instead of the
+                                date/datetime static value:
+                        </p>
+                        <ul>
+                            <li>
+                                Today (working with a <code>date</code> field)
+                                <code>context_today().strftime('%Y-%m-%d')
+                                </code>
+                            </li>
+                            <li>
+                                Today (working with a <code>datetime</code> field)
+                                <code>context_today().strftime('%Y-%m-%d 00:00:00')
+                                </code>
+                                and
+                                <code>context_today().strftime('%Y-%m-%d 23:59:59')
+                                </code>
+                            </li>
+                            <li>
+                                Now (working with a <code>datetime</code> field)
+                                <code>context_now().strftime('%Y-%m-%d %H:%M:%S')
+                                </code>
+                            </li>
+                            <li>
+                                Today +/- n days. (n is integer. ie:10)
+                                <code>(context_today() +
+                                    relativedelta(days=n)).strftime('%Y-%m-%d')
+                                </code><br />
+                                Options: days, weeks, months and years
+
+                            </li>
+                            <li>
+                                Now +/- n hours. (n is integer. ie:10)
+                                <code>(context_now() +
+                                    relativedelta(hours=n)).strftime('%Y-%m-%d %H:%M:%S')
+                                </code><br />
+                                Options: hours, minutes, seconds, days, weeks, months and years
+
+                            </li>
+                        </ul>
+                        <p>Once you edit the domain manually, you can
+                            come back to the automatic mode and you will see how
+                            Odoo evaluates your formula.
+                        </p>
+                        <p>
+                            <strong>Important:</strong>
+                            If you edited the domain manually you need to keep
+                            the checkbox "Manually edit domain" checked when saving your record.
+                        </p>
+                        <h4>Examples</h4>
+                        <p>
+                            1. Search for records created today (<code
+                        >create_date</code> is a datetime field) with a dynamic
+                            value,
+                            (today will be evaluated each time the campaign is
+                            used and will not contain a frozen value).
+                        </p>
+                        <p>
+                            <code>[["create_date","&gt;=",<strong>"2021-10-11
+                                00:00:00"</strong>],["create_date","&lt;=",<strong
+                            >"2021-10-11
+                                23:59:59"</strong>]]
+                            </code>
+                            becomes
+                            <p />
+                            <code>[["create_date","&gt;=",<strong>
+                                context_today().strftime('%Y-%m-%d 00:00:00')</strong>],["create_date","&lt;=",<strong
+                            >
+                                context_today().strftime('%Y-%m-%d 23:59:59')</strong>]]
+                            </code>
+                        </p>
+
+                        <p>
+                            2. Search for records created in the last 30 days.
+                        </p>
+                        <p>
+                            <code>[["create_date","&gt;",<strong>"2021-09-11
+                                17:05:54"</strong>]]
+                            </code>
+                            becomes
+                            <code>[["create_date","&gt;",<strong>(context_today()
+                                -
+                                relativedelta(days=30)).strftime('%Y-%m-%d 23:59:59')</strong>]]
+                            </code>
+                        </p>
+                        <p>
+                            3. Search for records created in the last 3 hours.
+                        </p>
+                        <p>
+                            <code>[["create_date","&gt;",<strong>"2021-10-11
+                                14:05:54"</strong>]]
+                            </code>
+                            becomes
+                            <code>[["create_date","&gt;",<strong>(context_now()
+                                -
+                                relativedelta(hours=3)).strftime('%Y-%m-%d %H:%M:%S')</strong>]]
+                            </code>
+                        </p>
+                    </div>
+
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
