@@ -137,7 +137,7 @@ class MozaikAbstractModel(models.AbstractModel):
             # original expression but with a ValidationError
             constraint_name = exception.diag.constraint_name
         except AttributeError:
-            raise ValidationError(str(exception))
+            raise ValidationError(str(exception))  # noqa: B904
         message = self._get_exception_messages().get(constraint_name, str(exception))
         raise ValidationError(message)
 

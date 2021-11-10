@@ -999,8 +999,8 @@ class MembershipRequest(models.Model):
             else:
                 try:
                     domain = safe_eval.safe_eval(domains[loop_counter])
-                except Exception:
-                    raise ValidationError(_("Invalid Data"))
+                except Exception as e:
+                    raise ValidationError(_("Invalid Data")) from e
                 model_ids = model_obj.search(domain)
                 if len(model_ids) == 1:
                     return model_ids[0]

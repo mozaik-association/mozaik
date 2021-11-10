@@ -260,7 +260,7 @@ class DistributionListLine(models.Model):
                 message = _(
                     "A filter for the target model %s is not valid.\n" "Details: %s"
                 ) % (target_model, tools.ustr(e))
-                raise exceptions.UserError(message)
+                raise exceptions.UserError(message) from e
         return targets
 
     def action_show_filter_result(self):
