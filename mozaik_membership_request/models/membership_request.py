@@ -162,7 +162,7 @@ class MembershipRequest(models.Model):
     )
 
     age = fields.Integer(string="Age", compute="_compute_age", search="_search_age")
-    replace_coordinates = fields.Boolean(string="Replace Coordinates", default=True)
+    replace_coordinates = fields.Boolean(string="Replace Coordinates", default=False)
 
     local_voluntary = fields.Boolean(tracking=True)
     regional_voluntary = fields.Boolean(tracking=True)
