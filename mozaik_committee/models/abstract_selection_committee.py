@@ -94,6 +94,11 @@ class AbstractSelectionCommittee(models.Model):
         string="Create Mandates after Election",
         default=False,
     )
+    int_instance_id = fields.Many2one(
+        comodel_name="int.instance",
+        string="Internal Instance",
+        tracking=True,
+    )
 
     # constraints
 
