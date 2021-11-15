@@ -92,7 +92,6 @@
                             <field name="designation_int_assembly_id" readonly="1" />
                         </group>
                         <group name="Dates">
-                            <field name="create_date" readonly="1" />
                             <field name="active" invisible="1" />
                             <field
                                 name="expire_date"

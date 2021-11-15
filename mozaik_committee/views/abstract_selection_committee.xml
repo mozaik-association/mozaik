@@ -105,7 +105,6 @@
                         </group>
 
                         <group name="Dates">
-                            <field name="create_date" readonly="1" />
                             <field
                                 name="expire_date"
                                 readonly="1"
