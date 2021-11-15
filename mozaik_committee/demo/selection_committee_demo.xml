@@ -17,7 +17,6 @@
             name="mandate_deadline_date"
             eval="(DateTime.today() + relativedelta(days=-1,months=2,years=5)).strftime('%Y-%m-%d')"
         />
-        <field name="auto_mandate" eval="1" />
     </record>
 
     <record id="sc_secretaire_regional" model="int.selection.committee">
@@ -36,7 +35,6 @@
             name="mandate_deadline_date"
             eval="(DateTime.today() + relativedelta(days=-1,months=2,years=5)).strftime('%Y-%m-%d')"
         />
-        <field name="auto_mandate" eval="1" />
     </record>
 
     <record id="sc_tete_huy_communale" model="sta.selection.committee">
@@ -83,7 +81,6 @@
             name="mandate_deadline_date"
             eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"
         />
-        <field name="auto_mandate" eval="1" />
     </record>
 
 </odoo>

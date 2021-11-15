@@ -85,10 +85,6 @@ class AbstractSelectionCommittee(models.Model):
         tracking=True,
     )
     note = fields.Text(string="Notes", tracking=True, copy=False)
-    auto_mandate = fields.Boolean(
-        string="Create Mandates after Election",
-        default=False,
-    )
     int_instance_id = fields.Many2one(
         comodel_name="int.instance",
         string="Internal Instance",

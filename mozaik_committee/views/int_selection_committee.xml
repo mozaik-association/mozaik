@@ -8,9 +8,11 @@
         <field name="model">int.selection.committee</field>
         <field name="inherit_id" ref="abstract_selection_committee_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='auto_mandate']" position="before">
-                <field name="is_virtual" />
-                <field name="assembly_category_id" invisible="1" />
+            <xpath expr="//field[@name='name']/parent::h1" position="after">
+                <group>
+                    <field name="is_virtual" />
+                    <field name="assembly_category_id" invisible="1" />
+                </group>
             </xpath>
             <xpath expr="//field[@name='assembly_id']" position="attributes">
                 <attribute

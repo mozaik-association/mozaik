@@ -75,9 +75,6 @@ class TestStaMandate(TransactionCase):
         for candidature in elected_ids:
             self.assertEqual(candidature.state, "elected")
 
-        # Create Mandates for elected candidatures:
-        #                             - mandates are linked to candidatures
-        elected_ids.button_create_mandate()
         mandate_ids = self.env["sta.mandate"].search(
             [("candidature_id", "in", elected_ids.ids)]
         )

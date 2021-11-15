@@ -151,8 +151,7 @@ class AbstractCandidature(models.Model):
     def action_elected(self):
         self.write({"state": "elected"})
         for candidature in self:
-            if candidature.selection_committee_id.auto_mandate:
-                candidature.create_mandate_from_candidature()
+            candidature.create_mandate_from_candidature()
         return True
 
     def button_create_mandate(self):
