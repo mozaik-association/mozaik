@@ -1144,9 +1144,6 @@ class MembershipRequest(models.Model):
                 mr_vals["partner_id"] = partner.id
                 partner_values = {}
 
-            # create new involvements
-            self._validate_request_involvement(mr, partner)
-
             # save membership amount
             # if mr.amount > 0.0 and mr.reference: TODO
             #     if (mr.membership_state_id.code == 'without_membership' and
@@ -1194,6 +1191,9 @@ class MembershipRequest(models.Model):
 
             if partner_values:
                 partner.write(partner_values)
+
+            # create new involvements
+            self._validate_request_involvement(mr, partner)
 
             if (
                 mr.result_type_id != mr.membership_state_id

@@ -84,6 +84,22 @@ class PartnerInvolvement(models.Model):
             else:
                 involvement.creation_time = involvement.create_date
 
+    def _get_create_index(self):
+        return "CREATE UNIQUE INDEX %(table)s_unique_2_idx "
+
+    def _get_on_list(self):
+        return ["partner_id", "involvement_category_id", "effective_time"]
+
+    def _get_on(self):
+        return "ON %(table)s USING btree (" + ", ".join(self._get_on_list()) + ") "
+
+    def _get_where(self):
+        return (
+            "WHERE ((active IS TRUE) AND (allow_multi IS TRUE) "
+            "AND (((involvement_type)::text <> 'donation'::text) "
+            "OR (involvement_type IS NULL)))"
+        )
+
     def init(self):
         """
         Create unique indexes based on partner_id and involvement_category_id
@@ -134,14 +150,7 @@ class PartnerInvolvement(models.Model):
         ndx1 = "%s_unique_1_idx" % self._table
         create_index(def1, ndx1)
 
-        def2 = (
-            "CREATE UNIQUE INDEX %(table)s_unique_2_idx "
-            "ON %(table)s USING btree "
-            "(partner_id, involvement_category_id, effective_time) "
-            "WHERE ((active IS TRUE) AND (allow_multi IS TRUE) "
-            "AND (((involvement_type)::text <> 'donation'::text) OR "
-            "(involvement_type IS NULL)))"
-        )
+        def2 = self._get_create_index() + self._get_on() + self._get_where()
         ndx2 = "%s_unique_2_idx" % self._table
         create_index(def2, ndx2)
 

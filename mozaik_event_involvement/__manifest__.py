@@ -12,10 +12,13 @@
     "depends": [
         "mozaik_event_is_private",
         "mozaik_event_partner_firstname",
+        "mozaik_event_question_event_type",
         "mozaik_membership_request",
     ],
     "data": [
         "views/event_event.xml",
+        "views/partner_involvement.xml",
+        "views/partner_involvement_category.xml",
     ],
     "demo": [],
 }

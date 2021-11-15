@@ -18,10 +18,14 @@ class EventRegistration(models.Model):
         self.ensure_one()
         request = self._create_membership_request(vals)
 
-        if request.partner_id and self.event_id.auto_accept_membership:
+        if request:
+            self._create_event_involvement(request)
+
+        if request and request.partner_id and self.event_id.auto_accept_membership:
             request.validate_request()
 
     def _create_membership_request(self, vals):
+        self.ensure_one()
         model_mr = self.env["membership.request"]
         if "lastname" in vals and vals["lastname"]:
             lastname = vals["lastname"]
@@ -56,3 +60,12 @@ class EventRegistration(models.Model):
                 technical_name=False,
             )
             request.write(res)
+            return request
+
+    def _create_event_involvement(self, request):
+        self.ensure_one()
+        related_involvement_category_id = self.env[
+            "partner.involvement.category"
+        ].search([("event_id", "=", self.event_id.id)])
+        command = [(4, rec.id) for rec in related_involvement_category_id]
+        request.write({"involvement_category_ids": command})

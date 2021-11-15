@@ -24,6 +24,7 @@
         "mozaik_communication",
         "mozaik_committee",
         "mozaik_duplicate",
+        "mozaik_event_involvement",
         "mozaik_event_is_private",
         "mozaik_event_partner_firstname",
         "mozaik_event_publish_date",

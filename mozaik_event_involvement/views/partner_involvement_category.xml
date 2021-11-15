@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="partner_involvement_category_form_view">
+        <field
+            name="name"
+        >partner.involvement.category.form (in mozaik_event_involvement)</field>
+        <field name="model">partner.involvement.category</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_category_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('involvement_type', '=', 'event')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field
+                    name="event_id"
+                    attrs="{'invisible': [('involvement_type', '!=', 'event')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
