@@ -77,11 +77,6 @@ class AbstractSelectionCommittee(models.Model):
         required=True,
         tracking=True,
     )
-    meeting_date = fields.Date(
-        string="Meeting Date",
-        tracking=True,
-        copy=False,
-    )
     name = fields.Char(
         string="Name",
         size=128,

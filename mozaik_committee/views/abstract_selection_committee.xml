@@ -96,7 +96,6 @@
 
                         <group>
                             <field name="designation_int_assembly_id" />
-                            <field name="meeting_date" widget="date" />
                             <field name="decision_date" widget="date" />
                         </group>
 
