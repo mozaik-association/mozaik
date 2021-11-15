@@ -17,7 +17,6 @@ class IntSelectionCommittee(models.Model):
     _parameters_key = "int_candidature_invalidation_delay"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "int")])
-    is_virtual = fields.Boolean(string="Is Virtual", default=True)
     assembly_id = fields.Many2one(
         comodel_name=_assembly_model,
         string="Internal Assembly",

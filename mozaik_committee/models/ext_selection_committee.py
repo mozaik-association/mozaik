@@ -17,7 +17,6 @@ class ExtSelectionCommittee(models.Model):
     _parameters_key = "ext_candidature_invalidation_delay"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "ext")])
-    is_virtual = fields.Boolean(string="Is Virtual", default=True)
     assembly_id = fields.Many2one(
         comodel_name=_assembly_model,
         string="External Assembly",
