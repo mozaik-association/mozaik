@@ -640,7 +640,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question__petition_id
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__petition_id
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__petition_id
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_view_pivot
 msgid "Petition"
+msgstr ""
+
+#. module: mozaik_petition
+#: model:ir.actions.act_window,name:mozaik_petition.petition_reporting_petition_action
+#: model:ir.ui.menu,name:mozaik_petition.petition_reporting_petition
+msgid "Petition Analysis"
 msgstr ""
 
 #. module: mozaik_petition
@@ -782,6 +789,11 @@ msgid "Related Petition"
 msgstr ""
 
 #. module: mozaik_petition
+#: model:ir.ui.menu,name:mozaik_petition.reporting_first_level_menu
+msgid "Reporting"
+msgstr ""
+
+#. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__user_id
 msgid "Responsible"
 msgstr ""
@@ -836,7 +848,10 @@ msgid "Sequence"
 msgstr ""
 
 #. module: mozaik_petition
+#: model:ir.actions.act_window,name:mozaik_petition.petition_reporting_signatories_action
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__registration_ids
+#: model:ir.ui.menu,name:mozaik_petition.petition_reporting_signatories
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_view_pivot
 msgid "Signatories"
 msgstr ""
 
