@@ -116,7 +116,15 @@ class PetitionPetition(models.Model):
                         "is_mandatory": question.is_mandatory,
                         "interest_ids": question.interest_ids,
                         "answer_ids": [
-                            (0, 0, {"name": answer.name, "sequence": answer.sequence})
+                            (
+                                0,
+                                0,
+                                {
+                                    "name": answer.name,
+                                    "sequence": answer.sequence,
+                                    "interest_ids": answer.interest_ids,
+                                },
+                            )
                             for answer in question.answer_ids
                         ],
                     },

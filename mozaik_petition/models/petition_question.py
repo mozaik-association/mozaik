@@ -10,6 +10,7 @@ class PetitionQuestion(models.Model):
     _name = "petition.question"
     _description = "Petition Question"
     _order = "sequence,id"
+    _rec_name = "title"
 
     title = fields.Char(required=True, translate=True)
     question_type = fields.Selection(
@@ -97,4 +98,5 @@ class PetitionQuestionAnswer(models.Model):
     question_id = fields.Many2one(
         "petition.question", required=True, ondelete="cascade"
     )
+    interest_ids = fields.Many2many("thesaurus.term", string="Interests")
     sequence = fields.Integer(default=10)
