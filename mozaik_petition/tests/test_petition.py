@@ -19,6 +19,53 @@ class TestPetition(TransactionCase):
                 "date_end": date(2021, 10, 16),
             }
         )
+        self.template1 = (self.env["petition.type"]).create(
+            {
+                "name": "Template 1",
+                "question_ids": [
+                    (0, 0, {"title": "Text input", "question_type": "text_box"}),
+                    (
+                        0,
+                        0,
+                        {
+                            "title": "Tickbox",
+                            "question_type": "tickbox",
+                            "interest_ids": [(0, 0, {"name": "Tickbox interest"})],
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "title": "Selection",
+                            "answer_ids": [
+                                (
+                                    0,
+                                    0,
+                                    {
+                                        "name": "Yes",
+                                        "interest_ids": [
+                                            (0, 0, {"name": "First interest"}),
+                                            (0, 0, {"name": "Second interest"}),
+                                        ],
+                                    },
+                                ),
+                                (
+                                    0,
+                                    0,
+                                    {
+                                        "name": "No",
+                                        "interest_ids": [
+                                            (0, 0, {"name": "Third interest"})
+                                        ],
+                                    },
+                                ),
+                            ],
+                        },
+                    ),
+                ],
+            }
+        )
 
     def test_check_date(self):
         """
@@ -36,6 +83,41 @@ class TestPetition(TransactionCase):
                     "date_end": fields.Date.today() + relativedelta(days=-1),
                 }
             )
+
+    def test_loading_interests(self):
+        """
+        Data (defined in setUp):
+            self.petition : a petition
+            self.template1 : a template containing 3 questions,
+                - the second being a tickbox with interests on it
+                - the third being a Selection with interests on answers
+        Test case:
+            When charging self.template1 to self.petition:
+            - The interest are well charged on question for the tickbox question.
+            - The interest are well charged on answers for the selection question.
+        """
+        self.petition.write({"petition_type_id": self.template1})
+        question_tickbox = self.petition.question_ids.search(
+            [("question_type", "=", "tickbox")]
+        )
+        self.assertEqual(
+            question_tickbox.interest_ids[0].name,
+            "Tickbox interest",
+            "The interest was not loaded.",
+        )
+        question_select = self.petition.question_ids.search(
+            [("question_type", "=", "simple_choice")]
+        )
+        self.assertEqual(
+            len(question_select.answer_ids.search([("name", "=", "Yes")]).interest_ids),
+            2,
+            "The two interests for answer 'Yes' were not loaded.",
+        )
+        self.assertEqual(
+            len(question_select.answer_ids.search([("name", "=", "No")]).interest_ids),
+            1,
+            "The interest for answer 'No' was not loaded.",
+        )
 
     def test_changing_question_type_if_answers(self):
         """
@@ -88,9 +170,9 @@ class TestPetition(TransactionCase):
     def test_changing_question_type(self):
         """
         Data (defined in setUp):
-            self.petition : a test petition
+             self.petition : a test petition
+             self.template1 : a template containing 3 questions
         Data (defined in this function):
-            self.template1 : a template containing 3 questions
             self.template2 : a template containing 1 question
             self.signatory : a signatory answering to the question of self.petition
         Test case:
@@ -99,45 +181,6 @@ class TestPetition(TransactionCase):
             - When self.petition.petition_type_id turns to template2,
             there is only 1 associated question.
         """
-        self.template1 = (self.env["petition.type"]).create(
-            {
-                "name": "Template 1",
-                "question_ids": [
-                    (0, 0, {"title": "Text input", "question_type": "text_box"}),
-                    (
-                        0,
-                        0,
-                        {
-                            "title": "Tickbox",
-                            "question_type": "tickbox",
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "title": "Selection",
-                            "answer_ids": [
-                                (
-                                    0,
-                                    0,
-                                    {
-                                        "name": "Yes",
-                                    },
-                                ),
-                                (
-                                    0,
-                                    0,
-                                    {
-                                        "name": "No",
-                                    },
-                                ),
-                            ],
-                        },
-                    ),
-                ],
-            }
-        )
 
         self.template2 = (self.env["petition.type"]).create(
             {
