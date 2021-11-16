@@ -1,0 +1,40 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_event_question_event_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_event_question_event_type
+#: model:ir.model.fields,field_description:mozaik_event_question_event_type.field_event_event__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_event_question_event_type
+#: model:ir.model,name:mozaik_event_question_event_type.model_event_event
+msgid "Event"
+msgstr ""
+
+#. module: mozaik_event_question_event_type
+#: model:ir.model.fields,field_description:mozaik_event_question_event_type.field_event_event__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_event_question_event_type
+#: model:ir.model.fields,field_description:mozaik_event_question_event_type.field_event_event____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_event_question_event_type
+#: code:addons/mozaik_event_question_event_type/models/event_event.py:0
+#, python-format
+msgid "You cannot change the type of an event when there are attendees."
+msgstr ""
