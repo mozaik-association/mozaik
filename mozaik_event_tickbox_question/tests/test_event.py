@@ -153,3 +153,36 @@ class TestEvent(TransactionCase):
             "Mandatory tickbox",
             "The remaining question should be the one of template 2",
         )
+
+    def test_tickbox_question(self):
+        """
+        Data (defined in setUp):
+            self.event : a test event
+        Data (defined in the function):
+            self.template, an event template containing a mandatory tickbox question
+        Test case:
+            When loading the event template, the question is well set
+            as mandatory.
+        """
+        self.template = (self.env["event.type"]).create(
+            {
+                "name": "Test Template",
+                "question_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "title": "Mandatory tickbox question",
+                            "question_type": "tickbox",
+                            "is_mandatory": True,
+                        },
+                    )
+                ],
+            }
+        )
+        self.event.write({"event_type_id": self.template})
+        self.assertEqual(
+            self.event.question_ids[0].is_mandatory,
+            True,
+            "Field is_mandatory should be set to True",
+        )
