@@ -17,7 +17,6 @@
     ],
     "data": [
         "views/survey_survey.xml",
-        "views/survey_question.xml",
     ],
     "demo": [],
 }
