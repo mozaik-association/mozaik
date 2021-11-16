@@ -6,12 +6,9 @@
     <record model="ir.ui.view" id="survey_survey_form_view">
         <field name="name">survey.survey.form (in mozaik_survey_is_private)</field>
         <field name="model">survey.survey</field>
-        <field
-            name="inherit_id"
-            ref="mozaik_survey_thesaurus.survey_survey_form_view"
-        />
+        <field name="inherit_id" ref="survey.survey_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='interest_ids']" position="after">
+            <xpath expr="//field[@name='active']" position="before">
                 <field name="is_private" />
                 <field
                     name="int_instance_id"

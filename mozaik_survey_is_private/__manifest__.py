@@ -13,7 +13,8 @@
     "depends": [
         # Mozaik
         "mozaik_single_instance",
-        "mozaik_survey_thesaurus",
+        # Odoo
+        "survey",
     ],
     "data": [
         "security/groups.xml",
