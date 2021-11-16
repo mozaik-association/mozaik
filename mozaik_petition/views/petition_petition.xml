@@ -330,6 +330,25 @@
     </record>
 
 
+    <record id="petition_petition_view_pivot" model="ir.ui.view">
+        <field name="name">petition.petition.view.pivot</field>
+        <field name="model">petition.petition</field>
+        <field name="arch" type="xml">
+            <pivot string="Petition" sample="1">
+                <field name="title" type="row" />
+                <field name="signatory_count" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="petition_reporting_petition_action" model="ir.actions.act_window">
+        <field name="name">Petition Analysis</field>
+        <field name="res_model">petition.petition</field>
+        <field name="view_mode">pivot</field>
+    </record>
+
+
     <record id="petition_model_action" model="ir.actions.act_window">
         <field name="name">Petitions</field>
         <field name="res_model">petition.petition</field>

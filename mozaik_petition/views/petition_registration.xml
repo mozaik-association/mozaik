@@ -124,4 +124,20 @@
         </field>
     </record>
 
+    <record id="petition_registration_view_pivot" model="ir.ui.view">
+        <field name="name">petition.registration.view.pivot</field>
+        <field name="model">petition.registration</field>
+        <field name="arch" type="xml">
+            <pivot string="Signatories" sample="1">
+                <field name="name" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="petition_reporting_signatories_action" model="ir.actions.act_window">
+        <field name="name">Signatories</field>
+        <field name="res_model">petition.registration</field>
+        <field name="view_mode">pivot</field>
+    </record>
+
 </odoo>
