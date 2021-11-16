@@ -4,7 +4,7 @@
 {
     "name": "Mozaik Event Question Thesaurus",
     "summary": """
-        This feature adds interests on every question
+        This feature adds interests on answers of questions of type 'Selection'.
         """,
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
@@ -17,6 +17,5 @@
     "data": [
         "views/event_event.xml",
         "views/event_question.xml",
-        "views/event_type.xml",
     ],
 }

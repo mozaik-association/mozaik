@@ -10,5 +10,17 @@ class EventEvent(models.Model):
 
     def _get_question_copy_values(self, question):
         res = super(EventEvent, self)._get_question_copy_values(question)
-        res["interest_ids"] = question.interest_ids
+        answer_ids = [
+            (
+                0,
+                0,
+                {
+                    "name": answer.name,
+                    "sequence": answer.sequence,
+                    "interest_ids": answer.interest_ids,
+                },
+            )
+            for answer in question.answer_ids
+        ]
+        res.update({"answer_ids": answer_ids})
         return res

@@ -4,8 +4,8 @@
 from odoo import fields, models
 
 
-class EventQuestion(models.Model):
+class EventQuestionAnswer(models.Model):
 
-    _inherit = "event.question"
+    _inherit = "event.question.answer"
 
     interest_ids = fields.Many2many("thesaurus.term", string="Interests")

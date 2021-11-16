@@ -13,7 +13,7 @@
             ref="website_event_questions.event_question_view_form"
         />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='question_type']" position="before">
+            <xpath expr="//field[@name='name']" position="after">
                     <field name="interest_ids" widget="many2many_tags" />
             </xpath>
         </field>
