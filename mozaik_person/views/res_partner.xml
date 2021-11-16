@@ -116,6 +116,25 @@
                 />
                 <field name="select_name" string="Name" />
             </xpath>
+            <xpath expr="//field[@name='phone']" position="attributes">
+                <attribute name="optional" eval="0" />
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="mobile" />
+            </xpath>
+            <xpath expr="//field[@name='email']" position="attributes">
+                <attribute name="optional" eval="0" />
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible"> 1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='city']" position="attributes">
+                <attribute name="invisible"> 1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="invisible"> 1</attribute>
+            </xpath>
+
 
             <xpath expr="//field[@name='active']" position="after">
                 <field name="is_duplicate_detected" invisible="1" />
