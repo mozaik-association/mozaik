@@ -11,4 +11,5 @@ class EventEvent(models.Model):
     def _get_question_copy_values(self, question):
         res = super(EventEvent, self)._get_question_copy_values(question)
         res["is_mandatory"] = question.is_mandatory
+        res["interest_ids"] = question.interest_ids
         return res
