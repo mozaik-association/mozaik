@@ -32,6 +32,7 @@
         "mozaik_event_thesaurus",
         "mozaik_event_tickbox_question",
         "mozaik_involvement",
+        "mozaik_involvement_thesaurus",
         "mozaik_mass_mailing_automation",
         "mozaik_membership",
         "mozaik_partner_assembly",
