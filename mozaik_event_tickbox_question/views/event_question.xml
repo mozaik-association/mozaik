@@ -21,11 +21,6 @@
                     name="is_mandatory"
                     attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
                 />
-                <field
-                    name="interest_ids"
-                    widget="many2many_tags"
-                    attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
-                />
             </xpath>
         </field>
     </record>

@@ -8,17 +8,21 @@
         <field name="model">event.event</field>
         <field name="inherit_id" ref="website_event_questions.event_event_view_form" />
         <field name="arch" type="xml">
-<!--            <xpath-->
-<!--                expr="//field[@name='question_ids']/tree/field[@name='question_type']"-->
-<!--                position="before"-->
-<!--            >-->
-<!--                    <field name="interest_ids" widget="many2many_tags" />-->
-<!--            </xpath>-->
             <xpath
                 expr="//field[@name='answer_ids']/tree/field[@name='name']"
                 position="after"
             >
                     <field name="interest_ids" widget="many2many_tags" />
+            </xpath>
+            <xpath
+                expr="//form/sheet/group/group/field[@name='question_type']"
+                position="after"
+            >
+                <field
+                    name="interest_ids"
+                    widget="many2many_tags"
+                    attrs="{'invisible': [('question_type', 'in', ['simple_choice', 'text_box'])]}"
+                />
             </xpath>
         </field>
     </record>

@@ -17,7 +17,6 @@ class EventQuestion(models.Model):
         "the box to continue the registration.",
         default=False,
     )
-    interest_ids = fields.Many2many("thesaurus.term", string="Interests")
 
     def action_view_question_answers(self):
         """Allow analyzing the attendees answers to petition questions

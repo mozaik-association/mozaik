@@ -55,4 +55,4 @@ class EventEvent(models.Model):
             if event.event_type_id.use_mail_schedule:
                 for question in event.event_type_id.question_ids:
                     command += [(0, 0, self._get_question_copy_values(question))]
-            event.write({"question_ids": command})
+            event["question_ids"] = command
