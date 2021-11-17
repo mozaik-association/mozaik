@@ -397,6 +397,7 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__interest_ids
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question__interest_ids
+#: model:ir.model.fields,field_description:mozaik_petition.field_petition_question_answer__interest_ids
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Interests"
 msgstr ""
