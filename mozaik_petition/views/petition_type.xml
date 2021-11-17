@@ -23,10 +23,6 @@
                                             <field name="question_ids">
                                                 <tree>
                                                     <field name="title" />
-                                                    <field
-                                                    name="interest_ids"
-                                                    widget="many2many_tags"
-                                                />
                                                     <field name="question_type" />
                                                     <field
                                                     name="is_mandatory"

@@ -11,9 +11,6 @@
             <xpath expr="//field[@name='active']" position="before">
                     <field name="interest_ids" widget="many2many_tags" />
             </xpath>
-            <xpath expr="//field[@name='question_type']" position="before">
-                    <field name="interest_ids" widget="many2many_tags" />
-            </xpath>
         </field>
     </record>
 

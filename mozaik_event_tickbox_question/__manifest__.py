@@ -12,6 +12,7 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mozaik_event_question_event_type",
+        "mozaik_thesaurus",
     ],
     "data": [
         "views/event_question.xml",

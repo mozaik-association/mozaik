@@ -8,4 +8,13 @@ class EventQuestion(models.Model):
 
     _inherit = "event.question"
 
+    # invisible for simple_choice and text_input questions, intended to
+    # be used for other types of questions when inheriting this module
+    interest_ids = fields.Many2many("thesaurus.term", string="Interests")
+
+
+class EventQuestionAnswer(models.Model):
+
+    _inherit = "event.question.answer"
+
     interest_ids = fields.Many2many("thesaurus.term", string="Interests")
