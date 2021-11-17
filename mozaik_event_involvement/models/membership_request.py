@@ -2,11 +2,21 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, models
+from odoo.exceptions import MissingError
 
 
 class MembershipRequest(models.Model):
 
     _inherit = "membership.request"
+
+    def _get_values_for_involvement(self, mr, partner, involvement_category_id):
+        """
+        When creating an involvement to an event, we copy the interests from the event.
+        """
+        vals = super()._get_values_for_involvement(mr, partner, involvement_category_id)
+        if involvement_category_id.event_id:
+            vals.update({"interest_ids": involvement_category_id.event_id.interest_ids})
+        return vals
 
     def _validate_request_involvement(self, mr, partner):
         """
@@ -18,6 +28,7 @@ class MembershipRequest(models.Model):
         for ic in mr.involvement_category_ids.filtered(
             lambda inv: inv.involvement_type == "event"
         ):
+
             # Looking for the event.registration whose
             # associated partner is partner
             domain = [
@@ -28,10 +39,10 @@ class MembershipRequest(models.Model):
             ]
             registration = self.env["event.registration"].search(domain)
             if len(registration) != 1:
-                raise Exception(
+                raise MissingError(
                     _("Cannot find the associated registration to the event.")
                 )
-            # Which type of exception to raise?
+
             registration = registration[0]
             for answer in registration.registration_answer_ids:
                 # create the associated involvement
@@ -41,4 +52,6 @@ class MembershipRequest(models.Model):
                     "involvement_category_id": ic.id,
                     "question_event_id": answer.question_id.id,
                 }
+                # add interests
+                values.update({"interest_ids": answer.get_interests()})
                 self.env["partner.involvement"].create(values)

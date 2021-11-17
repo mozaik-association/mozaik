@@ -28,3 +28,14 @@ class EventRegistrationAnswer(models.Model):
                 raise ValidationError(
                     _("At least one mandatory tickbox is not checked.")
                 )
+
+    def get_interests(self):
+        """
+        For tickbox questions, interests are defined on questions.
+        If an attendee tick the tickbox corresponding to the question,
+        we return the corresponding interests.
+        """
+        res = super().get_interests()
+        if self.question_type == "tickbox" and self.value_tickbox:
+            res = self.question_id.interest_ids
+        return res

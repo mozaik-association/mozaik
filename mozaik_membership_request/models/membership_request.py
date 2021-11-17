@@ -1266,6 +1266,22 @@ class MembershipRequest(models.Model):
                 w.action_add()
 
     @api.model
+    def _get_values_for_involvement(self, mr, partner, involvement_category_id):
+        vals = {
+            "partner_id": partner.id,
+            "effective_time": mr.effective_time,
+            "involvement_category_id": involvement_category_id.id,
+        }
+        if involvement_category_id.involvement_type == "donation":
+            vals.update(
+                {
+                    "reference": mr.reference,
+                    "amount": mr.amount,
+                }
+            )
+        return vals
+
+    @api.model
     def _validate_request_involvement(self, mr, partner):
         current_categories = partner.partner_involvement_ids.mapped(
             "involvement_category_id"
@@ -1274,18 +1290,7 @@ class MembershipRequest(models.Model):
             lambda s, cc=current_categories: s not in cc or s.allow_multi
         )
         for ic in new_categories:
-            vals = {
-                "partner_id": partner.id,
-                "effective_time": mr.effective_time,
-                "involvement_category_id": ic.id,
-            }
-            if ic.involvement_type == "donation":
-                vals.update(
-                    {
-                        "reference": mr.reference,
-                        "amount": mr.amount,
-                    }
-                )
+            vals = self._get_values_for_involvement(mr, partner, ic)
             self.env["partner.involvement"].create(vals)
 
     @api.model

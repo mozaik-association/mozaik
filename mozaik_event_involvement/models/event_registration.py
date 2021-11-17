@@ -41,6 +41,7 @@ class EventRegistration(models.Model):
                 "is_company": False,
                 "request_type": "s",
                 "int_instance_ids": [(4, int_instance.id)],
+                "effective_time": self.event_id.date_begin,
             }
 
             partner = model_mr.get_partner_id(
@@ -69,3 +70,15 @@ class EventRegistration(models.Model):
         ].search([("event_id", "=", self.event_id.id)])
         command = [(4, rec.id) for rec in related_involvement_category_id]
         request.write({"involvement_category_ids": command})
+
+
+class EventRegistrationAnswer(models.Model):
+
+    _inherit = "event.registration.answer"
+
+    def get_interests(self):
+        self.ensure_one()
+        if self.question_type == "simple_choice":
+            return self.value_answer_id.interest_ids
+        else:
+            return []
