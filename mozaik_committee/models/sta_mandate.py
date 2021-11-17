@@ -6,7 +6,7 @@ from odoo import fields, models
 
 class StaMandate(models.Model):
 
-    _inherit = 'sta.mandate'
+    _inherit = "sta.mandate"
     candidature_id = fields.Many2one(
-        comodel_name='sta.candidature',
-        string='Candidature')
+        comodel_name="sta.candidature", string="Candidature"
+    )

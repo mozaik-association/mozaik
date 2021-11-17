@@ -1,20 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="int_candidature_form_view">
         <field name="name">int.candidature.form (in mozaik_committee)</field>
         <field name="model">int.candidature</field>
-        <field name="inherit_id" ref="abstract_candidature_form_view"/>
+        <field name="inherit_id" ref="abstract_candidature_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='selection_committee_id']" position="after">
-                 <field name="int_assembly_id" readonly="1"/>
-                 <field name="mandate_start_date" readonly="1"/>
+                 <field name="int_assembly_id" readonly="1" />
+                 <field name="mandate_start_date" readonly="1" />
+                 <field name="mandate_ids" invisible="1" />
             </xpath>
             <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                 <attribute name="attrs" translation="off">{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}</attribute>
+                 <attribute
+                    name="attrs"
+                    translation="off"
+                >{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}</attribute>
             </xpath>
         </field>
     </record>
@@ -22,13 +25,18 @@
     <record model="ir.ui.view" id="int_candidature_search_view">
         <field name="name">int.candidature.search (in mozaik_committee)</field>
         <field name="model">int.candidature</field>
-        <field name="inherit_id" ref="abstract_candidature_search_view"/>
+        <field name="inherit_id" ref="abstract_candidature_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="int_assembly_id"/>
+                <field name="int_assembly_id" />
             </xpath>
             <xpath expr="//filter[@name='partner']" position="after">
-                <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
+                <filter
+                    name="assembly"
+                    string="Assembly"
+                    domain="[]"
+                    context="{'group_by':'int_assembly_id'}"
+                />
             </xpath>
         </field>
     </record>
@@ -36,10 +44,10 @@
     <record model="ir.ui.view" id="int_candidature_tree_view">
         <field name="name">int.candidature.tree (in mozaik_committee)</field>
         <field name="model">int.candidature</field>
-        <field name="inherit_id" ref="abstract_candidature_tree_view"/>
+        <field name="inherit_id" ref="abstract_candidature_tree_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='selection_committee_id']" position="replace">
-                <field name="int_assembly_id"/>
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="int_assembly_id" />
             </xpath>
         </field>
     </record>
@@ -50,7 +58,11 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="int_candidature_submenu" action="int_candidature_action"
-              sequence="20" parent="mozaik_mandate.int_submenu"/>
+    <menuitem
+        id="int_candidature_submenu"
+        action="int_candidature_action"
+        sequence="20"
+        parent="mozaik_mandate.int_submenu"
+    />
 
 </odoo>

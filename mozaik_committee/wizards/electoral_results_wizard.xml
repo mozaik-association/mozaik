@@ -1,26 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<openerp>
-    <data noupdate="0">
+<odoo>
         <record id="electoral_results_wizard_step1" model="ir.ui.view">
             <field name="name">electoral.results.wizard.step1</field>
             <field name="model">electoral.results.wizard</field>
             <field name="arch" type="xml">
-                <form string="Import Electoral Results" version="7.0">
+                <form string="Import Electoral Results">
                     <group name="data_1">
-                        <field name="legislature_id" readonly="1" options='{"no_open":True}'/>
-                        <field name="source_file"/>
+                        <field
+                        name="legislature_id"
+                        readonly="1"
+                        options='{"no_open":True}'
+                    />
+                        <field name="source_file" />
                     </group>
 
-                    <div name="dev" groups="mozaik_base.res_groups_developper">
-                        <h3>More Info</h3>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                        </group>
-                    </div>
                     <footer>
-                        <span name="go-wizard" attrs="{'invisible': [('source_file', '=', False)]}">
-                            <button string="Validate" name="validate_file"
-                                    type="object" class="oe_highlight"/>
+                        <button
+                        string="Validate"
+                        name="validate_file"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('source_file', '=', False)]}"
+                    />
+                        <span
+                        name="go-wizard"
+                        attrs="{'invisible': [('source_file', '=', False)]}"
+                    >
                             or
                         </span>
                         <button string="Cancel" class="oe_link" special="cancel" />
@@ -33,13 +38,20 @@
             <field name="name">electoral.results.wizard.step2</field>
             <field name="model">electoral.results.wizard</field>
             <field name="arch" type="xml">
-                <form string="Import Electoral Results" version="7.0">
-                    <group name="data_1" attrs="{'invisible': [('error_lines', '=', [])]}">
-                        <field name="legislature_id" readonly="1" options='{"no_open":True}'/>
+                <form string="Import Electoral Results">
+                    <group
+                    name="data_1"
+                    attrs="{'invisible': [('error_lines', '=', [])]}"
+                >
+                        <field
+                        name="legislature_id"
+                        readonly="1"
+                        options='{"no_open":True}'
+                    />
                         <field name="error_lines" readonly="1">
                             <tree editable="top">
-                                <field name="line_number"/>
-                                <field name="error_msg"/>
+                                <field name="line_number" />
+                                <field name="error_msg" />
                             </tree>
                         </field>
                     </group>
@@ -48,17 +60,18 @@
                         <p><strong>No error detected!</strong></p>
                     </div>
 
-                    <div name="dev" groups="mozaik_base.res_groups_developper">
-                        <h3>More Info</h3>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="source_file"/>
-                        </group>
-                    </div>
                     <footer>
-                        <span name="go-wizard" attrs="{'invisible': [('error_lines', '!=', [])]}">
-                            <button string="Import" name="import_file"
-                                    type="object" class="oe_highlight" />
+                        <button
+                        string="Import"
+                        name="import_file"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('error_lines', '!=', [])]}"
+                    />
+                        <span
+                        name="go-wizard"
+                        attrs="{'invisible': [('error_lines', '!=', [])]}"
+                    >
                             or
                         </span>
                         <button string="Cancel" class="oe_link" special="cancel" />
@@ -67,34 +80,19 @@
             </field>
         </record>
 
-        <record id="electoral_results_wizard_step1_action" model="ir.actions.act_window">
+        <record
+        id="electoral_results_wizard_step1_action"
+        model="ir.actions.act_window"
+    >
             <field name="name">Import Electoral Results</field>
-            <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="src_model">legislature</field>
+            <field name="binding_model_id" ref="mozaik_structure.model_legislature" />
             <field name="res_model">electoral.results.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="electoral_results_wizard_step1" />
-            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+            <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_committee.res_groups_committee_user')])]"
+        />
         </record>
-
-        <record id="electoral_results_wizard_step2_action" model="ir.actions.act_window">
-            <field name="name">Import Electoral Results</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">legislature</field>
-            <field name="res_model">electoral.results.wizard</field>
-            <field name="target">new</field>
-            <field name="view_id" ref="electoral_results_wizard_step2" />
-            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
-        </record>
-
-        <record id="electoral_results" model="ir.values">
-            <field name="name">Import Electoral Results</field>
-            <field name="model">legislature</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_relate</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('electoral_results_wizard_step1_action')" />
-        </record>
-    </data>
-</openerp>
+</odoo>

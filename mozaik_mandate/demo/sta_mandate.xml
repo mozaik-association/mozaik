@@ -60,4 +60,23 @@
         <field name="partner_id" ref="mozaik_mandate.res_partner_paul" />
     </record>
 
+    <record id="stam_pauline_bourgmestre" model="sta.mandate">
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_bourgmestre" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field name="legislature_id" ref="mozaik_mandate.legislature_01" />
+        <field
+            name="start_date"
+            eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"
+        />
+        <field
+            name="deadline_date"
+            eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"
+        />
+        <field name="sta_assembly_id" ref="mozaik_structure.sta_assembly_03" />
+        <field name="partner_id" ref="mozaik_address.res_partner_pauline" />
+    </record>
+
 </odoo>

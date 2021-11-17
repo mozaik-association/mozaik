@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="sc_membre_effectif_ag" model="ext.selection.committee">
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_membre_effectif_ag" />
+        <field name="name">Designation membres de l'AG</field>
+        <field name="assembly_id" ref="mozaik_structure.ext_assembly_01" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field
+            name="mandate_start_date"
+            eval="(DateTime.today() + relativedelta(months=2)).strftime('%Y-%m-%d')"
+        />
+        <field
+            name="mandate_deadline_date"
+            eval="(DateTime.today() + relativedelta(days=-1,months=2,years=5)).strftime('%Y-%m-%d')"
+        />
+    </record>
+
+    <record id="sc_secretaire_regional" model="int.selection.committee">
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_secretaire_regional" />
+        <field name="name">Designation secrétaire régional Huy-Waremme</field>
+        <field name="assembly_id" ref="mozaik_structure.int_assembly_03" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field
+            name="mandate_start_date"
+            eval="(DateTime.today() + relativedelta(months=2)).strftime('%Y-%m-%d')"
+        />
+        <field
+            name="mandate_deadline_date"
+            eval="(DateTime.today() + relativedelta(days=-1,months=2,years=5)).strftime('%Y-%m-%d')"
+        />
+    </record>
+
+    <record id="sc_tete_huy_communale" model="sta.selection.committee">
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_conseiller_communal" />
+        <field name="name">Têtes de liste</field>
+        <field name="legislature_id" ref="mozaik_mandate.legislature_02" />
+        <field
+            name="electoral_district_id"
+            ref="mozaik_structure.electoral_district_02"
+        />
+        <field name="assembly_id" ref="mozaik_structure.sta_assembly_02" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_02"
+        />
+        <field
+            name="mandate_start_date"
+            eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"
+        />
+        <field
+            name="mandate_deadline_date"
+            eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"
+        />
+        <field
+            name="decision_date"
+            eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-08-01')"
+        />
+    </record>
+
+    <record id="sc_bourgmestre_huy" model="sta.selection.committee">
+        <field name="mandate_category_id" ref="mozaik_mandate.mc_bourgmestre" />
+        <field name="name">Désignation</field>
+        <field name="legislature_id" ref="mozaik_mandate.legislature_01" />
+        <field name="assembly_id" ref="mozaik_structure.sta_assembly_01" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field
+            name="mandate_start_date"
+            eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"
+        />
+        <field
+            name="mandate_deadline_date"
+            eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"
+        />
+    </record>
+
+</odoo>

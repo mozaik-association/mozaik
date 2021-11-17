@@ -1,90 +1,127 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="res_partner_form_view">
         <field name="name">res.partner.form (in mozaik_committee)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_person.res_partner_form_view"/>
+        <field name="inherit_id" ref="mozaik_person.res_partner_form_view" />
         <field name="arch" type="xml">
 
             <!-- TODO was merge with the page in mozaik_mandate and not a new page-->
             <xpath expr="//notebook" position="inside">
-                <page name="mandates" string="Mandates" invisible="context.get('popup')" attrs="{'invisible': [('is_company','=',True)]}">
+                <page
+                    name="mandates"
+                    string="Mandates"
+                    invisible="context.get('popup')"
+                    attrs="{'invisible': [('is_company','=',True)]}"
+                >
                     <span class="oe_horizontal_separator oe_clear oe_inline">
                         State Candidatures
                     </span>
-                    <button class="oe_right" string="All Details" name="%(sta_candidature_action)d"
-                                    type="action" attrs="{'invisible': [('id','=',False)]}"
-                                    context="{'search_default_partner_id': active_id,
+                    <button
+                        class="oe_right"
+                        string="All Details"
+                        name="%(sta_candidature_action)d"
+                        type="action"
+                        attrs="{'invisible': [('id','=',False)]}"
+                        context="{'search_default_partner_id': active_id,
                                               'default_partner_id': active_id,
-                                              'search_default_all': True}" />
-                    <field name="sta_candidature_ids" attrs="{'invisible': [('active', '=', False)]}"
-                           readonly="1">
+                                              'search_default_all': True}"
+                    />
+                    <field
+                        name="sta_candidature_ids"
+                        attrs="{'invisible': [('active', '=', False)]}"
+                        readonly="1"
+                    >
                         <tree>
-                            <field name="mandate_category_id"/>
-                            <field name="sta_assembly_id"/>
-                            <field name="legislature_id"/>
-                            <field name="state"/>
+                            <field name="mandate_category_id" />
+                            <field name="sta_assembly_id" />
+                            <field name="legislature_id" />
+                            <field name="state" />
                         </tree>
                     </field>
-                    <field name="sta_candidature_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                           readonly="1">
+                    <field
+                        name="sta_candidature_inactive_ids"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                        readonly="1"
+                    >
                         <tree>
-                            <field name="mandate_category_id"/>
-                            <field name="sta_assembly_id"/>
-                            <field name="legislature_id"/>
-                            <field name="state"/>
+                            <field name="mandate_category_id" />
+                            <field name="sta_assembly_id" />
+                            <field name="legislature_id" />
+                            <field name="state" />
                         </tree>
                     </field>
                     <span class="oe_horizontal_separator oe_clear oe_inline">
                         Internal Candidatures
                     </span>
-                    <button class="oe_right" string="All Details" name="%(int_candidature_action)d"
-                                    type="action" attrs="{'invisible': [('id','=',False)]}"
-                                    context="{'search_default_partner_id': active_id,
+                    <button
+                        class="oe_right"
+                        string="All Details"
+                        name="%(int_candidature_action)d"
+                        type="action"
+                        attrs="{'invisible': [('id','=',False)]}"
+                        context="{'search_default_partner_id': active_id,
                                               'default_partner_id': active_id,
-                                              'search_default_all': True}" />
-                    <field name="int_candidature_ids" attrs="{'invisible': [('active', '=', False)]}"
-                           readonly="1">
+                                              'search_default_all': True}"
+                    />
+                    <field
+                        name="int_candidature_ids"
+                        attrs="{'invisible': [('active', '=', False)]}"
+                        readonly="1"
+                    >
                         <tree>
-                            <field name="mandate_category_id"/>
-                            <field name="int_assembly_id"/>
-                            <field name="state"/>
+                            <field name="mandate_category_id" />
+                            <field name="int_assembly_id" />
+                            <field name="state" />
                         </tree>
                     </field>
-                    <field name="int_candidature_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                           readonly="1">
+                    <field
+                        name="int_candidature_inactive_ids"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                        readonly="1"
+                    >
                         <tree>
-                            <field name="mandate_category_id"/>
-                            <field name="int_assembly_id"/>
-                            <field name="state"/>
+                            <field name="mandate_category_id" />
+                            <field name="int_assembly_id" />
+                            <field name="state" />
                         </tree>
                     </field>
                     <span class="oe_horizontal_separator oe_clear oe_inline">
                         External Candidatures
                     </span>
-                    <button class="oe_right" string="All Details" name="%(ext_candidature_action)d"
-                                    type="action" attrs="{'invisible': [('id','=',False)]}"
-                                    context="{'search_default_partner_id': active_id,
+                    <button
+                        class="oe_right"
+                        string="All Details"
+                        name="%(ext_candidature_action)d"
+                        type="action"
+                        attrs="{'invisible': [('id','=',False)]}"
+                        context="{'search_default_partner_id': active_id,
                                               'default_partner_id': active_id,
-                                              'search_default_all': True}" />
-                    <field name="ext_candidature_ids" attrs="{'invisible': [('active', '=', False)]}"
-                           readonly="1">
+                                              'search_default_all': True}"
+                    />
+                    <field
+                        name="ext_candidature_ids"
+                        attrs="{'invisible': [('active', '=', False)]}"
+                        readonly="1"
+                    >
                         <tree>
-                            <field name="mandate_category_id"/>
-                            <field name="ext_assembly_id"/>
-                            <field name="state"/>
+                            <field name="mandate_category_id" />
+                            <field name="ext_assembly_id" />
+                            <field name="state" />
                         </tree>
                     </field>
-                    <field name="ext_candidature_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                           readonly="1">
+                    <field
+                        name="ext_candidature_inactive_ids"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                        readonly="1"
+                    >
                         <tree>
-                            <field name="mandate_category_id"/>
-                            <field name="ext_assembly_id"/>
-                            <field name="state"/>
+                            <field name="mandate_category_id" />
+                            <field name="ext_assembly_id" />
+                            <field name="state" />
                         </tree>
                     </field>
                 </page>

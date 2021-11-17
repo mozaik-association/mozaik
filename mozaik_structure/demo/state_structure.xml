@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<odoo noupdate="1">
+<odoo noupdate="0">
 
     <!-- Power Level -->
 
@@ -8,7 +8,27 @@
     </record>
 
     <record id="sta_power_level_02" model="sta.power.level">
-        <field name="name">Communal</field>
+        <field name="name">Province</field>
+    </record>
+
+    <record id="sta_power_level_04" model="sta.power.level">
+        <field name="name">Région</field>
+        <field name="sequence">7</field>
+    </record>
+
+    <record id="sta_power_level_05" model="sta.power.level">
+        <field name="name">Commune</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="sta_power_level_06" model="sta.power.level">
+        <field name="name">Arrondissement</field>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="sta_power_level_07" model="sta.power.level">
+        <field name="name">Local</field>
+        <field name="sequence">6</field>
     </record>
 
     <!-- Instance -->
@@ -24,6 +44,36 @@
         <field name="power_level_id" ref="sta_power_level_02" />
     </record>
 
+    <record id="sta_instance_03" model="sta.instance">
+        <field name="name">Région wallonne</field>
+        <field name="power_level_id" ref="sta_power_level_04" />
+         <field name="parent_id" ref="sta_instance_01" />
+        <field name="int_instance_id" ref="int_instance_01" />
+    </record>
+
+    <record id="sta_instance_04" model="sta.instance">
+        <field name="name">Liège</field>
+        <field name="power_level_id" ref="sta_power_level_07" />
+        <field name="parent_id" ref="sta_instance_03" />
+        <field name="secondary_parent_id" ref="sta_instance_02" />
+        <field name="int_instance_id" ref="int_instance_03" />
+    </record>
+
+    <record id="sta_instance_05" model="sta.instance">
+        <field name="name">Huy-Waremme</field>
+        <field name="power_level_id" ref="sta_power_level_06" />
+        <field name="parent_id" ref="sta_instance_04" />
+        <field name="int_instance_id" ref="int_instance_04" />
+    </record>
+
+    <record id="sta_instance_07" model="sta.instance">
+        <field name="name">Huy</field>
+        <field name="power_level_id" ref="sta_power_level_05" />
+        <field name="parent_id" ref="sta_instance_05" />
+        <field name="int_instance_id" ref="int_instance_05" />
+        <field name="identifier">61031</field>
+    </record>
+
     <!-- Assembly Category -->
 
     <record id="sta_assembly_category_01" model="sta.assembly.category">
@@ -34,6 +84,13 @@
     <record id="sta_assembly_category_02" model="sta.assembly.category">
         <field name="name">Pow-pow communal</field>
         <field name="power_level_id" ref="sta_power_level_02" />
+        <field name="is_legislative">1</field>
+    </record>
+
+    <record id="sta_assembly_category_11" model="sta.assembly.category">
+        <field name="name">Collège des bourgmestre et échevins</field>
+        <field name="power_level_id" ref="sta_power_level_05" />
+        <field name="duration">6</field>
     </record>
 
     <!-- Assembly -->
@@ -48,6 +105,28 @@
         <field name="name">Lima (Pow-pow communal)</field>
         <field name="assembly_category_id" ref="sta_assembly_category_02" />
         <field name="instance_id" ref="sta_instance_02" />
+        <field name="designation_int_assembly_id" ref="int_assembly_02" />
+    </record>
+
+    <record id="sta_assembly_03" model="sta.assembly">
+        <field name="name">Huy (communal)</field>
+        <field name="instance_id" ref="sta_instance_07" />
+        <field name="assembly_category_id" ref="sta_assembly_category_11" />
+    </record>
+
+    <!-- Electoral Districts -->
+
+    <record id="electoral_district_01" model="electoral.district">
+        <field name="name">Huy (Fédéral)</field>
+        <field name="sta_instance_id" ref="sta_instance_01" />
+        <field name="assembly_id" ref="sta_assembly_01" />
+        <field name="designation_int_assembly_id" ref="int_assembly_01" />
+    </record>
+
+    <record id="electoral_district_02" model="electoral.district">
+        <field name="name">Huy (Province)</field>
+        <field name="sta_instance_id" ref="sta_instance_02" />
+        <field name="assembly_id" ref="sta_assembly_02" />
         <field name="designation_int_assembly_id" ref="int_assembly_02" />
     </record>
 

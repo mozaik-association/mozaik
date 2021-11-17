@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<odoo noupdate="1">
+<odoo noupdate="0">
 
     <!-- Partner -->
 
@@ -8,10 +8,19 @@
         <field name="is_company" eval="1" />
     </record>
 
+    <record id="res_partner_rtbf" model="res.partner">
+        <field name="name">Radio Télévision belge francophone</field>
+        <field name="is_company" eval="True" />
+    </record>
+
     <!-- Assembly Category -->
 
     <record id="ext_assembly_category_01" model="ext.assembly.category">
         <field name="name">Conseil d'administration</field>
+    </record>
+
+    <record id="ext_assembly_category_02" model="ext.assembly.category">
+        <field name="name">Assemblée générale</field>
     </record>
 
     <!-- Assembly -->
@@ -22,6 +31,17 @@
         >Banque européenne d'investissement (Conseil d'administration)</field>
         <field name="assembly_category_id" ref="ext_assembly_category_01" />
         <field name="ref_partner_id" ref="res_partner_legal_01" />
+    </record>
+
+    <record id="ext_assembly_02" model="ext.assembly">
+        <field name="instance_id" ref="mozaik_structure.int_instance_01" />
+        <field name="ref_partner_id" ref="res_partner_rtbf" />
+        <field name="assembly_category_id" ref="ext_assembly_category_02" />
+        <field
+            name="designation_int_assembly_id"
+            ref="mozaik_structure.int_assembly_01"
+        />
+        <field name="months_before_end_of_mandate" eval="4" />
     </record>
 
 </odoo>

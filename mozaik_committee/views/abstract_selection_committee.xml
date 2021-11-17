@@ -1,29 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="abstract_selection_committee_search_view">
-        <field name="name">abstract.selection.committee.search (in mozaik_committee)</field>
+        <field
+            name="name"
+        >abstract.selection.committee.search (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
-            <search string="Selection Committees" version="7.0">
-                <field name="name"/>
-                <field name="assembly_id"/>
-                <field name="mandate_category_id"/>
-                <field name="designation_int_assembly_id"/>
+            <search string="Selection Committees">
+                <field name="name" />
+                <field name="assembly_id" />
+                <field name="mandate_category_id" />
+                <field name="designation_int_assembly_id" />
 
-                <filter name="expired" string="Expired"
+                <filter
+                    name="expired"
+                    string="Expired"
                     context="{'invisible_expire_date': False}"
-                    domain="[('active','=',False)]" />
-                <filter name="all" string="All"
+                    domain="[('active','=',False)]"
+                />
+                <filter
+                    name="all"
+                    string="All"
                     context="{'invisible_expire_date': False}"
-                    domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                    domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                />
                 <group expand="0" string="Group By..." name="group_by">
-                    <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'assembly_id'}" />
-                    <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
-                    <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
+                    <filter
+                        name="assembly"
+                        string="Assembly"
+                        domain="[]"
+                        context="{'group_by':'assembly_id'}"
+                    />
+                    <filter
+                        name="category"
+                        string="Mandate Category"
+                        domain="[]"
+                        context="{'group_by':'mandate_category_id'}"
+                    />
+                    <filter
+                        name="designation_assembly"
+                        string="Designation Assembly"
+                        domain="[]"
+                        context="{'group_by':'designation_int_assembly_id'}"
+                    />
                 </group>
             </search>
         </field>
@@ -31,84 +53,149 @@
 
 
     <record model="ir.ui.view" id="abstract_selection_committee_form_view">
-        <field name="name">abstract.selection.committee.form (in mozaik_committee)</field>
+        <field
+            name="name"
+        >abstract.selection.committee.form (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
-            <form string="Selection Committee" version="7.0">
+            <form string="Selection Committee">
                 <header>
-                     <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                         invisible="context.get('popup')"
-                         groups="mozaik_base.mozaik_res_groups_user">
-                        <button name="action_invalidate" string="Invalidate" type="object"
-                                confirm="Invalidate committee: proceed anyway?" />
-                    </span>
-                    <span attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
-                         invisible="context.get('popup')"
-                         groups="mozaik_base.mozaik_res_groups_user">
-                        <button name="action_copy" string="Copy" type="object"
-                                confirm="Copy committee and keep rejected candidatures: proceed anyway?" />
-                    </span>
-                    <field name='state' widget='statusbar'/>
+                    <field name="active" invisible="1" />
+                    <button
+                        name="action_invalidate"
+                        string="Invalidate"
+                        type="object"
+                        confirm="Invalidate committee: proceed anyway?"
+                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                        groups="mozaik_committee.res_groups_committee_user"
+                    />
+                    <field name='state' widget='statusbar' />
                 </header>
                 <sheet>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name"/></h1>
-                        <group>
-                            <field name="auto_mandate"/>
-                        </group>
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" /></h1>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                    <div
+                        class="oe_right oe_button_box"
+                        name="buttons"
+                        invisible="context.get('popup')"
+                    >
                     </div>
                     <group>
                          <group name="assembly">
-                            <field name="assembly_id" required="1"
-                                   on_change="onchange_assembly_id(assembly_id)"/>
+                            <field name="assembly_id" required="1" />
+                        </group>
+
+                        <group name="instance">
+                            <field name="int_instance_id" />
                         </group>
 
                         <group>
-                            <field name="designation_int_assembly_id"/>
-                            <field name="meeting_date" widget="date"/>
-                            <field name="decision_date" widget="date"/>
+                            <field name="designation_int_assembly_id" />
+                            <field name="decision_date" widget="date" />
                         </group>
 
                         <group name="mandate">
-                            <field name="mandate_start_date" widget="date"/>
-                            <field name="mandate_deadline_date" widget="date"/>
+                            <field name="mandate_start_date" widget="date" />
+                            <field name="mandate_deadline_date" widget="date" />
                         </group>
 
                         <group name="Dates">
-                            <field name="create_date" readonly="1"/>
-                            <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                            <field
+                                name="expire_date"
+                                readonly="1"
+                                attrs="{'invisible': [('active','=', True)]}"
+                            />
                         </group>
                     </group>
 
                     <notebook>
-                        <page string="Candidatures" name="candidatures" invisible="context.get('popup')"
-                              attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                        <page
+                            string="Candidatures"
+                            name="candidatures"
+                            invisible="context.get('popup')"
+                            attrs="{'invisible': [('id','=',False)]}"
+                            autofocus="autofocus"
+                        >
+                            <button
+                                string="Designate"
+                                name="button_designate_candidatures"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state','=','done')]}"
+                                confirm="Designate all candidatures: proceed anyway?"
+                            />
+                            <button
+                                string="Non-Elect"
+                                name="button_non_elect_candidatures"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state','=','done')]}"
+                                confirm="Refuse all not elected candidatures: proceed anyway?"
+                            />
+                            <field
+                                name="candidature_ids"
+                                context="{'default_selection_committee_id': active_id}"
+                            >
+                                <tree colors="red:state=='declared';grey:active==False">
+                                    <field name="partner_id" />
+                                    <field name="state" />
+                                    <button
+                                        name="button_designate_candidature"
+                                        string="Designate"
+                                        icon="fa-check"
+                                        type="object"
+                                        attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"
+                                    />
+                                    <button
+                                        name="button_reject_candidature"
+                                        string="Reject"
+                                        icon="fa-times"
+                                        type="object"
+                                        attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"
+                                    />
+                                    <button
+                                        name="button_declare_candidature"
+                                        string="Back to Declared"
+                                        icon="fa-undo"
+                                        type="object"
+                                        attrs="{'invisible': ['|',('state', 'not in',['rejected','designated']),('is_selection_committee_active', '=', False)]}"
+                                    />
+                                    <button
+                                        name="button_elected_candidature"
+                                        string="Elect"
+                                        icon="fa-check"
+                                        type="object"
+                                        attrs="{'invisible': ['|',('state', '!=','designated'),('is_selection_committee_active', '=', False)]}"
+                                    />
+                                    <button
+                                        name="button_non_elected_candidature"
+                                        string="Non-Elect"
+                                        icon="fa-times"
+                                        type="object"
+                                        attrs="{'invisible': ['|',('state', '!=','designated'),('is_selection_committee_active', '=', False)]}"
+                                    />
+                                    <field name="active" invisible="1" />
+                                    <field
+                                        name="is_selection_committee_active"
+                                        invisible="1"
+                                    />
+                                </tree>
+                            </field>
                         </page>
                         <page string="Note" name="note">
-                            <field name="note"/>
+                            <field name="note" />
                         </page>
                     </notebook>
                 </sheet>
-                <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
-                    <div class="oe_formview oe_form_sheet_width">
-                        <h3>More Info</h3>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                            <button name="action_revalidate" string="Validate" type="object"
-                                    confirm="Reactivate document: proceed anyway?" />
-                        </div>
-                        <group name="moreinfo">
-                            <field name="id"/>
-                            <field name="active"/>
-                            <field name="assembly_category_id"/>
-                        </group>
-                    </div>
-                </div>
 
                 <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                    <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_committee.res_groups_committee_manager"
+                    />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -117,16 +204,20 @@
 
 
     <record model="ir.ui.view" id="abstract_selection_committee_tree_view">
-        <field name="name">abstract.selection.committee.tree (in mozaik_committee)</field>
+        <field
+            name="name"
+        >abstract.selection.committee.tree (in mozaik_committee)</field>
         <field name="model">abstract.selection.committee</field>
         <field name="arch" type="xml">
-            <tree string="Selection Committees" version="7.0">
-                <field name="name"/>
-                <field name="assembly_id"/>
-                <field name="mandate_start_date"/>
-                <field name="mandate_category_id"/>
-                <field name="expire_date"
-                       invisible="context.get('invisible_expire_date', True)" />
+            <tree string="Selection Committees">
+                <field name="name" />
+                <field name="assembly_id" />
+                <field name="mandate_start_date" />
+                <field name="mandate_category_id" />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
             </tree>
         </field>
     </record>

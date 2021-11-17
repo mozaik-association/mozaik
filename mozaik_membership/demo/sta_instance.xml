@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<odoo noupdate="0">
-
-    <record id="sta_instance_03" model="sta.instance">
-        <field name="name">Liège</field>
-        <field name="power_level_id" ref="mozaik_structure.sta_power_level_01" />
-    </record>
-
-</odoo>

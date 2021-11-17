@@ -1,37 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="ext_assembly_form_view">
         <field name="name">ext.assembly.form (in mozaik_committee)</field>
         <field name="model">ext.assembly</field>
-        <field name="inherit_id" ref="mozaik_structure.ext_assembly_form_view"/>
+        <field name="inherit_id" ref="mozaik_structure.ext_assembly_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//sheet/div[@name='buttons']" position="inside">
-                <button string="Candidatures" name="%(ext_candidature_action)d"
-                            type="action" attrs="{'invisible': [('id','=',False)]}"
-                            context="{'search_default_ext_assembly_id': active_id,
-                                      'default_ext_assembly_id': active_id}" />
-                <button string="Mandates" name="%(ext_mandate_action)d"
-                            type="action" attrs="{'invisible': [('id','=',False)]}"
-                            context="{'search_default_ext_assembly_id': active_id,
-                                      'default_ext_assembly_id': active_id}" />
+            <xpath expr="//header" position="inside">
+                <button
+                    string="Candidatures"
+                    name="%(ext_candidature_action)d"
+                    type="action"
+                    attrs="{'invisible': [('id','=',False)]}"
+                    context="{'search_default_ext_assembly_id': active_id,
+                                      'default_ext_assembly_id': active_id}"
+                />
+                <button
+                    string="Mandates"
+                    name="%(mozaik_mandate.ext_mandate_action)d"
+                    type="action"
+                    attrs="{'invisible': [('id','=',False)]}"
+                    context="{'search_default_ext_assembly_id': active_id,
+                                      'default_ext_assembly_id': active_id}"
+                />
             </xpath>
             <xpath expr="//group[@name='status']" position="after">
                 <notebook invisible="context.get('popup')">
                     <page name="selection committees" string="Selection Committees">
-                        <field name="selection_committee_ids" attrs="{'invisible': [('active', '=', False)]}"
-                               readonly="1" context="{'default_assembly_id': active_id}">
+                        <field
+                            name="selection_committee_ids"
+                            attrs="{'invisible': [('active', '=', False)]}"
+                            readonly="1"
+                            context="{'default_assembly_id': active_id}"
+                        >
                            <tree>
-                               <field name="name"/>
+                               <field name="name" />
                            </tree>
                        </field>
-                       <field name="selection_committee_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                               readonly="1" context="{'default_assembly_id': active_id}">
+                       <field
+                            name="selection_committee_inactive_ids"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                            readonly="1"
+                            context="{'default_assembly_id': active_id}"
+                        >
                            <tree>
-                               <field name="name"/>
+                               <field name="name" />
                            </tree>
                        </field>
                     </page>

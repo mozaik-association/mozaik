@@ -1,23 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="abstract_mandate_form_view">
         <field name="name">abstract.mandate.form (in mozaik_committee)</field>
         <field name="model">abstract.mandate</field>
-        <field name="inherit_id" ref="mozaik_mandate.abstract_mandate_form_view"/>
+        <field name="inherit_id" ref="mozaik_mandate.abstract_mandate_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='is_submission_assets']" position="after">
-                <field name="candidature_id" readonly="1"
-                       attrs="{'invisible': [('candidature_id','=',False)]}"/>
+            <xpath expr="//field[@name='with_assets_declaration']" position="after">
+                <field
+                    name="candidature_id"
+                    readonly="1"
+                    attrs="{'invisible': [('candidature_id','=',False)]}"
+                />
             </xpath>
             <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('candidature_id','!=',False)]}</attribute>
+                <attribute
+                    name="attrs"
+                >{'readonly': [('candidature_id','!=',False)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='partner_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('candidature_id','!=',False)]}</attribute>
+                <attribute
+                    name="attrs"
+                >{'readonly': [('candidature_id','!=',False)]}</attribute>
             </xpath>
         </field>
     </record>

@@ -1,57 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="sta_candidature_form_view">
         <field name="name">sta.candidature.form (in mozaik_committee)</field>
         <field name="model">sta.candidature</field>
-        <field name="inherit_id" ref="abstract_candidature_form_view"/>
+        <field name="inherit_id" ref="abstract_candidature_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_invalidate']" position="after">
-                <button name="button_elected" string="Elected"  class="oe_highlight"
-                                confirm="Set candidature as elected: proceed anyway?"
-                                attrs="{'invisible': ['|', '|',('is_legislative', '=', False), ('state', 'not in', ['designated']),
-                                                      '&amp;', ('is_effective', '=', False),('is_substitute', '=', True)]}"/>
-                <button name="button_non_elected" string="Non-Elected" class="oe_highlight"
-                                confirm="Set candidature as non-elected: proceed anyway?"
-                                attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
+                <field name="is_legislative" invisible="1" />
+                <field name="mandate_ids" invisible="1" />
+                <button
+                    name="button_elected_candidature"
+                    string="Elected"
+                    class="oe_highlight"
+                    type="object"
+                    confirm="Set candidature as elected: proceed anyway?"
+                    attrs="{'invisible': ['|', '|',('is_legislative', '=', False), ('state', 'not in', ['designated']),
+                                                      '&amp;', ('is_effective', '=', False),('is_substitute', '=', True)]}"
+                />
+                <button
+                    name="button_non_elected_candidature"
+                    string="Non-Elected"
+                    class="oe_highlight"
+                    type="object"
+                    confirm="Set candidature as non-elected: proceed anyway?"
+                    attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"
+                />
             </xpath>
             <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                <attribute name="attrs" translation="off">{'invisible': ['|', '|', ('state','not in', ['elected', 'non-elected']),
+                <attribute
+                    name="attrs"
+                    translation="off"
+                >{'invisible': ['|', '|', ('state','not in', ['elected', 'non-elected']),
                                                        '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)
                                                        , ('mandate_ids', '!=', [])]}</attribute>
             </xpath>
             <xpath expr="//field[@name='selection_committee_id']" position="after">
-                 <field name="electoral_district_id" readonly="1"
-                        attrs="{'invisible': [('electoral_district_id','=', False)]}"/>
-                 <field name="sta_assembly_id" readonly="1"/>
-                 <field name="legislature_id" readonly="1"/>
+                 <field
+                    name="electoral_district_id"
+                    readonly="1"
+                    attrs="{'invisible': [('electoral_district_id','=', False)]}"
+                />
+                 <field name="sta_assembly_id" readonly="1" />
+                 <field name="legislature_id" readonly="1" />
             </xpath>
             <xpath expr="//group[@name='data_2']" position="after">
-                <group name="Effective" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">
-                    <field name="is_effective" attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"
-                           on_change="onchange_effective_substitute(is_effective, is_substitute)"/>
-                    <field name="list_effective_position" attrs="{'invisible':[('is_effective', '=', False), ('is_substitute', '=', True)],
-                                                                  'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
-                                                                  'required': ['|', ('is_effective', '!=', False), ('is_substitute', '=', False)]}"/>
-                    <field name="election_effective_position" attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
-                    <field name="effective_votes" attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
+                <group
+                    name="Effective"
+                    attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}"
+                >
+                    <field
+                        name="is_effective"
+                        attrs="{'readonly': [('state','not in',['draft', 'declared', 'designated'])]}"
+                    />
+                    <field
+                        name="list_effective_position"
+                        attrs="{'invisible':[('is_effective', '=', False), ('is_substitute', '=', True)],
+                                                                  'readonly': [('state','not in',['draft', 'declared', 'designated'])],
+                                                                  'required': ['|', ('is_effective', '!=', False), ('is_substitute', '=', False)]}"
+                    />
+                    <field
+                        name="election_effective_position"
+                        attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"
+                    />
+                    <field
+                        name="effective_votes"
+                        attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"
+                    />
                 </group>
-                <group name="substitute" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">
-                    <field name="is_substitute" attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"
-                           on_change="onchange_effective_substitute(is_effective, is_substitute)"/>
-                    <field name="list_substitute_position" attrs="{'invisible': [('is_substitute', '=', False)],
-                                                                   'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
-                                                                   'required': [('is_substitute', '!=', False)]}"/>
-                    <field name="election_substitute_position" attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"/>
-                    <field name="substitute_votes" attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"/>
+                <group
+                    name="substitute"
+                    attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}"
+                >
+                    <field
+                        name="is_substitute"
+                        attrs="{'readonly': [('state','not in',['draft', 'declared', 'designated'])]}"
+                    />
+                    <field
+                        name="list_substitute_position"
+                        attrs="{'invisible': [('is_substitute', '=', False)],
+                                                                   'readonly': [('state','not in',['draft', 'declared', 'designated'])],
+                                                                   'required': [('is_substitute', '!=', False)]}"
+                    />
+                    <field
+                        name="election_substitute_position"
+                        attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"
+                    />
+                    <field
+                        name="substitute_votes"
+                        attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"
+                    />
                 </group>
-            </xpath>
-            <xpath  expr="//group[@name='moreinfo']" position="inside" >
-                <field name="is_legislative" />
-                <field name="sort_order" />
             </xpath>
         </field>
     </record>
@@ -59,17 +100,32 @@
     <record model="ir.ui.view" id="sta_candidature_search_view">
         <field name="name">sta.candidature.search (in mozaik_committee)</field>
         <field name="model">sta.candidature</field>
-        <field name="inherit_id" ref="abstract_candidature_search_view"/>
+        <field name="inherit_id" ref="abstract_candidature_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="sta_assembly_id"/>
-                <field name="electoral_district_id"/>
-                <field name="legislature_id" domain="[('active', '&lt;=', 1)]"/>
+                <field name="sta_assembly_id" />
+                <field name="electoral_district_id" />
+                <field name="legislature_id" domain="[('active', '&lt;=', 1)]" />
             </xpath>
             <xpath expr="//filter[@name='partner']" position="after">
-                <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'sta_assembly_id'}" />
-                <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'electoral_district_id'}" />
-                <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />
+                <filter
+                    name="assembly"
+                    string="Assembly"
+                    domain="[]"
+                    context="{'group_by':'sta_assembly_id'}"
+                />
+                <filter
+                    name="electoral_district"
+                    string="Electoral District"
+                    domain="[]"
+                    context="{'group_by':'electoral_district_id'}"
+                />
+                <filter
+                    name="legislature"
+                    string="Legislature"
+                    domain="[]"
+                    context="{'group_by':'legislature_id'}"
+                />
             </xpath>
         </field>
     </record>
@@ -77,26 +133,41 @@
     <record model="ir.ui.view" id="sta_candidature_tree_view">
         <field name="name">sta.candidature.tree (in mozaik_committee)</field>
         <field name="model">sta.candidature</field>
-        <field name="inherit_id" ref="abstract_candidature_tree_view"/>
+        <field name="inherit_id" ref="abstract_candidature_tree_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='selection_committee_id']" position="replace">
-                <field name="sta_assembly_id"/>
-                <field name="electoral_district_id"/>
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="sta_assembly_id" />
+                <field name="electoral_district_id" />
             </xpath>
-            <xpath expr="//field[@name='partner_name']" position="before">
-                <field name="list_effective_position" string="#EP"
-                       attrs="{'invisible': ['|','&amp;',('is_effective', '=', False),('is_substitute','!=',False),('state','in',['elected','non-elected','rejected'])]}"/>
-                <field name="list_substitute_position" string="#SP"
-                       attrs="{'invisible': ['|',('is_substitute', '=', False),('state','in',['elected','non-elected','rejected'])]}"/>
-                <field name="election_effective_position" string="#E"
-                       attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
-                <field name="election_substitute_position" string="#S"
-                       attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"/>
-                <field name="is_effective" invisible="1"/>
-                <field name="is_substitute" invisible="1"/>
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field
+                    name="list_effective_position"
+                    string="#EP"
+                    attrs="{'invisible': ['|','&amp;',('is_effective', '=', False),('is_substitute','!=',False),('state','in',['elected','non-elected','rejected'])]}"
+                />
+                <field
+                    name="list_substitute_position"
+                    string="#SP"
+                    attrs="{'invisible': ['|',('is_substitute', '=', False),('state','in',['elected','non-elected','rejected'])]}"
+                />
+                <field
+                    name="election_effective_position"
+                    string="#E"
+                    attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"
+                />
+                <field
+                    name="election_substitute_position"
+                    string="#S"
+                    attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"
+                />
+                <field name="is_effective" invisible="1" />
+                <field name="is_substitute" invisible="1" />
             </xpath>
-            <xpath expr="//field[@name='mandate_start_date']" position="replace">
-                <field name="legislature_id"/>
+            <xpath expr="//field[@name='mandate_start_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='mandate_start_date']" position="after">
+                <field name="legislature_id" />
             </xpath>
         </field>
     </record>
@@ -107,7 +178,11 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="sta_candidature_submenu" action="sta_candidature_action"
-              sequence="20" parent="mozaik_mandate.sta_submenu"/>
+    <menuitem
+        id="sta_candidature_submenu"
+        action="sta_candidature_action"
+        sequence="20"
+        parent="mozaik_mandate.sta_submenu"
+    />
 
 </odoo>

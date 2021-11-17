@@ -6,9 +6,29 @@
     <record id="legislature_01" model="legislature">
         <field
             name="name"
-            eval="'Communale '+(DateTime.today() + relativedelta(years=2)).strftime('%Y')"
+            eval="'Federale '+(DateTime.today() + relativedelta(years=2)).strftime('%Y')"
         />
         <field name="power_level_id" ref="mozaik_structure.sta_power_level_01" />
+        <field
+            name="start_date"
+            eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"
+        />
+        <field
+            name="deadline_date"
+            eval="(DateTime.today() + relativedelta(years=8)).strftime('%Y-09-30')"
+        />
+        <field
+            name="election_date"
+            eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-09-15')"
+        />
+    </record>
+
+    <record id="legislature_02" model="legislature">
+        <field
+            name="name"
+            eval="'Communale '+(DateTime.today() + relativedelta(years=2)).strftime('%Y')"
+        />
+        <field name="power_level_id" ref="mozaik_structure.sta_power_level_02" />
         <field
             name="start_date"
             eval="(DateTime.today() + relativedelta(years=2)).strftime('%Y-10-01')"
@@ -26,7 +46,7 @@
     <record id="legislature_closed_01" model="legislature">
         <field
             name="name"
-            eval="'Communale '+(DateTime.today() - relativedelta(years=7)).strftime('%Y')"
+            eval="'Federale '+(DateTime.today() - relativedelta(years=7)).strftime('%Y')"
         />
         <field name="power_level_id" ref="mozaik_structure.sta_power_level_01" />
         <field
@@ -46,7 +66,7 @@
     <record id="legislature_03_opened" model="legislature">
         <field
             name="name"
-            eval="'Communale '+(DateTime.today() - relativedelta(years=1)).strftime('%Y')"
+            eval="'Federale '+(DateTime.today() - relativedelta(years=1)).strftime('%Y')"
         />
         <field name="power_level_id" ref="mozaik_structure.sta_power_level_01" />
         <field

@@ -1,225 +1,63 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of mozaik_mandate, an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     mozaik_mandate is free software:
-#     you can redistribute it and/or
-#     modify it under the terms of the GNU Affero General Public License
-#     as published by the Free Software Foundation, either version 3 of
-#     the License, or (at your option) any later version.
-#
-#     mozaik_mandate is distributed in the hope that it will
-#     be useful but WITHOUT ANY WARRANTY; without even the implied warranty of
-#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#     GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the
-#     GNU Affero General Public License
-#     along with mozaik_mandate.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2021 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import psycopg2
-import logging
-from anybox.testing.openerp import SharedSetupTransactionCase
-
-from openerp.osv import orm
-
-from openerp.addons.mozaik_base import testtool
-
-_logger = logging.getLogger(__name__)
+from odoo.exceptions import ValidationError
+from odoo.tests.common import TransactionCase
 
 
-class test_int_mandate(SharedSetupTransactionCase):
-
-    _data_files = (
-        '../../mozaik_base/tests/data/res_partner_data.xml',
-        '../../mozaik_structure/tests/data/structure_data.xml',
-        'data/mandate_data.xml',
-    )
-
-    _module_ns = 'mozaik_mandate'
-    _candidature_pool = False
-    _committee_pool = False
-    _mandate_pool = False
-
+class TestIntMandate(TransactionCase):
     def setUp(self):
-        super(test_int_mandate, self).setUp()
-        self._candidature_pool = self.registry('int.candidature')
-        self._committee_pool = self.registry('int.selection.committee')
-        self._mandate_pool = self.registry('int.mandate')
-
-    def test_copy_int_selection_committee(self):
-        '''
-            Test copy selection committee and keep rejected candidatures
-        '''
-        cr, uid, context = self.cr, self.uid, {}
-
-        selection_committee = self.browse_ref('%s.sc_secretaire_regional' %
-                                              self._module_ns)
-
-        rejected_id = selection_committee.candidature_ids[0]
-        self._candidature_pool.signal_workflow(cr,
-                                               uid,
-                                               [rejected_id.id],
-                                               'button_reject',
-                                               context=context)
-
-        res = self._committee_pool.action_copy(cr,
-                                               uid,
-                                               [selection_committee.id])
-        new_committee_id = res['res_id']
-        self.assertNotEqual(new_committee_id, False)
-
-        candidature_commitee_id =\
-            self._candidature_pool.read(self.cr,
-                                        self.uid,
-                                        rejected_id.id,
-                                        ['selection_committee_id']
-                                        )['selection_committee_id']
-        self.assertEqual(new_committee_id, candidature_commitee_id[0])
-
-    def test_duplicate_int_candidature_in_same_category(self):
-        '''
-        Try to create twice a candidature in the same category for a partner
-        '''
-        jacques_partner_id = self.ref('%s.res_partner_jacques' %
-                                      self._module_ns)
-        conseil_comm_cat_id = self.ref('%s.mc_secretaire_regional' %
-                                       self._module_ns)
-        selection_committee_id = self.ref('%s.sc_secretaire_regional' %
-                                          self._module_ns)
-
-        committee = self._committee_pool.browse(self.cr,
-                                                self.uid,
-                                                selection_committee_id)
-
-        assembly_id = committee.designation_int_assembly_id.id
-        data = dict(
-            mandate_category_id=conseil_comm_cat_id,
-            selection_committee_id=selection_committee_id,
-            designation_int_assembly_id=assembly_id,
-            int_assembly_id=committee.assembly_id.id,
-            partner_id=jacques_partner_id)
-
-        self._candidature_pool.create(self.cr, self.uid, data)
-
-        with testtool.disable_log_error(self.cr):
-            self.assertRaises(psycopg2.IntegrityError,
-                              self._candidature_pool.create,
-                              self.cr, self.uid, data)
+        super(TestIntMandate, self).setUp()
+        self.committee_id = self.env.ref("mozaik_committee.sc_secretaire_regional")
+        self.int_paul_id = self.env.ref("mozaik_committee.int_paul_secretaire")
+        self.int_thierry_secretaire_id = self.env.ref(
+            "mozaik_committee.int_thierry_secretaire"
+        )
 
     def test_int_candidature_process(self):
-        '''
+        """
         Test the process of internal candidatures until mandate creation
-        '''
-        cr, uid, context = self.cr, self.uid, {}
+        """
+        candidature_ids = self.int_thierry_secretaire_id | self.int_paul_id
 
-        committee_id = self.ref('%s.sc_secretaire_regional' % self._module_ns)
-        int_paul_id = self.ref('%s.int_paul_secretaire' % self._module_ns)
-        int_thierry_secretaire_id = self.ref('%s.int_thierry_secretaire' %
-                                             self._module_ns)
-        candidature_ids = [int_thierry_secretaire_id, int_paul_id]
-        # Attempt to accept candidatures before suggesting them
-        self.assertRaises(orm.except_orm,
-                          self._committee_pool.button_accept_candidatures,
-                          self.cr,
-                          self.uid,
-                          [committee_id])
+        # Thierry candidature is rejected
+        self.int_thierry_secretaire_id.button_reject()
+        self.assertEqual(self.int_thierry_secretaire_id.state, "rejected")
 
-        # Paul and Thierry are suggested
-        self._candidature_pool.signal_workflow(cr,
-                                               uid,
-                                               candidature_ids,
-                                               'button_suggest',
-                                               context=context)
+        # Thierry candidature is set back to declare
+        self.int_thierry_secretaire_id.button_declare()
+        self.assertEqual(self.int_thierry_secretaire_id.state, "declared")
 
-        # Candidatures are refused
-        self._committee_pool.button_refuse_candidatures(self.cr,
-                                                        self.uid,
-                                                        [committee_id])
-        for candidature_data in self._candidature_pool.read(self.cr,
-                                                            self.uid,
-                                                            candidature_ids,
-                                                            ['state']):
-            self.assertEqual(candidature_data['state'], 'declared')
+        # Candidatures are designated
+        self.committee_id.button_designate_candidatures()
+        for candidature in candidature_ids:
+            self.assertEqual(candidature.state, "designated")
 
-        # Paul candidature is rejected
-        self._candidature_pool.signal_workflow(cr,
-                                               uid,
-                                               [int_paul_id],
-                                               'button_reject',
-                                               context=context)
-        self.assertEqual(self._candidature_pool.read(self.cr,
-                                                     self.uid,
-                                                     int_paul_id,
-                                                     ['state'])['state'],
-                         'rejected')
+        # Paul candidature is set back to declare
+        self.int_paul_id.button_declare()
+        self.assertEqual(self.int_paul_id.state, "declared")
 
-        # Thierry is suggested again
-        candidature_ids = [int_thierry_secretaire_id]
-        self._candidature_pool.signal_workflow(cr,
-                                               uid,
-                                               candidature_ids,
-                                               'button_suggest',
-                                               context=context)
-
-        for candidature_data in self._candidature_pool.read(self.cr,
-                                                            self.uid,
-                                                            candidature_ids,
-                                                            ['state']):
-            self.assertEqual(candidature_data['state'], 'suggested')
-
-        # Accept Candidatures
-        self._committee_pool.write(self.cr,
-                                   self.uid,
-                                   [committee_id],
-                                   {'decision_date': '2014-04-01'})
-        self._committee_pool.button_accept_candidatures(self.cr,
-                                                        self.uid,
-                                                        [committee_id])
-        for candidature_data in self._candidature_pool.read(self.cr,
-                                                            self.uid,
-                                                            candidature_ids,
-                                                            ['state']):
-            self.assertEqual(candidature_data['state'], 'elected')
+        # Accept Thierry candidature
+        self.committee_id.write({"decision_date": "2014-04-01"})
+        self.int_thierry_secretaire_id.button_elected()
+        self.assertEqual(self.int_thierry_secretaire_id.state, "elected")
 
         # Mandate is automatically created for Thierry candidature
         #                                - mandate is linked to candidature
-        mandate_ids = self._mandate_pool.search(self.cr,
-                                                self.uid,
-                                                [('candidature_id',
-                                                  'in', candidature_ids)])
+        mandate_ids = self.env["int.mandate"].search(
+            [("candidature_id", "in", candidature_ids.ids)]
+        )
         self.assertEqual(len(mandate_ids), 1)
 
+        # Non elect others
+        self.committee_id.button_non_elect_candidatures()
+        self.assertEqual(self.int_paul_id.state, "non-elected")
+        self.assertEqual(self.int_thierry_secretaire_id.state, "elected")
+
     def test_no_decision_date(self):
-        '''
-        Test the process of accepting internal candidatures without decision
+        """
+        Test the process of (non-)electing internal candidatures without decision
         date
-        '''
-        cr, uid, context = self.cr, self.uid, {}
-
-        committee_id = self.ref('%s.sc_secretaire_regional' % self._module_ns)
-        int_paul_id = self.ref('%s.int_paul_secretaire' % self._module_ns)
-        int_thierry_secretaire_id = self.ref('%s.int_thierry_secretaire' %
-                                             self._module_ns)
-
-        self._candidature_pool.signal_workflow(cr,
-                                               uid,
-                                               [int_thierry_secretaire_id],
-                                               'button_suggest',
-                                               context=context)
-        self._candidature_pool.signal_workflow(cr,
-                                               uid,
-                                               [int_paul_id],
-                                               'button_reject',
-                                               context=context)
-        self.assertRaises(orm.except_orm,
-                          self._committee_pool.button_accept_candidatures,
-                          self.cr,
-                          self.uid,
-                          [committee_id])
+        """
+        with self.assertRaises(ValidationError):
+            self.committee_id.button_non_elect_candidatures()
