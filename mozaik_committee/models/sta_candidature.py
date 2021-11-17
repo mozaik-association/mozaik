@@ -9,7 +9,6 @@ CANDIDATURE_AVAILABLE_SORT_ORDERS = {
     "elected": 0,
     "non-elected": 10,
     "designated": 20,
-    "suggested": 22,
     "declared": 24,
     "rejected": 30,
     "draft": 90,
@@ -33,9 +32,6 @@ class StaCandidature(models.Model):
     _allowed_inactive_link_models = [_selection_committee_model]
     _unique_id_sequence = 200000000
 
-    state = fields.Selection(
-        selection_add=[("designated", "Designated"), ("non-elected", "Non-Elected")]
-    )
     selection_committee_id = fields.Many2one(comodel_name=_selection_committee_model)
     mandate_category_id = fields.Many2one(domain=[("type", "=", "sta")])
     sort_order = fields.Integer(
@@ -123,13 +119,3 @@ class StaCandidature(models.Model):
             self.list_effective_position = False
         if not self.is_substitute:
             self.list_substitute_position = False
-
-    def button_elected_candidature(self):
-        for candidature in self:
-            candidature.button_elected()
-        return True
-
-    def button_non_elected_candidature(self):
-        for candidature in self:
-            candidature.button_non_elected()
-        return True

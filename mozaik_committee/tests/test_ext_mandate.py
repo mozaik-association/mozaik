@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -14,34 +14,31 @@ class TestExtMandate(TransactionCase):
 
     def test_ext_candidature_process(self):
         """
-        Test the process of internal candidatures until mandate creation
+        Test the process of external candidatures until mandate creation
         """
         candidature_ids = self.ext_thierry_id | self.ext_paul_id
-        # Attempt to accept candidatures before suggesting them
-        with self.assertRaises(UserError):
-            self.committee_id.button_accept_candidatures()
 
-        # Paul and Thierry are suggested
-        candidature_ids.button_suggest()
+        # Thierry candidature is rejected
+        self.ext_thierry_id.button_reject()
+        self.assertEqual(self.ext_thierry_id.state, "rejected")
 
-        # Candidatures are refused
-        self.committee_id.button_refuse_candidatures()
+        # Thierry candidature is set back to declare
+        self.ext_thierry_id.button_declare()
+        self.assertEqual(self.ext_thierry_id.state, "declared")
+
+        # Candidatures are designated
+        self.committee_id.button_designate_candidatures()
         for candidature in candidature_ids:
-            self.assertEqual(candidature.state, "declared")
+            self.assertEqual(candidature.state, "designated")
 
-        # Paul candidature is rejected
-        self.ext_paul_id.button_reject()
-        self.assertEqual(self.ext_paul_id.state, "rejected")
+        # Paul candidature is set back to declare
+        self.ext_paul_id.button_declare()
+        self.assertEqual(self.ext_paul_id.state, "declared")
 
-        # Thierry is suggested again
-        self.ext_thierry_id.button_suggest()
-        self.assertEqual(self.ext_thierry_id.state, "suggested")
-
-        # Accept Candidatures
+        # Accept Thierry candidature
         self.committee_id.write({"decision_date": "2014-04-01"})
-        self.committee_id.button_accept_candidatures()
+        self.ext_thierry_id.button_elected()
         self.assertEqual(self.ext_thierry_id.state, "elected")
-        self.assertEqual(self.ext_paul_id.state, "rejected")
 
         # Mandate is automatically created for Thierry candidature
         #                                - mandate is linked to candidature
@@ -50,12 +47,15 @@ class TestExtMandate(TransactionCase):
         )
         self.assertEqual(len(mandate_ids), 1)
 
+        # Non elect others
+        self.committee_id.button_non_elect_candidatures()
+        self.assertEqual(self.ext_paul_id.state, "non-elected")
+        self.assertEqual(self.ext_thierry_id.state, "elected")
+
     def test_no_decision_date(self):
         """
-        Test the process of accepting internal candidatures without decision
+        Test the process of (non-)electing external candidatures without decision
         date
         """
-        self.ext_thierry_id.button_suggest()
-        self.ext_paul_id.button_reject()
         with self.assertRaises(ValidationError):
-            self.committee_id.button_accept_candidatures()
+            self.committee_id.button_non_elect_candidatures()

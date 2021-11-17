@@ -53,12 +53,12 @@
                 >
                     <field
                         name="is_effective"
-                        attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"
+                        attrs="{'readonly': [('state','not in',['draft', 'declared', 'designated'])]}"
                     />
                     <field
                         name="list_effective_position"
                         attrs="{'invisible':[('is_effective', '=', False), ('is_substitute', '=', True)],
-                                                                  'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
+                                                                  'readonly': [('state','not in',['draft', 'declared', 'designated'])],
                                                                   'required': ['|', ('is_effective', '!=', False), ('is_substitute', '=', False)]}"
                     />
                     <field
@@ -76,12 +76,12 @@
                 >
                     <field
                         name="is_substitute"
-                        attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"
+                        attrs="{'readonly': [('state','not in',['draft', 'declared', 'designated'])]}"
                     />
                     <field
                         name="list_substitute_position"
                         attrs="{'invisible': [('is_substitute', '=', False)],
-                                                                   'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
+                                                                   'readonly': [('state','not in',['draft', 'declared', 'designated'])],
                                                                    'required': [('is_substitute', '!=', False)]}"
                     />
                     <field

@@ -55,7 +55,10 @@
                 >{'readonly': [('electoral_district_id','!=', False),]}</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='candidatures']" position="inside">
+            <xpath
+                expr="//button[@name='button_designate_candidatures']"
+                position="before"
+            >
                 <button
                     string="All Details"
                     name="%(sta_candidature_action)d"
@@ -65,67 +68,21 @@
                                               'default_selection_committee_id': active_id,
                                               'search_default_all': True}"
                 />
-                <button
-                    string="Accept"
-                    name="button_accept_candidatures"
-                    type="object"
-                    class="oe_highlight"
-                    attrs="{'invisible': [('state','=','done')]}"
-                    confirm="Accept all candidatures: proceed anyway?"
-                />
-                <button
-                    string="Refuse"
-                    name="button_refuse_candidatures"
-                    type="object"
-                    class="oe_highlight"
-                    attrs="{'invisible': [('state','=','done')]}"
-                    confirm="Refuse all candidatures: proceed anyway?"
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="is_effective" invisible="1" />
+                <field name="is_substitute" invisible="1" />
+                <field
+                    name="list_effective_position"
+                    string="#EP"
+                    attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"
                 />
                 <field
-                    name="candidature_ids"
-                    context="{'default_selection_committee_id': active_id}"
-                    attrs="{'readonly': [('decision_date', '!=', False)]}"
-                >
-                    <tree colors="red:state=='declared';grey:active==False">
-                        <field
-                            name="list_effective_position"
-                            string="#EP"
-                            attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"
-                        />
-                        <field
-                            name="list_substitute_position"
-                            string="#SP"
-                            attrs="{'invisible': [('is_substitute', '=', False)]}"
-                        />
-                        <field name="partner_id" />
-                        <field name="state" />
-                        <button
-                            name="button_suggest_candidature"
-                            string="Suggest"
-                            icon="fa-check"
-                            type="object"
-                            attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"
-                        />
-                        <button
-                            name="button_reject_candidature"
-                            string="Reject"
-                            icon="fa-times"
-                            type="object"
-                            attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"
-                        />
-                        <button
-                            name="button_declare_candidature"
-                            string="Back to Declared"
-                            icon="fa-undo"
-                            type="object"
-                            attrs="{'invisible': ['|',('state', 'not in',['rejected','suggested']),('is_selection_committee_active', '=', False)]}"
-                        />
-                        <field name="active" invisible="1" />
-                        <field name="is_effective" invisible="1" />
-                        <field name="is_substitute" invisible="1" />
-                        <field name="is_selection_committee_active" invisible="1" />
-                    </tree>
-                </field>
+                    name="list_substitute_position"
+                    string="#SP"
+                    attrs="{'invisible': [('is_substitute', '=', False)]}"
+                />
             </xpath>
 
             <xpath expr="//page[@name='note']" position="after">

@@ -18,11 +18,11 @@
                         groups="mozaik_committee.res_groups_committee_user"
                     />
                     <button
-                        name="button_suggest_candidature"
-                        string="Suggest"
+                        name="button_designate_candidature"
+                        string="Designate"
                         class="oe_highlight"
                         type="object"
-                        confirm="Suggest candidature: proceed anyway?"
+                        confirm="Designate candidature: proceed anyway?"
                         states="declared"
                         groups="mozaik_committee.res_groups_committee_user"
                     />
@@ -32,7 +32,7 @@
                         class="oe_highlight"
                         type="object"
                         confirm="Reject candidature: proceed anyway?"
-                        states="declared,designated"
+                        states="declared"
                         groups="mozaik_committee.res_groups_committee_user"
                     />
                     <button
@@ -40,7 +40,7 @@
                         string="Declare"
                         class="oe_highlight"
                         type="object"
-                        attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'suggested'])]}"
+                        attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'designated'])]}"
                         confirm="Declare candidature: proceed anyway?"
                         groups="mozaik_committee.res_groups_committee_user"
                     />
@@ -54,7 +54,7 @@
                     <field
                         name="state"
                         widget="statusbar"
-                        statusbar_visible='declared,suggested,designated,elected'
+                        statusbar_visible='declared,designated,elected'
                     />
                 </header>
                 <sheet>
@@ -151,12 +151,6 @@
                     help="Rejected Candidatures"
                 />
                 <filter
-                    name="suggested"
-                    string="Suggested"
-                    domain="[('state','=', 'suggested')]"
-                    help="Suggested Candidatures"
-                />
-                <filter
                     name="designated"
                     string="Designated"
                     domain="[('state','=', 'designated')]"
@@ -220,11 +214,11 @@
                 <field name="mandate_category_id" />
                 <field name="state" />
                 <button
-                    name="button_suggest_candidature"
-                    string="Suggest"
+                    name="button_designate_candidature"
+                    string="Designate"
                     icon="fa-check"
                     type="object"
-                    confirm="Suggest candidature: proceed anyway?"
+                    confirm="Designate candidature: proceed anyway?"
                     states="declared"
                 />
                 <button

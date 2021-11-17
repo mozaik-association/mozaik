@@ -6,7 +6,6 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 SELECTION_COMMITTEE_AVAILABLE_STATES = [
@@ -29,7 +28,6 @@ class AbstractSelectionCommittee(models.Model):
     state = fields.Selection(
         selection=SELECTION_COMMITTEE_AVAILABLE_STATES,
         string="Status",
-        readonly=True,
         tracking=True,
         default=SELECTION_COMMITTEE_AVAILABLE_STATES[0][0],
     )
@@ -101,23 +99,6 @@ class AbstractSelectionCommittee(models.Model):
         ),
     ]
 
-    @api.constrains("state", "decision_date")
-    def _check_decision_date(self):
-        """
-        ====================
-        _check_decision_date
-        ====================
-        Check if decision_date is not null when accepting the proposal
-        """
-        for committee in self:
-            if committee.state == "done" and not committee.decision_date:
-                raise ValidationError(
-                    _(
-                        "A decision date is mandatory when accepting "
-                        "the proposal of the committee"
-                    )
-                )
-
     # orm methods
 
     def name_get(self):
@@ -168,61 +149,26 @@ class AbstractSelectionCommittee(models.Model):
 
     # view methods: onchange, button
 
-    def _get_suggested_candidatures(self):
-        """
-        ==============================
-        _get_suggested_candidatures
-        ==============================
-        Return list of candidature ids in suggested state
-        :rparam: committee id
-        :rtype: list of ids
-        """
-        self.ensure_one()
-        res = self.env[self._candidature_model]
-        for candidature in self.candidature_ids:
-            if candidature.state == "rejected":
-                continue
-            elif candidature.state == "suggested":
-                res = res | candidature
-            else:
-                raise UserError(
-                    _(
-                        "Operation Forbidden! "
-                        "Some candidatures are still in 'declared' state"
-                    )
-                )
-        return res
-
-    def button_accept_candidatures(self):
+    def button_designate_candidatures(self):
         """
         ==========================
-        button_accept_candidatures
+        button_designate_candidatures
         ==========================
         This method calls the candidature workflow for each candidature_id
         in order to update their state
         :rparam: True
         :rtype: boolean
-        :raise: Error if all candidatures are not in suggested state
         """
-        for committee in self:
-            committee._get_suggested_candidatures().button_accept()
-        self.action_invalidate({"state": "done"})
+        for candidature in self.candidature_ids:
+            if candidature.state == "declared":
+                candidature.button_designate()
         return True
 
-    def button_refuse_candidatures(self):
-        """
-        ==========================
-        button_refuse_candidatures
-        ==========================
-        This method calls the candidature workflow for each candidature_id
-        in order to update their state
-        :rparam: True
-        :rtype: boolean
-        :raise: Error if all candidatures are not in suggested state
-        """
-        for committee in self:
-            committee._get_suggested_candidatures().button_declare()
-            self.write({"decision_date": False})
+    def button_non_elect_candidatures(self):
+        for candidature in self.candidature_ids:
+            if candidature.state != "elected":
+                candidature.button_non_elected_candidature()
+        self.action_invalidate({"state": "done"})
         return True
 
     @api.onchange("assembly_id")

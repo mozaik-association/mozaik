@@ -7,9 +7,10 @@ from odoo.exceptions import ValidationError
 CANDIDATURE_AVAILABLE_STATES = [
     ("draft", "Draft"),
     ("declared", "Declared"),
+    ("designated", "Designated"),
     ("rejected", "Rejected"),
-    ("suggested", "Suggested"),
     ("elected", "Elected"),
+    ("non-elected", "Non-Elected"),
 ]
 
 
@@ -198,9 +199,14 @@ class AbstractCandidature(models.Model):
             res = mandate_model.create(mandate_values)
         return res
 
-    def button_suggest_candidature(self):
+    def button_declare_candidature(self):
         for candidature in self:
-            candidature.button_suggest()
+            candidature.button_declare()
+        return True
+
+    def button_designate_candidature(self):
+        for candidature in self:
+            candidature.button_designate()
         return True
 
     def button_reject_candidature(self):
@@ -208,7 +214,26 @@ class AbstractCandidature(models.Model):
             candidature.button_reject()
         return True
 
-    def button_declare_candidature(self):
+    def button_elected_candidature(self):
         for candidature in self:
-            candidature.button_declare()
+            if not candidature.selection_committee_id.decision_date:
+                raise ValidationError(
+                    _(
+                        "A decision date is mandatory on the selection committee "
+                        "when electing a candidature."
+                    )
+                )
+            candidature.button_elected()
+        return True
+
+    def button_non_elected_candidature(self):
+        for candidature in self:
+            if not candidature.selection_committee_id.decision_date:
+                raise ValidationError(
+                    _(
+                        "A decision date is mandatory on the selection committee "
+                        "when non-electing a candidature."
+                    )
+                )
+            candidature.button_non_elected()
         return True

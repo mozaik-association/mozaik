@@ -29,19 +29,12 @@ class TestElectoralResultsWizard(TransactionCase):
 
         self.committee_id = self.env.ref("mozaik_committee.sc_tete_huy_communale")
 
-        accepted_ids = (
-            self.sta_paul_communal
-            | self.sta_pauline_communal
-            | self.sta_thierry_communal
-            | self.sta_jacques_communal
-        )
         rejected_ids = self.sta_marc_communal
 
-        accepted_ids.button_suggest()
         rejected_ids.button_reject()
 
         self.committee_id.write({"decision_date": "2014-04-01"})
-        self.committee_id.button_accept_candidatures()
+        self.committee_id.button_designate_candidatures()
 
     def test_electoral_results_wizard_wrong_file(self):
         """

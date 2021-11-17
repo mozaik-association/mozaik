@@ -2,6 +2,9 @@ statechart:
   name: ext.candidature
   root state:
     name: root
+    transitions:
+      - event: button_non_elected
+        target: non-elected
     initial: draft
     states:
       - name: draft
@@ -10,16 +13,16 @@ statechart:
       - name: declared
         on entry: self.write({'state':'declared'})
         transitions:
-          - event: button_suggest
-            target: suggested
+          - event: button_designate
+            target: designated
           - event: button_reject
             target: rejected
-      - name: suggested
-        on entry: self.write({'state':'suggested'})
+      - name: designated
+        on entry: self.write({'state':'designated'})
         transitions:
           - event: button_declare
             target: declared
-          - event: button_accept
+          - event: button_elected
             target: elected
       - name: rejected
         on entry: self.write({'state':'rejected'})
@@ -28,3 +31,5 @@ statechart:
             target: declared
       - name: elected
         on entry: self.action_elected()
+      - name: non-elected
+        on entry: self.write({'state':'non-elected'})
