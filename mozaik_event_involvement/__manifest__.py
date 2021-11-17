@@ -12,7 +12,8 @@
     "depends": [
         "mozaik_event_is_private",
         "mozaik_event_partner_firstname",
-        "mozaik_event_question_event_type",
+        "mozaik_event_question_thesaurus",
+        "mozaik_event_thesaurus",
         "mozaik_involvement_thesaurus",
         "mozaik_membership_request",
     ],
