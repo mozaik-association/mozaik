@@ -178,7 +178,7 @@ class AbstractSelectionCommittee(models.Model):
             self.mandate_category_id = self.env["mandate.category"].search(
                 [
                     (
-                        self._mandate_catefory_foreign_key,
+                        self._mandate_category_foreign_key,
                         "=",
                         self.assembly_id.assembly_category_id.id,
                     )
