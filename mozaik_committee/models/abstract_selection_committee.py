@@ -23,6 +23,7 @@ class AbstractSelectionCommittee(models.Model):
     _candidature_model = "abstract.candidature"
     _assembly_model = "abstract.assembly"
     _assembly_category_model = "abstract.assembly.category"
+    _mandate_category_foreign_key = False
     _parameters_key = False
 
     state = fields.Selection(

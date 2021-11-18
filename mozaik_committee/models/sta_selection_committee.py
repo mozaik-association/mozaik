@@ -18,6 +18,7 @@ class StaSelectionCommittee(models.Model):
     _candidature_model = "sta.candidature"
     _assembly_model = "sta.assembly"
     _assembly_category_model = "sta.assembly.category"
+    _mandate_category_foreign_key = "sta_assembly_category_id"
     _parameters_key = "sta_candidature_invalidation_delay"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "sta")])
