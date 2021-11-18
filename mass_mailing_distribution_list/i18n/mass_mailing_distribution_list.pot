@@ -315,6 +315,11 @@ msgid ""
 msgstr ""
 
 #. module: mass_mailing_distribution_list
+#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mailing_mailing__mailing_model_id
+msgid "Recipients Model"
+msgstr ""
+
+#. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__alias_force_thread_id
 msgid "Record Thread ID"
 msgstr ""
