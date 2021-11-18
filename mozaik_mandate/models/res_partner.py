@@ -62,13 +62,13 @@ class ResPartner(models.Model):
         specific tuples to get concerned mandates
         """
         self.ensure_one()
-        module = "mozaik_mandate"
-        action_name = "ext_mandate_action"
         res_ids = self._get_assemblies()._get_mandates().ids
         domain = [("id", "in", res_ids)]
 
         # get model's action to update its domain
-        action = self.env["ir.actions.act_window"].for_xml_id(module, action_name)
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "mozaik_mandate.ext_mandate_action"
+        )
         action["domain"] = domain
         return action
 
