@@ -19,7 +19,6 @@ exclude: |
   ^mozaik_sample_accounting/|
   ^mozaik_sample_customization/|
   ^mozaik_subscription_price/|
-  ^mozaik_virtual_assembly_instance/|
   ^mozaik_virtual_model/|
   ^mozaik_virtual_partner_instance/|
   ^mozaik_virtual_partner_involvement/|

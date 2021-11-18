@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -6,16 +6,19 @@
     <record id="virtual_assembly_instance_tree_view" model="ir.ui.view">
         <field name="name">virtual.assembly.instance.tree</field>
         <field name="model">virtual.assembly.instance</field>
-        <field name="inherit_id" ref="mozaik_communication.abstract_virtual_model_tree_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.abstract_virtual_model_tree_view"
+        />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <field name="birth_date" position="replace"/>
-            <field name="gender" position="replace"/>
+            <field name="birth_date" position="replace" />
+            <field name="gender" position="replace" />
             <field name="lang" position="replace">
-                <field name="category"/>
+                <field name="category" />
             </field>
         </field>
-        <field name="priority" eval="99"/>
+        <field name="priority" eval="99" />
     </record>
 
     <record id="virtual_assembly_instance_search_view" model="ir.ui.view">
@@ -26,38 +29,83 @@
                 <field name="partner_id" />
                 <!-- pylint: disable=duplicate-xml-fields -->
                 <field name="int_instance_id" />
-                <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
-                <field name="int_category_assembly_id" string="Internal Assembly Category" />
-                <field name="sta_category_assembly_id" string="State Assembly Category" />
-                <field name="ext_category_assembly_id" string="External Assembly Category" />
+                <field
+                    name="int_instance_id"
+                    string="Internal Instance descending of..."
+                    operator="child_of"
+                />
+                <field
+                    name="int_category_assembly_id"
+                    string="Internal Assembly Category"
+                />
+                <field
+                    name="sta_category_assembly_id"
+                    string="State Assembly Category"
+                />
+                <field
+                    name="ext_category_assembly_id"
+                    string="External Assembly Category"
+                />
                 <field name="sta_power_level_id" string="State Power Level" />
                 <field name="int_power_level_id" string="Internal Power Level" />
                 <field name="competency_ids" widget="many2one" />
-                <filter string="Main Address" name="main_postal" domain="[('main_postal','=',1)]" />
+                <filter
+                    name="sta_mod"
+                    string="State Assembly"
+                    domain="[('model','=','sta.assembly')]"
+                />
+                <filter
+                    name="int_mod"
+                    string="Internal Assembly"
+                    domain="[('model','=','int.assembly')]"
+                />
+                <filter
+                    name="ext_mod"
+                    string="External Assembly"
+                    domain="[('model','=','ext.assembly')]"
+                />
                 <separator />
-                <filter string="Main Email" name="main_email" domain="[('main_email','=',1)]" />
-                <separator />
-                <filter name="sta_mod" string="State Assembly" domain="[('model','=','sta.assembly')]" />
-                <filter name="int_mod" string="Internal Assembly" domain="[('model','=','int.assembly')]" />
-                <filter name="ext_mod" string="External Assembly" domain="[('model','=','ext.assembly')]" />
-                <separator />
-                <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                <separator />
-                <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                <separator />
-                <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]" />
-                <separator />
-                <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]" />
-                <separator />
-                <filter name="without_coordinate" string="Without Coordinate" domain="[('active','=',False)]" />
+                <filter
+                    name="without_coordinate"
+                    string="Without Coordinate"
+                    domain="[('active','=',False)]"
+                />
                 <group name="group_by">
-                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                    <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
-                    <filter name="int_ass_category" string="Internal Assembly Category" context="{'group_by':'int_category_assembly_id'}" />
-                    <filter name="ext_ass_category" string="External Assembly Category" context="{'group_by':'ext_category_assembly_id'}" />
-                    <filter name="sta_ass_category" string="State Assembly Category" context="{'group_by':'sta_category_assembly_id'}" />
-                    <filter name="int_pl" string="Internal Power Level" context="{'group_by':'int_power_level_id'}" />
-                    <filter name="sta_pl" string="State Power Level" context="{'group_by':'sta_power_level_id'}" />
+                    <filter
+                        name="partner"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        name="int_instance"
+                        string="Internal Instance"
+                        context="{'group_by':'int_instance_id'}"
+                    />
+                    <filter
+                        name="int_ass_category"
+                        string="Internal Assembly Category"
+                        context="{'group_by':'int_category_assembly_id'}"
+                    />
+                    <filter
+                        name="ext_ass_category"
+                        string="External Assembly Category"
+                        context="{'group_by':'ext_category_assembly_id'}"
+                    />
+                    <filter
+                        name="sta_ass_category"
+                        string="State Assembly Category"
+                        context="{'group_by':'sta_category_assembly_id'}"
+                    />
+                    <filter
+                        name="int_pl"
+                        string="Internal Power Level"
+                        context="{'group_by':'int_power_level_id'}"
+                    />
+                    <filter
+                        name="sta_pl"
+                        string="State Power Level"
+                        context="{'group_by':'sta_power_level_id'}"
+                    />
                 </group>
             </search>
         </field>
@@ -66,14 +114,17 @@
     <record id="add_filter_from_assembly_action" model="ir.actions.act_window">
         <field name="name">Add Filter To Distribution List</field>
         <field name="view_mode">form</field>
-        <field name="src_model">virtual.assembly.instance</field>
         <field name="res_model">distribution.list.add.filter</field>
-        <field name="multi" eval="1" />
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-        <field name="binding_model_id" ref="mozaik_virtual_assembly_instance.model_virtual_assembly_instance" />
-        <field name="groups_id"
-               eval="[(6, 0, [ref('mozaik_communication.res_groups_communication_user')])]" />
+        <field
+            name="binding_model_id"
+            ref="mozaik_virtual_assembly_instance.model_virtual_assembly_instance"
+        />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_person.res_groups_partner_user')])]"
+        />
     </record>
 
     <record id="virtual_assembly_instance_action" model="ir.actions.act_window">
@@ -84,9 +135,9 @@
         <field name="view_id" ref="virtual_assembly_instance_tree_view" />
     </record>
 
-    <record model="ir.ui.menu" id="virtual_assembly_instance_menu" >
+    <record model="ir.ui.menu" id="virtual_assembly_instance_menu">
         <field name="name">Assemblies/Instances</field>
-        <field name="sequence" eval="90"/>
+        <field name="sequence" eval="90" />
         <field name="parent_id" ref="mozaik_communication.virtual_model_menu" />
         <field name="action" ref="virtual_assembly_instance_action" />
     </record>
