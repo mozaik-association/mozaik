@@ -15,7 +15,7 @@ class EventEvent(models.Model):
         for rec in self:
             if (
                 "event_type_id" in vals
-                and vals["event_type_id"] != rec.event_type_id.id
+                and vals["event_type_id"] != rec.event_type_id
                 and rec.seats_expected > 0
             ):
                 raise ValidationError(
