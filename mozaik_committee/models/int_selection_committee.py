@@ -14,6 +14,7 @@ class IntSelectionCommittee(models.Model):
     _candidature_model = "int.candidature"
     _assembly_model = "int.assembly"
     _assembly_category_model = "int.assembly.category"
+    _mandate_category_foreign_key = "int_assembly_category_id"
     _parameters_key = "int_candidature_invalidation_delay"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "int")])

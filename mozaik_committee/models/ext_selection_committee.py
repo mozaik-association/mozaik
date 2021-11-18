@@ -14,6 +14,7 @@ class ExtSelectionCommittee(models.Model):
     _candidature_model = "ext.candidature"
     _assembly_model = "ext.assembly"
     _assembly_category_model = "ext.assembly.category"
+    _mandate_category_foreign_key = "ext_assembly_category_id"
     _parameters_key = "ext_candidature_invalidation_delay"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "ext")])
