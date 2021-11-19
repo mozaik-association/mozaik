@@ -114,11 +114,12 @@
                                     invisible="'default_exclude' in context"
                                 />
                                 <field name="src_model_id" invisible="1" />
+                                <field name="src_model_model" invisible="1" />
                                 <field name="trg_model" invisible="1" />
                                 <field
                                     name="domain"
                                     widget="domain"
-                                    options="{'model': 'trg_model'}"
+                                    options="{'model': 'src_model_model'}"
                                 />
                             </group>
                         </page>

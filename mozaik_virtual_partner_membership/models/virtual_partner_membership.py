@@ -6,19 +6,15 @@ from odoo import api, fields, models
 class VirtualPartnerMembership(models.Model):
     _name = "virtual.partner.membership"
     _description = "Partner/Membership"
-    _inherit = [
-        'abstract.virtual.model',
-        'abstract.term.finder',
-    ]
+    _inherit = ["abstract.virtual.model"]
     _auto = False
-    _terms = ['interest_ids', 'competency_ids']
 
     int_instance_id = fields.Many2one(
         store=True,
         search=None,
     )
     membership_state_id = fields.Many2one(
-        comodel_name='membership.state',
+        comodel_name="membership.state",
         string="State",
     )
     reference = fields.Char()
@@ -35,13 +31,16 @@ class VirtualPartnerMembership(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = super()._get_select() + """,
+        select = (
+            super()._get_select()
+            + """,
             m.id as membership_id,
             m.int_instance_id,
             m.state_id as membership_state_id,
             m.reference as reference,
             p.is_donor,
             p.is_volunteer"""
+        )
         return select
 
     @api.model
@@ -53,15 +52,7 @@ class VirtualPartnerMembership(models.Model):
         from_query = """FROM res_partner AS p
             JOIN membership_line AS m
                 ON (m.partner_id = p.id
-                AND m.active = TRUE)
-            LEFT OUTER JOIN postal_coordinate AS pc
-                ON (pc.partner_id = p.id
-                AND pc.active = TRUE
-                AND pc.is_main = TRUE)
-            LEFT OUTER JOIN email_coordinate AS e
-                ON (e.partner_id = p.id
-                AND e.active = TRUE
-                AND e.is_main = TRUE)"""
+                AND m.active = TRUE)"""
         return from_query
 
     @api.model

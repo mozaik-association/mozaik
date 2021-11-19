@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_virtual_partner_membership_res_groups_communication_reader,virtual.partner.membership.res.groups.communication.reader,model_virtual_partner_membership,mozaik_communication.res_groups_communication_reader,1,0,0,0
+access_virtual_partner_membership_res_groups_partner_reader,virtual.partner.membership.res.groups.partner.reader,model_virtual_partner_membership,mozaik_person.res_groups_partner_reader,1,0,0,0
