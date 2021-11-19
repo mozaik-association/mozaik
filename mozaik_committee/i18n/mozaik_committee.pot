@@ -35,24 +35,24 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
 msgid ""
 "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-"                        External Candidatures\n"
-"                    </span>"
+"                    External Candidatures\n"
+"                </span>"
 msgstr ""
 
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
 msgid ""
 "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-"                        Internal Candidatures\n"
-"                    </span>"
+"                    Internal Candidatures\n"
+"                </span>"
 msgstr ""
 
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
 msgid ""
 "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
-"                        State Candidatures\n"
-"                    </span>"
+"                    State Candidatures\n"
+"                </span>"
 msgstr ""
 
 #. module: mozaik_committee
@@ -987,7 +987,6 @@ msgstr ""
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.ext_assembly_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.int_assembly_form_view
-#: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_assembly_form_view
 msgid "Mandates"
 msgstr ""
