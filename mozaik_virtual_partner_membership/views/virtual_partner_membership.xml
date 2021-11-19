@@ -89,7 +89,7 @@
     <record id="add_filter_from_membership_action" model="ir.actions.act_window">
         <field name="name">Add Filter To Distribution List</field>
         <field name="view_mode">form</field>
-        <field name="src_model">virtual.partner.membership</field>
+        <field name="binding_model">virtual.partner.membership</field>
         <field name="res_model">distribution.list.add.filter</field>
         <field name="multi" eval="1" />
         <field name="target">new</field>
