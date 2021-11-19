@@ -131,8 +131,8 @@ class AbstractSelectionCommittee(models.Model):
         return records.ids
 
     def copy_data(self, default=None):
-        if default is None:
-            default = {}
+        self.ensure_one()
+        default = dict(default or {})
         default.update(
             {
                 "active": True,
@@ -141,11 +141,12 @@ class AbstractSelectionCommittee(models.Model):
         )
         res = super(AbstractSelectionCommittee, self).copy_data(default=default)
 
-        res.update(
-            {
-                "name": _("%s (copy)") % res.get("name"),
-            }
-        )
+        for res_dict in res:
+            res_dict.update(
+                {
+                    "name": _("%s (copy)") % res_dict.get("name"),
+                }
+            )
         return res
 
     # view methods: onchange, button
