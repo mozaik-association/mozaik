@@ -83,8 +83,6 @@
                             <field
                                 name="selection_committee_id"
                                 required="1"
-                                attrs="{'readonly': [('id','!=',False)]}"
-                                readonly="context.get('default_selection_committee_id')"
                                 domain="[('decision_date', '=', False)]"
                             />
                         </group>
