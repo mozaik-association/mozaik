@@ -25,7 +25,6 @@
             <xpath expr="//field[@name='assembly_id']" position="after">
                 <field
                     name="legislature_id"
-                    readonly="1"
                     required="1"
                     domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
                 />
