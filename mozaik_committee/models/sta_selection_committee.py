@@ -155,3 +155,7 @@ class StaSelectionCommittee(models.Model):
                 limit=1,
             )
             self.legislature_id = legislature.id
+        if self.electoral_district_id:
+            self.designation_int_assembly_id = (
+                self.electoral_district_id.designation_int_assembly_id.id
+            )

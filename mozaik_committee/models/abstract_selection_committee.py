@@ -131,8 +131,8 @@ class AbstractSelectionCommittee(models.Model):
         return records.ids
 
     def copy_data(self, default=None):
-        if default is None:
-            default = {}
+        self.ensure_one()
+        default = dict(default or {})
         default.update(
             {
                 "active": True,
@@ -141,11 +141,12 @@ class AbstractSelectionCommittee(models.Model):
         )
         res = super(AbstractSelectionCommittee, self).copy_data(default=default)
 
-        res.update(
-            {
-                "name": _("%s (copy)") % res.get("name"),
-            }
-        )
+        for res_dict in res:
+            res_dict.update(
+                {
+                    "name": _("%s (copy)") % res_dict.get("name"),
+                }
+            )
         return res
 
     # view methods: onchange, button
@@ -187,7 +188,9 @@ class AbstractSelectionCommittee(models.Model):
                 limit=1,
             )
             if "designation_int_assembly_id" in self.env[self._assembly_model]._fields:
-                self.designation_int_assembly_id = self.assembly_id.id
+                self.designation_int_assembly_id = (
+                    self.assembly_id.designation_int_assembly_id.id
+                )
 
     # public methods
 
