@@ -187,7 +187,9 @@ class AbstractSelectionCommittee(models.Model):
                 limit=1,
             )
             if "designation_int_assembly_id" in self.env[self._assembly_model]._fields:
-                self.designation_int_assembly_id = self.assembly_id.id
+                self.designation_int_assembly_id = (
+                    self.assembly_id.designation_int_assembly_id.id
+                )
 
     # public methods
 

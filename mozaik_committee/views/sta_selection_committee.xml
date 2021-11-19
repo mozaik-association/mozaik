@@ -10,10 +10,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='assembly_id']" position="attributes">
                 <attribute
-                    name="attrs"
-                    translation="off"
-                >{'readonly': [('electoral_district_id','!=', False)]}</attribute>
-                <attribute
                     name="domain"
                     translation="off"
                 >[('is_legislative', '=', False)]</attribute>
@@ -43,16 +39,6 @@
                     domain="[('type', '=', 'sta'), ('sta_assembly_category_id', '=', assembly_category_id)]"
                     context="{'default_type': 'sta'}"
                 />
-            </xpath>
-
-            <xpath
-                expr="//field[@name='designation_int_assembly_id']"
-                position="attributes"
-            >
-                <attribute
-                    name="attrs"
-                    translation="off"
-                >{'readonly': [('electoral_district_id','!=', False),]}</attribute>
             </xpath>
 
             <xpath
