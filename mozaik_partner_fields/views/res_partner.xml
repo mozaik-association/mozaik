@@ -20,12 +20,6 @@
                     invisible="context.get('default_is_company', True)"
                 />
                 <field
-                    string="Age >= ..."
-                    name="age"
-                    filter_domain="[('age','>=', self)]"
-                    invisible="context.get('default_is_company', True)"
-                />
-                <field
                     string="Age &lt; ..."
                     name="age"
                     filter_domain="[('age','&lt;', self)]"
