@@ -16,9 +16,12 @@ class ResPartner(models.Model):
         column1="partner_id",
         column2="thesaurus_term_id",
     )
-    interest_ids = fields.Many2many(
-        comodel_name="thesaurus.term",
-        relation="res_partner_term_interests_rel",
-        column1="partner_id",
-        column2="thesaurus_term_id",
+    interest_ids = (
+        fields.Many2many(
+            comodel_name="thesaurus.term",
+            relation="res_partner_term_interests_rel",
+            column1="partner_id",
+            column2="thesaurus_term_id",
+        ),
     )
+    indexation_comments = fields.text("Comments")
