@@ -8,10 +8,6 @@ class VirtualPartnerInvolvement(models.Model):
     _inherit = "abstract.virtual.model"
     _description = "Partner/Involvement"
     _auto = False
-    _terms = [
-        "interest_ids",
-        "competency_ids",
-    ]
 
     local_voluntary = fields.Boolean()
     regional_voluntary = fields.Boolean()
@@ -75,12 +71,7 @@ class VirtualPartnerInvolvement(models.Model):
 partner_involvement AS pi
 JOIN res_partner AS p
     ON (p.id = pi.partner_id AND p.active = TRUE AND p.identifier > 0)
-
-LEFT OUTER JOIN postal_coordinate AS pc
-    ON (pc.partner_id = p.id AND pc.active = TRUE AND pc.is_main = TRUE)
-
-LEFT OUTER JOIN email_coordinate AS e
-    ON (e.partner_id = p.id AND e.active = TRUE AND e.is_main = TRUE)"""
+    """
         return from_query
 
     @api.model
