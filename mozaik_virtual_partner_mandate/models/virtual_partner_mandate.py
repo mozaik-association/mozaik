@@ -1,67 +1,77 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from psycopg2.extensions import AsIs
+
 from odoo import api, fields, models
-from odoo.addons.mozaik_mandate.models.mandate_category \
-    import mandate_category_available_types
+
+from odoo.addons.mozaik_mandate.models.mandate_category import (
+    mandate_category_available_types,
+)
 
 
 class VirtualPartnerMandate(models.Model):
 
-    _inherit = 'abstract.virtual.model'
+    _inherit = "abstract.virtual.model"
     _name = "virtual.partner.mandate"
     _description = "Partner/Mandate"
     _terms = [
-        'ref_partner_competency_ids',
-        'sta_competencies_m2m_ids',
-        'ext_competencies_m2m_ids'
+        "ref_partner_competency_ids",
+        "sta_competencies_m2m_ids",
+        "ext_competencies_m2m_ids",
     ]
     _auto = False
 
     partner_id = fields.Many2one(
-        comodel_name='res.partner', string='Partner',
-        domain=[('is_company', '=', False), ('identifier', '>', 0)])
+        comodel_name="res.partner",
+        string="Partner",
+        domain=[("is_company", "=", False), ("identifier", ">", 0)],
+    )
     int_instance_ids = fields.Many2many(
-        related="ref_partner_id.int_instance_ids", string='Internal Instance')
+        related="ref_partner_id.int_instance_ids", string="Internal Instance"
+    )
 
     model = fields.Char()
 
     assembly_id = fields.Many2one(
-        comodel_name='res.partner', string='Assembly',
-        domain=[('is_assembly', '=', True)])
+        comodel_name="res.partner",
+        string="Assembly",
+        domain=[("is_assembly", "=", True)],
+    )
     mandate_category_id = fields.Many2one(
-        comodel_name='mandate.category', string='Mandate Category')
+        comodel_name="mandate.category", string="Mandate Category"
+    )
     with_remuneration = fields.Boolean()
     designation_int_assembly_id = fields.Many2one(
-        comodel_name='int.assembly', string='Designation Assembly')
+        comodel_name="int.assembly", string="Designation Assembly"
+    )
     designation_instance_id = fields.Many2one(
-        comodel_name='int.instance', string='Designation Instance')
+        comodel_name="int.instance", string="Designation Instance"
+    )
 
-    sta_mandate_id = fields.Many2one(
-        comodel_name='sta.mandate',
-        string='State Mandate')
+    sta_mandate_id = fields.Many2one(comodel_name="sta.mandate", string="State Mandate")
     ext_mandate_id = fields.Many2one(
-        comodel_name='ext.mandate',
-        string='External Mandate')
+        comodel_name="ext.mandate", string="External Mandate"
+    )
 
-    ref_partner_id = fields.Many2one(
-        comodel_name='res.partner',
-        string='Partner')
+    ref_partner_id = fields.Many2one(comodel_name="res.partner", string="Partner")
 
-    start_date = fields.Date(string='Start Date')
-    deadline_date = fields.Date(string='Deadline Date')
+    start_date = fields.Date(string="Start Date")
+    deadline_date = fields.Date(string="Deadline Date")
     ref_partner_competency_ids = fields.Many2many(
-        related='ref_partner_id.competency_ids',
-        string='Topics')
+        related="ref_partner_id.competency_ids", string="Topics"
+    )
 
     sta_competencies_m2m_ids = fields.Many2many(
-        related='sta_mandate_id.competencies_m2m_ids',
-        string='State Mandate Competences')
+        related="sta_mandate_id.competencies_m2m_ids",
+        string="State Mandate Competences",
+    )
     ext_competencies_m2m_ids = fields.Many2many(
-        related='ext_mandate_id.competencies_m2m_ids',
-        string='External Mandate Competences')
+        related="ext_mandate_id.competencies_m2m_ids",
+        string="External Mandate Competences",
+    )
     sta_instance_id = fields.Many2one(
-        comodel_name='sta.instance', string='State Instance')
+        comodel_name="sta.instance", string="State Instance"
+    )
     in_progress = fields.Boolean("In Progress")
     active = fields.Boolean("Active")
 
@@ -183,24 +193,23 @@ class VirtualPartnerMandate(models.Model):
     def _get_query_parameters(self, parameter=False):
         mandate_type = parameter
 
-        mandate_id = (
-            "mandate.id" if mandate_type == 'int' else "mandate.unique_id")
-        sta_mandate_id = (
-            "mandate.id" if mandate_type == 'sta' else "NULL::int")
-        ext_mandate_id = (
-            "mandate.id" if mandate_type == 'ext' else "NULL::int")
+        mandate_id = "mandate.id" if mandate_type == "int" else "mandate.unique_id"
+        sta_mandate_id = "mandate.id" if mandate_type == "sta" else "NULL::int"
+        ext_mandate_id = "mandate.id" if mandate_type == "ext" else "NULL::int"
         sta_instance_id = (
-            "assembly.instance_id" if mandate_type == 'sta' else "NULL::int")
+            "assembly.instance_id" if mandate_type == "sta" else "NULL::int"
+        )
         ref_partner_id = (
-            "assembly.ref_partner_id"
-            if mandate_type == 'ext' else "NULL::int")
+            "assembly.ref_partner_id" if mandate_type == "ext" else "NULL::int"
+        )
         return {
             "mandate_type": AsIs(mandate_type),
             "mandate_id": AsIs(mandate_id),
             "sta_mandate_id": AsIs(sta_mandate_id),
             "ext_mandate_id": AsIs(ext_mandate_id),
             "ref_partner_id": AsIs(ref_partner_id),
-            "sta_instance_id": AsIs(sta_instance_id)}
+            "sta_instance_id": AsIs(sta_instance_id),
+        }
 
     @api.model
     def _from_virtual_target(self):
