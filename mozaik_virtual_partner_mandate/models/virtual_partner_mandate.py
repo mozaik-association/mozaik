@@ -79,23 +79,12 @@ class VirtualPartnerMandate(models.Model):
     def _get_select(self):
         return """
         SELECT '%(mandate_type)s.mandate' AS model,
-            concat(mandate.partner_id, '/',
-                CASE
-                    WHEN pc2.id IS NULL
-                    THEN pc1.id
-                    ELSE pc2.id
-                END,
-                '/',
-                CASE
-                    WHEN ec2.id IS NULL
-                    THEN ec1.id
-                    ELSE ec2.id
-                END) as common_id,
             %(sta_mandate_id)s as sta_mandate_id,
             %(ext_mandate_id)s as ext_mandate_id,
             %(ref_partner_id)s as ref_partner_id,
             mandate.mandate_category_id,
             mandate.with_remuneration,
+            mandate.partner_id as common_id,
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
@@ -108,36 +97,6 @@ class VirtualPartnerMandate(models.Model):
             p.lang as lang,
             p.is_company as is_company,
             p.employee as employee,
-            CASE
-                WHEN ec2.id IS NULL
-                THEN ec1.id
-                ELSE ec2.id
-            END AS email_coordinate_id,
-            CASE
-                WHEN pc2.id IS NULL
-                THEN pc1.id
-                ELSE pc2.id
-            END AS postal_coordinate_id,
-            CASE
-                WHEN pc2.id IS NULL
-                THEN pc1.unauthorized
-                ELSE pc2.unauthorized
-            END AS postal_unauthorized,
-            CASE
-                WHEN pc2.id IS NULL
-                THEN pc1.vip
-                ELSE pc2.vip
-            END AS postal_vip,
-            CASE
-                WHEN ec2.id IS NULL
-                THEN ec1.unauthorized
-                ELSE ec2.unauthorized
-            END AS email_unauthorized,
-            CASE
-                WHEN ec2.id IS NULL
-                THEN ec1.vip
-                ELSE ec2.vip
-            END AS email_vip,
             %(sta_instance_id)s as sta_instance_id,
             CASE
                 WHEN start_date <= current_date
@@ -145,7 +104,7 @@ class VirtualPartnerMandate(models.Model):
                 ELSE False
             END AS in_progress,
             CASE
-                WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
+                WHEN p.email IS NOT NULL OR p.address_address_id IS NOT NULL
                 THEN True
                 ELSE False
             END AS active
@@ -163,20 +122,6 @@ class VirtualPartnerMandate(models.Model):
             ON p.id = mandate.partner_id
         LEFT OUTER JOIN int_assembly AS designation_assembly
             ON designation_assembly.id = mandate.designation_int_assembly_id
-        LEFT OUTER JOIN postal_coordinate AS pc1
-            ON pc1.partner_id = mandate.partner_id
-            AND pc1.is_main
-            AND pc1.active
-        LEFT OUTER JOIN email_coordinate AS ec1
-            ON ec1.partner_id = mandate.partner_id
-            AND ec1.is_main
-            AND ec1.active
-        LEFT OUTER JOIN postal_coordinate AS pc2
-            ON pc2.id = mandate.postal_coordinate_id
-            AND pc2.active
-        LEFT OUTER JOIN email_coordinate AS ec2
-            ON ec2.id = mandate.email_coordinate_id
-            AND ec2.active
         """
 
     @api.model
@@ -210,19 +155,3 @@ class VirtualPartnerMandate(models.Model):
             "ref_partner_id": AsIs(ref_partner_id),
             "sta_instance_id": AsIs(sta_instance_id),
         }
-
-    @api.model
-    def _from_virtual_target(self):
-        return """
-    LEFT OUTER JOIN
-        virtual_target as vt
-    ON
-        vt.partner_id = p.id AND
-        ((ec1.id IS NOT NULL AND vt.email_coordinate_id = ec1.id) OR
-        (ec2.id IS NOT NULL AND vt.email_coordinate_id = ec2.id) OR
-        (vt.email_coordinate_id IS NULL AND ec1.id IS NULL AND ec2.id IS NULL))
-        AND
-        ((pc1.id IS NOT NULL AND vt.postal_coordinate_id = pc1.id) OR
-        (pc2.id IS NOT NULL AND vt.postal_coordinate_id = pc2.id) OR
-        (vt.email_coordinate_id IS NULL AND pc1.id IS NULL AND pc2.id IS NULL))
-            """
