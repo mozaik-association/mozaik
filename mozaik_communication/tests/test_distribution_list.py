@@ -54,6 +54,9 @@ class TestDistributionList(SavepointCase):
     def test_only_owner_forward(self):
         email = "alibaba@test.eu"
 
+        # not all users can modify mass_mailings
+        self.usr.groups_id = [(4, self.ref("base.group_system"))]
+
         # set email after to avoid MailDeliveryException
         self.usr.partner_id.email = email
         self.usr.partner_id.flush()
