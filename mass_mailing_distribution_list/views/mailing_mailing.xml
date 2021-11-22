@@ -40,7 +40,7 @@
                     />
                     <field
                         name="distribution_list_id"
-                        widget="selection"
+                        options="{'create': False, 'create_and_edit': False}"
                         placeholder="Select distribution list..."
                         class="oe_inline"
                         attrs="{'required':[('mailing_model_name','=','distribution.list')],'readonly': [('state', 'in', ('sending', 'done'))] }"
