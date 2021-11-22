@@ -9,8 +9,8 @@ class VirtualPartnerInvolvement(models.Model):
     _description = "Partner/Involvement"
     _auto = False
     _terms = [
-        'interest_ids',
-        'competency_ids',
+        "interest_ids",
+        "competency_ids",
     ]
 
     local_voluntary = fields.Boolean()
@@ -24,20 +24,21 @@ class VirtualPartnerInvolvement(models.Model):
         string="Is a volunteer",
     )
     nationality_id = fields.Many2one(
-        'res.country',
-        'Nationality',
+        "res.country",
+        "Nationality",
     )
     involvement_category_id = fields.Many2one(
         comodel_name="partner.involvement.category",
         string="Involvement Category",
     )
     involvement_type = fields.Selection(
-        selection=lambda s: s.env['partner.involvement.category'].fields_get(
-            allfields=['involvement_type']).get(
-                'involvement_type', {}).get('selection', [])
+        selection=lambda s: s.env["partner.involvement.category"]
+        .fields_get(allfields=["involvement_type"])
+        .get("involvement_type", {})
+        .get("selection", [])
     )
     effective_time = fields.Datetime(
-        'Involvement Date',
+        "Involvement Date",
     )
     promise = fields.Boolean()
 
@@ -47,7 +48,9 @@ class VirtualPartnerInvolvement(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = super()._get_select() + """,
+        select = (
+            super()._get_select()
+            + """,
             p.local_voluntary,
             p.regional_voluntary,
             p.national_voluntary,
@@ -59,6 +62,7 @@ class VirtualPartnerInvolvement(models.Model):
             pi.involvement_type,
             pi.effective_time AS effective_time,
             pi.promise AS promise"""
+        )
         return select
 
     @api.model
