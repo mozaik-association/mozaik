@@ -31,7 +31,7 @@ class ResPartner(models.Model):
         interpreter = self.sc_interpreter
         transitions = interpreter._statechart.transitions
         evaluator = interpreter._evaluator
-        next_state = False
+        next_state = self.membership_state_id.code
         for transition in transitions:
             if not transition.event and transition.source in interpreter._configuration:
                 if transition.guard is None:
