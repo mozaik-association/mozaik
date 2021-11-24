@@ -7,22 +7,22 @@ class VirtualPartnerRelation(models.Model):
     _name = "virtual.partner.relation"
     _description = "Partner/Relation"
     _inherit = [
-        'abstract.virtual.model',
-        'abstract.term.finder',
+        "abstract.virtual.model",
+        "abstract.term.finder",
     ]
     _auto = False
-    _terms = ['interest_ids', 'competency_ids']
+    _terms = ["interest_ids", "competency_ids"]
 
     is_assembly = fields.Boolean(
-        string='Is an Assembly',
+        string="Is an Assembly",
     )
     relation_category_id = fields.Many2one(
-        comodel_name='res.partner.relation.type',
-        string='Relation Category',
+        comodel_name="res.partner.relation.type",
+        string="Relation Category",
     )
     object_partner_id = fields.Many2one(
-        comodel_name='res.partner',
-        string='Object',
+        comodel_name="res.partner",
+        string="Object",
     )
 
     @api.model
@@ -137,11 +137,11 @@ class VirtualPartnerRelation(models.Model):
     @api.model
     def _from_virtual_target(self):
         return """
-    LEFT OUTER JOIN 
-        virtual_target as vt 
-    ON 
-        vt.partner_id = p.id AND 
-        ((ec1.id IS NOT NULL AND vt.email_coordinate_id = ec1.id) OR 
+    LEFT OUTER JOIN
+        virtual_target as vt
+    ON
+        vt.partner_id = p.id AND
+        ((ec1.id IS NOT NULL AND vt.email_coordinate_id = ec1.id) OR
         (ec2.id IS NOT NULL AND vt.email_coordinate_id = ec2.id) OR
         (vt.email_coordinate_id IS NULL AND ec1.id IS NULL AND ec2.id IS NULL))
         AND
