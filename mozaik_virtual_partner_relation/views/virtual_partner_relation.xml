@@ -89,32 +89,6 @@
                 />
                 <separator />
                 <filter
-                    name="p_vip"
-                    string="VIP Address"
-                    domain="[('postal_vip','=',True)]"
-                    groups="mozaik_base.mozaik_res_groups_vip_reader"
-                />
-                <separator />
-                <filter
-                    name="e_vip"
-                    string="VIP Email"
-                    domain="[('email_vip','=',True)]"
-                    groups="mozaik_base.mozaik_res_groups_vip_reader"
-                />
-                <separator />
-                <filter
-                    name="p_unauthorized"
-                    string="Unauthorized Address"
-                    domain="[('postal_unauthorized','=',True)]"
-                />
-                <separator />
-                <filter
-                    name="e_unauthorized"
-                    string="Unauthorized Email"
-                    domain="[('email_unauthorized','=',True)]"
-                />
-                <separator />
-                <filter
                     name="without_coordinate"
                     string="Without Coordinate"
                     domain="[('active','=',False)]"
@@ -143,9 +117,7 @@
     <record id="add_filter_from_relation_action" model="ir.actions.act_window">
         <field name="name">Add Filter To Distribution List</field>
         <field name="view_mode">form</field>
-        <field name="src_model">virtual.partner.relation</field>
         <field name="res_model">distribution.list.add.filter</field>
-        <field name="multi" eval="1" />
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
         <field
