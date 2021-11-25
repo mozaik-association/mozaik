@@ -1,103 +1,180 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="virtual_partner_mandate_search_view">
-        <field name="name">virtual.partner.mandate.search (in mozaik_virtual_partner_mandate)</field>
+        <field
+            name="name"
+        >virtual.partner.mandate.search (in mozaik_virtual_partner_mandate)</field>
         <field name="model">virtual.partner.mandate</field>
         <field name="arch" type="xml">
             <search>
+                <!-- pylint: disable=duplicate-xml-fields -->
                 <field name="identifier" />
-                <field string="Birth Date > ..." name="birth_date"
-                       filter_domain="[('birth_date','>',self)]" />
-                <field string="Birth Date &lt; ..." name="birth_date"
-                       filter_domain="[('birth_date','&lt;',self)]" />
+                <field
+                    string="Birth Date > ..."
+                    name="birth_date"
+                    filter_domain="[('birth_date','>',self)]"
+                />
+                <field
+                    string="Birth Date &lt; ..."
+                    name="birth_date"
+                    filter_domain="[('birth_date','&lt;',self)]"
+                />
 
-                <field string="Mandate Start Date > ..." name="start_date"
-                       filter_domain="[('start_date','>',self)]" />
-                <field string="Mandate Start Date &lt; ..."
-                       name="start_date" filter_domain="[('start_date','&lt;',self)]" />
-                <field string="Mandate End Date > ..." name="deadline_date"
-                       filter_domain="[('deadline_date','>',self)]" />
-                <field string="Mandate End Date &lt; ..."
-                       name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]" />
+                <field
+                    string="Mandate Start Date > ..."
+                    name="start_date"
+                    filter_domain="[('start_date','>',self)]"
+                />
+                <field
+                    string="Mandate Start Date &lt; ..."
+                    name="start_date"
+                    filter_domain="[('start_date','&lt;',self)]"
+                />
+                <field
+                    string="Mandate End Date > ..."
+                    name="deadline_date"
+                    filter_domain="[('deadline_date','>',self)]"
+                />
+                <field
+                    string="Mandate End Date &lt; ..."
+                    name="deadline_date"
+                    filter_domain="[('deadline_date','&lt;',self)]"
+                />
 
                 <field name="partner_id" />
                 <field name="int_instance_ids" />
-                <field name="int_instance_ids" string="Internal Instance descending of..." operator="child_of"/>
-                <field name="int_instance_ids" string="Internal Instance not descending of..." operator="not child_of"/>
+                <field
+                    name="int_instance_ids"
+                    string="Internal Instance descending of..."
+                    operator="child_of"
+                />
+                <field
+                    name="int_instance_ids"
+                    string="Internal Instance not descending of..."
+                    operator="not child_of"
+                />
                 <field name="designation_int_assembly_id" />
-                <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
-                <field name="designation_instance_id" string="Designated by non descendants of..." operator="not child_of"/>
+                <field
+                    name="designation_instance_id"
+                    string="Designated by descendants of..."
+                    operator="child_of"
+                />
+                <field
+                    name="designation_instance_id"
+                    string="Designated by non descendants of..."
+                    operator="not child_of"
+                />
                 <field name="assembly_id" />
-                <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
-                <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
+                <field
+                    name="sta_instance_id"
+                    string="Designated to descendants of..."
+                    operator="child_of"
+                />
+                <field
+                    name="sta_instance_id"
+                    string="Designated to non descendants of..."
+                    operator="not child_of"
+                />
                 <field name="mandate_category_id" />
 
                 <field name="ext_competencies_m2m_ids" widget="many2one" />
                 <field name="sta_competencies_m2m_ids" widget="many2one" />
 
-                <field name="ref_partner_competency_ids" widget="many2one"/>
+                <field name="ref_partner_competency_ids" widget="many2one" />
 
-                <filter string="In Progress" name="in_progress" domain="[('in_progress','=', True)]"/>
-                <separator/>
-                <filter name="sta_mod" string="State Mandate"
-                        domain="[('model','=','sta.mandate')]" />
-                <filter name="int_mod" string="Internal Mandate"
-                        domain="[('model','=','int.mandate')]" />
-                <filter name="ext_mod" string="External Mandate"
-                        domain="[('model','=','ext.mandate')]" />
+                <filter
+                    string="In Progress"
+                    name="in_progress"
+                    domain="[('in_progress','=', True)]"
+                />
                 <separator />
-                <filter name="with_remuneration" string="With Remuneration"
-                        domain="[('with_remuneration','=',True)]" />
-                <filter name="without_remuneration" string="Without Remuneration"
-                        domain="[('with_remuneration','=',False)]" />
+                <filter
+                    name="sta_mod"
+                    string="State Mandate"
+                    domain="[('model','=','sta.mandate')]"
+                />
+                <filter
+                    name="int_mod"
+                    string="Internal Mandate"
+                    domain="[('model','=','int.mandate')]"
+                />
+                <filter
+                    name="ext_mod"
+                    string="External Mandate"
+                    domain="[('model','=','ext.mandate')]"
+                />
                 <separator />
-                <filter string="Male" name="male"
-                        domain="[('gender','=','m')]" />
-                <filter string="Female" name="female"
-                        domain="[('gender','=','f')]" />
+                <filter
+                    name="with_remuneration"
+                    string="With Remuneration"
+                    domain="[('with_remuneration','=',True)]"
+                />
+                <filter
+                    name="without_remuneration"
+                    string="Without Remuneration"
+                    domain="[('with_remuneration','=',False)]"
+                />
                 <separator />
-                <filter string="French" name="french"
-                        domain="[('lang','=','fr_FR')]" />
-                <filter string="German" name="german"
-                        domain="[('lang','=','de_DE')]" />
+                <filter string="Male" name="male" domain="[('gender','=','m')]" />
+                <filter string="Female" name="female" domain="[('gender','=','f')]" />
                 <separator />
-                <filter string="Employee" name="employee"
-                        domain="[('employee','!=',0)]" />
-                <filter string="Not Employee" name="not_employee"
-                        domain="[('employee','=',0)]" />
+                <filter string="French" name="french" domain="[('lang','=','fr_FR')]" />
+                <filter string="German" name="german" domain="[('lang','=','de_DE')]" />
                 <separator />
-                <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
+                <filter
+                    string="Employee"
+                    name="employee"
+                    domain="[('employee','!=',0)]"
+                />
+                <filter
+                    string="Not Employee"
+                    name="not_employee"
+                    domain="[('employee','=',0)]"
+                />
                 <separator />
-                <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                <separator />
-                <filter name="p_unauthorized" string="Unauthorized Address"
-                        domain="[('postal_unauthorized','=',True)]" />
-                <separator />
-                <filter name="e_unauthorized" string="Unauthorized Email"
-                        domain="[('email_unauthorized','=',True)]" />
-                <separator />
-                <filter name="without_coordinate" string="Without Coordinate"
-                        domain="[('active','=',False)]" />
+                <filter
+                    name="without_coordinate"
+                    string="Without Coordinate"
+                    domain="[('active','=',False)]"
+                />
                 <group name="group_by">
-                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
-                    <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}" />
-                    <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
-                    <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}" />
+                    <filter
+                        name="partner"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        name="assembly"
+                        string="Assembly"
+                        context="{'group_by':'assembly_id'}"
+                    />
+                    <filter
+                        name="designation_assembly"
+                        string="Designation Assembly"
+                        context="{'group_by':'designation_int_assembly_id'}"
+                    />
+                    <filter
+                        name="mandate_category_id"
+                        string="Mandate Category"
+                        context="{'group_by':'mandate_category_id'}"
+                    />
                 </group>
             </search>
         </field>
     </record>
 
     <record model="ir.ui.view" id="virtual_partner_mandate_tree_view">
-        <field name="name">virtual.partner.mandate.tree (in mozaik_virtual_partner_mandate)</field>
+        <field
+            name="name"
+        >virtual.partner.mandate.tree (in mozaik_virtual_partner_mandate)</field>
         <field name="model">virtual.partner.mandate</field>
-        <field name="inherit_id" ref="mozaik_communication.abstract_virtual_model_tree_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.abstract_virtual_model_tree_view"
+        />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="assembly_id" />
@@ -115,9 +192,9 @@
         <field name="context">{'search_default_in_progress': True}</field>
     </record>
 
-    <record model="ir.ui.menu" id="virtual_partner_mandate_menu" >
+    <record model="ir.ui.menu" id="virtual_partner_mandate_menu">
         <field name="name">Partners/Mandates</field>
-        <field name="sequence" eval="50"/>
+        <field name="sequence" eval="50" />
         <field name="parent_id" ref="mozaik_communication.virtual_model_menu" />
         <field name="action" ref="virtual_partner_mandate_act_window" />
     </record>
@@ -126,11 +203,15 @@
         <field name="name">Add Filter To Distribution List</field>
         <field name="view_mode">form</field>
         <field name="res_model">distribution.list.add.filter</field>
-        <field name="multi" eval="1" />
         <field name="target">new</field>
-        <field name="binding_model_id" ref="mozaik_virtual_partner_mandate.model_virtual_partner_mandate" />
-        <field name="groups_id"
-               eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_user')])]" />
+        <field
+            name="binding_model_id"
+            ref="mozaik_virtual_partner_mandate.model_virtual_partner_mandate"
+        />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_mandate.res_groups_mandate_user')])]"
+        />
     </record>
 
 </odoo>
