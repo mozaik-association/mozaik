@@ -22,3 +22,4 @@ class ResPartner(models.Model):
         column1="partner_id",
         column2="thesaurus_term_id",
     )
+    indexation_comments = fields.Text(string="Comments")
