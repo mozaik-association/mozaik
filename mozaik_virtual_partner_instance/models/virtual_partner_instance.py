@@ -7,11 +7,9 @@ class VirtualPartnerInstance(models.Model):
     _name = "virtual.partner.instance"
     _description = "Partner/Instance"
     _inherit = [
-        'abstract.virtual.model',
-        'abstract.term.finder',
+        "abstract.virtual.model",
     ]
     _auto = False
-    _terms = ['interest_ids', 'competency_ids']
 
     local_voluntary = fields.Boolean()
     regional_voluntary = fields.Boolean()
@@ -24,25 +22,16 @@ class VirtualPartnerInstance(models.Model):
         string="Is a volunteer",
     )
     nationality_id = fields.Many2one(
-        comodel_name='res.country',
-        string='Nationality',
+        comodel_name="res.country",
+        string="Nationality",
     )
     membership_state_id = fields.Many2one(
-        comodel_name='membership.state',
-        string='State',
+        comodel_name="membership.state",
+        string="State",
     )
-    postal_category_id = fields.Many2one(
-        comodel_name='coordinate.category',
-        string='Postal Coordinate Category',
-    )
-    main_postal = fields.Boolean(
-        string='Main Address',
-    )
-    email_category_id = fields.Many2one(
-        comodel_name='coordinate.category',
-        string='Email Coordinate Category',
-    )
-    main_email = fields.Boolean(
+    email = fields.Char(string="Email")
+    address_address_id = fields.Many2one(
+        comodel_name="address.address", string="Address"
     )
 
     @api.model
@@ -51,7 +40,9 @@ class VirtualPartnerInstance(models.Model):
         Build the SELECT of the SQL query
         :return: str
         """
-        select = super()._get_select() + """,
+        select = (
+            super()._get_select()
+            + """,
             p.local_voluntary,
             p.regional_voluntary,
             p.national_voluntary,
@@ -60,10 +51,9 @@ class VirtualPartnerInstance(models.Model):
             p.is_volunteer,
             p.nationality_id,
             p.membership_state_id,
-            pc.coordinate_category_id AS postal_category_id,
-            pc.is_main AS main_postal,
-            e.coordinate_category_id AS email_category_id,
-            e.is_main AS main_email"""
+            p.email,
+            p.address_address_id"""
+        )
         return select
 
     @api.model
@@ -72,13 +62,7 @@ class VirtualPartnerInstance(models.Model):
         Build the FROM of the SQL query
         :return: str
         """
-        from_query = """FROM res_partner AS p
-            LEFT OUTER JOIN postal_coordinate AS pc
-                ON (pc.partner_id = p.id
-                AND pc.active = TRUE)
-            LEFT OUTER JOIN email_coordinate AS e
-                ON (e.partner_id = p.id
-                AND e.active = TRUE)"""
+        from_query = """FROM res_partner AS p"""
         return from_query
 
     @api.model
