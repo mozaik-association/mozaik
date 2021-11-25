@@ -34,6 +34,17 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_abstract_assembly__indexation_comments
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_ext_assembly__indexation_comments
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_int_assembly__indexation_comments
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_partner__indexation_comments
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_res_users__indexation_comments
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_sta_assembly__indexation_comments
+#: model_terms:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_form_view
+msgid "Comments"
+msgstr ""
+
+#. module: mozaik_thesaurus
 #: model_terms:ir.ui.view,arch_db:mozaik_thesaurus.res_partner_form_view
 msgid "Competencies"
 msgstr ""
