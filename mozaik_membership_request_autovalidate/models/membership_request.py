@@ -14,6 +14,11 @@ class MembershipRequest(models.Model):
         or not. If accepted, then auto_validate.
         """
         self.ensure_one()
+
+        # membership request without email
+        if auto_val and not self.email:
+            auto_val = False
+
         fields_tokeep_empty = [
             self.street_man,
             self.number,
