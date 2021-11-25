@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+   <record id="group_mass_mailing_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field
+            name="category_id"
+            ref="base.module_category_marketing_email_marketing"
+        />
+        <field
+            name="implied_ids"
+            eval="[(4, ref('mass_mailing.group_mass_mailing_user'))]"
+        />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+
+</odoo>
