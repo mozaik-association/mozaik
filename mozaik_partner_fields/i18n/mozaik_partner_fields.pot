@@ -26,11 +26,6 @@ msgstr ""
 
 #. module: mozaik_partner_fields
 #: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
-msgid "Age >= ..."
-msgstr ""
-
-#. module: mozaik_partner_fields
-#: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Birth Date <= ..."
 msgstr ""
 
