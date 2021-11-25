@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_virtual_partner_mandate
+# 	* mozaik_virtual_partner_mandate
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_active
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__active
 msgid "Active"
 msgstr ""
 
@@ -24,59 +24,75 @@ msgid "Add Filter To Distribution List"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_assembly_id
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__assembly_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Assembly"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__birth_date
+msgid "Birth Date"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Birth Date < ..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Birth Date > ..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__common_id
+msgid "Common ID"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__competency_ids
+msgid "Competencies"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__deadline_date
 msgid "Deadline Date"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Designated by descendants of..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Designated by non descendants of..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Designated to descendants of..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Designated to non descendants of..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_designation_int_assembly_id
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__designation_int_assembly_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Designation Assembly"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_designation_instance_id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__designation_instance_id
 msgid "Designation Instance"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -86,118 +102,152 @@ msgid "Distribution List Line"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__employee
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Employee"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_ext_mandate_id
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__ext_mandate_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "External Mandate"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_ext_competencies_m2m_ids
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__ext_competencies_m2m_ids
 msgid "External Mandate Competences"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Female"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "French"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__gender
+msgid "Gender"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "German"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_in_progress
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__in_progress
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "In Progress"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__interest_ids
+msgid "Interests"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__int_instance_ids
 msgid "Internal Instance"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Internal Instance descending of..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Internal Instance not descending of..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Internal Mandate"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate___last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__is_company
+msgid "Is a Company"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__lang
+msgid "Language"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Male"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_mandate_category_id
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__mandate_category_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Mandate Category"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Mandate End Date < ..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Mandate End Date > ..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Mandate Start Date < ..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Mandate Start Date > ..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_model
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__model
 msgid "Model"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Not Employee"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_partner_id
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_ref_partner_id
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__identifier
+msgid "Number"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__partner_id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__ref_partner_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Partner"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__partner_instance_ids
+msgid "Partner Internal Instances"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
@@ -212,64 +262,48 @@ msgid "Partners/Mandates"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_start_date
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__result_id
+msgid "Result"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__start_date
 msgid "Start Date"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_sta_instance_id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__sta_instance_id
 msgid "State Instance"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_sta_mandate_id
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__sta_mandate_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "State Mandate"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_sta_competencies_m2m_ids
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__sta_competencies_m2m_ids
 msgid "State Mandate Competences"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_ref_partner_competency_ids
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__ref_partner_competency_ids
 msgid "Topics"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-msgid "Unauthorized Address"
-msgstr ""
-
-#. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-msgid "Unauthorized Email"
-msgstr ""
-
-#. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-msgid "VIP Address"
-msgstr ""
-
-#. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-msgid "VIP Email"
-msgstr ""
-
-#. module: mozaik_virtual_partner_mandate
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_with_remuneration
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__with_remuneration
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "With Remuneration"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Without Coordinate"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Without Remuneration"
 msgstr ""
-
