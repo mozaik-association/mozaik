@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="event_type_form_view">
+        <field
+            name="name"
+        >event.type.form (in mozaik_event_involvement_category)</field>
+        <field name="model">event.type</field>
+        <field name="inherit_id" ref="event.view_event_type_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='event_type_visibility_tags']" position="after">
+                    <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    name="event_type_visibility_involvement_category"
+                >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label
+                            for="involvement_category_id"
+                            string="Involvement Category"
+                        />
+                            <div class="row">
+                                <div class="col-12 mt16">
+                                    <field
+                                    name="involvement_category_id"
+                                    options="{'no_create': True}"
+                                />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
