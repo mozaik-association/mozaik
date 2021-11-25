@@ -44,7 +44,7 @@
         "mozaik_thesaurus",
         "mozaik_tools",
         "mozaik_virtual_assembly_instance",
-        # "mozaik_virtual_partner_instance",
+        "mozaik_virtual_partner_instance",
         # 'mozaik_virtual_partner_involvement',
         "mozaik_virtual_partner_membership",
         "mozaik_virtual_partner_relation",
