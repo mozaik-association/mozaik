@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+     <record model="ir.ui.view" id="membership_request_form_view">
+        <field
+            name="name"
+        >membership.request.form (in mozaik_event_membership_request_involvement)</field>
+        <field name="model">membership.request</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_membership_request.membership_request_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='request_type']" position="after">
+                <field
+                    name="event_registration_id"
+                    attrs="{'invisible': [('event_registration_id', '=', False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
