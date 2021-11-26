@@ -18,6 +18,7 @@
     ],
     "data": [
         "views/event_event.xml",
+        "views/membership_request.xml",
     ],
     "demo": [],
 }
