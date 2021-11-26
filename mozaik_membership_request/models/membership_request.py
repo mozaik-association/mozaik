@@ -1192,9 +1192,6 @@ class MembershipRequest(models.Model):
 
             self._validate_request_coordinates(mr, partner_values)
 
-            if partner_values:
-                partner.write(partner_values)
-
             if (
                 mr.result_type_id != mr.membership_state_id
                 or mr.force_int_instance_id != partner.int_instance_ids
@@ -1227,9 +1224,14 @@ class MembershipRequest(models.Model):
                 }
                 address_id = mr.env["address.address"].create(address_values)
                 mr_vals["address_id"] = address_id
+            partner_values.update({"address_address_id": address_id})
+
+            if partner_values:
+                partner.write(partner_values)
 
         # if request `validate` then object should be invalidate
         mr_vals.update({"state": "validate"})
+
         # superuser_id because of record rules
         self.sudo().action_invalidate(vals=mr_vals)
         return True
@@ -1296,8 +1298,8 @@ class MembershipRequest(models.Model):
         # case of phone
         if mr.phone:
             partner_values["phone"] = mr.phone
-        # case of email
-        if mr.email:
+        # case of mobile
+        if mr.mobile:
             partner_values["mobile"] = mr.mobile
 
     def cancel_request(self):
