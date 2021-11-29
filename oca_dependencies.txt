@@ -20,4 +20,5 @@ bank-statement-import https://github.com/OCA/bank-import-statement 14.0
 queue https://github.com/mozaik-association/queue 11.0-mrm_master
 partner-contact https://github.com/mozaik-association/partner-contact 11.0-mrm_master
 social https://github.com/mozaik-association/social 11.0-mrm_master
-rest-framework https://github.com/acsone/rest-framework 14.0-mig-graphql_base-qgr
+rest-framework https://github.com/acsone/rest-framework 14.0-base-rest-pydantic-lmi
+event https://github.com/acsone/event 14.0-event_rest_api-qgr
