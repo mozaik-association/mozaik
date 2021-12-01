@@ -57,6 +57,22 @@ msgid "Abstract Power Level"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__property_account_payable_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__property_account_payable_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_account_payable_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__property_account_payable_id
+msgid "Account Payable"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__property_account_receivable_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__property_account_receivable_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_account_receivable_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__property_account_receivable_id
+msgid "Account Receivable"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_needaction
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__message_needaction
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__message_needaction
@@ -328,6 +344,14 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__bank_account_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__bank_account_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__bank_account_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__bank_account_count
+msgid "Bank"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__bank_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__bank_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__bank_ids
@@ -493,6 +517,14 @@ msgid "Commercial Entity"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__ref_company_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__ref_company_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__ref_company_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__ref_company_ids
+msgid "Companies that refers to partner"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__company_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__company_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__company_id
@@ -568,6 +600,14 @@ msgid "Contact"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__payment_token_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__payment_token_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__payment_token_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__payment_token_count
+msgid "Count Payment Token"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__message_bounce
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__message_bounce
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__message_bounce
@@ -632,6 +672,30 @@ msgid "Credit Limit"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__currency_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__currency_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__currency_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__property_payment_term_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__property_payment_term_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_payment_term_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__property_payment_term_id
+msgid "Customer Payment Terms"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__customer_rank
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__customer_rank
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__customer_rank
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__customer_rank
+msgid "Customer Rank"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__date
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__date
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__date
@@ -642,6 +706,14 @@ msgstr ""
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_legislature__deadline_date
 msgid "Deadline Date"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__trust
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__trust
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__trust
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__trust
+msgid "Degree of trust you have in this debtor"
 msgstr ""
 
 #. module: mozaik_structure
@@ -853,6 +925,14 @@ msgid "First name"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__property_account_position_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__property_account_position_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_account_position_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__property_account_position_id
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_follower_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__message_follower_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__message_follower_ids
@@ -968,6 +1048,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.electoral_district_search_view
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.legislature_search_view
 msgid "Group By..."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__has_unreconciled_entries
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__has_unreconciled_entries
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__has_unreconciled_entries
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__has_unreconciled_entries
+msgid "Has Unreconciled Entries"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1292,6 +1380,14 @@ msgid "Internal Power Levels"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__invoice_warn
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__invoice_warn
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__invoice_warn
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__invoice_warn
+msgid "Invoice"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__type
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__type
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__type
@@ -1299,6 +1395,14 @@ msgstr ""
 msgid ""
 "Invoice & Delivery addresses are used in sales orders. Private addresses are"
 " only visible by authorized users."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__invoice_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__invoice_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__invoice_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__invoice_ids
+msgid "Invoices"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1370,6 +1474,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__function
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__function
 msgid "Job Position"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__journal_item_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__journal_item_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__journal_item_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__journal_item_count
+msgid "Journal Items"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1447,6 +1559,25 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__lastname
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__lastname
 msgid "Last name"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__last_time_entries_checked
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__last_time_entries_checked
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__last_time_entries_checked
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__last_time_entries_checked
+msgid ""
+"Last time the invoices & payments matching was performed for this partner. "
+"It is set either if there's not at least an unreconciled debit and an "
+"unreconciled credit or if you click the \"Done\" button."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__last_time_entries_checked
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__last_time_entries_checked
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__last_time_entries_checked
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__last_time_entries_checked
+msgid "Latest Invoices & Payments Matching Date"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1537,6 +1668,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__message_has_error
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__message_has_error
 msgid "Message Delivery error"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__invoice_warn_msg
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__invoice_warn_msg
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__invoice_warn_msg
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__invoice_warn_msg
+msgid "Message for Invoice"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1815,11 +1954,43 @@ msgid "Partner"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__contract_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__contract_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__contract_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__contract_ids
+msgid "Partner Contracts"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__same_vat_partner_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__same_vat_partner_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__same_vat_partner_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__same_vat_partner_id
 msgid "Partner with same Tax ID"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__debit_limit
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__debit_limit
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__debit_limit
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__debit_limit
+msgid "Payable Limit"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__property_payment_method_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__property_payment_method_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_payment_method_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__property_payment_method_id
+msgid "Payment Method"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__payment_token_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__payment_token_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__payment_token_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__payment_token_ids
+msgid "Payment Tokens"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1871,6 +2042,17 @@ msgstr ""
 #: code:addons/mozaik_structure/models/abstract_assembly.py:0
 #, python-format
 msgid "Power level of category and instance are inconsistent"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__property_payment_method_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__property_payment_method_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__property_payment_method_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__property_payment_method_id
+msgid ""
+"Preferred payment method when paying this vendor. This is used to filter "
+"vendor bills by preferred payment method to register payments in mass. Use "
+"cases: create bank files for batch wires, check runs."
 msgstr ""
 
 #. module: mozaik_structure
@@ -2027,6 +2209,17 @@ msgstr ""
 #. module: mozaik_structure
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.int_assembly_search_view
 msgid "Secretariats"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__invoice_warn
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__invoice_warn
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__invoice_warn
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__invoice_warn
+msgid ""
+"Selecting the \"Warning\" option will notify user with the message, "
+"Selecting \"Blocking Message\" will throw an exception with the message and "
+"block the flow. The Message has to be written in the next field."
 msgstr ""
 
 #. module: mozaik_structure
@@ -2201,6 +2394,14 @@ msgid "Structures"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__supplier_rank
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__supplier_rank
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__supplier_rank
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__supplier_rank
+msgid "Supplier Rank"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__category_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__category_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__category_id
@@ -2237,6 +2438,15 @@ msgid "The external identifier (INS) must be unique."
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__property_account_position_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__property_account_position_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__property_account_position_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__property_account_position_id
+msgid ""
+"The fiscal position determines the taxes/accounts used for this contact."
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__website_url
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__website_url
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__website_url
@@ -2258,8 +2468,38 @@ msgid "The name must be unique."
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__has_unreconciled_entries
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__has_unreconciled_entries
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__has_unreconciled_entries
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__has_unreconciled_entries
+msgid ""
+"The partner has at least one unreconciled debit and credit since last time "
+"the invoices & payments matching was performed."
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.constraint,message:mozaik_structure.constraint_legislature_date_check1
 msgid "The start date must be anterior to the deadline date."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__property_account_payable_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__property_account_payable_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__property_account_payable_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__property_account_payable_id
+msgid ""
+"This account will be used instead of the default one as the payable account "
+"for the current partner"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__property_account_receivable_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__property_account_receivable_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__property_account_receivable_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__property_account_receivable_id
+msgid ""
+"This account will be used instead of the default one as the receivable "
+"account for the current partner"
 msgstr ""
 
 #. module: mozaik_structure
@@ -2270,6 +2510,26 @@ msgstr ""
 msgid ""
 "This field is used to search on email address as the primary email field can"
 " contain more than strictly an email address."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__property_supplier_payment_term_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__property_supplier_payment_term_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__property_supplier_payment_term_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__property_supplier_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for purchase "
+"orders and vendor bills"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__property_payment_term_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__property_payment_term_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__property_payment_term_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__property_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for sales orders "
+"and customer invoices"
 msgstr ""
 
 #. module: mozaik_structure
@@ -2304,6 +2564,46 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__title
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__title
 msgid "Title"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__total_invoiced
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__total_invoiced
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__total_invoiced
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__total_invoiced
+msgid "Total Invoiced"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__debit
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__debit
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__debit
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__debit
+msgid "Total Payable"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__credit
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__credit
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__credit
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__credit
+msgid "Total Receivable"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__credit
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__credit
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__credit
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__credit
+msgid "Total amount this customer owes you."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__debit
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__debit
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__debit
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__debit
+msgid "Total amount you have to pay to this vendor."
 msgstr ""
 
 #. module: mozaik_structure
@@ -2400,6 +2700,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__usual_name
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__usual_name
 msgid "Usual Name"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__currency_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__currency_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__currency_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__currency_id
+msgid "Utility field to express amount currency"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__property_supplier_payment_term_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__property_supplier_payment_term_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_supplier_payment_term_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__property_supplier_payment_term_id
+msgid "Vendor Payment Terms"
 msgstr ""
 
 #. module: mozaik_structure
