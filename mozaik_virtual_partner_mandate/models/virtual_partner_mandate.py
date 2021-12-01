@@ -27,7 +27,7 @@ class VirtualPartnerMandate(models.Model):
         domain=[("is_company", "=", False), ("identifier", ">", 0)],
     )
     int_instance_ids = fields.Many2many(
-        related="ref_partner_id.int_instance_ids", string="Internal Instance"
+        related="ref_partner_id.int_instance_ids", string="Internal Instances"
     )
 
     model = fields.Char()
@@ -53,7 +53,7 @@ class VirtualPartnerMandate(models.Model):
         comodel_name="ext.mandate", string="External Mandate"
     )
 
-    ref_partner_id = fields.Many2one(comodel_name="res.partner", string="Partner")
+    ref_partner_id = fields.Many2one(comodel_name="res.partner", string="Partners")
 
     start_date = fields.Date(string="Start Date")
     deadline_date = fields.Date(string="Deadline Date")
