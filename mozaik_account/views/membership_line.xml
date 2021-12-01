@@ -7,9 +7,21 @@
         <field name="inherit_id" ref="mozaik_membership.membership_line_search_view" />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='active']" position="before">
-                <filter name="free" string="Free" domain="[('state_code', 'in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), ('price','=',0.0)]" />
-                <filter name="unpaid" string="Unpaid" domain="[('state_code', 'in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), ('price','!=',0.0), ('paid','=',False)]" />
-                <filter name="paid" string="Paid" domain="[('state_code', 'in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), ('price','!=',0.0), ('paid','=',True)]" />
+                <filter
+                    name="free"
+                    string="Free"
+                    domain="[('state_code', 'in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), ('price','=',0.0)]"
+                />
+                <filter
+                    name="unpaid"
+                    string="Unpaid"
+                    domain="[('state_code', 'in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), ('price','!=',0.0), ('paid','=',False)]"
+                />
+                <filter
+                    name="paid"
+                    string="Paid"
+                    domain="[('state_code', 'in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), ('price','!=',0.0), ('paid','=',True)]"
+                />
                 <separator />
             </xpath>
         </field>
@@ -21,8 +33,10 @@
         <field name="inherit_id" ref="mozaik_membership.membership_line_tree_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='price']" position="after">
-                <field name="paid"
-                    attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}" />
+                <field
+                    name="paid"
+                    attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"
+                />
             </xpath>
         </field>
     </record>
@@ -33,21 +47,27 @@
         <field name="inherit_id" ref="mozaik_membership.membership_line_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='reference']" position="after">
-                <field name="paid"
-                    attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}" />
+                <field
+                    name="paid"
+                    attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"
+                />
             </xpath>
             <xpath expr="//field[@name='price']" position="after">
-                <field name="price_paid"/>
+                <field name="price_paid" />
             </xpath>
             <xpath expr="//field[@name='date_to']" position="after">
-                <field name="move_id"
-                    attrs="{'invisible': [('move_id', '=', False)]}" />
-                <field name="bank_account_id"
-                    attrs="{'invisible': [('bank_account_id', '=', False)]}"/>
+                <field
+                    name="move_id"
+                    attrs="{'invisible': [('move_id', '=', False)]}"
+                />
+                <field
+                    name="bank_account_id"
+                    attrs="{'invisible': [('bank_account_id', '=', False)]}"
+                />
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page name="donations" string="Donations">
-                    <field name="donation_move_ids"/>
+                    <field name="donation_move_ids" />
                 </page>
             </xpath>
         </field>

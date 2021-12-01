@@ -16,7 +16,7 @@
         # 'ir_rule_child_of',
         # 'mail_job_priority',
         "mozaik_abstract_model",
-        # 'mozaik_account',
+        "mozaik_account",
         "mozaik_address",
         "mozaik_address_local_street",
         "mozaik_automatic_supporter",

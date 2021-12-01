@@ -7,7 +7,11 @@
         <field name="inherit_id" ref="account.view_move_line_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='statement_id']" position="after">
-                <field name="statement_line_id" readonly="True" attrs="{'invisible': [('statement_line_id','=',False)]}"/>
+                <field
+                    name="statement_line_id"
+                    readonly="True"
+                    attrs="{'invisible': [('statement_line_id','=',False)]}"
+                />
             </xpath>
         </field>
     </record>

@@ -15,6 +15,8 @@
 # sale-workflow https://github.com/OCA/sale-workflow branchname
 
 #server-backend https://github.com/OCA/server-backend 11.0
+account-reconcile https://github.com/OCA/account-reconcile 14.0
+bank-statement-import https://github.com/OCA/bank-import-statement 14.0
 queue https://github.com/mozaik-association/queue 11.0-mrm_master
 partner-contact https://github.com/mozaik-association/partner-contact 11.0-mrm_master
 social https://github.com/mozaik-association/social 11.0-mrm_master
