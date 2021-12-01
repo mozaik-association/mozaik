@@ -109,6 +109,8 @@ msgstr ""
 
 #. module: distribution_list
 #: model:ir.model,name:distribution_list.model_distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_account_invoice_send__distribution_list_id
+#: model:ir.model.fields,field_description:distribution_list.field_account_tour_upload_bill__distribution_list_id
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__distribution_list_id
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__distribution_list_id
 #: model:ir.model.fields,field_description:distribution_list.field_mail_compose_message__distribution_list_id
