@@ -62,7 +62,7 @@ class TestAccounting(object):
         statement_line_vals = {
             "statement_id": b_statement_id.id,
             "amount": amount,
-            "name": "%s" % b_statement_id.id,
+            "payment_ref": "%s" % b_statement_id.id,
         }
         if with_partner:
             statement_line_vals.update(
@@ -79,7 +79,7 @@ class TestAccounting(object):
     def _get_manual_move_dict(self, additional_amount):
         property_obj = self.env["ir.property"]
         res = []
-        subscription_account = property_obj.get(
+        subscription_account = property_obj._get(
             "property_subscription_account", "product.template"
         )
         other_account = self.env["account.account"].search(
@@ -120,14 +120,14 @@ class TestAccounting(object):
         bank_s.auto_reconcile()
 
         for line in bank_s.line_ids:
-            self.assertTrue(line.journal_entry_ids)
+            self.assertTrue(line.is_reconciled)
 
         self.assertTrue(self.partner.membership_line_ids.paid)
         self.assertAlmostEqual(
             self.partner.membership_line_ids.price_paid, bank_s.line_ids.amount
         )
         self.assertEqual(
-            bank_s.line_ids.journal_entry_ids.mapped("move_id"),
+            bank_s.line_ids.move_id,
             self.partner.membership_line_ids.move_id,
         )
 
@@ -140,16 +140,25 @@ class TestAccounting(object):
             price = additional_amount
         bank_s.auto_reconcile()
         for line in bank_s.line_ids:
-            self.assertFalse(line.journal_entry_ids)
+            self.assertFalse(line.is_reconciled)
 
-        move_dicts = self._get_manual_move_dict(additional_amount)
+        if not self.product:
+            move_dicts = self._get_manual_move_dict(bank_s.line_ids.amount)
+        else:
+            move_dicts = self._get_manual_move_dict(additional_amount)
 
         first(bank_s.line_ids).process_reconciliation(new_aml_dicts=move_dicts)
 
         self.assertTrue(self.partner.membership_line_ids.paid)
-        self.assertAlmostEqual(self.partner.membership_line_ids.price_paid, price)
+        if not self.product:
+            self.assertAlmostEqual(
+                self.partner.membership_line_ids.price_paid, bank_s.line_ids.amount
+            )
+        else:
+
+            self.assertAlmostEqual(self.partner.membership_line_ids.price_paid, price)
         self.assertEqual(
-            bank_s.line_ids.journal_entry_ids.mapped("move_id"),
+            bank_s.line_ids.move_id,
             self.partner.membership_line_ids.move_id,
         )
 
@@ -161,7 +170,7 @@ class TestAccounting(object):
         bank_s.auto_reconcile()
         for bank_st in bank_s:
             for line in bank_st.line_ids:
-                self.assertFalse(line.journal_entry_ids)
+                self.assertFalse(line.is_reconciled)
 
         move_dicts = self._get_manual_move_dict(additional_amount)
         with self.assertRaises(ValidationError):
@@ -208,7 +217,7 @@ class TestAccountingPayTwice(TestAccounting, SavepointCase):
         bank_s.auto_reconcile()
         for bank_st in bank_s:
             for line in bank_st.line_ids:
-                self.assertFalse(line.journal_entry_ids)
+                self.assertFalse(line.is_reconciled)
         return res
 
     def test_accounting_manual_reconcile(self):
@@ -230,7 +239,7 @@ class TestAccountingGroupedPayment(TestAccounting, SavepointCase):
 
     def _get_manual_move_dict(self, additional_amount):
         property_obj = self.env["ir.property"]
-        subscription_account = property_obj.get(
+        subscription_account = property_obj._get(
             "property_subscription_account", "product.template"
         )
         res = [
@@ -278,7 +287,7 @@ class TestAccountingGroupedPayment(TestAccounting, SavepointCase):
         }
         b_statement_id.auto_reconcile()
         for line in b_statement_id.line_ids:
-            self.assertFalse(line.journal_entry_ids)
+            self.assertFalse(line.is_reconciled)
 
         move_dicts = self._get_manual_move_dict(additional_amount)
 
@@ -290,7 +299,7 @@ class TestAccountingGroupedPayment(TestAccounting, SavepointCase):
                 partner.membership_line_ids.price_paid, self.product.list_price
             )
             self.assertEqual(
-                b_statement_id.line_ids.journal_entry_ids.mapped("move_id"),
+                b_statement_id.line_ids.move_id,
                 partner.membership_line_ids.move_id,
             )
 
@@ -320,12 +329,15 @@ class TestAccountingProtectAutoReconcile(TestAccounting, SavepointCase):
         b_statement_id.auto_reconcile()
         for bank_s in b_statement_id:
             for line in bank_s.line_ids:
-                self.assertTrue(line.journal_entry_ids)
+                self.assertTrue(line.is_reconciled)
         b_statement_id2 = b_statement_id.copy()
+        b_statement_id2.line_ids.move_id.line_ids[
+            1
+        ].account_id = b_statement_id2.line_ids.journal_id.suspense_account_id
         b_statement_id2.auto_reconcile()
         for bank_s in b_statement_id2:
             for line in bank_s.line_ids:
-                self.assertFalse(line.journal_entry_ids)
+                self.assertFalse(line.is_reconciled)
 
     def test_accounting_manual_reconcile(self):
         return

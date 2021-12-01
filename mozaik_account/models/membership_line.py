@@ -45,7 +45,7 @@ class MembershipLine(models.Model):
         )
         if param != "0":
             min_date_from = min_date_from.replace(year=min_date_from.year - 1)
-        return fields.Date.to_string(min_date_from)
+        return min_date_from
 
     @api.model
     def _get_membership_line_by_ref(self, reference, raise_exception=True):
@@ -71,7 +71,7 @@ class MembershipLine(models.Model):
     def _get_membership_line_by_partner_amount(
         self, partner, amount, raise_exception=True
     ):
-        precision = self._fields.get("price").digits[1]
+        precision = self._fields.get("price").get_digits(self.env)[1]
         memberships = partner.membership_line_ids.filtered(
             lambda s: not s.paid
             and not float_compare(s.price, amount, precision_digits=precision)

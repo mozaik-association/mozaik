@@ -5,17 +5,19 @@ from odoo import api, models
 
 class AccountMoveLine(models.Model):
 
-    _inherit = ["account.move.line"]
+    _inherit = "account.move.line"
 
-    @api.model
-    def create(self, vals):
-        st_line_id = vals.get("statement_line_id")
-        if st_line_id:
-            st_line = self.env["account.bank.statement.line"].browse(st_line_id)
-            mode, partner = st_line._get_info_from_reference(vals.get("name", False))
-            if mode == "membership" and partner:
-                vals["partner_id"] = partner.id
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            st_line_id = vals.get("statement_line_id")
+            if st_line_id:
+                mode, partner = self.env[
+                    "account.bank.statement.line"
+                ]._get_info_from_reference(vals.get("name", False))
+                if mode == "membership" and partner:
+                    vals["partner_id"] = partner.id
+        return super().create(vals_list)
 
     def _remove_membership(self):
         memberships = self.env["membership.line"].search(

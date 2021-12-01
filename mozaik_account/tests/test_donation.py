@@ -38,7 +38,9 @@ class TestDonation(object):
             {
                 "partner_id": partner.id,
                 "involvement_category_id": cat.id,
-                "effective_time": fields.Date.today() + " 00:00:00",
+                "effective_time": fields.Datetime.now().replace(
+                    hour=0, minute=0, second=0
+                ),
                 "amount": 12.0,
                 "reference": "DONKAMYO",
             }
@@ -55,7 +57,7 @@ class TestDonation(object):
         amount += additional_amount
         vals = {
             "statement_id": statement.id,
-            "name": self.involvement.reference,
+            "payment_ref": self.involvement.reference,
             "amount": amount,
         }
         if with_partner:
@@ -146,12 +148,15 @@ class TestAccountingProtectAutoReconcile(TestDonation, SavepointCase):
         statement.auto_reconcile()
 
         for line in statement.line_ids:
-            self.assertTrue(line.journal_entry_ids)
+            self.assertTrue(line.is_reconciled)
 
         statement2 = statement.copy()
+        statement2.line_ids.move_id.line_ids[
+            1
+        ].account_id = statement2.line_ids.journal_id.suspense_account_id
         statement2.auto_reconcile()
         for line in statement2.line_ids:
-            self.assertFalse(line.journal_entry_ids)
+            self.assertFalse(line.is_reconciled)
 
     def test_accounting_manual_reconcile(self):
         return

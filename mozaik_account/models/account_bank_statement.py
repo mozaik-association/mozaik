@@ -11,7 +11,7 @@ class AccountBankStatement(models.Model):
     def auto_reconcile(self):
         self.ensure_one()
         lines = self.line_ids.filtered(
-            lambda l: not (not l.partner_id or l.journal_entry_ids)
+            lambda l: not (not l.partner_id or l.is_reconciled)
         )
         if not lines:
             return False

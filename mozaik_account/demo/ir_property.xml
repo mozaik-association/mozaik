@@ -6,11 +6,11 @@
         <field name="type">many2one</field>
         <field
             name="fields_id"
-            ref="mozaik_account.field_product_template_property_subscription_account"
+            ref="mozaik_account.field_product_template__property_subscription_account"
         />
         <field
             name="value_reference"
-            eval="'account.account,' + str(ref('l10n_generic_coa.1_conf_a_pay'))"
+            eval="'account.account,' + str(ref('l10n_generic_coa.payable'))"
         />
     </record>
 

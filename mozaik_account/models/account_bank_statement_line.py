@@ -1,6 +1,5 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 from odoo import _, api, models
 from odoo.exceptions import ValidationError
 from odoo.fields import first
@@ -11,13 +10,14 @@ class AccountBankStatementLine(models.Model):
 
     _inherit = "account.bank.statement.line"
 
-    @api.model
-    def create(self, vals):
-        if not vals.get("partner_id"):
-            __, partner = self._get_info_from_reference(vals.get("name"))
-            if partner:
-                vals["partner_id"] = partner.id
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get("partner_id"):
+                __, partner = self._get_info_from_reference(vals.get("payment_ref"))
+                if partner:
+                    vals["partner_id"] = partner.id
+        return super().create(vals_list)
 
     @api.model
     def _get_models(self):
@@ -56,7 +56,7 @@ class AccountBankStatementLine(models.Model):
         Create an account move related to a donation
         """
         self.ensure_one()
-        line_count = self.search_count([("name", "=", reference)])
+        line_count = self.search_count([("payment_ref", "=", reference)])
         if line_count > 1:
             # do not auto reconcile if reference has already been used
             return
@@ -84,7 +84,7 @@ class AccountBankStatementLine(models.Model):
         if mode == "membership":
             move_id = vals.get("move_id", False)
             membership = memb_obj._get_membership_line_by_ref(reference)
-            bank_account_id = self.bank_account_id.id
+            bank_account_id = self.partner_bank_id.id
             membership._mark_as_paid(amount_paid, move_id, bank_account_id)
 
         if mode == "donation":
@@ -111,7 +111,7 @@ class AccountBankStatementLine(models.Model):
             )
             if membership and not membership.paid:
                 move_id = vals.get("move_id", False)
-                bank_account_id = self.bank_account_id.id
+                bank_account_id = self.partner_bank_id.id
                 membership._mark_as_paid(amount_paid, move_id, bank_account_id)
         return
 
@@ -141,7 +141,7 @@ class AccountBankStatementLine(models.Model):
             return
         product = membership.product_id
         account = product.property_subscription_account
-        precision = membership._fields.get("price").digits[1]
+        precision = membership._fields.get("price").get_digits(self.env)[1]
         # float_compare return 0 if values are equals
         cmp = float_compare(self.amount, membership.price, precision_digits=precision)
         if account and not cmp:
@@ -194,16 +194,18 @@ class AccountBankStatementLine(models.Model):
     def _auto_reconcile(self):
         reconciled_lines = self.env["account.bank.statement.line"]
         for bank_line in self.filtered(
-            lambda l: not (not l.partner_id or l.journal_entry_ids)
+            lambda l: not (not l.partner_id or l.is_reconciled)
         ):
-            mode, __ = bank_line._get_info_from_reference(bank_line.name)
+            mode, __ = bank_line._get_info_from_reference(bank_line.payment_ref)
             if mode == "membership":
-                bank_line._create_membership_move(bank_line.name, raise_exception=False)
+                bank_line._create_membership_move(
+                    bank_line.payment_ref, raise_exception=False
+                )
             elif mode == "donation":
-                bank_line._create_donation_move(bank_line.name)
+                bank_line._create_donation_move(bank_line.payment_ref)
             elif not mode:
                 bank_line._create_membership_move_from_partner(raise_exception=False)
-            if bank_line.journal_entry_ids:
+            if bank_line.is_reconciled:
                 reconciled_lines += bank_line
         return reconciled_lines
 
