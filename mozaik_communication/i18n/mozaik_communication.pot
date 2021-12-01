@@ -221,6 +221,8 @@ msgid "Contact"
 msgstr ""
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_account_invoice_send__contact_ab_pc
+#: model:ir.model.fields,field_description:mozaik_communication.field_account_tour_upload_bill__contact_ab_pc
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_compose_message__contact_ab_pc
 msgid "Contact Ab Pc"
 msgstr ""
