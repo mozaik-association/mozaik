@@ -47,12 +47,8 @@
                         name="interest_ids"
                         attrs="{'invisible': [('is_company','=',True)]}"
                     />
-                    <separator
-                        string="Comments"
-                    />
-                    <field
-                        name="indexation_comments"
-                    />
+                    <separator string="Comments" />
+                    <field name="indexation_comments" />
                 </page>
             </xpath>
         </field>
