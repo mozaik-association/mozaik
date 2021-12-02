@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="ext_assembly_form_view">
+        <field name="name">ext.assembly.form (in mozaik_mandate_important)</field>
+        <field name="model">ext.assembly</field>
+        <field name="inherit_id" ref="mozaik_structure.ext_assembly_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='assembly_category_id']" position="after">
+                <field name="is_important" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ext_assembly_search_view">
+        <field name="name">ext.assembly.search (in mozaik_mandate_important)</field>
+        <field name="model">ext.assembly</field>
+        <field name="inherit_id" ref="mozaik_structure.ext_assembly_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='expired']" position="before">
+                <filter
+                    name="important"
+                    string="Important"
+                    domain="[('is_important', '=', True)]"
+                    help="Important Mandates"
+                />
+                <separator />
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

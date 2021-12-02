@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+
+    <record model="ir.ui.view" id="virtual_partner_mandate_search_view">
+        <field
+            name="name"
+        >virtual.partner.mandate.search (in mozaik_mandate_important)</field>
+        <field name="model">virtual.partner.mandate</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='ext_mod']" position="after">
+                <separator />
+                <filter
+                    name="important"
+                    string="Important"
+                    domain="[('is_important', '=', True)]"
+                    help="Important Mandates"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
