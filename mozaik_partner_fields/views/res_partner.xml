@@ -20,6 +20,12 @@
                     invisible="context.get('default_is_company', True)"
                 />
                 <field
+                    string="Age >= ..."
+                    name="age"
+                    filter_domain="[('age','>=', self)]"
+                    invisible="context.get('default_is_company', True)"
+                />
+                <field
                     string="Age &lt; ..."
                     name="age"
                     filter_domain="[('age','&lt;', self)]"
@@ -53,12 +59,6 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='personal_information_group']" position="inside">
                 <field name="marital" />
-            </xpath>
-            <xpath expr="//field[@name='birthdate_date']" position="after">
-                <field
-                    name="age"
-                    attrs="{'invisible': [('birthdate_date', '=', False)]}"
-                />
             </xpath>
             <xpath expr="//field[@name='website']" position="after">
                 <field name="secondary_website" />

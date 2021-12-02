@@ -49,11 +49,9 @@
                     />
                     <separator
                         string="Comments"
-                        attrs="{'invisible': [('is_company','=',False)]}"
                     />
                     <field
                         name="indexation_comments"
-                        attrs="{'invisible': [('is_company','=',False)]}"
                     />
                 </page>
             </xpath>
