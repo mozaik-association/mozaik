@@ -212,7 +212,7 @@ msgstr "Partenaire/Mandat"
 #: model:ir.actions.act_window,name:mozaik_virtual_partner_mandate.virtual_partner_mandate_act_window
 #: model:ir.ui.menu,name:mozaik_virtual_partner_mandate.virtual_partner_mandate_menu
 msgid "Partners/Mandates"
-msgstr "Partenaires/Instances"
+msgstr "Partenaires/Mandats"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate_start_date
