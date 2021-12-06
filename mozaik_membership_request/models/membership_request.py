@@ -1143,7 +1143,9 @@ class MembershipRequest(models.Model):
             partner_obj = mr.env["res.partner"]  # we need to keep the modified context
 
             partner = mr.partner_id
+
             if not mr.partner_id:
+                mr._get_instance_partner(partner_values)
                 partner = partner_obj.create(partner_values)
                 mr_vals["partner_id"] = partner.id
                 partner_values = {}
@@ -1310,6 +1312,20 @@ class MembershipRequest(models.Model):
         # superuser_id because of record rules
         self.sudo().action_invalidate(vals={"state": "cancel"})
         return True
+
+    def _get_instance_partner(self, partner_values):
+        """
+        If the membership request concerns a new partner and if an internal instance
+        is present on the membership request, we use it to force the instance
+        of the partner.
+        """
+        self.ensure_one()
+        if not self.partner_id and self.force_int_instance_id:
+            partner_values.update(
+                {"force_int_instance_id": self.force_int_instance_id.id}
+            )
+        elif not self.partner_id and self.int_instance_ids:
+            partner_values.update({"force_int_instance_id": self.int_instance_ids.id})
 
     @api.model
     def get_int_instance_id(self, city_id):
