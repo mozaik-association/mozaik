@@ -394,10 +394,15 @@ msgid "Interests"
 msgstr ""
 
 #. module: mozaik_membership_request
-#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__int_instance_ids_readonly
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__int_instance_id
 msgid "Internal Instance"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__int_instance_ids
+msgid "Internal Instance (real)"
 msgstr ""
 
 #. module: mozaik_membership_request
