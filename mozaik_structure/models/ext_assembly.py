@@ -30,6 +30,9 @@ class ExtAssembly(models.Model):
         },
         domain=[("is_company", "=", True), ("is_assembly", "=", False)],
     )
+    is_important = fields.Boolean(
+        "Important Mandate", default=False, index=True, tracking=True
+    )
 
     def _get_default_instance(self):
         return self.env["int.instance"]._get_default_int_instance()

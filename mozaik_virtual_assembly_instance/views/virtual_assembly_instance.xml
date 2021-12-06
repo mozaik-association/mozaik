@@ -66,6 +66,13 @@
                 />
                 <separator />
                 <filter
+                    name="important"
+                    string="Important"
+                    domain="[('is_important', '=', True)]"
+                    help="Important Mandates"
+                />
+                <separator />
+                <filter
                     name="without_coordinate"
                     string="Without Coordinate"
                     domain="[('active','=',False)]"

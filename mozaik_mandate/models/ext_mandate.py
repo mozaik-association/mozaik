@@ -34,9 +34,9 @@ class ExtMandate(models.Model):
         string="Alert Delay (#Months)", tracking=True, group_operator="max"
     )
     instance_id = fields.Many2one(
-        comodel_name="int.instance",
-        related="ext_assembly_id.instance_id",
+        comodel_name="int.instance", related="ext_assembly_id.instance_id"
     )
+    is_important = fields.Boolean("Important Mandate", index=True, tracking=True)
 
     @api.onchange("mandate_category_id")
     def _onchange_mandate_category_id(self):
@@ -53,3 +53,14 @@ class ExtMandate(models.Model):
             ext_mandate.designation_int_assembly_id = (
                 ext_mandate.ext_assembly_id.designation_int_assembly_id
             )
+            if ext_mandate.ext_assembly_id:
+                ext_mandate.is_important = ext_mandate.ext_assembly_id.is_important
+
+    @api.model
+    def create(self, vals):
+        if not vals.get("is_important", False):
+            assembly_id = vals.get("ext_assembly_id", False)
+            assembly = self.env["ext.assembly"].browse(assembly_id)
+            if assembly:
+                vals["is_important"] = assembly.is_important
+        return super().create(vals)

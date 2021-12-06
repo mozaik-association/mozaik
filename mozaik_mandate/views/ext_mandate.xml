@@ -28,6 +28,10 @@
                 <field name="months_before_end_of_mandate" />
             </xpath>
 
+            <xpath expr="//field[@name='designation_int_assembly_id']" position="after">
+                <field name="is_important" />
+            </xpath>
+
             <xpath expr="//page[@name='date']" position="after">
                 <page name="index" string="Indexation">
                     <field name="competencies_m2m_ids" />
@@ -52,6 +56,16 @@
                     domain="[]"
                     context="{'group_by':'ext_assembly_id'}"
                 />
+            </xpath>
+            <xpath expr="//filter[@name='without_remuneration']" position="after">
+                <separator />
+                <filter
+                    name="important"
+                    string="Important"
+                    domain="[('is_important', '=', True)]"
+                    help="Important Mandates"
+                />
+                <separator />
             </xpath>
         </field>
     </record>

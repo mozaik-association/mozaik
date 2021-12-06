@@ -20,6 +20,15 @@
                     context="{'group_by':'ref_partner_id'}"
                 />
             </xpath>
+            <xpath expr="//filter[@name='expired']" position="before">
+                <filter
+                    name="important"
+                    string="Important"
+                    domain="[('is_important', '=', True)]"
+                    help="Important Mandates"
+                />
+                <separator />
+            </xpath>
         </field>
     </record>
 
@@ -48,6 +57,7 @@
             </xpath>
             <xpath expr="//field[@name='assembly_category_id']" position="after">
                 <field name="instance_id" />
+                <field name="is_important" />
             </xpath>
         </field>
         <field name="priority" eval="99" />

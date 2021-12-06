@@ -14,8 +14,7 @@ class VirtualAssemblyInstance(models.Model):
 
     @api.model
     def _get_select(self):
-        res = super()._get_select()
-        return res + ", '%(is_important)s as is_important'"
+        return super(VirtualAssemblyInstance, self)._get_select() + ", '%(is_important)s as is_important'"
 
     @api.model
     def _get_query_parameters(self, parameter=False):

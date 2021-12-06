@@ -108,6 +108,13 @@
                 />
                 <separator />
                 <filter
+                    name="important"
+                    string="Important"
+                    domain="[('is_important', '=', True)]"
+                    help="Important Mandates"
+                />
+                <separator />
+                <filter
                     name="with_remuneration"
                     string="With Remuneration"
                     domain="[('with_remuneration','=',True)]"

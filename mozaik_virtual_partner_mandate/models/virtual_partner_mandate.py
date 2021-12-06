@@ -74,6 +74,7 @@ class VirtualPartnerMandate(models.Model):
     )
     in_progress = fields.Boolean("In Progress")
     active = fields.Boolean("Active")
+    is_important = fields.Boolean("Important Mandates")
 
     @api.model
     def _get_select(self):
@@ -98,6 +99,7 @@ class VirtualPartnerMandate(models.Model):
             p.is_company as is_company,
             p.employee as employee,
             %(sta_instance_id)s as sta_instance_id,
+            '%(is_important)s as is_important',
             CASE
                 WHEN start_date <= current_date
                 THEN True
@@ -147,6 +149,7 @@ class VirtualPartnerMandate(models.Model):
         ref_partner_id = (
             "assembly.ref_partner_id" if mandate_type == "ext" else "NULL::int"
         )
+        is_important = "mandate.is_important" if mandate_type == "ext" else "NULL"
         return {
             "mandate_type": AsIs(mandate_type),
             "mandate_id": AsIs(mandate_id),
@@ -154,4 +157,5 @@ class VirtualPartnerMandate(models.Model):
             "ext_mandate_id": AsIs(ext_mandate_id),
             "ref_partner_id": AsIs(ref_partner_id),
             "sta_instance_id": AsIs(sta_instance_id),
+            "is_important": AsIs(is_important),
         }

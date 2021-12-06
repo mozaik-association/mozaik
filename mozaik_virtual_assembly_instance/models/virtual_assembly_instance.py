@@ -43,6 +43,7 @@ class VirtualAssemblyInstance(models.Model):
         comodel_name="sta.assembly.category",
         string="State Assembly Category",
     )
+    is_important = fields.Boolean("Important Mandates")
 
     @api.model
     def _get_union_parameters(self):
@@ -80,6 +81,7 @@ class VirtualAssemblyInstance(models.Model):
         )
         int_power_id = "i.power_level_id" if parameter == "int" else "NULL::int"
         sta_power_id = "i.power_level_id" if parameter == "sta" else "NULL::int"
+        is_important = "assembly.is_important" if parameter == "ext" else "NULL"
 
         instance_join = ""
         if parameter in ("int", "sta"):
@@ -105,6 +107,7 @@ class VirtualAssemblyInstance(models.Model):
                 "assembly_type": AsIs(assembly_type),
                 "assembly_category": AsIs(assembly_category),
                 "instance_join": AsIs(instance_join),
+                "is_important": AsIs(is_important),
             }
         )
         return values
@@ -120,7 +123,8 @@ class VirtualAssemblyInstance(models.Model):
             %(sta_cat_id)s as sta_category_assembly_id,
             %(ext_cat_id)s as ext_category_assembly_id,
             %(int_power_id)s as int_power_level_id,
-            %(sta_power_id)s as sta_power_level_id"""
+            %(sta_power_id)s as sta_power_level_id,
+            '%(is_important)s as is_important'"""
         )
         return select
 
