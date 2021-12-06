@@ -393,7 +393,12 @@
                                         <field name="replace_coordinates" />
                                     </group>
                                     <group>
-                                        <field name="int_instance_ids" readonly="1" />
+                                        <field
+                                        name="int_instance_ids_readonly"
+                                        widget="many2many_tags"
+                                        readonly="1"
+                                    />
+                                        <field name="int_instance_ids" invisible="1" />
                                         <field
                                         name="force_int_instance_id"
                                         domain="[('id','not in',int_instance_ids)]"

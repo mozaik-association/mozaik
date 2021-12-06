@@ -25,5 +25,7 @@ class ResPartner(models.Model):
     @api.constrains("int_instance_ids")
     def _check_int_instance_id(self):
         for p in self:
-            if len(p.int_instance_ids) > 1:
+            # in some cases force_int_instance_id is removed after the create,
+            # so we need to allow it
+            if len(p.int_instance_ids - p.force_int_instance_id) > 1:
                 raise ValidationError(_("A partner cannot have more than one instance"))

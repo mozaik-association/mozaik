@@ -137,6 +137,10 @@ class MembershipRequest(models.Model):
 
     int_instance_ids = fields.Many2many(
         comodel_name="int.instance",
+        string="Internal Instance (real)",
+    )
+    int_instance_ids_readonly = fields.Many2many(
+        related="int_instance_ids",
         string="Internal Instance",
     )
     force_int_instance_id = fields.Many2one(
