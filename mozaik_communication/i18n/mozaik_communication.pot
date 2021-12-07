@@ -296,6 +296,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace_report__display_name
+#: model:ir.model.fields,field_description:mozaik_communication.field_membership_request__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_partner__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__display_name
 msgid "Display Name"
@@ -538,6 +539,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace_report__id
+#: model:ir.model.fields,field_description:mozaik_communication.field_membership_request__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_partner__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__id
 msgid "ID"
@@ -643,6 +645,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace_report____last_update
+#: model:ir.model.fields,field_description:mozaik_communication.field_membership_request____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_partner____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target____last_update
 msgid "Last Modified on"
@@ -757,6 +760,11 @@ msgid "Maximum of fails"
 msgstr ""
 
 #. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_membership_request
+msgid "Membership Request"
+msgstr ""
+
+#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__membership_state_id
 msgid "Membership State"
 msgstr ""
@@ -814,6 +822,11 @@ msgstr ""
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Natural Persons"
+msgstr ""
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_membership_request__distribution_list_ids
+msgid "Newsletters"
 msgstr ""
 
 #. module: mozaik_communication
@@ -878,6 +891,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_users__distribution_list_opt_out_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_sta_assembly__distribution_list_opt_out_ids
 msgid "Opt-Out"
+msgstr ""
+
+#. module: mozaik_communication
+#: model:ir.model.fields.selection,name:mozaik_communication.selection__membership_request__request_type__n
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.membership_request_search_view
+msgid "Other"
 msgstr ""
 
 #. module: mozaik_communication
@@ -962,6 +981,11 @@ msgstr ""
 #. module: mozaik_communication
 #: model:res.groups,name:mozaik_communication.res_groups_communication_reader
 msgid "Reader"
+msgstr ""
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_membership_request__request_type
+msgid "Request Type"
 msgstr ""
 
 #. module: mozaik_communication
