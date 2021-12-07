@@ -13,3 +13,4 @@ from . import mail_thread
 from . import res_partner
 from . import abstract_virtual_model
 from . import virtual_target
+from . import membership_request
