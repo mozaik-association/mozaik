@@ -23,11 +23,13 @@
         "mozaik_structure",
         "mozaik_involvement",
         "mozaik_membership",
+        "mozaik_membership_request",
         "mozaik_thesaurus",
         # from https://github.com/OCA/social
         "email_template_configurator",
     ],
     "data": [
+        "views/membership_request.xml",
         "security/communication_security.xml",
         "security/mail_mass_mailing_group.xml",
         "security/ir.model.access.csv",
