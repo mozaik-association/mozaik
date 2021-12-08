@@ -59,6 +59,7 @@
         "mozaik_membership_request",
         "mozaik_petition",
         "mozaik_survey_mandatory_questions",
+        "mozaik_survey_involvement_category",
         "mozaik_survey_is_private",
         "mozaik_survey_publish_date",
         "mozaik_survey_thesaurus",
