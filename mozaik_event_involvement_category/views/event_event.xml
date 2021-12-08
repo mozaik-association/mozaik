@@ -11,10 +11,7 @@
         <field name="inherit_id" ref="event.view_event_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tag_ids']" position="after">
-                    <field
-                    name="involvement_category_id"
-                    options="{'no_create': True}"
-                />
+                    <field name="involvement_category_id" />
             </xpath>
         </field>
     </record>

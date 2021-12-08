@@ -23,10 +23,7 @@
                         />
                             <div class="row">
                                 <div class="col-12 mt16">
-                                    <field
-                                    name="involvement_category_id"
-                                    options="{'no_create': True}"
-                                />
+                                    <field name="involvement_category_id" />
                                 </div>
                             </div>
                         </div>
