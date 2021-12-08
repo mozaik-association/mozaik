@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="petition_type_form_view">
+        <field
+            name="name"
+        >petition.type.form (in mozaik_petition_involvement_category)</field>
+        <field name="model">petition.type</field>
+        <field name="inherit_id" ref="mozaik_petition.petition_type_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='questions']" position="before">
+                <group string="Involvement Category" name="involvement_category">
+                    <div class="col-12 col-lg-12 o_setting_box">
+                        <div class="row mt16">
+                            <div class="col-lg-9">
+                                <field name="involvement_category_id" />
+                            </div>
+                        </div>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

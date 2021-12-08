@@ -68,6 +68,12 @@
                                     id="date_end"
                                 />
                             </div>
+                            <field
+                                name="petition_type_id"
+                                string="Template"
+                                options="{'no_create': True}"
+                                attrs="{'readonly':[('signatory_count','>',0)]}"
+                            />
                             <field name="date_publish" />
                             <field name="url" widget="url" />
                             <field name="visible_on_website" />
@@ -124,14 +130,6 @@
                             </field>
                         </page>
                         <page string="Questions">
-                            <group>
-                                <field
-                                    name="petition_type_id"
-                                    string="Template"
-                                    options="{'no_create': True}"
-                                    attrs="{'readonly':[('signatory_count','>',0)]}"
-                                />
-                            </group>
                             <field name="question_ids" nolabel="1">
                                 <tree>
                                     <field name="sequence" widget="handle" />
