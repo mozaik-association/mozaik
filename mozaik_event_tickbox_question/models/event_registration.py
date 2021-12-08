@@ -5,6 +5,30 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
+class EventRegistration(models.Model):
+
+    _inherit = "event.registration"
+
+    @api.constrains("registration_answer_ids")
+    def _check_value_tickbox(self):
+        """
+        We have to search, in the questions associated to the event, if
+        there are mandatory tickbox questions. Every such question have
+        to be present in the partner registration form.
+        We search by title (we thus assume that in a given event, two questions
+        never have the same title).
+        """
+        for record in self:
+            mandatory_question_titles = self.event_id.question_ids.filtered(
+                lambda qu: qu.question_type == "tickbox" and qu.is_mandatory
+            ).mapped("title")
+            answer_titles = record.registration_answer_ids.mapped("question_id.title")
+            if not set(mandatory_question_titles).issubset(set(answer_titles)):
+                raise ValidationError(
+                    _("The partner didn't answer to all mandatory tickbox questions.")
+                )
+
+
 class EventRegistrationAnswer(models.Model):
 
     _inherit = "event.registration.answer"
