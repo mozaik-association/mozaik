@@ -12,18 +12,66 @@ class SurveySurvey(models.Model):
         default=lambda self: self._load_questions_by_default()
     )
 
+    def _get_matrix_row_copy_values(self, question, answer):
+        """
+        Returns a dictionary of fields (along with their value) to copy
+        when loading the rows of a matrix question by default in a survey.
+        """
+        return {
+            "value": answer.value,
+            "sequence": answer.sequence,
+            "matrix_question_id": question.id,
+        }
+
+    def _get_answer_copy_values(self, question, answer):
+        """
+        Returns a dictionary of fields (along with their value) to copy
+        when loading the answer to a question by default in a survey.
+        """
+        return {
+            "value": answer.value,
+            "sequence": answer.sequence,
+            "question_id": question.id,
+        }
+
+    def _get_question_copy_values(self, question):
+        """
+        Returns a dictionary of fields (along with their value) to copy
+        when loading a question by default in a survey.
+        """
+        question.ensure_one()
+
+        suggested_answer_ids = []
+        for answer in question.suggested_answer_ids:
+            suggested_answer_ids += [
+                (
+                    0,
+                    0,
+                    self._get_answer_copy_values(question, answer),
+                )
+            ]
+        matrix_row_ids = []
+        for answer in question.matrix_row_ids:
+            matrix_row_ids += [
+                (
+                    0,
+                    0,
+                    self._get_matrix_row_copy_values(question, answer),
+                )
+            ]
+
+        return {
+            "title": question.title,
+            "question_type": question.question_type,
+            "matrix_subtype": question.matrix_subtype,
+            "constr_mandatory": question.constr_mandatory,
+            "constr_error_msg": question.constr_error_msg,
+            "suggested_answer_ids": suggested_answer_ids,
+            "matrix_row_ids": matrix_row_ids,
+        }
+
     def _load_questions_by_default(self):
-        command = [
-            (
-                0,
-                0,
-                {
-                    "title": question.title,
-                    "question_type": question.question_type,
-                    "constr_mandatory": question.constr_mandatory,
-                    "constr_error_msg": question.constr_error_msg,
-                },
-            )
-            for question in self.env["survey.question.by.default"].search([])
-        ]
+        command = []
+        for question in self.env["survey.question.by.default"].search([]):
+            command += [(0, 0, self._get_question_copy_values(question))]
         return command
