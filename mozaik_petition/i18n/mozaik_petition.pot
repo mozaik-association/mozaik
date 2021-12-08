@@ -911,6 +911,12 @@ msgid "The closing date cannot be earlier than the beginning date."
 msgstr ""
 
 #. module: mozaik_petition
+#: code:addons/mozaik_petition/models/petition_registration.py:0
+#, python-format
+msgid "The partner didn't answer to all mandatory tickbox questions."
+msgstr ""
+
+#. module: mozaik_petition
 #: model:ir.model.constraint,message:mozaik_petition.constraint_petition_registration_answer_value_check
 msgid "There must be a suggested value, a text value or a tickbox value."
 msgstr ""
