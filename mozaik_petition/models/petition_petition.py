@@ -94,6 +94,33 @@ class PetitionPetition(models.Model):
         for record in self:
             record.signatory_count = len(record.registration_ids)
 
+    @api.model
+    def _get_question_copy_values(self, question):
+        """
+        Returns a dictionary of fields (along with their value) to copy
+        when loading a question from an petition type to a petition.
+        """
+        question.ensure_one()
+        return {
+            "title": question.title,
+            "question_type": question.question_type,
+            "sequence": question.sequence,
+            "is_mandatory": question.is_mandatory,
+            "interest_ids": question.interest_ids,
+            "answer_ids": [
+                (
+                    0,
+                    0,
+                    {
+                        "name": answer.name,
+                        "sequence": answer.sequence,
+                        "interest_ids": answer.interest_ids,
+                    },
+                )
+                for answer in question.answer_ids
+            ],
+        }
+
     @api.depends("petition_type_id")
     def _compute_question_ids(self):
         """Update petition questions from its petition type. Depends are set only on
@@ -105,32 +132,8 @@ class PetitionPetition(models.Model):
         """
         for petition in self:
             command = [(5, 0)]
-            command += [
-                (
-                    0,
-                    0,
-                    {
-                        "title": question.title,
-                        "question_type": question.question_type,
-                        "sequence": question.sequence,
-                        "is_mandatory": question.is_mandatory,
-                        "interest_ids": question.interest_ids,
-                        "answer_ids": [
-                            (
-                                0,
-                                0,
-                                {
-                                    "name": answer.name,
-                                    "sequence": answer.sequence,
-                                    "interest_ids": answer.interest_ids,
-                                },
-                            )
-                            for answer in question.answer_ids
-                        ],
-                    },
-                )
-                for question in petition.petition_type_id.question_ids
-            ]
+            for question in petition.petition_type_id.question_ids:
+                command += [(0, 0, self._get_question_copy_values(question))]
             petition.question_ids = command
 
     @api.constrains("date_begin", "date_end")

@@ -129,7 +129,7 @@
                                 </tree>
                             </field>
                         </page>
-                        <page string="Questions">
+                        <page name="page_questions" string="Questions">
                             <field name="question_ids" nolabel="1">
                                 <tree>
                                     <field name="sequence" widget="handle" />
@@ -154,7 +154,7 @@
                             <!-- Need to repeat the whole tree form here to be able to create answers properly
                                 Without this, the sub-fields of answer_ids are unknown to the web framework.
                                 We need this because we create questions and answers when the petition type changes. -->
-                                <form string="Question">
+                                <form string="Question" name="form_question">
                                     <sheet>
                                         <h1><field name="title" /></h1>
                                         <group class="mb-0">
