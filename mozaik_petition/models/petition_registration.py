@@ -113,6 +113,25 @@ class PetitionRegistration(models.Model):
         onsubscribe_schedulers.sudo().execute()
         return rec
 
+    @api.constrains("registration_answer_ids")
+    def _check_value_tickbox(self):
+        """
+        We have to search, in the questions associated to the petition, if
+        there are mandatory tickbox questions. Every such question have
+        to be present in the partner registration form.
+        We search by title (we thus assume that in a given petition, two questions
+        never have the same title).
+        """
+        for record in self:
+            mandatory_question_titles = self.petition_id.question_ids.filtered(
+                lambda qu: qu.question_type == "tickbox" and qu.is_mandatory
+            ).mapped("title")
+            answer_titles = record.registration_answer_ids.mapped("question_id.title")
+            if not set(mandatory_question_titles).issubset(set(answer_titles)):
+                raise ValidationError(
+                    _("The partner didn't answer to all mandatory tickbox questions.")
+                )
+
 
 class PetitionRegistrationAnswer(models.Model):
     """Represents the user input answer for a single event.question"""
