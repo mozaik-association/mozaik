@@ -27,6 +27,7 @@ msgstr ""
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_event__display_name
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question__display_name
+#: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration__display_name
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration_answer__display_name
 msgid "Display Name"
 msgstr ""
@@ -42,6 +43,11 @@ msgid "Event Question"
 msgstr ""
 
 #. module: mozaik_event_tickbox_question
+#: model:ir.model,name:mozaik_event_tickbox_question.model_event_registration
+msgid "Event Registration"
+msgstr ""
+
+#. module: mozaik_event_tickbox_question
 #: model:ir.model,name:mozaik_event_tickbox_question.model_event_registration_answer
 msgid "Event Registration Answer"
 msgstr ""
@@ -49,6 +55,7 @@ msgstr ""
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_event__id
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question__id
+#: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration__id
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration_answer__id
 msgid "ID"
 msgstr ""
@@ -69,6 +76,7 @@ msgstr ""
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_event____last_update
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question____last_update
+#: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration____last_update
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration_answer____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -76,6 +84,12 @@ msgstr ""
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question__question_type
 msgid "Question Type"
+msgstr ""
+
+#. module: mozaik_event_tickbox_question
+#: code:addons/mozaik_event_tickbox_question/models/event_registration.py:0
+#, python-format
+msgid "The partner didn't answer to all mandatory tickbox questions."
 msgstr ""
 
 #. module: mozaik_event_tickbox_question
