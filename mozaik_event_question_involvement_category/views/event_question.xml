@@ -18,14 +18,10 @@
                     name="involvement_category_id"
                     attrs="{'invisible': [('question_type', 'in', ['simple_choice', 'text_box'])]
                    }"
-                    options="{'no_create': True}"
                 />
             </xpath>
             <xpath expr="//field[@name='name']" position="after">
-                    <field
-                    name="involvement_category_id"
-                    options="{'no_create': True}"
-                />
+                    <field name="involvement_category_id" />
             </xpath>
         </field>
     </record>
