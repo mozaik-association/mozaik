@@ -23,6 +23,9 @@ class EventEvent(models.Model):
             for answer in question.answer_ids
         ]
         res.update(
-            {"answer_ids": answer_ids, "interest_ids": question.involvement_category_id}
+            {
+                "answer_ids": answer_ids,
+                "involvement_category_id": question.involvement_category_id,
+            }
         )
         return res
