@@ -15,7 +15,7 @@
                             <field name="name" />
                         </h1>
                     </div>
-                    <group string="Questions">
+                    <group string="Questions" name="questions">
                         <div class="col-12 col-lg-12 o_setting_box">
                             <div class="o_setting_right_pane">
                                     <div class="row mt16">
