@@ -69,6 +69,7 @@
         "mozaik_survey_involvement_category",
         "mozaik_survey_is_private",
         "mozaik_survey_publish_date",
+        "mozaik_survey_question_involvement_category",
         "mozaik_survey_thesaurus",
         "mozaik_website_event_track",
         "mass_mail_queue_job",

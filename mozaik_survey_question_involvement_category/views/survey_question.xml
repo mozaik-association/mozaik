@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="survey_question_form_view">
+        <field
+            name="name"
+        >survey.question.form (in mozaik_survey_question_involvement_category)</field>
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='value_image']" position="after">
+                <field
+                    name="involvement_category_id"
+                    attrs="{'column_invisible': [('parent.question_type', 'not in', ['simple_choice', 'multiple_choice'])]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
