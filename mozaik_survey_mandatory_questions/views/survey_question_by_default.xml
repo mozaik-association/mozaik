@@ -194,6 +194,36 @@
                         </group>
                     </group>
                     <notebook>
+                        <page string="Answers" name="answers">
+                            <group
+                                attrs="{'invisible': [('question_type', 'not in', ['simple_choice', 'multiple_choice', 'matrix'])]}"
+                            >
+                                <field
+                                    name="suggested_answer_ids"
+                                    string="Answers"
+                                    context="{'default_question_id': active_id}"
+                                >
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle" />
+                                        <field name="value" string="Choices" />
+                                    </tree>
+                                </field>
+                            </group>
+                            <group
+                                attrs="{'invisible': [('question_type', '!=', 'matrix')]}"
+                            >
+                                <field
+                                    name="matrix_row_ids"
+                                    context="{'default_matrix_question_id': active_id}"
+                                    attrs="{'invisible': [('question_type', '!=', 'matrix')]}"
+                                >
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle" />
+                                        <field name="value" string="Rows" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
                          <page string="Options" name="options">
                             <group string="Constraints">
                                 <group>
@@ -204,6 +234,10 @@
                                     <field
                                         name="constr_error_msg"
                                         attrs="{'invisible': [('constr_mandatory', '=', False)]}"
+                                    />
+                                    <field
+                                        name="matrix_subtype"
+                                        attrs="{'invisible':[('question_type','not in',['matrix'])],'required':[('question_type','=','matrix')]}"
                                     />
                                 </group>
                             </group>

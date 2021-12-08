@@ -11,9 +11,23 @@
         <field name="inherit_id" ref="survey.survey_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='question_type']" position="after">
-<!--                These fields have to be present in the view to be loaded correctly in default questions -->
+                <!-- All the following fields have to be present in the view
+                     to be loaded correctly in default questions -->
                 <field name="constr_mandatory" invisible="1" />
                 <field name="constr_error_msg" invisible="1" />
+                <field name="matrix_subtype" invisible="1" />
+                <field name="suggested_answer_ids" invisible="1">
+                    <tree>
+                        <field name="value" invisible="1" />
+                        <field name="sequence" invisible="1" />
+                    </tree>
+                </field>
+                <field name="matrix_row_ids" invisible="1">
+                    <tree>
+                        <field name="value" invisible="1" />
+                        <field name="sequence" invisible="1" />
+                    </tree>
+                </field>
             </xpath>
         </field>
     </record>
