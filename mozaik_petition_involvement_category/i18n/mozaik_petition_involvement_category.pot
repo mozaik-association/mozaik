@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_petition_involvement_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_petition_involvement_category
+#: model:ir.model.fields,field_description:mozaik_petition_involvement_category.field_petition_petition__display_name
+#: model:ir.model.fields,field_description:mozaik_petition_involvement_category.field_petition_type__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_petition_involvement_category
+#: model:ir.model.fields,field_description:mozaik_petition_involvement_category.field_petition_petition__id
+#: model:ir.model.fields,field_description:mozaik_petition_involvement_category.field_petition_type__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_petition_involvement_category
+#: model:ir.model.fields,field_description:mozaik_petition_involvement_category.field_petition_petition__involvement_category_id
+#: model:ir.model.fields,field_description:mozaik_petition_involvement_category.field_petition_type__involvement_category_id
+#: model_terms:ir.ui.view,arch_db:mozaik_petition_involvement_category.petition_type_form_view
+msgid "Involvement Category"
+msgstr ""
+
+#. module: mozaik_petition_involvement_category
+#: model:ir.model.fields,field_description:mozaik_petition_involvement_category.field_petition_petition____last_update
+#: model:ir.model.fields,field_description:mozaik_petition_involvement_category.field_petition_type____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_petition_involvement_category
+#: model:ir.model,name:mozaik_petition_involvement_category.model_petition_petition
+msgid "Petition"
+msgstr ""
+
+#. module: mozaik_petition_involvement_category
+#: model:ir.model,name:mozaik_petition_involvement_category.model_petition_type
+msgid "Petition Template"
+msgstr ""
