@@ -17,6 +17,7 @@ class MembershipRequest(models.Model):
             firstname = vals.get("firstname", False)
             email = vals.get("email", False)
             phone = vals.get("phone", False)
+            mobile = vals.get("mobile", False)
             country_id = vals.get("country_id", False)
 
             city_id = False
@@ -51,6 +52,7 @@ class MembershipRequest(models.Model):
                 "firstname": firstname,
                 "email": email,
                 "phone": phone,
+                "mobile": mobile,
                 "is_company": False,
                 "request_type": False,
                 "country_id": country_id,
