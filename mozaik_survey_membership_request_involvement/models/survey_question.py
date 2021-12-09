@@ -11,6 +11,7 @@ class SurveyQuestion(models.Model):
     bridge_field_id = fields.Many2one(
         comodel_name="ir.model.fields",
         string="Bridge field",
+        default=False,
         help="The answer to this question will fill a field from the membership request.",
         ondelete="cascade",
     )

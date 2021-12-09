@@ -10,6 +10,7 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
+        "mozaik_membership_request",
         "mozaik_survey_involvement_category",
         "mozaik_survey_question_involvement_category",
     ],
