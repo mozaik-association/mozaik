@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field
+            name="name"
+        >res.partner.form (in mozaik_petition_membership_request_involvement)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    groups="mozaik_petition.group_petition_user"
+                    type="object"
+                    icon="fa-pencil"
+                    name="action_petition_view"
+                    attrs="{'invisible': [('petition_count','=', 0)]}"
+                >
+                    <field string="Petitions" name="petition_count" widget="statinfo" />
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
