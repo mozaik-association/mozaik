@@ -13,6 +13,8 @@
         "mozaik_membership_request_autovalidate",
         "mozaik_membership_request_from_registration",
         "mozaik_petition",
+        "mozaik_petition_involvement_category",
+        "mozaik_petition_question_involvement_category",
     ],
     "data": [
         "views/res_partner.xml",
