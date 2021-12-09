@@ -7,7 +7,8 @@ from odoo.exceptions import ValidationError
 
 class SurveyQuestionByDefault(models.Model):
 
-    _inherit = "survey.question.by.default"
+    _name = "survey.question.by.default"
+    _inherit = ["survey.question.by.default", "abstract.survey.question.type"]
 
     bridge_field_id = fields.Many2one(
         comodel_name="ir.model.fields",
@@ -22,13 +23,13 @@ class SurveyQuestionByDefault(models.Model):
         """
         1. bridge_field_id has to be a field from membership.request
         2. Two different questions by default cannot have the same bridge field.
+        3. The type of field on bridge field has to correspond with the type of answer
+           for the question to the survey. Example: if self.question_type == 'date'
+           then self.bridge_field_id.ttype has to be equal to Date.
         """
-        for question in self:
+        for question in self.filtered(lambda q: q.bridge_field_id):
             #  1.
-            if (
-                question.bridge_field_id
-                and question.bridge_field_id.model != "membership.request"
-            ):
+            if question.bridge_field_id.model != "membership.request":
                 raise ValidationError(
                     _("The field is not a field from model membership.request")
                 )
@@ -51,3 +52,18 @@ class SurveyQuestionByDefault(models.Model):
                         .name
                     }
                 )
+            #  3.
+            if question.question_type in self._get_dic().keys():
+                expected_type_of_answer = self._get_expected_type_of_answer(question)
+                if question.bridge_field_id.ttype not in expected_type_of_answer:
+                    raise ValidationError(
+                        _(
+                            "The answer to this question will be of type "
+                            "%(type_answer)s while the type of "
+                            "the bridge field is %(type_bridge_field)s."
+                        )
+                        % {
+                            "type_answer": expected_type_of_answer,
+                            "type_bridge_field": question.bridge_field_id.ttype,
+                        }
+                    )

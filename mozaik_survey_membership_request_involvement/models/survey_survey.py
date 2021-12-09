@@ -7,7 +7,8 @@ from odoo.exceptions import ValidationError
 
 class SurveySurvey(models.Model):
 
-    _inherit = "survey.survey"
+    _name = "survey.survey"
+    _inherit = ["survey.survey", "abstract.survey.question.type"]
 
     def _get_question_copy_values(self, question):
         dic = super()._get_question_copy_values(question)
@@ -20,6 +21,10 @@ class SurveySurvey(models.Model):
         1. Verifies that all bridge fields (if set) correspond to a field
         from membership.request
         2. Verifies that two questions never have the same bridge_field_id (if set).
+        3. Verifies that for each question with a bridge field,
+           the type of field on bridge field has to correspond with the type of answer
+           for the question to the survey. Example: if self.question_type == 'date'
+           then self.bridge_field_id.ttype has to be equal to Date.
         """
         for survey in self:
             questions_with_bridge_field = self.env["survey.question"].search(
@@ -50,3 +55,22 @@ class SurveySurvey(models.Model):
                         }
                     )
                 used_bridge_field_ids.append(question.bridge_field_id.id)
+            # 3.
+            for question in questions_with_bridge_field:
+                if question.question_type in self._get_dic().keys():
+                    expected_type_of_answer = self._get_expected_type_of_answer(
+                        question
+                    )
+                    if question.bridge_field_id.ttype not in expected_type_of_answer:
+                        raise ValidationError(
+                            _(
+                                "The answer to question %(question)s will be of type "
+                                "%(type_answer)s while the type of "
+                                "the bridge field is %(type_bridge_field)s."
+                            )
+                            % {
+                                "question": question.title,
+                                "type_answer": expected_type_of_answer,
+                                "type_bridge_field": question.bridge_field_id.ttype,
+                            }
+                        )
