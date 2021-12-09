@@ -15,6 +15,7 @@
         "mozaik_petition",
     ],
     "data": [
+        "views/res_partner.xml",
         "views/membership_request.xml",
         "views/petition_petition.xml",
     ],

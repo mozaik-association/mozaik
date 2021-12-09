@@ -14,3 +14,18 @@ class MembershipRequest(models.Model):
         help="The membership request came from a petition signature.",
         readonly=True,
     )
+
+    def validate_request(self):
+        """
+        If the membership request is coming from a petition registration
+        and if the partner on the petition registration is not mentioned,
+        then we associate the partner from the membership request
+        to the petition registration.
+        """
+        super().validate_request()
+        if (
+            self.petition_registration_id
+            and self.state == "validate"
+            and self.partner_id
+        ):
+            self.petition_registration_id.partner_id = self.partner_id
