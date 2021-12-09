@@ -18,9 +18,10 @@ class PetitionRegistration(models.Model):
         self.ensure_one()
 
         request = self.env["membership.request"]._create_membership_request(vals)
-        request.write({"petition_registration_id": self.id})
-        self._add_involvements_to_membership_request(request)
-        request._auto_validate(self.petition_id.auto_accept_membership)
+        if request:
+            request.write({"petition_registration_id": self.id})
+            self._add_involvements_to_membership_request(request)
+            request._auto_validate(self.petition_id.auto_accept_membership)
 
     def _add_involvements_to_membership_request(self, request):
         """
