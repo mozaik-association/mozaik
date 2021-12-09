@@ -62,6 +62,7 @@
         "mozaik_membership_request_autovalidate",
         "mozaik_membership_request_from_registration",
         "mozaik_petition",
+        "mozaik_petition_membership_request_involvement",
         "mozaik_petition_involvement_category",
         "mozaik_petition_question_involvement_category",
         "mozaik_survey_mandatory_questions",
