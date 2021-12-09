@@ -3,7 +3,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record model="ir.ui.view" id="survey_question_form_view">
+    <record model="ir.ui.view" id="survey_survey_form_view">
         <field
             name="name"
         >survey.survey.form (in mozaik_survey_mandatory_questions)</field>

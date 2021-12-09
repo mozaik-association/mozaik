@@ -11,10 +11,12 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mozaik_involvement",
-        "survey",
+        "mozaik_survey_mandatory_questions",
     ],
     "data": [
+        "views/survey_question_by_default.xml",
         "views/survey_question.xml",
+        "views/survey_survey.xml",
     ],
     "demo": [],
 }
