@@ -1,0 +1,105 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_petition_membership_request_involvement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_abstract_assembly__petition_count
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_ext_assembly__petition_count
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_int_assembly__petition_count
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_res_partner__petition_count
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_res_users__petition_count
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_sta_assembly__petition_count
+msgid "# Petitions"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_petition__auto_accept_membership
+msgid "Accept membership requests"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_membership_request__petition_registration_id
+msgid "Associated Petition Signatory"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model,name:mozaik_petition_membership_request_involvement.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_membership_request__display_name
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_petition__display_name
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_registration__display_name
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_membership_request__id
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_petition__id
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_registration__id
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_membership_request____last_update
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_petition____last_update
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_registration____last_update
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model,name:mozaik_petition_membership_request_involvement.model_membership_request
+msgid "Membership Request"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_petition_petition__auto_accept_membership
+msgid ""
+"Membership requests that can be linked to a unique existing partner are "
+"automatically accepted."
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_abstract_assembly__petition_count
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_ext_assembly__petition_count
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_int_assembly__petition_count
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_res_partner__petition_count
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_res_users__petition_count
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_sta_assembly__petition_count
+msgid "Number of petitions the partner has signed."
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model,name:mozaik_petition_membership_request_involvement.model_petition_petition
+msgid "Petition"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model,name:mozaik_petition_membership_request_involvement.model_petition_registration
+msgid "Petition Registration"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_petition_membership_request_involvement.res_partner_form_view
+msgid "Petitions"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_membership_request__petition_registration_id
+msgid "The membership request came from a petition signature."
+msgstr ""
