@@ -79,11 +79,6 @@
                             <field name="visible_on_website" />
                         </group>
                         <group>
-                                <field
-                                name="interest_ids"
-                                string="Interests"
-                                widget="many2many_tags"
-                            />
                                 <field name="is_private" />
                                 <field
                                 name="int_instance_id"
@@ -168,11 +163,6 @@
                                                     name="is_mandatory"
                                                     attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
                                                 />
-                                               <field
-                                                    name="interest_ids"
-                                                    widget="many2many_tags"
-                                                    attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
-                                                />
                                             </group>
                                         </group>
                                         <notebook
@@ -192,10 +182,6 @@
                                                             widget="handle"
                                                         />
                                                         <field name="name" />
-                                                        <field
-                                                            name="interest_ids"
-                                                            widget="many2many_tags"
-                                                        />
                                                     </tree>
                                                 </field>
                                             </page>
