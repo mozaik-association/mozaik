@@ -70,11 +70,9 @@
                                 <group name="revenue_1">
                                     <field
                                         name="with_revenue_declaration"
-                                        readonly="1"
                                     />
                                     <field
                                         name="with_assets_declaration"
-                                        readonly="1"
                                     />
                                 </group>
                                 <group name="revenue_2">

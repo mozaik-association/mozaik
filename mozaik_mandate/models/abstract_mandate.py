@@ -62,14 +62,10 @@ class AbstractMandate(models.AbstractModel):
     end_date = fields.Date(default=False, tracking=True)
     with_remuneration = fields.Boolean()
     with_revenue_declaration = fields.Boolean(
-        related="mandate_category_id.with_revenue_declaration",
         help="Representative is subject to a declaration of income",
-        store=True,
     )
     with_assets_declaration = fields.Boolean(
-        related="mandate_category_id.with_assets_declaration",
         help="Representative is subject to a declaration of assets",
-        store=True,
     )
     alert_date = fields.Date()
 
@@ -162,3 +158,5 @@ class AbstractMandate(models.AbstractModel):
     def _onchange_mandate_category_id(self):
         for mandate in self:
             mandate.with_remuneration = mandate.mandate_category_id.with_remuneration
+            mandate.with_revenue_declaration = mandate.mandate_category_id.with_revenue_declaration
+            mandate.with_assets_declaration = mandate.mandate_category_id.with_assets_declaration
