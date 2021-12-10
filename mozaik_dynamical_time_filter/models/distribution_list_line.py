@@ -12,8 +12,8 @@ class DistributionListLine(models.Model):
 
     _inherit = ["distribution.list.line"]
     manually_edit_domain = fields.Boolean()
-    domain_widget = fields.Char(string="Expression", default="[]")
-    domain_handwritten = fields.Text(string="Expression", default="[]")
+    domain_widget = fields.Char(string="Expression (widget)", default="[]")
+    domain_handwritten = fields.Text(string="Expression (handwritten)", default="[]")
     domain = fields.Text(
         string="Expression", compute="_compute_domain", inverse="_inverse_domain"
     )
