@@ -114,9 +114,17 @@ msgstr ""
 
 #. module: mozaik_dynamical_time_filter
 #: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__domain
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__domain_handwritten
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__domain_widget
 msgid "Expression"
+msgstr ""
+
+#. module: mozaik_dynamical_time_filter
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__domain_handwritten
+msgid "Expression (handwritten)"
+msgstr ""
+
+#. module: mozaik_dynamical_time_filter
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__domain_widget
+msgid "Expression (widget)"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
