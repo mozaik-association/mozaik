@@ -66,7 +66,6 @@ class PetitionPetition(models.Model):
         string="Number of signatories", compute="_compute_signatory_count", store=True
     )
     petition_type_id = fields.Many2one("petition.type", string="Petition Template")
-    interest_ids = fields.Many2many("thesaurus.term", string="Interests")
 
     petition_mail_ids = fields.One2many(
         "petition.mail", "petition_id", string="Mail Schedule", copy=True
@@ -106,7 +105,6 @@ class PetitionPetition(models.Model):
             "question_type": question.question_type,
             "sequence": question.sequence,
             "is_mandatory": question.is_mandatory,
-            "interest_ids": question.interest_ids,
             "answer_ids": [
                 (
                     0,
@@ -114,7 +112,6 @@ class PetitionPetition(models.Model):
                     {
                         "name": answer.name,
                         "sequence": answer.sequence,
-                        "interest_ids": answer.interest_ids,
                     },
                 )
                 for answer in question.answer_ids

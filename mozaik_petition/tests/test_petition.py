@@ -30,7 +30,6 @@ class TestPetition(TransactionCase):
                         {
                             "title": "Tickbox",
                             "question_type": "tickbox",
-                            "interest_ids": [(0, 0, {"name": "Tickbox interest"})],
                         },
                     ),
                     (
@@ -44,10 +43,6 @@ class TestPetition(TransactionCase):
                                     0,
                                     {
                                         "name": "Yes",
-                                        "interest_ids": [
-                                            (0, 0, {"name": "First interest"}),
-                                            (0, 0, {"name": "Second interest"}),
-                                        ],
                                     },
                                 ),
                                 (
@@ -55,9 +50,6 @@ class TestPetition(TransactionCase):
                                     0,
                                     {
                                         "name": "No",
-                                        "interest_ids": [
-                                            (0, 0, {"name": "Third interest"})
-                                        ],
                                     },
                                 ),
                             ],
@@ -83,41 +75,6 @@ class TestPetition(TransactionCase):
                     "date_end": fields.Date.today() + relativedelta(days=-1),
                 }
             )
-
-    def test_loading_interests(self):
-        """
-        Data (defined in setUp):
-            self.petition : a petition
-            self.template1 : a template containing 3 questions,
-                - the second being a tickbox with interests on it
-                - the third being a Selection with interests on answers
-        Test case:
-            When charging self.template1 to self.petition:
-            - The interest are well charged on question for the tickbox question.
-            - The interest are well charged on answers for the selection question.
-        """
-        self.petition.write({"petition_type_id": self.template1})
-        question_tickbox = self.petition.question_ids.search(
-            [("question_type", "=", "tickbox")]
-        )
-        self.assertEqual(
-            question_tickbox.interest_ids[0].name,
-            "Tickbox interest",
-            "The interest was not loaded.",
-        )
-        question_select = self.petition.question_ids.search(
-            [("question_type", "=", "simple_choice")]
-        )
-        self.assertEqual(
-            len(question_select.answer_ids.search([("name", "=", "Yes")]).interest_ids),
-            2,
-            "The two interests for answer 'Yes' were not loaded.",
-        )
-        self.assertEqual(
-            len(question_select.answer_ids.search([("name", "=", "No")]).interest_ids),
-            1,
-            "The interest for answer 'No' was not loaded.",
-        )
 
     def test_changing_question_type_if_answers(self):
         """

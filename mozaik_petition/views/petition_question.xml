@@ -21,11 +21,6 @@
                                 name="is_mandatory"
                                 attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
                             />
-                            <field
-                                name="interest_ids"
-                                widget="many2many_tags"
-                                attrs="{'invisible': [('question_type', '!=', 'tickbox')]}"
-                            />
                         </group>
                     </group>
                     <notebook
@@ -39,10 +34,6 @@
                                     <field name="display_name" invisible="1" />
                                     <field name="sequence" widget="handle" />
                                     <field name="name" />
-                                    <field
-                                        name="interest_ids"
-                                        widget="many2many_tags"
-                                    />
                                 </tree>
                             </field>
                         </page>
