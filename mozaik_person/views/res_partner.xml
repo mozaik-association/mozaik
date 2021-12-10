@@ -301,19 +301,19 @@
             </xpath>
 
             <xpath expr="//page[@name='personal_information_page']" position="after">
-                <page name="contact_addresses" position="move"/>
-                <page name="sales_purchases" position="move"/>
+                <page name="contact_addresses" position="move" />
+                <page name="sales_purchases" position="move" />
             </xpath>
 
             <xpath expr="//group[@name='personal_information_group']" position="inside">
-                <field name="parent_id" position="move"/>
-                <field name="lang" position="move"/>
-                <field name="title" position="move"/>
-                <field name="website" position="move"/>
-                <field name="secondary_website" position="move"/>
-                <field name="social_twitter" position="move"/>
-                <field name="social_facebook" position="move"/>
-                <field name="function" position="move"/>
+                <field name="parent_id" position="move" />
+                <field name="lang" position="move" />
+                <field name="title" position="move" />
+                <field name="website" position="move" />
+                <field name="secondary_website" position="move" />
+                <field name="social_twitter" position="move" />
+                <field name="social_facebook" position="move" />
+                <field name="function" position="move" />
             </xpath>
 
             <xpath expr="//page[@name='internal_notes']" position="attributes">

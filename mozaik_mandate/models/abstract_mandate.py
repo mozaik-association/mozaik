@@ -158,5 +158,9 @@ class AbstractMandate(models.AbstractModel):
     def _onchange_mandate_category_id(self):
         for mandate in self:
             mandate.with_remuneration = mandate.mandate_category_id.with_remuneration
-            mandate.with_revenue_declaration = mandate.mandate_category_id.with_revenue_declaration
-            mandate.with_assets_declaration = mandate.mandate_category_id.with_assets_declaration
+            mandate.with_revenue_declaration = (
+                mandate.mandate_category_id.with_revenue_declaration
+            )
+            mandate.with_assets_declaration = (
+                mandate.mandate_category_id.with_assets_declaration
+            )

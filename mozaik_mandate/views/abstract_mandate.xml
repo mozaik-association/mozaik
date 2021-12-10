@@ -68,12 +68,8 @@
                         <page name="revenue" string="Revenue">
                             <group>
                                 <group name="revenue_1">
-                                    <field
-                                        name="with_revenue_declaration"
-                                    />
-                                    <field
-                                        name="with_assets_declaration"
-                                    />
+                                    <field name="with_revenue_declaration" />
+                                    <field name="with_assets_declaration" />
                                 </group>
                                 <group name="revenue_2">
                                     <field name="with_remuneration" />
