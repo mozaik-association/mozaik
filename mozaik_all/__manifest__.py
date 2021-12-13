@@ -26,6 +26,8 @@
         "mozaik_committee",
         "mozaik_duplicate",
         "mozaik_dynamical_time_filter",
+        "mozaik_event_involvement_category",
+        "mozaik_event_question_involvement_category",
         "mozaik_event_is_private",
         "mozaik_event_membership_request_involvement",
         "mozaik_event_partner_firstname",
