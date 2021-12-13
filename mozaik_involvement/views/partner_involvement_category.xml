@@ -46,6 +46,7 @@
                             <field name="code" />
                         </group>
                         <group name="data2">
+                            <field name="importance_level" />
                             <field
                                 name="interest_ids"
                                 widget="many2many_tags"
@@ -126,6 +127,12 @@
                 />
                 <separator />
                 <filter
+                    name="high_importance"
+                    string="High Importance"
+                    domain="[('importance_level', '=', 'high')]"
+                />
+                <separator />
+                <filter
                     name="allow_multi"
                     string="Allow Multiple Involvements"
                     domain="[('allow_multi', '=', True)]"
@@ -173,6 +180,7 @@
             <tree>
                 <field name="name" />
                 <field name="involvement_type" />
+                <field name="importance_level" />
                 <field name="allow_multi" />
                 <field name="code" />
                 <field
