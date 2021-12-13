@@ -1363,9 +1363,8 @@ class MembershipRequest(models.Model):
         self._pop_related(vals)
         if "day" in vals and "month" in vals and "year" in vals:
             vals["birthdate_date"] = self.get_birthdate_date(
-                vals.get("day"),
-                vals.get("month"),
-                vals.get("year"))
+                vals.get("day"), vals.get("month"), vals.get("year")
+            )
         request_id = super().create(vals)
         request_id._detect_changes()
 
@@ -1381,7 +1380,8 @@ class MembershipRequest(models.Model):
                 vals["birthdate_date"] = self.get_birthdate_date(
                     vals.get("day", req.day),
                     vals.get("month", req.month),
-                    vals.get("year", req.year))
+                    vals.get("year", req.year),
+                )
         res = super().write(vals)
         if "active" in vals:
             if not vals.get("active"):
