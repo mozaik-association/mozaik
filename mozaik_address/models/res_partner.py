@@ -15,6 +15,7 @@ class ResPartner(models.Model):
         "address.address",
         string="Address",
         index=True,
+        tracking=True,
     )
     co_residency_id = fields.Many2one("co.residency", string="Co-Residency", index=True)
 

@@ -166,7 +166,6 @@ class MembershipRequest(models.Model):
     )
 
     age = fields.Integer(string="Age", compute="_compute_age", search="_search_age")
-    replace_coordinates = fields.Boolean(string="Replace Coordinates", default=True)
 
     local_voluntary = fields.Boolean(tracking=True)
     regional_voluntary = fields.Boolean(tracking=True)
@@ -1207,6 +1206,16 @@ class MembershipRequest(models.Model):
             # address if technical name is empty then means that no address
             # required
             address_id = mr.address_id and mr.address_id.id or False
+            mr.technical_name = mr.get_technical_name(
+                mr.address_local_street_id.id,
+                mr.city_id.id,
+                mr.number,
+                mr.box,
+                mr.city_man,
+                mr.street_man,
+                mr.zip_man,
+                mr.country_id.id,
+            )
             if (
                 not address_id
                 and mr.technical_name
@@ -1352,6 +1361,11 @@ class MembershipRequest(models.Model):
 
         # do not pass related fields to the orm
         self._pop_related(vals)
+        if "day" in vals and "month" in vals and "year" in vals:
+            vals["birthdate_date"] = self.get_birthdate_date(
+                vals.get("day"),
+                vals.get("month"),
+                vals.get("year"))
         request_id = super().create(vals)
         request_id._detect_changes()
 
@@ -1361,6 +1375,13 @@ class MembershipRequest(models.Model):
         # do not pass related fields to the orm
         active_ids = self.search([("id", "in", self.ids), ("active", "=", True)])
         self._pop_related(vals)
+        # we need to recompute the day since it's readonly
+        if "day" in vals or "month" in vals or "year" in vals:
+            for req in self:
+                vals["birthdate_date"] = self.get_birthdate_date(
+                    vals.get("day", req.day),
+                    vals.get("month", req.month),
+                    vals.get("year", req.year))
         res = super().write(vals)
         if "active" in vals:
             if not vals.get("active"):

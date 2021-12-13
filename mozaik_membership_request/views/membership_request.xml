@@ -390,7 +390,6 @@
                                         name="age"
                                         attrs="{'invisible': ['|',('birthdate_date', '=', False),('is_company', '=', True)]}"
                                     />
-                                        <field name="replace_coordinates" />
                                     </group>
                                     <group>
                                         <field

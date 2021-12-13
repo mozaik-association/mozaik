@@ -86,7 +86,7 @@
                     invisible="context.get('default_is_company')"
                 />
                 <field
-                    name="int_instance_m2m_ids"
+                    name="int_instance_ids"
                     widget="many2many_tags"
                     invisible="context.get('default_is_company')"
                 />
