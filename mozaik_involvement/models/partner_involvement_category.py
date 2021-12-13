@@ -77,6 +77,12 @@ class PartnerInvolvementCategory(models.Model):
         inverse_name="involvement_category_id",
         string="Involvements",
     )
+    importance_level = fields.Selection(
+        [("low", "Low"), ("high", "High")],
+        string="Importance Level",
+        default="low",
+        required=True,
+    )
 
     def init(self):
         """

@@ -61,10 +61,7 @@ class PartnerInvolvement(models.Model):
         store=True,
     )
     importance_level = fields.Selection(
-        [("low", "Low"), ("high", "High")],
-        string="Importance Level",
-        default="low",
-        required=True,
+        related="involvement_category_id.importance_level", store=True
     )
 
     _sql_constraints = [
