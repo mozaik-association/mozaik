@@ -209,8 +209,13 @@ msgid "Group By..."
 msgstr ""
 
 #. module: mozaik_involvement
-#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement__importance_level__high
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__importance_level__high
 msgid "High"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+msgid "High Importance"
 msgstr ""
 
 #. module: mozaik_involvement
@@ -238,6 +243,7 @@ msgstr ""
 
 #. module: mozaik_involvement
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__importance_level
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__importance_level
 msgid "Importance Level"
 msgstr ""
 
@@ -334,7 +340,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: mozaik_involvement
-#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement__importance_level__low
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__importance_level__low
 msgid "Low"
 msgstr ""
 
