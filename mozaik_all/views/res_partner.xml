@@ -41,13 +41,15 @@
     <record id="res_partner_account_form_view" model="ir.ui.view">
         <field name="name">res.partner.form.account (in mozaik_all)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="account.view_partner_property_form" />
-        <field name="priority">99</field>
+        <field
+            name="inherit_id"
+            ref="partner_contact_personal_information_page.personal_information"
+        />
+        <field name="priority">1</field>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='personal_information_page']" position="after">
                 <page name="contact_addresses" position="move" />
                 <page name="sales_purchases" position="move" />
-                <page name="accounting" position="move" />
             </xpath>
 
             <xpath expr="//page[@name='internal_notes']" position="attributes">
