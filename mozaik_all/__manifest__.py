@@ -40,6 +40,7 @@
         "mozaik_mass_mailing_automation",
         "mozaik_membership",
         "mozaik_partner_assembly",
+        "mozaik_partner_button_sms",
         "mozaik_partner_fields",
         # 'mozaik_partner_unauthorized',
         "mozaik_person",
