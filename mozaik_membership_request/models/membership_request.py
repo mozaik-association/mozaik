@@ -1205,7 +1205,6 @@ class MembershipRequest(models.Model):
                 mr._validate_request_membership(mr, partner)
             # address if technical name is empty then means that no address
             # required
-            address_id = mr.address_id and mr.address_id.id or False
             mr.technical_name = mr.get_technical_name(
                 mr.address_local_street_id.id,
                 mr.city_id.id,
@@ -1216,6 +1215,8 @@ class MembershipRequest(models.Model):
                 mr.zip_man,
                 mr.country_id.id,
             )
+            mr.onchange_technical_name()
+            address_id = mr.address_id and mr.address_id.id or False
             if (
                 not address_id
                 and mr.technical_name

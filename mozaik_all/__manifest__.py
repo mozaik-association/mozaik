@@ -78,6 +78,7 @@
     ],
     "data": [
         # 'views/mail_followers.xml',
+        "views/res_partner.xml",
     ],
     "installable": True,
     "external_dependencies": {"python": ["openupgradelib"]},
