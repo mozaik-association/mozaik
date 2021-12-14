@@ -4,9 +4,13 @@
     <record id="res_partner_base_form_view" model="ir.ui.view">
         <field name="name">res.partner.form.base (in mozaik_all)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="inherit_id" ref="mozaik_person.res_partner_form_view" />
         <field name="priority">99</field>
         <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='lang']/.." position="replace"/>
+            <xpath expr="//label[@for='lang']" position="replace"/>
+
             <xpath expr="//group[@name='personal_information_group']" position="inside">
                 <group name="personal_information_group_01" />
                 <group name="personal_information_group_02" />
@@ -28,7 +32,11 @@
                 expr="//group[@name='personal_information_group_02']"
                 position="inside"
             >
-                <field name="lang" position="move" />
+                <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}"/>
+                <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
+                    <field name="lang"/>
+                    <button type="action" name="53" class="btn-sm btn-link mb4 fa fa-globe" aria-label="More languages" groups="base.group_system" title="More languages"/>
+                </div>
                 <field name="website" position="move" />
                 <field name="secondary_website" position="move" />
                 <field name="social_twitter" position="move" />
