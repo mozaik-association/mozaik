@@ -8,11 +8,14 @@
         <field name="priority">99</field>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='personal_information_group']" position="inside">
-                <group name="personal_information_group_01"/>
-                <group name="personal_information_group_02"/>
+                <group name="personal_information_group_01" />
+                <group name="personal_information_group_02" />
             </xpath>
 <!--            position move should be directly under the xpath-->
-            <xpath expr="//group[@name='personal_information_group_01']" position="inside">
+            <xpath
+                expr="//group[@name='personal_information_group_01']"
+                position="inside"
+            >
                 <field name="birthdate_date" position="move" />
                 <field name="gender" position="move" />
                 <field name="nationality_id" position="move" />
@@ -21,7 +24,10 @@
                 <field name="title" position="move" />
                 <field name="function" position="move" />
             </xpath>
-            <xpath expr="//group[@name='personal_information_group_02']" position="inside">
+            <xpath
+                expr="//group[@name='personal_information_group_02']"
+                position="inside"
+            >
                 <field name="lang" position="move" />
                 <field name="website" position="move" />
                 <field name="secondary_website" position="move" />
