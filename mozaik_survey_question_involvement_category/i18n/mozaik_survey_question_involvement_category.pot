@@ -15,44 +15,25 @@ msgstr ""
 
 #. module: mozaik_survey_question_involvement_category
 #: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_question_answer__display_name
-#: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_question_answer_by_default__display_name
-#: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_survey__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_survey_question_involvement_category
 #: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_question_answer__id
-#: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_question_answer_by_default__id
-#: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_survey__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_survey_question_involvement_category
 #: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_question_answer__involvement_category_id
-#: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_question_answer_by_default__involvement_category_id
 msgid "Involvement Category"
 msgstr ""
 
 #. module: mozaik_survey_question_involvement_category
 #: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_question_answer____last_update
-#: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_question_answer_by_default____last_update
-#: model:ir.model.fields,field_description:mozaik_survey_question_involvement_category.field_survey_survey____last_update
 msgid "Last Modified on"
-msgstr ""
-
-#. module: mozaik_survey_question_involvement_category
-#: model:ir.model,name:mozaik_survey_question_involvement_category.model_survey_survey
-msgid "Survey"
 msgstr ""
 
 #. module: mozaik_survey_question_involvement_category
 #: model:ir.model,name:mozaik_survey_question_involvement_category.model_survey_question_answer
 msgid "Survey Label"
-msgstr ""
-
-#. module: mozaik_survey_question_involvement_category
-#: model:ir.model,name:mozaik_survey_question_involvement_category.model_survey_question_answer_by_default
-msgid ""
-"Template for answers to multiple choice questions that will be loaded in "
-"every new survey."
 msgstr ""
