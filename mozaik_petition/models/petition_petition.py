@@ -13,9 +13,9 @@ class PetitionPetition(models.Model):
     _order = "date_begin"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    title = fields.Char(string="Title", required=True)
+    title = fields.Char(string="Title", required=True, tracking=True)
     description = fields.Text(string="Description")
-    note = fields.Text(string="Notes")
+    note = fields.Text(string="Notes", tracking=True)
     image = fields.Binary(string="Image")
     visible_on_website = fields.Boolean(string="Visible on website", default=True)
     is_private = fields.Boolean(
@@ -23,9 +23,10 @@ class PetitionPetition(models.Model):
         help="If ticked, only members of authorized internal "
         "instances have access to the petition.",
         default=False,
+        tracking=True,
     )
-    date_begin = fields.Date(string="Beginning Date", required=True)
-    date_end = fields.Date(string="Ending Date", required=True)
+    date_begin = fields.Date(string="Beginning Date", required=True, tracking=True)
+    date_end = fields.Date(string="Ending Date", required=True, tracking=True)
     date_publish = fields.Date(string="Publish Date")
     url = fields.Char(string="URL")
     state = fields.Selection(
@@ -51,13 +52,17 @@ class PetitionPetition(models.Model):
         store=True,
     )
     user_id = fields.Many2one(
-        "res.users", string="Responsible", default=lambda self: self.env.user
+        "res.users",
+        string="Responsible",
+        default=lambda self: self.env.user,
+        tracking=True,
     )
     int_instance_id = fields.Many2one(
         "int.instance",
         string="Internal instance",
         help="Internal instance of the petition",
         default=lambda self: self.env.user.partner_id.int_instance_id,
+        tracking=True,
     )
     registration_ids = fields.One2many(
         "petition.registration", "petition_id", string="Signatories"
