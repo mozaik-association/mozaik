@@ -740,11 +740,6 @@ msgid "Rejected Date"
 msgstr ""
 
 #. module: mozaik_membership_request
-#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__replace_coordinates
-msgid "Replace Coordinates"
-msgstr ""
-
-#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__request_type
 msgid "Request Type"
 msgstr ""
