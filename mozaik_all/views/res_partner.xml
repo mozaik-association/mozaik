@@ -42,6 +42,7 @@
         <field name="name">res.partner.form.account (in mozaik_all)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="priority">99</field>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='personal_information_page']" position="after">
                 <page name="contact_addresses" position="move" />
