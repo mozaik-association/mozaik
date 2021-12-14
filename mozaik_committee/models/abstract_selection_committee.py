@@ -4,6 +4,7 @@
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
+from psycopg2.extensions import AsIs
 
 from odoo import _, api, fields, models
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
@@ -206,19 +207,17 @@ class AbstractSelectionCommittee(models.Model):
         """
         SQL_QUERY = """
                 SELECT DISTINCT committee.id
-                 FROM %s AS committee
-                 JOIN %s candidature
+                 FROM %(self_model)s AS committee
+                 JOIN %(candidature_model)s candidature
                    ON candidature.selection_committee_id = committee.id
                 WHERE committee.active = False
                   AND candidature.active = True
               """
         self.env.cr.execute(
             SQL_QUERY,
-            (
-                tuple(
-                    self._name.replace(".", "_"),
-                    self._candidature_model.replace(".", "_"),
-                )
+            dict(
+                self_model=AsIs(self._name.replace(".", "_")),
+                candidature_model=AsIs(self._candidature_model.replace(".", "_")),
             ),
         )
         committees = self.search(
