@@ -4,7 +4,7 @@
     <record id="res_partner_base_form_view" model="ir.ui.view">
         <field name="name">res.partner.form.base (in mozaik_all)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_person.res_partner_form_view" />
+        <field name="inherit_id" ref="mozaik_partner_fields.res_partner_form_view" />
         <field name="priority">99</field>
         <field name="arch" type="xml">
 
