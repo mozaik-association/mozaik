@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="group_cannot_see_sms_button" model="res.groups">
+        <field name="name">SMS: cannot see SMS button on partner</field>
+    </record>
+
+</odoo>
