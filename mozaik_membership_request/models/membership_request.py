@@ -639,7 +639,7 @@ class MembershipRequest(models.Model):
                 ),
                 "int_instance_ids": [(6, 0, [self.get_int_instance_id(False)])],
             }
-            req.write(vals)
+            req.update(vals)
 
     @api.onchange("city_id")
     def onchange_city_id(self):
@@ -662,7 +662,7 @@ class MembershipRequest(models.Model):
                     (6, 0, [self.get_int_instance_id(self_sudo.city_id.id)])
                 ],
             }
-            req.write(vals)
+            req.update(vals)
 
     # view methods: onchange, button
 

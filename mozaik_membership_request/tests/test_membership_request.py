@@ -174,8 +174,8 @@ class TestMembership(TransactionCase):
 
         # validate the request
         mr.validate_request()
-        # not updated because of the membership state
-        self.assertTrue(partner.local_only)
+        # updated because we go from without membership to supporter
+        self.assertFalse(partner.local_only)
 
         # create membership request from the partner
         mr_id = partner.button_modification_request()["res_id"]
