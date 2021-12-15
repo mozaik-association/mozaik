@@ -26,7 +26,7 @@ class MailMail(models.Model):
 
     @api.model
     def send_get_mail_subject(self, mail, force=False, partner=None):
-        """ build another subject for an involvement notification """
+        """build another subject for an involvement notification"""
         res = None
         if mail.model == "partner.involvement" and mail.res_id and mail.notification:
             involvement = self.env["partner.involvement"].search(
