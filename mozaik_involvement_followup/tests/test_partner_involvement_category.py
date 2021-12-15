@@ -17,6 +17,9 @@ class TestPartnerInvolvementCategory(SavepointCase):
             "name": "Le tour du monde en 80 jours",
             "nb_deadline_days": -80,
         }
+        _logger = logging.getLogger("sql_db")
+        previous_level = _logger.level
+        _logger.setLevel(logging.CRITICAL)
         self.assertRaises(
             ValidationError,
             self.env["partner.involvement.category"].create,
