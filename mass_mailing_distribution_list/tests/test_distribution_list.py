@@ -260,3 +260,15 @@ class TestDistributionList(SavepointCase):
         partner = self.env.ref("base.partner_admin")
         results = self.dist_list._get_opt_res_ids([("id", "=", partner.id)])
         self.assertEqual(partner, results)
+
+    def test_alias_domain(self):
+        vals = {
+            "mail_forwarding": True,
+            "alias_name": "test",
+        }
+        if not self.ir_cfg_obj.get_param("mail.catchall.domain"):
+            with self.assertRaises(exceptions.MissingError) as e:
+                self.dist_list.write(vals)
+        self.ir_cfg_obj.set_param("mail.catchall.domain", "demo")
+        self.dist_list.write(vals)
+        self.assertEqual(self.dist_list.alias_domain, "demo")
