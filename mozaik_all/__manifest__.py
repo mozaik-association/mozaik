@@ -76,7 +76,7 @@
         "mozaik_survey_question_involvement_category",
         "mozaik_survey_thesaurus",
         "mozaik_website_event_track",
-        "mass_mail_queue_job",
+        # "mass_mail_queue_job",
     ],
     "data": [
         # 'views/mail_followers.xml',
