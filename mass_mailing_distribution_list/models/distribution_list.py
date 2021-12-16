@@ -176,7 +176,7 @@ class DistributionList(models.Model):
         """
         if self.filtered(lambda r: r.mail_forwarding != bool(r.alias_name)):
             raise exceptions.ValidationError(
-                _("An alias is mandatory for mail forwarding, forbidden " "otherwise")
+                _("An alias is mandatory for mail forwarding, forbidden otherwise")
             )
 
     @api.model
@@ -221,7 +221,7 @@ class DistributionList(models.Model):
 
         # write it first on the mail.alias, because _check_forwarding
         # constraint doesnt' like it otherwise
-        if vals.get("alias_name"):
+        if "alias_name" in vals:
             self.mapped("alias_id").write({"alias_name": vals.get("alias_name")})
         return super().write(vals)
 
