@@ -14,7 +14,7 @@
         "mass_mailing",
         "distribution_list",
         "mass_mailing_distribution_list",
-        "mass_mail_queue_job",
+        # "mass_mail_queue_job",
         "partner_contact_birthdate",
         "partner_contact_gender",
         "user_bypass_security",
