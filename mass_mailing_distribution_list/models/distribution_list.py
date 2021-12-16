@@ -386,3 +386,14 @@ class DistributionList(models.Model):
     def _onchange_mail_forwarding(self):
         if self.mail_forwarding and not self.alias_name and self.name:
             self.alias_name = self._build_alias_name(self.name)
+        if self.mail_forwarding and not self.alias_domain:
+            catchall_domain = (
+                self.env["ir.config_parameter"].sudo().get_param("mail.catchall.domain")
+            )
+            if not catchall_domain:
+                raise exceptions.MissingError(
+                    _(
+                        "Please contact your Administrator to configure a "
+                        "'catchall' mail domain"
+                    )
+                )
