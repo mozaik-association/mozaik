@@ -1,48 +1,37 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import logging
 from datetime import date
 
 from dateutil.relativedelta import relativedelta
 
 from odoo.exceptions import ValidationError
 from odoo.tests.common import SavepointCase
+from odoo.tools.misc import mute_logger
 
 
 class TestPartnerInvolvementCategory(SavepointCase):
     def test_involvement_category_integrity_1(self):
         # create a category with negative deadline rule: NOK
-        vals = {
-            "name": "Le tour du monde en 80 jours",
-            "nb_deadline_days": -80,
-        }
-        _logger = logging.getLogger("sql_db")
-        previous_level = _logger.level
-        _logger.setLevel(logging.CRITICAL)
-        self.assertRaises(
-            ValidationError,
-            self.env["partner.involvement.category"].create,
-            vals,
-        )
+        with self.assertRaises(ValidationError), mute_logger("odoo.sql_db"):
+            self.env["partner.involvement.category"].create(
+                {
+                    "name": "Le tour du monde en 80 jours",
+                    "nb_deadline_days": -80,
+                }
+            )
 
     def test_involvement_category_integrity_2(self):
         mc_id = self.ref("mozaik_mandate.mc_secretaire_regional")
         # create a category without deadline rule but with a mandate: NOK
-        vals = {
-            "name": "Le tour du monde en 80 jours",
-            "nb_deadline_days": 0,
-            "mandate_category_id": mc_id,
-        }
-        _logger = logging.getLogger("sql_db")
-        previous_level = _logger.level
-        _logger.setLevel(logging.CRITICAL)
-        self.assertRaises(
-            ValidationError,
-            self.env["partner.involvement.category"].create,
-            vals,
-        )
-        _logger.setLevel(previous_level)
+        with self.assertRaises(ValidationError), mute_logger("odoo.sql_db"):
+            self.env["partner.involvement.category"].create(
+                {
+                    "name": "Le tour du monde en 80 jours",
+                    "nb_deadline_days": 0,
+                    "mandate_category_id": mc_id,
+                }
+            )
 
     def test_involvement_category_onchange_deadline_rule(self):
         mc_id = self.ref("mozaik_mandate.mc_secretaire_regional")
