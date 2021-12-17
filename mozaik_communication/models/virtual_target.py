@@ -21,8 +21,6 @@ class VirtualTarget(models.Model):
     firstname = fields.Char()
     email = fields.Char(string="Email Coordinate")
     postal = fields.Char(string="Postal Coordinate")
-    email_failure_counter = fields.Integer(string="Email Bounce Counter")
-    postal_failure_counter = fields.Integer(string="Postal Bounce Counter")
     zip = fields.Char("Zip Code")
     country_id = fields.Many2one(comodel_name="res.country", string="Country")
 

@@ -41,13 +41,18 @@ class MassMailing(models.Model):
         mailing_domain = super(MassMailing, self)._get_default_mailing_domain()
 
         if self.mailing_model_name == "distribution.list" and self.distribution_list_id:
+            # from _get_target_from_distribution_list we get the concerned virtual.target
+            # records, but we are interested into the corresponding res.partner records
+            target_ids = self.distribution_list_id._get_target_from_distribution_list()
+            if target_ids._name != "res.partner":
+                target_ids = target_ids.mapped("partner_id")
             mailing_domain = expression.AND(
                 [
                     [
                         (
                             "id",
                             "in",
-                            self.distribution_list_id._get_target_from_distribution_list().ids,
+                            target_ids.ids,
                         )
                     ],
                     mailing_domain,
