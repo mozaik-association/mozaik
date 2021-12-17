@@ -1,26 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2017 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
-<openerp>
-<data>
+<odoo>
 
     <record model="ir.ui.view" id="partner_involvement_category_form_view">
-        <field name="name">partner.involvement.category.form (in mozaik_involvement_followup)</field>
+        <field
+            name="name"
+        >partner.involvement.category.form (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement.category</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_category_form_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_category_form_view"
+        />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="followup" string="Follow-up">
                     <group>
                         <group>
-                            <field name="nb_deadline_days"/>
-                            <field name="parent_involvement_category_ids" widget="many2many_tags" readonly="1" string="Is follow-up category for"/>
-                        </group>    
+                            <field name="nb_deadline_days" />
+                            <field
+                                name="parent_involvement_category_ids"
+                                widget="many2many_tags"
+                                readonly="1"
+                                string="Is follow-up category for"
+                            />
+                        </group>
                         <group attrs="{'invisible': [('nb_deadline_days', '=', 0)]}">
-                            <field name="mandate_category_id"/>
-                            <field name="involvement_category_ids" widget="many2many_tags"/>
-                        </group>    
+                            <field name="mandate_category_id" />
+                            <field
+                                name="involvement_category_ids"
+                                widget="many2many_tags"
+                            />
+                        </group>
                     </group>
                     <div class="oe_clear">
                         <br />
@@ -34,35 +45,56 @@
     </record>
 
     <record model="ir.ui.view" id="partner_involvement_category_search_view">
-        <field name="name">partner.involvement.category.search (in mozaik_involvement_followup)</field>
+        <field
+            name="name"
+        >partner.involvement.category.search (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement.category</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_category_search_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_category_search_view"
+        />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='involvement_type']" position="after">
-                <field name="mandate_category_id"/>
+                <field name="mandate_category_id" />
             </xpath>
             <xpath expr="//filter[@name='allow_multi']" position="after">
-                <separator/>
-                <filter name="with_followup" string="With Follow-up" domain="[('nb_deadline_days', '!=', 0)]"/>
-                <filter name="without_followup" string="Without Follow-up" domain="[('nb_deadline_days', '=', 0)]"/>
+                <separator />
+                <filter
+                    name="with_followup"
+                    string="With Follow-up"
+                    domain="[('nb_deadline_days', '!=', 0)]"
+                />
+                <filter
+                    name="without_followup"
+                    string="Without Follow-up"
+                    domain="[('nb_deadline_days', '=', 0)]"
+                />
             </xpath>
             <xpath expr="//filter[@name='involvement_type']" position="after">
-                 <filter name="mandate_category_id" string="Mandate Category" context="{'group_by': 'mandate_category_id'}"/>
+                 <filter
+                    name="mandate_category_id"
+                    string="Mandate Category"
+                    context="{'group_by': 'mandate_category_id'}"
+                />
             </xpath>
         </field>
     </record>
 
     <record model="ir.ui.view" id="partner_involvement_category_tree_view">
-        <field name="name">partner.involvement.category.tree (in mozaik_involvement_followup)</field>
+        <field
+            name="name"
+        >partner.involvement.category.tree (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement.category</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_category_tree_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_category_tree_view"
+        />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='code']" position="after">
-                <field name="nb_deadline_days"/>
-                <field name="mandate_category_id"/>
+                <field name="nb_deadline_days" />
+                <field name="mandate_category_id" />
             </xpath>
         </field>
     </record>
 
-</data>
-</openerp>
+</odoo>

@@ -1,24 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2017 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
-<openerp>
-<data>
+<odoo>
 
     <record model="ir.ui.view" id="partner_involvement_form_view">
-        <field name="name">partner.involvement.form (in mozaik_involvement_followup)</field>
+        <field
+            name="name"
+        >partner.involvement.form (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_form_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_form_view"
+        />
         <field name="arch" type="xml">
             <xpath expr="//header/div" position="inside">
-                <button name="%(mozaik_involvement_followup.partner_involvement_followup_wizard_act_window)d" string="Follow-up" type="action" attrs="{'invisible': [('state', 'in', ['nofollowup', 'done'])]}"/>
-                <field name="state" widget="statusbar" statusbar_visible="followup,late" attrs="{'invisible': [('state', '=', 'nofollowup')]}"/>
+                <button
+                    name="%(mozaik_involvement_followup.partner_involvement_followup_wizard_act_window)d"
+                    string="Follow-up"
+                    type="action"
+                    attrs="{'invisible': [('state', 'in', ['nofollowup', 'done'])]}"
+                />
+                <field
+                    name="state"
+                    widget="statusbar"
+                    statusbar_visible="followup,late"
+                    attrs="{'invisible': [('state', '=', 'nofollowup')]}"
+                />
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page name="followup" string="Follow-up" attrs="{'invisible': [('state', '=', 'nofollowup')]}">
+                <page
+                    name="followup"
+                    string="Follow-up"
+                    attrs="{'invisible': [('state', '=', 'nofollowup')]}"
+                >
                     <group>
                         <group>
-                            <field name="deadline"/>
+                            <field name="deadline" />
                         </group>
                         <group>
                         </group>
@@ -26,36 +43,61 @@
                 </page>
             </xpath>
             <xpath expr="//field[@name='message_follower_ids']" position="attributes">
-                <attribute name="groups" translation="off">mozaik_base.mozaik_res_groups_officer</attribute>
+                <attribute
+                    name="groups"
+                    translation="off"
+                >mozaik_involvement.res_groups_involvement_manager</attribute>
             </xpath>
         </field>
     </record>
 
     <record model="ir.ui.view" id="partner_involvement_search_view">
-        <field name="name">partner.involvement.search (in mozaik_involvement_followup)</field>
+        <field
+            name="name"
+        >partner.involvement.search (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_search_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_search_view"
+        />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='without_type']" position="after">
-                <filter name="todo" string="To Follow" domain="[('state', 'in', ['followup', 'late'])]"/>
-                <filter name="late" string="Late follow-up" domain="[('state', '=', 'late')]"/>
-                <separator/>
-                <filter name="myfollowup" string="My Follow-up" domain="[('message_is_follower','=',True)]"/>
+                <filter
+                    name="todo"
+                    string="To Follow"
+                    domain="[('state', 'in', ['followup', 'late'])]"
+                />
+                <filter
+                    name="late"
+                    string="Late follow-up"
+                    domain="[('state', '=', 'late')]"
+                />
+                <separator />
+                <filter
+                    name="myfollowup"
+                    string="My Follow-up"
+                    domain="[('message_is_follower','=',True)]"
+                />
             </xpath>
             <xpath expr="//filter[@name='involvement_type']" position="after">
-                <filter name="state" string="State" context="{'group_by': 'state'}"/>
+                <filter name="state" string="State" context="{'group_by': 'state'}" />
             </xpath>
         </field>
     </record>
 
     <record model="ir.ui.view" id="partner_involvement_tree_view">
-        <field name="name">partner.involvement.tree (in mozaik_involvement_followup)</field>
+        <field
+            name="name"
+        >partner.involvement.tree (in mozaik_involvement_followup)</field>
         <field name="model">partner.involvement</field>
-        <field name="inherit_id" ref="mozaik_person.partner_involvement_tree_view"/>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_tree_view"
+        />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='creation_time']" position="after">
-                <field name="deadline"/>
-                <field name="state"/>
+                <field name="deadline" />
+                <field name="state" />
             </xpath>
         </field>
     </record>
@@ -64,17 +106,21 @@
         <field name="name">To follow</field>
         <field name="res_model">partner.involvement</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="mozaik_person.partner_involvement_tree_view"/>
-        <field name="search_view_id" ref="mozaik_person.partner_involvement_search_view" />
-        <field name="context">{'search_default_myfollowup': 1, 'search_default_todo': 1}</field>
+        <field name="view_id" ref="mozaik_involvement.partner_involvement_tree_view" />
+        <field
+            name="search_view_id"
+            ref="mozaik_involvement.partner_involvement_search_view"
+        />
+        <field
+            name="context"
+        >{'search_default_myfollowup': 1, 'search_default_todo': 1}</field>
     </record>
 
     <record model="ir.ui.menu" id="partner_involvement_menu">
         <field name="name">To follow</field>
-        <field name="parent_id" ref="mozaik_person.involvements_submenu"/>
-        <field name="action" ref="partner_involvement_act_window"/>
-        <field name="sequence" eval="5"/>
+        <field name="parent_id" ref="mozaik_involvement.involvement_menu" />
+        <field name="action" ref="partner_involvement_act_window" />
+        <field name="sequence" eval="5" />
     </record>
 
-</data>
-</openerp>
+</odoo>
