@@ -4,13 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-17 21:54+0000\n"
-"PO-Revision-Date: 2018-04-17 21:54+0000\n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,43 +16,43 @@ msgstr ""
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,help:mozaik_involvement_followup.field_partner_involvement_category__nb_deadline_days
 msgid "0 = no follow-up on children involvements"
-msgstr "0 = pas de suivi sur les participations enfants"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:mail.message.subtype,description:mozaik_involvement_followup.partner_involvement_to_follow_mms
 msgid "A follow-up is required for this involvement"
-msgstr "Un suivi est requis pour cette participation"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:0
 #, python-format
 msgid "Additionnal follow-up delay: %s => %s"
-msgstr "Délai de suivi supplémentaire: %s => %s"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_followup_wizard_form_view
 msgid "Cancel"
-msgstr "Abandonner"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,help:mozaik_involvement_followup.field_partner_involvement_category__parent_involvement_category_ids
 msgid "Categories specifying this category as follow-up category"
-msgstr "Catégories spécifiant cette catégorie comme catégorie de suivi"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__create_uid
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__create_date
 msgid "Created on"
-msgstr "Créé le"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__deadline
 msgid "Deadline"
-msgstr "Échéance"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_mail_mail__display_name
@@ -64,61 +61,57 @@ msgstr "Échéance"
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_category__display_name
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: code:addons/mozaik_involvement_followup/models/partner_involvement_category.py:0
 #, python-format
 msgid "Error! Followup category cannot be of this type"
-msgstr "Erreur! Une catégorie de suivi ne peut pas être de ce type"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: code:addons/mozaik_involvement_followup/models/partner_involvement_category.py:0
 #, python-format
 msgid "Error! You cannot specify recursive set of follow-up categories."
 msgstr ""
-"Erreur! Vou ne pouvez pas spécifier un ensemble de catégories recursif."
 
 #. module: mozaik_involvement_followup
 #: model:ir.actions.act_window,name:mozaik_involvement_followup.partner_involvement_followup_wizard_act_window
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_category_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_form_view
 msgid "Follow-up"
-msgstr "Suivi"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_category__involvement_category_ids
 msgid "Follow-up Categories"
-msgstr "Catégories de suivi"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:0
 #, python-format
 msgid "Follow-up is done, I added details in the note or in the history"
 msgstr ""
-"Le suivi est terminé, j'ai ajouté des détails dans la note ou dans "
-"l'historique"
 
 #. module: mozaik_involvement_followup
 #: model:mail.message.subtype,name:mozaik_involvement_followup.partner_involvement_late_mms
 msgid "Follow-up reminder: Deadline reached"
-msgstr "Rappel de suivi: échéance atteinte"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields.selection,name:mozaik_involvement_followup.selection__partner_involvement__state__done
 msgid "Followed"
-msgstr "Suivi"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__followup
 msgid "Followup"
-msgstr "Suivi"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__from_date
-#, fuzzy
 msgid "From Date"
-msgstr "Date de début"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:0
@@ -127,8 +120,6 @@ msgid ""
 "I added some other followers, follow-up continue, the deadline is postponed "
 "(by number of days defined on the category)"
 msgstr ""
-"J'ai ajouté certains autres followers, le suivi continue, l'échéance est "
-"postposée (du nombre de jours spécifiés sur la catégorie)"
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_mail_mail__id
@@ -137,12 +128,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_category__id
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:mail.message.subtype,name:mozaik_involvement_followup.partner_involvement_to_follow_mms
 msgid "Involvement To Follow"
-msgstr "Participations à suivre"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.actions.server,name:mozaik_involvement_followup.partner_involvement_deadline_reminder_cron_ir_actions_server
@@ -154,7 +145,7 @@ msgstr ""
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_category_form_view
 msgid "Is follow-up category for"
-msgstr "Est une catégorie de suivi pour"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_mail_mail____last_update
@@ -163,50 +154,50 @@ msgstr "Est une catégorie de suivi pour"
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_category____last_update
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard____last_update
 msgid "Last Modified on"
-msgstr "Modifié le"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__write_uid
 msgid "Last Updated by"
-msgstr "Modifié par"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__write_date
 msgid "Last Updated on"
-msgstr "Modifié le"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields.selection,name:mozaik_involvement_followup.selection__partner_involvement__state__late
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_search_view
 msgid "Late follow-up"
-msgstr "Suivi en retard"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model,name:mozaik_involvement_followup.model_mandate_category
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_category__mandate_category_id
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_category_search_view
 msgid "Mandate Category"
-msgstr "Catégorie de mandat"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_search_view
 msgid "My Follow-up"
-msgstr "Mes suivis"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__next_category_ids
 msgid "Next Follow-up Categories"
-msgstr "Catégories de suivi suivantes"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_category__nb_deadline_days
 msgid "Number of days before deadline"
-msgstr "Nombre de jours avant l'échéance"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.constraint,message:mozaik_involvement_followup.constraint_partner_involvement_category_nb_deadline_days_no_negative
 msgid "Number of days before deadline cannot be negative !"
-msgstr "Le nombre de jours avant l'échéance ne peut être négatif !"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_followup_wizard_form_view
@@ -216,85 +207,83 @@ msgstr ""
 #. module: mozaik_involvement_followup
 #: model:ir.model,name:mozaik_involvement_followup.model_mail_mail
 msgid "Outgoing Mails"
-msgstr "Courriels à envoyer"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_category__parent_involvement_category_ids
 msgid "Parent Categories"
-msgstr "Catégories parentes"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model,name:mozaik_involvement_followup.model_partner_involvement
 msgid "Partner Involvement"
-msgstr "Participation de partenaire"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model,name:mozaik_involvement_followup.model_partner_involvement_category
 msgid "Partner Involvement Category"
-msgstr "Catégorie de participation de partenaire"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_followup_wizard_form_view
 msgid "Partner Involvement Followup Wizard"
-msgstr "Assistant de suivi de participation de partenaire"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__state
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_search_view
 msgid "State"
-msgstr "État"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:mail.message.subtype,description:mozaik_involvement_followup.partner_involvement_late_mms
 msgid "The follow-up of this involvement is not yet done."
-msgstr "Le suivi de cette participation n'est pas encore terminé."
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:0
 #, python-format
 msgid "This follow-up is done, but it continues by starting next follow-up"
 msgstr ""
-"Ce suivi-ci est terminé, mais il continue en débutant les suivis suivants"
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_search_view
 msgid "To Follow"
-msgstr "Á suivre"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.actions.act_window,name:mozaik_involvement_followup.partner_involvement_act_window
 #: model:ir.model.fields.selection,name:mozaik_involvement_followup.selection__partner_involvement__state__followup
 #: model:ir.ui.menu,name:mozaik_involvement_followup.partner_involvement_menu
 msgid "To follow"
-msgstr "Á suivre"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_category_search_view
 msgid "With Follow-up"
-msgstr "Avec suivi"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_category_search_view
 msgid "Without Follow-up"
-msgstr "Sans suivi"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.constraint,message:mozaik_involvement_followup.constraint_partner_involvement_category_mandate_category_without_deadline
 msgid "Without deadline rule mandate category must be null !"
-msgstr "Sans règle d'échéance la catégorie de mandats ne peut être spécifiée !"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields.selection,name:mozaik_involvement_followup.selection__partner_involvement__state__nofollowup
 msgid "Without follow-up"
-msgstr "Sans suivi"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_followup_wizard_form_view
 msgid "or"
-msgstr "ou"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model,name:mozaik_involvement_followup.model_partner_involvement_followup_wizard
-#, fuzzy
 msgid "partner.involvement.followup.wizard"
-msgstr "Assistant de suivi de participation de partenaire"
+msgstr ""
