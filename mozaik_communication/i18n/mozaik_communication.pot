@@ -326,11 +326,6 @@ msgid "Email"
 msgstr ""
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__email_failure_counter
-msgid "Email Bounce Counter"
-msgstr ""
-
-#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly__email_bounced
 #: model:ir.model.fields,field_description:mozaik_communication.field_ext_assembly__email_bounced
 #: model:ir.model.fields,field_description:mozaik_communication.field_int_assembly__email_bounced
@@ -950,11 +945,6 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__placeholder_value
 msgid "Placeholder Value"
-msgstr ""
-
-#. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__postal_failure_counter
-msgid "Postal Bounce Counter"
 msgstr ""
 
 #. module: mozaik_communication
