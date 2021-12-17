@@ -35,17 +35,17 @@ class MailComposeMessage(models.TransientModel):
 
     def send_mail(self, auto_commit=False):
         """
-        With a distribution list active ids must be computed here
-        except if they are previously computed.
+        With a distribution list, we compute active_ids here.
         """
-        dist_list = self.distribution_list_id
-        if dist_list and not self._context.get("dl_computed"):
-            mains, __ = dist_list._get_complex_distribution_list_ids()
-            if mains and self._context.get("additional_res_ids"):
-                additional_res_ids = self._context["additional_res_ids"]
-                mains |= self.env[mains._name].browse(additional_res_ids)
+        distribution_list = self.distribution_list_id
+        if distribution_list:
+            target_ids = distribution_list._get_target_from_distribution_list()
+            if target_ids._name != "res.partner":
+                target_ids = target_ids.mapped("partner_id")
+            mailing_domain = [("id", "in", target_ids.ids)]
+            active_ids = self.env["res.partner"].search(mailing_domain)
             self = self.with_context(
-                active_ids=mains.ids,
-                active_model=mains._name,
+                active_ids=active_ids.ids, active_model="res.partner"
             )
+            self.model = "res.partner"  # we do not want to have virtual.target here
         return super().send_mail(auto_commit=auto_commit)
