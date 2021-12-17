@@ -8,7 +8,7 @@ class MailComposeMessage(models.TransientModel):
 
     _inherit = "mail.compose.message"
 
-    contact_ab_pc = fields.Integer()
+    contact_ab_pc = fields.Integer(default=100)
 
     def get_mail_values(self, res_ids):
         """
