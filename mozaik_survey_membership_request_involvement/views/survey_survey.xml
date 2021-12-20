@@ -8,15 +8,10 @@
             name="name"
         >survey.survey.form (in mozaik_survey_membership_request_involvement)</field>
         <field name="model">survey.survey</field>
-        <field
-            name="inherit_id"
-            ref="mozaik_survey_mandatory_questions.survey_survey_form_view"
-        />
+        <field name="inherit_id" ref="survey.survey_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='constr_mandatory']" position="after">
-                <!-- All the following fields have to be present in the view
-                     to be loaded correctly in default questions -->
-                <field name="bridge_field_id" invisible="1" />
+            <xpath expr="//field[@name='active']" position="before">
+                <field name="auto_accept_membership" />
             </xpath>
         </field>
     </record>

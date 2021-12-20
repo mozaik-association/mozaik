@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -10,10 +10,12 @@ class SurveySurvey(models.Model):
     _name = "survey.survey"
     _inherit = ["survey.survey", "abstract.survey.question.type"]
 
-    def _get_question_copy_values(self, question):
-        dic = super()._get_question_copy_values(question)
-        dic.update({"bridge_field_id": question.bridge_field_id.id})
-        return dic
+    auto_accept_membership = fields.Boolean(
+        string="Accept membership requests",
+        help="Membership requests that can be linked to a "
+        "unique existing partner are automatically accepted.",
+        default=True,
+    )
 
     @api.constrains("question_and_page_ids")
     def _check_question_and_page_ids(self):

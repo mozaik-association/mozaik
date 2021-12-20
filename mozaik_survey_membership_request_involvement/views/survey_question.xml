@@ -19,7 +19,7 @@
                     <field
                         name="bridge_field_id"
                         options="{'no_create': True, 'no_open': True}"
-                        domain="[('model_id', '=', 'membership.request')]"
+                        domain="[('model_id', '=', 'membership.request'), ('readonly', '=', False)]"
                     />
                 </group>
             </xpath>

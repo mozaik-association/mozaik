@@ -1,0 +1,55 @@
+# Copyright 2021 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+from odoo import http
+
+from odoo.addons.survey.controllers.main import Survey
+
+from ..models.survey_user import UNKNOWN_PERSON
+
+
+class SurveyMembershipRequest(Survey):
+    @http.route(
+        "/survey/submit/<string:survey_token>/<string:answer_token>",
+        type="json",
+        auth="public",
+        website=True,
+    )
+    def survey_submit(self, survey_token, answer_token, **post):
+        response = super().survey_submit(survey_token, answer_token, **post)
+
+        access_data = self._get_access_data(
+            survey_token, answer_token, ensure_token=True
+        )
+        if access_data["validity_code"] is not True:
+            return {"error": access_data["validity_code"]}
+        answer_sudo = access_data["answer_sudo"]
+
+        membership_request = answer_sudo.membership_request_id
+        values = {}  # will contain all answers to bridge fields
+        for user_input_line in answer_sudo.user_input_line_ids.filtered(
+            lambda uil: not uil.skipped and uil.question_id.bridge_field_id
+        ):
+            answer = user_input_line._get_answer()
+            values.update({user_input_line.question_id.bridge_field_id.name: answer})
+
+        # update zip_man -> zip to fit with mozaik_membership_request_from_registration
+        values["zip"] = values.pop("zip_man", False)
+
+        values = membership_request._pre_process_values(values)
+        membership_request.write(values)
+        res = membership_request._onchange_partner_id_vals(
+            is_company=values["is_company"],
+            request_type=values["request_type"],
+            partner_id=values["partner_id"],
+            technical_name=False,
+        )
+        membership_request.write(res)
+        auto_val = (
+            False
+            if membership_request["lastname"] == UNKNOWN_PERSON
+            else answer_sudo.survey_id.auto_accept_membership
+        )
+        membership_request._auto_validate(auto_val)
+
+        return response
