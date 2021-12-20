@@ -50,6 +50,22 @@ class SurveyMembershipRequest(Survey):
             if membership_request["lastname"] == UNKNOWN_PERSON
             else answer_sudo.survey_id.auto_accept_membership
         )
+
+        # Adding involvement categories
+        command_ic = []
+        command_interests = []
+        for answer in answer_sudo.user_input_line_ids.mapped(
+            "suggested_answer_id"
+        ).filtered(lambda s: s and s.involvement_category_id):
+            command_ic += [(4, answer.involvement_category_id.id)]
+            command_interests += [
+                (4, interest.id)
+                for interest in answer.involvement_category_id.interest_ids
+            ]
+        membership_request.write(
+            {"involvement_category_ids": command_ic, "interest_ids": command_interests}
+        )
+
         membership_request._auto_validate(auto_val)
 
         return response

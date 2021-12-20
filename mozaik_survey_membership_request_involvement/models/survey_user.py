@@ -24,7 +24,16 @@ class SurveyUserInput(models.Model):
         mr = self.env["membership.request"].create(values_mr)
         vals.update({"membership_request_id": mr.id})
         user_input = super().create(vals)
-        mr.write({"survey_user_input_id": user_input.id})
+        values_mr = {"survey_user_input_id": user_input.id}
+        if user_input.survey_id.involvement_category_id:
+            values_mr["involvement_category_ids"] = [
+                (4, user_input.survey_id.involvement_category_id.id)
+            ]
+            values_mr["interest_ids"] = [
+                (4, interest.id)
+                for interest in user_input.survey_id.involvement_category_id.interest_ids
+            ]
+        mr.write(values_mr)
         return user_input
 
 
