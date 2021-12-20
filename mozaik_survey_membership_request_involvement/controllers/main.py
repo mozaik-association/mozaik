@@ -38,6 +38,11 @@ class SurveyMembershipRequest(Survey):
 
         values = membership_request._pre_process_values(values)
         membership_request.write(values)
+        if membership_request.lastname == UNKNOWN_PERSON:
+            #  We do not continue the process if we didn't even get the
+            #  lastname of the partner.
+            return response
+
         res = membership_request._onchange_partner_id_vals(
             is_company=values["is_company"],
             request_type=values["request_type"],
@@ -45,11 +50,6 @@ class SurveyMembershipRequest(Survey):
             technical_name=False,
         )
         membership_request.write(res)
-        auto_val = (
-            False
-            if membership_request["lastname"] == UNKNOWN_PERSON
-            else answer_sudo.survey_id.auto_accept_membership
-        )
 
         # Adding involvement categories
         command_ic = []
@@ -66,6 +66,6 @@ class SurveyMembershipRequest(Survey):
             {"involvement_category_ids": command_ic, "interest_ids": command_interests}
         )
 
-        membership_request._auto_validate(auto_val)
+        membership_request._auto_validate(answer_sudo.survey_id.auto_accept_membership)
 
         return response
