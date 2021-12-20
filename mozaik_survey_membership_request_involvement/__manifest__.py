@@ -13,9 +13,11 @@
         "mozaik_membership_request_autovalidate",
         "mozaik_membership_request_from_registration",
         "mozaik_survey_involvement_category",
+        "mozaik_survey_is_private",
         "mozaik_survey_question_involvement_category",
     ],
     "data": [
+        "views/res_partner.xml",
         "views/membership_request.xml",
         "views/survey_survey.xml",
         "views/survey_question.xml",
