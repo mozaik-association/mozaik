@@ -60,6 +60,11 @@ class MassMailing(models.Model):
             ]
         )
         mass_mailings.write({"state": "in_queue"})
+
+        # We need to recompute the mailing domains, if new partners are concerned
+        # by the target list (distribution list, of mailing list, or...)
+        mass_mailings._compute_mailing_domain()
+
         super()._process_mass_mailing_queue()
         for mailing in mass_mailings.filtered(lambda l: l.automation):
             next_execution = fields.Datetime.now() + relativedelta(days=1)
