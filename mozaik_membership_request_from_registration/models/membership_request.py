@@ -1,16 +1,22 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class MembershipRequest(models.Model):
     _inherit = "membership.request"
 
-    def _create_membership_request(self, vals):
+    @api.model
+    def _pre_process_values(self, vals):
+        """
+        Pre-process values given in vals for creating the membership request.
+        Returns a dictionary of values.
+        """
+        values = {}
         if "lastname" in vals and vals["lastname"]:
             for key in ["lastname", "firstname"]:
-                val = vals[key]
+                val = vals.get(key, False)
                 if val:
                     vals[key] = val.strip().title()
             lastname = vals.get("lastname")
@@ -63,6 +69,16 @@ class MembershipRequest(models.Model):
                 "state": "confirm",
             }
 
+            # We know check all other keys from vals:
+            # if the key is not in values and if it corresponds
+            # to a field from membership.request, we add it to values
+            for key in vals.keys():
+                if (
+                    key not in values
+                    and key in self.env["membership.request"].fields_get()
+                ):
+                    values[key] = vals[key]
+
             partner = self.get_partner_id(
                 is_company=False,
                 birthdate_date=False,
@@ -90,7 +106,11 @@ class MembershipRequest(models.Model):
                             "force_int_instance_id": partner.int_instance_ids[0].id,
                         }
                     )
+        return values
 
+    def _create_membership_request(self, vals):
+        values = self._pre_process_values(vals)
+        if bool(values):
             request = self.create(values)
             res = request._onchange_partner_id_vals(
                 is_company=values["is_company"],

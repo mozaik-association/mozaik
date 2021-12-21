@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="survey_question_form_view">
+        <field
+            name="name"
+        >survey.question.form (in mozaik_survey_membership_request_involvement)</field>
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='options']/group" position="after">
+                <group
+                    string="Link with the membership request"
+                    name="bridge_field"
+                    attrs="{'invisible': [('question_type', 'in', ['simple_choice', 'multiple_choice', 'matrix'])]}"
+                >
+                    <field
+                        name="bridge_field_id"
+                        options="{'no_create': True, 'no_open': True}"
+                        domain="[('model_id', '=', 'membership.request'), ('readonly', '=', False)]"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
