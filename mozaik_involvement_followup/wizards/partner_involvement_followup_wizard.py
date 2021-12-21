@@ -7,6 +7,7 @@ from odoo import _, api, fields, models
 class PartnerInvolvementFollowupWizard(models.TransientModel):
 
     _name = "partner.involvement.followup.wizard"
+    _description = "Partner Involvement Followup"
 
     @api.model
     def _next_category_ids_domain(self):
