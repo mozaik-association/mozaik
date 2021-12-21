@@ -225,6 +225,11 @@ msgid "Partner Involvement Category"
 msgstr ""
 
 #. module: mozaik_involvement_followup
+#: model:ir.model,name:mozaik_involvement_followup.model_partner_involvement_followup_wizard
+msgid "Partner Involvement Followup"
+msgstr ""
+
+#. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_followup_wizard_form_view
 msgid "Partner Involvement Followup Wizard"
 msgstr ""
@@ -281,9 +286,4 @@ msgstr ""
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_followup_wizard_form_view
 msgid "or"
-msgstr ""
-
-#. module: mozaik_involvement_followup
-#: model:ir.model,name:mozaik_involvement_followup.model_partner_involvement_followup_wizard
-msgid "partner.involvement.followup.wizard"
 msgstr ""
