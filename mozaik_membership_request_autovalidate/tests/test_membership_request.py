@@ -171,6 +171,10 @@ class TestMembershipRequest(TransactionCase):
                 "email": "thierry@gmail.com",
             }
         )
+        # We need to explicitely update the DB otherwise
+        # thierry.membership_state_id is not always correctly
+        # set on virtual.partner
+        thierry.flush()
         mr = self.mr_model.create(
             {
                 "lastname": "Dujardin",
@@ -265,6 +269,10 @@ class TestMembershipRequest(TransactionCase):
             {"lastname": "Dujardin", "firstname": "Jordan", "email": "jordan@duj.fr"}
         )
         self.assertEqual(self.federal, jordan.int_instance_id)
+        # We need to explicitely update the DB otherwise
+        # jordan.membership_state_id is not always correctly
+        # set on virtual.partner
+        jordan.flush()
 
         # auto-validate: Ok - 26993/2.4.2.1.1
         mr = self.mr_model.create(
