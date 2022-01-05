@@ -2,13 +2,14 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
+from odoo import fields
 from odoo.tests.common import TransactionCase
 
 
 class TestMembershipRequest(TransactionCase):
     def setUp(self):
         super().setUp()
-        self.mr_model = self.env["membership.request"]
+        self.mr_model = self.env["membership.request"].with_context({"mode": "autoval"})
         self.belgium = self.env["res.country"].search([("code", "=", "BE")])
         self.city_lg = self.env["res.city"].create(
             {
@@ -21,21 +22,6 @@ class TestMembershipRequest(TransactionCase):
             }
         )
         self.federal = self.browse_ref("mozaik_structure.int_instance_01")
-
-    def _add_technical_name(self, mr):
-        """Onchanges are not triggered in tests, so
-        we need to compute technical_name explicitly."""
-        tech_name = self.env["membership.request"].get_technical_name(
-            mr.address_local_street_id,
-            mr.city_id.id,
-            mr.number,
-            mr.box,
-            mr.city_man,
-            mr.street_man,
-            mr.zip_man,
-            mr.country_id.id,
-        )
-        mr.write({"technical_name": tech_name})
 
     def test_no_val_explicit_skip(self):
         """
@@ -55,7 +41,6 @@ class TestMembershipRequest(TransactionCase):
                 "email": "jean@duj.fr",
             }
         )
-        self._add_technical_name(mr)
         mr._auto_validate(False)
         self.assertFalse(mr.partner_id)
         self.assertEqual("draft", mr.state)
@@ -77,7 +62,6 @@ class TestMembershipRequest(TransactionCase):
                 "request_type": "m",
             }
         )
-        self._add_technical_name(mr)
         mr._auto_validate(True)
         self.assertFalse(mr.partner_id)
         self.assertEqual("draft", mr.state)
@@ -101,7 +85,6 @@ class TestMembershipRequest(TransactionCase):
                 "email": "filou@duj.fr",
             }
         )
-        self._add_technical_name(mr)
         mr._auto_validate(True)
         self.assertTrue(mr.partner_id)
         self.assertEqual(mr.partner_id.address_address_id.zip, self.city_lg.zipcode)
@@ -126,7 +109,6 @@ class TestMembershipRequest(TransactionCase):
                 "mobile": "+33.6.24.61.19.81",
             }
         )
-        self._add_technical_name(mr)
         mr._auto_validate(True)
         self.assertFalse(mr.partner_id)
         self.assertEqual("draft", mr.state)
@@ -150,7 +132,6 @@ class TestMembershipRequest(TransactionCase):
                 "email": "patrick@duj.fr",
             }
         )
-        self._add_technical_name(mr)
         mr._auto_validate(True)
         self.assertEqual("validate", mr.state)
         self.assertEqual(mr.partner_id.int_instance_id, self.federal)
@@ -171,42 +152,42 @@ class TestMembershipRequest(TransactionCase):
                 "email": "kevin@duj.fr",
             }
         )
-        self._add_technical_name(mr)
         mr._auto_validate(True)
         self.assertEqual("validate", mr.state)
         self.assertEqual(self.city_lg.int_instance_id, mr.partner_id.int_instance_id)
         self.assertEqual(self.city_lg.zipcode, mr.address_id.zip)
 
-    # def test_no_autoval_26993_2_3_2(self):
-    #     """
-    #     When creating a membership request, if the partner
-    #     is recognized but the firstname and lastname are
-    #     not the same on the membership request and on
-    #     the partner form, then no autovalidation.
-    #     """
-    #     thierry = self.env["res.partner"].create(
-    #         {
-    #             "firstname": "Thierry",
-    #             "lastname": "Dujardin",
-    #             "email": "thierry@gmail.com",
-    #         }
-    #     )
-    #     mr = self.mr_model.create(
-    #         {
-    #             "lastname": "Dujardin",
-    #             "firstname": "Denis",
-    #             "gender": "male",
-    #             "request_type": "m",
-    #             "email": "thierry@gmail.com",
-    #         }
-    #     )
-    #     # we have to call onchange method explicitly to find the associated partner
-    #     mr.onchange_partner_component()
-    #     self._add_technical_name(mr)
-    #     mr._auto_validate(True)
-    #     self.assertTrue(mr.partner_id)
-    #     self.assertEqual(thierry, mr.partner_id)
-    #     self.assertEqual("draft", mr.state)
+    def test_no_autoval_26993_2_3_2(self):
+        """
+        When creating a membership request, if the partner
+        is recognized but the firstname and lastname are
+        not the same on the membership request and on
+        the partner form, then no autovalidation.
+        """
+        thierry = self.env["res.partner"].create(
+            {
+                "firstname": "Thierry",
+                "lastname": "Dujardin",
+                "email": "thierry@gmail.com",
+            }
+        )
+        # We need to explicitely update the DB otherwise
+        # thierry.membership_state_id is not always correctly
+        # set on virtual.partner
+        thierry.flush()
+        mr = self.mr_model.create(
+            {
+                "lastname": "Dujardin",
+                "firstname": "Denis",
+                "gender": "male",
+                "request_type": "m",
+                "email": "thierry@gmail.com",
+            }
+        )
+        mr._auto_validate(True)
+        self.assertTrue(mr.partner_id)
+        self.assertEqual(thierry, mr.partner_id)
+        self.assertEqual("draft", mr.state)
 
     def test_no_autoval_email_not_unique(self):
         """
@@ -232,39 +213,143 @@ class TestMembershipRequest(TransactionCase):
                 "email": "pauline@gmail.com",
             }
         )
-        self._add_technical_name(mr)
         mr._auto_validate(True)
         self.assertEqual("draft", mr.state)
 
-    # def test_no_autoeval_with_conflictual_status(self):
-    #     marc = self.env["res.partner"].create(
-    #         {
-    #             "lastname": "Lavoine",
-    #             "firstname": "Marc",
-    #             "email": "marc.lavoine@test.com",
-    #             "accepted_date": fields.Date.today(),
-    #             "free_member": True,
-    #         }
-    #     )
-    #     # make marc a supporter
-    #     supporter = self.env["membership.state"].search([("code", "=", "supporter")])
-    #     marc.write({"membership_state_id": supporter.id})
-    #     self.assertEqual(marc.membership_state_code, "supporter")
-    #     marc.action_resignation()
-    #     self.assertEqual("former_supporter", marc.membership_state_code)
-    #
-    #     mr = self.mr_model.create(
-    #         {
-    #             "lastname": "Lavoine",
-    #             "firstname": "Marc",
-    #             "gender": "male",
-    #             "request_type": "m",
-    #             "email": "marc.lavoine@test.com",
-    #         }
-    #     )
-    #     # we have to call onchange method explicitly to find the associated partner
-    #     mr.onchange_partner_component()
-    #     self._add_technical_name(mr)
-    #     mr._auto_validate(True)
-    #     self.assertTrue(mr.partner_id)
-    #     self.assertEqual("draft", mr.state)
+    def test_no_autoeval_with_conflictual_status(self):
+        marc = self.env["res.partner"].create(
+            {
+                "lastname": "Lavoine",
+                "firstname": "Marc",
+                "email": "marc.lavoine@test.com",
+                "accepted_date": fields.Date.today(),
+                "free_member": True,
+            }
+        )
+        # make marc a supporter
+        supporter = self.env["membership.state"].search([("code", "=", "supporter")])
+        marc.write({"membership_state_id": supporter.id})
+        self.assertEqual(marc.membership_state_code, "supporter")
+        marc.action_resignation()
+        self.assertEqual("former_supporter", marc.membership_state_code)
+
+        mr = self.mr_model.create(
+            {
+                "lastname": "Lavoine",
+                "firstname": "Marc",
+                "gender": "male",
+                "request_type": "m",
+                "email": "marc.lavoine@test.com",
+            }
+        )
+        # we have to call onchange method explicitly to find the associated partner
+        mr.onchange_partner_component()
+        mr._auto_validate(True)
+        self.assertTrue(mr.partner_id)
+        self.assertEqual("draft", mr.state)
+
+    def test_autoval_26993_2_4(self):
+        """
+        Use a partner to test all cases from #26993, case 2.4
+        """
+        # Define int_instance associated to Huy (4500)
+        huy = self.env["int.instance"].create(
+            {
+                "name": "Local Huy",
+                "code": "001",
+                "power_level_id": self.browse_ref(
+                    "mozaik_structure.int_power_level_01"
+                ).id,
+            }
+        )
+        city_huy = self.env["res.city"].search([("zipcode", "=", "4500")])
+        city_huy.write({"int_instance_id": huy.id})
+
+        jordan = self.env["res.partner"].create(
+            {"lastname": "Dujardin", "firstname": "Jordan", "email": "jordan@duj.fr"}
+        )
+        self.assertEqual(self.federal, jordan.int_instance_id)
+        # We need to explicitely update the DB otherwise
+        # jordan.membership_state_id is not always correctly
+        # set on virtual.partner
+        jordan.flush()
+
+        # auto-validate: Ok - 26993/2.4.2.1.1
+        mr = self.mr_model.create(
+            {
+                "lastname": "DUJARDIN",
+                "firstname": "Jordan",
+                "gender": "male",
+                "request_type": "m",
+                "email": "jordan@duj.fr",
+                "zip_man": "4500",
+            }
+        )
+        mr._auto_validate(True)
+        self.assertEqual("validate", mr.state)
+        self.assertEqual(huy.id, jordan.int_instance_id.id)
+        self.assertTrue(mr.address_id)
+
+        # Reset Jordan to Mozaik Headquarter
+        jordan.write(
+            {
+                "int_instance_ids": [(5, 0), (4, self.federal.id)],
+                "zip": False,
+                "city_id": False,
+            }
+        )
+
+        # Create a new mr and check that the instance remains federal
+        # auto-validate: Ok - 26993/2.4.2.1.2
+        mr = self.mr_model.create(
+            {
+                "lastname": "DUJARDIN",
+                "firstname": "Jordan",
+                "gender": "male",
+                "request_type": "m",
+                "email": "jordan@duj.fr",
+                "zip_man": "4500",
+            }
+        )
+        mr._auto_validate(True)
+        self.assertEqual("validate", mr.state)
+        self.assertEqual(self.federal.id, jordan.int_instance_id.id)
+        self.assertTrue(mr.address_id)
+
+        # Change Jordan's address in Huy, but keep federal instance
+        grandplace5 = self.browse_ref("mozaik_address.address_1")
+        jordan.write({"address_address_id": grandplace5.id})
+        self.assertEqual(jordan.int_instance_ids, self.federal)
+        self.assertNotEqual(jordan.int_instance_id, grandplace5.city_id.int_instance_id)
+
+        # auto-validate: Ok - 26993/2.4.2.2.1 - bis
+        mr = self.mr_model.create(
+            {
+                "lastname": "DUJARDIN",
+                "firstname": "Jordan",
+                "gender": "male",
+                "request_type": "m",
+                "email": "jordan@duj.fr",
+                "zip_man": "4500",
+            }
+        )
+        mr._auto_validate(True)
+        self.assertEqual(self.federal, jordan.int_instance_id)
+        self.assertEqual("validate", mr.state)
+
+        # auto-validate: Nok - 26993/2.4.2.2.2
+        self.assertEqual(jordan.zip, "4500")
+        mr = self.mr_model.create(
+            {
+                "lastname": "DUJARDIN",
+                "firstname": "Jordan",
+                "gender": "male",
+                "request_type": "m",
+                "email": "jordan@duj.fr",
+                "zip_man": "1020",
+            }
+        )
+        mr._auto_validate(True)
+        self.assertTrue(all([mr.country_id, mr.city_id]))
+        self.assertEqual(mr.state, "draft")
+        self.assertFalse(mr.address_id)

@@ -309,7 +309,9 @@ class TestMembership(TransactionCase):
         self.assertIn("Regional Voluntary", changes)
 
         self.assertEqual(changes["Name"][0], "Pauline")
-        self.assertEqual(changes["Name"][1], "MAROIS")
+        self.assertEqual(
+            changes["Name"][1], "Marois"
+        )  # lastname was formatted at creation
         self.assertFalse(changes["Mobile"][0])
         # self.assertEqual(changes['Mobile'][1], '+32 475 45 12 32') TODO only works first time?
         self.assertFalse(changes["Gender"][0])

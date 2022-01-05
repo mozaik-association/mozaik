@@ -52,7 +52,7 @@ class MembershipRequest(models.Model):
                 and self.partner_id.lastname == self.lastname
             )
 
-        # 26993/2.4.2.2.2
+        # 26993/2.4.2.2.2 - first part
         if (
             auto_val
             and self.partner_id
@@ -61,6 +61,11 @@ class MembershipRequest(models.Model):
         ):
             # for existing partner with address, zip must be equal
             auto_val = self.partner_id.zip == self.address_id.zip
+
+        # 26993/2.4.2.2.2 - second part
+        if auto_val and self.partner_id and self.city_id and self.partner_id.country_id:
+            # for existing partner with address, zip must be equal
+            auto_val = self.partner_id.zip == self.city_id.zipcode
 
         if auto_val and self.email:
             # get the number of email in res.partner

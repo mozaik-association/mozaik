@@ -1354,10 +1354,16 @@ class MembershipRequest(models.Model):
 
     @api.model_create_single
     def create(self, vals):
-        if (
-            self.env.context.get("install_mode", False)
-            or self.env.context.get("mode", True) == "ws"
-        ):
+        # Automatically correct case errors in firstname and lastname
+        # Will not be corrected in write() so user can bypass
+        # this modification.
+        for key in ["lastname", "firstname"]:
+            val = vals.get(key, False)
+            if val:
+                vals[key] = val.strip().title()
+        if self.env.context.get("install_mode", False) or self.env.context.get(
+            "mode", True
+        ) in ["ws", "autoval"]:
             self._pre_process(vals)
 
         # do not pass related fields to the orm

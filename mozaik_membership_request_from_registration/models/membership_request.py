@@ -111,7 +111,7 @@ class MembershipRequest(models.Model):
     def _create_membership_request(self, vals):
         values = self._pre_process_values(vals)
         if bool(values):
-            request = self.create(values)
+            request = self.with_context({"mode": "autoval"}).create(values)
             res = request._onchange_partner_id_vals(
                 is_company=values["is_company"],
                 request_type=values["request_type"],
