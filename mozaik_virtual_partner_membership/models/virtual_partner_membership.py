@@ -24,6 +24,18 @@ class VirtualPartnerMembership(models.Model):
     is_volunteer = fields.Boolean(
         string="Is a volunteer",
     )
+    date_from = fields.Date(
+        string="From",
+    )
+    date_to = fields.Date(string="To")
+    date_creation = fields.Datetime(string="Creation date")
+    paid = fields.Boolean(
+        help="Define if this line is paid or not",
+    )
+    product_id = fields.Many2one(
+        comodel_name="product.product",
+        string="Subscription",
+    )
 
     @api.model
     def _get_select(self):
@@ -38,6 +50,11 @@ class VirtualPartnerMembership(models.Model):
             m.int_instance_id,
             m.state_id as membership_state_id,
             m.reference as reference,
+            m.date_from,
+            m.date_to,
+            m.create_date as date_creation,
+            m.paid,
+            m.product_id,
             p.is_donor,
             p.is_volunteer"""
         )

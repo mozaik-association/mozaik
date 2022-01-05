@@ -9,6 +9,7 @@
     "category": "Political Association",
     "depends": [
         "distribution_list",
+        "mozaik_account",
         "mozaik_communication",
         "mozaik_membership",
         "mozaik_thesaurus",
