@@ -54,6 +54,16 @@ msgid "Competencies"
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__date_creation
+msgid "Creation date"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,help:mozaik_virtual_partner_membership.field_virtual_partner_membership__paid
+msgid "Define if this line is paid or not"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_distribution_list_line__display_name
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__display_name
 msgid "Display Name"
@@ -78,6 +88,11 @@ msgstr ""
 #. module: mozaik_virtual_partner_membership
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
 msgid "Female"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__date_from
+msgid "From"
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
@@ -154,6 +169,11 @@ msgid "Number"
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__paid
+msgid "Paid"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__partner_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
 msgid "Partner"
@@ -189,6 +209,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__membership_state_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
 msgid "State"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__product_id
+msgid "Subscription"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__date_to
+msgid "To"
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
