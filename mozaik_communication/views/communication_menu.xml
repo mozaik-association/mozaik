@@ -4,7 +4,7 @@
     <record model="ir.ui.menu" id="virtual_model_menu">
         <field name="name">Virtual models</field>
         <field name="sequence">15</field>
-        <field name="parent_id" ref="mass_mailing.mass_mailing_menu_root" />
+        <field name="parent_id" ref="distribution_list.distribution_list_menu_root" />
     </record>
 
 </odoo>
