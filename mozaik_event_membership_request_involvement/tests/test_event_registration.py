@@ -86,8 +86,8 @@ class TestEventRegistration(TransactionCase):
 
     def test_capitalization_firstname_lastname(self):
         """
-        When creating an event registration, we transform
-        firstname and lastname values using title() method for strings.
+        When creating an event registration, we preprocess the
+        values entered, so firstname, lastname and email are formatted.
         """
         self.env["event.registration"].create(
             {
@@ -98,7 +98,7 @@ class TestEventRegistration(TransactionCase):
             }
         )
         domain = [
-            ("email", "=", "Eric@duj.FR"),
+            ("email", "=", "eric@duj.fr"),
         ]
         mr = self.env["membership.request"].search(domain)
         self.assertEqual(mr.firstname, "Éric-André Olivier Vincent")
