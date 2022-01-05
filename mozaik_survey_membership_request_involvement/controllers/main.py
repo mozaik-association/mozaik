@@ -44,9 +44,9 @@ class SurveyMembershipRequest(Survey):
             return response
 
         res = membership_request._onchange_partner_id_vals(
-            is_company=values["is_company"],
-            request_type=values["request_type"],
-            partner_id=values["partner_id"],
+            is_company=values.get("is_company", False),
+            request_type=values.get("request_type", False),
+            partner_id=values.get("partner_id", False),
             technical_name=False,
         )
         membership_request.write(res)
