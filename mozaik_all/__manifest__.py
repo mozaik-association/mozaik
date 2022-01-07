@@ -36,6 +36,7 @@
         "mozaik_event_registration_add_zip",
         "mozaik_event_thesaurus",
         "mozaik_event_tickbox_question",
+        "mozaik_graphql",
         "mozaik_involvement",
         "mozaik_involvement_followup",
         "mozaik_mass_mailing_access_rights",
