@@ -12,6 +12,11 @@
         />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute
+                    name="decoration-muted"
+                >active_membership_line==False</attribute>
+            </xpath>
             <field name="partner_id" position="after">
                 <field name="int_instance_id" />
                 <field name="membership_state_id" />
@@ -19,6 +24,7 @@
             <field name="lang" position="after">
                 <field name="is_donor" />
                 <field name="is_volunteer" />
+                <field name="active_membership_line" invisible="1" />
             </field>
         </field>
     </record>
@@ -54,6 +60,12 @@
                 <field name="interest_ids" widget="many2one" />
                 <field name="competency_ids" widget="many2one" />
 
+                <filter
+                    string="Active membership line"
+                    name="active_membership_line"
+                    domain="[('active_membership_line', '=', True)]"
+                />
+                <separator />
                 <filter
                     string="Awaiting payment"
                     name="awaiting_payment"
@@ -141,6 +153,7 @@
         <field name="view_mode">tree</field>
         <field name="search_view_id" ref="virtual_partner_membership_search_view" />
         <field name="view_id" ref="virtual_partner_membership_tree_view" />
+        <field name="context">{'search_default_active_membership_line': 1}</field>
     </record>
 
     <record model="ir.ui.menu" id="virtual_partner_membership_menu">

@@ -36,6 +36,7 @@ class VirtualPartnerMembership(models.Model):
         comodel_name="product.product",
         string="Subscription",
     )
+    active_membership_line = fields.Boolean(string="Active membership line")
 
     @api.model
     def _get_select(self):
@@ -55,6 +56,7 @@ class VirtualPartnerMembership(models.Model):
             m.create_date as date_creation,
             m.paid,
             m.product_id,
+            m.active as active_membership_line,
             p.is_donor,
             p.is_volunteer"""
         )
@@ -68,8 +70,8 @@ class VirtualPartnerMembership(models.Model):
         """
         from_query = """FROM res_partner AS p
             JOIN membership_line AS m
-                ON (m.partner_id = p.id
-                AND m.active = TRUE)"""
+                ON m.partner_id = p.id
+                """
         return from_query
 
     @api.model
