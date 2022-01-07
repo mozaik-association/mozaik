@@ -19,6 +19,12 @@ msgid "Active"
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__active_membership_line
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
+msgid "Active membership line"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
 #: model:ir.actions.act_window,name:mozaik_virtual_partner_membership.add_filter_from_membership_action
 msgid "Add Filter To Distribution List"
 msgstr ""
