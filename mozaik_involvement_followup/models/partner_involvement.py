@@ -58,7 +58,7 @@ class PartnerInvolvement(models.Model):
             else:
                 involvement.deadline = False
 
-    @api.model
+    @api.model_create_single
     @api.returns("self", lambda value: value.id)
     def create(self, vals):
         """
@@ -68,9 +68,10 @@ class PartnerInvolvement(models.Model):
         if res.deadline and not res.env.context.get("disable_followup"):
             cat = res.involvement_category_id.sudo()
             fol_ids = []
-            # if cat.mandate_category_id:
-            #     fol_ids += cat.mandate_category_id._get_active_representative(
-            #         res.partner_instance_id.id, True)
+            if cat.mandate_category_id:
+                fol_ids += cat.mandate_category_id._get_active_representative(
+                    res.partner_id.int_instance_id.id, True
+                )
             fol_ids += cat.message_follower_ids.ids
             res.message_subscribe(fol_ids)
             res.state = "followup"
