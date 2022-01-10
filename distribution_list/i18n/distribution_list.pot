@@ -33,11 +33,6 @@ msgid "Add"
 msgstr ""
 
 #. module: distribution_list
-#: model:ir.actions.act_window,name:distribution_list.distribution_list_add_filter_action
-msgid "Add Current Filter To Distribution List"
-msgstr ""
-
-#. module: distribution_list
 #: model:ir.model,name:distribution_list.model_distribution_list_add_filter
 msgid "Add Filter Wizard"
 msgstr ""
