@@ -16,6 +16,7 @@
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",
+        "views/mailing_mailing.xml",
     ],
     "demo": [],
 }

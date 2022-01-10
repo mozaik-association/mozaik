@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mailing_mailing_form_view">
+        <field
+            name="name"
+        >mailing.mailing.form (in mozaik_mass_mailing_automation)</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='dynamic_placeholder_generator']"
+                position="attributes"
+            >
+                <attribute name="groups">
+                    mass_mailing.group_mass_mailing_user
+                </attribute>
+            </xpath>
+            <xpath expr="//page[@name='settings']/group/group[2]" position="attributes">
+                <attribute name="name">marketing</attribute>
+                <attribute name="groups">
+                    mass_mailing.group_mass_mailing_campaign,
+                    mass_mailing.group_mass_mailing_user
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
