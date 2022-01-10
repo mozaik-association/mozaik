@@ -50,6 +50,7 @@
         "mozaik_partner_fields",
         # 'mozaik_partner_unauthorized',
         "mozaik_person",
+        "mozaik_product_template",
         # 'mozaik_relation_coordinate',
         "mozaik_structure",
         # 'mozaik_subscription_price',

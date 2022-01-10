@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+
+
+    <record model="ir.ui.view" id="product_template_tree_view">
+        <field name="name">product.template.tree (in mozaik_product_template)</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">
+                    sequence
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
