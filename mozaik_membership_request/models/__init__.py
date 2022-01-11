@@ -6,3 +6,4 @@ from . import membership_request_change
 from . import res_partner
 from . import virtual_master_partner
 from . import virtual_custom_partner
+from . import membership_line

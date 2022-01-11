@@ -469,7 +469,7 @@ class MembershipLine(models.Model):
         return self._get_lines_to_close(domain)
 
     @api.model
-    def _get_lines_to_close_former_member_domain(self):
+    def _get_lines_to_close_domain(self):
         return [
             ("date_to", "=", False),
             ("active", "=", True),
@@ -481,18 +481,30 @@ class MembershipLine(models.Model):
 
         :return: membership.line recordset
         """
-        domain = self._get_lines_to_close_former_member_domain()
+        domain = self._get_lines_to_close_domain()
         return self._get_lines_to_close(domain)
 
     @api.model
-    def _get_lines_to_close(self, domain, partners=False):
+    def _get_lines_to_close_member_candidate(self):
+        """
+
+        :return: membership.line recordset
+        """
+        domain = self._get_lines_to_close_domain()
+        return self._get_lines_to_close(
+            domain, states=self.env.ref("mozaik_membership.member_candidate")
+        )
+
+    @api.model
+    def _get_lines_to_close(self, domain, partners=False, states=False):
         """
         Get membership lines to close (date_to is not filled)
         :param domain: list of tuple
         :param partners: res.partner recordset
         :return: membership.line recordset
         """
-        states = self._get_forced_states_for_closing()
+        if not states:
+            states = self._get_forced_states_for_closing()
         if states:
             domain.append(("state_id", "in", states.ids))
         if partners:
@@ -653,7 +665,9 @@ class MembershipLine(models.Model):
         logger.info("Former member %s membership.lines", len(to_former))
         former = self.env["membership.line"]
         if to_former:
-            former = to_former._former_member(date_from=date_from)
+            member = self.env.ref("mozaik_membership.member")
+            former_member = self.env.ref("mozaik_membership.former_member")
+            former = to_former._change_state(member, former_member, date_from=date_from)
         return renewed + former
 
     @api.model
@@ -700,36 +714,59 @@ class MembershipLine(models.Model):
         """
         close_lines = self._get_lines_to_close_former_member()
 
-        last_i = 0
         step = int(
             self.env["ir.config_parameter"].get_param(
                 "membership.renewal_slice_size", default="300"
             )
         )
-        for i in range(step, len(close_lines), step):
-            close_lines[last_i:i]._close_and_former_member(date_from=date_from)
-            last_i = i
-        close_lines[last_i:]._close_and_former_member(date_from=date_from)
+        if close_lines:
+            last_i = 0
+            member = self.env.ref("mozaik_membership.member")
+            former_member = self.env.ref("mozaik_membership.former_member")
+            for i in range(step, len(close_lines), step):
+                close_lines[last_i:i]._close_and_change_state(
+                    member, former_member, date_from=date_from
+                )
+                last_i = i
+            close_lines[last_i:]._close_and_change_state(
+                member, former_member, date_from=date_from
+            )
 
-    def _close_and_former_member(self, date_from=False):
+        close_lines = self._get_lines_to_close_member_candidate()
+        if close_lines:
+            last_i = 0
+            member_candidate = self.env.ref("mozaik_membership.member_candidate")
+            supporter = self.env.ref("mozaik_membership.supporter")
+            for i in range(step, len(close_lines), step):
+                close_lines[last_i:i]._close_and_change_state(
+                    member_candidate, supporter, date_from=date_from
+                )
+                last_i = i
+            close_lines[last_i:]._close_and_change_state(
+                member_candidate, supporter, date_from=date_from
+            )
+
+    def _close_and_change_state(self, from_state, to_state, date_from=False):
         self.with_delay(
             description="Former member %s memberships" % len(self),
             channel="root.membership_close_and_former_member",
-        )._job_close_and_former_member(date_from=date_from)
+        )._job_close_and_change_state(from_state, to_state, date_from=date_from)
 
-    def _job_close_and_former_member(self, date_from):
+    def _job_close_and_change_state(self, from_state, to_state, date_from):
         date_to = fields.Date.from_string(date_from) - timedelta(days=1)
         lines = self._close(date_to=fields.Date.to_string(date_to), force=True)
-        return lines._former_member(date_from=date_from, force=True)
+        for membership in self:
+            membership.partner_id.reference = membership.reference
+        return lines._change_state(
+            from_state, to_state, date_from=date_from, force=True
+        )
 
-    def _former_member(self, date_from=False, force=False):
+    def _change_state(self, from_state, to_state, date_from=False, force=False):
         """
         Former member current membership.line
         :param date_from: str/date
         :return: membership.line recordset
         """
-        former_state = self.env.ref("mozaik_membership.former_member")
-        member_state = self.env.ref("mozaik_membership.member")
         sql_query = """
         SELECT ml.id
         FROM membership_line AS ml
@@ -737,13 +774,13 @@ class MembershipLine(models.Model):
         ON active_ml.active IS TRUE and active_ml.partner_id = ml.partner_id
         WHERE ml.id in %(ids)s AND active_ml.state_id = %(member_state_id)s
         """
-        sql_values = {"ids": tuple(self.ids), "member_state_id": member_state.id}
+        sql_values = {"ids": tuple(self.ids), "member_state_id": from_state.id}
         self.env.cr.execute(sql_query, sql_values)
         lines_result = [r[0] for r in self.env.cr.fetchall()]
         lines_keep_closed = self.browse(lines_result)
         lines = self - lines_keep_closed
-        lines = lines.filtered(lambda s, m=member_state: s.state_id == m)
-        return lines._update_membership(former_state, date_from=date_from, force=force)
+        lines = lines.filtered(lambda s, m=from_state: s.state_id == m)
+        return lines._update_membership(to_state, date_from=date_from, force=force)
 
     @api.model
     def _get_fields_to_update(self, mode):

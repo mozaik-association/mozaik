@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="0">
+
+    <record id="ir_cron_accept_membership_committee" model="ir.cron">
+        <field name="name">Accept membership committe</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field
+            name="nextcall"
+            eval="(DateTime.today() + relativedelta(days=1)).strftime('%Y-%m-%d 03:00:00')"
+        />
+        <field name="model_id" ref="mozaik_membership_request.model_membership_line" />
+        <field name="code">model.cron_accept_member_committee()</field>
+    </record>
+
+</odoo>

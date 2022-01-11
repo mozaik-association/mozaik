@@ -102,14 +102,29 @@ class MembershipLine(models.Model):
                 vals["donation_move_ids"] = [(4, move_id, 0)]
             self.write(vals)
         else:
-            self.write(
-                {
-                    "paid": True,
-                    "price_paid": amount,
-                    "move_id": move_id,
-                    "bank_account_id": bank_id,
-                }
+            product = self.env["product.product"].search(
+                [
+                    ("membership", "=", True),
+                    ("list_price", "=", amount),
+                ],
+                limit=1,
             )
+            vals = {
+                "paid": True,
+                "price_paid": amount,
+                "move_id": move_id,
+                "bank_account_id": bank_id,
+            }
+
+            param_value = (
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("membership.allow_update_product", default="0")
+            )
+            if product and param_value in [True, 1, "1", "True"]:
+                vals["product_id"] = product
+                vals["price"] = product.list_price
+            self.write(vals)
         return self
 
     @api.model
@@ -178,8 +193,8 @@ class MembershipLine(models.Model):
         return self._update_domain_payment(res)
 
     @api.model
-    def _get_lines_to_close_former_member_domain(self):
-        res = super()._get_lines_to_close_former_member_domain()
+    def _get_lines_to_close_domain(self):
+        res = super()._get_lines_to_close_domain()
         return self._update_domain_payment(res, inverse=True)
 
     @api.model

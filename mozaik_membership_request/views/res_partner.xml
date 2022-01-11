@@ -24,6 +24,14 @@
                 </xpath>
 
                 <xpath expr="//div[@name='state_management']" position="inside">
+                    <button
+                    name="action_accept"
+                    string="Accept"
+                    type="object"
+                    groups="mozaik_membership.res_groups_membership_user"
+                    attrs="{'invisible': [('membership_state_code', 'not in', ['former_member_committee', 'member_committee'])]}"
+                />
+
                     <field name="kind" invisible="1" />
                     <button
                     name="%(mozaik_membership_request.membership_request_action)d"
