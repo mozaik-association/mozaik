@@ -267,7 +267,7 @@ class TestDistributionList(SavepointCase):
             "alias_name": "test",
         }
         if not self.ir_cfg_obj.get_param("mail.catchall.domain"):
-            with self.assertRaises(exceptions.MissingError) as e:
+            with self.assertRaises(exceptions.MissingError):
                 self.dist_list.write(vals)
         self.ir_cfg_obj.set_param("mail.catchall.domain", "demo")
         self.dist_list.write(vals)
