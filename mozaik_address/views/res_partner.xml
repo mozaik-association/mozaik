@@ -44,4 +44,19 @@
         </field>
     </record>
 
+    <record id="res_partner_search_view" model="ir.ui.view">
+        <field name="name">res.partner.search (mozaik_address)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field
+                    string="Address contains"
+                    name="address"
+                    filter_domain="[('address', 'ilike', self)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
