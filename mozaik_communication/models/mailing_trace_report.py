@@ -30,6 +30,7 @@ CREATE OR REPLACE VIEW %(table_name)s AS (
 SELECT
     min(ms.id) as id,
     ms.scheduled as scheduled_date,
+    mm.mailing_type,
     utm_source.name as name,
     utm_campaign.name as campaign,
     count(ms.bounced) as bounced,
