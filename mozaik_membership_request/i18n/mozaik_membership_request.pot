@@ -22,6 +22,18 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_request.res_partner_form_view
+msgid "Accept"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.actions.server,name:mozaik_membership_request.ir_cron_accept_membership_committee_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_membership_request.ir_cron_accept_membership_committee
+#: model:ir.cron,name:mozaik_membership_request.ir_cron_accept_membership_committee
+msgid "Accept membership committe"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_abstract_assembly__accepted_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_ext_assembly__accepted_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_int_assembly__accepted_date
@@ -225,6 +237,7 @@ msgid "Decline Payment Date"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner__display_name
@@ -348,6 +361,7 @@ msgid "Group By..."
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner__id
@@ -454,6 +468,7 @@ msgid "Is a Company"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner____last_update
@@ -522,6 +537,11 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__request_type__m
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Member"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model,name:mozaik_membership_request.model_membership_line
+msgid "Membership Line"
 msgstr ""
 
 #. module: mozaik_membership_request
