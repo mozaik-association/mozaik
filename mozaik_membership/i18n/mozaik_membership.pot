@@ -947,7 +947,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__reference
 #: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__reference
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__reference
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "Reference"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly__reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly__reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly__reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_res_users__reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__reference
+msgid "Reference (membership)"
 msgstr ""
 
 #. module: mozaik_membership
