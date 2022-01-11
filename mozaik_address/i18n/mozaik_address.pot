@@ -49,6 +49,11 @@ msgid "Address (Text)"
 msgstr ""
 
 #. module: mozaik_address
+#: model_terms:ir.ui.view,arch_db:mozaik_address.res_partner_search_view
+msgid "Address contains"
+msgstr ""
+
+#. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.address_address_action
 #: model:ir.ui.menu,name:mozaik_address.address_address_menu
 #: model_terms:ir.ui.view,arch_db:mozaik_address.res_city_form_view
