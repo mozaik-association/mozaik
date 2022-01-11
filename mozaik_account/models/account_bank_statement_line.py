@@ -22,6 +22,7 @@ class AccountBankStatementLine(models.Model):
     @api.model
     def _get_models(self):
         return {
+            "res.partner": {"mode": "partner", "map": lambda s: s},
             "membership.line": {"mode": "membership", "map": "partner_id"},
             "partner.involvement": {"mode": "donation", "map": "partner_id"},
         }
@@ -86,6 +87,10 @@ class AccountBankStatementLine(models.Model):
             membership = memb_obj._get_membership_line_by_ref(reference)
             bank_account_id = self.partner_bank_id.id
             membership._mark_as_paid(amount_paid, move_id, bank_account_id)
+        if mode == "partner":
+            move_id = vals.get("move_id", False)
+            bank_account_id = self.partner_bank_id.id
+            partner.pay_membership(amount_paid, move_id, bank_account_id)
 
         if mode == "donation":
             involvements = self.env["partner.involvement"].search(
@@ -144,7 +149,19 @@ class AccountBankStatementLine(models.Model):
         precision = membership._fields.get("price").get_digits(self.env)[1]
         # float_compare return 0 if values are equals
         cmp = float_compare(self.amount, membership.price, precision_digits=precision)
-        if account and not cmp:
+        product = self.env["product.product"].search(
+            [
+                ("membership", "=", True),
+                ("list_price", "=", self.amount),
+            ],
+            limit=1,
+        )
+        param_value = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("membership.allow_update_product", default="0")
+        )
+        if account and (not cmp or product and param_value in [True, 1, "1", "True"]):
             move_dicts = [
                 {
                     "account_id": account.id,
@@ -197,7 +214,7 @@ class AccountBankStatementLine(models.Model):
             lambda l: not (not l.partner_id or l.is_reconciled)
         ):
             mode, __ = bank_line._get_info_from_reference(bank_line.payment_ref)
-            if mode == "membership":
+            if mode in ["membership", "partner"]:
                 bank_line._create_membership_move(
                     bank_line.payment_ref, raise_exception=False
                 )

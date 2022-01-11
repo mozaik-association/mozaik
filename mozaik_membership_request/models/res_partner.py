@@ -22,16 +22,20 @@ class ResPartner(models.Model):
     resignation_date = fields.Date()
     exclusion_date = fields.Date()
 
-    def simulate_next_state(self):
+    def simulate_next_state(self, event=None):
         self.ensure_one()
         self.sc_state = json.dumps(
             {"configuration": ["root", self.membership_state_code]}
         )
-
+        if event:
+            getattr(self, event)()
         interpreter = self.sc_interpreter
         transitions = interpreter._statechart.transitions
         evaluator = interpreter._evaluator
-        next_state = self.membership_state_id.code
+        # reload the states in case the event have changed it
+        states = json.loads(self.sc_state)["configuration"]
+        states.remove("root")
+        next_state = states[0]
         for transition in transitions:
             if not transition.event and transition.source in interpreter._configuration:
                 if transition.guard is None:
@@ -112,3 +116,68 @@ class ResPartner(models.Model):
             mr = membership_request.create(values)
         res = mr.get_formview_action()
         return res
+
+    def pay_membership(self, amount_paid, move_id, bank_account_id):
+        res = super(ResPartner, self).pay_membership(
+            amount_paid, move_id, bank_account_id
+        )
+
+        next_state = self.simulate_next_state(event="paid")
+        status_obj = self.env["membership.state"]
+        status = status_obj.search([("code", "=", next_state)], limit=1)
+        membership = self.env["membership.line"].search(
+            [
+                ("id", "in", self.membership_line_ids.ids),
+                ("active", "=", True),
+                ("state_code", "in", ["former_member", "supporter"]),
+            ],
+            limit=1,
+        )
+        if self.membership_state_id != status and membership:
+            # reference must be unique, so remove it from the last membership
+            last_member_membership = self.env["membership.line"].search(
+                [
+                    ("reference", "=", self.reference),
+                ],
+                limit=1,
+            )
+            last_member_membership.reference = False
+            membership.write(
+                {
+                    "reference": self.reference,
+                    # We didn't expect a payment fir this membership at the start
+                    "paid": False,
+                }
+            )
+            self.reference = False
+            membership._mark_as_paid(amount_paid, move_id, bank_account_id)
+        return res
+
+    def action_accept(self):
+        status_obj = self.env["membership.state"]
+        for partner in self:
+            next_state = partner.simulate_next_state(event="accept")
+            membership = self.env["membership.line"].search(
+                [
+                    ("id", "in", partner.membership_line_ids.ids),
+                    ("active", "=", True),
+                    (
+                        "state_code",
+                        "in",
+                        ["former_member_committee", "member_committee"],
+                    ),
+                ],
+                limit=1,
+            )
+            status = status_obj.search([("code", "=", next_state)], limit=1)
+            if membership.state_id != status and membership:
+                membership._close(force=True)
+                membership.flush()
+                w = self.env["add.membership"].create(
+                    {
+                        "int_instance_id": membership.int_instance_id.id,
+                        "partner_id": partner.id,
+                        "state_id": status.id,
+                    }
+                )
+                w.action_add()

@@ -200,6 +200,7 @@
                                 widget="selection"
                                 attrs="{'invisible': [('subscription_product_id', '=', False)]}"
                             />
+                            <field name="reference" readonly="1" string="Reference" />
                         </group>
                         <group />
                     </group>
