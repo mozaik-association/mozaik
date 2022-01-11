@@ -89,6 +89,7 @@ class ResPartner(models.Model):
         store=True,
         compute_sudo=True,
     )
+    reference = fields.Char(string="Reference (membership)", index=True, copy=False)
 
     @api.model
     def _default_force_int_instance_id(self):

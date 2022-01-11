@@ -44,3 +44,7 @@ class ResPartner(models.Model):
             return prod.id, prod.property_subscription_account
 
         return False, False
+
+    def pay_membership(self, amount_paid, move_id, bank_account_id):
+        # TODO what's the default behavior without membership request?
+        pass

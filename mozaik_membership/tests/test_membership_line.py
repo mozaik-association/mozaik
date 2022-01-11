@@ -298,7 +298,11 @@ class TestMembershipLine(TransactionCase):
         # We have to transform the date in correct format
         new_date_from = fields.Date.to_string(fields.Date.from_string("2015-11-09"))
         # Former member it (should not create a new membership)
-        same_membership = membership._former_member(date_from=new_date_from)
+        member = self.env.ref("mozaik_membership.member")
+        former_member = self.env.ref("mozaik_membership.former_member")
+        same_membership = membership._change_state(
+            member, former_member, date_from=new_date_from
+        )
         self.assertFalse(same_membership)
         return
 
@@ -338,8 +342,10 @@ class TestMembershipLine(TransactionCase):
         # We have to transform the date in correct format
         new_date_from = fields.Date.from_string("2015-11-09")
         # Former member it
-        created = membership._former_member(
-            date_from=fields.Date.to_string(new_date_from)
+        member = self.env.ref("mozaik_membership.member")
+        former_member = self.env.ref("mozaik_membership.former_member")
+        created = membership._change_state(
+            member, former_member, date_from=fields.Date.to_string(new_date_from)
         )
         self.assertEqual(created.date_from, new_date_from)
         self.assertEqual(created.partner_id, partner)
@@ -382,7 +388,11 @@ class TestMembershipLine(TransactionCase):
         new_date_from = fields.Date.to_string(date.today() + timedelta(days=1))
         # The product should be saved before the former member
         # Former member it
-        created = membership._former_member(date_from=new_date_from)
+        member = self.env.ref("mozaik_membership.member")
+        former_member = self.env.ref("mozaik_membership.former_member")
+        created = membership._change_state(
+            member, former_member, date_from=new_date_from
+        )
         # Due to the date set into parameters, we shouldn't have a new line
         self.assertFalse(created)
         return
@@ -419,7 +429,11 @@ class TestMembershipLine(TransactionCase):
         new_date_from = fields.Date.today()
         # The product should be saved before the former member
         # former member it
-        created = membership._former_member(date_from=new_date_from)
+        member = self.env.ref("mozaik_membership.member")
+        former_member = self.env.ref("mozaik_membership.former_member")
+        created = membership._change_state(
+            member, former_member, date_from=new_date_from
+        )
         # Due to the date set into parameters, we shouldn't have a new line
         self.assertFalse(created)
         return
