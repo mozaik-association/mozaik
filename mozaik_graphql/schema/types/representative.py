@@ -15,7 +15,7 @@ class AbstractRepresentative(Partner):
 
 
 class IntRepresentative(AbstractRepresentative):
-    int_mandates = graphene.Field(IntMandate)
+    int_mandates = graphene.List(graphene.NonNull(IntMandate))
 
     def resolve_int_mandates(root, info):
         return root.int_mandate_ids or None
@@ -37,7 +37,7 @@ def resolve_int_representatives(info, limit=None, offset=0):
 
 
 class ExtRepresentative(AbstractRepresentative):
-    ext_mandates = graphene.Field(ExtMandate)
+    ext_mandates = graphene.List(graphene.NonNull(ExtMandate))
 
     def resolve_ext_mandates(root, info):
         return root.ext_mandate_ids or None
@@ -59,7 +59,7 @@ def resolve_ext_representatives(info, limit=None, offset=0):
 
 
 class StaRepresentative(AbstractRepresentative):
-    sta_mandates = graphene.Field(StaMandate)
+    sta_mandates = graphene.List(graphene.NonNull(StaMandate))
 
     def resolve_sta_mandates(root, info):
         return root.sta_mandate_ids or None
