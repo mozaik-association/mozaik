@@ -52,22 +52,30 @@ class MembershipRequest(models.Model):
             if city_id and not country_id:
                 country_id = self.env["res.city"].browse(city_id).country_id.id
 
-            int_instance_id = self.get_int_instance_id(city_id)
-            values = {
-                "lastname": lastname,
-                "firstname": firstname,
-                "email": email,
-                "phone": phone,
-                "mobile": mobile,
-                "is_company": False,
-                "request_type": False,
-                "country_id": country_id,
-                "city_id": city_id,
-                "zip_man": zip_man,
-                "int_instance_ids": [(4, int_instance_id)],
-                "effective_time": fields.datetime.now(),
-                "state": "confirm",
-            }
+            values = {}
+
+            if city_id:
+                # We do not want to get the default instance if
+                # no city is given
+                int_instance_id = self.get_int_instance_id(city_id)
+                values["int_instance_ids"] = [(4, int_instance_id)]
+
+            values.update(
+                {
+                    "lastname": lastname,
+                    "firstname": firstname,
+                    "email": email,
+                    "phone": phone,
+                    "mobile": mobile,
+                    "is_company": False,
+                    "request_type": False,
+                    "country_id": country_id,
+                    "city_id": city_id,
+                    "zip_man": zip_man,
+                    "effective_time": fields.datetime.now(),
+                    "state": "confirm",
+                }
+            )
 
             # We know check all other keys from vals:
             # if the key is not in values and if it corresponds
