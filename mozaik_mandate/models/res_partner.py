@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import _, fields, models
 
 
 class ResPartner(models.Model):
@@ -99,3 +99,14 @@ class ResPartner(models.Model):
             assemblies = partner._get_assemblies()
             partner.ext_assembly_count = len(assemblies)
             partner.ext_mandate_count = len(assemblies._get_mandates())
+
+    def add_mandate_action(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Add a new mandate"),
+            "res_model": self._context.get("mandate_model"),
+            "context": {"default_partner_id": self.id},
+            "view_mode": "form",
+            "target": "new",
+        }
