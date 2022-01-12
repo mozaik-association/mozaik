@@ -35,6 +35,7 @@ SELECT
     utm_campaign.name as campaign,
     count(ms.bounced) as bounced,
     count(ms.sent) as sent,
+    count(ms.clicked) as clicked,
     (count(ms.sent) - count(ms.bounced)) as delivered,
     count(ms.opened) as opened,
     count(ms.replied) as replied,
