@@ -24,8 +24,8 @@ class MembershipRequest(models.Model):
         res = super(MembershipRequest, self).validate_request()
         self.distribution_list_ids.write(
             {
-                "opt_in_ids": [(4, self.partner_id.id)],
-                "opt_out_ids": [(3, self.partner_id.id)],
+                "res_partner_opt_in_ids": [(4, self.partner_id.id)],
+                "res_partner_opt_out_ids": [(3, self.partner_id.id)],
             }
         )
         return res
