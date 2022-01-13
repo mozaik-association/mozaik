@@ -95,6 +95,11 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: mozaik_account
+#: model_terms:ir.ui.view,arch_db:mozaik_account.res_partner_form_view
+msgid "Journal Items"
+msgstr ""
+
+#. module: mozaik_account
 #: model:ir.model.fields,field_description:mozaik_account.field_account_bank_statement____last_update
 #: model:ir.model.fields,field_description:mozaik_account.field_account_bank_statement_line____last_update
 #: model:ir.model.fields,field_description:mozaik_account.field_account_move_line____last_update
