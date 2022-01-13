@@ -25,10 +25,7 @@
                     context="{'default_type': 'int'}"
                 />
             </xpath>
-            <xpath
-                expr="//button[@name='button_designate_candidatures']"
-                position="before"
-            >
+            <xpath expr="//button[@name='add_candidature_action']" position="before">
                 <button
                     string="All Details"
                     name="%(int_candidature_action)d"
