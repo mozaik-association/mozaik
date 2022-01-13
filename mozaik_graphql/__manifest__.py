@@ -11,6 +11,7 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         # OCA
+        "auth_api_key",
         "graphql_base",
         # Mozaik
         "mozaik_mandate",

@@ -10,6 +10,9 @@
     "website": "https://github.com/OCA/mozaik",
     "category": "Political Association",
     "depends": [
+        # OCA
+        "auth_api_key_server_env",
+        # Mozaik
         # 'disable_tracking_installation',
         # 'disable_user_welcome_message',
         "inherit_abstract_view",
