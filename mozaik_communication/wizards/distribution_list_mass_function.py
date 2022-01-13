@@ -206,7 +206,7 @@ class DistributionListMassFunction(models.TransientModel):
             context.update(
                 {
                     "active_test": False,
-                    "alternative_object_field": "email",
+                    "alternative_object_field": "partner_id",
                     "alternative_target_model": self.distribution_list_id.dst_model_id.model,
                     "alternative_object_domain": main_domain,
                 }
@@ -218,22 +218,20 @@ class DistributionListMassFunction(models.TransientModel):
                 }
             )
 
-        csv_model = self.trg_model
         self_ctx = self.with_context(context)
         if self.trg_model == "email.coordinate":
             alternatives, mains = self_ctx._mass_email_coordinate(fct, main_domain)
             if alternatives and self.extract_csv:
                 fct = "csv"
-                csv_model = "postal.coordinate"
                 mains = alternatives
         elif self.trg_model == "postal.coordinate":
             alternatives, mains = self_ctx._mass_postal_coordinate(fct, main_domain)
 
         if fct == "csv":
             if self.include_without_coordinate:
-                self.export_csv("virtual.target", alternatives)
+                self_ctx.export_csv("res.partner", alternatives)
             else:
-                self.export_csv(csv_model, mains, self.groupby_coresidency)
+                self_ctx.export_csv("res.partner", mains, self.groupby_coresidency)
 
             return {
                 "name": _("Mass Function"),
@@ -258,8 +256,8 @@ class DistributionListMassFunction(models.TransientModel):
             bounce_counter = max([self.bounce_counter, 0])
             main_domain.append(("postal_bounce_counter", "<=", bounce_counter))
         self = self.with_context(
-            main_object_field="postal_coordinate_id",
-            main_target_model="postal.coordinate",
+            main_target_model="res.partner",
+            main_object_field="partner_id",
         )
         if fct == "csv":
             # Get CSV containing postal coordinates
@@ -280,7 +278,7 @@ class DistributionListMassFunction(models.TransientModel):
                 bounce_counter = max([self.bounce_counter, 0])
                 main_domain.append(("email_bounce_counter", "<=", bounce_counter))
         self = self.with_context(
-            main_object_field="id",
+            main_object_field="partner_id",
             main_target_model="res.partner",
         )
         if fct == "csv":
@@ -292,7 +290,7 @@ class DistributionListMassFunction(models.TransientModel):
             if self.extract_csv:
                 if not self.include_without_coordinate:  # TODO ....
                     self = self.with_context(
-                        alternative_object_field="email",
+                        alternative_object_field="partner_id",
                         alternative_target_model="res.partner",
                         alternative_object_domain=[
                             ("email", "=", False),
