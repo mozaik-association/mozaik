@@ -40,6 +40,7 @@ class MembershipLine(models.Model):
             [
                 ("state_code", "in", ["former_member_committee", "member_committee"]),
                 ("date_from", "<", fields.Date.to_string(today - timedelta(days=30))),
+                ("active", "=", True),
             ]
         )
         memberships.mapped("partner_id").action_accept()

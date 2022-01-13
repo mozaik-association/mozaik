@@ -22,7 +22,11 @@ class AccountBankStatementLine(models.Model):
     @api.model
     def _get_models(self):
         return {
-            "res.partner": {"mode": "partner", "map": lambda s: s},
+            "res.partner": {
+                "mode": "partner",
+                "map": lambda s: s,
+                "field": "stored_reference",
+            },
             "membership.line": {"mode": "membership", "map": "partner_id"},
             "partner.involvement": {"mode": "donation", "map": "partner_id"},
         }
@@ -35,13 +39,12 @@ class AccountBankStatementLine(models.Model):
         if not reference:
             return False, False
 
-        domain = [
-            ("reference", "=", reference),
-            ("active", "<=", True),
-        ]
-
         models_mode = self._get_models()
         for model in models_mode:
+            domain = [
+                (models_mode.get(model, {}).get("field", "reference"), "=", reference),
+                ("active", "<=", True),
+            ]
             obj = (
                 self.env[model]
                 .search(domain)
