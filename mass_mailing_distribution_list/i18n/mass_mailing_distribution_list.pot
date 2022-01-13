@@ -302,6 +302,12 @@ msgstr ""
 #. module: mass_mailing_distribution_list
 #: code:addons/mass_mailing_distribution_list/models/distribution_list.py:0
 #, python-format
+msgid "Partner Path is not valid: this field doesn't exist on model '%s'"
+msgstr ""
+
+#. module: mass_mailing_distribution_list
+#: code:addons/mass_mailing_distribution_list/models/distribution_list.py:0
+#, python-format
 msgid "Please contact your Administrator to configure a 'catchall' mail alias"
 msgstr ""
 
