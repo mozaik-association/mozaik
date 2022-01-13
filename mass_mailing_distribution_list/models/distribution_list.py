@@ -26,7 +26,7 @@ class DistributionList(models.Model):
         default=False,
     )
     partner_path = fields.Char(
-        default="id",
+        compute="_compute_partner_path", store=True, readonly=False
     )
     res_partner_opt_out_ids = fields.Many2many(
         comodel_name="res.partner",
@@ -42,6 +42,38 @@ class DistributionList(models.Model):
         column2="partner_id",
         string="Opt-In",
     )
+
+    @api.depends("dst_model_id")
+    def _compute_partner_path(self):
+        """
+        If dst_model_id == "res.partner": partner_path = "id",
+        Elif dst_model_id has a field partner_id, then
+        partner_path = "partner_id".
+        Else partner_path = False.
+        """
+        for distribution_list in self:
+            distribution_list.partner_path = False
+            if distribution_list.dst_model_id:
+                if distribution_list.dst_model_id.model == "res.partner":
+                    distribution_list.partner_path = "id"
+                elif "partner_id" in distribution_list.dst_model_id.field_id.mapped(
+                    "name"
+                ):
+                    distribution_list.partner_path = "partner_id"
+
+    @api.constrains("partner_path")
+    def _check_partner_path(self):
+        for distribution_list in self:
+            if (
+                distribution_list.partner_path
+                not in distribution_list.dst_model_id.field_id.mapped("name")
+            ):
+                raise exceptions.ValidationError(
+                    _(
+                        "Partner Path is not valid: this field doesn't exist on model '%s'"
+                        % distribution_list.dst_model_id.name
+                    )
+                )
 
     @api.model
     def _build_alias_name(self, name):
