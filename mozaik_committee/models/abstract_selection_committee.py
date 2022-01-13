@@ -152,6 +152,17 @@ class AbstractSelectionCommittee(models.Model):
 
     # view methods: onchange, button
 
+    def add_candidature_action(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Add a new candidature"),
+            "res_model": self._candidature_model,
+            "context": {"default_selection_committee_id": self.id},
+            "view_mode": "form",
+            "target": "new",
+        }
+
     def button_designate_candidatures(self):
         """
         ==========================

@@ -119,6 +119,13 @@
                             autofocus="autofocus"
                         >
                             <button
+                                string="Add a new Candidature"
+                                class="btn-primary oe_stat_button"
+                                name="add_candidature_action"
+                                type="object"
+                                attrs="{'invisible': [('active','=',False),('id','=',False)]}"
+                            />
+                            <button
                                 string="Designate"
                                 name="button_designate_candidatures"
                                 type="object"
@@ -138,7 +145,10 @@
                                 name="candidature_ids"
                                 context="{'default_selection_committee_id': active_id}"
                             >
-                                <tree colors="red:state=='declared';grey:active==False">
+                                <tree
+                                    create="0"
+                                    colors="red:state=='declared';grey:active==False"
+                                >
                                     <field name="partner_id" />
                                     <field name="state" />
                                     <button

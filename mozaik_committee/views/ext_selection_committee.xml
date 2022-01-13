@@ -25,10 +25,7 @@
                     context="{'default_type': 'ext'}"
                 />
             </xpath>
-            <xpath
-                expr="//button[@name='button_designate_candidatures']"
-                position="before"
-            >
+            <xpath expr="//button[@name='add_candidature_action']" position="before">
                 <button
                     string="All Details"
                     name="%(ext_candidature_action)d"
