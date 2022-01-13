@@ -158,6 +158,17 @@ msgid "Active"
 msgstr ""
 
 #. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Add a new Candidature"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/models/abstract_selection_committee.py:0
+#, python-format
+msgid "Add a new candidature"
+msgstr ""
+
+#. module: mozaik_committee
 #: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__months_before_end_of_mandate
 #: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__months_before_end_of_mandate
 msgid "Alert Delay (#Months)"
