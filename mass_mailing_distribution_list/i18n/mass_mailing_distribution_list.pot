@@ -312,6 +312,13 @@ msgid "Please contact your Administrator to configure a 'catchall' mail alias"
 msgstr ""
 
 #. module: mass_mailing_distribution_list
+#: code:addons/mass_mailing_distribution_list/models/distribution_list.py:0
+#, python-format
+msgid ""
+"Please contact your Administrator to configure a 'catchall' mail domain"
+msgstr ""
+
+#. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__alias_contact
 msgid ""
 "Policy to post a message on the document using the mailgateway.\n"
