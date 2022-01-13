@@ -8,6 +8,22 @@
         <field name="priority" eval="30" />
         <field name="arch" type="xml">
 
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    type="action"
+                    class="oe_stat_button"
+                    icon="fa-list"
+                    name="account.action_move_journal_line"
+                    context="{'search_default_partner_id': active_id}"
+                >
+                    <field
+                        string="Journal Items"
+                        name="journal_item_count"
+                        widget="statinfo"
+                    />
+                </button>
+            </xpath>
+
             <xpath expr="//tree/field[@name='price']" position="after">
                 <field name="paid" />
             </xpath>

@@ -43,6 +43,7 @@
         "wizards/membership_renew.xml",
         "wizards/mass_membership_renew.xml",
         "wizards/mass_membership_close.xml",
+        "wizards/set_partner_reference.xml",
     ],
     "demo": [
         "demo/product_product.xml",

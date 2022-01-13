@@ -756,7 +756,7 @@ class MembershipLine(models.Model):
         date_to = fields.Date.from_string(date_from) - timedelta(days=1)
         lines = self._close(date_to=fields.Date.to_string(date_to), force=True)
         for membership in self:
-            membership.partner_id.reference = membership.reference
+            membership.partner_id.stored_reference = membership.reference
         return lines._change_state(
             from_state, to_state, date_from=date_from, force=True
         )
