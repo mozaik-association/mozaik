@@ -14,8 +14,26 @@
                 <field name="automation" />
                 <field
                     name="next_execution"
-                    attrs="{'invisible': [('automation','=',False)]}"
+                    attrs="{'invisible': [('automation','=',False)], 'required': [('automation','=',True)]}"
                 />
+                <label
+                    for="time_interval_nbr"
+                    string="Time Interval"
+                    attrs="{'invisible':[('automation', '=', False)]}"
+                />
+                <div class="address_format">
+                    <field
+                        name="time_interval_nbr"
+                        attrs="{'invisible': [('automation','=',False)], 'required': [('automation', '=', True)]}"
+                        style="width: 20%"
+                    />
+                    <field
+                        name="time_interval_unit"
+                        attrs="{'invisible': [('automation','=',False)], 'required': [('automation', '=', True)]}"
+                        style="width: 40%"
+                    />
+                </div>
+                <div style="height:15px" />
             </xpath>
         </field>
     </record>
