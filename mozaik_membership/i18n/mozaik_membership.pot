@@ -109,6 +109,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_close_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_renew_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.membership_renew_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.set_partner_reference_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.update_membership
 msgid "Cancel"
 msgstr ""
@@ -189,6 +190,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew__create_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__create_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification__create_uid
+#: model:ir.model.fields,field_description:mozaik_membership.field_set_partner_reference__create_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__create_uid
 msgid "Created by"
 msgstr ""
@@ -199,6 +201,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_renew__create_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew__create_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification__create_date
+#: model:ir.model.fields,field_description:mozaik_membership.field_set_partner_reference__create_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__create_date
 msgid "Created on"
 msgstr ""
@@ -230,6 +233,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner_relation__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner_relation_all__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__display_name
+#: model:ir.model.fields,field_description:mozaik_membership.field_set_partner_reference__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__display_name
 msgid "Display Name"
@@ -395,6 +399,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner_relation__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner_relation_all__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__id
+#: model:ir.model.fields,field_description:mozaik_membership.field_set_partner_reference__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__id
 msgid "ID"
@@ -528,6 +533,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner_relation____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner_relation_all____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users____last_update
+#: model:ir.model.fields,field_description:mozaik_membership.field_set_partner_reference____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership____last_update
 msgid "Last Modified on"
@@ -541,6 +547,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew__write_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__write_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification__write_uid
+#: model:ir.model.fields,field_description:mozaik_membership.field_set_partner_reference__write_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -553,6 +560,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew__write_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__write_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification__write_date
+#: model:ir.model.fields,field_description:mozaik_membership.field_set_partner_reference__write_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -805,6 +813,7 @@ msgstr ""
 #. module: mozaik_membership
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_close_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_renew_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.set_partner_reference_form_view
 msgid "OK"
 msgstr ""
 
@@ -958,6 +967,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__reference
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__reference
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__reference
+msgid "Reference (compute membership)"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly__stored_reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly__stored_reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly__stored_reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__stored_reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_res_users__stored_reference
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__stored_reference
 msgid "Reference (membership)"
 msgstr ""
 
@@ -1045,6 +1064,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__sequence
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_tarification__sequence
 msgid "Sequence"
+msgstr ""
+
+#. module: mozaik_membership
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.set_partner_reference_form_view
+msgid "Set Partner Reference"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.set_partner_reference_act_window
+msgid "Set Partners Reference"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_set_partner_reference
+msgid "Set the reference to the selected partner"
 msgstr ""
 
 #. module: mozaik_membership
@@ -1153,6 +1187,13 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.constraint,message:mozaik_membership.constraint_membership_line_unique_ref
 msgid "This reference is already used"
+msgstr ""
+
+#. module: mozaik_membership
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.set_partner_reference_form_view
+msgid ""
+"This wizard will set the reference to all selected partner. Do you want to "
+"continue?"
 msgstr ""
 
 #. module: mozaik_membership
