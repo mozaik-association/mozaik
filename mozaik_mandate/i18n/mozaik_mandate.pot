@@ -118,6 +118,27 @@ msgid "Add New Mandate"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+msgid "Add a new External Mandate"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+msgid "Add a new Internal Mandate"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+msgid "Add a new State Mandate"
+msgstr ""
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/models/res_partner.py:0
+#, python-format
+msgid "Add a new mandate"
+msgstr ""
+
+#. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__alert_date
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__alert_date
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__alert_date
