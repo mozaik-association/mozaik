@@ -5,3 +5,4 @@ from . import update_membership
 from . import membership_renew
 from . import mass_membership_renew
 from . import mass_membership_close
+from . import set_partner_reference

@@ -89,7 +89,13 @@ class ResPartner(models.Model):
         store=True,
         compute_sudo=True,
     )
-    reference = fields.Char(string="Reference (membership)", index=True, copy=False)
+    stored_reference = fields.Char(string="Reference (membership)", copy=False)
+    reference = fields.Char(
+        string="Reference (compute membership)",
+        compute="_compute_reference",
+        index=True,
+        store=True,
+    )
 
     @api.model
     def _default_force_int_instance_id(self):
@@ -108,6 +114,20 @@ class ResPartner(models.Model):
                 _("A legal person shouldn't have membership " "lines:\n- %s") % details
             )
             raise exceptions.ValidationError(message)
+
+    @api.depends(
+        "stored_reference", "membership_line_ids", "membership_line_ids.reference"
+    )
+    def _compute_reference(self):
+        for record in self:
+            memberships = record.membership_line_ids.filtered(lambda l: l.active)
+            if memberships and first(memberships).reference:
+                membership = first(memberships)  # should only be one
+                record.reference = membership.reference
+            elif record.stored_reference:
+                record.reference = record.stored_reference
+            else:
+                record.reference = False
 
     @api.depends(
         "is_assembly",
@@ -230,15 +250,20 @@ class ResPartner(models.Model):
         all_excl_states = state_obj._get_all_exclusion_states()
         actual_states = {p.id: p.membership_state_id for p in self}
         # Use sudo to disable all membership lines
-        membership_obj.sudo().search(
+        memberships = membership_obj.sudo().search(
             [
                 ("date_to", "=", False),
                 ("active", "=", True),
                 ("partner_id", "in", self.ids),
                 ("state_id", "not in", all_excl_states.ids),
             ]
-        )._close(force=True)
-        instance = self.env["int.instance"]._get_default_int_instance()
+        )
+        memberships._close(force=True)
+        memberships.flush()
+        instance = (
+            first(memberships).int_instance_id
+            or self.env["int.instance"]._get_default_int_instance()
+        )
         lines = membership_obj.browse()
         # Create the exclusion line only if the partner doesn't have
         # an active exclusion line (based on the state)

@@ -9,7 +9,7 @@
             <xpath expr="//button[@name='button_reprocess']" position="after">
                 <button
                     name="auto_reconcile"
-                    states="open"
+                    states="posted"
                     string="Auto-reconcile"
                     type="object"
                     class="oe_highlight"

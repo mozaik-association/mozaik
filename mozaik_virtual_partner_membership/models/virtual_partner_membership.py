@@ -50,7 +50,7 @@ class VirtualPartnerMembership(models.Model):
             m.id as membership_id,
             m.int_instance_id,
             m.state_id as membership_state_id,
-            m.reference as reference,
+            p.reference as reference,
             m.date_from,
             m.date_to,
             m.create_date as date_creation,
