@@ -18,6 +18,7 @@
                 position="inside"
             >
                 <field name="birthdate_date" position="move" />
+                <field name="age" position="move" />
                 <field name="gender" position="move" />
                 <field name="nationality_id" position="move" />
                 <field name="marital" position="move" />
@@ -58,5 +59,6 @@
 
         </field>
     </record>
+
 
 </odoo>
