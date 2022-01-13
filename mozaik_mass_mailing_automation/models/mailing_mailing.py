@@ -8,6 +8,14 @@ from dateutil.relativedelta import relativedelta
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
+_INTERVALS = {
+    "hours": lambda interval: relativedelta(hours=interval),
+    "days": lambda interval: relativedelta(days=interval),
+    "weeks": lambda interval: relativedelta(days=7 * interval),
+    "months": lambda interval: relativedelta(months=interval),
+    "years": lambda interval: relativedelta(years=interval),
+}
+
 
 class MassMailing(models.Model):
 
@@ -15,14 +23,38 @@ class MassMailing(models.Model):
 
     automation = fields.Boolean(string="Automation", default=False)
     next_execution = fields.Datetime(
-        string="Next Execution of the Automation Process",
-        help="Date and time of the next execution. "
-        "New sendings will be planned every 24 hours.",
+        string="Next Execution",
+        help="Date and time of the next execution of the automation process.",
     )
+    time_interval_nbr = fields.Integer(
+        "Time Interval",
+        default=1,
+        help="Time interval between two consecutive sendings.",
+    )
+    time_interval_unit = fields.Selection(
+        [
+            ("hours", "Hours"),
+            ("days", "Days"),
+            ("weeks", "Weeks"),
+            ("months", "Months"),
+            ("years", "Years"),
+        ],
+        string="Unit",
+        default="days",
+    )
+
     schedule_date = fields.Datetime(
         compute="_compute_schedule_date",
         store=True,
     )
+
+    _sql_constraints = [
+        (
+            "time_interval_nbr_positive",
+            "CHECK (time_interval_nbr > 0)",
+            "Time interval has to be positive.",
+        )
+    ]
 
     @api.constrains("automation", "next_execution")
     def _check_next_execution(self):
@@ -47,6 +79,11 @@ class MassMailing(models.Model):
             else:
                 record.schedule_date = record.schedule_date
 
+    def _add_time_interval(self, current_date, mailing):
+        return current_date + _INTERVALS[mailing.time_interval_unit](
+            mailing.time_interval_nbr
+        )
+
     def _process_mass_mailing_queue(self):
         mass_mailings = self.search(
             [
@@ -67,11 +104,12 @@ class MassMailing(models.Model):
 
         super()._process_mass_mailing_queue()
         for mailing in mass_mailings.filtered(lambda l: l.automation):
-            next_execution = fields.Datetime.now() + relativedelta(days=1)
+            next_execution = fields.Datetime.now()
             next_execution = next_execution.replace(
                 hour=mailing.next_execution.hour,
                 minute=mailing.next_execution.minute,
                 second=mailing.next_execution.second,
             )
+            next_execution = self._add_time_interval(next_execution, mailing)
             mailing.write({"next_execution": next_execution})
         return 0
