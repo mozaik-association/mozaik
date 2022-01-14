@@ -1269,18 +1269,28 @@ class MembershipRequest(models.Model):
                 not membership_instance
                 or membership_instance.state_id != mr.result_type_id
             ):
-                if membership_instance:
-                    membership_instance._close(force=True)
-                    membership_instance.flush()
-                w = self.env["add.membership"].create(
-                    {
-                        "int_instance_id": instance.id,
-                        "partner_id": partner.id,
-                        "product_id": partner.subscription_product_id.id,
-                        "state_id": mr.result_type_id.id,
-                    }
-                )
-                w._onchange_product_id()  # compute the price
+                if active_memberships:
+                    active_memberships._close(force=True)
+                    active_memberships.flush()
+                    w = self.env["add.membership"].create(
+                        {
+                            "int_instance_id": instance.id,
+                            "partner_id": partner.id,
+                            "product_id": membership_instance.product_id.id,
+                            "state_id": mr.result_type_id.id,
+                            "price": 0,
+                        }
+                    )
+                else:
+                    w = self.env["add.membership"].create(
+                        {
+                            "int_instance_id": instance.id,
+                            "partner_id": partner.id,
+                            "product_id": partner.subscription_product_id.id,
+                            "state_id": mr.result_type_id.id,
+                        }
+                    )
+                    w._onchange_product_id()  # compute the price
                 w.action_add()
 
     @api.model

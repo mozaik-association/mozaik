@@ -13,7 +13,7 @@
                     type="action"
                     class="oe_stat_button"
                     icon="fa-list"
-                    name="account.action_move_journal_line"
+                    name="account.action_account_moves_all"
                     context="{'search_default_partner_id': active_id}"
                 >
                     <field

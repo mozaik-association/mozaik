@@ -178,6 +178,7 @@ class ResPartner(models.Model):
                         "int_instance_id": membership.int_instance_id.id,
                         "partner_id": partner.id,
                         "state_id": status.id,
+                        "product_id": membership.product_id.id,
                     }
                 )
                 w.action_add()
