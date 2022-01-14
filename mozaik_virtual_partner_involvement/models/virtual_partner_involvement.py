@@ -9,6 +9,10 @@ class VirtualPartnerInvolvement(models.Model):
     _description = "Partner/Involvement"
     _auto = False
 
+    int_instance_id = fields.Many2one(
+        store=True,
+        search=None,
+    )
     local_voluntary = fields.Boolean()
     regional_voluntary = fields.Boolean()
     national_voluntary = fields.Boolean()
@@ -47,6 +51,7 @@ class VirtualPartnerInvolvement(models.Model):
         select = (
             super()._get_select()
             + """,
+            p.int_instance_id,
             p.local_voluntary,
             p.regional_voluntary,
             p.national_voluntary,

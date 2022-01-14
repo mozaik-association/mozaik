@@ -45,16 +45,16 @@
                 />
 
                 <field name="partner_id" />
-                <field name="int_instance_ids" />
+                <field name="int_instance_id" />
                 <field
-                    name="int_instance_ids"
+                    name="int_instance_id"
                     string="Internal Instance descending of..."
                     operator="child_of"
                 />
                 <field
-                    name="int_instance_ids"
+                    name="int_instance_id"
                     string="Internal Instance not descending of..."
-                    operator="not child_of"
+                    filter_domain="['!',('int_instance_id','child_of',self)]"
                 />
                 <field name="designation_int_assembly_id" />
                 <field
@@ -65,7 +65,7 @@
                 <field
                     name="designation_instance_id"
                     string="Designated by non descendants of..."
-                    operator="not child_of"
+                    filter_domain="['!',('designation_instance_id','child_of',self)]"
                 />
                 <field name="assembly_id" />
                 <field
@@ -76,7 +76,7 @@
                 <field
                     name="sta_instance_id"
                     string="Designated to non descendants of..."
-                    operator="not child_of"
+                    filter_domain="['!',('sta_instance_id','child_of',self)]"
                 />
                 <field name="mandate_category_id" />
 

@@ -21,7 +21,12 @@
                 <field name="int_instance_id" />
                 <field name="membership_state_id" />
             </field>
+            <field name="lang" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
             <field name="lang" position="after">
+                <field name="date_from" />
+                <field name="date_to" />
                 <field name="is_donor" />
                 <field name="is_volunteer" />
                 <field name="active_membership_line" invisible="1" />

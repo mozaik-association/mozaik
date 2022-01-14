@@ -21,6 +21,10 @@ class VirtualPartnerMandate(models.Model):
     ]
     _auto = False
 
+    int_instance_id = fields.Many2one(
+        store=True,
+        search=None,
+    )
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         string="Partner",
@@ -92,6 +96,7 @@ class VirtualPartnerMandate(models.Model):
             designation_assembly.instance_id as designation_instance_id,
             partner_assembly.id as assembly_id,
             p.identifier as identifier,
+            p.int_instance_id,
             p.birthdate_date as birth_date,
             p.gender as gender,
             p.lang as lang,
