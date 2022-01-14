@@ -4,7 +4,7 @@
     <record id="res_partner_form_view" model="ir.ui.view">
         <field name="name">res.partner.form (mozaik_account)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="inherit_id" ref="mozaik_membership.res_partner_form_view" />
         <field name="priority" eval="30" />
         <field name="arch" type="xml">
 
