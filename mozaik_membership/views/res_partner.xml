@@ -208,7 +208,7 @@
                         <tree
                             decoration-success="state_code=='member' and active==True"
                             decoration-muted="active==False"
-                            decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']"
+                            decoration-danger="state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']  and active==True"
                         >
                             <field name="int_instance_id" />
                             <field name="state_id" />

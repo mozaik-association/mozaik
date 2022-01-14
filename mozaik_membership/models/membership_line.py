@@ -698,10 +698,7 @@ class MembershipLine(models.Model):
         return lines._renew(date_from=date_from)
 
     def _close_and_renew(self, date_from=False):
-        self.with_delay(
-            description="Renew %s memberships" % len(self),
-            channel="root.membership_close_and_renew",
-        )._job_close_and_renew(date_from=date_from)
+        self._job_close_and_renew(date_from=date_from)
 
     @api.model
     def _launch_former_member(self, date_from=False):
@@ -747,10 +744,7 @@ class MembershipLine(models.Model):
             )
 
     def _close_and_change_state(self, from_state, to_state, date_from=False):
-        self.with_delay(
-            description="Former member %s memberships" % len(self),
-            channel="root.membership_close_and_former_member",
-        )._job_close_and_change_state(from_state, to_state, date_from=date_from)
+        self._job_close_and_change_state(from_state, to_state, date_from=date_from)
 
     def _job_close_and_change_state(self, from_state, to_state, date_from):
         date_to = fields.Date.from_string(date_from) - timedelta(days=1)
