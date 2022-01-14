@@ -4,7 +4,7 @@
 from odoo.addons.base_rest.controllers import main
 
 
-class EventRestController(main.RestController):
-    _root_path = "/rest_api/membership_request/"
-    _collection_name = "membership_request.rest.services"
+class MembershipRequestController(main.RestController):
+    _root_path = "/rest_api/membership/"
+    _collection_name = "membership.request.rest.services"
     _default_auth = "public"
