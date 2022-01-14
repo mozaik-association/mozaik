@@ -146,4 +146,13 @@ class AddMembership(models.TransientModel):
             price=self.price,
             reference=reference,
         )
+        active_membership = self.env["membership.line"].search(
+            [
+                ("int_instance_id", "=", self.int_instance_id.id),
+                ("active", "=", True),
+            ]
+        )
+        if active_membership:
+            active_membership._close(date_to=self.date_from, force=True)
+            active_membership.flush()
         return membership_obj.create(values)

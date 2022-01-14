@@ -27,6 +27,7 @@ class MembershipLine(models.Model):
                     "int_instance_id": self.int_instance_id.id,
                     "partner_id": self.partner_id.id,
                     "state_id": status.id,
+                    "product_id": self.product_id.id,
                 }
             )
             w.action_add()
