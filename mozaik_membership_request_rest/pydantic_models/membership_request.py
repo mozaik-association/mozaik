@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo.addons.pydantic import models, utils
-
+from datetime import datetime
 
 class MembershipRequest(models.BaseModel):
     lastname: str
@@ -11,7 +11,9 @@ class MembershipRequest(models.BaseModel):
     local_only: bool
     request_type: str
     distribution_list_ids: int
-    birthday_date: datetime.date
+    day: int
+    month: int
+    year: int
     nationality_id: int #many2one
     phone: str
     mobile: str
@@ -24,7 +26,3 @@ class MembershipRequest(models.BaseModel):
     number: str
     box: str
     autovalidate: bool
-
-    class Config:
-        orm_mode = True
-        getter_dict = utils.GenericOdooGetter

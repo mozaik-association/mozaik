@@ -12,17 +12,35 @@ from odoo.addons.component.core import Component
 
 from ..pydantic_models.membership_request import (
     MembershipRequest,
+)
+from ..pydantic_models.membership_request_info import (
     MembershipRequestInfo,
 )
+class MembershipRequestService(Component):
+    _inherit = "base.membership.rest.service"
+    _name = "membership.request.rest.service"
+    _usage = "membership_request"
+    _expose_model = "membership.request"
+    _description = __doc__
 
-@restapi.method(
-    routes=[(["/<int:_id>/membership_request"], "POST")],
-    input_param=PydanticModelList(MembershipRequest),
-    output_param=PydanticModel(MembershipRequestInfo),
-    auth="public_or_default",
-)
-def membership_request(
-    membership_request: MembershipRequest
-) -> List[MembershipRequestInfo]:
-    _logger.debug('Cool des logs')
-    return res
+    @restapi.method(
+            routes=[(["/<int:_id>"], "GET")],
+            output_param=PydanticModel(MembershipRequestInfo),
+            auth="public",
+    )
+    def get(self, _id: int) -> MembershipRequestInfo:
+      membership_request = self._get(_id)
+      return MembershipRequestInfo.from_orm(membership_request)
+
+
+    @restapi.method(
+        routes=[(["/membership_request"], "GET")],
+        input_param=PydanticModel(MembershipRequest),
+        output_param=PydanticModel(MembershipRequestInfo),
+        auth="public",
+    )
+    def membership_request(self,
+        membership_request: MembershipRequest
+    ) -> List[MembershipRequestInfo]:
+        _logger.debug('Un log')
+        return res
