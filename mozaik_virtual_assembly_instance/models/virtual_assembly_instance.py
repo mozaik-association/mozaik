@@ -16,6 +16,10 @@ class VirtualAssemblyInstance(models.Model):
         "competency_ids",
     ]
 
+    int_instance_id = fields.Many2one(
+        store=True,
+        search=None,
+    )
     partner_id = fields.Many2one(
         domain=[("is_assembly", "=", False)],
     )
@@ -116,6 +120,7 @@ class VirtualAssemblyInstance(models.Model):
             + """,
             %(model_name)s as model,
             cat.name as category,
+            p.int_instance_id,
             %(int_cat_id)s as int_category_assembly_id,
             %(sta_cat_id)s as sta_category_assembly_id,
             %(ext_cat_id)s as ext_category_assembly_id,
