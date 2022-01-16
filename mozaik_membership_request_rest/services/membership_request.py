@@ -34,7 +34,7 @@ class MembershipRequestService(Component):
 
 
     @restapi.method(
-        routes=[(["/membership_request"], "GET")],
+        routes=[(["/membership_request"], "POST")],
         input_param=PydanticModel(MembershipRequest),
         output_param=PydanticModel(MembershipRequestInfo),
         auth="public",
@@ -42,5 +42,11 @@ class MembershipRequestService(Component):
     def membership_request(self,
         membership_request: MembershipRequest
     ) -> List[MembershipRequestInfo]:
-        _logger.debug('Un log')
-        return res
+        mr_obj = self.env["membership.request"]
+        vals = membership_request.dict()
+        del vals['autovalidate']
+        del vals['newsletters']
+        mr = mr_obj.create(vals)
+        if(membership_request.autovalidate):
+            mr.validate_request()
+        return mr.id
