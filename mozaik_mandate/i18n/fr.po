@@ -17,21 +17,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/mandate_category.py:124
+#: code:addons/mozaik_mandate/models/mandate_category.py:0
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
-msgid ""
-"<span class=\"oe_grey\">(Empty Coordinates = Use of Main Coordinates)</span>"
-msgstr ""
-"<span class=\"oe_grey\">(Coordonnées vides = Utilisation des coordonnées "
-"principales)</span>"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
 msgid ""
 "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
 "                        External Mandates\n"
@@ -42,7 +34,7 @@ msgstr ""
 "                    </span>"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
 msgid ""
 "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
 "                        Internal Mandates\n"
@@ -53,7 +45,7 @@ msgstr ""
 "                    </span>"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
 msgid ""
 "<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
 "                        State Mandates\n"
@@ -64,25 +56,14 @@ msgstr ""
 "                    </span>"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.allow_incompatible_mandate_wizard_form_view
-msgid ""
-"<strong>\n"
-"                Selected mandates are compatible. Are you sure?\n"
-"                </strong>"
-msgstr ""
-"<strong>\n"
-"                Les mandats sélectionnés sont compatibles. Ok?\n"
-"                </strong>"
-
-#. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/int_instance.py:46
+#: code:addons/mozaik_mandate/models/int_instance.py:0
 #, python-format
 msgid "A model and an action for this model are required for this operation"
 msgstr "Un modèle et une action sont requis pour cette opération"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/int_mandate.py:62
-#: code:addons/mozaik_mandate/models/sta_mandate.py:80
+#: code:addons/mozaik_mandate/models/int_mandate.py:0
+#: code:addons/mozaik_mandate/models/sta_mandate.py:0
 #, python-format
 msgid ""
 "A representative cannot have 2 identical mandates during the same period!"
@@ -90,155 +71,199 @@ msgstr ""
 "Un mandataire ne peut avoir 2 mandats identiques durant la même période !"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_new_assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__assembly_id
 msgid "Abstract Assembly"
 msgstr "Assemblée abstraite"
 
 #. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_abstract_copy_mandate_wizard
+#, fuzzy
+#| msgid "Abstract Mandate"
+msgid "Abstract Copy Mandate Wizard"
+msgstr "Mandat abstrait"
+
+#. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_abstract_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_mandate_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__mandate_id
 msgid "Abstract Mandate"
 msgstr "Mandat abstrait"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_action
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_action
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_action
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_action
+#: model:ir.model,name:mozaik_mandate.model_abstract_update_mandate_end_date_wizard
+msgid "Abstract Update Mandate End Date Wizard"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__action
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__action
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__action
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__action
 msgid "Action"
 msgstr "Action"
 
 #. module: mozaik_mandate
-#: selection:abstract.copy.mandate.wizard,action:0
-#: selection:copy.ext.mandate.wizard,action:0
-#: selection:copy.int.mandate.wizard,action:0
-#: selection:copy.sta.mandate.wizard,action:0
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_needaction
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_needaction
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_needaction
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_needaction
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_needaction
+#, fuzzy
+#| msgid "Action"
+msgid "Action Needed"
+msgstr "Action"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__active
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__active
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__active
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__active
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__active
+#, fuzzy
+#| msgid "Action"
+msgid "Active"
+msgstr "Action"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__abstract_copy_mandate_wizard__action__add
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__copy_ext_mandate_wizard__action__add
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__copy_int_mandate_wizard__action__add
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__copy_sta_mandate_wizard__action__add
 msgid "Add Complementary Mandate"
 msgstr "Ajouter un mandat complémentaire"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
 msgid "Add New Mandate"
 msgstr "Ajouter un nouveau mandat"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_alert_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_alert_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_alert_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_alert_date
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#, fuzzy
+#| msgid "External Mandate"
+msgid "Add a new External Mandate"
+msgstr "Mandat externe"
+
+#. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#, fuzzy
+#| msgid "Internal Mandate"
+msgid "Add a new Internal Mandate"
+msgstr "Mandat interne"
+
+#. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#, fuzzy
+#| msgid "Add New Mandate"
+msgid "Add a new State Mandate"
+msgstr "Ajouter un nouveau mandat"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/models/res_partner.py:0
+#, fuzzy, python-format
+#| msgid "Add New Mandate"
+msgid "Add a new mandate"
+msgstr "Ajouter un nouveau mandat"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__alert_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__alert_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__alert_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__alert_date
 msgid "Alert Date"
 msgstr "Date d'alerte"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_months_before_end_of_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_months_before_end_of_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__months_before_end_of_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__months_before_end_of_mandate
 msgid "Alert Delay (#Months)"
 msgstr "Délai d'alerte (#mois)"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "All"
 msgstr "Tous"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "All Categories, expired or not"
 msgstr "Toutes les catégories, expirées ou non"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
 msgid "All Details"
 msgstr "Tous les détails"
 
 #. module: mozaik_mandate
-#: model:ir.actions.act_window,name:mozaik_mandate.generic_mandate_action
-#: model:ir.ui.menu,name:mozaik_mandate.all_mandates_submenu
-msgid "All Mandates"
-msgstr "Tous les mandats"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 msgid "All Mandates, expired or not"
 msgstr "Tous les mandats, expirés ou non"
 
 #. module: mozaik_mandate
-#: model:ir.actions.act_window,name:mozaik_mandate.allow_incompatible_mandate_wizard_act_window
-msgid "Allow Incompatible Mandates"
-msgstr "Autoriser les mandats incompatibles"
-
-#. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_is_duplicate_allowed
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_is_duplicate_allowed
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_is_duplicate_allowed
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_is_duplicate_allowed
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_is_duplicate_allowed
-msgid "Allowed Incompatible Mandate"
-msgstr "Mandat incompatible autorisé"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
-msgid "Allowed Incompatible Mandates"
-msgstr "Mandats incompatibles autorisés"
-
-#. module: mozaik_mandate
-#: sql_constraint:mandate.category:0
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_mandate_category_ref_categ_check
 msgid "An Assembly Category is required."
 msgstr "Une catégorie d'assemblée est obligatoire."
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_form_view
+msgid "Archived"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
 msgid "Assemblies"
 msgstr "Assemblées"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_assembly_name
-#: model:ir.ui.view,arch_db:mozaik_mandate.ext_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.int_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.sta_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.ext_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.int_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.sta_mandate_search_view
 msgid "Assembly"
 msgstr "Assemblée"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "Assembly Category"
 msgstr "Catégorie d'assemblée"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_assembly_categoryid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__assembly_categoryid
 msgid "Assembly category"
 msgstr "Catégorie d'assemblée"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/update_ext_mandate_end_date_wizard.py:41
-#: code:addons/mozaik_mandate/wizards/update_int_mandate_end_date_wizard.py:41
+#: code:addons/mozaik_mandate/wizards/update_ext_mandate_end_date_wizard.py:0
+#: code:addons/mozaik_mandate/wizards/update_int_mandate_end_date_wizard.py:0
 #, python-format
 msgid "Assembly is no longer active!"
 msgstr "L'assemblée n'est plus active!"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 msgid "Assets Declaration"
 msgstr "Déclaration de patrimoine"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
-msgid "Cancel"
-msgstr "Annuler"
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
-msgid "Category"
-msgstr "Catégorie"
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
+msgid "Cancel"
+msgstr "Annuler"
 
 #. module: mozaik_mandate
 #: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_wizard_act_window
 #: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_wizard_act_window
 #: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_wizard_act_window
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Close Mandate"
 msgstr "Finir le mandat"
 
@@ -253,84 +278,118 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
+#: model:ir.model,name:mozaik_mandate.model_copy_ext_mandate_wizard
+#, fuzzy
+#| msgid "Ext. Mandates"
+msgid "Copy Ext Mandate Wizard"
+msgstr "Mandats ext."
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_copy_int_mandate_wizard
+#, fuzzy
+#| msgid "Int. Mandates"
+msgid "Copy Int Mandate Wizard"
+msgstr "Mandats int."
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_copy_sta_mandate_wizard
+#, fuzzy
+#| msgid "For State Mandates"
+msgid "Copy Sta Mandate Wizard"
+msgstr "Pour mandats politiques"
+
+#. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
 msgid "Create"
 msgstr "Créer"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_allow_incompatible_mandate_wizard_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_create_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__create_date
+#, fuzzy
+#| msgid "Create"
+msgid "Create Date"
+msgstr "Créer"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__create_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_create_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_create_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_allow_incompatible_mandate_wizard_create_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_create_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_create_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_create_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_create_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_create_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__create_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__create_date
 msgid "Created on"
 msgstr "Date de création"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
 msgid "Dates"
 msgstr "Dates"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__deadline_date
 msgid "Deadline Date"
 msgstr "Date d'échéance"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_designation_int_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_designation_int_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_designation_int_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_designation_int_assembly_id
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__designation_int_assembly_id
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 msgid "Designation Assembly"
 msgstr "Assemblée de désignation"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_allow_incompatible_mandate_wizard_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_display_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_category__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_category__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_legislature__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_category__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
@@ -342,98 +401,91 @@ msgid "Duplicate Mandate"
 msgstr "Dupliquer le mandat"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_email_coordinate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_email_coordinate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_email_coordinate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_email_coordinate_id
-msgid "Email Coordinate"
-msgstr "Coordonnée électronique"
-
-#. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_end_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_end_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_end_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_end_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__end_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__end_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__end_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__end_date
 msgid "End Date"
 msgstr "Date de fin"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:73
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "End date must be greater or equal than start date!"
 msgstr "La date de fin doit être antérieure à la date de début!"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:70
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "End date must be lower or equal than deadline date!"
 msgstr "La date de fin doit être antérieure à la date d'échéance!"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:67
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "End date must be lower or equal than today!"
 msgstr "La date de fin doit être antérieure à la date du jour!"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_form_view
-msgid "Exclusive Categories"
-msgstr "Catégories exclusives"
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__expire_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__expire_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__expire_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__expire_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__expire_date
+#, fuzzy
+#| msgid "Expired Mandates"
+msgid "Expiration Date"
+msgstr "Mandats expirés"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_exclusive_category_m2m_ids
-msgid "Exclusive Category"
-msgstr "Catégorie exclusive"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "Expired"
 msgstr "Expiré"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "Expired Categories"
 msgstr "Catégories expirées"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 msgid "Expired Mandates"
 msgstr "Mandats expirés"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
 msgid "Ext. Mandates"
 msgstr "Mandats ext."
 
 #. module: mozaik_mandate
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__mandate_category__type__ext
 #: model:ir.ui.menu,name:mozaik_mandate.ext_submenu
-#: selection:mandate.category,type:0
 msgid "External"
 msgstr "Externe"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_ext_assembly_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_ext_assembly_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_ext_assembly_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_ext_assembly_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__ext_assembly_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__ext_assembly_count
 msgid "External Assemblies"
 msgstr "Assemblées externes"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_ext_assembly
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_new_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_ext_assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__ext_assembly_id
 msgid "External Assembly"
 msgstr "Assemblée externe"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_ext_assembly_category
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_ext_assembly_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_ext_assembly_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_ext_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__ext_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__ext_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__ext_assembly_category_id
 msgid "External Assembly Category"
 msgstr "Catégorie d'assemblée externe"
 
@@ -444,31 +496,46 @@ msgstr "Catégories externes"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_ext_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_mandate_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__mandate_id
 msgid "External Mandate"
 msgstr "Mandat externe"
 
 #. module: mozaik_mandate
 #: model:ir.actions.act_window,name:mozaik_mandate.ext_mandate_action
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_ext_mandate_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_ext_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_ext_mandate_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_ext_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance_ext_mandate_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_ext_mandate_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_ext_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_ext_mandate_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_ext_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_ext_mandate_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance__ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__ext_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__ext_mandate_ids
 #: model:ir.ui.menu,name:mozaik_mandate.ext_mandate_submenu
 msgid "External Mandates"
+msgstr "Mandats externes"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__ext_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__ext_mandate_inactive_ids
+#, fuzzy
+#| msgid "External Mandates"
+msgid "External Mandates (Inactive)"
+msgstr "Mandats externes"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__ext_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__ext_mandate_count
+#, fuzzy
+#| msgid "External Mandates"
+msgid "External Mandates Nbr"
 msgstr "Mandats externes"
 
 #. module: mozaik_mandate
@@ -477,6 +544,33 @@ msgstr "Mandats externes"
 #: model:ir.cron,name:mozaik_mandate.ir_cron_ext_mandate
 msgid "External Mandates closure"
 msgstr "Clôture de mandats externes"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
 
 #. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.ext_mandate_categories_submenu
@@ -494,124 +588,109 @@ msgid "For State Mandates"
 msgstr "Pour mandats politiques"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_locomotive_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_locomotive_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_locomotive_partner_id
-msgid "Front-end User"
-msgstr "Utilisateur front-end"
-
-#. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_locomotive_partner_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_locomotive_partner_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_locomotive_partner_ids
-msgid "Front-end Users"
-msgstr "Utilisateurs front-end"
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_generic_mandate
-msgid "Generic Mandate"
-msgstr "Mandat générique"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "Group By..."
 msgstr "Grouper par..."
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_allow_incompatible_mandate_wizard_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_category__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_category__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_legislature__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_category__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__id
 msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_is_duplicate_detected
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_is_duplicate_detected
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_is_duplicate_detected
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_is_duplicate_detected
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_is_duplicate_detected
-msgid "Incompatible Mandate"
-msgstr "Mandat incompatible"
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_needaction
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_unread
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_needaction
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_unread
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_needaction
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_unread
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_needaction
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_unread
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_needaction
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
-msgid "Incompatible Mandates"
-msgstr "Mandats incompatibles"
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.ext_mandate_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.sta_mandate_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.ext_mandate_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.sta_mandate_form_view
 msgid "Indexation"
 msgstr "Indexation"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Info"
 msgstr "Info"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_instance_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__instance_id
 msgid "Instance"
 msgstr "Instance"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_instance_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_instance_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_instance_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_instance_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__instance_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__instance_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__instance_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__instance_id
 msgid "Instance Mandate Descendant of"
 msgstr "Instance de mandat descendance de ..."
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-msgid "Instance Partner Descendants of ..."
-msgstr "Instance du contact descendance de ..."
-
-#. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_partner_instance_search_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_partner_instance_search_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_partner_instance_search_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_partner_instance_search_ids
-msgid "Instances"
-msgstr "Instances"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
 msgid "Int. Mandates"
 msgstr "Mandats int."
 
 #. module: mozaik_mandate
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__mandate_category__type__int
 #: model:ir.ui.menu,name:mozaik_mandate.int_submenu
-#: selection:mandate.category,type:0
 msgid "Internal"
 msgstr "Interne"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_new_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__int_assembly_id
 msgid "Internal Assembly"
 msgstr "Assemblée interne"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_int_assembly_category
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_int_assembly_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_int_assembly_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_int_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__int_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__int_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__int_assembly_category_id
 msgid "Internal Assembly Category"
 msgstr "Catégorie d'assemblée interne"
 
@@ -622,33 +701,41 @@ msgstr "Catégories internes"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_int_instance
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_instance_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_instance_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__instance_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__instance_id
 msgid "Internal Instance"
 msgstr "Instance interne"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_int_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_mandate_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__mandate_id
 msgid "Internal Mandate"
 msgstr "Mandat interne"
 
 #. module: mozaik_mandate
 #: model:ir.actions.act_window,name:mozaik_mandate.int_mandate_action
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_int_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_int_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_int_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_int_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance_int_mandate_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_int_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_int_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_int_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_int_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_int_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_int_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance__int_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__int_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__int_mandate_ids
 #: model:ir.ui.menu,name:mozaik_mandate.int_mandate_submenu
 msgid "Internal Mandates"
+msgstr "Mandats internes"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__int_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__int_mandate_inactive_ids
+#, fuzzy
+#| msgid "Internal Mandates"
+msgid "Internal Mandates (Inactive)"
 msgstr "Mandats internes"
 
 #. module: mozaik_mandate
@@ -659,77 +746,92 @@ msgid "Internal Mandates closure"
 msgstr "Clôture de mandats internes"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_form_view
-msgid "Invalidate mandate: proceed anyway?"
-msgstr "Poursuivre l'invalidation du mandat ?"
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_is_follower
+msgid "Is Follower"
+msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_is_legislative
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_is_legislative
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__is_legislative
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__is_legislative
 msgid "Is Legislative"
 msgstr "Assemblée législative"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_allow_incompatible_mandate_wizard___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard___last_update
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard___last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_category____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_category____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_legislature____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_category____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_allow_incompatible_mandate_wizard_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_write_uid
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__write_uid
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_allow_incompatible_mandate_wizard_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_write_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__write_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__write_date
 msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_legislature
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_legislature_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_legislature_id
-#: model:ir.ui.view,arch_db:mozaik_mandate.sta_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__legislature_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__legislature_id
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.sta_mandate_search_view
 msgid "Legislature"
 msgstr "Législature"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
 
 #. module: mozaik_mandate
 #: model:res.groups,name:mozaik_mandate.res_groups_mandate_manager
@@ -737,124 +839,170 @@ msgid "Manager"
 msgstr "Gestionnaire"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_mandate_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__mandate_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__mandate_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__mandate_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__mandate_id
 #: model:ir.module.category,name:mozaik_mandate.module_category_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
 msgid "Mandate"
 msgstr "Mandat"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_category_mandate_category_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_category_mandate_category_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_category_mandate_category_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_category_mandate_category_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_category_mandate_category_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_category_mandate_category_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_category__mandate_category_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_category__mandate_category_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_category__mandate_category_ids
 #: model:ir.ui.menu,name:mozaik_mandate.mandate_category_configuration_submenu
-#: model:ir.ui.view,arch_db:mozaik_mandate.ext_assembly_category_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.int_assembly_category_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.sta_assembly_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.ext_assembly_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.int_assembly_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.sta_assembly_category_form_view
 msgid "Mandate Categories"
 msgstr "Catégories de mandat"
 
 #. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_category__mandate_category_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_category__mandate_category_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_category__mandate_category_inactive_ids
+#, fuzzy
+#| msgid "Mandate Categories"
+msgid "Mandate Categories (Inactive)"
+msgstr "Catégories de mandat"
+
+#. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_mandate_category
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_new_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_new_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_new_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_new_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_mandate_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_mandate_category_id
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__mandate_category_id
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 msgid "Mandate Category"
 msgstr "Catégorie de mandat"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_mandate_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_mandate_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_mandate_deadline_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__mandate_deadline_date
 msgid "Mandate Deadline Date"
 msgstr "Date d'échéance"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_mandate_end_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_mandate_end_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_mandate_end_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_mandate_end_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__mandate_end_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__mandate_end_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__mandate_end_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__mandate_end_date
 msgid "Mandate End Date"
 msgstr "Date de fin du mandat"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_mandate_id
-msgid "Mandate ID"
-msgstr "ID de mandat"
-
-#. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/sta_mandate.py:92
+#: code:addons/mozaik_mandate/models/sta_mandate.py:0
 #, python-format
 msgid "Mandate period is inconsistent with legislature period!"
 msgstr "La période du mandat est incohérente avec celle de la législature !"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:46
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "Mandate will be invalidated by setting its end date!"
 msgstr "Le mandat sera invalidé en spécifiant sa date de fin !"
 
 #. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.mandates_root_menu
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.legislature_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.legislature_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
 msgid "Mandates"
 msgstr "Mandats"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_message
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard_message
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_message
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_message
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_message
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard_message
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard_message
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard_message
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__message
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__message
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__message
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__message
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__message
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__message
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__message
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__message
 msgid "Message"
 msgstr "Message"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_model
-msgid "Models"
-msgstr "Modèles"
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_has_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_has_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_has_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_has_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_has_error
+msgid "Message Delivery error"
+msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_form_view
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_ids
+#, fuzzy
+#| msgid "Message"
+msgid "Messages"
+msgstr "Message"
+
+#. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_form_view
 msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_name
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_name
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__name
 msgid "Name"
 msgstr "Nom"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/models/legislature.py:19
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__new_assembly_id
+#, fuzzy
+#| msgid "Abstract Assembly"
+msgid "New Abstract Assembly"
+msgstr "Assemblée abstraite"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__new_assembly_id
+#, fuzzy
+#| msgid "External Assembly"
+msgid "New External Assembly"
+msgstr "Assemblée externe"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__new_assembly_id
+#, fuzzy
+#| msgid "Internal Assembly"
+msgid "New Internal Assembly"
+msgstr "Assemblée interne"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__new_mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__new_mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__new_mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__new_mandate_category_id
+#, fuzzy
+#| msgid "Mandate Category"
+msgid "New Mandate Category"
+msgstr "Catégorie de mandat"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__new_assembly_id
+#, fuzzy
+#| msgid "State Assembly"
+msgid "New State Assembly"
+msgstr "Assemblée de l'État"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/models/legislature.py:0
 #, python-format
 msgid ""
 "New deadline date must be greater or equal than the previous deadline date !"
@@ -863,44 +1011,72 @@ msgstr ""
 "d'échéance !"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:85
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "New deadline date must be greater than today !"
 msgstr "La nouvelle date d'échéance doit être supérieure à la date du jour !"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_partner_id
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_unread_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_unread_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_unread_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_unread_counter
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__partner_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__partner_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__partner_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__partner_id
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_partner_instance_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_partner_instance_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_partner_instance_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_partner_instance_ids
-msgid "Partner Internal Instances"
-msgstr "Instances internes du partenaire"
-
-#. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_postal_coordinate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_postal_coordinate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_postal_coordinate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_postal_coordinate_id
-msgid "Postal Coordinate"
-msgstr "Coordonnée postale"
-
-#. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_sta_power_level_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__sta_power_level_id
 msgid "Power Level"
 msgstr "Niveau de pouvoir"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Reactivate"
 msgstr "Prolonger"
 
@@ -911,7 +1087,7 @@ msgid "Reactivate Mandate"
 msgstr "Prolonger le mandat"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Reactivate mandate, proceed anyway?"
 msgstr "Poursuivre le prolongement du mandat?"
 
@@ -921,111 +1097,117 @@ msgid "Reader"
 msgstr "Lecteur"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_competencies_m2m_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_competencies_m2m_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__competencies_m2m_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__competencies_m2m_ids
 msgid "Remits"
 msgstr "Attributions"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
 msgid "Renew"
 msgstr "Renouveler"
 
 #. module: mozaik_mandate
-#: selection:abstract.copy.mandate.wizard,action:0
-#: selection:copy.ext.mandate.wizard,action:0
-#: selection:copy.int.mandate.wizard,action:0
-#: selection:copy.sta.mandate.wizard,action:0
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__abstract_copy_mandate_wizard__action__renew
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__copy_ext_mandate_wizard__action__renew
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__copy_int_mandate_wizard__action__renew
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__copy_sta_mandate_wizard__action__renew
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_copy_mandate_wizard_form_view
 msgid "Renew Mandate"
 msgstr "Renouveler le mandat"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/copy_sta_mandate_wizard.py:56
+#: code:addons/mozaik_mandate/wizards/copy_sta_mandate_wizard.py:0
 #, python-format
 msgid "Renew not allowed on a legislative mandate"
 msgstr "Le renouvellement d'un mandat législatif n'est pas permis"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.ext_mandate_tree_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.int_mandate_tree_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.sta_mandate_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.ext_mandate_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.int_mandate_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.sta_mandate_tree_view
 msgid "Renew or Add Complementary Mandate"
 msgstr "Renouveler ou ajouter un mandat complémentaire"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_partner_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_partner_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__partner_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__partner_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__partner_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__partner_id
 msgid "Representative"
 msgstr "Mandataire"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate_with_assets_declaration
-#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate_with_assets_declaration
-#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate_with_assets_declaration
-#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category_with_assets_declaration
-#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate_with_assets_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__with_assets_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__with_assets_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__with_assets_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__with_assets_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__with_assets_declaration
 msgid "Representative is subject to a declaration of assets"
 msgstr "Le mandataire est sujet à une déclaration de patrimoine"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate_with_revenue_declaration
-#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate_with_revenue_declaration
-#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate_with_revenue_declaration
-#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category_with_revenue_declaration
-#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate_with_revenue_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__with_revenue_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__with_revenue_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__with_revenue_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__with_revenue_declaration
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__with_revenue_declaration
 msgid "Representative is subject to a declaration of income"
 msgstr "Le mandataire est sujet à une déclaration de revenus"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
 msgid "Revenue"
 msgstr "Revenu"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_update_mandate_end_date_wizard_form_view
 msgid "Set end date, proceed anyway?"
 msgstr "Poursuivre l'arrêt du mandat ?"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
 msgid "St. Mandates"
 msgstr "Mandats pol."
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard_start_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_start_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard_start_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard_start_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_start_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_start_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_start_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_start_date
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_start_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__start_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__start_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_ext_mandate_wizard__start_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__start_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__start_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__start_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__start_date
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__start_date
 msgid "Start Date"
 msgstr "Date de début"
 
 #. module: mozaik_mandate
+#: model:ir.model.fields.selection,name:mozaik_mandate.selection__mandate_category__type__sta
 #: model:ir.ui.menu,name:mozaik_mandate.sta_submenu
-#: selection:mandate.category,type:0
 msgid "State"
 msgstr "De l'État"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_new_assembly_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_sta_assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__assembly_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__sta_assembly_id
 msgid "State Assembly"
 msgstr "Assemblée de l'État"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_sta_assembly_category
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_sta_assembly_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_sta_assembly_category_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_sta_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__sta_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__sta_assembly_category_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__sta_assembly_category_id
 msgid "State Assembly Category"
 msgstr "Catégorie d'assemblée de l'État"
 
@@ -1035,33 +1217,41 @@ msgid "State Categories"
 msgstr "Catégories politiques"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_instance_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__instance_id
 msgid "State Instance"
 msgstr "Instance de l'État"
 
 #. module: mozaik_mandate
 #: model:ir.model,name:mozaik_mandate.model_sta_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard_mandate_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__mandate_id
 msgid "State Mandate"
 msgstr "Mandat politique"
 
 #. module: mozaik_mandate
 #: model:ir.actions.act_window,name:mozaik_mandate.sta_mandate_action
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_sta_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_sta_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_sta_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_sta_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance_sta_mandate_count
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_sta_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_sta_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner_sta_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_sta_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users_sta_mandate_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_sta_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance__sta_mandate_count
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__sta_mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__sta_mandate_ids
 #: model:ir.ui.menu,name:mozaik_mandate.sta_mandate_submenu
 msgid "State Mandates"
 msgstr "Mandats politiques"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__sta_mandate_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__sta_mandate_inactive_ids
+#, fuzzy
+#| msgid "State Mandates closure"
+msgid "State Mandates (Inactive)"
+msgstr "Clôture de mandats politiques"
 
 #. module: mozaik_mandate
 #: model:ir.actions.server,name:mozaik_mandate.ir_cron_sta_mandate_ir_actions_server
@@ -1071,74 +1261,105 @@ msgid "State Mandates closure"
 msgstr "Clôture de mandats politiques"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:56
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "The designation assembly is no longer active!"
 msgstr "L'assemblée de désignation n'est plus active!"
 
 #. module: mozaik_mandate
-#: sql_constraint:abstract.mandate:0
-#: sql_constraint:ext.mandate:0
-#: sql_constraint:int.mandate:0
-#: sql_constraint:sta.mandate:0
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_abstract_mandate_date_check2
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_ext_mandate_date_check2
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_int_mandate_date_check2
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_sta_mandate_date_check2
 msgid "The end date must be between start date and deadline date."
 msgstr ""
 "La date de fin doit être comprise entre la date de début et la date "
 "d'échéance."
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:53
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "The mandate category is no longer active!"
 msgstr "La catégorie de mandat n'est plus active!"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:59
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "The representative is no longer active!"
 msgstr "Le mandataire n'est plus actif!"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:50
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
 msgid "The selected mandate is already active!"
 msgstr "Le mandat sélectionné est toujours actif!"
 
 #. module: mozaik_mandate
-#: sql_constraint:abstract.copy.mandate.wizard:0
-#: sql_constraint:abstract.mandate:0
-#: sql_constraint:copy.ext.mandate.wizard:0
-#: sql_constraint:copy.int.mandate.wizard:0
-#: sql_constraint:copy.sta.mandate.wizard:0
-#: sql_constraint:ext.mandate:0
-#: sql_constraint:int.mandate:0
-#: sql_constraint:sta.mandate:0
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_abstract_copy_mandate_wizard_date_check
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_abstract_mandate_date_check
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_copy_ext_mandate_wizard_date_check
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_copy_int_mandate_wizard_date_check
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_copy_sta_mandate_wizard_date_check
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_ext_mandate_date_check
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_int_mandate_date_check
+#: model:ir.model.constraint,message:mozaik_mandate.constraint_sta_mandate_date_check
 msgid "The start date must be anterior to the deadline date."
 msgstr "La date de début doit être antérieure à la date d'échéance."
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_type
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__type
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "Type"
 msgstr "Type"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_tree_view
-msgid "Undo Allow Incompatible Mandate"
-msgstr "Rétablir les mandats incompatibles"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_tree_view
-msgid "Undo allow incompatible mandate: proceed anyway?"
-msgstr "Poursuivre le rétablissement des mandats incompatibles ?"
-
-#. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_unique_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_unique_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_unique_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_unique_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__unique_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__unique_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__unique_id
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__unique_id
 msgid "Unique ID"
 msgstr "ID Unique"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_unread
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_unread
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_unread
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_unread
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_unread
+#, fuzzy
+#| msgid "Message"
+msgid "Unread Messages"
+msgstr "Message"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_update_ext_mandate_end_date_wizard
+#, fuzzy
+#| msgid "Mandate End Date"
+msgid "Update Ext Mandate End Date Wizard"
+msgstr "Date de fin du mandat"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_update_int_mandate_end_date_wizard
+#, fuzzy
+#| msgid "Mandate End Date"
+msgid "Update Int Mandate End Date Wizard"
+msgstr "Date de fin du mandat"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_update_sta_mandate_end_date_wizard
+#, fuzzy
+#| msgid "Mandate End Date"
+msgid "Update Sta Mandate End Date Wizard"
+msgstr "Date de fin du mandat"
 
 #. module: mozaik_mandate
 #: model:res.groups,name:mozaik_mandate.res_groups_mandate_user
@@ -1146,121 +1367,167 @@ msgid "User"
 msgstr "Utilisateur"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_tree_view
-msgid "View"
-msgstr "Voir"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 msgid "Wage Declaration"
 msgstr "Déclaration de rémunération"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_with_assets_declaration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_with_assets_declaration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_with_assets_declaration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_with_assets_declaration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_with_assets_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__website_message_ids
+#, fuzzy
+#| msgid "Message"
+msgid "Website Messages"
+msgstr "Message"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__website_message_ids
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__website_message_ids
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__website_message_ids
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__website_message_ids
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__with_assets_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__with_assets_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__with_assets_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__with_assets_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__with_assets_declaration
 msgid "With Assets Declaration"
 msgstr "Avec déclaration de patrimoine"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_with_remuneration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_with_remuneration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_generic_mandate_with_remuneration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_with_remuneration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_with_remuneration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_with_remuneration
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__with_remuneration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__with_remuneration
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "With Remuneration"
 msgstr "Avec rémunération"
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate_with_revenue_declaration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate_with_revenue_declaration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate_with_revenue_declaration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category_with_revenue_declaration
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate_with_revenue_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__with_revenue_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__with_revenue_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__with_revenue_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__with_revenue_declaration
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__with_revenue_declaration
 msgid "With Revenue Declaration"
 msgstr "Avec déclaration de revenus"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "With assets declaration"
 msgstr "Avec déclaration de patrimoine"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "With revenue declaration"
 msgstr "Avec déclaration de revenue"
 
 #. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.generic_mandate_search_view
-#: model:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.mandate_category_search_view
 msgid "Without Remuneration"
 msgstr "Sans rémunération"
 
 #. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_abstract_copy_mandate_wizard
-msgid "abstract.copy.mandate.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_abstract_update_mandate_end_date_wizard
-msgid "abstract.update.mandate.end.date.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_allow_incompatible_mandate_wizard
-msgid "allow.incompatible.mandate.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_copy_ext_mandate_wizard
-msgid "copy.ext.mandate.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_copy_int_mandate_wizard
-msgid "copy.int.mandate.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_copy_sta_mandate_wizard
-msgid "copy.sta.mandate.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly_mymr_code
-#: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly_mymr_code
-#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly_mymr_code
-msgid "myMR code"
-msgstr "Code myMR"
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_update_ext_mandate_end_date_wizard
-msgid "update.ext.mandate.end.date.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_update_int_mandate_end_date_wizard
-msgid "update.int.mandate.end.date.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.model,name:mozaik_mandate.model_update_sta_mandate_end_date_wizard
-msgid "update.sta.mandate.end.date.wizard"
-msgstr ""
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
-msgid "⇒ Show all incompatible mandates"
-msgstr "⇒ Voir tous les mandats incompatibles"
-
-#. module: mozaik_mandate
-#: model:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate.res_partner_form_view
 msgid "⇒ State Representative"
 msgstr "⇒ Mandataire politique"
+
+#~ msgid ""
+#~ "<span class=\"oe_grey\">(Empty Coordinates = Use of Main Coordinates)</"
+#~ "span>"
+#~ msgstr ""
+#~ "<span class=\"oe_grey\">(Coordonnées vides = Utilisation des coordonnées "
+#~ "principales)</span>"
+
+#~ msgid ""
+#~ "<strong>\n"
+#~ "                Selected mandates are compatible. Are you sure?\n"
+#~ "                </strong>"
+#~ msgstr ""
+#~ "<strong>\n"
+#~ "                Les mandats sélectionnés sont compatibles. Ok?\n"
+#~ "                </strong>"
+
+#~ msgid "All Mandates"
+#~ msgstr "Tous les mandats"
+
+#~ msgid "Allow Incompatible Mandates"
+#~ msgstr "Autoriser les mandats incompatibles"
+
+#~ msgid "Allowed Incompatible Mandate"
+#~ msgstr "Mandat incompatible autorisé"
+
+#~ msgid "Allowed Incompatible Mandates"
+#~ msgstr "Mandats incompatibles autorisés"
+
+#~ msgid "Category"
+#~ msgstr "Catégorie"
+
+#~ msgid "Email Coordinate"
+#~ msgstr "Coordonnée électronique"
+
+#~ msgid "Exclusive Categories"
+#~ msgstr "Catégories exclusives"
+
+#~ msgid "Exclusive Category"
+#~ msgstr "Catégorie exclusive"
+
+#~ msgid "Front-end User"
+#~ msgstr "Utilisateur front-end"
+
+#~ msgid "Front-end Users"
+#~ msgstr "Utilisateurs front-end"
+
+#~ msgid "Generic Mandate"
+#~ msgstr "Mandat générique"
+
+#~ msgid "Incompatible Mandate"
+#~ msgstr "Mandat incompatible"
+
+#~ msgid "Incompatible Mandates"
+#~ msgstr "Mandats incompatibles"
+
+#~ msgid "Instance Partner Descendants of ..."
+#~ msgstr "Instance du contact descendance de ..."
+
+#~ msgid "Instances"
+#~ msgstr "Instances"
+
+#~ msgid "Invalidate mandate: proceed anyway?"
+#~ msgstr "Poursuivre l'invalidation du mandat ?"
+
+#~ msgid "Mandate ID"
+#~ msgstr "ID de mandat"
+
+#~ msgid "Models"
+#~ msgstr "Modèles"
+
+#~ msgid "Partner Internal Instances"
+#~ msgstr "Instances internes du partenaire"
+
+#~ msgid "Postal Coordinate"
+#~ msgstr "Coordonnée postale"
+
+#~ msgid "Undo Allow Incompatible Mandate"
+#~ msgstr "Rétablir les mandats incompatibles"
+
+#~ msgid "Undo allow incompatible mandate: proceed anyway?"
+#~ msgstr "Poursuivre le rétablissement des mandats incompatibles ?"
+
+#~ msgid "View"
+#~ msgstr "Voir"
+
+#~ msgid "myMR code"
+#~ msgstr "Code myMR"
+
+#~ msgid "⇒ Show all incompatible mandates"
+#~ msgstr "⇒ Voir tous les mandats incompatibles"
