@@ -19,6 +19,7 @@
         "mozaik_structure",
         "mozaik_mandate",
         "mozaik_membership",
+        "mozaik_single_instance",
     ],
     "data": [
         "security/ir.model.access.csv",
