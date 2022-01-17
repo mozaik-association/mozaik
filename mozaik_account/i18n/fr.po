@@ -17,12 +17,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_membership_line_move_id
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__move_id
 msgid "Account move"
 msgstr "Pièce comptable"
 
 #. module: mozaik_account
-#: model:ir.ui.view,arch_db:mozaik_account.view_bank_statement_form
+#: model_terms:ir.ui.view,arch_db:mozaik_account.view_bank_statement_form
 msgid "Auto-reconcile"
 msgstr "Réconciliation automatique"
 
@@ -37,7 +37,7 @@ msgid "Bank Statement Line"
 msgstr "Ligne de relevé bancaire"
 
 #. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_membership_line_bank_account_id
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__bank_account_id
 msgid "Bank account"
 msgstr "Compte bancaire"
 
@@ -47,9 +47,21 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: mozaik_account
-#: model:ir.model.fields,help:mozaik_account.field_membership_line_paid
+#: model:ir.model.fields,help:mozaik_account.field_membership_line__paid
 msgid "Define if this line is paid or not"
 msgstr "Spécifie si cette adhésion est payée ou non"
+
+#. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_account_bank_statement__display_name
+#: model:ir.model.fields,field_description:mozaik_account.field_account_bank_statement_line__display_name
+#: model:ir.model.fields,field_description:mozaik_account.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:mozaik_account.field_add_membership__display_name
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__display_name
+#: model:ir.model.fields,field_description:mozaik_account.field_product_template__display_name
+#: model:ir.model.fields,field_description:mozaik_account.field_res_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_account.field_update_membership__display_name
+msgid "Display Name"
+msgstr ""
 
 #. module: mozaik_account
 #: model:product.product,name:mozaik_account.product_template_donation
@@ -58,20 +70,51 @@ msgid "Donation"
 msgstr "Don"
 
 #. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_membership_line_donation_move_ids
-#: model:ir.ui.view,arch_db:mozaik_account.membership_line_form_view
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__donation_move_ids
+#: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_form_view
 msgid "Donations"
 msgstr "Dons"
 
 #. module: mozaik_account
-#: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Free"
 msgstr "Gratuit"
+
+#. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_account_bank_statement__id
+#: model:ir.model.fields,field_description:mozaik_account.field_account_bank_statement_line__id
+#: model:ir.model.fields,field_description:mozaik_account.field_account_move_line__id
+#: model:ir.model.fields,field_description:mozaik_account.field_add_membership__id
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__id
+#: model:ir.model.fields,field_description:mozaik_account.field_product_template__id
+#: model:ir.model.fields,field_description:mozaik_account.field_res_partner__id
+#: model:ir.model.fields,field_description:mozaik_account.field_update_membership__id
+msgid "ID"
+msgstr ""
 
 #. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_account_move_line
 msgid "Journal Item"
 msgstr "Écriture comptable"
+
+#. module: mozaik_account
+#: model_terms:ir.ui.view,arch_db:mozaik_account.res_partner_form_view
+#, fuzzy
+#| msgid "Journal Item"
+msgid "Journal Items"
+msgstr "Écriture comptable"
+
+#. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_account_bank_statement____last_update
+#: model:ir.model.fields,field_description:mozaik_account.field_account_bank_statement_line____last_update
+#: model:ir.model.fields,field_description:mozaik_account.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:mozaik_account.field_add_membership____last_update
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line____last_update
+#: model:ir.model.fields,field_description:mozaik_account.field_product_template____last_update
+#: model:ir.model.fields,field_description:mozaik_account.field_res_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_account.field_update_membership____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: mozaik_account
 #: model:ir.model,name:mozaik_account.model_membership_line
@@ -84,19 +127,19 @@ msgid "Membership update"
 msgstr "Mise à jour d'une adhésion"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:77
+#: code:addons/mozaik_account/models/membership_line.py:0
 #, python-format
 msgid "More than one membership to reconcile are available"
 msgstr "Plus d'une adhésion à réconcilier sont disponibles"
 
 #. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_membership_line_paid
-#: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__paid
+#: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Paid"
 msgstr "Payé"
 
 #. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_membership_line_price_paid
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__price_paid
 msgid "Price Paid"
 msgstr "Montant payé"
 
@@ -112,35 +155,41 @@ msgid "Products"
 msgstr "Articles"
 
 #. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_product_product_property_subscription_account
-#: model:ir.model.fields,field_description:mozaik_account.field_product_template_property_subscription_account
+#: model:ir.model.fields,field_description:mozaik_account.field_product_product__property_subscription_account
+#: model:ir.model.fields,field_description:mozaik_account.field_product_template__property_subscription_account
 msgid "Subscription Account"
 msgstr "Compte de cotisation"
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/membership_line.py:64
-#: code:addons/mozaik_account/models/membership_line.py:82
+#: code:addons/mozaik_account/models/membership_line.py:0
 #, python-format
 msgid "The membership you want to reconcile is too old"
 msgstr "L'adhésion que vous souhaitez réconcilier est trop ancienne"
 
 #. module: mozaik_account
-#: model:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
+#: model:product.product,uom_name:mozaik_account.product_template_donation
+#: model:product.template,uom_name:mozaik_account.product_template_donation_product_template
+msgid "Units"
+msgstr ""
+
+#. module: mozaik_account
+#: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Unpaid"
 msgstr "Impayé"
 
 #. module: mozaik_account
-#: model:ir.model,name:mozaik_account.model_partner_change_instance
-msgid "Update instances of partner"
-msgstr "Changement d'instance du contact"
+#: model:ir.model,name:mozaik_account.model_add_membership
+msgid "Wizard to create a new membership"
+msgstr ""
 
 #. module: mozaik_account
-#: code:addons/mozaik_account/models/account_bank_statement_line.py:167
+#: code:addons/mozaik_account/models/account_bank_statement_line.py:0
 #, python-format
 msgid "You must first select a partner!"
 msgstr "Vous devez selectionner un partenaire !"
 
-#. module: mozaik_account
-#: model:ir.model,name:mozaik_account.model_add_membership
-msgid "add.membership"
-msgstr "Historique d'adhésion"
+#~ msgid "Update instances of partner"
+#~ msgstr "Changement d'instance du contact"
+
+#~ msgid "add.membership"
+#~ msgstr "Historique d'adhésion"
