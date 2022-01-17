@@ -20,13 +20,46 @@ msgid "Abstract Mandate"
 msgstr "Mandat abstrait"
 
 #. module: mozaik_membership_mandate
-#: model:ir.model,name:mozaik_membership_mandate.model_generic_mandate
-msgid "Generic Mandate"
-msgstr "Mandat générique"
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_abstract_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_ext_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_int_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_sta_mandate__display_name
+msgid "Display Name"
+msgstr ""
 
 #. module: mozaik_membership_mandate
-#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_int_mandate_mandate_instance_id
+#: model:ir.model,name:mozaik_membership_mandate.model_ext_mandate
+#, fuzzy
+#| msgid "Internal Mandate"
+msgid "External Mandate"
+msgstr "Mandat interne"
+
+#. module: mozaik_membership_mandate
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_abstract_mandate__id
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_ext_mandate__id
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_int_mandate__id
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_sta_mandate__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_membership_mandate
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_int_mandate__mandate_instance_id
 msgid "Instance"
+msgstr "Instance"
+
+#. module: mozaik_membership_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_mandate.abstract_mandate_membership_search_view
+msgid "Instance Partner Descendants of ..."
+msgstr ""
+
+#. module: mozaik_membership_mandate
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_abstract_mandate__partner_instance_search_ids
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_ext_mandate__partner_instance_search_ids
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_int_mandate__partner_instance_search_ids
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_sta_mandate__partner_instance_search_ids
+#, fuzzy
+#| msgid "Instance"
+msgid "Instances"
 msgstr "Instance"
 
 #. module: mozaik_membership_mandate
@@ -35,10 +68,27 @@ msgid "Internal Mandate"
 msgstr "Mandat interne"
 
 #. module: mozaik_membership_mandate
-#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_abstract_mandate_partner_instance_ids
-#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_ext_mandate_partner_instance_ids
-#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_generic_mandate_partner_instance_ids
-#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_int_mandate_partner_instance_ids
-#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_sta_mandate_partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_abstract_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_ext_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_int_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_sta_mandate____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_membership_mandate
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_abstract_mandate__partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_ext_mandate__partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_int_mandate__partner_instance_ids
+#: model:ir.model.fields,field_description:mozaik_membership_mandate.field_sta_mandate__partner_instance_ids
 msgid "Partner Internal Instances"
 msgstr "Instances internes du partenaire"
+
+#. module: mozaik_membership_mandate
+#: model:ir.model,name:mozaik_membership_mandate.model_sta_mandate
+#, fuzzy
+#| msgid "Abstract Mandate"
+msgid "State Mandate"
+msgstr "Mandat abstrait"
+
+#~ msgid "Generic Mandate"
+#~ msgstr "Mandat générique"
