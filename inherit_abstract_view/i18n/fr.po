@@ -17,6 +17,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: inherit_abstract_view
+#: model:ir.model.fields,field_description:inherit_abstract_view.field_ir_ui_view__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: inherit_abstract_view
+#: model:ir.model.fields,field_description:inherit_abstract_view.field_ir_ui_view__id
+msgid "ID"
+msgstr ""
+
+#. module: inherit_abstract_view
+#: model:ir.model.fields,field_description:inherit_abstract_view.field_ir_ui_view____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: inherit_abstract_view
 #: model:ir.model,name:inherit_abstract_view.model_ir_ui_view
-msgid "ir.ui.view"
-msgstr "ir.ui.view"
+msgid "View"
+msgstr ""
+
+#~ msgid "ir.ui.view"
+#~ msgstr "ir.ui.view"
