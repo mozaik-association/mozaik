@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mandate_female_label
-#: code:addons/mozaik_mandate_female_label/models/mandate_category.py:62
+#: code:addons/mozaik_mandate_female_label/models/mandate_category.py:0
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
@@ -26,20 +26,38 @@ msgid "Abstract Mandate"
 msgstr "Mandat abstrait"
 
 #. module: mozaik_mandate_female_label
-#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_mandate_category_female_name
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_abstract_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_mandate_category__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_mandate_female_label
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_mandate_category__female_name
 msgid "Female Name"
 msgstr "Nom féminin"
 
 #. module: mozaik_mandate_female_label
-#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_abstract_mandate_gender
-#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_ext_mandate_gender
-#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_int_mandate_gender
-#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_sta_mandate_gender
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_abstract_mandate__gender
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_ext_mandate__gender
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_int_mandate__gender
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_sta_mandate__gender
 msgid "Gender"
 msgstr "Genre"
 
 #. module: mozaik_mandate_female_label
-#: model:ir.ui.view,arch_db:mozaik_mandate_female_label.mandate_category_form_view
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_abstract_mandate__id
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_mandate_category__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_mandate_female_label
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_abstract_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_mandate_female_label.field_mandate_category____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_mandate_female_label
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate_female_label.mandate_category_form_view
 msgid "Male name"
 msgstr "Nom masculin"
 
