@@ -22,6 +22,24 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: user_bypass_security
+#: model:ir.model.fields,field_description:user_bypass_security.field_res_partner__display_name
+#: model:ir.model.fields,field_description:user_bypass_security.field_res_users__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: user_bypass_security
+#: model:ir.model.fields,field_description:user_bypass_security.field_res_partner__id
+#: model:ir.model.fields,field_description:user_bypass_security.field_res_users__id
+msgid "ID"
+msgstr ""
+
+#. module: user_bypass_security
+#: model:ir.model.fields,field_description:user_bypass_security.field_res_partner____last_update
+#: model:ir.model.fields,field_description:user_bypass_security.field_res_users____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: user_bypass_security
 #: model:ir.model,name:user_bypass_security.model_res_users
 msgid "Users"
 msgstr "Utilisateurs"
