@@ -66,6 +66,7 @@ class DistributionList(models.Model):
         for distribution_list in self:
             if (
                 distribution_list.partner_path
+                and distribution_list.partner_path
                 not in distribution_list.dst_model_id.field_id.mapped("name")
             ):
                 raise exceptions.ValidationError(
