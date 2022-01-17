@@ -17,67 +17,88 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_involvement
-#: code:addons/mozaik_involvement/models/partner_involvement_category.py:141
+#: code:addons/mozaik_involvement/models/partner_involvement_category.py:0
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_needaction
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__active
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__active
+msgid "Active"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
+#, fuzzy
+#| msgid "Partner Involvement"
+msgid "Add a new Involvement"
+msgstr "Participation de partenaire"
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "All"
 msgstr "Tous"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
 msgid "All Categories, expired or not"
 msgstr "Toutes les catégories, expirées ou non"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
 msgid "All Involvements"
 msgstr "Toutes les participations"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "All Involvements, expired or not"
 msgstr "Toutes les participations, expirées ou non"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_allow_multi
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_allow_multi
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__allow_multi
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__allow_multi
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
 msgid "Allow Multiple Involvements"
 msgstr "Permettre plusieurs participations"
 
 #. module: mozaik_involvement
-#: code:addons/mozaik_involvement/models/partner_involvement.py:165
+#: code:addons/mozaik_involvement/models/partner_involvement.py:0
 #, python-format
 msgid "An active involvement cannot be duplicated."
 msgstr "Une participation active ne peut être dupliquée."
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
-msgid "Archive/reactivate category: proceed anyway?"
-msgstr "Poursuivre l'archivage/réactivation de la catégorie ?"
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_form_view
+msgid "Archived"
+msgstr ""
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_form_view
-msgid "Archive/reactivate involvement: proceed anyway?"
-msgstr "Poursuivre l'archivage/réactivation de la participation?"
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
 msgid "Categories of which I am an owner"
 msgstr "Catégories dont je suis propriétaire"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Category"
 msgstr "Catégorie"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_code
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__code
 msgid "Code"
 msgstr "Code"
 
@@ -87,88 +108,156 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_create_uid
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_create_uid
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__create_date
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__create_date
+#, fuzzy
+#| msgid "Creation Date < ..."
+msgid "Create Date"
+msgstr "Date de création < ..."
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__create_uid
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Creation Date < ..."
 msgstr "Date de création < ..."
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Creation Date > ..."
 msgstr "Date de création  > ..."
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Creation Months"
 msgstr "Mois de création"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Creation Years"
 msgstr "Années de création"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_display_name
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_display_name
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__display_name
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__display_name
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: mozaik_involvement
 #: model:ir.actions.act_window,name:mozaik_involvement.partner_involvement_donation_act_window
-#: model:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
 msgid "Donations"
 msgstr "Dons"
 
 #. module: mozaik_involvement
-#: selection:partner.involvement.category,involvement_type:0
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__involvement_type__donation
 msgid "Donations Campaign"
 msgstr "Compagne de dons"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_search_view
 msgid "Donor"
 msgstr "Donateur"
 
 #. module: mozaik_involvement
-#: sql_constraint:partner.involvement:0
+#: model:ir.model.constraint,message:mozaik_involvement.constraint_partner_involvement_multi_or_not
 msgid "Effective time is mandatory for this kind of involvement !"
 msgstr "L'heure effective est obligatoire pour ce type de particpation !"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__expire_date
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__expire_date
+#, fuzzy
+#| msgid "Creation Date < ..."
+msgid "Expiration Date"
+msgstr "Date de création < ..."
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Expired"
 msgstr "Expiré"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
 msgid "Expired Categories"
 msgstr "Catégories expirées"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Expired Involvements"
 msgstr "Participations expirées"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Group By..."
 msgstr "Regrouper par..."
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_id
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_id
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__importance_level__high
+msgid "High"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+msgid "High Importance"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__id
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__id
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__id
 msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_interest_ids
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_needaction
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_unread
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_needaction
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_has_error
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_has_error
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__importance_level
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__importance_level
+msgid "Importance Level"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__interest_ids
 msgid "Interests"
 msgstr "Intérêts"
 
@@ -178,24 +267,30 @@ msgid "Involvement"
 msgstr "Participation"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_name
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_involvement_category_id
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__involvement_category_id
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__name
 msgid "Involvement Category"
 msgstr "Catégorie de participation"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_creation_time
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_effective_time
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__effective_time
 msgid "Involvement Date"
 msgstr "Date de participation"
 
 #. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__creation_time
+#, fuzzy
+#| msgid "Involvement Date"
+msgid "Involvement Date (Creation)"
+msgstr "Date de participation"
+
+#. module: mozaik_involvement
 #: model:ir.actions.act_window,name:mozaik_involvement.partner_involvement_act_window
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_involvement_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__involvement_ids
 #: model:ir.ui.menu,name:mozaik_involvement.involvement_menu
 #: model:ir.ui.menu,name:mozaik_involvement.partner_involvement_menu
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
-#: model:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
 msgid "Involvements"
 msgstr "Participations"
 
@@ -206,47 +301,65 @@ msgid "Involvements Categories"
 msgstr "Catégories de participations"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Involvements of which I am one of the owners of the category"
 msgstr "Participations dont je suis propriétaire de la catégorie"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly_is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly_is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly_is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner_is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users_is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly_is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__is_donor
 msgid "Is a donor"
 msgstr "Est un donateur"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly_is_volunteer
-#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly_is_volunteer
-#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly_is_volunteer
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner_is_volunteer
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users_is_volunteer
-#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly_is_volunteer
+#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__is_volunteer
+#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__is_volunteer
+#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__is_volunteer
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__is_volunteer
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__is_volunteer
+#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__is_volunteer
 msgid "Is a volunteer"
 msgstr "Est un volontaire"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement___last_update
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category___last_update
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement____last_update
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category____last_update
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_write_uid
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_write_uid
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__write_uid
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_write_date
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_write_date
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__write_date
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
+
+#. module: mozaik_involvement
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__importance_level__low
+msgid "Low"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
 
 #. module: mozaik_involvement
 #: model:res.groups,name:mozaik_involvement.res_groups_involvement_manager
@@ -254,41 +367,83 @@ msgid "Manager"
 msgstr "Gestionnaire"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_form_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_has_error
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_form_view
 msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
 msgid "My Categories"
 msgstr "Mes catégories"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "My Involvements"
 msgstr "Mes participations"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_form_view
 msgid "Note"
 msgstr "Note"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_note
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_note
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__note
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__note
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
 msgid "Notes"
 msgstr "Notes"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_res_users_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_unread_counter
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__res_users_ids
 msgid "Owners"
 msgstr "Propriétaires"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_partner_id
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__partner_id
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -303,23 +458,29 @@ msgid "Partner Involvement Category"
 msgstr "Catégorie de participation de partenaire"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly_partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly_partner_involvement_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly_partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly_partner_involvement_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly_partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly_partner_involvement_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner_partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner_partner_involvement_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users_partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users_partner_involvement_inactive_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly_partner_involvement_ids
-#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly_partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__partner_involvement_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__partner_involvement_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__partner_involvement_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__partner_involvement_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__partner_involvement_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__partner_involvement_ids
 msgid "Partner Involvements"
 msgstr "Participations de partenaire"
 
 #. module: mozaik_involvement
-#: selection:partner.involvement.category,involvement_type:0
+#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__partner_involvement_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__partner_involvement_inactive_ids
+#, fuzzy
+#| msgid "Partner Involvements"
+msgid "Partner Involvements (Inactive)"
+msgstr "Participations de partenaire"
+
+#. module: mozaik_involvement
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__involvement_type__petition
 msgid "Petition"
 msgstr "Pétition"
 
@@ -329,17 +490,35 @@ msgid "Reader"
 msgstr "Lecteur"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
 msgid "Security"
 msgstr "Sécurité"
 
 #. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category_involvement_type
-#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_involvement_type
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__involvement_type
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__involvement_type
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Type"
 msgstr "Type"
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_unread
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
 
 #. module: mozaik_involvement
 #: model:res.groups,name:mozaik_involvement.res_groups_involvement_user
@@ -347,17 +526,35 @@ msgid "User"
 msgstr "Utilisateur"
 
 #. module: mozaik_involvement
-#: selection:partner.involvement.category,involvement_type:0
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__involvement_type__voluntary
 msgid "Voluntary Work"
 msgstr "Volontariat"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_search_view
 msgid "Volunteer"
 msgstr "Volontaire"
 
 #. module: mozaik_involvement
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
-#: model:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__website_message_ids
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Without Type"
 msgstr "Sans type"
+
+#~ msgid "Archive/reactivate category: proceed anyway?"
+#~ msgstr "Poursuivre l'archivage/réactivation de la catégorie ?"
+
+#~ msgid "Archive/reactivate involvement: proceed anyway?"
+#~ msgstr "Poursuivre l'archivage/réactivation de la participation?"
