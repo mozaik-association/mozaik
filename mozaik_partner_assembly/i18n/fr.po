@@ -17,13 +17,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_partner_assembly
-#: code:addons/mozaik_partner_assembly/models/res_partner.py:25
+#: code:addons/mozaik_partner_assembly/models/res_partner.py:0
 #, python-format
 msgid "An assembly must be a company"
 msgstr "Une assemblée doit être une personne morale"
 
 #. module: mozaik_partner_assembly
-#: model:ir.ui.view,arch_db:mozaik_partner_assembly.res_partner_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_assembly.res_partner_search_view
 msgid "Assemblies"
 msgstr "Assemblées"
 
@@ -33,7 +33,22 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: mozaik_partner_assembly
-#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_partner_is_assembly
-#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_users_is_assembly
+#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_partner_assembly
+#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_partner_assembly
+#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_partner__is_assembly
+#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_users__is_assembly
 msgid "Is an Assembly"
 msgstr "Est une assemblée"
+
+#. module: mozaik_partner_assembly
+#: model:ir.model.fields,field_description:mozaik_partner_assembly.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
