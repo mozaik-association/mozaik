@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="virtual_partner_mass_mailing_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.mass.mailing.tree</field>
+        <field name="model">virtual.partner.mass.mailing</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.abstract_virtual_model_tree_view"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="mass_mailing_id" />
+                <field name="ignored" optional="show" />
+                <field name="scheduled" optional="hide" />
+                <field name="sent" optional="show" />
+                <field name="exception" optional="show" />
+                <field name="opened" optional="show" />
+                <field name="replied" optional="show" />
+                <field name="bounced" optional="show" />
+                <field name="state" optional="show" />
+                <field name="failure_type" optional="hide" />
+                <field name="int_instance_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="virtual_partner_mass_mailing_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.mass.mailing.search</field>
+        <field name="model">virtual.partner.mass.mailing</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="identifier" />
+                <!-- pylint: disable=duplicate-xml-fields -->
+                <field
+                    string="Birth Date > ..."
+                    name="birth_date"
+                    filter_domain="[('birth_date','>',self)]"
+                />
+                <field
+                    string="Birth Date &lt; ..."
+                    name="birth_date"
+                    filter_domain="[('birth_date','&lt;',self)]"
+                />
+                <field string="Mass mailing" name="mass_mailing_id" />
+                <field name="partner_id" />
+                <field name="int_instance_id" />
+                <field
+                    name="int_instance_id"
+                    string="Internal Instance descending of..."
+                    operator="child_of"
+                />
+                <field name="interest_ids" widget="many2one" />
+                <field
+                    name="competency_ids"
+                    string="Competencies &amp; Topics"
+                    widget="many2one"
+                />
+                <field name="lang" />
+                <filter
+                    string="Natural Persons"
+                    name="type_person"
+                    domain="[('is_company','=',0)]"
+                />
+                <filter
+                    string="Legal Persons"
+                    name="type_company"
+                    domain="[('is_company','!=',0)]"
+                />
+                <separator />
+                <filter string="Male" name="male" domain="[('gender','=','male')]" />
+                <filter
+                    string="Female"
+                    name="female"
+                    domain="[('gender','=','female')]"
+                />
+                <separator />
+                <filter
+                    string="Employee"
+                    name="employee"
+                    domain="[('employee','!=',0)]"
+                />
+                <filter
+                    string="Not Employee"
+                    name="not_employee"
+                    domain="[('employee','=',0)]"
+                />
+                <separator />
+                <filter
+                    string="Exception"
+                    name="exception"
+                    domain="[('state', '=', 'exception')]"
+                />
+                <filter string="Sent" name="sent" domain="['!',('sent', '=', False)]" />
+                <filter
+                    string="Ignored"
+                    name="ignored"
+                    domain="['!',('ignored', '=', False)]"
+                />
+                <filter
+                    string="Opened"
+                    name="opened"
+                    domain="['!',('opened', '=', False)]"
+                />
+                <filter
+                    string="Replied"
+                    name="replied"
+                    domain="['!',('replied', '=', False)]"
+                />
+                <filter
+                    string="Bounced"
+                    name="bounced"
+                    domain="['!',('bounced', '=', False)]"
+                />
+                <separator />
+                <filter
+                    name="without_coordinate"
+                    string="Without Coordinate"
+                    domain="[('active','=',False)]"
+                />
+
+                <group name="group_by">
+                    <filter
+                        name="partner"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        name="int_instance"
+                        string="Internal Instance"
+                        context="{'group_by':'int_instance_id'}"
+                    />
+                    <filter
+                        name="state"
+                        string="State"
+                        context="{'group_by': 'state'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="add_filter_from_mass_mailing_action" model="ir.actions.act_window">
+        <field name="name">Add Filter To Distribution List</field>
+        <field name="view_mode">form</field>
+        <field name="res_model">distribution.list.add.filter</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
+        <field
+            name="binding_model_id"
+            ref="mozaik_virtual_partner_mass_mailing.model_virtual_partner_mass_mailing"
+        />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_communication.res_groups_communication_user')])]"
+        />
+    </record>
+
+    <record id="virtual_partner_mass_mailing_action" model="ir.actions.act_window">
+        <field name="name">Partners/Mass Mailings</field>
+        <field name="res_model">virtual.partner.mass.mailing</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="virtual_partner_mass_mailing_search_view" />
+        <field name="view_id" ref="virtual_partner_mass_mailing_tree_view" />
+    </record>
+
+    <record model="ir.ui.menu" id="virtual_partner_mass_mailing_menu">
+        <field name="name">Partners/Mass Mailings</field>
+        <field name="sequence" eval="20" />
+        <field name="parent_id" ref="mozaik_communication.virtual_model_menu" />
+        <field name="action" ref="virtual_partner_mass_mailing_action" />
+    </record>
+
+</odoo>
