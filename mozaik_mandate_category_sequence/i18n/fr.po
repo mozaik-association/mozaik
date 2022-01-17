@@ -15,14 +15,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mandate_category_sequence
-#: model:ir.model.fields,field_description:mozaik_mandate_category_sequence.field_mandate_category_sequence
+#: model:ir.model.fields,field_description:mozaik_mandate_category_sequence.field_mandate_category__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_mandate_category_sequence
+#: model:ir.model.fields,field_description:mozaik_mandate_category_sequence.field_mandate_category__sequence
 msgid "Formal position"
 msgstr "Position protocolaire"
 
 #. module: mozaik_mandate_category_sequence
-#: model:ir.model,name:mozaik_mandate_category_sequence.model_generic_mandate
-msgid "Generic Mandate"
-msgstr "Mandat générique"
+#: model:ir.model.fields,field_description:mozaik_mandate_category_sequence.field_mandate_category__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_mandate_category_sequence
+#: model:ir.model.fields,field_description:mozaik_mandate_category_sequence.field_mandate_category____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: mozaik_mandate_category_sequence
 #: model:ir.model,name:mozaik_mandate_category_sequence.model_mandate_category
@@ -30,6 +40,9 @@ msgid "Mandate Category"
 msgstr "Catégorie de mandat"
 
 #. module: mozaik_mandate_category_sequence
-#: model:ir.ui.view,arch_db:mozaik_mandate_category_sequence.mandate_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_mandate_category_sequence.mandate_category_form_view
 msgid "The smallest position has the highest priority"
 msgstr "La position la plus petite a la plus grande priorité"
+
+#~ msgid "Generic Mandate"
+#~ msgstr "Mandat générique"
