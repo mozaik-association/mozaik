@@ -234,6 +234,13 @@ msgid "Partner Involvement Category"
 msgstr "Catégorie de participation de partenaire"
 
 #. module: mozaik_involvement_followup
+#: model:ir.model,name:mozaik_involvement_followup.model_partner_involvement_followup_wizard
+#, fuzzy
+#| msgid "Partner Involvement Followup Wizard"
+msgid "Partner Involvement Followup"
+msgstr "Assistant de suivi de participation de partenaire"
+
+#. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_followup_wizard_form_view
 msgid "Partner Involvement Followup Wizard"
 msgstr "Assistant de suivi de participation de partenaire"
@@ -293,8 +300,6 @@ msgstr "Sans suivi"
 msgid "or"
 msgstr "ou"
 
-#. module: mozaik_involvement_followup
-#: model:ir.model,name:mozaik_involvement_followup.model_partner_involvement_followup_wizard
 #, fuzzy
-msgid "partner.involvement.followup.wizard"
-msgstr "Assistant de suivi de participation de partenaire"
+#~ msgid "partner.involvement.followup.wizard"
+#~ msgstr "Assistant de suivi de participation de partenaire"
