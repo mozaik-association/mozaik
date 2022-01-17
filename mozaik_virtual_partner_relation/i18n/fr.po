@@ -17,32 +17,57 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__active
+msgid "Active"
+msgstr ""
+
+#. module: mozaik_virtual_partner_relation
 #: model:ir.actions.act_window,name:mozaik_virtual_partner_relation.add_filter_from_relation_action
 msgid "Add Filter To Distribution List"
 msgstr "Ajouter ce filtre à une liste de distribution"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Assemblies"
 msgstr "Assemblées"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__birth_date
+#, fuzzy
+#| msgid "Birth Date < ..."
+msgid "Birth Date"
+msgstr "Date de naissance < ..."
+
+#. module: mozaik_virtual_partner_relation
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Birth Date < ..."
 msgstr "Date de naissance < ..."
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Birth Date > ..."
 msgstr "Date de naissance > ..."
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__common_id
+msgid "Common ID"
+msgstr ""
+
+#. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__competency_ids
+#, fuzzy
+#| msgid "Competencies & Topics"
+msgid "Competencies"
+msgstr "Compétences & thèmes"
+
+#. module: mozaik_virtual_partner_relation
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Competencies & Topics"
 msgstr "Compétences & thèmes"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation_display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__display_name
 msgid "Display Name"
 msgstr "Nom à afficher"
 
@@ -52,74 +77,111 @@ msgid "Distribution List Line"
 msgstr "Filtre"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__employee
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Employee"
 msgstr "Employé"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Female"
 msgstr "Femme"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__gender
+msgid "Gender"
+msgstr ""
+
+#. module: mozaik_virtual_partner_relation
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Group By..."
 msgstr "Regrouper par..."
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation_id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__id
 msgid "ID"
 msgstr "ID"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__interest_ids
+msgid "Interests"
+msgstr ""
+
+#. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__int_instance_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Internal Instance"
 msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Internal Instance descending of..."
 msgstr "Instance Interne descendant de..."
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation_is_assembly
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__is_company
+msgid "Is a Company"
+msgstr ""
+
+#. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__is_assembly
 msgid "Is an Assembly"
 msgstr "Est une assemblée"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation___last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__lang
+msgid "Language"
+msgstr ""
+
+#. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Legal Persons"
 msgstr "Personnes morales"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Male"
 msgstr "Homme"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Natural Persons"
 msgstr "Personnes physiques"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Not Employee"
 msgstr "Non employé"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation_object_partner_id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__identifier
+msgid "Number"
+msgstr ""
+
+#. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__object_partner_id
 msgid "Object"
 msgstr "Objet"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__partner_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__partner_instance_ids
+#, fuzzy
+#| msgid "Internal Instance"
+msgid "Partner Internal Instances"
+msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_relation
 #: model:ir.model,name:mozaik_virtual_partner_relation.model_virtual_partner_relation
@@ -133,32 +195,29 @@ msgid "Partners/Relations"
 msgstr "Partenaires/Relations"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation_relation_category_id
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__relation_category_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Relation Category"
 msgstr "Catégorie de relation"
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
-msgid "Unauthorized Address"
-msgstr "Adresse interdite"
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__result_id
+msgid "Result"
+msgstr ""
 
 #. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
-msgid "Unauthorized Email"
-msgstr "Adresse électronique interdite"
-
-#. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
-msgid "VIP Address"
-msgstr "Adresse VIP"
-
-#. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
-msgid "VIP Email"
-msgstr "Adresse électronique VIP"
-
-#. module: mozaik_virtual_partner_relation
-#: model:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
+
+#~ msgid "Unauthorized Address"
+#~ msgstr "Adresse interdite"
+
+#~ msgid "Unauthorized Email"
+#~ msgstr "Adresse électronique interdite"
+
+#~ msgid "VIP Address"
+#~ msgstr "Adresse VIP"
+
+#~ msgid "VIP Email"
+#~ msgstr "Adresse électronique VIP"
