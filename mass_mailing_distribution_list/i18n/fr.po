@@ -7,14 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-14 16:56+0000\n"
-"PO-Revision-Date: 2018-11-14 16:56+0000\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2022-01-18 15:00+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__alias_defaults
@@ -76,12 +77,12 @@ msgstr "Compléter une liste de distribution"
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__create_date
 msgid "Create Date"
-msgstr ""
+msgstr "Date de création"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__alias_bounced_content
@@ -123,17 +124,17 @@ msgstr "Assistant de composition de courriel"
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Abonnés"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_channel_ids
 msgid "Followers (Channels)"
-msgstr ""
+msgstr "Abonnés (Channel)"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Abonnés (Partenaires)"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__id
@@ -156,13 +157,13 @@ msgstr ""
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_needaction
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_unread
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Si coché, certains messages nécessitent votre attention."
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_has_error
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Si coché, certaines messages ont une erreur d'envoi."
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__alias_bounced_content
@@ -170,6 +171,8 @@ msgid ""
 "If set, this content will automatically be sent out to unauthorized users "
 "instead of the default message."
 msgstr ""
+"Si défini, ce contenu sera automatiquement envoyé aux utilisateurs non "
+"autorisés à la place du message par défaut."
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_is_follower
@@ -182,12 +185,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mailing_mailing____last_update
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_merge_distribution_list____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière mise à jour le"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Dernière mise à jour par"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__write_date
@@ -245,22 +248,22 @@ msgstr ""
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Nombre d'erreurs"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "Nombre de messages nécessitant une action"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Nombre de messages avec une erreur d'envoi"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_unread_counter
 msgid "Number of unread messages"
-msgstr ""
+msgstr "Nombre de messages non lus"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__res_partner_opt_in_ids
@@ -320,7 +323,7 @@ msgstr "Partner Path"
 #: code:addons/mass_mailing_distribution_list/models/distribution_list.py:0
 #, python-format
 msgid "Partner Path is not valid: this field doesn't exist on model '%s'"
-msgstr ""
+msgstr "Partner Path n'est pas valide: ce champ n'existe pas sur le modèle '%s'"
 
 #. module: mass_mailing_distribution_list
 #: code:addons/mass_mailing_distribution_list/models/distribution_list.py:0
@@ -370,21 +373,17 @@ msgstr "ID de l'enregistrement du fil"
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Erreur lors de l'envoi SMS"
 
 #. module: mass_mailing_distribution_list
 #: model_terms:ir.ui.view,arch_db:mass_mailing_distribution_list.view_mail_mass_mailing_form
-#, fuzzy
-#| msgid "Complete Distribution List"
 msgid "Select distribution list..."
-msgstr "Compléter une liste de distribution"
+msgstr "Compléter une liste de distribution..."
 
 #. module: mass_mailing_distribution_list
 #: model_terms:ir.ui.view,arch_db:mass_mailing_distribution_list.view_mail_mass_mailing_form
-#, fuzzy
-#| msgid "Complete Distribution List"
 msgid "Select distribution list:"
-msgstr "Compléter une liste de distribution"
+msgstr "Compléter une liste de distribution:"
 
 #. module: mass_mailing_distribution_list
 #: model_terms:ir.ui.view,arch_db:mass_mailing_distribution_list.distribution_list_form
@@ -429,12 +428,12 @@ msgstr ""
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_unread
 msgid "Unread Messages"
-msgstr ""
+msgstr "Messages non lus"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "Compteur de messages non lus"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__website_message_ids
