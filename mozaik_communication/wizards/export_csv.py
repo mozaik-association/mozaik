@@ -230,6 +230,23 @@ class ExportCsv(models.TransientModel):
         genders = {k: v for k, v in selections["gender"]["selection"]}
         langs = {k: v for k, v in selections["lang"]["selection"]}
         headers = self._get_csv_rows()
+
+        if group_by and model == "res.partner":
+            # Keep only the first partner of each co-residency
+            # that is in the distribution list
+            partners_with_co_res = (
+                self.env["res.partner"]
+                .browse(model_ids)
+                .filtered(lambda p: p.co_residency_id)
+            )
+            co_res_ids = partners_with_co_res.mapped("co_residency_id")
+            partner_ids_to_remove = []
+            for co_res in co_res_ids:
+                partner_ids_to_remove += co_res.partner_ids.filtered(
+                    lambda p: p.id in model_ids
+                ).ids[1:]
+            model_ids = list(set(model_ids) - set(partner_ids_to_remove))
+
         with StringIO() as memory_file:
             writer = csv.writer(memory_file)
             writer.writerow(headers)
@@ -256,12 +273,12 @@ class ExportCsv(models.TransientModel):
             csv_content = memory_file.getvalue()
         return csv_content
 
-    def export(self):
+    def export(self, group_by=False):
         self.ensure_one()
         context = self.env.context
         model = context.get("active_model")
         model_ids = context.get("active_ids", context.get("active_id", []))
-        csv_content = self._get_csv(model, model_ids)
+        csv_content = self._get_csv(model, model_ids, group_by)
         self.write(
             {
                 "export_file": base64.b64encode(csv_content.encode("utf-8")),
