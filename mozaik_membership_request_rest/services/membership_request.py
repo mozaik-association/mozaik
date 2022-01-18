@@ -30,23 +30,24 @@ class MembershipRequestService(Component):
     )
     def get(self, _id: int) -> MembershipRequestInfo:
       membership_request = self._get(_id)
-      return MembershipRequestInfo.from_orm(membership_request)
+      return MemblocalhershipRequestInfo.from_orm(membership_request)
 
 
     @restapi.method(
-        routes=[(["/membership_request"], "POST")],
+        routes=[(["/membership_request/<int:autovalidate>"], "POST")],
         input_param=PydanticModel(MembershipRequest),
         output_param=PydanticModel(MembershipRequestInfo),
         auth="public",
     )
-    def membership_request(self,
+    def membership_request(
+        self,
+        autovalidate,
         membership_request: MembershipRequest
-    ) -> List[MembershipRequestInfo]:
+    ) -> MembershipRequestInfo:
         mr_obj = self.env["membership.request"]
         vals = membership_request.dict()
-        del vals['autovalidate']
-        del vals['newsletters']
-        mr = mr_obj.create(vals)
-        if(membership_request.autovalidate):
+        mr = mr_obj.with_context(autoval=True).create(vals)
+        if(autovalidate):
             mr.validate_request()
-        return mr.id
+
+        return MembershipRequestInfo.from_orm(mr)
