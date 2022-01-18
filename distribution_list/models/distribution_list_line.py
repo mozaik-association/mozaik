@@ -242,7 +242,9 @@ class DistributionListLine(models.Model):
                 lambda r, bf=bridge_field: r.bridge_field_id == bf
             )
             domains = [r._get_eval_domain() for r in self_model]
-            big_domain = expression.OR(domains)
+            big_domain = []
+            if domains != [[]]:
+                big_domain = expression.OR(domains)
             source_model = bridge_field.model_id.model
             field_name = bridge_field.name
             try:
