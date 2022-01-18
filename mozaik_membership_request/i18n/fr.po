@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-18 17:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
@@ -21,11 +23,14 @@ msgid ""
 "                                NEW\n"
 "                            </span>"
 msgstr ""
+"<span attrs=\"{'invisible':[('partner_id', '!=', False)]}\">\n"
+"                                NOUVEAU\n"
+"                            </span>"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.res_partner_form_view
 msgid "Accept"
-msgstr ""
+msgstr "Accepter"
 
 #. module: mozaik_membership_request
 #: model:ir.actions.server,name:mozaik_membership_request.ir_cron_accept_membership_committee_ir_actions_server
@@ -42,7 +47,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_users__accepted_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__accepted_date
 msgid "Accepted Date"
-msgstr ""
+msgstr "Date d'acceptation"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_needaction
@@ -61,7 +66,7 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__address_id
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__age
@@ -81,17 +86,17 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "All Requests, expired or not"
-msgstr ""
+msgstr "Toutes les demandes, expirées ou non"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__amount
 msgid "Amount"
-msgstr ""
+msgstr "Montant"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_attachment_count
@@ -105,39 +110,39 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__birthdate_date
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Birth Date"
-msgstr ""
+msgstr "Date de naissance"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__box
 msgid "Box"
-msgstr ""
+msgstr "Boîte"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Cancel Membership Request: proceed anyway?"
-msgstr ""
+msgstr "Poursuivre l'annulation de la demande d'adhésion/modification?"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__state__cancel
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulée"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__change_ids
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Changes"
-msgstr ""
+msgstr "Modifications"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__inactive_change_ids
 msgid "Changes (Inactive)"
-msgstr ""
+msgstr "Modifications (inactives)"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request__enforce_cities
@@ -149,38 +154,38 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__city_id
 msgid "City"
-msgstr ""
+msgstr "Ville"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__city_man
 msgid "City (Manual)"
-msgstr ""
+msgstr "Ville (Manuel)"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__competency_ids
 msgid "Competencies"
-msgstr ""
+msgstr "Compétences"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Competencies & Topics"
-msgstr ""
+msgstr "Compétences & Intérêts"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmer"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Confirm Membership Request: proceed anyway?"
-msgstr ""
+msgstr "Confirmer l'adhésion?"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__state__confirm
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Confirmed"
-msgstr ""
+msgstr "Confirmé"
 
 #. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_res_partner
@@ -190,7 +195,7 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Coordinates"
-msgstr ""
+msgstr "Coordonnées"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__country_id
@@ -198,19 +203,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__country_id
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__create_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__create_date
 msgid "Create Date"
-msgstr ""
+msgstr "Date de création"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__create_uid
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__membership_state_id
@@ -225,7 +230,7 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__day
 msgid "Day"
-msgstr ""
+msgstr "Jour"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_abstract_assembly__decline_payment_date
@@ -235,7 +240,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_users__decline_payment_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__decline_payment_date
 msgid "Decline Payment Date"
-msgstr ""
+msgstr "Date du refus de paiement"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line__display_name
@@ -251,13 +256,13 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__state__validate
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Done"
-msgstr ""
+msgstr "Fait"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__state__draft
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__email
@@ -268,12 +273,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__email
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__email
 msgid "Email Coordinate"
-msgstr ""
+msgstr "Coordonnée mail"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__enforce_cities
 msgid "Enforce Cities"
-msgstr ""
+msgstr "Forcer les villes"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_abstract_assembly__exclusion_date
@@ -283,7 +288,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_users__exclusion_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__exclusion_date
 msgid "Exclusion Date"
-msgstr ""
+msgstr "Date d'exclusion"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__result_type_id
@@ -294,34 +299,34 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__expire_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__expire_date
 msgid "Expiration Date"
-msgstr ""
+msgstr "Date d'échéance"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Expired"
-msgstr ""
+msgstr "Expiré"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Expired Requests"
-msgstr ""
+msgstr "Demandes expirées"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__gender__female
 msgid "Female"
-msgstr ""
+msgstr "Femme"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__field_name
 msgid "Field Name"
-msgstr ""
+msgstr "Nom du champ"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__firstname
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__firstname
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__firstname
 msgid "Firstname"
-msgstr ""
+msgstr "Prénom"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_follower_ids
@@ -349,17 +354,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_users__free_member
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__free_member
 msgid "Free Member"
-msgstr ""
+msgstr "Adhésion gratuite"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__gender
 msgid "Gender"
-msgstr ""
+msgstr "Genre"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Group By..."
-msgstr ""
+msgstr "Regrouper par..."
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line__id
@@ -395,35 +400,35 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Indexation"
-msgstr ""
+msgstr "Intérêts"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Instance"
-msgstr ""
+msgstr "Instance"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__interest_ids
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Interests"
-msgstr ""
+msgstr "Intérêts"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__int_instance_ids_readonly
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__int_instance_id
 msgid "Internal Instance"
-msgstr ""
+msgstr "Instance interne"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__int_instance_ids
 msgid "Internal Instance (real)"
-msgstr ""
+msgstr "Instance interne (réelle)"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__force_int_instance_id
 msgid "Internal Instance (to Force)"
-msgstr ""
+msgstr "Instance interne (à forcer)"
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
@@ -434,23 +439,23 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__involvement_category_ids
 msgid "Involvement Categories"
-msgstr ""
+msgstr "Catégories de participation"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__effective_time
 msgid "Involvement Date"
-msgstr ""
+msgstr "Date de participation"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Involvements"
-msgstr ""
+msgstr "Participations"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__is_company
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__is_company
 msgid "Is Company"
-msgstr ""
+msgstr "Est une société"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_is_follower
@@ -466,7 +471,7 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__is_company
 msgid "Is a Company"
-msgstr ""
+msgstr "Est une société"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line____last_update
@@ -494,12 +499,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__lastname
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__lastname
 msgid "Lastname"
-msgstr ""
+msgstr "Nom"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Legal Persons"
-msgstr ""
+msgstr "Personne légale"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_only
@@ -511,12 +516,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_voluntary
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Local Voluntary"
-msgstr ""
+msgstr "Volontaire local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_zip
 msgid "Local Zip"
-msgstr ""
+msgstr "Code postal local"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
@@ -532,18 +537,18 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__gender__male
 msgid "Male"
-msgstr ""
+msgstr "Homme"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__request_type__m
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Member"
-msgstr ""
+msgstr "Membre"
 
 #. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_membership_line
 msgid "Membership Line"
-msgstr ""
+msgstr "Ligne d'adhésion"
 
 #. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_membership_request
@@ -551,12 +556,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.res_partner_form_view
 msgid "Membership Request"
-msgstr ""
+msgstr "Demande d'adhésion"
 
 #. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_membership_request_change
 msgid "Membership Request Change"
-msgstr ""
+msgstr "Demande d'adhésion / de modification"
 
 #. module: mozaik_membership_request
 #: model:ir.actions.act_window,name:mozaik_membership_request.membership_request_action
@@ -565,13 +570,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_tree_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.res_partner_form_view
 msgid "Membership Requests"
-msgstr ""
+msgstr "Demandes d'adhésion"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__membership_state_id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__membership_state_id
 msgid "Membership State"
-msgstr ""
+msgstr "Statut d'adhésion"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_has_error
@@ -593,29 +598,29 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.res_partner_form_view
 msgid "Modification Request"
-msgstr ""
+msgstr "Demande de modification"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__month
 msgid "Month"
-msgstr ""
+msgstr "Mois"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__lastname
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__national_voluntary
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "National Voluntary"
-msgstr ""
+msgstr "Volontaire national"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__nationality_id
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Nationality"
-msgstr ""
+msgstr "Nationalité"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
@@ -625,14 +630,14 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__new_value
 msgid "New Value"
-msgstr ""
+msgstr "Nouvelle valeur"
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
@@ -664,7 +669,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__identifier
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__identifier
 msgid "Number"
-msgstr ""
+msgstr "Numéro"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_needaction_counter
@@ -704,12 +709,12 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__old_value
 msgid "Old Value"
-msgstr ""
+msgstr "Ancienne valeur"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__gender__other
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__partner_id
@@ -717,38 +722,38 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__partner_id
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request__local_only
 msgid "Partner wishing to be contacted only by the local"
-msgstr ""
+msgstr "Partenaire ne souhaitant qu'être contacté par la locale"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Payment"
-msgstr ""
+msgstr "Paiement"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__phone
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__reference
 msgid "Reference"
-msgstr ""
+msgstr "Référence"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__address_local_street_id
 msgid "Reference Street"
-msgstr ""
+msgstr "Rue de référence"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__regional_voluntary
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Regional Voluntary"
-msgstr ""
+msgstr "Volontaire régional"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_abstract_assembly__rejected_date
@@ -758,12 +763,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_users__rejected_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__rejected_date
 msgid "Rejected Date"
-msgstr ""
+msgstr "Date de rejet"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__request_type
 msgid "Request Type"
-msgstr ""
+msgstr "Type de demande"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_abstract_assembly__resignation_date
@@ -773,7 +778,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_users__resignation_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__resignation_date
 msgid "Resignation Date"
-msgstr ""
+msgstr "Date de résignation"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_has_sms_error
@@ -806,23 +811,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__state
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "State"
-msgstr ""
+msgstr "Etat"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__street_man
 msgid "Street"
-msgstr ""
+msgstr "Rue"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__street2
 msgid "Street2"
-msgstr ""
+msgstr "Rue 2"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__request_type__s
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Supporter"
-msgstr ""
+msgstr "Sympathisant"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__technical_name
@@ -835,7 +840,7 @@ msgstr ""
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "The required age for a membership request is %s"
-msgstr ""
+msgstr "L'âge minimum pour une adhésion est %s"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__type
@@ -858,12 +863,12 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Validate"
-msgstr ""
+msgstr "Valider"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Validate Membership Request: proceed anyway?"
-msgstr ""
+msgstr "Valider la demande d'adhésion?"
 
 #. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_virtual_custom_partner
@@ -878,7 +883,7 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Voluntary"
-msgstr ""
+msgstr "Volontaire"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__website_message_ids
@@ -900,22 +905,22 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__year
 msgid "Year"
-msgstr ""
+msgstr "Année"
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__zip_man
 msgid "Zip"
-msgstr ""
+msgstr "Code postal"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__zip
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__zip
 msgid "Zip Code"
-msgstr ""
+msgstr "Code postal"
