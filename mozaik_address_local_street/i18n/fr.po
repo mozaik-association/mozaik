@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-18 15:00+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_address_local_street
 #: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_form_view
@@ -22,27 +24,27 @@ msgstr ""
 #. module: mozaik_address_local_street
 #: model:ir.model,name:mozaik_address_local_street.model_address_address
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__local_street_alternative
 msgid "Alternative Street"
-msgstr ""
+msgstr "Rue alternative"
 
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__disabled
 msgid "Disabled"
-msgstr ""
+msgstr "Désactivé"
 
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_address__display_name
@@ -70,12 +72,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_address____last_update
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Dernière modification par"
 
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__write_date
@@ -120,19 +122,19 @@ msgstr ""
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_address__address_local_street_id
 msgid "Reference Street"
-msgstr ""
+msgstr "Rue de référence"
 
 #. module: mozaik_address_local_street
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__local_street
 #: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_search_view
 msgid "Street"
-msgstr ""
+msgstr "Rue"
 
 #. module: mozaik_address_local_street
 #: model:ir.actions.act_window,name:mozaik_address_local_street.address_local_street_action
 #: model:ir.ui.menu,name:mozaik_address_local_street.address_local_street_menu
 msgid "Streets"
-msgstr ""
+msgstr "Rues"
 
 #. module: mozaik_address_local_street
 #: code:addons/mozaik_address_local_street/models/address_local_street.py:0
@@ -160,4 +162,4 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__local_zip
 #: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_search_view
 msgid "Zip"
-msgstr ""
+msgstr "Code postal"
