@@ -27,6 +27,26 @@ msgid "A follow-up is required for this involvement"
 msgstr "Un suivi est requis pour cette participation"
 
 #. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: mozaik_involvement_followup
 #: code:addons/mozaik_involvement_followup/wizards/partner_involvement_followup_wizard.py:0
 #, python-format
 msgid "Additionnal follow-up delay: %s => %s"
@@ -115,6 +135,11 @@ msgid "Followup"
 msgstr "Suivi"
 
 #. module: mozaik_involvement_followup
+#: model:ir.model.fields,help:mozaik_involvement_followup.field_partner_involvement__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__from_date
 #, fuzzy
 msgid "From Date"
@@ -138,6 +163,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__id
 msgid "ID"
 msgstr "ID"
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,help:mozaik_involvement_followup.field_partner_involvement__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:mail.message.subtype,name:mozaik_involvement_followup.partner_involvement_to_follow_mms
@@ -189,9 +224,29 @@ msgid "Mandate Category"
 msgstr "Catégorie de mandat"
 
 #. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_search_view
 msgid "My Follow-up"
 msgstr "Mes suivis"
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement_followup_wizard__next_category_ids
@@ -246,10 +301,24 @@ msgid "Partner Involvement Followup Wizard"
 msgstr "Assistant de suivi de participation de partenaire"
 
 #. module: mozaik_involvement_followup
+#: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: mozaik_involvement_followup
 #: model:ir.model.fields,field_description:mozaik_involvement_followup.field_partner_involvement__state
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_search_view
 msgid "State"
 msgstr "État"
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,help:mozaik_involvement_followup.field_partner_involvement__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model:mail.message.subtype,description:mozaik_involvement_followup.partner_involvement_late_mms
@@ -274,6 +343,11 @@ msgstr "Á suivre"
 #: model:ir.ui.menu,name:mozaik_involvement_followup.partner_involvement_menu
 msgid "To follow"
 msgstr "Á suivre"
+
+#. module: mozaik_involvement_followup
+#: model:ir.model.fields,help:mozaik_involvement_followup.field_partner_involvement__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
 
 #. module: mozaik_involvement_followup
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_followup.partner_involvement_category_search_view
