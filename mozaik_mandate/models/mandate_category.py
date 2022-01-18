@@ -92,6 +92,18 @@ class MandateCategory(models.Model):
     with_remuneration = fields.Boolean(
         default=lambda s: s._default_with_remuneration(),
     )
+    int_power_level_id = fields.Many2one(
+        "int.power.level",
+        string="Internal Power Level",
+        related="int_assembly_category_id.power_level_id",
+        store=True,
+    )
+    sta_power_level_id = fields.Many2one(
+        "sta.power.level",
+        string="State Power Level",
+        related="sta_assembly_category_id.power_level_id",
+        store=True,
+    )
 
     @api.depends(
         "sta_assembly_category_id",
