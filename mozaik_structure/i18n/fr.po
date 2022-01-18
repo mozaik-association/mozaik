@@ -7,14 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-11 18:50+0000\n"
-"PO-Revision-Date: 2019-01-11 18:50+0000\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2022-01-18 17:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__event_count
@@ -120,10 +121,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category__active
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__active
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__active
-#, fuzzy
-#| msgid "Activities"
 msgid "Active"
-msgstr "Activités"
+msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__active_lang_count
@@ -175,27 +174,23 @@ msgstr "Type d'Activités à Venir"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__additional_info
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__additional_info
 msgid "Additional info"
-msgstr ""
+msgstr "Autres infos"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__address_address_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__address_address_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__address_address_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__address_address_id
-#, fuzzy
-#| msgid "Address Type"
 msgid "Address"
-msgstr "Type d'adresse"
+msgstr "Adresse"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__address
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__address
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__address
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__address
-#, fuzzy
-#| msgid "Address Type"
 msgid "Address (Text)"
-msgstr "Type d'adresse"
+msgstr "Adresse (Texte)"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__type
@@ -329,10 +324,8 @@ msgstr "Assemblées"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_instance__assembly_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category__assembly_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__assembly_inactive_ids
-#, fuzzy
-#| msgid "Assemblies"
 msgid "Assemblies (Inactive)"
-msgstr "Assemblées"
+msgstr "Assemblées (inactives)"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_electoral_district__assembly_id
@@ -351,10 +344,8 @@ msgstr "Catégories d'assemblées"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_power_level__assembly_category_inactive_ids
-#, fuzzy
-#| msgid "Assembly Categories"
 msgid "Assembly Categories (Inactive)"
-msgstr "Catégories d'assemblées"
+msgstr "Catégories d'assemblées (Inactives)"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_attachment_count
@@ -462,10 +453,8 @@ msgstr "Catégorie"
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__certifications_count
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__certifications_count
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__certifications_count
-#, fuzzy
-#| msgid "Relation Count"
 msgid "Certifications Count"
-msgstr "Nombre de relations"
+msgstr "Nombre de  certifications"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__channel_ids
@@ -521,10 +510,8 @@ msgstr "Ville"
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__city_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__city_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__city_id
-#, fuzzy
-#| msgid "Complete Address"
 msgid "City of Address"
-msgstr "Adresse complète"
+msgstr "Ville de l'adresse"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__co_residency_id
@@ -532,7 +519,7 @@ msgstr "Adresse complète"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__co_residency_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__co_residency_id
 msgid "Co-Residency"
-msgstr ""
+msgstr "Co-résidence"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_instance__code
@@ -683,10 +670,8 @@ msgstr "Pays"
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category__create_date
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__create_date
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__create_date
-#, fuzzy
-#| msgid "Created by"
 msgid "Create Date"
-msgstr "Créé par"
+msgstr "Date de création"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__create_uid
@@ -909,10 +894,8 @@ msgstr "Catégories exécutives"
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category__expire_date
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__expire_date
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__expire_date
-#, fuzzy
-#| msgid "Election Date"
 msgid "Expiration Date"
-msgstr "Date électorale"
+msgstr "Date d'échéance"
 
 #. module: mozaik_structure
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.electoral_district_search_view
@@ -1424,10 +1407,8 @@ msgstr "Catégories d'assemblée interne"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_power_level__assembly_category_inactive_ids
-#, fuzzy
-#| msgid "Internal Assembly Categories"
 msgid "Internal Assembly Categories (Inactive)"
-msgstr "Catégories d'assemblée interne"
+msgstr "Catégories d'assemblée interne (Inactives)"
 
 #. module: mozaik_structure
 #: model:ir.model,name:mozaik_structure.model_int_assembly_category
@@ -2030,10 +2011,8 @@ msgstr "Instance parente"
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__parent_path
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_instance__parent_path
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__parent_path
-#, fuzzy
-#| msgid "Parent name"
 msgid "Parent Path"
-msgstr "Nom du parent"
+msgstr "Parent path"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__parent_name
@@ -2080,17 +2059,15 @@ msgstr "Limite de débit"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_payment_method_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__property_payment_method_id
 msgid "Payment Method"
-msgstr ""
+msgstr "Méthode de paiement"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__payment_token_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__payment_token_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__payment_token_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__payment_token_ids
-#, fuzzy
-#| msgid "Vendor Payment Terms"
 msgid "Payment Tokens"
-msgstr "Conditions de Paiement du Vendeur"
+msgstr "Jetons de paiement"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__phone
@@ -2176,10 +2153,8 @@ msgstr "Lecteur"
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__ref
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__ref
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__ref
-#, fuzzy
-#| msgid "Internal Reference"
 msgid "Reference"
-msgstr "Référence interne"
+msgstr "Référence"
 
 #. module: mozaik_structure
 #: code:addons/mozaik_structure/models/ext_assembly.py:0
@@ -2439,10 +2414,8 @@ msgstr "Catégories d'assemblée de l'État"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__assembly_category_inactive_ids
-#, fuzzy
-#| msgid "State Assembly Categories"
 msgid "State Assembly Categories (Inactive)"
-msgstr "Catégories d'assemblée de l'État"
+msgstr "Catégories d'assemblée de l'État (Inactive)"
 
 #. module: mozaik_structure
 #: model:ir.model,name:mozaik_structure.model_sta_assembly_category
@@ -2871,7 +2844,7 @@ msgstr "Conditions de Paiement du Vendeur"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_published
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_published
 msgid "Visible on current website"
-msgstr ""
+msgstr "Visible sur le site"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__visitor_ids
@@ -2916,30 +2889,24 @@ msgstr "Site Web"
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category__website_message_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__website_message_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__website_message_ids
-#, fuzzy
-#| msgid "Website"
 msgid "Website Messages"
-msgstr "Site Web"
+msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_description
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_description
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_description
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_description
-#, fuzzy
-#| msgid "Website of Partner or Company"
 msgid "Website Partner Full Description"
-msgstr "Site Web pour les Partenaires ou les Sociétés"
+msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_short_description
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__website_short_description
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__website_short_description
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__website_short_description
-#, fuzzy
-#| msgid "Website of Partner or Company"
 msgid "Website Partner Short Description"
-msgstr "Site Web pour les Partenaires ou les Sociétés"
+msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__website_url
