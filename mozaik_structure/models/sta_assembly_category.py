@@ -9,7 +9,7 @@ class StaAssemblyCategory(models.Model):
     _name = "sta.assembly.category"
     _inherit = ["abstract.assembly.category"]
     _description = "State Assembly Category"
-    _order = "power_level_id, name"
+    _order = "name, power_level_id"
     _unicity_keys = "power_level_id, name"
 
     power_level_id = fields.Many2one(
