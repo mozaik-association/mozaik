@@ -15,7 +15,8 @@ STATE_TYPE = [
 
 
 class PartnerInvolvement(models.Model):
-    _inherit = "partner.involvement"
+    _name = "partner.involvement"
+    _inherit = ["partner.involvement", "mail.activity.mixin"]
 
     _track = {
         "state": {
@@ -69,13 +70,48 @@ class PartnerInvolvement(models.Model):
             cat = res.involvement_category_id.sudo()
             fol_ids = []
             if cat.mandate_category_id:
-                fol_ids += cat.mandate_category_id._get_active_representative(
-                    res.partner_id.int_instance_id.id, True
+                fol_representatives = (
+                    cat.mandate_category_id._get_active_representative(
+                        res.partner_id.int_instance_id.id, True
+                    )
                 )
+                fol_ids += fol_representatives
+                if fol_representatives:
+                    activity_vals = self._schedule_activity_reminder(
+                        fol_representatives[0], res
+                    )
+                    res["activity_ids"] = [(0, 0, activity_vals)]
             fol_ids += cat.message_follower_ids.ids
             res.message_subscribe(fol_ids)
             res.state = "followup"
         return res
+
+    @api.model
+    def _schedule_activity_reminder(self, user_partner_id, involvement):
+        """
+        Prepare values for scheduling an activity for the given user.
+        user_partner_id is the id of the partner associated to the concerned user.
+        """
+        note = "<p> Partner: %s </p> <p> Subject: %s </p>" % (
+            involvement.partner_id.name,
+            involvement.involvement_category_id.name,
+        )
+        vals = {
+            "activity_type_id": self.env.ref("mail.mail_activity_data_todo").id,
+            "summary": "Involvement to follow",
+            "note": note,
+            "date_deadline": involvement.deadline,
+            "automated": True,
+            "res_model_id": self.env["ir.model"]
+            .search([("model", "=", "partner.involvement")])
+            .id,
+            "res_id": involvement.id,
+        }
+        if user_partner_id:
+            user_ids = self.env["res.partner"].browse(user_partner_id).user_ids
+            if user_ids:
+                vals["user_id"] = user_ids[0].id
+        return vals
 
     @api.model
     def _set_state_as_late(self):
