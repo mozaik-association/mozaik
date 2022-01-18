@@ -40,8 +40,3 @@ class MembershipRequest(models.BaseModel):
     effective_time: str = None
     local_only: bool = None
     nationality_id: int = None
-
-
-
-
-
