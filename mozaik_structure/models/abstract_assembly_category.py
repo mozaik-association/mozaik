@@ -9,7 +9,7 @@ class AbstractAssemblyCategory(models.AbstractModel):
     _name = "abstract.assembly.category"
     _inherit = ["mozaik.abstract.model"]
     _description = "Abstract Assembly Category"
-    _order = "power_level_id, name"
+    _order = "name, power_level_id"
     _unicity_keys = "power_level_id, name"
     _log_access = True
 
