@@ -6,28 +6,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-18 17:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_automation.field_mailing_mailing__automation
 msgid "Automation"
-msgstr ""
+msgstr "Envoi récurrent"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,help:mozaik_mass_mailing_automation.field_mailing_mailing__next_execution
 msgid "Date and time of the next execution of the automation process."
-msgstr ""
+msgstr "Date et heure du prochain envoi régulier."
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields.selection,name:mozaik_mass_mailing_automation.selection__mailing_mailing__time_interval_unit__days
 msgid "Days"
-msgstr ""
+msgstr "Jours"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_automation.field_mailing_mailing__display_name
@@ -37,7 +39,7 @@ msgstr ""
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields.selection,name:mozaik_mass_mailing_automation.selection__mailing_mailing__time_interval_unit__hours
 msgid "Hours"
-msgstr ""
+msgstr "Heures"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_automation.field_mailing_mailing__id
@@ -57,17 +59,17 @@ msgstr ""
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields.selection,name:mozaik_mass_mailing_automation.selection__mailing_mailing__time_interval_unit__months
 msgid "Months"
-msgstr ""
+msgstr "Mois"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_automation.field_mailing_mailing__next_execution
 msgid "Next Execution"
-msgstr ""
+msgstr "Prochain envoi"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_automation.field_mailing_mailing__schedule_date
 msgid "Scheduled for"
-msgstr ""
+msgstr "Prévu le"
 
 #. module: mozaik_mass_mailing_automation
 #: code:addons/mozaik_mass_mailing_automation/models/mailing_mailing.py:0
@@ -76,34 +78,36 @@ msgid ""
 "Since automation is set to True, you have to fill the 'Next Execution' "
 "field."
 msgstr ""
+"Comme il s'agit d'un envoi récurrent, il faut remplir le champ 'Prochain "
+"envoi'."
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_automation.field_mailing_mailing__time_interval_nbr
 #: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_automation.mailing_mailing_form_view
 msgid "Time Interval"
-msgstr ""
+msgstr "Intervalle de temps"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,help:mozaik_mass_mailing_automation.field_mailing_mailing__time_interval_nbr
 msgid "Time interval between two consecutive sendings."
-msgstr ""
+msgstr "Intervalle de temps entre deux envois consécutifs."
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.constraint,message:mozaik_mass_mailing_automation.constraint_mailing_mailing_time_interval_nbr_positive
 msgid "Time interval has to be positive."
-msgstr ""
+msgstr "L'intervalle de temps doit être positif."
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_automation.field_mailing_mailing__time_interval_unit
 msgid "Unit"
-msgstr ""
+msgstr "Unité"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields.selection,name:mozaik_mass_mailing_automation.selection__mailing_mailing__time_interval_unit__weeks
 msgid "Weeks"
-msgstr ""
+msgstr "Semaines"
 
 #. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields.selection,name:mozaik_mass_mailing_automation.selection__mailing_mailing__time_interval_unit__years
 msgid "Years"
-msgstr ""
+msgstr "Années"
