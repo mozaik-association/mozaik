@@ -1,0 +1,57 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_event_question_thesaurus
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: mozaik_event_question_thesaurus
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_event__display_name
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_question__display_name
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_question_answer__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_event_question_thesaurus
+#: model:ir.model,name:mozaik_event_question_thesaurus.model_event_event
+msgid "Event"
+msgstr ""
+
+#. module: mozaik_event_question_thesaurus
+#: model:ir.model,name:mozaik_event_question_thesaurus.model_event_question
+msgid "Event Question"
+msgstr ""
+
+#. module: mozaik_event_question_thesaurus
+#: model:ir.model,name:mozaik_event_question_thesaurus.model_event_question_answer
+msgid "Event Question Answer"
+msgstr ""
+
+#. module: mozaik_event_question_thesaurus
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_event__id
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_question__id
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_question_answer__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_event_question_thesaurus
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_question__interest_ids
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_question_answer__interest_ids
+msgid "Interests"
+msgstr ""
+
+#. module: mozaik_event_question_thesaurus
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_event____last_update
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_question____last_update
+#: model:ir.model.fields,field_description:mozaik_event_question_thesaurus.field_event_question_answer____last_update
+msgid "Last Modified on"
+msgstr ""
