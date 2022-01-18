@@ -1,0 +1,306 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_virtual_partner_mass_mailing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__active
+msgid "Active"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.actions.act_window,name:mozaik_virtual_partner_mass_mailing.add_filter_from_mass_mailing_action
+msgid "Add Filter To Distribution List"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__birth_date
+msgid "Birth Date"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Birth Date < ..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Birth Date > ..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__bounced
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__state__bounced
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Bounced"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__common_id
+msgid "Common ID"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__competency_ids
+msgid "Competencies"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Competencies & Topics"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__failure_type__smtp
+msgid "Connection failed (outgoing mail server problem)"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__mass_mailing_id
+msgid "Corresponding mass mailing"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__exception
+msgid "Date of technical error leading to the email not being sent"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__scheduled
+msgid "Date when the email has been created"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__ignored
+msgid ""
+"Date when the email has been invalidated. Invalid emails are blacklisted, "
+"opted-out or invalid email format"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__opened
+msgid "Date when the email has been opened the first time"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__sent
+msgid "Date when the email has been sent"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__replied
+msgid "Date when this email has been replied for the first time."
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__bounced
+msgid "Date when this email has bounced."
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model,name:mozaik_virtual_partner_mass_mailing.model_distribution_list_line
+msgid "Distribution List Line"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__failure_type__bounce
+msgid "Email address rejected by destination"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__employee
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Employee"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__exception
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__state__exception
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Exception"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__failure_type
+msgid "Failure type"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Female"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__gender
+msgid "Gender"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__ignored
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__state__ignored
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Ignored"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__interest_ids
+msgid "Interests"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__int_instance_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Internal Instance"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Internal Instance descending of..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__failure_type__recipient
+msgid "Invalid email address"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__is_company
+msgid "Is a Company"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__lang
+msgid "Language"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Legal Persons"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Male"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Mass mailing"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Natural Persons"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Not Employee"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__identifier
+msgid "Number"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__opened
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__state__opened
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Opened"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__state__outgoing
+msgid "Outgoing"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__partner_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Partner"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__partner_instance_ids
+msgid "Partner Internal Instances"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model,name:mozaik_virtual_partner_mass_mailing.model_virtual_partner_mass_mailing
+msgid "Partner/Mass Mailing"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.actions.act_window,name:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_action
+#: model:ir.ui.menu,name:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_menu
+msgid "Partners/Mass Mailings"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__replied
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__state__replied
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Replied"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__result_id
+msgid "Result"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__scheduled
+msgid "Scheduled"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__sent
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__state__sent
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Sent"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__state
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "State"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__failure_type__unknown
+msgid "Unknown error"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Without Coordinate"
+msgstr ""
