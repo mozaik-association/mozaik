@@ -12,34 +12,26 @@ class MembershipRequest(models.BaseModel):
     zip_man: str
     city_man: str
     request_type: str
-    number: str
-    box: str
+    number: str = None
+    box: str = None
     local_only: bool
-    day: int
-    month: int
-    year: int
-    email: str
-    mobile: str
-    phone: str
-    interest_ids: List[int]
-    competency_ids: List[int]
-    note: str
-    newsletters: bool
-    is_company: bool
-    #involvements: List[int]
-    local_voluntary: bool
-    regional_voluntary: bool
-    national_voluntary: bool
-    amount: float
-    reference: str
-    autovalidate: bool
-    effective_time: str
-    local_only: bool
-    nationality_id: int
-    #journal: bool
-    #indexation_comments: str
-
-
-
-
-
+    day: int = None
+    month: int = None
+    year: int = None
+    email: str = None
+    mobile: str = None
+    phone: str = None
+    interest_ids: List[int] = None
+    competency_ids: List[int] = None
+    note: str = None
+    distribution_list_ids: int = None
+    is_company: bool = False
+    involvement_category_ids: List[int] = None
+    local_voluntary: bool = False
+    regional_voluntary: bool = False
+    national_voluntary: bool = False
+    amount: float = None
+    reference: str = None
+    effective_time: str = None
+    local_only: bool = None
+    nationality_id: int = None

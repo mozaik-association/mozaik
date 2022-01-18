@@ -5,7 +5,7 @@ from odoo.addons.pydantic import models, utils
 
 
 class MembershipRequestInfo(models.BaseModel):
-    membership_id: int = None
+    id: int
 
     class Config:
         orm_mode = True
