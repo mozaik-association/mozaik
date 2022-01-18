@@ -6,24 +6,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-18 17:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_event_tickbox_question
 #: code:addons/mozaik_event_tickbox_question/models/event_registration.py:0
 #, python-format
 msgid "At least one mandatory tickbox is not checked."
-msgstr ""
+msgstr "Au moins une case à cocher obligatoire n'a pas été cochée."
 
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration_answer__value_tickbox
 msgid "Checked"
-msgstr ""
+msgstr "Cochée"
 
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_event__display_name
@@ -67,12 +69,14 @@ msgstr ""
 msgid ""
 "If True, the signatory has to check the box to continue the registration."
 msgstr ""
+"Si coché, il est obligatoire de cocher cette case pour pouvoir poursuivre "
+"l'inscription."
 
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question__is_mandatory
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration_answer__is_mandatory
 msgid "Is Mandatory"
-msgstr ""
+msgstr "Est obligatoire"
 
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_event____last_update
@@ -85,13 +89,13 @@ msgstr ""
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question__question_type
 msgid "Question Type"
-msgstr ""
+msgstr "Type de question"
 
 #. module: mozaik_event_tickbox_question
 #: code:addons/mozaik_event_tickbox_question/models/event_registration.py:0
 #, python-format
 msgid "The partner didn't answer to all mandatory tickbox questions."
-msgstr ""
+msgstr "Le partenaire n'a pas rempli toutes les cases à cocher obligatoires."
 
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.constraint,message:mozaik_event_tickbox_question.constraint_event_registration_answer_value_check
@@ -102,4 +106,4 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mozaik_event_tickbox_question.selection__event_question__question_type__tickbox
 #: model_terms:ir.ui.view,arch_db:mozaik_event_tickbox_question.event_registration_answer_form_view
 msgid "Tickbox"
-msgstr ""
+msgstr "Case à cocher"
