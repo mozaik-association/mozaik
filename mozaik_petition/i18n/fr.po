@@ -6,18 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-18 17:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_view_kanban
 msgid "<i class=\"fa fa-arrow-right o_event_fontsize_09\" title=\"End date\"/>"
 msgstr ""
+"<i class=\"fa fa-arrow-right o_event_fontsize_09\" title=\"Date de fin\"/>"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
@@ -89,7 +92,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__activity_ids
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__activity_ids
 msgid "Activities"
-msgstr ""
+msgstr "Activités"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__activity_exception_decoration
@@ -117,17 +120,17 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_type__after_sub
 msgid "After each signature"
-msgstr ""
+msgstr "Après chaque signature"
 
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_type__after_petition
 msgid "After the petition"
-msgstr ""
+msgstr "Après la pétition"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question_answer__name
 msgid "Answer"
-msgstr ""
+msgstr "Réponse"
 
 #. module: mozaik_petition
 #: model:ir.actions.act_window,name:mozaik_petition.action_petition_registration_report
@@ -142,13 +145,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_question_view_form
 msgid "Answers"
-msgstr ""
+msgstr "Réponses"
 
 #. module: mozaik_petition
 #: code:addons/mozaik_petition/models/petition_registration.py:0
 #, python-format
 msgid "At least one mandatory tickbox is not checked."
-msgstr ""
+msgstr "Au moins une case à cocher obligatoire n'est pas cochée."
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__message_attachment_count
@@ -159,27 +162,27 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__registration_answer_ids
 msgid "Attendee Answers"
-msgstr ""
+msgstr "Réponses des signataires"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Attendees"
-msgstr ""
+msgstr "Signataires"
 
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_type__before_petition
 msgid "Before the petition"
-msgstr ""
+msgstr "Avant la pétition"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__date_begin
 msgid "Beginning Date"
-msgstr ""
+msgstr "Date de début"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Communication"
-msgstr ""
+msgstr "Communication"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
@@ -194,7 +197,7 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__country_id
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__create_uid
@@ -207,7 +210,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__create_uid
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_type__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__create_date
@@ -220,7 +223,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__create_date
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_type__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
@@ -230,7 +233,7 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_unit__days
 msgid "Days"
-msgstr ""
+msgstr "Jours"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__description
@@ -254,22 +257,22 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__sequence
 msgid "Display Order"
-msgstr ""
+msgstr "Afficher l'ordre"
 
 #. module: mozaik_petition
 #: model:petition.question,title:mozaik_petition.petition_question_project_evolution
 msgid "Do you want to be kept informed of further modifications?"
-msgstr ""
+msgstr "Voulez-vous être tenu au courant des futures mises à jour ?"
 
 #. module: mozaik_petition
 #: model:petition.question,title:mozaik_petition.petition_question_mozaik_newsletter
 msgid "Do you want to be kept informed of our activities?"
-msgstr ""
+msgstr "Voulez-vous être tenu au courant de nos activités?"
 
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_petition__state__draft
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__email
@@ -279,17 +282,17 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__template_id
 msgid "Email Template"
-msgstr ""
+msgstr "Modèle de mail"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__date_end
 msgid "Ending Date"
-msgstr ""
+msgstr "Date de fin"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__firstname
 msgid "Firstname"
-msgstr ""
+msgstr "Prénom"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__message_follower_ids
@@ -318,17 +321,17 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.module.category,description:mozaik_petition.module_category_marketing_petition
 msgid "Helps you manage your petitions."
-msgstr ""
+msgstr "Vous aide à gérer vos pétitions."
 
 #. module: mozaik_petition
 #: model:petition.question,title:mozaik_petition.petition_question_age_privacy_policy
 msgid "I am at least 16 and I agree with privacy policy"
-msgstr ""
+msgstr "J'ai au moins 16 ans et j'accepte la politique de confidentialité"
 
 #. module: mozaik_petition
 #: model:petition.question,title:mozaik_petition.petition_question_reason_why
 msgid "I am signing this petition because..."
-msgstr ""
+msgstr "Je signe la pétition parce que..."
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__id
@@ -361,6 +364,8 @@ msgstr ""
 msgid ""
 "If True, the signatory has to check the box to continue the registration."
 msgstr ""
+"Si coché, le signataire doit obligatoirement cocher la case pour pouvoir "
+"continuer la signature de la pétition."
 
 #. module: mozaik_petition
 #: model:ir.model.fields,help:mozaik_petition.field_petition_petition__message_needaction
@@ -393,22 +398,22 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_unit__now
 msgid "Immediately"
-msgstr ""
+msgstr "Immédiatement"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__int_instance_id
 msgid "Internal instance"
-msgstr ""
+msgstr "Instance interne"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,help:mozaik_petition.field_petition_petition__int_instance_id
 msgid "Internal instance of the petition"
-msgstr ""
+msgstr "Instance interne de la pétition"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__interval_nbr
 msgid "Interval"
-msgstr ""
+msgstr "Intervalle"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__message_is_follower
@@ -420,12 +425,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question__is_mandatory
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__is_mandatory
 msgid "Is Mandatory"
-msgstr ""
+msgstr "Est obligatoire"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__is_private
 msgid "Is private"
-msgstr ""
+msgstr "Est limité à certaines instances"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail____last_update
@@ -469,12 +474,12 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__lastname
 msgid "Lastname"
-msgstr ""
+msgstr "Nom"
 
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__notification_type__mail
 msgid "Mail"
-msgstr ""
+msgstr "Email"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__mail_registration_ids
@@ -524,12 +529,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_milestone_view_tree
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Milestones"
-msgstr ""
+msgstr "Objectifs"
 
 #. module: mozaik_petition
 #: model:ir.model,name:mozaik_petition.model_petition_milestone
 msgid "Milestones to reach when singing up"
-msgstr ""
+msgstr "Objectif à atteindre"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__mobile
@@ -539,7 +544,7 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_unit__months
 msgid "Months"
-msgstr ""
+msgstr "Mois"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__my_activity_date_deadline
@@ -551,7 +556,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__name
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__activity_date_deadline
@@ -609,7 +614,7 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__signatory_count
 msgid "Number of signatories"
-msgstr ""
+msgstr "Nombre de signatures"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,help:mozaik_petition.field_petition_petition__message_unread_counter
@@ -620,13 +625,13 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_petition__state__online
 msgid "Online"
-msgstr ""
+msgstr "En ligne"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__partner_ids
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Partners"
-msgstr ""
+msgstr "Partenaires"
 
 #. module: mozaik_petition
 #: model:ir.model,name:mozaik_petition.model_petition_petition
@@ -636,23 +641,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__petition_id
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_view_pivot
 msgid "Petition"
-msgstr ""
+msgstr "Pétition"
 
 #. module: mozaik_petition
 #: model:ir.actions.act_window,name:mozaik_petition.petition_reporting_petition_action
 #: model:ir.ui.menu,name:mozaik_petition.petition_reporting_petition
 msgid "Petition Analysis"
-msgstr ""
+msgstr "Analyse de la pétition"
 
 #. module: mozaik_petition
 #: model:ir.model,name:mozaik_petition.model_petition_mail
 msgid "Petition Automated Mailing"
-msgstr ""
+msgstr "Mailing automatique pétition"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_form_view
 msgid "Petition Information"
-msgstr ""
+msgstr "Information pétition"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.view_petition_calendar
@@ -662,17 +667,17 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model,name:mozaik_petition.model_petition_question
 msgid "Petition Question"
-msgstr ""
+msgstr "Questions"
 
 #. module: mozaik_petition
 #: model:ir.model,name:mozaik_petition.model_petition_question_answer
 msgid "Petition Question Answer"
-msgstr ""
+msgstr "Réponse question pétition"
 
 #. module: mozaik_petition
 #: model:ir.model,name:mozaik_petition.model_petition_registration
 msgid "Petition Registration"
-msgstr ""
+msgstr "Signature pétition"
 
 #. module: mozaik_petition
 #: model:ir.model,name:mozaik_petition.model_petition_registration_answer
@@ -704,26 +709,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question__petition_type_id
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_type__name
 msgid "Petition Template"
-msgstr ""
+msgstr "Modèle de pétition"
 
 #. module: mozaik_petition
 #: model:ir.actions.act_window,name:mozaik_petition.petition_type_model_action
 #: model:ir.ui.menu,name:mozaik_petition.petition_configuration_petition_template_menu
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_type_tree_view
 msgid "Petition Templates"
-msgstr ""
+msgstr "Modèles de pétition"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Petition Title"
-msgstr ""
+msgstr "Titre de la pétition"
 
 #. module: mozaik_petition
 #: model:ir.actions.server,name:mozaik_petition.petition_mail_scheduler_ir_actions_server
 #: model:ir.cron,cron_name:mozaik_petition.petition_mail_scheduler
 #: model:ir.cron,name:mozaik_petition.petition_mail_scheduler
 msgid "Petition: Mail Scheduler"
-msgstr ""
+msgstr "Pétition: planificateur de mails"
 
 #. module: mozaik_petition
 #: model:ir.actions.act_window,name:mozaik_petition.petition_model_action
@@ -732,12 +737,12 @@ msgstr ""
 #: model:ir.ui.menu,name:mozaik_petition.petition_menu_root
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Petitions"
-msgstr ""
+msgstr "Pétitions"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__date_publish
 msgid "Publish Date"
-msgstr ""
+msgstr "Date de publication"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question_answer__question_id
@@ -751,7 +756,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question__question_type
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__question_type
 msgid "Question Type"
-msgstr ""
+msgstr "Type de question"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__question_ids
@@ -760,17 +765,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_type_form_view
 msgid "Questions"
-msgstr ""
+msgstr "Questions"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__registration_id
 msgid "Registration"
-msgstr ""
+msgstr "Signature"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__date_open
 msgid "Registration Date"
-msgstr ""
+msgstr "Date de signature"
 
 #. module: mozaik_petition
 #: model:ir.model,name:mozaik_petition.model_petition_mail_registration
@@ -780,7 +785,7 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_milestone__petition_id
 msgid "Related Petition"
-msgstr ""
+msgstr "Pétition liée"
 
 #. module: mozaik_petition
 #: model:ir.ui.menu,name:mozaik_petition.reporting_first_level_menu
@@ -790,13 +795,13 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__user_id
 msgid "Responsible"
-msgstr ""
+msgstr "Responsable"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__activity_user_id
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__activity_user_id
 msgid "Responsible User"
-msgstr ""
+msgstr "Utilisateur responsable"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__message_has_sms_error
@@ -812,34 +817,34 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail_registration__scheduled_date
 msgid "Scheduled Time"
-msgstr ""
+msgstr "Date prévue"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_answer_tree_view
 msgid "Selected answer"
-msgstr ""
+msgstr "Réponse sélectionnée"
 
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_question__question_type__simple_choice
 msgid "Selection"
-msgstr ""
+msgstr "Sélection"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__notification_type
 msgid "Send"
-msgstr ""
+msgstr "Envoyer"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__done
 msgid "Sent"
-msgstr ""
+msgstr "Envoyé"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question__sequence
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question_answer__sequence
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_type__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Séquence"
 
 #. module: mozaik_petition
 #: model:ir.actions.act_window,name:mozaik_petition.petition_reporting_signatories_action
@@ -847,7 +852,7 @@ msgstr ""
 #: model:ir.ui.menu,name:mozaik_petition.petition_reporting_signatories
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_view_pivot
 msgid "Signatories"
-msgstr ""
+msgstr "Signataires"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail_registration__registration_id
@@ -855,17 +860,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__partner_id
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_form_view
 msgid "Signatory"
-msgstr ""
+msgstr "Signataire"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_form_view
 msgid "Signed by"
-msgstr ""
+msgstr "Signé par"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__state
 msgid "State"
-msgstr ""
+msgstr "Etat"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,help:mozaik_petition.field_petition_petition__activity_state
@@ -880,28 +885,28 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__value_answer_id
 msgid "Suggested answer"
-msgstr ""
+msgstr "Réponse suggérée"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Template"
-msgstr ""
+msgstr "Modèle"
 
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_question__question_type__text_box
 msgid "Text Input"
-msgstr ""
+msgstr "Texte"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__value_text_box
 msgid "Text answer"
-msgstr ""
+msgstr "Réponse de type texte"
 
 #. module: mozaik_petition
 #: code:addons/mozaik_petition/models/petition_petition.py:0
 #, python-format
 msgid "The closing date cannot be earlier than the beginning date."
-msgstr ""
+msgstr "La date de fin ne peut pas être antérieure à la date de début."
 
 #. module: mozaik_petition
 #: code:addons/mozaik_petition/models/petition_registration.py:0
@@ -925,18 +930,18 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_question__question_type__tickbox
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_answer_tree_view
 msgid "Tickbox"
-msgstr ""
+msgstr "Case à cocher"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__title
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question__title
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Total Registrations for this Petition"
-msgstr ""
+msgstr "Nombre de signatures sur cette pétition"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__interval_type
@@ -980,17 +985,17 @@ msgstr ""
 #. module: mozaik_petition
 #: model:res.groups,name:mozaik_petition.group_petition_user
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_milestone__value
 msgid "Value"
-msgstr ""
+msgstr "Valeur"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__visible_on_website
 msgid "Visible on website"
-msgstr ""
+msgstr "Visible sur le site"
 
 #. module: mozaik_petition
 #: code:addons/mozaik_petition/models/petition_mail.py:0
@@ -1013,12 +1018,12 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_unit__weeks
 msgid "Weeks"
-msgstr ""
+msgstr "Semaines"
 
 #. module: mozaik_petition
 #: model:petition.question,title:mozaik_petition.petition_question_mozaik_membership
 msgid "Would you like to become a member?"
-msgstr ""
+msgstr "Voulez-vous devenir membre?"
 
 #. module: mozaik_petition
 #: code:addons/mozaik_petition/models/petition_question.py:0
@@ -1026,6 +1031,8 @@ msgstr ""
 msgid ""
 "You cannot change the question type of a question that already has answers!"
 msgstr ""
+"Vous ne pouvez pas modifier le type de question d'une question qui contient "
+"déjà des réponses !"
 
 #. module: mozaik_petition
 #: code:addons/mozaik_petition/models/petition_petition.py:0
@@ -1034,13 +1041,15 @@ msgid ""
 "You cannot change the template questions of a petition when there are "
 "signatories."
 msgstr ""
+"Vous ne pouvez pas modifier les questions 'type' d'une pétition qui contient "
+"déjà des signatures."
 
 #. module: mozaik_petition
 #: model:mail.template,subject:mozaik_petition.petition_subscription
 msgid "Your registration at ${object.petition_id.title}"
-msgstr ""
+msgstr "Votre signature de ${object.petition_id.title}"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__zip
 msgid "Zip"
-msgstr ""
+msgstr "Code postal"
