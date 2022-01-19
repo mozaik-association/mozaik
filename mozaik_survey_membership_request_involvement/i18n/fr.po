@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-19 12:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_abstract_assembly__survey_count
@@ -22,7 +24,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_res_users__survey_count
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_sta_assembly__survey_count
 msgid "# Surveys"
-msgstr ""
+msgstr "# Sondages"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model,name:mozaik_survey_membership_request_involvement.model_abstract_survey_question_type
@@ -32,7 +34,7 @@ msgstr ""
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_survey_survey__auto_accept_membership
 msgid "Accept membership requests"
-msgstr ""
+msgstr "Auto-valider les demandes d'adhésion"
 
 #. module: mozaik_survey_membership_request_involvement
 #: code:addons/mozaik_survey_membership_request_involvement/models/survey_question.py:0
@@ -41,6 +43,8 @@ msgid ""
 "Another question by default has the same bridge field named "
 "%(bridge_field_name)s."
 msgstr ""
+"Une autre question par défaut a le même champ passerelle appelé "
+"%(bridge_field_name)s."
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_membership_request__survey_user_input_id
@@ -58,7 +62,7 @@ msgstr ""
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_survey_question__bridge_field_id
 msgid "Bridge field"
-msgstr ""
+msgstr "Champ passerelle"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model,name:mozaik_survey_membership_request_involvement.model_res_partner
@@ -74,7 +78,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_survey_user_input__display_name
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_survey_user_input_line__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Afficher le nom"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_abstract_survey_question_type__id
@@ -91,7 +95,7 @@ msgstr ""
 #: code:addons/mozaik_survey_membership_request_involvement/models/survey_user.py:0
 #, python-format
 msgid "Invalid data"
-msgstr ""
+msgstr "Données invalides"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_abstract_survey_question_type____last_update
@@ -107,13 +111,13 @@ msgstr ""
 #. module: mozaik_survey_membership_request_involvement
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_membership_request_involvement.survey_question_form_view
 msgid "Link with the membership request"
-msgstr ""
+msgstr "Lien avec la demande d'adhésion"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model,name:mozaik_survey_membership_request_involvement.model_membership_request
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_survey_user_input__membership_request_id
 msgid "Membership Request"
-msgstr ""
+msgstr "Demande d'adhésion"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,help:mozaik_survey_membership_request_involvement.field_survey_survey__auto_accept_membership
@@ -121,6 +125,8 @@ msgid ""
 "Membership requests that can be linked to a unique existing partner are "
 "automatically accepted."
 msgstr ""
+"Les demandes d'adhésion pouvant être liées à un partenaire unique sont "
+"automatiquement validées."
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,help:mozaik_survey_membership_request_involvement.field_abstract_assembly__survey_count
@@ -130,7 +136,7 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_survey_membership_request_involvement.field_res_users__survey_count
 #: model:ir.model.fields,help:mozaik_survey_membership_request_involvement.field_sta_assembly__survey_count
 msgid "Number of surveys the partner answered."
-msgstr ""
+msgstr "Nombre de sondages remplis par un partenaire."
 
 #. module: mozaik_survey_membership_request_involvement
 #: code:addons/mozaik_survey_membership_request_involvement/models/survey_survey.py:0
@@ -138,16 +144,18 @@ msgstr ""
 msgid ""
 "Several questions have the same bridge field named %(bridge_field_name)s."
 msgstr ""
+"Certaines questions ont le même champ passerelle appelé "
+"%(bridge_field_name)s."
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model,name:mozaik_survey_membership_request_involvement.model_survey_survey
 msgid "Survey"
-msgstr ""
+msgstr "Sondage"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model,name:mozaik_survey_membership_request_involvement.model_survey_question
 msgid "Survey Question"
-msgstr ""
+msgstr "Question du sondage"
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model,name:mozaik_survey_membership_request_involvement.model_survey_user_input
@@ -162,7 +170,7 @@ msgstr ""
 #. module: mozaik_survey_membership_request_involvement
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_membership_request_involvement.res_partner_form_view
 msgid "Surveys"
-msgstr ""
+msgstr "Sondages"
 
 #. module: mozaik_survey_membership_request_involvement
 #: code:addons/mozaik_survey_membership_request_involvement/models/survey_survey.py:0
@@ -171,6 +179,8 @@ msgid ""
 "The answer to question %(question)s will be of type %(type_answer)s while "
 "the type of the bridge field is %(type_bridge_field)s."
 msgstr ""
+"La réponse à la question %(question)s sera de type %(type_answer)s alors que "
+"le champ passerelle est de type %(type_bridge_field)s."
 
 #. module: mozaik_survey_membership_request_involvement
 #: code:addons/mozaik_survey_membership_request_involvement/models/survey_question.py:0
@@ -179,14 +189,18 @@ msgid ""
 "The answer to this question will be of type %(type_answer)s while the type "
 "of the bridge field is %(type_bridge_field)s."
 msgstr ""
+"La réponse à cette question sera de type %(type_answer)s alors que le champ "
+"passerelle est de type %(type_bridge_field)s."
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,help:mozaik_survey_membership_request_involvement.field_survey_question__bridge_field_id
 msgid ""
 "The answer to this question will fill a field from the membership request."
 msgstr ""
+"La réponse à cette question viendra remplir un champ sur la demande "
+"d'adhésion."
 
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,help:mozaik_survey_membership_request_involvement.field_membership_request__survey_user_input_id
 msgid "The membership request came from the answer to a survey."
-msgstr ""
+msgstr "La demande d'adhésion a été créée depuis une réponse à un sondage."
