@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-19 12:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_survey_is_private
 #: model:ir.model.fields,field_description:mozaik_survey_is_private.field_survey_question__display_name
@@ -42,6 +44,8 @@ msgid ""
 "If ticked, only members of authorized internal instances have access to the "
 "survey and its answers."
 msgstr ""
+"Si coché, l'accès au sondage ainsi qu'aux réponses est limité à certains "
+"utilisateurs."
 
 #. module: mozaik_survey_is_private
 #: model:ir.model.fields,field_description:mozaik_survey_is_private.field_survey_question__int_instance_id
@@ -50,7 +54,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_survey_is_private.field_survey_user_input__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_survey_is_private.field_survey_user_input_line__int_instance_id
 msgid "Internal instance"
-msgstr ""
+msgstr "Instance interne"
 
 #. module: mozaik_survey_is_private
 #: model:ir.model.fields,help:mozaik_survey_is_private.field_survey_question__int_instance_id
@@ -59,7 +63,7 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_survey_is_private.field_survey_user_input__int_instance_id
 #: model:ir.model.fields,help:mozaik_survey_is_private.field_survey_user_input_line__int_instance_id
 msgid "Internal instance of the survey"
-msgstr ""
+msgstr "Instance interne du sondage"
 
 #. module: mozaik_survey_is_private
 #: model:ir.model.fields,field_description:mozaik_survey_is_private.field_survey_question__is_private
@@ -68,7 +72,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_survey_is_private.field_survey_user_input__is_private
 #: model:ir.model.fields,field_description:mozaik_survey_is_private.field_survey_user_input_line__is_private
 msgid "Is private"
-msgstr ""
+msgstr "Accès limité au sondage?"
 
 #. module: mozaik_survey_is_private
 #: model:ir.model.fields,field_description:mozaik_survey_is_private.field_survey_question____last_update
@@ -82,7 +86,7 @@ msgstr ""
 #. module: mozaik_survey_is_private
 #: model:ir.model,name:mozaik_survey_is_private.model_survey_survey
 msgid "Survey"
-msgstr ""
+msgstr "Sondage"
 
 #. module: mozaik_survey_is_private
 #: model:ir.model,name:mozaik_survey_is_private.model_survey_question_answer
@@ -92,7 +96,7 @@ msgstr ""
 #. module: mozaik_survey_is_private
 #: model:ir.model,name:mozaik_survey_is_private.model_survey_question
 msgid "Survey Question"
-msgstr ""
+msgstr "Question du sondage"
 
 #. module: mozaik_survey_is_private
 #: model:ir.model,name:mozaik_survey_is_private.model_survey_user_input
