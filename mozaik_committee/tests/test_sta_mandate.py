@@ -32,10 +32,6 @@ class TestStaMandate(TransactionCase):
         for candidature in candidature_ids:
             self.assertEqual(candidature.state, "designated")
 
-        # Paul candidature is set back to declare
-        self.sta_paul_id.button_declare()
-        self.assertEqual(self.sta_paul_id.state, "declared")
-
         # Accept Thierry candidature
         self.committee_id.write({"decision_date": "2014-04-01"})
         self.sta_thierry_id.button_elected()
@@ -58,5 +54,6 @@ class TestStaMandate(TransactionCase):
         Test the process of (non-)electing state candidatures without decision
         date
         """
+        self.committee_id.button_designate_candidatures()
         with self.assertRaises(ValidationError):
             self.committee_id.button_non_elect_candidatures()
