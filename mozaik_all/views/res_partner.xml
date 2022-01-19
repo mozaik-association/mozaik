@@ -4,10 +4,16 @@
     <record id="res_partner_base_form_view" model="ir.ui.view">
         <field name="name">res.partner.form.base (in mozaik_all)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="mozaik_partner_fields.res_partner_form_view" />
+        <field name="inherit_id" ref="mozaik_person_deceased.res_partner_form_view" />
         <field name="priority">99</field>
         <field name="arch" type="xml">
 
+            <xpath expr="//group[@name='personal_information_group']" position="before">
+                <xpath
+                    expr="//button[@name='%(mozaik_person_deceased.deceased_partner_action)d']"
+                    position="move"
+                />
+            </xpath>
             <xpath expr="//group[@name='personal_information_group']" position="inside">
                 <group name="personal_information_group_01" />
                 <group name="personal_information_group_02" />
@@ -17,6 +23,8 @@
                 expr="//group[@name='personal_information_group_01']"
                 position="inside"
             >
+                <field name="is_deceased" position="move" />
+                <field name="death_date" position="move" />
                 <field name="birthdate_date" position="move" />
                 <field name="age" position="move" />
                 <field name="gender" position="move" />
