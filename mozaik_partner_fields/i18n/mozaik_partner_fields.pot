@@ -118,6 +118,11 @@ msgid "Secondary Website"
 msgstr ""
 
 #. module: mozaik_partner_fields
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__separated
+msgid "Separated"
+msgstr ""
+
+#. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__single
 msgid "Single"
 msgstr ""
@@ -126,6 +131,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_twitter
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_twitter
 msgid "Twitter Account"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__unmarried
+msgid "Unmarried"
 msgstr ""
 
 #. module: mozaik_partner_fields
