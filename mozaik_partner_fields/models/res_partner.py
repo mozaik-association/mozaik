@@ -37,6 +37,8 @@ class ResPartner(models.Model):
             ("cohabitant", "Legal Cohabitant"),
             ("widower", "Widower"),
             ("divorced", "Divorced"),
+            ("separated", "Separated"),
+            ("unmarried", "Unmarried"),
         ],
         tracking=True,
     )
