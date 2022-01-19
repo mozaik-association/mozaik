@@ -33,10 +33,6 @@ class TestIntMandate(TransactionCase):
         for candidature in candidature_ids:
             self.assertEqual(candidature.state, "designated")
 
-        # Paul candidature is set back to declare
-        self.int_paul_id.button_declare()
-        self.assertEqual(self.int_paul_id.state, "declared")
-
         # Accept Thierry candidature
         self.committee_id.write({"decision_date": "2014-04-01"})
         self.int_thierry_secretaire_id.button_elected()
@@ -59,5 +55,6 @@ class TestIntMandate(TransactionCase):
         Test the process of (non-)electing internal candidatures without decision
         date
         """
+        self.committee_id.button_designate_candidatures()
         with self.assertRaises(ValidationError):
             self.committee_id.button_non_elect_candidatures()
