@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="deceased_partner_form_view">
+        <field name="name">deceased.partner.form (in mozaik_person_deceased)</field>
+        <field name="model">deceased.partner</field>
+        <field name="arch" type="xml">
+            <form string="Deceased Partner">
+                <group>
+                    <field name="partner_id" />
+                    <field name="death_date" />
+                </group>
+                <footer>
+                    <button
+                        name="doit"
+                        string="Confirm"
+                        class="btn-primary"
+                        type="object"
+                        confirm="Attention! If you confirm, the email and (potential)
+                            co-residency will be deleted and the partner will be archived.
+                            Are you sure that you want to confirm?"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="deceased_partner_action" model="ir.actions.act_window">
+        <field name="name">Deceased Partner</field> <!-- TODO -->
+        <field name="res_model">deceased.partner</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'default_partner_id': active_id}</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="deceased_partner_form_view" />
+    </record>
+
+
+</odoo>
