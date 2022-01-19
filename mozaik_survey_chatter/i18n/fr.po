@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-19 12:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_survey_chatter
 #: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__display_name
@@ -30,21 +32,23 @@ msgid ""
 "If ticked, only members of authorized internal instances have access to the "
 "survey and its answers."
 msgstr ""
+"Si coché, l'accès au sondage (et au résultat) est restreint à certaines "
+"instances."
 
 #. module: mozaik_survey_chatter
 #: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__int_instance_id
 msgid "Internal instance"
-msgstr ""
+msgstr "Instance interne"
 
 #. module: mozaik_survey_chatter
 #: model:ir.model.fields,help:mozaik_survey_chatter.field_survey_survey__int_instance_id
 msgid "Internal instance of the survey"
-msgstr ""
+msgstr "Instance interne du sondage"
 
 #. module: mozaik_survey_chatter
 #: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__is_private
 msgid "Is private"
-msgstr ""
+msgstr "Accès limité au sondage?"
 
 #. module: mozaik_survey_chatter
 #: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey____last_update
@@ -54,9 +58,9 @@ msgstr ""
 #. module: mozaik_survey_chatter
 #: model:ir.model,name:mozaik_survey_chatter.model_survey_survey
 msgid "Survey"
-msgstr ""
+msgstr "Sondage"
 
 #. module: mozaik_survey_chatter
 #: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__title
 msgid "Survey Title"
-msgstr ""
+msgstr "Titre du sondage"
