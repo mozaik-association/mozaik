@@ -180,7 +180,7 @@ class AbstractSelectionCommittee(models.Model):
 
     def button_non_elect_candidatures(self):
         for candidature in self.candidature_ids:
-            if candidature.state != "elected":
+            if candidature.state == "designated":
                 candidature.button_non_elected_candidature()
         self.action_invalidate({"state": "done"})
         return True
