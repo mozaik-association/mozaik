@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-19 12:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__active
@@ -22,28 +24,28 @@ msgstr ""
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.actions.act_window,name:mozaik_virtual_assembly_instance.add_filter_from_assembly_action
 msgid "Add Filter To Distribution List"
-msgstr ""
+msgstr "Ajouter ce filtre à une liste de distribution"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.actions.act_window,name:mozaik_virtual_assembly_instance.virtual_assembly_instance_action
 #: model:ir.ui.menu,name:mozaik_virtual_assembly_instance.virtual_assembly_instance_menu
 msgid "Assemblies/Instances"
-msgstr ""
+msgstr "Assemblées/Instances"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__category
 msgid "Assembly category"
-msgstr ""
+msgstr "Catégorie d'assemblée"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model,name:mozaik_virtual_assembly_instance.model_virtual_assembly_instance
 msgid "Assembly/Instance"
-msgstr ""
+msgstr "Assemblée/Instance"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__birth_date
 msgid "Birth Date"
-msgstr ""
+msgstr "Date de naissance"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__common_id
@@ -53,39 +55,39 @@ msgstr ""
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__competency_ids
 msgid "Competencies"
-msgstr ""
+msgstr "Compétences"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line__display_name
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Afficher nom"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model,name:mozaik_virtual_assembly_instance.model_distribution_list_line
 msgid "Distribution List Line"
-msgstr ""
+msgstr "Filtre"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__employee
 msgid "Employee"
-msgstr ""
+msgstr "Employé"
 
 #. module: mozaik_virtual_assembly_instance
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "External Assembly"
-msgstr ""
+msgstr "Assemblée externe"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__ext_category_assembly_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "External Assembly Category"
-msgstr ""
+msgstr "Catégorie d'assemblée externe"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__gender
 msgid "Gender"
-msgstr ""
+msgstr "Genre"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line__id
@@ -96,45 +98,45 @@ msgstr ""
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__interest_ids
 msgid "Interests"
-msgstr ""
+msgstr "Intérêts"
 
 #. module: mozaik_virtual_assembly_instance
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "Internal Assembly"
-msgstr ""
+msgstr "Assemblée interne"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__int_category_assembly_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "Internal Assembly Category"
-msgstr ""
+msgstr "Catégorie d'assemblée interne"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__int_instance_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "Internal Instance"
-msgstr ""
+msgstr "Instance interne"
 
 #. module: mozaik_virtual_assembly_instance
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "Internal Instance descending of..."
-msgstr ""
+msgstr "Instance interne descendant de..."
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__int_power_level_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "Internal Power Level"
-msgstr ""
+msgstr "Niveau de pouvoir interne"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__is_company
 msgid "Is a Company"
-msgstr ""
+msgstr "Est une personne morale"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__lang
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line____last_update
@@ -145,47 +147,47 @@ msgstr ""
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__model
 msgid "Model"
-msgstr ""
+msgstr "Modèle"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__identifier
 msgid "Number"
-msgstr ""
+msgstr "Numéro"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__partner_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__partner_instance_ids
 msgid "Partner Internal Instances"
-msgstr ""
+msgstr "Instance interne"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__result_id
 msgid "Result"
-msgstr ""
+msgstr "Résultat"
 
 #. module: mozaik_virtual_assembly_instance
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "State Assembly"
-msgstr ""
+msgstr "Assemblée de l'état"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__sta_category_assembly_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "State Assembly Category"
-msgstr ""
+msgstr "Catégorie d'assemblée de l'état"
 
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__sta_power_level_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "State Power Level"
-msgstr ""
+msgstr "Niveau de pouvoir de l'état"
 
 #. module: mozaik_virtual_assembly_instance
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "Without Coordinate"
-msgstr ""
+msgstr "Injoignable"
