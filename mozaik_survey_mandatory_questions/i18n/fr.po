@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-19 12:56+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
@@ -71,34 +73,34 @@ msgstr ""
 #: code:addons/mozaik_survey_mandatory_questions/models/survey_question_by_default.py:0
 #, python-format
 msgid "A label must be attached to only one question."
-msgstr ""
+msgstr "Un libellé ne peut être lié qu'à une seule question."
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Answers"
-msgstr ""
+msgstr "Réponses"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Choices"
-msgstr ""
+msgstr "Choix"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Constraints"
-msgstr ""
+msgstr "Contraintes"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_answer_by_default__create_uid
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_answer_by_default__create_date
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields.selection,name:mozaik_survey_mandatory_questions.selection__survey_question_by_default__question_type__date
@@ -108,7 +110,7 @@ msgstr ""
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields.selection,name:mozaik_survey_mandatory_questions.selection__survey_question_by_default__question_type__datetime
 msgid "Datetime"
-msgstr ""
+msgstr "Date heure"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_answer_by_default__display_name
@@ -120,7 +122,7 @@ msgstr ""
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__constr_error_msg
 msgid "Error message"
-msgstr ""
+msgstr "Message d'erreur"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_answer_by_default__id
@@ -169,37 +171,37 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__constr_mandatory
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Mandatory Answer"
-msgstr ""
+msgstr "Réponse obligatoire"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields.selection,name:mozaik_survey_mandatory_questions.selection__survey_question_by_default__question_type__matrix
 msgid "Matrix"
-msgstr ""
+msgstr "Matrice"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__matrix_row_ids
 msgid "Matrix Rows"
-msgstr ""
+msgstr "Lignes matrice"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__matrix_subtype
 msgid "Matrix Type"
-msgstr ""
+msgstr "Type matrice"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields.selection,name:mozaik_survey_mandatory_questions.selection__survey_question_by_default__question_type__text_box
 msgid "Multiple Lines Text Box"
-msgstr ""
+msgstr "Texte - plusieurs lignes"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Multiple choice with multiple answers"
-msgstr ""
+msgstr "Plusieurs choix avec plusieurs réponses"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Multiple choice with one answer"
-msgstr ""
+msgstr "Plusieurs choix avec une seule réponse"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields.selection,name:mozaik_survey_mandatory_questions.selection__survey_question_by_default__question_type__multiple_choice
@@ -219,23 +221,23 @@ msgstr ""
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields.selection,name:mozaik_survey_mandatory_questions.selection__survey_question_by_default__question_type__numerical_box
 msgid "Numerical Value"
-msgstr ""
+msgstr "Valeur numérique"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields.selection,name:mozaik_survey_mandatory_questions.selection__survey_question_by_default__matrix_subtype__simple
 msgid "One choice per row"
-msgstr ""
+msgstr "Un choix par ligne"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_answer_by_default__question_id
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Question"
-msgstr ""
+msgstr "Question"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_answer_by_default__matrix_question_id
@@ -245,58 +247,58 @@ msgstr ""
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__question_type
 msgid "Question Type"
-msgstr ""
+msgstr "Type de question"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.actions.act_window,name:mozaik_survey_mandatory_questions.survey_question_by_default_action
 #: model:ir.ui.menu,name:mozaik_survey_mandatory_questions.menu_survey_question_by_default
 msgid "Questions loaded by default"
-msgstr ""
+msgstr "Questions chargées par défaut"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Row1"
-msgstr ""
+msgstr "Ligne 1"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Row2"
-msgstr ""
+msgstr "Ligne 2"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Row3"
-msgstr ""
+msgstr "Ligne 3"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Rows"
-msgstr ""
+msgstr "Lignes"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_survey__question_and_page_ids
 msgid "Sections and Questions"
-msgstr ""
+msgstr "Sections et Questions"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields.selection,name:mozaik_survey_mandatory_questions.selection__survey_question_by_default__question_type__char_box
 msgid "Single Line Text Box"
-msgstr ""
+msgstr "Texte - une seule ligne"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_answer_by_default__value
 msgid "Suggested value"
-msgstr ""
+msgstr "Valeur suggérée"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model,name:mozaik_survey_mandatory_questions.model_survey_survey
 msgid "Survey"
-msgstr ""
+msgstr "Sondage"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
 msgid "Survey Question by default"
-msgstr ""
+msgstr "Question sondage par défaut"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model,name:mozaik_survey_mandatory_questions.model_survey_question_answer_by_default
@@ -304,27 +306,30 @@ msgid ""
 "Template for answers to multiple choice questions that will be loaded in "
 "every new survey."
 msgstr ""
+"Template de réponses à des questions de type 'choix multiple' qui sera "
+"chargé pour chaque nouveau sondage."
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model,name:mozaik_survey_mandatory_questions.model_survey_question_by_default
 msgid "Template for questions that will be loaded in every new survey."
 msgstr ""
+"Template de questions qui seront chargées lors de chaque nouveau sondage."
 
 #. module: mozaik_survey_mandatory_questions
 #: code:addons/mozaik_survey_mandatory_questions/models/survey_question_by_default.py:0
 #, python-format
 msgid "This question requires an answer."
-msgstr ""
+msgstr "Cette question nécessite une réponse."
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__title
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #. module: mozaik_survey_mandatory_questions
 #: model:ir.model.fields,field_description:mozaik_survey_mandatory_questions.field_survey_question_by_default__suggested_answer_ids
 msgid "Types of answers"
-msgstr ""
+msgstr "Types de réponses"
 
 #. module: mozaik_survey_mandatory_questions
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_mandatory_questions.survey_question_by_default_view_form
