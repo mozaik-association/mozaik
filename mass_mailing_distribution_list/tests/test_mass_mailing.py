@@ -22,10 +22,15 @@ class TestMassMailing(TransactionCase):
         }
         self.dist_list = self.env["distribution.list"].create(vals)
 
+        self.dist_list_line_tmpl = self.env["distribution.list.line.template"].create(
+            {
+                "name": str(uuid4()),
+                "src_model_id": self.partner_model_id,
+                "domain": "[('id', 'in', [%d])]" % self.partner.id,
+            }
+        )
         vals = {
-            "name": str(uuid4()),
-            "src_model_id": self.partner_model_id,
-            "domain": "[('id', 'in', [%d])]" % self.partner.id,
+            "distribution_list_line_tmpl_id": self.dist_list_line_tmpl.id,
             "distribution_list_id": self.dist_list.id,
             "bridge_field_id": self.ref("base.field_res_partner__id"),
         }

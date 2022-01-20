@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import _, models
 from odoo.osv import expression
 
 
@@ -12,16 +12,6 @@ class DistributionListLine(models.Model):
         "distribution.list.line",
     ]
     _unicity_keys = "N/A"
-
-    name = fields.Char(
-        tracking=True,
-    )
-    domain = fields.Text(
-        tracking=True,
-    )
-    src_model_id = fields.Many2one(
-        tracking=True,
-    )
 
     def _get_target_recordset(self):
         """

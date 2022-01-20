@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="distribution_list_line_template_search" model="ir.ui.view">
+        <field
+            name="name"
+        >distribution.list.line.template.search (mozaik_communication)</field>
+        <field name="model">distribution.list.line.template</field>
+        <field
+            name="inherit_id"
+            ref="distribution_list.distribution_list_line_template_search_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='src_model_id']" position="after">
+                <separator />
+                <filter
+                    name="expired"
+                    string="Expired"
+                    context="{'invisible_expire_date': False}"
+                    domain="[('active','=',False)]"
+                    help="Expired Filters"
+                />
+                <filter
+                    name="all"
+                    string="All"
+                    context="{'invisible_expire_date': False}"
+                    domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                    help="All Filters, expired or not"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="distribution_list_line_template_tree" model="ir.ui.view">
+        <field
+            name="name"
+        >distribution.list.line.template.tree (mozaik_communication)</field>
+        <field name="model">distribution.list.line.template</field>
+        <field
+            name="inherit_id"
+            ref="distribution_list.distribution_list_line_template_tree_view"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[@name='action_show_filter_result']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                    translation="off"
+                >{'invisible':[('active', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_show_filter_result']" position="after">
+                <button
+                    name="action_show_filter_result_without_coordinate"
+                    attrs="{'invisible':[('active', '=', False)]}"
+                    string="Without Coordinate"
+                    type="object"
+                    icon="fa-address-card text-danger"
+                />
+                <field
+                    name="expire_date"
+                    invisible="context.get('invisible_expire_date', True)"
+                />
+                <field name="active" groups="base.group_erp_manager" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="distribution_list_line_template_form" model="ir.ui.view">
+        <field
+            name="name"
+        >distribution.list.line.template.form (mozaik_communication)</field>
+        <field name="model">distribution.list.line.template</field>
+        <field
+            name="inherit_id"
+            ref="distribution_list.distribution_list_line_template_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button
+                    name="action_show_filter_result_without_coordinate"
+                    class="oe_stat_button"
+                    string="Without Coordinate"
+                    icon="fa-address-card text-danger"
+                    type="object"
+                    attrs="{'invisible': [('id','=',False)]}"
+                />
+
+            <field name="active" invisible="1" />
+            <widget
+                    name="web_ribbon"
+                    title="Archived"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': [('active', '=', True)]}"
+                />
+
+            </xpath>
+
+            <xpath expr="//field[@name='domain']" position="attributes">
+                <attribute
+                    name="attrs"
+                    translation="off"
+                >{'invisible':[('active', '=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='data']" position="after">
+                <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                    <group name="validity">
+                        <field name="create_date" />
+                        <field
+                            name="expire_date"
+                            attrs="{'invisible': [('active','=',True)]}"
+                        />
+                    </group>
+                    <group name="other">
+                    </group>
+                </group>
+            </xpath>
+
+            <xpath expr="//form" position="inside">
+                <div name="chat" class="oe_chatter">
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
