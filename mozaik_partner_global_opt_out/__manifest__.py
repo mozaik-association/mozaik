@@ -11,8 +11,10 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mail",
+        "mozaik_membership_request",
     ],
     "data": [
+        "views/membership_request.xml",
         "views/res_partner.xml",
     ],
     "demo": [],
