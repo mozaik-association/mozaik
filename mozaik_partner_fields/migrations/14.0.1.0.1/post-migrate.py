@@ -8,16 +8,17 @@ from openupgradelib import openupgrade
 @openupgrade.migrate()
 def migrate(env, version):
     cr = env.cr
-    openupgrade.map_values(
-        cr,
-        "civil_status",
-        "marital",
-        [
-            ("s", "separated"),
-            ("m", "married"),
-            ("u", "unmarried"),
-            ("w", "widower"),
-            ("d", "divorced"),
-        ],
-        table="res_partner",
-    )
+    if openupgrade.column_exists(cr, "res_partner", "civil_status"):
+        openupgrade.map_values(
+            cr,
+            "civil_status",
+            "marital",
+            [
+                ("s", "separated"),
+                ("m", "married"),
+                ("u", "unmarried"),
+                ("w", "widower"),
+                ("d", "divorced"),
+            ],
+            table="res_partner",
+        )
