@@ -1,8 +1,10 @@
 # Copyright 2021 ACSONE SA/NV
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo.addons.pydantic import models, utils
-from typing import (List)
+from typing import List
+
+from odoo.addons.pydantic import models
+
 
 class MembershipRequest(models.BaseModel):
     lastname: str
@@ -24,7 +26,7 @@ class MembershipRequest(models.BaseModel):
     interest_ids: List[int] = None
     competency_ids: List[int] = None
     note: str = None
-    distribution_list_ids: int = None
+    distribution_list_ids: List[int] = None
     is_company: bool = False
     involvement_category_ids: List[int] = None
     local_voluntary: bool = False
