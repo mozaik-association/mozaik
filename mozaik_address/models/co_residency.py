@@ -49,12 +49,15 @@ class CoResidency(models.Model):
         for co_residency in self:
             if any(not p.address_address_id for p in co_residency.partner_ids):
                 raise ValidationError(_("All co-resident must have a address"))
+            if len(co_residency.partner_ids.mapped("address_address_id")) == 0:
+                raise ValidationError(_("There must be at least one co-resident"))
             if len(co_residency.partner_ids.mapped("address_address_id")) != 1:
                 raise ValidationError(_("All co-resident must share the same address"))
 
     @api.depends("partner_ids", "partner_ids.address_address_id")
     def _compute_address_id(self):
         for co_residency in self:
-            co_residency.address_id = co_residency.partner_ids.mapped(
-                "address_address_id"
-            )
+            address_ids = co_residency.partner_ids.mapped("address_address_id")
+            if len(address_ids) > 1:
+                raise ValidationError(_("All co-resident must share the same address"))
+            co_residency.address_id = address_ids
