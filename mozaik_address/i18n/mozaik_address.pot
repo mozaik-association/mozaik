@@ -68,6 +68,7 @@ msgstr ""
 
 #. module: mozaik_address
 #: code:addons/mozaik_address/models/co_residency.py:0
+#: code:addons/mozaik_address/models/co_residency.py:0
 #, python-format
 msgid "All co-resident must share the same address"
 msgstr ""
@@ -521,6 +522,12 @@ msgstr ""
 msgid ""
 "The ISO country code in two chars. \n"
 "You can use this field for quick search."
+msgstr ""
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/models/co_residency.py:0
+#, python-format
+msgid "There must be at least one co-resident"
 msgstr ""
 
 #. module: mozaik_address
