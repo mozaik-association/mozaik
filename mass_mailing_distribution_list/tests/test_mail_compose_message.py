@@ -9,6 +9,7 @@ class TestMailComposeMessage(SavepointCase):
     def setUp(self):
         super(TestMailComposeMessage, self).setUp()
         self.dist_list_line_obj = self.env["distribution.list.line"]
+        self.dist_list_line_tmpl_obj = self.env["distribution.list.line.template"]
         self.mass_mailing_obj = self.env["mailing.mailing"]
         self.mail_compose_message_obj = self.env["mail.compose.message"]
         self.dst_model_id = self.env.ref("base.model_res_partner")
@@ -64,10 +65,15 @@ class TestMailComposeMessage(SavepointCase):
         }
         partner = self.env["res.partner"].create(vals)
         dist_list = self.dist_list
+        dist_list_line_tmpl = self.dist_list_line_tmpl_obj.create(
+            {
+                "name": str(uuid4()),
+                "src_model_id": self.dst_model_id.id,
+                "domain": "[('id', 'in', [%s])]" % partner.id,
+            }
+        )
         vals = {
-            "name": str(uuid4()),
-            "src_model_id": self.dst_model_id.id,
-            "domain": "[('id', 'in', [%s])]" % partner.id,
+            "distribution_list_line_tmpl_id": dist_list_line_tmpl.id,
             "distribution_list_id": dist_list.id,
             "bridge_field_id": self.partner_id_field.id,
         }

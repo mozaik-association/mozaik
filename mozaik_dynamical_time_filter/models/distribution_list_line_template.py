@@ -8,9 +8,9 @@ from odoo.osv.expression import normalize_domain
 from odoo.tools.safe_eval import safe_eval
 
 
-class DistributionListLine(models.Model):
+class DistributionListLineTemplate(models.Model):
 
-    _inherit = ["distribution.list.line"]
+    _inherit = "distribution.list.line.template"
     manually_edit_domain = fields.Boolean()
     domain_widget = fields.Char(string="Expression (widget)", default="[]")
     domain_handwritten = fields.Text(string="Expression (handwritten)", default="[]")

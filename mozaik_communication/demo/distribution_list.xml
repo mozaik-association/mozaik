@@ -8,10 +8,20 @@
         <field name="dst_model_id" ref="base.model_res_partner" />
     </record>
 
-    <record id="distribution_list_line_all_nat_pers_1" model="distribution.list.line">
+    <record
+        id="distribution_list_line_tmpl_all_nat_pers_1"
+        model="distribution.list.line.template"
+    >
         <field name="name">All Natural Persons</field>
         <field name="src_model_id" ref="base.model_res_partner" />
         <field name="domain">[('is_company', '=', False)]</field>
+    </record>
+
+    <record id="distribution_list_line_all_nat_pers_1" model="distribution.list.line">
+        <field
+            name="distribution_list_line_tmpl_id"
+            ref="distribution_list_line_tmpl_all_nat_pers_1"
+        />
         <field name="distribution_list_id" ref="everybody_list" />
         <field name="bridge_field_id" ref="base.field_res_partner__id" />
     </record>
@@ -27,10 +37,20 @@
         />
     </record>
 
-    <record id="distribution_list_line_all_nat_pers_2" model="distribution.list.line">
-        <field name="name">All Natural Persons</field>
+    <record
+        id="distribution_list_line_tmpl_all_nat_pers_2"
+        model="distribution.list.line.template"
+    >
+        <field name="name">All Natural Persons 2</field>
         <field name="src_model_id" ref="base.model_res_partner" />
         <field name="domain">[('is_company', '=', False)]</field>
+    </record>
+
+    <record id="distribution_list_line_all_nat_pers_2" model="distribution.list.line">
+        <field
+            name="distribution_list_line_tmpl_id"
+            ref="distribution_list_line_tmpl_all_nat_pers_2"
+        />
         <field name="distribution_list_id" ref="distribution_list_newsletter" />
         <field name="bridge_field_id" ref="base.field_res_partner__id" />
     </record>

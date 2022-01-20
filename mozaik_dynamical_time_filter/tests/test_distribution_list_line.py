@@ -23,18 +23,23 @@ class TestDistributionListLine(TransactionCase):
         bridge_field_id = self.env["ir.model.fields"].search(domain)
         src_model_id = self.env["ir.model"].search([("model", "=", "res.partner")])
         # This filter looks for partners whose field date is equal to today.
-        self.dist_list_line_today = self.env["distribution.list.line"].create(
+        self.tmpl_today = self.env["distribution.list.line.template"].create(
             {
                 "name": "Date equal to Today",
-                "distribution_list_id": self.dist_list_one.id,
                 "domain_widget": "['&',['date','>=','2021-11-09 00:00:00'],"
                 "['date','<=','2021-11-09 23:59:59']]",
                 "manually_edit_domain": False,
-                "bridge_field_id": bridge_field_id.id,
                 "src_model_id": src_model_id.id,
             }
         )
-        self.dist_list_line_today.write(
+        self.dist_list_line_today = self.env["distribution.list.line"].create(
+            {
+                "distribution_list_line_tmpl_id": self.tmpl_today.id,
+                "distribution_list_id": self.dist_list_one.id,
+                "bridge_field_id": bridge_field_id.id,
+            }
+        )
+        self.tmpl_today.write(
             {
                 "manually_edit_domain": True,
                 "domain_handwritten": "['&',['date','>=',"
@@ -44,16 +49,21 @@ class TestDistributionListLine(TransactionCase):
         )
 
         # This filter looks for partners whose field date is less than 30 days ago.
-        self.dist_list_line_30_days = self.env["distribution.list.line"].create(
+        self.tmpl_30_days = self.env["distribution.list.line.template"].create(
             {
                 "name": "Date Less than 30 Days",
-                "distribution_list_id": self.dist_list_two.id,
                 "domain_widget": "[['date','>=','2021-10-09 00:00:00']]",
-                "bridge_field_id": bridge_field_id.id,
                 "src_model_id": src_model_id.id,
             }
         )
-        self.dist_list_line_30_days.write(
+        self.dist_list_line_30_days = self.env["distribution.list.line"].create(
+            {
+                "distribution_list_line_tmpl_id": self.tmpl_30_days.id,
+                "distribution_list_id": self.dist_list_two.id,
+                "bridge_field_id": bridge_field_id.id,
+            }
+        )
+        self.tmpl_30_days.write(
             {
                 "domain_handwritten": "[['date','>=',"
                 "(context_today() - relativedelta(days=30)).strftime('%Y-%m-%d 00:00:00')]]",

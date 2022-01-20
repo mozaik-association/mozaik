@@ -4,9 +4,9 @@
 from odoo import api, models
 
 
-class DistributionListLine(models.Model):
+class DistributionListLineTemplate(models.Model):
 
-    _inherit = "distribution.list.line"
+    _inherit = "distribution.list.line.template"
 
     @api.model
     def _get_src_model_names(self):
@@ -15,4 +15,4 @@ class DistributionListLine(models.Model):
         :return: list of string
         """
         res = super()._get_src_model_names()
-        return res + ["virtual.assembly.instance"]
+        return res + ["virtual.partner.instance"]
