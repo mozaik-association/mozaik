@@ -12,6 +12,7 @@ class TestDistributionList(SavepointCase):
         self.partner_obj = self.env["res.partner"]
         self.dist_list_obj = self.env["distribution.list"]
         self.dist_list_line_obj = self.env["distribution.list.line"]
+        self.dist_list_line_tmpl_obj = self.env["distribution.list.line.template"]
         self.first_user = self.env.ref("distribution_list.first_user")
         self.second_user = self.env.ref("distribution_list.second_user")
         self.partner_model = self.env.ref("base.model_res_partner")
@@ -36,15 +37,22 @@ class TestDistributionList(SavepointCase):
         :return:
         """
         distri_list_obj = self.dist_list_obj
+        distri_list_line_tmpl_obj = self.dist_list_line_tmpl_obj
         user_creator = self.first_user
         user_no_access = self.second_user
         # create distribution_list_line and distribution_list with the first
         # user
         distri_list_obj = distri_list_obj.with_user(user_creator.id)
+        distri_list_line_tmpl_obj = distri_list_line_tmpl_obj.with_user(user_creator.id)
+        tmpl = distri_list_line_tmpl_obj.create(
+            {
+                "name": "employee",
+                "domain": "[('employee', '=', True)]",
+                "src_model_id": self.partner_model.id,
+            }
+        )
         dist_list_line_values = {
-            "name": "employee",
-            "domain": "[('employee', '=', True)]",
-            "src_model_id": self.partner_model.id,
+            "distribution_list_line_tmpl_id": tmpl.id,
             "exclude": False,
             "bridge_field_id": self.partner_id_field.id,
         }
@@ -75,6 +83,7 @@ class TestDistributionList(SavepointCase):
         partner_obj = self.partner_obj
         distri_list_obj = self.dist_list_obj
         distri_list_line_obj = self.dist_list_line_obj
+        distri_list_line_tmpl_obj = self.dist_list_line_tmpl_obj
 
         user_creator = self.first_user
         partner_obj = partner_obj.with_user(user_creator.id)
@@ -111,6 +120,7 @@ class TestDistributionList(SavepointCase):
         partner_obj = self.partner_model
         distri_list_line_obj = distri_list_line_obj.with_user(user_creator.id)
         distri_list_obj = distri_list_obj.with_user(user_creator.id)
+        distri_list_line_tmpl_obj = distri_list_line_tmpl_obj.with_user(user_creator.id)
 
         distribution_list = distri_list_obj.create(
             {
@@ -119,13 +129,27 @@ class TestDistributionList(SavepointCase):
                 "dst_model_id": partner_obj.id,
             }
         )
-        line1 = distri_list_line_obj.create(
+        tmpl1 = distri_list_line_tmpl_obj.create(
             {
                 "name": str(uuid4()),
                 "src_model_id": partner_obj.id,
+                "domain": "[('company_id','=',"
+                + str(user_creator.company_id.id)
+                + ")]",
+            }
+        )
+        line1 = distri_list_line_obj.create(
+            {
+                "distribution_list_line_tmpl_id": tmpl1.id,
                 "company_id": user_creator.company_id.id,
                 "distribution_list_id": distribution_list.id,
                 "bridge_field_id": self.partner_id_field.id,
+            }
+        )
+        tmpl2 = distri_list_line_tmpl_obj.create(
+            {
+                "name": "employee_2",
+                "src_model_id": partner_obj.id,
                 "domain": "[('company_id','=',"
                 + str(user_creator.company_id.id)
                 + ")]",
@@ -133,14 +157,10 @@ class TestDistributionList(SavepointCase):
         )
         line2 = distri_list_line_obj.create(
             {
-                "name": "employee_2",
-                "src_model_id": partner_obj.id,
+                "distribution_list_line_tmpl_id": tmpl2.id,
                 "company_id": user_creator.company_id.id,
                 "distribution_list_id": distribution_list.id,
                 "bridge_field_id": self.partner_id_field.id,
-                "domain": "[('company_id','=',"
-                + str(user_creator.company_id.id)
-                + ")]",
             }
         )
 
@@ -216,6 +236,7 @@ class TestDistributionList(SavepointCase):
         """
         dl_model = self.dist_list_obj
         dl_line_model = self.dist_list_line_obj
+        dl_line_tmpl_model = self.dist_list_line_tmpl_obj
         dst_model_id = self.partner_model
 
         src_dist = dl_model.create(
@@ -224,18 +245,28 @@ class TestDistributionList(SavepointCase):
                 "dst_model_id": dst_model_id.id,
             }
         )
-        dl_line_model.create(
+        tmpl_1 = dl_line_tmpl_model.create(
             {
                 "name": str(uuid4()),
                 "src_model_id": dst_model_id.id,
-                "distribution_list_id": src_dist.id,
-                "bridge_field_id": self.partner_id_field.id,
             }
         )
         dl_line_model.create(
             {
+                "distribution_list_line_tmpl_id": tmpl_1.id,
+                "distribution_list_id": src_dist.id,
+                "bridge_field_id": self.partner_id_field.id,
+            }
+        )
+        tmpl_2 = dl_line_tmpl_model.create(
+            {
                 "name": str(uuid4()),
                 "src_model_id": dst_model_id.id,
+            }
+        )
+        dl_line_model.create(
+            {
+                "distribution_list_line_tmpl_id": tmpl_2.id,
                 "distribution_list_id": src_dist.id,
                 "exclude": True,
                 "bridge_field_id": self.partner_id_field.id,
@@ -248,10 +279,15 @@ class TestDistributionList(SavepointCase):
                 "dst_model_id": dst_model_id.id,
             }
         )
-        dl_line_model.create(
+        tmpl_3 = dl_line_tmpl_model.create(
             {
                 "name": str(uuid4()),
                 "src_model_id": dst_model_id.id,
+            }
+        )
+        dl_line_model.create(
+            {
+                "distribution_list_line_tmpl_id": tmpl_3.id,
                 "distribution_list_id": trg_dist.id,
                 "bridge_field_id": self.partner_id_field.id,
             }
@@ -274,6 +310,7 @@ class TestDistributionList(SavepointCase):
         partner_obj = self.partner_obj
         distri_list_obj = self.dist_list_obj
         distri_list_line_obj = self.dist_list_line_obj
+        distri_list_line_tmpl_obj = self.dist_list_line_tmpl_obj
 
         p9 = partner_obj.create(
             {
@@ -337,29 +374,44 @@ class TestDistributionList(SavepointCase):
                 "dst_model_id": partner_model.id,
             }
         )
-        distri_list_line_obj.create(
+        tmpl1 = distri_list_line_tmpl_obj.create(
             {
                 "name": "filter_one",
                 "domain": "[('name', 'ilike', 'filter_one')]",
                 "src_model_id": partner_model.id,
+            }
+        )
+        distri_list_line_obj.create(
+            {
+                "distribution_list_line_tmpl_id": tmpl1.id,
                 "distribution_list_id": dl.id,
                 "bridge_field_id": self.parent_id_field.id,
             }
         )
-        distri_list_line_obj.create(
+        tmpl2 = distri_list_line_tmpl_obj.create(
             {
                 "name": "filter_two",
                 "domain": "[('name', 'ilike', 'filter_two')]",
                 "src_model_id": partner_model.id,
-                "distribution_list_id": dl.id,
-                "bridge_field_id": self.parent_id_field.id,
             }
         )
         distri_list_line_obj.create(
             {
+                "distribution_list_line_tmpl_id": tmpl2.id,
+                "distribution_list_id": dl.id,
+                "bridge_field_id": self.parent_id_field.id,
+            }
+        )
+        tmpl3 = distri_list_line_tmpl_obj.create(
+            {
                 "name": "filter_three",
                 "domain": "[('name', 'ilike', 'filter_three')]",
                 "src_model_id": partner_model.id,
+            }
+        )
+        distri_list_line_obj.create(
+            {
+                "distribution_list_line_tmpl_id": tmpl3.id,
                 "distribution_list_id": dl.id,
                 "bridge_field_id": self.parent_id_field.id,
             }
@@ -410,6 +462,7 @@ class TestDistributionList(SavepointCase):
         """
         distri_list_obj = self.dist_list_obj
         distri_list_line_obj = self.dist_list_line_obj
+        distri_list_line_tmpl_obj = self.dist_list_line_tmpl_obj
         user = self.first_user
         # create distribution_list_line and distribution_list
         partner_model = self.partner_model
@@ -421,11 +474,16 @@ class TestDistributionList(SavepointCase):
                 "company_id": False,
             }
         )
-        distri_list_line_obj.create(
+        tmpl = distri_list_line_tmpl_obj.create(
             {
                 "name": "employee to copy",
                 "domain": "[('employee', '=', True)]",
                 "src_model_id": partner_model.id,
+            }
+        )
+        distri_list_line_obj.create(
+            {
+                "distribution_list_line_tmpl_id": tmpl.id,
                 "distribution_list_id": distribution_list.id,
                 "bridge_field_id": self.partner_id_field.id,
             }

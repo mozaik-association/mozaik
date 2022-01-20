@@ -45,14 +45,18 @@ class DistributionListAddFilter(models.TransientModel):
             raise exceptions.UserError(
                 _("You have to check the entire list to add the " "current filter")
             )
-        name = self.name
         model = self.env["ir.model"].search([("model", "=", active_model)], limit=1)
+        template = self.env["distribution.list.line.template"].create(
+            {
+                "name": self.name,
+                "domain": domain,
+                "src_model_id": model.id,
+            }
+        )
         self.env["distribution.list.line"].create(
             {
-                "name": name,
-                "domain": domain,
+                "distribution_list_line_tmpl_id": template.id,
                 "exclude": self.exclude,
-                "src_model_id": model.id,
                 "bridge_field_id": self.bridge_field_id.id,
                 "distribution_list_id": self.distribution_list_id.id,
             }

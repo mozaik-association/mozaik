@@ -13,6 +13,7 @@ class TestMailComposeMessage(TransactionCase):
         self.mail_composer_obj = self.env["mail.compose.message"]
         self.distri_list_obj = self.env["distribution.list"]
         self.distri_list_line_obj = self.env["distribution.list.line"]
+        self.distri_list_line_tmpl_obj = self.env["distribution.list.line.template"]
         self.mail_obj = self.env["mail.mail"]
         self.partner_model = self.env.ref("base.model_res_partner")
         self.partner_id_field = self.env.ref("base.field_res_partner__id")
@@ -40,10 +41,15 @@ class TestMailComposeMessage(TransactionCase):
         }
         dist_list = self.distri_list_obj.create(vals)
 
+        tmpl = self.distri_list_line_tmpl_obj.create(
+            {
+                "name": str(uuid4()),
+                "domain": "[['name', '=', '%s']]" % sample_values,
+                "src_model_id": dst_model.id,
+            }
+        )
         vals = {
-            "name": str(uuid4()),
-            "domain": "[['name', '=', '%s']]" % sample_values,
-            "src_model_id": dst_model.id,
+            "distribution_list_line_tmpl_id": tmpl.id,
             "distribution_list_id": dist_list.id,
             "bridge_field_id": self.partner_id_field.id,
         }
