@@ -13,6 +13,7 @@ class TestDistributionList(SavepointCase):
         super(TestDistributionList, self).setUp()
         self.distri_list_obj = self.env["distribution.list"]
         self.distri_list_line_obj = self.env["distribution.list.line"]
+        self.distri_list_line_tmpl_obj = self.env["distribution.list.line.template"]
         self.alias_obj = self.env["mail.alias"]
         self.partner_obj = self.env["res.partner"]
         self.ir_cfg_obj = self.env["ir.config_parameter"].sudo()
@@ -38,10 +39,15 @@ class TestDistributionList(SavepointCase):
             "newsletter": True,
         }
         self.dist_list = self.distri_list_obj.create(vals)
+        self.dist_list_line_tmpl = self.distri_list_line_tmpl_obj.create(
+            {
+                "name": str(uuid4()),
+                "src_model_id": partner_model.id,
+                "domain": "[('id', '=', %d)]" % self.partner.id,
+            }
+        )
         vals = {
-            "name": str(uuid4()),
-            "src_model_id": partner_model.id,
-            "domain": "[('id', '=', %d)]" % self.partner.id,
+            "distribution_list_line_tmpl_id": self.dist_list_line_tmpl.id,
             "distribution_list_id": self.dist_list.id,
             "bridge_field_id": self.partner_id_field.id,
         }

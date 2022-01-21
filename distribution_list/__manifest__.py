@@ -10,15 +10,12 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "category": "Marketing",
-    "depends": [
-        "base",
-        "web",
-        "mail",
-    ],
+    "depends": ["base", "web", "mail"],
     "data": [
         "security/distribution_list_security.xml",
         "security/ir.model.access.csv",
         "views/distribution_list.xml",
+        "views/distribution_list_line_template.xml",
         "views/distribution_list_line.xml",
         "wizards/distribution_list_add_filter.xml",
         "wizards/mail_compose_message.xml",

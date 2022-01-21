@@ -2,14 +2,14 @@
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <record id="distribution_list_line_form_view" model="ir.ui.view">
+    <record id="distribution_list_line_template_form_view" model="ir.ui.view">
         <field
             name="name"
-        >distribution.list.line.form (in mozaik_dynamical_time_filter)</field>
-        <field name="model">distribution.list.line</field>
+        >distribution.list.line.template.form (in mozaik_dynamical_time_filter)</field>
+        <field name="model">distribution.list.line.template</field>
         <field
             name="inherit_id"
-            ref="mozaik_communication.distribution_list_line_form"
+            ref="mozaik_communication.distribution_list_line_template_form"
         />
         <field name="priority" eval="9999" />
         <field name="arch" type="xml">

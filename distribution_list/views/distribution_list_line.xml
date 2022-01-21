@@ -87,10 +87,11 @@
                                 attrs="{'readonly': [('id','!=',False)]}"
                             />
                             <field
-                                name="src_model_id"
-                                widget="selection"
+                                name="distribution_list_line_tmpl_id"
+                                invisible="context.get('default_distribution_list_line_tmpl_id')"
                                 attrs="{'readonly': [('id','!=',False)]}"
                             />
+                            <field name="src_model_id" widget="selection" />
                             <field name="trg_model" invisible="1" />
                             <field
                                 name="bridge_field_id"
@@ -141,6 +142,7 @@
         <field name="name">Filters</field>
         <field name="parent_id" ref="distribution_list_menu" />
         <field name="action" ref="distribution_list_line_action" />
-        <field name="sequence" eval="2" />
+        <field name="sequence" eval="3" />
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]" />
     </record>
 </odoo>

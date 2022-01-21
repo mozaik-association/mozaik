@@ -13,7 +13,7 @@
         "mozaik_communication",
     ],
     "data": [
-        "views/distribution_list_line.xml",
+        "views/distribution_list_line_template.xml",
     ],
     "demo": [],
 }
