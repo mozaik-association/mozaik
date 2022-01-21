@@ -108,14 +108,14 @@ msgid "Date when this email has bounced."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line_template__display_name
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
-#: model:ir.model,name:mozaik_virtual_partner_mass_mailing.model_distribution_list_line
-msgid "Distribution List Line"
+#: model:ir.model,name:mozaik_virtual_partner_mass_mailing.model_distribution_list_line_template
+msgid "Distribution List Line Template"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
@@ -152,7 +152,7 @@ msgid "Gender"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line_template__id
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__id
 msgid "ID"
 msgstr ""
@@ -196,7 +196,7 @@ msgid "Language"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_distribution_list_line_template____last_update
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing____last_update
 msgid "Last Modified on"
 msgstr ""
