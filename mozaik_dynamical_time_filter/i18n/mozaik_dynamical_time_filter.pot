@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "1. Search for records created today (<code>create_date</code> is a datetime field) with a dynamic\n"
 "                            value,\n"
@@ -23,17 +23,17 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid "2. Search for records created in the last 30 days."
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid "3. Search for records created in the last 3 hours."
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "<code>[[\"create_date\",\"&gt;\",<strong>\"2021-09-11\n"
 "                                17:05:54\"</strong>]]\n"
@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "<code>[[\"create_date\",\"&gt;\",<strong>\"2021-10-11\n"
 "                                14:05:54\"</strong>]]\n"
@@ -59,7 +59,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "<code>[[\"create_date\",\"&gt;=\",<strong>\n"
 "                                context_today().strftime('%Y-%m-%d 00:00:00')</strong>],[\"create_date\",\"&lt;=\",<strong>\n"
@@ -68,7 +68,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "<code>[[\"create_date\",\"&gt;=\",<strong>\"2021-10-11\n"
 "                                00:00:00\"</strong>],[\"create_date\",\"&lt;=\",<strong>\"2021-10-11\n"
@@ -78,7 +78,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "<strong>Important:</strong>\n"
 "                            If you edited the domain manually you need to keep\n"
@@ -86,76 +86,76 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Check <strong>Manually edit domain</strong> and follow the instructions."
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: code:addons/mozaik_dynamical_time_filter/models/distribution_list_line.py:0
+#: code:addons/mozaik_dynamical_time_filter/models/distribution_list_line_template.py:0
 #, python-format
 msgid "Couldn't normalize the given domain"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line_template__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model:ir.model,name:mozaik_dynamical_time_filter.model_distribution_list_line
-msgid "Distribution List Line"
+#: model:ir.model,name:mozaik_dynamical_time_filter.model_distribution_list_line_template
+msgid "Distribution List Line Template"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid "Examples"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__domain
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line_template__domain
 msgid "Expression"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__domain_handwritten
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line_template__domain_handwritten
 msgid "Expression (handwritten)"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__domain_widget
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line_template__domain_widget
 msgid "Expression (widget)"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line_template__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "In case you need to add dynamic values for date or datetime\n"
 "                            fields, please:"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line_template____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line__manually_edit_domain
+#: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line_template__manually_edit_domain
 msgid "Manually Edit Domain"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid "Manually edit the domain"
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Now (working with a <code>datetime</code> field)\n"
 "                                <code>context_now().strftime('%Y-%m-%d %H:%M:%S')\n"
@@ -163,7 +163,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Now +/- n hours. (n is integer. ie:10)\n"
 "                                <code>(context_now() +\n"
@@ -173,7 +173,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Now to add dynamic values for date\n"
 "                            fields, use one of the following formulas instead of the\n"
@@ -181,7 +181,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Once you edit the domain manually, you can\n"
 "                            come back to the automatic mode and you will see how\n"
@@ -189,7 +189,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Today (working with a <code>date</code> field)\n"
 "                                <code>context_today().strftime('%Y-%m-%d')\n"
@@ -197,7 +197,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Today (working with a <code>datetime</code> field)\n"
 "                                <code>context_today().strftime('%Y-%m-%d 00:00:00')\n"
@@ -208,7 +208,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Today +/- n days. (n is integer. ie:10)\n"
 "                                <code>(context_today() +\n"
@@ -218,7 +218,7 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_dynamical_time_filter
-#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid ""
 "Write a domain using the concerned field, with a static date/datetime value."
 msgstr ""
