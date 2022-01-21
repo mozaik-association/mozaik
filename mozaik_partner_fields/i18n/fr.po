@@ -122,6 +122,11 @@ msgid "Secondary Website"
 msgstr "Second site web"
 
 #. module: mozaik_partner_fields
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__separated
+msgid "Separated"
+msgstr ""
+
+#. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__single
 msgid "Single"
 msgstr "Célibataire"
@@ -131,6 +136,13 @@ msgstr "Célibataire"
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_twitter
 msgid "Twitter Account"
 msgstr "Compte Twitter"
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__unmarried
+#, fuzzy
+#| msgid "Married"
+msgid "Unmarried"
+msgstr "Marié(e)"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__website
