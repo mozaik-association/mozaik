@@ -3,7 +3,7 @@
 
 from datetime import datetime, timedelta
 
-from psycopg2 import errors
+from psycopg2 import IntegrityError
 
 from odoo import exceptions
 from odoo.tests.common import SavepointCase
@@ -83,7 +83,7 @@ class TestPartnerInvolvement(SavepointCase):
         # copy it: OK
         involvement.copy()
         # create an already existing involvement: NOK
-        with self.assertRaises(errors.UniqueViolation), mute_logger("odoo.sql_db"):
+        with self.assertRaises(IntegrityError), mute_logger("odoo.sql_db"):
             test_creation = self.env["partner.involvement"].create(
                 {
                     "partner_id": paul.id,
