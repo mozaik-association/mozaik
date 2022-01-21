@@ -544,6 +544,12 @@ msgstr ""
 "Vous pouvez utiliser ce champ pour une recherche rapide."
 
 #. module: mozaik_address
+#: code:addons/mozaik_address/models/co_residency.py:0
+#, python-format
+msgid "There must be at least one co-resident"
+msgstr ""
+
+#. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__message_unread
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__message_unread
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__message_unread
