@@ -197,11 +197,17 @@ class DistributionList(models.Model):
                 raise exceptions.UserError(
                     _("The target field doesn't exists in the source model")
                 )
-            if values._fields.get(bridge_field).type != "many2one":
+            if (
+                bridge_field != "id"
+                and values._fields.get(bridge_field).type != "many2one"
+            ):
                 raise exceptions.UserError(
                     _("The target field %s must be a Many2one") % bridge_field
                 )
-            results = values.mapped(bridge_field)
+            if bridge_field != "id":
+                results = values.mapped(bridge_field)
+            else:
+                results = values
             if target_model and target_model != source_model:
                 # apply security
                 results = self.env[target_model].search([("id", "in", results.ids)])
