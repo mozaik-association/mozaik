@@ -76,6 +76,7 @@ msgstr ""
 #. module: distribution_list
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list__create_date
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__create_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__create_date
 msgid "Create Date"
 msgstr ""
 
@@ -83,6 +84,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list__create_uid
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__create_uid
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__create_uid
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__create_uid
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__create_uid
 msgid "Created by"
 msgstr ""
@@ -97,6 +99,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list__display_name
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__display_name
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__display_name
 #: model:ir.model.fields,field_description:distribution_list.field_mail_compose_message__display_name
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__display_name
 msgid "Display Name"
@@ -117,6 +120,12 @@ msgstr ""
 #. module: distribution_list
 #: model:ir.model,name:distribution_list.model_distribution_list_line
 msgid "Distribution List Line"
+msgstr ""
+
+#. module: distribution_list
+#: model:ir.model,name:distribution_list.model_distribution_list_line_template
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__distribution_list_line_tmpl_id
+msgid "Distribution List Line Template"
 msgstr ""
 
 #. module: distribution_list
@@ -149,17 +158,30 @@ msgid "Excluded"
 msgstr ""
 
 #. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__excluded_distribution_list_line_ids
+msgid "Excluded Distribution List Lines"
+msgstr ""
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
+msgid "Excluded Lines"
+msgstr ""
+
+#. module: distribution_list
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__domain
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__domain
 msgid "Expression"
 msgstr ""
 
 #. module: distribution_list
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
 msgid "Filter"
 msgstr ""
 
 #. module: distribution_list
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
 msgid "Filter result"
 msgstr ""
 
@@ -167,6 +189,12 @@ msgstr ""
 #: model:ir.actions.act_window,name:distribution_list.distribution_list_line_action
 #: model:ir.ui.menu,name:distribution_list.distribution_list_line
 msgid "Filters"
+msgstr ""
+
+#. module: distribution_list
+#: model:ir.actions.act_window,name:distribution_list.distribution_list_line_template_action
+#: model:ir.ui.menu,name:distribution_list.distribution_list_line_template
+msgid "Filters Templates"
 msgstr ""
 
 #. module: distribution_list
@@ -185,6 +213,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list__id
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__id
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__id
 #: model:ir.model.fields,field_description:distribution_list.field_mail_compose_message__id
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__id
 msgid "ID"
@@ -196,9 +225,20 @@ msgid "Included"
 msgstr ""
 
 #. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__included_distribution_list_line_ids
+msgid "Included Distribution List Lines"
+msgstr ""
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
+msgid "Included Lines"
+msgstr ""
+
+#. module: distribution_list
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list____last_update
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter____last_update
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template____last_update
 #: model:ir.model.fields,field_description:distribution_list.field_mail_compose_message____last_update
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list____last_update
 msgid "Last Modified on"
@@ -208,6 +248,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list__write_uid
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__write_uid
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__write_uid
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__write_uid
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -216,6 +257,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list__write_date
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__write_date
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__write_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__write_date
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -245,12 +287,14 @@ msgstr ""
 
 #. module: distribution_list
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__src_model_id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__src_model_id
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_search
 msgid "Model"
 msgstr ""
 
 #. module: distribution_list
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__src_model_model
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__src_model_model
 msgid "Model name"
 msgstr ""
 
@@ -258,8 +302,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list__name
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__name
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__name
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__name
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
 msgid "Name"
 msgstr ""
 
@@ -296,6 +342,7 @@ msgstr ""
 
 #. module: distribution_list
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_tree_view
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_tree
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_tree
 msgid "Result"
@@ -304,6 +351,7 @@ msgstr ""
 #. module: distribution_list
 #: code:addons/distribution_list/models/distribution_list.py:0
 #: code:addons/distribution_list/models/distribution_list_line.py:0
+#: code:addons/distribution_list/models/distribution_list_line_template.py:0
 #, python-format
 msgid "Result of %s"
 msgstr ""
@@ -316,7 +364,7 @@ msgid "Target Model"
 msgstr ""
 
 #. module: distribution_list
-#: model:ir.model.constraint,message:distribution_list.constraint_distribution_list_line_unique_name_by_dist_list
+#: model:ir.model.constraint,message:distribution_list.constraint_distribution_list_line_template_unique_name_dist_list_line_tmpl
 msgid ""
 "The name of a filter must be unique. A filter with the same name already "
 "exists."
