@@ -11,9 +11,11 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mail",
+        "mozaik_communication",
         "mozaik_membership_request",
     ],
     "data": [
+        "wizards/distribution_list_mass_function.xml",
         "views/membership_request.xml",
         "views/res_partner.xml",
     ],

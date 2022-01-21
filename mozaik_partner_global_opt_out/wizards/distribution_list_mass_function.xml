@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="distribution_list_mass_function_form_view">
+        <field
+            name="name"
+        >distribution.list.mass.function.form (in mozaik_partner_global_opt_out)</field>
+        <field name="model">distribution.list.mass.function</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.distribution_list_mass_function_wizard"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='include_without_coordinate']" position="after">
+                <field
+                    name="include_opt_out_contacts"
+                    attrs="{'invisible':[('e_mass_function','!=','csv')]}"
+                />
+            </xpath>
+            <xpath expr="//page[@name='mass_mailing']/group[3]" position="after">
+                <group>
+                    <field name="include_opt_out_contacts" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
