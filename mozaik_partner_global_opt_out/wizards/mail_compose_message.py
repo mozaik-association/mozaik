@@ -1,7 +1,7 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class MailComposeMessage(models.TransientModel):
@@ -14,11 +14,21 @@ class MailComposeMessage(models.TransientModel):
         help="If True, include contacts whose email is blacklisted.",
     )
 
+    @api.model
+    def create(self, vals):
+        """
+        If coming from _process_mass_mailing_queue,
+        we check if the mailing_mailing has include_opt_out_contacts
+        """
+        res = super().create(vals)
+        mass_mailing_id = res.mass_mailing_id
+        if len(mass_mailing_id) == 1 and mass_mailing_id.id in self._context.get(
+            "include_opt_out_contacts_mailings", []
+        ):
+            res.write({"include_opt_out_contacts": True})
+        return res
+
     def get_mail_values(self, res_ids):
-        """
-        If the wizard's model is `email.coordinate` then the recipient is the
-        email of the `email.coordinate`
-        """
         res = super().get_mail_values(res_ids)
         if self.include_opt_out_contacts:
             for key in res.keys():

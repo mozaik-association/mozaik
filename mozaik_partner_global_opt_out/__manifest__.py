@@ -15,6 +15,7 @@
         "mozaik_membership_request",
     ],
     "data": [
+        "views/mailing_mailing.xml",
         "wizards/distribution_list_mass_function.xml",
         "views/membership_request.xml",
         "views/res_partner.xml",
