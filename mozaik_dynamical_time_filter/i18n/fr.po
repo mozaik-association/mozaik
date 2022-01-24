@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-24 15:00+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_dynamical_time_filter
 #: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
@@ -159,12 +161,12 @@ msgstr ""
 #. module: mozaik_dynamical_time_filter
 #: model:ir.model.fields,field_description:mozaik_dynamical_time_filter.field_distribution_list_line_template__manually_edit_domain
 msgid "Manually Edit Domain"
-msgstr ""
+msgstr "Editer le domaine manuellement"
 
 #. module: mozaik_dynamical_time_filter
 #: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
 msgid "Manually edit the domain"
-msgstr ""
+msgstr "Editer le domaine manuellement"
 
 #. module: mozaik_dynamical_time_filter
 #: model_terms:ir.ui.view,arch_db:mozaik_dynamical_time_filter.distribution_list_line_template_form_view
