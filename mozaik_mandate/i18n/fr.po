@@ -741,6 +741,13 @@ msgid "Internal Mandates closure"
 msgstr "Clôture de mandats internes"
 
 #. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__int_power_level_id
+#, fuzzy
+#| msgid "Power Level"
+msgid "Internal Power Level"
+msgstr "Niveau de pouvoir"
+
+#. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_is_follower
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_is_follower
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_is_follower
@@ -1254,6 +1261,13 @@ msgstr "Clôture de mandats politiques"
 #: model:ir.cron,name:mozaik_mandate.ir_cron_sta_mandate
 msgid "State Mandates closure"
 msgstr "Clôture de mandats politiques"
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__sta_power_level_id
+#, fuzzy
+#| msgid "Power Level"
+msgid "State Power Level"
+msgstr "Niveau de pouvoir"
 
 #. module: mozaik_mandate
 #: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
