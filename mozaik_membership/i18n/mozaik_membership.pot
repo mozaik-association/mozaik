@@ -106,12 +106,29 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.add_membership_form
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.change_instance_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_close_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_renew_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.membership_renew_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.set_partner_reference_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.update_membership
 msgid "Cancel"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.change_instance_act_window
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.change_instance_form_view
+msgid "Change Instance"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_change_instance
+msgid "Change instance"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_change_address
+msgid "Change the address on a partner"
 msgstr ""
 
 #. module: mozaik_membership
@@ -184,6 +201,7 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__create_uid
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__create_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_close__create_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_renew__create_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__create_uid
@@ -197,6 +215,7 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__create_date
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__create_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_close__create_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_renew__create_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_renew__create_date
@@ -217,6 +236,8 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin__display_name
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_address__display_name
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_instance__display_name
@@ -389,6 +410,8 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin__id
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_address__id
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_instance__id
@@ -436,6 +459,7 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__instance_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__int_instance_id
 #: model:ir.model.fields.selection,name:mozaik_membership.selection__update_membership__update_type__instance
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.membership_line_search_view
@@ -524,6 +548,8 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin____last_update
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_address____last_update
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_instance____last_update
@@ -549,6 +575,7 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__write_uid
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__write_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_close__write_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_renew__write_uid
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__write_uid
@@ -562,6 +589,7 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__write_date
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__write_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_close__write_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_mass_membership_renew__write_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__write_date
@@ -819,6 +847,7 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: mozaik_membership
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.change_instance_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_close_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_renew_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.set_partner_reference_form_view
@@ -837,6 +866,7 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__partner_id
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__partner_ids
 #: model:ir.model.fields.selection,name:mozaik_membership.selection__res_partner__kind__p
 msgid "Partner"
 msgstr ""
@@ -1258,6 +1288,11 @@ msgstr ""
 #. module: mozaik_membership
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.update_membership
 msgid "Update"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_change_address__update_instance
+msgid "Update Instance"
 msgstr ""
 
 #. module: mozaik_membership
