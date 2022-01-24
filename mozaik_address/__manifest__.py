@@ -18,6 +18,7 @@
         "mozaik_abstract_model",
     ],
     "data": [
+        "wizards/change_address.xml",
         "security/res_groups.xml",
         "security/ir.model.access.csv",
         "views/address_address.xml",

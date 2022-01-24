@@ -6,3 +6,4 @@ access_co_residency_res_groups_address_reader,co.residency.res.groups.address.re
 access_co_residency_res_groups_address_user,co.residency.res.groups.address.user,model_co_residency,mozaik_address.res_groups_address_user,0,1,1,0
 access_co_residency_res_groups_address_manager,co.residency.res.groups.address.manager,model_co_residency,mozaik_address.res_groups_address_manager,0,0,0,1
 access_create_co_residency_address_user,access.create.co.residency.address.user,model_create_co_residency_address,mozaik_address.res_groups_address_user,1,1,1,1
+access_change_address_user,access.change.address.user,model_change_address,mozaik_address.res_groups_address_user,1,1,1,1
