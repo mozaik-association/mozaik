@@ -39,6 +39,7 @@ msgstr "Actif"
 #. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_address_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__name
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__address_id
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__address_id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__address_address_id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_users__address_address_id
@@ -110,9 +111,32 @@ msgid "Brussels"
 msgstr "Bruxelles"
 
 #. module: mozaik_address
+#: model_terms:ir.ui.view,arch_db:mozaik_address.change_address_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_address.create_co_residency_address_wizard
 msgid "Cancel"
 msgstr "Annuler"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.change_address_act_window
+#: model_terms:ir.ui.view,arch_db:mozaik_address.change_address_form_view
+#, fuzzy
+#| msgid "New Address"
+msgid "Change Address"
+msgstr "Nouvelle addresse"
+
+#. module: mozaik_address
+#: model_terms:ir.ui.view,arch_db:mozaik_address.view_partner_form
+#, fuzzy
+#| msgid "Change Main Address Wizard"
+msgid "Change address"
+msgstr "Assistant de changement d'adresse principale"
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_change_address
+#, fuzzy
+#| msgid "Change Address or Instance"
+msgid "Change the address on a partner"
+msgstr "Changer l'adresse principale"
 
 #. module: mozaik_address
 #: model:ir.model.fields,help:mozaik_address.field_address_address__enforce_cities
@@ -226,18 +250,21 @@ msgstr "Créé par"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__create_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__create_uid
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__create_uid
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__create_date
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__create_date
 msgid "Created on"
 msgstr "Créé le"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__display_name
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__display_name
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__display_name
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__display_name
@@ -296,6 +323,7 @@ msgstr ""
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__id
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__id
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__id
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__id
@@ -355,6 +383,7 @@ msgstr ""
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address____last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address____last_update
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency____last_update
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address____last_update
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city____last_update
@@ -365,6 +394,7 @@ msgstr "Dernière modification le"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__write_uid
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__write_uid
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__write_uid
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__write_uid
 msgid "Last Updated by"
@@ -372,6 +402,7 @@ msgstr "Dernière mise à jour par"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__write_date
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__write_date
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__write_date
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__write_date
 msgid "Last Updated on"
@@ -463,11 +494,17 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: mozaik_address
+#: model_terms:ir.ui.view,arch_db:mozaik_address.change_address_form_view
+msgid "OK"
+msgstr ""
+
+#. module: mozaik_address
 #: model:res.city,name:mozaik_address.res_city_2
 msgid "Oreye"
 msgstr ""
 
 #. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__partner_ids
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__partner_ids
 msgid "Partner"
 msgstr "Partenaire"
@@ -610,12 +647,6 @@ msgstr "Code postal (Texte)"
 #~ msgid "Allow Duplicates"
 #~ msgstr "Autoriser les doublons"
 
-#~ msgid "Change Address or Instance"
-#~ msgstr "Changer l'adresse principale"
-
-#~ msgid "Change Main Address Wizard"
-#~ msgstr "Assistant de changement d'adresse principale"
-
 #~ msgid "Coordinates"
 #~ msgstr "Coordonnées"
 
@@ -655,9 +686,6 @@ msgstr "Code postal (Texte)"
 
 #~ msgid "Moved"
 #~ msgstr "A déménagé"
-
-#~ msgid "New Address"
-#~ msgstr "Nouvelle addresse"
 
 #~ msgid "New Main Address"
 #~ msgstr "Nouvelle adresse principale"
