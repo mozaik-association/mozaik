@@ -1152,15 +1152,6 @@ class MembershipRequest(models.Model):
             # create new involvements
             self._validate_request_involvement(mr, partner)
 
-            # save membership amount
-            # if mr.amount > 0.0 and mr.reference: TODO
-            #     if (mr.membership_state_id.code == 'without_membership' and
-            #         partner.membership_state_code == 'member_candidate'):
-            #         partner_values.update({
-            #             'reference': mr.reference,
-            #             'amount': mr.amount,
-            #         })
-
             new_code = mr.result_type_id.code
             # save voluntaries
             if new_code not in [
@@ -1292,6 +1283,18 @@ class MembershipRequest(models.Model):
                     )
                     w._onchange_product_id()  # compute the price
                 w.action_add()
+
+                active_memberships = partner.membership_line_ids.filtered(
+                    lambda s: s.active
+                )
+                # save membership amount
+                if mr.amount > 0.0 and mr.reference:
+                    active_memberships.write(
+                        {
+                            "reference": mr.reference,
+                            "price": mr.amount,
+                        }
+                    )
 
     @api.model
     def _validate_request_involvement(self, mr, partner):

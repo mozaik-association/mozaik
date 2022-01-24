@@ -150,6 +150,7 @@ class AddMembership(models.TransientModel):
             [
                 ("int_instance_id", "=", self.int_instance_id.id),
                 ("active", "=", True),
+                ("partner_id", "=", self.partner_id.id),
             ]
         )
         if active_membership:

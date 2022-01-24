@@ -20,7 +20,18 @@
             </xpath>
 
             <xpath expr="//div[hasclass('o_address_format')]" position="after">
-                <field name="address_address_id" />
+
+                <label for="address_address_id" /><div>
+                    <field
+                        name="address_address_id"
+                        attrs="{'readonly': [('id', '!=', False)]}"
+                    /><button
+                        type="action"
+                        name="%(mozaik_address.change_address_act_window)d"
+                        string="Change address"
+                        attrs="{'invisible': [('id', '=', False)]}"
+                    />
+                </div>
                 <field
                     name="co_residency_id"
                     context="{'default_partner_ids': [(4, id)]}"

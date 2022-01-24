@@ -22,6 +22,8 @@
         "mozaik_involvement",
     ],
     "data": [
+        "wizards/change_instance.xml",
+        "wizards/change_address.xml",
         "data/membership_state.xml",
         "data/product_category.xml",
         "data/res_partner.xml",

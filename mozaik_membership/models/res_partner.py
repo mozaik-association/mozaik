@@ -101,6 +101,18 @@ class ResPartner(models.Model):
     def _default_force_int_instance_id(self):
         return first(self.env.user.partner_id.int_instance_m2m_ids)
 
+    @api.onchange("address_address_id")
+    def _onchange_address_address_id(self):
+        for partner in self:
+            if (
+                partner.address_address_id
+                and not partner.membership_line_ids
+                and partner.address_address_id.city_id.int_instance_id
+            ):
+                partner.force_int_instance_id = (
+                    partner.address_address_id.city_id.int_instance_id
+                )
+
     @api.constrains("membership_line_ids", "is_company")
     def _constrains_membership_line_ids(self):
         """

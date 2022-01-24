@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="change_address_form_view">
+        <field name="name">change.address.form (in mozaik_address)</field>
+        <field name="model">change.address</field>
+        <field name="arch" type="xml">
+            <form string="Change Address">
+                <group>
+                    <field name="address_id" />
+                </group>
+                <footer>
+                    <button name="doit" string="OK" class="btn-primary" type="object" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="change_address_act_window">
+        <field name="name">Change Address</field>
+        <field name="res_model">change.address</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="change_address_form_view" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
+    </record>
+
+</odoo>
