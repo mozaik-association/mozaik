@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-01-18 17:56+0000\n"
+"PO-Revision-Date: 2022-01-24 12:56+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -360,7 +360,7 @@ msgstr "Créé le"
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
 msgid "Declare"
-msgstr "Déclarer"
+msgstr "Déclarer les candidatures"
 
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
