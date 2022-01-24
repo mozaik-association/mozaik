@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="change_address_form_view">
+        <field name="name">change.address.form (in mozaik_membership)</field>
+        <field name="model">change.address</field>
+        <field name="inherit_id" ref="mozaik_address.change_address_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='address_id']" position="after">
+                <field name="update_instance" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
