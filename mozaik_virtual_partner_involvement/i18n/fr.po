@@ -58,14 +58,16 @@ msgid "Competencies & Topics"
 msgstr "Compétences & thèmes"
 
 #. module: mozaik_virtual_partner_involvement
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_distribution_list_line_template__display_name
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__display_name
 msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: mozaik_virtual_partner_involvement
-#: model:ir.model,name:mozaik_virtual_partner_involvement.model_distribution_list_line
-msgid "Distribution List Line"
+#: model:ir.model,name:mozaik_virtual_partner_involvement.model_distribution_list_line_template
+#, fuzzy
+#| msgid "Distribution List Line"
+msgid "Distribution List Line Template"
 msgstr "Filtre"
 
 #. module: mozaik_virtual_partner_involvement
@@ -95,7 +97,7 @@ msgid "Gender"
 msgstr "Genre"
 
 #. module: mozaik_virtual_partner_involvement
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_distribution_list_line_template__id
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__id
 msgid "ID"
 msgstr "ID"
@@ -181,7 +183,7 @@ msgid "Language"
 msgstr "Langue"
 
 #. module: mozaik_virtual_partner_involvement
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_distribution_list_line_template____last_update
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
