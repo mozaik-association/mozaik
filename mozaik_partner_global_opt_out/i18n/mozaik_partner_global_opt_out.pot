@@ -1,0 +1,144 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_partner_global_opt_out
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_partner_global_opt_out
+#: code:addons/mozaik_partner_global_opt_out/models/res_partner.py:0
+#, python-format
+msgid "Cannot tick global opt-out without a valid email."
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: code:addons/mozaik_partner_global_opt_out/models/membership_request.py:0
+#, python-format
+msgid "Cannot tick simultaneously both 'global opt-out' and 'global opt-in'"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model,name:mozaik_partner_global_opt_out.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_distribution_list_mass_function__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mail_blacklist__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mail_compose_message__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mailing_mailing__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_membership_request__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model,name:mozaik_partner_global_opt_out.model_mail_compose_message
+msgid "Email composition wizard"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_membership_request__force_global_opt_in
+msgid "Force global opt-in"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_membership_request__force_global_opt_out
+msgid "Force global opt-out"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_abstract_assembly__global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_ext_assembly__global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_int_assembly__global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_res_partner__global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_res_users__global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_sta_assembly__global_opt_out
+msgid "Global opt-out"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_distribution_list_mass_function__id
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mail_blacklist__id
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mail_compose_message__id
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mailing_mailing__id
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_membership_request__id
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_account_invoice_send__include_opt_out_contacts
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_account_tour_upload_bill__include_opt_out_contacts
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_distribution_list_mass_function__include_opt_out_contacts
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_mail_compose_message__include_opt_out_contacts
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_mailing_mailing__include_opt_out_contacts
+msgid "If True, include contacts whose email is blacklisted."
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_membership_request__force_global_opt_in
+msgid "If ticked, set the field 'Global opt-out' to False on the partner."
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_membership_request__force_global_opt_out
+msgid "If ticked, set the field 'Global opt-out' to True on the partner."
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_abstract_assembly__global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_ext_assembly__global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_int_assembly__global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_res_partner__global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_res_users__global_opt_out
+#: model:ir.model.fields,help:mozaik_partner_global_opt_out.field_sta_assembly__global_opt_out
+msgid "If true, the email address is blacklisted"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_account_invoice_send__include_opt_out_contacts
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_account_tour_upload_bill__include_opt_out_contacts
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_distribution_list_mass_function__include_opt_out_contacts
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mail_compose_message__include_opt_out_contacts
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mailing_mailing__include_opt_out_contacts
+msgid "Include opt-out contacts"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_distribution_list_mass_function____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mail_blacklist____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mail_compose_message____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_mailing_mailing____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_membership_request____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model,name:mozaik_partner_global_opt_out.model_mail_blacklist
+msgid "Mail Blacklist"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model,name:mozaik_partner_global_opt_out.model_distribution_list_mass_function
+msgid "Mass Function"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model,name:mozaik_partner_global_opt_out.model_mailing_mailing
+msgid "Mass Mailing"
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
+#: model:ir.model,name:mozaik_partner_global_opt_out.model_membership_request
+msgid "Membership Request"
+msgstr ""
