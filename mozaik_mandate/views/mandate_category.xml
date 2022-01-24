@@ -238,6 +238,14 @@
                     invisible="context.get('default_type', False)!='ext'"
                 />
                 <field
+                    name="sta_power_level_id"
+                    invisible="context.get('default_type', False)!='sta'"
+                />
+                <field
+                    name="int_power_level_id"
+                    invisible="context.get('default_type', False)!='int'"
+                />
+                <field
                     name="expire_date"
                     invisible="context.get('invisible_expire_date', True)"
                 />
