@@ -60,6 +60,7 @@ msgstr "Modèle virtuel abstrait"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_needaction
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_needaction
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_needaction
 msgid "Action Needed"
 msgstr ""
 
@@ -67,12 +68,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__active
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__active
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__active
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__active
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__active
 msgid "Active"
 msgstr "Actif/ve"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
 msgid "All"
 msgstr "Tous"
@@ -84,6 +87,7 @@ msgstr "Toutes les listes de distributions, expirées ou non"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_search
 msgid "All Filters, expired or not"
 msgstr "Tous les filtres, expirés ou non"
 
@@ -100,6 +104,7 @@ msgstr ""
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_form
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_form
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_form
 msgid "Archived"
 msgstr "Archivé"
 
@@ -111,6 +116,7 @@ msgstr "Joindre un fichier"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_attachment_count
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_attachment_count
 #, fuzzy
 #| msgid "Attachments"
 msgid "Attachment Count"
@@ -271,6 +277,7 @@ msgstr "Code pays"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__create_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__create_date
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__create_date
 #, fuzzy
 #| msgid "Created by"
 msgid "Create Date"
@@ -306,6 +313,7 @@ msgstr "Partner de diffusion"
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_email_template_placeholder__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__display_name
@@ -332,6 +340,13 @@ msgstr "Liste de distribution"
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_distribution_list_line
 msgid "Distribution List Line"
+msgstr "Filtre"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_distribution_list_line_template
+#, fuzzy
+#| msgid "Distribution List Line"
+msgid "Distribution List Line Template"
 msgstr "Filtre"
 
 #. module: mozaik_communication
@@ -424,6 +439,7 @@ msgstr "Exécuter la liste de distribution"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__expire_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__expire_date
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__expire_date
 #, fuzzy
 #| msgid "Birth Date"
 msgid "Expiration Date"
@@ -431,6 +447,7 @@ msgstr "Date de naissance"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
 msgid "Expired"
 msgstr "Expiré"
@@ -442,6 +459,7 @@ msgstr "Listes de distribution expirées"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_search
 msgid "Expired Filters"
 msgstr "Filtres expirés"
 
@@ -466,7 +484,7 @@ msgid "Export Filename"
 msgstr "Fichier d'export"
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__domain
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__domain
 msgid "Expression"
 msgstr ""
 
@@ -491,18 +509,21 @@ msgstr "Prénom"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_follower_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_follower_ids
 msgid "Followers"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_channel_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_channel_ids
 msgid "Followers (Channels)"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_partner_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_partner_ids
 #, fuzzy
 #| msgid "Allowed partners"
 msgid "Followers (Partners)"
@@ -552,6 +573,7 @@ msgstr "Grouper par Co-résidence"
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_email_template_placeholder__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__id
@@ -578,6 +600,8 @@ msgstr "Numéro d'identification"
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list__message_unread
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_needaction
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_unread
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_needaction
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
@@ -586,6 +610,8 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_has_error
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_has_error
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -637,6 +663,7 @@ msgstr "Catégorie de participation"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_is_follower
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_is_follower
 msgid "Is Follower"
 msgstr ""
 
@@ -658,6 +685,7 @@ msgstr "Langue"
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_email_template_placeholder____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv____last_update
@@ -725,6 +753,7 @@ msgstr "Publipostages"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_main_attachment_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_main_attachment_id
 #, fuzzy
 #| msgid "Attachments"
 msgid "Main Attachment"
@@ -805,12 +834,14 @@ msgstr "Statut d'adhésion"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_has_error
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_has_error
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_has_error
 msgid "Message Delivery error"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_ids
 msgid "Messages"
 msgstr ""
 
@@ -821,7 +852,7 @@ msgid "Mobile"
 msgstr "Mobile"
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__src_model_id
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__src_model_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_email_template_placeholder__model_id
 msgid "Model"
 msgstr ""
@@ -845,7 +876,7 @@ msgstr "Mes modèles"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__name
-#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__name
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__name
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__name
 #: model:ir.model.fields.selection,name:mozaik_communication.selection__distribution_list_mass_function__sort_by__technical_name
 #, python-format
@@ -881,30 +912,35 @@ msgstr "Numéro"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_needaction_counter
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_needaction_counter
 msgid "Number of Actions"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_has_error_counter
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_has_error_counter
 msgid "Number of errors"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list__message_needaction_counter
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_needaction_counter
 msgid "Number of messages which requires an action"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list__message_has_error_counter
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list__message_unread_counter
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_unread_counter
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_unread_counter
 msgid "Number of unread messages"
 msgstr ""
 
@@ -1038,6 +1074,7 @@ msgstr "Résultat"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/distribution_list.py:0
 #: code:addons/mozaik_communication/models/distribution_list_line.py:0
+#: code:addons/mozaik_communication/models/distribution_list_line_template.py:0
 #, python-format
 msgid "Result of %s without coordinate"
 msgstr "Résultat de %s (injoignables)"
@@ -1045,6 +1082,7 @@ msgstr "Résultat de %s (injoignables)"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_has_sms_error
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr ""
 
@@ -1160,12 +1198,14 @@ msgstr "Essai"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_unread
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_unread
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_unread
 msgid "Unread Messages"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_unread_counter
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr ""
 
@@ -1200,18 +1240,22 @@ msgstr "Modèles virtuels"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__website_message_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__website_message_ids
 msgid "Website Messages"
 msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list__website_message_ids
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__website_message_ids
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__website_message_ids
 msgid "Website communication history"
 msgstr ""
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_form
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_form
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_form
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_tree
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_tree
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_tree
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
