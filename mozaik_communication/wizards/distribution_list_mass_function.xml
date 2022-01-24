@@ -108,7 +108,7 @@
                             <group>
                                 <field
                                     name="mail_template_id"
-                                    domain="[('model_id.model','=','email.coordinate')]"
+                                    domain="[('model_id.model','=','res.partner')]"
                                 />
                                 <field name="mass_mailing_name" />
                             </group>
