@@ -31,6 +31,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='request_type']" position="after">
                 <field name="distribution_list_ids" widget="many2many_tags" />
+                <field name="distribution_list_ids_opt_out" widget="many2many_tags" />
             </xpath>
         </field>
     </record>
