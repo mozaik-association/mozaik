@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-01-24 15:00+0000\n"
+"PO-Revision-Date: 2022-01-24 18:56+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -87,7 +87,7 @@ msgstr "Personne décédée"
 #: model:ir.model.fields,field_description:mozaik_person_deceased.field_sta_assembly__is_deceased
 #: model_terms:ir.ui.view,arch_db:mozaik_person_deceased.res_partner_form_view
 msgid "Deceased partner"
-msgstr "Personne décédée"
+msgstr "Décédé(e)"
 
 #. module: mozaik_person_deceased
 #: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__display_name
