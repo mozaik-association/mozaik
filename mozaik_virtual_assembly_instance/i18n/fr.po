@@ -58,14 +58,16 @@ msgid "Competencies"
 msgstr "Compétences"
 
 #. module: mozaik_virtual_assembly_instance
-#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line_template__display_name
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__display_name
 msgid "Display Name"
 msgstr "Afficher nom"
 
 #. module: mozaik_virtual_assembly_instance
-#: model:ir.model,name:mozaik_virtual_assembly_instance.model_distribution_list_line
-msgid "Distribution List Line"
+#: model:ir.model,name:mozaik_virtual_assembly_instance.model_distribution_list_line_template
+#, fuzzy
+#| msgid "Distribution List Line"
+msgid "Distribution List Line Template"
 msgstr "Filtre"
 
 #. module: mozaik_virtual_assembly_instance
@@ -90,7 +92,7 @@ msgid "Gender"
 msgstr "Genre"
 
 #. module: mozaik_virtual_assembly_instance
-#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line_template__id
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__id
 msgid "ID"
 msgstr ""
@@ -139,7 +141,7 @@ msgid "Language"
 msgstr "Langue"
 
 #. module: mozaik_virtual_assembly_instance
-#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_distribution_list_line_template____last_update
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance____last_update
 msgid "Last Modified on"
 msgstr ""
