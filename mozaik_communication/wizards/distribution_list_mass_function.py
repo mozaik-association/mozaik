@@ -277,8 +277,14 @@ class DistributionListMassFunction(models.TransientModel):
             if self.bounce_counter:
                 bounce_counter = max([self.bounce_counter, 0])
                 main_domain.append(("email_bounce_counter", "<=", bounce_counter))
+        model_contact = self.env["ir.model"].search([("model", "=", "res.partner")])
+        main_object_field = (
+            "id"
+            if self.distribution_list_id.dst_model_id == model_contact
+            else "partner_id"
+        )
         self = self.with_context(
-            main_object_field="partner_id",
+            main_object_field=main_object_field,
             main_target_model="res.partner",
         )
         if fct == "csv":
