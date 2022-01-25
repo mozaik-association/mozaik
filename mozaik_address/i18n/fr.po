@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-18 18:32+0000\n"
-"PO-Revision-Date: 2022-01-18 15:00+0000\n"
+"PO-Revision-Date: 2022-01-25 11:56+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -119,24 +119,18 @@ msgstr "Annuler"
 #. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.change_address_act_window
 #: model_terms:ir.ui.view,arch_db:mozaik_address.change_address_form_view
-#, fuzzy
-#| msgid "New Address"
 msgid "Change Address"
-msgstr "Nouvelle addresse"
+msgstr "Modifier l'adresse postale"
 
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.view_partner_form
-#, fuzzy
-#| msgid "Change Main Address Wizard"
 msgid "Change address"
-msgstr "Assistant de changement d'adresse principale"
+msgstr "Modifier l'adresse postale"
 
 #. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_change_address
-#, fuzzy
-#| msgid "Change Address or Instance"
 msgid "Change the address on a partner"
-msgstr "Changer l'adresse principale"
+msgstr "Modifier l'adresse"
 
 #. module: mozaik_address
 #: model:ir.model.fields,help:mozaik_address.field_address_address__enforce_cities
