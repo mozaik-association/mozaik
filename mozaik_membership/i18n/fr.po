@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-28 19:21+0000\n"
-"PO-Revision-Date: 2022-01-24 15:00+0000\n"
+"PO-Revision-Date: 2022-01-25 11:56+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -130,24 +130,18 @@ msgstr "Annuler"
 #. module: mozaik_membership
 #: model:ir.actions.act_window,name:mozaik_membership.change_instance_act_window
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.change_instance_form_view
-#, fuzzy
-#| msgid "Instance"
 msgid "Change Instance"
-msgstr "Instance"
+msgstr "Modifier l'instance du partenaire"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_change_instance
-#, fuzzy
-#| msgid "New instance"
 msgid "Change instance"
-msgstr "Nouvelle instance"
+msgstr "Modifier l'instance du partenaire"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_change_address
-#, fuzzy
-#| msgid "Change address"
 msgid "Change the address on a partner"
-msgstr "Changement d'adresse"
+msgstr "Modifier l'adresse sur un partenaire"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_abstract_assembly__is_excluded
