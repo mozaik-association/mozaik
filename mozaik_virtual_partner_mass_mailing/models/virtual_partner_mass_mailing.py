@@ -30,6 +30,9 @@ class VirtualPartnerMassMailing(models.Model):
         help="Date when this email has been replied for the first time."
     )
     bounced = fields.Datetime(help="Date when this email has bounced.")
+    clicked = fields.Datetime(
+        help="Date when customer clicked on at least one tracked link"
+    )
     state = fields.Selection(
         selection=[
             ("outgoing", "Outgoing"),
@@ -69,6 +72,7 @@ class VirtualPartnerMassMailing(models.Model):
             mt.opened,
             mt.replied,
             mt.bounced,
+            mt.clicked,
             mt.state,
             mt.failure_type"""
         )
