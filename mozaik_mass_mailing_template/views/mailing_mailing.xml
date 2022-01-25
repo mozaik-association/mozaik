@@ -25,7 +25,7 @@
             </xpath>
             <xpath expr="//field[@name='body_arch']" position="attributes">
                 <attribute name="options">
-                    {}
+                    {'inline-field': 'body_html'}
                 </attribute>
                 <attribute name="widget">
                     html
