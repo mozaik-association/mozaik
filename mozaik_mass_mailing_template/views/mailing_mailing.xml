@@ -10,11 +10,17 @@
         <field name="model">mailing.mailing</field>
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='body_html']" position="attributes">
+                <attribute name="attrs">
+                    {'invisible' : 1}
+                </attribute>
+            </xpath>
             <xpath expr="//field[@name='body_html']" position="before">
                 <label for="mail_template_id" />
                 <field
                     name="mail_template_id"
                     domain="[('model_id.model','=','res.partner')]"
+                    attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
                 />
             </xpath>
             <xpath expr="//field[@name='body_arch']" position="attributes">
@@ -34,6 +40,7 @@
                     name="save_as_template"
                     string="Save as new template"
                     class="pull-right"
+                    attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
                 />
             </xpath>
 
