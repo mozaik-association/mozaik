@@ -9,6 +9,7 @@ class StaPowerLevel(models.Model):
     _name = "sta.power.level"
     _inherit = ["abstract.power.level"]
     _description = "State Power Level"
+    _order = "name"
 
     assembly_category_ids = fields.One2many(
         comodel_name="sta.assembly.category",
