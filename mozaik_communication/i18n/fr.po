@@ -886,7 +886,16 @@ msgstr "Personnes physiques"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_membership_request__distribution_list_ids
-msgid "Newsletters"
+#, fuzzy
+#| msgid "Newsletters"
+msgid "Newsletters (opt-in)"
+msgstr "Lettres d'information"
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_membership_request__distribution_list_ids_opt_out
+#, fuzzy
+#| msgid "Newsletters"
+msgid "Newsletters (opt-out)"
 msgstr "Lettres d'information"
 
 #. module: mozaik_communication
@@ -1255,6 +1264,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/models/membership_request.py:0
+#, python-format
+msgid ""
+"You cannot add the same newsletter to newsletters (opt-in) and newsletters "
+"(opt-out)."
+msgstr ""
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
