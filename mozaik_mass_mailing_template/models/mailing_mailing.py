@@ -13,6 +13,17 @@ class MailingMailing(models.Model):
         string="Email Template",
     )
 
+    @api.model
+    def create(self, vals):
+        if "body_arch" in vals:
+            vals["body_html"] = vals["body_arch"]
+        return super().create(vals)
+
+    def write(self, vals):
+        if "body_arch" in vals:
+            vals["body_html"] = vals["body_arch"]
+        super().write(vals)
+
     @api.onchange("mail_template_id")
     def _onchange_template_id(self):
         """
