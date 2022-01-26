@@ -69,6 +69,8 @@
                     name="groups"
                     translation="off"
                 >base.group_erp_manager</attribute>
+                 <!-- Button mass mailing becomes invisible in v14: use mass action instead -->
+                <attribute name="attrs">{'invisible':1}</attribute>
             </xpath>
 
             <xpath expr="//button[@name='mass_mailing']" position="after">
