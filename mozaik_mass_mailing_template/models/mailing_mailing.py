@@ -15,8 +15,21 @@ class MailingMailing(models.Model):
 
     @api.model
     def create(self, vals):
-        if "body_arch" in vals:
-            vals["body_html"] = vals["body_arch"]
+        mass_mailing_from_mass_action = self._context.get(
+            "mass_mailing_from_mass_action", False
+        )
+        vals_to_add = {}
+        if (
+            mass_mailing_from_mass_action
+            and "body_html" in vals
+            and "body_arch" not in vals
+        ):
+            vals_to_add["body_arch"] = vals["body_html"]
+        elif "body_arch" in vals:
+            vals_to_add["body_html"] = vals["body_arch"]
+
+        if vals_to_add.keys():
+            vals.update(vals_to_add)
         return super().create(vals)
 
     def write(self, vals):
