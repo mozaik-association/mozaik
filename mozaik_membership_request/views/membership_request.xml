@@ -349,6 +349,7 @@
                                 <field name="local_zip" invisible="1" />
                                 <field
                                 name="address_local_street_id"
+                                domain="[('local_zip', '=', local_zip)]"
                                 attrs="{'invisible': [('enforce_cities','!=', True)]}"
                                 options='{"no_open":True, "no_create":True}'
                             />

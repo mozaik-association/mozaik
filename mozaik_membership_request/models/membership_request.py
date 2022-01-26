@@ -93,13 +93,15 @@ class MembershipRequest(models.Model):
     enforce_cities = fields.Boolean(related="country_id.enforce_cities", readonly=True)
 
     city_id = fields.Many2one(comodel_name="res.city", string="City", tracking=True)
-    local_zip = fields.Char(related="city_id.zipcode", string="Local Zip")
+    local_zip = fields.Char(related="city_id.zipcode", string="Local Zip", store=True)
     zip_man = fields.Char(string="Zip", tracking=True)
 
     city_man = fields.Char(string="City (Manual)", tracking=True)
 
     address_local_street_id = fields.Many2one(
-        comodel_name="address.local.street", string="Reference Street", tracking=True
+        comodel_name="address.local.street",
+        string="Reference Street",
+        tracking=True,
     )
     street_man = fields.Char(string="Street", tracking=True)
     street2 = fields.Char(string="Street2", tracking=True)
