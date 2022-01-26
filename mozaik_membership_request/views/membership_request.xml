@@ -352,10 +352,7 @@
                                 attrs="{'invisible': [('enforce_cities','!=', True)]}"
                                 options='{"no_open":True, "no_create":True}'
                             />
-                                <field
-                                name="street_man"
-                                attrs="{'invisible': [('city_id','!=', False)]}"
-                            />
+                                <field name="street_man" />
                                 <field name="street2" />
                             </group>
                             <group
