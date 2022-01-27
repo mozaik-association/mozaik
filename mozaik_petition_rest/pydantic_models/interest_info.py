@@ -6,11 +6,9 @@ from datetime import datetime
 from odoo.addons.pydantic import models, utils
 
 
-class ThesaurusTermInfo(models.BaseModel):
+class InterestInfo(models.BaseModel):
     id: int
-    name: str
-    active: bool
-    write_date: datetime
+    name = str
 
     class Config:
         orm_mode = True

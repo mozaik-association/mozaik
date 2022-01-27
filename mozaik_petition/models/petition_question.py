@@ -3,6 +3,8 @@
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError
+import pydantic
+from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 
 
 class PetitionQuestion(models.Model):

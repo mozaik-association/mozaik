@@ -7,10 +7,10 @@ from odoo.exceptions import MissingError
 from odoo.addons.component.core import AbstractComponent
 
 
-class BaseThesaurusService(AbstractComponent):
+class BasePetitionService(AbstractComponent):
     _inherit = "base.rest.service"
-    _name = "base.thesaurus.rest.service"
-    _collection = "thesaurus.rest.services"
+    _name = "base.petition.rest.service"
+    _collection = "petition.rest.services"
     _expose_model = None
 
     def _get(self, _id):
