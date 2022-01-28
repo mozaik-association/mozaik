@@ -1,4 +1,7 @@
 from . import event_info
+from . import event_question_answer
+from . import event_question_info
+from . import event_registration_request
 from . import event_search_filter
 from . import event_stage_info
 from . import event_stage_search_filter
