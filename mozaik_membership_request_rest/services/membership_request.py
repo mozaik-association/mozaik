@@ -46,6 +46,22 @@ class MembershipRequestService(Component):
         mr_obj = self.env["membership.request"]
         vals = membership_request.dict()
 
+        if vals["distribution_list_ids_opt_out"]:
+            dlists_optout = self.env["distribution.list"].search(
+                [
+                    ("code", "in", vals["distribution_list_ids_opt_out"]),
+                    ("newsletter", "=", True),
+                ]
+            )
+            if dlists_optout:
+                vals["distribution_list_ids_opt_out"] = [(6, 0, dlists_optout.ids)]
+            else:
+                del vals["distribution_list_ids_opt_out"]
+                _logger.info(
+                    "Unknown distribution_list_ids with code %s",
+                    vals["distribution_list_ids_opt_out"],
+                )
+
         if vals["distribution_list_ids"]:
             dlists = self.env["distribution.list"].search(
                 [
