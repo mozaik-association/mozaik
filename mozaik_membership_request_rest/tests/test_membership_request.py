@@ -13,9 +13,9 @@ class MembershipRequestCase(BaseRestCase, PydanticMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        collection = _PseudoCollection("membership.request.rest.services", cls.env)
+        collection = _PseudoCollection("membership.request.rest.service", cls.env)
         cls.services_env = WorkContext(
-            model_name="membership.request.rest.service",
+            model_name="rest.service.registration",
             collection=collection,
             request=request,
         )
@@ -24,7 +24,6 @@ class MembershipRequestCase(BaseRestCase, PydanticMixin):
     def setUp(self):
         # resolve an inheritance issue (common.TransactionCase does not call
         # super)
-        super().setUp()
         BaseRestCase.setUp(self)
         PydanticMixin.setUp(self)
 
@@ -39,6 +38,6 @@ class MembershipRequestCase(BaseRestCase, PydanticMixin):
             "request_type": "m",
         }
         # Create first membership request without autovalidate
-        res = self.service.dispatch("post", vals)
-        mr = self.env["membership.request"].browse(res.id)
+        res = self.service.dispatch("post", vals, {1})
+        mr = self.env["membership.request"].search(['id', '=', res.id])
         self.assertEqual(mr.id, res.id)
