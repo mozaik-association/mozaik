@@ -27,6 +27,9 @@ class MembershipRequest(models.BaseModel):
     competency_ids: List[int] = None
     note: str = None
     distribution_list_ids: List[int] = None
+    distribution_list_ids_opt_out: List[int] = None
+    force_global_opt_out: bool = False
+    force_global_opt_in: bool = False
     is_company: bool = False
     involvement_category_ids: List[int] = None
     local_voluntary: bool = False
