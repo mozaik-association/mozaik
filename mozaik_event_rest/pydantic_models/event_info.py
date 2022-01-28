@@ -14,6 +14,7 @@ from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import
     ThesaurusTermInfo,
 )
 
+from .event_question_info import EventQuestionInfo
 from .event_website_domain_info import EventWebsiteDomainInfo
 from .partner_address_info import PartnerAddressInfo
 
@@ -31,3 +32,4 @@ class EventShortInfo(BaseEventShortInfo, extends=BaseEventShortInfo):
 class EventInfo(BaseEventInfo, extends=BaseEventInfo):
     publish_date: date = None
     website_url: str = None
+    questions: List[EventQuestionInfo] = pydantic.Field([], alias="question_ids")
