@@ -3,13 +3,13 @@
 
 from datetime import date
 from typing import List
+
 import pydantic
 
-from odoo.addons.pydantic import models, utils
-from .interest_info import InterestInfo
-from .milestone_info import MilestoneInfo
-from .question_info import QuestionInfo
+from odoo.addons.pydantic import models
+
 from .petition_registration_answer import PetitionRegistrationAnswer
+
 
 class PetitionRegistration(models.BaseModel):
     lastname: str
@@ -20,5 +20,6 @@ class PetitionRegistration(models.BaseModel):
     country_id: int
     date_open: date
     petition_id: int
-    list_answer: List[PetitionRegistrationAnswer] = pydantic.Field([],
-                                                        alias="petition_registration_answer_ids")
+    list_answer: List[PetitionRegistrationAnswer] = pydantic.Field(
+        [], alias="petition_registration_answer_ids"
+    )
