@@ -91,9 +91,13 @@ class PetitionRegistrationService(Component):
                 registered_answer = self.env["petition.registration.answer"].create(
                     vals_answer[answer]
                 )
-                answer_list_id.append(registered_answer)
+                answer_list_id.append(registered_answer.id)
             # Updating registration with answers
-            vals_answer = {"value_answer_id": answer_list_id}
+            vals_answer = {"registration_answer_ids": (4, answer_list_id)}
             res.update(vals)
 
             return PetitionRegistrationInfo.from_orm(res)
+        else:
+            raise exceptions.ValidationError(
+                _("Question Mandatory not answered")
+            )
