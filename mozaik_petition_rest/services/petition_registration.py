@@ -5,7 +5,7 @@
 from odoo import _, exceptions
 
 from odoo.addons.base_rest import restapi
-from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
+from odoo.addons.base_rest_pydantic.restapi import PydanticModel
 from odoo.addons.component.core import Component
 
 from ..pydantic_models.petition_registration import PetitionRegistration
@@ -22,17 +22,12 @@ class PetitionRegistrationService(Component):
     @restapi.method(
         routes=[(["/register_answer"], "POST")],
         input_param=PydanticModel(PetitionRegistration),
-        output_param=PydanticModelList(PetitionRegistrationInfo),
+        output_param=PydanticModel(PetitionRegistrationInfo),
         auth="public_or_default",
     )
     def register_answer(
         self, petition_registration: PetitionRegistration
     ) -> PetitionRegistrationInfo:
-        vals = petition_registration.dict()
-        del vals["list_answer"]
-        res = self.env["petition.registration"].create(vals)
-        # Store the answer in a variable to create all answer in once
-        vals_answer = {}
         # Variable for control
         answer_validated = True
         # Checking every answer before register it
@@ -41,6 +36,37 @@ class PetitionRegistrationService(Component):
                 [("id", "=", answer.question_id)]
             )
             if question:
+                if question.question_type == "simple_choice":
+                    if question.is_mandatory:
+                        if answer.value_answer_id is None:
+                            answer_validated = False
+                            raise exceptions.ValidationError(
+                                _("Question with id: '%s' , is Mandatory" % question.id)
+                            )
+                elif question.question_type == "text_box":
+                    if question.is_mandatory:
+                        if answer.value_text_box is None:
+                            answer_validated = False
+                            raise exceptions.ValidationError(
+                                _("Question with id: '%s' , is Mandatory" % question.id)
+                            )
+                elif question.question_type == "tickbox":
+                    if question.is_mandatory:
+                        if answer.value_tickbox is None:
+                            answer_validated = False
+                            raise exceptions.ValidationError(
+                                _("Question with id: '%s' , is Mandatory" % question.id)
+                            )
+            else:
+                answer_validated = False
+
+        if answer_validated:
+            vals = petition_registration.dict()
+            del vals["list_answer"]
+            res = self.env["petition.registration"].create(vals)
+            # Store the answer in a variable to create all answer in once
+            vals_answer = {}
+            for answer in petition_registration.list_answer:
                 vals_answer[question.id] = {}
                 vals_answer[question.id]["question_id"] = answer.question_id
                 vals_answer[question.id]["petition_id"] = [
@@ -48,50 +74,12 @@ class PetitionRegistrationService(Component):
                 ]
                 vals_answer[question.id]["registration_id"] = res.petition_id.id
                 if question.question_type == "simple_choice":
-                    if question.is_mandatory:
-                        if answer.value_answer_id:
-                            vals_answer[question.id][
-                                "value_answer_id"
-                            ] = answer.value_answer_id
-                        else:
-                            answer_validated = False
-                            raise exceptions.ValidationError(
-                                _("Question with id: '%s' , is Mandatory" % question.id)
-                            )
-                    else:
-                        vals_answer[question.id][
-                            "value_answer_id"
-                        ] = answer.value_answer_id
+                    vals_answer[question.id]["value_answer_id"] = answer.value_answer_id
                 elif question.question_type == "text_box":
-                    if question.is_mandatory:
-                        if answer.value_text_box:
-                            vals_answer[question.id][
-                                "value_text_box"
-                            ] = answer.value_text_box
-                        else:
-                            answer_validated = False
-                            raise exceptions.ValidationError(
-                                _("Question with id: '%s' , is Mandatory" % question.id)
-                            )
-                    else:
-                        vals_answer[question.id][
-                            "value_text_box"
-                        ] = answer.value_text_box
+                    vals_answer[question.id]["value_text_box"] = answer.value_text_box
                 elif question.question_type == "tickbox":
-                    if question.is_mandatory:
-                        if answer.value_tickbox is not None:
-                            vals_answer[question.id][
-                                "value_tickbox"
-                            ] = answer.value_tickbox
-                        else:
-                            answer_validated = False
-                            raise exceptions.ValidationError(
-                                _("Question with id: '%s' , is Mandatory" % question.id)
-                            )
+                    vals_answer[question.id]["value_tickbox"] = answer.value_tickbox
 
-                    else:
-                        vals_answer[question.id]["value_tickbox"] = answer.value_tickbox
-        if answer_validated:
             answer_list_id = {}
             for answer in vals_answer:
                 registered_answer = self.env["petition.registration.answer"].create(
@@ -101,5 +89,5 @@ class PetitionRegistrationService(Component):
 
             vals_answer = {"list_answer": answer_list_id}
             res.update(vals)
-            PetitionRegistration.petition_id = res.id
-        return PetitionRegistrationInfo
+
+            return PetitionRegistrationInfo.from_orm(res)
