@@ -8,7 +8,7 @@ from odoo.addons.pydantic import models, utils
 
 
 class SurveyUserInputRequest(models.BaseModel):
-    user_input_lines: Dict[str, Union[str, List, Dict]]
+    user_input_lines: Dict[str, Union[str, List[str], Dict[str, List[str]]]]
 
     class Config:
         orm_mode = True

@@ -14,9 +14,9 @@ from .survey_question_answer_info import SurveyQuestionAnswerInfo
 class SurveyQuestionInfo(models.BaseModel):
     id: int
     title: str
-    page_id: int
+    page_id: int = None
     question_type: str
-    description: str
+    description: str = None
     validation_required: bool = False
     validation_email: bool = False
     validation_length_min: int = 0
@@ -32,10 +32,10 @@ class SurveyQuestionInfo(models.BaseModel):
     is_conditional: bool = False
     triggering_question_id: int = None
     matrix_rows: List[SurveyQuestionAnswerInfo] = pydantic.Field(
-        [], alias="matrix_row_ids"
+        None, alias="matrix_row_ids"
     )
     suggested_answers: List[SurveyQuestionAnswerInfo] = pydantic.Field(
-        [], alias="suggested_answer_ids"
+        None, alias="suggested_answer_ids"
     )
     matrix_subtype: str = None
 

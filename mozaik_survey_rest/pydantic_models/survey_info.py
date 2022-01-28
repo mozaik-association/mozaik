@@ -20,7 +20,7 @@ from .survey_question_info import SurveyQuestionInfo
 class SurveyShortInfo(models.BaseModel):
     id: int
     title: str
-    description: str
+    description: str = None
     interests: List[ThesaurusTermInfo] = pydantic.Field(None, alias="interest_ids")
 
     class Config:
