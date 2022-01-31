@@ -16,7 +16,7 @@ msgstr ""
 #. module: mozaik_single_instance
 #: code:addons/mozaik_single_instance/models/res_partner.py:0
 #, python-format
-msgid "A partner cannot have more than one instance"
+msgid "A partner (%s) cannot have more than one instance"
 msgstr ""
 
 #. module: mozaik_single_instance
