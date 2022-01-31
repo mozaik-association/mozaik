@@ -6,23 +6,33 @@ from typing import List
 
 import pydantic
 
+from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import (
+    ThesaurusTermInfo,
+)
 from odoo.addons.pydantic import models, utils
 
-from .interest_info import InterestInfo
-from .milestone_info import MilestoneInfo
-from .question_info import QuestionInfo
+from .petition_milestone_info import PetitionMilestoneInfo
+from .petition_question_info import PetitionQuestionInfo
 
 
-class PetitionInfo(models.BaseModel):
+class PetitionShortInfo(models.BaseModel):
+    id: int
     title: str
-    description: str = None
-    date_begin: date = None
-    date_end: date = None
-    interest_ids: List[InterestInfo] = pydantic.Field([], alias="interest_ids")
+    date_begin: date
+    date_end: date
+    interest_ids: List[ThesaurusTermInfo] = pydantic.Field([], alias="interest_ids")
     note: str = None
-    milestone_ids: List[MilestoneInfo] = pydantic.Field([], alias="milestone_ids")
-    question_ids: List[QuestionInfo] = pydantic.Field([], alias="question_ids")
+    milestone_ids: List[PetitionMilestoneInfo] = pydantic.Field(
+        [], alias="milestone_ids"
+    )
 
     class Config:
         orm_mode = True
         getter_dict = utils.GenericOdooGetter
+
+
+class PetitionInfo(PetitionShortInfo):
+    description: str = None
+    is_private: bool = None
+    internal_instance_id: int = None
+    question_ids: List[PetitionQuestionInfo] = pydantic.Field([], alias="question_ids")
