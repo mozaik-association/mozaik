@@ -103,6 +103,7 @@
         "mozaik_membership_request_autovalidate",
         "mozaik_membership_request_from_registration",
         "mozaik_membership_request_protected_values",
+        "mozaik_membership_rest",
         "mozaik_petition",
         "mozaik_petition_membership_request_involvement",
         "mozaik_petition_involvement_category",
