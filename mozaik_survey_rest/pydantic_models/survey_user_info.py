@@ -15,13 +15,13 @@ class SurveyUserInputLineInfo(models.BaseModel):
     id: int
     question_id: int
     answer_type: str = None
-    skipped: bool
+    skipped: bool = None
     value_text_box: str = None
     value_char_box: str = None
     value_numerical_box: float = None
     value_date: date = None
     value_datetime: datetime = None
-    suggested_answer_id: SurveyQuestionAnswerInfo = pydantic.Field(
+    suggested_answer: SurveyQuestionAnswerInfo = pydantic.Field(
         None, alias="suggested_answer_id"
     )
 
@@ -33,8 +33,8 @@ class SurveyUserInputLineInfo(models.BaseModel):
 class SurveyUserInputInfo(models.BaseModel):
     id: int
     survey_id: int
-    user_input_line_ids: List[SurveyUserInputLineInfo] = pydantic.Field(
-        None, alias="user_input_line_ids"
+    user_input_lines: List[SurveyUserInputLineInfo] = pydantic.Field(
+        [], alias="user_input_line_ids"
     )
 
     class Config:
