@@ -21,7 +21,7 @@ class SurveyShortInfo(models.BaseModel):
     id: int
     title: str
     description: str = None
-    interests: List[ThesaurusTermInfo] = pydantic.Field(None, alias="interest_ids")
+    interests: List[ThesaurusTermInfo] = pydantic.Field([], alias="interest_ids")
 
     class Config:
         orm_mode = True
@@ -29,10 +29,10 @@ class SurveyShortInfo(models.BaseModel):
 
 
 class SurveyInfo(SurveyShortInfo):
-    users_login_required: bool
-    page_ids: List[SurveyPageInfo] = pydantic.Field(None, alias="page_ids")
-    question_ids: List[SurveyQuestionInfo] = pydantic.Field(None, alias="question_ids")
-    questions_layout: str = None
+    users_login_required: bool = None
+    pages: List[SurveyPageInfo] = pydantic.Field([], alias="page_ids")
+    questions: List[SurveyQuestionInfo] = pydantic.Field([], alias="question_ids")
+    questions_layout: str
     publish_date: date = None
-    is_private: bool
+    is_private: bool = None
     int_instance_id: int = None

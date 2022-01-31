@@ -41,11 +41,11 @@ class SurveyService(Component):
             domain.append(("title", "ilike", filters.title))
         if filters.id:
             domain.append(("id", "=", filters.id))
-        if filters.is_private:
+        if filters.is_private is not None:
             domain.append(("is_private", "=", filters.is_private))
-            if filters.int_instance_id:
-                # Filtering on instance iff is_private=True
-                domain.append(("int_instance_id", "=", filters.int_instance_id))
+        if filters.is_private and filters.int_instance_id:
+            # Filtering on instance iff is_private=True
+            domain.append(("int_instance_id", "=", filters.int_instance_id))
         if filters.publish_date_before:
             domain.append(("publish_date", "<", filters.publish_date_before))
         if filters.publish_date_after:
@@ -147,9 +147,7 @@ class SurveyService(Component):
         self, _id: int, input_data: SurveyUserInputRequest
     ) -> SurveyUserInputInfo:
 
-        survey = self.env["survey.survey"].search([("id", "=", _id)])
-        if not survey:
-            raise ValidationError(_("Survey with id %d cannot be found.") % _id)
+        survey = self._get(_id)
 
         # Validate the input structure
         errors = self._validate_input_structure(input_data)
