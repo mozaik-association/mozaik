@@ -1,12 +1,13 @@
 # Copyright 2021 ACSONE SA/NV
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+
 from odoo.addons.pydantic import models, utils
 
 
-class AnswerInfo(models.BaseModel):
+class PetitionMilestoneInfo(models.BaseModel):
     id: int
-    name: str
+    value: int
 
     class Config:
         orm_mode = True

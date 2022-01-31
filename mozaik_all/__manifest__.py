@@ -107,6 +107,7 @@
         "mozaik_petition_membership_request_involvement",
         "mozaik_petition_involvement_category",
         "mozaik_petition_question_involvement_category",
+        "mozaik_petition_rest",
         "mozaik_petition_thesaurus",
         "mozaik_retrocession_mode",
         "mozaik_survey_background_image",
