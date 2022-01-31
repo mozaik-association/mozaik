@@ -695,7 +695,9 @@ class MembershipLine(models.Model):
     def _job_close_and_renew(self, date_from=False):
         date_to = fields.Date.from_string(date_from) - timedelta(days=1)
         lines = self._close(date_to=fields.Date.to_string(date_to))
-        return lines._renew(date_from=date_from)
+        if lines:
+            lines = lines._renew(date_from=date_from)
+        return lines
 
     def _close_and_renew(self, date_from=False):
         self.with_delay(
@@ -757,9 +759,11 @@ class MembershipLine(models.Model):
         lines = self._close(date_to=fields.Date.to_string(date_to), force=True)
         for membership in self:
             membership.partner_id.stored_reference = membership.reference
-        return lines._change_state(
-            from_state, to_state, date_from=date_from, force=True
-        )
+        if lines:
+            lines = lines._change_state(
+                from_state, to_state, date_from=date_from, force=True
+            )
+        return lines
 
     def _change_state(self, from_state, to_state, date_from=False, force=False):
         """
