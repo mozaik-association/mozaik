@@ -34,6 +34,10 @@
                     None
                 </attribute>
             </xpath>
+            <xpath expr="//field[@name='body_arch']" position="before">
+                <separator />
+                <label for="body_arch" string="Body" />
+            </xpath>
             <xpath expr="//field[@name='body_arch']" position="after">
                  <button
                     type="object"

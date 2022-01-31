@@ -345,10 +345,18 @@ class DistributionListMassFunction(models.TransientModel):
                 dl_computed=True,
             )
             # Send mass mailing
-            mail_composer = self._create_mail_composer()
+            mail_composer = self.with_context(
+                {"mass_mailing_from_mass_action": True}
+            )._create_mail_composer()
             mail_composer.send_mail()
 
             if self.mass_mailing_name:
+                # If several mass mailings with the same name, take the most recent
+                # (due to _order="sent_date DESC" on mailing.mailing)
+                mass_mailing = self.env["mailing.mailing"].search(
+                    [("name", "=", self.mass_mailing_name)]
+                )[0]
+                self._update_mass_mailing(mail_composer, mass_mailing)
                 self._post_processing(mains)
         return alternatives, mains
 
@@ -390,6 +398,20 @@ class DistributionListMassFunction(models.TransientModel):
                 }
             )
         return composer_obj.create(mail_composer_vals)
+
+    def _update_mass_mailing(self, mail_composer, mass_mailing):
+        """
+        Update mass mailing recipients model and domain.
+        """
+        if mail_composer and mass_mailing:
+            mass_mailing.write(
+                {
+                    "mailing_model_id": self.env["ir.model"]
+                    .search([("model", "=", "distribution.list")])
+                    .id,
+                    "distribution_list_id": mail_composer.distribution_list_id.id,
+                }
+            )
 
     def export_csv(self, model, targets, group_by=False):
         """
