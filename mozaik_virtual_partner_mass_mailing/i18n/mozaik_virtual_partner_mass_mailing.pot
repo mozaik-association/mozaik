@@ -46,6 +46,12 @@ msgid "Bounced"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__clicked
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
+msgid "Clicked"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__common_id
 msgid "Common ID"
 msgstr ""
@@ -73,6 +79,11 @@ msgstr ""
 #. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__exception
 msgid "Date of technical error leading to the email not being sent"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,help:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__clicked
+msgid "Date when customer clicked on at least one tracked link"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing

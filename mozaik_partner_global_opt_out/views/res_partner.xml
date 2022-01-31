@@ -6,9 +6,9 @@
     <record model="ir.ui.view" id="res_partner_form_view">
         <field name="name">res.partner.form (in mozaik_partner_global_opt_out)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="inherit_id" ref="mail.res_partner_view_form_inherit_mail" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='mobile']" position="after">
+            <xpath expr="//label[@for='email']" position="before">
                 <field
                     name="global_opt_out"
                     attrs="{'invisible': [('email', '=', False)]}"

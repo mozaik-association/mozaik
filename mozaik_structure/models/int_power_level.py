@@ -9,6 +9,7 @@ class IntPowerLevel(models.Model):
     _name = "int.power.level"
     _inherit = ["abstract.power.level"]
     _description = "Internal Power Level"
+    _order = "name"
 
     assembly_category_ids = fields.One2many(
         comodel_name="int.assembly.category",

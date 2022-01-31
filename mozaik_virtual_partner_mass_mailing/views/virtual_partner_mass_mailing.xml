@@ -21,6 +21,7 @@
                 <field name="opened" optional="show" />
                 <field name="replied" optional="show" />
                 <field name="bounced" optional="show" />
+                <field name="clicked" optional="show" />
                 <field name="state" optional="show" />
                 <field name="failure_type" optional="hide" />
                 <field name="int_instance_id" />
@@ -114,6 +115,11 @@
                     string="Bounced"
                     name="bounced"
                     domain="['!',('bounced', '=', False)]"
+                />
+                <filter
+                    string="Clicked"
+                    name="clicked"
+                    domain="['!',('clicked', '=', False)]"
                 />
                 <separator />
                 <filter
