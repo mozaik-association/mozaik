@@ -28,4 +28,6 @@ class ResPartner(models.Model):
             # in some cases force_int_instance_id is removed after the create,
             # so we need to allow it
             if len(p.int_instance_ids - p.force_int_instance_id) > 1:
-                raise ValidationError(_("A partner cannot have more than one instance"))
+                raise ValidationError(
+                    _("A partner (%s) cannot have more than one instance") % p.id
+                )

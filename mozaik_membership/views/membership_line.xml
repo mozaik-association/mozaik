@@ -88,8 +88,6 @@
                 decoration-muted="active==False"
                 decoration-success="active and state_code=='member'"
                 decoration-danger="active and state_code in ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member']"
-                create="0"
-                delete="0"
             >
                 <field name="partner_id" />
                 <field name="int_instance_id" />
