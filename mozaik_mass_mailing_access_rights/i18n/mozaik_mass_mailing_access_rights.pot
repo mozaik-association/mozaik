@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mass_mailing_access_rights
+#: model:ir.ui.menu,name:mozaik_mass_mailing_access_rights.menu_email_templates_email_marketing
+msgid "Mail Templates"
+msgstr ""
+
+#. module: mozaik_mass_mailing_access_rights
 #: model:res.groups,name:mozaik_mass_mailing_access_rights.group_mass_mailing_manager
 msgid "Manager"
 msgstr ""
