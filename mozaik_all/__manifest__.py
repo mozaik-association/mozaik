@@ -48,6 +48,7 @@
         "mozaik_partner_button_sms",
         "mozaik_partner_fields",
         "mozaik_partner_global_opt_out",
+        "mozaik_partner_unemployed",
         "mozaik_partner_website",
         # 'mozaik_partner_unauthorized',
         "mozaik_person",
