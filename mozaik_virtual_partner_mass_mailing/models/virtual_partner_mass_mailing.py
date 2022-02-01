@@ -16,6 +16,9 @@ class VirtualPartnerMassMailing(models.Model):
     mass_mailing_id = fields.Many2one(
         "mailing.mailing", string="Corresponding mass mailing"
     )
+    mass_mailing_name = fields.Char(
+        string="Mass mailing name", related="mass_mailing_id.name"
+    )
     ignored = fields.Datetime(
         help="Date when the email has been invalidated. "
         "Invalid emails are blacklisted, opted-out or invalid email format"
