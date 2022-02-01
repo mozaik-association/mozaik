@@ -13,7 +13,7 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
-                <field name="mass_mailing_id" />
+                <field name="mass_mailing_name" />
                 <field name="ignored" optional="show" />
                 <field name="scheduled" optional="hide" />
                 <field name="sent" optional="show" />
@@ -46,7 +46,11 @@
                     name="birth_date"
                     filter_domain="[('birth_date','&lt;',self)]"
                 />
-                <field string="Mass mailing" name="mass_mailing_id" />
+                <field
+                    string="Mass mailing"
+                    name="mass_mailing_name"
+                    filter_domain="[('mass_mailing_name', 'ilike', self)]"
+                />
                 <field name="partner_id" />
                 <field name="int_instance_id" />
                 <field
