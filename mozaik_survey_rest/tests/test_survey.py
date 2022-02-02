@@ -117,7 +117,7 @@ class SurveyCase(BaseRestCase, PydanticMixin):
 
     def test_register_survey(self):
         vals = {
-            "user_input_line_ids": {str(self.question_text_box.id): "Dummy answer"},
+            "user_input_lines": {str(self.question_text_box.id): "Dummy answer"},
         }
         answer = self.service.dispatch("user_answer", self.survey.id, params=vals)
         self.env["survey.user_input"].browse(answer["id"])
