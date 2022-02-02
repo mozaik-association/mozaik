@@ -13,6 +13,11 @@
         "base_rest",
         "base_rest_pydantic",
         "mozaik_membership",
+        "mozaik_country_rest",
+        "mozaik_distribution_list_rest",
+        "mozaik_involvement_rest",
+        "mozaik_partner_unemployed",
+        "mozaik_thesaurus_api",
     ],
     "data": [],
     "external_dependencies": {

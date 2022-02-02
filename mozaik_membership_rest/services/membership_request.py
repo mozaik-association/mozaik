@@ -2,10 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-import collections
 import logging
-
-from odoo.exceptions import UserError
 
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel
@@ -34,6 +31,79 @@ class MembershipRequestService(Component):
         membership_request = self._get(_id)
         return MembershipRequestInfo.from_orm(membership_request)
 
+    def _validate_membership_request_input(self, input_data):
+        vals = input_data.dict()
+        if vals["distribution_list_ids"]:
+            dlists = self.env["distribution.list"].search(
+                [
+                    ("id", "in", vals["distribution_list_ids"]),
+                    ("newsletter", "=", True),
+                ]
+            )
+            if dlists:
+                vals["distribution_list_ids"] = [(6, 0, dlists.ids)]
+            else:
+                del vals["distribution_list_ids"]
+                _logger.info(
+                    "Unknown distribution_list_ids with id %s",
+                    vals["distribution_list_ids"],
+                )
+        if vals["involvement_category_ids"]:
+            if vals["involvement_category_ids"]:
+                cats = self.env["partner.involvement.category"].search(
+                    [("id", "in", vals["involvement_category_ids"])]
+                )
+            if cats:
+                vals["involvement_category_ids"] = [(6, 0, cats.ids)]
+            else:
+                del vals["involvement_category_ids"]
+                _logger.info(
+                    "Unknown involvements with id %s",
+                    vals["involvement_category_ids"],
+                )
+        if vals["interest_ids"]:
+            if vals["interest_ids"]:
+                cats = self.env["thesaurus.term"].search(
+                    [("id", "in", vals["interest_ids"])]
+                )
+            if cats:
+                vals["interest_ids"] = [(6, 0, cats.ids)]
+            else:
+                del vals["interest_ids"]
+                _logger.info(
+                    "Unknown interest with id %s",
+                    vals["interest_ids"],
+                )
+        if vals["competency_ids"]:
+            if vals["competency_ids"]:
+                cats = self.env["thesaurus.term"].search(
+                    [("id", "in", vals["competency_ids"])]
+                )
+            if cats:
+                vals["competency_ids"] = [(6, 0, cats.ids)]
+            else:
+                del vals["competency_ids"]
+                _logger.info(
+                    "Unknown competency with id %s",
+                    vals["competency_ids"],
+                )
+        if vals["nationality_id"]:
+            nat = self.env["res.country"].search([("id", "=", vals["nationality_id"])])
+            if nat:
+                vals["nationality_id"] = nat.id
+            else:
+                del vals["nationality_id"]
+                _logger.info("Unknown nationality with id %s", vals["nationality_id"])
+        if vals["country_id"]:
+            nat = self.env["res.country"].search([("id", "=", vals["country_id"])])
+            if nat:
+                vals["country_id"] = nat.id
+            else:
+                del vals["country_id"]
+                _logger.info("Unknown nationality with id %s", vals["country_id"])
+        del vals["auto_validate"]
+        return vals
+
     @restapi.method(
         routes=[(["/membership_request"], "POST")],
         input_param=PydanticModel(MembershipRequest),
@@ -43,68 +113,9 @@ class MembershipRequestService(Component):
     def membership_request(
         self, membership_request: MembershipRequest
     ) -> MembershipRequestInfo:
-        vals = membership_request.dict()
-
-        if vals["distribution_list_ids_opt_out"]:
-            dlists_optout = self.env["distribution.list"].search(
-                [
-                    ("code", "in", vals["distribution_list_ids_opt_out"]),
-                    ("newsletter", "=", True),
-                ]
-            )
-            if dlists_optout:
-                vals["distribution_list_ids_opt_out"] = [(6, 0, dlists_optout.ids)]
-            else:
-                del vals["distribution_list_ids_opt_out"]
-                _logger.info(
-                    "Unknown distribution_list_ids with code %s",
-                    vals["distribution_list_ids_opt_out"],
-                )
-
-        if vals["distribution_list_ids"]:
-            dlists = self.env["distribution.list"].search(
-                [
-                    ("code", "in", vals["distribution_list_ids"]),
-                    ("newsletter", "=", True),
-                ]
-            )
-            if dlists:
-                vals["distribution_list_ids"] = [(6, 0, dlists.ids)]
-            else:
-                del vals["distribution_list_ids"]
-                _logger.info(
-                    "Unknown distribution_list_ids with code %s",
-                    vals["distribution_list_ids"],
-                )
-        if vals["involvement_category_ids"]:
-            if not isinstance(vals["involvement_category_ids"], collections.Iterable):
-                cats = self.env["partner.involvement.category"].search(
-                    [("code", "in", vals["involvement_category_ids"])]
-                )
-            if cats:
-                vals["involvement_category_ids"] = [(6, 0, cats.ids)]
-            else:
-                del vals["involvement_category_ids"]
-                _logger.info(
-                    "Unknown involvements with code %s",
-                    vals["involvement_category_ids"],
-                )
-        if vals["nationality_id"]:
-            nat = self.env["res.country"].search(
-                [("code", "=", vals["nationality_id"])]
-            )
-            if nat:
-                vals["nationality_id"] = nat.id
-            else:
-                del vals["nationality_id"]
-                _logger.info("Unknown nationality with code %s", vals["nationality"])
-        try:
-            mr = self.env["membership.request"].with_context(autoval=True).create(vals)
-            if membership_request.auto_validate:
-                mr.validate_request()
-        except Exception as e:
-            raise UserError(
-                self.env.user.id, "Membership Request", "CREATE ERROR", e.message
-            ) from e
+        vals = self._validate_membership_request_input(membership_request)
+        mr = self.env["membership.request"].create(vals)
+        if membership_request.auto_validate:
+            mr.validate_request()
 
         return MembershipRequestInfo.from_orm(mr)
