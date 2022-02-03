@@ -40,6 +40,7 @@ class SurveyQuestionInfo(BaseModel, metaclass=ExtendableModelMeta):
         [], alias="suggested_answer_ids"
     )
     matrix_subtype: str = None
+    write_date: datetime
 
     class Config:
         orm_mode = True
