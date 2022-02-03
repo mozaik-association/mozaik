@@ -37,6 +37,7 @@ class ResPartner(models.Model):
     city = fields.Char(compute="_compute_main_address_component", store=True)
     street = fields.Char(compute="_compute_main_address_component", store=True)
     street2 = fields.Char(compute="_compute_main_address_component", store=True)
+    postal_bounced = fields.Boolean(related="address_address_id.bounced", store=True)
 
     @api.depends(
         "address_address_id",

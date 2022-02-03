@@ -85,8 +85,14 @@ class DistributionListMassFunction(models.TransientModel):
             ("country_id, zip, technical_name", "Zip Code"),
         ],
     )
-    bounce_counter = fields.Integer(
+    email_bounce_counter = fields.Integer(
         string="Maximum of fails",
+    )
+    include_email_bounced = fields.Boolean(
+        default=False, string="Include email bounced"
+    )
+    include_postal_bounced = fields.Boolean(
+        default=False, string="Include postal bounced"
     )
     internal_instance_id = fields.Many2one(
         comodel_name="int.instance",
@@ -252,12 +258,21 @@ class DistributionListMassFunction(models.TransientModel):
         :param main_domain: list (domain)
         :return: tuple of 2 recordset
         """
-        if self.bounce_counter:
-            bounce_counter = max([self.bounce_counter, 0])
-            main_domain.append(("postal_bounce_counter", "<=", bounce_counter))
+        if not self.include_postal_bounced:
+            if self.distribution_list_id.dst_model_id.model in [
+                "virtual.target",
+                "res.partner",
+            ]:
+                main_domain.append(("postal_bounced", "=", False))
+
+        main_object_field = (
+            "partner_id"
+            if self.distribution_list_id.dst_model_id.model == "virtual.target"
+            else "id"
+        )
         self = self.with_context(
             main_target_model="res.partner",
-            main_object_field="partner_id",
+            main_object_field=main_object_field,
         )
         if fct == "csv":
             # Get CSV containing postal coordinates
@@ -273,10 +288,23 @@ class DistributionListMassFunction(models.TransientModel):
         :return: tuple of 2 recordset
         """
         context = self._context
-        if self.distribution_list_id.dst_model_id.model == "virtual.target":
-            if self.bounce_counter:
-                bounce_counter = max([self.bounce_counter, 0])
-                main_domain.append(("email_bounce_counter", "<=", bounce_counter))
+        dst_model = self.distribution_list_id.dst_model_id.model
+
+        if dst_model == "virtual.target":
+            if self.include_email_bounced:
+                main_domain.append(
+                    ("email_bounce_counter", "<=", max([self.email_bounce_counter, 0]))
+                )
+            else:
+                main_domain.append(("email_bounce_counter", "=", 0))
+        elif dst_model == "res.partner":
+            if self.include_email_bounced:
+                main_domain.append(
+                    ("email_bounced", "<=", max([self.email_bounce_counter, 0]))
+                )
+            else:
+                main_domain.append(("email_bounced", "=", 0))
+
         model_contact = self.env["ir.model"].search([("model", "=", "res.partner")])
         main_object_field = (
             "id"

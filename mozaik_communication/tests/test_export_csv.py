@@ -6,12 +6,12 @@ import csv
 import logging
 from io import StringIO
 
-from odoo.tests.common import SavepointCase
+from ..tests.common import TestCommunicationCommon
 
 _logger = logging.getLogger(__name__)
 
 
-class TestMassFunction(SavepointCase):
+class TestMassFunction(TestCommunicationCommon):
     def setUp(self):
         super().setUp()
         self.thierry = self.browse_ref("mozaik_address.res_partner_thierry")
@@ -36,12 +36,7 @@ class TestMassFunction(SavepointCase):
             .create({})
         )
         wiz.export()
-        csv_content = base64.b64decode(wiz.export_file)
-
-        reader = csv.DictReader(StringIO(csv_content.decode("utf-8")))
-        rows = []
-        for row in reader:
-            rows.append(row)
+        rows = self._from_csv_get_rows(wiz)
         self.assertEqual(len(rows), 2)
         return
 
@@ -65,12 +60,7 @@ class TestMassFunction(SavepointCase):
             .create({})
         )
         wiz.export(group_by=True)
-        csv_content = base64.b64decode(wiz.export_file)
-
-        reader = csv.DictReader(StringIO(csv_content.decode("utf-8")))
-        rows = []
-        for row in reader:
-            rows.append(row)
+        rows = self._from_csv_get_rows(wiz)
         self.assertEqual(len(rows), 1)
 
     def test_export_paul(self):
@@ -84,12 +74,7 @@ class TestMassFunction(SavepointCase):
             .create({})
         )
         wiz.export(group_by=True)
-        csv_content = base64.b64decode(wiz.export_file)
-
-        reader = csv.DictReader(StringIO(csv_content.decode("utf-8")))
-        rows = []
-        for row in reader:
-            rows.append(row)
+        rows = self._from_csv_get_rows(wiz)
         self.assertEqual(len(rows), 1)
 
     def test_export_marc(self):

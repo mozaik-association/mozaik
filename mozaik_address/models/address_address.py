@@ -79,6 +79,14 @@ class AddressAddress(models.Model):
         copy=False,
         tracking=True,
     )
+    bounced = fields.Boolean(compute="_compute_bounced", store=True)
+
+    @api.depends("failure_date")
+    def _compute_bounced(self):
+        for record in self:
+            record.bounced = False
+            if record.failure_date:
+                record.bounced = True
 
     @api.model
     def _get_default_country_code(self):
