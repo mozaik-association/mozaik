@@ -22,10 +22,12 @@
         "mozaik_thesaurus_api",
         "website_event",
         "website_event_questions",
+        "pydantic",
     ],
     "data": [],
     "external_dependencies": {
         "python": [
+            "extendable_pydantic",
             "pydantic",
         ]
     },

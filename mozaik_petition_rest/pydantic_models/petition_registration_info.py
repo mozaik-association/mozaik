@@ -2,13 +2,15 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pydantic
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
-from odoo.addons.pydantic import models, utils
+from odoo.addons.pydantic import utils
 
 from .petition_info import PetitionInfo
 
 
-class PetitionRegistrationInfo(models.BaseModel):
+class PetitionRegistrationInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     firstname: str = None
     lastname: str = None

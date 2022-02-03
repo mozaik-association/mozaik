@@ -5,13 +5,13 @@ from datetime import date
 from typing import List
 
 import pydantic
-
-from odoo.addons.pydantic import models
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
 from .petition_registration_answer import PetitionRegistrationAnswer
 
 
-class PetitionRegistrationRequest(models.BaseModel):
+class PetitionRegistrationRequest(BaseModel, metaclass=ExtendableModelMeta):
     lastname: str = None
     firstname: str = None
     email: str = None

@@ -2,10 +2,13 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 
-from odoo.addons.pydantic import models, utils
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
+
+from odoo.addons.pydantic import utils
 
 
-class PetitionMilestoneInfo(models.BaseModel):
+class PetitionMilestoneInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     value: int
 

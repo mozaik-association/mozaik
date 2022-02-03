@@ -1,10 +1,13 @@
 # Copyright 2022 ACSONE SA/NV
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo.addons.pydantic import models, utils
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
+
+from odoo.addons.pydantic import utils
 
 
-class DistributionListInfo(models.BaseModel):
+class DistributionListInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     name: str
     code: str = None

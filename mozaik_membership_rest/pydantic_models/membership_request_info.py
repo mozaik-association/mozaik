@@ -5,6 +5,8 @@ from datetime import datetime
 from typing import List
 
 import pydantic
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
 from odoo.addons.mozaik_country_rest.pydantic_models.country_info import CountryInfo
 from odoo.addons.mozaik_distribution_list_rest.pydantic_models.distribution_list_info import (
@@ -16,10 +18,10 @@ from odoo.addons.mozaik_involvement_rest.pydantic_models.involvement_category_in
 from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import (
     ThesaurusTermInfo,
 )
-from odoo.addons.pydantic import models, utils
+from odoo.addons.pydantic import utils
 
 
-class MembershipRequestInfo(models.BaseModel):
+class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     lastname: str
     firstname: str = None

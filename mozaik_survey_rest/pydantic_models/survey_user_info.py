@@ -5,13 +5,15 @@ from datetime import date, datetime
 from typing import List
 
 import pydantic
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
-from odoo.addons.pydantic import models, utils
+from odoo.addons.pydantic import utils
 
 from .survey_question_answer_info import SurveyQuestionAnswerInfo
 
 
-class SurveyUserInputLineInfo(models.BaseModel):
+class SurveyUserInputLineInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     question_id: int
     answer_type: str = None
@@ -30,7 +32,7 @@ class SurveyUserInputLineInfo(models.BaseModel):
         getter_dict = utils.GenericOdooGetter
 
 
-class SurveyUserInputInfo(models.BaseModel):
+class SurveyUserInputInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     survey_id: int
     user_input_lines: List[SurveyUserInputLineInfo] = pydantic.Field(

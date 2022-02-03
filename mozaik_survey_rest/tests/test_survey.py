@@ -6,10 +6,10 @@ from odoo.http import request
 from odoo.addons.base_rest.controllers.main import _PseudoCollection
 from odoo.addons.base_rest.tests.common import BaseRestCase
 from odoo.addons.component.core import WorkContext
-from odoo.addons.pydantic.tests.common import PydanticMixin
+from odoo.addons.extendable.tests.common import ExtendableMixin
 
 
-class SurveyCase(BaseRestCase, PydanticMixin):
+class SurveyCase(BaseRestCase, ExtendableMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -103,14 +103,14 @@ class SurveyCase(BaseRestCase, PydanticMixin):
             },
         )
 
-        cls.setUpPydantic()
+        cls.setUpExtendable()
 
     # pylint: disable=W8106
     def setUp(self):
         # resolve an inheritance issue (common.TransactionCase does not call
         # super)
         BaseRestCase.setUp(self)
-        PydanticMixin.setUp(self)
+        ExtendableMixin.setUp(self)
 
     def test_get_survey(self):
         self.service.dispatch("get", self.survey.id)
