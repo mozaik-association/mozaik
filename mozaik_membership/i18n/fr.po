@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-28 19:21+0000\n"
-"PO-Revision-Date: 2022-01-25 11:56+0000\n"
+"PO-Revision-Date: 2022-02-03 16:57+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -208,10 +208,8 @@ msgstr "Contact"
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__create_date
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__create_date
-#, fuzzy
-#| msgid "Created by"
 msgid "Create Date"
-msgstr "Créé par"
+msgstr "Créé le"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__create_uid
