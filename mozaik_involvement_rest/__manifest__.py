@@ -2,17 +2,24 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Thesaurus Rest",
+    "name": "Mozaik Involvement Rest",
     "summary": """
         Add a REST API to manage partner involvement""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
-    "depends": ["base_rest", "base_rest_pydantic", "mozaik_involvement"],
+    "depends": [
+        "base_rest",
+        "base_rest_pydantic",
+        "extendable",
+        "mozaik_involvement",
+        "pydantic",
+    ],
     "data": [],
     "external_dependencies": {
         "python": [
+            "extendable_pydantic",
             "pydantic",
         ]
     },

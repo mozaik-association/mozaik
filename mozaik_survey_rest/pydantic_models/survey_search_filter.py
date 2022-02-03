@@ -7,10 +7,11 @@
 from datetime import date
 from typing import List
 
-from odoo.addons.pydantic import models, utils
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
 
-class SurveySearchFilter(models.BaseModel):
+class SurveySearchFilter(BaseModel, metaclass=ExtendableModelMeta):
 
     id: int = None
     title: str = None
@@ -20,7 +21,3 @@ class SurveySearchFilter(models.BaseModel):
     publish_date_before: date = None
     publish_date_after: date = None
     interest_ids: List[int] = []
-
-    class Config:
-        orm_mode = True
-        getter_dict = utils.GenericOdooGetter

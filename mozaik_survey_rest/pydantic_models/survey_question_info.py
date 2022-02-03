@@ -5,13 +5,15 @@ from datetime import date, datetime
 from typing import List
 
 import pydantic
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
-from odoo.addons.pydantic import models, utils
+from odoo.addons.pydantic import utils
 
 from .survey_question_answer_info import SurveyQuestionAnswerInfo
 
 
-class SurveyQuestionInfo(models.BaseModel):
+class SurveyQuestionInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     title: str
     page_id: int = None

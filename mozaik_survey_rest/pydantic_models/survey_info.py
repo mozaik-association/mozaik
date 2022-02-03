@@ -7,17 +7,19 @@ from datetime import date
 from typing import List
 
 import pydantic
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
 from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import (
     ThesaurusTermInfo,
 )
-from odoo.addons.pydantic import models, utils
+from odoo.addons.pydantic import utils
 
 from .survey_page_info import SurveyPageInfo
 from .survey_question_info import SurveyQuestionInfo
 
 
-class SurveyShortInfo(models.BaseModel):
+class SurveyShortInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     title: str
     description: str = None

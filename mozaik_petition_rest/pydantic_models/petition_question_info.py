@@ -4,11 +4,13 @@
 from typing import List
 
 import pydantic
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
-from odoo.addons.pydantic import models, utils
+from odoo.addons.pydantic import utils
 
 
-class PetitionQuestionAnswerInfo(models.BaseModel):
+class PetitionQuestionAnswerInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     name: str
 
@@ -17,7 +19,7 @@ class PetitionQuestionAnswerInfo(models.BaseModel):
         getter_dict = utils.GenericOdooGetter
 
 
-class PetitionQuestionInfo(models.BaseModel):
+class PetitionQuestionInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     title: str
     question_type: str

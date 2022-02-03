@@ -4,12 +4,9 @@
 
 from typing import Dict, List, Union
 
-from odoo.addons.pydantic import models, utils
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
 
-class SurveyUserInputRequest(models.BaseModel):
+class SurveyUserInputRequest(BaseModel, metaclass=ExtendableModelMeta):
     user_input_lines: Dict[str, Union[str, List[str], Dict[str, List[str]]]]
-
-    class Config:
-        orm_mode = True
-        getter_dict = utils.GenericOdooGetter

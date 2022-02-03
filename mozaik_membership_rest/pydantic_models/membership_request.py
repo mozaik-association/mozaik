@@ -4,10 +4,11 @@
 from datetime import datetime
 from typing import List
 
-from odoo.addons.pydantic import models
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
 
-class MembershipRequest(models.BaseModel):
+class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     lastname: str
     firstname: str
     gender: str

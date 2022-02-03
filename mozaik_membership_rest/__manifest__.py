@@ -12,16 +12,19 @@
     "depends": [
         "base_rest",
         "base_rest_pydantic",
+        "extendable",
         "mozaik_membership",
         "mozaik_country_rest",
         "mozaik_distribution_list_rest",
         "mozaik_involvement_rest",
         "mozaik_partner_unemployed",
         "mozaik_thesaurus_api",
+        "pydantic",
     ],
     "data": [],
     "external_dependencies": {
         "python": [
+            "extendable_pydantic",
             "pydantic",
         ]
     },

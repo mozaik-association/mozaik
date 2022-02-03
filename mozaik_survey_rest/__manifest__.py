@@ -16,11 +16,14 @@
         "mozaik_survey_is_private",
         "mozaik_survey_publish_date",
         "mozaik_thesaurus_api",
+        "extendable",
+        "pydantic",
     ],
     "data": [],
     "demo": [],
     "external_dependencies": {
         "python": [
+            "extendable_pydantic",
             "pydantic",
         ]
     },
