@@ -60,6 +60,7 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     nationality: CountryInfo = pydantic.Field(None, alias="nationality_id")
     country: CountryInfo = pydantic.Field(None, alias="country_id")
     unemployed_change: str = None
+    write_date: datetime
 
     class Config:
         orm_mode = True

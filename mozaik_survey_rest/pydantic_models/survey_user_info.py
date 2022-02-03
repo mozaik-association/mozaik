@@ -26,6 +26,7 @@ class SurveyUserInputLineInfo(BaseModel, metaclass=ExtendableModelMeta):
     suggested_answer: SurveyQuestionAnswerInfo = pydantic.Field(
         None, alias="suggested_answer_id"
     )
+    write_date: datetime
 
     class Config:
         orm_mode = True
@@ -38,6 +39,7 @@ class SurveyUserInputInfo(BaseModel, metaclass=ExtendableModelMeta):
     user_input_lines: List[SurveyUserInputLineInfo] = pydantic.Field(
         [], alias="user_input_line_ids"
     )
+    write_date: datetime
 
     class Config:
         orm_mode = True

@@ -27,9 +27,9 @@ class EventShortInfo(BaseEventShortInfo, extends=BaseEventShortInfo):
     website_domains: List[EventWebsiteDomainInfo] = pydantic.Field(
         [], alias="website_domain_ids"
     )
+    website_url: str = None
 
 
 class EventInfo(BaseEventInfo, extends=BaseEventInfo):
     publish_date: date = None
-    website_url: str = None
     questions: List[EventQuestionInfo] = pydantic.Field([], alias="question_ids")

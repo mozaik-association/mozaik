@@ -1,6 +1,8 @@
 # Copyright 2021 ACSONE SA/NV
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+from datetime import datetime
+
 import pydantic
 from extendable_pydantic import ExtendableModelMeta
 from pydantic import BaseModel
@@ -16,6 +18,7 @@ class PetitionRegistrationInfo(BaseModel, metaclass=ExtendableModelMeta):
     lastname: str = None
     email: str = None
     petition: PetitionInfo = pydantic.Field(..., alias="petition_id")
+    write_date: datetime
 
     class Config:
         orm_mode = True
