@@ -29,7 +29,6 @@ class SurveyService(Component):
     @restapi.method(
         routes=[(["/<int:_id>"], "GET")],
         output_param=PydanticModel(SurveyInfo),
-        auth="public",
     )
     def get(self, _id: int) -> SurveyInfo:
         survey = self._get(_id)
@@ -58,7 +57,6 @@ class SurveyService(Component):
         routes=[(["/", "/search"], "GET")],
         input_param=PydanticModel(SurveySearchFilter),
         output_param=PydanticModelList(SurveyShortInfo),
-        auth="public",
     )
     def search(self, survey_search_filter: SurveySearchFilter) -> List[SurveyShortInfo]:
         domain = self._get_search_domain(survey_search_filter)
@@ -141,7 +139,6 @@ class SurveyService(Component):
         routes=[(["/<int:_id>/user_answer"], "POST")],
         input_param=PydanticModel(SurveyUserInputRequest),
         output_param=PydanticModel(SurveyUserInputInfo),
-        auth="public",
     )
     def user_answer(
         self, _id: int, input_data: SurveyUserInputRequest
