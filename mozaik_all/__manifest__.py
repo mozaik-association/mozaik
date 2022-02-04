@@ -42,6 +42,7 @@
         "mozaik_involvement_followup",
         "mozaik_mass_mailing_access_rights",
         "mozaik_mass_mailing_automation",
+        "mozaik_mass_mailing_bounce_counter",
         "mozaik_mass_mailing_template",
         "mozaik_membership",
         "mozaik_partner_assembly",
