@@ -21,7 +21,6 @@ class ThesaurusTermService(Component):
     @restapi.method(
         routes=[(["/<int:_id>"], "GET")],
         output_param=PydanticModel(ThesaurusTermInfo),
-        auth="public",
     )
     def get(self, _id: int) -> ThesaurusTermInfo:
         thesaurus_term = self._get(_id)
@@ -43,7 +42,6 @@ class ThesaurusTermService(Component):
         routes=[(["/", "/search"], "GET")],
         input_param=PydanticModel(ThesaurusTermSearchFilter),
         output_param=PydanticModelList(ThesaurusTermInfo),
-        auth="public",
     )
     def search(
         self, thesaurus_term_search_filter: ThesaurusTermSearchFilter

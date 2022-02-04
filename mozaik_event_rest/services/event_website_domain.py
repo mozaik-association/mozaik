@@ -23,7 +23,6 @@ class EventWebsiteDomainService(Component):
     @restapi.method(
         routes=[(["/<int:_id>"], "GET")],
         output_param=PydanticModel(EventWebsiteDomainInfo),
-        auth="public",
     )
     def get(self, _id: int) -> EventWebsiteDomainInfo:
         event_website_domain = self._get(_id)
@@ -41,7 +40,6 @@ class EventWebsiteDomainService(Component):
         routes=[(["/", "/search"], "GET")],
         input_param=PydanticModel(EventWebsiteDomainSearchFilter),
         output_param=PydanticModelList(EventWebsiteDomainInfo),
-        auth="public",
     )
     def search(
         self, event_website_domain_search_filter: EventWebsiteDomainSearchFilter

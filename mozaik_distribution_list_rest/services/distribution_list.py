@@ -23,7 +23,6 @@ class DistributionListService(Component):
     @restapi.method(
         routes=[(["/<int:_id>"], "GET")],
         output_param=PydanticModel(DistributionListInfo),
-        auth="public",
     )
     def get(self, _id: int) -> DistributionListInfo:
         distribution_list = self._get(_id)
@@ -45,7 +44,6 @@ class DistributionListService(Component):
         routes=[(["/", "/search"], "GET")],
         input_param=PydanticModel(DistributionListSearchFilter),
         output_param=PydanticModelList(DistributionListInfo),
-        auth="public",
     )
     def search(
         self, distribution_list_search_filter: DistributionListSearchFilter

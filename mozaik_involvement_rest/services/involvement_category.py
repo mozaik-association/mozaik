@@ -23,7 +23,6 @@ class InvolvementCategoryService(Component):
     @restapi.method(
         routes=[(["/<int:_id>"], "GET")],
         output_param=PydanticModel(InvolvementCategoryInfo),
-        auth="public",
     )
     def get(self, _id: int) -> InvolvementCategoryInfo:
         involvement_category = self._get(_id)
@@ -43,7 +42,6 @@ class InvolvementCategoryService(Component):
         routes=[(["/", "/search"], "GET")],
         input_param=PydanticModel(InvolvementCategorySearchFilter),
         output_param=PydanticModelList(InvolvementCategoryInfo),
-        auth="public",
     )
     def search(
         self, involvement_category_search_filter: InvolvementCategorySearchFilter

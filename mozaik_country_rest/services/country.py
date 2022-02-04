@@ -21,7 +21,6 @@ class CountryService(Component):
     @restapi.method(
         routes=[(["/<int:_id>"], "GET")],
         output_param=PydanticModel(CountryInfo),
-        auth="public",
     )
     def get(self, _id: int) -> CountryInfo:
         country = self._get(_id)
@@ -41,7 +40,6 @@ class CountryService(Component):
         routes=[(["/", "/search"], "GET")],
         input_param=PydanticModel(CountrySearchFilter),
         output_param=PydanticModelList(CountryInfo),
-        auth="public",
     )
     def search(self, country_search_filter: CountrySearchFilter) -> List[CountryInfo]:
         domain = self._get_search_domain(country_search_filter)

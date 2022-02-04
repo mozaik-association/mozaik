@@ -25,7 +25,6 @@ class MembershipRequestService(Component):
     @restapi.method(
         routes=[(["/<int:_id>"], "GET")],
         output_param=PydanticModel(MembershipRequestInfo),
-        auth="public",
     )
     def get(self, _id: int) -> MembershipRequestInfo:
         membership_request = self._get(_id)
@@ -108,7 +107,6 @@ class MembershipRequestService(Component):
         routes=[(["/membership_request"], "POST")],
         input_param=PydanticModel(MembershipRequest),
         output_param=PydanticModel(MembershipRequestInfo),
-        auth="public",
     )
     def membership_request(
         self, membership_request: MembershipRequest
