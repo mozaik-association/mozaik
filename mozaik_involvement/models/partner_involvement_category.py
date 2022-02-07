@@ -13,6 +13,7 @@ CATEGORY_TYPE = [
     ("petition", "Petition"),
     ("donation", "Donations Campaign"),
     ("voluntary", "Voluntary Work"),
+    ("newsletter", "Newsletter"),
 ]
 
 _logger = logging.getLogger(__name__)
