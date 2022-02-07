@@ -384,6 +384,11 @@ msgid "My Involvements"
 msgstr ""
 
 #. module: mozaik_involvement
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__involvement_type__newsletter
+msgid "Newsletter"
+msgstr ""
+
+#. module: mozaik_involvement
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_form_view
 msgid "Note"
 msgstr ""
