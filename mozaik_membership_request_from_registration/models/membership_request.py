@@ -7,12 +7,33 @@ from odoo import api, fields, models
 class MembershipRequest(models.Model):
     _inherit = "membership.request"
 
+    def _find_input_partner(self, vals):
+        """
+        Find, if existing, the partner given as input,
+        and update lastname and firstname, if not given.
+        """
+
+        partner = False
+        if "associated_partner_id" in vals and vals["associated_partner_id"]:
+            partner = self.env["res.partner"].browse(vals["associated_partner_id"])
+            vals["partner_id"] = partner.id
+        elif "partner_id" in vals and vals["partner_id"]:
+            partner = self.env["res.partner"].browse(vals["partner_id"])
+
+        if partner:
+            if "lastname" not in vals or not vals["lastname"]:
+                vals["lastname"] = partner.lastname
+            if ("firstname" not in vals or not vals["firstname"]) and partner.firstname:
+                vals["firstname"] = partner.firstname
+        return partner
+
     @api.model
     def _pre_process_values(self, vals):
         """
         Pre-process values given in vals for creating the membership request.
         Returns a dictionary of values.
         """
+        partner = self._find_input_partner(vals)
         values = {}
         if "lastname" in vals and vals["lastname"]:
             for key in ["lastname", "firstname"]:
@@ -87,14 +108,16 @@ class MembershipRequest(models.Model):
                 ):
                     values[key] = vals[key]
 
-            partner = self.get_partner_id(
-                is_company=False,
-                birthdate_date=False,
-                lastname=lastname,
-                firstname=firstname,
-                email=email,
-            )
-            values.update({"partner_id": partner.id if partner else False})
+            # If a partner is given in vals, we do not change it
+            if not partner:
+                partner = self.get_partner_id(
+                    is_company=False,
+                    birthdate_date=False,
+                    lastname=lastname,
+                    firstname=firstname,
+                    email=email,
+                )
+                values.update({"partner_id": partner.id if partner else False})
             # 26993/2.4.2.1.2
             # If the partner has no address but a membership state,
             # we force the instance to be the one of the partner.

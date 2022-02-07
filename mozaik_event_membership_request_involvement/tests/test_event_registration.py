@@ -275,3 +275,30 @@ class TestEventRegistration(TransactionCase):
             "vegetarian",
             "The interest wasn't well loaded.",
         )
+
+    def test_register_attendee_with_associated_partner(self):
+        """
+        We register an attendee to the event but specifying the
+        associated_partner_id.
+        We check that the mr was correctly created and that
+        partner_id and associated_partner_id fields are
+        correct after validation.
+        """
+        reg = self.env["event.registration"].create(
+            {
+                "associated_partner_id": self.partner.id,
+                "event_id": self.event.id,
+            }
+        )
+        # Search for the associated mr.
+        domain = [
+            ("lastname", "=", self.partner.lastname),
+            ("firstname", "=", self.partner.firstname),
+        ]
+        mr = self.env["membership.request"].search(domain)
+        self.assertEqual(len(mr), 1)
+
+        mr.validate_request()
+
+        self.assertEqual(reg.associated_partner_id, self.partner)
+        self.assertEqual(reg.partner_id, self.partner)

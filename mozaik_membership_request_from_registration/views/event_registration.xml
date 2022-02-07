@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+     <record model="ir.ui.view" id="event_registation_form_view">
+        <field
+            name="name"
+        >event.registration.form (in mozaik_membership_request_from_registration)</field>
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="associated_partner_id" />
+            </field>
+            <field name='partner_id' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+
+
+</odoo>

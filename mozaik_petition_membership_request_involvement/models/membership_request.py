@@ -27,5 +27,6 @@ class MembershipRequest(models.Model):
             self.petition_registration_id
             and self.state == "validate"
             and self.partner_id
+            and not self.petition_registration_id.partner_id
         ):
             self.petition_registration_id.partner_id = self.partner_id

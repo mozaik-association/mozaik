@@ -22,5 +22,10 @@ class MembershipRequest(models.Model):
         to the survey answer.
         """
         super().validate_request()
-        if self.survey_user_input_id and self.state == "validate" and self.partner_id:
+        if (
+            self.survey_user_input_id
+            and self.state == "validate"
+            and self.partner_id
+            and not self.survey_user_input_id.partner_id
+        ):
             self.survey_user_input_id.partner_id = self.partner_id
