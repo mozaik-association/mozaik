@@ -82,6 +82,21 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_instagram
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_instagram
+#, fuzzy
+#| msgid "Twitter Account"
+msgid "Instagram Account"
+msgstr "Compte Twitter"
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__introduction
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__introduction
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_form_view
+msgid "Introduction"
+msgstr ""
+
+#. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -90,6 +105,14 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__cohabitant
 msgid "Legal Cohabitant"
 msgstr "Cohabitant légal"
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_linkedin
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_linkedin
+#, fuzzy
+#| msgid "Twitter Account"
+msgid "LinkedIn Account"
+msgstr "Compte Twitter"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__marital
@@ -154,3 +177,11 @@ msgstr "Lien site"
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__widower
 msgid "Widower"
 msgstr "Veuf/ve"
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_youtube
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_youtube
+#, fuzzy
+#| msgid "Twitter Account"
+msgid "Youtube Account"
+msgstr "Compte Twitter"
