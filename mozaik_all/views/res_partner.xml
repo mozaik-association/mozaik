@@ -42,6 +42,9 @@
                 <field name="secondary_website" position="move" />
                 <field name="social_twitter" position="move" />
                 <field name="social_facebook" position="move" />
+                <field name="social_youtube" position="move" />
+                <field name="social_linkedin" position="move" />
+                <field name="social_instagram" position="move" />
             </xpath>
 
         </field>

@@ -13,11 +13,13 @@
         # OCA
         "graphql_base",
         # Mozaik
+        "mozaik_address",
         "mozaik_mandate",
         "mozaik_mandate_category_sequence",
         "mozaik_mandate_female_label",
         "mozaik_membership",
         "mozaik_membership_mandate",
+        "mozaik_partner_fields",
         "mozaik_structure",
         "mozaik_thesaurus",
     ],

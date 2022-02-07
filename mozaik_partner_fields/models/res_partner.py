@@ -53,6 +53,18 @@ class ResPartner(models.Model):
         "Facebook Account",
         tracking=True,
     )
+    social_youtube = fields.Char(
+        "Youtube Account",
+        tracking=True,
+    )
+    social_linkedin = fields.Char(
+        "LinkedIn Account",
+        tracking=True,
+    )
+    social_instagram = fields.Char(
+        "Instagram Account",
+        tracking=True,
+    )
     age = fields.Integer(
         compute="_compute_age",
         search="_search_age",
@@ -75,6 +87,7 @@ class ResPartner(models.Model):
     gender = fields.Selection(
         tracking=True,
     )
+    introduction = fields.Text()
 
     @api.depends("birthdate_date")
     def _compute_age(self):
