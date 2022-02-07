@@ -1360,6 +1360,16 @@ msgid "Industry"
 msgstr "Secteur"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_instagram
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_instagram
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_instagram
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__social_instagram
+#, fuzzy
+#| msgid "Twitter Account"
+msgid "Instagram Account"
+msgstr "Compte Twitter"
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__instance_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__instance_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__instance_id
@@ -1438,6 +1448,14 @@ msgstr "Niveau de pouvoir interne"
 #: model:ir.actions.act_window,name:mozaik_structure.int_power_level_action
 msgid "Internal Power Levels"
 msgstr "Niveaux de pouvoir internes"
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__introduction
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__introduction
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__introduction
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__introduction
+msgid "Introduction"
+msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__invoice_warn
@@ -1677,6 +1695,16 @@ msgstr "Législatures"
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_power_level__level_for_followers
 msgid "Level For Followers"
 msgstr "Niveau à abonner"
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_linkedin
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_linkedin
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_linkedin
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__social_linkedin
+#, fuzzy
+#| msgid "Twitter Account"
+msgid "LinkedIn Account"
+msgstr "Compte Twitter"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_main_attachment_id
@@ -2993,6 +3021,16 @@ msgstr "Année"
 #, python-format
 msgid "You can not create recursive instances"
 msgstr "Vous ne pouvez pas créer d'instances récursives"
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_youtube
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_youtube
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_youtube
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__social_youtube
+#, fuzzy
+#| msgid "Twitter Account"
+msgid "Youtube Account"
+msgstr "Compte Twitter"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__zip
