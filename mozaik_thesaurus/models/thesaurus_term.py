@@ -21,3 +21,5 @@ class ThesaurusTerm(models.Model):
     active = fields.Boolean(
         default=True,
     )
+
+    main_term = fields.Boolean()
