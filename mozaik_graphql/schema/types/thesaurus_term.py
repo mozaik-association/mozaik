@@ -11,3 +11,4 @@ from .abstract import AbstractObject
 
 class ThesaurusTerm(AbstractObject):
     name = graphene.String(required=True)
+    main_term = graphene.Boolean()
