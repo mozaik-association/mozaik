@@ -11,7 +11,7 @@ from .partner import Partner
 
 
 class AbstractRepresentative(Partner):
-    pass
+    introduction = graphene.String()
 
 
 class IntRepresentative(AbstractRepresentative):
