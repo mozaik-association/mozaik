@@ -170,6 +170,12 @@ msgid "Main Attachment"
 msgstr ""
 
 #. module: mozaik_thesaurus
+#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term__main_term
+#: model_terms:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Main Term"
+msgstr ""
+
+#. module: mozaik_thesaurus
 #: model:res.groups,name:mozaik_thesaurus.thesaurus_manager
 msgid "Manager"
 msgstr ""
