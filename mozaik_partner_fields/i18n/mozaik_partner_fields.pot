@@ -78,6 +78,19 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_instagram
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_instagram
+msgid "Instagram Account"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__introduction
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__introduction
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_form_view
+msgid "Introduction"
+msgstr ""
+
+#. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -85,6 +98,12 @@ msgstr ""
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__cohabitant
 msgid "Legal Cohabitant"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_linkedin
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_linkedin
+msgid "LinkedIn Account"
 msgstr ""
 
 #. module: mozaik_partner_fields
@@ -147,4 +166,10 @@ msgstr ""
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__widower
 msgid "Widower"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_youtube
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_youtube
+msgid "Youtube Account"
 msgstr ""
