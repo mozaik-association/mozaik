@@ -6,7 +6,7 @@
     <record model="ir.ui.view" id="mailing_mailing_form_view">
         <field
             name="name"
-        >mailing.mailing.form (in mozaik_mass_mailing_automation)</field>
+        >mailing.mailing.form (in mozaik_mass_mailing_access_rights)</field>
         <field name="model">mailing.mailing</field>
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
         <field name="arch" type="xml">

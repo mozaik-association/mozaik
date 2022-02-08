@@ -43,6 +43,7 @@
         "mozaik_mass_mailing_access_rights",
         "mozaik_mass_mailing_automation",
         "mozaik_mass_mailing_bounce_counter",
+        "mozaik_mass_mailing_dynamic_placeholder",
         "mozaik_mass_mailing_int_instance",
         "mozaik_mass_mailing_template",
         "mozaik_membership",
