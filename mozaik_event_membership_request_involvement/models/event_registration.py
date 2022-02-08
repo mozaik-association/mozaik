@@ -18,9 +18,10 @@ class EventRegistration(models.Model):
         self.ensure_one()
 
         request = self.env["membership.request"]._create_membership_request(vals)
-        request.write({"event_registration_id": self.id})
-        self._add_involvements_to_membership_request(request)
-        request._auto_validate(self.event_id.auto_accept_membership)
+        if request:
+            request.write({"event_registration_id": self.id})
+            self._add_involvements_to_membership_request(request)
+            request._auto_validate(self.event_id.auto_accept_membership)
 
     def _add_involvements_to_membership_request(self, request):
         """

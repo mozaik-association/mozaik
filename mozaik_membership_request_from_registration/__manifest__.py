@@ -11,8 +11,11 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
+        "event",
         "mozaik_membership_request",
     ],
-    "data": [],
+    "data": [
+        "views/event_registration.xml",
+    ],
     "demo": [],
 }
