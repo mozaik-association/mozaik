@@ -15,6 +15,7 @@ class ResPartner(models.Model):
         compute="_compute_global_opt_out",
         store=True,
         inverse="_inverse_global_opt_out",
+        tracking=True,
     )
 
     @api.depends("email")
