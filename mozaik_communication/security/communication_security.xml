@@ -45,6 +45,17 @@
         />
     </record>
 
+    <record model="res.groups" id="res_groups_communication_manager_mass_mailing">
+        <field name="name">Manager - Mass Mailings Allowed</field>
+        <field name="category_id" ref="module_category_communication" />
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
+            ref('res_groups_communication_manager'),
+        ])]"
+        />
+    </record>
+
     <record model="res.users" id="base.user_root">
         <field
             name="groups_id"
