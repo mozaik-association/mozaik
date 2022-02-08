@@ -1,6 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
+from odoo.osv import expression
 
 
 class MailComposeMessage(models.TransientModel):
@@ -49,6 +50,10 @@ class MailComposeMessage(models.TransientModel):
             if target_ids._name != "res.partner":
                 target_ids = target_ids.mapped("partner_id")
             mailing_domain = [("id", "in", target_ids.ids)]
+            if self.mass_mailing_id:
+                mailing_domain = expression.AND(
+                    [mailing_domain, self.mass_mailing_id._parse_mailing_domain()]
+                )
             active_ids = self.env["res.partner"].search(mailing_domain)
             self = self.with_context(active_ids=active_ids.ids)
             self.model = "res.partner"  # we do not want to have virtual.target here
