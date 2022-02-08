@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-14 16:56+0000\n"
-"PO-Revision-Date: 2022-01-19 12:56+0000\n"
+"PO-Revision-Date: 2022-02-08 12:57+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -178,10 +178,8 @@ msgstr ""
 #. module: mozaik_thesaurus
 #: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term__main_term
 #: model_terms:ir.ui.view,arch_db:mozaik_thesaurus.thesaurus_term_search_view
-#, fuzzy
-#| msgid "Cancel Term"
 msgid "Main Term"
-msgstr "Annuler le terme"
+msgstr "Terme principal"
 
 #. module: mozaik_thesaurus
 #: model:res.groups,name:mozaik_thesaurus.thesaurus_manager
