@@ -23,7 +23,12 @@
                 action="petition_reporting_signatories_action"
             />
         </menuitem>
-        <menuitem id="configuration_first_level_menu" name="Configuration" sequence="3">
+        <menuitem
+            id="configuration_first_level_menu"
+            name="Configuration"
+            sequence="3"
+            groups="mozaik_petition.group_petition_manager"
+        >
             <menuitem
                 id="petition_configuration_petition_template_menu"
                 action="petition_type_model_action"

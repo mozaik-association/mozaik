@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Record rules on petition.petition -->
+
+    <record id="petition_petition_rule_read_reader" model="ir.rule">
+        <field
+            name="name"
+        >Petition: read public petitions or private petitions with child int_instance_id</field>
+        <field name="model_id" ref="model_petition_petition" />
+        <field name="domain_force">['|',('is_private','=',False),
+            ('int_instance_ids', 'in', user._internal_instances())]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('mozaik_petition.group_petition_reader'))]"
+        />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record id="petition_petition_rule_read_write_user" model="ir.rule">
+        <field
+            name="name"
+        >Petition: read and write on public petitions or private petitions with child int_instance_id</field>
+        <field name="model_id" ref="model_petition_petition" />
+        <field name="domain_force">['|',('is_private','=',False),
+            ('int_instance_ids', 'in', user._internal_instances())]</field>
+        <field name="groups" eval="[(4, ref('mozaik_petition.group_petition_user'))]" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record id="petition_petition_rule_read_write_manager" model="ir.rule">
+        <field
+            name="name"
+        >Petition: manager read and write on all petitions rule</field>
+        <field name="model_id" ref="model_petition_petition" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('mozaik_petition.group_petition_manager'))]"
+        />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <!-- Record rules on petition.registration -->
+
+    <record id="petition_registration_rule_read_reader" model="ir.rule">
+        <field
+            name="name"
+        >Petition Registration: read registrations coming from public petitions or private petitions with child int_instance_id</field>
+        <field name="model_id" ref="mozaik_petition.model_petition_registration" />
+        <field name="domain_force">['|',('petition_id.is_private','=',False),
+            ('int_instance_ids', 'in', user._internal_instances())]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('mozaik_petition.group_petition_reader'))]"
+        />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+        <record id="petition_registration_rule_read_user" model="ir.rule">
+        <field
+            name="name"
+        >Petition Registration: read and write on registrations coming from public petitions or private petitions with child int_instance_id</field>
+        <field name="model_id" ref="mozaik_petition.model_petition_registration" />
+        <field name="domain_force">['|',('petition_id.is_private','=',False),
+            ('int_instance_ids', 'in', user._internal_instances())]</field>
+        <field name="groups" eval="[(4, ref('mozaik_petition.group_petition_user'))]" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record id="petition_registration_rule_read_write_manager" model="ir.rule">
+        <field
+            name="name"
+        >Petition Registration: manager read and write on all registrations</field>
+        <field name="model_id" ref="mozaik_petition.model_petition_registration" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('mozaik_petition.group_petition_manager'))]"
+        />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+</odoo>

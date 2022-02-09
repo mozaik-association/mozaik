@@ -1,0 +1,26 @@
+# Copyright 2022 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+{
+    "name": "Mozaik Security Ama",
+    "summary": """
+        Manage security rules for events, petitions and surveys""",
+    "version": "14.0.1.0.0",
+    "license": "AGPL-3",
+    "author": "ACSONE SA/NV",
+    "website": "https://github.com/OCA/mozaik",
+    "depends": [
+        # Odoo addons
+        "event",
+        "survey",
+        # Mozaik
+        "mozaik_membership",
+        "mozaik_petition",
+        "mozaik_structure",
+    ],
+    "data": [
+        "views/petition_petition.xml",
+        "security/rules_petition.xml",
+    ],
+    "demo": [],
+}

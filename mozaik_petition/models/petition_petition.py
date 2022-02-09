@@ -18,13 +18,6 @@ class PetitionPetition(models.Model):
     note = fields.Text(string="Notes", tracking=True)
     image = fields.Binary(string="Image")
     visible_on_website = fields.Boolean(string="Visible on website", default=True)
-    is_private = fields.Boolean(
-        string="Is private",
-        help="If ticked, only members of authorized internal "
-        "instances have access to the petition.",
-        default=False,
-        tracking=True,
-    )
     date_begin = fields.Date(string="Beginning Date", required=True, tracking=True)
     date_end = fields.Date(string="Ending Date", required=True, tracking=True)
     date_publish = fields.Date(string="Publish Date")
@@ -55,13 +48,6 @@ class PetitionPetition(models.Model):
         "res.users",
         string="Responsible",
         default=lambda self: self.env.user,
-        tracking=True,
-    )
-    int_instance_id = fields.Many2one(
-        "int.instance",
-        string="Internal instance",
-        help="Internal instance of the petition",
-        default=lambda self: self.env.user.partner_id.int_instance_id,
         tracking=True,
     )
     registration_ids = fields.One2many(

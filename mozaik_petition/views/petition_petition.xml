@@ -41,7 +41,7 @@
                         <field name="image" widget="image" class="oe_avatar" />
 
                     <group>
-                        <group>
+                        <group name="general_information">
                             <field name="user_id" />
                             <label for="date_begin" string="Date" modifiers="{}" />
                             <div class="o_row" modifiers="{}">
@@ -78,13 +78,7 @@
                             <field name="url" widget="url" />
                             <field name="visible_on_website" />
                         </group>
-                        <group>
-                                <field name="is_private" />
-                                <field
-                                name="int_instance_id"
-                                attrs="{'invisible': [('is_private', '=', False)]}"
-                            />
-                        </group>
+                        <group name="additional_information" />
                     </group>
                     <notebook>
                         <page string="Description">

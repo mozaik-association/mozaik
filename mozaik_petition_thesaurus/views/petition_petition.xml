@@ -8,7 +8,7 @@
         <field name="model">petition.petition</field>
         <field name="inherit_id" ref="mozaik_petition.petition_petition_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='is_private']" position="before">
+            <xpath expr="//group[@name='additional_information']" position="inside">
                 <field name="interest_ids" string="Interests" widget="many2many_tags" />
             </xpath>
         </field>
