@@ -13,6 +13,7 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mass_mailing",
+        "mozaik_mass_mailing_access_rights",
     ],
     "data": [
         "views/mailing_mailing.xml",

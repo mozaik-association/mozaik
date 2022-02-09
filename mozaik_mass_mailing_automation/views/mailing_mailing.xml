@@ -11,10 +11,14 @@
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='campaign_id']" position="before">
-                <field name="automation" />
+                <field
+                    name="automation"
+                    groups="mozaik_mass_mailing_access_rights.group_mass_mailing_automation"
+                />
                 <field
                     name="next_execution"
                     attrs="{'invisible': [('automation','=',False)], 'required': [('automation','=',True)]}"
+                    groups="mozaik_mass_mailing_access_rights.group_mass_mailing_automation"
                 />
                 <label
                     for="time_interval_nbr"
@@ -26,11 +30,13 @@
                         name="time_interval_nbr"
                         attrs="{'invisible': [('automation','=',False)], 'required': [('automation', '=', True)]}"
                         style="width: 20%"
+                        groups="mozaik_mass_mailing_access_rights.group_mass_mailing_automation"
                     />
                     <field
                         name="time_interval_unit"
                         attrs="{'invisible': [('automation','=',False)], 'required': [('automation', '=', True)]}"
                         style="width: 40%"
+                        groups="mozaik_mass_mailing_access_rights.group_mass_mailing_automation"
                     />
                 </div>
                 <div style="height:15px" />

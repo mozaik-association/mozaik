@@ -19,4 +19,9 @@
         />
     </record>
 
+    <record id="group_mass_mailing_automation" model="res.groups">
+        <field name="name">Manage Mass Mailing Automation</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
 </odoo>
