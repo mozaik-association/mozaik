@@ -31,7 +31,7 @@ class PetitionRegistration(models.Model):
     email = fields.Char(
         string="Email",
         compute="_compute_email",
-        required=False,
+        required=True,
         store=True,
         readonly=False,
     )
@@ -112,6 +112,14 @@ class PetitionRegistration(models.Model):
         )
         onsubscribe_schedulers.sudo().execute()
         return rec
+
+    _sql_constraints = [
+        (
+            "constraint_uniq_signature",
+            "unique(petition_id, email)",
+            "This email has already signed this petition.",
+        ),
+    ]
 
     @api.constrains("registration_answer_ids")
     def _check_value_tickbox(self):

@@ -107,6 +107,7 @@ class TestPetition(TransactionCase):
         self.signatory = (self.env["petition.registration"]).create(
             {
                 "petition_id": self.petition.id,
+                "email": "test@test.com",
                 "registration_answer_ids": [
                     (
                         0,
