@@ -65,6 +65,7 @@ class TestPetitionRegistration(TransactionCase):
         values = {
             "firstname": "Jean",
             "lastname": "Dupont",
+            "email": "jean.dupont@test.com",
             "petition_id": self.petition.id,
             "registration_answer_ids": False,
         }
@@ -121,3 +122,34 @@ class TestPetitionRegistration(TransactionCase):
         attendee = self.env["petition.registration"].create(values)
         self.assertEqual(attendee.lastname, "Dupont")
         self.assertEqual(len(attendee.registration_answer_ids), 3)
+
+    def test_unique_registration(self):
+        """
+        A given email address can sign a given petition only once.
+        """
+        self.env["petition.registration"].create(
+            {
+                "firstname": "Omar",
+                "lastname": "Sy",
+                "email": "o.s@test.com",
+                "petition_id": self.petition.id,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.env["petition.registration"].create(
+                {
+                    "firstname": "Oscar",
+                    "lastname": "Sauvage",
+                    "email": "o.s@test.com",
+                    "petition_id": self.petition.id,
+                }
+            )
+        # A given person can register with a second address.
+        self.env["petition.registration"].create(
+            {
+                "firstname": "Omar",
+                "lastname": "Sy",
+                "email": "omar.sy@test.com",
+                "petition_id": self.petition.id,
+            }
+        )

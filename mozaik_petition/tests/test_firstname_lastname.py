@@ -41,6 +41,7 @@ class TestComputeFirstname(TransactionCase):
                 "petition_id": self.petition.id,
                 "firstname": firstname,
                 "lastname": lastname,
+                "email": "test@test.com",
             }
         )
         self.assertEqual(self.signatory.name, "Jean Dupont")
@@ -56,6 +57,7 @@ class TestComputeFirstname(TransactionCase):
             {
                 "petition_id": self.petition.id,
                 "name": "Jean Dupont",
+                "email": "test@test.com",
             }
         )
         self.assertEqual(self.signatory.firstname, "Jean")
@@ -74,6 +76,7 @@ class TestComputeFirstname(TransactionCase):
             {
                 "petition_id": self.petition.id,
                 "partner_id": self.partner.id,
+                "email": "test@test.com",
             }
         )
         self.assertEqual(self.signatory.firstname, "Jean")
@@ -103,6 +106,7 @@ class TestComputeFirstname(TransactionCase):
             {
                 "petition_id": self.petition.id,
                 "partner_id": self.partner.id,
+                "email": "test@test.com",
             }
         )
         self.assertEqual(self.signatory.firstname, "Jean")
