@@ -914,6 +914,11 @@ msgid "There must be a suggested value, a text value or a tickbox value."
 msgstr ""
 
 #. module: mozaik_petition
+#: model:ir.model.constraint,message:mozaik_petition.constraint_petition_registration_constraint_uniq_signature
+msgid "This email has already signed this petition."
+msgstr ""
+
+#. module: mozaik_petition
 #: model:ir.model.fields,help:mozaik_petition.field_petition_mail__template_id
 msgid ""
 "This field contains the template of the mail that will be automatically sent"
