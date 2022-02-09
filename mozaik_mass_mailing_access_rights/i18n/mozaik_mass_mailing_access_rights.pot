@@ -19,6 +19,11 @@ msgid "Mail Templates"
 msgstr ""
 
 #. module: mozaik_mass_mailing_access_rights
+#: model:res.groups,name:mozaik_mass_mailing_access_rights.group_mass_mailing_automation
+msgid "Manage Mass Mailing Automation"
+msgstr ""
+
+#. module: mozaik_mass_mailing_access_rights
 #: model:res.groups,name:mozaik_mass_mailing_access_rights.group_mass_mailing_manager
 msgid "Manager"
 msgstr ""
