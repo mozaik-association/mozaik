@@ -98,6 +98,13 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address__bounced
+#: model:ir.model.fields,field_description:mozaik_address.field_res_partner__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users__postal_bounced
+msgid "Bounced"
+msgstr ""
+
+#. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__box
 msgid "Box"
 msgstr ""
