@@ -262,6 +262,16 @@ msgstr ""
 "réelle issu de la fiche"
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly__email_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_ext_assembly__email_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_int_assembly__email_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_res_partner__email_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_res_users__email_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_sta_assembly__email_bounced
+msgid "Counter of bounced emails"
+msgstr ""
+
+#. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__country_id
 #, python-format
@@ -359,16 +369,11 @@ msgid "Email"
 msgstr "Courriel"
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly__email_bounced
-#: model:ir.model.fields,field_description:mozaik_communication.field_ext_assembly__email_bounced
-#: model:ir.model.fields,field_description:mozaik_communication.field_int_assembly__email_bounced
-#: model:ir.model.fields,field_description:mozaik_communication.field_res_partner__email_bounced
-#: model:ir.model.fields,field_description:mozaik_communication.field_res_users__email_bounced
-#: model:ir.model.fields,field_description:mozaik_communication.field_sta_assembly__email_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__email_bounce_counter
 #, fuzzy
-#| msgid "Email Bounce Counter"
-msgid "Email Bounced"
-msgstr "Compteur d'échecs de courriel"
+#| msgid "Postal Bounce Counter"
+msgid "Email Bounce Counter"
+msgstr "Compteur d'échecs postaux"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly__email_bounced_description
@@ -619,6 +624,18 @@ msgid "Include Without Coordinate"
 msgstr "Inclure les injoignables"
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__include_email_bounced
+#, fuzzy
+#| msgid "Email Bounce Counter"
+msgid "Include email bounced"
+msgstr "Compteur d'échecs de courriel"
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__include_postal_bounced
+msgid "Include postal bounced"
+msgstr ""
+
+#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__interest_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__interest_ids
 msgid "Interests"
@@ -699,6 +716,11 @@ msgstr "Langue"
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__last_postal_failure_date
+msgid "Last Postal Failure Date"
+msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__write_uid
@@ -813,7 +835,7 @@ msgid "Mass function (Postal)"
 msgstr "Fonction de masse"
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__bounce_counter
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__email_bounce_counter
 msgid "Maximum of fails"
 msgstr "Maximum d'échecs"
 
@@ -1027,6 +1049,13 @@ msgid "Placeholder Value"
 msgstr "Valeur de paramètre fictif"
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__postal_bounced
+#, fuzzy
+#| msgid "Postal Bounce Counter"
+msgid "Postal Bounced"
+msgstr "Compteur d'échecs postaux"
+
+#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__postal
 #: model:ir.model.fields.selection,name:mozaik_communication.selection__distribution_list_mass_function__trg_model__postal_coordinate
 msgid "Postal Coordinate"
@@ -1163,6 +1192,11 @@ msgstr "Objet..."
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__technical_name
 msgid "Technical Name"
 msgstr "Nom technique"
+
+#. module: mozaik_communication
+#: model:ir.model.constraint,message:mozaik_communication.constraint_res_partner_email_bounced_check
+msgid "The number of bounced emails has to be non negative."
+msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,help:mozaik_communication.field_mail_template__model_id
@@ -1335,9 +1369,6 @@ msgstr "ou"
 
 #~ msgid "Please configure the base URL for the website"
 #~ msgstr "Merci de configurer l'URL de base du site web"
-
-#~ msgid "Postal Bounce Counter"
-#~ msgstr "Compteur d'échecs postaux"
 
 #~ msgid "State Mandates"
 #~ msgstr "Mandats politiques"
