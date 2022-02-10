@@ -14,7 +14,7 @@ from .petition_registration_answer import PetitionRegistrationAnswer
 class PetitionRegistrationRequest(BaseModel, metaclass=ExtendableModelMeta):
     lastname: str = None
     firstname: str = None
-    email: str = None
+    email: str
     mobile: str = None
     zip: str = None
     date_open: date = date.today()
