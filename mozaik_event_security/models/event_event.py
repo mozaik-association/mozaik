@@ -8,5 +8,4 @@ class EventEvent(models.Model):
 
     _inherit = "event.event"
 
-    name = fields.Char(tracking=True)
-    note = fields.Text(tracking=True)
+    visible_on_website = fields.Boolean(string="Visible on website", default=True)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+        <!-- MAIN MENU -->
+    <menuitem
+        name="Events"
+        id="event.event_main_menu"
+        sequence="65"
+        groups="group_event_reader"
+        web_icon="event,static/description/icon.png"
+    />
+
+    <!-- HEADER: EVENTS -->
+    <menuitem
+        name="Events"
+        id="event.menu_event_event"
+        sequence="1"
+        parent="event.event_main_menu"
+        groups="group_event_reader"
+    />
+
+
+    <!-- HEADER: CONFIGURATION -->
+    <record model="ir.ui.menu" id="event.menu_event_configuration">
+        <field name="name">Configuration</field>
+        <field name="sequence">99</field>
+        <field name="parent_id" ref="event.event_main_menu" />
+        <field name="groups_id" eval="[(6,0,[ref('event.group_event_manager')])]" />
+    </record>
+
+</odoo>

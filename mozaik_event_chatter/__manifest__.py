@@ -10,7 +10,7 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        "mozaik_event_is_private",
+        "event",
     ],
     "data": [],
     "demo": [],

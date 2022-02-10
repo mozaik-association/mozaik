@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="group_event_reader" model="res.groups">
+        <field name="name">Reader</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        <field name="category_id" ref="base.module_category_marketing_events" />
+    </record>
+
+    <record id="event.group_event_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_event_reader'))]" />
+    </record>
+
+</odoo>

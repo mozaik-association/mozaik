@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_event_event_user,event.event.user,event.model_event_event,event.group_event_user,1,1,1,0
+access_event_mail_event_reader,event.mail.event.reader,event.model_event_mail,group_event_reader,1,0,0,0
+access_event_stage_user,event.stage.user,event.model_event_stage,event.group_event_user,1,0,0,0
+access_event_event_reader,event.event.reader,model_event_event,group_event_reader,1,0,0,0
+access_event_question_event_reader,event.question.event.reader,website_event_questions.model_event_question,group_event_reader,1,0,0,0
+access_event_registration_reader,event.registration.reader,event.model_event_registration,group_event_reader,1,0,0,0
+access_event_registration_answer_reader,event.registration.answer.reader,website_event_questions.model_event_registration_answer,group_event_reader,1,0,0,0
+access_event_stage_reader,event.stage.reader,event.model_event_stage,group_event_reader,1,0,0,0
+access_event_event_ticket_reader,event.event.ticket.reader,event.model_event_event_ticket,group_event_reader,1,0,0,0

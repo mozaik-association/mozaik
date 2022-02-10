@@ -11,15 +11,17 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         # Odoo addons
-        "event",
         "survey",
         # Mozaik
+        "mozaik_event_security",
         "mozaik_membership",
         "mozaik_petition",
         "mozaik_structure",
     ],
     "data": [
+        "views/event_event.xml",
         "views/petition_petition.xml",
+        "security/rules_event.xml",
         "security/rules_petition.xml",
     ],
     "demo": [],
