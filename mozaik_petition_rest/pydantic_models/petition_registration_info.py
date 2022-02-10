@@ -16,7 +16,7 @@ class PetitionRegistrationInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     firstname: str = None
     lastname: str = None
-    email: str = None
+    email: str
     petition: PetitionInfo = pydantic.Field(..., alias="petition_id")
     write_date: datetime
 
