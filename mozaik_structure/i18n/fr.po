@@ -432,6 +432,16 @@ msgid "Bounce"
 msgstr "Rebond"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__postal_bounced
+#, fuzzy
+#| msgid "Bounce"
+msgid "Bounced"
+msgstr "Rebond"
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__can_publish
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__can_publish
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__can_publish
