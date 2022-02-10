@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-11 20:58+0000\n"
-"PO-Revision-Date: 2022-02-10 14:57+0000\n"
+"PO-Revision-Date: 2022-02-10 17:57+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -621,15 +621,13 @@ msgstr "Inclure les injoignables"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__include_email_bounced
-#, fuzzy
-#| msgid "Email Bounce Counter"
 msgid "Include email bounced"
-msgstr "Compteur d'échecs de courriel"
+msgstr "Inclure les emails en échec/rebond"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__include_postal_bounced
 msgid "Include postal bounced"
-msgstr ""
+msgstr "Inclure les adresses en échec / rebond"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__interest_ids
