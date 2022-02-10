@@ -23,6 +23,9 @@ class VirtualTarget(models.Model):
     postal = fields.Char(string="Postal Coordinate")
     zip = fields.Char("Zip Code")
     country_id = fields.Many2one(comodel_name="res.country", string="Country")
+    email_bounce_counter = fields.Integer()
+    last_postal_failure_date = fields.Datetime()
+    postal_bounced = fields.Boolean()
 
     @api.model
     def _get_select(self):
@@ -36,12 +39,15 @@ class VirtualTarget(models.Model):
             adr.name as postal,
             adr.zip as zip,
             adr.country_id as country_id,
+            adr.failure_date as last_postal_failure_date,
+            adr.bounced as postal_bounced,
             p.email as email,
             p.membership_state_id AS membership_state_id,
             p.display_name AS display_name,
             p.technical_name AS technical_name,
             p.lastname AS lastname,
-            p.firstname AS firstname"""
+            p.firstname AS firstname,
+            p.email_bounced AS email_bounce_counter"""
         )
         return select
 

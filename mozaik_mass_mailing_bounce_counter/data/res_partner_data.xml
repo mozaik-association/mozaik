@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!--Cron for updating email bounce counter on res.partners-->
+     <record id="ir_cron_res_partner_email_bounced" model="ir.cron">
+            <field name="name">Partners: Update email bounce counter</field>
+            <field name="model_id" ref="model_res_partner" />
+            <field name="state">code</field>
+            <field
+            name="code"
+        >model._update_bounce_counter(env.ref("mozaik_mass_mailing_bounce_counter.ir_cron_res_partner_email_bounced").lastcall or datetime.datetime.now() - datetime.timedelta(days=1))</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+        </record>
+
+
+
+</odoo>

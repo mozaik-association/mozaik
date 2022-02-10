@@ -4,16 +4,17 @@
 import logging
 from email.utils import formataddr
 
-from odoo.tests.common import SavepointCase
+from ..tests.common import TestCommunicationCommon
 
 _logger = logging.getLogger(__name__)
 
 
-class TestMassFunction(SavepointCase):
+class TestMassFunction(TestCommunicationCommon):
     def setUp(self):
         super().setUp()
         self.evr_lst_id = self.browse_ref("mozaik_communication.everybody_list")
         self.mfct_obj = self.env["distribution.list.mass.function"]
+        self.address_1 = self.browse_ref("mozaik_address.address_1")
 
     def test_onchange_subject(self):
         evr_lst_id = self.evr_lst_id
@@ -119,3 +120,39 @@ class TestMassFunction(SavepointCase):
         # check for possible "From" choices
         self.assertFalse(partners)
         return
+
+    def test_email_bounced(self):
+        """
+        Set thierry email as bounced with bounced_counter = 2.
+        Ask for email csv without bounced partners -> no thierry.
+        Ask for email csv with a maximum number of bounced = 1 -> no thierry
+        Ask for email csv with a maximum number of bounced = 2 -> thierry is present.
+        """
+        self.thierry.write({"email": "thierry@test.com", "email_bounced": 2})
+        # Assert that Thierry is the only partner with a bounced email address
+        self.assertEqual(
+            len(self.env["res.partner"].search([("email_bounced", ">", 0)])), 1
+        )
+
+        wiz = self.mfct_obj.create(
+            {
+                "trg_model": "email.coordinate",
+                "e_mass_function": "csv",
+                "include_email_bounced": False,
+                "distribution_list_id": self.evr_lst_id.id,
+            }
+        )
+
+        wiz.mass_function()
+        number_without_bounced = len(self._from_csv_get_rows(wiz))
+
+        wiz.write({"include_email_bounced": True, "email_bounce_counter": 1})
+        wiz.mass_function()
+        number_with_one_bounced = len(self._from_csv_get_rows(wiz))
+
+        wiz.email_bounce_counter = 2
+        wiz.mass_function()
+        number_with_two_bounced = len(self._from_csv_get_rows(wiz))
+
+        self.assertEqual(number_without_bounced, number_with_one_bounced)
+        self.assertEqual(number_without_bounced + 1, number_with_two_bounced)

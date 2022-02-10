@@ -39,7 +39,18 @@
                         />
                     </group>
                     <group name="modifiers">
-                        <field name="bounce_counter" />
+                        <field
+                            name="include_email_bounced"
+                            attrs="{'invisible': ['|', ('trg_model','!=','email.coordinate'),('e_mass_function', '!=', 'csv')]}"
+                        />
+                        <field
+                            name="email_bounce_counter"
+                            attrs="{'invisible': ['|',('trg_model','!=','email.coordinate'),'|',('include_email_bounced','=',False), ('e_mass_function', '!=', 'csv')]}"
+                        />
+                        <field
+                            name="include_postal_bounced"
+                            attrs="{'invisible': [('trg_model','!=','postal.coordinate')]}"
+                        />
                         <field
                             name="internal_instance_id"
                             readonly="bool(context.get('mailing_group_id'))"

@@ -27,5 +27,13 @@ class ResPartner(models.Model):
         string="Responsible User (Communication)",
         index=True,
     )
-    email_bounced = fields.Integer()
+    email_bounced = fields.Integer(default=0, string="Counter of bounced emails")
     email_bounced_description = fields.Char()
+
+    _sql_constraints = [
+        (
+            "email_bounced_check",
+            "CHECK(email_bounced >= 0)",
+            "The number of bounced emails has to be non negative.",
+        ),
+    ]
