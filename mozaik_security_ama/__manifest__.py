@@ -17,12 +17,15 @@
         "mozaik_membership",
         "mozaik_petition",
         "mozaik_structure",
+        "mozaik_survey_security",
     ],
     "data": [
+        "views/survey_survey.xml",
         "views/event_event.xml",
         "views/petition_petition.xml",
         "security/rules_event.xml",
         "security/rules_petition.xml",
+        "security/rules_survey.xml",
     ],
     "demo": [],
 }

@@ -2,24 +2,18 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Survey Is Private",
+    "name": "Mozaik Survey Security",
     "summary": """
-        This module create record rules
-        depending on if the survey is private or not.""",
+        This module creates user groups.""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        # Mozaik
-        "mozaik_single_instance",
-        # Odoo
         "survey",
     ],
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",
-        "security/rules_survey_survey.xml",
-        "views/survey_survey.xml",
     ],
 }
