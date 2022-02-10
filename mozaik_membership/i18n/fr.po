@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-28 19:21+0000\n"
-"PO-Revision-Date: 2022-02-03 16:57+0000\n"
+"PO-Revision-Date: 2022-02-10 17:57+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -56,10 +56,8 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__message_needaction
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__message_needaction
-#, fuzzy
-#| msgid "Action type"
 msgid "Action Needed"
-msgstr "Type d'action"
+msgstr "Action requise"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__update_type
