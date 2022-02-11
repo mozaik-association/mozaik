@@ -72,6 +72,7 @@
         "mozaik_mandate_category_sequence",
         "mozaik_membership_mandate",
         "mozaik_membership_request",
+        "mozaik_partner_global_opt_out",
         "mozaik_membership_request_autovalidate",
         "mozaik_membership_request_from_registration",
         "mozaik_petition",

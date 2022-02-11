@@ -184,6 +184,8 @@ class MembershipRequest(models.Model):
         string="Involvement Categories",
     )
 
+    indexation_comments = fields.Text("Indexation comments")
+
     amount = fields.Float(digits="Product Price", copy=False)
     reference = fields.Char(copy=False)
     effective_time = fields.Datetime(copy=False, string="Involvement Date")
@@ -1127,11 +1129,20 @@ class MembershipRequest(models.Model):
             if mr.partner_id and mr.partner_id.comment:
                 notes.append(mr.partner_id.comment)
 
+            indexation_comments = []
+            if mr.indexation_comments:
+                indexation_comments.append(mr.indexation_comments)
+            if mr.partner_id and mr.partner_id.indexation_comments:
+                indexation_comments.append(mr.partner_id.indexation_comments)
+
             partner_values.update(
                 {
                     "competency_ids": [[6, False, new_competency_ids]],
                     "interest_ids": [[6, False, new_interests_ids]],
                     "comment": notes and "\n".join(notes) or False,
+                    "indexation_comments": indexation_comments
+                    and "\n".join(indexation_comments)
+                    or False,
                 }
             )
 
