@@ -751,6 +751,11 @@ msgid "Manager"
 msgstr ""
 
 #. module: mozaik_communication
+#: model:res.groups,name:mozaik_communication.res_groups_communication_manager_mass_mailing
+msgid "Manager - Mass Mailings Allowed"
+msgstr ""
+
+#. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_form
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_tree
 msgid "Mass Action"
