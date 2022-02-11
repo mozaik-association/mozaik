@@ -1,0 +1,160 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_security_ama
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_event_event__display_name
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_petition__display_name
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_registration__display_name
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question__display_name
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question_answer__display_name
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_survey__display_name
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input__display_name
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model,name:mozaik_security_ama.model_event_event
+msgid "Event"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_event_event__id
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_petition__id
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_registration__id
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question__id
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question_answer__id
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_survey__id
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input__id
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input_line__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,help:mozaik_security_ama.field_event_event__is_private
+msgid ""
+"If ticked, only members of authorized internal instances have access to the "
+"event."
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,help:mozaik_security_ama.field_petition_petition__is_private
+#: model:ir.model.fields,help:mozaik_security_ama.field_petition_registration__is_private
+msgid ""
+"If ticked, only members of authorized internal instances have access to the "
+"petition."
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_question__is_private
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_question_answer__is_private
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_survey__is_private
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_user_input__is_private
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_user_input_line__is_private
+msgid ""
+"If ticked, only members of authorized internal instances have access to the "
+"survey."
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_event_event__int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_petition__int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_registration__int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question__int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question_answer__int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_survey__int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input__int_instance_ids
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input_line__int_instance_ids
+msgid "Internal instances"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,help:mozaik_security_ama.field_event_event__int_instance_ids
+msgid "Internal instances of the event"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,help:mozaik_security_ama.field_petition_petition__int_instance_ids
+#: model:ir.model.fields,help:mozaik_security_ama.field_petition_registration__int_instance_ids
+msgid "Internal instances of the petition"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_question__int_instance_ids
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_question_answer__int_instance_ids
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_survey__int_instance_ids
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_user_input__int_instance_ids
+#: model:ir.model.fields,help:mozaik_security_ama.field_survey_user_input_line__int_instance_ids
+msgid "Internal instances of the survey"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_event_event__is_private
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_petition__is_private
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_registration__is_private
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question__is_private
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question_answer__is_private
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_survey__is_private
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input__is_private
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input_line__is_private
+msgid "Is private"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_event_event____last_update
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_petition____last_update
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_petition_registration____last_update
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question____last_update
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_question_answer____last_update
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_survey____last_update
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input____last_update
+#: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model,name:mozaik_security_ama.model_petition_petition
+msgid "Petition"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model,name:mozaik_security_ama.model_petition_registration
+msgid "Petition Registration"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model,name:mozaik_security_ama.model_survey_survey
+msgid "Survey"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model,name:mozaik_security_ama.model_survey_question_answer
+msgid "Survey Label"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model,name:mozaik_security_ama.model_survey_question
+msgid "Survey Question"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model,name:mozaik_security_ama.model_survey_user_input
+msgid "Survey User Input"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model:ir.model,name:mozaik_security_ama.model_survey_user_input_line
+msgid "Survey User Input Line"
+msgstr ""
