@@ -399,13 +399,6 @@ msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: mozaik_petition
-#: model:ir.model.fields,help:mozaik_petition.field_petition_petition__is_private
-msgid ""
-"If ticked, only members of authorized internal instances have access to the "
-"petition."
-msgstr ""
-
-#. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__image
 msgid "Image"
 msgstr ""
@@ -414,16 +407,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_unit__now
 msgid "Immediately"
 msgstr "Immédiatement"
-
-#. module: mozaik_petition
-#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__int_instance_id
-msgid "Internal instance"
-msgstr "Instance interne"
-
-#. module: mozaik_petition
-#: model:ir.model.fields,help:mozaik_petition.field_petition_petition__int_instance_id
-msgid "Internal instance of the petition"
-msgstr "Instance interne de la pétition"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail__interval_nbr
@@ -441,11 +424,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__is_mandatory
 msgid "Is Mandatory"
 msgstr "Est obligatoire"
-
-#. module: mozaik_petition
-#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__is_private
-msgid "Is private"
-msgstr "Est limité à certaines instances"
 
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail____last_update
@@ -783,6 +761,11 @@ msgid "Questions"
 msgstr "Questions"
 
 #. module: mozaik_petition
+#: model:res.groups,name:mozaik_petition.group_petition_reader
+msgid "Reader"
+msgstr ""
+
+#. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__registration_id
 msgid "Registration"
 msgstr "Signature"
@@ -1073,3 +1056,12 @@ msgstr "Votre signature de ${object.petition_id.title}"
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__zip
 msgid "Zip"
 msgstr "Code postal"
+
+#~ msgid "Internal instance"
+#~ msgstr "Instance interne"
+
+#~ msgid "Internal instance of the petition"
+#~ msgstr "Instance interne de la pétition"
+
+#~ msgid "Is private"
+#~ msgstr "Est limité à certaines instances"
