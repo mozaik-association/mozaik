@@ -13,7 +13,7 @@
         "mozaik_membership_request_autovalidate",
         "mozaik_membership_request_from_registration",
         "mozaik_survey_involvement_category",
-        "mozaik_survey_is_private",
+        "mozaik_survey_security",
         "mozaik_survey_question_involvement_category",
     ],
     "data": [

@@ -9,5 +9,3 @@ class SurveySurvey(models.Model):
     _inherit = "survey.survey"
 
     title = fields.Char(tracking=True)
-    is_private = fields.Boolean(tracking=True)
-    int_instance_id = fields.Many2one(tracking=True)
