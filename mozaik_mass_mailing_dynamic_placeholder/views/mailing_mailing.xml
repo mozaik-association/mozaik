@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mailing_mailing_form_view">
+        <field
+            name="name"
+        >mailing.mailing.form (in mozaik_mass_mailing_dynamic_placeholder)</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='mail_body']" position="after">
+                <page
+                    name="dynamic_placeholder_template"
+                    string="Dynamic Placeholder Templates"
+                >
+                    <group>
+                        <field
+                            name="placeholder_id"
+                            options="{'no_quick_create':True,'no_create_edit':True}"
+                        />
+                            <field name="placeholder_value" />
+                    </group>
+                </page>
+            </xpath>
+            <xpath
+                expr="//page[@name='dynamic_placeholder_generator']"
+                position="attributes"
+            >
+                <attribute name="groups">
+                    mozaik_mass_mailing_access_rights.group_mass_mailing_manager
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

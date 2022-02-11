@@ -11,19 +11,21 @@ class DistributionListMassFunction(models.TransientModel):
     _name = "distribution.list.mass.function"
     _description = "Mass Function"
 
-    @api.model
     def _get_e_mass_function(self):
         """
         Get available mass functions for mode=email.coordinate
         :return:
         """
+        user = self.env["res.users"].browse(self._uid)
         funcs = [
-            ("email_coordinate_id", _("Mass Mailing")),
             ("csv", _("CSV Extraction")),
         ]
+        if user.has_group(
+            "mozaik_communication.res_groups_communication_manager_mass_mailing"
+        ):
+            funcs.append(("email_coordinate_id", _("Mass Mailing")))
         return funcs
 
-    @api.model
     def _get_default_e_mass_function(self):
         """
         Get default email.coordinate mass function

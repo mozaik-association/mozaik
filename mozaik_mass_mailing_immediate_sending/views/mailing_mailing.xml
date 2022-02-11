@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mailing_mailing_form_view">
+        <field
+            name="name"
+        >mailing.mailing.form (in mozaik_mass_mailing_immediate_sending)</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_put_in_queue']" position="before">
+                <button
+                    name="action_immediate_sending"
+                    type="object"
+                    attrs="{'invisible': [('state', 'in', ('sending', 'done'))]}"
+                    class="oe_highlight"
+                    string="Send Immediately"
+                    confirm="This will send the email to all recipients.
+                        This will also process all other mass mailings waiting to be sent.
+                        This may take some time.
+                        Do you still want to proceed?"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

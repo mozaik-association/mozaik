@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+ <record model="ir.ui.view" id="mailing_mailing_form_view">
+        <field
+            name="name"
+        >mailing.mailing.form (in mozaik_mass_mailing_int_instance)</field>
+        <field name="model">mailing.mailing</field>
+        <field
+            name="inherit_id"
+            ref="mass_mailing_distribution_list.view_mail_mass_mailing_form"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='mailing_model_id_container']" position="after">
+                <field
+                    name="internal_instance_id"
+                    attrs="{'invisible': [('mailing_model_name', 'not in', ['distribution.list'])]}"
+                    options="{'no_create': True}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

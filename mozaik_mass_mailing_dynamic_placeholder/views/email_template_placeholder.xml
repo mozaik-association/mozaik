@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <menuitem
+        id="email_template_placeholder_menu_email_marketing"
+        parent="mass_mailing.mass_mailing_configuration"
+        action="email_template_configurator.email_template_placeholder_act_window"
+        name="Template Placeholders"
+    />
+
+
+</odoo>
