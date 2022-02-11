@@ -740,6 +740,14 @@ msgid "Designation Assembly"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__disabled
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__disabled
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__disabled
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__disabled
+msgid "Disabled"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__display_name
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__display_name
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__display_name
