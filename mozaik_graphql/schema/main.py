@@ -9,6 +9,7 @@
 
 import graphene
 
+from .types.city import cities, resolve_cities
 from .types.environment import Environment
 from .types.power_level import (
     int_power_levels,
@@ -35,6 +36,7 @@ class Query(graphene.ObjectType):
     int_representatives = int_representatives
     ext_representatives = ext_representatives
     sta_representatives = sta_representatives
+    cities = cities
 
     def resolve_environment(root, info):
         return Environment()
@@ -53,6 +55,11 @@ class Query(graphene.ObjectType):
 
     def resolve_sta_power_levels(root, info, ids=None, name=None, limit=None, offset=0):
         return resolve_sta_power_levels(info, ids, name, limit, offset)
+
+    def resolve_cities(
+        root, info, ids=None, name=None, zipcode=None, limit=None, offset=0
+    ):
+        return resolve_cities(info, ids, name, zipcode, limit, offset)
 
 
 schema = graphene.Schema(query=Query)
