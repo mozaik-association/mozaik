@@ -13,6 +13,7 @@
         "base_rest",
         "base_rest_pydantic",
         "extendable",
+        "mozaik_automatic_supporter",
         "mozaik_involvement",
         "pydantic",
     ],

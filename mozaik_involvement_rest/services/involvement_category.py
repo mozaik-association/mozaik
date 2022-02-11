@@ -36,6 +36,8 @@ class InvolvementCategoryService(Component):
             domain.append(("id", "=", filters.id))
         if filters.code:
             domain.append(("code", "like", filters.code))
+        if filters.involvement_type:
+            domain.append(("involvement_type", "=", filters.involvement_type))
         return domain
 
     @restapi.method(
