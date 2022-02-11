@@ -6,8 +6,8 @@
 
 import graphene
 
+from . import assembly_category
 from .abstract import AbstractObject
-from .assembly_category import IntAssemblyCategory, StaAssemblyCategory
 
 
 class AbstractPowerLevel(AbstractObject):
@@ -18,7 +18,9 @@ class AbstractPowerLevel(AbstractObject):
 
 
 class IntPowerLevel(AbstractPowerLevel):
-    assembly_categories = graphene.List(graphene.NonNull(lambda: IntAssemblyCategory))
+    assembly_categories = graphene.List(
+        graphene.NonNull(lambda: assembly_category.IntAssemblyCategory)
+    )
 
 
 int_power_levels = graphene.List(
@@ -47,7 +49,9 @@ def resolve_int_power_levels(info, ids=None, name=None, limit=None, offset=0):
 
 
 class StaPowerLevel(AbstractPowerLevel):
-    assembly_categories = graphene.List(graphene.NonNull(lambda: StaAssemblyCategory))
+    assembly_categories = graphene.List(
+        graphene.NonNull(lambda: assembly_category.StaAssemblyCategory)
+    )
 
 
 sta_power_levels = graphene.List(
