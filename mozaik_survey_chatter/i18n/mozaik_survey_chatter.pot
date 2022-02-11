@@ -24,28 +24,6 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_survey_chatter
-#: model:ir.model.fields,help:mozaik_survey_chatter.field_survey_survey__is_private
-msgid ""
-"If ticked, only members of authorized internal instances have access to the "
-"survey and its answers."
-msgstr ""
-
-#. module: mozaik_survey_chatter
-#: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__int_instance_id
-msgid "Internal instance"
-msgstr ""
-
-#. module: mozaik_survey_chatter
-#: model:ir.model.fields,help:mozaik_survey_chatter.field_survey_survey__int_instance_id
-msgid "Internal instance of the survey"
-msgstr ""
-
-#. module: mozaik_survey_chatter
-#: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__is_private
-msgid "Is private"
-msgstr ""
-
-#. module: mozaik_survey_chatter
 #: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey____last_update
 msgid "Last Modified on"
 msgstr ""
