@@ -32,35 +32,32 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_event_security
-#: model:ir.model.fields,help:mozaik_event_security.field_event_event__is_private
-msgid ""
-"If ticked, only members of authorized internal instances have access to the "
-"event."
-msgstr ""
-"Si coché, uniquement les membres des instances interne autorisées auront "
-"accès à l'événement."
-
-#. module: mozaik_event_security
-#: model:ir.model.fields,field_description:mozaik_event_security.field_event_event__int_instance_id
-msgid "Internal instance"
-msgstr "Instance interne"
-
-#. module: mozaik_event_security
-#: model:ir.model.fields,help:mozaik_event_security.field_event_event__int_instance_id
-msgid "Internal instance of the event"
-msgstr "Instance interne de l'évènement"
-
-#. module: mozaik_event_security
-#: model:ir.model.fields,field_description:mozaik_event_security.field_event_event__is_private
-msgid "Is private"
-msgstr "Est limité à certaines instances"
-
-#. module: mozaik_event_security
 #: model:ir.model.fields,field_description:mozaik_event_security.field_event_event____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: mozaik_event_security
+#: model:res.groups,name:mozaik_event_security.group_event_reader
+msgid "Reader"
+msgstr ""
+
+#. module: mozaik_event_security
 #: model:ir.model.fields,field_description:mozaik_event_security.field_event_event__visible_on_website
 msgid "Visible on website"
 msgstr "Visible sur le site"
+
+#~ msgid ""
+#~ "If ticked, only members of authorized internal instances have access to "
+#~ "the event."
+#~ msgstr ""
+#~ "Si coché, uniquement les membres des instances interne autorisées auront "
+#~ "accès à l'événement."
+
+#~ msgid "Internal instance"
+#~ msgstr "Instance interne"
+
+#~ msgid "Internal instance of the event"
+#~ msgstr "Instance interne de l'évènement"
+
+#~ msgid "Is private"
+#~ msgstr "Est limité à certaines instances"
