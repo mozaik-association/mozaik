@@ -378,13 +378,6 @@ msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: mozaik_petition
-#: model:ir.model.fields,help:mozaik_petition.field_petition_petition__is_private
-msgid ""
-"If ticked, only members of authorized internal instances have access to the "
-"petition."
-msgstr ""
-
-#. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__image
 msgid "Image"
 msgstr ""
@@ -392,16 +385,6 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields.selection,name:mozaik_petition.selection__petition_mail__interval_unit__now
 msgid "Immediately"
-msgstr ""
-
-#. module: mozaik_petition
-#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__int_instance_id
-msgid "Internal instance"
-msgstr ""
-
-#. module: mozaik_petition
-#: model:ir.model.fields,help:mozaik_petition.field_petition_petition__int_instance_id
-msgid "Internal instance of the petition"
 msgstr ""
 
 #. module: mozaik_petition
@@ -419,11 +402,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_question__is_mandatory
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration_answer__is_mandatory
 msgid "Is Mandatory"
-msgstr ""
-
-#. module: mozaik_petition
-#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__is_private
-msgid "Is private"
 msgstr ""
 
 #. module: mozaik_petition
@@ -759,6 +737,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_type_form_view
 msgid "Questions"
+msgstr ""
+
+#. module: mozaik_petition
+#: model:res.groups,name:mozaik_petition.group_petition_reader
+msgid "Reader"
 msgstr ""
 
 #. module: mozaik_petition
