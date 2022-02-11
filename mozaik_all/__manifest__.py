@@ -47,6 +47,7 @@
         "mozaik_membership",
         "mozaik_partner_assembly",
         "mozaik_partner_button_sms",
+        "mozaik_partner_disabled",
         "mozaik_partner_fields",
         "mozaik_partner_global_opt_out",
         "mozaik_partner_unemployed",
