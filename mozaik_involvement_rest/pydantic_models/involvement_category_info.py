@@ -13,7 +13,9 @@ class InvolvementCategoryInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     name: str
     code: str = None
+    involvement_type: str = None
     write_date: datetime
+    automatic_supporter: bool = None
 
     class Config:
         orm_mode = True

@@ -10,3 +10,4 @@ class InvolvementCategorySearchFilter(BaseModel, metaclass=ExtendableModelMeta):
     id: int = None
     name: str = None
     code: str = None
+    involvement_type: str = None
