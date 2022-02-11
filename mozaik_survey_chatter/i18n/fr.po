@@ -27,30 +27,6 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_survey_chatter
-#: model:ir.model.fields,help:mozaik_survey_chatter.field_survey_survey__is_private
-msgid ""
-"If ticked, only members of authorized internal instances have access to the "
-"survey and its answers."
-msgstr ""
-"Si coché, l'accès au sondage (et au résultat) est restreint à certaines "
-"instances."
-
-#. module: mozaik_survey_chatter
-#: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__int_instance_id
-msgid "Internal instance"
-msgstr "Instance interne"
-
-#. module: mozaik_survey_chatter
-#: model:ir.model.fields,help:mozaik_survey_chatter.field_survey_survey__int_instance_id
-msgid "Internal instance of the survey"
-msgstr "Instance interne du sondage"
-
-#. module: mozaik_survey_chatter
-#: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__is_private
-msgid "Is private"
-msgstr "Accès limité au sondage?"
-
-#. module: mozaik_survey_chatter
 #: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -64,3 +40,19 @@ msgstr "Sondage"
 #: model:ir.model.fields,field_description:mozaik_survey_chatter.field_survey_survey__title
 msgid "Survey Title"
 msgstr "Titre du sondage"
+
+#~ msgid ""
+#~ "If ticked, only members of authorized internal instances have access to "
+#~ "the survey and its answers."
+#~ msgstr ""
+#~ "Si coché, l'accès au sondage (et au résultat) est restreint à certaines "
+#~ "instances."
+
+#~ msgid "Internal instance"
+#~ msgstr "Instance interne"
+
+#~ msgid "Internal instance of the survey"
+#~ msgstr "Instance interne du sondage"
+
+#~ msgid "Is private"
+#~ msgstr "Accès limité au sondage?"
