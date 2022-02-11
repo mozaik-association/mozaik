@@ -1,0 +1,40 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_partner_disabled
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_partner_disabled
+#: model:ir.model,name:mozaik_partner_disabled.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_partner__disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_users__disabled
+msgid "Disabled"
+msgstr ""
+
+#. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
