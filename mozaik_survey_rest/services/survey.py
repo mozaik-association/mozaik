@@ -40,11 +40,6 @@ class SurveyService(Component):
             domain.append(("title", "ilike", filters.title))
         if filters.id:
             domain.append(("id", "=", filters.id))
-        if filters.is_private is not None:
-            domain.append(("is_private", "=", filters.is_private))
-        if filters.is_private and filters.int_instance_id:
-            # Filtering on instance iff is_private=True
-            domain.append(("int_instance_id", "=", filters.int_instance_id))
         if filters.publish_date_before:
             domain.append(("publish_date", "<", filters.publish_date_before))
         if filters.publish_date_after:

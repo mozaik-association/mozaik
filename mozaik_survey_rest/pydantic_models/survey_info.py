@@ -37,5 +37,3 @@ class SurveyInfo(SurveyShortInfo):
     questions: List[SurveyQuestionInfo] = pydantic.Field([], alias="question_ids")
     questions_layout: str
     publish_date: date = None
-    is_private: bool = None
-    int_instance_id: int = None

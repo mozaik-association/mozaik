@@ -13,7 +13,6 @@
         "base_rest",
         "base_rest_pydantic",
         "survey",
-        "mozaik_survey_is_private",
         "mozaik_survey_publish_date",
         "mozaik_thesaurus_api",
         "extendable",

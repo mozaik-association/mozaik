@@ -10,6 +10,5 @@ from odoo.addons.event_rest_api.pydantic_models.event_search_filter import (
 
 class EventSearchFilter(BaseEventSearchFilter, extends=BaseEventSearchFilter):
 
-    is_private: bool = None
     website_domain_ids: List[int] = None
     interest_ids: List[int] = None
