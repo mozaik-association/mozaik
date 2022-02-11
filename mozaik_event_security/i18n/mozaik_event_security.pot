@@ -29,30 +29,13 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_event_security
-#: model:ir.model.fields,help:mozaik_event_security.field_event_event__is_private
-msgid ""
-"If ticked, only members of authorized internal instances have access to the "
-"event."
-msgstr ""
-
-#. module: mozaik_event_security
-#: model:ir.model.fields,field_description:mozaik_event_security.field_event_event__int_instance_id
-msgid "Internal instance"
-msgstr ""
-
-#. module: mozaik_event_security
-#: model:ir.model.fields,help:mozaik_event_security.field_event_event__int_instance_id
-msgid "Internal instance of the event"
-msgstr ""
-
-#. module: mozaik_event_security
-#: model:ir.model.fields,field_description:mozaik_event_security.field_event_event__is_private
-msgid "Is private"
-msgstr ""
-
-#. module: mozaik_event_security
 #: model:ir.model.fields,field_description:mozaik_event_security.field_event_event____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_event_security
+#: model:res.groups,name:mozaik_event_security.group_event_reader
+msgid "Reader"
 msgstr ""
 
 #. module: mozaik_event_security
