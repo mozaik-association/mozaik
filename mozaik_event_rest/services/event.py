@@ -12,8 +12,6 @@ class EventService(Component):
 
     def _get_search_domain(self, filters):
         domain = super()._get_search_domain(filters)
-        if filters.is_private:
-            domain.append(("is_private", "=", filters.is_private))
         if filters.website_domain_ids:
             domain.append(("website_domain_ids", "in", filters.website_domain_ids))
         if filters.interest_ids:

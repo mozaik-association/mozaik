@@ -36,6 +36,4 @@ class PetitionShortInfo(BaseModel, metaclass=ExtendableModelMeta):
 
 class PetitionInfo(PetitionShortInfo):
     description: str = None
-    is_private: bool = None
-    internal_instance_id: int = None
     question_ids: List[PetitionQuestionInfo] = pydantic.Field([], alias="question_ids")

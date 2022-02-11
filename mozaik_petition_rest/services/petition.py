@@ -38,12 +38,6 @@ class PetitionService(Component):
         self, petition_search_filter: PetitionSearchFilter
     ) -> List[PetitionShortInfo]:
         domain = []
-        if petition_search_filter.is_private is not None:
-            domain.append(("is_private", "=", petition_search_filter.is_private))
-        if petition_search_filter.internal_instance_id:
-            domain.append(
-                ("int_instance_id", "=", petition_search_filter.internal_instance_id)
-            )
         if petition_search_filter.date_publish:
             domain.append(
                 (

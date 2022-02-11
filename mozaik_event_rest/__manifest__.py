@@ -12,7 +12,6 @@
     "depends": [
         "event_rest_api",
         "mozaik_address",
-        "mozaik_event_is_private",
         "mozaik_event_publish_date",
         "mozaik_event_registration_add_zip",
         "mozaik_event_stage_draft",

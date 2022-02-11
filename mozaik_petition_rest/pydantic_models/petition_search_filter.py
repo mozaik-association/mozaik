@@ -6,7 +6,5 @@ from pydantic import BaseModel
 
 
 class PetitionSearchFilter(BaseModel, metaclass=ExtendableModelMeta):
-    is_private: bool = None
-    internal_instance_id: int = None
     visible_on_website: bool = None
     date_publish: str = None
