@@ -26,7 +26,6 @@ class MembershipRequestCase(BaseRestCase, PydanticMixin):
     def setUp(self):
         # resolve an inheritance issue (common.TransactionCase does not call
         # super)
-        super().setUpClass()
         BaseRestCase.setUp(self)
         PydanticMixin.setUp(self)
 
