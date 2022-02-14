@@ -437,14 +437,6 @@
                                 name="interest_ids"
                                 attrs="{'invisible':[('is_company', '=', True)]}"
                             />
-                                <separator
-                                string="Indexation Comments"
-                                attrs="{'invisible':[('is_company', '=', True)]}"
-                            />
-                                <field
-                                name="indexation_comments"
-                                attrs="{'invisible':[('is_company', '=', True)]}"
-                            />
                             </page>
                             <page string="Coordinates" name="coordinates">
                                 <group>
