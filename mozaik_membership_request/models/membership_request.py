@@ -39,6 +39,18 @@ MEMBERSHIP_REQUEST_TYPE = [
 MR_REQUIRED_AGE_KEY = "mr_required_age"
 
 
+def partner_add_values(mr, partner_values):
+    if not mr.is_company:
+        partner_values["firstname"] = mr.firstname
+        if mr.gender:
+            partner_values["gender"] = mr.gender
+        if mr.birthdate_date:
+            partner_values["birthdate_date"] = mr.birthdate_date
+
+    if mr.nationality_id:
+        partner_values["nationality_id"] = mr.nationality_id.id
+
+
 class MembershipRequest(models.Model):
 
     _name = "membership.request"
@@ -183,6 +195,8 @@ class MembershipRequest(models.Model):
         column2="category_id",
         string="Involvement Categories",
     )
+
+    indexation_comments = fields.Text("Indexation comments")
 
     amount = fields.Float(digits="Product Price", copy=False)
     reference = fields.Char(copy=False)
@@ -1098,15 +1112,7 @@ class MembershipRequest(models.Model):
                 "is_company": mr.is_company,
                 "lastname": mr.lastname,
             }
-            if not mr.is_company:
-                partner_values["firstname"] = mr.firstname
-                if mr.gender:
-                    partner_values["gender"] = mr.gender
-                if mr.birthdate_date:
-                    partner_values["birthdate_date"] = mr.birthdate_date
-
-            if mr.nationality_id:
-                partner_values["nationality_id"] = mr.nationality_id.id
+            partner_add_values(mr, partner_values)
 
             new_interests_ids = []
             if not mr.is_company:
@@ -1127,11 +1133,20 @@ class MembershipRequest(models.Model):
             if mr.partner_id and mr.partner_id.comment:
                 notes.append(mr.partner_id.comment)
 
+            indexation_comments = []
+            if mr.indexation_comments:
+                indexation_comments.append(mr.indexation_comments)
+            if mr.partner_id and mr.partner_id.indexation_comments:
+                indexation_comments.append(mr.partner_id.indexation_comments)
+
             partner_values.update(
                 {
                     "competency_ids": [[6, False, new_competency_ids]],
                     "interest_ids": [[6, False, new_interests_ids]],
                     "comment": notes and "\n".join(notes) or False,
+                    "indexation_comments": indexation_comments
+                    and "\n".join(indexation_comments)
+                    or False,
                 }
             )
 
