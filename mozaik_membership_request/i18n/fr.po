@@ -403,6 +403,20 @@ msgid "Indexation"
 msgstr "Intérêts"
 
 #. module: mozaik_membership_request
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
+#, fuzzy
+#| msgid "Indexation"
+msgid "Indexation Comments"
+msgstr "Intérêts"
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__indexation_comments
+#, fuzzy
+#| msgid "Indexation"
+msgid "Indexation comments"
+msgstr "Intérêts"
+
+#. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Instance"
 msgstr "Instance"
@@ -633,7 +647,6 @@ msgid "New Value"
 msgstr "Nouvelle valeur"
 
 #. module: mozaik_membership_request
-#: code:addons/mozaik_membership_request/models/membership_request.py:0
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "No"
@@ -908,7 +921,6 @@ msgid "Year"
 msgstr "Année"
 
 #. module: mozaik_membership_request
-#: code:addons/mozaik_membership_request/models/membership_request.py:0
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "Yes"
