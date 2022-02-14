@@ -28,6 +28,7 @@
         "mozaik_duplicate",
         "mozaik_dynamical_time_filter",
         "mozaik_event_chatter",
+        "mozaik_event_description",
         "mozaik_event_involvement_category",
         "mozaik_event_question_involvement_category",
         "mozaik_event_membership_request_involvement",
