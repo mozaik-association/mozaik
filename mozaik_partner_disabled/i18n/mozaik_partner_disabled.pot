@@ -19,22 +19,49 @@ msgid "Contact"
 msgstr ""
 
 #. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_abstract_assembly__disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_ext_assembly__disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_int_assembly__disabled
 #: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_partner__disabled
 #: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_users__disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_sta_assembly__disabled
 msgid "Disabled"
 msgstr ""
 
 #. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_membership_request__disabled_change
+msgid "Disabled / Not disabled"
+msgstr ""
+
+#. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_membership_request__display_name
 #: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_partner__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_membership_request__id
 #: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_partner__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_partner_disabled
+#: model:ir.model.fields,field_description:mozaik_partner_disabled.field_membership_request____last_update
 #: model:ir.model.fields,field_description:mozaik_partner_disabled.field_res_partner____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_partner_disabled
+#: model:ir.model,name:mozaik_partner_disabled.model_membership_request
+msgid "Membership Request"
+msgstr ""
+
+#. module: mozaik_partner_disabled
+#: model:ir.model.fields.selection,name:mozaik_partner_disabled.selection__membership_request__disabled_change__force_false
+msgid "Not disabled anymore"
+msgstr ""
+
+#. module: mozaik_partner_disabled
+#: model:ir.model.fields.selection,name:mozaik_partner_disabled.selection__membership_request__disabled_change__force_true
+msgid "Set as disabled"
 msgstr ""
