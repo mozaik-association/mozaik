@@ -95,7 +95,7 @@
             ('int_instance_ids', 'in', user._internal_instances())]</field>
         <field
             name="groups"
-            eval="[(4, ref('mozaik_survey_security.group_survey_child_instances'))]"
+            eval="[(4, ref('mozaik_survey_security.group_survey_user_child_instances'))]"
         />
         <field name="perm_read" eval="True" />
         <field name="perm_write" eval="True" />
@@ -111,7 +111,7 @@
             ('int_instance_ids', 'in', user._internal_instances())]</field>
         <field
             name="groups"
-            eval="[(4, ref('mozaik_survey_security.group_survey_child_instances'))]"
+            eval="[(4, ref('mozaik_survey_security.group_survey_user_child_instances'))]"
         />
         <field name="perm_read" eval="True" />
         <field name="perm_write" eval="True" />
@@ -127,7 +127,7 @@
             ('int_instance_ids', 'in', user._internal_instances())]</field>
         <field
             name="groups"
-            eval="[(4, ref('mozaik_survey_security.group_survey_child_instances'))]"
+            eval="[(4, ref('mozaik_survey_security.group_survey_user_child_instances'))]"
         />
         <field name="perm_read" eval="True" />
         <field name="perm_write" eval="True" />
@@ -143,7 +143,7 @@
             ('int_instance_ids', 'in', user._internal_instances())]</field>
         <field
             name="groups"
-            eval="[(4, ref('mozaik_survey_security.group_survey_child_instances'))]"
+            eval="[(4, ref('mozaik_survey_security.group_survey_user_child_instances'))]"
         />
         <field name="perm_read" eval="True" />
         <field name="perm_write" eval="True" />
@@ -159,7 +159,7 @@
             ('int_instance_ids', 'in', user._internal_instances())]</field>
         <field
             name="groups"
-            eval="[(4, ref('mozaik_survey_security.group_survey_child_instances'))]"
+            eval="[(4, ref('mozaik_survey_security.group_survey_user_child_instances'))]"
         />
         <field name="perm_read" eval="True" />
         <field name="perm_write" eval="True" />
