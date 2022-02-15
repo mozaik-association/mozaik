@@ -86,6 +86,11 @@ class MembershipLine(models.Model):
             )
             raise exceptions.ValidationError(message)
 
+    def _get_reference(self):
+        # this method is for inheritance
+        self.ensure_one()
+        return self.reference
+
     @api.constrains("active", "date_to")
     def _constrains_active_date_to(self):
         """

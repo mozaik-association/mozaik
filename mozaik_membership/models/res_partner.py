@@ -135,7 +135,7 @@ class ResPartner(models.Model):
             memberships = record.membership_line_ids.filtered(lambda l: l.active)
             if memberships and first(memberships).reference:
                 membership = first(memberships)  # should only be one
-                record.reference = membership.reference
+                record.reference = membership._get_reference()
             elif record.stored_reference:
                 record.reference = record.stored_reference
             else:

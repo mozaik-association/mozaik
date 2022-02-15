@@ -1,13 +1,22 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models
+from odoo import api, models
 from odoo.tools import float_compare
 
 
 class ResPartner(models.Model):
 
     _inherit = "res.partner"
+
+    @api.depends(
+        "stored_reference",
+        "membership_line_ids",
+        "membership_line_ids.reference",
+        "membership_line_ids.paid",
+    )
+    def _compute_reference(self):
+        return super(ResPartner, self)._compute_reference()
 
     def _get_membership_prod_info(self, amount, reference):
         """
