@@ -9,7 +9,7 @@
     </record>
 
     <record model="res.groups" id="group_survey_user_child_instances">
-        <field name="name">User: limited to child internal instances</field>
+        <field name="name">User: access limited to child internal instances</field>
         <field name="category_id" ref="base.module_category_marketing_surveys" />
         <field name="implied_ids" eval="[(6, 0, [ref('group_survey_reader')])]" />
     </record>
