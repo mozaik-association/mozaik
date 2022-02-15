@@ -71,6 +71,7 @@
         "mozaik_partner_disabled",
         "mozaik_partner_fields",
         "mozaik_partner_global_opt_out",
+        "mozaik_partner_rest",
         "mozaik_partner_unemployed",
         "mozaik_partner_website",
         # 'mozaik_partner_unauthorized',
