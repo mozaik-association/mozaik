@@ -65,6 +65,7 @@ class PetitionService(Component):
     ) -> PetitionRegistrationInfo:
         registration_values = {
             "petition_id": self._get(_id).id,
+            "partner_id": self.env.context.get("authenticated_partner_id", False),
             "firstname": petition_registration_request.firstname,
             "lastname": petition_registration_request.lastname,
             "email": petition_registration_request.email,
