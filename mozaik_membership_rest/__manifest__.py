@@ -17,6 +17,7 @@
         "mozaik_country_rest",
         "mozaik_distribution_list_rest",
         "mozaik_involvement_rest",
+        "mozaik_partner_disabled",
         "mozaik_partner_unemployed",
         "mozaik_thesaurus_api",
         "pydantic",
