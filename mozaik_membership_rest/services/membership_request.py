@@ -101,6 +101,7 @@ class MembershipRequestService(Component):
                 del vals["country_id"]
                 _logger.info("Unknown nationality with id %s", vals["country_id"])
         del vals["auto_validate"]
+        vals["partner_id"] = self.env.context.get("authenticated_partner_id", False)
         return vals
 
     @restapi.method(

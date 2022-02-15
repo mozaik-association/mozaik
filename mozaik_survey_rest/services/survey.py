@@ -149,7 +149,10 @@ class SurveyService(Component):
 
         # First create the survey_user_input record
         survey_user_input = self.env["survey.user_input"].create(
-            {"survey_id": survey.id}
+            {
+                "survey_id": survey.id,
+                "partner_id": self.env.context.get("authenticated_partner_id", False),
+            }
         )
 
         # Take all questions
