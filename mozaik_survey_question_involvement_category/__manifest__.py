@@ -11,6 +11,7 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mozaik_involvement",
+        "survey",
     ],
     "data": [
         "views/survey_question.xml",

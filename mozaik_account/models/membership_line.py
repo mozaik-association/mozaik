@@ -37,6 +37,13 @@ class MembershipLine(models.Model):
     )
     price_paid = fields.Float(copy=False)
 
+    def _get_reference(self):
+        self.ensure_one()
+        res = super(MembershipLine, self)._get_reference()
+        if self.paid:
+            return False
+        return res
+
     @api.model
     def _get_min_reconciliation_date(self):
         min_date_from = datetime.date.today().replace(day=1, month=1)
