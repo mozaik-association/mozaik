@@ -42,4 +42,5 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     nationality_id: int = None
     country_id: int = None
     unemployed_change: str = None
+    disabled_change: str = None
     auto_validate: bool = False
