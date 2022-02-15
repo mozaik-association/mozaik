@@ -4,19 +4,22 @@ import logging
 
 from openupgradelib import openupgrade
 
+from odoo import SUPERUSER_ID, api
+
 _logger = logging.getLogger(__name__)
 
 
 def _set_int_instance_ids(cr):
     _logger.info("Set int_instance_ids on AMA objets")
+    env = api.Environment(cr, SUPERUSER_ID, {})
     if openupgrade.column_exists(cr, "event_event", "int_instance_id"):
         openupgrade.m2o_to_x2m(
-            cr, "event.event", "event_event", "int_instance_ids", "int_instance_id"
+            cr, env["event.event"], "event_event", "int_instance_ids", "int_instance_id"
         )
     if openupgrade.column_exists(cr, "petition_petition", "int_instance_id"):
         openupgrade.m2o_to_x2m(
             cr,
-            "petition.petition",
+            env["petition.petition"],
             "petition_petition",
             "int_instance_ids",
             "int_instance_id",
@@ -24,12 +27,12 @@ def _set_int_instance_ids(cr):
     if openupgrade.column_exists(cr, "survey_survey", "int_instance_id"):
         openupgrade.m2o_to_x2m(
             cr,
-            "survey.survey",
+            env["survey.survey"],
             "survey_survey",
             "int_instance_ids",
             "int_instance_id",
         )
 
 
-def pre_init_hook(cr):
+def post_init_hook(cr, registry):
     _set_int_instance_ids(cr)
