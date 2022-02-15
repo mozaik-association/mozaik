@@ -11,14 +11,14 @@ class ResPartner(models.Model):
     survey_count = fields.Integer(
         "# Surveys",
         compute="_compute_survey_count",
-        groups="mozaik_survey_security.group_survey_child_instances",
+        groups="mozaik_survey_security.group_survey_user_child_instances",
         help="Number of surveys the partner answered.",
     )
 
     def _compute_survey_count(self):
         self.survey_count = 0
         if not self.user_has_groups(
-            "mozaik_survey_security.group_survey_child_instances"
+            "mozaik_survey_security.group_survey_user_child_instances"
         ):
             return
         for partner in self:
