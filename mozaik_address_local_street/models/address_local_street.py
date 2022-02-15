@@ -62,3 +62,11 @@ class AddressLocalStreet(models.Model):
         else:
             record = self.search(args, limit=limit)
         return record.name_get()
+
+    def write(self, values):
+        res = super().write(values)
+        if "local_street" in values:
+            self.env["address.address"].search(
+                [("address_local_street_id", "in", self.mapped("id"))]
+            ).write({"street_man": values["local_street"]})
+        return res

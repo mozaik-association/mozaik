@@ -80,5 +80,6 @@ class AddressAddress(models.Model):
     def _onchange_address_local_street_id(self):
         for record in self:
             if record.address_local_street_id:
+                record.street_man = record.address_local_street_id.local_street
                 record.select_alternative_address_local_street = False
             record.street_man = False
