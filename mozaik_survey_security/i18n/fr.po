@@ -23,7 +23,7 @@ msgstr ""
 
 #. module: mozaik_survey_security
 #: model:res.groups,name:mozaik_survey_security.group_survey_user_child_instances
-msgid "User: limited to child internal instances"
+msgid "User: access limited to child internal instances"
 msgstr ""
 
 #~ msgid ""
