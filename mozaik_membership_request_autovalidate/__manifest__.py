@@ -12,6 +12,8 @@
     "depends": [
         "mozaik_membership_request",
     ],
-    "data": [],
+    "data": [
+        "data/ir_config_parameter.xml",
+    ],
     "demo": [],
 }
