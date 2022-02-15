@@ -302,3 +302,60 @@ class TestEventRegistration(TransactionCase):
 
         self.assertEqual(reg.associated_partner_id, self.partner)
         self.assertEqual(reg.partner_id, self.partner)
+
+    def test_autovalidation_failed(self):
+        """
+        If auto_validation failed, there should be a note on the membership request
+        giving the failure reason
+        """
+        self.assertIn("Autovalidation failed", self.mr.message_ids.mapped("subject"))
+
+    def test_force_autovalidation(self):
+        """
+        If autovalidation failed but is forced, we should have a message on
+        the membership request, giving the failure reason, and an activity
+        scheduled on the partner.
+        """
+
+        omar_sy = self.env["res.partner"].create(
+            {
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "email": "o.s@mail.com",
+            }
+        )
+
+        self.env["event.registration"].with_context({"force_autoval": True}).create(
+            {
+                "lastname": omar_sy.lastname,
+                "firstname": omar_sy.firstname,
+                "email": omar_sy.email,
+                "event_id": self.event.id,
+            }
+        )
+        # Searching for the mr: since validate, active = False
+        domain = [
+            ("active", "=", False),
+            ("lastname", "=", omar_sy.lastname),
+            ("firstname", "=", omar_sy.firstname),
+            ("email", "=", omar_sy.email),
+        ]
+        mr = self.env["membership.request"].search(domain)
+        self.assertEqual(len(mr), 1)
+        self.assertEqual(mr.state, "validate")
+        self.assertIn("Autovalidation failed", self.mr.message_ids.mapped("subject"))
+
+        partner_model = self.env["ir.model"].search([("model", "=", "res.partner")])
+        # Looking for the activity
+        activity = (
+            self.env["mail.activity"]
+            .sudo()
+            .search(
+                [
+                    ("res_model_id", "=", partner_model.id),
+                    ("res_id", "=", mr.partner_id.id),
+                ]
+            )
+        )
+        self.assertEqual(len(activity), 1)
+        self.assertEqual(activity.summary, "Auto-validation forced")

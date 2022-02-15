@@ -1,7 +1,8 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+
+from odoo import _, api, models
 
 
 class EventRegistration(models.Model):
@@ -10,6 +11,9 @@ class EventRegistration(models.Model):
 
     @api.model
     def create(self, vals):
+        # If associated_partner_id is not given, then partner_id cannot be given as well.
+        if "associated_partner_id" not in vals and "partner_id" in vals:
+            vals.pop("partner_id")
         rec = super().create(vals)
         rec._create_membership_request_from_registration(vals)
         return rec
@@ -21,7 +25,29 @@ class EventRegistration(models.Model):
         if request:
             request.write({"event_registration_id": self.id})
             self._add_involvements_to_membership_request(request)
-            request._auto_validate(self.event_id.auto_accept_membership)
+            failure_reason = request._auto_validate(
+                self.event_id.auto_accept_membership
+            )
+            force_autoval = self._context.get("force_autoval", False)
+
+            if failure_reason:
+                request._create_note(
+                    _("Autovalidation failed"),
+                    _("Autovalidation failed. Reason of failure: %s") % failure_reason,
+                )
+
+                if force_autoval:
+                    # Autoval failed but we want to force it
+                    # Schedule an activity on the partner to notify it.
+                    request.validate_request()
+                    if request.state == "validate":
+                        request._create_note(
+                            _("Forcing autovalidation"),
+                            _("Autovalidation was forced"),
+                        )
+                        partner = request.partner_id
+                        if partner:
+                            partner._schedule_activity_force_autoval(failure_reason)
 
     def _add_involvements_to_membership_request(self, request):
         """
