@@ -10,42 +10,45 @@
         <field name="model">mailing.mailing</field>
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='body_html']" position="attributes">
-                <attribute name="attrs">
-                    {'invisible' : 1}
-                </attribute>
+            <xpath expr="//notebook" position="before">
+                <group>
+                    <field name="use_custom_templates" />
+                </group>
             </xpath>
-            <xpath expr="//field[@name='body_html']" position="before">
-                <label for="mail_template_id" />
-                <field
-                    name="mail_template_id"
-                    domain="[('model_id.model','=','res.partner')]"
-                    attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
-                />
+
+            <xpath expr="//page[@name='mail_body']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('use_custom_templates', '=', True)]}</attribute>
             </xpath>
-            <xpath expr="//field[@name='body_arch']" position="attributes">
-                <attribute name="options">
-                    {'inline-field': 'body_html'}
-                </attribute>
-                <attribute name="widget">
-                    html
-                </attribute>
-                <attribute name="class">
-                    None
-                </attribute>
-            </xpath>
-            <xpath expr="//field[@name='body_arch']" position="before">
-                <separator />
-                <label for="body_arch" string="Body" />
-            </xpath>
-            <xpath expr="//field[@name='body_arch']" position="after">
-                 <button
-                    type="object"
-                    name="save_as_template"
-                    string="Save as new template"
-                    class="pull-right"
-                    attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
-                />
+
+            <xpath expr="//page[@name='mail_body']" position="after">
+                <page
+                    string="Mail Body"
+                    name="mail_body_custom_templates"
+                    attrs="{'invisible': [('use_custom_templates', '=', False)]}"
+                >
+                    <group>
+                        <field
+                            name="mail_template_id"
+                            domain="[('model_id.model','=','res.partner')]"
+                            attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
+                        />
+                    </group>
+                    <field
+                        name="body_arch_custom"
+                        widget="html"
+                        options="{'inline-field': 'body_html'}"
+                        attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
+                    />
+                     <button
+                        type="object"
+                        name="save_as_template"
+                        string="Save as new template"
+                        class="pull-right"
+                        attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
+                    />
+                </page>
             </xpath>
 
         </field>

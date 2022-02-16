@@ -17,7 +17,9 @@ class MailComposeMessage(models.TransientModel):
         """
         self.ensure_one()
         result = super().get_mail_values(res_ids)
-        mailing_ids = [v["mailing_id"] for v in result.values() if v.get("mailing_id")]
+        mailing_ids = list(
+            {v["mailing_id"] for v in result.values() if v.get("mailing_id")}
+        )
         if mailing_ids:
             mailing_values = {
                 "contact_ab_pc": self.contact_ab_pc,

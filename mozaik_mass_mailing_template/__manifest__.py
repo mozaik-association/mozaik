@@ -4,7 +4,8 @@
 {
     "name": "Mozaik Mass Mailing Template",
     "summary": """
-        Adds email templates on mass mailings""",
+        Give the possibility to replace Odoo standard templates
+        by email templates on mass mailings""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
