@@ -49,20 +49,23 @@ class MembershipRequest(models.Model):
             auto_val = False
             failure_reason = _("No email provided")
 
-        fields_tokeep_empty = [
-            self.street_man,
-            self.number,
-            self.box,
-            self.mobile,
-            self.phone,
+        fields_tokeep_empty_str = [
+            "street_man",
+            "number",
+            "box",
+            "mobile",
+            "phone",
         ]
-
+        fields_tokeep_empty = [
+            self.mapped(field)[0] for field in fields_tokeep_empty_str
+        ]
         # 26993/2.1.1 and 2.3.2 (first part)
         if auto_val and any(fields_tokeep_empty):
             auto_val = False
             failure_reason = _(
                 "One of the following fields "
-                "is completed: street_man, number, box, mobile, phone"
+                "is completed on the membership request: %s"
+                % ", ".join(fields_tokeep_empty_str)
             )
 
         # 26993/2.3.1
