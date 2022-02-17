@@ -10,6 +10,8 @@ from odoo.addons.partner_rest_api.pydantic_models.partner_info_update import (
 
 
 class PartnerInfoUpdate(BasePartnerInfoUpdate, extends=BasePartnerInfoUpdate):
+    firstname: str = None
+    lastname: str = None
     birthdate_date: date = None
     master_id: int = None
     address_address_id: int = None

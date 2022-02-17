@@ -24,7 +24,7 @@ class PartnerShortInfo(BasePartnerShortInfo, extends=BasePartnerShortInfo):
 
 class PartnerInfo(BasePartnerInfo, extends=BasePartnerInfo):
     firstname: str = None
-    lastername: str = None
+    lastname: str = None
     birthdate: date = pydantic.Field(None, alias="birthdate_date")
     int_instance_ids: List[int] = []
     unemployed: bool = None
