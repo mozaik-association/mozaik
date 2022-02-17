@@ -25,6 +25,15 @@ class SurveyMembershipRequest(Survey):
             return {"error": access_data["validity_code"]}
         answer_sudo = access_data["answer_sudo"]
 
+        self._fill_membership_request(answer_sudo)
+
+        return response
+
+    def _fill_membership_request(self, answer_sudo):
+        """
+        Looks at bridge fields to fill the membership request.
+        Adds involvements categories on membership request.
+        """
         membership_request = answer_sudo.membership_request_id
         values = {}  # will contain all answers to bridge fields
         for user_input_line in answer_sudo.user_input_line_ids.filtered(
@@ -41,7 +50,7 @@ class SurveyMembershipRequest(Survey):
         if membership_request.lastname == UNKNOWN_PERSON:
             #  We do not continue the process if we didn't even get the
             #  lastname of the partner.
-            return response
+            return
 
         res = membership_request._onchange_partner_id_vals(
             is_company=values.get("is_company", False),
@@ -67,5 +76,3 @@ class SurveyMembershipRequest(Survey):
         )
 
         membership_request._auto_validate(answer_sudo.survey_id.auto_accept_membership)
-
-        return response
