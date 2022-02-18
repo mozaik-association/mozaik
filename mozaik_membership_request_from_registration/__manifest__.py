@@ -14,8 +14,6 @@
         "event",
         "mozaik_membership_request",
     ],
-    "data": [
-        "views/event_registration.xml",
-    ],
+    "data": [],
     "demo": [],
 }

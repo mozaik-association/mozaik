@@ -9,14 +9,17 @@ class MembershipRequest(models.Model):
 
     def _find_input_partner(self, vals):
         """
-        Find, if existing, the partner given as input,
-        and update lastname and firstname, if not given.
+        Find, if existing, the partner to add on the membership request,
+        and update lastname, firstname and email, if not given.
+        - If 'mr_partner_id' is a key of _context, then take the id given in the context
+        to associate the partner id and DON'T USE partner_id given in vals.
+        - If 'mr_partner_id' is not in the context, use field partner_id given in vals.
         """
-
         partner = False
-        if "associated_partner_id" in vals and vals["associated_partner_id"]:
-            partner = self.env["res.partner"].browse(vals["associated_partner_id"])
-            vals["partner_id"] = partner.id
+        if "mr_partner_id" in self._context:
+            mr_partner_id = self._context.get("mr_partner_id")
+            if mr_partner_id:
+                partner = self.env["res.partner"].browse(mr_partner_id)
         elif "partner_id" in vals and vals["partner_id"]:
             partner = self.env["res.partner"].browse(vals["partner_id"])
 
@@ -25,6 +28,8 @@ class MembershipRequest(models.Model):
                 vals["lastname"] = partner.lastname
             if ("firstname" not in vals or not vals["firstname"]) and partner.firstname:
                 vals["firstname"] = partner.firstname
+            if "email" not in vals or not vals["email"]:
+                vals["email"] = partner.email
         return partner
 
     @api.model
@@ -117,7 +122,7 @@ class MembershipRequest(models.Model):
                     firstname=firstname,
                     email=email,
                 )
-                values.update({"partner_id": partner.id if partner else False})
+            values.update({"partner_id": partner.id if partner else False})
             # 26993/2.4.2.1.2
             # If the partner has no address but a membership state,
             # we force the instance to be the one of the partner.

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field
+            name="name"
+        >res.partner.form (in mozaik_event_membership_request_involvement)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="event.res_partner_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    groups="event.group_event_user"
+                    type="object"
+                    icon="fa-ticket"
+                    name="action_event_registrations_view"
+                    attrs="{'invisible': [('event_registrations_count','=', 0)]}"
+                >
+                    <field
+                        string="Events"
+                        name="event_registrations_count"
+                        widget="statinfo"
+                    />
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='action_event_view']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
