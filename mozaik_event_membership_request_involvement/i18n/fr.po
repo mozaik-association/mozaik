@@ -27,6 +27,24 @@ msgid "Associated Event Registration"
 msgstr "Evénement lié"
 
 #. module: mozaik_event_membership_request_involvement
+#: code:addons/mozaik_event_membership_request_involvement/models/event_registration.py:0
+#, python-format
+msgid "Autovalidation failed"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
+#: code:addons/mozaik_event_membership_request_involvement/models/event_registration.py:0
+#, python-format
+msgid "Autovalidation failed. Reason of failure: %s"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
+#: code:addons/mozaik_event_membership_request_involvement/models/event_registration.py:0
+#, python-format
+msgid "Autovalidation was forced"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
 #: model:ir.model,name:mozaik_event_membership_request_involvement.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -55,6 +73,12 @@ msgstr "Inscription à un événement"
 #| msgid "Event"
 msgid "Events"
 msgstr "Evénement"
+
+#. module: mozaik_event_membership_request_involvement
+#: code:addons/mozaik_event_membership_request_involvement/models/event_registration.py:0
+#, python-format
+msgid "Forcing autovalidation"
+msgstr ""
 
 #. module: mozaik_event_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_event__id
