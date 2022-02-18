@@ -7,6 +7,20 @@ from odoo import api, fields, models
 class MembershipRequest(models.Model):
     _inherit = "membership.request"
 
+    force_autoval = fields.Boolean(
+        string="Auto-validation will be forced",
+        default=False,
+        compute="_compute_force_autoval",
+        store=True,
+    )
+
+    def _compute_force_autoval(self):
+        """
+        Intended to be extended for event, petition and survey.
+        """
+        for record in self:
+            record.force_autoval = record.force_autoval
+
     def _find_input_partner(self, vals):
         """
         Find, if existing, the partner to add on the membership request,
