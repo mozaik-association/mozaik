@@ -9,5 +9,5 @@ class MailingMailing(models.Model):
     _inherit = "mailing.mailing"
 
     def action_immediate_sending(self):
-        self.write({"state": "in_queue", "schedule_date": False})
+        self.write({"state": "in_queue"})
         self._process_mass_mailing_queue()
