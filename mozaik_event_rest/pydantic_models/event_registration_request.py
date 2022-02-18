@@ -15,6 +15,12 @@ from .event_question_answer import EventQuestionAnswer
 class EventRegistrationRequest(
     BaseEventRegistrationRequest, extends=BaseEventRegistrationRequest
 ):
+    # firstname, lastname and email are not mandatory anymore since we
+    # can give registered_partner_id
+    firstname: str = None
+    lastname: str = None
+    email: str = None
 
+    registered_partner_id: int = None
     zip: str = None
     answers: List[EventQuestionAnswer] = pydantic.Field([])
