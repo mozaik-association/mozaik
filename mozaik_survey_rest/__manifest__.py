@@ -14,6 +14,7 @@
         "base_rest_pydantic",
         "survey",
         "mozaik_survey_publish_date",
+        "mozaik_survey_membership_request_involvement",
         "mozaik_thesaurus_api",
         "extendable",
         "pydantic",
