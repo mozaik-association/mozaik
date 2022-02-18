@@ -11,7 +11,17 @@ class SurveyUserInput(models.Model):
 
     _inherit = "survey.user_input"
 
-    membership_request_id = fields.Many2one("membership.request")
+    membership_request_id = fields.One2many(
+        comodel_name="membership.request",
+        inverse_name="survey_user_input_id",
+        string="Associated membership request",
+    )
+    force_autoval = fields.Boolean(
+        string="Force auto-validation at creation",
+        default=False,
+        help="If a membership request is created when record is created, "
+        "the membership request will be auto-validated.",
+    )
 
     @api.model
     def create(self, vals):
@@ -34,7 +44,6 @@ class SurveyUserInput(models.Model):
                 }
             )
         mr = self.env["membership.request"].create(values_mr)
-        vals.update({"membership_request_id": mr.id})
         user_input = super().create(vals)
         values_mr = {"survey_user_input_id": user_input.id}
         if user_input.survey_id.involvement_category_id:

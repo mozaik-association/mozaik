@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class MembershipRequest(models.Model):
@@ -14,6 +14,17 @@ class MembershipRequest(models.Model):
         help="The membership request came from the answer to a survey.",
         readonly=True,
     )
+
+    @api.depends("survey_user_input_id")
+    def _compute_force_autoval(self):
+        """
+        If membership request is coming from answering to a survey,
+        force_autoval equals the field force_autoval on the survey answer.
+        """
+        super()._compute_force_autoval()
+        for record in self:
+            if record.survey_user_input_id:
+                record.force_autoval = record.survey_user_input_id.force_autoval
 
     def validate_request(self):
         """
