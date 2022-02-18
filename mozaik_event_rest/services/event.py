@@ -63,4 +63,5 @@ class EventService(Component):
         res["associated_partner_id"] = (
             event_registration_request.registered_partner_id or False
         )
+        res["zip"] = event_registration_request.zip
         return res
