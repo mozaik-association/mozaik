@@ -15,12 +15,14 @@ class MembershipRequest(models.Model):
         to associate the partner id and DON'T USE partner_id given in vals.
         - If 'mr_partner_id' is not in the context, use field partner_id given in vals.
         """
-        partner = False
-        if "mr_partner_id" in self._context:
+        # If the mr was already created (survey case), the partner may already
+        # be set on the mr.
+        partner = self.partner_id
+        if not partner and "mr_partner_id" in self._context:
             mr_partner_id = self._context.get("mr_partner_id")
             if mr_partner_id:
                 partner = self.env["res.partner"].browse(mr_partner_id)
-        elif "partner_id" in vals and vals["partner_id"]:
+        elif not partner and "partner_id" in vals and vals["partner_id"]:
             partner = self.env["res.partner"].browse(vals["partner_id"])
 
         if partner:

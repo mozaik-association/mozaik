@@ -19,8 +19,20 @@ class SurveyUserInput(models.Model):
         At creation, we also create an empty membership_request.
         This mr will be updated with answers that contain a
         bridge field.
+        NOTE: if partner_id is given, we set it with lastname,
+        firstname and email.
         """
         values_mr = {"lastname": UNKNOWN_PERSON, "request_type": False}
+        if "partner_id" in vals and vals["partner_id"]:
+            partner = self.env["res.partner"].browse(vals["partner_id"])
+            values_mr.update(
+                {
+                    "partner_id": partner.id,
+                    "lastname": partner.lastname,
+                    "firstname": partner.firstname or "",
+                    "email": partner.email or "",
+                }
+            )
         mr = self.env["membership.request"].create(values_mr)
         vals.update({"membership_request_id": mr.id})
         user_input = super().create(vals)
