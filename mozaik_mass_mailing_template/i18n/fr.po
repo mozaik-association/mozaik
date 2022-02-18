@@ -17,9 +17,11 @@ msgstr ""
 "X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_mass_mailing_template
-#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_template.mailing_mailing_form_view
-msgid "Body"
-msgstr ""
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mailing_mailing__body_arch_custom
+#, fuzzy
+#| msgid "Email Template"
+msgid "Body (mail template)"
+msgstr "Modèle de mail"
 
 #. module: mozaik_mass_mailing_template
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mail_template__use_default_to
@@ -66,6 +68,11 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_mass_mailing_template
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_template.mailing_mailing_form_view
+msgid "Mail Body"
+msgstr ""
+
+#. module: mozaik_mass_mailing_template
 #: model:ir.model,name:mozaik_mass_mailing_template.model_distribution_list_mass_function
 msgid "Mass Function"
 msgstr ""
@@ -79,3 +86,19 @@ msgstr "Publipostage"
 #: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_template.mailing_mailing_form_view
 msgid "Save as new template"
 msgstr "Sauvegarder en tant que nouveau modèle"
+
+#. module: mozaik_mass_mailing_template
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mailing_mailing__use_custom_templates
+#, fuzzy
+#| msgid "Email Templates"
+msgid "Use mail templates"
+msgstr "Modèles de mail"
+
+#. module: mozaik_mass_mailing_template
+#: code:addons/mozaik_mass_mailing_template/models/mailing_mailing.py:0
+#, python-format
+msgid ""
+"You are trying to modify body_arch_custom on several mass_mailingsat the "
+"same time, but use_custom_templates does not have the same value on all mass "
+"mailings."
+msgstr ""
