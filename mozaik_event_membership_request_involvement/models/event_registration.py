@@ -13,6 +13,17 @@ class EventRegistration(models.Model):
         string="Registered Partner",
         help="Id of the partner that will be associated to the membership request",
     )
+    membership_request_id = fields.One2many(
+        comodel_name="membership.request",
+        inverse_name="event_registration_id",
+        string="Associated membership request",
+    )
+    force_autoval = fields.Boolean(
+        string="Force auto-validation at creation",
+        default=False,
+        help="If a membership request is created when the record is created,"
+        "the membership request will be auto-validated.",
+    )
 
     @api.onchange("associated_partner_id")
     def _onchange_associated_partner_id(self):
@@ -35,29 +46,32 @@ class EventRegistration(models.Model):
         if "associated_partner_id" in vals:
             registered_partner = vals["associated_partner_id"]
         rec = super().create(vals)
-        rec.with_context(
+        request = rec.with_context(
             mr_partner_id=registered_partner
         )._create_membership_request_from_registration(vals)
+        rec._update_membership_request_from_registration(request)
         return rec
 
     def _create_membership_request_from_registration(self, vals):
         self.ensure_one()
 
         request = self.env["membership.request"]._create_membership_request(vals)
+        return request
+
+    def _update_membership_request_from_registration(self, request):
         if request:
             request.write({"event_registration_id": self.id})
             self._add_involvements_to_membership_request(request)
             failure_reason = request._auto_validate(
                 self.event_id.auto_accept_membership
             )
-            force_autoval = self._context.get("force_autoval", False)
             if failure_reason:
                 request._create_note(
                     _("Autovalidation failed"),
                     _("Autovalidation failed. Reason of failure: %s") % failure_reason,
                 )
 
-                if force_autoval:
+                if request.force_autoval:
                     # Autoval failed but we want to force it
                     # Schedule an activity on the partner to notify it.
                     request.validate_request()

@@ -324,12 +324,13 @@ class TestEventRegistration(TransactionCase):
             }
         )
 
-        self.env["event.registration"].with_context({"force_autoval": True}).create(
+        self.env["event.registration"].create(
             {
                 "lastname": omar_sy.lastname,
                 "firstname": omar_sy.firstname,
                 "email": omar_sy.email,
                 "event_id": self.event.id,
+                "force_autoval": True,
             }
         )
         # Searching for the mr: since validate, active = False
