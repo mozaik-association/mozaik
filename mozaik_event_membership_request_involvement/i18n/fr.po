@@ -27,9 +27,15 @@ msgid "Associated Event Registration"
 msgstr "Evénement lié"
 
 #. module: mozaik_event_membership_request_involvement
+#: model:ir.model,name:mozaik_event_membership_request_involvement.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_event__display_name
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_registration__display_name
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_membership_request__display_name
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_res_partner__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -44,16 +50,30 @@ msgid "Event Registration"
 msgstr "Inscription à un événement"
 
 #. module: mozaik_event_membership_request_involvement
+#: model_terms:ir.ui.view,arch_db:mozaik_event_membership_request_involvement.res_partner_form_view
+#, fuzzy
+#| msgid "Event"
+msgid "Events"
+msgstr "Evénement"
+
+#. module: mozaik_event_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_event__id
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_registration__id
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_membership_request__id
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_res_partner__id
 msgid "ID"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
+#: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_event_registration__associated_partner_id
+msgid "Id of the partner that will be associated to the membership request"
 msgstr ""
 
 #. module: mozaik_event_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_event____last_update
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_registration____last_update
 #: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_membership_request____last_update
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
@@ -67,6 +87,31 @@ msgstr "Demande d'adhésion/modification"
 msgid ""
 "Membership requests that can be linked to a unique existing partner are "
 "automatically accepted."
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_abstract_assembly__event_registrations_count
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_ext_assembly__event_registrations_count
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_int_assembly__event_registrations_count
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_res_partner__event_registrations_count
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_res_users__event_registrations_count
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_sta_assembly__event_registrations_count
+msgid "Number of Events"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
+#: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_abstract_assembly__event_registrations_count
+#: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_ext_assembly__event_registrations_count
+#: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_int_assembly__event_registrations_count
+#: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_res_partner__event_registrations_count
+#: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_res_users__event_registrations_count
+#: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_sta_assembly__event_registrations_count
+msgid "Number of events the partner has participated."
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_registration__associated_partner_id
+msgid "Registered Partner"
 msgstr ""
 
 #. module: mozaik_event_membership_request_involvement
