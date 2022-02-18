@@ -11,6 +11,9 @@ from odoo.exceptions import ValidationError
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 from odoo.addons.component.core import Component
+from odoo.addons.mozaik_survey_membership_request_involvement.controllers.main import (
+    SurveyMembershipRequest,
+)
 from odoo.addons.survey.controllers.main import Survey
 
 from ..pydantic_models.survey_info import SurveyInfo, SurveyShortInfo
@@ -176,5 +179,8 @@ class SurveyService(Component):
             raise ValidationError(_("There were errors during the submission process"))
 
         survey_user_input.write({"state": "done"})
+
+        # Manage questions with bridge field
+        SurveyMembershipRequest()._fill_membership_request(survey_user_input)
 
         return SurveyUserInputInfo.from_orm(survey_user_input)

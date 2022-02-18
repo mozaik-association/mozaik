@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 from odoo.addons.pydantic import utils
 
+from .bridge_field_info import BridgeFieldInfo
 from .survey_question_answer_info import SurveyQuestionAnswerInfo
 
 
@@ -19,6 +20,7 @@ class SurveyQuestionInfo(BaseModel, metaclass=ExtendableModelMeta):
     page_id: int = None
     question_type: str = None
     description: str = None
+    bridge_field: BridgeFieldInfo = pydantic.Field(None, alias="bridge_field_id")
     validation_required: bool = None
     validation_email: bool = None
     validation_length_min: int = None
