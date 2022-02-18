@@ -21,12 +21,14 @@ class MembershipRequest(models.Model):
         and if the partner on the event registration is not mentioned,
         then we associate the partner from the membership request
         to the event registration:
-        we erase the value contained in partner_id ("Booked by") and
         we set the partner into the field "associated_partner_id", if
         not present yet.
         """
         super().validate_request()
-        if self.event_registration_id and self.state == "validate" and self.partner_id:
-            self.event_registration_id.partner_id = self.partner_id
-            if not self.event_registration_id.associated_partner_id:
-                self.event_registration_id.associated_partner_id = self.partner_id
+        if (
+            self.event_registration_id
+            and self.state == "validate"
+            and self.partner_id
+            and not self.event_registration_id.associated_partner_id
+        ):
+            self.event_registration_id.associated_partner_id = self.partner_id

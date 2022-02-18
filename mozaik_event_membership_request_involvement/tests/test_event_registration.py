@@ -67,7 +67,7 @@ class TestEventRegistration(TransactionCase):
         self.mr.validate_request()
         self.assertEqual(
             self.mr.partner_id,
-            self.attendee.partner_id,
+            self.attendee.associated_partner_id,
             "The partner was not set correctly",
         )
 
@@ -301,4 +301,3 @@ class TestEventRegistration(TransactionCase):
         mr.validate_request()
 
         self.assertEqual(reg.associated_partner_id, self.partner)
-        self.assertEqual(reg.partner_id, self.partner)
