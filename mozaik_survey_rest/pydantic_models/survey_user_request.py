@@ -10,3 +10,4 @@ from pydantic import BaseModel
 
 class SurveyUserInputRequest(BaseModel, metaclass=ExtendableModelMeta):
     user_input_lines: Dict[str, Union[str, List[str], Dict[str, List[str]]]]
+    force_autoval: bool = False
