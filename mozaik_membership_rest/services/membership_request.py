@@ -113,7 +113,7 @@ class MembershipRequestService(Component):
         self, membership_request: MembershipRequest
     ) -> MembershipRequestInfo:
         vals = self._validate_membership_request_input(membership_request)
-        mr = self.env["membership.request"].create(vals)
+        mr = self.env["membership.request"].with_context(mode="autoval").create(vals)
         if membership_request.auto_validate:
             mr.validate_request()
 
