@@ -1,30 +1,44 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import _, api, fields, models
 
 
 class PetitionRegistration(models.Model):
 
     _inherit = "petition.registration"
 
+    membership_request_id = fields.One2many(
+        comodel_name="membership.request",
+        inverse_name="petition_registration_id",
+        string="Associated membership request",
+    )
+    force_autoval = fields.Boolean(
+        string="Force auto-validation at creation",
+        default=False,
+        help="If a membership request is created when record is created, "
+        "the membership request will be auto-validated.",
+    )
+
     @api.model
     def create(self, vals):
         rec = super().create(vals)
-        rec._create_membership_request_from_registration(vals)
+        request = rec._create_membership_request_from_registration(vals)
+        rec._update_membership_request_from_registration(request)
         return rec
 
     def _create_membership_request_from_registration(self, vals):
         self.ensure_one()
-
         request = self.env["membership.request"]._create_membership_request(vals)
+        return request
+
+    def _update_membership_request_from_registration(self, request):
         if request:
             request.write({"petition_registration_id": self.id})
             self._add_involvements_to_membership_request(request)
             failure_reason = request._auto_validate(
                 self.petition_id.auto_accept_membership
             )
-            force_autoval = self._context.get("force_autoval", False)
 
             if failure_reason:
                 request._create_note(
@@ -32,7 +46,7 @@ class PetitionRegistration(models.Model):
                     _("Autovalidation failed. Reason of failure: %s") % failure_reason,
                 )
 
-                if force_autoval:
+                if request.force_autoval:
                     request.validate_request()
                     if request.state == "validate":
                         request._create_note(

@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class MembershipRequest(models.Model):
@@ -14,6 +14,13 @@ class MembershipRequest(models.Model):
         help="The membership request came from a petition signature.",
         readonly=True,
     )
+
+    @api.depends("petition_registration_id")
+    def _compute_force_autoval(self):
+        super()._compute_force_autoval()
+        for record in self:
+            if record.petition_registration_id:
+                record.force_autoval = record.petition_registration_id.force_autoval
 
     def validate_request(self):
         """
