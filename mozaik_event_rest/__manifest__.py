@@ -11,6 +11,7 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "event_rest_api",
+        "event_sale",
         "mozaik_address",
         "mozaik_event_publish_date",
         "mozaik_event_registration_add_zip",
