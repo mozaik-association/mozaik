@@ -24,6 +24,11 @@ msgid "Associated Event Registration"
 msgstr ""
 
 #. module: mozaik_event_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_registration__membership_request_id
+msgid "Associated membership request"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
 #: code:addons/mozaik_event_membership_request_involvement/models/event_registration.py:0
 #, python-format
 msgid "Autovalidation failed"
@@ -70,6 +75,11 @@ msgid "Events"
 msgstr ""
 
 #. module: mozaik_event_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_event_membership_request_involvement.field_event_registration__force_autoval
+msgid "Force auto-validation at creation"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
 #: code:addons/mozaik_event_membership_request_involvement/models/event_registration.py:0
 #, python-format
 msgid "Forcing autovalidation"
@@ -86,6 +96,13 @@ msgstr ""
 #. module: mozaik_event_membership_request_involvement
 #: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_event_registration__associated_partner_id
 msgid "Id of the partner that will be associated to the membership request"
+msgstr ""
+
+#. module: mozaik_event_membership_request_involvement
+#: model:ir.model.fields,help:mozaik_event_membership_request_involvement.field_event_registration__force_autoval
+msgid ""
+"If a membership request is created when the record is created,the membership"
+" request will be auto-validated."
 msgstr ""
 
 #. module: mozaik_event_membership_request_involvement
