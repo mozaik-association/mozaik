@@ -64,4 +64,5 @@ class EventService(Component):
             event_registration_request.registered_partner_id or False
         )
         res["zip"] = event_registration_request.zip
+        res["force_autoval"] = event_registration_request.force_autoval
         return res

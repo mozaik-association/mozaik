@@ -24,3 +24,4 @@ class EventRegistrationRequest(
     registered_partner_id: int = None
     zip: str = None
     answers: List[EventQuestionAnswer] = pydantic.Field([])
+    force_autoval: bool = False
