@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-02-16 19:57+0000\n"
+"PO-Revision-Date: 2022-02-21 12:57+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -18,10 +18,8 @@ msgstr ""
 
 #. module: mozaik_mass_mailing_template
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mailing_mailing__body_arch_custom
-#, fuzzy
-#| msgid "Email Template"
 msgid "Body (mail template)"
-msgstr "Modèle de mail"
+msgstr "Corps de l'email"
 
 #. module: mozaik_mass_mailing_template
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mail_template__use_default_to
@@ -70,7 +68,7 @@ msgstr ""
 #. module: mozaik_mass_mailing_template
 #: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_template.mailing_mailing_form_view
 msgid "Mail Body"
-msgstr ""
+msgstr "Corps de l'email"
 
 #. module: mozaik_mass_mailing_template
 #: model:ir.model,name:mozaik_mass_mailing_template.model_distribution_list_mass_function
@@ -89,10 +87,8 @@ msgstr "Sauvegarder en tant que nouveau modèle"
 
 #. module: mozaik_mass_mailing_template
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mailing_mailing__use_custom_templates
-#, fuzzy
-#| msgid "Email Templates"
 msgid "Use mail templates"
-msgstr "Modèles de mail"
+msgstr "Utiliser les modèles de mail"
 
 #. module: mozaik_mass_mailing_template
 #: code:addons/mozaik_mass_mailing_template/models/mailing_mailing.py:0
