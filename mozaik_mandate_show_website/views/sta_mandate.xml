@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="sta_mandate_form_view">
+        <field name="name">sta.mandate.form (in mozaik_mandate_show_website)</field>
+        <field name="model">sta.mandate</field>
+        <field name="inherit_id" ref="mozaik_mandate.sta_mandate_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='revenue']" position="after">
+                <page name="show_on_website" string="Visible on website">
+                    <group>
+                        <field name="no_show_on_website" />
+                        <field name="partner_no_show_on_website" readonly="1" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
