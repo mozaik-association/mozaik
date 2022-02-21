@@ -22,7 +22,7 @@
                 >{'invisible': [('use_custom_templates', '=', True)]}</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='mail_body']" position="after">
+            <xpath expr="//page[@name='mail_body']" position="before">
                 <page
                     string="Mail Body"
                     name="mail_body_custom_templates"
