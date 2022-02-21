@@ -72,6 +72,7 @@ class PetitionService(Component):
             "mobile": petition_registration_request.mobile,
             "zip": petition_registration_request.zip,
             "date_open": petition_registration_request.date_open,
+            "force_autoval": petition_registration_request.force_autoval,
         }
         answers = []
         for answer in petition_registration_request.answers:
