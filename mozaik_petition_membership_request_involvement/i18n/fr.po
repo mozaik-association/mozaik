@@ -37,6 +37,13 @@ msgid "Associated Petition Signatory"
 msgstr "Signature de pétition liée"
 
 #. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_registration__membership_request_id
+#, fuzzy
+#| msgid "Accept membership requests"
+msgid "Associated membership request"
+msgstr "Accepter les demandes d'adhésions"
+
+#. module: mozaik_petition_membership_request_involvement
 #: code:addons/mozaik_petition_membership_request_involvement/models/petition_registration.py:0
 #, python-format
 msgid "Autovalidation failed"
@@ -68,6 +75,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_registration__force_autoval
+msgid "Force auto-validation at creation"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
 #: code:addons/mozaik_petition_membership_request_involvement/models/petition_registration.py:0
 #, python-format
 msgid "Forcing autovalidation"
@@ -79,6 +91,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_registration__id
 #: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_res_partner__id
 msgid "ID"
+msgstr ""
+
+#. module: mozaik_petition_membership_request_involvement
+#: model:ir.model.fields,help:mozaik_petition_membership_request_involvement.field_petition_registration__force_autoval
+msgid ""
+"If a membership request is created when record is created, the membership "
+"request will be auto-validated."
 msgstr ""
 
 #. module: mozaik_petition_membership_request_involvement
