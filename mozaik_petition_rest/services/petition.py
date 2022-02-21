@@ -89,9 +89,7 @@ class PetitionService(Component):
                 )
             )
         registration_values["registration_answer_ids"] = answers
-        petition_registration = (
-            self.env["petition.registration"]
-            .with_context(autoval=True)
-            .create(registration_values)
+        petition_registration = self.env["petition.registration"].create(
+            registration_values
         )
         return PetitionRegistrationInfo.from_orm(petition_registration)
