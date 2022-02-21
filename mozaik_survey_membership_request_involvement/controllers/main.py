@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, http
+from odoo import http
 
 from odoo.addons.survey.controllers.main import Survey
 
@@ -74,23 +74,6 @@ class SurveyMembershipRequest(Survey):
         membership_request.write(
             {"involvement_category_ids": command_ic, "interest_ids": command_interests}
         )
-
-        failure_reason = membership_request._auto_validate(
+        membership_request._auto_validate_may_be_forced(
             answer_sudo.survey_id.auto_accept_membership
         )
-
-        if failure_reason:
-            membership_request._create_note(
-                _("Autovalidation failed"),
-                _("Autovalidation failed. Reason of failure: %s") % failure_reason,
-            )
-
-            if membership_request.force_autoval:
-                membership_request.validate_request()
-                if membership_request.state == "validate":
-                    membership_request._create_note(
-                        _("Forcing autovalidation"), _("Autovalidation was forced")
-                    )
-                    partner = membership_request.partner_id
-                    if partner:
-                        partner._schedule_activity_force_autoval(failure_reason)

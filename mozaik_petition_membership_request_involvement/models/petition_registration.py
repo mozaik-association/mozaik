@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class PetitionRegistration(models.Model):
@@ -36,25 +36,9 @@ class PetitionRegistration(models.Model):
         if request:
             request.write({"petition_registration_id": self.id})
             self._add_involvements_to_membership_request(request)
-            failure_reason = request._auto_validate(
+            request._auto_validate_may_be_forced(
                 self.petition_id.auto_accept_membership
             )
-
-            if failure_reason:
-                request._create_note(
-                    _("Autovalidation failed"),
-                    _("Autovalidation failed. Reason of failure: %s") % failure_reason,
-                )
-
-                if request.force_autoval:
-                    request.validate_request()
-                    if request.state == "validate":
-                        request._create_note(
-                            _("Forcing autovalidation"), _("Autovalidation was forced")
-                        )
-                        partner = request.partner_id
-                        if partner:
-                            partner._schedule_activity_force_autoval(failure_reason)
 
     def _add_involvements_to_membership_request(self, request):
         """

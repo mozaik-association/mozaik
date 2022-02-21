@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class MembershipRequest(models.Model):
@@ -172,3 +172,23 @@ class MembershipRequest(models.Model):
             )
             request.write(res)
             return request
+
+    def _auto_validate_may_be_forced(self, auto_validate):
+        self.ensure_one()
+        failure_reason = self._auto_validate(auto_validate)
+
+        if failure_reason:
+            self._create_note(
+                _("Autovalidation failed"),
+                _("Autovalidation failed. Reason of failure: %s") % failure_reason,
+            )
+
+            if self.force_autoval:
+                self.validate_request()
+                if self.state == "validate":
+                    self._create_note(
+                        _("Forcing autovalidation"), _("Autovalidation was forced")
+                    )
+                    partner = self.partner_id
+                    if partner:
+                        partner._schedule_activity_force_autoval(failure_reason)
