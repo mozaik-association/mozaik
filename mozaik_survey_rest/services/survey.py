@@ -155,6 +155,7 @@ class SurveyService(Component):
             {
                 "survey_id": survey.id,
                 "partner_id": self.env.context.get("authenticated_partner_id", False),
+                "force_autoval": input_data.force_autoval,
             }
         )
 
