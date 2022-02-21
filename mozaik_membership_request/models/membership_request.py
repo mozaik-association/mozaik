@@ -563,9 +563,9 @@ class MembershipRequest(models.Model):
             ]
             zids = self.env["res.city"].search(domain, limit=1)
         if zids:
-            cnty_id = self.env["res.country"]._country_default_get("BE")
+            cnty_id = self.env["res.country"]._country_default_get("BE").id
             if not country_id or cnty_id == country_id:
-                country_id = cnty_id.id
+                country_id = cnty_id
                 city_id = zids.id
                 city_man = False
                 zip_man = False
