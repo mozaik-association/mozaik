@@ -31,7 +31,7 @@ class TestResPartner(TransactionCase):
         with self.assertRaises(ValidationError):
             wizard = (
                 self.env["deceased.partner"]
-                .with_context({"default_partner_id": self.paul.id})
+                .with_context(default_partner_id=self.paul.id)
                 .create(
                     {
                         "death_date": fields.Date.today() + relativedelta(days=1),
@@ -59,7 +59,7 @@ class TestResPartner(TransactionCase):
         # Encode Paul's death
         wizard = (
             self.env["deceased.partner"]
-            .with_context({"default_partner_id": self.paul.id})
+            .with_context(default_partner_id=self.paul.id)
             .create(
                 {
                     "death_date": fields.Date.today() - relativedelta(days=1),
