@@ -114,7 +114,9 @@ class MembershipRequestService(Component):
         self, membership_request: MembershipRequest
     ) -> MembershipRequestInfo:
         vals = self._validate_membership_request_input(membership_request)
-        mr = self.env["membership.request"].with_context(mode="autoval").create(vals)
+        mr = (
+            self.env["membership.request"].with_context(mode="pre_process").create(vals)
+        )
         # We validate the request if asked, and force auto-validation if asked
         mr._auto_validate_may_be_forced(membership_request.auto_validate)
 
