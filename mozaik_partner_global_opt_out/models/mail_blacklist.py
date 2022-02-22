@@ -35,6 +35,6 @@ class MailBlacklist(models.Model):
                 ]
             )
             if partners:
-                partners.with_context({"skip_mail_blacklist_update": True}).write(
+                partners.with_context(skip_mail_blacklist_update=True).write(
                     {"global_opt_out": mail_blacklist.active}
                 )
