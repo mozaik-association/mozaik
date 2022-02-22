@@ -12,7 +12,7 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "event",
-        "mozaik_membership_request",
+        "mozaik_membership_request_autovalidate",
     ],
     "data": [],
     "demo": [],
