@@ -44,3 +44,4 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     unemployed_change: str = None
     disabled_change: str = None
     auto_validate: bool = False
+    force_auto_validate: bool = False
