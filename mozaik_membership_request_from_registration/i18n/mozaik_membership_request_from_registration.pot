@@ -19,8 +19,32 @@ msgid "Auto-validation will be forced"
 msgstr ""
 
 #. module: mozaik_membership_request_from_registration
+#: code:addons/mozaik_membership_request_from_registration/models/membership_request.py:0
+#, python-format
+msgid "Autovalidation failed"
+msgstr ""
+
+#. module: mozaik_membership_request_from_registration
+#: code:addons/mozaik_membership_request_from_registration/models/membership_request.py:0
+#, python-format
+msgid "Autovalidation failed. Reason of failure: %s"
+msgstr ""
+
+#. module: mozaik_membership_request_from_registration
+#: code:addons/mozaik_membership_request_from_registration/models/membership_request.py:0
+#, python-format
+msgid "Autovalidation was forced"
+msgstr ""
+
+#. module: mozaik_membership_request_from_registration
 #: model:ir.model.fields,field_description:mozaik_membership_request_from_registration.field_membership_request__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_membership_request_from_registration
+#: code:addons/mozaik_membership_request_from_registration/models/membership_request.py:0
+#, python-format
+msgid "Forcing autovalidation"
 msgstr ""
 
 #. module: mozaik_membership_request_from_registration
