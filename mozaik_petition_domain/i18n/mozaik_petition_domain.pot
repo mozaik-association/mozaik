@@ -24,6 +24,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_petition_domain
+#: model:ir.model.fields,field_description:mozaik_petition_domain.field_petition_petition__domain_is_set
+msgid "Domain is set"
+msgstr ""
+
+#. module: mozaik_petition_domain
 #: model:ir.model.fields,field_description:mozaik_petition_domain.field_petition_petition__id
 msgid "ID"
 msgstr ""
