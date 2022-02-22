@@ -9,7 +9,7 @@ from odoo.tests.common import TransactionCase
 class TestMembershipRequest(TransactionCase):
     def setUp(self):
         super().setUp()
-        self.mr_model = self.env["membership.request"].with_context(mode="autoval")
+        self.mr_model = self.env["membership.request"].with_context(mode="pre_process")
         self.belgium = self.env["res.country"].search([("code", "=", "BE")])
         self.city_lg = self.env["res.city"].create(
             {

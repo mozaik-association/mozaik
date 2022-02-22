@@ -1393,7 +1393,7 @@ class MembershipRequest(models.Model):
                 vals[key] = val.strip().title()
         if self.env.context.get("install_mode", False) or self.env.context.get(
             "mode", True
-        ) in ["ws", "autoval"]:
+        ) in ["ws", "pre_process"]:
             self._pre_process(vals)
 
         # do not pass related fields to the orm
