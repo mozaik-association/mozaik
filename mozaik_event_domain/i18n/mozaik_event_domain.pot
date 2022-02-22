@@ -24,6 +24,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_event_domain
+#: model:ir.model.fields,field_description:mozaik_event_domain.field_event_event__domain_is_set
+msgid "Domain is set"
+msgstr ""
+
+#. module: mozaik_event_domain
 #: model:ir.model,name:mozaik_event_domain.model_event_event
 msgid "Event"
 msgstr ""
