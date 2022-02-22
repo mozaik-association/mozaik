@@ -44,24 +44,6 @@ msgid "Associated membership request"
 msgstr "Accepter les demandes d'adhésions"
 
 #. module: mozaik_petition_membership_request_involvement
-#: code:addons/mozaik_petition_membership_request_involvement/models/petition_registration.py:0
-#, python-format
-msgid "Autovalidation failed"
-msgstr ""
-
-#. module: mozaik_petition_membership_request_involvement
-#: code:addons/mozaik_petition_membership_request_involvement/models/petition_registration.py:0
-#, python-format
-msgid "Autovalidation failed. Reason of failure: %s"
-msgstr ""
-
-#. module: mozaik_petition_membership_request_involvement
-#: code:addons/mozaik_petition_membership_request_involvement/models/petition_registration.py:0
-#, python-format
-msgid "Autovalidation was forced"
-msgstr ""
-
-#. module: mozaik_petition_membership_request_involvement
 #: model:ir.model,name:mozaik_petition_membership_request_involvement.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -77,12 +59,6 @@ msgstr ""
 #. module: mozaik_petition_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_petition_membership_request_involvement.field_petition_registration__force_autoval
 msgid "Force auto-validation at creation"
-msgstr ""
-
-#. module: mozaik_petition_membership_request_involvement
-#: code:addons/mozaik_petition_membership_request_involvement/models/petition_registration.py:0
-#, python-format
-msgid "Forcing autovalidation"
 msgstr ""
 
 #. module: mozaik_petition_membership_request_involvement
