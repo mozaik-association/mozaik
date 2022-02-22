@@ -15,12 +15,17 @@ msgstr ""
 
 #. module: mozaik_survey_domain
 #: model:ir.model.fields,help:mozaik_survey_domain.field_survey_survey__domain
-msgid "Add a domain on partners model to limit the access of this petition."
+msgid "Add a domain on partners model to limit the access of this survey."
 msgstr ""
 
 #. module: mozaik_survey_domain
 #: model:ir.model.fields,field_description:mozaik_survey_domain.field_survey_survey__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_survey_domain
+#: model:ir.model.fields,field_description:mozaik_survey_domain.field_survey_survey__domain_is_set
+msgid "Domain is set"
 msgstr ""
 
 #. module: mozaik_survey_domain
