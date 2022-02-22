@@ -8,13 +8,17 @@
         <field name="model">event.event</field>
         <field name="inherit_id" ref="event.view_event_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='auto_confirm']" position="after">
-                <field name="is_private" />
-                <field
-                    name="int_instance_ids"
-                    attrs="{'invisible': [('is_private', '=', False)]}"
-                    widget="many2many_tags"
-                />
+            <xpath expr="//page[@name='event_notes']" position="before">
+                <page name="security" string="Security">
+                    <group name="int_instances" string="Internal instances">
+                        <field name="is_private" />
+                        <field
+                            name="int_instance_ids"
+                            attrs="{'invisible': [('is_private', '=', False)]}"
+                            widget="many2many_tags"
+                        />
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
