@@ -98,7 +98,7 @@ class ResPartner(models.Model):
         copy=False,
     )
 
-    identifier = fields.Integer(
+    identifier = fields.Char(
         "Number",
         index=True,
         copy=False,
@@ -362,12 +362,12 @@ class ResPartner(models.Model):
         """
         self.env.cr.execute(
             """
-            SELECT MAX(identifier) + 1
+            SELECT MAX(identifier::numeric) + 1
             FROM res_partner"""
         )
-        next_value = self.env.cr.fetchone()[0] or 1
+        next_value = self.env.cr.fetchone()[0] or 0
         seq = self.env.ref("mozaik_person.res_partner_identifier_sequence")
-        seq.number_next = next_value
+        seq.number_next = int(next_value)
 
     def show_duplicates(self):
         self.ensure_one()

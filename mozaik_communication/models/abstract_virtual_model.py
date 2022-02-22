@@ -27,7 +27,7 @@ class AbstractVirtualModel(models.AbstractModel):
     is_company = fields.Boolean(
         string="Is a Company",
     )
-    identifier = fields.Integer(
+    identifier = fields.Char(
         string="Number",
         group_operator="min",
     )

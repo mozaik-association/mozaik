@@ -51,7 +51,7 @@ class VirtualPartnerRelation(models.Model):
             JOIN res_partner AS p
                 ON p.id = r.left_partner_id
                 AND p.active
-                AND p.identifier > 0
+                AND p.identifier IS NOT NULL AND p.identifier != '0'
            """
         return from_query
 

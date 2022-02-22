@@ -28,7 +28,11 @@ class VirtualPartnerMandate(models.Model):
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         string="Partner",
-        domain=[("is_company", "=", False), ("identifier", ">", 0)],
+        domain=[
+            ("is_company", "=", False),
+            ("identifier", "!=", False),
+            ("identifier", "!=", "0"),
+        ],
     )
     int_instance_ids = fields.Many2many(
         related="ref_partner_id.int_instance_ids", string="Internal Instances"

@@ -75,7 +75,8 @@ class VirtualPartnerInvolvement(models.Model):
         from_query = """FROM
 partner_involvement AS pi
 JOIN res_partner AS p
-    ON (p.id = pi.partner_id AND p.active = TRUE AND p.identifier > 0)
+    ON (p.id = pi.partner_id AND p.active = TRUE AND p.identifier IS NOT NULL
+     AND p.identifier != '0')
     """
         return from_query
 

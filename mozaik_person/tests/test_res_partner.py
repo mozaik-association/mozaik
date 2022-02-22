@@ -24,7 +24,7 @@ class TestResPartner(TransactionCase):
         self.assertEqual("Ratzinger Joseph", b16.printable_name)
         self.assertEqual("josephratzinger", b16.technical_name)
         # add an identifier
-        b16.identifier = 666
+        b16.identifier = "666"
         self.assertEqual(b16.name, b16.select_name)
         self.assertEqual("666-Joseph Ratzinger", b16.display_name)
         # add usual names
@@ -59,7 +59,7 @@ class TestResPartner(TransactionCase):
                 "lastname": "Chapelle Sixtine",
                 "firstname": False,
                 "acronym": "B16",
-                "identifier": 777,
+                "identifier": "777",
                 "email": "b16@rome.it",
             }
         )
@@ -300,16 +300,17 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].search(
             [("identifier", "!=", False)], limit=1, order="identifier desc"
         )
-        partner.identifier += 12747
+        partner.identifier = str(int(partner.identifier) + 12747)
+        partner.flush()
 
         # update the sequence
         self.env["res.partner"]._update_identifier_sequence()
 
         # get and check the sequence
         next_ident = self.env["ir.sequence"].next_by_code("res.partner")
-        self.assertEqual("%s" % (partner.identifier + 1), next_ident)
+        self.assertEqual("%s" % (int(partner.identifier) + 1), next_ident)
 
         # create a new partner and check its identifier
         patriiiiick = partner.create({"name": "Patriiiiick Bruel"})
-        self.assertEqual(partner.identifier + 2, patriiiiick.identifier)
+        self.assertEqual(int(partner.identifier) + 2, int(patriiiiick.identifier))
         return

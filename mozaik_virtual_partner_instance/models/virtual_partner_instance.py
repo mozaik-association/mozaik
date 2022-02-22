@@ -76,4 +76,6 @@ class VirtualPartnerInstance(models.Model):
         Build the WHERE of the SQL query
         :return: str
         """
-        return "WHERE p.active = TRUE AND p.identifier > 0"
+        return (
+            "WHERE p.active = TRUE AND p.identifier IS NOT NULL AND p.identifier != '0'"
+        )
