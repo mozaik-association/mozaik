@@ -60,24 +60,6 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_survey_membership_request_involvement
-#: code:addons/mozaik_survey_membership_request_involvement/controllers/main.py:0
-#, python-format
-msgid "Autovalidation failed"
-msgstr ""
-
-#. module: mozaik_survey_membership_request_involvement
-#: code:addons/mozaik_survey_membership_request_involvement/controllers/main.py:0
-#, python-format
-msgid "Autovalidation failed. Reason of failure: %s"
-msgstr ""
-
-#. module: mozaik_survey_membership_request_involvement
-#: code:addons/mozaik_survey_membership_request_involvement/controllers/main.py:0
-#, python-format
-msgid "Autovalidation was forced"
-msgstr ""
-
-#. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_survey_question__bridge_field_id
 msgid "Bridge field"
 msgstr ""
@@ -101,12 +83,6 @@ msgstr ""
 #. module: mozaik_survey_membership_request_involvement
 #: model:ir.model.fields,field_description:mozaik_survey_membership_request_involvement.field_survey_user_input__force_autoval
 msgid "Force auto-validation at creation"
-msgstr ""
-
-#. module: mozaik_survey_membership_request_involvement
-#: code:addons/mozaik_survey_membership_request_involvement/controllers/main.py:0
-#, python-format
-msgid "Forcing autovalidation"
 msgstr ""
 
 #. module: mozaik_survey_membership_request_involvement
