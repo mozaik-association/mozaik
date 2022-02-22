@@ -77,6 +77,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_survey__int_instance_ids
 #: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input__int_instance_ids
 #: model:ir.model.fields,field_description:mozaik_security_ama.field_survey_user_input_line__int_instance_ids
+#: model_terms:ir.ui.view,arch_db:mozaik_security_ama.event_event_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_security_ama.petition_petition_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_security_ama.survey_survey_form_view
 msgid "Internal instances"
 msgstr ""
 
@@ -132,6 +135,13 @@ msgstr ""
 #. module: mozaik_security_ama
 #: model:ir.model,name:mozaik_security_ama.model_petition_registration
 msgid "Petition Registration"
+msgstr ""
+
+#. module: mozaik_security_ama
+#: model_terms:ir.ui.view,arch_db:mozaik_security_ama.event_event_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_security_ama.petition_petition_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_security_ama.survey_survey_form_view
+msgid "Security"
 msgstr ""
 
 #. module: mozaik_security_ama
