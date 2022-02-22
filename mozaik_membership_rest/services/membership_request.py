@@ -102,6 +102,7 @@ class MembershipRequestService(Component):
                 _logger.info("Unknown nationality with id %s", vals["country_id"])
         del vals["auto_validate"]
         vals["partner_id"] = self.env.context.get("authenticated_partner_id", False)
+        vals["force_autoval"] = vals.pop("force_auto_validate", False)
         return vals
 
     @restapi.method(
@@ -114,7 +115,7 @@ class MembershipRequestService(Component):
     ) -> MembershipRequestInfo:
         vals = self._validate_membership_request_input(membership_request)
         mr = self.env["membership.request"].with_context(mode="autoval").create(vals)
-        if membership_request.auto_validate:
-            mr.validate_request()
+        # We validate the request if asked, and force auto-validation if asked
+        mr._auto_validate_may_be_forced(membership_request.auto_validate)
 
         return MembershipRequestInfo.from_orm(mr)

@@ -14,6 +14,8 @@
         "base_rest_pydantic",
         "extendable",
         "mozaik_membership",
+        "mozaik_membership_request_autovalidate",
+        "mozaik_membership_request_from_registration",
         "mozaik_country_rest",
         "mozaik_distribution_list_rest",
         "mozaik_involvement_rest",
