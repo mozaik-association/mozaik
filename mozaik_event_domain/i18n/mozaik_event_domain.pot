@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_event_domain
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_event_domain
+#: model:ir.model.fields,help:mozaik_event_domain.field_event_event__domain
+msgid "Add a domain on partners model to limit the access of this event."
+msgstr ""
+
+#. module: mozaik_event_domain
+#: model:ir.model.fields,field_description:mozaik_event_domain.field_event_event__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_event_domain
+#: model:ir.model,name:mozaik_event_domain.model_event_event
+msgid "Event"
+msgstr ""
+
+#. module: mozaik_event_domain
+#: model:ir.model.fields,field_description:mozaik_event_domain.field_event_event__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_event_domain
+#: model:ir.model.fields,field_description:mozaik_event_domain.field_event_event____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_event_domain
+#: model_terms:ir.ui.view,arch_db:mozaik_event_domain.event_event_form_view
+msgid "Target domain"
+msgstr ""
+
+#. module: mozaik_event_domain
+#: model:ir.model.fields,field_description:mozaik_event_domain.field_event_event__domain
+msgid "Target partners domain"
+msgstr ""
