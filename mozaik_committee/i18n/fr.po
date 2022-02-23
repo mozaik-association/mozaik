@@ -61,7 +61,8 @@ msgstr ""
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step2
 msgid ""
-"<span name=\"go-wizard\" attrs=\"{'invisible': [('error_lines', '!=', [])]}\">\n"
+"<span name=\"go-wizard\" attrs=\"{'invisible': [('error_lines', '!=', "
+"[])]}\">\n"
 "                            or\n"
 "                        </span>"
 msgstr ""
@@ -69,7 +70,8 @@ msgstr ""
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step1
 msgid ""
-"<span name=\"go-wizard\" attrs=\"{'invisible': [('source_file', '=', False)]}\">\n"
+"<span name=\"go-wizard\" attrs=\"{'invisible': [('source_file', '=', "
+"False)]}\">\n"
 "                            or\n"
 "                        </span>"
 msgstr ""
@@ -1203,6 +1205,11 @@ msgstr ""
 #: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
 #, python-format
 msgid "Position(%s) and position non elected(%s) can not be set both"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:res.groups,name:mozaik_committee.res_groups_committee_reader
+msgid "Reader"
 msgstr ""
 
 #. module: mozaik_committee
