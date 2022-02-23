@@ -1199,6 +1199,11 @@ msgid "Position(%s) and position non elected(%s) can not be set both"
 msgstr ""
 
 #. module: mozaik_committee
+#: model:res.groups,name:mozaik_committee.res_groups_committee_reader
+msgid "Reader"
+msgstr ""
+
+#. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
 msgid "Refuse all not elected candidatures: proceed anyway?"
 msgstr ""
