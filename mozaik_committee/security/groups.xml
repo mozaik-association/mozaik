@@ -6,9 +6,19 @@
         <field name="parent_id" ref="base.module_category_political_association" />
     </record>
 
+    <record model="res.groups" id="res_groups_committee_reader">
+        <field name="name">Reader</field>
+        <field name="category_id" ref="module_category_committee" />
+    </record>
+
     <record model="res.groups" id="res_groups_committee_user">
         <field name="name">User</field>
         <field name="category_id" ref="module_category_committee" />
+        <field
+            name="implied_ids"
+            eval="[(4, ref('mozaik_committee.res_groups_committee_reader'))]"
+        />
+
     </record>
 
     <record model="res.groups" id="res_groups_committee_manager">
