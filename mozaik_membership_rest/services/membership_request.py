@@ -4,6 +4,9 @@
 
 import logging
 
+from odoo import _
+from odoo.exceptions import ValidationError
+
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel
 from odoo.addons.component.core import Component
@@ -29,6 +32,30 @@ class MembershipRequestService(Component):
     def get(self, _id: int) -> MembershipRequestInfo:
         membership_request = self._get(_id)
         return MembershipRequestInfo.from_orm(membership_request)
+
+    def _validate_country_city(self, vals):
+        nat = self.env["res.country"].search([("id", "=", vals["country_id"])])
+        if nat:
+            vals["country_id"] = nat.id
+            city = self.env["res.city"].browse()
+            if "city_id" in vals:
+                city = self.env["res.city"].search([("id", "=", vals["city_id"])])
+            if nat.enforce_cities:
+                if not city:
+                    raise ValidationError(
+                        _(
+                            "City_id is mandatory on addresses "
+                            "with 'enforce_cities' country"
+                        )
+                    )
+                if city.country_id.id != vals["country_id"]:
+                    raise ValidationError(
+                        _("City_id's country must be equal to address' country")
+                    )
+        else:
+            del vals["country_id"]
+            _logger.info("Unknown nationality with id %s", vals["country_id"])
+        return vals
 
     def _validate_membership_request_input(self, input_data):
         vals = input_data.dict()
@@ -94,15 +121,13 @@ class MembershipRequestService(Component):
                 del vals["nationality_id"]
                 _logger.info("Unknown nationality with id %s", vals["nationality_id"])
         if vals["country_id"]:
-            nat = self.env["res.country"].search([("id", "=", vals["country_id"])])
-            if nat:
-                vals["country_id"] = nat.id
-            else:
-                del vals["country_id"]
-                _logger.info("Unknown nationality with id %s", vals["country_id"])
+            vals = self._validate_country_city(vals)
         del vals["auto_validate"]
         vals["partner_id"] = self.env.context.get("authenticated_partner_id", False)
         vals["force_autoval"] = vals.pop("force_auto_validate", False)
+        vals["street_man"] = vals.pop("street", False)
+        vals["zip_man"] = vals.pop("zip", False)
+        vals["city_man"] = vals.pop("city", False)
         return vals
 
     @restapi.method(
