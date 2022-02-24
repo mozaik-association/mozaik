@@ -95,6 +95,12 @@ msgid "Introduction"
 msgstr ""
 
 #. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__is_user
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__is_user
+msgid "Is User"
+msgstr ""
+
+#. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr ""
