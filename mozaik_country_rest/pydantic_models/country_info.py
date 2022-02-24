@@ -13,6 +13,7 @@ class CountryInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     name: str
     code: str = None
+    enforce_cities: bool = None
     write_date: datetime
 
     class Config:

@@ -9,7 +9,13 @@
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
-    "depends": ["base_rest", "base_rest_pydantic", "base", "extendable", "pydantic"],
+    "depends": [
+        "base_rest",
+        "base_rest_pydantic",
+        "base_address_city",
+        "extendable",
+        "pydantic",
+    ],
     "data": [],
     "external_dependencies": {
         "python": [

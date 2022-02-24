@@ -11,14 +11,14 @@ from pydantic import BaseModel
 class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     lastname: str
     firstname: str
-    gender: str
-    street_man: str
-    zip_man: str
-    city_man: str
     request_type: str
+    gender: str = None
+    street: str = None
     street2: str = None
     number: str = None
     box: str = None
+    zip: str = None
+    city: str = None
     local_only: bool = None
     day: int = None
     month: int = None
@@ -40,6 +40,7 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     effective_time: datetime = None
     local_only: bool = None
     nationality_id: int = None
+    city_id: int = None
     country_id: int = None
     unemployed_change: str = None
     disabled_change: str = None

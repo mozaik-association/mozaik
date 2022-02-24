@@ -59,6 +59,7 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     local_only: bool = None
     nationality: CountryInfo = pydantic.Field(None, alias="nationality_id")
     country: CountryInfo = pydantic.Field(None, alias="country_id")
+    city_id: int = None
     partner_id: int = None
     unemployed_change: str = None
     disabled_change: str = None
