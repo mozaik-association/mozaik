@@ -16,7 +16,7 @@ class VirtualMasterPartner(models.Model):
     )
     display_name = fields.Char()
     technical_name = fields.Char()
-    identifier = fields.Integer(string="Number", group_operator="min")
+    identifier = fields.Char(string="Number", group_operator="min")
     lastname = fields.Char()
     firstname = fields.Char()
     birthdate_date = fields.Date(string="Birth Date")

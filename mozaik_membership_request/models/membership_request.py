@@ -61,7 +61,7 @@ class MembershipRequest(models.Model):
     _order = "id desc"
     _unicity_keys = "N/A"
 
-    identifier = fields.Integer(related="partner_id.identifier", string="Identifier")
+    identifier = fields.Char(related="partner_id.identifier", string="Identifier")
     is_company = fields.Boolean("Is a Company", default=False)
     lastname = fields.Char("Name", required=True, tracking=True)
     firstname = fields.Char("Firstname", tracking=True)
@@ -899,7 +899,7 @@ class MembershipRequest(models.Model):
             else:
                 partner_datas = {
                     "lastname": "%s" % uuid4(),
-                    "identifier": -1,
+                    "identifier": "-1",
                 }
                 partner = partner_obj.create(partner_datas)
             vals = self._get_status_values(request_type)

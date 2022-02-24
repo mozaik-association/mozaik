@@ -100,4 +100,7 @@ JOIN res_partner AS p
         Build the WHERE of the SQL query
         :return: str
         """
-        return "WHERE mt.model = 'res.partner' AND p.active = TRUE AND p.identifier > 0"
+        return (
+            "WHERE mt.model = 'res.partner' AND p.active = TRUE AND"
+            " p.identifier IS NOT NULL AND p.identifier != '0'"
+        )
