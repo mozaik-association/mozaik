@@ -28,5 +28,22 @@
         </field>
     </record>
 
+    <menuitem
+        name="Mailings"
+        id="mass_mailing.mass_mailing_menu"
+        parent="mass_mailing.mass_mailing_menu_root"
+        sequence="1"
+        action="mass_mailing.mailing_mailing_action_mail"
+        groups="group_mass_mailing_reader"
+    />
+
+    <menuitem
+        name="Mailing Lists"
+        id="mass_mailing.mass_mailing_mailing_list_menu"
+        parent="mass_mailing.mass_mailing_menu_root"
+        sequence="2"
+        groups="group_mass_mailing_reader"
+    />
+
 
 </odoo>
