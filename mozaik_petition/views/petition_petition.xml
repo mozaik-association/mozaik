@@ -12,6 +12,12 @@
                    <field name="state" widget="statusbar" clickable="1" />
                 </header>
                 <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
                     <div class="oe_button_box" name="button_box">
                         <button
                             class="oe_stat_button"
@@ -28,7 +34,7 @@
                         </button>
                     </div>
                     <div class="oe_title">
-
+                        <field name="active" invisible="1" />
                         <label
                             for="title"
                             class="oe_edit_only"
@@ -324,6 +330,22 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="petition_petition_search_view">
+        <field name="name">petition.petition.search (in mozaik_petition)</field>
+        <field name="model">petition.petition</field>
+        <field name="arch" type="xml">
+            <search string="Search Petition">
+                <field name="title" filter_domain="[('title', 'ilike', self)]" />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+
 
     <record id="petition_reporting_petition_action" model="ir.actions.act_window">
         <field name="name">Petition Analysis</field>
@@ -336,6 +358,7 @@
         <field name="name">Petitions</field>
         <field name="res_model">petition.petition</field>
         <field name="view_mode">kanban,calendar,tree,form</field>
+        <field name="search_view_id" ref="petition_petition_search_view" />
     </record>
 
 
