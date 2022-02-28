@@ -35,6 +35,13 @@ class ResPartner(models.Model):
         domain=[("active", "=", False)],
     )
 
+    partner_involvement_high_ids = fields.One2many(
+        comodel_name="partner.involvement",
+        inverse_name="partner_id",
+        string="Partner Involvements (High importance level)",
+        domain=[("active", "=", True), ("importance_level", "=", "high")],
+    )
+
     def add_involvement_action(self):
         self.ensure_one()
         return {
