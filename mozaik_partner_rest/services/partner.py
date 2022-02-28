@@ -103,8 +103,6 @@ class PartnerService(Component):
         res = super()._prepare_update_values(values, partner)
         if "subordinate_ids" in res:
             res["subordinate_ids"] = [(6, 0, res["subordinate_ids"])]
-        if "partner_involvement_ids" in res:
-            res["partner_involvement_ids"] = [(6, 0, res["partner_involvement_ids"])]
         if any(
             address_field in values
             for address_field in [
