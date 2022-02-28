@@ -104,6 +104,13 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: mozaik_petition
+#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__active
+#, fuzzy
+#| msgid "Activities"
+msgid "Active"
+msgstr "Activités"
+
+#. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__activity_ids
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__activity_ids
 msgid "Activities"
@@ -161,6 +168,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_question_view_form
 msgid "Answers"
 msgstr "Réponses"
+
+#. module: mozaik_petition
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_search_view
+msgid "Archived"
+msgstr ""
 
 #. module: mozaik_petition
 #: code:addons/mozaik_petition/models/petition_registration.py:0
@@ -816,6 +829,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail_registration__scheduled_date
 msgid "Scheduled Time"
 msgstr "Date prévue"
+
+#. module: mozaik_petition
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_search_view
+#, fuzzy
+#| msgid "Related Petition"
+msgid "Search Petition"
+msgstr "Pétition liée"
 
 #. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_registration_answer_tree_view
