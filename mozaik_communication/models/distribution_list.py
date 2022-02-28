@@ -20,7 +20,7 @@ class DistributionList(models.Model):
         "mozaik.abstract.model",
         "distribution.list",
     ]
-    _unicity_keys = "name, int_instance_id"
+    _unicity_keys = "N/A"
 
     name = fields.Char(
         tracking=True,
@@ -37,10 +37,10 @@ class DistributionList(models.Model):
         required=True,
         default=lambda self: self.env.user,
     )
-    int_instance_id = fields.Many2one(
+    int_instance_ids = fields.Many2many(
         comodel_name="int.instance",
-        string="Internal instance",
-        index=True,
+        string="Internal instances",
+        default=lambda self: self.env.user.int_instance_m2m_ids,
         tracking=True,
     )
     partner_id = fields.Many2one(

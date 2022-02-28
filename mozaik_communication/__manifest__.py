@@ -4,7 +4,7 @@
     "name": "Mozaik: Communication",
     "summary": """
         Manage several mass communication methods""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
@@ -53,4 +53,5 @@
         "demo/distribution_list.xml",
     ],
     "installable": True,
+    "external_dependencies": {"python": ["openupgradelib"]},
 }

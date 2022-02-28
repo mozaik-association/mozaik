@@ -9,16 +9,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='alias_name']" position="after">
                 <field name="code" />
-                <field name="int_instance_id" />
+                <field name="int_instance_ids" />
                 <field name="partner_id" />
             </xpath>
             <xpath expr="//filter[@name='dst_model']" position="after">
-                <filter
-                    name="instance"
-                    string="Internal Instance"
-                    domain="[]"
-                    context="{'group_by':'int_instance_id'}"
-                />
             </xpath>
             <xpath expr="//filter[@name='newsletter']" position="after">
                 <separator />
@@ -61,7 +55,7 @@
         <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="int_instance_id" />
+                <field name="int_instance_ids" widget="many2many_tags" />
             </xpath>
 
             <xpath expr="//button[@name='mass_mailing']" position="attributes">
@@ -203,7 +197,7 @@
             <xpath expr="//notebook" position="inside">
                 <page name="security" string="Security">
                     <group name="validity">
-                        <field name="int_instance_id" />
+                        <field name="int_instance_ids" widget="many2many_tags" />
                         <field
                             name="res_users_ids"
                             widget="many2many_tags"
