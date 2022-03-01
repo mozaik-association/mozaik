@@ -13,7 +13,9 @@ def _create_mail_alias(cr):
 
     env = Environment(cr, SUPERUSER_ID, {"active_test": False})
     dist_model = env.ref("distribution_list.model_distribution_list")
-    for distribution_list in env["distribution.list"].search([]):
+    for distribution_list in (
+        env["distribution.list"].with_context(active_test=False).search([])
+    ):
         alias = env["mail.alias"].create(
             {
                 "alias_parent_model_id": dist_model.id,
