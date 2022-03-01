@@ -17,9 +17,13 @@ from odoo.addons.partner_rest_api.pydantic_models.partner_info import (
     PartnerShortInfo as BasePartnerShortInfo,
 )
 
+from .address_info import AddressInfo
+
 
 class PartnerShortInfo(BasePartnerShortInfo, extends=BasePartnerShortInfo):
+    city_id: int = None
     address: str = None
+    address_addres: AddressInfo = pydantic.Field(None, alias="address_address_id")
 
 
 class PartnerInfo(BasePartnerInfo, extends=BasePartnerInfo):
