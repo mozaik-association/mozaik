@@ -149,6 +149,17 @@
 <!--                <attribute name="decoration-danger" translation="off">promise==True</attribute>-->
 <!--            </xpath>-->
 
+            <xpath expr="//page[@name='user']" position="inside">
+                <group name="user" attrs="{'invisible': [('user_ids','=',[])]}">
+                    <field
+                        name="int_instance_m2m_ids"
+                        widget="many2many_tags"
+                        placeholder="Instances..."
+                        attrs="{'required': [('user_ids','!=',[])]}"
+                    />
+                </group>
+            </xpath>
+
             <notebook position="inside">
                 <page
                     name="memberships"
@@ -235,15 +246,6 @@
                             />
                         </tree>
                     </field>
-                    <group name="user" attrs="{'invisible': [('user_ids','=',[])]}">
-                        <separator string="Internal Instances" />
-                        <field
-                            name="int_instance_m2m_ids"
-                            widget="many2many_tags"
-                            placeholder="Instances..."
-                            attrs="{'required': [('user_ids','!=',[])]}"
-                        />
-                    </group>
                 </page>
             </notebook>
 

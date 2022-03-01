@@ -22,6 +22,7 @@
         "mozaik_involvement",
     ],
     "data": [
+        "wizards/create_user_from_partner.xml",
         "wizards/change_instance.xml",
         "wizards/change_address.xml",
         "data/membership_state.xml",

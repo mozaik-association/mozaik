@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="create_user_from_partner_form_view">
+        <field name="name">create.user.from.partner.form (in mozaik_membership)</field>
+        <field name="model">create.user.from.partner</field>
+        <field name="inherit_id" ref="mozaik_person.create_user_from_partner_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main']" position="inside">
+                <field name="instance_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
