@@ -462,6 +462,16 @@ msgid "Partner Involvements"
 msgstr ""
 
 #. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__partner_involvement_high_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__partner_involvement_high_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__partner_involvement_high_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__partner_involvement_high_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__partner_involvement_high_ids
+#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__partner_involvement_high_ids
+msgid "Partner Involvements (High importance level)"
+msgstr ""
+
+#. module: mozaik_involvement
 #: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__partner_involvement_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__partner_involvement_inactive_ids
 #: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__partner_involvement_inactive_ids

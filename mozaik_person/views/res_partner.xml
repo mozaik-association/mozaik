@@ -9,14 +9,14 @@
             <xpath expr="//field[@name='category_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='name']" position="before">
-                <field name="identifier" string="Number" />
-            </xpath>
             <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">
+                    Number / Name
+                </attribute>
                 <attribute
                     name="filter_domain"
                     translation="off"
-                >['|',('select_name','ilike',self),('technical_name','ilike',self)]</attribute>
+                >['|',('identifier', 'ilike', self),'|',('select_name','ilike',self),'|',('technical_name','ilike',self),('printable_name','ilike',self)]</attribute>
             </xpath>
             <xpath expr="//filter[@name='inactive']" position="before">
                 <separator />

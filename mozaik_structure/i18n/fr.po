@@ -1541,6 +1541,16 @@ msgid "Is Secretariat"
 msgstr "Est un secrétariat"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__is_user
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__is_user
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__is_user
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__is_user
+#, fuzzy
+#| msgid "Users"
+msgid "Is User"
+msgstr "Utilisateurs"
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__is_company
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__is_company
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__is_company

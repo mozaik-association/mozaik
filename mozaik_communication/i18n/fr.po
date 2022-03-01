@@ -640,7 +640,6 @@ msgstr "Intérêts"
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__internal_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_template__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__int_instance_id
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_email_template_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Internal Instance"
@@ -652,9 +651,15 @@ msgid "Internal Instance descending of..."
 msgstr "Instance Interne descendant de..."
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__internal_instance_id
 msgid "Internal instance"
+msgstr "Instance interne"
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__int_instance_ids
+#, fuzzy
+#| msgid "Internal instance"
+msgid "Internal instances"
 msgstr "Instance interne"
 
 #. module: mozaik_communication

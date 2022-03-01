@@ -27,3 +27,8 @@ msgstr ""
 #: model:res.groups,name:mozaik_mass_mailing_access_rights.group_mass_mailing_manager
 msgid "Manager"
 msgstr ""
+
+#. module: mozaik_mass_mailing_access_rights
+#: model:res.groups,name:mozaik_mass_mailing_access_rights.group_mass_mailing_reader
+msgid "Reader"
+msgstr ""

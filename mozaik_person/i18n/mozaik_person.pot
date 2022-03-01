@@ -403,8 +403,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__identifier
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__identifier
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__identifier
-#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "Number"
+msgstr ""
+
+#. module: mozaik_person
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
+msgid "Number / Name"
 msgstr ""
 
 #. module: mozaik_person

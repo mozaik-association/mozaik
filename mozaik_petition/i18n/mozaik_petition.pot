@@ -85,6 +85,11 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: mozaik_petition
+#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__active
+msgid "Active"
+msgstr ""
+
+#. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__activity_ids
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__activity_ids
 msgid "Activities"
@@ -141,6 +146,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_question_view_form
 msgid "Answers"
+msgstr ""
+
+#. module: mozaik_petition
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_search_view
+msgid "Archived"
 msgstr ""
 
 #. module: mozaik_petition
@@ -794,6 +805,11 @@ msgstr ""
 #. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_mail_registration__scheduled_date
 msgid "Scheduled Time"
+msgstr ""
+
+#. module: mozaik_petition
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_search_view
+msgid "Search Petition"
 msgstr ""
 
 #. module: mozaik_petition

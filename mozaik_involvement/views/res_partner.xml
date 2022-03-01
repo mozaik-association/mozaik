@@ -70,14 +70,13 @@
                         attrs="{'invisible': [('id','=',False)]}"
                     />
                     <field
-                        name="partner_involvement_ids"
+                        name="partner_involvement_high_ids"
                         context="{'default_partner_id': id}"
                         attrs="{'invisible': [('active','=',False)]}"
                     >
                         <tree create="0">
                             <field name="involvement_category_id" />
                             <field name="involvement_type" />
-                            <field name="importance_level" />
                             <field name="creation_time" />
                         </tree>
                     </field>

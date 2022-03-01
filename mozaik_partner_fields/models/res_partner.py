@@ -89,6 +89,13 @@ class ResPartner(models.Model):
     )
     introduction = fields.Text()
 
+    is_user = fields.Boolean(compute="_compute_is_user", store=True)
+
+    @api.depends("user_ids")
+    def _compute_is_user(self):
+        for record in self.with_context(active_test=False):
+            record.is_user = len(record.user_ids.ids)
+
     @api.depends("birthdate_date")
     def _compute_age(self):
         """

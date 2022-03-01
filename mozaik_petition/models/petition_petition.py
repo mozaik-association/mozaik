@@ -13,6 +13,7 @@ class PetitionPetition(models.Model):
     _order = "date_begin"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
+    active = fields.Boolean(default=True)
     title = fields.Char(string="Title", required=True, tracking=True)
     description = fields.Text(string="Description")
     note = fields.Text(string="Notes", tracking=True)

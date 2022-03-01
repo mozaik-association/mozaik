@@ -10,6 +10,7 @@ class ThesaurusTerm(models.Model):
     _inherit = ["mozaik.abstract.model"]
     _description = "Thesaurus Term"
     _unicity_keys = "name"
+    _order = "name"
 
     name = fields.Char(
         string="Term",
