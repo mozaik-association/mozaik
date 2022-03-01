@@ -305,6 +305,11 @@ msgid "Group By..."
 msgstr ""
 
 #. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__have_co_residency
+msgid "Have Co Residency"
+msgstr ""
+
+#. module: mozaik_address
 #: model:res.city,name:mozaik_address.res_city_1
 msgid "Huy"
 msgstr ""
@@ -435,6 +440,11 @@ msgstr ""
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.res_city_form_view
 msgid "More Info"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__move_co_residency
+msgid "Move Co Residency"
 msgstr ""
 
 #. module: mozaik_address
