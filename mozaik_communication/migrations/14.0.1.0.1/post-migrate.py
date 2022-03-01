@@ -10,10 +10,11 @@ _logger = logging.getLogger(__name__)
 @openupgrade.migrate()
 def migrate(env, version):
     cr = env.cr
-    openupgrade.m2o_to_x2m(
-        cr,
-        env["distribution.list"],
-        "distribution_list",
-        "int_instance_ids",
-        "int_instance_id_old",
-    )
+    if openupgrade.column_exists(cr, "distribution_list", "int_instance_id_old"):
+        openupgrade.m2o_to_x2m(
+            cr,
+            env["distribution.list"],
+            "distribution_list",
+            "int_instance_ids",
+            "int_instance_id_old",
+        )
