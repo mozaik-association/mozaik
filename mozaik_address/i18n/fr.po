@@ -310,6 +310,13 @@ msgid "Group By..."
 msgstr "Regrouper par..."
 
 #. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__have_co_residency
+#, fuzzy
+#| msgid "Move Co-Residency"
+msgid "Have Co Residency"
+msgstr "Déménager une co-résidence"
+
+#. module: mozaik_address
 #: model:res.city,name:mozaik_address.res_city_1
 msgid "Huy"
 msgstr ""
@@ -445,6 +452,13 @@ msgstr "Message"
 #: model_terms:ir.ui.view,arch_db:mozaik_address.res_city_form_view
 msgid "More Info"
 msgstr "Plus d'info"
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_change_address__move_co_residency
+#, fuzzy
+#| msgid "Move Co-Residency"
+msgid "Move Co Residency"
+msgstr "Déménager une co-résidence"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__number
@@ -673,9 +687,6 @@ msgstr "Code postal (Texte)"
 
 #~ msgid "Move Allowed"
 #~ msgstr "Déménagement autorisé"
-
-#~ msgid "Move Co-Residency"
-#~ msgstr "Déménager une co-résidence"
 
 #~ msgid "Moved"
 #~ msgstr "A déménagé"
