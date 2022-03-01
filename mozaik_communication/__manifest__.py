@@ -22,6 +22,7 @@
         "mozaik_address",
         "mozaik_structure",
         "mozaik_involvement",
+        "mozaik_person",
         "mozaik_membership",
         "mozaik_membership_request",
         "mozaik_single_instance",

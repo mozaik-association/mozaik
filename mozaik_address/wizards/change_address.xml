@@ -10,6 +10,11 @@
             <form string="Change Address">
                 <group>
                     <field name="address_id" />
+                    <field name="have_co_residency" invisible="1" />
+                    <field
+                        name="move_co_residency"
+                        attrs="{'invisible': [('have_co_residency', '=', False)]}"
+                    />
                 </group>
                 <footer>
                     <button name="doit" string="OK" class="btn-primary" type="object" />
