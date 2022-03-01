@@ -550,6 +550,7 @@ msgstr ""
 
 #. module: mozaik_person
 #: model:res.groups,name:mozaik_person.res_groups_partner_user
+#: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_person.res_partner_search_view
 msgid "User"
 msgstr ""
