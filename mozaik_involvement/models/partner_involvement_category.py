@@ -14,6 +14,7 @@ CATEGORY_TYPE = [
     ("donation", "Donations Campaign"),
     ("voluntary", "Voluntary Work"),
     ("newsletter", "Newsletter"),
+    ("notification", "Notification"),
 ]
 
 _logger = logging.getLogger(__name__)
