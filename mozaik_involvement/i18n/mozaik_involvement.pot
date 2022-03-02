@@ -401,6 +401,11 @@ msgid "Notes"
 msgstr ""
 
 #. module: mozaik_involvement
+#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__involvement_type__notification
+msgid "Notification"
+msgstr ""
+
+#. module: mozaik_involvement
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_needaction_counter
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_needaction_counter
 msgid "Number of Actions"
