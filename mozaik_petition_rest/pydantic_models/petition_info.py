@@ -22,6 +22,8 @@ class PetitionShortInfo(BaseModel, metaclass=ExtendableModelMeta):
     title: str
     date_begin: date
     date_end: date
+    signatory_count: int
+    state: str = None
     interest_ids: List[ThesaurusTermInfo] = pydantic.Field([], alias="interest_ids")
     note: str = None
     milestone_ids: List[PetitionMilestoneInfo] = pydantic.Field(

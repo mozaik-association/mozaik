@@ -22,6 +22,8 @@ from .survey_question_info import SurveyQuestionInfo
 class SurveyShortInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     title: str
+    answer_done_count: int
+    state: str = None
     description: str = None
     interests: List[ThesaurusTermInfo] = pydantic.Field([], alias="interest_ids")
     write_date: datetime
