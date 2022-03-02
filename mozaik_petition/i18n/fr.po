@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-01-18 17:56+0000\n"
+"PO-Revision-Date: 2022-03-02 16:58+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -941,6 +941,7 @@ msgstr ""
 #: model:ir.model.constraint,message:mozaik_petition.constraint_petition_registration_constraint_uniq_signature
 msgid "This email has already signed this petition."
 msgstr ""
+"Cette adresse email a déjà été utilisée pour la signature de cette pétition."
 
 #. module: mozaik_petition
 #: model:ir.model.fields,help:mozaik_petition.field_petition_mail__template_id
