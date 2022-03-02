@@ -143,6 +143,8 @@ class SurveyService(Component):
     ) -> SurveyUserInputInfo:
 
         survey = self._get(_id)
+        if survey.state == "closed":
+            raise ValidationError(_("Closed survey can not be answered anymore."))
 
         # Validate the input structure
         errors = self._validate_input_structure(input_data)

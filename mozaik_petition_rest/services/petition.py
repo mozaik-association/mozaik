@@ -1,8 +1,11 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import List
+
+from odoo import _
+from odoo.exceptions import ValidationError
 
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
@@ -63,8 +66,13 @@ class PetitionService(Component):
     def register_answer(
         self, _id: int, petition_registration_request: PetitionRegistrationRequest
     ) -> PetitionRegistrationInfo:
+        petition = self._get(_id)
+        if petition.state == "not_active":
+            raise ValidationError(_("Petition is not active."))
+        if petition.date_end < date.today():
+            raise ValidationError(_("Petition is ended."))
         registration_values = {
-            "petition_id": self._get(_id).id,
+            "petition_id": petition.id,
             "partner_id": self.env.context.get("authenticated_partner_id", False),
             "firstname": petition_registration_request.firstname,
             "lastname": petition_registration_request.lastname,
