@@ -763,6 +763,11 @@ msgid "Reference Street"
 msgstr "Rue de référence"
 
 #. module: mozaik_membership_request
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_request.res_partner_form_view
+msgid "Refuse"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__regional_voluntary
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Regional Voluntary"
