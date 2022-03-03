@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-mass_mailing.access_mailing_mailing_mm_user,access.mailing.mailing.mm.user,mass_mailing.model_mailing_mailing,mass_mailing.group_mass_mailing_user,1,0,1,0
+mass_mailing.access_mailing_mailing_mm_user,access.mailing.mailing.mm.user,mass_mailing.model_mailing_mailing,mass_mailing.group_mass_mailing_user,1,1,1,0
 access_mailing_mailing_mm_manager,access.mailing.mailing.mm.manager,mass_mailing.model_mailing_mailing,group_mass_mailing_manager,1,1,1,1
 access_mailing_contact_mm_reader,access.mailing.contact.mm.reader,mass_mailing.model_mailing_contact,group_mass_mailing_reader,1,0,0,0
 access_mailing_contact_subscription_mm_reader,access.mailing.contact.subscription.mm.reader,mass_mailing.model_mailing_contact_subscription,group_mass_mailing_reader,1,0,0,0

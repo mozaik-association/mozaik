@@ -436,7 +436,9 @@ class ResPartner(models.Model):
         :return: dict
         """
         self.ensure_one()
-        action = self.env.ref("mozaik_membership.add_membership_action").read()[0]
+        action = (
+            self.sudo().env.ref("mozaik_membership.add_membership_action").read()[0]
+        )
         context = self.env.context.copy()
         context.update(
             {

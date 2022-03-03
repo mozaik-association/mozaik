@@ -31,6 +31,13 @@
                     groups="mozaik_membership.res_groups_membership_user"
                     attrs="{'invisible': [('membership_state_code', 'not in', ['former_member_committee', 'member_committee'])]}"
                 />
+                    <button
+                    name="action_refuse"
+                    string="Refuse"
+                    type="object"
+                    groups="mozaik_membership.res_groups_membership_user"
+                    attrs="{'invisible': [('membership_state_code', 'not in', ['former_member_committee', 'member_committee'])]}"
+                />
 
                     <field name="kind" invisible="1" />
                     <button

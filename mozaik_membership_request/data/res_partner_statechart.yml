@@ -42,6 +42,8 @@ statechart:
             target: refused_member_candidate
           - event: accept
             target: member
+          - event: refuse
+            target: refused_member_candidate
       - name: member
         transitions:
           - guard: self.decline_payment_date != False
@@ -72,6 +74,8 @@ statechart:
         transitions:
           - event: accept
             target: member
+          - event: refuse
+            target: refused_member_candidate
           - guard: self.exclusion_date != False
             target: inapproriate_former_member
       - name: inapproriate_former_member

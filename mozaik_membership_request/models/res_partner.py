@@ -182,3 +182,33 @@ class ResPartner(models.Model):
                     }
                 )
                 w.action_add()
+
+    def action_refuse(self):
+        status_obj = self.env["membership.state"]
+        for partner in self:
+            next_state = partner.simulate_next_state(event="refuse")
+            membership = self.env["membership.line"].search(
+                [
+                    ("id", "in", partner.membership_line_ids.ids),
+                    ("active", "=", True),
+                    (
+                        "state_code",
+                        "in",
+                        ["former_member_committee", "member_committee"],
+                    ),
+                ],
+                limit=1,
+            )
+            status = status_obj.search([("code", "=", next_state)], limit=1)
+            if membership.state_id != status and membership:
+                membership._close(force=True)
+                membership.flush()
+                w = self.env["add.membership"].create(
+                    {
+                        "int_instance_id": membership.int_instance_id.id,
+                        "partner_id": partner.id,
+                        "state_id": status.id,
+                        "product_id": membership.product_id.id,
+                    }
+                )
+                w.action_add()
