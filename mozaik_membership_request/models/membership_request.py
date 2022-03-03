@@ -1306,12 +1306,20 @@ class MembershipRequest(models.Model):
                 )
                 # save membership amount
                 if mr.amount > 0.0 and mr.reference:
-                    active_memberships.write(
-                        {
-                            "reference": mr.reference,
-                            "price": mr.amount,
-                        }
+                    product = self.env["product.product"].search(
+                        [
+                            ("membership", "=", True),
+                            ("list_price", "=", mr.amount),
+                        ],
+                        limit=1,
                     )
+                    vals = {
+                        "reference": mr.reference,
+                        "price": mr.amount,
+                    }
+                    if product:
+                        vals["product_id"] = product.id
+                    active_memberships.write(vals)
 
     @api.model
     def _validate_request_involvement(self, mr, partner):

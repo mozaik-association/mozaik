@@ -1,0 +1,105 @@
+import hashlib
+import hmac
+
+from odoo import http
+from odoo.http import request
+from odoo.tools.float_utils import float_repr
+
+from odoo.addons.payment.controllers.portal import PaymentProcessing, WebsitePayment
+
+
+class WebsitePaymentMozaik(WebsitePayment):
+    @http.route()
+    def pay(
+        self,
+        reference="",
+        order_id=None,
+        amount=False,
+        currency_id=None,
+        acquirer_id=None,
+        partner_id=False,
+        access_token=None,
+        **kw
+    ):
+        res = super(WebsitePaymentMozaik, self).pay(
+            reference,
+            order_id,
+            amount,
+            currency_id,
+            acquirer_id,
+            partner_id,
+            access_token,
+            **kw
+        )
+        res.qcontext.update({"membership_id": kw.get("membership_id")})
+        if kw.get("membership_id"):
+            membership = (
+                request.env["membership.line"]
+                .sudo()
+                .browse(int(kw.get("membership_id")))
+            )
+            res.qcontext.update({"display_reference": membership.reference})
+        return res
+
+    @http.route()
+    def transaction(
+        self, acquirer_id, reference, amount, currency_id, partner_id=False, **kwargs
+    ):
+        membership_id = kwargs.get("membership_id")
+
+        if not membership_id:
+            return super(WebsitePaymentMozaik, self).transaction(
+                acquirer_id, reference, amount, currency_id, partner_id, **kwargs
+            )
+
+        # this is (again) a copy past of odoo code. search ACS
+        acquirer = request.env["payment.acquirer"].browse(acquirer_id)
+
+        values = {
+            "acquirer_id": int(acquirer_id),
+            "reference": reference,
+            "amount": float(amount),
+            "currency_id": int(currency_id),
+            "partner_id": partner_id,
+            "type": "form_save"
+            if acquirer.save_token != "none" and partner_id
+            else "form",
+        }
+
+        # ACS change invoice/order to membership
+        values["membership_ids"] = [(6, 0, [membership_id])]
+
+        reference_values = {"acquirer_id": acquirer_id}
+        values["reference"] = request.env["payment.transaction"]._compute_reference(
+            values=reference_values, prefix=reference
+        )
+        tx = (
+            request.env["payment.transaction"]
+            .sudo()
+            .with_context(lang=None)
+            .create(values)
+        )
+        secret = request.env["ir.config_parameter"].sudo().get_param("database.secret")
+        token_str = "%s%s%s" % (
+            tx.id,
+            tx.reference,
+            float_repr(tx.amount, precision_digits=tx.currency_id.decimal_places),
+        )
+        token = hmac.new(
+            secret.encode("utf-8"), token_str.encode("utf-8"), hashlib.sha256
+        ).hexdigest()
+        tx.return_url = "/website_payment/confirm?tx_id=%d&access_token=%s" % (
+            tx.id,
+            token,
+        )
+
+        PaymentProcessing.add_payment_transaction(tx)
+
+        render_values = {
+            "partner_id": partner_id,
+            "type": tx.type,
+        }
+
+        return acquirer.sudo().render(
+            tx.reference, float(amount), int(currency_id), values=render_values
+        )

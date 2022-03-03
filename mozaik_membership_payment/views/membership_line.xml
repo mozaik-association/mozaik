@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="membership_line_form_view">
+        <field name="name">membership.line.form (in mozaik_membership_payment)</field>
+        <field name="model">membership.line</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_line_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='data']" position="after">
+                <group name="payment_link">
+                    <field
+                        name="payment_link"
+                        readonly="1"
+                        widget="CopyClipboardChar"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -93,6 +93,8 @@
         "mozaik_survey_question_involvement_category",
         "mozaik_survey_thesaurus",
         "mozaik_website_event_track",
+        "mozaik_membership_payment",
+        "mozaik_membership_payment_stripe",
         # "mass_mail_queue_job",
     ],
     "data": [
