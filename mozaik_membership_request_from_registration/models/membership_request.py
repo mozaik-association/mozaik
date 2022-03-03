@@ -192,3 +192,8 @@ class MembershipRequest(models.Model):
                     partner = self.partner_id
                     if partner:
                         partner._schedule_activity_force_autoval(failure_reason)
+                else:
+                    self._create_note(
+                        _("Forcing autovalidation: attempt failed"),
+                        _("Attempt to force auto-validation, but fail."),
+                    )

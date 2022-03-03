@@ -4,7 +4,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
-UNKNOWN_PERSON = "Unknown person"
+UNKNOWN_PERSON = "Unknown Person"
 
 
 class SurveyUserInput(models.Model):

@@ -1,7 +1,13 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import logging
+
 from odoo import api, fields, models
+
+from .survey_user import UNKNOWN_PERSON
+
+_logger = logging.getLogger(__name__)
 
 
 class MembershipRequest(models.Model):
@@ -28,10 +34,26 @@ class MembershipRequest(models.Model):
 
     def validate_request(self):
         """
+        We cannot allow a membership request with UNKNOWN_PERSON to be
+        validated. We write a note in the chatter and in the logs.
+
         If the membership request is coming from a survey answer,
         then we associate the partner from the membership request
         to the survey answer.
         """
+        if self.lastname == UNKNOWN_PERSON:
+            _logger.info(
+                "Trying to validate a membership request "
+                "with lastname = UNKNOWN_PERSON: Aborting..."
+            )
+            self._create_note(
+                "Validation aborted",
+                "Validation aborted. \n Reason of abortion: lastname is "
+                + UNKNOWN_PERSON
+                + ".",
+            )
+            return
+
         super().validate_request()
         if (
             self.survey_user_input_id

@@ -390,3 +390,23 @@ class TestSurveyUserInput(test_survey_flow.TestSurveyFlow):
         # We check that the interests are the good ones.
         set_of_interests = {"vegetarian", "ecology", "planet"}
         self.assertEqual(set_of_interests, set(partner.interest_ids.mapped("name")))
+
+    def test_no_answer_for_lastname(self):
+        """
+        If we do not give our lastname, the encoded lastname
+        should be UNKNOWN PERSON and we wouldn't be able
+        to validate such a membership request.
+        """
+        # Remove answer containing lastname
+        self.answer_data.pop(self.question_lastname.id)
+        answers = self.public_user_answers(self.answer_data)
+
+        # We look for the associated membership request
+        mr = self.env["membership.request"].search(
+            [("survey_user_input_id", "=", answers.id)]
+        )
+        self.assertEqual(len(mr), 1)
+
+        # We try to validate it, it shouldn't work
+        mr.validate_request()
+        self.assertEqual(mr.state, "confirm")
