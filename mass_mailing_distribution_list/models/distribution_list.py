@@ -193,12 +193,16 @@ class DistributionList(models.Model):
         if not vals.get("mail_forwarding"):
             vals.pop("alias_name", False)
         dist_model = self.env.ref("distribution_list.model_distribution_list")
-        alias = self.env["mail.alias"].create(
-            {
-                "alias_parent_model_id": dist_model.id,
-                "alias_model_id": dist_model.id,
-                "alias_name": vals.get("alias_name", False),
-            }
+        alias = (
+            self.sudo()
+            .env["mail.alias"]
+            .create(
+                {
+                    "alias_parent_model_id": dist_model.id,
+                    "alias_model_id": dist_model.id,
+                    "alias_name": vals.get("alias_name", False),
+                }
+            )
         )
         vals["alias_id"] = alias.id
         distribution_list = super(DistributionList, self).create(vals)
