@@ -13,6 +13,7 @@ class PartnerAddressInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     name: str
     address: str = None
+    city_id: int = None
     write_date: datetime
 
     class Config:
