@@ -14,6 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_membership_request_from_registration
+#: code:addons/mozaik_membership_request_from_registration/models/membership_request.py:0
+#, python-format
+msgid "Attempt to force auto-validation, but fail."
+msgstr ""
+
+#. module: mozaik_membership_request_from_registration
 #: model:ir.model.fields,field_description:mozaik_membership_request_from_registration.field_membership_request__force_autoval
 msgid "Auto-validation will be forced"
 msgstr ""
@@ -45,6 +51,12 @@ msgstr ""
 #: code:addons/mozaik_membership_request_from_registration/models/membership_request.py:0
 #, python-format
 msgid "Forcing autovalidation"
+msgstr ""
+
+#. module: mozaik_membership_request_from_registration
+#: code:addons/mozaik_membership_request_from_registration/models/membership_request.py:0
+#, python-format
+msgid "Forcing autovalidation: attempt failed"
 msgstr ""
 
 #. module: mozaik_membership_request_from_registration
