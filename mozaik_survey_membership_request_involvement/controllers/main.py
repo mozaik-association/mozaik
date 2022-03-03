@@ -5,8 +5,6 @@ from odoo import http
 
 from odoo.addons.survey.controllers.main import Survey
 
-from ..models.survey_user import UNKNOWN_PERSON
-
 
 class SurveyMembershipRequest(Survey):
     @http.route(
@@ -45,12 +43,15 @@ class SurveyMembershipRequest(Survey):
         # update zip_man -> zip to fit with mozaik_membership_request_from_registration
         values["zip"] = values.pop("zip_man", False)
 
+        # If no lastname is given in the bridge field, either the partner_id was
+        # specified, or we are still with UNKNOWN_PERSON
+        # In both cases we want to update the membership request, so we fill "lastname"
+        values["lastname"] = (
+            values.pop("lastname", False) or membership_request.lastname
+        )
+
         values = membership_request._pre_process_values(values)
         membership_request.write(values)
-        if membership_request.lastname == UNKNOWN_PERSON:
-            #  We do not continue the process if we didn't even get the
-            #  lastname of the partner.
-            return
 
         res = membership_request._onchange_partner_id_vals(
             is_company=values.get("is_company", False),
