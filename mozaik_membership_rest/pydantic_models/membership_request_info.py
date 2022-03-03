@@ -18,6 +18,7 @@ from odoo.addons.mozaik_involvement_rest.pydantic_models.involvement_category_in
 from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import (
     ThesaurusTermInfo,
 )
+from odoo.addons.partner_rest_api.pydantic_models.partner_info import PartnerInfo
 from odoo.addons.pydantic import utils
 
 
@@ -60,7 +61,7 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     nationality: CountryInfo = pydantic.Field(None, alias="nationality_id")
     country: CountryInfo = pydantic.Field(None, alias="country_id")
     city_id: int = None
-    partner_id: int = None
+    partner: PartnerInfo = pydantic.Field(None, alias="partner_id")
     unemployed_change: str = None
     disabled_change: str = None
     write_date: datetime
