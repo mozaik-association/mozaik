@@ -44,7 +44,21 @@ class PartnerService(Component):
         if "country_id" in values:
             country_id = values.pop("country_id")
         if not country_id:
-            raise ValidationError(_("Country is mandatory on addresses"))
+            if any(
+                field
+                for field in [
+                    street_man,
+                    street2,
+                    number,
+                    box,
+                    zip_man,
+                    city_man,
+                    city_id,
+                ]
+            ):
+                raise ValidationError(_("Country is mandatory on addresses"))
+            values["address_address_id"] = False
+            return values
         country_enforce_cities = (
             self.env["res.country"].browse(country_id).enforce_cities
         )
