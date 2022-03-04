@@ -890,6 +890,7 @@ class MembershipRequest(models.Model):
 
         partner_obj = self_context.env["res.partner"]
         status_obj = self.env["membership.state"]
+        former_member = self.env.ref("mozaik_membership.former_member")
         name = '"preview-%s"' % uuid4().hex
         self.flush()
         self.env.cr.execute("SAVEPOINT %(savepoint)s", {"savepoint": AsIs(name)})
@@ -902,10 +903,14 @@ class MembershipRequest(models.Model):
                     "identifier": "-1",
                 }
                 partner = partner_obj.create(partner_datas)
-            vals = self._get_status_values(request_type)
-            if vals:
-                partner.write(vals)
-            state_code = partner.simulate_next_state()
+            # didn't find a good way to make it in the statechart
+            if partner.membership_state_id == former_member:
+                state_code = "former_member_committee"
+            else:
+                vals = self._get_status_values(request_type)
+                if vals:
+                    partner.write(vals)
+                state_code = partner.simulate_next_state()
             partner.invalidate_cache(ids=partner.ids)
         finally:
             self.env.cr.execute(

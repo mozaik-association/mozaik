@@ -4,6 +4,7 @@ import datetime
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+from odoo.fields import first
 from odoo.tools import float_compare
 
 
@@ -67,8 +68,17 @@ class MembershipLine(models.Model):
             ("reference", "=", reference),
         ]
         membership = self.search(domain, limit=1)
+        if not membership:
+            partner = self.env["res.partner"].search(
+                [("stored_reference", "=", reference)]
+            )
+            membership = first(partner.membership_line_ids.filtered(lambda s: s.active))
         min_date_from = self._get_min_reconciliation_date()
-        if membership and membership.date_from < min_date_from:
+        if (
+            membership
+            and membership.state_code == "member"
+            and membership.date_from < min_date_from
+        ):
             if raise_exception:
                 raise UserError(_("The membership you want to reconcile is too old"))
             return self.browse()
@@ -128,7 +138,11 @@ class MembershipLine(models.Model):
                 .sudo()
                 .get_param("membership.allow_update_product", default="0")
             )
-            if product and param_value in [True, 1, "1", "True"]:
+            if (
+                product
+                and param_value in [True, 1, "1", "True"]
+                or product.list_price > self.price
+            ):
                 vals["product_id"] = product
                 vals["price"] = product.list_price
             self.write(vals)
