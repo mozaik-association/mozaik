@@ -17,6 +17,6 @@ class PetitionRegistrationRequest(BaseModel, metaclass=ExtendableModelMeta):
     email: str
     mobile: str = None
     zip: str = None
-    date_open: date = date.today()
+    date_open: date = None
     answers: List[PetitionRegistrationAnswer] = pydantic.Field([])
     force_autoval: bool = False
