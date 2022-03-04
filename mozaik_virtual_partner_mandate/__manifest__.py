@@ -12,6 +12,7 @@
     "depends": [
         "mozaik_communication",
         "mozaik_mandate",
+        "mozaik_retrocession_mode",
     ],
     "data": [
         "views/virtual_partner_mandate.xml",

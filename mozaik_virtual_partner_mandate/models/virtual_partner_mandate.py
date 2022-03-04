@@ -7,6 +7,9 @@ from odoo import api, fields, models
 from odoo.addons.mozaik_mandate.models.mandate_category import (
     mandate_category_available_types,
 )
+from odoo.addons.mozaik_retrocession_mode.models.abstract_mandate import (
+    RETROCESSION_MODES_AVAILABLE,
+)
 
 
 class VirtualPartnerMandate(models.Model):
@@ -83,6 +86,8 @@ class VirtualPartnerMandate(models.Model):
     in_progress = fields.Boolean("In Progress")
     active = fields.Boolean("Active")
 
+    retrocession_mode = fields.Selection(RETROCESSION_MODES_AVAILABLE)
+
     @api.model
     def _get_select(self):
         return """
@@ -96,6 +101,7 @@ class VirtualPartnerMandate(models.Model):
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
+            mandate.retrocession_mode,
             mandate.designation_int_assembly_id as designation_int_assembly_id,
             designation_assembly.instance_id as designation_instance_id,
             partner_assembly.id as assembly_id,
