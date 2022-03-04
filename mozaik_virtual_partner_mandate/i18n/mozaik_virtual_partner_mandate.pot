@@ -233,6 +233,16 @@ msgid "Model"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mandate.selection__virtual_partner_mandate__retrocession_mode__month
+msgid "Monthly"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mandate.selection__virtual_partner_mandate__retrocession_mode__none
+msgid "None"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Not Employee"
 msgstr ""
@@ -275,6 +285,11 @@ msgid "Result"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__retrocession_mode
+msgid "Retrocession Mode"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__start_date
 msgid "Start Date"
 msgstr ""
@@ -314,4 +329,9 @@ msgstr ""
 #. module: mozaik_virtual_partner_mandate
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Without Remuneration"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields.selection,name:mozaik_virtual_partner_mandate.selection__virtual_partner_mandate__retrocession_mode__year
+msgid "Yearly"
 msgstr ""
