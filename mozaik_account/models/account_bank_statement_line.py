@@ -131,7 +131,8 @@ class AccountBankStatementLine(models.Model):
         membership = memb_obj._get_membership_line_by_partner_amount(
             partner, amount_paid, raise_exception=raise_exception
         )
-        self._reconcile_membership_move(membership)
+        if membership:
+            self._reconcile_membership_move(membership)
 
     def _create_membership_move(self, reference, raise_exception=True):
         """
@@ -143,15 +144,11 @@ class AccountBankStatementLine(models.Model):
         )
         self._reconcile_membership_move(membership)
 
-    def _reconcile_membership_move(self, membership):
+    def _create_membership_move_from_former(self, reference):
+        """
+        Create an account move related to a membership (case of former member)
+        """
         self.ensure_one()
-        if membership.paid:
-            return
-        product = membership.product_id
-        account = product.property_subscription_account
-        precision = membership._fields.get("price").get_digits(self.env)[1]
-        # float_compare return 0 if values are equals
-        cmp = float_compare(self.amount, membership.price, precision_digits=precision)
         product = self.env["product.product"].search(
             [
                 ("membership", "=", True),
@@ -159,12 +156,43 @@ class AccountBankStatementLine(models.Model):
             ],
             limit=1,
         )
+        account = product.property_subscription_account
+        if account:
+            move_dicts = [
+                {
+                    "account_id": account.id,
+                    "debit": 0,
+                    "credit": self.amount,
+                    "name": reference,
+                }
+            ]
+            self.process_reconciliation(new_aml_dicts=move_dicts)
+
+    def _reconcile_membership_move(self, membership):
+        self.ensure_one()
+        if membership.paid:
+            return
+        product = membership.product_id
+        precision = membership._fields.get("price").get_digits(self.env)[1]
+        # float_compare return 0 if values are equals
+        cmp = float_compare(self.amount, membership.price, precision_digits=precision)
         param_value = (
             self.env["ir.config_parameter"]
             .sudo()
             .get_param("membership.allow_update_product", default="0")
         )
-        if account and (not cmp or product and param_value in [True, 1, "1", "True"]):
+        can_update_product = False
+        if param_value in [True, 1, "1", "True"] or product.list_price < self.amount:
+            product = self.env["product.product"].search(
+                [
+                    ("membership", "=", True),
+                    ("list_price", "=", self.amount),
+                ],
+                limit=1,
+            )
+            can_update_product = True
+        account = product.property_subscription_account
+        if account and (not cmp or product and can_update_product):
             move_dicts = [
                 {
                     "account_id": account.id,
@@ -217,10 +245,12 @@ class AccountBankStatementLine(models.Model):
             lambda l: not (not l.partner_id or l.is_reconciled)
         ):
             mode, __ = bank_line._get_info_from_reference(bank_line.payment_ref)
-            if mode in ["membership", "partner"]:
+            if mode == "membership":
                 bank_line._create_membership_move(
                     bank_line.payment_ref, raise_exception=False
                 )
+            elif mode == "partner":
+                bank_line._create_membership_move_from_former(bank_line.payment_ref)
             elif mode == "donation":
                 bank_line._create_donation_move(bank_line.payment_ref)
             elif not mode:
