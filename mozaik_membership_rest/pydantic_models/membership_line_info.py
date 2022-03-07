@@ -24,6 +24,7 @@ class MembershipLineInfo(BaseModel, metaclass=ExtendableModelMeta):
     active: bool = None
     reference: str = None
     paid: bool = None
+    payment_link: str = None
     write_date: datetime
 
     class Config:
