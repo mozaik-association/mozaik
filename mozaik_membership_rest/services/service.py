@@ -15,7 +15,9 @@ class BaseMembershipRequestService(AbstractComponent):
 
     def _get(self, _id):
         domain = [("id", "=", _id)]
-        record = self.env[self._expose_model].search(domain)
+        record = (
+            self.env[self._expose_model].with_context(active_test=False).search(domain)
+        )
         if not record:
             raise MissingError(
                 _("The record %s %s does not exist") % (self._expose_model, _id)
