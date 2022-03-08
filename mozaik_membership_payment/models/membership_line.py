@@ -17,7 +17,7 @@ class MembershipLine(models.Model):
     def _compute_payment_link(self):
         wizard_obj = self.env["payment.link.wizard"]
         for m in self:
-            if self.price and self.reference and not self.paid:
+            if m.price and m.reference and not m.paid:
                 m.payment_link = (
                     wizard_obj.with_context(
                         active_model="membership.line", active_id=m.id
