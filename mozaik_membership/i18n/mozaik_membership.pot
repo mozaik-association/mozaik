@@ -409,6 +409,11 @@ msgid "Gives the sequence order when displaying a product list"
 msgstr ""
 
 #. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_set_partner_reference__have_wrong_status_partner
+msgid "Have Wrong Status Partner"
+msgstr ""
+
+#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_change_address__id
@@ -1122,6 +1127,12 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_set_partner_reference
 msgid "Set the reference to the selected partner"
+msgstr ""
+
+#. module: mozaik_membership
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.set_partner_reference_form_view
+msgid ""
+"Some partner will not be modified because there are not in a payable state"
 msgstr ""
 
 #. module: mozaik_membership
