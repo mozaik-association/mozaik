@@ -1310,7 +1310,7 @@ class MembershipRequest(models.Model):
                     lambda s: s.active
                 )
                 # save membership amount
-                if mr.amount > 0.0 and mr.reference:
+                if mr.amount > 0.0 or mr.reference:
                     product = self.env["product.product"].search(
                         [
                             ("membership", "=", True),
@@ -1318,10 +1318,11 @@ class MembershipRequest(models.Model):
                         ],
                         limit=1,
                     )
-                    vals = {
-                        "reference": mr.reference,
-                        "price": mr.amount,
-                    }
+                    vals = {}
+                    if mr.reference:
+                        vals["reference"] = mr.reference
+                    if mr.amount:
+                        vals["price"] = mr.amount
                     if product:
                         vals["product_id"] = product.id
                     active_memberships.write(vals)
