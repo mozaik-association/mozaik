@@ -11,28 +11,40 @@ class MembershipLine(models.Model):
     _inherit = "membership.line"
 
     def _mark_as_paid(self, amount, move_id, bank_id=False):
-        res = super(MembershipLine, self)._mark_as_paid(
-            amount, move_id, bank_id=bank_id
-        )
         self.ensure_one()
-
+        previous_state = self.partner_id.membership_state_code
         next_state = self.partner_id.simulate_next_state(event="paid")
         status_obj = self.env["membership.state"]
         status = status_obj.search([("code", "=", next_state)], limit=1)
-        if self.state_id != status:
-            self._close(force=True)
-            self.flush()
-            w = self.env["add.membership"].create(
-                {
-                    "int_instance_id": self.int_instance_id.id,
-                    "partner_id": self.partner_id.id,
-                    "state_id": status.id,
-                    "product_id": self.product_id.id,
-                }
-            )
-            w.action_add()
+
+        # when it's a former member, we want to pay the newlly created membership
+        membership = self
+        if self.state_id != status and previous_state == "former_member":
+            membership = self.create_following_membership(status, amount)
+
+        res = super(MembershipLine, membership)._mark_as_paid(
+            amount, move_id, bank_id=bank_id
+        )
+
+        if self.state_id != status and previous_state != "former_member":
+            self.create_following_membership(status)
 
         return res
+
+    def create_following_membership(self, status, amount=False):
+        self.ensure_one()
+        self._close(force=True)
+        self.flush()
+        vals = {
+            "int_instance_id": self.int_instance_id.id,
+            "partner_id": self.partner_id.id,
+            "state_id": status.id,
+            "product_id": self.product_id.id,
+        }
+        if amount:
+            vals["price"] = amount
+        w = self.env["add.membership"].create(vals)
+        return w._create_membership_line()
 
     def cron_accept_member_committee(self):
         today = fields.Date.today()

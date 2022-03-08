@@ -8,7 +8,7 @@ class ResPartner(models.Model):
 
     _inherit = "res.partner"
 
-    membership_line_payment_link = fields.Float(compute="_compute_ml_payment_link")
+    membership_line_payment_link = fields.Char(compute="_compute_ml_payment_link")
 
     def _compute_ml_payment_link(self):
         """
