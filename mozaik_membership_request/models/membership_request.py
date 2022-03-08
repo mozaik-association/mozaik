@@ -904,13 +904,13 @@ class MembershipRequest(models.Model):
                 }
                 partner = partner_obj.create(partner_datas)
             # didn't find a good way to make it in the statechart
+            event = None
             if partner.membership_state_id == former_member:
-                state_code = "former_member_committee"
-            else:
-                vals = self._get_status_values(request_type)
-                if vals:
-                    partner.write(vals)
-                state_code = partner.simulate_next_state()
+                event = "paid"
+            vals = self._get_status_values(request_type)
+            if vals:
+                partner.write(vals)
+            state_code = partner.simulate_next_state(event)
             partner.invalidate_cache(ids=partner.ids)
         finally:
             self.env.cr.execute(
