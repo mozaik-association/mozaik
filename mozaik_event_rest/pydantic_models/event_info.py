@@ -31,3 +31,4 @@ class EventShortInfo(BaseEventShortInfo, extends=BaseEventShortInfo):
 class EventInfo(BaseEventInfo, extends=BaseEventInfo):
     publish_date: date = None
     questions: List[EventQuestionInfo] = pydantic.Field([], alias="question_ids")
+    menu_register_cta: bool = None
