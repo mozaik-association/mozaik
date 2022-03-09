@@ -12,11 +12,13 @@ from odoo.tests.common import TransactionCase
 class TestPetition(TransactionCase):
     def setUp(self):
         super().setUp()
+        self.milestone = self.env["petition.milestone"].create({"value": 1})
         self.petition = (self.env["petition.petition"]).create(
             {
                 "title": "title",
                 "date_begin": date(2021, 10, 13),
                 "date_end": date(2021, 10, 16),
+                "milestone_ids": [(6, 0, self.milestone.id)],
             }
         )
         self.template1 = (self.env["petition.type"]).create(
@@ -59,6 +61,22 @@ class TestPetition(TransactionCase):
             }
         )
 
+    def test_check_milestone(self):
+        """
+        Data:
+            /
+        Test case:
+            When creating a petition without milestone, an error has to be raised.
+        """
+        with self.assertRaises(ValidationError):
+            self.env["petition.petition"].create(
+                {
+                    "title": "TestPetition",
+                    "date_begin": date(2021, 10, 13),
+                    "date_end": date(2021, 10, 16),
+                }
+            )
+
     def test_check_date(self):
         """
         Data:
@@ -73,6 +91,7 @@ class TestPetition(TransactionCase):
                     "title": "TestPetition",
                     "date_begin": fields.Date.today() + relativedelta(days=1),
                     "date_end": fields.Date.today() + relativedelta(days=-1),
+                    "milestone_ids": [(6, 0, self.milestone.id)],
                 }
             )
 

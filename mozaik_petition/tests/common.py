@@ -38,6 +38,7 @@ class TestPetitionCommon(common.SavepointCase, MockEmail):
         self.today = date(2021, 9, 18)
         self.petition_date_begin = date(2021, 9, 22)
         self.petition_date_end = date(2021, 9, 24)
+        self.milestone = self.env["petition.milestone"].create({"value": 1})
 
         # create a petition
         with freeze_time(self.today):
@@ -49,6 +50,7 @@ class TestPetitionCommon(common.SavepointCase, MockEmail):
                         "title": "TestPetitionMail",
                         "date_begin": self.petition_date_begin,
                         "date_end": self.petition_date_end,
+                        "milestone_ids": [(6, 0, self.milestone.id)],
                         "petition_mail_ids": [
                             (
                                 0,
