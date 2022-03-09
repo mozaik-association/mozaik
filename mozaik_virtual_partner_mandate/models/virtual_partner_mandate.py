@@ -38,7 +38,9 @@ class VirtualPartnerMandate(models.Model):
         ],
     )
     int_instance_ids = fields.Many2many(
-        compute="_compute_int_instance_ids", string="Internal Instances"
+        comodel_name="int.instance",
+        compute="_compute_int_instance_ids",
+        string="Internal Instances",
     )
 
     model = fields.Char()
@@ -70,7 +72,8 @@ class VirtualPartnerMandate(models.Model):
     deadline_date = fields.Date(string="Deadline Date")
     ref_partner_competency_ids = fields.Many2many(
         comodel_name="thesaurus.term",
-        compute="_compute_ref_partner_competency_ids", string="Topics"
+        compute="_compute_ref_partner_competency_ids",
+        string="Topics",
     )
 
     sta_competencies_m2m_ids = fields.Many2many(
@@ -80,7 +83,7 @@ class VirtualPartnerMandate(models.Model):
     )
     ext_competencies_m2m_ids = fields.Many2many(
         comodel_name="thesaurus.term",
-        compute="ext_mandate_id.competencies_m2m_ids",
+        compute="_compute_ext_competencies_m2m_ids",
         string="External Mandate Competences",
     )
     sta_instance_id = fields.Many2one(
@@ -92,16 +95,24 @@ class VirtualPartnerMandate(models.Model):
     retrocession_mode = fields.Selection(RETROCESSION_MODES_AVAILABLE)
 
     def _compute_int_instance_ids(self):
-        self._compute_custom_related("int_instance_ids", "ref_partner_id.int_instance_ids")
+        self._compute_custom_related(
+            "int_instance_ids", "ref_partner_id.int_instance_ids"
+        )
 
     def _compute_ref_partner_competency_ids(self):
-        self._compute_custom_related("ref_partner_competency_ids", "ref_partner_id.competency_ids")
+        self._compute_custom_related(
+            "ref_partner_competency_ids", "ref_partner_id.competency_ids"
+        )
 
     def _compute_sta_competencies_m2m_ids(self):
-        self._compute_custom_related("sta_competencies_m2m_ids", "sta_mandate_id.competencies_m2m_ids")
+        self._compute_custom_related(
+            "sta_competencies_m2m_ids", "sta_mandate_id.competencies_m2m_ids"
+        )
 
     def _compute_ext_competencies_m2m_ids(self):
-        self._compute_custom_related("ext_competencies_m2m_ids", "ext_mandate_id.competencies_m2m_ids")
+        self._compute_custom_related(
+            "ext_competencies_m2m_ids", "ext_mandate_id.competencies_m2m_ids"
+        )
 
     @api.model
     def _get_select(self):

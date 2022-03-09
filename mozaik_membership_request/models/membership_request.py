@@ -1285,15 +1285,18 @@ class MembershipRequest(models.Model):
                 if active_memberships:
                     active_memberships._close(force=True)
                     active_memberships.flush()
-                    w = self.env["add.membership"].create(
-                        {
-                            "int_instance_id": instance.id,
-                            "partner_id": partner.id,
-                            "product_id": membership_instance.product_id.id,
-                            "state_id": mr.result_type_id.id,
-                            "price": 0,
-                        }
-                    )
+                    vals = {
+                        "int_instance_id": instance.id,
+                        "partner_id": partner.id,
+                        "product_id": membership_instance.product_id.id
+                        or partner.subscription_product_id.id,
+                        "state_id": mr.result_type_id.id,
+                    }
+                    if active_memberships.paid and active_memberships.price:
+                        vals["price"] = 0
+                    w = self.env["add.membership"].create(vals)
+                    if not (active_memberships.paid and active_memberships.price):
+                        w._onchange_product_id()  # compute the price
                 else:
                     w = self.env["add.membership"].create(
                         {

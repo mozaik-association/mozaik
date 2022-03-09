@@ -40,11 +40,12 @@ class ChangeAddress(models.TransientModel):
     def doit(self):
         for wizard in self:
             vals = {
-                "address_address_id": wizard.address_id,
+                "address_address_id": wizard.address_id.id,
             }
-            partners = wizard.partner_ids
             if wizard.move_co_residency:
-                partners = wizard.partner_ids.mapped("co_residency_id.partner_ids")
+                wizard.partner_ids = wizard.partner_ids.mapped(
+                    "co_residency_id.partner_ids"
+                )
             else:
                 vals["co_residency_id"] = False
-            partners.write(vals)
+            wizard.partner_ids.write(vals)

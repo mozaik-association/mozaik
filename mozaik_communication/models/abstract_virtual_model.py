@@ -81,7 +81,9 @@ class AbstractVirtualModel(models.AbstractModel):
         self._compute_custom_related("interest_ids", "partner_id.interest_ids")
 
     def _compute_partner_instance_ids(self):
-        self._compute_custom_related("partner_instance_ids", "partner_id.int_instance_ids")
+        self._compute_custom_related(
+            "partner_instance_ids", "partner_id.int_instance_ids"
+        )
 
     def _compute_custom_related(self, field, path):
         """
