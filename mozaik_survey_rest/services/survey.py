@@ -181,7 +181,8 @@ class SurveyService(Component):
         if errors:
             raise ValidationError(_("There were errors during the submission process"))
 
-        survey_user_input.write({"state": "done"})
+        # Mark done and send the email if certification
+        survey_user_input._mark_done()
 
         # Manage questions with bridge field
         SurveyMembershipRequest()._fill_membership_request(survey_user_input)
