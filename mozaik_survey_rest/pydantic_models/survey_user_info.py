@@ -39,6 +39,7 @@ class SurveyUserInputInfo(BaseModel, metaclass=ExtendableModelMeta):
     user_input_lines: List[SurveyUserInputLineInfo] = pydantic.Field(
         [], alias="user_input_line_ids"
     )
+    scoring_percentage: float = None
     write_date: datetime
 
     class Config:
