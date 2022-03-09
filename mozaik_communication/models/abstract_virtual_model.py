@@ -52,17 +52,17 @@ class AbstractVirtualModel(models.AbstractModel):
     competency_ids = fields.Many2many(
         comodel_name="thesaurus.term",
         string="Competencies",
-        related="partner_id.competency_ids",
+        compute="_compute_competency_ids",
     )
     interest_ids = fields.Many2many(
         comodel_name="thesaurus.term",
         string="Interests",
-        related="partner_id.interest_ids",
+        compute="_compute_interest_ids",
     )
     partner_instance_ids = fields.Many2many(
         comodel_name="int.instance",
         string="Partner Internal Instances",
-        related="partner_id.int_instance_ids",
+        compute="_compute_partner_instance_ids",
     )
     active = fields.Boolean()
 
@@ -73,6 +73,31 @@ class AbstractVirtualModel(models.AbstractModel):
         store=False,
         search="_search_int_instance_id",
     )
+
+    def _compute_competency_ids(self):
+        self._compute_custom_related("competency_ids", "partner_id.competency_ids")
+
+    def _compute_interest_ids(self):
+        self._compute_custom_related("interest_ids", "partner_id.interest_ids")
+
+    def _compute_partner_instance_ids(self):
+        self._compute_custom_related("partner_instance_ids", "partner_id.int_instance_ids")
+
+    def _compute_custom_related(self, field, path):
+        """
+        Implement a custom related field to improve performance:
+        On virtual model, we only read data and linked models aren't updated
+        If we use the related, when we write on the related field (on the other
+        model)
+        Odoo will need to do a search on the virtual models to invalidate the
+        cache, which take time.
+        In our case, it's not needed, since we don't write in the same time as
+        we use the virtual model
+        So to prevent this, this method (without depends) is used. since no
+        depends exist, it will never be search by the orm
+        """
+        for record in self:
+            record[field] = record.mapped(path)
 
     @api.model
     def _search_int_instance_id(self, operator, value):
