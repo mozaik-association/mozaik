@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="survey_survey_form_view">
+        <field name="name">survey.survey.form (in mozaik_survey_scoring)</field>
+        <field name="model">survey.survey</field>
+        <field name="inherit_id" ref="survey.survey_form" />
+        <field name="arch" type="xml">
+            <field name="scoring_type" position="after">
+                <field
+                    name="exclude_not_answered_from_total"
+                    attrs="{'invisible': [('scoring_type', '=', 'no_scoring')]}"
+                />
+            </field>
+            <field name="certification_give_badge" position="before">
+                <field
+                    name="send_mail_to_failed_certifications"
+                    attrs="{'invisible': [('certification', '=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+
+
+
+</odoo>
