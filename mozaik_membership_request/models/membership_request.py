@@ -1253,7 +1253,8 @@ class MembershipRequest(models.Model):
                 }
                 address_id = mr.env["address.address"].create(address_values)
                 mr_vals["address_id"] = address_id
-            partner_values.update({"address_address_id": address_id})
+            if address_id:
+                partner_values.update({"address_address_id": address_id})
 
             if partner_values:
                 partner.write(partner_values)
