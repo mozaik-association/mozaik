@@ -12,6 +12,9 @@ from odoo.addons.mozaik_involvement_rest.pydantic_models.involvement_info import
 from odoo.addons.mozaik_membership_rest.pydantic_models.membership_line_info import (
     MembershipLineInfo,
 )
+from odoo.addons.mozaik_membership_rest.pydantic_models.subscription_info import (
+    SubscriptionInfo,
+)
 from odoo.addons.partner_rest_api.pydantic_models.partner_info import (
     PartnerInfo as BasePartnerInfo,
     PartnerShortInfo as BasePartnerShortInfo,
@@ -44,3 +47,6 @@ class PartnerInfo(BasePartnerInfo, extends=BasePartnerInfo):
     )
     global_opt_out: bool = None
     reference: str = None
+    subscription: SubscriptionInfo = pydantic.Field(
+        None, alias="subscription_product_id"
+    )

@@ -12,7 +12,7 @@ from odoo.addons.pydantic import utils
 class SubscriptionInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     name: str
-    price: float = None
+    list_price: float = None
     write_date: datetime
 
     class Config:

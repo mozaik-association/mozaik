@@ -22,5 +22,6 @@ class PartnerInfoUpdate(BasePartnerInfoUpdate, extends=BasePartnerInfoUpdate):
     city_id: int = None
     country_id: int = None
     subordinate_ids: List[int] = None
+    unemployed: bool = None
     disabled: bool = None
     global_opt_out: bool = None
