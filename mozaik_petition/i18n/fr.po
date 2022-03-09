@@ -182,6 +182,12 @@ msgid "At least one mandatory tickbox is not checked."
 msgstr "Au moins une case à cocher obligatoire n'est pas cochée."
 
 #. module: mozaik_petition
+#: code:addons/mozaik_petition/models/petition_petition.py:0
+#, python-format
+msgid "At least one milestone is mandatory on petitions"
+msgstr ""
+
+#. module: mozaik_petition
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__message_attachment_count
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__message_attachment_count
 msgid "Attachment Count"
