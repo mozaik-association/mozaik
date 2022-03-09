@@ -1,7 +1,5 @@
 # Copyright 2022 ACSONE SA/NV
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-# Copyright 2022 ACSONE SA/NV
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from datetime import date, datetime
 from typing import List
@@ -23,6 +21,7 @@ class SurveyShortInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     title: str
     answer_done_count: int
+    scoring_type: str
     state: str = None
     description: str = None
     interests: List[ThesaurusTermInfo] = pydantic.Field([], alias="interest_ids")
