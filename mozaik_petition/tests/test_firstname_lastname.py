@@ -18,11 +18,13 @@ class TestComputeFirstname(TransactionCase):
         self.partner_names_order = (self.env["res.config.settings"]).create(
             {"partner_names_order": "first_last"}
         )
+        self.milestone = self.env["petition.milestone"].create({"value": 1})
         self.petition = (self.env["petition.petition"]).create(
             {
                 "title": "test_petition",
                 "date_begin": date(2021, 10, 25),
                 "date_end": date(2021, 10, 27),
+                "milestone_ids": [(6, 0, self.milestone.id)],
             }
         )
         self.partner = (self.env["res.partner"]).create({"name": "Jean Dupont"})

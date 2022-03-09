@@ -63,6 +63,10 @@ class PetitionPetition(models.Model):
         "petition.mail", "petition_id", string="Mail Schedule", copy=True
     )
 
+    def _check_milestone_ids(self):
+        if not all(petition.milestone_ids for petition in self):
+            raise ValidationError(_("At least one milestone is mandatory on petitions"))
+
     def write(self, vals):
         """We add a check to prevent changing the template questions
         of a petition if there are already signatories."""
@@ -78,7 +82,15 @@ class PetitionPetition(models.Model):
                         "of a petition when there are signatories."
                     )
                 )
-        return super(PetitionPetition, self).write(vals)
+        res = super(PetitionPetition, self).write(vals)
+        self._check_milestone_ids()
+        return res
+
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        res._check_milestone_ids()
+        return res
 
     @api.depends("registration_ids")
     def _compute_signatory_count(self):

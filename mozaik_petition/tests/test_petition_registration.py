@@ -45,11 +45,13 @@ class TestPetitionRegistration(TransactionCase):
             (4, self.open_qu.id),
         ]
 
+        self.milestone = self.env["petition.milestone"].create({"value": 1})
         self.petition = (self.env["petition.petition"]).create(
             {
                 "title": "Test Petition",
                 "date_begin": date(2021, 10, 13),
                 "date_end": date(2021, 10, 16),
+                "milestone_ids": [(6, 0, self.milestone.id)],
                 "question_ids": question_ids,
             }
         )
