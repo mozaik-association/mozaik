@@ -51,7 +51,7 @@ class SetPartnerReference(models.TransientModel):
         active_ids = context.get("active_ids")
         if active_model == "res.partner" and active_ids:
             target_obj = self.env[active_model]
-            partners = target_obj.search_count(
+            partners = target_obj.search(
                 [
                     ("id", "in", active_ids),
                     ("membership_state_id", "in", self._get_available_state().ids),
