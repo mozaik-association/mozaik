@@ -4,8 +4,11 @@
 {
     "name": "Mozaik Survey Scoring",
     "summary": """
-        A question with scoring can be excluded from the score
-        if the partner doesn't answer.""",
+        1. A question with scoring can be excluded from the score
+        if the partner doesn't answer.
+        2. The certification mail can be sent
+        to partners even if they fail the certification.
+        """,
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",

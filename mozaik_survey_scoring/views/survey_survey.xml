@@ -14,6 +14,12 @@
                     attrs="{'invisible': [('scoring_type', '=', 'no_scoring')]}"
                 />
             </field>
+            <field name="certification_give_badge" position="before">
+                <field
+                    name="send_mail_to_failed_certifications"
+                    attrs="{'invisible': [('certification', '=', False)]}"
+                />
+            </field>
         </field>
     </record>
 

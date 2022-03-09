@@ -60,3 +60,23 @@ class SurveyUserInput(models.Model):
                     user_input.scoring_percentage = (
                         round(score_percentage, 2) if score_percentage > 0 else 0
                     )
+
+    def _mark_done(self):
+        """
+        If send_mail_to_failed_certifications is ticked, we send the
+        certification email even if the partner failed.
+        """
+        super()._mark_done()
+        for user_input in self:
+            if (
+                user_input.survey_id.certification
+                and user_input.survey_id.send_mail_to_failed_certifications
+                and not user_input.scoring_success
+            ):
+                if (
+                    user_input.survey_id.certification_mail_template_id
+                    and not user_input.test_entry
+                ):
+                    user_input.survey_id.certification_mail_template_id.send_mail(
+                        user_input.id, notif_layout="mail.mail_notification_light"
+                    )

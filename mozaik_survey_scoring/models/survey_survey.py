@@ -13,3 +13,7 @@ class SurveySurvey(models.Model):
         help="If ticked, the questions without an answer "
         "will not be used to compute the total score.",
     )
+    send_mail_to_failed_certifications = fields.Boolean(
+        "Send Mail if Failed Certification",
+        help="Send the mail certification even if partner failed the certification.",
+    )
