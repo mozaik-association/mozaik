@@ -23,5 +23,6 @@ class PartnerInfoUpdate(BasePartnerInfoUpdate, extends=BasePartnerInfoUpdate):
     country_id: int = None
     subordinate_ids: List[int] = None
     unemployed: bool = None
+    gender: str = None
     disabled: bool = None
     global_opt_out: bool = None

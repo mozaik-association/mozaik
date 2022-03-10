@@ -10,3 +10,4 @@ class ThesaurusTermSearchFilter(BaseModel, metaclass=ExtendableModelMeta):
     id: int = None
     name: str = None
     active: bool = None
+    main_term: bool = None

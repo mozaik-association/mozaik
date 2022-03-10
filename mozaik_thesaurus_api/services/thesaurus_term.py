@@ -36,6 +36,8 @@ class ThesaurusTermService(Component):
             domain.append(("active", "=", filters.active))
         else:
             domain.extend(["|", ("active", "=", True), ("active", "=", False)])
+        if filters.main_term is not None:
+            domain.append(("main_term", "=", filters.main_term))
         return domain
 
     @restapi.method(
