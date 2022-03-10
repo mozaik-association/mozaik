@@ -142,15 +142,13 @@ class ResPartner(models.Model):
                 limit=1,
             )
             last_member_membership.reference = False
-            membership.write(
-                {
-                    "reference": self.reference,
-                    # We didn't expect a payment fir this membership at the start
-                    "paid": False,
-                }
-            )
-            self.reference = False
+            if membership.state_code != "former_member":
+                # keep the paid for former member, since we will pay the next membership
+                # but for others, we didn't expect a payment for this membership at the start
+                vals = {"reference": self.reference, "paid": False}
+                membership.write(vals)
             membership._mark_as_paid(amount_paid, move_id, bank_account_id)
+            self.stored_reference = False
         return res
 
     def action_accept(self):

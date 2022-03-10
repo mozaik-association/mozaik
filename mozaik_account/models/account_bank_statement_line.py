@@ -182,7 +182,7 @@ class AccountBankStatementLine(models.Model):
             .get_param("membership.allow_update_product", default="0")
         )
         can_update_product = False
-        if param_value in [True, 1, "1", "True"] or product.list_price < self.amount:
+        if param_value in [True, 1, "1", "True"] or membership.price < self.amount:
             product = self.env["product.product"].search(
                 [
                     ("membership", "=", True),
