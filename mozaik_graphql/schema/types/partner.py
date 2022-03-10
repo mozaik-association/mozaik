@@ -38,7 +38,7 @@ class Partner(AbstractObject):
         return root.address_address_id or None
 
     def resolve_image_url(root, info):
-        return "%sweb/image/res.partner/%d/image_1920" % (
+        return "%sweb/image_api/res.partner/%d/image_1920" % (
             request.httprequest.host_url,
             root.id,
         )
