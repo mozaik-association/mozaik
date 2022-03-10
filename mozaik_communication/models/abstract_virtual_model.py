@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from psycopg2.extensions import AsIs
 
-from odoo import api, fields, models, tools
+from odoo import _, api, fields, models, tools
 
 
 class AbstractVirtualModel(models.AbstractModel):
@@ -63,6 +63,7 @@ class AbstractVirtualModel(models.AbstractModel):
         comodel_name="int.instance",
         string="Partner Internal Instances",
         compute="_compute_partner_instance_ids",
+        search="_search_partner_instance_ids",
     )
     active = fields.Boolean()
 
@@ -100,6 +101,20 @@ class AbstractVirtualModel(models.AbstractModel):
         """
         for record in self:
             record[field] = record.mapped(path)
+
+    def _search_partner_instance_ids(self, operator, value):
+        """
+        We implement a search method since we will need to search on
+        partner_instance_ids in record rules.
+        """
+        if operator not in ["in", "not in", "child of"]:
+            raise ValueError(_("This operator is not supported"))
+        if not isinstance(value, list):
+            raise ValueError(_("value should be a list"))
+        auth_partners = self.env["res.partner"].search(
+            [("int_instance_ids", operator, value)]
+        )
+        return [("partner_id", "in", auth_partners.ids)]
 
     @api.model
     def _search_int_instance_id(self, operator, value):
