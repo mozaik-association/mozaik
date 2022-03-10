@@ -13,6 +13,7 @@ class ThesaurusTermInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     name: str
     active: bool
+    main_term: bool = None
     write_date: datetime
 
     class Config:
