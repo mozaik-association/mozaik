@@ -186,6 +186,7 @@ class ResPartner(models.Model):
     def action_refuse(self):
         status_obj = self.env["membership.state"]
         for partner in self:
+            partner.accepted_date = False
             next_state = partner.simulate_next_state(event="refuse")
             membership = self.env["membership.line"].search(
                 [
