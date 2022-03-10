@@ -1210,6 +1210,12 @@ msgid "There are no recipients"
 msgstr "Aucun destinataire"
 
 #. module: mozaik_communication
+#: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
+#, python-format
+msgid "This operator is not supported"
+msgstr ""
+
+#. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.export_csv_wizard
 msgid "This wizard will export the selected coordinates into a CSV file"
 msgstr ""
@@ -1324,6 +1330,12 @@ msgstr "Code postal"
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.export_csv_wizard
 msgid "or"
 msgstr "ou"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
+#, python-format
+msgid "value should be a list"
+msgstr ""
 
 #~ msgid "Archive/reactivate distribution list: proceed anyway?"
 #~ msgstr "Poursuivre l'archivage/réactivation de la liste de distribution ?"
