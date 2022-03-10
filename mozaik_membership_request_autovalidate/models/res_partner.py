@@ -31,7 +31,9 @@ class ResPartner(models.Model):
             "res_id": self.id,
         }
         control_user_id = int(
-            self.env["ir.config_parameter"].get_param("force_autoval_control_user")
+            self.sudo()
+            .env["ir.config_parameter"]
+            .get_param("force_autoval_control_user")
         )
         if control_user_id:
             user_id = self.env["res.users"].search([("id", "=", control_user_id)])
