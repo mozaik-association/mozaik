@@ -38,20 +38,17 @@
                     <button
                         string="All Involvements"
                         class="oe_stat_button oe_right"
+                        name="get_all_involvements_partner_action"
+                        type="object"
                         icon="fa-share-square"
-                        name="%(partner_involvement_act_window)d"
-                        type="action"
                         attrs="{'invisible': [('id','=',False)]}"
-                        context="{'search_default_partner_id': id,
-                                      'default_partner_id': id,
-                                      'search_default_all': True}"
                     />
                     <button
                         string="Donations"
                         class="oe_stat_button oe_right"
+                        name="get_donations_partner_action"
+                        type="object"
                         icon="fa-thumbs-up"
-                        name="%(partner_involvement_donation_act_window)d"
-                        type="action"
                         attrs="{'invisible': [('id','=',False)]}"
                     />
                     <group name="donor-volunteer">

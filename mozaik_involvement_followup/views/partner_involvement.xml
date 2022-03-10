@@ -13,13 +13,14 @@
             ref="mozaik_involvement.partner_involvement_form_view"
         />
         <field name="arch" type="xml">
-            <xpath expr="//header/div" position="inside">
+            <xpath expr="//header" position="inside">
                 <button
-                    name="%(mozaik_involvement_followup.partner_involvement_followup_wizard_act_window)d"
                     string="Follow-up"
-                    type="action"
+                    name="get_followup_wizard_action"
+                    type="object"
                     attrs="{'invisible': [('state', 'in', ['nofollowup', 'done'])]}"
                 />
+
                 <field
                     name="state"
                     widget="statusbar"
@@ -105,7 +106,7 @@
         </field>
     </record>
 
-    <record id="partner_involvement_act_window" model="ir.actions.act_window">
+    <record id="partner_involvement_to_follow_act_window" model="ir.actions.act_window">
         <field name="name">To follow</field>
         <field name="res_model">partner.involvement</field>
         <field name="view_mode">tree,form</field>
@@ -122,7 +123,7 @@
     <record model="ir.ui.menu" id="partner_involvement_menu">
         <field name="name">To follow</field>
         <field name="parent_id" ref="mozaik_involvement.involvement_menu" />
-        <field name="action" ref="partner_involvement_act_window" />
+        <field name="action" ref="partner_involvement_to_follow_act_window" />
         <field name="sequence" eval="5" />
     </record>
 

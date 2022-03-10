@@ -146,3 +146,14 @@ class PartnerInvolvement(models.Model):
             res[2]["is_editable"] = is_editable
             res[2]["is_uid"] = uid == res[0]
         return result
+
+    def get_followup_wizard_action(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Follow-up",
+            "res_model": "partner.involvement.followup.wizard",
+            "domain": [("involvement_type", "=", "donation")],
+            "view_mode": "form",
+            "target": "new",
+        }

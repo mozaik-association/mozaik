@@ -66,3 +66,33 @@ class ResPartner(models.Model):
             types = partner.partner_involvement_ids.mapped("involvement_type")
             partner.is_donor = "donation" in types
             partner.is_volunteer = "voluntary" in types
+
+    def get_all_involvements_partner_action(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "All Involvements",
+            "res_model": "partner.involvement",
+            "context": {
+                "search_default_partner_id": self.id,
+                "default_partner_id": self.id,
+                "search_default_all": True,
+            },
+            "view_mode": "tree,form",
+        }
+
+    def get_donations_partner_action(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Donations",
+            "res_model": "partner.involvement",
+            "context": {
+                "search_default_partner_id": self.id,
+                "default_partner_id": self.id,
+                "search_default_creation_time_year": 1,
+                "search_default_donation": 1,
+            },
+            "domain": [("involvement_type", "=", "donation")],
+            "view_mode": "tree,form",
+        }

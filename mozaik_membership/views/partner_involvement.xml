@@ -79,13 +79,5 @@
         </field>
     </record>
 
-    <record
-        id="mozaik_involvement.partner_involvement_donation_act_window"
-        model="ir.actions.act_window"
-    >
-        <field
-            name="context"
-        >{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1, 'search_default_donation': 1}</field>
-    </record>
 
 </odoo>

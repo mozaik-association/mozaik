@@ -147,12 +147,6 @@ msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: mozaik_involvement
-#: model:ir.actions.act_window,name:mozaik_involvement.partner_involvement_donation_act_window
-#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
-msgid "Donations"
-msgstr "Dons"
-
-#. module: mozaik_involvement
 #: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__involvement_type__donation
 msgid "Donations Campaign"
 msgstr "Compagne de dons"

@@ -160,3 +160,16 @@ class PartnerInvolvementCategory(models.Model):
     @api.onchange("involvement_type")
     def _onchange_involvement_type(self):
         self.allow_multi = self.involvement_type == "donation"
+
+    def get_involvements_from_category_action(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Involvements",
+            "res_model": "partner.involvement",
+            "context": {
+                "search_default_involvement_category_id": self.id,
+                "default_involvement_category_id": self.id,
+            },
+            "view_mode": "tree,form",
+        }

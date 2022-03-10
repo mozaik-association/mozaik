@@ -26,13 +26,10 @@
                             bg_color="bg-danger"
                             attrs="{'invisible': [('active', '=', True)]}"
                         />
-
-                        <button
+                         <button
                             string="Involvements"
-                            name="%(partner_involvement_act_window)d"
-                            type="action"
-                            context="{'search_default_involvement_category_id': id,
-                                          'default_involvement_category_id': id}"
+                            name="get_involvements_from_category_action"
+                            type="object"
                         />
                     </div>
                     <div class="oe_title">
