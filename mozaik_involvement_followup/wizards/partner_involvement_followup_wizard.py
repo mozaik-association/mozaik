@@ -15,6 +15,9 @@ class PartnerInvolvementFollowupWizard(models.TransientModel):
         Compute domain for next_category_ids
         """
         domain = []
+        if self.env.context.get("active_model") == "res.partner":
+            # We shouldn't use active_id when active_model is res.partner
+            return []
         inv_ids = (
             self.env.context.get("active_ids")
             or [self.env.context.get("active_id")]
