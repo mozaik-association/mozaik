@@ -8,12 +8,9 @@
         <field name="model">partner.involvement</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <div
-                        attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                    >
-                    </div>
-                </header>
+                <header
+                    attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                />
                 <sheet>
                     <div class="oe_button_box" name="button_box">
 
