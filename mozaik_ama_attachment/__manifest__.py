@@ -10,6 +10,8 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
+        "mail",
+        "mass_mailing",
         "mozaik_petition",
         "survey",
     ],

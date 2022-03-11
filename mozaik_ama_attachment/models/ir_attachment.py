@@ -10,6 +10,18 @@ class IrAttachment(models.Model):
 
     def create(self, vals):
         res = super().create(vals)
-        if res.res_model in ["petition.petition", "survey.survey"]:
+        # When uploading an image in body_arch in a mass_mailing, res_model equals "model"
+        # and not "mailing.mailing".
+        if (
+            res.res_model
+            in [
+                "petition.petition",
+                "survey.survey",
+                "mailing.mailing",
+                "mail.template",
+                "model",
+            ]
+            and res.index_content == "image"
+        ):
             res.write({"public": True})
         return res
