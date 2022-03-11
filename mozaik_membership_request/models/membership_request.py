@@ -1101,7 +1101,7 @@ class MembershipRequest(models.Model):
         # superuser_id because of record rules
         return self.sudo().write(vals)
 
-    def validate_request(self):
+    def validate_request(self):  # noqa: C901
         """
         First check if the relations are set. For those try to update
         content
@@ -1235,24 +1235,57 @@ class MembershipRequest(models.Model):
                 and mr.technical_name
                 and mr.technical_name != EMPTY_ADDRESS
             ):
-                address_values = {
-                    "country_id": mr.country_id.id,
-                    "street_man": False
-                    if mr.address_local_street_id
-                    else mr.street_man,
-                    "zip_man": False if mr.city_id else mr.zip_man,
-                    "city_man": False if mr.city_id else mr.city_man,
-                    "address_local_street_id": mr.address_local_street_id
+                country_id = mr.country_id.id
+                street_man = False if mr.address_local_street_id else mr.street_man
+                zip_man = False if mr.city_id else mr.zip_man
+                city_man = False if mr.city_id else mr.city_man
+                address_local_street_id = (
+                    mr.address_local_street_id
                     and mr.address_local_street_id.id
-                    or False,
-                    "city_id": mr.city_id and mr.city_id.id or False,
-                    "street2": mr.street2,
-                    "number": mr.number,
-                    "box": mr.box,
-                    "sequence": mr.sequence,
-                }
-                address_id = mr.env["address.address"].create(address_values)
-                mr_vals["address_id"] = address_id
+                    or False
+                )
+                city_id = mr.city_id and mr.city_id.id or False
+                street2 = mr.street2
+                number = mr.number
+                box = mr.box
+                sequence = mr.sequence
+                # Partner zip can only be changed if no address
+                # or street is also changed
+                if (
+                    not partner
+                    or not partner.address_address_id
+                    or (not zip_man and not city_id)
+                    or (zip_man or city_id and street_man or address_local_street_id)
+                ):
+                    address_id = self.env["address.address"].search(
+                        [
+                            ("country_id", "=", country_id),
+                            ("street_man", "=", street_man),
+                            ("zip_man", "=", zip_man),
+                            ("city_man", "=", city_man),
+                            ("address_local_street_id", "=", address_local_street_id),
+                            ("city_id", "=", city_id),
+                            ("street2", "=", street2),
+                            ("number", "=", number),
+                            ("box", "=", box),
+                        ],
+                        limit=1,
+                    )
+                    if not address_id:
+                        address_values = {
+                            "country_id": country_id,
+                            "street_man": street_man,
+                            "zip_man": zip_man,
+                            "city_man": city_man,
+                            "address_local_street_id": address_local_street_id,
+                            "city_id": city_id,
+                            "street2": street2,
+                            "number": number,
+                            "box": box,
+                            "sequence": sequence,
+                        }
+                        address_id = self.env["address.address"].create(address_values)
+                    mr_vals["address_id"] = address_id
             if address_id:
                 partner_values.update({"address_address_id": address_id})
 
