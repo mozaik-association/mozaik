@@ -153,8 +153,11 @@ class UpdateMembership(models.TransientModel):
             if price_zero:
                 self.reference = ""
             else:
-                reference = membership._generate_membership_reference(
-                    self.membership_line_id.partner_id,
-                    self.membership_line_id.int_instance_id,
+                reference = (
+                    membership.reference
+                    or membership._generate_membership_reference(
+                        self.membership_line_id.partner_id,
+                        self.membership_line_id.int_instance_id,
+                    )
                 )
                 self.reference = reference
