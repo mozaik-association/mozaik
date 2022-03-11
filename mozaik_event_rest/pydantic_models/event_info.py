@@ -26,6 +26,7 @@ class EventShortInfo(BaseEventShortInfo, extends=BaseEventShortInfo):
         [], alias="website_domain_ids"
     )
     website_url: str = None
+    description: str = None
 
 
 class EventInfo(BaseEventInfo, extends=BaseEventInfo):
