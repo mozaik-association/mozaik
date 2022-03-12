@@ -44,5 +44,7 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     country_id: int = None
     unemployed_change: str = None
     disabled_change: str = None
+    force_global_opt_out: bool = None
+    force_global_opt_in: bool = None
     auto_validate: bool = False
     force_auto_validate: bool = False
