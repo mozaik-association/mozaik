@@ -11,10 +11,12 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mozaik_membership",
+        "mozaik_membership_request",
         "mozaik_account",
         "payment",
     ],
     "data": [
+        "views/membership_request.xml",
         "wizards/payment_link_wizard.xml",
         "views/payment_templates.xml",
         "views/membership_line.xml",

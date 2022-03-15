@@ -24,6 +24,17 @@ class PaymentLinkWizard(models.TransientModel):
                     "amount_max": record.price,
                 }
             )
+        elif res_id and res_model == "membership.request":
+            record = self.env[res_model].browse(res_id)
+            res.update(
+                {
+                    "description": record.reference,
+                    "amount": record.amount,
+                    "currency_id": self.env.company.currency_id.id,
+                    "partner_id": record.partner_id.id,
+                    "amount_max": record.amount,
+                }
+            )
         return res
 
     def _generate_link(self):
@@ -31,4 +42,6 @@ class PaymentLinkWizard(models.TransientModel):
         for payment_link in self:
             if payment_link.res_model == "membership.line":
                 payment_link.link += "&membership_id=%s" % payment_link.res_id
+            elif payment_link.res_model == "membership.request":
+                payment_link.link += "&membership_request_id=%s" % payment_link.res_id
         return res

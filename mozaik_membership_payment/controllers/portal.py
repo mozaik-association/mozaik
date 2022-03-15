@@ -31,7 +31,12 @@ class WebsitePaymentMozaik(WebsitePayment):
             access_token,
             **kw
         )
-        res.qcontext.update({"membership_id": kw.get("membership_id")})
+        res.qcontext.update(
+            {
+                "membership_id": kw.get("membership_id"),
+                "membership_request_id": kw.get("membership_request_id"),
+            }
+        )
         if kw.get("membership_id"):
             membership = (
                 request.env["membership.line"]
@@ -39,6 +44,13 @@ class WebsitePaymentMozaik(WebsitePayment):
                 .browse(int(kw.get("membership_id")))
             )
             res.qcontext.update({"display_reference": membership.reference})
+        elif kw.get("membership_request_id"):
+            mr = (
+                request.env["membership.request"]
+                .sudo()
+                .browse(int(kw.get("membership_request_id")))
+            )
+            res.qcontext.update({"display_reference": mr.reference})
         return res
 
     @http.route()
@@ -46,8 +58,9 @@ class WebsitePaymentMozaik(WebsitePayment):
         self, acquirer_id, reference, amount, currency_id, partner_id=False, **kwargs
     ):
         membership_id = kwargs.get("membership_id")
+        membership_request_id = kwargs.get("membership_request_id")
 
-        if not membership_id:
+        if not membership_id and not membership_request_id:
             return super(WebsitePaymentMozaik, self).transaction(
                 acquirer_id, reference, amount, currency_id, partner_id, **kwargs
             )
@@ -67,7 +80,10 @@ class WebsitePaymentMozaik(WebsitePayment):
         }
 
         # ACS change invoice/order to membership
-        values["membership_ids"] = [(6, 0, [membership_id])]
+        if membership_id:
+            values["membership_ids"] = [(6, 0, [membership_id])]
+        if membership_request_id:
+            values["membership_request_ids"] = [(6, 0, [membership_request_id])]
 
         reference_values = {"acquirer_id": acquirer_id}
         values["reference"] = request.env["payment.transaction"]._compute_reference(

@@ -159,6 +159,7 @@ odoo.define("mozaik_membership_payment.payment_form", function (require) {
                                 order_id: self.options.orderId,
                                 invoice_id: self.options.invoiceId,
                                 membership_id: self.options.membershipId, // ACS: added membership_id
+                                membership_request_id: self.options.membershipRequestId, // ACS: added membership_request_id
                             },
                         })
                             .then(function (result) {

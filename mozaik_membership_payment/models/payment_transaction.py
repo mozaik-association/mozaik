@@ -12,6 +12,10 @@ class PaymentTransaction(models.Model):
         string="Memberships",
         comodel_name="membership.line",
     )
+    membership_request_ids = fields.Many2many(
+        string="Membership Requests",
+        comodel_name="membership.request",
+    )
     display_reference = fields.Char(compute="_compute_display_reference")
 
     def write(self, vals):
@@ -25,6 +29,12 @@ class PaymentTransaction(models.Model):
             reference = tx.reference
             if tx.membership_ids and tx.membership_ids.mapped("reference"):
                 reference = tx.membership_ids.mapped("reference")[
+                    0
+                ]  # should be only one
+            elif tx.membership_request_ids and tx.membership_request_ids.mapped(
+                "reference"
+            ):
+                reference = tx.membership_request_ids.mapped("reference")[
                     0
                 ]  # should be only one
             tx.display_reference = reference

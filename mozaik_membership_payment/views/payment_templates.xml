@@ -4,6 +4,9 @@
     <template id="payment_tokens_list" inherit_id="payment.payment_tokens_list">
         <xpath expr="//form" position="attributes">
             <attribute name="t-att-data-membership-id">membership_id or ''</attribute>
+            <attribute
+                name="t-att-data-membership-request-id"
+            >membership_request_id or ''</attribute>
         </xpath>
     </template>
 
