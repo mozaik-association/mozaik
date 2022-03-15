@@ -21,6 +21,7 @@ from odoo.addons.partner_rest_api.pydantic_models.partner_info import (
 )
 
 from .address_info import AddressInfo
+from .co_residency_info import CoResidencyInfo
 
 
 class PartnerShortInfo(BasePartnerShortInfo, extends=BasePartnerShortInfo):
@@ -50,3 +51,4 @@ class PartnerInfo(BasePartnerInfo, extends=BasePartnerInfo):
     subscription: SubscriptionInfo = pydantic.Field(
         None, alias="subscription_product_id"
     )
+    co_residency: CoResidencyInfo = pydantic.Field(None, alias="co_residency_id")
