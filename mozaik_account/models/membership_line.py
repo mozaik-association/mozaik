@@ -2,6 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import datetime
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.fields import first
@@ -147,6 +149,32 @@ class MembershipLine(models.Model):
                 vals["price"] = product.list_price
             self.write(vals)
         return self
+
+    def _update_membership_values(self, partner, instance, state, date_from):
+        self.ensure_one()
+        nb_month = int(
+            self.env["ir.config_parameter"].get_param(
+                "membership.nb_month_exemption", default="2"
+            )
+        )
+
+        older_membership = self.env["membership.line"].search_count(
+            [
+                ("partner_id", "=", partner.id),
+                (
+                    "date_from",
+                    "<",
+                    fields.Date.from_string(date_from) - relativedelta(months=nb_month),
+                ),
+            ]
+        )
+        vals = super()._update_membership_values(partner, instance, state, date_from)
+        if not older_membership and all(
+            m.paid for m in partner.membership_line_ids if m.date_from < date_from
+        ):
+            vals["paid"] = True
+            vals["price"] = 0
+        return vals
 
     @api.model
     def _build_membership_values(
