@@ -95,6 +95,12 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_abstract_assembly__journal_item_count
+#: model:ir.model.fields,field_description:mozaik_account.field_ext_assembly__journal_item_count
+#: model:ir.model.fields,field_description:mozaik_account.field_int_assembly__journal_item_count
+#: model:ir.model.fields,field_description:mozaik_account.field_res_partner__journal_item_count
+#: model:ir.model.fields,field_description:mozaik_account.field_res_users__journal_item_count
+#: model:ir.model.fields,field_description:mozaik_account.field_sta_assembly__journal_item_count
 #: model_terms:ir.ui.view,arch_db:mozaik_account.res_partner_form_view
 msgid "Journal Items"
 msgstr ""
