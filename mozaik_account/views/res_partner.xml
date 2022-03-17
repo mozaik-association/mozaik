@@ -15,6 +15,7 @@
                     icon="fa-list"
                     name="account.action_account_moves_all"
                     context="{'search_default_partner_id': active_id}"
+                    groups="account.group_account_invoice,account.group_account_readonly"
                 >
                     <field
                         string="Journal Items"

@@ -1,13 +1,17 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import api, fields, models
 from odoo.tools import float_compare
 
 
 class ResPartner(models.Model):
 
     _inherit = "res.partner"
+
+    journal_item_count = fields.Integer(
+        groups="account.group_account_invoice,account.group_account_readonly"
+    )
 
     @api.depends(
         "stored_reference",
