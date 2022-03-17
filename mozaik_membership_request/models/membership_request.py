@@ -1046,16 +1046,12 @@ class MembershipRequest(models.Model):
     ):
         if not country_id:
             return EMPTY_ADDRESS
-        local_zip = False
         if city_id:
             zip_man, city_man = False, False
-            local_zip = self.env["res.city"].browse([city_id]).zipcode
-        if address_local_street_id:
-            street_man = False
         values = OrderedDict(
             [
                 ("country_id", country_id),
-                ("address_local_zip", local_zip),
+                ("city_id", city_id),
                 ("zip_man", zip_man),
                 ("city_man", city_man),
                 ("address_local_street_id", address_local_street_id),

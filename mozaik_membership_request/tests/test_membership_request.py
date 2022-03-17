@@ -76,7 +76,7 @@ class TestMembership(TransactionCase):
             "mobile": "061411232",
         }
         all_values = {
-            "street": self.rec_address.address_local_street_id.local_street,
+            "street_man": self.rec_address.street_man,
             "zip_man": self.rec_address.city_id.zipcode,
             "address_local_street_id": self.rec_address.address_local_street_id.id,
             "box": self.rec_address.box,
