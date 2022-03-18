@@ -1112,6 +1112,27 @@ class MembershipRequest(models.Model):
             former_code = False
             if mr.partner_id:
                 former_code = mr.partner_id.membership_state_code
+                if mr.email:
+                    mr.write(
+                        {
+                            "message_ids": [
+                                (
+                                    0,
+                                    0,
+                                    {
+                                        "subject": "Temporary remove email for security",
+                                        "body": "Email was removed from membership request "
+                                        "for security purposes. Email was : %s"
+                                        % mr.email,
+                                        "message_type": "comment",
+                                        "model": "membership.request",
+                                        "res_id": mr.id,
+                                    },
+                                )
+                            ]
+                        }
+                    )
+                    mr.email = False
 
             partner_values = {
                 "is_company": mr.is_company,
