@@ -27,6 +27,7 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_link_wizard__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_res_partner__display_name
@@ -50,6 +51,7 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__id
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__id
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_link_wizard__id
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction__id
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_res_partner__id
@@ -58,6 +60,7 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_link_wizard____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_res_partner____last_update
@@ -80,6 +83,16 @@ msgid "Membership Line Payment Link"
 msgstr ""
 
 #. module: mozaik_membership_payment
+#: model:ir.model,name:mozaik_membership_payment.model_membership_request
+msgid "Membership Request"
+msgstr ""
+
+#. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction__membership_request_ids
+msgid "Membership Requests"
+msgstr ""
+
+#. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction__membership_ids
 msgid "Memberships"
 msgstr ""
@@ -93,6 +106,7 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__payment_link
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__payment_link
 msgid "Payment Link"
 msgstr ""
 
@@ -120,6 +134,7 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__transaction_ids
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_ids
 msgid "Transaction"
 msgstr ""
 
