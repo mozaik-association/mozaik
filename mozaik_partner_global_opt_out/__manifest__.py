@@ -12,6 +12,7 @@
     "depends": [
         "mail",
         "mozaik_communication",
+        "mozaik_mass_mailing_mail_creation",
         "mozaik_membership_request",
     ],
     "data": [
