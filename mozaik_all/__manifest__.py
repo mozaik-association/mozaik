@@ -48,6 +48,7 @@
         "mozaik_mass_mailing_immediate_sending",
         "mozaik_mass_mailing_int_instance",
         "mozaik_mass_mailing_mail_creation",
+        "mozaik_mass_mailing_multi_sending",
         "mozaik_mass_mailing_template",
         "mozaik_membership",
         "mozaik_partner_assembly",
