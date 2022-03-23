@@ -183,7 +183,7 @@ class AddressAddress(models.Model):
         return OrderedDict(
             [
                 ("country_id", "id"),
-                ("city_id", "zipcode"),
+                ("city_id", "id"),
                 ("zip_man", False),
                 ("city_man", False),
                 ("street_man", False),
