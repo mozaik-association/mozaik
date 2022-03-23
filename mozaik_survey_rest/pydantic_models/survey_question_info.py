@@ -35,6 +35,7 @@ class SurveyQuestionInfo(BaseModel, metaclass=ExtendableModelMeta):
     constr_mandatory: bool = None
     is_conditional: bool = None
     triggering_question_id: int = None
+    triggering_answer_id: int = None
     matrix_rows: List[SurveyQuestionAnswerInfo] = pydantic.Field(
         [], alias="matrix_row_ids"
     )
