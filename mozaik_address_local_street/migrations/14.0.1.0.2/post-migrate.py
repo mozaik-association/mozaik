@@ -11,4 +11,9 @@ _logger = logging.getLogger(__name__)
 def migrate(cr, version):
     _logger.info("Recompute address technical_name")
     env = api.Environment(cr, SUPERUSER_ID, {})
-    env["address.address"].search([])._compute_integral_address()
+    technical_names = dict()
+    for address in env["address.address"].search([]):
+        address._compute_integral_address()
+        if (address.technical_name, address.sequence) in technical_names:
+            address.sequence = str(address.id)
+        technical_names[(address.technical_name, address.sequence)] = address.id
