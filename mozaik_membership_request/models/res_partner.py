@@ -24,7 +24,7 @@ class ResPartner(models.Model):
 
     def simulate_next_state(self, event=None):
         self.ensure_one()
-        self.sc_state = json.dumps(
+        self.sudo().sc_state = json.dumps(
             {"configuration": ["root", self.membership_state_code]}
         )
         if event:

@@ -909,7 +909,7 @@ class MembershipRequest(models.Model):
                 event = "paid"
             vals = self._get_status_values(request_type)
             if vals:
-                partner.write(vals)
+                partner.sudo().write(vals)
             state_code = partner.simulate_next_state(event)
             partner.invalidate_cache(ids=partner.ids)
         finally:
