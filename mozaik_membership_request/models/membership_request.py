@@ -1308,6 +1308,7 @@ class MembershipRequest(models.Model):
             membership_instance = active_memberships.filtered(
                 lambda s, i=instance: s.int_instance_id == i
             )
+            update_amount_membership_line = self.env["membership.line"].browse()
             if mr.result_type_id.code != "without_membership" and (
                 not membership_instance
                 or membership_instance.state_id != mr.result_type_id
