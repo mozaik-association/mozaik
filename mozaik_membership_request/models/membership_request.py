@@ -905,7 +905,7 @@ class MembershipRequest(models.Model):
                 partner = partner_obj.create(partner_datas)
             # didn't find a good way to make it in the statechart
             event = None
-            if partner.membership_state_id == former_member:
+            if partner.membership_state_id == former_member and request_type == "m":
                 event = "paid"
             vals = self._get_status_values(request_type)
             if vals:
@@ -1337,28 +1337,32 @@ class MembershipRequest(models.Model):
                         }
                     )
                     w._onchange_product_id()  # compute the price
-                w.action_add()
+                update_amount_membership_line = w.action_add()
 
-                active_memberships = partner.membership_line_ids.filtered(
-                    lambda s: s.active
+            elif mr.result_type_id.code in ("member", "member_candidate"):
+                update_amount_membership_line = partner.membership_line_ids.filtered(
+                    lambda m, i=instance: m.int_instance_id == i
+                    and m.active
+                    and not m.paid
                 )
-                # save membership amount
-                if mr.amount > 0.0 or mr.reference:
-                    product = self.env["product.product"].search(
-                        [
-                            ("membership", "=", True),
-                            ("list_price", "=", mr.amount),
-                        ],
-                        limit=1,
-                    )
-                    vals = {}
-                    if mr.reference:
-                        vals["reference"] = mr.reference
-                    if mr.amount:
-                        vals["price"] = mr.amount
-                    if product:
-                        vals["product_id"] = product.id
-                    active_memberships.write(vals)
+
+            # save membership amount
+            if mr.amount > 0.0 or mr.reference:
+                product = self.env["product.product"].search(
+                    [
+                        ("membership", "=", True),
+                        ("list_price", "=", mr.amount),
+                    ],
+                    limit=1,
+                )
+                vals = {}
+                if mr.reference:
+                    vals["reference"] = mr.reference
+                if mr.amount:
+                    vals["price"] = mr.amount
+                if product:
+                    vals["product_id"] = product.id
+                update_amount_membership_line.write(vals)
 
     @api.model
     def _validate_request_involvement(self, mr, partner):
