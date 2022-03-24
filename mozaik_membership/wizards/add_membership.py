@@ -124,11 +124,10 @@ class AddMembership(models.TransientModel):
     def action_add(self):
         """
         Action to create the membership line for the partner
-        :return: dict
+        :return: membership.line
         """
         self.ensure_one()
-        self._create_membership_line()
-        return {}
+        return self._create_membership_line()
 
     def _create_membership_line(self, reference=None):
         """

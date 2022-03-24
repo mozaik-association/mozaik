@@ -259,6 +259,52 @@ class TestMembership(TransactionCase):
         )
         self.assertEqual(len(address_ids), 1)
 
+    def test_membership_subscription(self):
+        """
+        Test the validate process with an update of subscription amount
+        - If partner has no membership
+        - If partner has an unpaid membership
+        - If partner has a paid membership
+        """
+        mr = self.rec_mr_update
+        mr2 = mr.copy()
+        mr3 = mr.copy()
+        partner = mr.partner_id
+        instance = mr.force_int_instance_id
+
+        # First membership request (partner has no membership)
+        mr.write({"amount": 10})
+        mr.validate_request()
+        membership_line_1 = partner.membership_line_ids.filtered(
+            lambda m, i=instance: m.int_instance_id == i
+        )
+        self.assertEqual(len(membership_line_1), 1)
+        self.assertEqual(membership_line_1.price, 10)
+
+        # Second membership request (partner has an unpaid membership)
+        mr2.write({"amount": 25})
+        mr2.validate_request()
+        membership_line_2 = partner.membership_line_ids.filtered(
+            lambda m, i=instance: m.int_instance_id == i
+        )
+        self.assertEqual(len(membership_line_2), 1)
+        self.assertEqual(membership_line_1.id, membership_line_2.id)
+        self.assertEqual(membership_line_2.price, 25)
+        self.assertEqual(
+            membership_line_2.product_id,
+            self.env.ref("mozaik_membership.membership_product_isolated"),
+        )
+
+        # Third membership request (partner has a paid membership)
+        membership_line_1.write({"paid": True})
+        mr3.write({"amount": 10})
+        mr3.validate_request()
+        membership_line_3 = partner.membership_line_ids.filtered(
+            lambda m, i=instance: m.int_instance_id == i
+        )
+        self.assertEqual(len(membership_line_3), 1)
+        self.assertEqual(membership_line_3.price, 25)
+
     def test_state_default_get(self):
         """
         Test the default state of `membership.state`
