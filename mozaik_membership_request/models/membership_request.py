@@ -905,7 +905,7 @@ class MembershipRequest(models.Model):
                 partner = partner_obj.create(partner_datas)
             # didn't find a good way to make it in the statechart
             event = None
-            if partner.membership_state_id == former_member:
+            if partner.membership_state_id == former_member and request_type == "m":
                 event = "paid"
             vals = self._get_status_values(request_type)
             if vals:
