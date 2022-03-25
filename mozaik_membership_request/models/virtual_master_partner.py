@@ -22,6 +22,8 @@ class VirtualMasterPartner(models.Model):
     birthdate_date = fields.Date(string="Birth Date")
     is_company = fields.Boolean()
     email = fields.Char(string="Email Coordinate")
+    phone = fields.Char()
+    mobile = fields.Char()
     # email_failure_counter = fields.Integer(string='Email Bounce Counter')
     # postal_failure_counter = fields.Integer(string='Postal Bounce Counter')
     zip = fields.Char("Zip Code")
@@ -56,6 +58,8 @@ class VirtualMasterPartner(models.Model):
             NULL::int AS int_instance_id,
 
             p.email as email,
+            p.phone as phone,
+            p.mobile as mobile,
             CASE
                 WHEN (p.email IS NOT NULL OR adr.id IS NOT NULL)
                 THEN True

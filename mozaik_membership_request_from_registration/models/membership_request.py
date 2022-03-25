@@ -131,13 +131,16 @@ class MembershipRequest(models.Model):
 
             # If a partner is given in vals, we do not change it
             if not partner:
-                partner = self.get_partner_id(
-                    is_company=False,
-                    birthdate_date=False,
-                    lastname=lastname,
-                    firstname=firstname,
-                    email=email,
-                )
+                recognizable_values = {
+                    "is_company": False,
+                    "birthdate_date": False,
+                    "lastname": lastname,
+                    "firstname": firstname,
+                    "email": email,
+                    "mobile": mobile,
+                    "phone": phone,
+                }
+                partner = self.get_partner_id(recognizable_values)
             values.update({"partner_id": partner.id if partner else False})
             # 26993/2.4.2.1.2
             # If the partner has no address but a membership state,
