@@ -29,7 +29,7 @@ class MailingMailing(models.Model):
             self.include_opt_out_contacts = False
 
     @api.constrains("mailing_model_id", "include_opt_out_contacts")
-    def _check_distribution_list_ids(self):
+    def _check_include_opt_out_contacts(self):
         """
         include_opt_out_contacts cannot be used if mailing_model_id is not
         distribution.list or res.partner
