@@ -131,4 +131,17 @@ class PartnerService(Component):
             ]
         ):
             res = self._prepare_address_fields(res, partner)
+        if (
+            res.pop("update_instance", False)
+            and "address_address_id" in res
+            and res["address_address_id"]
+        ):
+            self.env["change.instance"].create(
+                {
+                    "instance_id": self.env["address.address"]
+                    .browse(res["address_address_id"])
+                    .city_id.int_instance_id.id,
+                    "partner_ids": [partner.id],
+                }
+            ).doit()
         return res
