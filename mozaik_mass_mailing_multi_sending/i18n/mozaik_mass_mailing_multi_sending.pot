@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_mass_mailing_multi_sending
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_mass_mailing_multi_sending
+#: code:addons/mozaik_mass_mailing_multi_sending/models/mailing_mailing.py:0
+#, python-format
+msgid ""
+"'Multi sending to same email' cannot be True if mailing model is different "
+"from 'Contact' or 'Distribution List'."
+msgstr ""
+
+#. module: mozaik_mass_mailing_multi_sending
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_mail_compose_message__display_name
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_mailing_mailing__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_mass_mailing_multi_sending
+#: model:ir.model,name:mozaik_mass_mailing_multi_sending.model_mail_compose_message
+msgid "Email composition wizard"
+msgstr ""
+
+#. module: mozaik_mass_mailing_multi_sending
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_mail_compose_message__id
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_mailing_mailing__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_mass_mailing_multi_sending
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_mail_compose_message____last_update
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_mailing_mailing____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_mass_mailing_multi_sending
+#: model:ir.model,name:mozaik_mass_mailing_multi_sending.model_mailing_mailing
+msgid "Mass Mailing"
+msgstr ""
+
+#. module: mozaik_mass_mailing_multi_sending
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_account_invoice_send__multi_send_same_email
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_account_tour_upload_bill__multi_send_same_email
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_mail_compose_message__multi_send_same_email
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_multi_sending.field_mailing_mailing__multi_send_same_email
+msgid "Multi sending to same email"
+msgstr ""
+
+#. module: mozaik_mass_mailing_multi_sending
+#: model:ir.model.fields,help:mozaik_mass_mailing_multi_sending.field_account_invoice_send__multi_send_same_email
+#: model:ir.model.fields,help:mozaik_mass_mailing_multi_sending.field_account_tour_upload_bill__multi_send_same_email
+#: model:ir.model.fields,help:mozaik_mass_mailing_multi_sending.field_mail_compose_message__multi_send_same_email
+#: model:ir.model.fields,help:mozaik_mass_mailing_multi_sending.field_mailing_mailing__multi_send_same_email
+msgid ""
+"The email can be sent several times to the same email address, if it appears"
+" several times into the recipients list."
+msgstr ""
