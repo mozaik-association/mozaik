@@ -28,16 +28,17 @@ class MailComposeMessage(models.TransientModel):
             res.write({"include_opt_out_contacts": True})
         return res
 
-    def get_mail_values(self, res_ids):
-        res = super().get_mail_values(res_ids)
-        if self.include_opt_out_contacts:
-            for key in res.keys():
-                item = res[key]
-                if (
-                    "state" in item
-                    and item["state"] == "cancel"
-                    and item["model"] == "res.partner"
-                    and self.env["res.partner"].browse(item["res_id"]).global_opt_out
-                ):
-                    item.pop("state")
+    def _to_cancel_opt_out(
+        self, opt_out_list, mail_to, mail_values, res_id, blacklisted_emails
+    ):
+        res = super()._to_cancel_opt_out(
+            opt_out_list, mail_to, mail_values, res_id, blacklisted_emails
+        )
+        if (
+            self.include_opt_out_contacts
+            and mail_values.get("state", False) == "cancel"
+            and mail_values["model"] == "res.partner"
+            and self.env["res.partner"].browse(mail_values["res_id"]).global_opt_out
+        ):
+            return False
         return res

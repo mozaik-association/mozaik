@@ -2,24 +2,20 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Partner Global Opt Out",
+    "name": "Mozaik Mass Mailing Multi Sending",
     "summary": """
-        Adds global opt out option on partners""",
+        Adds an option to send several times the mass mailing
+        to the same email address.""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        "mail",
-        "mozaik_communication",
+        "mass_mailing_distribution_list",
         "mozaik_mass_mailing_mail_creation",
-        "mozaik_membership_request",
     ],
     "data": [
         "views/mailing_mailing.xml",
-        "wizards/distribution_list_mass_function.xml",
-        "views/membership_request.xml",
-        "views/res_partner.xml",
     ],
     "demo": [],
 }
