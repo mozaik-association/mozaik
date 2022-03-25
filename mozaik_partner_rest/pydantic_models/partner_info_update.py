@@ -26,3 +26,4 @@ class PartnerInfoUpdate(BasePartnerInfoUpdate, extends=BasePartnerInfoUpdate):
     gender: str = None
     disabled: bool = None
     global_opt_out: bool = None
+    update_instance: bool = None
