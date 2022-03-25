@@ -579,10 +579,18 @@ class MembershipRequest(models.Model):
         if email:
             email = self.get_format_email(email)
 
+        recognizable_values = {
+            "is_company": is_company,
+            "birthdate_date": birthdate_date,
+            "lastname": lastname,
+            "firstname": firstname,
+            "email": email,
+            "mobile": mobile,
+            "phone": phone,
+        }
+
         if not partner_id:
-            partner = self.get_partner_id(
-                is_company, birthdate_date, lastname, firstname, email
-            )
+            partner = self.get_partner_id(recognizable_values)
             if partner:
                 partner_id = partner.id
 
@@ -708,11 +716,13 @@ class MembershipRequest(models.Model):
             )
             req.address_id = address_ids
 
-    @api.onchange("lastname", "firstname", "day", "month", "year", "email")
+    @api.onchange(
+        "lastname", "firstname", "day", "month", "year", "email", "phone", "mobile"
+    )
     def onchange_partner_component(self):
         """
         try to find a new partner_id depending of the
-        birthdate_date, lastname, firstname, email
+        birthdate_date, lastname, firstname, email, mobile, phone
         """
         for req in self.sudo():
             birthdate_date = False
@@ -725,9 +735,17 @@ class MembershipRequest(models.Model):
             if req.is_update:
                 continue
 
-            partner_id = self.get_partner_id(
-                req.is_company, birthdate_date, req.lastname, req.firstname, email
-            )
+            recognizable_values = {
+                "is_company": req.is_company,
+                "birthdate_date": birthdate_date,
+                "lastname": req.lastname,
+                "firstname": req.firstname,
+                "email": email,
+                "mobile": req.mobile,
+                "phone": req.phone,
+            }
+
+            partner_id = self.get_partner_id(recognizable_values)
 
             req.partner_id = partner_id
 
@@ -936,13 +954,14 @@ class MembershipRequest(models.Model):
                 _logger.info("Reset `birthdate_date`: Invalid Date")
         return birthdate_date
 
-    def get_partner_id(self, is_company, birthdate_date, lastname, firstname, email):
-        """
-        Make special combinations of domains to try to find
-        a unique partner_id
-        """
-        partner_obj = self.env["virtual.custom.partner"]
+    def _get_partner_domains(self, recognizable_values):
         partner_domains = []
+
+        is_company = recognizable_values.get("is_company", False)
+        birthdate_date = recognizable_values.get("birthdate_date", False)
+        lastname = recognizable_values.get("lastname", False)
+        firstname = recognizable_values.get("firstname", False)
+        email = recognizable_values.get("email", False)
 
         if not is_company and birthdate_date and email and firstname and lastname:
             partner_domains.append(
@@ -998,7 +1017,15 @@ class MembershipRequest(models.Model):
                     "[('is_company', '=', True),"
                     "('lastname', 'ilike', \"%s\")]" % (lastname)
                 )
+        return partner_domains
 
+    def get_partner_id(self, recognizable_values):
+        """
+        Make special combinations of domains to try to find
+        a unique partner_id
+        """
+        partner_obj = self.env["virtual.custom.partner"]
+        partner_domains = self._get_partner_domains(recognizable_values)
         partner_id = False
         virtual_partner_id = self.persist_search(partner_obj, partner_domains)
         # because this is not a real partner but a virtual partner
