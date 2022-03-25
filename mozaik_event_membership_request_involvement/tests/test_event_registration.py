@@ -344,18 +344,3 @@ class TestEventRegistration(TransactionCase):
         self.assertEqual(len(mr), 1)
         self.assertEqual(mr.state, "validate")
         self.assertIn("Autovalidation failed", self.mr.message_ids.mapped("subject"))
-
-        partner_model = self.env["ir.model"].search([("model", "=", "res.partner")])
-        # Looking for the activity
-        activity = (
-            self.env["mail.activity"]
-            .sudo()
-            .search(
-                [
-                    ("res_model_id", "=", partner_model.id),
-                    ("res_id", "=", mr.partner_id.id),
-                ]
-            )
-        )
-        self.assertEqual(len(activity), 1)
-        self.assertEqual(activity.summary, "Auto-validation forced")
