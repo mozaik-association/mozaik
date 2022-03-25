@@ -17,6 +17,14 @@ msgstr ""
 "X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_partner_global_opt_out
+#: code:addons/mozaik_partner_global_opt_out/models/mailing_mailing.py:0
+#, python-format
+msgid ""
+"'Include opt-out contacts' cannot be True if mailing model is different from "
+"'Contact' or 'Distribution List'."
+msgstr ""
+
+#. module: mozaik_partner_global_opt_out
 #: code:addons/mozaik_partner_global_opt_out/models/res_partner.py:0
 #, python-format
 msgid "Cannot tick global opt-out without a valid email."
