@@ -189,9 +189,6 @@ class MembershipRequest(models.Model):
                     self._create_note(
                         _("Forcing autovalidation"), _("Autovalidation was forced")
                     )
-                    partner = self.partner_id
-                    if partner:
-                        partner._schedule_activity_force_autoval(failure_reason)
                 else:
                     self._create_note(
                         _("Forcing autovalidation: attempt failed"),
