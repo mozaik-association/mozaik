@@ -910,7 +910,7 @@ class MembershipRequest(models.Model):
             vals = self._get_status_values(request_type)
             if vals:
                 partner.sudo().write(vals)
-            state_code = partner.simulate_next_state(event)
+            state_code = partner.sudo().simulate_next_state(event)
             partner.invalidate_cache(ids=partner.ids)
         finally:
             self.env.cr.execute(
