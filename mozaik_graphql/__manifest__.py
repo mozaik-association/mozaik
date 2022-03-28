@@ -23,6 +23,7 @@
         "mozaik_partner_fields",
         "mozaik_structure",
         "mozaik_thesaurus",
+        "mozaik_web_image_route",
     ],
     "external_dependencies": {"python": ["graphene"]},
 }
