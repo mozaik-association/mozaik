@@ -929,6 +929,7 @@ class MembershipRequest(models.Model):
             if vals:
                 partner.sudo().write(vals)
             state_code = partner.sudo().simulate_next_state(event)
+            partner.flush()
             partner.invalidate_cache(ids=partner.ids)
         finally:
             self.env.cr.execute(
