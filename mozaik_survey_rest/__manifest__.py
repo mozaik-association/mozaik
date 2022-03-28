@@ -16,6 +16,7 @@
         "mozaik_survey_publish_date",
         "mozaik_survey_membership_request_involvement",
         "mozaik_thesaurus_api",
+        "mozaik_web_image_route",
         "extendable",
         "pydantic",
     ],

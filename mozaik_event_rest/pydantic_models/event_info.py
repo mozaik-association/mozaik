@@ -20,6 +20,7 @@ from .partner_address_info import PartnerAddressInfo
 
 
 class EventShortInfo(BaseEventShortInfo, extends=BaseEventShortInfo):
+    image_url: str
     interests: List[ThesaurusTermInfo] = pydantic.Field([], alias="interest_ids")
     address: PartnerAddressInfo = pydantic.Field(None, alias="address_id")
     website_domains: List[EventWebsiteDomainInfo] = pydantic.Field(
