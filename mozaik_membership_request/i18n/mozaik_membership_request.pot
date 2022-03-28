@@ -596,6 +596,8 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__mobile
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__mobile
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__mobile
 msgid "Mobile"
 msgstr ""
 
@@ -740,6 +742,8 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__phone
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__phone
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__phone
 msgid "Phone"
 msgstr ""
 
