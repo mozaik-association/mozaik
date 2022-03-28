@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="event_event_form_view">
+        <field name="name">event.event.form (in mozaik_event_image)</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='kanban_state']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='kanban_state']" position="after">
+                <field name="image" widget="image" class="oe_avatar" />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
