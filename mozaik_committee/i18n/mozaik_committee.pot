@@ -1063,6 +1063,14 @@ msgid "Name"
 msgstr ""
 
 #. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__sc_has_allowed_events
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_has_allowed_events
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_has_allowed_events
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_has_allowed_events
+msgid "Need action?"
+msgstr ""
+
+#. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
 msgid "Non-Elect"
 msgstr ""
