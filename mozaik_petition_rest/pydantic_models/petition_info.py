@@ -30,6 +30,7 @@ class PetitionShortInfo(BaseModel, metaclass=ExtendableModelMeta):
     milestone_ids: List[PetitionMilestoneInfo] = pydantic.Field(
         [], alias="milestone_ids"
     )
+    visible_on_website: bool = None
     write_date: datetime
 
     class Config:
