@@ -87,24 +87,6 @@ class MembershipRequestService(Component):
                     "Unknown involvements with id %s",
                     vals["involvement_category_ids"],
                 )
-        if vals["involvement_category_codes"]:
-            if vals["involvement_category_codes"]:
-                cats = self.env["partner.involvement.category"].search(
-                    [("code", "in", vals["involvement_category_codes"])]
-                )
-            if cats:
-                if vals["involvement_category_ids"]:
-                    del vals["involvement_category_codes"]
-                    vals["involvement_category_ids"].append((6, 0, cats.ids))
-                else:
-                    del vals["involvement_category_codes"]
-                    vals["involvement_category_ids"] = [(6, 0, cats.ids)]
-            else:
-                del vals["involvement_category_codes"]
-                _logger.info(
-                    "Unknown involvements with codes %s",
-                    vals["involvement_category_codes"],
-                )
         if vals["interest_ids"]:
             if vals["interest_ids"]:
                 cats = self.env["thesaurus.term"].search(
