@@ -28,6 +28,7 @@ class EventShortInfo(BaseEventShortInfo, extends=BaseEventShortInfo):
     )
     website_url: str = None
     description: str = None
+    visible_on_website: bool = None
 
 
 class EventInfo(BaseEventInfo, extends=BaseEventInfo):
