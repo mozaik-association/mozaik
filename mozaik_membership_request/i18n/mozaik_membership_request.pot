@@ -634,6 +634,11 @@ msgid "Natural Persons"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner__sc_has_allowed_events
+msgid "Need action?"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__new_value
 msgid "New Value"
 msgstr ""
