@@ -327,7 +327,7 @@ class MembershipRequest(models.Model):
                 9,
                 "zip_man",
                 "zip_man",
-                partner_address_path + "city_id.zipcode",
+                partner_address_path + ".city_id.zipcode",
                 "ZIP_NO_REQUEST_PARTNER",
             ),
             (
