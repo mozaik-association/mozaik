@@ -73,6 +73,11 @@ msgid "All Contacts, archived or not"
 msgstr ""
 
 #. module: mozaik_person
+#: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_address
+msgid "Allow Duplicates (Address)"
+msgstr ""
+
+#. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_email
 msgid "Allow Duplicates (Email)"
 msgstr ""
@@ -216,6 +221,26 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_person.field_res_partner__message_has_error
 #: model:ir.model.fields,help:mozaik_person.field_res_partner__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_address_duplicate_allowed
+msgid "Is Address Duplicate Allowed"
+msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_address_duplicate_allowed_compute
+msgid "Is Address Duplicate Allowed Compute"
 msgstr ""
 
 #. module: mozaik_person
