@@ -13,7 +13,6 @@ class CoResidency(models.Model):
     _rec_name = "address_id"
 
     _unicity_keys = "address_id"
-    _inactive_cascade = True
 
     address_id = fields.Many2one(
         comodel_name="address.address",

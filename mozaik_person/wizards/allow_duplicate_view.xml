@@ -45,4 +45,15 @@
         <field name="groups_id" eval="[(6, 0, [ref('res_groups_partner_user')])]" />
     </record>
 
+    <record id="allow_duplicate_action_address" model="ir.actions.act_window">
+        <field name="name">Allow Duplicates (Address)</field>
+        <field name="view_mode">form</field>
+        <field name="res_model">allow.duplicate.wizard</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="mozaik_duplicate.allow_duplicate_form_view" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="context">{"discriminant_field": "address_address_id"}</field>
+        <field name="groups_id" eval="[(6, 0, [ref('res_groups_partner_user')])]" />
+    </record>
+
 </odoo>
