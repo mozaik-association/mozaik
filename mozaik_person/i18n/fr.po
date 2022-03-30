@@ -77,6 +77,13 @@ msgid "All Contacts, archived or not"
 msgstr "Tous les contacts, expirés ou non"
 
 #. module: mozaik_person
+#: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_address
+#, fuzzy
+#| msgid "Allow Duplicates (Name)"
+msgid "Allow Duplicates (Address)"
+msgstr "Autoriser les doublons (Nom)"
+
+#. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_email
 msgid "Allow Duplicates (Email)"
 msgstr "Autoriser les doublons (Email)"
@@ -221,6 +228,30 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_person.field_res_partner__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_address_duplicate_allowed
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_address_duplicate_allowed
+#, fuzzy
+#| msgid "Is Duplicate Allowed"
+msgid "Is Address Duplicate Allowed"
+msgstr "Doublon autorisé"
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_ext_assembly__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_int_assembly__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_address_duplicate_allowed_compute
+#: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_address_duplicate_allowed_compute
+#, fuzzy
+#| msgid "Is Duplicate Detected"
+msgid "Is Address Duplicate Allowed Compute"
+msgstr "Doublon détecté"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_address_duplicate_detected
