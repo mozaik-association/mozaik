@@ -7,7 +7,8 @@ from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel, PydanticModelList
 from odoo.addons.component.core import Component
 
-from ..pydantic_models import WebsiteDomainInfo, WebsiteDomainSearchFilter
+from ..pydantic_models.website_domain_info import WebsiteDomainInfo
+from ..pydantic_models.website_domain_search_filter import WebsiteDomainSearchFilter
 
 
 class WebsiteDomainService(Component):
