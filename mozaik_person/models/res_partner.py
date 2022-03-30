@@ -12,7 +12,7 @@ class ResPartner(models.Model):
     _name = "res.partner"
     _inherit = ["abstract.duplicate", "res.partner"]
 
-    _allowed_inactive_link_models = ["res.partner"]
+    _allowed_inactive_link_models = ["res.partner", "co.residency"]
     _inactive_cascade = True
 
     _discriminant_fields = {
@@ -38,7 +38,7 @@ class ResPartner(models.Model):
         },
         "address_address_id": {
             "field_duplicate": "is_address_duplicate_detected",
-            "field_allowed": "co_residency_id",
+            "field_allowed": "is_address_duplicate_allowed_compute",
             "reset_allowed": False,
         },
     }
@@ -96,6 +96,17 @@ class ResPartner(models.Model):
     is_address_duplicate_detected = fields.Boolean(
         readonly=True,
         copy=False,
+    )
+    is_address_duplicate_allowed = fields.Boolean(
+        readonly=True,
+        copy=False,
+    )
+    is_address_duplicate_allowed_compute = fields.Boolean(
+        readonly=True,
+        copy=False,
+        compute="_compute_is_address_duplicate_allowed",
+        inverse="_inverse_is_address_duplicate_allowed",
+        store=True,
     )
 
     identifier = fields.Char(
@@ -159,6 +170,21 @@ class ResPartner(models.Model):
     )
     def _compute_display_name(self):
         return super()._compute_display_name()
+
+    @api.depends("co_residency_id", "is_address_duplicate_allowed")
+    def _compute_is_address_duplicate_allowed(self):
+        for partner in self:
+            partner.is_address_duplicate_allowed_compute = (
+                partner.is_address_duplicate_allowed or partner.co_residency_id
+            )
+
+    def _inverse_is_address_duplicate_allowed(self):
+        for partner in self:
+            partner.is_address_duplicate_allowed = (
+                partner.is_address_duplicate_allowed_compute
+            )
+            if not partner.is_address_duplicate_allowed_compute:
+                partner.co_residency_id = False
 
     @api.depends(
         "is_company",

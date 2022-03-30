@@ -142,6 +142,7 @@ class ResPartner(models.Model):
                 record.reference = False
 
     @api.depends(
+        "active",
         "is_assembly",
         "force_int_instance_id",
         "membership_line_ids",
@@ -164,7 +165,12 @@ class ResPartner(models.Model):
         default_instance = self.env["int.instance"]._get_default_int_instance()
         all_excl_states = state_obj._get_all_exclusion_states()
         for record in self:
-            memberships = record.membership_line_ids.filtered(lambda l: l.active)
+            if record.active:
+                memberships = record.membership_line_ids.filtered(lambda l: l.active)
+            else:
+                memberships = first(
+                    record.membership_line_ids.sorted(lambda l: l.date_to)
+                )
             instances = memberships.mapped("int_instance_id")
             if not instances and record.force_int_instance_id:
                 instances = record.force_int_instance_id
@@ -185,7 +191,12 @@ class ResPartner(models.Model):
         state_obj = self.env["membership.state"]
         state = state_obj.browse()
         if not self.is_assembly:
-            memberships = self.membership_line_ids.filtered("active")
+            if self.active:
+                memberships = self.membership_line_ids.filtered("active")
+            else:
+                memberships = first(
+                    self.membership_line_ids.sorted(lambda l: l.date_to)
+                )
             states = memberships.mapped("state_id")
             # Get the highest priority of state
             if states:
@@ -329,9 +340,7 @@ class ResPartner(models.Model):
         the user
         """
         if not vals.get("active", True):
-            self.write(
-                {"force_int_instance_id": self._default_force_int_instance_id().id}
-            )
+            self.write({"force_int_instance_id": first(self.int_instance_ids).id})
         if vals.get("is_company"):
             if self.filtered(lambda s: not s.is_company and s.membership_line_ids):
                 raise ValidationError(
