@@ -1,7 +1,7 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import models
 
 
 class BasePartnerMergeAutomaticWizard(models.TransientModel):
@@ -19,6 +19,11 @@ class BasePartnerMergeAutomaticWizard(models.TransientModel):
             dst_partner = ordered_partners[-1]
             src_partners = ordered_partners[:-1]
 
-        src_partners.mapped("partner_involvement_ids").filtered(lambda s: s.involvement_category_id in dst_partner.mapped("partner_involvement_ids.involvement_category_id")).unlink()
+        src_partners.mapped("partner_involvement_ids").filtered(
+            lambda s: s.involvement_category_id
+            in dst_partner.mapped("partner_involvement_ids.involvement_category_id")
+        ).unlink()
 
-        return super(BasePartnerMergeAutomaticWizard, self)._merge(partner_ids, dst_partner, extra_checks)
+        return super(BasePartnerMergeAutomaticWizard, self)._merge(
+            partner_ids, dst_partner, extra_checks
+        )
