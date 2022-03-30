@@ -12,7 +12,6 @@
     "depends": [
         "base",
         "mail",
-        "user_bypass_security",
         "mozaik_abstract_model",
         "mozaik_partner_assembly",
         "mozaik_thesaurus",

@@ -73,3 +73,22 @@ class MassMailing(models.Model):
             # opt-out is delegated to the distribution list
             return self.distribution_list_id._update_opt(res_ids)
         return super().update_opt_out(email, res_ids, value)
+
+    def _process_mass_mailing_queue(self):
+        """
+        Recompute mailing domains for mass mailings whose mailing model
+        is distribution.list:
+        """
+        mass_mailings = self.search(
+            [
+                ("mailing_model_name", "=", "distribution.list"),
+                (
+                    "state",
+                    "in",
+                    ("in_queue", "sending"),
+                ),
+            ]
+        )
+
+        mass_mailings._compute_mailing_domain()
+        super()._process_mass_mailing_queue()

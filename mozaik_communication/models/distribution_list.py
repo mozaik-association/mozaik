@@ -8,8 +8,6 @@ from odoo import _, api, exceptions, fields, models
 from odoo.fields import first
 from odoo.osv import expression
 
-from odoo.addons.user_bypass_security.fields import Many2manySudoRead
-
 _logger = logging.getLogger(__name__)
 
 
@@ -28,13 +26,12 @@ class DistributionList(models.Model):
     public = fields.Boolean(
         tracking=True,
     )
-    res_users_ids = Many2manySudoRead(
+    res_users_ids = fields.Many2many(
         comodel_name="res.users",
         relation="dist_list_res_users_rel",
         column1="dist_list_id",
         column2="res_users_id",
         string="Owners",
-        required=True,
         default=lambda self: self.env.user,
     )
     int_instance_ids = fields.Many2many(
@@ -63,6 +60,20 @@ class DistributionList(models.Model):
     _sql_constraints = [
         ("unique_code", "unique (code)", "Code already used!"),
     ]
+
+    @api.constrains("res_users_ids")
+    def _check_res_users_ids_not_empty(self):
+        """
+        res_users_ids is not required otherwise it causes problems
+        with record rules on res.partner, but we want at least
+        one owner for each distribution.list.
+        """
+        for dist_list in self:
+            owners = dist_list.sudo().read(["res_users_ids"])
+            if len(owners) == 0:
+                raise exceptions.ValidationError(
+                    _("Please add a (non archived) owner for this distribution list.")
+                )
 
     @api.model
     def _get_dst_model_names(self):
@@ -237,3 +248,26 @@ class DistributionList(models.Model):
             )
         res = super().write(vals)
         return res
+
+    def _get_partner_from(self):
+        """
+        Get partner from distribution list
+        :return: res.partner recordset
+        """
+        partners = self.env["res.partner"].browse()
+        if len(self) != 1:
+            return partners
+        # first: the sender partner
+        partners |= self.partner_id
+        # than: the requestor user
+        if (
+            self.env.user.partner_id in self.res_partner_ids
+            or self.env.user in self.res_users_ids
+        ):
+            partners |= self.env.user.partner_id
+        # finally: all owners and allowed partners that are legal persons
+        partners |= self.res_partner_ids.filtered(lambda s: s.is_company)
+        partners |= self.res_users_ids.mapped("partner_id").filtered(
+            lambda s: s.is_company
+        )
+        return partners.filtered(lambda s: s.email)

@@ -471,41 +471,16 @@ class DistributionListMassFunction(models.TransientModel):
         return True
 
     @api.model
-    def _get_partner_from(self):
-        """
-        Get partner from distribution list
-        :return: res.partner recordset
-        """
-        partners = self.env["res.partner"].browse()
-        model = self.env.context.get("active_model")
-        dist_list = False
-        if self.env.context.get("active_id"):
-            dist_list = self.env[model].browse(self.env.context["active_id"])
-        if dist_list and model == self._name:
-            # in case of wizard reloading
-            dist_list = dist_list.distribution_list_id
-        if dist_list:
-            # first: the sender partner
-            partners |= dist_list.partner_id
-            # than: the requestor user
-            if self.env.user.partner_id in dist_list.res_partner_ids:
-                partners |= self.env.user.partner_id
-            elif self.env.user in dist_list.res_users_ids:
-                partners |= self.env.user.partner_id
-            # finally: all owners and allowed partners that are legal persons
-            partners |= dist_list.res_partner_ids.filtered(lambda s: s.is_company)
-            partners |= dist_list.res_users_ids.mapped("partner_id").filtered(
-                lambda s: s.is_company
-            )
-        return partners.filtered(lambda s: s.email)
-
-    @api.model
     def _get_domain_partner_from_id(self):
         """
         Load partners and transform results into a domain
         :return: list (domain)
         """
-        partners = self._get_partner_from()
+        default_dist_list_id = self._context.get("default_distribution_list_id", False)
+        if not default_dist_list_id:
+            return []
+        dst_list = self.env["distribution.list"].browse(default_dist_list_id)
+        partners = dst_list._get_partner_from()
         return [("id", "in", partners.ids)]
 
     @api.model
@@ -514,7 +489,11 @@ class DistributionListMassFunction(models.TransientModel):
 
         :return: res.partner recordset
         """
-        if self.env.user.partner_id in self._get_partner_from():
+        default_dist_list_id = self._context.get("default_distribution_list_id", False)
+        if not default_dist_list_id:
+            return []
+        dst_list = self.env["distribution.list"].browse(default_dist_list_id)
+        if self.env.user.partner_id in dst_list._get_partner_from():
             return self.env.user.partner_id
         return self.env["res.partner"].browse()
 
