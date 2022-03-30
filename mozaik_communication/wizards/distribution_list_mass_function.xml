@@ -188,6 +188,7 @@
         <field name="res_model">distribution.list.mass.function</field>
         <field name="target">new</field>
         <field name="view_id" ref="distribution_list_mass_function_wizard" />
+        <field name="context">{'default_distribution_list_id': active_id}</field>
     </record>
 
 </odoo>

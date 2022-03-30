@@ -78,16 +78,22 @@ class TestMassFunction(TestCommunicationCommon):
         Check for:
         * partner_from_id content and default value
         * email_from computed value
+
+        NOTE: change default user for this test: since OdooBot is
+        archived, it doesn't appear in distribution list owners.
         """
+        self.env.uid = self.env.ref("base.user_admin").id
         # get 2 partners
         p1 = self.browse_ref("mozaik_address.res_partner_thierry")
         p2 = self.browse_ref("mozaik_address.res_partner_pauline")
         p2.is_company = True
         # add a partner_id and a res_partner_ids to a distribution list
+        # set the current user as an owner
         dl = self.evr_lst_id
         vals = {
             "partner_id": p1.id,
             "res_partner_ids": [(6, 0, [p2.id])],
+            "res_users_ids": [(6, 0, [self.env.user.id])],
         }
         dl.write(vals)
         # from now, allowed "From" are:
@@ -98,12 +104,10 @@ class TestMassFunction(TestCommunicationCommon):
         # check for possible "From" choices
         mfct_obj = self.env["distribution.list.mass.function"].with_context(
             {
-                "active_model": "distribution.list",
-                "active_id": dl.id,
-                "active_test": False,
+                "default_distribution_list_id": dl.id,
             }
         )
-        partners = mfct_obj._get_partner_from()
+        partners = dl._get_partner_from()
         p_ids = [p1.id, p2.id, self.env.user.partner_id.id]
         self.assertEqual(set(partners.ids), set(p_ids))
         # check for default value
@@ -118,17 +122,6 @@ class TestMassFunction(TestCommunicationCommon):
         email = formataddr((vals["partner_name"], p2.email))
         self.assertEqual(email, wizard.email_from)
 
-        # check for possible "From" choices simulating a wizard reload
-        mfct_obj = mfct_obj.with_context(
-            {
-                "active_model": mfct_obj._name,
-                "active_id": wizard.id,
-                "active_test": False,
-            }
-        )
-        partners = mfct_obj._get_partner_from()
-        self.assertEqual(set(partners.ids), set(p_ids))
-
         vals = {
             "partner_id": False,
             "res_users_ids": [(5, 0, 0)],
@@ -136,7 +129,7 @@ class TestMassFunction(TestCommunicationCommon):
         dl.write(vals)
         p2.is_company = False
         # from now, allowed "From" are: nobody
-        partners = mfct_obj._get_partner_from()
+        partners = dl._get_partner_from()
         # check for possible "From" choices
         self.assertFalse(partners)
         return

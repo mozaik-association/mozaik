@@ -248,3 +248,26 @@ class DistributionList(models.Model):
             )
         res = super().write(vals)
         return res
+
+    def _get_partner_from(self):
+        """
+        Get partner from distribution list
+        :return: res.partner recordset
+        """
+        partners = self.env["res.partner"].browse()
+        if len(self) != 1:
+            return partners
+        # first: the sender partner
+        partners |= self.partner_id
+        # than: the requestor user
+        if (
+            self.env.user.partner_id in self.res_partner_ids
+            or self.env.user in self.res_users_ids
+        ):
+            partners |= self.env.user.partner_id
+        # finally: all owners and allowed partners that are legal persons
+        partners |= self.res_partner_ids.filtered(lambda s: s.is_company)
+        partners |= self.res_users_ids.mapped("partner_id").filtered(
+            lambda s: s.is_company
+        )
+        return partners.filtered(lambda s: s.email)
