@@ -15,6 +15,7 @@ from odoo.addons.pydantic import utils
 
 from .petition_milestone_info import PetitionMilestoneInfo
 from .petition_question_info import PetitionQuestionInfo
+from .website_domain_info import WebsiteDomainInfo
 
 
 class PetitionShortInfo(BaseModel, metaclass=ExtendableModelMeta):
@@ -31,6 +32,9 @@ class PetitionShortInfo(BaseModel, metaclass=ExtendableModelMeta):
         [], alias="milestone_ids"
     )
     visible_on_website: bool = None
+    website_domains: List[WebsiteDomainInfo] = pydantic.Field(
+        [], alias="website_domain_ids"
+    )
     write_date: datetime
 
     class Config:

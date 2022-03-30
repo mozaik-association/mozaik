@@ -47,7 +47,6 @@
         "mozaik_event_stage_draft",
         "mozaik_event_thesaurus",
         "mozaik_event_tickbox_question",
-        "mozaik_event_website",
         "mozaik_graphql",
         "mozaik_involvement",
         "mozaik_involvement_donation",

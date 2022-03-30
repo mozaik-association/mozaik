@@ -17,6 +17,7 @@
         "mozaik_petition_thesaurus",
         "mozaik_thesaurus_api",
         "mozaik_web_image_route",
+        "mozaik_website_multi",
         "pydantic",
     ],
     "data": [],
