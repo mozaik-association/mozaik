@@ -9,3 +9,4 @@ from . import set_partner_reference
 from . import change_address
 from . import change_instance
 from . import create_user_from_partner
+from . import base_partner_merge_automatic_wizard

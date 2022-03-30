@@ -183,6 +183,8 @@ class ResPartner(models.Model):
             partner.is_address_duplicate_allowed = (
                 partner.is_address_duplicate_allowed_compute
             )
+            if not partner.is_address_duplicate_allowed_compute:
+                partner.co_residency_id = False
 
     @api.depends(
         "is_company",
