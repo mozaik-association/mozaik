@@ -76,7 +76,6 @@
                                     name="res_users_ids"
                                     widget="many2many_tags"
                                     options="{'no_create_edit': True}"
-                                    context="{'bypass_ir_rule_read': '1'}"
                                 />
                             </group>
                             <div class="oe_clear">
@@ -195,7 +194,6 @@
         <field name="name">Involvements Categories</field>
         <field name="res_model">partner.involvement.category</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{'bypass_ir_rule_read': '1'}</field>
         <field name="view_id" eval="partner_involvement_category_tree_view" />
         <field name="search_view_id" ref="partner_involvement_category_search_view" />
     </record>
