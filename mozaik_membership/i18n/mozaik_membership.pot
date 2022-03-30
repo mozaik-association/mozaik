@@ -236,6 +236,7 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin__display_name
+#: model:ir.model.fields,field_description:mozaik_membership.field_base_partner_merge_automatic_wizard__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_change_address__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__display_name
 #: model:ir.model.fields,field_description:mozaik_membership.field_create_user_from_partner__display_name
@@ -416,6 +417,7 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin__id
+#: model:ir.model.fields,field_description:mozaik_membership.field_base_partner_merge_automatic_wizard__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_change_address__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_change_instance__id
 #: model:ir.model.fields,field_description:mozaik_membership.field_create_user_from_partner__id
@@ -555,6 +557,7 @@ msgstr ""
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin____last_update
+#: model:ir.model.fields,field_description:mozaik_membership.field_base_partner_merge_automatic_wizard____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_change_address____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_change_instance____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_create_user_from_partner____last_update
@@ -751,6 +754,11 @@ msgstr ""
 #: model:ir.ui.menu,name:mozaik_membership.membership_submenu
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "Memberships"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_base_partner_merge_automatic_wizard
+msgid "Merge Partner Wizard"
 msgstr ""
 
 #. module: mozaik_membership
