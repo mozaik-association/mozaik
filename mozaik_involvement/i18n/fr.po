@@ -140,6 +140,7 @@ msgid "Creation Years"
 msgstr "Années de création"
 
 #. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_base_partner_merge_automatic_wizard__display_name
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__display_name
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__display_name
 #: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__display_name
@@ -224,6 +225,7 @@ msgid "High Importance"
 msgstr "Haute importance"
 
 #. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_base_partner_merge_automatic_wizard__id
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__id
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__id
 #: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__id
@@ -328,6 +330,7 @@ msgid "Is a volunteer"
 msgstr "Est un volontaire"
 
 #. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_base_partner_merge_automatic_wizard____last_update
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement____last_update
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category____last_update
 #: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner____last_update
@@ -361,6 +364,11 @@ msgstr ""
 #: model:res.groups,name:mozaik_involvement.res_groups_involvement_manager
 msgid "Manager"
 msgstr "Gestionnaire"
+
+#. module: mozaik_involvement
+#: model:ir.model,name:mozaik_involvement.model_base_partner_merge_automatic_wizard
+msgid "Merge Partner Wizard"
+msgstr ""
 
 #. module: mozaik_involvement
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_has_error
