@@ -1049,6 +1049,18 @@ msgid "Placeholder Value"
 msgstr "Valeur de paramètre fictif"
 
 #. module: mozaik_communication
+#: code:addons/mozaik_communication/models/distribution_list.py:0
+#, python-format
+msgid "Please add a (non archived) owner for this distribution list."
+msgstr ""
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/models/mail_template.py:0
+#, python-format
+msgid "Please add a (non archived) owner for this mail template."
+msgstr ""
+
+#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__postal_bounced
 #, fuzzy
 #| msgid "Postal Bounce Counter"
