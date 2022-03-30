@@ -25,8 +25,7 @@ class PetitionService(Component):
     _description = __doc__
 
     @restapi.method(
-        routes=[(["/<int:_id>"], "GET")],
-        output_param=PydanticModel(PetitionInfo),
+        routes=[(["/<int:_id>"], "GET")], output_param=PydanticModel(PetitionInfo)
     )
     def get(self, _id: int) -> PetitionInfo:
         petition = self._get(_id)
@@ -52,6 +51,10 @@ class PetitionService(Component):
         if petition_search_filter.visible_on_website is not None:
             domain.append(
                 ("visible_on_website", "=", petition_search_filter.visible_on_website)
+            )
+        if petition_search_filter.website_domain_ids:
+            domain.append(
+                ("website_domain_ids", "in", petition_search_filter.website_domain_ids)
             )
         res: List[PetitionShortInfo] = []
         for petition in self.env["petition.petition"].sudo().search(domain):

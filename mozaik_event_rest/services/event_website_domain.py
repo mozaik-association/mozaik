@@ -17,7 +17,7 @@ class EventWebsiteDomainService(Component):
     _inherit = "base.event.rest.service"
     _name = "event.website.domain.rest.service"
     _usage = "event_website_domain"
-    _expose_model = "event.website.domain"
+    _expose_model = "website.domain"
     _description = __doc__
 
     @restapi.method(
@@ -46,6 +46,6 @@ class EventWebsiteDomainService(Component):
     ) -> List[EventWebsiteDomainInfo]:
         domain = self._get_search_domain(event_website_domain_search_filter)
         res: List[EventWebsiteDomainInfo] = []
-        for e in self.env["event.website.domain"].sudo().search(domain):
+        for e in self.env["website.domain"].sudo().search(domain):
             res.append(EventWebsiteDomainInfo.from_orm(e))
         return res
