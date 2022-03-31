@@ -35,6 +35,7 @@ class PetitionShortInfo(BaseModel, metaclass=ExtendableModelMeta):
     website_domains: List[WebsiteDomainInfo] = pydantic.Field(
         [], alias="website_domain_ids"
     )
+    is_headline: bool = None
     write_date: datetime
 
     class Config:

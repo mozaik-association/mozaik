@@ -11,3 +11,4 @@ class PetitionSearchFilter(BaseModel, metaclass=ExtendableModelMeta):
     visible_on_website: bool = None
     date_publish: str = None
     website_domain_ids: List[int] = None
+    is_headline: bool = None

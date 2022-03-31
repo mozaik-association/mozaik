@@ -19,6 +19,8 @@ class EventService(Component):
             domain.append(("website_domain_ids", "in", filters.website_domain_ids))
         if filters.interest_ids:
             domain.append(("interest_ids", "in", filters.interest_ids))
+        if filters.is_headline is not None:
+            domain.append(("is_headline", "=", filters.is_headline))
         return domain
 
     def _prepare_event_registration_values(

@@ -28,7 +28,7 @@
         "mozaik_website_multi",
         "pydantic",
     ],
-    "data": [],
+    "data": ["views/event_event.xml"],
     "external_dependencies": {
         "python": [
             "extendable_pydantic",

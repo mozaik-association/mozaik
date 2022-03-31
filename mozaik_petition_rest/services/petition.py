@@ -56,6 +56,8 @@ class PetitionService(Component):
             domain.append(
                 ("website_domain_ids", "in", petition_search_filter.website_domain_ids)
             )
+        if petition_search_filter.is_headline is not None:
+            domain.append(("is_headline", "=", petition_search_filter.is_headline))
         res: List[PetitionShortInfo] = []
         for petition in self.env["petition.petition"].sudo().search(domain):
             res.append(PetitionShortInfo.from_orm(petition))

@@ -20,7 +20,7 @@
         "mozaik_website_multi",
         "pydantic",
     ],
-    "data": [],
+    "data": ["views/petition_petition.xml"],
     "external_dependencies": {
         "python": [
             "extendable_pydantic",
