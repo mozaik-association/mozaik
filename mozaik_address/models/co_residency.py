@@ -60,3 +60,8 @@ class CoResidency(models.Model):
             if len(address_ids) > 1:
                 raise ValidationError(_("All co-resident must share the same address"))
             co_residency.address_id = address_ids
+
+    def unlink(self):
+        # trigger the duplicate detection when deleting the co-residency
+        self.mapped("partner_ids").write({"co_residency_id": False})
+        return super(CoResidency, self).unlink()
