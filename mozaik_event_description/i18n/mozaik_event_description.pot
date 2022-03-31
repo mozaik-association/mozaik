@@ -17,3 +17,29 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_event_description.event_event_form_view
 msgid "Description"
 msgstr ""
+
+#. module: mozaik_event_description
+#: model:ir.model.fields,field_description:mozaik_event_description.field_event_event__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_event_description
+#: model:ir.model,name:mozaik_event_description.model_event_event
+msgid "Event"
+msgstr ""
+
+#. module: mozaik_event_description
+#: model:ir.model.fields,field_description:mozaik_event_description.field_event_event__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_event_description
+#: model:ir.model.fields,field_description:mozaik_event_description.field_event_event____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_event_description
+#: model:ir.model.fields,field_description:mozaik_event_description.field_event_event__summary
+#: model_terms:ir.ui.view,arch_db:mozaik_event_description.event_event_form_view
+msgid "Summary"
+msgstr ""
