@@ -12,3 +12,4 @@ class EventSearchFilter(BaseEventSearchFilter, extends=BaseEventSearchFilter):
 
     website_domain_ids: List[int] = None
     interest_ids: List[int] = None
+    is_headline: bool = None

@@ -31,6 +31,7 @@ class EventShortInfo(BaseEventShortInfo, extends=BaseEventShortInfo):
     description: str = None
     visible_on_website: bool = None
     is_published: bool = None
+    is_headline: bool = None
 
 
 class EventInfo(BaseEventInfo, extends=BaseEventInfo):

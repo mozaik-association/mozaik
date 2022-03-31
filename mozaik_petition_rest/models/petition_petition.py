@@ -10,6 +10,7 @@ class PetitionPetition(models.Model):
     _inherit = ["petition.petition"]
 
     image_url = fields.Char(string="Image URL", compute="_compute_image_url")
+    is_headline = fields.Boolean(string="Headline")
 
     @api.depends("image")
     def _compute_image_url(self):
