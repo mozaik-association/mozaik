@@ -14,6 +14,7 @@
         "event_sale",
         "mozaik_address",
         "mozaik_event_image",
+        "mozaik_event_description",
         "mozaik_event_publish_date",
         "mozaik_event_registration_add_zip",
         "mozaik_event_security",
