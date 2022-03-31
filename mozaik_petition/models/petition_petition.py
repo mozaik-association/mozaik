@@ -16,6 +16,7 @@ class PetitionPetition(models.Model):
     active = fields.Boolean(default=True)
     title = fields.Char(string="Title", required=True, tracking=True)
     description = fields.Text(string="Description")
+    summary = fields.Text(string="Summary")
     note = fields.Text(string="Notes", tracking=True)
     image = fields.Binary(string="Image")
     visible_on_website = fields.Boolean(string="Visible on website", default=True)
