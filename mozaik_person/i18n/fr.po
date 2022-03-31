@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-11 18:50+0000\n"
-"PO-Revision-Date: 2022-03-01 17:58+0000\n"
+"PO-Revision-Date: 2022-03-31 09:49+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -78,10 +78,8 @@ msgstr "Tous les contacts, expirés ou non"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_address
-#, fuzzy
-#| msgid "Allow Duplicates (Name)"
 msgid "Allow Duplicates (Address)"
-msgstr "Autoriser les doublons (Nom)"
+msgstr "Autoriser les doublons (Adresse)"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action_email
