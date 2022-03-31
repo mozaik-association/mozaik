@@ -912,6 +912,12 @@ msgid "Suggested answer"
 msgstr "Réponse suggérée"
 
 #. module: mozaik_petition
+#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__summary
+#: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
+msgid "Summary"
+msgstr ""
+
+#. module: mozaik_petition
 #: model_terms:ir.ui.view,arch_db:mozaik_petition.petition_petition_form_view
 msgid "Template"
 msgstr "Modèle"
