@@ -11,6 +11,9 @@
                 <page name="description" string="Description">
                     <field name="description" />
                 </page>
+                <page name="summary" string="Summary">
+                    <field name="summary" widget="html" />
+                </page>
             </xpath>
         </field>
     </record>

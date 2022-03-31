@@ -90,6 +90,9 @@
                         <page string="Description">
                             <field name="description" widget="html" />
                         </page>
+                        <page string="Summary" name="summary">
+                            <field name="summary" widget="html" />
+                        </page>
                         <page string="Partners">
                             <field name="partner_ids">
                                 <tree string="Partners">
