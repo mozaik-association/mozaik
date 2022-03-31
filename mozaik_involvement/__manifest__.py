@@ -13,6 +13,7 @@
         "base",
         "mail",
         "mozaik_abstract_model",
+        "mozaik_owner_mixin",
         "mozaik_partner_assembly",
         "mozaik_thesaurus",
     ],

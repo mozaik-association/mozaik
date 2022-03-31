@@ -1,11 +1,15 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import _, api, exceptions, fields, models
+from odoo import api, fields, models
 from odoo.fields import first
 
 
 class MailTemplate(models.Model):
-    _inherit = "mail.template"
+    _name = "mail.template"
+    _inherit = [
+        "mail.template",
+        "owner.mixin",
+    ]
 
     @api.model
     def _get_default_model_id(self):
@@ -33,13 +37,11 @@ class MailTemplate(models.Model):
         string="Involvement Category",
         domain=[("code", "!=", False)],
     )
+    # Owners come from mixin. Rename columns
     res_users_ids = fields.Many2many(
-        comodel_name="res.users",
         relation="email_template_res_users_rel",
         column1="template_id",
         column2="user_id",
-        string="Owners",
-        default=lambda s: s._get_default_res_users_ids(),
     )
     int_instance_id = fields.Many2one(
         comodel_name="int.instance",
@@ -50,20 +52,6 @@ class MailTemplate(models.Model):
     model_id = fields.Many2one(
         default=lambda s: s._get_default_model_id(),
     )
-
-    @api.constrains("res_users_ids")
-    def _check_res_users_ids_not_empty(self):
-        """
-        res_users_ids is not required otherwise it causes problems
-        with record rules on res.partner, but we want at least
-        one owner for each mail.template.
-        """
-        for template in self:
-            owners = template.sudo().read(["res_users_ids"])
-            if len(owners) == 0:
-                raise exceptions.ValidationError(
-                    _("Please add a (non archived) owner for this mail template.")
-                )
 
     @api.onchange("placeholder_id", "involvement_category_id")
     def _onchange_placeholder_id(self):
