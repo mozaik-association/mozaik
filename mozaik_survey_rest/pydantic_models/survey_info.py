@@ -23,6 +23,7 @@ class SurveyShortInfo(BaseModel, metaclass=ExtendableModelMeta):
     answer_done_count: int
     scoring_type: str
     image_url: str
+    permanent_link: str
     state: str = None
     description: str = None
     interests: List[ThesaurusTermInfo] = pydantic.Field([], alias="interest_ids")
