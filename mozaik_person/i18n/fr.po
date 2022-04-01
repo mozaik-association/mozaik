@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-11 18:50+0000\n"
-"PO-Revision-Date: 2022-03-31 09:49+0000\n"
+"PO-Revision-Date: 2022-04-01 13:49+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -234,10 +234,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_address_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_address_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_address_duplicate_allowed
-#, fuzzy
-#| msgid "Is Duplicate Allowed"
 msgid "Is Address Duplicate Allowed"
-msgstr "Doublon autorisé"
+msgstr "Doublon d'adresse autorisé"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_address_duplicate_allowed_compute
@@ -246,10 +244,8 @@ msgstr "Doublon autorisé"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_address_duplicate_allowed_compute
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_address_duplicate_allowed_compute
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_address_duplicate_allowed_compute
-#, fuzzy
-#| msgid "Is Duplicate Detected"
 msgid "Is Address Duplicate Allowed Compute"
-msgstr "Doublon détecté"
+msgstr ""
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_address_duplicate_detected
@@ -258,10 +254,8 @@ msgstr "Doublon détecté"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_address_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_address_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_address_duplicate_detected
-#, fuzzy
-#| msgid "Is Duplicate Detected"
 msgid "Is Address Duplicate Detected"
-msgstr "Doublon détecté"
+msgstr "Doublon d'adresse détecté"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_duplicate_detected
@@ -275,10 +269,8 @@ msgstr "Doublon détecté"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_email_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_email_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_email_duplicate_allowed
-#, fuzzy
-#| msgid "Is Duplicate Allowed"
 msgid "Is Email Duplicate Allowed"
-msgstr "Doublon autorisé"
+msgstr "Doublon email autorisé"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_email_duplicate_detected
@@ -287,10 +279,8 @@ msgstr "Doublon autorisé"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_email_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_email_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_email_duplicate_detected
-#, fuzzy
-#| msgid "Is Duplicate Detected"
 msgid "Is Email Duplicate Detected"
-msgstr "Doublon détecté"
+msgstr "Doublon email détecté"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_is_follower
@@ -304,10 +294,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_mobile_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_mobile_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_mobile_duplicate_allowed
-#, fuzzy
-#| msgid "Is Duplicate Allowed"
 msgid "Is Mobile Duplicate Allowed"
-msgstr "Doublon autorisé"
+msgstr "Doublon mobile autorisé"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_mobile_duplicate_detected
@@ -316,10 +304,8 @@ msgstr "Doublon autorisé"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_mobile_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_mobile_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_mobile_duplicate_detected
-#, fuzzy
-#| msgid "Is Duplicate Detected"
 msgid "Is Mobile Duplicate Detected"
-msgstr "Doublon détecté"
+msgstr "Doublon mobile détecté"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_name_duplicate_allowed
@@ -328,10 +314,8 @@ msgstr "Doublon détecté"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_name_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_name_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_name_duplicate_allowed
-#, fuzzy
-#| msgid "Is Duplicate Allowed"
 msgid "Is Name Duplicate Allowed"
-msgstr "Doublon autorisé"
+msgstr "Doublon nom autorisé"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_name_duplicate_detected
@@ -340,10 +324,8 @@ msgstr "Doublon autorisé"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_name_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_name_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_name_duplicate_detected
-#, fuzzy
-#| msgid "Is Duplicate Detected"
 msgid "Is Name Duplicate Detected"
-msgstr "Doublon détecté"
+msgstr "Doublon nom détecté"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_phone_duplicate_allowed
@@ -352,10 +334,8 @@ msgstr "Doublon détecté"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_phone_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_phone_duplicate_allowed
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_phone_duplicate_allowed
-#, fuzzy
-#| msgid "Is Duplicate Allowed"
 msgid "Is Phone Duplicate Allowed"
-msgstr "Doublon autorisé"
+msgstr "Doublon téléphone autorisé"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__is_phone_duplicate_detected
@@ -364,10 +344,8 @@ msgstr "Doublon autorisé"
 #: model:ir.model.fields,field_description:mozaik_person.field_res_partner__is_phone_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_res_users__is_phone_duplicate_detected
 #: model:ir.model.fields,field_description:mozaik_person.field_sta_assembly__is_phone_duplicate_detected
-#, fuzzy
-#| msgid "Is Duplicate Detected"
 msgid "Is Phone Duplicate Detected"
-msgstr "Doublon détecté"
+msgstr "Doublon téléphone détecté"
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_create_user_from_partner____last_update
