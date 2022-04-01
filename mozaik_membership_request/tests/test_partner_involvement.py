@@ -17,6 +17,7 @@ class TestInvolvement(TransactionCase):
             {
                 "name": "Les hommes viennent de Mars...",
                 "code": "Mars",
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         # create a membership request
@@ -39,6 +40,7 @@ class TestInvolvement(TransactionCase):
             {
                 "name": "Les femmes viennent de Venus...",
                 "code": "Venus",
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         # add it to the involvement categories
@@ -61,6 +63,7 @@ class TestInvolvement(TransactionCase):
                 "code": "PA",
                 "involvement_type": "donation",
                 "allow_multi": True,
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         # create a membership request

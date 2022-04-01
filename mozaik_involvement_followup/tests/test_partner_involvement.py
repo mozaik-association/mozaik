@@ -25,6 +25,7 @@ class TestPartnerInvolvement(SavepointCase):
                 "name": "Wants to be recontacted",
                 "nb_deadline_days": 15,
                 "mandate_category_id": self.mandate.mandate_category_id.id,
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
 

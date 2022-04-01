@@ -6,6 +6,7 @@
     <record id="everybody_list" model="distribution.list">
         <field name="name">Everybody</field>
         <field name="dst_model_id" ref="base.model_res_partner" />
+        <field name="res_users_ids" eval="[(4, ref('base.user_admin'))]" />
     </record>
 
     <record
@@ -35,6 +36,7 @@
             name="res_partner_opt_out_ids"
             eval="[(6, 0, [ref('mozaik_address.res_partner_paul')])]"
         />
+        <field name="res_users_ids" eval="[(4, ref('base.user_admin'))]" />
     </record>
 
     <record
@@ -55,4 +57,11 @@
         <field name="bridge_field_id" ref="base.field_res_partner__id" />
     </record>
 
+    <record id="distribution_list.distribution_list_one" model="distribution.list">
+        <field name="res_users_ids" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+
+    <record id="distribution_list.distribution_list_two" model="distribution.list">
+        <field name="res_users_ids" eval="[(4, ref('base.user_admin'))]" />
+    </record>
 </odoo>
