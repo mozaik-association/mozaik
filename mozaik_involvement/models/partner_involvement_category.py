@@ -5,7 +5,7 @@ import logging
 
 from psycopg2.extensions import AsIs
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, api, fields, models
 
 CATEGORY_TYPE = [
     ("petition", "Petition"),
@@ -21,7 +21,10 @@ _logger = logging.getLogger(__name__)
 class PartnerInvolvementCategory(models.Model):
 
     _name = "partner.involvement.category"
-    _inherit = ["mozaik.abstract.model"]
+    _inherit = [
+        "mozaik.abstract.model",
+        "owner.mixin",
+    ]
     _description = "Partner Involvement Category"
     _terms = ["interest_ids"]
     _unicity_keys = "name"
@@ -54,15 +57,11 @@ class PartnerInvolvementCategory(models.Model):
         default=False,
         tracking=True,
     )
-
+    # Owners come from mixin. Rename columns
     res_users_ids = fields.Many2many(
-        comodel_name="res.users",
         relation="involvement_category_res_users_rel",
         column1="category_id",
         column2="user_id",
-        string="Owners",
-        copy=False,
-        default=lambda s: s._default_res_users_ids(),
     )
     interest_ids = fields.Many2many(
         comodel_name="thesaurus.term",
@@ -153,22 +152,6 @@ class PartnerInvolvementCategory(models.Model):
             default["res_users_ids"] = [(6, 0, self.res_users_ids.ids)]
         res = super().copy(default=default)
         return res
-
-    @api.constrains("res_users_ids")
-    def _check_res_users_ids_not_empty(self):
-        """
-        res_users_ids is not required otherwise it causes problems
-        with record rules on res.partner, but we want at least
-        one owner for each partner.involvement.category.
-        """
-        for category in self:
-            owners = category.sudo().read(["res_users_ids"])
-            if len(owners) == 0:
-                raise exceptions.ValidationError(
-                    _(
-                        "Please add a (non archived) owner for this involvement category."
-                    )
-                )
 
     @api.onchange("involvement_type")
     def _onchange_involvement_type(self):

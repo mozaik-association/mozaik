@@ -17,6 +17,7 @@ class DistributionList(models.Model):
     _inherit = [
         "mozaik.abstract.model",
         "distribution.list",
+        "owner.mixin",
     ]
     _unicity_keys = "N/A"
 
@@ -26,13 +27,11 @@ class DistributionList(models.Model):
     public = fields.Boolean(
         tracking=True,
     )
+    # Owners come from mixin. Rename columns
     res_users_ids = fields.Many2many(
-        comodel_name="res.users",
         relation="dist_list_res_users_rel",
         column1="dist_list_id",
         column2="res_users_id",
-        string="Owners",
-        default=lambda self: self.env.user,
     )
     int_instance_ids = fields.Many2many(
         comodel_name="int.instance",
@@ -60,20 +59,6 @@ class DistributionList(models.Model):
     _sql_constraints = [
         ("unique_code", "unique (code)", "Code already used!"),
     ]
-
-    @api.constrains("res_users_ids")
-    def _check_res_users_ids_not_empty(self):
-        """
-        res_users_ids is not required otherwise it causes problems
-        with record rules on res.partner, but we want at least
-        one owner for each distribution.list.
-        """
-        for dist_list in self:
-            owners = dist_list.sudo().read(["res_users_ids"])
-            if len(owners) == 0:
-                raise exceptions.ValidationError(
-                    _("Please add a (non archived) owner for this distribution list.")
-                )
 
     @api.model
     def _get_dst_model_names(self):

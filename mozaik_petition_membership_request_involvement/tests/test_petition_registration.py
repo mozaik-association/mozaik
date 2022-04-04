@@ -13,6 +13,7 @@ class TestEventRegistration(TransactionCase):
             {
                 "name": "Test involvement category",
                 "interest_ids": [(0, 0, {"name": "Test interest"})],
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         self.milestone = self.env["petition.milestone"].create({"value": 1})
@@ -173,6 +174,9 @@ class TestEventRegistration(TransactionCase):
                                 {
                                     "name": "Does not eat meat.",
                                     "interest_ids": [(0, 0, {"name": "vegetarian"})],
+                                    "res_users_ids": [
+                                        (4, self.env.ref("base.user_admin").id)
+                                    ],
                                 },
                             )
                             .id,
@@ -195,7 +199,14 @@ class TestEventRegistration(TransactionCase):
                             "involvement_category_id": self.env[
                                 "partner.involvement.category"
                             ]
-                            .create({"name": "Newsletter"})
+                            .create(
+                                {
+                                    "name": "Newsletter",
+                                    "res_users_ids": [
+                                        (4, self.env.ref("base.user_admin").id)
+                                    ],
+                                }
+                            )
                             .id,
                         },
                     ),
@@ -214,6 +225,7 @@ class TestEventRegistration(TransactionCase):
                     {
                         "name": "Terms and conditions",
                         "interest_ids": [(0, 0, {"name": "accept_terms"})],
+                        "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
                     }
                 )
                 .id,
@@ -226,7 +238,12 @@ class TestEventRegistration(TransactionCase):
                 "is_mandatory": False,
                 "petition_id": self.petition.id,
                 "involvement_category_id": self.env["partner.involvement.category"]
-                .create({"name": "Wants to become a member"})
+                .create(
+                    {
+                        "name": "Wants to become a member",
+                        "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
+                    }
+                )
                 .id,
             }
         )

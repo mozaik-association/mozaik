@@ -34,6 +34,7 @@ class TestDistributionListMassFunction(TransactionCase):
             {
                 "name": "Test distribution list",
                 "dst_model_id": model_contact.id,
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         dst_list_line_tmpl = self.env["distribution.list.line.template"].create(

@@ -102,6 +102,7 @@ class TestPartnerInvolvement(SavepointCase):
         cat = self.env["partner.involvement.category"].new(
             {
                 "name": "Semeur, vaillants du rêve...",
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         # Change type to donation

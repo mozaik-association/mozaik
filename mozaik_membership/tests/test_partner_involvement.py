@@ -14,6 +14,7 @@ class TestInvolvement(TransactionCase):
             {
                 "name": "Je promets d être fidèle...",
                 "involvement_type": "donation",
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         # create a partner

@@ -18,6 +18,7 @@ class TestPartnerInvolvementCategory(SavepointCase):
                 {
                     "name": "Le tour du monde en 80 jours",
                     "nb_deadline_days": -80,
+                    "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
                 }
             )
 
@@ -30,6 +31,7 @@ class TestPartnerInvolvementCategory(SavepointCase):
                     "name": "Le tour du monde en 80 jours",
                     "nb_deadline_days": 0,
                     "mandate_category_id": mc_id,
+                    "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
                 }
             )
 
@@ -37,6 +39,7 @@ class TestPartnerInvolvementCategory(SavepointCase):
         mc_id = self.ref("mozaik_mandate.mc_secretaire_regional")
         vals = {
             "name": "Blanche neige et les 7 nains",
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         ic = self.env["partner.involvement.category"].create(vals)
         vals = {
@@ -44,6 +47,7 @@ class TestPartnerInvolvementCategory(SavepointCase):
             "nb_deadline_days": 0,
             "mandate_category_id": mc_id,
             "involvement_category_ids": [(6, 0, [ic.id])],
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         cat = self.env["partner.involvement.category"].new(vals)
         # change deadline rule to null
@@ -57,18 +61,21 @@ class TestPartnerInvolvementCategory(SavepointCase):
         vals = {
             "name": "Blanche neige et les 7 nains",
             "nb_deadline_days": 1,
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         ic3 = self.env["partner.involvement.category"].create(vals)
         vals = {
             "name": "Blanche neige et les 7 vilains",
             "nb_deadline_days": 1,
             "involvement_category_ids": [(6, 0, [ic3.id])],
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         ic2 = self.env["partner.involvement.category"].create(vals)
         vals = {
             "name": "Blanche neige et les 7 mains",
             "nb_deadline_days": 1,
             "involvement_category_ids": [(6, 0, [ic2.id])],
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         ic1 = self.env["partner.involvement.category"].create(vals)
         # make a recursion loop through involvement_category_ids => NOK
@@ -92,16 +99,19 @@ class TestPartnerInvolvementCategory(SavepointCase):
             "name": "Blanche neige et les 7 nains",
             "nb_deadline_days": 1,
             "message_follower_ids": [(6, 0, [follower.id])],
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         ic3 = self.env["partner.involvement.category"].create(vals)
         vals = {
             "name": "Blanche neige et les 7 vilains",
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         ic2 = self.env["partner.involvement.category"].create(vals)
         vals = {
             "name": "Blanche neige et les 7 mains",
             "nb_deadline_days": 1,
             "involvement_category_ids": [(6, 0, [ic3.id, ic2.id])],
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         ic1 = self.env["partner.involvement.category"].create(vals)
         # create a partner and an involvement

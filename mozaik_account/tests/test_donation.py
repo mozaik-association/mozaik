@@ -31,6 +31,7 @@ class TestDonation(object):
                 "code": "PA",
                 "involvement_type": "donation",
                 "allow_multi": True,
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         # create an involvement

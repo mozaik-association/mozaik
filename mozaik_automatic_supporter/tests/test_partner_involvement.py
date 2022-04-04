@@ -12,6 +12,7 @@ class TestPartnerInvolvement(TransactionCase):
         # create an involvement category
         vals = {
             "name": "Le projet Okavango",
+            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
         }
         ic = self.env["partner.involvement.category"].create(vals)
         # create a partner

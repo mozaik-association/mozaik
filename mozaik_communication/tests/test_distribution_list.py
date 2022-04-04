@@ -72,7 +72,7 @@ class TestDistributionList(SavepointCase):
         self.assertFalse(forward)
 
         # add user to the owner
-        vals = {"res_users_ids": [(6, 0, [self.usr.id])]}
+        vals = {"res_users_ids": [(4, self.usr.id)]}
         dl.write(vals)
         forward = dl._distribution_list_forwarding(msg)
         self.assertTrue(forward)

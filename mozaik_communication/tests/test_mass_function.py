@@ -121,17 +121,6 @@ class TestMassFunction(TestCommunicationCommon):
         wizard = mfct_obj.create(vals)
         email = formataddr((vals["partner_name"], p2.email))
         self.assertEqual(email, wizard.email_from)
-
-        vals = {
-            "partner_id": False,
-            "res_users_ids": [(5, 0, 0)],
-        }
-        dl.write(vals)
-        p2.is_company = False
-        # from now, allowed "From" are: nobody
-        partners = dl._get_partner_from()
-        # check for possible "From" choices
-        self.assertFalse(partners)
         return
 
     def test_email_bounced(self):

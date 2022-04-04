@@ -17,6 +17,7 @@ class TestSurveyUserInput(test_survey_flow.TestSurveyFlow):
             {
                 "name": "Test involvement category",
                 "interest_ids": [(0, 0, {"name": "Test interest"})],
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
             }
         )
         self.survey = self.env["survey.survey"].create(
@@ -241,6 +242,9 @@ class TestSurveyUserInput(test_survey_flow.TestSurveyFlow):
                                 {
                                     "name": "Does not eat meat.",
                                     "interest_ids": [(0, 0, {"name": "vegetarian"})],
+                                    "res_users_ids": [
+                                        (4, self.env.ref("base.user_admin").id)
+                                    ],
                                 }
                             )
                             .id,
@@ -272,6 +276,9 @@ class TestSurveyUserInput(test_survey_flow.TestSurveyFlow):
                             .create(
                                 {
                                     "name": "Loves fridays",
+                                    "res_users_ids": [
+                                        (4, self.env.ref("base.user_admin").id)
+                                    ],
                                 }
                             )
                             .id,
@@ -304,6 +311,9 @@ class TestSurveyUserInput(test_survey_flow.TestSurveyFlow):
                                         (0, 0, {"name": "ecology"}),
                                         (0, 0, {"name": "planet"}),
                                     ],
+                                    "res_users_ids": [
+                                        (4, self.env.ref("base.user_admin").id)
+                                    ],
                                 }
                             )
                             .id,
@@ -332,6 +342,9 @@ class TestSurveyUserInput(test_survey_flow.TestSurveyFlow):
                             .create(
                                 {
                                     "name": "Wants to receive newsletter",
+                                    "res_users_ids": [
+                                        (4, self.env.ref("base.user_admin").id)
+                                    ],
                                 }
                             )
                             .id,
