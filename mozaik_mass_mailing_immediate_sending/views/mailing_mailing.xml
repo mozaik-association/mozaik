@@ -14,7 +14,7 @@
                 <button
                     name="action_immediate_sending"
                     type="object"
-                    attrs="{'invisible': [('state', 'in', ('in_queue', 'sending', 'done'))]}"
+                    invisible="1"
                     class="oe_highlight"
                     string="Send Immediately"
                     confirm="This will send the email to all recipients.
