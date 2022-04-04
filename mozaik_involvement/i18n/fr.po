@@ -511,12 +511,6 @@ msgid "Petition"
 msgstr "Pétition"
 
 #. module: mozaik_involvement
-#: code:addons/mozaik_involvement/models/partner_involvement_category.py:0
-#, python-format
-msgid "Please add a (non archived) owner for this involvement category."
-msgstr ""
-
-#. module: mozaik_involvement
 #: model:res.groups,name:mozaik_involvement.res_groups_involvement_reader
 msgid "Reader"
 msgstr "Lecteur"
