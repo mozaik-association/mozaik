@@ -39,8 +39,10 @@ class MembershipRequestCase(BaseRestCase, ExtendableMixin):
             "city_man": "Namur",
             "request_type": "m",
             "auto_validate": False,
+            "auto_generate_reference": True,
         }
         # Create first membership request without autovalidate
         res = self.service.dispatch("post", vals)
         mr = self.env["membership.request"].search(["id", "=", res.id])
         self.assertEqual(mr.id, res.id)
+        self.assertTrue(mr.reference)

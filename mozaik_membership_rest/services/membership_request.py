@@ -128,6 +128,13 @@ class MembershipRequestService(Component):
         vals["street_man"] = vals.pop("street", False)
         vals["zip_man"] = vals.pop("zip", False)
         vals["city_man"] = vals.pop("city", False)
+        if vals.pop("auto_generate_reference", False):
+            vals["reference"] = self.env[
+                "membership.line"
+            ]._generate_membership_reference(
+                self.env["res.partner"].browse(vals["partner_id"]),
+                self.env["int.instance"].browse(),
+            )
         return vals
 
     @restapi.method(
