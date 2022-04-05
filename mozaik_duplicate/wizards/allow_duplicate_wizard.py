@@ -45,7 +45,13 @@ class AllowDuplicateWizard(models.TransientModel):
             discriminant = discriminants[0]
             domain_search = [
                 (discriminant_field, "=", discriminant),
-                ("is_duplicate_allowed", "=", True),
+                (
+                    target_obj._discriminant_fields[discriminant_field][
+                        "field_allowed"
+                    ],
+                    "=",
+                    True,
+                ),
             ]
             if not target_obj.search_count(domain_search):
                 raise exceptions.UserError(_("You must select more than one entry!"))

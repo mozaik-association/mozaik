@@ -1391,6 +1391,37 @@ class MembershipRequest(models.Model):
                     vals["price"] = mr.amount
                 if product:
                     vals["product_id"] = product.id
+                for membership in update_amount_membership_line:
+                    body = (
+                        _("Membership changed with membership request:")
+                        + "<br/><ul class='o_Message_trackingValues'>"
+                    )
+                    arrow = "<div class='fa fa-long-arrow-right'></div>"
+                    if mr.reference:
+                        body += _(
+                            "<li>Reference: %(previous)s %(arrow)s %(after)s</li>"
+                        ) % {
+                            "previous": membership.reference,
+                            "arrow": arrow,
+                            "after": mr.reference,
+                        }
+                    if mr.amount:
+                        body += _(
+                            "<li>Price: %(previous)s %(arrow)s %(after)s</li>"
+                        ) % {
+                            "previous": membership.price,
+                            "arrow": arrow,
+                            "after": mr.amount,
+                        }
+                    if product:
+                        body += _(
+                            "<li>Product: %(previous)s %(arrow)s %(after)s</li>"
+                        ) % {
+                            "previous": membership.product_id.name,
+                            "arrow": arrow,
+                            "after": product.name,
+                        }
+                    membership.partner_id.message_post(body=body)
                 update_amount_membership_line.write(vals)
 
     @api.model
