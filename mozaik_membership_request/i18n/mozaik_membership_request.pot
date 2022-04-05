@@ -14,6 +14,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid "<li>Price: %(previous)s %(arrow)s %(after)s</li>"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid "<li>Product: %(previous)s %(arrow)s %(after)s</li>"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid "<li>Reference: %(previous)s %(arrow)s %(after)s</li>"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid ""
 "<span attrs=\"{'invisible':[('partner_id', '!=', False)]}\">\n"
@@ -580,6 +598,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__membership_state_id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__membership_state_id
 msgid "Membership State"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid "Membership changed with membership request:"
 msgstr ""
 
 #. module: mozaik_membership_request
