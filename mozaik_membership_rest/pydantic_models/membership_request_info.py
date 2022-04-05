@@ -65,6 +65,7 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     unemployed_change: str = None
     disabled_change: str = None
     write_date: datetime
+    payment_link: str = None
 
     class Config:
         orm_mode = True
