@@ -57,6 +57,25 @@ class MembershipRequestService(Component):
             _logger.info("Unknown nationality with id %s", vals["country_id"])
         return vals
 
+    def _validate_involvement_category(self, vals):
+        if not any(
+            param in vals
+            for param in ("involvement_category_ids", "involvement_category_codes")
+        ):
+            return vals
+        cats = self.env["partner.involvement.category"].browse()
+        if vals["involvement_category_ids"]:
+            cats |= self.env["partner.involvement.category"].search(
+                [("id", "in", vals["involvement_category_ids"])]
+            )
+        if vals["involvement_category_codes"]:
+            cats |= self.env["partner.involvement.category"].search(
+                [("code", "in", vals["involvement_category_codes"])]
+            )
+        vals.pop("involvement_category_codes")
+        vals["involvement_category_ids"] = [(6, 0, cats.ids)]
+        return vals
+
     def _validate_membership_request_input(self, input_data):
         vals = input_data.dict()
         if vals["distribution_list_ids"]:
@@ -74,19 +93,8 @@ class MembershipRequestService(Component):
                     "Unknown distribution_list_ids with id %s",
                     vals["distribution_list_ids"],
                 )
-        if vals["involvement_category_ids"]:
-            if vals["involvement_category_ids"]:
-                cats = self.env["partner.involvement.category"].search(
-                    [("id", "in", vals["involvement_category_ids"])]
-                )
-            if cats:
-                vals["involvement_category_ids"] = [(6, 0, cats.ids)]
-            else:
-                del vals["involvement_category_ids"]
-                _logger.info(
-                    "Unknown involvements with id %s",
-                    vals["involvement_category_ids"],
-                )
+        vals = self._validate_involvement_category(vals)
+
         if vals["interest_ids"]:
             if vals["interest_ids"]:
                 cats = self.env["thesaurus.term"].search(

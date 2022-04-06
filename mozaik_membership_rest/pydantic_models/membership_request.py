@@ -32,6 +32,7 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     distribution_list_ids: List[int] = []
     is_company: bool = None
     involvement_category_ids: List[int] = []
+    involvement_category_codes: List[str] = []
     local_voluntary: bool = None
     regional_voluntary: bool = None
     national_voluntary: bool = None
