@@ -886,9 +886,21 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, fuzzy, python-format
+#| msgid "Reference Street"
+msgid "The reference already exist"
+msgstr "Rue de référence"
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "The required age for a membership request is %s"
 msgstr "L'âge minimum pour une adhésion est %s"
+
+#. module: mozaik_membership_request
+#: model:ir.model.constraint,message:mozaik_membership_request.constraint_membership_request_unique_ref
+msgid "This reference is already used"
+msgstr ""
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__type
