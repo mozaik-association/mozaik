@@ -21,6 +21,8 @@ class WebsitePaymentMozaik(WebsitePayment):
         access_token=None,
         **kw
     ):
+        if partner_id == "False":
+            partner_id = False
         res = super(WebsitePaymentMozaik, self).pay(
             reference,
             order_id,

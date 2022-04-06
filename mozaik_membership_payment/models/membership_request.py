@@ -13,12 +13,18 @@ class MembershipRequest(models.Model):
     )
     payment_link = fields.Char(compute="_compute_payment_link")
 
-    @api.depends("amount", "partner_id", "reference", "request_type")
+    @api.depends("amount", "partner_id", "reference", "request_type", "state")
     def _compute_payment_link(self):
         wizard_obj = self.env["payment.link.wizard"]
         for m in self:
             # when used as an onchange, id is not set
-            if m.id and m.amount and m.reference and m.request_type == "m":
+            if (
+                m.id
+                and m.amount
+                and m.reference
+                and m.request_type == "m"
+                and m.state in ["draft", "confirm"]
+            ):
                 m.payment_link = (
                     wizard_obj.with_context(
                         active_model="membership.request", active_id=m.id

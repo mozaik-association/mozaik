@@ -206,6 +206,10 @@ class MembershipRequest(models.Model):
         comodel_name="res.country", string="Nationality", tracking=True
     )
 
+    _sql_constraints = [
+        ("unique_ref", "unique(reference)", "This reference is already used"),
+    ]
+
     @api.model
     def _get_status_values(self, request_type, date_from=False):
         """
@@ -239,6 +243,14 @@ class MembershipRequest(models.Model):
                 raise ValidationError(
                     _("The required age for a membership request is %s") % required_age
                 )
+
+    @api.constrains("reference")
+    def _check_reference(self):
+        for mr in self.filtered(lambda s: s.reference):
+            if self.env["membership.line"].search_count(
+                [("reference", "=", mr.reference)]
+            ):
+                raise ValidationError(_("The reference already exist"))
 
     def _search_age(self, operator, value):
         """
