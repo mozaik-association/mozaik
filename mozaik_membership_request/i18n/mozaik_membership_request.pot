@@ -881,7 +881,18 @@ msgstr ""
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
+msgid "The reference already exist"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
 msgid "The required age for a membership request is %s"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.constraint,message:mozaik_membership_request.constraint_membership_request_unique_ref
+msgid "This reference is already used"
 msgstr ""
 
 #. module: mozaik_membership_request
