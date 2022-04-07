@@ -150,6 +150,9 @@ class MembershipLine(models.Model):
             self.write(vals)
         return self
 
+    def _get_new_member_free_renew_state(self):
+        return self.env.ref("mozaik_membership.member")
+
     def _update_membership_values(self, partner, instance, state, date_from):
         self.ensure_one()
         nb_month = int(
@@ -160,6 +163,7 @@ class MembershipLine(models.Model):
 
         older_membership = self.env["membership.line"].search_count(
             [
+                ("state_id", "in", self._get_new_member_free_renew_state().ids),
                 ("partner_id", "=", partner.id),
                 (
                     "date_from",
