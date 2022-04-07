@@ -12,6 +12,7 @@ from psycopg2.extensions import AsIs
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.fields import first
 from odoo.tools import safe_eval
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
@@ -1502,8 +1503,7 @@ class MembershipRequest(models.Model):
             zip_rec = zip_obj.browse(city_id)
             return zip_rec.int_instance_id.id
         else:
-            instance_obj = self.env["int.instance"]
-            return instance_obj._get_default_int_instance().id
+            return first(self.env.user.partner_id.int_instance_m2m_ids).id
 
     @api.model_create_single
     def create(self, vals):
