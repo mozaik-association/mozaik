@@ -3,6 +3,8 @@
 
 # flake8: noqa
 
+from collections import OrderedDict
+
 from odoo import _
 from odoo.exceptions import ValidationError
 
@@ -84,18 +86,22 @@ class PartnerService(Component):
                     )
                 )
             city_id = False
+        technical_name = self.env["address.address"]._get_technical_name(
+            OrderedDict(
+                [
+                    ("country_id", country_id),
+                    ("city_id", city_id),
+                    ("zip_man", zip_man),
+                    ("city_man", city_man),
+                    ("address_local_street_id", False),
+                    ("street_man", street_man),
+                    ("number", number),
+                    ("box", box),
+                ]
+            )
+        )
         address = self.env["address.address"].search(
-            [
-                ("street_man", "=ilike", street_man),
-                ("street2", "=ilike", street2),
-                ("number", "=ilike", number),
-                ("box", "=ilike", box),
-                ("zip_man", "=ilike", zip_man),
-                ("city_man", "=ilike", city_man),
-                ("city_id", "=", city_id),
-                ("country_id", "=", country_id),
-            ],
-            limit=1,
+            [("technical_name", "=", technical_name)], limit=1
         )
         if not address:
             address = self.env["address.address"].create(
