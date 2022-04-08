@@ -43,6 +43,7 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     phone: str = None
     interests: List[ThesaurusTermInfo] = pydantic.Field([], alias="interest_ids")
     competencies: List[ThesaurusTermInfo] = pydantic.Field([], alias="competency_ids")
+    indexation_comments: str = None
     note: str = None
     distribution_lists: List[DistributionListInfo] = pydantic.Field(
         [], alias="distribution_list_ids"
