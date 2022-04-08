@@ -28,6 +28,7 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     phone: str = None
     interest_ids: List[int] = []
     competency_ids: List[int] = []
+    indexation_comments: str = None
     note: str = None
     distribution_list_ids: List[int] = []
     is_company: bool = None
