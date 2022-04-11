@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import html
 import logging
-from email.utils import formataddr
 
 from odoo import _, api, exceptions, fields, models
 from odoo.fields import first
 from odoo.osv import expression
+from odoo.tools import formataddr
 
 _logger = logging.getLogger(__name__)
 
