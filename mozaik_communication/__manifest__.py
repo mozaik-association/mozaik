@@ -33,7 +33,6 @@
     "data": [
         "views/membership_request.xml",
         "security/communication_security.xml",
-        "security/mail_mass_mailing_group.xml",
         "security/ir.model.access.csv",
         "wizards/distribution_list_mass_function.xml",
         "views/distribution_list_line_template.xml",
@@ -41,7 +40,6 @@
         "views/distribution_list.xml",
         "views/mailing_trace.xml",
         "views/mail_mass_mailing.xml",
-        "views/mailing_trace_report.xml",
         "views/mail_template.xml",
         "views/res_partner.xml",
         "views/abstract_virtual_model.xml",

@@ -19,11 +19,6 @@
                     attrs="{'invisible':[('e_mass_function','!=','csv')]}"
                 />
             </xpath>
-            <xpath expr="//page[@name='mass_mailing']/group[3]" position="after">
-                <group>
-                    <field name="include_opt_out_contacts" />
-                </group>
-            </xpath>
         </field>
     </record>
 

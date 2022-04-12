@@ -22,7 +22,7 @@ class TestMassFunction(TestCommunicationCommon):
         mfct_obj = self.mfct_obj
         vals = {
             "trg_model": "email.coordinate",
-            "e_mass_function": "email_coordinate_id",
+            "e_mass_function": "",
             "distribution_list_id": evr_lst_id.id,
         }
         wiz = mfct_obj.new(vals)
@@ -35,43 +35,6 @@ class TestMassFunction(TestCommunicationCommon):
         wiz.subject = subject2
         wiz._onchange_subject()
         self.assertEqual(subject, wiz.mass_mailing_name)
-        return
-
-    def test_save_as_template(self):
-        # Create a user that can send mass mailings from mass action
-        partner = self.env["res.partner"].create({"name": "Test for mass mailings"})
-        vals = {
-            "name": partner.name,
-            "login": "superuser_mm",
-            "partner_id": partner.id,
-            "groups_id": [
-                (
-                    6,
-                    0,
-                    [
-                        self.ref(
-                            "mozaik_communication.res_groups_communication_manager_mass_mailing"
-                        ),
-                    ],
-                )
-            ],
-        }
-        superuser_mm = self.env["res.users"].create(vals)
-
-        mfct_obj = self.mfct_obj
-        evr_lst_id = self.evr_lst_id
-        vals = {
-            "trg_model": "email.coordinate",
-            "e_mass_function": "email_coordinate_id",
-            "distribution_list_id": evr_lst_id.id,
-            "subject": "TEST1",
-            "body": "<p>hello</p>",
-        }
-        wizard = mfct_obj.with_user(user=superuser_mm.id).create(vals)
-        wizard.save_as_template()
-        self.assertTrue(wizard.mail_template_id)
-        self.assertEqual(wizard.mail_template_id.subject, vals["subject"])
-        self.assertEqual(wizard.mail_template_id.body_html, vals["body"])
         return
 
     def test_email_from(self):

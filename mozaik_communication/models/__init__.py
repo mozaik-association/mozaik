@@ -7,8 +7,6 @@ from . import distribution_list_line
 from . import email_template_placeholder
 from . import mailing_trace
 from . import mailing_mailing
-from . import mail_mass_mailing_group
-from . import mailing_trace_report
 from . import mail_template
 from . import mail_thread
 from . import res_partner

@@ -1,9 +1,8 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import base64
-import random
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, api, fields, models
 from odoo.tools import formataddr
 
 
@@ -16,14 +15,9 @@ class DistributionListMassFunction(models.TransientModel):
         Get available mass functions for mode=email.coordinate
         :return:
         """
-        user = self.env["res.users"].browse(self._uid)
         funcs = [
             ("csv", _("CSV Extraction")),
         ]
-        if user.has_group(
-            "mozaik_communication.res_groups_communication_manager_mass_mailing"
-        ):
-            funcs.append(("email_coordinate_id", _("Mass Mailing")))
         return funcs
 
     def _get_default_e_mass_function(self):
@@ -75,11 +69,6 @@ class DistributionListMassFunction(models.TransientModel):
         string="Attachments",
     )
     mass_mailing_name = fields.Char()
-    extract_csv = fields.Boolean(
-        string="Complementary postal CSV",
-        help="Get a CSV file for partners without email",
-        default=False,
-    )
     sort_by = fields.Selection(
         selection=[
             ("identifier", "Identification Number"),
@@ -128,10 +117,6 @@ class DistributionListMassFunction(models.TransientModel):
         string="Involvement Category",
         domain=[("code", "!=", False)],
     )
-    contact_ab_pc = fields.Integer(
-        string="AB Batch (%)",
-        default=100,
-    )
     partner_from_id = fields.Many2one(
         comodel_name="res.partner",
         string="From",
@@ -177,7 +162,6 @@ class DistributionListMassFunction(models.TransientModel):
         """
         Reset some fields when `mass_function` change
         """
-        self.extract_csv = False
         self.export_filename = False
         self.include_without_coordinate = False
 
@@ -210,7 +194,7 @@ class DistributionListMassFunction(models.TransientModel):
         fct = self.e_mass_function
         if self.trg_model != "email.coordinate":
             fct = self.p_mass_function
-        if (fct == "csv" or self.extract_csv) and self.include_without_coordinate:
+        if fct == "csv" and self.include_without_coordinate:
             context.update(
                 {
                     "active_test": False,
@@ -229,9 +213,6 @@ class DistributionListMassFunction(models.TransientModel):
         self_ctx = self.with_context(context)
         if self.trg_model == "email.coordinate":
             alternatives, mains = self_ctx._mass_email_coordinate(fct, main_domain)
-            if alternatives and self.extract_csv:
-                fct = "csv"
-                mains = alternatives
         elif self.trg_model == "postal.coordinate":
             alternatives, mains = self_ctx._mass_postal_coordinate(fct, main_domain)
 
@@ -289,7 +270,6 @@ class DistributionListMassFunction(models.TransientModel):
         :param main_domain: list (domain)
         :return: tuple of 2 recordset
         """
-        context = self._context
         dst_model = self.distribution_list_id.dst_model_id.model
 
         if dst_model == "virtual.target":
@@ -321,127 +301,7 @@ class DistributionListMassFunction(models.TransientModel):
             # Get CSV containing email coordinates
             dl = self.distribution_list_id
             mains, alternatives = dl._get_complex_distribution_list_ids()
-
-        elif fct == "email_coordinate_id":
-            if self.extract_csv:
-                if not self.include_without_coordinate:  # TODO ....
-                    self = self.with_context(
-                        alternative_object_field="partner_id",
-                        alternative_target_model="res.partner",
-                        alternative_object_domain=[
-                            ("email", "=", False),
-                        ],
-                    )
-            dl = self.distribution_list_id
-            mains, alternatives = dl._get_complex_distribution_list_ids()
-
-            if self.contact_ab_pc < 100 or context.get("mailing_group_id"):
-                if context.get("mailing_group_id"):
-                    stats_obj = self.env["mail.mail.statistics"]
-                    domain = [
-                        (
-                            "mass_mailing_id.group_id",
-                            "=",
-                            context.get("mailing_group_id"),
-                        ),
-                    ]
-                    stats = stats_obj.search(domain)
-                    already_mailed = stats.mapped("res_id")
-                    remaining = set(mains).difference(already_mailed)
-                else:
-                    group_obj = self.env["mail.mass_mailing.group"]
-                    new_group = group_obj.create(
-                        {
-                            "distribution_list_id": dl.id,
-                            "internal_instance_id": self.internal_instance_id.id,
-                        }
-                    )
-                    context.update(
-                        {
-                            "mailing_group_id": new_group.id,
-                        }
-                    )
-                    remaining = mains
-                topick = int(len(mains) / 100.0 * self.contact_ab_pc)
-                if topick > len(remaining):
-                    topick = len(remaining)
-                mains = random.sample(remaining, topick)
-
-            if not mains:
-                raise exceptions.UserError(_("There are no recipients"))
-            self = self.with_context(
-                active_ids=mains.ids,
-                async_send_mail=True,
-                dl_computed=True,
-            )
-            # Send mass mailing
-            mail_composer = self.with_context(
-                {"mass_mailing_from_mass_action": True}
-            )._create_mail_composer()
-            mail_composer.send_mail()
-
-            if self.mass_mailing_name:
-                # If several mass mailings with the same name, take the most recent
-                # (due to _order="sent_date DESC" on mailing.mailing)
-                mass_mailing = self.env["mailing.mailing"].search(
-                    [("name", "=", self.mass_mailing_name)]
-                )[0]
-                self._update_mass_mailing(mail_composer, mass_mailing)
-                self._post_processing(mains)
         return alternatives, mains
-
-    def _create_mail_composer(self):
-        """
-        Create the mail.compose.message
-        :return: mail.compose.message recordset
-        """
-        model = self.trg_model
-        composer_obj = self.env["mail.compose.message"]
-        mail_composer_vals = {
-            "email_from": self.email_from,
-            "parent_id": False,
-            "use_active_domain": False,
-            "composition_mode": "mass_mail",
-            "partner_ids": [[6, False, []]],
-            "notify": False,
-            "template_id": self.mail_template_id.id,
-            "subject": self.subject,
-            "distribution_list_id": self.distribution_list_id.id,
-            "mass_mailing_name": self.mass_mailing_name,
-            "model": model,
-            "body": self.body,
-            "contact_ab_pc": self.contact_ab_pc,
-        }
-        attachments = self.attachment_ids.ids or []
-        if self.mail_template_id:
-            value = composer_obj.onchange_template_id(
-                self.mail_template_id.id, "mass_mail", "", 0
-            ).get("value", {})
-            attachments += value.get("attachment_ids", [])
-            for fld in ["subject", "body", "email_from"]:
-                value.pop(fld, None)
-            mail_composer_vals.update(value)
-        if attachments:
-            mail_composer_vals.update(
-                {
-                    "attachment_ids": [(6, False, attachments)],
-                }
-            )
-        return composer_obj.create(mail_composer_vals)
-
-    def _update_mass_mailing(self, mail_composer, mass_mailing):
-        """
-        Update mass mailing recipients model and domain.
-        """
-        if mail_composer and mass_mailing:
-            mass_mailing.write(
-                {
-                    "mailing_model_id": self.env["ir.model"]
-                    .search([("model", "=", "distribution.list")])
-                    .id,
-                    "distribution_list_id": mail_composer.distribution_list_id.id,
-                }
-            )
 
     def export_csv(self, model, targets, group_by=False):
         """
@@ -461,14 +321,6 @@ class DistributionListMassFunction(models.TransientModel):
                 "export_filename": "extract.csv",
             }
         )
-
-    def _post_processing(self, records):
-        """
-
-        :param records: recordset
-        :return: bool
-        """
-        return True
 
     @api.model
     def _get_domain_partner_from_id(self):
@@ -521,25 +373,3 @@ class DistributionListMassFunction(models.TransientModel):
                         code_key, wizard.involvement_category_id.code
                     )
                 wizard.placeholder_value = placeholder_value
-
-    def save_as_template(self):
-        self.ensure_one()
-        template_name = u"Mass Function: {subject}"
-        values = {
-            "name": template_name.format(subject=self.subject),
-            "subject": self.subject or False,
-            "body_html": self.body or False,
-        }
-        template = self.env["mail.template"].create(values)
-        self.mail_template_id = template
-        self._onchange_template_id()
-
-        return {
-            "type": "ir.actions.act_window",
-            "view_mode": "form",
-            "view_type": "form",
-            "res_id": self.id,
-            "res_model": self._name,
-            "target": "new",
-            "context": self.env.context,
-        }
