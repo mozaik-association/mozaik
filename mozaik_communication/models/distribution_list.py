@@ -118,7 +118,7 @@ class DistributionList(models.Model):
         has_visibility = False
         email_from = msg.get("email_from")
         noway = _("No unique coordinate found with address: %s") % email_from
-        partner = self._get_mailing_object(email_from).mapped("partner_id")
+        partner = self._get_mailing_object(email_from)
         if partner and len(partner) == 1:
             noway = (
                 _("Partner %s is not an owner nor " "an allowed partner")
