@@ -103,35 +103,6 @@ class DistributionList(models.Model):
         result = super(DistributionList, self).copy(default=default)
         return result
 
-    def mass_mailing(self):
-        """
-        Get mass mailing wizard (using action) related to current list.
-        :return: dict (action)
-        """
-        self.ensure_one()
-        context = self.env.context.copy()
-        email_template = self.env.ref(
-            "distribution_list.mail_template_partner_distribution_list"
-        )
-        context.update(
-            {
-                "default_composition_mode": "mass_mail",
-                "default_partner_to": "${object.id}",
-                "active_model": self.dst_model_id.model,
-                "default_distribution_list_id": self.id,
-                "default_res_id": 0,
-                "default_template_id": email_template.id,
-            }
-        )
-        return {
-            "type": "ir.actions.act_window",
-            "name": _("Mass Mailing"),
-            "view_mode": "form",
-            "target": "new",
-            "res_model": "mail.compose.message",
-            "context": context,
-        }
-
     def _get_target_from_distribution_list(self):
         """
         Computes records matching the entire distribution list
