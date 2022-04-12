@@ -501,51 +501,6 @@ class TestDistributionList(SavepointCase):
         self.assertEqual(line_cpy.src_model_id.id, line_origin.src_model_id.id)
         return
 
-    def test_mass_mailing(self):
-        """
-        Test that action is well returned with correct value required for
-        a mass mailing
-        """
-        distribution_list_obj = self.dist_list_obj
-        partner_model = self.partner_model
-
-        dist_list = distribution_list_obj.create(
-            {
-                "name": str(uuid4()),
-                "dst_model_id": partner_model.id,
-            }
-        )
-        result = dist_list.mass_mailing()
-        self.assertEqual(
-            result.get("type"),
-            "ir.actions.act_window",
-            "Should be an ir.actions.act_window ",
-        )
-        self.assertEqual(
-            result.get("res_model"),
-            "mail.compose.message",
-            "This mass mailing is made with mail composer",
-        )
-        # test context content
-        context = result.get("context", {})
-        self.assertEqual(
-            context.get("default_composition_mode"),
-            "mass_mail",
-            "Mass mailing must be launch into mass_mail mode",
-        )
-        self.assertEqual(
-            context.get("active_model"),
-            "res.partner",
-            "Active model must be the same that the distribution list",
-        )
-        self.assertEqual(
-            context.get("default_distribution_list_id"),
-            dist_list.id,
-            "default_distribution_list_id must be the same that the "
-            "distribution list's id",
-        )
-        return
-
     def test_action_show_result(self):
         """
         Test that action is well returned with correct value required for
