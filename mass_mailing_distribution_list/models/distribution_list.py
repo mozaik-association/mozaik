@@ -152,7 +152,6 @@ class DistributionList(models.Model):
             "composition_mode": "mass_mail",
             "subject": msg.get("subject", False),
             "body": msg.get("body", False),
-            "distribution_list_id": self.id,
             "mass_mailing_name": "Mass Mailing %s" % self.name,
             "model": mailing_model,
             "attachment_ids": [[6, 0, attachments.ids]],
