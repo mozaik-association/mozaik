@@ -178,6 +178,13 @@ class TestDistributionList(SavepointCase):
             "dst_model_id": self.partner_model.id,
         }
         dist_list = self.distri_list_obj.create(vals)
+        vals = {
+            "distribution_list_line_tmpl_id": self.dist_list_line_tmpl.id,
+            "distribution_list_id": dist_list.id,
+            "bridge_field_id": self.partner_id_field.id,
+        }
+        self.distri_list_line_obj.create(vals)
+
         custom_values = {
             "distribution_list_id": dist_list.id,
         }
@@ -214,7 +221,7 @@ class TestDistributionList(SavepointCase):
             "name": str(uuid4()),
             "email": "test@test.be",
         }
-        partner = self.partner_obj.create(vals)
+        self.partner_obj.create(vals)
         context = self.env.context.copy()
         # Update context to keep mail.mail (then check if mail has been
         # created or not). Otherwise Odoo will delete mail.mail and we can't
@@ -230,7 +237,7 @@ class TestDistributionList(SavepointCase):
         )
         mail = self.mail_obj.search(
             [
-                ("res_id", "=", partner.id),
+                ("res_id", "=", dist_list._get_target_from_distribution_list().id),
                 ("model", "=", "res.partner"),
             ],
             limit=1,

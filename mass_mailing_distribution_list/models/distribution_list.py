@@ -125,14 +125,17 @@ class DistributionList(models.Model):
         :param data: list
         :return: ir.attachment recordset
         """
+        datas = data[1]
+        if isinstance(datas, str):
+            datas = datas.encode()
         values = {
             "name": data[0],
-            "datas": base64.encodebytes(data[1].encode()),
+            "datas": base64.encodebytes(datas),
             "res_model": "mail.compose.message",
         }
         return self.env["ir.attachment"].create(values)
 
-    def _get_mail_compose_message_vals(self, msg, mailing_model=False):
+    def _get_mailing_mailing_vals(self, msg):
         """
         Prepare values for a composer from an incomming message
         :param msg: incomming message str
@@ -141,18 +144,18 @@ class DistributionList(models.Model):
         :return: composer dict
         """
         self.ensure_one()
-        if not mailing_model:
-            mailing_model = self.dst_model_id.model
 
         attachments = self.env["ir.attachment"]
         for attachment_data in msg.get("attachments", []):
             attachments |= self._get_attachment(attachment_data)
         return {
             "email_from": msg.get("email_from", False),
-            "composition_mode": "mass_mail",
+            "reply_to": msg.get("email_from", False),
             "subject": msg.get("subject", False),
-            "body": msg.get("body", False),
-            "mass_mailing_name": "Mass Mailing %s" % self.name,
+            "body_html": msg.get("body", False),
+            "distribution_list_id": self.id,
+            "name": "Mass Mailing %s" % self.name,
+            "mailing_model_id": self.env["ir.model"]._get(self._name).id,
             "attachment_ids": [[6, 0, attachments.ids]],
         }
 
@@ -358,7 +361,7 @@ class DistributionList(models.Model):
             .get_param("distribution.list.mass.mailing.test", default="AAAAAA")
         )
         self_ctx = self
-        mail_composer_vals = self._get_mail_compose_message_vals(msg)
+        mail_composer_vals = self_ctx._get_mailing_mailing_vals(msg)
         if subject.upper().startswith(test_code.upper()):
             mail_composer_vals["subject"] = subject[len(test_code) :]
             self_ctx = self.with_context(
@@ -374,8 +377,9 @@ class DistributionList(models.Model):
                 active_ids=targets.ids,
                 active_model="res.partner",
             )
-        mail_composer = self_ctx.env["mail.compose.message"].create(mail_composer_vals)
-        mail_composer.send_mail()
+        mailing_mailing = self_ctx.env["mailing.mailing"].create(mail_composer_vals)
+        if mailing_mailing._get_remaining_recipients():
+            mailing_mailing.action_send_mail()
         return True
 
     @api.onchange("mail_forwarding", "alias_name", "name")
