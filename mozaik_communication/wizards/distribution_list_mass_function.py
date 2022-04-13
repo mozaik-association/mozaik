@@ -2,9 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import base64
 import random
-from email.utils import formataddr
 
 from odoo import _, api, exceptions, fields, models
+from odoo.tools import formataddr
 
 
 class DistributionListMassFunction(models.TransientModel):
