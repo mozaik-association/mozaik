@@ -16,54 +16,6 @@
                 />
                 <field name="membership_state_id" />
 
-                <filter
-                    string="Local Voluntary"
-                    name="local_voluntary"
-                    domain="[('local_voluntary','=', True)]"
-                    invisible="'default_is_company' not in context or context.get('default_is_company')"
-                />
-                <filter
-                    string="Regional Voluntary"
-                    name="regional_voluntary"
-                    domain="[('regional_voluntary','=', True)]"
-                    invisible="'default_is_company' not in context or context.get('default_is_company')"
-                />
-                <filter
-                    string="National Voluntary"
-                    name="national_voluntary"
-                    domain="[('national_voluntary','=', True)]"
-                    invisible="'default_is_company' not in context or context.get('default_is_company')"
-                />
-                <filter
-                    string="Non Local Voluntary"
-                    name="non_local_voluntary"
-                    domain="[('local_voluntary','=', False)]"
-                    invisible="'default_is_company' not in context or context.get('default_is_company')"
-                />
-                <filter
-                    string="Non Regional Voluntary"
-                    name="non_regional_voluntary"
-                    domain="[('regional_voluntary','=', False)]"
-                    invisible="'default_is_company' not in context or context.get('default_is_company')"
-                />
-                <filter
-                    string="Non National Voluntary"
-                    name="non_national_voluntary"
-                    domain="[('national_voluntary','=', False)]"
-                    invisible="'default_is_company' not in context or context.get('default_is_company')"
-                />
-                <separator />
-                <filter
-                    string="Local Only"
-                    name="local_only"
-                    domain="[('local_only','=', True)]"
-                />
-                <filter
-                    string="Not Local Only"
-                    name="not_local_only"
-                    domain="[('local_only','=', False)]"
-                />
-                <separator />
             </xpath>
             <xpath expr="//filter[@name='group_country']" position="after">
                 <filter
