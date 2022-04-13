@@ -88,6 +88,6 @@ class MailComposeMessage(models.TransientModel):
         """
         Build (and send) mails
         """
-        self_ctx = self.with_context(active_ids=active_ids, dl_computed=True)
+        self_ctx = self.with_context(active_ids=active_ids)
         composer = self_ctx.create(vals)
         composer.send_mail(auto_commit=auto_commit)
