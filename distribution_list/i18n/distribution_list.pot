@@ -100,18 +100,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__display_name
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__display_name
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__display_name
-#: model:ir.model.fields,field_description:distribution_list.field_mail_compose_message__display_name
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: distribution_list
 #: model:ir.model,name:distribution_list.model_distribution_list
-#: model:ir.model.fields,field_description:distribution_list.field_account_invoice_send__distribution_list_id
-#: model:ir.model.fields,field_description:distribution_list.field_account_tour_upload_bill__distribution_list_id
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__distribution_list_id
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__distribution_list_id
-#: model:ir.model.fields,field_description:distribution_list.field_mail_compose_message__distribution_list_id
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__distribution_list_id
 #: model:ir.module.category,name:distribution_list.module_category_distribution_list
 msgid "Distribution List"
@@ -139,11 +135,6 @@ msgstr ""
 #. module: distribution_list
 #: model:ir.model.fields,help:distribution_list.field_merge_distribution_list__distribution_list_id
 msgid "Distribution list to complete"
-msgstr ""
-
-#. module: distribution_list
-#: model:ir.model,name:distribution_list.model_mail_compose_message
-msgid "Email composition wizard"
 msgstr ""
 
 #. module: distribution_list
@@ -214,7 +205,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__id
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__id
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__id
-#: model:ir.model.fields,field_description:distribution_list.field_mail_compose_message__id
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__id
 msgid "ID"
 msgstr ""
@@ -239,7 +229,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter____last_update
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line____last_update
 #: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template____last_update
-#: model:ir.model.fields,field_description:distribution_list.field_mail_compose_message____last_update
 #: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -270,14 +259,6 @@ msgstr ""
 #. module: distribution_list
 #: model:res.groups,name:distribution_list.res_groups_distribution_list_manager
 msgid "Manager"
-msgstr ""
-
-#. module: distribution_list
-#: code:addons/distribution_list/models/distribution_list.py:0
-#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
-#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_tree
-#, python-format
-msgid "Mass Mailing"
 msgstr ""
 
 #. module: distribution_list
