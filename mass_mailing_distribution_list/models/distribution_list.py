@@ -153,7 +153,6 @@ class DistributionList(models.Model):
             "subject": msg.get("subject", False),
             "body": msg.get("body", False),
             "mass_mailing_name": "Mass Mailing %s" % self.name,
-            "model": mailing_model,
             "attachment_ids": [[6, 0, attachments.ids]],
         }
 
@@ -344,8 +343,14 @@ class DistributionList(models.Model):
         :param msg:
         :return: Boolean
         """
-        res = False
         target = self._get_mailing_object(msg.get("email_from", ""))
+        if len(target) != 1:
+            _logger.warning(
+                "An unknown or ambiguous email (%s) "
+                "tries to forward a mail through a distribution list",
+                msg.get("email_from"),
+            )
+            return False
         subject = msg.get("subject")
         test_code = ustr(
             self.env["ir.config_parameter"]
@@ -353,38 +358,25 @@ class DistributionList(models.Model):
             .get_param("distribution.list.mass.mailing.test", default="AAAAAA")
         )
         self_ctx = self
-        if len(target) != 1:
-            _logger.warning(
-                "An unknown or ambiguous email (%s) "
-                "tries to forward a mail through a distribution list",
-                msg.get("email_from"),
-            )
-        elif subject.upper().startswith(test_code.upper()):
-            msg.update(
-                {
-                    # Do not use the replace because it's case-sensitive
-                    "subject": subject[len(test_code) :],
-                }
-            )
+        mail_composer_vals = self._get_mail_compose_message_vals(msg)
+        if subject.upper().startswith(test_code.upper()):
+            mail_composer_vals["subject"] = subject[len(test_code) :]
             self_ctx = self.with_context(
                 active_id=target.id,
                 active_ids=target.ids,
                 active_model=target._name,
-                dl_computed=True,
             )
         else:
-            self_ctx = self.with_context(dl_computed=False)
-        context = self_ctx.env.context
-        active_ids = context.get("active_ids", [])
-        dl_computed = context.get("dl_computed", True)
-        if active_ids or not dl_computed:
-            mail_composer_obj = self_ctx.env["mail.compose.message"]
-            # get composer values to create wizard
-            mail_composer_vals = self_ctx._get_mail_compose_message_vals(msg)
-            mail_composer = mail_composer_obj.create(mail_composer_vals)
-            mail_composer.send_mail()
-            res = True
-        return res
+            targets = self._get_target_from_distribution_list()
+            if targets._name != "res.partner":
+                targets = targets.mapped("partner_id")
+            self_ctx = self.with_context(
+                active_ids=targets.ids,
+                active_model="res.partner",
+            )
+        mail_composer = self_ctx.env["mail.compose.message"].create(mail_composer_vals)
+        mail_composer.send_mail()
+        return True
 
     @api.onchange("mail_forwarding", "alias_name", "name")
     def _onchange_mail_forwarding(self):
