@@ -24,20 +24,5 @@ class MailComposeMessage(models.TransientModel):
             mailing_values = {
                 "contact_ab_pc": self.contact_ab_pc,
             }
-            context = self._context
-            if context.get("mailing_group_id"):
-                mailing_values["group_id"] = context["mailing_group_id"]
             self.env["mailing.mailing"].browse(mailing_ids).write(mailing_values)
         return result
-
-    def send_mail(self, auto_commit=False):
-        """
-        Do not recompute ids if sending mails asynchronously
-        through a distribution list
-        """
-        self.ensure_one()
-        context = self._context
-        if self.distribution_list_id and context.get("async_send_mail") is False:
-            self = self.with_context(dl_computed=True)
-        # The self could change, so specify it
-        return super(MailComposeMessage, self).send_mail(auto_commit=auto_commit)

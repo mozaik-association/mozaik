@@ -10,14 +10,6 @@ class MassMailing(models.Model):
         comodel_name="res.users",
         readonly=True,
     )
-    group_id = fields.Many2one(
-        comodel_name="mail.mass_mailing.group",
-        string="Group",
-        copy=True,
-    )
-    group_total_sent = fields.Integer(
-        related="group_id.total_sent",
-    )
     mailing_model = fields.Char(
         default="res.partner",
     )
@@ -33,46 +25,3 @@ class MassMailing(models.Model):
             # remove last insert: mailing list
             result.pop()
         return result
-
-    def send_custom(self):  # TODO see  distribution.list.mass.function
-        self.ensure_one()
-        group = self.group_id
-        unsent_percent = 100 - group.total_sent
-        wiz = self.env["distribution.list.mass.function"].create(
-            {
-                "trg_model": "email.coordinate",
-                "e_mass_function": "email_coordinate_id",
-                "mass_mailing_name": self.name,
-                "subject": self.name,
-                "body": self.body_html,
-                "contact_ab_pc": unsent_percent,
-                "distribution_list_id": group.distribution_list_id.id,
-                "include_unauthorized": group.include_unauthorized,
-                "internal_instance_id": group.internal_instance_id.id,
-            }
-        )
-        return {
-            "type": "ir.actions.act_window",
-            "view_mode": "form",
-            "res_id": wiz.id,
-            "res_model": wiz._name,
-            "target": "new",
-            "context": dict(self.env.context, mailing_group_id=group.id),
-        }
-
-    def compare_group(self):
-        self.ensure_one()
-        group = self.group_id
-        context = self.env.context.copy()
-        context.update(
-            {
-                "search_default_group_id": group.id,
-                "group_by": "trial",
-            }
-        )
-        return {
-            "type": "ir.actions.act_window",
-            "view_mode": "graph",
-            "res_model": "mail.statistics.report",
-            "context": context,
-        }

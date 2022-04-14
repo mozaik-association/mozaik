@@ -58,16 +58,7 @@
                 <field name="int_instance_ids" widget="many2many_tags" />
             </xpath>
 
-            <xpath expr="//button[@name='mass_mailing']" position="attributes">
-                <attribute
-                    name="groups"
-                    translation="off"
-                >base.group_erp_manager</attribute>
-                 <!-- Button mass mailing becomes invisible in v14: use mass action instead -->
-                <attribute name="attrs">{'invisible':1}</attribute>
-            </xpath>
-
-            <xpath expr="//button[@name='mass_mailing']" position="after">
+            <xpath expr="//button[@name='action_show_result']" position="after">
                 <button
                     name="%(distribution_list_mass_function_action)d"
                     type="action"
@@ -106,28 +97,14 @@
         <field name="model">distribution.list</field>
         <field name="inherit_id" ref="distribution_list.distribution_list_form" />
         <field name="arch" type="xml">
-            <xpath expr="//header" position="attributes">
-                <attribute
-                    name="attrs"
-                    translation="off"
-                >{'invisible': ['|',('id', '=', False),('active', '=', False)]}</attribute>
-            </xpath>
-
-            <xpath expr="//button[@name='mass_mailing']" position="attributes">
-                <attribute
-                    name="groups"
-                    translation="off"
-                >base.group_erp_manager</attribute>
-                <!-- Button mass mailing becomes invisible in v14: use mass action instead -->
-                <attribute name="invisible">1</attribute>
-            </xpath>
-
-            <xpath expr="//button[@name='mass_mailing']" position="after">
-                <button
-                    name="%(distribution_list_mass_function_action)d"
-                    type="action"
-                    string="Mass Action"
-                />
+            <xpath expr="//sheet" position="before">
+                <header attrs="{'invisible': [('id','=',False)]}">
+                    <button
+                        name="%(distribution_list_mass_function_action)d"
+                        type="action"
+                        string="Mass Action"
+                    />
+                </header>
             </xpath>
 
             <xpath expr="//sheet/div[@name='button_box']" position="inside">

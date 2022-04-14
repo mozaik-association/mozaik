@@ -31,15 +31,3 @@ class DistributionListMassFunction(models.TransientModel):
         if "partner_id" in contacts._fields:
             return contacts.filtered(lambda vt: not vt.partner_id.global_opt_out)
         return contacts.filtered(lambda p: not p.global_opt_out)
-
-    def _create_mail_composer(self):
-        res = super()._create_mail_composer()
-        res.write({"include_opt_out_contacts": self.include_opt_out_contacts})
-        return res
-
-    def _update_mass_mailing(self, mail_composer, mass_mailing):
-        super()._update_mass_mailing(mail_composer, mass_mailing)
-        if mail_composer:
-            mass_mailing.write(
-                {"include_opt_out_contacts": mail_composer.include_opt_out_contacts}
-            )

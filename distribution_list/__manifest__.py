@@ -18,7 +18,6 @@
         "views/distribution_list_line_template.xml",
         "views/distribution_list_line.xml",
         "wizards/distribution_list_add_filter.xml",
-        "wizards/mail_compose_message.xml",
         "wizards/merge_distribution_list.xml",
         "data/mail_template.xml",
     ],

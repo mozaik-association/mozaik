@@ -36,12 +36,6 @@
                     type="object"
                     icon="fa-address-card text-success"
                 />
-                <button
-                    name="mass_mailing"
-                    string="Mass Mailing"
-                    type="object"
-                    icon="fa-at"
-                />
             </tree>
         </field>
     </record>
@@ -51,9 +45,6 @@
         <field name="model">distribution.list</field>
         <field name="arch" type="xml">
             <form>
-                <header attrs="{'invisible': [('id','=',False)]}">
-                    <button name="mass_mailing" type="object" string="Mass Mailing" />
-                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button
