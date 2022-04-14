@@ -88,7 +88,6 @@ msgstr ""
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__display_name
-#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mail_compose_message__display_name
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mailing_mailing__display_name
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_merge_distribution_list__display_name
 msgid "Display Name"
@@ -104,11 +103,6 @@ msgstr ""
 #. module: mass_mailing_distribution_list
 #: model_terms:ir.ui.view,arch_db:mass_mailing_distribution_list.distribution_list_form
 msgid "Email Alias"
-msgstr ""
-
-#. module: mass_mailing_distribution_list
-#: model:ir.model,name:mass_mailing_distribution_list.model_mail_compose_message
-msgid "Email composition wizard"
 msgstr ""
 
 #. module: mass_mailing_distribution_list
@@ -128,7 +122,6 @@ msgstr ""
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__id
-#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mail_compose_message__id
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mailing_mailing__id
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_merge_distribution_list__id
 msgid "ID"
@@ -167,7 +160,6 @@ msgstr ""
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list____last_update
-#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mail_compose_message____last_update
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mailing_mailing____last_update
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_merge_distribution_list____last_update
 msgid "Last Modified on"
