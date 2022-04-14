@@ -69,7 +69,7 @@ class DistributionList(models.Model):
         res = super()._get_dst_model_names()
         return res + ["virtual.target"]
 
-    def _get_mail_compose_message_vals(self, msg, mailing_model=False):
+    def _get_mailing_mailing_vals(self, msg):
         """
         Prepare values for a composer from an incomming message
         :param msg: incomming message str
@@ -78,13 +78,11 @@ class DistributionList(models.Model):
         :return: composer dict
         """
         self.ensure_one()
-        result = super()._get_mail_compose_message_vals(
-            msg, mailing_model=mailing_model
-        )
-        if result.get("mass_mailing_name") and result.get("subject"):
+        result = super()._get_mailing_mailing_vals(msg)
+        if result.get("name") and result.get("subject"):
             result.update(
                 {
-                    "mass_mailing_name": result["subject"],
+                    "name": result["subject"],
                 }
             )
         if self.partner_id.email:
@@ -95,6 +93,7 @@ class DistributionList(models.Model):
                     ),
                 }
             )
+        result["multi_send_same_email"] = True
         return result
 
     @api.onchange("newsletter")
@@ -119,6 +118,8 @@ class DistributionList(models.Model):
         email_from = msg.get("email_from")
         noway = _("No unique coordinate found with address: %s") % email_from
         partner = self._get_mailing_object(email_from)
+        if partner._name == "virtual.target":
+            partner = partner.mapped("partner_id")
         if partner and len(partner) == 1:
             noway = (
                 _("Partner %s is not an owner nor an allowed partner")
@@ -177,14 +178,11 @@ class DistributionList(models.Model):
         email_from = html.escape(msg.get("email_from"))
         reason = html.escape(reason)
         name = html.escape(self.name)
-        body = (
-            _(
-                "<p>Distribution List: %s</p>"
-                "<p>Sender: %s</p>"
-                "<p>Failure Reason: %s</p>"
-            )
-            % (name, email_from, reason),
-        )
+        body = _(
+            "<p>Distribution List: %s</p>"
+            "<p>Sender: %s</p>"
+            "<p>Failure Reason: %s</p>"
+        ) % (name, email_from, reason)
         vals = {
             "parent_id": False,
             "use_active_domain": False,

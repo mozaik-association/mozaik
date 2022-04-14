@@ -27,6 +27,7 @@
         "mozaik_owner_mixin",
         "mozaik_single_instance",
         "mozaik_thesaurus",
+        "mozaik_mass_mailing_multi_sending",
         # from https://github.com/OCA/social
         "email_template_configurator",
     ],
