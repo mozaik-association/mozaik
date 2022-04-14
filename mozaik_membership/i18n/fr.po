@@ -641,7 +641,6 @@ msgstr "Adhésions à renouveler"
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__local_only
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__local_only
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__local_only
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
 msgid "Local Only"
 msgstr "Est contact local"
 
@@ -652,7 +651,6 @@ msgstr "Est contact local"
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__local_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__local_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__local_voluntary
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
 msgid "Local Voluntary"
 msgstr "Volontaire local"
 
@@ -817,7 +815,6 @@ msgstr "Nom de la tarification"
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__national_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__national_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__national_voluntary
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
 msgid "National Voluntary"
 msgstr "Volontaire national"
 
@@ -825,26 +822,6 @@ msgstr "Volontaire national"
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__price
 msgid "New price"
 msgstr "Nouveau prix"
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
-msgid "Non Local Voluntary"
-msgstr "Volontaire non local"
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
-msgid "Non National Voluntary"
-msgstr "Volontaire non national"
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
-msgid "Non Regional Voluntary"
-msgstr "Volontaire non régional"
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
-msgid "Not Local Only"
-msgstr "Contact non local"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__message_needaction_counter
@@ -1063,7 +1040,6 @@ msgstr "Candidat membre refusé"
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__regional_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__regional_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__regional_voluntary
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
 msgid "Regional Voluntary"
 msgstr "Volontaire régional"
 
@@ -1442,6 +1418,18 @@ msgstr "user => utilisateur courant"
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "⇒ Pay Attention"
 msgstr "⇒ Précaution à prendre"
+
+#~ msgid "Non Local Voluntary"
+#~ msgstr "Volontaire non local"
+
+#~ msgid "Non National Voluntary"
+#~ msgstr "Volontaire non national"
+
+#~ msgid "Non Regional Voluntary"
+#~ msgstr "Volontaire non régional"
+
+#~ msgid "Not Local Only"
+#~ msgstr "Contact non local"
 
 #~ msgid "Abstract Coordinate"
 #~ msgstr "Coordonnée abstraite"
