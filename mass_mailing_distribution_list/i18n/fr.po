@@ -96,7 +96,6 @@ msgstr "Valeurs par défaut"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__display_name
-#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mail_compose_message__display_name
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mailing_mailing__display_name
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_merge_distribution_list__display_name
 #, fuzzy
@@ -117,11 +116,6 @@ msgid "Email Alias"
 msgstr "Alias d'email"
 
 #. module: mass_mailing_distribution_list
-#: model:ir.model,name:mass_mailing_distribution_list.model_mail_compose_message
-msgid "Email composition wizard"
-msgstr "Assistant de composition de courriel"
-
-#. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_follower_ids
 msgid "Followers"
 msgstr "Abonnés"
@@ -138,7 +132,6 @@ msgstr "Abonnés (Partenaires)"
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__id
-#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mail_compose_message__id
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mailing_mailing__id
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_merge_distribution_list__id
 msgid "ID"
@@ -181,7 +174,6 @@ msgstr ""
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list____last_update
-#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mail_compose_message____last_update
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_mailing_mailing____last_update
 #: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_merge_distribution_list____last_update
 msgid "Last Modified on"
@@ -323,7 +315,8 @@ msgstr "Partner Path"
 #: code:addons/mass_mailing_distribution_list/models/distribution_list.py:0
 #, python-format
 msgid "Partner Path is not valid: this field doesn't exist on model '%s'"
-msgstr "Partner Path n'est pas valide: ce champ n'existe pas sur le modèle '%s'"
+msgstr ""
+"Partner Path n'est pas valide: ce champ n'existe pas sur le modèle '%s'"
 
 #. module: mass_mailing_distribution_list
 #: code:addons/mass_mailing_distribution_list/models/distribution_list.py:0
@@ -444,3 +437,6 @@ msgstr ""
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__website_message_ids
 msgid "Website communication history"
 msgstr ""
+
+#~ msgid "Email composition wizard"
+#~ msgstr "Assistant de composition de courriel"
