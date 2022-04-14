@@ -121,7 +121,7 @@ class DistributionList(models.Model):
         partner = self._get_mailing_object(email_from)
         if partner and len(partner) == 1:
             noway = (
-                _("Partner %s is not an owner nor " "an allowed partner")
+                _("Partner %s is not an owner nor an allowed partner")
                 % partner.display_name
             )
             if partner in self.res_partner_ids:
