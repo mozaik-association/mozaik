@@ -32,7 +32,6 @@ msgid ""
 msgstr ""
 
 #. module: mozaik_mass_mailing_template
-#: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_distribution_list_mass_function__display_name
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mail_template__display_name
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mailing_mailing__display_name
 msgid "Display Name"
@@ -49,14 +48,12 @@ msgid "Email Templates"
 msgstr ""
 
 #. module: mozaik_mass_mailing_template
-#: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_distribution_list_mass_function__id
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mail_template__id
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mailing_mailing__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_mass_mailing_template
-#: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_distribution_list_mass_function____last_update
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mail_template____last_update
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_template.field_mailing_mailing____last_update
 msgid "Last Modified on"
@@ -65,11 +62,6 @@ msgstr ""
 #. module: mozaik_mass_mailing_template
 #: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_template.mailing_mailing_form_view
 msgid "Mail Body"
-msgstr ""
-
-#. module: mozaik_mass_mailing_template
-#: model:ir.model,name:mozaik_mass_mailing_template.model_distribution_list_mass_function
-msgid "Mass Function"
 msgstr ""
 
 #. module: mozaik_mass_mailing_template
