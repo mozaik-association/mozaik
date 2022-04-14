@@ -48,11 +48,6 @@ msgstr ""
 "                    </span>"
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__contact_ab_pc
-msgid "AB Batch (%)"
-msgstr "Lot AB (%)"
-
-#. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_abstract_virtual_model
 msgid "Abstract Virtual Model"
 msgstr "Modèle virtuel abstrait"
@@ -107,11 +102,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_form
 msgid "Archived"
 msgstr "Archivé"
-
-#. module: mozaik_communication
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_mass_function_wizard
-msgid "Attach a file"
-msgstr "Joindre un fichier"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_attachment_count
@@ -220,20 +210,10 @@ msgid "Communication"
 msgstr "Communication"
 
 #. module: mozaik_communication
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.view_mail_mass_mailing_form
-msgid "Compare batches"
-msgstr "Comparer les lots"
-
-#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__competency_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__competency_ids
 msgid "Competencies"
 msgstr "Compétences"
-
-#. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__extract_csv
-msgid "Complementary postal CSV"
-msgstr "CSV complémentaire pour envoi postal"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_res_partner
@@ -303,14 +283,12 @@ msgstr "Créé par"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__create_uid
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__create_uid
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__create_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__create_date
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__create_date
 msgid "Created on"
 msgstr "Créé le"
 
@@ -328,12 +306,10 @@ msgstr "Partner de diffusion"
 #: model:ir.model.fields,field_description:mozaik_communication.field_email_template_placeholder__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_compose_message__display_name
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_template__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_thread__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace__display_name
-#: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace_report__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_membership_request__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_partner__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__display_name
@@ -343,7 +319,6 @@ msgstr "Nom à afficher"
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_distribution_list
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__distribution_list_id
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__distribution_list_id
 msgid "Distribution List"
 msgstr "Liste de distribution"
 
@@ -553,17 +528,6 @@ msgid "Generate"
 msgstr "Générer"
 
 #. module: mozaik_communication
-#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_mass_function__extract_csv
-msgid "Get a CSV file for partners without email"
-msgstr "Produire un fichier CSV pour les partenaires sans adresse électronique"
-
-#. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing__group_id
-#: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace_report__group_id
-msgid "Group"
-msgstr "Groupe"
-
-#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__groupby_coresidency
 msgid "Group by co-residency"
 msgstr "Grouper par Co-résidence"
@@ -577,12 +541,10 @@ msgstr "Grouper par Co-résidence"
 #: model:ir.model.fields,field_description:mozaik_communication.field_email_template_placeholder__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_compose_message__id
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_template__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_thread__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace__id
-#: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace_report__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_membership_request__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_partner__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__id
@@ -637,7 +599,6 @@ msgstr "Intérêts"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__int_instance_id
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__internal_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_template__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__int_instance_id
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_email_template_search
@@ -704,12 +665,10 @@ msgstr "Langue"
 #: model:ir.model.fields,field_description:mozaik_communication.field_email_template_placeholder____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_compose_message____last_update
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_template____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_thread____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace____last_update
-#: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace_report____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_membership_request____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_partner____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target____last_update
@@ -724,14 +683,12 @@ msgstr "Date du dernier échec (postal)"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__write_uid
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__write_uid
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__write_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__write_date
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
@@ -765,11 +722,6 @@ msgid "Mailing Statistics"
 msgstr "Statistiques du courriel de masse"
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__mailings_ids
-msgid "Mailings"
-msgstr "Publipostages"
-
-#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_main_attachment_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_main_attachment_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_main_attachment_id
@@ -782,11 +734,6 @@ msgstr "Pièces jointes"
 #: model:res.groups,name:mozaik_communication.res_groups_communication_manager
 msgid "Manager"
 msgstr "Gestionnaire"
-
-#. module: mozaik_communication
-#: model:res.groups,name:mozaik_communication.res_groups_communication_manager_mass_mailing
-msgid "Manager - Mass Mailings Allowed"
-msgstr ""
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_form
@@ -802,27 +749,14 @@ msgid "Mass Function"
 msgstr "Fonctionnalité de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizards/distribution_list_mass_function.py:0
 #: model:ir.model,name:mozaik_communication.model_mailing_mailing
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_mass_function_wizard
-#, python-format
 msgid "Mass Mailing"
 msgstr "Publipostage"
-
-#. module: mozaik_communication
-#: model:ir.model,name:mozaik_communication.model_mail_mass_mailing_group
-msgid "Mass Mailing Group"
-msgstr "Regroupement de courriels de masse"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__mass_mailing_name
 msgid "Mass Mailing Name"
 msgstr "Nom du courriel de masse"
-
-#. module: mozaik_communication
-#: model:ir.model,name:mozaik_communication.model_mailing_trace_report
-msgid "Mass Mailing Statistics"
-msgstr "Statistiques du courriel de masse"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__e_mass_function
@@ -899,7 +833,6 @@ msgstr "Mes modèles"
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__name
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__name
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__name
 #: model:ir.model.fields.selection,name:mozaik_communication.selection__distribution_list_mass_function__sort_by__technical_name
 #, python-format
 msgid "Name"
@@ -1119,11 +1052,6 @@ msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mozaik_communication
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_mass_function_wizard
-msgid "Save as new template"
-msgstr "Sauvegarder en tant que nouveau modèle"
-
-#. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_virtual_target
 msgid "Searching Result"
 msgstr "Résultat de la recherche"
@@ -1138,11 +1066,6 @@ msgstr "Sécurité"
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.abstract_virtual_model_tree_view
 msgid "See Partner"
 msgstr "Voir le partenaire"
-
-#. module: mozaik_communication
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.view_mail_mass_mailing_form
-msgid "Send next batch"
-msgstr "Envoyer le lot suivant"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_mail_mass_mailing_search
@@ -1184,11 +1107,6 @@ msgid "Subject"
 msgstr "Objet"
 
 #. module: mozaik_communication
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_mass_function_wizard
-msgid "Subject..."
-msgstr "Objet..."
-
-#. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__technical_name
 msgid "Technical Name"
 msgstr "Nom technique"
@@ -1202,12 +1120,6 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_communication.field_mail_template__model_id
 msgid "The type of document this template can be used with"
 msgstr ""
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizards/distribution_list_mass_function.py:0
-#, python-format
-msgid "There are no recipients"
-msgstr "Aucun destinataire"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
@@ -1226,17 +1138,6 @@ msgstr ""
 #, python-format
 msgid "Title"
 msgstr "Civilité"
-
-#. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_mail_mass_mailing_group__total_sent
-#: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing__group_total_sent
-msgid "Total sent (%)"
-msgstr "Total envoyé (%)"
-
-#. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_mailing_trace_report__trial
-msgid "Trial"
-msgstr "Essai"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_unread
@@ -1336,6 +1237,52 @@ msgstr "ou"
 #, python-format
 msgid "value should be a list"
 msgstr ""
+
+#~ msgid "AB Batch (%)"
+#~ msgstr "Lot AB (%)"
+
+#~ msgid "Attach a file"
+#~ msgstr "Joindre un fichier"
+
+#~ msgid "Compare batches"
+#~ msgstr "Comparer les lots"
+
+#~ msgid "Complementary postal CSV"
+#~ msgstr "CSV complémentaire pour envoi postal"
+
+#~ msgid "Get a CSV file for partners without email"
+#~ msgstr ""
+#~ "Produire un fichier CSV pour les partenaires sans adresse électronique"
+
+#~ msgid "Group"
+#~ msgstr "Groupe"
+
+#~ msgid "Mailings"
+#~ msgstr "Publipostages"
+
+#~ msgid "Mass Mailing Group"
+#~ msgstr "Regroupement de courriels de masse"
+
+#~ msgid "Mass Mailing Statistics"
+#~ msgstr "Statistiques du courriel de masse"
+
+#~ msgid "Save as new template"
+#~ msgstr "Sauvegarder en tant que nouveau modèle"
+
+#~ msgid "Send next batch"
+#~ msgstr "Envoyer le lot suivant"
+
+#~ msgid "Subject..."
+#~ msgstr "Objet..."
+
+#~ msgid "There are no recipients"
+#~ msgstr "Aucun destinataire"
+
+#~ msgid "Total sent (%)"
+#~ msgstr "Total envoyé (%)"
+
+#~ msgid "Trial"
+#~ msgstr "Essai"
 
 #~ msgid "Archive/reactivate distribution list: proceed anyway?"
 #~ msgstr "Poursuivre l'archivage/réactivation de la liste de distribution ?"
