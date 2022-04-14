@@ -629,7 +629,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__local_only
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__local_only
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__local_only
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
 msgid "Local Only"
 msgstr ""
 
@@ -640,7 +639,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__local_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__local_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__local_voluntary
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
 msgid "Local Voluntary"
 msgstr ""
 
@@ -803,33 +801,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__national_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__national_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__national_voluntary
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
 msgid "National Voluntary"
 msgstr ""
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__price
 msgid "New price"
-msgstr ""
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
-msgid "Non Local Voluntary"
-msgstr ""
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
-msgid "Non National Voluntary"
-msgstr ""
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
-msgid "Non Regional Voluntary"
-msgstr ""
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
-msgid "Not Local Only"
 msgstr ""
 
 #. module: mozaik_membership
@@ -1047,7 +1024,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__regional_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_users__regional_voluntary
 #: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__regional_voluntary
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_search_view
 msgid "Regional Voluntary"
 msgstr ""
 
