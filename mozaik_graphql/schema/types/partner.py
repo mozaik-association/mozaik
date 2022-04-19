@@ -19,6 +19,7 @@ class Partner(AbstractObject):
     lastname = graphene.String()
     gender = graphene.String()
     email = graphene.String()
+    mandate_email = graphene.String()
     address = graphene.Field(Address)
     membership_state = graphene.Field(MembershipState)
     social_twitter = graphene.String()

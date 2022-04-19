@@ -16,6 +16,7 @@
         "mozaik_address",
         "mozaik_mandate",
         "mozaik_mandate_category_sequence",
+        "mozaik_mandate_email",
         "mozaik_mandate_female_label",
         "mozaik_mandate_show_website",
         "mozaik_membership",
