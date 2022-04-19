@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="survey_survey_form_view">
+        <field name="name">survey.survey.form (in mozaik_survey_export_csv)</field>
+        <field name="model">survey.survey</field>
+        <field name="inherit_id" ref="survey.survey_form" />
+        <field name="arch" type="xml">
+             <xpath expr="//button[@name='action_close']" position="after">
+                 <button name="export_csv_action" string="Export CSV" type="object" />
+             </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
