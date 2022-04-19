@@ -1,6 +1,5 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import base64
 import logging
 import re
 
@@ -118,23 +117,6 @@ class DistributionList(models.Model):
         domain = [(email_field, "=", email_from)]
         return mailing_object.search(domain)
 
-    @api.model
-    def _get_attachment(self, data):
-        """
-        Create an attachment based on given data list
-        :param data: list
-        :return: ir.attachment recordset
-        """
-        datas = data[1]
-        if isinstance(datas, str):
-            datas = datas.encode()
-        values = {
-            "name": data[0],
-            "datas": base64.encodebytes(datas),
-            "res_model": "mail.compose.message",
-        }
-        return self.env["ir.attachment"].create(values)
-
     def _get_mailing_mailing_vals(self, msg):
         """
         Prepare values for a composer from an incomming message
@@ -144,19 +126,25 @@ class DistributionList(models.Model):
         :return: composer dict
         """
         self.ensure_one()
-
-        attachments = self.env["ir.attachment"]
-        for attachment_data in msg.get("attachments", []):
-            attachments |= self._get_attachment(attachment_data)
+        # modify the mail to add correctly the images
+        vals = self._message_post_process_attachments(
+            msg.get("attachments", []),
+            False,
+            {
+                "body": msg.get("body", False),
+                "model": "mail.compose.message",
+                "res_id": False,
+            },
+        )
         return {
             "email_from": msg.get("email_from", False),
             "reply_to": msg.get("email_from", False),
             "subject": msg.get("subject", False),
-            "body_html": msg.get("body", False),
+            "body_html": vals.get("body", False),
             "distribution_list_id": self.id,
             "name": "Mass Mailing %s" % self.name,
             "mailing_model_id": self.env["ir.model"]._get(self._name).id,
-            "attachment_ids": [[6, 0, attachments.ids]],
+            "attachment_ids": vals.get("attachment_ids"),
         }
 
     def _get_opt_res_ids(self, domain):
