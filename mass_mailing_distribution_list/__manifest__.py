@@ -21,4 +21,5 @@
     ],
     "pre_init_hook": "_create_mail_alias",
     "installable": True,
+    "external_dependencies": {"python": ["openupgradelib"]},
 }

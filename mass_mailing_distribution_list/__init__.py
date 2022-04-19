@@ -5,9 +5,13 @@ from . import models
 from . import wizards
 from odoo.api import Environment
 from odoo import SUPERUSER_ID
+from openupgradelib import openupgrade
 
 
 def _create_mail_alias(cr):
+
+    if openupgrade.column_exists(cr, "distribution_list", "alias_id"):
+        return
 
     cr.execute("ALTER TABLE distribution_list ADD COLUMN alias_id INTEGER;")
 
