@@ -165,7 +165,7 @@ class ResPartner(models.Model):
         default_instance = self.env["int.instance"]._get_default_int_instance()
         all_excl_states = state_obj._get_all_exclusion_states()
         for record in self:
-            if record.active:
+            if record.active or any(record.membership_line_ids.mapped("active")):
                 memberships = record.membership_line_ids.filtered(lambda l: l.active)
             else:
                 memberships = first(
@@ -191,7 +191,7 @@ class ResPartner(models.Model):
         state_obj = self.env["membership.state"]
         state = state_obj.browse()
         if not self.is_assembly:
-            if self.active:
+            if self.active or any(self.membership_line_ids.mapped("active")):
                 memberships = self.membership_line_ids.filtered("active")
             else:
                 memberships = first(
