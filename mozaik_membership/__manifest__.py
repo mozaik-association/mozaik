@@ -4,7 +4,7 @@
     "name": "Mozaik: Membership",
     "summary": """
         Manage memberships""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
@@ -56,4 +56,5 @@
         "demo/res_city.xml",
     ],
     "installable": True,
+    "external_dependencies": {"python": ["openupgradelib"]},
 }
