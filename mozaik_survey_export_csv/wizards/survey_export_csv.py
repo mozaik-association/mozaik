@@ -28,6 +28,10 @@ class SurveyExportCsv(models.TransientModel):
         string="Export CSV filename",
     )
 
+    def _get_interests(self):
+        self.ensure_one()
+        return ", ".join(self.survey_id.interest_ids.mapped("name"))
+
     def _add_questions_to_cols(self, header):
         """
         header: list of str
@@ -74,25 +78,24 @@ class SurveyExportCsv(models.TransientModel):
             _("Interests"),
             _("Answering Partner"),
             _("Partner ID"),
-            # _("Partner form URL"),
-            # _("Token ID"),
-            # _("Survey answer URL"),
-            # _("Answering datetime"),
-            # _("Modification datetime"),
+            _("Partner URL"),
+            _("Access Token"),
+            _("Survey answer URL"),
+            _("Create Date"),
+            _("Last Update Date"),
             _("Status"),
             _("Lastname"),
             _("Firstname"),
-            # _("Gender"),
-            # _("Birth Date"),
-            # _("Membership State"),
-            # _("Email"),
-            # _("Mobile"),
-            # _("Street"),
-            # _("Street2"),
-            # _("Zip"),
-            # _("City"),
-            # _("Score"),
-            # _("Quiz passed"),
+            _("Gender"),
+            _("Birth Date"),
+            _("Membership State"),
+            _("Email"),
+            _("Mobile"),
+            _("Street"),
+            _("Zip"),
+            _("City"),
+            _("Score (%)"),
+            _("Quizz passed"),
         ]
         self._add_questions_to_cols(header)
         return header
@@ -110,9 +113,24 @@ class SurveyExportCsv(models.TransientModel):
             "interests",
             "answering_partner",
             "partner_id",
+            "partner_url",
+            "access_token",
+            "user_input_url",
+            "create_date",
+            "write_date",
             "survey_status",
             "lastname",
             "firstname",
+            "gender",
+            "birthdate_date",
+            "membership_state",
+            "email",
+            "mobile",
+            "street",
+            "zip",
+            "city",
+            "score",
+            "scoring_success",
         ]
         export_values = [values.get(k, "") for k in keys]
         export_values += values.get("answers", [])
@@ -141,8 +159,21 @@ class SurveyExportCsv(models.TransientModel):
         p.firstname,
         p.identifier as number,
         p.id as partner_id,
+        p.gender,
+        p.birthdate_date,
+        p.membership_state_id as membership_state,
+        p.email,
+        p.mobile,
+        p.street,
+        p.zip,
+        p.city,
         ui.id as user_input_id,
-        ui.state as survey_status
+        ui.access_token,
+        ui.create_date,
+        ui.write_date,
+        ui.state as survey_status,
+        ui.scoring_percentage as score,
+        ui.scoring_success
         """
 
     def _get_from(self):
@@ -398,7 +429,64 @@ class SurveyExportCsv(models.TransientModel):
 
         return answers
 
-    @api.model
+    def _update_score(self, score):
+        """
+        If survey.scoring_type == 'no_scoring' -> score must be "" and not 0.
+        """
+        if self.survey_id.scoring_type == "no_scoring":
+            return ""
+        return score
+
+    def _update_scoring_success(self, scoring_success):
+        """
+        If survey.scoring_type == 'no_scoring' -> scoring_success (string) must be ""
+        """
+        if self.survey_id.scoring_type == "no_scoring":
+            return ""
+        return scoring_success
+
+    def _get_partner_url(self, partner_id):
+        """
+        Returns the Odoo URL to access the partner form view of the
+        partner given by its id.
+        """
+        if not partner_id:
+            return ""
+        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        custom_url = (
+            "/web#id=%(partner_id)d&action=%(action_id)d&"
+            "model=res.partner&view_type=form&cids=&menu_id=%(menu_id)d"
+            % {
+                "partner_id": partner_id,
+                "action_id": self.env.ref(
+                    "mozaik_person.res_partner_natural_person_action"
+                ).id,
+                "menu_id": self.env.ref("contacts.menu_contacts").id,
+            }
+        )
+        return base_url + custom_url
+
+    def _get_user_input_url(self, user_input_id):
+        """
+        Returns the Odoo URL to access the survey user input form view
+        using the given id.
+        """
+        if not user_input_id:
+            return ""
+        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        custom_url = (
+            "/web#id=%(user_input_id)d&action=%(action_id)d&active_id="
+            "%(survey_id)d&model=survey.user_input&view_type=form&"
+            "cids=&menu_id=%(menu_id)d"
+            % {
+                "user_input_id": user_input_id,
+                "survey_id": self.survey_id.id,
+                "action_id": self.env.ref("survey.action_survey_user_input").id,
+                "menu_id": self.env.ref("survey.menu_surveys").id,
+            }
+        )
+        return base_url + custom_url
+
     def _get_csv(self, model_ids):
         """
         Build a CSV file related to a coordinate model related to model_ids
@@ -407,10 +495,14 @@ class SurveyExportCsv(models.TransientModel):
         """
         if not model_ids:
             return ""
-        states = self.env["membership.state"].search([])
-        states = {st.id: st.name for st in states}
-        selections = self.env["res.partner"].fields_get(allfields=["gender", "lang"])
-        genders = {k: v for k, v in selections["gender"]["selection"]}
+        membership_states = self.env["membership.state"].search([])
+        membership_states = {st.id: st.name for st in membership_states}
+        selections_partner = self.env["res.partner"].fields_get(allfields=["gender"])
+        selections_survey_ui = self.env["survey.user_input"].fields_get(
+            allfields=["state"]
+        )
+        survey_states = {k: v for k, v in selections_survey_ui["state"]["selection"]}
+        genders = {k: v for k, v in selections_partner["gender"]["selection"]}
         headers = self._get_csv_rows()
 
         with StringIO() as memory_file:
@@ -421,14 +513,30 @@ class SurveyExportCsv(models.TransientModel):
                 data.update(
                     {
                         "object_type": "Survey",
+                        "interests": self._get_interests(),
                         "answering_partner": self._compute_answering_partner(
                             data.get("number", "0"),
                             data.get("lastname", False),
                             data.get("firstname", False),
                         ),
-                        "state": states.get(data.get("state_id"), data.get("state")),
+                        "survey_status": survey_states.get(
+                            data.get("survey_status"), data.get("survey_status")
+                        ),
+                        "membership_state": membership_states.get(
+                            data.get("membership_state"), data.get("membership_state")
+                        ),
                         "gender": genders.get(data.get("gender"), data.get("gender")),
                         "answers": self._give_answers(data.get("user_input_id", False)),
+                        "score": self._update_score(data.get("score", 0)),
+                        "scoring_success": self._update_scoring_success(
+                            data.get("scoring_success", False)
+                        ),
+                        "partner_url": self._get_partner_url(
+                            data.get("partner_id", False)
+                        ),
+                        "user_input_url": self._get_user_input_url(
+                            data.get("user_input_id", False)
+                        ),
                     }
                 )
                 export_values = self._get_csv_values(data)

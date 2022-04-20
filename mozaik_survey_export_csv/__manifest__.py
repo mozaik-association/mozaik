@@ -10,7 +10,11 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
+        "contacts",
         "survey",
+        "mozaik_membership",
+        "mozaik_person",
+        "mozaik_thesaurus",
     ],
     "data": [
         "security/ir.model.access.csv",
