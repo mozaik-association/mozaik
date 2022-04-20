@@ -4,7 +4,7 @@
     "name": "Mozaik: Membership Request",
     "summary": """
         Manage membership and modification requests""",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
@@ -34,4 +34,5 @@
         "demo/membership_request.xml",
     ],
     "installable": True,
+    "external_dependencies": {"python": ["openupgradelib"]},
 }
