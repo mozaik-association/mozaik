@@ -737,7 +737,6 @@ msgstr "Gestionnaire"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_form
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_tree
 msgid "Mass Action"
 msgstr "Fonctionnalité de masse"
 
@@ -1201,7 +1200,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_form
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_tree
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_tree
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_tree
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
