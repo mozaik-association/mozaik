@@ -13,7 +13,7 @@
             ref="mass_mailing_distribution_list.view_mail_mass_mailing_form"
         />
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='mailing_model_id_container']" position="after">
+            <xpath expr="//field[@name='name']" position="before">
                 <field
                     name="multi_send_same_email"
                     attrs="{'invisible': [('mailing_model_name', 'not in', ['res.partner', 'distribution.list'])]}"
