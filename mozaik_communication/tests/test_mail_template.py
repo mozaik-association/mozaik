@@ -20,5 +20,7 @@ class TestEmailTemplate(TransactionCase):
         # Check for default values
         self.assertEqual(tmpl.model_id.model, "res.partner")
         tmpl.invalidate_cache()
-        self.assertIn(self.env.user, tmpl.res_users_ids)
+        # Since the current user is inactive, the default owner is admin.
+        self.assertFalse(self.env.user.active)
+        self.assertIn(self.env.ref("base.user_admin"), tmpl.res_users_ids)
         self.assertEqual(tmpl.int_instance_id, int_instance)
