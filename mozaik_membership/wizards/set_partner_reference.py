@@ -39,7 +39,7 @@ class SetPartnerReference(models.TransientModel):
                 (
                     "code",
                     "in",
-                    ("member_candidate", "supporter", "member", "former_member"),
+                    ("supporter", "former_member"),
                 )
             ]
         )
