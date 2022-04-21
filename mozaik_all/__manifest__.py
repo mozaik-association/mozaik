@@ -92,6 +92,7 @@
         "mozaik_retrocession_mode",
         "mozaik_survey_chatter",
         "mozaik_survey_involvement_category",
+        "mozaik_survey_export_csv",
         "mozaik_survey_security",
         "mozaik_survey_membership_request_involvement",
         "mozaik_survey_publish_date",
