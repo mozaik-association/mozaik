@@ -79,21 +79,22 @@ class DistributionList(models.Model):
         """
         self.ensure_one()
         result = super()._get_mailing_mailing_vals(msg)
-        if result.get("name") and result.get("subject"):
-            result.update(
+        result_vals = result[0]
+        if result_vals.get("name") and result_vals.get("subject"):
+            result_vals.update(
                 {
-                    "name": result["subject"],
+                    "name": result_vals["subject"],
                 }
             )
         if self.partner_id.email:
-            result.update(
+            result_vals.update(
                 {
                     "email_from": formataddr(
                         (self.partner_id.name, self.partner_id.email)
                     ),
                 }
             )
-        result["multi_send_same_email"] = True
+        result_vals["multi_send_same_email"] = True
         return result
 
     @api.onchange("newsletter")

@@ -132,20 +132,24 @@ class DistributionList(models.Model):
             False,
             {
                 "body": msg.get("body", False),
-                "model": "mail.compose.message",
+                "model": "mailing.mailing",
                 "res_id": False,
             },
+        )
+        attachments = self.env["ir.attachment"].browse(
+            [a[1] for a in vals.get("attachment_ids")]
         )
         return {
             "email_from": msg.get("email_from", False),
             "reply_to": msg.get("email_from", False),
+            "reply_to_mode": "email",
             "subject": msg.get("subject", False),
-            "body_html": vals.get("body", False),
+            "body_html": vals.get("body", msg.get("body", False)),
             "distribution_list_id": self.id,
             "name": "Mass Mailing %s" % self.name,
             "mailing_model_id": self.env["ir.model"]._get(self._name).id,
-            "attachment_ids": vals.get("attachment_ids"),
-        }
+            "attachment_ids": attachments.filtered(lambda s: not s.access_token).ids,
+        }, attachments
 
     def _get_opt_res_ids(self, domain):
         """
@@ -349,7 +353,8 @@ class DistributionList(models.Model):
             .get_param("distribution.list.mass.mailing.test", default="AAAAAA")
         )
         self_ctx = self
-        mail_composer_vals = self_ctx._get_mailing_mailing_vals(msg)
+        mailing_mailing_vals_and_att = self_ctx._get_mailing_mailing_vals(msg)
+        mail_composer_vals = mailing_mailing_vals_and_att[0]
         if subject.upper().startswith(test_code.upper()):
             mail_composer_vals["subject"] = subject[len(test_code) :]
             self_ctx = self.with_context(
@@ -366,7 +371,9 @@ class DistributionList(models.Model):
                 active_model="res.partner",
             )
         mailing_mailing = self_ctx.env["mailing.mailing"].create(mail_composer_vals)
+        mailing_mailing_vals_and_att[1].write({"res_id": mailing_mailing.id})
         if mailing_mailing._get_remaining_recipients():
+            mailing_mailing.state = "sending"
             mailing_mailing.action_send_mail()
         return True
 
