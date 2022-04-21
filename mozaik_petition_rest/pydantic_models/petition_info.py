@@ -14,6 +14,7 @@ from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import
 from odoo.addons.pydantic import utils
 
 from .petition_milestone_info import PetitionMilestoneInfo
+from .petition_partner_info import PetitionPartnerInfo
 from .petition_question_info import PetitionQuestionInfo
 from .website_domain_info import WebsiteDomainInfo
 
@@ -38,6 +39,7 @@ class PetitionShortInfo(BaseModel, metaclass=ExtendableModelMeta):
     )
     is_headline: bool = None
     write_date: datetime
+    partner_ids: List[PetitionPartnerInfo] = pydantic.Field([], alias="partner_ids")
 
     class Config:
         orm_mode = True
