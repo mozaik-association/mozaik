@@ -34,7 +34,7 @@
         <field name="model">distribution.list</field>
         <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='dst_model_id']" position="after">
+            <xpath expr="//field[@name='name']" position="after">
                 <field name="newsletter" />
                 <field name="alias_name" />
             </xpath>
