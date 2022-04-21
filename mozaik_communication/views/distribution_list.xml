@@ -55,6 +55,7 @@
         <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
+                <field name="partner_id" />
                 <field name="int_instance_ids" widget="many2many_tags" />
             </xpath>
 
@@ -62,9 +63,8 @@
                 <button
                     name="%(distribution_list_mass_function_action)d"
                     type="action"
-                    string="Mass Action"
                     attrs="{'invisible':[('active', '=', False)]}"
-                    icon="fa-paper-plane"
+                    icon="fa-download"
                 />
                 <field
                     name="expire_date"
@@ -83,7 +83,6 @@
             <xpath expr="//button[@name='action_show_result']" position="after">
                 <button
                     name="action_show_result_without_coordinate"
-                    string="Without Coordinate"
                     attrs="{'invisible':[('active', '=', False)]}"
                     type="object"
                     icon="fa-address-card text-danger"
