@@ -1,0 +1,242 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_survey_export_csv
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "(Comments)"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Access Token"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Answering Partner"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Birth Date"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__export_file
+msgid "CSV"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "City"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model_terms:ir.ui.view,arch_db:mozaik_survey_export_csv.survey_export_csv_wizard
+msgid "Close"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Create Date"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__display_name
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_survey__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Email"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model_terms:ir.ui.view,arch_db:mozaik_survey_export_csv.survey_export_csv_wizard
+msgid "Export"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.actions.act_window,name:mozaik_survey_export_csv.export_csv_action
+msgid "Export Answers as CSV"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model_terms:ir.ui.view,arch_db:mozaik_survey_export_csv.survey_survey_form_view
+msgid "Export CSV"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__export_filename
+msgid "Export CSV filename"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Firstname"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Gender"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__id
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_survey__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Interests"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv____last_update
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_survey____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Last Update Date"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Lastname"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Membership State"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Mobile"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Object Name"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Object Type"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Partner ID"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Partner URL"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Quizz passed"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Score (%)"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Status"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Street"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model,name:mozaik_survey_export_csv.model_survey_survey
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__survey_id
+msgid "Survey"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Survey answer URL"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model:ir.model,name:mozaik_survey_export_csv.model_survey_export_csv
+msgid "Survey export CSV"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: model_terms:ir.ui.view,arch_db:mozaik_survey_export_csv.survey_export_csv_wizard
+msgid "This wizard will export all answers to this survey into a CSV file."
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "Zip"
+msgstr ""
