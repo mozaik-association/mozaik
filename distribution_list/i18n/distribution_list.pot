@@ -325,7 +325,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_tree_view
 #: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_tree
-#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_tree
 msgid "Result"
 msgstr ""
 
