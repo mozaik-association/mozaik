@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form (in mozaik_mandate_email)</field>
+        <field name="model">res.partner</field>
+        <field name="priority" eval="5" />
+        <field name="inherit_id" ref="mozaik_mandate.res_partner_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='mandates']/span" position="before">
+                <group>
+                    <field
+                        name="mandate_email"
+                        widget="email"
+                        groups="mozaik_mandate_email.group_mandate_see_email"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
