@@ -37,7 +37,7 @@ def _update_owners(cr, query, query_params, admin_id):
         cr.execute(
             """
             INSERT INTO %(m2m_rel_name)s
-            VALUES (%(record_id)d, %(admin_id)d);
+            VALUES (%(record_id)s, %(admin_id)s);
             """,
             {
                 "record_id": value[0],
