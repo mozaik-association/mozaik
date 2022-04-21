@@ -12,8 +12,16 @@ class OwnerMixin(models.AbstractModel):
     res_users_ids = fields.Many2many(
         comodel_name="res.users",
         string="Owners",
-        default=lambda self: self.env.user,
+        default=lambda self: self._get_default_owner(),
     )
+
+    def _get_default_owner(self):
+        """
+        Default owner is the current user if active,
+        and admin otherwise
+        """
+        admin = self.env.ref("base.user_admin")
+        return self.env.user if self.env.user.active else admin
 
     @api.constrains("res_users_ids")
     def _check_res_users_ids_not_empty(self):
