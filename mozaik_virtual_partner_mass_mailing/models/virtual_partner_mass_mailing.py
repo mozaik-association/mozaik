@@ -16,9 +16,7 @@ class VirtualPartnerMassMailing(models.Model):
     mass_mailing_id = fields.Many2one(
         "mailing.mailing", string="Corresponding mass mailing"
     )
-    mass_mailing_name = fields.Char(
-        string="Mass mailing name", related="mass_mailing_id.name"
-    )
+    mass_mailing_subject = fields.Char(string="Mass mailing subject")
     ignored = fields.Datetime(
         help="Date when the email has been invalidated. "
         "Invalid emails are blacklisted, opted-out or invalid email format"
@@ -77,7 +75,8 @@ class VirtualPartnerMassMailing(models.Model):
             mt.bounced,
             mt.clicked,
             mt.state,
-            mt.failure_type"""
+            mt.failure_type,
+            mm.subject as mass_mailing_subject"""
         )
         return select
 
@@ -89,9 +88,9 @@ class VirtualPartnerMassMailing(models.Model):
         """
         from_query = """FROM
         mailing_trace as mt
-JOIN res_partner AS p
-    ON (mt.res_id = p.id)
-    """
+        JOIN res_partner p ON (mt.res_id = p.id)
+        LEFT JOIN mailing_mailing mm ON (mm.id = mt.mass_mailing_id)
+        """
         return from_query
 
     @api.model
