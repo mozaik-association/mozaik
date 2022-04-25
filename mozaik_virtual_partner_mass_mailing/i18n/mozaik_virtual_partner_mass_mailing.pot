@@ -223,13 +223,9 @@ msgid "Male"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__mass_mailing_subject
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
-msgid "Mass mailing"
-msgstr ""
-
-#. module: mozaik_virtual_partner_mass_mailing
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__mass_mailing_name
-msgid "Mass mailing name"
+msgid "Mass mailing subject"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
