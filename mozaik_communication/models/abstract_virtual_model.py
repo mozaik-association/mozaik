@@ -107,7 +107,7 @@ class AbstractVirtualModel(models.AbstractModel):
         We implement a search method since we will need to search on
         partner_instance_ids in record rules.
         """
-        if operator not in ["in", "not in", "child of"]:
+        if operator not in ["in", "not in", "child_of"]:
             raise ValueError(_("This operator is not supported"))
         if not isinstance(value, list):
             raise ValueError(_("value should be a list"))
