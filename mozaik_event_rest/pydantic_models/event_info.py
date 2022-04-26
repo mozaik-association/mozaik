@@ -13,11 +13,11 @@ from odoo.addons.event_rest_api.pydantic_models.event_info import (
 from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import (
     ThesaurusTermInfo,
 )
-from odoo.addons.partner_rest_api.pydantic_models.partner_info import PartnerInfo
 
 from .event_question_info import EventQuestionInfo
 from .event_website_domain_info import EventWebsiteDomainInfo
 from .partner_address_info import PartnerAddressInfo
+from .partner_minimum_info import PartnerMinimumInfo
 
 
 class EventShortInfo(BaseEventShortInfo, extends=BaseEventShortInfo):
@@ -39,4 +39,4 @@ class EventInfo(BaseEventInfo, extends=BaseEventInfo):
     publish_date: date = None
     questions: List[EventQuestionInfo] = pydantic.Field([], alias="question_ids")
     menu_register_cta: bool = None
-    organizer: PartnerInfo = pydantic.Field(None, alias="organizer_id")
+    organizer: PartnerMinimumInfo = pydantic.Field(None, alias="organizer_id")
