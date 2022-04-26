@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
+from odoo.fields import first
 
 
 class MembershipRequest(models.Model):
@@ -11,7 +12,29 @@ class MembershipRequest(models.Model):
     transaction_ids = fields.Many2many(
         string="Transaction", comodel_name="payment.transaction"
     )
+    latest_transaction = fields.Many2one(
+        string="Latest Transaction",
+        comodel_name="payment.transaction",
+        compute="_compute_latest_transaction",
+        store=True,
+    )
+    transaction_state = fields.Selection(
+        string="Transaction State", related="latest_transaction.state", store=True
+    )
+    transaction_acquirer_id = fields.Many2one(
+        string="Transaction Acquirer",
+        related="latest_transaction.acquirer_id",
+        store=True,
+    )
     payment_link = fields.Char(compute="_compute_payment_link")
+
+    @api.depends("transaction_ids", "transaction_ids.date")
+    def _compute_latest_transaction(self):
+        for mr in self:
+            transactions = mr.transaction_ids.filtered(lambda s: s.date).sorted(
+                "date", reverse=True
+            )
+            mr.latest_transaction = first(transactions)
 
     @api.depends("amount", "partner_id", "reference", "request_type", "state")
     def _compute_payment_link(self):

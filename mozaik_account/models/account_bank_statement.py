@@ -10,7 +10,11 @@ class AccountBankStatement(models.Model):
 
     def auto_reconcile(self):
         self.ensure_one()
-        lines = self.line_ids.filtered(
+        # remove the default_journal_id which can be added by the dashboard
+        context = dict(self.env.context)
+        context.pop("default_journal_id")
+        self_without_default_journal_id = self.with_context(context)
+        lines = self_without_default_journal_id.line_ids.filtered(
             lambda l: not (not l.partner_id or l.is_reconciled)
         )
         if not lines:
