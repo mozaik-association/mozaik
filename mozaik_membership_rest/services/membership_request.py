@@ -145,6 +145,15 @@ class MembershipRequestService(Component):
             )
         return vals
 
+    def _create_membership_request(self, membership_request):
+        vals = self._validate_membership_request_input(membership_request)
+        mr = (
+            self.env["membership.request"].with_context(mode="pre_process").create(vals)
+        )
+        # We validate the request if asked, and force auto-validation if asked
+        mr._auto_validate_may_be_forced(membership_request.auto_validate)
+        return mr
+
     @restapi.method(
         routes=[(["/membership_request"], "POST")],
         input_param=PydanticModel(MembershipRequest),
@@ -153,11 +162,5 @@ class MembershipRequestService(Component):
     def membership_request(
         self, membership_request: MembershipRequest
     ) -> MembershipRequestInfo:
-        vals = self._validate_membership_request_input(membership_request)
-        mr = (
-            self.env["membership.request"].with_context(mode="pre_process").create(vals)
-        )
-        # We validate the request if asked, and force auto-validation if asked
-        mr._auto_validate_may_be_forced(membership_request.auto_validate)
-
+        mr = self._create_membership_request(membership_request)
         return MembershipRequestInfo.from_orm(mr)
