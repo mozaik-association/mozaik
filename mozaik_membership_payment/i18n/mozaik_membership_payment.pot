@@ -68,6 +68,11 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__latest_transaction
+msgid "Latest Transaction"
+msgstr ""
+
+#. module: mozaik_membership_payment
 #: model:ir.model,name:mozaik_membership_payment.model_membership_line
 msgid "Membership Line"
 msgstr ""
@@ -136,6 +141,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__transaction_ids
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_ids
 msgid "Transaction"
+msgstr ""
+
+#. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_acquirer_id
+msgid "Transaction Acquirer"
+msgstr ""
+
+#. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_state
+msgid "Transaction State"
 msgstr ""
 
 #. module: mozaik_membership_payment
