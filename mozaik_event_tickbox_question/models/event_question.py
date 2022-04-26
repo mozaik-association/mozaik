@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class EventQuestion(models.Model):
@@ -17,6 +17,16 @@ class EventQuestion(models.Model):
         "the box to continue the registration.",
         default=False,
     )
+
+    @api.onchange("question_type")
+    def _onchange_question_type(self):
+        """
+        For non tickbox questions, we want 'is mandatory' field
+        to be False
+        """
+        self.ensure_one()
+        if self.question_type != "tickbox":
+            self.is_mandatory = False
 
     def action_view_question_answers(self):
         """Allow analyzing the attendees answers to petition questions

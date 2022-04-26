@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -36,6 +36,16 @@ class PetitionQuestion(models.Model):
         "the box to continue the registration.",
         default=False,
     )
+
+    @api.onchange("question_type")
+    def _onchange_question_type(self):
+        """
+        For non tickbox questions, we want 'is mandatory' field
+        to be False
+        """
+        self.ensure_one()
+        if self.question_type != "tickbox":
+            self.is_mandatory = False
 
     def name_get(self):
         res = []
