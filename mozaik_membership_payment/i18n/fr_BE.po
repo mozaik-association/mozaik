@@ -69,6 +69,11 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__latest_transaction
+msgid "Latest Transaction"
+msgstr ""
+
+#. module: mozaik_membership_payment
 #: model:ir.model,name:mozaik_membership_payment.model_membership_line
 msgid "Membership Line"
 msgstr ""
@@ -126,9 +131,6 @@ msgstr ""
 #. module: mozaik_membership_payment
 #. openerp-web
 #: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "Server Error"
 msgstr ""
@@ -140,6 +142,16 @@ msgid "Transaction"
 msgstr ""
 
 #. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_acquirer_id
+msgid "Transaction Acquirer"
+msgstr ""
+
+#. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_state
+msgid "Transaction State"
+msgstr ""
+
+#. module: mozaik_membership_payment
 #. openerp-web
 #: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
 #, python-format
@@ -148,7 +160,6 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
 #: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "We are not able to redirect you to the payment form."
