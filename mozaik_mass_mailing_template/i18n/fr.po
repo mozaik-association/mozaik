@@ -63,11 +63,6 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_mass_mailing_template
-#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_template.mailing_mailing_form_view
-msgid "Mail Body"
-msgstr "Corps de l'email"
-
-#. module: mozaik_mass_mailing_template
 #: model:ir.model,name:mozaik_mass_mailing_template.model_mailing_mailing
 msgid "Mass Mailing"
 msgstr "Publipostage"
@@ -90,3 +85,6 @@ msgid ""
 "same time, but use_custom_templates does not have the same value on all mass "
 "mailings."
 msgstr ""
+
+#~ msgid "Mail Body"
+#~ msgstr "Corps de l'email"
