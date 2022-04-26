@@ -9,3 +9,4 @@ from . import event_ticket_info
 from . import event_website_domain_info
 from . import event_website_domain_search_filter
 from . import partner_address_info
+from . import partner_minimum_info

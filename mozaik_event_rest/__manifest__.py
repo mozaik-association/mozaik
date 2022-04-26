@@ -21,7 +21,6 @@
         "mozaik_event_stage_draft",
         "mozaik_event_thesaurus",
         "mozaik_event_tickbox_question",
-        "mozaik_partner_rest",
         "mozaik_thesaurus_api",
         "website_event",
         "website_event_questions",
