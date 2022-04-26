@@ -16,16 +16,20 @@
                 </group>
             </xpath>
 
-            <xpath expr="//page[@name='mail_body']" position="attributes">
+            <xpath expr="//field[@name='body_html']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('use_custom_templates', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='body_arch']" position="attributes">
                 <attribute
                     name="attrs"
                 >{'invisible': [('use_custom_templates', '=', True)]}</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='mail_body']" position="before">
-                <page
-                    string="Mail Body"
-                    name="mail_body_custom_templates"
+            <xpath expr="//page[@name='mail_body']" position="inside">
+                <group
+                    name="mail_body_arch_custom"
                     attrs="{'invisible': [('use_custom_templates', '=', False)]}"
                 >
                     <group>
@@ -48,7 +52,7 @@
                         class="pull-right"
                         attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"
                     />
-                </page>
+                </group>
             </xpath>
 
         </field>
