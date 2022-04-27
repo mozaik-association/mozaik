@@ -31,6 +31,7 @@
         "views/petition_question.xml",
         "views/petition_milestone.xml",
         "views/petition_menus.xml",
+        "data/ir_config_parameter.xml",
         "data/petition_type_data.xml",
         "data/petition_question_data.xml",
         "data/petition_petition_data.xml",

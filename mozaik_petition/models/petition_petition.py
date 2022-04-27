@@ -65,7 +65,14 @@ class PetitionPetition(models.Model):
     )
 
     def _check_milestone_ids(self):
-        if not all(petition.milestone_ids for petition in self):
+        mandatory_milestone = (
+            self.sudo()
+            .env["ir.config_parameter"]
+            .get_param("petition.petition.mandatory.milestone")
+        )
+        if mandatory_milestone == "True" and not all(
+            petition.milestone_ids for petition in self
+        ):
             raise ValidationError(_("At least one milestone is mandatory on petitions"))
 
     def write(self, vals):
