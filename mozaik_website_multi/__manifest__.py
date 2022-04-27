@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
-    "depends": ["website_event"],
+    "depends": ["mozaik_petition", "website_event"],
     "data": [
         "security/acl_website_domain.xml",
         "views/event.xml",
