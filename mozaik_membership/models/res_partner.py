@@ -169,7 +169,7 @@ class ResPartner(models.Model):
                 memberships = record.membership_line_ids.filtered(lambda l: l.active)
             else:
                 memberships = first(
-                    record.membership_line_ids.sorted(lambda l: l.date_to)
+                    record.membership_line_ids.sorted(lambda l: l.date_to, reverse=True)
                 )
             instances = memberships.mapped("int_instance_id")
             if not instances and record.force_int_instance_id:
@@ -195,7 +195,7 @@ class ResPartner(models.Model):
                 memberships = self.membership_line_ids.filtered("active")
             else:
                 memberships = first(
-                    self.membership_line_ids.sorted(lambda l: l.date_to)
+                    self.membership_line_ids.sorted(lambda l: l.date_to, reverse=True)
                 )
             states = memberships.mapped("state_id")
             # Get the highest priority of state
