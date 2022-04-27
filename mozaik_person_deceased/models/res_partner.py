@@ -9,8 +9,10 @@ class ResPartner(models.Model):
 
     _inherit = "res.partner"
 
-    is_deceased = fields.Boolean(string="Deceased partner", default=False)
-    death_date = fields.Date(string="Date of death")
+    is_deceased = fields.Boolean(
+        string="Deceased partner", default=False, tracking=True
+    )
+    death_date = fields.Date(string="Date of death", tracking=True)
 
     @api.constrains("death_date")
     def _check_death_date(self):
