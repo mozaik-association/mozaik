@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <data>
+        <record id="petition_mandatory_milestones" model="ir.config_parameter">
+            <field name="key">petition.petition.mandatory.milestone</field>
+            <field name="value">True</field>
+        </record>
+    </data>
+
+</odoo>
