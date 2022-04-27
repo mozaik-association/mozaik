@@ -30,11 +30,7 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
-                <page
-                    name="involvement"
-                    string="Involvements"
-                    attrs="{'invisible': [('is_assembly','=',True)]}"
-                >
+                <page name="involvement" string="Involvements">
                     <button
                         string="All Involvements"
                         class="oe_stat_button oe_right"
