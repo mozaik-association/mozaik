@@ -14,6 +14,7 @@
         "mozaik_communication",
     ],
     "data": [
+        "security/res_groups.xml",
         "data/res_partner_data.xml",
         "views/res_partner.xml",
     ],
