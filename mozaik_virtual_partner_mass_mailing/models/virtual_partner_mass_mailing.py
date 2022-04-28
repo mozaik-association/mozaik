@@ -65,6 +65,7 @@ class VirtualPartnerMassMailing(models.Model):
             super()._get_select()
             + """,
             p.int_instance_id,
+            mt.id as mailing_trace_id,
             mt.mass_mailing_id,
             mt.ignored,
             mt.scheduled,
@@ -103,3 +104,14 @@ class VirtualPartnerMassMailing(models.Model):
             "WHERE mt.model = 'res.partner' AND p.active = TRUE AND"
             " p.identifier IS NOT NULL AND p.identifier != '0'"
         )
+
+    @api.model
+    def _get_order_by(self):
+        """
+        Since several records can have the same partner_id,
+        ORDER BY 'partner_id' doesn't give always the same
+        ordering between records having the same partner_id.
+        We thus need to find a unique way to determine the ids
+        and order the records.
+        """
+        return "mailing_trace_id"
