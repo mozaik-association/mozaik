@@ -36,6 +36,7 @@ class VirtualPartnerRelation(models.Model):
             + """,
         p.int_instance_id,
         p.is_assembly AS is_assembly,
+        r.id AS relation_id,
         r.type_id AS relation_category_id,
         r.right_partner_id AS object_partner_id"""
         )
@@ -64,3 +65,14 @@ class VirtualPartnerRelation(models.Model):
         return """
             WHERE (r.date_start is null OR r.date_start<=current_date)
             AND (r.date_end is null OR current_date<=r.date_end)"""
+
+    @api.model
+    def _get_order_by(self):
+        """
+        Since several records can have the same partner_id,
+        ORDER BY 'partner_id' doesn't give always the same
+        ordering between records having the same partner_id.
+        We thus need to find a unique way to determine the ids
+        and order the records.
+        """
+        return "relation_id"
