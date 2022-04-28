@@ -59,6 +59,7 @@ class VirtualPartnerInvolvement(models.Model):
             p.is_donor,
             p.is_volunteer,
             p.nationality_id,
+            pi.id as partner_involvement_id,
             pi.involvement_category_id,
             pi.involvement_type,
             pi.effective_time AS effective_time,
@@ -87,3 +88,14 @@ JOIN res_partner AS p
         :return: str
         """
         return "WHERE pi.active = TRUE"
+
+    @api.model
+    def _get_order_by(self):
+        """
+        Since several records can have the same partner_id,
+        ORDER BY 'partner_id' doesn't give always the same
+        ordering between records having the same partner_id.
+        We thus need to find a unique way to determine the ids
+        and order the records.
+        """
+        return "partner_involvement_id"
