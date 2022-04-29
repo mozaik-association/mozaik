@@ -14,6 +14,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mass_mailing_bounce_counter
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_abstract_assembly__can_edit_bounce_params
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_ext_assembly__can_edit_bounce_params
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_int_assembly__can_edit_bounce_params
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_partner__can_edit_bounce_params
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_users__can_edit_bounce_params
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_sta_assembly__can_edit_bounce_params
+msgid "Can Edit Bounce Params"
+msgstr ""
+
+#. module: mozaik_mass_mailing_bounce_counter
 #: model:ir.model,name:mozaik_mass_mailing_bounce_counter.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -21,6 +31,16 @@ msgstr ""
 #. module: mozaik_mass_mailing_bounce_counter
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_partner__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_mass_mailing_bounce_counter
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_abstract_assembly__first_email_bounced_date
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_ext_assembly__first_email_bounced_date
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_int_assembly__first_email_bounced_date
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_partner__first_email_bounced_date
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_users__first_email_bounced_date
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_sta_assembly__first_email_bounced_date
+msgid "First failure date"
 msgstr ""
 
 #. module: mozaik_mass_mailing_bounce_counter
@@ -41,6 +61,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_users__email_bounced_date
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_sta_assembly__email_bounced_date
 msgid "Last failure date"
+msgstr ""
+
+#. module: mozaik_mass_mailing_bounce_counter
+#: model:res.groups,name:mozaik_mass_mailing_bounce_counter.group_mass_mailing_bounce_counter
+msgid "Manage Mass Mailing Bounce Counters"
 msgstr ""
 
 #. module: mozaik_mass_mailing_bounce_counter
