@@ -13,6 +13,7 @@
         "mozaik_mandate",
     ],
     "data": [
+        "views/mandate_category.xml",
         "views/ext_mandate.xml",
         "views/int_mandate.xml",
         "views/sta_mandate.xml",
