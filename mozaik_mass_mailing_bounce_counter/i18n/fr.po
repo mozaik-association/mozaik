@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-02-10 14:57+0000\n"
+"PO-Revision-Date: 2022-04-29 14:50+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_users__can_edit_bounce_params
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_sta_assembly__can_edit_bounce_params
 msgid "Can Edit Bounce Params"
-msgstr ""
+msgstr "Peut modifier la quantité de bounces emails"
 
 #. module: mozaik_mass_mailing_bounce_counter
 #: model:ir.model,name:mozaik_mass_mailing_bounce_counter.model_res_partner
@@ -43,10 +43,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_partner__first_email_bounced_date
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_users__first_email_bounced_date
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_sta_assembly__first_email_bounced_date
-#, fuzzy
-#| msgid "Last failure date"
 msgid "First failure date"
-msgstr "Date du dernier échec (email)"
+msgstr "Date du premier échec (email)"
 
 #. module: mozaik_mass_mailing_bounce_counter
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_bounce_counter.field_res_partner__id
