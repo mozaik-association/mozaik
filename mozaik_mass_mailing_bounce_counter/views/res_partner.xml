@@ -10,10 +10,25 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="mozaik_communication.view_partner_form" />
         <field name="arch" type="xml">
+            <field name="email_bounced" position="attributes">
+                <attribute name="attrs">
+                    {'readonly': [('can_edit_bounce_params', '=', False)]}
+                </attribute>
+            </field>
+            <field name="email_bounced_description" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [('email_bounced', '=', 0)], 'readonly': [('can_edit_bounce_params', '=', False)]}
+                </attribute>
+            </field>
             <field name="email_bounced" position="after">
+                <field name="can_edit_bounce_params" invisible="1" />
+                <field
+                    name="first_email_bounced_date"
+                    attrs="{'invisible': [('email_bounced', '=', 0)], 'readonly': [('can_edit_bounce_params', '=', False)]}"
+                />
                 <field
                     name="email_bounced_date"
-                    attrs="{'invisible': [('email_bounced', '=', 0)]}"
+                    attrs="{'invisible': [('email_bounced', '=', 0)], 'readonly': [('can_edit_bounce_params', '=', False)]}"
                 />
             </field>
         </field>

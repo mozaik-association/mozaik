@@ -10,6 +10,29 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     email_bounced_date = fields.Datetime("Last failure date")
+    first_email_bounced_date = fields.Datetime(
+        "First failure date",
+    )
+    can_edit_bounce_params = fields.Boolean(compute="_compute_can_edit_bounce_params")
+
+    def _compute_can_edit_bounce_params(self):
+        self.write(
+            {
+                "can_edit_bounce_params": self.env.user.has_group(
+                    "mozaik_mass_mailing_bounce_counter.group_mass_mailing_bounce_counter"
+                )
+            }
+        )
+
+    def write(self, values):
+        if values.get("email_bounced", 1) == 0:
+            values.update(
+                {
+                    "email_bounced_date": False,
+                    "first_email_bounced_date": False,
+                }
+            )
+        return super().write(values)
 
     @api.model
     def _update_bounce_counter(self, last_execution):
@@ -46,6 +69,11 @@ class ResPartner(models.Model):
                 "email_bounced": partner.email_bounced + 1,
             }
             if (
+                not partner.first_email_bounced_date
+                or mtb.bounced < partner.first_email_bounced_date
+            ):
+                vals["first_email_bounced_date"] = mtb.bounced
+            if (
                 not partner.email_bounced_date
                 or mtb.bounced > partner.email_bounced_date
             ):
@@ -65,4 +93,10 @@ class ResPartner(models.Model):
                 )
                 or not partner.email_bounced_date
             ):
-                partner.write({"email_bounced": 0, "email_bounced_date": False})
+                partner.write(
+                    {
+                        "email_bounced": 0,
+                        "email_bounced_date": False,
+                        "first_email_bounced_date": False,
+                    }
+                )
