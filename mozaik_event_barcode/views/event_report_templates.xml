@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template
+        id="report_barcode_badge"
+        inherit_id="event.event_registration_report_template_badge"
+        priority="1"
+    >
+        <xpath expr="//div[@id='o_event_name']" position="after">
+            <div class="col-12">
+                <div class="text-center">
+                    <img
+                        class="barcode"
+                        t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', o.barcode, 400, 67)"
+                        alt="Barcode"
+                    />
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
