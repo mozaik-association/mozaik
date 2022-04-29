@@ -15,6 +15,9 @@
         "event",
     ],
     "data": [
+        "security/ir.model.access.csv",
+        "wizards/barcode_scanner.xml",
+        "views/event_event.xml",
         "views/event_report_templates.xml",
         "views/event_registration.xml",
     ],
