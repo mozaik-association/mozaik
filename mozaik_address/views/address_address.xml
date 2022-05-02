@@ -105,7 +105,6 @@
                             <field name="number" />
                             <field name="box" />
                             <field name="sequence" />
-                            <field name="failure_date" />
                         </group>
                     </group>
                     <group name="status" attrs="{'invisible': [('id','=',False)]}">

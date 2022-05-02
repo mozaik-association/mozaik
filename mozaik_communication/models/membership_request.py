@@ -47,8 +47,14 @@ class MembershipRequest(models.Model):
                 )
 
     def validate_request(self):
+        """
+        Update opt-in / opt-out subscriptions on distribution lists.
+        Set the postal bounced back to False if address was changed.
+        """
         self.ensure_one()
         res = super(MembershipRequest, self).validate_request()
+        if self.address_id:
+            self.partner_id.write({"last_postal_failure_date": False})
         self.distribution_list_ids.write(
             {
                 "res_partner_opt_in_ids": [(4, self.partner_id.id)],
