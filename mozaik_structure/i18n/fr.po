@@ -432,16 +432,6 @@ msgid "Bounce"
 msgstr "Rebond"
 
 #. module: mozaik_structure
-#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__postal_bounced
-#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__postal_bounced
-#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__postal_bounced
-#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__postal_bounced
-#, fuzzy
-#| msgid "Bounce"
-msgid "Bounced"
-msgstr "Rebond"
-
-#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__can_publish
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__can_publish
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__can_publish
@@ -3059,6 +3049,11 @@ msgstr "Compte Twitter"
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__zip
 msgid "Zip"
 msgstr "Code postal"
+
+#, fuzzy
+#~| msgid "Bounce"
+#~ msgid "Bounced"
+#~ msgstr "Rebond"
 
 #~ msgid "Archive/reactivate assembly category: proceed anyway?"
 #~ msgstr "Poursuivre l'archivage/réactivation de la catégorie ?"
