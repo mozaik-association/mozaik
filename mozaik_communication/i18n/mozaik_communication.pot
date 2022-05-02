@@ -156,6 +156,11 @@ msgid "Cancel"
 msgstr ""
 
 #. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_change_address
+msgid "Change the address on a partner"
+msgstr ""
+
+#. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #, python-format
 msgid "City"
@@ -279,6 +284,7 @@ msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__display_name
+#: model:ir.model.fields,field_description:mozaik_communication.field_change_address__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__display_name
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__display_name
@@ -326,6 +332,11 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__email_bounce_counter
 msgid "Email Bounce Counter"
+msgstr ""
+
+#. module: mozaik_communication
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.view_partner_form
+msgid "Email Bounced"
 msgstr ""
 
 #. module: mozaik_communication
@@ -510,6 +521,7 @@ msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__id
+#: model:ir.model.fields,field_description:mozaik_communication.field_change_address__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__id
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__id
@@ -632,6 +644,7 @@ msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model____last_update
+#: model:ir.model.fields,field_description:mozaik_communication.field_change_address____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template____last_update
@@ -650,6 +663,12 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly__last_postal_failure_date
+#: model:ir.model.fields,field_description:mozaik_communication.field_ext_assembly__last_postal_failure_date
+#: model:ir.model.fields,field_description:mozaik_communication.field_int_assembly__last_postal_failure_date
+#: model:ir.model.fields,field_description:mozaik_communication.field_res_partner__last_postal_failure_date
+#: model:ir.model.fields,field_description:mozaik_communication.field_res_users__last_postal_failure_date
+#: model:ir.model.fields,field_description:mozaik_communication.field_sta_assembly__last_postal_failure_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__last_postal_failure_date
 msgid "Last Postal Failure Date"
 msgstr ""
@@ -947,7 +966,14 @@ msgid "Placeholder Value"
 msgstr ""
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_ext_assembly__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_int_assembly__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_res_partner__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_res_users__postal_bounced
+#: model:ir.model.fields,field_description:mozaik_communication.field_sta_assembly__postal_bounced
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__postal_bounced
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.view_partner_form
 msgid "Postal Bounced"
 msgstr ""
 
