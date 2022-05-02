@@ -1,0 +1,153 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_event_barcode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__event_id
+msgid "Associated Event"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.event_event_form_view
+msgid "Badge Scanner"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_registration__barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
+msgid "Barcode"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.barcode_scanner_form_view
+msgid "Barcode Scanner"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model,name:mozaik_event_barcode.model_barcode_scanner
+msgid "Barcode Scanner Wizard"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.constraint,message:mozaik_event_barcode.constraint_event_registration_barcode_event_uniq
+msgid "Barcode should be unique"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.barcode_scanner_form_view
+msgid "Close"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.barcode_scanner_form_view
+msgid "Confirm & Next Scan"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__display_name
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_event__display_name
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_registration__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
+#: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__cancel
+#, python-format
+msgid "Error: registration was canceled."
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
+#: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__done
+#, python-format
+msgid "Error: this participant already attended."
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model,name:mozaik_event_barcode.model_event_event
+msgid "Event"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model,name:mozaik_event_barcode.model_event_registration
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__event_registration_id
+msgid "Event Registration"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__id
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_event__id
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_registration__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__confirmation_msg
+msgid "Information"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner____last_update
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_event____last_update
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_registration____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.barcode_scanner_form_view
+msgid "Next Scan"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
+#: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__open
+#, python-format
+msgid "Participant successfully attended."
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
+#: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__not_found
+#, python-format
+msgid "Registration not found."
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
+#: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__draft
+#, python-format
+msgid "Registration wasn't confirmed. Do you want to validate the attendance?"
+msgstr ""
