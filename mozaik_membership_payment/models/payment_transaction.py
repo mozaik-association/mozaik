@@ -1,6 +1,5 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import re
 
 from odoo import api, fields, models
 
@@ -23,14 +22,6 @@ class PaymentTransaction(models.Model):
         if vals.get("state") == "done" and self.membership_ids:
             self._mark_membership_as_paid(vals.get("acquirer_reference"))
         res = super().write(vals)
-        if not self.env.context.get("return_url_updated") and (
-            vals.get("return_url") or vals.get("state")
-        ):
-            self_ctx = self.with_context(return_url_updated=True)
-            for tx in self_ctx:
-                tx.return_url = (
-                    re.sub("&status=.*", "", tx.return_url) + "&status=" + tx.state
-                )
         return res
 
     @api.depends("reference", "membership_ids", "membership_ids.reference")
