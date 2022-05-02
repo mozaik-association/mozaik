@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="barcode_scanner_form_view">
+        <field name="name">barcode.scanner.form (in mozaik_event_barcode)</field>
+        <field name="model">barcode.scanner</field>
+        <field name="arch" type="xml">
+            <form string="Barcode Scanner">
+                <group>
+                    <field name="barcode" />
+                    <field name="event_registration_id" invisible="1" />
+                    <field
+                        name="confirmation_msg"
+                        atts="{'invisible': [('confirmation_msg', '!=', '')]}"
+                        readonly="1"
+                        decoration-danger="confirmation_msg in ['not_found', 'cancel', 'done']"
+                        decoration-success="confirmation_msg=='open'"
+                        decoration-warning="confirmation_msg=='draft'"
+                    />
+                </group>
+                <footer>
+                    <button
+                        name="open_next_scan"
+                        string="Next Scan"
+                        class="btn-primary"
+                        type="object"
+                    />
+                    <button
+                        name="confirm_open_next_scan"
+                        string="Confirm &amp; Next Scan"
+                        class="btn-primary"
+                        type="object"
+                        attrs="{'invisible': [('confirmation_msg', '!=', 'draft')]}"
+                    />
+                    <button string="Close" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+</odoo>
