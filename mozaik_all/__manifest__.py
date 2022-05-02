@@ -102,7 +102,6 @@
         "mozaik_website_event_track",
         "mozaik_membership_payment",
         "mozaik_membership_payment_stripe",
-        "mozaik_membership_payment_paypal",
         # "mass_mail_queue_job",
     ],
     "data": [
