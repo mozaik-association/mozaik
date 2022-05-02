@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mandate_category_form_view">
+        <field
+            name="name"
+        >mandate.category.form (in mozaik_mandate_show_website)</field>
+        <field name="model">mandate.category</field>
+        <field name="inherit_id" ref="mozaik_mandate.mandate_category_form_view" />
+        <field name="arch" type="xml">
+            <field name="with_remuneration" position="after">
+                <field name="no_show_on_website" />
+            </field>
+        </field>
+    </record>
+
+
+
+</odoo>
