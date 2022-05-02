@@ -16,12 +16,8 @@ class ResPartner(models.Model):
     can_edit_bounce_params = fields.Boolean(compute="_compute_can_edit_bounce_params")
 
     def _compute_can_edit_bounce_params(self):
-        self.write(
-            {
-                "can_edit_bounce_params": self.env.user.has_group(
-                    "mozaik_mass_mailing_bounce_counter.group_mass_mailing_bounce_counter"
-                )
-            }
+        self.can_edit_bounce_params = self.env.user.has_group(
+            "mozaik_mass_mailing_bounce_counter.group_mass_mailing_bounce_counter"
         )
 
     def write(self, values):
