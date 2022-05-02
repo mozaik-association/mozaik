@@ -5,7 +5,8 @@
 
     <menuitem
         id="menu_email_templates_email_marketing"
-        parent="mass_mailing.mass_mailing_configuration"
+        parent="mass_mailing.mass_mailing_menu_root"
+        sequence="5"
         action="mail.action_email_template_tree_all"
         name="Mail Templates"
     />

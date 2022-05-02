@@ -37,13 +37,35 @@
         groups="group_mass_mailing_reader"
     />
 
-    <menuitem
-        name="Mailing Lists"
-        id="mass_mailing.mass_mailing_mailing_list_menu"
-        parent="mass_mailing.mass_mailing_menu_root"
-        sequence="2"
-        groups="group_mass_mailing_reader"
-    />
+    <record id="mass_mailing.mass_mailing_mailing_list_menu" model="ir.ui.menu">
+        <field name="name">Mailing Lists</field>
+        <field name="parent_id" ref="mass_mailing.mass_mailing_menu_root" />
+        <field name="sequence" eval="2" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_mass_mailing_access_rights.group_mass_mailing_manager')])]"
+        />
+    </record>
 
+    <record id="mass_mailing.menu_mass_mailing_report" model="ir.ui.menu">
+        <field name="name">Reporting</field>
+        <field name="parent_id" ref="mass_mailing.mass_mailing_menu_root" />
+        <field name="sequence" eval="99" />
+        <field name="action" ref="mass_mailing.mailing_trace_report_action_mail" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_mass_mailing_access_rights.group_mass_mailing_manager')])]"
+        />
+    </record>
+
+    <record id="mass_mailing.mass_mailing_configuration" model="ir.ui.menu">
+        <field name="name">Configuration</field>
+        <field name="parent_id" ref="mass_mailing.mass_mailing_menu_root" />
+        <field name="sequence" eval="100" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mozaik_mass_mailing_access_rights.group_mass_mailing_manager')])]"
+        />
+    </record>
 
 </odoo>
