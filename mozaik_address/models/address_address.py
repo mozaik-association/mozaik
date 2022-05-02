@@ -74,19 +74,6 @@ class AddressAddress(models.Model):
         string="Partners (inactive)",
         domain=[("active", "=", False)],
     )
-    failure_date = fields.Datetime(
-        "Last Failure Date",
-        copy=False,
-        tracking=True,
-    )
-    bounced = fields.Boolean(compute="_compute_bounced", store=True)
-
-    @api.depends("failure_date")
-    def _compute_bounced(self):
-        for record in self:
-            record.bounced = False
-            if record.failure_date:
-                record.bounced = True
 
     @api.model
     def _get_default_country_code(self):

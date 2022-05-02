@@ -16,14 +16,16 @@
             <xpath expr="//notebook" position="inside">
                 <page name="communication" string="Communication">
                     <group name="communication">
-                        <group>
+                        <group name="email_bounced" string="Email Bounced">
                             <field name="email_bounced" />
                             <field
                                 name="email_bounced_description"
                                 attrs="{'invisible': [('email_bounced', '=', 0)]}"
                             />
                         </group>
-                        <group />
+                        <group name="postal_bounced" string="Postal Bounced">
+                            <field name="last_postal_failure_date" />
+                        </group>
                     </group>
                     <span class="oe_horizontal_separator oe_clear oe_inline">
                         Opt-In
