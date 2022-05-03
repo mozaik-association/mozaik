@@ -139,7 +139,6 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__transaction_ids
-#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_ids
 msgid "Transaction"
 msgstr ""
 
@@ -151,6 +150,11 @@ msgstr ""
 #. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_state
 msgid "Transaction State"
+msgstr ""
+
+#. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__transaction_ids
+msgid "Transactions"
 msgstr ""
 
 #. module: mozaik_membership_payment
