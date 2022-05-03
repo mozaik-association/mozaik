@@ -14,8 +14,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_event_barcode
+#: model:ir.model.fields,help:mozaik_event_barcode.field_event_event__voting_domain
+msgid ""
+"Add a domain on virtual.partner.membership model to decide if an attendee "
+"has paid his contribution or not."
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__event_id
 msgid "Associated Event"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__firstname
+msgid "Attendee's firstname"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__lastname
+msgid "Attendee's lastname"
 msgstr ""
 
 #. module: mozaik_event_barcode
@@ -56,6 +73,12 @@ msgid "Confirm & Next Scan"
 msgstr ""
 
 #. module: mozaik_event_barcode
+#: code:addons/mozaik_event_barcode/models/event_event.py:0
+#, python-format
+msgid "Couldn't normalize the given domain"
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__create_uid
 msgid "Created by"
 msgstr ""
@@ -73,16 +96,17 @@ msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_event_barcode
-#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_event__voting_domain
+msgid "Domain for voting partners"
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__cancel
-#, python-format
 msgid "Error: registration was canceled."
 msgstr ""
 
 #. module: mozaik_event_barcode
-#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
 #: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__done
-#, python-format
 msgid "Error: this participant already attended."
 msgstr ""
 
@@ -132,22 +156,41 @@ msgid "Next Scan"
 msgstr ""
 
 #. module: mozaik_event_barcode
-#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
 #: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__open
-#, python-format
 msgid "Participant successfully attended."
 msgstr ""
 
 #. module: mozaik_event_barcode
-#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
+#: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__voting_msg__yes
+msgid "Partner can vote."
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__voting_msg__no
+msgid "Partner cannot vote."
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.event_event_form_view
+msgid "Please enter a domain valid on the virtual model 'Partner/Membership'."
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__not_found
-#, python-format
 msgid "Registration not found."
 msgstr ""
 
 #. module: mozaik_event_barcode
-#: code:addons/mozaik_event_barcode/wizards/barcode_scanner.py:0
 #: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__draft
-#, python-format
 msgid "Registration wasn't confirmed. Do you want to validate the attendance?"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.event_event_form_view
+msgid "Voting Domain"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__voting_msg
+msgid "Voting Status"
 msgstr ""
