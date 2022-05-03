@@ -17,11 +17,16 @@
                     <field name="firstname" />
                     <field
                         name="confirmation_msg"
-                        atts="{'invisible': [('confirmation_msg', '!=', '')]}"
                         readonly="1"
                         decoration-danger="confirmation_msg in ['not_found', 'cancel', 'done']"
                         decoration-success="confirmation_msg=='open'"
                         decoration-warning="confirmation_msg=='draft'"
+                    />
+                    <field
+                        name="voting_msg"
+                        readonly="1"
+                        decoration-danger="voting_msg == 'no'"
+                        decoration-success="voting_msg== 'yes'"
                     />
                 </group>
                 <footer>

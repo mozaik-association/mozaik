@@ -17,6 +17,20 @@
                     icon="fa-barcode"
                 />
             </xpath>
+            <page name="event_notes" position="before">
+                <page name="voting_domain" string="Voting Domain">
+                    <p>
+                        Please enter a domain valid on the virtual model 'Partner/Membership'.
+                    </p>
+                    <group name="voting_domain">
+                        <field
+                            name="voting_domain"
+                            widget="domain"
+                            options="{'model': 'virtual.partner.membership'}"
+                        />
+                    </group>
+                </page>
+            </page>
         </field>
     </record>
 

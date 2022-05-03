@@ -13,7 +13,9 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "event",
+        "mozaik_event_membership_request_involvement",
         "mozaik_event_partner_firstname",
+        "mozaik_virtual_partner_membership",
     ],
     "data": [
         "security/ir.model.access.csv",
