@@ -10,7 +10,11 @@
             <form string="Barcode Scanner">
                 <group>
                     <field name="barcode" />
+                </group>
+                <group>
                     <field name="event_registration_id" invisible="1" />
+                    <field name="lastname" />
+                    <field name="firstname" />
                     <field
                         name="confirmation_msg"
                         atts="{'invisible': [('confirmation_msg', '!=', '')]}"

@@ -13,6 +13,7 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "event",
+        "mozaik_event_partner_firstname",
     ],
     "data": [
         "security/ir.model.access.csv",

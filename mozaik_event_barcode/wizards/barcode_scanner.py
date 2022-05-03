@@ -1,17 +1,17 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 CONFIRMATION_MSGS = [
-    ("not_found", _("Registration not found.")),
+    ("not_found", "Registration not found."),
     (
         "draft",
-        _("Registration wasn't confirmed. Do you want to validate the attendance?"),
+        "Registration wasn't confirmed. Do you want to validate the attendance?",
     ),
-    ("open", _("Participant successfully attended.")),
-    ("done", _("Error: this participant already attended.")),
-    ("cancel", _("Error: registration was canceled.")),
+    ("open", "Participant successfully attended."),
+    ("done", "Error: this participant already attended."),
+    ("cancel", "Error: registration was canceled."),
 ]
 
 
@@ -25,6 +25,16 @@ class BarcodeScanner(models.TransientModel):
     event_registration_id = fields.Many2one("event.registration")
     confirmation_msg = fields.Selection(
         selection=CONFIRMATION_MSGS, string="Information"
+    )
+    lastname = fields.Char(
+        string="Attendee's lastname",
+        related="event_registration_id.lastname",
+        store=True,
+    )
+    firstname = fields.Char(
+        string="Attendee's firstname",
+        related="event_registration_id.lastname",
+        store=True,
     )
 
     @api.onchange("barcode")
