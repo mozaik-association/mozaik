@@ -21,6 +21,25 @@
                         widget="CopyClipboardChar"
                     />
                 </group>
+                <group>
+                    <group>
+                        <field
+                            name="latest_transaction"
+                            groups="account.group_account_invoice"
+                        />
+                        <field
+                            name="transaction_state"
+                            groups="account.group_account_invoice"
+                        />
+                        <field
+                            name="transaction_acquirer_id"
+                            groups="account.group_account_invoice"
+                        />
+                    </group>
+                    <group>
+                        <field name="transaction_ids" />
+                    </group>
+                </group>
             </xpath>
         </field>
     </record>

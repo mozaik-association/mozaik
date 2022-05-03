@@ -13,6 +13,7 @@
         "mozaik_membership",
         "mozaik_membership_request",
         "mozaik_account",
+        "account",
         "payment",
     ],
     "data": [

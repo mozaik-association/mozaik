@@ -120,6 +120,15 @@ class WebsitePaymentMozaik(WebsitePayment):
         if not partner_id:  # ACS
             # required field, not set if there is no partner
             render_values["billing_partner_country"] = request.env.company.country_id
+        if membership_request_id:
+            email = (
+                request.env["membership.request"]
+                .sudo()
+                .browse(membership_request_id)
+                .email
+            )
+            if email:
+                render_values["partner_email"] = email
         return acquirer.sudo().render(
             tx.reference, float(amount), int(currency_id), values=render_values
         )

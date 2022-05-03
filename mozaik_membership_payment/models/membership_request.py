@@ -10,21 +10,28 @@ class MembershipRequest(models.Model):
     _inherit = "membership.request"
 
     transaction_ids = fields.Many2many(
-        string="Transaction", comodel_name="payment.transaction"
+        string="Transactions",
+        comodel_name="payment.transaction",
+        copy=False,
     )
     latest_transaction = fields.Many2one(
         string="Latest Transaction",
         comodel_name="payment.transaction",
         compute="_compute_latest_transaction",
         store=True,
+        copy=False,
     )
     transaction_state = fields.Selection(
-        string="Transaction State", related="latest_transaction.state", store=True
+        string="Transaction State",
+        related="latest_transaction.state",
+        store=True,
+        copy=False,
     )
     transaction_acquirer_id = fields.Many2one(
         string="Transaction Acquirer",
         related="latest_transaction.acquirer_id",
         store=True,
+        copy=False,
     )
     payment_link = fields.Char(compute="_compute_payment_link")
 
