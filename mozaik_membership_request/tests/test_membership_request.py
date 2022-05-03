@@ -43,6 +43,7 @@ class TestMembership(TransactionCase):
         self.mro = self.env["membership.request"]
         self.mrco = self.env["membership.request.change"]
         self.mrs = self.env["membership.state"]
+        self.tt = self.env["thesaurus.term"]
 
         self.rec_partner = self.browse_ref("mozaik_address.res_partner_thierry")
         self.rec_partner_pauline = self.browse_ref(
@@ -102,6 +103,56 @@ class TestMembership(TransactionCase):
             self.rec_partner.int_instance_ids.ids,
             "Instance should be the instance of the partner",
         )
+
+    def test_pre_process_interest_competencies(self):
+        """
+        Test that when pre-processing the data, old and new
+        interests / competencies are both kept.
+        """
+        interest_1 = self.tt.create({"name": "First interest"})
+        interest_2 = self.tt.create({"name": "Second interest"})
+        competency_1 = self.tt.create({"name": "First competency"})
+
+        # New partner, we add interests.
+
+        mr_values = {
+            "lastname": "Sy",
+            "firstname": "Omar",
+            "interest_ids": [(6, 0, [interest_1.id])],
+        }
+        mr = self.mro.with_context(mode="pre_process").create(mr_values)
+        self.assertEqual(mr.interest_ids.ids, [interest_1.id])
+
+        # Create a partner with some interests and competencies.
+
+        sy = self.env["res.partner"].create(
+            {
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "interest_ids": [(4, interest_2.id)],
+            }
+        )
+
+        # Don't add any interest / competency, check that the existing
+        # ones are preserved on the membership request.
+        mr_values = {
+            "partner_id": sy.id,
+            "lastname": sy.lastname,
+        }
+        mr = self.mro.with_context(mode="pre_process").create(mr_values)
+        self.assertEqual(mr.interest_ids.ids, [interest_2.id])
+        self.assertEqual(mr.competency_ids.ids, [])
+
+        # Add more interest / competencies
+        mr_values = {
+            "partner_id": sy.id,
+            "lastname": sy.lastname,
+            "interest_ids": [(6, 0, [interest_1.id])],
+            "competency_ids": [(6, 0, [competency_1.id])],
+        }
+        mr = self.mro.with_context(mode="pre_process").create(mr_values)
+        self.assertEqual(set(mr.interest_ids.ids), {interest_1.id, interest_2.id})
+        self.assertEqual(mr.competency_ids.ids, [competency_1.id])
 
     def test_get_address_id(self):
         adrs = self.browse_ref("mozaik_address.address_3")
