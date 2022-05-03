@@ -96,10 +96,9 @@ class MembershipRequestService(Component):
         vals = self._validate_involvement_category(vals)
 
         if vals["interest_ids"]:
-            if vals["interest_ids"]:
-                cats = self.env["thesaurus.term"].search(
-                    [("id", "in", vals["interest_ids"])]
-                )
+            cats = self.env["thesaurus.term"].search(
+                [("id", "in", vals["interest_ids"])]
+            )
             if cats:
                 vals["interest_ids"] = [(6, 0, cats.ids)]
             else:
@@ -109,10 +108,9 @@ class MembershipRequestService(Component):
                     vals["interest_ids"],
                 )
         if vals["competency_ids"]:
-            if vals["competency_ids"]:
-                cats = self.env["thesaurus.term"].search(
-                    [("id", "in", vals["competency_ids"])]
-                )
+            cats = self.env["thesaurus.term"].search(
+                [("id", "in", vals["competency_ids"])]
+            )
             if cats:
                 vals["competency_ids"] = [(6, 0, cats.ids)]
             else:
