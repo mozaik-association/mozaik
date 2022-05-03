@@ -1,17 +1,22 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 CONFIRMATION_MSGS = [
-    ("not_found", _("Registration not found.")),
+    ("not_found", "Registration not found."),
     (
         "draft",
-        _("Registration wasn't confirmed. Do you want to validate the attendance?"),
+        "Registration wasn't confirmed. Do you want to validate the attendance?",
     ),
-    ("open", _("Participant successfully attended.")),
-    ("done", _("Error: this participant already attended.")),
-    ("cancel", _("Error: registration was canceled.")),
+    ("open", "Participant successfully attended."),
+    ("done", "Error: this participant already attended."),
+    ("cancel", "Error: registration was canceled."),
+]
+
+VOTING_MSGS = [
+    ("yes", "Partner can vote."),
+    ("no", "Partner cannot vote."),
 ]
 
 
@@ -26,6 +31,20 @@ class BarcodeScanner(models.TransientModel):
     confirmation_msg = fields.Selection(
         selection=CONFIRMATION_MSGS, string="Information"
     )
+    voting_msg = fields.Selection(
+        selection=VOTING_MSGS,
+        string="Voting Status",
+    )
+    lastname = fields.Char(
+        string="Attendee's lastname",
+        related="event_registration_id.lastname",
+        store=True,
+    )
+    firstname = fields.Char(
+        string="Attendee's firstname",
+        related="event_registration_id.firstname",
+        store=True,
+    )
 
     @api.onchange("barcode")
     def _onchange_barcode(self):
@@ -36,6 +55,7 @@ class BarcodeScanner(models.TransientModel):
             )
         if self.event_registration_id:
             self._process_event_registration_actions()
+            self._decide_if_can_vote()
         elif self.barcode:
             self.confirmation_msg = "not_found"
 
@@ -59,8 +79,24 @@ class BarcodeScanner(models.TransientModel):
             return
         self._manage_registration(registration)
 
+    def _decide_if_can_vote(self):
+        """
+        Set the voting_msg: if the partner on the associated registration
+        matches the voting_domain, then it can vote.
+        """
+        if not (
+            self.event_registration_id
+            and self.event_registration_id.associated_partner_id
+        ):
+            self.voting_msg = "no"
+            return
+        partner = self.event_registration_id.associated_partner_id
+        self.voting_msg = "no"
+        if partner.id in self.env.context.get("voting_partner_ids", []):
+            self.voting_msg = "yes"
+
     def open_next_scan(self):
-        action = self.event_id.open_barcode_scanner()
+        action = self.event_id.reopen_barcode_scanner()
         action["context"] = {"default_event_id": self.event_id.id}
         return action
 
