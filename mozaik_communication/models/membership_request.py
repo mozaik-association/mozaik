@@ -46,15 +46,26 @@ class MembershipRequest(models.Model):
                     )
                 )
 
+    def _partner_write_address(self, address_id, partner):
+        """
+        If the address is different from the partner's address,
+        we set the postal bounce back to False.
+        """
+        super()._partner_write_address(address_id, partner)
+        if (
+            partner
+            and address_id
+            and partner.address_address_id
+            and partner.address_address_id.id != address_id
+        ):
+            partner.write({"last_postal_failure_date": False})
+
     def validate_request(self):
         """
         Update opt-in / opt-out subscriptions on distribution lists.
-        Set the postal bounced back to False if address was changed.
         """
         self.ensure_one()
         res = super(MembershipRequest, self).validate_request()
-        if self.address_id:
-            self.partner_id.write({"last_postal_failure_date": False})
         self.distribution_list_ids.write(
             {
                 "res_partner_opt_in_ids": [(4, self.partner_id.id)],

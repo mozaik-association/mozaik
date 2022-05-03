@@ -1323,8 +1323,9 @@ class MembershipRequest(models.Model):
                         }
                         address_id = self.env["address.address"].create(address_values)
                     mr_vals["address_id"] = address_id
+                    address_id = address_id.id
             if address_id:
-                partner_values.update({"address_address_id": address_id})
+                self._partner_write_address(address_id, partner)
 
             if partner_values:
                 partner.write(partner_values)
@@ -1335,6 +1336,15 @@ class MembershipRequest(models.Model):
         # superuser_id because of record rules
         self.sudo().action_invalidate(vals=mr_vals)
         return True
+
+    def _partner_write_address(self, address_id, partner):
+        """
+        Write the address on the partner.
+
+        Intended to be extended.
+        """
+        if partner:
+            partner.write({"address_address_id": address_id})
 
     @api.model
     def _validate_request_membership(self, mr, partner):
