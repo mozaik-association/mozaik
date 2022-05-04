@@ -103,10 +103,6 @@ class ResPartner(models.Model):
                 "int_instance_ids": [(6, 0, self.int_instance_ids.ids)],
                 "interest_ids": [(6, 0, self.interest_ids.ids)],
                 "competency_ids": [(6, 0, competencies.ids)],
-                "local_voluntary": self.local_voluntary,
-                "regional_voluntary": self.regional_voluntary,
-                "national_voluntary": self.national_voluntary,
-                "local_only": self.local_only,
                 "nationality_id": self.nationality_id.id or False,
             }
             # create mr in sudo mode for portal user allowing to avoid create
