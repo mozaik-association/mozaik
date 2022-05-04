@@ -13,7 +13,7 @@
         <field name="arch" type="xml">
             <xpath expr="div[@role='alert']/div[5]/strong" position="replace">
                 <strong>
-                    <field name="next_departure_msg" class="oe_inline" />.
+                    <field name="next_departure_msg" class="oe_inline" />
                 </strong>
             </xpath>
         </field>
