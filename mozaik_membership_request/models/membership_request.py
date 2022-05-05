@@ -905,9 +905,9 @@ class MembershipRequest(models.Model):
         ]:
             res.update(
                 {
-                    "local_voluntary": "force_false",
-                    "regional_voluntary": "force_false",
-                    "national_voluntary": "force_false",
+                    "local_voluntary": False,
+                    "regional_voluntary": False,
+                    "national_voluntary": False,
                 }
             )
         elif any(
