@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-05-04 16:50+0000\n"
+"PO-Revision-Date: 2022-05-06 14:50+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -154,26 +154,22 @@ msgstr "Annulée"
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_only
 msgid "Change local only status"
-msgstr ""
+msgstr "A donné son accord pour contact local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_voluntary
 msgid "Change local voluntary status"
-msgstr ""
+msgstr "Actif pol. niv. local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__national_voluntary
-#, fuzzy
-#| msgid "National Voluntary"
 msgid "Change national voluntary status"
-msgstr "Volontaire national"
+msgstr "Actif pol. niv. national"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__regional_voluntary
-#, fuzzy
-#| msgid "Regional Voluntary"
 msgid "Change regional voluntary status"
-msgstr "Volontaire régional"
+msgstr "Actif pol. niv. régional"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__change_ids
@@ -221,7 +217,7 @@ msgstr "Confirmer"
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Confirm Membership Request: proceed anyway?"
-msgstr "Confirmer l'adhésion?"
+msgstr "Confirmer la demande d'adhésion/modification?"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__state__confirm
@@ -561,7 +557,7 @@ msgstr "Personne légale"
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Local Only"
-msgstr ""
+msgstr "Contact local"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
@@ -606,12 +602,12 @@ msgstr "Ligne d'adhésion"
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.res_partner_form_view
 msgid "Membership Request"
-msgstr "Demande d'adhésion"
+msgstr "Demande d'adhésion / modification"
 
 #. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_membership_request_change
 msgid "Membership Request Change"
-msgstr "Demande d'adhésion / de modification"
+msgstr "Demande d'adhésion / modification"
 
 #. module: mozaik_membership_request
 #: model:ir.actions.act_window,name:mozaik_membership_request.membership_request_action
@@ -620,7 +616,7 @@ msgstr "Demande d'adhésion / de modification"
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_tree_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.res_partner_form_view
 msgid "Membership Requests"
-msgstr "Demandes d'adhésion"
+msgstr "Demandes d'adhésion / modification"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__membership_state_id
@@ -703,34 +699,32 @@ msgstr "Non"
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Non Local Voluntary"
-msgstr ""
+msgstr "Pas Actif pol. niv. local"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Non National Voluntary"
-msgstr ""
+msgstr "Pas Actif pol. niv. national"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Non Regional Voluntary"
-msgstr ""
+msgstr "Pas Actif pol. niv. régional"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Not Local Only"
-msgstr ""
+msgstr "Pas contact local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__local_only__force_false
 msgid "Not local only"
-msgstr ""
+msgstr "Pas contact local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__local_voluntary__force_false
-#, fuzzy
-#| msgid "Local Voluntary"
 msgid "Not local voluntary"
-msgstr "Volontaire local"
+msgstr "Pas Actif pol. niv. local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__national_voluntary__force_false
@@ -903,28 +897,22 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__local_only__force_true
 msgid "Set as local only"
-msgstr ""
+msgstr "Forcer 'contact local'"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__local_voluntary__force_true
-#, fuzzy
-#| msgid "Local Voluntary"
 msgid "Set as local voluntary"
-msgstr "Volontaire local"
+msgstr "Forcer Actif pol. niv. local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__national_voluntary__force_true
-#, fuzzy
-#| msgid "National Voluntary"
 msgid "Set as national voluntary"
-msgstr "Volontaire national"
+msgstr "Forcer Actif pol. niv. national"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__regional_voluntary__force_true
-#, fuzzy
-#| msgid "Regional Voluntary"
 msgid "Set as regional voluntary"
-msgstr "Volontaire régional"
+msgstr "Actif pol. niv. régional"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__state
