@@ -8,6 +8,13 @@ from odoo.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
+VOLUNTARY_FIELD_NAMES = [
+    "local_voluntary",
+    "regional_voluntary",
+    "national_voluntary",
+    "local_only",
+]
+
 
 class MembershipRequest(models.Model):
 
@@ -40,18 +47,9 @@ class MembershipRequest(models.Model):
                 )
                 protected_values = {}
 
-        local_voluntary = protected_values.get("local_voluntary")
-        regional_voluntary = protected_values.get("regional_voluntary")
-        national_voluntary = protected_values.get("national_voluntary")
-        local_only = protected_values.get("local_only")
-        value = res
-        if local_voluntary is not None:
-            value["local_voluntary"] = local_voluntary
-        if regional_voluntary is not None:
-            value["regional_voluntary"] = regional_voluntary
-        if national_voluntary is not None:
-            value["national_voluntary"] = national_voluntary
-        if local_only is not None:
-            value["local_only"] = local_only
+        for field_name in VOLUNTARY_FIELD_NAMES:
+            field_value = protected_values.get(field_name)
+            if field_value is not None:
+                res[field_name] = field_value
 
         return res
