@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
+from collections.abc import Iterable
 
 from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval
@@ -53,5 +54,14 @@ class MembershipRequest(models.Model):
             field_value = protected_values.get(field_name)
             if field_value is not None:
                 res[field_name] = field_value
+
+        for field_name in ["interest_ids", "competencies_ids"]:
+            field_value = protected_values.get(field_name)
+            if field_value and isinstance(field_value, Iterable):
+                # Take the term_ids that are on the partner, if existing
+                term_ids = res[field_name][0][2] if res.get(field_name) else []
+                # Add the protected interests
+                term_ids += field_value
+                res[field_name] = [(6, 0, term_ids)]
 
         return res
