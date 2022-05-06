@@ -166,10 +166,15 @@ class MembershipRequestService(Component):
         Always protect following values:
         * local_voluntary, regional_voluntary, national_voluntary
         * local_only
+        * interests and competencies (that are already encoded as (6, 0, [ids]))
         """
         protected_values = {}
         for field_name in VOLUNTARY_FIELD_NAMES:
             protected_values[field_name] = vals.get(field_name, False)
+        for field_name in ["interest_ids", "competency_ids"]:
+            field_value = vals.get(field_name, False)
+            if field_value:
+                protected_values[field_name] = field_value[0][2]
         return protected_values
 
     def _create_membership_request(self, membership_request):
