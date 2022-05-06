@@ -1016,6 +1016,18 @@ msgid "Voluntary"
 msgstr "Volontaire"
 
 #. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid "Was False"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid "Was True"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__website_message_ids
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__website_message_ids
 msgid "Website Messages"
