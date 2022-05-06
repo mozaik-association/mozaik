@@ -17,6 +17,7 @@
         "mozaik_membership_payment",
         "mozaik_membership_request_autovalidate",
         "mozaik_membership_request_from_registration",
+        "mozaik_membership_request_protected_values",
         "mozaik_partner_global_opt_out",
         "mozaik_country_rest",
         "mozaik_distribution_list_rest",

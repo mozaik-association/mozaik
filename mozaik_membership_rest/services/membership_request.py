@@ -17,6 +17,13 @@ from ..pydantic_models.membership_request_info import MembershipRequestInfo
 _logger = logging.getLogger(__name__)
 trace = _logger.info
 
+VOLUNTARY_FIELD_NAMES = [
+    "local_voluntary",
+    "regional_voluntary",
+    "national_voluntary",
+    "local_only",
+]
+
 
 class MembershipRequestService(Component):
     _inherit = "base.membership.rest.service"
@@ -76,6 +83,21 @@ class MembershipRequestService(Component):
         vals["involvement_category_ids"] = [(6, 0, cats.ids)]
         return vals
 
+    def _validate_voluntaries(self, vals):
+        """
+        local_voluntary, regional_voluntary, national_voluntary
+        and local_only are selection fields.
+        If the given string is something else than "force_true"
+        or "force_false", we keep the field empty
+        """
+        for field_name in VOLUNTARY_FIELD_NAMES:
+            value = vals.pop(field_name, False)
+            if value in ["force_true", "force_false"]:
+                vals[field_name] = value
+            else:
+                vals[field_name] = False
+        return vals
+
     def _validate_membership_request_input(self, input_data):
         vals = input_data.dict()
         if vals["distribution_list_ids"]:
@@ -94,7 +116,7 @@ class MembershipRequestService(Component):
                     vals["distribution_list_ids"],
                 )
         vals = self._validate_involvement_category(vals)
-
+        vals = self._validate_voluntaries(vals)
         if vals["interest_ids"]:
             cats = self.env["thesaurus.term"].search(
                 [("id", "in", vals["interest_ids"])]
@@ -143,10 +165,25 @@ class MembershipRequestService(Component):
             )
         return vals
 
+    def _get_protected_values(self, vals):
+        """
+        Always protect following values:
+        * local_voluntary, regional_voluntary, national_voluntary
+        * local_only
+        """
+        protected_values = {}
+        for field_name in VOLUNTARY_FIELD_NAMES:
+            protected_values[field_name] = vals.get(field_name, False)
+        return protected_values
+
     def _create_membership_request(self, membership_request):
         vals = self._validate_membership_request_input(membership_request)
+        protected_values = self._get_protected_values(vals)
+        vals["protected_values"] = protected_values
         mr = (
-            self.env["membership.request"].with_context(mode="pre_process").create(vals)
+            self.env["membership.request"]
+            .with_context(mode="pre_process", protected_values=protected_values)
+            .create(vals)
         )
         # We validate the request if asked, and force auto-validation if asked
         mr._auto_validate_may_be_forced(membership_request.auto_validate)
