@@ -35,6 +35,8 @@ class MembershipRequest(models.Model):
             technical_name,
         )
         protected_values = self.env.context.get("protected_values", {})
+        if isinstance(protected_values, bool):
+            protected_values = {}
 
         if isinstance(protected_values, str):
             try:
