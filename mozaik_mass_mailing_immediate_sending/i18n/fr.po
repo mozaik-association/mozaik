@@ -37,20 +37,21 @@ msgid "Mass Mailing"
 msgstr ""
 
 #. module: mozaik_mass_mailing_immediate_sending
-#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_immediate_sending.mailing_mailing_form_view
-msgid "Send Immediately"
-msgstr "Envoi immédiat"
-
-#. module: mozaik_mass_mailing_immediate_sending
-#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_immediate_sending.mailing_mailing_form_view
-msgid ""
-"This will send the email to all recipients.                         This "
-"will also process all other mass mailings waiting to be sent."
-"                         This may take some time.                         Do"
-" you still want to proceed?"
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_immediate_sending.field_mailing_mailing__next_departure_msg
+msgid "Next Departure Msg"
 msgstr ""
-"Ceci va déclencher l'envoi vers tous les destinataires du "
-"publipostage.                         Ceci va également provoquer l'envoi "
-"d'autres publipostages dans la file d'attente.                         Cela "
-"peut prendre du temps, mais vous pouvez continuer à travailler dans une "
-"autre fenêtre Odoo.                         Voulez-vous poursuivre?"
+
+#~ msgid "Send Immediately"
+#~ msgstr "Envoi immédiat"
+
+#~ msgid ""
+#~ "This will send the email to all recipients.                         This "
+#~ "will also process all other mass mailings waiting to be "
+#~ "sent.                         This may take some "
+#~ "time.                         Do you still want to proceed?"
+#~ msgstr ""
+#~ "Ceci va déclencher l'envoi vers tous les destinataires du "
+#~ "publipostage.                         Ceci va également provoquer l'envoi "
+#~ "d'autres publipostages dans la file d'attente.                         "
+#~ "Cela peut prendre du temps, mais vous pouvez continuer à travailler dans "
+#~ "une autre fenêtre Odoo.                         Voulez-vous poursuivre?"
