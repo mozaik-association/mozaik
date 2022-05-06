@@ -543,11 +543,28 @@ class MembershipRequest(models.Model):
                         selection = dict(field["selection"])
                         request_value = selection.get(request_value)
                         partner_value = selection.get(partner_value)
+                        # If voluntary fields: partner field is a boolean, not selection
+                        if element[1] in [
+                            "local_voluntary",
+                            "regional_voluntary",
+                            "national_voluntary",
+                            "local_only",
+                        ]:
+                            partner_value = attrgetter(partner_path)(request.partner_id)
                     if isinstance(request_value, bool) and isinstance(
                         partner_value, bool
                     ):
                         request_value = request_value and _("Yes") or _("No")
                         partner_value = partner_value and _("Yes") or _("No")
+                    if element[1] in [
+                        "local_voluntary",
+                        "regional_voluntary",
+                        "national_voluntary",
+                        "local_only",
+                    ]:
+                        partner_value = (
+                            partner_value and _("Was True") or _("Was False")
+                        )
                     vals = {
                         "membership_request_id": request.id,
                         "sequence": seq,
