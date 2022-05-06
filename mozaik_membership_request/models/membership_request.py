@@ -677,10 +677,7 @@ class MembershipRequest(models.Model):
         res = self._onchange_partner_id_vals(
             is_company, request_type, partner_id, technical_name
         )
-        old_interests = res.pop("interest_ids", [])
-        old_competencies = res.pop("competency_ids", [])
         vals.update(res)
-        self._merge_interests_competencies(vals, old_interests, old_competencies)
 
         vals.update(
             {
@@ -708,29 +705,6 @@ class MembershipRequest(models.Model):
         )
 
         return vals
-
-    def _merge_interests_competencies(self, vals, old_interests, old_competencies):
-        """
-        vals is a dict that may already contain a command for interest_ids or competency_ids.
-        We want to integrate to this command, the previous interests and competencies.
-
-        old_interests is either [] or [(6, False, [list_ids])]
-        old_competencies is either [] or [(6, False, [list_ids])]
-        """
-        new_interests = vals.pop("interest_ids", [])
-        new_competencies = vals.pop("competency_ids", [])
-        if old_interests:
-            old_interest_ids = old_interests[0][2]
-            new_interests += [(4, int_id) for int_id in old_interest_ids]
-        if old_competencies:
-            old_competency_ids = old_competencies[0][2]
-            new_competencies += [(4, comp_id) for comp_id in old_competency_ids]
-        vals.update(
-            {
-                "interest_ids": new_interests,
-                "competency_ids": new_competencies,
-            }
-        )
 
     @api.onchange("country_id")
     def onchange_country_id(self):
