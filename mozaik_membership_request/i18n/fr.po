@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-05-06 14:50+0000\n"
+"PO-Revision-Date: 2022-05-06 17:50+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -562,7 +562,7 @@ msgstr "Contact local"
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Local Voluntary"
-msgstr "Volontaire local"
+msgstr "Actif pol. niv. local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_zip
@@ -667,7 +667,7 @@ msgstr "Nom"
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "National Voluntary"
-msgstr "Volontaire national"
+msgstr "Actif pol. niv. national"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__nationality_id
@@ -728,17 +728,13 @@ msgstr "Pas Actif pol. niv. local"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__national_voluntary__force_false
-#, fuzzy
-#| msgid "National Voluntary"
 msgid "Not national voluntary"
-msgstr "Volontaire national"
+msgstr "Pas Actif pol. niv. national"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__regional_voluntary__force_false
-#, fuzzy
-#| msgid "Regional Voluntary"
 msgid "Not regional voluntary"
-msgstr "Volontaire régional"
+msgstr "Pas Actif pol. niv. régional"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__note
@@ -840,7 +836,7 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Regional Voluntary"
-msgstr "Volontaire régional"
+msgstr "Actif pol. niv. régional"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_abstract_assembly__rejected_date
@@ -1007,13 +1003,13 @@ msgstr "Volontaire"
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "Was False"
-msgstr ""
+msgstr "Était faux"
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "Was True"
-msgstr ""
+msgstr "Était vrai"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__website_message_ids
