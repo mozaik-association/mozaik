@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-14 16:56+0000\n"
-"PO-Revision-Date: 2022-02-10 14:57+0000\n"
+"PO-Revision-Date: 2022-05-06 14:50+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -149,7 +149,7 @@ msgstr "Second site web"
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__separated
 msgid "Separated"
-msgstr "Divorcé(e)"
+msgstr "Séparé(e)"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__single
