@@ -55,7 +55,7 @@ class MembershipRequest(models.Model):
             if field_value is not None:
                 res[field_name] = field_value
 
-        for field_name in ["interest_ids", "competencies_ids"]:
+        for field_name in ["interest_ids", "competency_ids"]:
             field_value = protected_values.get(field_name)
             if field_value and isinstance(field_value, Iterable):
                 # Take the term_ids that are on the partner, if existing
