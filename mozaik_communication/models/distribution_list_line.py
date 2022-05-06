@@ -1,5 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from psycopg2.extensions import AsIs
 
 from odoo import _, models
 from odoo.osv import expression
@@ -23,12 +24,24 @@ class DistributionListLine(models.Model):
         results = super()._get_target_recordset()
         partner_path = self.mapped("distribution_list_id").partner_path
         if results and all(self.mapped("exclude")) and partner_path:
-            partners = results.mapped(partner_path)
-            if partners:
-                domain = [
-                    (partner_path, "in", partners.ids),
-                ]
-                results = results.search(domain)
+            query = (
+                "SELECT id from %(table)s "
+                "WHERE %(partner_path)s in ("
+                "   SELECT %(partner_path)s FROM %(table)s WHERE id in %(ids)s)"
+            )
+            self.env.cr.execute(
+                query,
+                {
+                    "table": AsIs(results._table),
+                    "partner_path": AsIs(partner_path),
+                    "ids": tuple(results.ids),
+                },
+            )
+
+            ids = [r[0] for r in self.env.cr.fetchall()]
+            if ids:
+                # apply security
+                results = results.search([("id", "in", ids)])
         return results
 
     def action_show_filter_result_without_coordinate(self):
