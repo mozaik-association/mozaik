@@ -182,11 +182,42 @@ class MembershipRequest(models.Model):
 
     age = fields.Integer(string="Age", compute="_compute_age", search="_search_age")
 
-    local_voluntary = fields.Boolean(tracking=True)
-    regional_voluntary = fields.Boolean(tracking=True)
-    national_voluntary = fields.Boolean(tracking=True)
-    local_only = fields.Boolean(
-        tracking=True, help="Partner wishing to be contacted only by the local"
+    local_voluntary = fields.Selection(
+        [
+            ("force_true", "Set as local voluntary"),
+            ("force_false", "Not local voluntary"),
+        ],
+        string="Change local voluntary status",
+        default=False,
+        tracking=True,
+    )
+    regional_voluntary = fields.Selection(
+        [
+            ("force_true", "Set as regional voluntary"),
+            ("force_false", "Not regional voluntary"),
+        ],
+        string="Change regional voluntary status",
+        default=False,
+        tracking=True,
+    )
+    national_voluntary = fields.Selection(
+        [
+            ("force_true", "Set as national voluntary"),
+            ("force_false", "Not national voluntary"),
+        ],
+        string="Change national voluntary status",
+        default=False,
+        tracking=True,
+    )
+    local_only = fields.Selection(
+        [
+            ("force_true", "Set as local only"),
+            ("force_false", "Not local only"),
+        ],
+        string="Change local only status",
+        default=False,
+        tracking=True,
+        help="Partner wishing to be contacted only by the local",
     )
 
     involvement_category_ids = fields.Many2many(
@@ -512,11 +543,28 @@ class MembershipRequest(models.Model):
                         selection = dict(field["selection"])
                         request_value = selection.get(request_value)
                         partner_value = selection.get(partner_value)
+                        # If voluntary fields: partner field is a boolean, not selection
+                        if element[1] in [
+                            "local_voluntary",
+                            "regional_voluntary",
+                            "national_voluntary",
+                            "local_only",
+                        ]:
+                            partner_value = attrgetter(partner_path)(request.partner_id)
                     if isinstance(request_value, bool) and isinstance(
                         partner_value, bool
                     ):
                         request_value = request_value and _("Yes") or _("No")
                         partner_value = partner_value and _("Yes") or _("No")
+                    if element[1] in [
+                        "local_voluntary",
+                        "regional_voluntary",
+                        "national_voluntary",
+                        "local_only",
+                    ]:
+                        partner_value = (
+                            partner_value and _("Was True") or _("Was False")
+                        )
                     vals = {
                         "membership_request_id": request.id,
                         "sequence": seq,
@@ -629,10 +677,7 @@ class MembershipRequest(models.Model):
         res = self._onchange_partner_id_vals(
             is_company, request_type, partner_id, technical_name
         )
-        old_interests = res.pop("interest_ids", [])
-        old_competencies = res.pop("competency_ids", [])
         vals.update(res)
-        self._merge_interests_competencies(vals, old_interests, old_competencies)
 
         vals.update(
             {
@@ -660,29 +705,6 @@ class MembershipRequest(models.Model):
         )
 
         return vals
-
-    def _merge_interests_competencies(self, vals, old_interests, old_competencies):
-        """
-        vals is a dict that may already contain a command for interest_ids or competency_ids.
-        We want to integrate to this command, the previous interests and competencies.
-
-        old_interests is either [] or [(6, False, [list_ids])]
-        old_competencies is either [] or [(6, False, [list_ids])]
-        """
-        new_interests = vals.pop("interest_ids", [])
-        new_competencies = vals.pop("competency_ids", [])
-        if old_interests:
-            old_interest_ids = old_interests[0][2]
-            new_interests += [(4, int_id) for int_id in old_interest_ids]
-        if old_competencies:
-            old_competency_ids = old_competencies[0][2]
-            new_competencies += [(4, comp_id) for comp_id in old_competency_ids]
-        vals.update(
-            {
-                "interest_ids": new_interests,
-                "competency_ids": new_competencies,
-            }
-        )
 
     @api.onchange("country_id")
     def onchange_country_id(self):
@@ -822,7 +844,6 @@ class MembershipRequest(models.Model):
             * membership_state_id
             * interest_ids
             * competency_ids
-            * voluntaries
         of ``partner_id``
         And set corresponding fields into the ``membership.request``
 
@@ -854,11 +875,6 @@ class MembershipRequest(models.Model):
 
             if technical_name == EMPTY_ADDRESS:
                 res["int_instance_ids"] = partner.int_instance_ids.ids
-
-            res["local_voluntary"] = partner.local_voluntary
-            res["regional_voluntary"] = partner.regional_voluntary
-            res["national_voluntary"] = partner.national_voluntary
-            res["local_only"] = partner.local_only
 
         elif not is_company:
             partner_status_id = def_status_id.id
@@ -895,9 +911,9 @@ class MembershipRequest(models.Model):
         ):
             res.update(
                 {
-                    "local_voluntary": True,
-                    "regional_voluntary": True,
-                    "national_voluntary": True,
+                    "local_voluntary": "force_true",
+                    "regional_voluntary": "force_true",
+                    "national_voluntary": "force_true",
                 }
             )
         if result_type.code in [
@@ -909,7 +925,7 @@ class MembershipRequest(models.Model):
             "former_member",
             "former_member_committee",
         ]:
-            res["local_only"] = False
+            res["local_only"] = "force_false"
 
         res.update(
             {
@@ -1172,10 +1188,6 @@ class MembershipRequest(models.Model):
         """
         mr_vals = {}
         for mr in self:
-            former_code = False
-            if mr.partner_id:
-                former_code = mr.partner_id.membership_state_code
-
             partner_values = {
                 "is_company": mr.is_company,
                 "lastname": mr.lastname,
@@ -1237,39 +1249,7 @@ class MembershipRequest(models.Model):
             # create new involvements
             self._validate_request_involvement(mr, partner)
 
-            new_code = mr.result_type_id.code
-            # save voluntaries
-            if new_code not in [
-                False,
-                "without_membership",
-                "supporter",
-                "former_supporter",
-            ] and not any(
-                [
-                    new_code == "member_candidate"
-                    and former_code in [False, "without_membership", "supporter"],
-                    new_code == "member_committee" and former_code == "supporter",
-                ]
-            ):
-                partner_values.update(
-                    {
-                        "local_voluntary": mr.local_voluntary,
-                        "regional_voluntary": mr.regional_voluntary,
-                        "national_voluntary": mr.national_voluntary,
-                    }
-                )
-
-            # save local only
-            if new_code not in [
-                "supporter",
-                "former_supporter",
-                "member_candidate",
-                "member_committee",
-                "member",
-                "former_member",
-                "former_member_committee",
-            ]:
-                partner_values["local_only"] = mr.local_only
+            self._validate_voluntaries(mr, partner)
 
             self._validate_request_coordinates(mr, partner_values)
 
@@ -1472,6 +1452,36 @@ class MembershipRequest(models.Model):
                         }
                     membership.partner_id.message_post(body=body)
                 update_amount_membership_line.write(vals)
+
+    @api.model
+    def _validate_voluntaries(self, mr, partner):
+        """
+        We consider selection fields
+        * local_voluntary
+        * regional_voluntary
+        * national_voluntary
+        * local_only
+        on membership request, and if a value is forced, we write it
+        on the partner
+        """
+        if not partner:
+            return
+        if mr.local_voluntary == "force_true":
+            partner.local_voluntary = True
+        elif mr.local_voluntary == "force_false":
+            partner.local_voluntary = False
+        if mr.regional_voluntary == "force_true":
+            partner.regional_voluntary = True
+        elif mr.regional_voluntary == "force_false":
+            partner.regional_voluntary = False
+        if mr.national_voluntary == "force_true":
+            partner.national_voluntary = True
+        elif mr.national_voluntary == "force_false":
+            partner.national_voluntary = False
+        if mr.local_only == "force_true":
+            partner.local_only = True
+        elif mr.local_only == "force_false":
+            partner.local_only = False
 
     @api.model
     def _validate_request_involvement(self, mr, partner):

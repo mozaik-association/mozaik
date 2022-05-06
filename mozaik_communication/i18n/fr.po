@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-11 20:58+0000\n"
-"PO-Revision-Date: 2022-04-29 14:50+0000\n"
+"PO-Revision-Date: 2022-05-05 12:50+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -352,14 +352,12 @@ msgstr "Courriel"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__email_bounce_counter
 msgid "Email Bounce Counter"
-msgstr "Compteur d'échecs de courriel"
+msgstr "Compteur d'échecs d'emails"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_partner_form
-#, fuzzy
-#| msgid "Postal Bounce Counter"
 msgid "Email Bounced"
-msgstr "Compteur d'échecs postaux"
+msgstr "Emails en échec"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly__email_bounced_description
@@ -369,7 +367,7 @@ msgstr "Compteur d'échecs postaux"
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_users__email_bounced_description
 #: model:ir.model.fields,field_description:mozaik_communication.field_sta_assembly__email_bounced_description
 msgid "Email Bounced Description"
-msgstr "Raison de l'échec de courriel"
+msgstr "Raison de l'échec d'emails"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__email
@@ -699,7 +697,7 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:mozaik_communication.field_sta_assembly__last_postal_failure_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__last_postal_failure_date
 msgid "Last Postal Failure Date"
-msgstr "Date du dernier échec (postal)"
+msgstr "Date de dernier échec (postal)"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__write_uid
@@ -1010,10 +1008,8 @@ msgstr "Valeur de paramètre fictif"
 #: model:ir.model.fields,field_description:mozaik_communication.field_sta_assembly__postal_bounced
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__postal_bounced
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_partner_form
-#, fuzzy
-#| msgid "Postal Bounce Counter"
 msgid "Postal Bounced"
-msgstr "Compteur d'échecs postaux"
+msgstr "Courrier en échec"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__postal

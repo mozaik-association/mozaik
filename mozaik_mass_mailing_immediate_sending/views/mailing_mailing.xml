@@ -9,19 +9,12 @@
         >mailing.mailing.form (in mozaik_mass_mailing_immediate_sending)</field>
         <field name="model">mailing.mailing</field>
         <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+        <field name="priority" eval="100" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_put_in_queue']" position="before">
-                <button
-                    name="action_immediate_sending"
-                    type="object"
-                    invisible="1"
-                    class="oe_highlight"
-                    string="Send Immediately"
-                    confirm="This will send the email to all recipients.
-                        This will also process all other mass mailings waiting to be sent.
-                        This may take some time.
-                        Do you still want to proceed?"
-                />
+            <xpath expr="div[@role='alert']/div[5]/strong" position="replace">
+                <strong>
+                    <field name="next_departure_msg" class="oe_inline" />
+                </strong>
             </xpath>
         </field>
     </record>

@@ -4,7 +4,7 @@
     "name": "Mozaik: Membership Request",
     "summary": """
         Manage membership and modification requests""",
-    "version": "14.0.1.0.2",
+    "version": "14.0.1.0.3",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",

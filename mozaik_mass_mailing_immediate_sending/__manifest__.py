@@ -4,8 +4,9 @@
 {
     "name": "Mozaik Mass Mailing Immediate Sending",
     "summary": """
-        Adds a button to send the mass mailing immediately.""",
-    "version": "14.0.1.0.0",
+        Change next departure message so that a datetime in the past
+        will not be displayed.""",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",

@@ -146,6 +146,26 @@ msgid "Cancelled"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_only
+msgid "Change local only status"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_voluntary
+msgid "Change local voluntary status"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__national_voluntary
+msgid "Change national voluntary status"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__regional_voluntary
+msgid "Change regional voluntary status"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__change_ids
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Changes"
@@ -529,13 +549,11 @@ msgid "Legal Persons"
 msgstr ""
 
 #. module: mozaik_membership_request
-#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_only
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Local Only"
 msgstr ""
 
 #. module: mozaik_membership_request
-#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__local_voluntary
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Local Voluntary"
 msgstr ""
@@ -641,7 +659,6 @@ msgid "Name"
 msgstr ""
 
 #. module: mozaik_membership_request
-#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__national_voluntary
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "National Voluntary"
 msgstr ""
@@ -692,6 +709,26 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Not Local Only"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__local_only__force_false
+msgid "Not local only"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__local_voluntary__force_false
+msgid "Not local voluntary"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__national_voluntary__force_false
+msgid "Not national voluntary"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__regional_voluntary__force_false
+msgid "Not regional voluntary"
 msgstr ""
 
 #. module: mozaik_membership_request
@@ -792,7 +829,6 @@ msgid "Refuse"
 msgstr ""
 
 #. module: mozaik_membership_request
-#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__regional_voluntary
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Regional Voluntary"
 msgstr ""
@@ -847,6 +883,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__sequence
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__sequence
 msgid "Sequence"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__local_only__force_true
+msgid "Set as local only"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__local_voluntary__force_true
+msgid "Set as local voluntary"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__national_voluntary__force_true
+msgid "Set as national voluntary"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields.selection,name:mozaik_membership_request.selection__membership_request__regional_voluntary__force_true
+msgid "Set as regional voluntary"
 msgstr ""
 
 #. module: mozaik_membership_request
@@ -936,6 +992,18 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Voluntary"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid "Was False"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid "Was True"
 msgstr ""
 
 #. module: mozaik_membership_request

@@ -2,22 +2,19 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Mass Mailing Bounce Counter",
+    "name": "Mozaik Membership Request Protected Values",
     "summary": """
-        Manages the email bounce counter on res.partner""",
+        Allows to protect values to avoid changes in onchange_partner_id_vals
+        when changing the partner or request type on a membership request.""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        "mass_mailing",
-        "mozaik_communication",
+        "mozaik_membership_request",
     ],
     "data": [
-        "security/res_groups.xml",
-        "data/res_partner_data.xml",
-        "views/res_partner.xml",
+        "views/membership_request.xml",
     ],
     "demo": [],
-    "post_init_hook": "post_init_hook",
 }
