@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="membership_request_form_view">
+        <field
+            name="name"
+        >membership.request.form (in mozaik_membership_request_protected_values)</field>
+        <field name="model">membership.request</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_membership_request.membership_request_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='changes']" position="inside">
+                <group>
+                    <field name="protected_values" readonly="1" />
+                </group>
+            </xpath>
+
+        <!-- Add protected values in context of fields that trigger onchange_partner_id_vals-->
+            <xpath expr="//field[@name='is_company']" position="attributes">
+                <attribute name="context" translation="off">
+                    {'protected_values': protected_values}
+                </attribute>
+            </xpath>
+            <xpath
+                expr="//page[@name='partner']//field[@name='partner_id']"
+                position="attributes"
+            >
+                <attribute name="context" translation="off">
+                    {'protected_values': protected_values}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='request_type']" position="attributes">
+                <attribute name="context" translation="off">
+                    {'protected_values': protected_values}
+                </attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+</odoo>
