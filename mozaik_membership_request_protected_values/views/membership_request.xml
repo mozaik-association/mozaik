@@ -8,6 +8,7 @@
             name="name"
         >membership.request.form (in mozaik_membership_request_protected_values)</field>
         <field name="model">membership.request</field>
+        <field name="priority" eval="5" />
         <field
             name="inherit_id"
             ref="mozaik_membership_request.membership_request_form_view"
