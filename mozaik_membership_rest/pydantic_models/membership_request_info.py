@@ -34,7 +34,7 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     request_type: str = None
     number: str = None
     box: str = None
-    local_only: bool = None
+    local_only: str = None
     day: str = None
     month: str = None
     year: str = None
@@ -52,13 +52,12 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     involvement_categories: List[InvolvementCategoryInfo] = pydantic.Field(
         [], alias="involvement_category_ids"
     )
-    local_voluntary: bool = False
-    regional_voluntary: bool = False
-    national_voluntary: bool = False
+    local_voluntary: str = None
+    regional_voluntary: str = None
+    national_voluntary: str = None
     amount: float = None
     reference: str = None
     effective_time: datetime = None
-    local_only: bool = None
     nationality: CountryInfo = pydantic.Field(None, alias="nationality_id")
     country: CountryInfo = pydantic.Field(None, alias="country_id")
     city_id: int = None
