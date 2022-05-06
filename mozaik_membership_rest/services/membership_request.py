@@ -10,19 +10,15 @@ from odoo.exceptions import ValidationError
 from odoo.addons.base_rest import restapi
 from odoo.addons.base_rest_pydantic.restapi import PydanticModel
 from odoo.addons.component.core import Component
+from odoo.addons.mozaik_membership_request_protected_values.models.membership_request import (
+    VOLUNTARY_FIELD_NAMES,
+)
 
 from ..pydantic_models.membership_request import MembershipRequest
 from ..pydantic_models.membership_request_info import MembershipRequestInfo
 
 _logger = logging.getLogger(__name__)
 trace = _logger.info
-
-VOLUNTARY_FIELD_NAMES = [
-    "local_voluntary",
-    "regional_voluntary",
-    "national_voluntary",
-    "local_only",
-]
 
 
 class MembershipRequestService(Component):
