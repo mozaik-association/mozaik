@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
+msgid "<span>John Doe</span>"
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields,help:mozaik_event_barcode.field_event_event__voting_domain
 msgid ""
 "Add a domain on virtual.partner.membership model to decide if an attendee "
@@ -33,6 +38,11 @@ msgstr ""
 #. module: mozaik_event_barcode
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__lastname
 msgid "Attendee's lastname"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
+msgid "Attendee's name:"
 msgstr ""
 
 #. module: mozaik_event_barcode
@@ -193,4 +203,9 @@ msgstr ""
 #. module: mozaik_event_barcode
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__voting_msg
 msgid "Voting Status"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
+msgid "div class=\"row page\"&gt;"
 msgstr ""
