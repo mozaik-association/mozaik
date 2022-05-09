@@ -36,9 +36,14 @@ msgid "Attendee's firstname"
 msgstr "Prénom"
 
 #. module: mozaik_event_barcode
-#: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__lastname
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
 msgid "Attendee's lastname"
 msgstr "Nom"
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
+msgid "Attendee's name:"
+msgstr "Nom du participant :"
 
 #. module: mozaik_event_barcode
 #: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.event_event_form_view

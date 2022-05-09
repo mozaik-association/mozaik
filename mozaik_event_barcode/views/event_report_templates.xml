@@ -6,16 +6,80 @@
     <template
         id="report_barcode_badge"
         inherit_id="event.event_registration_report_template_badge"
-        priority="1"
+        priority="100"
     >
-        <xpath expr="//div[@id='o_event_name']" position="after">
-            <div class="col-12">
-                <div class="text-center">
-                    <img
-                        class="barcode"
-                        t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', o.barcode, 400, 67)"
-                        alt="Barcode"
-                    />
+
+        <xpath expr="//div[hasclass('page')]" position="replace">
+            div class="row page">
+        <div class="page w-100">
+            <div>
+                <div class="row">
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col-8 page">
+                                <div class="col-4">
+                                <span t-if="o.event_id.organizer_id.image_128">
+                                    <img
+                                                t-att-src="image_data_uri(o.event_id.organizer_id.image_128)"
+                                                class="mb-4"
+                                            />
+                                </span>
+                                    </div>
+                                <h4
+                                        class="font-weight-bold text-center"
+                                        t-field="o.event_id.name"
+                                    />
+                                <div
+                                        style="margin-top:20px;margin-bottom:20px;"
+                                        class="text-center"
+                                    >
+                                    <span
+                                            itemprop="startDate"
+                                            t-esc="o.event_id.date_begin.date()"
+                                            class="font-weight-bold"
+                                        />
+                                    <span
+                                            itemprop="startDateTime"
+                                            t-field="o.event_id.with_context(tz=o.event_id.date_tz).date_begin"
+                                            class="font-weight-bold"
+                                            t-options='{"widget": "datetime", "time_only": True, "hide_seconds": True}'
+                                        />
+                                    <span class="fa fa-arrow-right" />
+                                    <span
+                                            t-if="not o.event_id.is_one_day"
+                                            itemprop="endDate"
+                                            t-esc="o.event_id.date_end.date()"
+                                            class="font-weight-bold"
+                                        />
+                                    <span
+                                            itemprop="endDateTime"
+                                            t-field="o.event_id.with_context(tz=o.event_id.date_tz).date_end"
+                                            class="font-weight-bold"
+                                            t-options='{"widget": "datetime", "time_only": True, "hide_seconds": True}'
+                                        />
+                                    </div>
+                                <br />
+                                <div style="margin-bottom:20px;">
+                                    Attendee's name:
+                                    <h5 t-if="o" t-field="o.name" />
+                                <h5 t-elif="not o"><span>John Doe</span></h5>
+                                </div>
+                                <t
+                                        t-set="first_ticket"
+                                        t-value="event.event_ticket_ids[0] if o.event_id.event_ticket_ids else None"
+                                    />
+                                <div t-if="o.name" t-field="o.event_ticket_id" />
+                                <div class="col-12" style="margin-top:20px;">
+                                    <img
+                                            class="barcode"
+                                            t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', o.barcode, 400, 67)"
+                                            alt="Barcode"
+                                        />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </xpath>
