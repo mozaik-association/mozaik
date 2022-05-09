@@ -17,6 +17,11 @@ msgstr ""
 "X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
+msgid "<span>John Doe</span>"
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields,help:mozaik_event_barcode.field_event_event__voting_domain
 msgid ""
 "Add a domain on virtual.partner.membership model to decide if an attendee "
@@ -39,6 +44,11 @@ msgstr "Prénom"
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__lastname
 msgid "Attendee's lastname"
 msgstr "Nom"
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
+msgid "Attendee's name:"
+msgstr "Nom du participant :"
 
 #. module: mozaik_event_barcode
 #: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.event_event_form_view
@@ -204,5 +214,7 @@ msgstr "Domaine de vote"
 msgid "Voting Status"
 msgstr "Statut de vote"
 
-#~ msgid "Attendee's name:"
-#~ msgstr "Nom du participant :"
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
+msgid "div class=\"row page\"&gt;"
+msgstr ""
