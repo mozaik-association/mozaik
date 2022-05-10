@@ -45,8 +45,27 @@ class EventEvent(models.Model):
         """
         self.ensure_one()
         voting_domain = self._get_normalized_domain()
-        virtual_targets = self.env["virtual.partner.membership"].search(voting_domain)
-        return virtual_targets.mapped("partner_id").ids
+        virtual_target_ids = (
+            self.env["virtual.partner.membership"].search(voting_domain).ids
+        )
+        self.env.cr.execute(
+            """
+        SELECT DISTINCT p.id
+        FROM res_partner p
+           JOIN virtual_partner_membership vp
+           ON p.id = vp.partner_id
+        WHERE vp.id in %(vt_list)s;
+        """,
+            {
+                "vt_list": tuple(virtual_target_ids),
+            },
+        )
+        res_ids = [r[0] for r in self.env.cr.fetchall()]
+        if res_ids:
+            return (
+                self.env["res.partner"].search([("id", "in", res_ids)]).ids
+            )  # apply security
+        return []
 
     def reopen_barcode_scanner(self):
         self.ensure_one()
