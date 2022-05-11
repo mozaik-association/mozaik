@@ -53,11 +53,13 @@ class AbstractVirtualModel(models.AbstractModel):
         comodel_name="thesaurus.term",
         string="Competencies",
         compute="_compute_competency_ids",
+        search="_search_competency_ids",
     )
     interest_ids = fields.Many2many(
         comodel_name="thesaurus.term",
         string="Interests",
         compute="_compute_interest_ids",
+        search="_search_interest_ids",
     )
     partner_instance_ids = fields.Many2many(
         comodel_name="int.instance",
@@ -115,6 +117,22 @@ class AbstractVirtualModel(models.AbstractModel):
             [("int_instance_ids", operator, value)]
         )
         return [("partner_id", "in", auth_partners.ids)]
+
+    def _search_term_ids(self, operator, value, term_name):
+        if operator not in ["ilike", "in", "not in"]:
+            raise ValueError(_("This operator is not supported"))
+        if operator == "ilike" and not isinstance(value, str):
+            raise ValueError(_("value should be a string"))
+        elif operator in ["in", "not in"] and not isinstance(value, list):
+            raise ValueError(_("value should be a list"))
+        auth_partners = self.env["res.partner"].search([(term_name, operator, value)])
+        return [("partner_id", "in", auth_partners.ids)]
+
+    def _search_interest_ids(self, operator, value):
+        return self._search_term_ids(operator, value, "interest_ids")
+
+    def _search_competency_ids(self, operator, value):
+        return self._search_term_ids(operator, value, "competency_ids")
 
     @api.model
     def _search_int_instance_id(self, operator, value):
