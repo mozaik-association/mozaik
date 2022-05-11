@@ -12,6 +12,7 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     lastname: str
     firstname: str
     request_type: str
+    partner_id: int = None
     gender: str = None
     street: str = None
     street2: str = None

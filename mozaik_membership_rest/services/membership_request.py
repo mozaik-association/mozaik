@@ -147,7 +147,8 @@ class MembershipRequestService(Component):
         if vals["country_id"]:
             vals = self._validate_country_city(vals)
         del vals["auto_validate"]
-        vals["partner_id"] = self.env.context.get("authenticated_partner_id", False)
+        if not vals["partner_id"]:
+            vals["partner_id"] = self.env.context.get("authenticated_partner_id", False)
         vals["force_autoval"] = vals.pop("force_auto_validate", False)
         vals["street_man"] = vals.pop("street", False)
         vals["zip_man"] = vals.pop("zip", False)
