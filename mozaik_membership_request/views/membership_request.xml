@@ -449,7 +449,7 @@
                             <page string="Coordinates" name="coordinates">
                                 <group>
                                     <group>
-                                        <field name="address_id" />
+                                        <field name="address_id" readonly="1" />
                                     </group>
                                 </group>
                             </page>

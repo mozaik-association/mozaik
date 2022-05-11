@@ -165,7 +165,7 @@ class MembershipRequest(models.Model):
     )
 
     address_id = fields.Many2one(
-        comodel_name="address.address", string="Address", tracking=True
+        comodel_name="address.address", string="Current Address", tracking=True
     )
     change_ids = fields.One2many(
         comodel_name="membership.request.change",
