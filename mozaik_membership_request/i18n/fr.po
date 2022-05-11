@@ -83,8 +83,8 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__address_id
-msgid "Address"
-msgstr "Adresse"
+msgid "Current Address"
+msgstr "Adresse actuelle"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__age

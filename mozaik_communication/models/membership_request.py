@@ -51,7 +51,6 @@ class MembershipRequest(models.Model):
         If the address is different from the partner's address,
         we set the postal bounce back to False.
         """
-        super()._partner_write_address(address_id, partner)
         if (
             partner
             and address_id
@@ -59,6 +58,7 @@ class MembershipRequest(models.Model):
             and partner.address_address_id.id != address_id
         ):
             partner.write({"last_postal_failure_date": False})
+        super()._partner_write_address(address_id, partner)
 
     def validate_request(self):
         """
