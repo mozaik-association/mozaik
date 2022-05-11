@@ -13,24 +13,6 @@ class DistributionListLine(models.Model):
     ]
     _unicity_keys = "N/A"
 
-    def _get_target_recordset(self):
-        """
-        For excluding filters the result is transformed
-        to exclude all target records linked
-        to the concerned partners
-        :return: target recordset
-        """
-        results = super()._get_target_recordset()
-        partner_path = self.mapped("distribution_list_id").partner_path
-        if results and all(self.mapped("exclude")) and partner_path:
-            partners = results.mapped(partner_path)
-            if partners:
-                domain = [
-                    (partner_path, "in", partners.ids),
-                ]
-                results = results.search(domain)
-        return results
-
     def action_show_filter_result_without_coordinate(self):
         """
         Show the result of the list without coordinate

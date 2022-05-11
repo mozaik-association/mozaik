@@ -170,16 +170,24 @@ class DistributionListLine(models.Model):
             source_model = bridge_field.model_id.model
             field_name = bridge_field.name
             try:
-                results = self.env[source_model].search(big_domain)
-                if field_name == "id":
-                    targets |= results
-                else:
-                    # to speedup use read and not mapped
-                    ids = {
-                        r[field_name]
-                        for r in results.read([field_name], load="_classic_write")
-                    }
-                    targets |= self.env[target_model].browse(ids)
+                self.flush()
+                if field_name == "self":
+                    field_name = "id"
+                # not the best, but use directly the sql to improve perf
+                # without that, it will need 2 call, one search, one read
+                self.env[source_model].check_access_rights("read")
+                query = self.env[source_model]._where_calc(big_domain)
+                self.env[source_model]._apply_ir_rules(query, "read")
+                from_clause, where_clause, where_clause_params = query.get_sql()
+                query_str = 'SELECT "%s".%s FROM %s WHERE %s' % (
+                    self.env[source_model]._table,
+                    field_name,
+                    from_clause,
+                    where_clause,
+                )
+                self.env.cr.execute(query_str, where_clause_params)
+                ids = [r[0] for r in self.env.cr.fetchall()]
+                targets |= self.env[target_model].browse(ids)
             except Exception as e:
                 message = _(
                     "A filter for the target model %s is not valid.\n" "Details: %s"
