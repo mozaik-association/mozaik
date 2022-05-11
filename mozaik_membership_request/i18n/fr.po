@@ -82,11 +82,6 @@ msgid "Active"
 msgstr ""
 
 #. module: mozaik_membership_request
-#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__address_id
-msgid "Current Address"
-msgstr "Adresse actuelle"
-
-#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__age
 msgid "Age"
 msgstr ""
@@ -254,6 +249,11 @@ msgstr "Date de création"
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__create_uid
 msgid "Created by"
 msgstr "Créé par"
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__address_id
+msgid "Current Address"
+msgstr "Adresse actuelle"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__membership_state_id
