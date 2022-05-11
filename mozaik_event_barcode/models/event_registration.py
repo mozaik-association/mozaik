@@ -22,6 +22,24 @@ class EventRegistration(models.Model):
     barcode = fields.Char(
         default=_get_random_token, readonly=True, copy=False, index=True
     )
+    can_vote = fields.Boolean(
+        string="Can vote", compute="_compute_can_vote", store=True
+    )
+
+    @api.depends("associated_partner_id", "event_id.voting_domain")
+    def _compute_can_vote(self):
+        # Compute voting partners once
+        voting_partners_dict = {}
+        for event in list(set(self.mapped("event_id"))):
+            voting_partners_dict[event.id] = event._get_voting_partners()
+        for record in self:
+            if not record.associated_partner_id:
+                record.can_vote = False
+            else:
+                record.can_vote = (
+                    record.associated_partner_id.id
+                    in voting_partners_dict[record.event_id.id]
+                )
 
     _sql_constraints = [
         ("barcode_event_uniq", "unique(barcode)", "Barcode should be unique")

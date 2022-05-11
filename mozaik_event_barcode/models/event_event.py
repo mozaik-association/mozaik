@@ -48,6 +48,8 @@ class EventEvent(models.Model):
         virtual_target_ids = (
             self.env["virtual.partner.membership"].search(voting_domain).ids
         )
+        if not virtual_target_ids:
+            return []
         self.env.cr.execute(
             """
         SELECT DISTINCT p.id
@@ -88,3 +90,13 @@ class EventEvent(models.Model):
             }
         )
         return res
+
+    def trigger_recompute_voting_domain(self):
+        """
+        Recompute voting domain on all event.registration records
+        linked to the event.
+        """
+        registrations = self.env["event.registration"].search(
+            [("event_id", "in", self.ids)]
+        )
+        registrations._compute_can_vote()
