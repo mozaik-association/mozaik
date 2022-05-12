@@ -1058,7 +1058,6 @@ msgstr ""
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_mail_mass_mailing_search
-#: model_terms:ir.ui.view,arch_db:mozaik_communication.view_mail_mass_mailing_tree
 msgid "Sender"
 msgstr ""
 
