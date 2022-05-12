@@ -81,7 +81,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='subject']" position="after">
                 <field name="distribution_list_id" />
-                <field name="create_uid" string="Sender" />
+                <field name="email_from" />
                 <field name="create_date" />
             </xpath>
             <xpath expr="//field[@name='replied_ratio']" position="after">
