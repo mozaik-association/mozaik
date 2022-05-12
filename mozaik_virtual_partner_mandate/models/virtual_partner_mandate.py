@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from psycopg2.extensions import AsIs
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 from odoo.addons.mozaik_mandate.models.mandate_category import (
     mandate_category_available_types,
@@ -74,16 +74,19 @@ class VirtualPartnerMandate(models.Model):
         comodel_name="thesaurus.term",
         compute="_compute_ref_partner_competency_ids",
         string="Topics",
+        search="_search_ref_partner_competency_ids",
     )
 
     sta_competencies_m2m_ids = fields.Many2many(
         comodel_name="thesaurus.term",
         compute="_compute_sta_competencies_m2m_ids",
         string="State Mandate Competences",
+        search="_search_sta_competencies_m2m_ids",
     )
     ext_competencies_m2m_ids = fields.Many2many(
         comodel_name="thesaurus.term",
         compute="_compute_ext_competencies_m2m_ids",
+        search="_search_ext_competencies_m2m_ids",
         string="External Mandate Competences",
     )
     sta_instance_id = fields.Many2one(
@@ -113,6 +116,38 @@ class VirtualPartnerMandate(models.Model):
         self._compute_custom_related(
             "ext_competencies_m2m_ids", "ext_mandate_id.competencies_m2m_ids"
         )
+
+    def _search_sta_competencies_m2m_ids(self, operator, value):
+        return self._search_competencies_m2m_ids(operator, value, "sta")
+
+    def _search_ext_competencies_m2m_ids(self, operator, value):
+        return self._search_competencies_m2m_ids(operator, value, "ext")
+
+    def _search_competencies_m2m_ids(self, operator, value, mandate_type):
+        if operator not in ["ilike", "in", "not in"]:
+            raise ValueError(_("This operator is not supported"))
+        if operator == "ilike" and not isinstance(value, str):
+            raise ValueError(_("value should be a string"))
+        elif operator in ["in", "not in"] and not isinstance(value, list):
+            raise ValueError(_("value should be a list"))
+        mandate_model = "%(mandate_type)s.mandate" % {"mandate_type": mandate_type}
+        mandate_field = "%(mandate_type)s_mandate_id" % {"mandate_type": mandate_type}
+        auth_mandates = self.env[mandate_model].search(
+            [("competencies_m2m_ids", operator, value)]
+        )
+        return [(mandate_field, "in", auth_mandates.ids)]
+
+    def _search_ref_partner_competency_ids(self, operator, value):
+        if operator not in ["ilike", "in", "not in"]:
+            raise ValueError(_("This operator is not supported"))
+        if operator == "ilike" and not isinstance(value, str):
+            raise ValueError(_("value should be a string"))
+        elif operator in ["in", "not in"] and not isinstance(value, list):
+            raise ValueError(_("value should be a list"))
+        auth_partners = self.env["res.partner"].search(
+            [("competency_ids", operator, value)]
+        )
+        return [("ref_partner_id", "in", auth_partners.ids)]
 
     @api.model
     def _get_select(self):
