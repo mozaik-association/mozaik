@@ -1260,6 +1260,12 @@ msgstr "ou"
 msgid "value should be a list"
 msgstr ""
 
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
+#, python-format
+msgid "value should be a string"
+msgstr ""
+
 #~ msgid "AB Batch (%)"
 #~ msgstr "Lot AB (%)"
 
