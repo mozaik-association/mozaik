@@ -323,6 +323,12 @@ msgid "State Mandate Competences"
 msgstr "Compétences de mandat politique"
 
 #. module: mozaik_virtual_partner_mandate
+#: code:addons/mozaik_virtual_partner_mandate/models/virtual_partner_mandate.py:0
+#, python-format
+msgid "This operator is not supported"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__ref_partner_competency_ids
 msgid "Topics"
 msgstr "Thèmes"
@@ -346,6 +352,18 @@ msgstr "Sans rémunération"
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields.selection,name:mozaik_virtual_partner_mandate.selection__virtual_partner_mandate__retrocession_mode__year
 msgid "Yearly"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: code:addons/mozaik_virtual_partner_mandate/models/virtual_partner_mandate.py:0
+#, python-format
+msgid "value should be a list"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
+#: code:addons/mozaik_virtual_partner_mandate/models/virtual_partner_mandate.py:0
+#, python-format
+msgid "value should be a string"
 msgstr ""
 
 #~ msgid "Unauthorized Address"
