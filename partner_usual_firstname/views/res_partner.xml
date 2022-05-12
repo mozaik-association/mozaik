@@ -12,7 +12,10 @@
                 <div class="oe_edit_only">
                     <group>
                         <group attrs="{'invisible': [('is_company', '=', True)]}">
-                            <field name="lastname" />
+                            <field
+                                name="lastname"
+                                attrs="{'required': [('is_company', '=', False),('type', '=', 'contact')]}"
+                            />
                             <field name="firstname" />
                         </group>
                         <group
