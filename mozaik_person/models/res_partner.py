@@ -141,7 +141,6 @@ class ResPartner(models.Model):
     )
     lastname = fields.Char(
         tracking=True,
-        required=True,
     )
     usual_firstname = fields.Char(
         tracking=True,
