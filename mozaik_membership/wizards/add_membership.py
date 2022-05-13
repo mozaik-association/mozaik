@@ -154,5 +154,9 @@ class AddMembership(models.TransientModel):
         )
         if active_membership:
             active_membership._close(date_to=self.date_from, force=True)
-            active_membership.flush()
-        return membership_obj.create(values)
+        res = membership_obj.create(values)
+        # We need to flush to trigger the re-compute
+        # before erasing the value of the previous membership state
+        res.flush()
+        res.partner_id.previous_membership_state_id = False
+        return res

@@ -545,7 +545,10 @@ class MembershipLine(models.Model):
             values = {
                 "date_to": date_to,
             }
+            # Write last membership state on related partners.
+            lines.mapped("partner_id")._update_previous_membership_state()
             lines.action_invalidate(values)
+        lines.with_context(update_flags=False).flush()
         return lines
 
     @api.model
@@ -702,6 +705,10 @@ class MembershipLine(models.Model):
         lines = self._close(date_to=fields.Date.to_string(date_to))
         if lines:
             lines = lines._renew(date_from=date_from)
+            # We have to flush to trigger re-compute before erasing
+            # the value of the previous membership state.
+            lines.flush()
+            lines.mapped("partner_id").write({"previous_membership_state_id": False})
         return lines
 
     def _close_and_renew(self, date_from=False):
