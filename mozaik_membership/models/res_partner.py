@@ -430,7 +430,7 @@ class ResPartner(models.Model):
             )
         elif any(
             [
-                new_state_code == "member_candidate"
+                new_state_code in ["member", "member_candidate"]
                 and previous_membership_state_code
                 in ["without_membership", "supporter"],
                 new_state_code == "member_committee"
