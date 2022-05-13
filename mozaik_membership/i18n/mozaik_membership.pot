@@ -555,6 +555,16 @@ msgid "Just a promise"
 msgstr ""
 
 #. module: mozaik_membership
+#: model:ir.model.fields,help:mozaik_membership.field_abstract_assembly__previous_membership_state_id
+#: model:ir.model.fields,help:mozaik_membership.field_ext_assembly__previous_membership_state_id
+#: model:ir.model.fields,help:mozaik_membership.field_int_assembly__previous_membership_state_id
+#: model:ir.model.fields,help:mozaik_membership.field_res_partner__previous_membership_state_id
+#: model:ir.model.fields,help:mozaik_membership.field_res_users__previous_membership_state_id
+#: model:ir.model.fields,help:mozaik_membership.field_sta_assembly__previous_membership_state_id
+msgid "Just used when (mass) renewing a membership, to update flags."
+msgstr ""
+
+#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_add_membership____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_assembly_mixin____last_update
 #: model:ir.model.fields,field_description:mozaik_membership.field_base_partner_merge_automatic_wizard____last_update
@@ -908,6 +918,16 @@ msgstr ""
 #. module: mozaik_membership
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_form_view
 msgid "Payment"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly__previous_membership_state_id
+#: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly__previous_membership_state_id
+#: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly__previous_membership_state_id
+#: model:ir.model.fields,field_description:mozaik_membership.field_res_partner__previous_membership_state_id
+#: model:ir.model.fields,field_description:mozaik_membership.field_res_users__previous_membership_state_id
+#: model:ir.model.fields,field_description:mozaik_membership.field_sta_assembly__previous_membership_state_id
+msgid "Previous Membership State"
 msgstr ""
 
 #. module: mozaik_membership
