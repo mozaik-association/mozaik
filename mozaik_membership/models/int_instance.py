@@ -28,9 +28,11 @@ class IntInstance(models.Model):
 
     def get_member_action(self):
         self.ensure_one()
-        action = self.env.ref("mozaik_person.res_partner_natural_person_action").read()[
-            0
-        ]
+        action = (
+            self.sudo()
+            .env.ref("mozaik_person.res_partner_natural_person_action")
+            .read()[0]
+        )
         domain = [("int_instance_ids", "in", [self.id])]
         if action.get("domain"):
             domain = expression.AND([domain, safe_eval(action.get("domain"))])
