@@ -53,6 +53,11 @@ class ResPartner(models.Model):
     membership_state_code = fields.Char(
         related="membership_state_id.code", readonly=True
     )
+    previous_membership_state_id = fields.Many2one(
+        comodel_name="membership.state",
+        string="Previous Membership State",
+        help="Just used when (mass) renewing a membership, to update flags.",
+    )
     subscription_product_id = fields.Many2one(
         compute="_compute_subscription_product_id",
         comodel_name="product.product",
@@ -181,6 +186,15 @@ class ResPartner(models.Model):
             record.int_instance_ids = instances
             record.membership_state_id = state
             record.is_excluded = is_excluded
+
+    def _update_previous_membership_state(self):
+        """
+        Write, at time t, the value of the current membership state,
+        to save it before it will be overwritten (when closing
+        a membership request).
+        """
+        for partner in self:
+            partner.previous_membership_state_id = partner.membership_state_id
 
     def _get_current_state(self):
         """
@@ -396,6 +410,15 @@ class ResPartner(models.Model):
 
         vals = {}
 
+        if not self.env.context.get("update_flags", True):
+            return vals
+
+        previous_membership_state_id = (
+            self.previous_membership_state_id
+            or self.env["membership.state"]._get_default_state()
+        )
+        previous_membership_state_code = previous_membership_state_id.code
+
         # force voluntaries fields if any
         if new_state_code in ["without_membership", "supporter", "former_supporter"]:
             vals.update(
@@ -408,9 +431,10 @@ class ResPartner(models.Model):
         elif any(
             [
                 new_state_code == "member_candidate"
-                and self.membership_state_code in ["without_membership", "supporter"],
+                and previous_membership_state_code
+                in ["without_membership", "supporter"],
                 new_state_code == "member_committee"
-                and self.membership_state_code == "supporter",
+                and previous_membership_state_code == "supporter",
             ]
         ):
             vals.update(
