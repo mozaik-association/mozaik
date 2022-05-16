@@ -130,72 +130,72 @@ class TestMembership(TransactionCase):
             waiting_adrs_id = waiting_adrs_ids[0]
         self.assertEqual(adrs, waiting_adrs_id, "Address id Should be the same")
 
-    # def test_voluntaries(self):
-    #     """
-    #     * Test the validate process and check for
-    #     ** regional_voluntary and local_only
-    #     """
-    #     mr_obj = self.env["membership.request"]
-    #
-    #     vals = {
-    #         "firstname": "Virginie",
-    #         "lastname": "EFIRA",
-    #     }
-    #
-    #     # create and validate a membership request
-    #     mr = mr_obj.create(vals)
-    #     mr.validate_request()
-    #     partner = mr.partner_id
-    #     self.assertFalse(partner.local_only)
-    #
-    #     # create membership request from the partner
-    #     mr_id = partner.button_modification_request()["res_id"]
-    #     mr = mr_obj.browse([mr_id])
-    #
-    #     vals = {
-    #         "local_only": "force_true",
-    #     }
-    #     mr.write(vals)
-    #     self.assertEqual(mr.local_only, "force_true")
-    #
-    #     # validate the request
-    #     mr.validate_request()
-    #     self.assertTrue(partner.local_only)
-    #
-    #     # create membership request from the partner
-    #     mr_id = partner.button_modification_request()["res_id"]
-    #     mr = mr_obj.browse([mr_id])
-    #
-    #     vals = {
-    #         "request_type": "s",
-    #     }
-    #     mr.write(vals)
-    #     mr.onchange_partner_id()
-    #     self.assertEqual(mr.local_only, "force_false")
-    #
-    #     # validate the request
-    #     mr.validate_request()
-    #     # updated because we go from without membership to supporter
-    #     self.assertFalse(partner.local_only)
-    #
-    #     # create membership request from the partner
-    #     mr_id = partner.button_modification_request()["res_id"]
-    #     mr = mr_obj.browse([mr_id])
-    #
-    #     vals = {
-    #         "request_type": "m",
-    #     }
-    #     vals["regional_voluntary"] = "force_true"
-    #     mr.write(vals)
-    #     mr.onchange_partner_id()
-    #     self.assertEqual(mr.regional_voluntary, "force_true")
-    #
-    #     # validate the request
-    #     mr.validate_request()
-    #     # updated because force_true
-    #     self.assertTrue(partner.regional_voluntary)
-    #
-    #     return
+    def test_voluntaries(self):
+        """
+        * Test the validate process and check for
+        ** regional_voluntary and local_only
+        """
+        mr_obj = self.env["membership.request"]
+
+        vals = {
+            "firstname": "Virginie",
+            "lastname": "EFIRA",
+        }
+
+        # create and validate a membership request
+        mr = mr_obj.create(vals)
+        mr.validate_request()
+        partner = mr.partner_id
+        self.assertFalse(partner.local_only)
+
+        # create membership request from the partner
+        mr_id = partner.button_modification_request()["res_id"]
+        mr = mr_obj.browse([mr_id])
+
+        vals = {
+            "local_only": "force_true",
+        }
+        mr.write(vals)
+        self.assertEqual(mr.local_only, "force_true")
+
+        # validate the request
+        mr.validate_request()
+        self.assertTrue(partner.local_only)
+
+        # create membership request from the partner
+        mr_id = partner.button_modification_request()["res_id"]
+        mr = mr_obj.browse([mr_id])
+
+        vals = {
+            "request_type": "s",
+        }
+        mr.write(vals)
+        mr.onchange_partner_id()
+        self.assertEqual(mr.local_only, "force_false")
+
+        # validate the request
+        mr.validate_request()
+        # updated because we go from without membership to supporter
+        self.assertFalse(partner.local_only)
+
+        # create membership request from the partner
+        mr_id = partner.button_modification_request()["res_id"]
+        mr = mr_obj.browse([mr_id])
+
+        vals = {
+            "request_type": "m",
+        }
+        vals["regional_voluntary"] = "force_true"
+        mr.write(vals)
+        mr.onchange_partner_id()
+        self.assertEqual(mr.regional_voluntary, "force_true")
+
+        # validate the request
+        mr.validate_request()
+        # updated because force_true
+        self.assertTrue(partner.regional_voluntary)
+
+        return
 
     def test_validate_request(self):
         """
@@ -327,118 +327,118 @@ class TestMembership(TransactionCase):
         uniq_code_membership = mrs._get_default_state(default_state=code)
         self.assertEqual(code, uniq_code_membership.code, "Code should be %s" % code)
 
-    # def test_track_changes(self):
-    #     """
-    #     Test to valid tracks changes method to detect differences
-    #     between modification request and partner data
-    #     """
-    #
-    #     request = self.rec_mr_update
-    #     request.write(
-    #         {
-    #             "regional_voluntary": "force_true",
-    #             "local_only": "force_true",
-    #         }
-    #     )
-    #
-    #     def get_changes():
-    #         changes = {}
-    #         for change in request.change_ids:
-    #             changes[change.field_name] = (change.old_value, change.new_value)
-    #         return changes
-    #
-    #     changes = get_changes()
-    #     self.assertIn("Firstname", changes)
-    #     self.assertIn("Mobile", changes)
-    #     self.assertIn("Gender", changes)
-    #     self.assertIn("Email", changes)
-    #     self.assertNotIn("Birth Date", changes)
-    #     self.assertIn("Regional Voluntary", changes)
-    #
-    #     self.assertEqual(changes["Name"][0], "Pauline")
-    #     self.assertEqual(
-    #         changes["Name"][1], "Marois"
-    #     )  # lastname was formatted at creation
-    #     self.assertFalse(changes["Mobile"][0])
-    #     # self.assertEqual(changes['Mobile'][1], '+32 475 45 12 32')
-    #     # TODO only works first time?
-    #     self.assertFalse(changes["Gender"][0])
-    #     self.assertEqual(changes["Gender"][1], "Female")
-    #     self.assertFalse(changes["Email"][0])
-    #     self.assertEqual(changes["Email"][1], "pauline_marois@gmail.com")
-    #     self.assertEqual(changes["Regional Voluntary"][0], "No")
-    #     self.assertEqual(changes["Regional Voluntary"][1], "Yes")
-    #     self.assertEqual(changes["Local Only"][0], "No")
-    #     self.assertEqual(changes["Local Only"][1], "Yes")
-    #
-    #     # change main address of the partner
-    #     vals = {
-    #         "country_id": self.ref("base.be"),
-    #         "zip_man": "4000",
-    #         "city_man": u"Liège",
-    #         "street_man": "Place St Lambert",
-    #         "number": "7",
-    #     }
-    #     adr_id = self.env["address.address"].create(vals)
-    #     request.partner_id.address_address_id = adr_id
-    #     request.write({"lastname": "Test"})
-    #     changes = get_changes()
-    #     self.assertIn("Name", changes)
-    #     self.assertIn("City", changes)
-    #     self.assertIn("Reference Street", changes)
-    #     self.assertIn("Number", changes)
-    #     self.assertEqual(changes["Name"][0], "Pauline")
-    #     self.assertEqual(changes["Name"][1], "Test")
-    #     self.assertEqual(changes["City"][0], "Liège")
-    #     self.assertEqual(changes["City"][1], "Oreye")
-    #     self.assertEqual(changes["Reference Street"][0], "Place St Lambert")
-    #     self.assertEqual(changes["Reference Street"][1], "Rue Louis Maréchal")
-    #     self.assertEqual(changes["Number"][0], "7")
-    #     self.assertEqual(changes["Number"][1], "6")
-    #
-    #     # change address components of the request
-    #     vals = {
-    #         "country_id": self.ref("base.ma"),
-    #         "zip_man": "45000",
-    #         "city_man": "Ouarzazate",
-    #         "street_man": "rue du souk",
-    #         "number": "47",
-    #         "box": False,
-    #     }
-    #     request.write(vals)
-    #     request.onchange_country_id()
-    #     request.onchange_city_id()
-    #     request.onchange_other_address_componants()
-    #     request.onchange_technical_name()
-    #     changes = get_changes()
-    #     self.assertIn("Country", changes)
-    #     self.assertIn("Zip", changes)
-    #     self.assertIn("City (Manual)", changes)
-    #     self.assertIn("Street", changes)
-    #     self.assertIn("Number", changes)
-    #     self.assertEqual(changes["Country"][0], "Belgium")
-    #     self.assertEqual(changes["Country"][1], "Morocco")
-    #     self.assertEqual(changes["Zip"][0], "4000")
-    #     self.assertEqual(changes["Zip"][1], "45000")
-    #     self.assertEqual(changes["City (Manual)"][0], u"Liège")
-    #     self.assertEqual(changes["City (Manual)"][1], "Ouarzazate")
-    #     self.assertEqual(changes["Street"][0], "Place St Lambert")
-    #     self.assertEqual(changes["Street"][1], "rue du souk")
-    #     self.assertEqual(changes["Number"][0], "7")
-    #     self.assertEqual(changes["Number"][1], "47")
-    #
-    #     # reset country on request
-    #     request.write({"country_id": False})
-    #     changes = get_changes()
-    #     self.assertNotIn("City (Manual)", changes)
-    #     self.assertNotIn("Zip", changes)
-    #     self.assertNotIn("City (Manual)", changes)
-    #     self.assertNotIn("Reference Street", changes)
-    #     self.assertNotIn("Street", changes)
-    #     self.assertNotIn("Street2", changes)
-    #     self.assertNotIn("Number", changes)
-    #     self.assertNotIn("Box", changes)
-    #     self.assertNotIn("Sequence", changes)
+    def test_track_changes(self):
+        """
+        Test to valid tracks changes method to detect differences
+        between modification request and partner data
+        """
+
+        request = self.rec_mr_update
+        request.write(
+            {
+                "regional_voluntary": "force_true",
+                "local_only": "force_true",
+            }
+        )
+
+        def get_changes():
+            changes = {}
+            for change in request.change_ids:
+                changes[change.field_name] = (change.old_value, change.new_value)
+            return changes
+
+        changes = get_changes()
+        self.assertIn("Firstname", changes)
+        self.assertIn("Mobile", changes)
+        self.assertIn("Gender", changes)
+        self.assertIn("Email", changes)
+        self.assertNotIn("Birth Date", changes)
+        self.assertIn("Regional Voluntary", changes)
+
+        self.assertEqual(changes["Name"][0], "Pauline")
+        self.assertEqual(
+            changes["Name"][1], "Marois"
+        )  # lastname was formatted at creation
+        self.assertFalse(changes["Mobile"][0])
+        # self.assertEqual(changes['Mobile'][1], '+32 475 45 12 32')
+        # TODO only works first time?
+        self.assertFalse(changes["Gender"][0])
+        self.assertEqual(changes["Gender"][1], "Female")
+        self.assertFalse(changes["Email"][0])
+        self.assertEqual(changes["Email"][1], "pauline_marois@gmail.com")
+        self.assertEqual(changes["Regional Voluntary"][0], "No")
+        self.assertEqual(changes["Regional Voluntary"][1], "Yes")
+        self.assertEqual(changes["Local Only"][0], "No")
+        self.assertEqual(changes["Local Only"][1], "Yes")
+
+        # change main address of the partner
+        vals = {
+            "country_id": self.ref("base.be"),
+            "zip_man": "4000",
+            "city_man": u"Liège",
+            "street_man": "Place St Lambert",
+            "number": "7",
+        }
+        adr_id = self.env["address.address"].create(vals)
+        request.partner_id.address_address_id = adr_id
+        request.write({"lastname": "Test"})
+        changes = get_changes()
+        self.assertIn("Name", changes)
+        self.assertIn("City", changes)
+        self.assertIn("Reference Street", changes)
+        self.assertIn("Number", changes)
+        self.assertEqual(changes["Name"][0], "Pauline")
+        self.assertEqual(changes["Name"][1], "Test")
+        self.assertEqual(changes["City"][0], "Liège")
+        self.assertEqual(changes["City"][1], "Oreye")
+        self.assertEqual(changes["Reference Street"][0], "Place St Lambert")
+        self.assertEqual(changes["Reference Street"][1], "Rue Louis Maréchal")
+        self.assertEqual(changes["Number"][0], "7")
+        self.assertEqual(changes["Number"][1], "6")
+
+        # change address components of the request
+        vals = {
+            "country_id": self.ref("base.ma"),
+            "zip_man": "45000",
+            "city_man": "Ouarzazate",
+            "street_man": "rue du souk",
+            "number": "47",
+            "box": False,
+        }
+        request.write(vals)
+        request.onchange_country_id()
+        request.onchange_city_id()
+        request.onchange_other_address_componants()
+        request.onchange_technical_name()
+        changes = get_changes()
+        self.assertIn("Country", changes)
+        self.assertIn("Zip", changes)
+        self.assertIn("City (Manual)", changes)
+        self.assertIn("Street", changes)
+        self.assertIn("Number", changes)
+        self.assertEqual(changes["Country"][0], "Belgium")
+        self.assertEqual(changes["Country"][1], "Morocco")
+        self.assertEqual(changes["Zip"][0], "4000")
+        self.assertEqual(changes["Zip"][1], "45000")
+        self.assertEqual(changes["City (Manual)"][0], u"Liège")
+        self.assertEqual(changes["City (Manual)"][1], "Ouarzazate")
+        self.assertEqual(changes["Street"][0], "Place St Lambert")
+        self.assertEqual(changes["Street"][1], "rue du souk")
+        self.assertEqual(changes["Number"][0], "7")
+        self.assertEqual(changes["Number"][1], "47")
+
+        # reset country on request
+        request.write({"country_id": False})
+        changes = get_changes()
+        self.assertNotIn("City (Manual)", changes)
+        self.assertNotIn("Zip", changes)
+        self.assertNotIn("City (Manual)", changes)
+        self.assertNotIn("Reference Street", changes)
+        self.assertNotIn("Street", changes)
+        self.assertNotIn("Street2", changes)
+        self.assertNotIn("Number", changes)
+        self.assertNotIn("Box", changes)
+        self.assertNotIn("Sequence", changes)
 
     def test_age_computation(self):
         """
