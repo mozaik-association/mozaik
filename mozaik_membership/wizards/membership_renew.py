@@ -67,7 +67,9 @@ class MembershipRenew(models.TransientModel):
         """
         self.ensure_one()
         lines = self._action_close_and_renew()
-        action = self.env.ref("mozaik_membership.membership_line_action").read()[0]
+        action = (
+            self.sudo().env.ref("mozaik_membership.membership_line_action").read()[0]
+        )
         domain = [("id", "in", lines.ids)]
         action.update(
             {

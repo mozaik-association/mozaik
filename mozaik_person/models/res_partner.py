@@ -397,9 +397,9 @@ class ResPartner(models.Model):
 
     def show_duplicates(self):
         self.ensure_one()
-        duplicate_form = self.env.ref(
-            "mozaik_person.res_partner_duplicate_action"
-        ).read()[0]
+        duplicate_form = (
+            self.sudo().env.ref("mozaik_person.res_partner_duplicate_action").read()[0]
+        )
         domain = []
         if self.name:
             domain.append([("name", "ilike", self.name)])
