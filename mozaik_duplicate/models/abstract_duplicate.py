@@ -144,7 +144,7 @@ class AbstractDuplicate(models.AbstractModel):
 
         # Reload the tree with all duplicates
         value = self._get_discriminant_values()
-        action = self.env.ref(self._undo_redirect_action).read()[0]
+        action = self.sudo().env.ref(self._undo_redirect_action).read()[0]
         # force the tree view
         action["view_mode"] = "tree," + action["view_mode"].replace("tree,", "")
         action.pop("search_view", False)

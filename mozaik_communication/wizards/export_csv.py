@@ -285,7 +285,11 @@ class ExportCsv(models.TransientModel):
                 "export_filename": _("Extract") + ".csv",
             }
         )
-        action = self.env.ref("mozaik_communication.export_csv_postal_action").read()[0]
+        action = (
+            self.sudo()
+            .env.ref("mozaik_communication.export_csv_postal_action")
+            .read()[0]
+        )
         action.update(
             {
                 "res_id": self.id,
