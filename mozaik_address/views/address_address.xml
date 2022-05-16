@@ -126,6 +126,7 @@
                             <field
                                 name="partner_ids"
                                 context="{'default_address_address_id': id}"
+                                readonly="1"
                             >
                                 <tree>
                                     <field name="name" />
