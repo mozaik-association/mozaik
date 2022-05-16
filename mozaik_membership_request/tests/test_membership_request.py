@@ -353,7 +353,8 @@ class TestMembership(TransactionCase):
         self.assertIn("Gender", changes)
         self.assertIn("Email", changes)
         self.assertNotIn("Birth Date", changes)
-        self.assertIn("Regional Voluntary", changes)
+        self.assertIn("Change regional voluntary status", changes)
+        self.assertIn("Change local only status", changes)
 
         self.assertEqual(changes["Name"][0], "Pauline")
         self.assertEqual(
@@ -366,10 +367,12 @@ class TestMembership(TransactionCase):
         self.assertEqual(changes["Gender"][1], "Female")
         self.assertFalse(changes["Email"][0])
         self.assertEqual(changes["Email"][1], "pauline_marois@gmail.com")
-        self.assertEqual(changes["Regional Voluntary"][0], "No")
-        self.assertEqual(changes["Regional Voluntary"][1], "Yes")
-        self.assertEqual(changes["Local Only"][0], "No")
-        self.assertEqual(changes["Local Only"][1], "Yes")
+        self.assertEqual(changes["Change regional voluntary status"][0], "Was False")
+        self.assertEqual(
+            changes["Change regional voluntary status"][1], "Set as regional voluntary"
+        )
+        self.assertEqual(changes["Change local only status"][0], "Was False")
+        self.assertEqual(changes["Change local only status"][1], "Set as local only")
 
         # change main address of the partner
         vals = {
