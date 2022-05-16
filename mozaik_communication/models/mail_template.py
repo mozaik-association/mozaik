@@ -56,9 +56,12 @@ class MailTemplate(models.Model):
     @api.onchange("placeholder_id", "involvement_category_id")
     def _onchange_placeholder_id(self):
         code_key = "{{CODE}}"
-        for wizard in self:
-            placeholder_value = wizard.placeholder_value or ""
-            category = wizard.involvement_category_id
+        super()._onchange_placeholder_id()
+
+        # Look for involvement category codes
+        for record in self:
+            placeholder_value = record.placeholder_value or ""
+            category = record.involvement_category_id
             if code_key in placeholder_value and category:
                 placeholder_value = placeholder_value.replace(code_key, category.code)
-                wizard.placeholder_value = placeholder_value
+                record.placeholder_value = placeholder_value
