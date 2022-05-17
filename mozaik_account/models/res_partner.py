@@ -61,3 +61,8 @@ class ResPartner(models.Model):
     def pay_membership(self, amount_paid, move_id, bank_account_id):
         # TODO what's the default behavior without membership request?
         pass
+
+    def action_account_moves_from_partner(self):
+        action = self.sudo().env.ref("account.action_account_moves_all").read()[0]
+        action["domain"] = [("partner_id", "=", self.id)]
+        return action
