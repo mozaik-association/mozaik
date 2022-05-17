@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from psycopg2 import IntegrityError
 
 from odoo import exceptions
+from odoo.exceptions import AccessError
 from odoo.tests.common import SavepointCase
 from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT, mute_logger
 
@@ -14,6 +15,12 @@ class TestPartnerInvolvement(SavepointCase):
     def setUp(self):
         super().setUp()
         self.paul = self.browse_ref("mozaik_involvement.res_partner_bocuse")
+        self.ic_1 = self.browse_ref(
+            "mozaik_involvement.partner_involvement_category_demo_1"
+        )
+        self.inv_group = self.browse_ref(
+            "mozaik_involvement.res_groups_involvement_user"
+        )
 
     def test_add_interests_on_involvement_creation(self):
         """
@@ -114,3 +121,59 @@ class TestPartnerInvolvement(SavepointCase):
         cat._onchange_involvement_type()
         self.assertFalse(cat.allow_multi)
         return
+
+    def test_security(self):
+        """
+        Testing security for Partner Involvement / User group.
+        A user that is owner can update and delete an involvement.
+        A user that is just a follower can update but not delete the involvement.
+        """
+        user_test = self.env["res.users"].create(
+            {
+                "name": "Test user",
+                "login": "TU",
+            }
+        )
+        self.inv_group.users = [(4, user_test.id)]
+        omar_sy = self.env["res.partner"].create(
+            {
+                "lastname": "sy",
+                "firstname": "omar",
+            }
+        )
+        involvement = self.env["partner.involvement"].create(
+            {
+                "partner_id": omar_sy.id,
+                "involvement_category_id": self.ic_1.id,
+            }
+        )
+        involvement_id = involvement.id
+
+        # External user cannot write or unlink
+        with self.assertRaises(AccessError):
+            involvement.with_user(user_test.id).write({"note": "Test"})
+        with self.assertRaises(AccessError):
+            involvement.with_user(user_test.id).unlink()
+
+        # Make the user a follower -> it can write but not unlink
+        mail_foll = self.env["mail.followers"].create(
+            {
+                "res_model": "partner.involvement.category",
+                "res_id": self.ic_1.id,
+                "partner_id": user_test.partner_id.id,
+            }
+        )
+        involvement.with_user(user_test.id).write({"note": "Test"})
+        self.assertEqual(involvement.note, "Test")
+        with self.assertRaises(AccessError):
+            involvement.with_user(user_test.id).unlink()
+
+        # Remove the user from the followers and make it an owner
+        mail_foll.unlink()
+        self.ic_1.res_users_ids = [(4, user_test.id)]
+        involvement.with_user(user_test.id).write({"note": "Test2"})
+        self.assertIn(involvement.note, "Test2")
+        involvement.with_user(user_test.id).unlink()
+        self.assertFalse(
+            self.env["partner.involvement"].search([("id", "=", involvement_id)])
+        )
