@@ -60,6 +60,14 @@ class TestMembership(TransactionCase):
         self.rec_mr_create = self.browse_ref(
             "mozaik_membership_request.membership_request_eh"
         )
+        self.federal = self.browse_ref("mozaik_structure.int_instance_01")
+        self.partner = self.env["res.partner"].create(
+            {
+                "lastname": "Sy",
+                "firstname": "Omar",
+            }
+        )
+        self.member_state = self.mrs.search([("code", "=", "member")])
 
     def test_pre_process(self):
         """
@@ -489,3 +497,172 @@ class TestMembership(TransactionCase):
         mr.onchange_partner_component()
         mr.validate_request()
         self.assertEqual(mr.state, "validate", "Validation should work")
+
+    def test_check_reference_without_partner(self):
+        """
+        Create a membership request with a reference.
+        Create a second one with the same reference -> forbidden.
+        """
+        mr = self.mro.create(
+            {
+                "lastname": "Sy",
+                "reference": "0123456",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.mro.create(
+                {
+                    "lastname": "Dujardin",
+                    "reference": mr.reference,
+                }
+            )
+
+    def test_check_reference_two_partners(self):
+        """
+        Create a membership request with a partner and a reference.
+        Then create another membership request with the same reference and
+        * no partner -> forbidden
+        * another partner -> forbidden
+        * the same partner -> allowed
+        """
+        mr = self.mro.create(
+            {
+                "reference": "0123456",
+                "lastname": "TEST",
+                "partner_id": self.rec_partner_jacques.id,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.mro.create(
+                {
+                    "lastname": "test2",
+                    "reference": mr.reference,
+                }
+            )
+        mr.reference = "012345"
+        with self.assertRaises(ValidationError):
+            self.mro.create(
+                {
+                    "lastname": "test2",
+                    "reference": mr.reference,
+                    "partner_id": self.rec_partner_pauline.id,
+                }
+            )
+        mr.reference = "01234"
+        self.mro.create(
+            {
+                "lastname": "test2",
+                "reference": mr.reference,
+                "partner_id": self.rec_partner_jacques.id,
+            }
+        )
+
+    def test_check_reference_when_changing_partner(self):
+        """
+        Create a membership request with a reference and set a partner.
+        Create a second membership request with the same
+        reference and the same partner.
+        Then update this second mr.
+        Not changing the partner -> allowed
+        Change the partner -> forbidden since we keep the reference.
+        """
+        mr = self.mro.create(
+            {
+                "reference": "0123456",
+                "lastname": "TEST",
+                "partner_id": self.rec_partner_jacques.id,
+            }
+        )
+        mr2 = self.mro.create(
+            {
+                "reference": mr.reference,
+                "lastname": "TEST",
+                "partner_id": self.rec_partner_jacques.id,
+            }
+        )
+        mr2.firstname = "hello"
+        with self.assertRaises(ValidationError):
+            mr2.partner_id = self.rec_partner_pauline.id
+
+    def test_check_reference_with_done_mr(self):
+        """
+        Make a membership request with a reference and validate it.
+        Try to make a second membership request with another partner
+        and the same reference -> forbidden.
+        """
+        mr = self.mro.create(
+            {
+                "reference": "0123456",
+                "lastname": "TEST",
+                "partner_id": self.rec_partner_jacques.id,
+            }
+        )
+        mr.validate_request()
+        with self.assertRaises(ValidationError):
+            self.mro.create(
+                {
+                    "reference": "0123456",
+                    "lastname": "TEST",
+                    "partner_id": self.rec_partner_pauline.id,
+                }
+            )
+
+    def test_check_reference_on_partner(self):
+        """
+        Create a membership line with a given reference
+        Create a mr with the same reference and the same partner -> allowed
+        Create a mr with the same reference and another partner -> forbidden
+        """
+        ml = self.env["membership.line"].create(
+            {
+                "partner_id": self.partner.id,
+                "reference": "0123456",
+                "date_from": fields.Date.today(),
+                "int_instance_id": self.federal.id,
+                "state_id": self.member_state.id,
+            }
+        )
+        self.assertEqual(len(self.partner.membership_line_ids), 1)
+        self.mro.create(
+            {
+                "lastname": "TEST",
+                "reference": ml.reference,
+                "partner_id": self.partner.id,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.mro.create(
+                {
+                    "lastname": "TEST",
+                    "reference": ml.reference,
+                    "partner_id": self.rec_partner_jacques.id,
+                }
+            )
+
+    def test_check_reference_archived(self):
+        """
+        Create a membership line with a given reference on a partner,
+        and close this membership line.
+        Try to create a mr with the same reference
+        and the same partner -> forbidden
+        """
+        ml = self.env["membership.line"].create(
+            {
+                "partner_id": self.partner.id,
+                "reference": "0123456",
+                "date_from": fields.Date.today(),
+                "int_instance_id": self.federal.id,
+                "state_id": self.member_state.id,
+            }
+        )
+        self.assertEqual(len(self.partner.membership_line_ids), 1)
+        ml.write({"active": False, "date_to": fields.Date.today()})
+        with self.assertRaises(ValidationError):
+            self.assertEqual(len(self.partner.membership_line_ids), 1)
+            self.mro.create(
+                {
+                    "lastname": "TEST",
+                    "reference": ml.reference,
+                    "partner_id": self.partner.id,
+                }
+            )

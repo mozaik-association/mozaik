@@ -39,6 +39,21 @@ MEMBERSHIP_REQUEST_TYPE = [
 ]
 MR_REQUIRED_AGE_KEY = "mr_required_age"
 
+ERRORS_DICT = {
+    "exists_on_other_mr_and_no_partner_set": _(
+        "You didn't set a partner and the reference"
+        " already exists on another membership request."
+    ),
+    "ref_on_mr_with_other_partner": _(
+        "The reference already exists on a "
+        "membership request linked to another partner."
+    ),
+    "ref_on_res_partner_or_inactive_line": _(
+        "The reference already exists on another partner, "
+        "or the reference corresponds to an inactive membership line."
+    ),
+}
+
 
 def partner_add_values(mr, partner_values):
     if not mr.is_company:
@@ -238,10 +253,6 @@ class MembershipRequest(models.Model):
         comodel_name="res.country", string="Nationality", tracking=True
     )
 
-    _sql_constraints = [
-        ("unique_ref", "unique(reference)", "This reference is already used"),
-    ]
-
     @api.model
     def _get_status_values(self, request_type, date_from=False):
         """
@@ -276,13 +287,60 @@ class MembershipRequest(models.Model):
                     _("The required age for a membership request is %s") % required_age
                 )
 
+    def _raise_error_check_reference(self, mr):
+        """
+        If the membership request mr contains a reference, this reference
+        must be 'almost' unique:
+        It can appear only on membership requests that are linked to the same partner or
+        on the active membership line of the linked partner.
+        We return a code error that will be interpreted in the api.constraint:
+        * "exists_on_other_mr_and_no_partner_set" :
+            "You didn't set a partner and the reference
+            already exists on another membership request."
+        * "ref_on_mr_with_other_partner" :
+            "The reference already exists on a membership request
+            linked to another partner."
+        * "ref_on_res_partner_or_inactive_line" :
+            "The reference already exists on another partner,
+            or the reference corresponds to an inactive membership line."
+        """
+
+        current_id = self.id or 0
+        # Compare this reference with other membership requests
+        mr_with_same_ref = (
+            self.env["membership.request"]
+            .with_context(active_test=False)
+            .search([("id", "!=", current_id), ("reference", "=", mr.reference)])
+        )
+        if mr_with_same_ref and not mr.partner_id:
+            return "exists_on_other_mr_and_no_partner_set"
+        elif mr_with_same_ref.filtered(
+            lambda s: not s.partner_id or s.partner_id != mr.partner_id
+        ):
+            return "ref_on_mr_with_other_partner"
+
+        # Compare this reference with the ones on partners
+        if self.env["membership.line"].search_count(
+            [
+                ("reference", "=", mr.reference),
+                "|",
+                ("partner_id", "!=", mr.partner_id.id),
+                ("active", "=", False),
+            ]
+        ):
+            return "ref_on_res_partner_or_inactive_line"
+        return ""
+
     @api.constrains("reference")
     def _check_reference(self):
+        """
+        Call _raise_error_check_reference to get the error message, and raise
+        the corresponding error.
+        """
         for mr in self.filtered(lambda s: s.reference):
-            if self.env["membership.line"].search_count(
-                [("reference", "=", mr.reference)]
-            ):
-                raise ValidationError(_("The reference already exist"))
+            error = self._raise_error_check_reference(mr)
+            if error:
+                raise ValidationError(ERRORS_DICT[error])
 
     def _search_age(self, operator, value):
         """
@@ -1577,6 +1635,8 @@ class MembershipRequest(models.Model):
         return request_id
 
     def write(self, vals):
+        # If reference is not in vals but partner_id is, trigger _check_reference after write
+        check_ref = "partner_id" in vals and "reference" not in vals
         # do not pass related fields to the orm
         active_ids = self.search([("id", "in", self.ids), ("active", "=", True)])
         self._pop_related(vals)
@@ -1589,6 +1649,8 @@ class MembershipRequest(models.Model):
                     vals.get("year", req.year),
                 )
         res = super().write(vals)
+        if check_ref:
+            self._check_reference()
         if "active" in vals:
             if not vals.get("active"):
                 active_ids = []
