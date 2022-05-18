@@ -155,7 +155,7 @@ class TestPartnerInvolvement(SavepointCase):
         with self.assertRaises(AccessError):
             involvement.with_user(user_test.id).unlink()
 
-        # Make the user a follower -> it can write but not unlink
+        # Make the user a follower of the involvement category -> it can write but not unlink
         mail_foll = self.env["mail.followers"].create(
             {
                 "res_model": "partner.involvement.category",
@@ -165,6 +165,21 @@ class TestPartnerInvolvement(SavepointCase):
         )
         involvement.with_user(user_test.id).write({"note": "Test"})
         self.assertEqual(involvement.note, "Test")
+        with self.assertRaises(AccessError):
+            involvement.with_user(user_test.id).unlink()
+
+        # Remove the user from the followers of the involvement category
+        # but make it a follower of the involvement itself.
+        mail_foll.unlink()
+        mail_foll = self.env["mail.followers"].create(
+            {
+                "res_model": "partner.involvement",
+                "res_id": involvement.id,
+                "partner_id": user_test.partner_id.id,
+            }
+        )
+        involvement.with_user(user_test.id).write({"note": "Testbis"})
+        self.assertIn(involvement.note, "Testbis")
         with self.assertRaises(AccessError):
             involvement.with_user(user_test.id).unlink()
 
