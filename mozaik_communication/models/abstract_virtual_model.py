@@ -154,6 +154,10 @@ class AbstractVirtualModel(models.AbstractModel):
             "view_mode": "form",
             "res_id": self.partner_id.id,
             "target": "current",
+            "context": {
+                "active_id": self.partner_id.id,
+                "active_ids": [self.partner_id.id],
+            },
         }
 
     @api.model
