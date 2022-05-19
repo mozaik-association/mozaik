@@ -941,21 +941,25 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
-#, fuzzy, python-format
-#| msgid "The reference already exists"
-msgid "The reference already exist"
-msgstr "Cette référence de paiement existe déjà"
+#, python-format
+msgid ""
+"The reference already exists on a membership request linked to another "
+"partner."
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid ""
+"The reference already exists on another partner, or the reference "
+"corresponds to an inactive membership line."
+msgstr ""
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "The required age for a membership request is %s"
 msgstr "L'âge minimum pour une adhésion est %s"
-
-#. module: mozaik_membership_request
-#: model:ir.model.constraint,message:mozaik_membership_request.constraint_membership_request_unique_ref
-msgid "This reference is already used"
-msgstr "Cette référence est déjà utilisée"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__type
@@ -1041,6 +1045,14 @@ msgid "Yes"
 msgstr "Oui"
 
 #. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid ""
+"You didn't set a partner and the reference already exists on another "
+"membership request."
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__zip_man
 msgid "Zip"
 msgstr "Code postal"
@@ -1050,3 +1062,11 @@ msgstr "Code postal"
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__zip
 msgid "Zip Code"
 msgstr "Code postal"
+
+#, fuzzy
+#~| msgid "The reference already exists"
+#~ msgid "The reference already exist"
+#~ msgstr "Cette référence de paiement existe déjà"
+
+#~ msgid "This reference is already used"
+#~ msgstr "Cette référence est déjà utilisée"
