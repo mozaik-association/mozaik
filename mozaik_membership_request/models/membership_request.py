@@ -287,9 +287,9 @@ class MembershipRequest(models.Model):
                     _("The required age for a membership request is %s") % required_age
                 )
 
-    def _raise_error_check_reference(self, mr):
+    def _raise_error_check_reference(self, current_id, reference, partner_id):
         """
-        If the membership request mr contains a reference, this reference
+        If the membership request contains a reference, this reference
         must be 'almost' unique:
         It can appear only on membership requests that are linked to the same partner or
         on the active membership line of the linked partner.
@@ -303,28 +303,32 @@ class MembershipRequest(models.Model):
         * "ref_on_res_partner_or_inactive_line" :
             "The reference already exists on another partner,
             or the reference corresponds to an inactive membership line."
+
+        params:
+        :current_id: the id of the membership request, 0 if not created yet
+        :reference: the reference of the membership request
+        :partner_id: the id of the associated partner, or False
         """
 
-        current_id = self.id or 0
         # Compare this reference with other membership requests
         mr_with_same_ref = (
             self.env["membership.request"]
             .with_context(active_test=False)
-            .search([("id", "!=", current_id), ("reference", "=", mr.reference)])
+            .search([("id", "!=", current_id), ("reference", "=", reference)])
         )
-        if mr_with_same_ref and not mr.partner_id:
+        if mr_with_same_ref and not partner_id:
             return "exists_on_other_mr_and_no_partner_set"
         elif mr_with_same_ref.filtered(
-            lambda s: not s.partner_id or s.partner_id != mr.partner_id
+            lambda s: not s.partner_id or s.partner_id.id != partner_id
         ):
             return "ref_on_mr_with_other_partner"
 
         # Compare this reference with the ones on partners
         if self.env["membership.line"].search_count(
             [
-                ("reference", "=", mr.reference),
+                ("reference", "=", reference),
                 "|",
-                ("partner_id", "!=", mr.partner_id.id),
+                ("partner_id", "!=", partner_id),
                 ("active", "=", False),
             ]
         ):
@@ -338,7 +342,11 @@ class MembershipRequest(models.Model):
         the corresponding error.
         """
         for mr in self.filtered(lambda s: s.reference):
-            error = self._raise_error_check_reference(mr)
+            current_id = mr.id or 0
+            partner_id = mr.partner_id.id if mr.partner_id else False
+            error = self._raise_error_check_reference(
+                current_id, mr.reference, partner_id
+            )
             if error:
                 raise ValidationError(ERRORS_DICT[error])
 
