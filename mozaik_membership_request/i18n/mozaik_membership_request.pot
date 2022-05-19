@@ -937,18 +937,23 @@ msgstr ""
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
-msgid "The reference already exist"
+msgid ""
+"The reference already exists on a membership request linked to another "
+"partner."
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid ""
+"The reference already exists on another partner, or the reference "
+"corresponds to an inactive membership line."
 msgstr ""
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "The required age for a membership request is %s"
-msgstr ""
-
-#. module: mozaik_membership_request
-#: model:ir.model.constraint,message:mozaik_membership_request.constraint_membership_request_unique_ref
-msgid "This reference is already used"
 msgstr ""
 
 #. module: mozaik_membership_request
@@ -1033,6 +1038,14 @@ msgstr ""
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid "Yes"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid ""
+"You didn't set a partner and the reference already exists on another "
+"membership request."
 msgstr ""
 
 #. module: mozaik_membership_request
