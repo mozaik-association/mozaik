@@ -1,7 +1,5 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-
 import logging
 
 from odoo import _
@@ -182,6 +180,13 @@ class MembershipRequestService(Component):
         vals = self._validate_membership_request_input(membership_request)
         protected_values = self._get_protected_values(vals)
         vals["protected_values"] = protected_values
+        # Check if an error will be raised because of the reference
+        if "reference" in vals:
+            error = self.env["membership.request"]._raise_error_check_reference(
+                0, vals.get("reference", ""), vals.get("partner_id", False)
+            )
+            if error:
+                return error
         mr = (
             self.env["membership.request"]
             .with_context(mode="pre_process", protected_values=protected_values)
@@ -200,4 +205,7 @@ class MembershipRequestService(Component):
         self, membership_request: MembershipRequest
     ) -> MembershipRequestInfo:
         mr = self._create_membership_request(membership_request)
+        if isinstance(mr, str):
+            #  We got an error from the reference check
+            return MembershipRequestInfo(bad_request_error=mr)
         return MembershipRequestInfo.from_orm(mr)
