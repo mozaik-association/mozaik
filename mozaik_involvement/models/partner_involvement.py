@@ -142,12 +142,33 @@ class PartnerInvolvement(models.Model):
         ndx2 = "%s_unique_2_idx" % self._table
         create_index(def2, ndx2)
 
+    def _add_followers(self):
+        """
+        Add to the mail_followers table the followers of the involvement
+        category, but only if they are not already following the involvement.
+        """
+        to_follow = self.involvement_category_id.message_follower_ids.mapped(
+            "partner_id"
+        ).ids
+        already_following = self.message_follower_ids.mapped("partner_id").ids
+
+        for foll_id in list(set(to_follow).difference(set(already_following))):
+            self.env["mail.followers"].create(
+                {
+                    "res_model": "partner.involvement",
+                    "res_id": self.id,
+                    "partner_id": foll_id,
+                }
+            )
+
     @api.model
     @api.returns("self", lambda value: value.id)
     def create(self, vals):
         """
         Add interests to partner when creating an involvement
         Set effective date if any
+        Add all followers of the involvement category as followers
+        of the involvement itself.
         """
         if not vals.get("effective_time"):
             ic = self.env["partner.involvement.category"].browse(
@@ -160,6 +181,7 @@ class PartnerInvolvement(models.Model):
         if terms:
             interests = [(4, term.id) for term in terms]
             res.partner_id.sudo().write({"interest_ids": interests})
+        res.sudo()._add_followers()
         return res
 
     def copy(self, default=None):
