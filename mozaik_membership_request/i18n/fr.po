@@ -941,8 +941,9 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
-#, python-format
-msgid "The reference already exists"
+#, fuzzy, python-format
+#| msgid "The reference already exists"
+msgid "The reference already exist"
 msgstr "Cette référence de paiement existe déjà"
 
 #. module: mozaik_membership_request
