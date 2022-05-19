@@ -45,6 +45,22 @@ class WebsitePaymentMozaik(WebsitePayment):
                 .sudo()
                 .browse(int(kw.get("membership_id")))
             )
+            # If the membership line is inactive and if the current
+            # membership line is unpaid, change.
+            if not membership.active:
+                active_membership = (
+                    request.env["membership.line"]
+                    .sudo()
+                    .search(
+                        [
+                            ("partner_id", "=", membership.partner_id.id),
+                            ("active", "=", True),
+                        ]
+                    )
+                )
+                if len(active_membership) == 1 and not active_membership.paid:
+                    return request.redirect(active_membership.payment_link)
+
             res.qcontext.update({"display_reference": membership.reference})
         elif kw.get("membership_request_id"):
             mr = (
