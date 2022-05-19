@@ -23,8 +23,8 @@ from odoo.addons.pydantic import utils
 
 
 class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
-    id: int
-    lastname: str
+    id: int = None
+    lastname: str = None
     firstname: str = None
     gender: str = None
     street_man: str = None
@@ -64,8 +64,9 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     partner: PartnerInfo = pydantic.Field(None, alias="partner_id")
     unemployed_change: str = None
     disabled_change: str = None
-    write_date: datetime
+    write_date: datetime = None
     payment_link: str = None
+    bad_request_error: str = None
 
     class Config:
         orm_mode = True
