@@ -1658,7 +1658,7 @@ class MembershipRequest(models.Model):
                 )
         res = super().write(vals)
         if check_ref:
-            self._check_reference()
+            self.filtered(lambda mr: mr.state != "validate")._check_reference()
         if "active" in vals:
             if not vals.get("active"):
                 active_ids = []
