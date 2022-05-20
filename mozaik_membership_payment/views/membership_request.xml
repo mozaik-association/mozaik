@@ -39,6 +39,12 @@
                     <group>
                         <field name="transaction_ids" />
                     </group>
+                    <group>
+                        <field
+                            name="auto_validate_after_payment"
+                            attrs="{'readonly': [('transaction_state', 'in', ['done', 'cancel', 'error'])]}"
+                        />
+                    </group>
                 </group>
             </xpath>
         </field>
