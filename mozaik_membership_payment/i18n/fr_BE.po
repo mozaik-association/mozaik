@@ -15,6 +15,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 
 #. module: mozaik_membership_payment
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__auto_validate_after_payment
+msgid "Auto-validation after payment"
+msgstr ""
+
+#. module: mozaik_membership_payment
+#: code:addons/mozaik_membership_payment/models/membership_request.py:0
+#, python-format
+msgid "Autovalidation after payment failed"
+msgstr ""
+
+#. module: mozaik_membership_payment
+#: code:addons/mozaik_membership_payment/models/membership_request.py:0
+#, python-format
+msgid "Autovalidation after payment failed. Reason of failure: %s"
+msgstr ""
+
+#. module: mozaik_membership_payment
 #. openerp-web
 #: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
 #, python-format
@@ -174,6 +191,12 @@ msgstr ""
 #: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
 #, python-format
 msgid "We're unable to process your payment."
+msgstr ""
+
+#. module: mozaik_membership_payment
+#: model:ir.model.fields,help:mozaik_membership_payment.field_membership_request__auto_validate_after_payment
+msgid ""
+"When transaction state is done, try to auto-validate the membership request"
 msgstr ""
 
 #. module: mozaik_membership_payment
