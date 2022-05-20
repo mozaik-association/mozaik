@@ -70,6 +70,7 @@ class VirtualPartnerMandate(models.Model):
 
     start_date = fields.Date(string="Start Date")
     deadline_date = fields.Date(string="Deadline Date")
+    end_date = fields.Date(string="End Date")
     ref_partner_competency_ids = fields.Many2many(
         comodel_name="thesaurus.term",
         compute="_compute_ref_partner_competency_ids",
@@ -94,6 +95,7 @@ class VirtualPartnerMandate(models.Model):
     )
     in_progress = fields.Boolean("In Progress")
     active = fields.Boolean("Active")
+    active_mandate = fields.Boolean("Active mandate")
 
     retrocession_mode = fields.Selection(RETROCESSION_MODES_AVAILABLE)
 
@@ -162,7 +164,9 @@ class VirtualPartnerMandate(models.Model):
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
+            mandate.end_date,
             mandate.retrocession_mode,
+            mandate.active as active_mandate,
             mandate.designation_int_assembly_id as designation_int_assembly_id,
             designation_assembly.instance_id as designation_instance_id,
             partner_assembly.id as assembly_id,
@@ -202,7 +206,7 @@ class VirtualPartnerMandate(models.Model):
 
     @api.model
     def _get_where(self):
-        return "WHERE mandate.active = True"
+        return ""
 
     @api.model
     def _get_union_parameters(self):

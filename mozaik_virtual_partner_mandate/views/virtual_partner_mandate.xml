@@ -86,9 +86,9 @@
                 <field name="ref_partner_competency_ids" widget="many2one" />
 
                 <filter
-                    string="In Progress"
-                    name="in_progress"
-                    domain="[('in_progress','=', True)]"
+                    string="Active mandates"
+                    name="active_mandates"
+                    domain="[('active_mandate','=', True)]"
                 />
                 <separator />
                 <filter
@@ -189,7 +189,7 @@
         <field name="name">Partners/Mandates</field>
         <field name="res_model">virtual.partner.mandate</field>
         <field name="view_mode">tree</field>
-        <field name="context">{'search_default_in_progress': True}</field>
+        <field name="context">{'search_default_active_mandates': True}</field>
     </record>
 
     <record model="ir.ui.menu" id="virtual_partner_mandate_menu">
