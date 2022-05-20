@@ -51,3 +51,4 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     auto_validate: bool = False
     force_auto_validate: bool = False
     auto_generate_reference: bool = False
+    auto_validate_after_payment: bool = False
