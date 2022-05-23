@@ -181,7 +181,7 @@ class MembershipRequestService(Component):
         protected_values = self._get_protected_values(vals)
         vals["protected_values"] = protected_values
         # Check if an error will be raised because of the reference
-        if "reference" in vals:
+        if "reference" in vals and vals["reference"]:
             error = self.env["membership.request"]._raise_error_check_reference(
                 0, vals.get("reference", ""), vals.get("partner_id", False)
             )
