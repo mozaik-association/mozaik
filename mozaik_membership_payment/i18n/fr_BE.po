@@ -20,13 +20,13 @@ msgid "Auto-validation after payment"
 msgstr ""
 
 #. module: mozaik_membership_payment
-#: code:addons/mozaik_membership_payment/models/membership_request.py:0
+#: code:addons/mozaik_membership_payment/models/payment_transaction.py:0
 #, python-format
 msgid "Autovalidation after payment failed"
 msgstr ""
 
 #. module: mozaik_membership_payment
-#: code:addons/mozaik_membership_payment/models/membership_request.py:0
+#: code:addons/mozaik_membership_payment/models/payment_transaction.py:0
 #, python-format
 msgid "Autovalidation after payment failed. Reason of failure: %s"
 msgstr ""
