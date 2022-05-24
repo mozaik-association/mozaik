@@ -893,13 +893,22 @@ class MembershipRequest(models.Model):
         self.env["membership.request"].sudo()
         for req in self:
             req.update(
-                req._onchange_partner_id_vals(
+                req._onchange_partner_id_vals_multi(
                     req.is_company,
                     req.request_type,
                     req.partner_id.id,
                     req.technical_name,
                 )
             )
+
+    def _onchange_partner_id_vals_multi(
+        self, is_company, request_type, partner_id, technical_name
+    ):
+        # for inherit
+        self.ensure_one()
+        return self._onchange_partner_id_vals(
+            is_company, request_type, partner_id, technical_name
+        )
 
     @api.model
     def _onchange_partner_id_vals(
@@ -1029,7 +1038,7 @@ class MembershipRequest(models.Model):
 
         partner_obj = self_context.env["res.partner"]
         status_obj = self.env["membership.state"]
-        former_member = self.env.ref("mozaik_membership.former_member")
+        self.env.ref("mozaik_membership.former_member")
         name = '"preview-%s"' % uuid4().hex
         self.flush()
         self.env.cr.execute("SAVEPOINT %(savepoint)s", {"savepoint": AsIs(name)})
@@ -1043,9 +1052,8 @@ class MembershipRequest(models.Model):
                 }
                 partner = partner_obj.create(partner_datas)
             # didn't find a good way to make it in the statechart
-            event = None
-            if partner.membership_state_id == former_member and request_type == "m":
-                event = "paid"
+            # # pylint: disable=assignment-from-none
+            event = self._get_event_get_partner_preview(partner, request_type)
             vals = self._get_status_values(request_type)
             if vals:
                 partner.sudo().write(vals)
@@ -1057,6 +1065,9 @@ class MembershipRequest(models.Model):
                 "ROLLBACK TO SAVEPOINT %(savepoint)s", {"savepoint": AsIs(name)}
             )
         return status_obj.search([("code", "=", state_code)], limit=1)
+
+    def _get_event_get_partner_preview(self, partner, request_type):
+        return None
 
     def get_birthdate_date(self, day, month, year):
         """
