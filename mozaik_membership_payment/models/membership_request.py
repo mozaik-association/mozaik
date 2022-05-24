@@ -83,7 +83,7 @@ class MembershipRequest(models.Model):
             for mr in self.filtered(lambda s: s.auto_validate_after_payment):
                 failure_reason = mr._auto_validate(True)
                 if failure_reason:
-                    self._create_note(
+                    mr._create_note(
                         _("Autovalidation after payment failed"),
                         _("Autovalidation after payment failed. Reason of failure: %s")
                         % failure_reason,
