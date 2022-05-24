@@ -1,7 +1,7 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.fields import first
 
 
@@ -68,27 +68,6 @@ class MembershipRequest(models.Model):
                 )
             else:
                 m.payment_link = False
-
-    def _write(self, vals):
-        """
-        If auto_validate_after_payment is True and if
-        transaction_state == 'done', we try to auto-validate the request.
-
-        We need to overwrite the low implementation of write
-        since transaction_state is a related field.
-        """
-        transaction_state = vals.get("transaction_state", "")
-        res = super()._write(vals)
-        if transaction_state == "done":
-            for mr in self.filtered(lambda s: s.auto_validate_after_payment):
-                failure_reason = mr._auto_validate(True)
-                if failure_reason:
-                    mr._create_note(
-                        _("Autovalidation after payment failed"),
-                        _("Autovalidation after payment failed. Reason of failure: %s")
-                        % failure_reason,
-                    )
-        return res
 
     @api.model
     def _validate_request_membership(self, mr, partner):
