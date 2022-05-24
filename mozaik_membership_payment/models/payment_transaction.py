@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class PaymentTransaction(models.Model):
@@ -25,6 +25,17 @@ class PaymentTransaction(models.Model):
         if vals.get("state") == "done" and self.membership_request_ids:
             # may update the result state
             self.membership_request_ids.onchange_partner_id()
+            # auto-validate after payment, if asked
+            for mr in self.membership_request_ids.filtered(
+                lambda s: s.auto_validate_after_payment
+            ):
+                failure_reason = mr._auto_validate(True)
+                if failure_reason:
+                    mr._create_note(
+                        _("Autovalidation after payment failed"),
+                        _("Autovalidation after payment failed. Reason of failure: %s")
+                        % failure_reason,
+                    )
         return res
 
     @api.depends("reference", "membership_ids", "membership_ids.reference")
