@@ -22,6 +22,9 @@ class PaymentTransaction(models.Model):
         if vals.get("state") == "done" and self.membership_ids:
             self._mark_membership_as_paid(vals.get("acquirer_reference"))
         res = super().write(vals)
+        if vals.get("state") == "done" and self.membership_request_ids:
+            # may update the result state
+            self.membership_request_ids.onchange_partner_id()
         return res
 
     @api.depends("reference", "membership_ids", "membership_ids.reference")
@@ -41,44 +44,6 @@ class PaymentTransaction(models.Model):
             tx.display_reference = reference
 
     def _mark_membership_as_paid(self, acquirer_reference=False):
-        am = self.env["account.move"]
         for pt in self:
-            move = am.create(
-                {
-                    "journal_id": pt.acquirer_id.journal_id.id,
-                    "ref": pt.reference,
-                }
-            )
-
-            move_line_values = []
             for m in pt.membership_ids:
-                move_line_values.append(
-                    (
-                        0,
-                        0,
-                        {
-                            "name": m.reference,
-                            "move_id": move.id,
-                            "account_id": m.product_id.property_subscription_account.id,
-                            "credit": m.price,
-                            "partner_id": pt.partner_id.id,
-                        },
-                    )
-                )
-
-                m._mark_as_paid(m.price, move.id)
-
-            move_line_values.append(
-                (
-                    0,
-                    0,
-                    {
-                        "name": acquirer_reference or pt.acquirer_reference,
-                        "move_id": move.id,
-                        "account_id": pt.acquirer_id.journal_id.default_account_id.id,
-                        "debit": pt.amount,
-                        "partner_id": pt.partner_id.id,
-                    },
-                )
-            )
-            move.write({"line_ids": move_line_values})
+                m._mark_as_paid(pt.amount, pt.payment_id.move_id.id)
