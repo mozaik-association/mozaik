@@ -29,7 +29,9 @@ class PaymentTransaction(models.Model):
 
     def _post_process_after_done(self):
         res = super(PaymentTransaction, self)._post_process_after_done()
-        tx_done = self.filtered(lambda s: s.state == "done" and s.membership_request_ids)
+        tx_done = self.filtered(
+            lambda s: s.state == "done" and s.membership_request_ids
+        )
         if tx_done:
             # auto-validate after payment, if asked
             for mr in tx_done.mapped("membership_request_ids").filtered(
