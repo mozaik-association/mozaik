@@ -12,7 +12,7 @@ class AccountPayment(models.Model):
     @api.depends("journal_id", "partner_id", "partner_type", "is_internal_transfer")
     def _compute_destination_account_id(self):
         res = super(AccountPayment, self)._compute_destination_account_id()
-        for ap in self:
+        for ap in self.with_context(active_test=False):
             membership_related = (
                 ap.payment_transaction_id.membership_ids
                 or ap.payment_transaction_id.membership_request_ids
