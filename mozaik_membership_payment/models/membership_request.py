@@ -100,8 +100,7 @@ class MembershipRequest(models.Model):
                     paid_transactions.acquirer_reference
                 )
                 for pt in paid_transactions:
-                    if not pt.payment_id.move_id.partner_id:
-                        pt.payment_id.move_id.line_ids.write({"partner_id": partner.id})
+                    pt.payment_id.move_id.line_ids.write({"partner_id": partner.id})
         return res
 
     def _onchange_partner_id_vals_multi(
