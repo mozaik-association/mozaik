@@ -39,6 +39,7 @@ class MembershipLine(models.Model):
         readonly=True,
     )
     price_paid = fields.Float(copy=False)
+    regularization_date = fields.Date(readonly=True)
 
     def _get_reference(self):
         self.ensure_one()
@@ -271,3 +272,10 @@ class MembershipLine(models.Model):
         else:
             reference = None
         return reference, price
+
+    def write(self, vals):
+        if vals.get("paid"):
+            vals["regularization_date"] = fields.Date.today()
+        elif not vals.get("paid", True):
+            vals["regularization_date"] = False
+        return super().write(vals)

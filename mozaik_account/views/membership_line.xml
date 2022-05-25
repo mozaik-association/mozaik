@@ -48,6 +48,10 @@
                     name="paid"
                     attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"
                 />
+                <field
+                    name="regularization_date"
+                    attrs="{'invisible': ['|', ('price_paid', '=', False), ('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"
+                />
             </xpath>
             <xpath expr="//field[@name='price']" position="after">
                 <field name="price_paid" />
