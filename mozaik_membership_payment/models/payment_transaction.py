@@ -25,8 +25,14 @@ class PaymentTransaction(models.Model):
         if vals.get("state") == "done" and self.membership_request_ids:
             # may update the result state
             self.membership_request_ids.onchange_partner_id()
+        return res
+
+    def _post_process_after_done(self):
+        res = super(PaymentTransaction, self)._post_process_after_done()
+        tx_done = self.filtered(lambda s: s.state == "done" and s.membership_request_ids)
+        if tx_done:
             # auto-validate after payment, if asked
-            for mr in self.membership_request_ids.filtered(
+            for mr in tx_done.mapped("membership_request_ids").filtered(
                 lambda s: s.auto_validate_after_payment
             ):
                 failure_reason = mr._auto_validate(True)
