@@ -170,7 +170,7 @@ class ResPartner(models.Model):
         default_instance = self.env["int.instance"]._get_default_int_instance()
         all_excl_states = state_obj._get_all_exclusion_states()
         for record in self:
-            if record.active or any(record.membership_line_ids.mapped("active")):
+            if any(record.membership_line_ids.mapped("active")):
                 memberships = record.membership_line_ids.filtered(lambda l: l.active)
             else:
                 memberships = first(
