@@ -23,6 +23,20 @@ msgid "Active"
 msgstr "Actif"
 
 #. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__active_mandate
+#, fuzzy
+#| msgid "State Mandate"
+msgid "Active mandate"
+msgstr "Mandat politique"
+
+#. module: mozaik_virtual_partner_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
+#, fuzzy
+#| msgid "State Mandate"
+msgid "Active mandates"
+msgstr "Mandat politique"
+
+#. module: mozaik_virtual_partner_mandate
 #: model:ir.actions.act_window,name:mozaik_virtual_partner_mandate.add_filter_from_relation_action
 msgid "Add Filter To Distribution List"
 msgstr "Ajouter ce filtre à une liste de distribution"
@@ -114,6 +128,11 @@ msgid "Employee"
 msgstr "Employé"
 
 #. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__ext_mandate_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "External Mandate"
@@ -152,7 +171,6 @@ msgstr "ID"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__in_progress
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "In Progress"
 msgstr "En cours"
 
