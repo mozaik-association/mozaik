@@ -140,7 +140,7 @@
                             icon="fa-exclamation-triangle"
                             string="Exclude"
                             groups="mozaik_membership.res_groups_membership_manager"
-                            attrs="{'invisible': ['|', ('is_excluded', '=', True), ('membership_state_code', 'not in', ['member', 'former_member'])]}"
+                            attrs="{'invisible': ['|', ('is_excluded', '=', True), ('membership_state_code', 'not in', ['member', 'member_candidate', 'former_member'])]}"
                             confirm="Exclude this partner: proceed anyway?"
                         />
                         <button

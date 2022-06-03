@@ -77,6 +77,8 @@ class MembershipState(models.Model):
                 return self._get_by_code("expulsion_former_member")
             elif code == "former_member":
                 return self._get_by_code("inappropriate_former_member")
+            elif code == "member_candidate":
+                return self._get_by_code("refused_member_candidate")
         elif event == "resignation":
             if code == "member":
                 return self._get_by_code("resignation_former_member")
