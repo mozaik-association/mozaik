@@ -160,6 +160,11 @@ msgid "Products"
 msgstr "Articles"
 
 #. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__regularization_date
+msgid "Regularization Date"
+msgstr ""
+
+#. module: mozaik_account
 #: model:ir.model.fields,field_description:mozaik_account.field_product_product__property_subscription_account
 #: model:ir.model.fields,field_description:mozaik_account.field_product_template__property_subscription_account
 msgid "Subscription Account"
