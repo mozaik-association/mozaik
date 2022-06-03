@@ -16,17 +16,27 @@ _logger = logging.getLogger(__name__)
 class MozaikLinkTracker(MassMailController):
     @http.route("/r/<string:code>/m/<int:mailing_trace_id>", type="http", auth="public")
     def full_url_redirect(self, code, mailing_trace_id, **post):
+        """
+        We rewrite the method since the ip adress to get is not always the one set
+        into request.httprequest.remote_addr: if key HTTP_X_FORWARDED_FOR is present
+        into dict request.httprequest.environ, we must use the first ip address
+        given there
+        """
         country_code = request.session.get(
             "geoip", False
         ) and request.session.geoip.get("country_code", False)
 
-        _logger.info(
-            "request.httprequest.environ dict: %s" % request.httprequest.environ
+        http_x_forwarded_for = request.httprequest.environ.get(
+            "HTTP_X_FORWARDED_FOR", ""
         )
+        if http_x_forwarded_for:
+            ip_address = http_x_forwarded_for.split(",")[0]
+        else:
+            ip_address = request.httprequest.remote_addr
 
         request.env["link.tracker.click"].sudo().add_click(
             code,
-            ip=request.httprequest.remote_addr,
+            ip=ip_address,
             country_code=country_code,
             mailing_trace_id=mailing_trace_id,
         )
