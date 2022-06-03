@@ -235,10 +235,9 @@ class TestDistributionList(SavepointCase):
         self.distri_list_obj.with_context(context).message_new(
             msg_dict, custom_values=custom_values
         )
-        mail = self.mail_obj.search(
+        mail = self.env["mailing.mailing"].search(
             [
-                ("res_id", "=", dist_list._get_target_from_distribution_list().id),
-                ("model", "=", "res.partner"),
+                ("distribution_list_id", "=", dist_list.id),
             ],
             limit=1,
         )

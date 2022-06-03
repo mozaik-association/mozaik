@@ -373,8 +373,7 @@ class DistributionList(models.Model):
         mailing_mailing = self_ctx.env["mailing.mailing"].create(mail_composer_vals)
         mailing_mailing_vals_and_att[1].write({"res_id": mailing_mailing.id})
         if mailing_mailing._get_remaining_recipients():
-            mailing_mailing.state = "sending"
-            mailing_mailing.action_send_mail()
+            mailing_mailing.action_put_in_queue()
         return True
 
     @api.onchange("mail_forwarding", "alias_name", "name")
