@@ -63,6 +63,7 @@
         "mozaik_person",
         "mozaik_person_deceased",
         # 'mozaik_relation_coordinate',
+        "mozaik_security",
         "mozaik_structure",
         # 'mozaik_subscription_price',
         "mozaik_thesaurus",
