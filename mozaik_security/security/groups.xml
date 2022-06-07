@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <data noupdate="1">
+        <record id="group_partner_advanced_fields" model="res.groups">
+             <field name="category_id" ref="base.module_category_usability" />
+             <field name="name">Contact: See Advanced Fields </field>
+             <field
+                name="users"
+                eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+            />
+         </record>
+    </data>
+</odoo>

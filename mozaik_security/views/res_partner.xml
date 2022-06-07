@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_disabled_form_view">
+        <field name="name">res.partner.disabled.form (in mozaik_security)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mozaik_partner_disabled.res_partner_form_view" />
+        <field name="arch" type="xml">
+            <field name="disabled" position="attributes">
+                <attribute name="groups">
+                    mozaik_security.group_partner_advanced_fields
+                </attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_unemployed_form_view">
+        <field name="name">res.partner.unemployed.form (in mozaik_security)</field>
+        <field name="model">res.partner</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_partner_unemployed.res_partner_form_view"
+        />
+        <field name="arch" type="xml">
+            <field name="unemployed" position="attributes">
+                <attribute name="groups">
+                    mozaik_security.group_partner_advanced_fields
+                </attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_pages_form_view">
+        <field name="name">res.partner.pages.form (in mozaik_security)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mozaik_partner_fields.res_partner_form_view" />
+        <field name="arch" type="xml">
+            <field name="secondary_website" position="attributes">
+                <attribute name="groups">
+                    mozaik_security.group_partner_advanced_fields
+                </attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>
