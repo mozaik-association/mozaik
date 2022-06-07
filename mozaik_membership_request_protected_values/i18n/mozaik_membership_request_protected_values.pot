@@ -34,6 +34,11 @@ msgid "Membership Request"
 msgstr ""
 
 #. module: mozaik_membership_request_protected_values
+#: model:res.groups,name:mozaik_membership_request_protected_values.group_membership_see_protected_values
+msgid "Membership Request: see protected values"
+msgstr ""
+
+#. module: mozaik_membership_request_protected_values
 #: model:ir.model.fields,field_description:mozaik_membership_request_protected_values.field_membership_request__protected_values
 msgid "Protected Values"
 msgstr ""
