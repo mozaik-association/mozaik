@@ -88,5 +88,7 @@ class MembershipRenew(models.TransientModel):
         date_to = fields.Date.from_string(self.date_from) - timedelta(days=1)
         renewed_lines = self.membership_line_ids._close(
             date_to=fields.Date.to_string(date_to)
-        )._renew(date_from=self.date_from)
+        )
+        if renewed_lines:
+            renewed_lines._renew(date_from=self.date_from)
         return renewed_lines
