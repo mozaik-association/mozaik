@@ -16,7 +16,11 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='changes']" position="inside">
                 <group>
-                    <field name="protected_values" readonly="1" />
+                    <field
+                        name="protected_values"
+                        readonly="1"
+                        groups="mozaik_membership_request_protected_values.group_membership_see_protected_values"
+                    />
                 </group>
             </xpath>
 

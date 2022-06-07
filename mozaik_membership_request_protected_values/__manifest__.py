@@ -14,6 +14,7 @@
         "mozaik_membership_request",
     ],
     "data": [
+        "security/groups.xml",
         "views/membership_request.xml",
     ],
     "demo": [],
