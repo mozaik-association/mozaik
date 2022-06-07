@@ -54,6 +54,13 @@ ERRORS_DICT = {
     ),
 }
 
+VOLUNTARY_FIELDS = [
+    "local_voluntary",
+    "regional_voluntary",
+    "national_voluntary",
+    "local_only",
+]
+
 
 def partner_add_values(mr, partner_values):
     if not mr.is_company:
@@ -604,30 +611,36 @@ class MembershipRequest(models.Model):
                 partner_value = attrgetter(partner_path)(request.partner_id)
                 field = fields_def[field]
 
+                # If we treat voluntary fields and if request_value is False, it
+                # means that the selection field is empty -> we want no change, hence
+                # we set partner_value to false also.
+                if not request_value and element[1] in VOLUNTARY_FIELDS:
+                    partner_value = False
+
                 if (request_value or label) and request_value != partner_value:
+                    create_change = True
                     if "selection" in field:
                         selection = dict(field["selection"])
+                        request_value_code = request_value
                         request_value = selection.get(request_value)
                         partner_value = selection.get(partner_value)
                         # If voluntary fields: partner field is a boolean, not selection
-                        if element[1] in [
-                            "local_voluntary",
-                            "regional_voluntary",
-                            "national_voluntary",
-                            "local_only",
-                        ]:
+                        if element[1] in VOLUNTARY_FIELDS:
                             partner_value = attrgetter(partner_path)(request.partner_id)
+                            if (
+                                partner_value and request_value_code == "force_true"
+                            ) or (
+                                not partner_value
+                                and request_value_code == "force_false"
+                            ):
+                                # In fact, there is no change since we force the actual value
+                                create_change = False
                     if isinstance(request_value, bool) and isinstance(
                         partner_value, bool
                     ):
                         request_value = request_value and _("Yes") or _("No")
                         partner_value = partner_value and _("Yes") or _("No")
-                    if element[1] in [
-                        "local_voluntary",
-                        "regional_voluntary",
-                        "national_voluntary",
-                        "local_only",
-                    ]:
+                    if element[1] in VOLUNTARY_FIELDS:
                         partner_value = (
                             partner_value and _("Was True") or _("Was False")
                         )
@@ -638,7 +651,8 @@ class MembershipRequest(models.Model):
                         "old_value": partner_value,
                         "new_value": request_value,
                     }
-                    chg_obj.create(vals)
+                    if create_change:
+                        chg_obj.create(vals)
 
     @api.model
     def _pre_process(self, vals):
