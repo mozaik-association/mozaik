@@ -82,6 +82,8 @@ class MembershipRenew(models.TransientModel):
     def _action_close_and_renew(self):
         """
         Close membership lines and renew them automatically
+
+        If active_ids, then ignore active_domain
         :return: membership.line recordset
         """
         self.ensure_one()
@@ -90,5 +92,10 @@ class MembershipRenew(models.TransientModel):
             date_to=fields.Date.to_string(date_to)
         )
         if renewed_lines:
-            renewed_lines._renew(date_from=self.date_from)
+            active_domain = self.env.context.get("active_domain", False)
+            if self.env.context.get("active_ids", False):
+                active_domain = False
+            renewed_lines.with_context(active_domain=active_domain)._renew(
+                date_from=self.date_from
+            )
         return renewed_lines
