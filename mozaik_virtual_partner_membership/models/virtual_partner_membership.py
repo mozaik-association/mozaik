@@ -29,6 +29,7 @@ class VirtualPartnerMembership(models.Model):
     )
     date_to = fields.Date(string="To")
     date_creation = fields.Datetime(string="Creation date")
+    regularization_date = fields.Date()
     paid = fields.Boolean(
         help="Define if this line is paid or not",
     )
@@ -53,6 +54,7 @@ class VirtualPartnerMembership(models.Model):
             p.reference as reference,
             m.date_from,
             m.date_to,
+            m.regularization_date,
             m.create_date as date_creation,
             m.paid,
             m.product_id,
