@@ -3,6 +3,7 @@
 
 import base64
 import csv
+import datetime
 from io import BytesIO, StringIO
 
 import xlsxwriter
@@ -136,7 +137,7 @@ class SurveyExportCsv(models.TransientModel):
             "score",
             "scoring_success",
         ]
-        export_values = [str(values.get(k, "")) for k in keys]
+        export_values = [values.get(k, "") for k in keys]
         export_values += values.get("answers", [])
         return export_values
 
@@ -530,14 +531,23 @@ class SurveyExportCsv(models.TransientModel):
         )
         return self._get_row_values(data)
 
-    def _xls_writerow(self, worksheet, row_number, row):
+    def _xls_writerow(self, worksheet, row_number, row, formats):
         """
         :row_number: row number of the xls file
-        :row: list of strings to write in a row
+        :row: list of values to write in a row
+        :formats: dict of formats to use
         """
         col = 0
         for elem in row:
-            worksheet.write(row_number, col, elem)
+            if isinstance(elem, datetime.datetime):
+                worksheet.write(row_number, col, elem, formats["format_datetime"])
+            elif isinstance(elem, datetime.date):
+                worksheet.write(row_number, col, elem, formats["format_date"])
+            else:
+                if isinstance(elem, bool):
+                    worksheet.write(row_number, col, _("True") if elem else _("False"))
+                else:
+                    worksheet.write(row_number, col, elem)
             col += 1
 
     def _get_selections(self):
@@ -561,6 +571,17 @@ class SurveyExportCsv(models.TransientModel):
 
         return selections
 
+    def _get_xls_formats(self, workbook):
+        """
+        Define workbook formats
+        """
+        return {
+            "format_date": workbook.add_format({"num_format": "dd/mm/yyyy"}),
+            "format_datetime": workbook.add_format(
+                {"num_format": "dd/mm/yyyy hh:mm:ss"}
+            ),
+        }
+
     def _get_xls(self, model_ids):
         """
         Build a xls file related to a coordinate model related to model_ids
@@ -576,11 +597,12 @@ class SurveyExportCsv(models.TransientModel):
         output = BytesIO()
         workbook = xlsxwriter.Workbook(output)
         writer = workbook.add_worksheet("Sheet 1")
-        self._xls_writerow(writer, 0, headers)
+        formats = self._get_xls_formats(workbook)
+        self._xls_writerow(writer, 0, headers, formats)
         row_number = 1
         for data in self._prefetch_csv_datas(model_ids):
             export_values = self._update_data(data, selections)
-            self._xls_writerow(writer, row_number, export_values)
+            self._xls_writerow(writer, row_number, export_values, formats)
             row_number += 1
         workbook.close()
         xls_content = output.getvalue()
