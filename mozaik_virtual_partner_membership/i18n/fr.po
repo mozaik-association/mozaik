@@ -215,6 +215,13 @@ msgid "Reference"
 msgstr "Référence"
 
 #. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__regularization_date
+#, fuzzy
+#| msgid "Creation date"
+msgid "Regularization Date"
+msgstr "Date de création"
+
+#. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__result_id
 msgid "Result"
 msgstr "Résultat"
