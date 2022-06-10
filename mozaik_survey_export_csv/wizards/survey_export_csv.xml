@@ -21,6 +21,7 @@
                         filename="export_filename"
                     />
                     <field name="export_filename" invisible="1" />
+                    <field name="export_type" widget="radio" />
                 </group>
                 <footer>
                     <span attrs="{'invisible': [('export_file', '!=', False)]}">

@@ -8,7 +8,7 @@ class SurveySurvey(models.Model):
 
     _inherit = "survey.survey"
 
-    def export_csv_action(self):
+    def export_action(self):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",

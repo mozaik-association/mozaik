@@ -3,8 +3,10 @@
 
 import base64
 import csv
-from io import StringIO
+import datetime
+from io import BytesIO, StringIO
 
+import xlsxwriter
 from psycopg2.extensions import AsIs
 
 from odoo import _, api, fields, models
@@ -26,6 +28,9 @@ class SurveyExportCsv(models.TransientModel):
     )
     export_filename = fields.Char(
         string="Export CSV filename",
+    )
+    export_type = fields.Selection(
+        [("xls", "Excel format"), ("csv", "CSV format")], default="xls", required=True
     )
 
     def _get_interests(self):
@@ -67,7 +72,7 @@ class SurveyExportCsv(models.TransientModel):
             ]:
                 header.append(question.title + " " + _("(Comments)"))
 
-    def _get_csv_rows(self):
+    def _get_headers(self):
         """
         Get the columns (header) for survey answers
         :return: list of str
@@ -101,7 +106,7 @@ class SurveyExportCsv(models.TransientModel):
         return header
 
     @api.model
-    def _get_csv_values(self, values):
+    def _get_row_values(self, values):
         """
         Get the values of the specified object
         :param values: dict
@@ -487,6 +492,123 @@ class SurveyExportCsv(models.TransientModel):
         )
         return base_url + custom_url
 
+    def _update_data(self, data, selections):
+        """
+        Update data and return export values
+
+        :data: dict containing the data to format for export
+        :selections: dict containing all possible values for some selection fields
+        :return: a list of strings corresponding to the data of a row
+        """
+        data.update(
+            {
+                "object_type": "Survey",
+                "interests": self._get_interests(),
+                "answering_partner": self._compute_answering_partner(
+                    data.get("number", "0"),
+                    data.get("lastname", False),
+                    data.get("firstname", False),
+                ),
+                "survey_status": selections.get("survey_states", {}).get(
+                    data.get("survey_status"), data.get("survey_status")
+                ),
+                "membership_state": selections.get("membership_states", {}).get(
+                    data.get("membership_state"), data.get("membership_state")
+                ),
+                "gender": selections.get("genders", {}).get(
+                    data.get("gender"), data.get("gender")
+                ),
+                "answers": self._give_answers(data.get("user_input_id", False)),
+                "score": self._update_score(data.get("score", 0)),
+                "scoring_success": self._update_scoring_success(
+                    data.get("scoring_success", False)
+                ),
+                "partner_url": self._get_partner_url(data.get("partner_id", False)),
+                "user_input_url": self._get_user_input_url(
+                    data.get("user_input_id", False)
+                ),
+            }
+        )
+        return self._get_row_values(data)
+
+    def _xls_writerow(self, worksheet, row_number, row, formats):
+        """
+        :row_number: row number of the xls file
+        :row: list of values to write in a row
+        :formats: dict of formats to use
+        """
+        col = 0
+        for elem in row:
+            if isinstance(elem, datetime.datetime):
+                worksheet.write(row_number, col, elem, formats["format_datetime"])
+            elif isinstance(elem, datetime.date):
+                worksheet.write(row_number, col, elem, formats["format_date"])
+            else:
+                if isinstance(elem, bool):
+                    worksheet.write(row_number, col, _("True") if elem else _("False"))
+                else:
+                    worksheet.write(row_number, col, elem)
+            col += 1
+
+    def _get_selections(self):
+        """
+        Build a dictionary with all membership states,
+        all survey_states and all genders.
+        """
+        selections = {}
+        membership_states = self.env["membership.state"].search([])
+        selections["membership_states"] = {st.id: st.name for st in membership_states}
+        selections_survey_ui = self.env["survey.user_input"].fields_get(
+            allfields=["state"]
+        )
+        selections["survey_states"] = {
+            k: v for k, v in selections_survey_ui["state"]["selection"]
+        }
+        selections_partner = self.env["res.partner"].fields_get(allfields=["gender"])
+        selections["genders"] = {
+            k: v for k, v in selections_partner["gender"]["selection"]
+        }
+
+        return selections
+
+    def _get_xls_formats(self, workbook):
+        """
+        Define workbook formats
+        """
+        return {
+            "format_date": workbook.add_format({"num_format": "dd/mm/yyyy"}),
+            "format_datetime": workbook.add_format(
+                {"num_format": "dd/mm/yyyy hh:mm:ss"}
+            ),
+        }
+
+    def _get_xls(self, model_ids):
+        """
+        Build a xls file related to a coordinate model related to model_ids
+        :param model_ids: list of int
+        :return: str
+        """
+        if not model_ids:
+            return ""
+
+        selections = self._get_selections()
+        headers = self._get_headers()
+
+        output = BytesIO()
+        workbook = xlsxwriter.Workbook(output)
+        writer = workbook.add_worksheet("Sheet 1")
+        formats = self._get_xls_formats(workbook)
+        self._xls_writerow(writer, 0, headers, formats)
+        row_number = 1
+        for data in self._prefetch_csv_datas(model_ids):
+            export_values = self._update_data(data, selections)
+            self._xls_writerow(writer, row_number, export_values, formats)
+            row_number += 1
+        workbook.close()
+        xls_content = output.getvalue()
+
+        return xls_content
+
     def _get_csv(self, model_ids):
         """
         Build a CSV file related to a coordinate model related to model_ids
@@ -495,79 +617,43 @@ class SurveyExportCsv(models.TransientModel):
         """
         if not model_ids:
             return ""
-        membership_states = self.env["membership.state"].search([])
-        membership_states = {st.id: st.name for st in membership_states}
-        selections_partner = self.env["res.partner"].fields_get(allfields=["gender"])
-        selections_survey_ui = self.env["survey.user_input"].fields_get(
-            allfields=["state"]
-        )
-        survey_states = {k: v for k, v in selections_survey_ui["state"]["selection"]}
-        genders = {k: v for k, v in selections_partner["gender"]["selection"]}
-        headers = self._get_csv_rows()
+        selections = self._get_selections()
+        headers = self._get_headers()
 
         with StringIO() as memory_file:
             writer = csv.writer(memory_file)
             writer.writerow(headers)
             for data in self._prefetch_csv_datas(model_ids):
-                # Update data depending on others models
-                data.update(
-                    {
-                        "object_type": "Survey",
-                        "interests": self._get_interests(),
-                        "answering_partner": self._compute_answering_partner(
-                            data.get("number", "0"),
-                            data.get("lastname", False),
-                            data.get("firstname", False),
-                        ),
-                        "survey_status": survey_states.get(
-                            data.get("survey_status"), data.get("survey_status")
-                        ),
-                        "membership_state": membership_states.get(
-                            data.get("membership_state"), data.get("membership_state")
-                        ),
-                        "gender": genders.get(data.get("gender"), data.get("gender")),
-                        "answers": self._give_answers(data.get("user_input_id", False)),
-                        "score": self._update_score(data.get("score", 0)),
-                        "scoring_success": self._update_scoring_success(
-                            data.get("scoring_success", False)
-                        ),
-                        "partner_url": self._get_partner_url(
-                            data.get("partner_id", False)
-                        ),
-                        "user_input_url": self._get_user_input_url(
-                            data.get("user_input_id", False)
-                        ),
-                    }
-                )
-                export_values = self._get_csv_values(data)
+                export_values = self._update_data(data, selections)
                 writer.writerow(export_values)
             csv_content = memory_file.getvalue()
-        return csv_content
+        return csv_content.encode()
 
-    def export_csv(self):
+    def _export(self, export_type):
         """
-        Export the specified coordinates to a CSV file.
-        :param model: str
-        :param group_by: bool
-        :return: bool
+        Export the specified coordinates to a csv or xls file.
+        :param export_type: str (csv or xls)
         """
         if not self.survey_id:
             return
         targets = self.env["survey.user_input"].search(
             [("survey_id", "=", self.survey_id.id)]
         )
-        csv_content = self._get_csv(targets.ids)
-        csv_content = base64.encodebytes(csv_content.encode())
+        if export_type == "xls":
+            content = self._get_xls(targets.ids)
+        else:
+            content = self._get_csv(targets.ids)
+        content = base64.encodebytes(content)
         self.write(
             {
-                "export_file": csv_content,
-                "export_filename": "extract.csv",
+                "export_file": content,
+                "export_filename": "extract." + export_type,
             }
         )
 
     def export(self):
-        self.export_csv()
-        action = self.survey_id.export_csv_action()
+        self._export(self.export_type)
+        action = self.survey_id.export_action()
         action.update(
             {
                 "res_id": self.id,
