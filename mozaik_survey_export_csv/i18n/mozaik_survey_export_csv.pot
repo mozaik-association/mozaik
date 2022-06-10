@@ -43,6 +43,11 @@ msgid "CSV"
 msgstr ""
 
 #. module: mozaik_survey_export_csv
+#: model:ir.model.fields.selection,name:mozaik_survey_export_csv.selection__survey_export_csv__export_type__csv
+msgid "CSV format"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
 #: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
 #, python-format
 msgid "City"
@@ -82,7 +87,13 @@ msgid "Email"
 msgstr ""
 
 #. module: mozaik_survey_export_csv
+#: model:ir.model.fields.selection,name:mozaik_survey_export_csv.selection__survey_export_csv__export_type__xls
+msgid "Excel format"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_export_csv.survey_export_csv_wizard
+#: model_terms:ir.ui.view,arch_db:mozaik_survey_export_csv.survey_survey_form_view
 msgid "Export"
 msgstr ""
 
@@ -92,13 +103,19 @@ msgid "Export Answers as CSV"
 msgstr ""
 
 #. module: mozaik_survey_export_csv
-#: model_terms:ir.ui.view,arch_db:mozaik_survey_export_csv.survey_survey_form_view
-msgid "Export CSV"
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__export_filename
+msgid "Export CSV filename"
 msgstr ""
 
 #. module: mozaik_survey_export_csv
-#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__export_filename
-msgid "Export CSV filename"
+#: model:ir.model.fields,field_description:mozaik_survey_export_csv.field_survey_export_csv__export_type
+msgid "Export Type"
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "False"
 msgstr ""
 
 #. module: mozaik_survey_export_csv
@@ -233,6 +250,12 @@ msgstr ""
 #. module: mozaik_survey_export_csv
 #: model_terms:ir.ui.view,arch_db:mozaik_survey_export_csv.survey_export_csv_wizard
 msgid "This wizard will export all answers to this survey into a CSV file."
+msgstr ""
+
+#. module: mozaik_survey_export_csv
+#: code:addons/mozaik_survey_export_csv/wizards/survey_export_csv.py:0
+#, python-format
+msgid "True"
 msgstr ""
 
 #. module: mozaik_survey_export_csv
