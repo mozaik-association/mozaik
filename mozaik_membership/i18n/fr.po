@@ -415,6 +415,11 @@ msgid "From > ..."
 msgstr "Á partir de > ..."
 
 #. module: mozaik_membership
+#: model:res.groups,name:mozaik_membership.res_groups_membership_manage_membership_states
+msgid "Full manager: can manage membership states"
+msgstr ""
+
+#. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_product_product__sequence
 msgid "Gives the sequence order when displaying a product list"
 msgstr ""
