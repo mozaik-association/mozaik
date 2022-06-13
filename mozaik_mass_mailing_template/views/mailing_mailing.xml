@@ -12,7 +12,10 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="before">
                 <group>
-                    <field name="use_custom_templates" />
+                    <field
+                        name="use_custom_templates"
+                        attrs="{'invisible': [('mailing_type', '!=', 'mail')]}"
+                    />
                 </group>
             </xpath>
 
