@@ -386,7 +386,7 @@ class TestMembership(TransactionCase):
         vals = {
             "country_id": self.ref("base.be"),
             "zip_man": "4000",
-            "city_man": u"Liège",
+            "city_man": "Liège",
             "street_man": "Place St Lambert",
             "number": "7",
         }
@@ -431,7 +431,7 @@ class TestMembership(TransactionCase):
         self.assertEqual(changes["Country"][1], "Morocco")
         self.assertEqual(changes["Zip"][0], "4000")
         self.assertEqual(changes["Zip"][1], "45000")
-        self.assertEqual(changes["City (Manual)"][0], u"Liège")
+        self.assertEqual(changes["City (Manual)"][0], "Liège")
         self.assertEqual(changes["City (Manual)"][1], "Ouarzazate")
         self.assertEqual(changes["Street"][0], "Place St Lambert")
         self.assertEqual(changes["Street"][1], "rue du souk")

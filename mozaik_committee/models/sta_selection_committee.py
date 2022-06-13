@@ -70,7 +70,7 @@ class StaSelectionCommittee(models.Model):
     def name_get(self):
         res = []
         for committee in self:
-            display_name = u"{assembly}/{start} ({name})".format(
+            display_name = "{assembly}/{start} ({name})".format(
                 assembly=committee.electoral_district_id.name
                 or committee.assembly_id.name,
                 start=committee.mandate_start_date or False,

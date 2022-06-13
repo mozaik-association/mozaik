@@ -116,7 +116,7 @@ class AbstractCandidature(models.Model):
     def name_get(self):
         res = []
         for candidature in self:
-            display_name = u"{name} ({mandate_category})".format(
+            display_name = "{name} ({mandate_category})".format(
                 name=candidature.partner_id.name,
                 mandate_category=candidature.mandate_category_id.name,
             )

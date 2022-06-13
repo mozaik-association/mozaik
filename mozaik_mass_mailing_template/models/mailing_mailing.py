@@ -82,7 +82,7 @@ class MailingMailing(models.Model):
 
     def save_as_template(self):
         self.ensure_one()
-        template_name = u"Mass Mailing: {subject}"
+        template_name = "Mass Mailing: {subject}"
         values = {
             "name": template_name.format(subject=self.subject),
             "subject": self.subject or False,
