@@ -25,7 +25,7 @@ class StaInstance(models.Model):
     )
     electoral_district_ids = fields.One2many(
         "electoral.district",
-        "int_instance_id",
+        "sta_instance_id",
         string="Electoral Districts",
         domain=[("active", "=", True)],
     )
