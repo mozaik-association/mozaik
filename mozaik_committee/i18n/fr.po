@@ -41,6 +41,9 @@ msgid ""
 "                    External Candidatures\n"
 "                </span>"
 msgstr ""
+"<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
+"                        Candidatures externes\n"
+"                    </span>"
 
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
@@ -49,6 +52,9 @@ msgid ""
 "                    Internal Candidatures\n"
 "                </span>"
 msgstr ""
+"<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
+"                    Candidatures internes\n"
+"                </span>"
 
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
@@ -57,6 +63,9 @@ msgid ""
 "                    State Candidatures\n"
 "                </span>"
 msgstr ""
+"<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
+"                    Candidatures politiques\n"
+"                </span>"
 
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step2
