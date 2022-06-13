@@ -16,7 +16,7 @@
             <xpath expr="//div[@name='mailing_model_id_container']" position="after">
                 <field
                     name="include_opt_out_contacts"
-                    attrs="{'invisible': [('mailing_model_name', 'not in', ['res.partner', 'distribution.list'])]}"
+                    attrs="{'invisible': ['|', ('mailing_type', '!=', 'mail'), ('mailing_model_name', 'not in', ['res.partner', 'distribution.list'])]}"
                 />
             </xpath>
         </field>

@@ -16,7 +16,7 @@
             <xpath expr="//field[@name='name']" position="before">
                 <field
                     name="multi_send_same_email"
-                    attrs="{'invisible': [('mailing_model_name', 'not in', ['res.partner', 'distribution.list'])]}"
+                    attrs="{'invisible': ['|', ('mailing_type', '!=', 'mail'), ('mailing_model_name', 'not in', ['res.partner', 'distribution.list'])]}"
                 />
             </xpath>
         </field>
