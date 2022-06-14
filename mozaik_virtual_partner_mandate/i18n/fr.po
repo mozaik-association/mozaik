@@ -185,16 +185,6 @@ msgid "Internal Instance"
 msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_mandate
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-msgid "Internal Instance descending of..."
-msgstr "Instance Interne descendant de..."
-
-#. module: mozaik_virtual_partner_mandate
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-msgid "Internal Instance not descending of..."
-msgstr "Instance Interne non descendant de..."
-
-#. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__int_instance_ids
 #, fuzzy
 #| msgid "Internal Instance"
@@ -280,7 +270,6 @@ msgstr "Numéro"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__partner_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -383,6 +372,12 @@ msgstr ""
 #, python-format
 msgid "value should be a string"
 msgstr ""
+
+#~ msgid "Internal Instance descending of..."
+#~ msgstr "Instance Interne descendant de..."
+
+#~ msgid "Internal Instance not descending of..."
+#~ msgstr "Instance Interne non descendant de..."
 
 #~ msgid "Unauthorized Address"
 #~ msgstr "Adresse interdite"
