@@ -114,14 +114,8 @@ msgstr "Intérêts"
 
 #. module: mozaik_virtual_partner_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance__int_instance_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
 msgid "Internal Instance"
 msgstr "Instance interne"
-
-#. module: mozaik_virtual_partner_instance
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
-msgid "Internal Instance descending of..."
-msgstr "Instance Interne descendant de..."
 
 #. module: mozaik_virtual_partner_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance__is_company
@@ -220,7 +214,6 @@ msgstr "Numéro"
 
 #. module: mozaik_virtual_partner_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance__partner_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -263,6 +256,9 @@ msgstr "Statut"
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
 msgid "Volunteer"
 msgstr "Volontaire"
+
+#~ msgid "Internal Instance descending of..."
+#~ msgstr "Instance Interne descendant de..."
 
 #~ msgid "Email Coordinate Category"
 #~ msgstr "Catégorie de coordonnée électronique"
