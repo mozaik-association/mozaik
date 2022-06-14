@@ -187,14 +187,8 @@ msgstr "Intérêts"
 
 #. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__int_instance_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
 msgid "Internal Instance"
 msgstr "Instance interne"
-
-#. module: mozaik_virtual_partner_mass_mailing
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
-msgid "Internal Instance descending of..."
-msgstr "Instance interne descendant de ..."
 
 #. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__failure_type__recipient
@@ -264,7 +258,6 @@ msgstr "Sortant"
 
 #. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__partner_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -323,6 +316,9 @@ msgstr "Erreur inconnue"
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
+
+#~ msgid "Internal Instance descending of..."
+#~ msgstr "Instance interne descendant de ..."
 
 #~ msgid "Mass mailing"
 #~ msgstr "Publipostage"
