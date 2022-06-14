@@ -92,11 +92,6 @@ msgid "Gender"
 msgstr "Genre"
 
 #. module: mozaik_virtual_partner_relation
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
-msgid "Group By..."
-msgstr "Regrouper par..."
-
-#. module: mozaik_virtual_partner_relation
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_distribution_list_line_template__id
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__id
 msgid "ID"
@@ -109,14 +104,8 @@ msgstr "Intérêts"
 
 #. module: mozaik_virtual_partner_relation
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__int_instance_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Internal Instance"
 msgstr "Instance interne"
-
-#. module: mozaik_virtual_partner_relation
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
-msgid "Internal Instance descending of..."
-msgstr "Instance Interne descendant de..."
 
 #. module: mozaik_virtual_partner_relation
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__is_company
@@ -171,7 +160,6 @@ msgstr "Objet"
 
 #. module: mozaik_virtual_partner_relation
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__partner_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -208,6 +196,12 @@ msgstr "Résultat"
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
+
+#~ msgid "Group By..."
+#~ msgstr "Regrouper par..."
+
+#~ msgid "Internal Instance descending of..."
+#~ msgstr "Instance Interne descendant de..."
 
 #~ msgid "Unauthorized Address"
 #~ msgstr "Adresse interdite"
