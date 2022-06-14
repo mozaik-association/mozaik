@@ -25,8 +25,13 @@
     <record id="virtual_partner_instance_search_view" model="ir.ui.view">
         <field name="name">virtual.partner.instance.search</field>
         <field name="model">virtual.partner.instance</field>
+        <field name="mode">primary</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.abstract_virtual_model_search_view"
+        />
         <field name="arch" type="xml">
-            <search>
+            <field name="partner_id" position="before">
                 <field name="identifier" />
                 <!-- pylint: disable=duplicate-xml-fields -->
                 <field
@@ -39,14 +44,8 @@
                     name="birth_date"
                     filter_domain="[('birth_date','&lt;',self)]"
                 />
-
-                <field name="partner_id" />
-                <field name="int_instance_id" />
-                <field
-                    name="int_instance_id"
-                    string="Internal Instance descending of..."
-                    operator="child_of"
-                />
+            </field>
+            <field name="partner_id" position="after">
                 <field name="membership_state_id" />
 
                 <field name="interest_ids" widget="many2one" />
@@ -137,29 +136,19 @@
                     domain="[('local_only','=', False)]"
                 />
                 <separator />
-                <group name="group_by">
-                    <filter
-                        name="partner"
-                        string="Partner"
-                        context="{'group_by':'partner_id'}"
-                    />
-                    <filter
-                        name="int_instance"
-                        string="Internal Instance"
-                        context="{'group_by':'int_instance_id'}"
-                    />
-                    <filter
-                        name="state"
-                        string="State"
-                        context="{'group_by':'membership_state_id'}"
-                    />
-                    <filter
-                        name="nationality"
-                        string="Nationality"
-                        context="{'group_by': 'nationality_id'}"
-                    />
-                </group>
-            </search>
+            </field>
+            <filter name="partner" position="after">
+                <filter
+                    name="state"
+                    string="State"
+                    context="{'group_by':'membership_state_id'}"
+                />
+                <filter
+                    name="nationality"
+                    string="Nationality"
+                    context="{'group_by': 'nationality_id'}"
+                />
+            </filter>
         </field>
     </record>
 

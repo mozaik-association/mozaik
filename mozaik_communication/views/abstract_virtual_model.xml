@@ -15,4 +15,21 @@
             </tree>
         </field>
     </record>
+
+    <record id="abstract_virtual_model_search_view" model="ir.ui.view">
+        <field name="name">abstract.virtual.model.search</field>
+        <field name="model">abstract.virtual.model</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <group name="group_by">
+                    <filter
+                        name="partner"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="virtual_partner_mass_mailing_tree_view" model="ir.ui.view">
+        <field
+            name="name"
+        >virtual.partner.mass.mailing.tree (in mozaik_virtual_model_single_instance)</field>
+        <field name="model">virtual.partner.mass.mailing</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_tree_view"
+        />
+        <field name="arch" type="xml">
+            <field name="failure_type" position="after">
+                <field name="partner_int_instance_id" string="Internal Instance" />
+            </field>
+        </field>
+    </record>
+</odoo>

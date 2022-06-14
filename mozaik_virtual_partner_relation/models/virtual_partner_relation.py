@@ -9,10 +9,6 @@ class VirtualPartnerRelation(models.Model):
     _inherit = ["abstract.virtual.model"]
     _auto = False
 
-    int_instance_id = fields.Many2one(
-        store=True,
-        search=None,
-    )
     is_assembly = fields.Boolean(
         string="Is an Assembly",
     )
@@ -34,7 +30,6 @@ class VirtualPartnerRelation(models.Model):
         select = (
             super()._get_select()
             + """,
-        p.int_instance_id,
         p.is_assembly AS is_assembly,
         r.id AS relation_id,
         r.type_id AS relation_category_id,
