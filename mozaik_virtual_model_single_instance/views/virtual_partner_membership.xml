@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="virtual_partner_membership_tree_view" model="ir.ui.view">
+        <field
+            name="name"
+        >virtual.partner.membership.tree (in mozaik_virtual_model_single_instance)</field>
+        <field name="model">virtual.partner.membership</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_membership.virtual_partner_membership_tree_view"
+        />
+        <field name="arch" type="xml">
+            <field name="membership_state_id" position="before">
+                <field name="membership_int_instance_id" string="Internal Instance" />
+            </field>
+        </field>
+    </record>
+
+    <!--    For Partner/Membership we are interested into the membership int.instance, not the partner int.instance-->
+     <record id="virtual_partner_membership_search_view" model="ir.ui.view">
+        <field
+            name="name"
+        >virtual.partner.membership.search (in mozaik_virtual_model_single_instance)</field>
+        <field name="model">virtual.partner.membership</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_membership.virtual_partner_membership_search_view"
+        />
+        <field name="priority" eval="100" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='partner_int_instance_id'][2]"
+                position="replace"
+            >
+                <field
+                    name="membership_int_instance_id"
+                    string="Internal Instance descending of..."
+                    operator="child_of"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='partner_int_instance_id'][1]"
+                position="replace"
+            >
+                <field name="membership_int_instance_id" string="Internal Instance" />
+            </xpath>
+            <filter name="partner_int_instance" position="replace">
+                <filter
+                    name="membership_int_instance"
+                    string="Internal Instance"
+                    context="{'group_by':'membership_int_instance_id'}"
+                />
+            </filter>
+        </field>
+     </record>
+
+</odoo>

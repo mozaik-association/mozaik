@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="abstract_virtual_model_search_view" model="ir.ui.view">
+        <field
+            name="name"
+        >abstract.virtual.model (in mozaik_virtual_model_single_instance)</field>
+        <field name="model">abstract.virtual.model</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.abstract_virtual_model_search_view"
+        />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="partner_int_instance_id" string="Internal Instance" />
+                <field
+                    name="partner_int_instance_id"
+                    string="Internal Instance descending of..."
+                    operator="child_of"
+                />
+            </field>
+            <filter name="partner" position="after">
+                <filter
+                    name="partner_int_instance"
+                    string="Internal Instance"
+                    context="{'group_by':'partner_int_instance_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

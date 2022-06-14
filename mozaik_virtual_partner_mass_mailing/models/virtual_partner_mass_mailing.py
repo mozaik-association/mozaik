@@ -9,10 +9,6 @@ class VirtualPartnerMassMailing(models.Model):
     _description = "Partner/Mass Mailing"
     _auto = False
 
-    int_instance_id = fields.Many2one(
-        store=True,
-        search=None,
-    )
     mass_mailing_id = fields.Many2one(
         "mailing.mailing", string="Corresponding mass mailing"
     )
@@ -64,7 +60,6 @@ class VirtualPartnerMassMailing(models.Model):
         select = (
             super()._get_select()
             + """,
-            p.int_instance_id,
             mt.id as mailing_trace_id,
             mt.mass_mailing_id,
             mt.ignored,

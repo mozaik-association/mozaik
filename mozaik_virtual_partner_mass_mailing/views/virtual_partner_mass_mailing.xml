@@ -24,7 +24,6 @@
                 <field name="clicked" optional="show" />
                 <field name="state" optional="show" />
                 <field name="failure_type" optional="hide" />
-                <field name="int_instance_id" />
             </field>
         </field>
     </record>
@@ -32,8 +31,13 @@
     <record id="virtual_partner_mass_mailing_search_view" model="ir.ui.view">
         <field name="name">virtual.partner.mass.mailing.search</field>
         <field name="model">virtual.partner.mass.mailing</field>
+        <field name="mode">primary</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_communication.abstract_virtual_model_search_view"
+        />
         <field name="arch" type="xml">
-            <search>
+            <field name="partner_id" position="before">
                 <field name="identifier" />
                 <!-- pylint: disable=duplicate-xml-fields -->
                 <field
@@ -51,13 +55,8 @@
                     name="mass_mailing_subject"
                     filter_domain="[('mass_mailing_subject', 'ilike', self)]"
                 />
-                <field name="partner_id" />
-                <field name="int_instance_id" />
-                <field
-                    name="int_instance_id"
-                    string="Internal Instance descending of..."
-                    operator="child_of"
-                />
+            </field>
+            <field name="partner_id" position="after">
                 <field name="interest_ids" widget="many2one" />
                 <field
                     name="competency_ids"
@@ -131,25 +130,10 @@
                     string="Without Coordinate"
                     domain="[('active','=',False)]"
                 />
-
-                <group name="group_by">
-                    <filter
-                        name="partner"
-                        string="Partner"
-                        context="{'group_by':'partner_id'}"
-                    />
-                    <filter
-                        name="int_instance"
-                        string="Internal Instance"
-                        context="{'group_by':'int_instance_id'}"
-                    />
-                    <filter
-                        name="state"
-                        string="State"
-                        context="{'group_by': 'state'}"
-                    />
-                </group>
-            </search>
+            </field>
+            <filter name="partner" position="after">
+                <filter name="state" string="State" context="{'group_by': 'state'}" />
+            </filter>
         </field>
     </record>
 

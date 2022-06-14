@@ -9,10 +9,6 @@ class VirtualPartnerMembership(models.Model):
     _inherit = ["abstract.virtual.model"]
     _auto = False
 
-    int_instance_id = fields.Many2one(
-        store=True,
-        search=None,
-    )
     membership_state_id = fields.Many2one(
         comodel_name="membership.state",
         string="State",
@@ -49,7 +45,6 @@ class VirtualPartnerMembership(models.Model):
             super()._get_select()
             + """,
             m.id as membership_id,
-            m.int_instance_id,
             m.state_id as membership_state_id,
             p.reference as reference,
             m.date_from,
