@@ -119,13 +119,7 @@ msgstr ""
 
 #. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__int_instance_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
 msgid "Internal Instance"
-msgstr ""
-
-#. module: mozaik_virtual_partner_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
-msgid "Internal Instance descending of..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
@@ -181,7 +175,6 @@ msgstr ""
 
 #. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__partner_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_membership.virtual_partner_membership_search_view
 msgid "Partner"
 msgstr ""
 
