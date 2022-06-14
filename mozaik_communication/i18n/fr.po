@@ -955,6 +955,7 @@ msgstr "Propriétaires"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__partner_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__partner_id
+#: model_terms:ir.ui.view,arch_db:mozaik_communication.abstract_virtual_model_search_view
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Partner"
 msgstr "Partenaire"
