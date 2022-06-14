@@ -109,14 +109,8 @@ msgstr "Intérêts"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__int_instance_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Internal Instance"
 msgstr "Instance interne"
-
-#. module: mozaik_virtual_partner_involvement
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
-msgid "Internal Instance descending of..."
-msgstr "Instance Interne descendant de..."
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__involvement_category_id
@@ -259,7 +253,6 @@ msgstr "Numéro"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__partner_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -307,6 +300,9 @@ msgstr "Volontaire"
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
+
+#~ msgid "Internal Instance descending of..."
+#~ msgstr "Instance Interne descendant de..."
 
 #~ msgid "Unauthorized Address"
 #~ msgstr "Adresse interdite"
