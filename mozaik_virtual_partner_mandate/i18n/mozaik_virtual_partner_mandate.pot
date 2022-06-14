@@ -175,16 +175,6 @@ msgid "Internal Instance"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-msgid "Internal Instance descending of..."
-msgstr ""
-
-#. module: mozaik_virtual_partner_mandate
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-msgid "Internal Instance not descending of..."
-msgstr ""
-
-#. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__int_instance_ids
 msgid "Internal Instances"
 msgstr ""
@@ -268,7 +258,6 @@ msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__partner_id
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Partner"
 msgstr ""
 
