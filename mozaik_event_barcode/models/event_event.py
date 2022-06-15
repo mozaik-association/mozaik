@@ -100,3 +100,15 @@ class EventEvent(models.Model):
             [("event_id", "in", self.ids)]
         )
         registrations._compute_can_vote()
+
+    def _recompute_can_vote(self):
+        """
+        This method recompute 'can vote' boolean on event registrations,
+        for all registrations that are linked to events:
+        * whose end_date is in the future, AND
+        * having a voting domain
+        """
+        events = self.env["event.event"].search(
+            [("date_end", ">", fields.Datetime.now()), ("voting_domain", "!=", "[]")]
+        )
+        events.trigger_recompute_voting_domain()
