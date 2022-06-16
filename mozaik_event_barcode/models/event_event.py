@@ -48,6 +48,8 @@ class EventEvent(models.Model):
         virtual_target_ids = (
             self.env["virtual.partner.membership"].search(voting_domain).ids
         )
+        if not virtual_target_ids:
+            return []
         self.env.cr.execute(
             """
         SELECT DISTINCT p.id
@@ -82,9 +84,28 @@ class EventEvent(models.Model):
     def open_barcode_scanner(self):
         self.ensure_one()
         res = self.reopen_barcode_scanner()
-        res["context"].update(
-            {
-                "voting_partner_ids": self._get_voting_partners(),
-            }
-        )
+        # Recompute domain to be sure to have the last updates
+        self.trigger_recompute_voting_domain()
         return res
+
+    def trigger_recompute_voting_domain(self):
+        """
+        Recompute voting domain on all event.registration records
+        linked to the event.
+        """
+        registrations = self.env["event.registration"].search(
+            [("event_id", "in", self.ids)]
+        )
+        registrations._compute_can_vote()
+
+    def _recompute_can_vote(self):
+        """
+        This method recompute 'can vote' boolean on event registrations,
+        for all registrations that are linked to events:
+        * whose end_date is in the future, AND
+        * having a voting domain
+        """
+        events = self.env["event.event"].search(
+            [("date_end", ">", fields.Datetime.now()), ("voting_domain", "!=", "[]")]
+        )
+        events.trigger_recompute_voting_domain()

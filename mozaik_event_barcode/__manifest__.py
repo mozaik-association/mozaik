@@ -23,6 +23,7 @@
         "views/event_event.xml",
         "views/event_report_templates.xml",
         "views/event_registration.xml",
+        "data/ir_cron.xml",
     ],
     "demo": [],
 }

@@ -20,13 +20,24 @@
             <page name="event_notes" position="before">
                 <page name="voting_domain" string="Voting Domain">
                     <p>
-                        Please enter a domain valid on the virtual model 'Partner/Membership'.
+                        Please enter a domain valid on the virtual model 'Partner/Membership'. <br
+                        />
+                        Note that each time this domain is modified, it launches the re-computation of
+                        all 'Can Vote' booleans that are present on form views of event registrations.
+                        This may take a few seconds.
                     </p>
                     <group name="voting_domain">
                         <field
                             name="voting_domain"
                             widget="domain"
                             options="{'model': 'virtual.partner.membership'}"
+                        />
+                    </group>
+                    <group name="trigger_recompute_voting_domain">
+                        <button
+                            name="trigger_recompute_voting_domain"
+                            type="object"
+                            string="Recompute voting domain"
                         />
                     </group>
                 </page>

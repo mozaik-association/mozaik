@@ -10,6 +10,7 @@
         <field name="arch" type="xml">
             <field name="mobile" position="after">
                 <field name="barcode" />
+                <field name="can_vote" />
             </field>
         </field>
     </record>
