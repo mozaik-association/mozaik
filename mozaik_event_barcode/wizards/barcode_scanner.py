@@ -82,7 +82,7 @@ class BarcodeScanner(models.TransientModel):
     def _decide_if_can_vote(self):
         """
         Set the voting_msg: if the partner on the associated registration
-        matches the voting_domain, then it can vote.
+        has the boolean can_vote=True, then it can vote.
         """
         if not (
             self.event_registration_id
@@ -90,10 +90,8 @@ class BarcodeScanner(models.TransientModel):
         ):
             self.voting_msg = "no"
             return
-        partner = self.event_registration_id.associated_partner_id
-        self.voting_msg = "no"
-        if partner.id in self.env.context.get("voting_partner_ids", []):
-            self.voting_msg = "yes"
+        partner_can_vote = self.event_registration_id.can_vote
+        self.voting_msg = "yes" if partner_can_vote else "no"
 
     def open_next_scan(self):
         action = self.event_id.reopen_barcode_scanner()

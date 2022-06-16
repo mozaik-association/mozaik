@@ -84,11 +84,8 @@ class EventEvent(models.Model):
     def open_barcode_scanner(self):
         self.ensure_one()
         res = self.reopen_barcode_scanner()
-        res["context"].update(
-            {
-                "voting_partner_ids": self._get_voting_partners(),
-            }
-        )
+        # Recompute domain to be sure to have the last updates
+        self.trigger_recompute_voting_domain()
         return res
 
     def trigger_recompute_voting_domain(self):
