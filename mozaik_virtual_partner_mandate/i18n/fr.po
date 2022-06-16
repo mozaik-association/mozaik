@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-14 16:56+0000\n"
-"PO-Revision-Date: 2022-01-19 12:56+0000\n"
+"PO-Revision-Date: 2022-06-16 16:55+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -24,17 +24,13 @@ msgstr "Actif"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__active_mandate
-#, fuzzy
-#| msgid "State Mandate"
 msgid "Active mandate"
-msgstr "Mandat politique"
+msgstr "Mandat en cours"
 
 #. module: mozaik_virtual_partner_mandate
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
-#, fuzzy
-#| msgid "State Mandate"
 msgid "Active mandates"
-msgstr "Mandat politique"
+msgstr "Mandats en cours"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.actions.act_window,name:mozaik_virtual_partner_mandate.add_filter_from_relation_action
@@ -130,7 +126,7 @@ msgstr "Employé"
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__end_date
 msgid "End Date"
-msgstr ""
+msgstr "Date de fin"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__ext_mandate_id
