@@ -78,6 +78,11 @@ msgid "Barcode should be unique"
 msgstr "Le code-barre doit être unique"
 
 #. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_registration__can_vote
+msgid "Can vote"
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.barcode_scanner_form_view
 msgid "Close"
 msgstr "Fermer"
@@ -137,6 +142,15 @@ msgid "Event Registration"
 msgstr "Inscription à l'évènement"
 
 #. module: mozaik_event_barcode
+#: model:ir.actions.server,name:mozaik_event_barcode.ir_cron_event_registration_can_vote_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_event_barcode.ir_cron_event_registration_can_vote
+#: model:ir.cron,name:mozaik_event_barcode.ir_cron_event_registration_can_vote
+#, fuzzy
+#| msgid "Event Registration"
+msgid "Event Registrations: recompute 'can vote'"
+msgstr "Inscription à l'évènement"
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__id
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_event__id
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_registration__id
@@ -187,10 +201,22 @@ msgstr "Le participant ne peut PAS voter."
 
 #. module: mozaik_event_barcode
 #: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.event_event_form_view
-msgid "Please enter a domain valid on the virtual model 'Partner/Membership'."
+msgid ""
+"Please enter a domain valid on the virtual model 'Partner/Membership'. <br/"
+">\n"
+"                        Note that each time this domain is modified, it "
+"launches the re-computation of\n"
+"                        all 'Can Vote' booleans that are present on form "
+"views of event registrations.\n"
+"                        This may take a few seconds."
 msgstr ""
-"Veuillez insérer un domaine valide sur le modèle virtuel 'Partenaire/"
-"adhésion'."
+
+#. module: mozaik_event_barcode
+#: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.event_event_form_view
+#, fuzzy
+#| msgid "Voting Domain"
+msgid "Recompute voting domain"
+msgstr "Domaine de vote"
 
 #. module: mozaik_event_barcode
 #: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__not_found
@@ -218,3 +244,9 @@ msgstr "Statut de vote"
 #: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.report_barcode_badge
 msgid "div class=\"row page\"&gt;"
 msgstr ""
+
+#~ msgid ""
+#~ "Please enter a domain valid on the virtual model 'Partner/Membership'."
+#~ msgstr ""
+#~ "Veuillez insérer un domaine valide sur le modèle virtuel 'Partenaire/"
+#~ "adhésion'."
