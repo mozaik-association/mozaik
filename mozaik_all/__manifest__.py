@@ -27,7 +27,7 @@
         "mozaik_committee",
         "mozaik_duplicate",
         "mozaik_dynamical_time_filter",
-        # "mozaik_event_barcode",
+        "mozaik_event_barcode",
         "mozaik_event_chatter",
         "mozaik_event_description",
         "mozaik_event_involvement_category",
