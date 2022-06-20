@@ -98,7 +98,7 @@ msgstr ""
 
 #. module: mozaik_virtual_partner_relation
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__int_instance_id
-msgid "Internal Instance"
+msgid "Internal Instance (for search)"
 msgstr ""
 
 #. module: mozaik_virtual_partner_relation
