@@ -41,6 +41,11 @@ msgid "Internal Instance"
 msgstr ""
 
 #. module: mozaik_virtual_model_single_instance
+#: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_membership__int_instance_id
+msgid "Internal Instance (for search)"
+msgstr ""
+
+#. module: mozaik_virtual_model_single_instance
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_model_single_instance.abstract_virtual_model_search_view
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_model_single_instance.virtual_partner_membership_search_view
 msgid "Internal Instance descending of..."
