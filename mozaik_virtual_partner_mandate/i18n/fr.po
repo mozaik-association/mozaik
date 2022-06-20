@@ -177,7 +177,9 @@ msgstr "Intérêts"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__int_instance_id
-msgid "Internal Instance"
+#, fuzzy
+#| msgid "Internal Instance"
+msgid "Internal Instance (for search)"
 msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_mandate
@@ -368,6 +370,9 @@ msgstr ""
 #, python-format
 msgid "value should be a string"
 msgstr ""
+
+#~ msgid "Internal Instance"
+#~ msgstr "Instance interne"
 
 #~ msgid "Internal Instance descending of..."
 #~ msgstr "Instance Interne descendant de..."
