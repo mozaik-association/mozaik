@@ -610,13 +610,17 @@ msgid "Interests"
 msgstr "Intérêts"
 
 #. module: mozaik_communication
-#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_template__int_instance_id
-#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__int_instance_id
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_email_template_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Internal Instance"
 msgstr "Instance interne"
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__int_instance_id
+msgid "Internal Instance (for search)"
+msgstr "Instance interne (recherche)"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
@@ -1266,8 +1270,11 @@ msgstr ""
 msgid "value should be a string"
 msgstr ""
 
-#~ msgid "Internal Instance (for search)"
-#~ msgstr "Instance interne (recherche)"
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
+#, python-format
+msgid "value should either be a string or a boolean"
+msgstr ""
 
 #~ msgid "AB Batch (%)"
 #~ msgstr "Lot AB (%)"
