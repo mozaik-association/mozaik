@@ -109,7 +109,9 @@ msgstr "Intérêts"
 
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__int_instance_id
-msgid "Internal Instance"
+#, fuzzy
+#| msgid "Internal Instance"
+msgid "Internal Instance (for search)"
 msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_involvement
