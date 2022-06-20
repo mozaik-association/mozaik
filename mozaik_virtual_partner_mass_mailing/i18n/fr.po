@@ -187,7 +187,9 @@ msgstr "Intérêts"
 
 #. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__int_instance_id
-msgid "Internal Instance"
+#, fuzzy
+#| msgid "Internal Instance"
+msgid "Internal Instance (for search)"
 msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_mass_mailing
