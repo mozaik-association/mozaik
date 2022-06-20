@@ -109,9 +109,13 @@ msgid "Internal Assembly Category"
 msgstr ""
 
 #. module: mozaik_virtual_assembly_instance
-#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__int_instance_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
 msgid "Internal Instance"
+msgstr ""
+
+#. module: mozaik_virtual_assembly_instance
+#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__int_instance_id
+msgid "Internal Instance (for search)"
 msgstr ""
 
 #. module: mozaik_virtual_assembly_instance
