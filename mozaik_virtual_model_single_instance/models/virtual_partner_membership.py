@@ -11,6 +11,10 @@ class VirtualPartnerMembership(models.Model):
     membership_int_instance_id = fields.Many2one(
         "int.instance", string="Membership Internal Instance", store=True
     )
+    int_instance_id = fields.Many2one(
+        store=True,
+        search=None,
+    )
 
     @api.model
     def _get_select(self):
@@ -21,7 +25,8 @@ class VirtualPartnerMembership(models.Model):
         select = (
             super()._get_select()
             + """,
-                    m.int_instance_id as membership_int_instance_id
+                    m.int_instance_id as membership_int_instance_id,
+                    m.int_instance_id as int_instance_id
                     """
         )
         return select

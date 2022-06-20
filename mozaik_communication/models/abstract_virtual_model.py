@@ -72,7 +72,7 @@ class AbstractVirtualModel(models.AbstractModel):
     # search field
     int_instance_id = fields.Many2one(
         comodel_name="int.instance",
-        string="Internal Instance",
+        string="Internal Instance (for search)",
         store=False,
         search="_search_int_instance_id",
     )
@@ -109,9 +109,23 @@ class AbstractVirtualModel(models.AbstractModel):
         We implement a search method since we will need to search on
         partner_instance_ids in record rules.
         """
-        if operator not in ["in", "not in", "child_of"]:
+        if operator not in [
+            "in",
+            "not in",
+            "child_of",
+            "ilike",
+            "not ilike",
+            "=",
+            "!=",
+        ]:
             raise ValueError(_("This operator is not supported"))
-        if not isinstance(value, list):
+        if operator in ["ilike", "not ilike"] and not isinstance(value, str):
+            raise ValueError(_("value should be a string"))
+        if operator in ["=", "!="] and not (
+            isinstance(value, str) or isinstance(value, bool)
+        ):
+            raise ValueError(_("value should either be a string or a boolean"))
+        if operator in ["in", "not in", "child of"] and not isinstance(value, list):
             raise ValueError(_("value should be a list"))
         auth_partners = self.env["res.partner"].search(
             [("int_instance_ids", operator, value)]
