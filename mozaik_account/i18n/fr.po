@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-11 18:50+0000\n"
-"PO-Revision-Date: 2022-01-18 15:00+0000\n"
+"PO-Revision-Date: 2022-06-21 12:56+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -162,7 +162,7 @@ msgstr "Articles"
 #. module: mozaik_account
 #: model:ir.model.fields,field_description:mozaik_account.field_membership_line__regularization_date
 msgid "Regularization Date"
-msgstr ""
+msgstr "Date de paiement"
 
 #. module: mozaik_account
 #: model:ir.model.fields,field_description:mozaik_account.field_product_product__property_subscription_account
