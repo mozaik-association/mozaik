@@ -746,20 +746,6 @@ class MembershipLine(models.Model):
                 member, former_member, date_from=date_from
             )
 
-        close_lines = self._get_lines_to_close_member_candidate()
-        if close_lines:
-            last_i = 0
-            member_candidate = self.env.ref("mozaik_membership.member_candidate")
-            supporter = self.env.ref("mozaik_membership.supporter")
-            for i in range(step, len(close_lines), step):
-                close_lines[last_i:i]._close_and_change_state(
-                    member_candidate, supporter, date_from=date_from
-                )
-                last_i = i
-            close_lines[last_i:]._close_and_change_state(
-                member_candidate, supporter, date_from=date_from
-            )
-
     def _close_and_change_state(self, from_state, to_state, date_from=False):
         self.with_delay(
             description="Former member %s memberships" % len(self),
