@@ -30,6 +30,6 @@ def migrate(cr, version):
      SET domain_widget = CONCAT('[["active_mandate", "=", True], ', right(domain_widget, -1))
      WHERE
          src_model_id = (SELECT id FROM ir_model WHERE model='virtual.partner.mandate')
-         AND manually_edit_domain='f';
+         AND (manually_edit_domain='f' OR manually_edit_domain IS NULL);
     """
     )
