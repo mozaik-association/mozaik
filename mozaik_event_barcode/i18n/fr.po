@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-09 15:49+0000\n"
-"PO-Revision-Date: 2022-06-30 10:56+0000\n"
+"PO-Revision-Date: 2022-07-08 12:56+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -146,10 +146,8 @@ msgstr "Inscription à l'évènement"
 #: model:ir.actions.server,name:mozaik_event_barcode.ir_cron_event_registration_can_vote_ir_actions_server
 #: model:ir.cron,cron_name:mozaik_event_barcode.ir_cron_event_registration_can_vote
 #: model:ir.cron,name:mozaik_event_barcode.ir_cron_event_registration_can_vote
-#, fuzzy
-#| msgid "Event Registration"
 msgid "Event Registrations: recompute 'can vote'"
-msgstr "Inscription à l'évènement"
+msgstr "Inscription à l'évènement: recalculer le domaine de vote"
 
 #. module: mozaik_event_barcode
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__id
