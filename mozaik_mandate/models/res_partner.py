@@ -53,7 +53,7 @@ class ResPartner(models.Model):
         string="External Mandates Nbr", compute="_compute_mandate_assembly_count"
     )
     ext_assembly_count = fields.Integer(
-        string="External Assemblies", compute="_compute_mandate_assembly_count"
+        string="External Assemblies Nbr", compute="_compute_mandate_assembly_count"
     )
 
     def get_mandate_action(self):
