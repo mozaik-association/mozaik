@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <record id="ir_cron_membership_candidate_to_supporter" model="ir.cron">
+        <field name="name">Member candidates not paying become supporters</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field
+            name="nextcall"
+            eval="(DateTime.today() + relativedelta(days=1)).strftime('%Y-%m-%d 03:00:00')"
+        />
+        <field name="active">false</field>
+        <field name="model_id" ref="mozaik_membership_request.model_membership_line" />
+        <field name="code">model.cron_member_candidate_to_supporter()</field>
+    </record>
+
+
+</odoo>

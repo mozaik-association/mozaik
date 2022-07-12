@@ -1,9 +1,12 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import logging
 from datetime import timedelta
 
-from odoo import fields, models
+from odoo import _, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class MembershipLine(models.Model):
@@ -48,12 +51,68 @@ class MembershipLine(models.Model):
 
     def cron_accept_member_committee(self):
         today = fields.Date.today()
-        fields.Date.to_string(today - timedelta(days=30))
+        days = int(
+            self.env["ir.config_parameter"].get_param(
+                "number_days_accept_member_committee", default=30
+            )
+        )
+        date_from = fields.Date.to_string(today - timedelta(days=days))
         memberships = self.search(
             [
                 ("state_code", "in", ["former_member_committee", "member_committee"]),
-                ("date_from", "<", fields.Date.to_string(today - timedelta(days=30))),
+                ("date_from", "<", date_from),
                 ("active", "=", True),
             ]
         )
         memberships.mapped("partner_id").action_accept()
+
+    def cron_member_candidate_to_supporter(self):
+        today = fields.Date.today()
+        days = int(
+            self.env["ir.config_parameter"].get_param(
+                "number_days_member_candidate_to_supporter", default=90
+            )
+        )
+        date_from = fields.Date.to_string(today - timedelta(days=days))
+        memberships = self.search(
+            [
+                ("state_code", "=", "member_candidate"),
+                ("date_from", "<", date_from),
+                ("active", "=", True),
+            ]
+        )
+        memberships.action_invalidate()
+        supporter_state = self.env["membership.state"].search(
+            [("code", "=", "supporter")]
+        )
+        for m in memberships:
+            m.partner_id.write(
+                {
+                    "message_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "subject": _("Automatic membership state change"),
+                                "body": _(
+                                    "Partner with id %(partner_id)s is member candidate "
+                                    "since more than %(days)s days "
+                                    "and didn't pay: he becomes a supporter."
+                                    % {"days": days, "partner_id": m.partner_id.id}
+                                ),
+                                "message_type": "comment",
+                                "model": "res.partner",
+                                "res_id": m.partner_id.id,
+                            },
+                        )
+                    ]
+                }
+            )
+
+            self.env["add.membership"].create(
+                {
+                    "partner_id": m.partner_id.id,
+                    "int_instance_id": m.int_instance_id.id,
+                    "state_id": supporter_state.id,
+                }
+            ).action_add()
