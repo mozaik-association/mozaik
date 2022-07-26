@@ -12,3 +12,9 @@ class ResPartner(models.Model):
         readonly=True,
         copy=False,
     )
+
+    ext_assembly_ids = fields.One2many(
+        comodel_name="ext.assembly",
+        inverse_name="ref_partner_id",
+        string="External Assemblies",
+    )
