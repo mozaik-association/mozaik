@@ -59,6 +59,6 @@ class MailingMailing(models.Model):
         super(
             MailingMailing,
             self.with_context(
-                {"include_opt_out_contacts_mailings": mailings_with_include_opt_out.ids}
+                include_opt_out_contacts_mailings=mailings_with_include_opt_out.ids
             ),
         )._process_mass_mailing_queue()
