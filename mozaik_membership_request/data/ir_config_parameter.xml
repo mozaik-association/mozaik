@@ -5,5 +5,12 @@
         <field name="key">mr_required_age</field>
         <field name="value">16</field>
     </record>
-
-</odoo>
+     <record id="number_days_accept_member_committee" model="ir.config_parameter">
+        <field name="key">number_days_accept_member_committee</field>
+        <field name="value">30</field>
+    </record>
+    <record id="number_days_member_candidate_to_supporter" model="ir.config_parameter">
+        <field name="key">number_days_member_candidate_to_supporter</field>
+        <field name="value">90</field>
+    </record>
+    </odoo>
