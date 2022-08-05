@@ -19,9 +19,7 @@ class SurveyExportCsv(models.TransientModel):
     _name = "survey.export.csv"
     _description = "Survey export CSV"
 
-    survey_id = fields.Many2one(
-        comodel_name="survey.survey",
-    )
+    survey_id = fields.Many2one(comodel_name="survey.survey", required=True)
     export_file = fields.Binary(
         string="CSV",
         readonly=True,
@@ -159,7 +157,6 @@ class SurveyExportCsv(models.TransientModel):
         """
         return """
         SELECT
-        s.title as object_name,
         p.lastname,
         p.firstname,
         p.identifier as number,
@@ -188,7 +185,6 @@ class SurveyExportCsv(models.TransientModel):
         return """
         FROM survey_user_input ui
         LEFT JOIN res_partner p ON ui.partner_id = p.id
-        JOIN survey_survey s ON s.id = ui.survey_id
         """
 
     def _get_where(self, model_ids):
@@ -496,6 +492,8 @@ class SurveyExportCsv(models.TransientModel):
         """
         Update data and return export values
 
+        NOTE: We select survey title here, to take the translated version
+
         :data: dict containing the data to format for export
         :selections: dict containing all possible values for some selection fields
         :return: a list of strings corresponding to the data of a row
@@ -503,6 +501,7 @@ class SurveyExportCsv(models.TransientModel):
         data.update(
             {
                 "object_type": "Survey",
+                "object_name": self.survey_id.title,
                 "interests": self._get_interests(),
                 "answering_partner": self._compute_answering_partner(
                     data.get("number", "0"),
