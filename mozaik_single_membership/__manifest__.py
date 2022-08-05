@@ -13,9 +13,11 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mozaik_membership",
+        "mozaik_virtual_partner_membership",
     ],
     "data": [
         "views/membership_line.xml",
+        "views/virtual_partner_membership.xml",
     ],
     "demo": [],
     "post_init_hook": "post_init_hook",

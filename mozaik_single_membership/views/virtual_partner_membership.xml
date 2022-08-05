@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+
+    <record id="virtual_partner_membership_tree_view" model="ir.ui.view">
+        <field
+            name="name"
+        >virtual.partner.membership.tree (in mozaik_single_membership)</field>
+        <field name="model">virtual.partner.membership</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_membership.virtual_partner_membership_tree_view"
+        />
+         <field name="arch" type="xml">
+             <field name="birth_date" position="before">
+                 <field name="previous_membership_state_id" />
+             </field>
+         </field>
+
+    </record>
+
+    <record id="virtual_partner_membership_search_view" model="ir.ui.view">
+        <field
+            name="name"
+        >virtual.partner.membership.search (in mozaik_single_membership)</field>
+        <field name="model">virtual.partner.membership</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_membership.virtual_partner_membership_search_view"
+        />
+        <field name="arch" type="xml">
+            <field name="membership_state_id" position="after">
+                <field name="previous_membership_state_id" />
+            </field>
+            <filter name="state" position="after">
+                <filter
+                    name="previous_state"
+                    string="Previous State"
+                    context="{'group_by':'previous_membership_state_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+
+</odoo>
