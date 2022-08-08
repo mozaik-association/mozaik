@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="membership_line_form_view">
+        <field name="name">membership.line.form (in mozaik_single_membership)</field>
+        <field name="model">membership.line</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_line_form_view" />
+        <field name="arch" type="xml">
+            <field name="int_instance_id" position="after">
+                <field name="previous_state_id" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="membership_line_tree_view">
+        <field name="name">membership.line.tree (in mozaik_single_membership)</field>
+        <field name="model">membership.line</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_line_tree_view" />
+        <field name="arch" type="xml">
+            <field name="state_id" position="after">
+                <field name="previous_state_id" />
+            </field>
+        </field>
+    </record>
+
+
+</odoo>
