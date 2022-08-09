@@ -1,0 +1,51 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_single_membership
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-09 12:55+0000\n"
+"PO-Revision-Date: 2022-08-09 12:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_single_membership
+#: model:ir.model.fields,field_description:mozaik_single_membership.field_membership_line__display_name
+#: model:ir.model.fields,field_description:mozaik_single_membership.field_virtual_partner_membership__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_single_membership
+#: model:ir.model.fields,field_description:mozaik_single_membership.field_membership_line__id
+#: model:ir.model.fields,field_description:mozaik_single_membership.field_virtual_partner_membership__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_single_membership
+#: model:ir.model.fields,field_description:mozaik_single_membership.field_membership_line____last_update
+#: model:ir.model.fields,field_description:mozaik_single_membership.field_virtual_partner_membership____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_single_membership
+#: model:ir.model,name:mozaik_single_membership.model_membership_line
+msgid "Membership Line"
+msgstr ""
+
+#. module: mozaik_single_membership
+#: model:ir.model,name:mozaik_single_membership.model_virtual_partner_membership
+msgid "Partner/Membership"
+msgstr ""
+
+#. module: mozaik_single_membership
+#: model:ir.model.fields,field_description:mozaik_single_membership.field_membership_line__previous_state_id
+#: model:ir.model.fields,field_description:mozaik_single_membership.field_virtual_partner_membership__previous_membership_state_id
+#: model_terms:ir.ui.view,arch_db:mozaik_single_membership.virtual_partner_membership_search_view
+msgid "Previous State"
+msgstr ""
