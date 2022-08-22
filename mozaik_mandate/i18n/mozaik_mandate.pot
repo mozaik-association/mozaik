@@ -435,7 +435,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_partner__ext_assembly_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_res_users__ext_assembly_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_assembly__ext_assembly_count
-msgid "External Assemblies"
+msgid "External Assemblies Nbr"
 msgstr ""
 
 #. module: mozaik_mandate
@@ -467,7 +467,6 @@ msgstr ""
 #. module: mozaik_mandate
 #: model:ir.actions.act_window,name:mozaik_mandate.ext_mandate_action
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_assembly__ext_mandate_ids
-#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__ext_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_assembly__ext_mandate_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance__ext_mandate_count
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__ext_mandate_ids
@@ -503,6 +502,16 @@ msgstr ""
 #: model:ir.cron,cron_name:mozaik_mandate.ir_cron_ext_mandate
 #: model:ir.cron,name:mozaik_mandate.ir_cron_ext_mandate
 msgid "External Mandates closure"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_assembly__ext_mandate_ids
+msgid "External mandates"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_assembly__ext_mandate_ids
+msgid "External mandates for which the ext assembly is the current record."
 msgstr ""
 
 #. module: mozaik_mandate
