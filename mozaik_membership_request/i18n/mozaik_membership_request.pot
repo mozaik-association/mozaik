@@ -112,6 +112,12 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_line.py:0
+#, python-format
+msgid "Automatic membership state change"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__birthdate_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__birthdate_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__birthdate_date
@@ -586,6 +592,13 @@ msgid "Member"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.actions.server,name:mozaik_membership_request.ir_cron_membership_candidate_to_supporter_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_membership_request.ir_cron_membership_candidate_to_supporter
+#: model:ir.cron,name:mozaik_membership_request.ir_cron_membership_candidate_to_supporter
+msgid "Member candidates not paying become supporters"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_membership_line
 msgid "Membership Line"
 msgstr ""
@@ -799,6 +812,14 @@ msgstr ""
 #. module: mozaik_membership_request
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request__local_only
 msgid "Partner wishing to be contacted only by the local"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_line.py:0
+#, python-format
+msgid ""
+"Partner with id %(partner_id)s is member candidate since more than %(days)s "
+"days and didn't pay: he becomes a supporter.days"
 msgstr ""
 
 #. module: mozaik_membership_request
