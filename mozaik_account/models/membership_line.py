@@ -273,6 +273,12 @@ class MembershipLine(models.Model):
             reference = None
         return reference, price
 
+    @api.model
+    def create(self, vals):
+        if vals.get("paid", False):
+            vals["regularization_date"] = fields.Date.today()
+        return super().create(vals)
+
     def write(self, vals):
         if vals.get("paid"):
             vals["regularization_date"] = fields.Date.today()
