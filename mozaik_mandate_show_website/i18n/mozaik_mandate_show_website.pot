@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_mandate_show_website
+#: model:ir.model,name:mozaik_mandate_show_website.model_abstract_copy_mandate_wizard
+msgid "Abstract Copy Mandate Wizard"
+msgstr ""
+
+#. module: mozaik_mandate_show_website
 #: model:ir.model,name:mozaik_mandate_show_website.model_abstract_mandate
 msgid "Abstract Mandate"
 msgstr ""
@@ -24,6 +29,7 @@ msgid "Contact"
 msgstr ""
 
 #. module: mozaik_mandate_show_website
+#: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_abstract_copy_mandate_wizard__display_name
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_abstract_mandate__display_name
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_mandate_category__display_name
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_res_partner__display_name
@@ -89,6 +95,7 @@ msgid "Don't show this mandate on website."
 msgstr ""
 
 #. module: mozaik_mandate_show_website
+#: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_abstract_copy_mandate_wizard__id
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_abstract_mandate__id
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_mandate_category__id
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_res_partner__id
@@ -96,6 +103,7 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_mandate_show_website
+#: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_abstract_copy_mandate_wizard____last_update
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_abstract_mandate____last_update
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_mandate_category____last_update
 #: model:ir.model.fields,field_description:mozaik_mandate_show_website.field_res_partner____last_update
