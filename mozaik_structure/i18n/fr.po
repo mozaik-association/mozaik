@@ -916,6 +916,12 @@ msgstr "Externe"
 
 #. module: mozaik_structure
 #: model:ir.actions.act_window,name:mozaik_structure.ext_assembly_action
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__ext_assembly_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__ext_assembly_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__ext_assembly_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_res_partner__ext_assembly_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_res_users__ext_assembly_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__ext_assembly_ids
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.int_instance_form_view
 msgid "External Assemblies"
 msgstr "Assemblées externes"
