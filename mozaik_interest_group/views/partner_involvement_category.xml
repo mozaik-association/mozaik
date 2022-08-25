@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="partner_involvement_category_form_view">
+        <field
+            name="name"
+        >partner.involvement.category.form (in mozaik_interest_group)</field>
+        <field name="model">partner.involvement.category</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_category_form_view"
+        />
+        <field name="arch" type="xml">
+            <field name="res_users_ids" position="after">
+                <field
+                    name="interest_group_ids"
+                    widget="many2many_tags"
+                    options="{'no_create_edit': True, 'no_create': True}"
+                />
+            </field>
+        </field>
+    </record>
+
+
+
+</odoo>
