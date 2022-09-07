@@ -212,6 +212,11 @@ msgid "Partner"
 msgstr ""
 
 #. module: mozaik_virtual_partner_instance
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance__partner_interest_group_ids
+msgid "Partner Interest Groups"
+msgstr ""
+
+#. module: mozaik_virtual_partner_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance__partner_instance_ids
 msgid "Partner Internal Instances"
 msgstr ""
