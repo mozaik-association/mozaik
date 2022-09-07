@@ -1,0 +1,207 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_interest_group
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_interest_group
+#: model:ir.model,name:mozaik_interest_group.model_abstract_virtual_model
+msgid "Abstract Virtual Model"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model,name:mozaik_interest_group.model_res_partner_relation_all
+msgid "All (non-inverse + inverse) relations between partners"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_assembly__apply_security_on_interest_groups
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_ext_assembly__apply_security_on_interest_groups
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_int_assembly__apply_security_on_interest_groups
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner__apply_security_on_interest_groups
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_users__apply_security_on_interest_groups
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_sta_assembly__apply_security_on_interest_groups
+msgid "Apply Security on Interest Groups"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__child_ids
+msgid "Child"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model,name:mozaik_interest_group.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_virtual_model__display_name
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__display_name
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement_category__display_name
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner_relation_all__display_name
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_users__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_virtual_model__id
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__id
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement_category__id
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner__id
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner_relation_all__id
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_users__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,help:mozaik_interest_group.field_abstract_assembly__apply_security_on_interest_groups
+#: model:ir.model.fields,help:mozaik_interest_group.field_ext_assembly__apply_security_on_interest_groups
+#: model:ir.model.fields,help:mozaik_interest_group.field_int_assembly__apply_security_on_interest_groups
+#: model:ir.model.fields,help:mozaik_interest_group.field_res_partner__apply_security_on_interest_groups
+#: model:ir.model.fields,help:mozaik_interest_group.field_res_users__apply_security_on_interest_groups
+#: model:ir.model.fields,help:mozaik_interest_group.field_sta_assembly__apply_security_on_interest_groups
+msgid "If ticked, user can see only partners having same interest groups"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model,name:mozaik_interest_group.model_interest_group
+msgid "Interest Group"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.actions.act_window,name:mozaik_interest_group.interest_group_act_window
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_assembly__interest_group_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_ext_assembly__interest_group_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_int_assembly__interest_group_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner__interest_group_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_users__interest_group_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_sta_assembly__interest_group_ids
+#: model:ir.ui.menu,name:mozaik_interest_group.interest_group_menu
+#: model_terms:ir.ui.view,arch_db:mozaik_interest_group.res_partner_user_form_view
+msgid "Interest Groups"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_assembly__interest_group_user_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_ext_assembly__interest_group_user_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_int_assembly__interest_group_user_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner__interest_group_user_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_users__interest_group_user_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_sta_assembly__interest_group_user_ids
+msgid "Interest Groups for Associated User"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.constraint,message:mozaik_interest_group.constraint_interest_group_unique_name
+msgid "Interest group name must be unique"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement_category__interest_group_ids
+msgid "Interest groups"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_virtual_model____last_update
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group____last_update
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement_category____last_update
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner_relation_all____last_update
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_users____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__name
+msgid "Name"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner_relation_all__other_partner_interest_group_ids
+msgid "Other Partner Interest Groups"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__parent_id
+msgid "Parent Interest Group"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__parent_path
+msgid "Parent Path"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_virtual_model__partner_interest_group_ids
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_virtual_target__partner_interest_group_ids
+msgid "Partner Interest Groups"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model,name:mozaik_interest_group.model_partner_involvement_category
+msgid "Partner Involvement Category"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner_relation_all__this_partner_interest_group_ids
+msgid "This Partner Interest Groups"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: code:addons/mozaik_interest_group/models/abstract_virtual_model.py:0
+#, python-format
+msgid "This operator is not supported"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model,name:mozaik_interest_group.model_res_users
+msgid "Users"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: code:addons/mozaik_interest_group/models/abstract_virtual_model.py:0
+#, python-format
+msgid "value should be a list"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: code:addons/mozaik_interest_group/models/abstract_virtual_model.py:0
+#, python-format
+msgid "value should be a string"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: code:addons/mozaik_interest_group/models/abstract_virtual_model.py:0
+#, python-format
+msgid "value should either be a string or a boolean"
+msgstr ""
