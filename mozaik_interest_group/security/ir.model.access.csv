@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_interest_group_reader,access_interest_group_reader,model_interest_group,base.group_user,1,0,0,0
+access_interest_group_user,access_interest_group_user,model_interest_group,mozaik_involvement.res_groups_involvement_manager,1,1,1,1

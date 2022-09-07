@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="interest_group_form_view">
+        <field name="name">interest.group.form (in mozaik_interest_group)</field>
+        <field name="model">interest.group</field>
+        <field name="arch" type="xml">
+            <form>
+                <header />
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field
+                            name="parent_id"
+                            options="{'no_create_edit': True, 'no_create': True}"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="interest_group_tree_view">
+        <field name="name">interest.group.tree (in mozaik_interest_group)</field>
+        <field name="model">interest.group</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+     <record model="ir.actions.act_window" id="interest_group_act_window">
+        <field name="name">Interest Groups</field>
+        <field name="res_model">interest.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="interest_group_tree_view" />
+    </record>
+
+    <record model="ir.ui.menu" id="interest_group_menu">
+        <field name="name">Interest Groups</field>
+        <field name="parent_id" ref="mozaik_involvement.involvement_menu" />
+        <field name="action" ref="interest_group_act_window" />
+        <field name="sequence" eval="40" />
+    </record>
+
+</odoo>
