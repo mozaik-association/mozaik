@@ -166,6 +166,13 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__partner_interest_group_ids
+#, fuzzy
+#| msgid "Internal Instance"
+msgid "Partner Interest Groups"
+msgstr "Instance interne"
+
+#. module: mozaik_virtual_partner_relation
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__partner_instance_ids
 #, fuzzy
 #| msgid "Internal Instance"
