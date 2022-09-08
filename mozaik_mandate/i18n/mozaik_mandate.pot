@@ -1053,6 +1053,11 @@ msgid "Reader"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_instance__ref_mandate_id
+msgid "Reference Mandate"
+msgstr ""
+
+#. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__competencies_m2m_ids
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__competencies_m2m_ids
 msgid "Remits"
