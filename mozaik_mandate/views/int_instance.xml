@@ -55,6 +55,12 @@
                     />
                 </button>
             </xpath>
+            <xpath expr="//group[@name='data_2']" position="inside">
+                 <field
+                    name="ref_mandate_id"
+                    attrs="{'invisible': [('ref_mandate_id', '=', False)]}"
+                />
+            </xpath>
         </field>
     </record>
 
