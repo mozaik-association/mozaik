@@ -365,7 +365,7 @@ class ResPartner(models.Model):
                 )
         res = super().write(vals)
         if "int_instance_m2m_ids" in vals:
-            self.env["ir.rule"].clear_cache()
+            self.env["ir.rule"].clear_caches()
         return res
 
     def _open_co_residency(self):
