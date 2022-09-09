@@ -37,3 +37,16 @@ class ResPartner(models.Model):
             rec.interest_group_ids = rec.partner_involvement_ids.mapped(
                 "involvement_category_id.interest_group_ids"
             )
+
+    def write(self, vals):
+        """
+        Invalidate some caches when changing set of interest groups related to
+        the user
+        """
+        res = super().write(vals)
+        if (
+            "interest_group_user_ids" in vals
+            or "apply_security_on_interest_groups" in vals
+        ):
+            self.env["ir.rule"].clear_caches()
+        return res
