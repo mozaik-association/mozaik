@@ -6,7 +6,7 @@
 
 import graphene
 
-from . import assembly
+from . import assembly, electoral_district
 from .abstract import AbstractObject
 from .power_level import IntPowerLevel, StaPowerLevel
 
@@ -23,12 +23,18 @@ class AbstractInstance(AbstractObject):
     def resolve_assemblies(root, info):
         return root.assembly_ids or None
 
+    def resolve_electoral_districts(root, info):
+        return root.electoral_district_ids or None
+
 
 class IntInstance(AbstractInstance):
     power_level = graphene.Field(IntPowerLevel, required=True)
     parent = graphene.Field(lambda: IntInstance)
     code = graphene.String()
     assemblies = graphene.List(graphene.NonNull(lambda: assembly.IntAssembly))
+    electoral_districts = graphene.List(
+        graphene.NonNull(lambda: electoral_district.ElectoralDistrict)
+    )
 
 
 class StaInstance(AbstractInstance):
@@ -37,6 +43,9 @@ class StaInstance(AbstractInstance):
     secondary_parent = graphene.Field(lambda: StaInstance)
     int_instance = graphene.Field(IntInstance)
     assemblies = graphene.List(graphene.NonNull(lambda: assembly.StaAssembly))
+    electoral_districts = graphene.List(
+        graphene.NonNull(lambda: electoral_district.ElectoralDistrict)
+    )
 
     def resolve_secondary_parent(root, info):
         return root.secondary_parent_id or None
