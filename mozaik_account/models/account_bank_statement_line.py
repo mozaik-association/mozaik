@@ -13,10 +13,9 @@ class AccountBankStatementLine(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if not vals.get("partner_id"):
-                __, partner = self._get_info_from_reference(vals.get("payment_ref"))
-                if partner:
-                    vals["partner_id"] = partner.id
+            __, partner = self._get_info_from_reference(vals.get("payment_ref"))
+            if partner:
+                vals["partner_id"] = partner.id
         return super().create(vals_list)
 
     @api.model
