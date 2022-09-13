@@ -20,6 +20,7 @@
         "mozaik_address",
         "mozaik_address_local_street",
         "mozaik_ama_attachment",
+        "mozaik_ama_indexed_on_website",
         "mozaik_automatic_supporter",
         "mozaik_mass_mailing_automation",
         "mass_mailing_distribution_list",

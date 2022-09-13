@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <data noupdate="1">
+        <record id="group_ama_see_not_indexed_on_website_field" model="res.groups">
+             <field name="category_id" ref="base.module_category_usability" />
+             <field
+                name="name"
+            >Events, surveys: see 'Not indexed on website' field</field>
+             <field
+                name="users"
+                eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+            />
+         </record>
+    </data>
+</odoo>

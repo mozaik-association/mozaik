@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="survey_survey_form_view">
+        <field name="name">survey.survey.form (in mozaik_ama_indexed_on_website)</field>
+        <field name="model">survey.survey</field>
+        <field name="inherit_id" ref="survey.survey_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group" position="after">
+                <group name="visible_on_website">
+                    <field
+                        name="not_indexed_on_website"
+                        groups="mozaik_ama_indexed_on_website.group_ama_see_not_indexed_on_website_field"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
