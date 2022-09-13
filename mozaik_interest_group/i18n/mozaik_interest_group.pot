@@ -56,6 +56,7 @@ msgstr ""
 #. module: mozaik_interest_group
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_virtual_model__display_name
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__display_name
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement__display_name
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement_category__display_name
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner__display_name
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner_relation_all__display_name
@@ -66,6 +67,7 @@ msgstr ""
 #. module: mozaik_interest_group
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_virtual_model__id
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group__id
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement__id
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement_category__id
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner__id
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner_relation_all__id
@@ -124,6 +126,7 @@ msgstr ""
 #. module: mozaik_interest_group
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_virtual_model____last_update
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_interest_group____last_update
+#: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement____last_update
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_partner_involvement_category____last_update
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner____last_update
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_res_partner_relation_all____last_update
@@ -165,6 +168,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_abstract_virtual_model__partner_interest_group_ids
 #: model:ir.model.fields,field_description:mozaik_interest_group.field_virtual_target__partner_interest_group_ids
 msgid "Partner Interest Groups"
+msgstr ""
+
+#. module: mozaik_interest_group
+#: model:ir.model,name:mozaik_interest_group.model_partner_involvement
+msgid "Partner Involvement"
 msgstr ""
 
 #. module: mozaik_interest_group
