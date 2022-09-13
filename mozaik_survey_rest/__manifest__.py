@@ -13,6 +13,7 @@
         "base_rest",
         "base_rest_pydantic",
         "survey",
+        "mozaik_ama_indexed_on_website",
         "mozaik_survey_publish_date",
         "mozaik_survey_membership_request_involvement",
         "mozaik_thesaurus_api",

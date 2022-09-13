@@ -13,6 +13,7 @@
         "event_rest_api",
         "event_sale",
         "mozaik_address",
+        "mozaik_ama_indexed_on_website",
         "mozaik_event_image",
         "mozaik_event_description",
         "mozaik_event_publish_date",
