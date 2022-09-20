@@ -5,7 +5,7 @@
     "name": "Mozaik Survey Export Csv",
     "summary": """
         Implements a custom csv export for survey answers.""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
@@ -19,7 +19,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "wizards/survey_export_csv.xml",
+        "wizards/survey_export.xml",
         "views/survey_survey.xml",
     ],
     "demo": [],

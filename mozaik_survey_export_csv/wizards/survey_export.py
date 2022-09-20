@@ -8,20 +8,17 @@ from odoo import _, api, fields, models
 SIMPLE_QUESTION_TYPES = ["text_box", "char_box", "numerical_box", "date", "datetime"]
 
 
-class SurveyExportCsv(models.TransientModel):
+class SurveyExport(models.TransientModel):
 
-    _name = "survey.export.csv"
+    _name = "survey.export"
     _inherit = "ama.abstract.export"
-    _description = "Survey export CSV"
+    _description = "Survey export"
 
     survey_id = fields.Many2one(comodel_name="survey.survey", required=True)
     export_file = fields.Binary(
-        string="CSV",
         readonly=True,
     )
-    export_filename = fields.Char(
-        string="Export CSV filename",
-    )
+    export_filename = fields.Char()
     export_type = fields.Selection(
         [("xls", "Excel format"), ("csv", "CSV format")], default="xls", required=True
     )
@@ -183,7 +180,7 @@ class SurveyExportCsv(models.TransientModel):
 
     def _number_cols(self, question):
         """
-        For a given question, compute the number of columns it will create in the CSV:
+        For a given question, compute the number of columns it will create in the doc:
         * char_box, text_box, numerical_box, datetime, date: 1 column
         * simple_choice: 1 column, or 2 if comments allowed
         * multiple_choice:

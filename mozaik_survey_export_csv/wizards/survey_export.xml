@@ -3,16 +3,14 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record model="ir.ui.view" id="survey_export_csv_wizard">
-        <field
-            name="name"
-        >survey.export.csv.wizard (in mozaik_survey_export_csv)</field>
-        <field name="model">survey.export.csv</field>
+    <record model="ir.ui.view" id="survey_export_wizard">
+        <field name="name">survey.export.wizard (in mozaik_survey_export_csv)</field>
+        <field name="model">survey.export</field>
         <field name="arch" type="xml">
             <form>
                 <group>
                     <p>
-                        This wizard will export all answers to this survey into a CSV file.
+                        This wizard will export all answers to this survey into a CSV or xls file.
                     </p>
                     <field
                         name="export_file"
@@ -39,12 +37,12 @@
     </record>
 
 
-    <record id="export_csv_action" model="ir.actions.act_window">
-        <field name="name">Export Answers as CSV</field>
+    <record id="survey_export_action" model="ir.actions.act_window">
+        <field name="name">Export Answers</field>
         <field name="view_mode">form</field>
-        <field name="res_model">survey.export.csv</field>
+        <field name="res_model">survey.export</field>
         <field name="target">new</field>
-        <field name="view_id" ref="survey_export_csv_wizard" />
+        <field name="view_id" ref="survey_export_wizard" />
     </record>
 
 

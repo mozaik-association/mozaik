@@ -12,7 +12,7 @@ class SurveySurvey(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "res_model": "survey.export.csv",
+            "res_model": "survey.export",
             "view_mode": "form",
             "target": "new",
             "context": {"default_survey_id": self.id},
