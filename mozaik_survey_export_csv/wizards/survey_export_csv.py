@@ -2,12 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import base64
-import csv
-import datetime
-from io import BytesIO, StringIO
-
-import xlsxwriter
-from psycopg2.extensions import AsIs
 
 from odoo import _, api, fields, models
 
@@ -17,6 +11,7 @@ SIMPLE_QUESTION_TYPES = ["text_box", "char_box", "numerical_box", "date", "datet
 class SurveyExportCsv(models.TransientModel):
 
     _name = "survey.export.csv"
+    _inherit = "ama.abstract.export"
     _description = "Survey export CSV"
 
     survey_id = fields.Many2one(comodel_name="survey.survey", required=True)
@@ -75,7 +70,8 @@ class SurveyExportCsv(models.TransientModel):
         Get the columns (header) for survey answers
         :return: list of str
         """
-        header = [
+        header = super()._get_headers()
+        header += [
             _("Object Type"),
             _("Object Name"),
             _("Interests"),
@@ -110,6 +106,7 @@ class SurveyExportCsv(models.TransientModel):
         :param values: dict
         :return: list of str that corresponds to a row of the file
         """
+        export_values = super()._get_row_values(values)
         keys = [
             "object_type",
             "object_name",
@@ -135,21 +132,9 @@ class SurveyExportCsv(models.TransientModel):
             "score",
             "scoring_success",
         ]
-        export_values = [values.get(k, "") for k in keys]
+        export_values += [values.get(k, "") for k in keys]
         export_values += values.get("answers", [])
         return export_values
-
-    def _compute_answering_partner(self, number, lastname, firstname):
-        """
-        From number, firstname and lastname, returns "Number - Lastname Firstname"
-        or just "Lastname Firstname" if no number is given
-        """
-        return (
-            (str(number) + " - " if number else "")
-            + str(lastname or "")
-            + " "
-            + str(firstname or "")
-        )
 
     def _get_select(self):
         """
@@ -195,28 +180,6 @@ class SurveyExportCsv(models.TransientModel):
             "model_ids": tuple(model_ids),
         }
         return self.env.cr.mogrify("""ui.id IN %(model_ids)s""", where_values)
-
-    @api.model
-    def _prefetch_csv_datas(self, model_ids):
-        """
-        Build the SQL query and load data to build CSV
-        :param model_ids: list of int
-        :return: list of dict
-        """
-        if not model_ids:
-            return
-        where_query = self._get_where(model_ids)
-        select = self._get_select()
-        from_sql = self._get_from()
-        query = "%(select)s %(from)s WHERE %(where_query)s "
-        values = {
-            "where_query": AsIs(where_query.decode()),
-            "select": AsIs(select),
-            "from": AsIs(from_sql),
-        }
-        self.env.cr.execute(query, values)
-        for row in self.env.cr.dictfetchall():
-            yield row
 
     def _number_cols(self, question):
         """
@@ -446,27 +409,6 @@ class SurveyExportCsv(models.TransientModel):
             return ""
         return scoring_success
 
-    def _get_partner_url(self, partner_id):
-        """
-        Returns the Odoo URL to access the partner form view of the
-        partner given by its id.
-        """
-        if not partner_id:
-            return ""
-        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
-        custom_url = (
-            "/web#id=%(partner_id)d&action=%(action_id)d&"
-            "model=res.partner&view_type=form&cids=&menu_id=%(menu_id)d"
-            % {
-                "partner_id": partner_id,
-                "action_id": self.env.ref(
-                    "mozaik_person.res_partner_natural_person_action"
-                ).id,
-                "menu_id": self.env.ref("contacts.menu_contacts").id,
-            }
-        )
-        return base_url + custom_url
-
     def _get_user_input_url(self, user_input_id):
         """
         Returns the Odoo URL to access the survey user input form view
@@ -496,7 +438,6 @@ class SurveyExportCsv(models.TransientModel):
 
         :data: dict containing the data to format for export
         :selections: dict containing all possible values for some selection fields
-        :return: a list of strings corresponding to the data of a row
         """
         data.update(
             {
@@ -528,105 +469,21 @@ class SurveyExportCsv(models.TransientModel):
                 ),
             }
         )
-        return self._get_row_values(data)
-
-    def _xls_writerow(self, worksheet, row_number, row, formats):
-        """
-        :row_number: row number of the xls file
-        :row: list of values to write in a row
-        :formats: dict of formats to use
-        """
-        col = 0
-        for elem in row:
-            if isinstance(elem, datetime.datetime):
-                worksheet.write(row_number, col, elem, formats["format_datetime"])
-            elif isinstance(elem, datetime.date):
-                worksheet.write(row_number, col, elem, formats["format_date"])
-            else:
-                if isinstance(elem, bool):
-                    worksheet.write(row_number, col, _("True") if elem else _("False"))
-                else:
-                    worksheet.write(row_number, col, elem)
-            col += 1
+        return data
 
     def _get_selections(self):
         """
         Build a dictionary with all membership states,
         all survey_states and all genders.
         """
-        selections = {}
-        membership_states = self.env["membership.state"].search([])
-        selections["membership_states"] = {st.id: st.name for st in membership_states}
+        selections = super()._get_selections()
         selections_survey_ui = self.env["survey.user_input"].fields_get(
             allfields=["state"]
         )
         selections["survey_states"] = {
             k: v for k, v in selections_survey_ui["state"]["selection"]
         }
-        selections_partner = self.env["res.partner"].fields_get(allfields=["gender"])
-        selections["genders"] = {
-            k: v for k, v in selections_partner["gender"]["selection"]
-        }
-
         return selections
-
-    def _get_xls_formats(self, workbook):
-        """
-        Define workbook formats
-        """
-        return {
-            "format_date": workbook.add_format({"num_format": "dd/mm/yyyy"}),
-            "format_datetime": workbook.add_format(
-                {"num_format": "dd/mm/yyyy hh:mm:ss"}
-            ),
-        }
-
-    def _get_xls(self, model_ids):
-        """
-        Build a xls file related to a coordinate model related to model_ids
-        :param model_ids: list of int
-        :return: str
-        """
-        if not model_ids:
-            return ""
-
-        selections = self._get_selections()
-        headers = self._get_headers()
-
-        output = BytesIO()
-        workbook = xlsxwriter.Workbook(output)
-        writer = workbook.add_worksheet("Sheet 1")
-        formats = self._get_xls_formats(workbook)
-        self._xls_writerow(writer, 0, headers, formats)
-        row_number = 1
-        for data in self._prefetch_csv_datas(model_ids):
-            export_values = self._update_data(data, selections)
-            self._xls_writerow(writer, row_number, export_values, formats)
-            row_number += 1
-        workbook.close()
-        xls_content = output.getvalue()
-
-        return xls_content
-
-    def _get_csv(self, model_ids):
-        """
-        Build a CSV file related to a coordinate model related to model_ids
-        :param model_ids: list of int
-        :return: str
-        """
-        if not model_ids:
-            return ""
-        selections = self._get_selections()
-        headers = self._get_headers()
-
-        with StringIO() as memory_file:
-            writer = csv.writer(memory_file)
-            writer.writerow(headers)
-            for data in self._prefetch_csv_datas(model_ids):
-                export_values = self._update_data(data, selections)
-                writer.writerow(export_values)
-            csv_content = memory_file.getvalue()
-        return csv_content.encode()
 
     def _export(self, export_type):
         """
