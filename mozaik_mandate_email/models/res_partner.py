@@ -9,3 +9,4 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     mandate_email = fields.Char("Mandate Email")
+    mandate_phone = fields.Char("Mandate Phone")

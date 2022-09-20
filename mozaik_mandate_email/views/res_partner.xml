@@ -16,6 +16,10 @@
                         widget="email"
                         groups="mozaik_mandate_email.group_mandate_see_email"
                     />
+                    <field
+                        name="mandate_phone"
+                        groups="mozaik_mandate_email.group_mandate_see_email"
+                    />
                 </group>
             </xpath>
         </field>
