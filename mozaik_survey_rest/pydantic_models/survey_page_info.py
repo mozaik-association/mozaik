@@ -12,6 +12,7 @@ from odoo.addons.pydantic import utils
 class SurveyPageInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
     title: str
+    description: str = None
     write_date: datetime
 
     class Config:
