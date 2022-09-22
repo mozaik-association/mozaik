@@ -29,6 +29,7 @@ msgstr "Cochée"
 
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_event__display_name
+#: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_export_xls__display_name
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question__display_name
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration__display_name
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration_answer__display_name
@@ -38,6 +39,11 @@ msgstr ""
 #. module: mozaik_event_tickbox_question
 #: model:ir.model,name:mozaik_event_tickbox_question.model_event_event
 msgid "Event"
+msgstr ""
+
+#. module: mozaik_event_tickbox_question
+#: model:ir.model,name:mozaik_event_tickbox_question.model_event_export_xls
+msgid "Event Export xls"
 msgstr ""
 
 #. module: mozaik_event_tickbox_question
@@ -57,6 +63,7 @@ msgstr ""
 
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_event__id
+#: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_export_xls__id
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question__id
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration__id
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration_answer__id
@@ -80,6 +87,7 @@ msgstr "Est obligatoire"
 
 #. module: mozaik_event_tickbox_question
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_event____last_update
+#: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_export_xls____last_update
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_question____last_update
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration____last_update
 #: model:ir.model.fields,field_description:mozaik_event_tickbox_question.field_event_registration_answer____last_update
