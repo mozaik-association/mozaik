@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2021 ACSONE SA/NV
+<!-- Copyright 2022 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record model="ir.ui.view" id="survey_export_csv_wizard">
-        <field
-            name="name"
-        >survey.export.csv.wizard (in mozaik_survey_export_csv)</field>
-        <field name="model">survey.export.csv</field>
+    <record model="ir.ui.view" id="event_export_xls_form_view">
+        <field name="name">event.export.xls.form (in mozaik_event_export)</field>
+        <field name="model">event.export.xls</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Event Export Xls">
                 <group>
                     <p>
-                        This wizard will export all answers to this survey into a CSV file.
+                        This wizard will export all registrations to this event into an Excel file.
                     </p>
                     <field
                         name="export_file"
@@ -21,7 +19,6 @@
                         filename="export_filename"
                     />
                     <field name="export_filename" invisible="1" />
-                    <field name="export_type" widget="radio" />
                 </group>
                 <footer>
                     <span attrs="{'invisible': [('export_file', '!=', False)]}">
@@ -38,14 +35,6 @@
         </field>
     </record>
 
-
-    <record id="export_csv_action" model="ir.actions.act_window">
-        <field name="name">Export Answers as CSV</field>
-        <field name="view_mode">form</field>
-        <field name="res_model">survey.export.csv</field>
-        <field name="target">new</field>
-        <field name="view_id" ref="survey_export_csv_wizard" />
-    </record>
 
 
 </odoo>

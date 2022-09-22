@@ -4,16 +4,16 @@
 from odoo import models
 
 
-class SurveySurvey(models.Model):
+class EventEvent(models.Model):
 
-    _inherit = "survey.survey"
+    _inherit = "event.event"
 
     def export_action(self):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "res_model": "survey.export",
+            "res_model": "event.export.xls",
             "view_mode": "form",
             "target": "new",
-            "context": {"default_survey_id": self.id},
+            "context": {"default_event_id": self.id},
         }

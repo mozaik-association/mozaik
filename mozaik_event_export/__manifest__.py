@@ -2,25 +2,23 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Survey Export Csv",
+    "name": "Mozaik Event Export",
     "summary": """
-        Implements a custom csv export for survey answers.""",
-    "version": "14.0.1.0.1",
+        Implements a custom xls export for event registrations""",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        "contacts",
-        "survey",
+        "event",
+        "website_event_questions",
         "mozaik_ama_export",
-        "mozaik_membership",
-        "mozaik_person",
-        "mozaik_thesaurus",
+        "mozaik_event_membership_request_involvement",
     ],
     "data": [
         "security/ir.model.access.csv",
-        "wizards/survey_export.xml",
-        "views/survey_survey.xml",
+        "wizards/event_export_xls.xml",
+        "views/event_event.xml",
     ],
     "demo": [],
 }
