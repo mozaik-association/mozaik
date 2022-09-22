@@ -31,10 +31,14 @@ class IntInstance(AbstractInstance):
     power_level = graphene.Field(IntPowerLevel, required=True)
     parent = graphene.Field(lambda: IntInstance)
     code = graphene.String()
+    sta_instances = graphene.List(graphene.NonNull(lambda: StaInstance))
     assemblies = graphene.List(graphene.NonNull(lambda: assembly.IntAssembly))
     electoral_districts = graphene.List(
         graphene.NonNull(lambda: electoral_district.ElectoralDistrict)
     )
+
+    def resolve_sta_instances(root, info):
+        return root.sta_instance_ids or None
 
 
 class StaInstance(AbstractInstance):

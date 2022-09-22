@@ -61,6 +61,9 @@ class IntInstance(models.Model):
     code = fields.Char(
         copy=False,
     )
+    sta_instance_ids = fields.One2many(
+        "sta.instance", "int_instance_id", "State Instances"
+    )
 
     _sql_constraints = [
         ("unique_code", "unique(code)", "Instance code must be unique"),
