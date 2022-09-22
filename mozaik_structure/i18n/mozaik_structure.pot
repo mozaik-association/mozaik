@@ -2379,6 +2379,7 @@ msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.actions.act_window,name:mozaik_structure.sta_instance_action
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_instance__sta_instance_ids
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.int_instance_form_view
 msgid "State Instances"
 msgstr ""
