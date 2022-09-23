@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. module: mozaik_all
+#: model_terms:ir.ui.view,arch_db:mozaik_all.res_partner_base_form_view
+msgid "Social Media"
+msgstr ""
+
 #~ msgid "Followers"
 #~ msgstr "Abonnés"
 
