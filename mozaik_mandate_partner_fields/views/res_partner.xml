@@ -4,7 +4,7 @@
 <odoo>
 
     <record model="ir.ui.view" id="res_partner_form_view">
-        <field name="name">res.partner.form (in mozaik_mandate_email)</field>
+        <field name="name">res.partner.form (in mozaik_mandate_partner_fields)</field>
         <field name="model">res.partner</field>
         <field name="priority" eval="5" />
         <field name="inherit_id" ref="mozaik_mandate.res_partner_form_view" />
@@ -14,7 +14,11 @@
                     <field
                         name="mandate_email"
                         widget="email"
-                        groups="mozaik_mandate_email.group_mandate_see_email"
+                        groups="mozaik_mandate_partner_fields.group_mandate_see_partner_fields"
+                    />
+                    <field
+                        name="mandate_phone"
+                        groups="mozaik_mandate_partner_fields.group_mandate_see_partner_fields"
                     />
                 </group>
             </xpath>
