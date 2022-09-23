@@ -3,8 +3,8 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record model="res.groups" id="group_mandate_see_email">
-        <field name="name">Mandate: can see mandate emails</field>
+    <record model="res.groups" id="group_mandate_see_partner_fields">
+        <field name="name">Mandate: can see mandate partner fields</field>
         <field name="category_id" ref="base.module_category_hidden" />
     </record>
 

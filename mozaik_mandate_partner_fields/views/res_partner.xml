@@ -14,11 +14,11 @@
                     <field
                         name="mandate_email"
                         widget="email"
-                        groups="mozaik_mandate_partner_fields.group_mandate_see_email"
+                        groups="mozaik_mandate_partner_fields.group_mandate_see_partner_fields"
                     />
                     <field
                         name="mandate_phone"
-                        groups="mozaik_mandate_partner_fields.group_mandate_see_email"
+                        groups="mozaik_mandate_partner_fields.group_mandate_see_partner_fields"
                     />
                 </group>
             </xpath>

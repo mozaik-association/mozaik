@@ -5,6 +5,8 @@ import logging
 
 from openupgradelib import openupgrade
 
+from odoo import SUPERUSER_ID, api
+
 _logger = logging.getLogger(__name__)
 
 
@@ -15,3 +17,19 @@ def pre_init_hook(cr):
         openupgrade.update_module_names(
             cr, [("mozaik_mandate_email", "mozaik_mandate_partner_fields")], True
         )
+
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    try:
+        env.ref("mozaik_mandate_partner_fields.group_mandate_see_email")
+    except ValueError:
+        return
+    # If here, the old xmlid still exist.
+    openupgrade.rename_xmlids(
+        cr,
+        [
+            (
+                "mozaik_mandate_partner_fields.group_mandate_see_email",
+                "mozaik_mandate_partner_fields.group_mandate_see_partner_fields",
+            )
+        ],
+    )
