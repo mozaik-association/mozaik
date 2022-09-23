@@ -47,6 +47,24 @@
                 <field name="social_instagram" position="move" />
             </xpath>
 
+            <xpath expr="//page[@name='personal_information_page']" position="after">
+                <page
+                    name="social_media"
+                    string="Social Media"
+                    attrs="{'invisible': [('is_company', '!=', True)]}"
+                >
+                    <group>
+                        <field name="website" />
+                        <field name="secondary_website" />
+                        <field name="social_twitter" />
+                        <field name="social_facebook" />
+                        <field name="social_youtube" />
+                        <field name="social_linkedin" />
+                        <field name="social_instagram" />
+                    </group>
+                </page>
+            </xpath>
+
         </field>
     </record>
 
