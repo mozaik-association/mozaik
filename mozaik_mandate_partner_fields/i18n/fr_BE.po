@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-21 17:49+0000\n"
+"PO-Revision-Date: 2022-09-26 14:47+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr_BE\n"
@@ -53,9 +53,8 @@ msgstr "Email mandataire"
 #: model:ir.model.fields,field_description:mozaik_mandate_partner_fields.field_res_partner__mandate_phone
 #: model:ir.model.fields,field_description:mozaik_mandate_partner_fields.field_res_users__mandate_phone
 #: model:ir.model.fields,field_description:mozaik_mandate_partner_fields.field_sta_assembly__mandate_phone
-#, fuzzy
 msgid "Mandate Phone"
-msgstr "Email mandataire"
+msgstr "Mobile mandataire"
 
 #. module: mozaik_mandate_partner_fields
 #: model:res.groups,name:mozaik_mandate_partner_fields.group_mandate_see_partner_fields
