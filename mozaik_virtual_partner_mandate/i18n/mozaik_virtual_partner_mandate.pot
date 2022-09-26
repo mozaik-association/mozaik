@@ -331,6 +331,11 @@ msgid "Topics"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__key_id
+msgid "Unique String key for Mandates"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__with_remuneration
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "With Remuneration"
