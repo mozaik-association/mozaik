@@ -40,6 +40,7 @@ class VirtualPartnerMandate(models.Model):
     )
 
     model = fields.Char()
+    key_id = fields.Char(string="Unique String key for Mandates")
 
     assembly_id = fields.Many2one(
         comodel_name="res.partner",
@@ -158,6 +159,7 @@ class VirtualPartnerMandate(models.Model):
             %(sta_mandate_id)s as sta_mandate_id,
             %(ext_mandate_id)s as ext_mandate_id,
             %(ref_partner_id)s as ref_partner_id,
+            CONCAT('%(mandate_type)s',mandate.id::varchar(255)) AS key_id,
             mandate.mandate_category_id,
             mandate.with_remuneration,
             mandate.partner_id as common_id,
@@ -234,3 +236,16 @@ class VirtualPartnerMandate(models.Model):
             "ref_partner_id": AsIs(ref_partner_id),
             "sta_instance_id": AsIs(sta_instance_id),
         }
+
+    @api.model
+    def _get_order_by(self):
+        """
+        Since several records can have the same partner_id,
+        ORDER BY 'partner_id' doesn't give always the same
+        ordering between records having the same partner_id.
+        We thus need to find a unique way to determine the ids
+        and order the records.
+        We built a key_id which is a string made with prefix 'int', 'sta' or 'ext'
+        followed by the mandate id.
+        """
+        return "key_id"
