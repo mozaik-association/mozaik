@@ -70,18 +70,24 @@ class MembershipRequest(models.Model):
                 m.payment_link = False
 
     @api.model
+    def _get_states_to_save(self):
+        """
+        Returns a list of states for which, if membership request of type 'm'
+        is paid, we do not want to reach the next state IMMEDIATELY in the
+        statechart (because it will be done when dealing with the payment).
+        """
+        return [self.env.ref("mozaik_membership.former_member")]
+
+    @api.model
     def _validate_request_membership(self, mr, partner):
         paid_transactions = mr.transaction_ids.filtered(lambda s: s.state == "done")
-        former_member = self.env.ref("mozaik_membership.former_member")
         save_state = (
             paid_transactions
-            and partner.membership_state_id == former_member
+            and partner.membership_state_id in self._get_states_to_save()
             and mr.request_type == "m"
         )
         result_type_id = None
         if save_state:
-            # when we pay a former membership, we don't the membership request
-            # to advance automatically the state, it will be done by the payment
             result_type_id = mr.result_type_id
             mr.result_type_id = mr.membership_state_id
 
