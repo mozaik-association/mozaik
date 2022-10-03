@@ -16,6 +16,12 @@ msgstr ""
 #. module: mozaik_event_export
 #: code:addons/mozaik_event_export/wizards/event_export_xls.py:0
 #, python-format
+msgid "Age"
+msgstr ""
+
+#. module: mozaik_event_export
+#: code:addons/mozaik_event_export/wizards/event_export_xls.py:0
+#, python-format
 msgid "Answering Partner"
 msgstr ""
 
