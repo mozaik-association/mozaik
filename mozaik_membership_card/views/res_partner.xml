@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form (in mozaik_membership_card)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mozaik_membership.res_partner_form_view" />
+        <field name="arch" type="xml">
+            <div name="state_management" position="before">
+                <group
+                    name="membership_card"
+                    string="Membership Card"
+                    groups="mozaik_membership_card.group_can_see_membership_card_fields"
+                >
+                    <group>
+                        <field name="membership_card_sent" />
+                        <field
+                            name="membership_card_sent_date"
+                            attrs="{'invisible': [('membership_card_sent', '=', False)]}"
+                        />
+                    </group>
+                </group>
+            </div>
+        </field>
+    </record>
+
+
+
+</odoo>
