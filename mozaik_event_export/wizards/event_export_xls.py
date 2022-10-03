@@ -57,6 +57,7 @@ class EventExportXls(models.TransientModel):
             _("Firstname"),
             _("Gender"),
             _("Birth Date"),
+            _("Age"),
             _("Membership State"),
             _("Email"),
             _("Mobile"),
@@ -90,6 +91,7 @@ class EventExportXls(models.TransientModel):
             "firstname",
             "gender",
             "birthdate_date",
+            "age",
             "membership_state",
             "email",
             "mobile",
@@ -219,11 +221,14 @@ class EventExportXls(models.TransientModel):
         """
         Update data and return export values
 
-        NOTE: We select event title here, to take the translated version
+        NOTE:
+            * We select event title here, to take the translated version
+            * As age is not stored, we cannot find it in the sql query
 
         :data: dict containing the data to format for export
         :selections: dict containing all possible values for some selection fields
         """
+        partner_id = data.get("partner_id", False)
         data.update(
             {
                 "object_type": "Event",
@@ -237,6 +242,9 @@ class EventExportXls(models.TransientModel):
                 "event_status": selections.get("event_states", {}).get(
                     data.get("event_status"), data.get("event_status")
                 ),
+                "age": self.env["res.partner"].browse(partner_id).age
+                if partner_id
+                else 0,
                 "membership_state": selections.get("membership_states", {}).get(
                     data.get("membership_state"), data.get("membership_state")
                 ),
@@ -244,7 +252,7 @@ class EventExportXls(models.TransientModel):
                     data.get("gender"), data.get("gender")
                 ),
                 "answers": self._give_answers(data.get("event_registration_id", False)),
-                "partner_url": self._get_partner_url(data.get("partner_id", False)),
+                "partner_url": self._get_partner_url(partner_id),
                 "event_registration_url": self._get_event_registration_url(
                     data.get("event_registration_id", False)
                 ),
