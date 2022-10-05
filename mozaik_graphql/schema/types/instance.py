@@ -36,9 +36,15 @@ class IntInstance(AbstractInstance):
     electoral_districts = graphene.List(
         graphene.NonNull(lambda: electoral_district.ElectoralDistrict)
     )
+    ref_partner_ref_mandate = graphene.String()
 
     def resolve_sta_instances(root, info):
         return root.sta_instance_ids or None
+
+    def resolve_ref_partner_ref_mandate(root, info):
+        if root.ref_mandate_id:
+            return root.ref_mandate_id.partner_id.identifier
+        return None
 
 
 class StaInstance(AbstractInstance):
@@ -56,3 +62,26 @@ class StaInstance(AbstractInstance):
 
     def resolve_int_instance(root, info):
         return root.int_instance_id or None
+
+
+int_instances = graphene.List(
+    graphene.NonNull(IntInstance),
+    required=True,
+    description="All internal instances",
+    ids=graphene.List(graphene.Int, description="Search on list of IDs"),
+    name=graphene.String(
+        description="Case insensitive search by name. %% is supported."
+    ),
+    limit=graphene.Int(),
+    offset=graphene.Int(),
+)
+
+
+def resolve_int_instances(info, ids=None, name=None, limit=None, offset=0):
+    domain = []
+    if ids:
+        domain.append(("id", "in", ids))
+    if name:
+        domain.append(("name", "=ilike", name))
+    res = info.context["env"]["int.instance"].search(domain, limit=limit, offset=offset)
+    return res
