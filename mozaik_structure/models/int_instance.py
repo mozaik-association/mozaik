@@ -64,9 +64,17 @@ class IntInstance(models.Model):
     sta_instance_ids = fields.One2many(
         "sta.instance", "int_instance_id", "State Instances"
     )
-
+    identifier = fields.Char(
+        "External Identifier (INS)",
+        tracking=True,
+    )
     _sql_constraints = [
         ("unique_code", "unique(code)", "Instance code must be unique"),
+        (
+            "unique_identifier",
+            "UNIQUE ( identifier )",
+            "The external identifier (INS) must be unique.",
+        ),
     ]
 
     @api.model

@@ -1,12 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <odoo>
 
+     <record id="int_instance_search_view" model="ir.ui.view">
+        <field name="name">int.instance.search</field>
+        <field name="model">int.instance</field>
+        <field name="inherit_id" ref="abstract_instance_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field
+                    name="identifier"
+                    groups="mozaik_structure.res_groups_can_see_int_instance_identifier"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="int_instance_tree_view" model="ir.ui.view">
+        <field name="name">int.instance.tree</field>
+        <field name="model">int.instance</field>
+        <field name="inherit_id" ref="abstract_instance_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='power_level_id']" position="after">
+                <field
+                    name="identifier"
+                    groups="mozaik_structure.res_groups_can_see_int_instance_identifier"
+                />
+            </xpath>
+        </field>
+    </record>
+
     <record id="int_instance_action" model="ir.actions.act_window">
         <field name="name">Internal Instances</field>
         <field name="res_model">int.instance</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="abstract_instance_search_view" />
-        <field name="view_id" ref="abstract_instance_tree_view" />
+        <field name="search_view_id" ref="int_instance_search_view" />
+        <field name="view_id" ref="int_instance_tree_view" />
     </record>
 
     <record id="int_instance_form_view" model="ir.ui.view">
@@ -120,6 +148,10 @@
             </xpath>
             <field name="parent_id" position="after">
                 <field name="code" />
+                <field
+                    name="identifier"
+                    groups="mozaik_structure.res_groups_can_see_int_instance_identifier"
+                />
             </field>
         </field>
     </record>

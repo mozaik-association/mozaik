@@ -37,6 +37,7 @@ class IntInstance(AbstractInstance):
         graphene.NonNull(lambda: electoral_district.ElectoralDistrict)
     )
     ref_partner_ref_mandate = graphene.String()
+    identifier = graphene.String()
 
     def resolve_sta_instances(root, info):
         return root.sta_instance_ids or None
