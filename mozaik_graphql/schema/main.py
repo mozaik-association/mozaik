@@ -13,6 +13,7 @@ from .types.city import cities, resolve_cities
 from .types.electoral_district import electoral_districts, resolve_electoral_districts
 from .types.environment import Environment
 from .types.instance import int_instances, resolve_int_instances
+from .types.partner import partners, resolve_partners
 from .types.power_level import (
     int_power_levels,
     resolve_int_power_levels,
@@ -41,6 +42,7 @@ class Query(graphene.ObjectType):
     sta_representatives = sta_representatives
     electoral_districts = electoral_districts
     cities = cities
+    partners = partners
 
     def resolve_environment(root, info):
         return Environment()
@@ -72,6 +74,9 @@ class Query(graphene.ObjectType):
         root, info, ids=None, name=None, zipcode=None, limit=None, offset=0
     ):
         return resolve_cities(info, ids, name, zipcode, limit, offset)
+
+    def resolve_partners(root, info, ids=None, name=None, limit=None, offset=0):
+        return resolve_partners(info, ids, name, limit, offset)
 
 
 schema = graphene.Schema(query=Query)
