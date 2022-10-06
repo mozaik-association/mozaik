@@ -13,6 +13,7 @@
         # OCA
         "graphql_base",
         # Mozaik
+        "mozaik_account",
         "mozaik_address",
         "mozaik_mandate",
         "mozaik_mandate_category_sequence",
@@ -22,6 +23,7 @@
         "mozaik_membership",
         "mozaik_membership_mandate",
         "mozaik_partner_fields",
+        "mozaik_person_deceased",
         "mozaik_structure",
         "mozaik_thesaurus",
         "mozaik_web_image_route",

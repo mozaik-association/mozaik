@@ -37,6 +37,7 @@ class Partner(AbstractObject):
     secondary_website = graphene.String()
     image_url = graphene.String()
     no_show_mandates = graphene.Boolean()
+    is_deceased = graphene.Boolean()
 
     def resolve_membership_state(root, info):
         return root.membership_state_id or None
