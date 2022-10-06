@@ -1116,7 +1116,7 @@ msgstr "Lecteur"
 #, fuzzy
 #| msgid "Renew Mandate"
 msgid "Reference Mandate"
-msgstr "Renouveler le mandat"
+msgstr "Mandat de référence"
 
 #. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__competencies_m2m_ids

@@ -12,6 +12,7 @@ import graphene
 from .types.city import cities, resolve_cities
 from .types.electoral_district import electoral_districts, resolve_electoral_districts
 from .types.environment import Environment
+from .types.instance import int_instances, resolve_int_instances
 from .types.power_level import (
     int_power_levels,
     resolve_int_power_levels,
@@ -34,6 +35,7 @@ class Query(graphene.ObjectType):
     )
     int_power_levels = int_power_levels
     sta_power_levels = sta_power_levels
+    int_instances = int_instances
     int_representatives = int_representatives
     ext_representatives = ext_representatives
     sta_representatives = sta_representatives
@@ -57,6 +59,9 @@ class Query(graphene.ObjectType):
 
     def resolve_sta_power_levels(root, info, ids=None, name=None, limit=None, offset=0):
         return resolve_sta_power_levels(info, ids, name, limit, offset)
+
+    def resolve_int_instances(root, info, ids=None, name=None, limit=None, offset=0):
+        return resolve_int_instances(info, ids, name, limit, offset)
 
     def resolve_electoral_districts(
         root, info, ids=None, name=None, limit=None, offset=0
