@@ -27,4 +27,9 @@
         />
     </record>
 
+    <record model="res.groups" id="res_groups_can_see_int_instance_identifier">
+        <field name="name">Int Instances: can see External Identifier (INS)</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
 </odoo>

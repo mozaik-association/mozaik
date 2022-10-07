@@ -13,6 +13,8 @@ from .types.city import cities, resolve_cities
 from .types.electoral_district import electoral_districts, resolve_electoral_districts
 from .types.environment import Environment
 from .types.instance import int_instances, resolve_int_instances
+from .types.membership_line import membership_lines, resolve_membership_lines
+from .types.partner import partners, resolve_partners
 from .types.power_level import (
     int_power_levels,
     resolve_int_power_levels,
@@ -41,6 +43,8 @@ class Query(graphene.ObjectType):
     sta_representatives = sta_representatives
     electoral_districts = electoral_districts
     cities = cities
+    partners = partners
+    membership_lines = membership_lines
 
     def resolve_environment(root, info):
         return Environment()
@@ -72,6 +76,35 @@ class Query(graphene.ObjectType):
         root, info, ids=None, name=None, zipcode=None, limit=None, offset=0
     ):
         return resolve_cities(info, ids, name, zipcode, limit, offset)
+
+    def resolve_partners(root, info, ids=None, name=None, limit=None, offset=0):
+        return resolve_partners(info, ids, name, limit, offset)
+
+    def resolve_membership_lines(
+        root,
+        info,
+        ids=None,
+        minPrice=0,
+        dateFromAfter=None,
+        dateToBefore=None,
+        regularizationDateAfter=None,
+        regularizationDateBefore=None,
+        activeTest=True,
+        limit=None,
+        offset=0,
+    ):
+        return resolve_membership_lines(
+            info,
+            ids,
+            minPrice,
+            dateFromAfter,
+            dateToBefore,
+            regularizationDateAfter,
+            regularizationDateBefore,
+            activeTest,
+            limit,
+            offset,
+        )
 
 
 schema = graphene.Schema(query=Query)
