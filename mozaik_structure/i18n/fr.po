@@ -942,6 +942,7 @@ msgid "External Assembly Category"
 msgstr "Catégorie d'assemblée externe"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_instance__identifier
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__identifier
 msgid "External Identifier (INS)"
 msgstr "Identifiant externe (INS)"
@@ -1398,6 +1399,13 @@ msgstr "Le code de l'instance doit être unique"
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.sta_power_level_form_view
 msgid "Instances"
 msgstr "Instances"
+
+#. module: mozaik_structure
+#: model:res.groups,name:mozaik_structure.res_groups_can_see_int_instance_identifier
+#, fuzzy
+#| msgid "External Identifier (INS)"
+msgid "Int Instances: can see External Identifier (INS)"
+msgstr "Identifiant externe (INS)"
 
 #. module: mozaik_structure
 #: model:ir.ui.menu,name:mozaik_structure.internal_configuration_menu
@@ -2578,6 +2586,7 @@ msgid "The election date must be anterior to the start date."
 msgstr "La date électorale doit être antérieure à la date de début."
 
 #. module: mozaik_structure
+#: model:ir.model.constraint,message:mozaik_structure.constraint_int_instance_unique_identifier
 #: model:ir.model.constraint,message:mozaik_structure.constraint_sta_instance_unique_identifier
 msgid "The external identifier (INS) must be unique."
 msgstr "L'identifiant externe (INS) doit être unique."
