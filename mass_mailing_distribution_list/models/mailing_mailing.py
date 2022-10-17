@@ -22,10 +22,6 @@ class MassMailing(models.Model):
         string="Distribution List",
     )
 
-    @api.onchange("mailing_model_id")
-    def _onchange_model_and_list(self):
-        self.distribution_list_id = False
-
     @api.depends("mailing_model_id")
     def _compute_model(self):
         super(MassMailing, self)._compute_model()
