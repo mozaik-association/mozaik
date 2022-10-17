@@ -67,6 +67,25 @@ class MassMailing(models.Model):
                     )
                 )
 
+    @api.constrains("automation", "mailing_model_id")
+    def _check_automation(self):
+        """
+        Automation cannot work if mailing model is neither distribution.list
+        not mailing.list
+        """
+        for rec in self:
+            if (
+                rec.automation
+                and rec.mailing_model_id
+                and rec.mailing_model_id.model
+                not in ["mailing.list", "distribution.list"]
+            ):
+                raise ValidationError(
+                    _(
+                        "Automation is only allowed for distribution lists and mailing lists."
+                    )
+                )
+
     @api.depends("automation", "next_execution")
     def _compute_schedule_date(self):
         for record in self:

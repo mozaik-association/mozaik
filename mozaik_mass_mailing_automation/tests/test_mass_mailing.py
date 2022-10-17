@@ -7,6 +7,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
+from odoo.exceptions import ValidationError
 from odoo.tests.common import SavepointCase
 
 
@@ -21,6 +22,9 @@ class TestMassMailing(SavepointCase):
 
     def setUp(self):
         super().setUp()
+        self.mailing_list_model = self.env["ir.model"].search(
+            [("model", "=", "mailing.list")], limit=1
+        )
         self.mailing_list = self.env["mailing.list"].create(
             {
                 "name": "List1",
@@ -37,6 +41,7 @@ class TestMassMailing(SavepointCase):
             self.mailing = (self.env["mailing.mailing"]).create(
                 {
                     "subject": "Automated mass mailing",
+                    "mailing_model_id": self.mailing_list_model.id,
                     "automation": True,
                     "next_execution": self.creation_time,
                     "contact_list_ids": [(6, 0, self.mailing_list.ids)],
@@ -134,6 +139,7 @@ class TestMassMailing(SavepointCase):
             self.mailing2 = (self.env["mailing.mailing"]).create(
                 {
                     "subject": "Second mass mailing",
+                    "mailing_model_id": self.mailing_list_model.id,
                     "automation": True,
                     "next_execution": self.creation_time + relativedelta(days=1),
                     "contact_list_ids": [(6, 0, self.mailing_list.ids)],
@@ -170,6 +176,7 @@ class TestMassMailing(SavepointCase):
         self.mailing3 = (self.env["mailing.mailing"]).create(
             {
                 "subject": "Third mass mailing",
+                "mailing_model_id": self.mailing_list_model.id,
                 "automation": False,
                 "contact_list_ids": [(6, 0, self.mailing_list.ids)],
             }
@@ -187,3 +194,27 @@ class TestMassMailing(SavepointCase):
         self.assertEqual(self.mailing.schedule_date, self.mailing.next_execution)
         self.mailing.write({"automation": False})
         self.assertEqual(self.mailing.schedule_date, False)
+
+    def test_cannot_create_automation_with_mailing_contact(self):
+        """
+        Test case:
+            Create a mass mailing on mailing.contact and try to add
+            an automation process.
+            -> Forbidden by a constraint check.
+        """
+        mailing_contact_model = self.env["ir.model"].search(
+            [("model", "=", "mailing.contact")], limit=1
+        )
+        mass_mailing = self.env["mailing.mailing"].create(
+            {
+                "subject": "Fourth mass mailing",
+                "mailing_model_id": mailing_contact_model.id,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            mass_mailing.write(
+                {
+                    "automation": True,
+                    "next_execution": self.creation_time + relativedelta(days=1),
+                }
+            )
