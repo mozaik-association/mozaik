@@ -67,6 +67,7 @@ class MembershipRequest(models.Model):
             phone = vals.get("phone", False)
             mobile = vals.get("mobile", False)
             country_id = vals.get("country_id", False)
+            request_type = vals.get("request_type", False)
 
             city_id = False
             zip_man = False
@@ -110,7 +111,7 @@ class MembershipRequest(models.Model):
                     "phone": phone,
                     "mobile": mobile,
                     "is_company": False,
-                    "request_type": False,
+                    "request_type": request_type,
                     "country_id": country_id,
                     "city_id": city_id,
                     "zip_man": zip_man,
