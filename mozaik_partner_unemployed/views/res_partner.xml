@@ -6,11 +6,15 @@
     <record model="ir.ui.view" id="res_partner_form_view">
         <field name="name">res.partner.form (in mozaik_partner_unemployed)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field
+            name="inherit_id"
+            ref="mozaik_partner_personal_information.res_partner_form_view"
+        />
+        <field name="priority" eval="100" />
         <field name="arch" type="xml">
-            <field name="function" position="after">
+            <group name="personal_information_group_01" position="inside">
                 <field name="unemployed" />
-            </field>
+            </group>
         </field>
     </record>
 
