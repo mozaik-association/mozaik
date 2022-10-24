@@ -2,19 +2,15 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Mozaik Partner Unemployed",
+    "name": "Mozaik Partner Personal Information",
     "summary": """
-        Add the boolean 'unemployed' feature.""",
+        Improves form view of res.partner Personal Information page in notebook.""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
-    "depends": [
-        "mozaik_membership_request",
-        "mozaik_partner_personal_information",
-    ],
+    "depends": ["partner_contact_personal_information_page"],
     "data": [
-        "views/membership_request.xml",
         "views/res_partner.xml",
     ],
     "demo": [],
