@@ -77,8 +77,10 @@ class Query(graphene.ObjectType):
     ):
         return resolve_cities(info, ids, name, zipcode, limit, offset)
 
-    def resolve_partners(root, info, ids=None, name=None, limit=None, offset=0):
-        return resolve_partners(info, ids, name, limit, offset)
+    def resolve_partners(
+        root, info, ids=None, name=None, activeTest=None, limit=None, offset=0
+    ):
+        return resolve_partners(info, ids, name, activeTest, limit, offset)
 
     def resolve_membership_lines(
         root,

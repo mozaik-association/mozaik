@@ -63,16 +63,25 @@ partners = graphene.List(
     name=graphene.String(
         description="Case insensitive search by name. %% is supported."
     ),
+    activeTest=graphene.Argument(
+        graphene.Boolean,
+        description="True if you want only active records, False otherwise",
+    ),
     limit=graphene.Int(),
     offset=graphene.Int(),
 )
 
 
-def resolve_partners(info, ids=None, name=None, limit=None, offset=0):
+def resolve_partners(info, ids=None, name=None, activeTest=None, limit=None, offset=0):
     domain = []
     if ids:
         domain.append(("id", "in", ids))
     if name:
         domain.append(("name", "=ilike", name))
-    res = info.context["env"]["res.partner"].search(domain, limit=limit, offset=offset)
+    activeTest = activeTest if activeTest is not None else True
+    res = (
+        info.context["env"]["res.partner"]
+        .with_context(active_test=activeTest)
+        .search(domain, limit=limit, offset=offset)
+    )
     return res
