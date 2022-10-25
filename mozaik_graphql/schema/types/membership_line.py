@@ -63,6 +63,9 @@ def resolve_membership_lines(
     offset=0,
 ):
     domain = [("price", ">=", minPrice)]
+    if minPrice == 0 or minPrice is None:
+        # add also membership lines for which price is null.
+        domain = ["|"] + domain + [("price", "=", False)]
     if ids:
         domain.append(("id", "in", ids))
     if dateFromAfter:
