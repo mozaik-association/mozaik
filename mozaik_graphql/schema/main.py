@@ -89,7 +89,7 @@ class Query(graphene.ObjectType):
         dateToBefore=None,
         regularizationDateAfter=None,
         regularizationDateBefore=None,
-        activeTest=True,
+        activeTest=None,
         limit=None,
         offset=0,
     ):
