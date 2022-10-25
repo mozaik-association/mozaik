@@ -22,6 +22,12 @@ msgid "Automation"
 msgstr "Envoi récurrent"
 
 #. module: mozaik_mass_mailing_automation
+#: code:addons/mozaik_mass_mailing_automation/models/mailing_mailing.py:0
+#, python-format
+msgid "Automation is only allowed for distribution lists and mailing lists."
+msgstr ""
+
+#. module: mozaik_mass_mailing_automation
 #: model:ir.model.fields,help:mozaik_mass_mailing_automation.field_mailing_mailing__next_execution
 msgid "Date and time of the next execution of the automation process."
 msgstr "Date et heure du prochain envoi régulier."
@@ -75,8 +81,7 @@ msgstr "Prévu le"
 #: code:addons/mozaik_mass_mailing_automation/models/mailing_mailing.py:0
 #, python-format
 msgid ""
-"Since automation is set to True, you have to fill the 'Next Execution' "
-"field."
+"Since automation is set to True, you have to fill the 'Next Execution' field."
 msgstr ""
 "Comme il s'agit d'un envoi récurrent, il faut remplir le champ 'Prochain "
 "envoi'."
