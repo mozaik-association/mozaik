@@ -8,7 +8,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="mozaik_partner_fields.res_partner_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='personal_information_group']" position="before">
+            <xpath expr="//page[@name='personal_information_page']" position="inside">
                 <button
                     name="%(deceased_partner_action)d"
                     type="action"
@@ -17,7 +17,7 @@
                 />
             </xpath>
 
-            <group name="personal_information_group_01" position="inside">
+            <field name="birthdate_date" position="before">
                 <field
                     name="is_deceased"
                     attrs="{'invisible': [('is_deceased', '=', False)]}"
@@ -26,7 +26,7 @@
                     name="death_date"
                     attrs="{'invisible': [('is_deceased', '=', False)]}"
                 />
-            </group>
+            </field>
             <field name="age" position="attributes">
                 <attribute name="attrs">
                     {'invisible': [('is_deceased', '=', True)]}

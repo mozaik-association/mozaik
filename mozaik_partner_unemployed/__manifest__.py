@@ -11,7 +11,6 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mozaik_membership_request",
-        "mozaik_partner_personal_information",
     ],
     "data": [
         "views/membership_request.xml",

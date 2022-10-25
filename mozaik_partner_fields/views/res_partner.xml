@@ -57,15 +57,11 @@
         <field name="model">res.partner</field>
         <field
             name="inherit_id"
-            ref="mozaik_partner_personal_information.res_partner_form_view"
+            ref="partner_contact_personal_information_page.personal_information"
         />
         <field name="arch" type="xml">
-            <xpath
-                expr="//group[@name='personal_information_group_02']"
-                position="inside"
-            >
+            <xpath expr="//group[@name='personal_information_group']" position="inside">
                 <field name="marital" />
-                <field name="website" position="move" />
                 <field name="secondary_website" />
                 <field name="social_twitter" />
                 <field name="social_facebook" />

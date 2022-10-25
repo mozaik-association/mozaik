@@ -4,16 +4,27 @@
     <record id="res_partner_base_form_view" model="ir.ui.view">
         <field name="name">res.partner.form.base (in mozaik_all)</field>
         <field name="model">res.partner</field>
-        <field
-            name="inherit_id"
-            ref="mozaik_partner_personal_information.res_partner_form_view"
-        />
+        <field name="inherit_id" ref="mozaik_person_deceased.res_partner_form_view" />
         <field name="priority">99</field>
         <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='personal_information_group']" position="before">
+                <xpath
+                    expr="//button[@name='%(mozaik_person_deceased.deceased_partner_action)d']"
+                    position="move"
+                />
+            </xpath>
+            <xpath expr="//group[@name='personal_information_group']" position="inside">
+                <group name="personal_information_group_01" />
+                <group name="personal_information_group_02" />
+            </xpath>
+<!--            position move should be directly under the xpath-->
             <xpath
                 expr="//group[@name='personal_information_group_01']"
                 position="inside"
             >
+                <field name="is_deceased" position="move" />
+                <field name="death_date" position="move" />
                 <field name="birthdate_date" position="move" />
                 <field name="age" position="move" />
                 <field name="gender" position="move" />
@@ -22,6 +33,18 @@
                 <field name="parent_id" position="move" />
                 <field name="title" position="move" />
                 <field name="function" position="move" />
+            </xpath>
+            <xpath
+                expr="//group[@name='personal_information_group_02']"
+                position="inside"
+            >
+                <field name="website" position="move" />
+                <field name="secondary_website" position="move" />
+                <field name="social_twitter" position="move" />
+                <field name="social_facebook" position="move" />
+                <field name="social_youtube" position="move" />
+                <field name="social_linkedin" position="move" />
+                <field name="social_instagram" position="move" />
             </xpath>
 
             <xpath expr="//page[@name='personal_information_page']" position="after">
