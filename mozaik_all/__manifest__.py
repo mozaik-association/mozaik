@@ -53,6 +53,7 @@
         "mozaik_mass_mailing_sending_cron",
         "mozaik_mass_mailing_template",
         "mozaik_membership",
+        "mozaik_membership_request_sensitive_data",
         "mozaik_partner_assembly",
         "mozaik_partner_button_sms",
         "mozaik_partner_disabled",

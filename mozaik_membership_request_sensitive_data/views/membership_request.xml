@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+ <record id="membership_request_form_view" model="ir.ui.view">
+            <field
+            name="name"
+        >membership.request.form (in mozaik_membership_request_sensitive_data</field>
+            <field name="model">membership.request</field>
+      <field
+            name="inherit_id"
+            ref="mozaik_membership_request.membership_request_form_view"
+        />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='validate_request']" position="attributes">
+                    <attribute name="confirm">
+                        Confirm Membership Request: proceed anyway?     NB: Sensitive data won't be modified.
+                    </attribute>
+                </xpath>
+            </field>
+ </record>
+
+
+
+</odoo>
