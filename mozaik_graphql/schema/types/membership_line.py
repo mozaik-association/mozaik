@@ -58,7 +58,7 @@ def resolve_membership_lines(
     dateToBefore=None,
     regularizationDateAfter=None,
     regularizationDateBefore=None,
-    activeTest=True,
+    activeTest=None,
     limit=None,
     offset=0,
 ):
@@ -73,6 +73,7 @@ def resolve_membership_lines(
         domain.append(("regularization_date", ">=", regularizationDateAfter))
     if regularizationDateBefore:
         domain.append(("regularization_date", "<=", regularizationDateBefore))
+    activeTest = activeTest if activeTest is not None else True
     res = (
         info.context["env"]["membership.line"]
         .with_context(active_test=activeTest)
