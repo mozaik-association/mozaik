@@ -148,16 +148,21 @@ class MembershipRequest(models.Model):
                     ) != mr.get_format_phone_number(mr_value):
                         # Just formatting phone/mobile number is
                         # not considered as a sensitive change
-                        chatter_msg_fields += (
-                            "\n "
-                            + key
-                            + ": "
-                            + str(partner_value)
-                            + " -> "
-                            + str(mr_value)
-                            + "<br/>"
-                        )
-                        chg_values[key] = partner_value
+                        if (
+                            key not in ["lastname", "firstname"]
+                            or mr_value.lower() != partner_value.lower()
+                        ):
+                            # Just changing lower/upper letters is not a sensitive change
+                            chatter_msg_fields += (
+                                "\n "
+                                + key
+                                + ": "
+                                + str(partner_value)
+                                + " -> "
+                                + str(mr_value)
+                                + "<br/>"
+                            )
+                            chg_values[key] = partner_value
             chatter_msg = (
                 "Sensitive data not modified: <br/>"
                 "&lt;field name&gt;: &lt;partner value&gt; -> "
