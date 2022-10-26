@@ -1,7 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import _, api, models
 
 
 class MembershipRequest(models.Model):
@@ -34,11 +34,23 @@ class MembershipRequest(models.Model):
                 failure_reason = _("New partner but already known email")
         return auto_val, failure_reason
 
-    def _auto_validate(self, auto_val):
+    @api.model
+    def _get_fields_to_keep_empty(self):
         """
-        Checks conditions from ticket #26993 to accept auto_validation
-        or not. If accepted, then auto_validate.
-        If not, returns the raison of refusing auto-validation.
+        Auto-validation is not possible if one of these fields is filled.
+        """
+        return [
+            "street_man",
+            "number",
+            "box",
+        ]
+
+    def _check_auto_validate(self, auto_val):
+        """
+        Returns auto_val, failure_reason where
+        * auto_val is True if auto_validation is permitted, False otherwise
+        * failure reason is the reason why auto_validation is not permitted (empty if auto_val
+        is True)
         """
         self.ensure_one()
         failure_reason = ""
@@ -49,13 +61,7 @@ class MembershipRequest(models.Model):
             auto_val = False
             failure_reason = _("No email provided")
 
-        fields_tokeep_empty_str = [
-            "street_man",
-            "number",
-            "box",
-            "mobile",
-            "phone",
-        ]
+        fields_tokeep_empty_str = self._get_fields_to_keep_empty()
         fields_tokeep_empty = [
             self.mapped(field)[0] for field in fields_tokeep_empty_str
         ]
@@ -93,31 +99,19 @@ class MembershipRequest(models.Model):
             if not auto_val:
                 failure_reason = _("Firstname and lastname do not correspond")
 
-        # 26993/2.4.2.2.2 - first part
-        if (
-            auto_val
-            and self.partner_id
-            and self.address_id
-            and self.partner_id.country_id
-        ):
-            # for existing partner with address, zip must be equal
-            auto_val = self.partner_id.zip == self.address_id.zip
-            if not auto_val:
-                failure_reason = _(
-                    "Zip on the partner and zip on the address do not correspond"
-                )
-
-        # 26993/2.4.2.2.2 - second part
-        if auto_val and self.partner_id and self.city_id and self.partner_id.country_id:
-            # for existing partner with address, zip must be equal
-            auto_val = self.partner_id.zip == self.city_id.zipcode
-            if not auto_val:
-                failure_reason = _(
-                    "Zip on the partner and zip on the city do not correspond"
-                )
-
         if auto_val:
             auto_val, failure_reason = self._check_auto_validation_with_emails(auto_val)
+
+        return auto_val, failure_reason
+
+    def _auto_validate(self, auto_val=True):
+        """
+        Checks conditions from ticket #26993 to accept auto_validation
+        or not. If accepted, then auto_validate.
+        If not, returns the raison of refusing auto-validation.
+        """
+
+        auto_val, failure_reason = self._check_auto_validate(auto_val)
 
         if auto_val:
             # automatic validation
