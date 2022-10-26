@@ -17,6 +17,7 @@
     "website": "https://github.com/OCA/mozaik",
     "depends": [
         "mozaik_membership_request_autovalidate",
+        "mozaik_address",
     ],
     "data": [
         "data/ir_config_parameter.xml",

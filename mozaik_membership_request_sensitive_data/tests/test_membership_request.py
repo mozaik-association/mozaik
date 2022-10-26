@@ -50,7 +50,7 @@ class MembershipRequestTest(TransactionCase):
         )
         self.omar_wife.flush()
 
-    def test_sensitive_data(self):
+    def test_sensitive_data_classic(self):
         """
         Define the following sensitive data:
         "[lastname, firstname, email, birthdate_date, phone, mobile]"
@@ -130,3 +130,58 @@ class MembershipRequestTest(TransactionCase):
             mr_obj.get_format_phone_number("0479123456"),
             "Phone shouldn't be changed",
         )
+
+    def test_sensitive_data_address(self):
+        """
+        Set address as specific data.
+
+        Create a partner without address.
+        FIRST MEMBERSHIP REQUEST
+        Add an address -> validated
+
+        SECOND MEMBERSHIP REQUEST
+        Change number of the address -> sensitive data wasn't modified.
+        """
+        # We set specific sensitive data.
+        self.env["ir.config_parameter"].sudo().set_param(
+            "membership.request.sensitive.fields",
+            "[technical_name]",
+        )
+        mr_obj = self.env["membership.request"]
+        partner_obj = self.env["res.partner"]
+
+        harry = partner_obj.create({"lastname": "Potter", "firstname": "Harry"})
+
+        # First membership request
+        harry.button_modification_request()
+        mr = mr_obj.search([("partner_id", "=", harry.id)])
+        self.assertEqual(len(mr), 1)
+
+        mr.write(
+            {
+                "country_id": self.env["res.country"].search([("code", "=", "BE")]).id,
+                "city_id": self.env.ref("mozaik_address.res_city_1").id,
+                "street_man": "Sous l'escalier",
+                "number": "9",
+            }
+        )
+        mr.validate_request()
+
+        self.assertEqual(mr.state, "validate")
+
+        harry_address = harry.address_address_id
+        self.assertEqual(
+            harry_address.city_id.id, self.env.ref("mozaik_address.res_city_1").id
+        )
+        self.assertEqual(harry_address.number, "9")
+
+        # Second membership request
+        harry.button_modification_request()
+        mr = mr_obj.search([("partner_id", "=", harry.id)])
+        self.assertEqual(len(mr), 1)
+
+        mr.write({"number": "20"})
+        self.assertEqual(mr.number, "20")
+        mr.validate_request()
+        self.assertEqual(harry.address_address_id.number, "9")
+        self.assertFalse(mr.number)
