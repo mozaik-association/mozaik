@@ -75,15 +75,3 @@ msgstr ""
 #, python-format
 msgid "Partner membership state is conflictual"
 msgstr ""
-
-#. module: mozaik_membership_request_autovalidate
-#: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
-#, python-format
-msgid "Zip on the partner and zip on the address do not correspond"
-msgstr ""
-
-#. module: mozaik_membership_request_autovalidate
-#: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
-#, python-format
-msgid "Zip on the partner and zip on the city do not correspond"
-msgstr ""
