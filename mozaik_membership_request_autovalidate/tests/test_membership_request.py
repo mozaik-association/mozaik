@@ -336,20 +336,3 @@ class TestMembershipRequest(TransactionCase):
         mr._auto_validate(True)
         self.assertEqual(self.federal, jordan.int_instance_id)
         self.assertEqual("validate", mr.state)
-
-        # auto-validate: Nok - 26993/2.4.2.2.2
-        self.assertEqual(jordan.zip, "4500")
-        mr = self.mr_model.create(
-            {
-                "lastname": "DUJARDIN",
-                "firstname": "Jordan",
-                "gender": "male",
-                "request_type": "m",
-                "email": "jordan@duj.fr",
-                "zip_man": "1020",
-            }
-        )
-        mr._auto_validate(True)
-        self.assertTrue(all([mr.country_id, mr.city_id]))
-        self.assertEqual(mr.state, "draft")
-        self.assertFalse(mr.address_id)
