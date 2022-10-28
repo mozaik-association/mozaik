@@ -190,6 +190,7 @@ msgid "Internal Instances"
 msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__int_mandate_id
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mandate.virtual_partner_mandate_search_view
 msgid "Internal Mandate"
 msgstr "Mandat interne"
