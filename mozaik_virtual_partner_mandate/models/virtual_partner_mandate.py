@@ -59,6 +59,9 @@ class VirtualPartnerMandate(models.Model):
     )
 
     sta_mandate_id = fields.Many2one(comodel_name="sta.mandate", string="State Mandate")
+    int_mandate_id = fields.Many2one(
+        comodel_name="int.mandate", string="Internal Mandate"
+    )
     ext_mandate_id = fields.Many2one(
         comodel_name="ext.mandate", string="External Mandate"
     )
@@ -157,6 +160,7 @@ class VirtualPartnerMandate(models.Model):
         return """
         SELECT '%(mandate_type)s.mandate' AS model,
             %(sta_mandate_id)s as sta_mandate_id,
+            %(int_mandate_id)s as int_mandate_id,
             %(ext_mandate_id)s as ext_mandate_id,
             %(ref_partner_id)s as ref_partner_id,
             CONCAT('%(mandate_type)s',mandate.id::varchar(255)) AS key_id,
@@ -221,6 +225,7 @@ class VirtualPartnerMandate(models.Model):
 
         mandate_id = "mandate.id" if mandate_type == "int" else "mandate.unique_id"
         sta_mandate_id = "mandate.id" if mandate_type == "sta" else "NULL::int"
+        int_mandate_id = "mandate.id" if mandate_type == "int" else "NULL::int"
         ext_mandate_id = "mandate.id" if mandate_type == "ext" else "NULL::int"
         sta_instance_id = (
             "assembly.instance_id" if mandate_type == "sta" else "NULL::int"
@@ -232,6 +237,7 @@ class VirtualPartnerMandate(models.Model):
             "mandate_type": AsIs(mandate_type),
             "mandate_id": AsIs(mandate_id),
             "sta_mandate_id": AsIs(sta_mandate_id),
+            "int_mandate_id": AsIs(int_mandate_id),
             "ext_mandate_id": AsIs(ext_mandate_id),
             "ref_partner_id": AsIs(ref_partner_id),
             "sta_instance_id": AsIs(sta_instance_id),
