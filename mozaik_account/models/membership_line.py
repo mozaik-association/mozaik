@@ -269,8 +269,6 @@ class MembershipLine(models.Model):
             else:
                 membership.write({"reference": False})
                 membership.flush()
-        else:
-            reference = None
         return reference, price
 
     @api.model
