@@ -38,7 +38,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_change_address__address_id
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__address_id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__address_address_id
-#: model:ir.model.fields,field_description:mozaik_address.field_res_users__address_address_id
 #: model:ir.module.category,name:mozaik_address.module_category_address
 msgid "Address"
 msgstr ""
@@ -251,6 +250,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__display_name
 #: model:ir.model.fields,field_description:mozaik_address.field_res_country__display_name
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -315,6 +315,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_country__id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__id
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users__id
 msgid "ID"
 msgstr ""
 
@@ -368,6 +369,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city____last_update
 #: model:ir.model.fields,field_description:mozaik_address.field_res_country____last_update
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -505,6 +507,11 @@ msgid "Partners (inactive)"
 msgstr ""
 
 #. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users__address_address_id
+msgid "Personal Address"
+msgstr ""
+
+#. module: mozaik_address
 #: model:ir.ui.menu,name:mozaik_address.postal_coordinate_submenu
 msgid "Postal Coordinates"
 msgstr ""
@@ -583,6 +590,11 @@ msgstr ""
 #. module: mozaik_address
 #: model:res.groups,name:mozaik_address.res_groups_address_user
 msgid "User"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_res_users
+msgid "Users"
 msgstr ""
 
 #. module: mozaik_address
