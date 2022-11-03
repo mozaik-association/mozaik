@@ -294,6 +294,7 @@ class MembershipRequest(models.Model):
                     _("The required age for a membership request is %s") % required_age
                 )
 
+    @api.model
     def _raise_error_check_reference(self, current_id, reference, partner_id):
         """
         If the membership request contains a reference, this reference
