@@ -109,8 +109,6 @@
         "mozaik_membership_payment",
         "mozaik_membership_payment_stripe",
         # "mass_mail_queue_job",
-        # OCA/account-financial-reporting
-        "account_financial_report",
     ],
     "data": [
         # 'views/mail_followers.xml',
