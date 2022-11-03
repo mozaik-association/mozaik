@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-14 16:56+0000\n"
-"PO-Revision-Date: 2022-06-21 12:56+0000\n"
+"PO-Revision-Date: 2022-11-03 21:54+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -184,10 +184,8 @@ msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__int_instance_ids
-#, fuzzy
-#| msgid "Internal Instance"
 msgid "Internal Instances"
-msgstr "Instance interne"
+msgstr "Instances internes"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__int_mandate_id
@@ -281,10 +279,8 @@ msgstr "Instance interne"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__partner_instance_ids
-#, fuzzy
-#| msgid "Internal Instance"
 msgid "Partner Internal Instances"
-msgstr "Instance interne"
+msgstr "Instance interne membre"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model,name:mozaik_virtual_partner_mandate.model_virtual_partner_mandate
@@ -312,7 +308,7 @@ msgstr "Résultat"
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__retrocession_mode
 msgid "Retrocession Mode"
-msgstr ""
+msgstr "Mode de rétrocession"
 
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__start_date
@@ -370,7 +366,7 @@ msgstr "Sans rémunération"
 #. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields.selection,name:mozaik_virtual_partner_mandate.selection__virtual_partner_mandate__retrocession_mode__year
 msgid "Yearly"
-msgstr ""
+msgstr "Annuellement"
 
 #. module: mozaik_virtual_partner_mandate
 #: code:addons/mozaik_virtual_partner_mandate/models/virtual_partner_mandate.py:0
