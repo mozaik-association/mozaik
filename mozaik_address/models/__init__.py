@@ -6,3 +6,4 @@ from . import res_city
 from . import address_address
 from . import co_residency
 from . import res_partner
+from . import res_users
