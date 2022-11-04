@@ -4,7 +4,7 @@
 import logging
 from datetime import timedelta
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -12,6 +12,17 @@ _logger = logging.getLogger(__name__)
 class MembershipLine(models.Model):
 
     _inherit = "membership.line"
+
+    @api.model
+    def _get_states_put_amount_on_membership(self):
+        """
+        For some membership states, we want to set the amount on the
+        membership line.
+        :return: list of membership state codes for which the amount
+        must be written on the membership line.
+        Intended to be extended.
+        """
+        return ["former_member"]
 
     def _mark_as_paid(self, amount, move_id, bank_id=False):
         self.ensure_one()
@@ -22,14 +33,15 @@ class MembershipLine(models.Model):
 
         # when it's a former member, we want to pay the newlly created membership
         membership = self
-        if self.state_id != status and previous_state == "former_member":
+        states_mark_amount = self._get_states_put_amount_on_membership()
+        if self.state_id != status and previous_state in states_mark_amount:
             membership = self.create_following_membership(status, amount)
 
         res = super(MembershipLine, membership)._mark_as_paid(
             amount, move_id, bank_id=bank_id
         )
 
-        if self.state_id != status and previous_state != "former_member":
+        if self.state_id != status and previous_state not in states_mark_amount:
             self.create_following_membership(status)
 
         return res
