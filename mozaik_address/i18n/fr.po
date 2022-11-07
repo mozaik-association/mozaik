@@ -42,7 +42,6 @@ msgstr "Actif"
 #: model:ir.model.fields,field_description:mozaik_address.field_change_address__address_id
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__address_id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__address_address_id
-#: model:ir.model.fields,field_description:mozaik_address.field_res_users__address_address_id
 #: model:ir.module.category,name:mozaik_address.module_category_address
 msgid "Address"
 msgstr "Adresse"
@@ -256,6 +255,7 @@ msgstr "Créé le"
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__display_name
 #: model:ir.model.fields,field_description:mozaik_address.field_res_country__display_name
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users__display_name
 msgid "Display Name"
 msgstr "Nom à afficher"
 
@@ -322,6 +322,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_country__id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__id
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users__id
 msgid "ID"
 msgstr "ID"
 
@@ -377,6 +378,7 @@ msgstr "Lignes d'étiquette"
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city____last_update
 #: model:ir.model.fields,field_description:mozaik_address.field_res_country____last_update
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
@@ -518,6 +520,13 @@ msgid "Partners (inactive)"
 msgstr "Partenaires (inactifs)"
 
 #. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_res_users__address_address_id
+#, fuzzy
+#| msgid "New Main Address"
+msgid "Personal Address"
+msgstr "Nouvelle adresse principale"
+
+#. module: mozaik_address
 #: model:ir.ui.menu,name:mozaik_address.postal_coordinate_submenu
 msgid "Postal Coordinates"
 msgstr "Coordonnées postales"
@@ -603,6 +612,13 @@ msgid "User"
 msgstr "Utilisateur"
 
 #. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_res_users
+#, fuzzy
+#| msgid "User"
+msgid "Users"
+msgstr "Utilisateur"
+
+#. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__website_message_ids
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__website_message_ids
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__website_message_ids
@@ -678,9 +694,6 @@ msgstr "Code postal (Texte)"
 
 #~ msgid "Moved"
 #~ msgstr "A déménagé"
-
-#~ msgid "New Main Address"
-#~ msgstr "Nouvelle adresse principale"
 
 #~ msgid "No longer receives mail at the mentioned address"
 #~ msgstr "Ne reçoit plus de courrier à l'adresse mentionnée"
