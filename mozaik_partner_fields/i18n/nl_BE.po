@@ -6,45 +6,47 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-11-14 13:41+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__age
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__age
 msgid "Age"
-msgstr ""
+msgstr "Leeftijd"
 
 #. module: mozaik_partner_fields
 #: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Age < ..."
-msgstr ""
+msgstr "Leeftijd < ..."
 
 #. module: mozaik_partner_fields
 #: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Age >= ..."
-msgstr ""
+msgstr "Leeftijd >= ..."
 
 #. module: mozaik_partner_fields
 #: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Birth Date <= ..."
-msgstr ""
+msgstr "Geboortedatum <= ..."
 
 #. module: mozaik_partner_fields
 #: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Birth Date > ..."
-msgstr ""
+msgstr "Geboortedatum > ..."
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__birthdate_date
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__birthdate_date
 msgid "Birthdate"
-msgstr ""
+msgstr "Geboortedatum"
 
 #. module: mozaik_partner_fields
 #: model:ir.model,name:mozaik_partner_fields.model_res_partner
@@ -59,7 +61,7 @@ msgstr ""
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__divorced
 msgid "Divorced"
-msgstr ""
+msgstr "Gescheiden"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_facebook
@@ -71,7 +73,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__gender
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__gender
 msgid "Gender"
-msgstr ""
+msgstr "Genderidentiteit"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__id
@@ -89,13 +91,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__introduction
 #: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_form_view
 msgid "Introduction"
-msgstr ""
+msgstr "Introductie"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__is_user
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__is_user
 msgid "Is User"
-msgstr ""
+msgstr "Is een Odoo gebruiker"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner____last_update
@@ -105,7 +107,7 @@ msgstr ""
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__cohabitant
 msgid "Legal Cohabitant"
-msgstr ""
+msgstr "Wettelijk samenwonend"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_linkedin
@@ -117,41 +119,41 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__marital
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__marital
 msgid "Marital"
-msgstr ""
+msgstr "Echtelijk"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__married
 msgid "Married"
-msgstr ""
+msgstr "Getrouwd"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__nationality_id
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__nationality_id
 #: model_terms:ir.ui.view,arch_db:mozaik_partner_fields.res_partner_search_view
 msgid "Nationality"
-msgstr ""
+msgstr "Nationaliteit"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__comment
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__comment
 msgid "Notes"
-msgstr ""
+msgstr "Notities"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__secondary_website
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__secondary_website
 msgid "Secondary Website"
-msgstr ""
+msgstr "Secundaire website"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__separated
 msgid "Separated"
-msgstr ""
+msgstr "Uit elkaar"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__single
 msgid "Single"
-msgstr ""
+msgstr "Alleenstaand"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_twitter
@@ -162,7 +164,7 @@ msgstr ""
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__unmarried
 msgid "Unmarried"
-msgstr ""
+msgstr "Ongetrouwd"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__website
@@ -173,7 +175,7 @@ msgstr ""
 #. module: mozaik_partner_fields
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__widower
 msgid "Widower"
-msgstr ""
+msgstr "Weduwnaar"
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_youtube
