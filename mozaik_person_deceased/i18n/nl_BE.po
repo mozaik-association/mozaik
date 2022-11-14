@@ -1,0 +1,122 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_person_deceased
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: nl_BE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: mozaik_person_deceased
+#: model_terms:ir.ui.view,arch_db:mozaik_person_deceased.deceased_partner_form_view
+msgid ""
+"Attention! If you confirm, the email and (potential)"
+"                             co-residency will be deleted and the partner "
+"will be archived.                             Are you sure that you want to "
+"confirm?"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model_terms:ir.ui.view,arch_db:mozaik_person_deceased.deceased_partner_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model_terms:ir.ui.view,arch_db:mozaik_person_deceased.deceased_partner_form_view
+msgid "Confirm"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model,name:mozaik_person_deceased.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_abstract_assembly__death_date
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__death_date
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_ext_assembly__death_date
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_int_assembly__death_date
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_res_partner__death_date
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_res_users__death_date
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_sta_assembly__death_date
+msgid "Date of death"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: code:addons/mozaik_person_deceased/models/res_partner.py:0
+#, python-format
+msgid "Death date cannot be in the future."
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.actions.act_window,name:mozaik_person_deceased.deceased_partner_action
+#: model:ir.model,name:mozaik_person_deceased.model_deceased_partner
+#: model_terms:ir.ui.view,arch_db:mozaik_person_deceased.deceased_partner_form_view
+msgid "Deceased Partner"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_abstract_assembly__is_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_ext_assembly__is_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_int_assembly__is_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_res_partner__is_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_res_users__is_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_sta_assembly__is_deceased
+#: model_terms:ir.ui.view,arch_db:mozaik_person_deceased.res_partner_form_view
+msgid "Deceased partner"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__id
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__name
+msgid "Name"
+msgstr ""
+
+#. module: mozaik_person_deceased
+#: model:ir.model.fields,field_description:mozaik_person_deceased.field_deceased_partner__partner_id
+msgid "Partner"
+msgstr ""
