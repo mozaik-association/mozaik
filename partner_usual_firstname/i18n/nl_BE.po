@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-11-14 13:41+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: partner_usual_firstname
 #: model:ir.model,name:partner_usual_firstname.model_res_partner
@@ -38,16 +40,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner__usual_firstname
 #: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users__usual_firstname
 msgid "Usual Firstname"
-msgstr ""
+msgstr "Gebruikelijke voornaam"
 
 #. module: partner_usual_firstname
 #: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner__usual_lastname
 #: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users__usual_lastname
 msgid "Usual Lastname"
-msgstr ""
+msgstr "Gebruikelijke achternaam"
 
 #. module: partner_usual_firstname
 #: model:ir.model.fields,field_description:partner_usual_firstname.field_res_partner__usual_name
 #: model:ir.model.fields,field_description:partner_usual_firstname.field_res_users__usual_name
 msgid "Usual Name"
-msgstr ""
+msgstr "Gebruikelijke naam"
