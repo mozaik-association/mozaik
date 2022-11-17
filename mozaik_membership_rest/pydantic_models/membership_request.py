@@ -32,6 +32,7 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     indexation_comments: str = None
     note: str = None
     distribution_list_ids: List[int] = []
+    distribution_list_ids_opt_out: List[int] = []
     is_company: bool = None
     involvement_category_ids: List[int] = []
     involvement_category_codes: List[str] = []

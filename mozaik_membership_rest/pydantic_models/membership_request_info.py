@@ -48,6 +48,9 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     distribution_lists: List[DistributionListInfo] = pydantic.Field(
         [], alias="distribution_list_ids"
     )
+    distribution_lists_opt_out: List[DistributionListInfo] = pydantic.Field(
+        [], alias="distribution_list_ids_opt_out"
+    )
     is_company: bool = False
     involvement_categories: List[InvolvementCategoryInfo] = pydantic.Field(
         [], alias="involvement_category_ids"
