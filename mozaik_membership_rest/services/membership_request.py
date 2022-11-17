@@ -92,23 +92,28 @@ class MembershipRequestService(Component):
                 vals[field_name] = False
         return vals
 
-    def _validate_membership_request_input(self, input_data):
-        vals = input_data.dict()
-        if vals["distribution_list_ids"]:
+    def _manage_distribution_list_ids(self, vals, key):
+        if vals[key]:
             dlists = self.env["distribution.list"].search(
                 [
-                    ("id", "in", vals["distribution_list_ids"]),
+                    ("id", "in", vals[key]),
                     ("newsletter", "=", True),
                 ]
             )
             if dlists:
-                vals["distribution_list_ids"] = [(6, 0, dlists.ids)]
+                vals[key] = [(6, 0, dlists.ids)]
             else:
-                del vals["distribution_list_ids"]
+                del vals[key]
                 _logger.info(
                     "Unknown distribution_list_ids with id %s",
-                    vals["distribution_list_ids"],
+                    vals[key],
                 )
+        return vals
+
+    def _validate_membership_request_input(self, input_data):
+        vals = input_data.dict()
+        vals = self._manage_distribution_list_ids(vals, "distribution_list_ids")
+        vals = self._manage_distribution_list_ids(vals, "distribution_list_ids_opt_out")
         vals = self._validate_involvement_category(vals)
         vals = self._validate_voluntaries(vals)
         if vals["interest_ids"]:
