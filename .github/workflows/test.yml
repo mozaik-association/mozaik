@@ -6,7 +6,8 @@ on:
       - "14.0*"
   push:
     branches:
-      - "14.0*"
+      - "14.0"
+      - "14.0-ocabot-*"
 
 jobs:
   test:
@@ -20,6 +21,8 @@ jobs:
           - container: ghcr.io/oca/oca-ci/py3.6-odoo14.0:latest
             makepot: "true"
             name: test with Odoo
+          - container: ghcr.io/oca/oca-ci/py3.6-ocb14.0:latest
+            name: test with OCB
     services:
       postgres:
         image: postgres:9.6

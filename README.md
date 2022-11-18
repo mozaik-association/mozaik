@@ -1,46 +1,35 @@
-![Licence](https://img.shields.io/badge/licence-AGPL--3-blue.svg)
-[![Build Status](https://travis-ci.org/acsone/mozaik.svg?branch=8.0)](https://travis-ci.org/acsone/mozaik)
-[![Coverage Status](https://coveralls.io/repos/acsone/mozaik/badge.svg?branch=8.0)](https://coveralls.io/r/acsone/mozaik?branch=8.0)
-Mozaik
-======
 
-A suite of Odoo modules to manage large associative organizations (members, committees, subscriptions, ...).
+<!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
+[![Pre-commit Status](https://github.com/mozaik-association/mozaik/actions/workflows/pre-commit.yml/badge.svg?branch=14.0)](https://github.com/mozaik-association/mozaik/actions/workflows/pre-commit.yml?query=branch%3A14.0)
+[![Build Status](https://github.com/mozaik-association/mozaik/actions/workflows/test.yml/badge.svg?branch=14.0)](https://github.com/mozaik-association/mozaik/actions/workflows/test.yml?query=branch%3A14.0)
+[![codecov](https://codecov.io/gh/mozaik-association/mozaik/branch/14.0/graph/badge.svg)](https://codecov.io/gh/mozaik-association/mozaik)
+<!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
-A [presentation from Odoo Experience 2015](http://www.slideshare.net/acsone/mozaik-managing-a-political-party-with-odoo) is available, illustrating a small subset of features.
+<!-- /!\ do not modify above this line -->
 
-Summary
--------
+# Mozaik
 
-[Ecolo](http://www.ecolo.be) (the green Belgian political party) entrusted to [Acsone](http://www.acsone.eu) the development of Mozaik, an application to manage and communicate with it's human resources: be it members (and manage membership), supporters, Ecolo politicians and political representatives in the boards of various organisations, and state owned agencies.
+...
 
-By choice model of society, Ecolo since it's beginning always used as many FOSS as possible for itself, and also promoted a maximum use of OOS by the states administrations, that's why you can get the whole application and modules of Mozaik open sourced under AGPL.
+<!-- /!\ do not modify below this line -->
 
-What can you do with Mozaik ?
------------------------------
+<!-- prettier-ignore-start -->
 
-- the follow-up of the members, supporters, politicians and representatives with a complete membership workflow and a fluent and performing communication
-- the follow-up of the mandates including their renewal, their declaration and the declaration of their revenues
-- the follow-up of the membership fees
-- the definition of the state's structure and party's organisation
+[//]: # (addons)
 
-Mozaik required the development of some extensions to the basis features:
-- advanced CRM: multi-email, multi-address, local address validation, multi-phone, multi-relationship between partners, management of duplicates, ...
-- dynamic distribution lists (complex expressions associated with static opt-in/opt-out lists based on a multi-model search engine) together with mass (mailing) features
+This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
 
-Who can benefit from Mozaik ?
------------------------------
+[//]: # (end addons)
 
-- nearly *as is* for the Belgians political parties, but also for any political party in the world, as they probably have to manage members, membership fees, supporters, politicians, electoral process, and state and organisation structures.
-- for medium to big ngo, that have also to manage members, and sometimes complex organisational structures that can evolve
-- for state administrations, that could implement our state structure modules
-- for any kind of organisations, that could benefit from advanced CRM features and/or mass functions
+<!-- prettier-ignore-end -->
 
-More technically
-----------------
+## Licenses
 
-Some more generic modules have been move to other repositories:
-- [Acsone Addons](https://github.com/acsone/acsone-addons) for distribution lists and newsletters (```distribution_list```)
-- [OCA/connector](https://github.com/OCA/connector)
-- [OCA/partner-contact](https://github.com/OCA/partner-contact)
-- [OCA/social](https://github.com/OCA/social)
+This repository is licensed under [AGPL-3.0](LICENSE).
 
+However, each module can have a totally different license, as long as they adhere to Mozaik Association
+policy. Consult each module's `__manifest__.py` file, which contains a `license` key
+that explains its license.
+
+----
+<!-- /!\ Non OCA Context : Set here the full description of your organization. -->

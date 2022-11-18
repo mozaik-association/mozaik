@@ -15,7 +15,6 @@ build/
 develop-eggs/
 dist/
 eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -73,6 +72,3 @@ docs/_build/
 
 # OCA rules
 !static/lib/
-
-# release
-release/
