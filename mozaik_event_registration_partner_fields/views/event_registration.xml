@@ -6,7 +6,7 @@
     <record model="ir.ui.view" id="event_registration_form_view">
         <field
             name="name"
-        >event.registration.form (in mozaik_event_registration_add_zip)</field>
+        >event.registration.form (in mozaik_event_registration_partner_fields)</field>
         <field name="model">event.registration</field>
         <field name="inherit_id" ref="event.view_event_registration_form" />
         <field name="arch" type="xml">
