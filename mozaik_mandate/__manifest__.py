@@ -6,7 +6,7 @@
     "version": "14.0.1.1.0",
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
-    "website": "https://github.com/OCA/mozaik",
+    "website": "https://github.com/mozaik-association/mozaik",
     "category": "Political Association",
     "depends": [
         "mozaik_structure",

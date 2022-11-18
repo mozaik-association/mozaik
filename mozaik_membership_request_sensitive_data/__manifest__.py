@@ -14,7 +14,7 @@
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
-    "website": "https://github.com/OCA/mozaik",
+    "website": "https://github.com/mozaik-association/mozaik",
     "depends": [
         "mozaik_membership_request_autovalidate",
         "mozaik_address",
