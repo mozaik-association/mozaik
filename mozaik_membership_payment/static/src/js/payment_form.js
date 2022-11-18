@@ -1,3 +1,4 @@
+/* eslint-disable */
 odoo.define("mozaik_membership_payment.payment_form", function (require) {
     "use strict";
 
