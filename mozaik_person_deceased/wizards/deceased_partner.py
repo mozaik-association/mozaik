@@ -11,18 +11,10 @@ class DeceasedPartner(models.TransientModel):
 
     name = fields.Char()
 
-    partner_id = fields.Many2one("res.partner", readonly=True)
+    partner_id = fields.Many2one("res.partner", readonly=True, required=True)
 
     death_date = fields.Date(string="Date of death", required=True)
 
     def doit(self):
         self.ensure_one()
-        self.partner_id.write(
-            {
-                "is_deceased": True,
-                "death_date": self.death_date,
-                "email": False,
-                "active": False,
-                "address_address_id": False,
-            }
-        )
+        self.partner_id.write({"is_deceased": True, "death_date": self.death_date})

@@ -20,10 +20,16 @@ class ResPartner(models.Model):
             if partner.death_date and partner.death_date > fields.Date.today():
                 raise ValidationError(_("Death date cannot be in the future."))
 
-    @api.onchange("is_deceased")
-    def _onchange_is_deceased(self):
-        for partner in self:
-            if not partner.is_deceased:
-                partner.death_date = False
+    def write(self, vals):
+        if "is_deceased" in vals:
+            if vals["is_deceased"]:
+                vals.update(
+                    {
+                        "email": False,
+                        "active": False,
+                        "address_address_id": False,
+                    }
+                )
             else:
-                partner.death_date = partner.death_date
+                vals.update({"death_date": False})
+        return super().write(vals)
