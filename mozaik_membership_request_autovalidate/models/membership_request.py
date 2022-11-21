@@ -41,8 +41,6 @@ class MembershipRequest(models.Model):
         """
         return [
             "street_man",
-            "number",
-            "box",
         ]
 
     def _check_auto_validate(self, auto_val):
