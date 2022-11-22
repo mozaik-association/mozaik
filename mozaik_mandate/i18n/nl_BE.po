@@ -976,6 +976,14 @@ msgid "New deadline date must be greater than today !"
 msgstr ""
 
 #. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__notes
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__notes
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__notes
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__notes
+msgid "Notes"
+msgstr ""
+
+#. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_needaction_counter
 #: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_needaction_counter
 #: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_needaction_counter
