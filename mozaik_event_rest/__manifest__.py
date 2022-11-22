@@ -17,7 +17,7 @@
         "mozaik_event_image",
         "mozaik_event_description",
         "mozaik_event_publish_date",
-        "mozaik_event_registration_add_zip",
+        "mozaik_event_registration_partner_fields",
         "mozaik_event_security",
         "mozaik_event_stage_draft",
         "mozaik_event_thesaurus",
