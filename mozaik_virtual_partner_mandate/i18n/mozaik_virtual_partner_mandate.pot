@@ -253,6 +253,11 @@ msgid "Not Employee"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__notes
+msgid "Notes"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__identifier
 msgid "Number"
 msgstr ""
