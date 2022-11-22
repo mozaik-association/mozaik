@@ -98,6 +98,7 @@ class VirtualPartnerMandate(models.Model):
     active_mandate = fields.Boolean("Active mandate")
 
     retrocession_mode = fields.Selection(RETROCESSION_MODES_AVAILABLE)
+    notes = fields.Text()
 
     def _compute_int_instance_ids(self):
         self._compute_custom_related(
@@ -173,6 +174,7 @@ class VirtualPartnerMandate(models.Model):
             mandate.end_date,
             mandate.retrocession_mode,
             mandate.active as active_mandate,
+            mandate.notes,
             mandate.designation_int_assembly_id as designation_int_assembly_id,
             designation_assembly.instance_id as designation_instance_id,
             partner_assembly.id as assembly_id,

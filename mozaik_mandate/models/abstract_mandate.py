@@ -68,6 +68,7 @@ class AbstractMandate(models.AbstractModel):
         help="Representative is subject to a declaration of assets",
     )
     alert_date = fields.Date()
+    notes = fields.Text()
 
     @api.depends("create_date")
     def _compute_unique_id(self):
