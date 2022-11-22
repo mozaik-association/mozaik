@@ -7,6 +7,16 @@
         id="registration_event_firstname"
         inherit_id="website_event.registration_attendee_details"
     >
+        <xpath expr="//div[hasclass('col-lg','my-2')][4]" position="replace">
+             <div class="col-lg my-2">
+                <label>Mobile <small>(Optional)</small></label>
+                <input
+                    class="form-control"
+                    type="text"
+                    t-attf-name="#{counter}-mobile"
+                />
+            </div>
+        </xpath>
         <xpath expr="//div[hasclass('col-lg','my-2')][3]" position="after">
              <div class="col-lg my-2">
                 <label>Zipcode <small>(Optional)</small></label>

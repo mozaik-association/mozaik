@@ -12,5 +12,5 @@ class EventRegistration(models.Model):
 
     def _get_website_registration_allowed_fields(self):
         res = super()._get_website_registration_allowed_fields()
-        res.update(["zip"])
+        res.update(["zip", "mobile"])
         return res
