@@ -188,9 +188,3 @@ msgstr ""
 #: model:ir.model,name:mozaik_account.model_add_membership
 msgid "Wizard to create a new membership"
 msgstr ""
-
-#. module: mozaik_account
-#: code:addons/mozaik_account/models/account_bank_statement_line.py:0
-#, python-format
-msgid "You must first select a partner!"
-msgstr ""
