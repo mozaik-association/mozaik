@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-01-18 17:56+0000\n"
+"PO-Revision-Date: 2022-11-23 15:42+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -43,9 +43,8 @@ msgstr "Code postal"
 
 #. module: mozaik_event_registration_partner_fields
 #: model_terms:ir.ui.view,arch_db:mozaik_event_registration_partner_fields.registration_event_firstname
-#, fuzzy
 msgid "Mobile <small>(Optional)</small>"
-msgstr "Code postal <small>(Optionnel)</small>"
+msgstr "GSM <small>(Optionnel)</small>"
 
 #. module: mozaik_event_registration_partner_fields
 #: model:ir.model.fields,field_description:mozaik_event_registration_partner_fields.field_event_registration__zip
