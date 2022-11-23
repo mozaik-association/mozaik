@@ -1,7 +1,6 @@
 # Copyright 2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import _, api, models
-from odoo.exceptions import ValidationError
+from odoo import api, models
 from odoo.fields import first
 from odoo.tools import float_compare
 
@@ -216,9 +215,6 @@ class AccountBankStatementLine(models.Model):
     def process_reconciliation(
         self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None
     ):
-        if self.filtered(lambda l: not l.partner_id):
-            raise ValidationError(_("You must first select a partner!"))
-
         for aml in new_aml_dicts:
             name = aml.get("name")
             if name:

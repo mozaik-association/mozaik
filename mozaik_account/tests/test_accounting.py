@@ -3,7 +3,6 @@
 import random
 import uuid
 
-from odoo.exceptions import ValidationError
 from odoo.fields import first
 from odoo.tests.common import SavepointCase
 
@@ -161,20 +160,6 @@ class TestAccounting(object):
             bank_s.line_ids.move_id,
             self.partner.membership_line_ids.move_id,
         )
-
-    def test_accounting_manual_reconcile_without_partner(self):
-        additional_amount = 1999.99
-        bank_s = self._generate_payment(
-            additional_amount=additional_amount, with_partner=False
-        )
-        bank_s.auto_reconcile()
-        for bank_st in bank_s:
-            for line in bank_st.line_ids:
-                self.assertFalse(line.is_reconciled)
-
-        move_dicts = self._get_manual_move_dict(additional_amount)
-        with self.assertRaises(ValidationError):
-            first(bank_s.line_ids).process_reconciliation(new_aml_dicts=move_dicts)
 
 
 class TestAccountingWithProduct(TestAccounting, SavepointCase):
