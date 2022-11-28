@@ -153,7 +153,7 @@ class MembershipRequest(models.Model):
                         values.update(
                             {"force_int_instance_id": partner.int_instance_ids[0].id}
                         )
-                elif partner.address_address_id.city_id == values["city_id"]:
+                elif partner.address_address_id.city_id.id == values["city_id"]:
                     # 26993/2.4.2.2.1
                     values.update(
                         {
