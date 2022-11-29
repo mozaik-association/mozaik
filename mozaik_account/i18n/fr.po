@@ -192,11 +192,8 @@ msgstr "Impayé"
 msgid "Wizard to create a new membership"
 msgstr "Wizard pour créer une nouvelle adhésion"
 
-#. module: mozaik_account
-#: code:addons/mozaik_account/models/account_bank_statement_line.py:0
-#, python-format
-msgid "You must first select a partner!"
-msgstr "Vous devez selectionner un partenaire !"
+#~ msgid "You must first select a partner!"
+#~ msgstr "Vous devez selectionner un partenaire !"
 
 #~ msgid "Update instances of partner"
 #~ msgstr "Changement d'instance du contact"
