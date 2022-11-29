@@ -656,6 +656,47 @@ class MembershipRequest(models.Model):
                         chg_obj.create(vals)
 
     @api.model
+    def _get_address_id(
+        self,
+        partner_id,
+        technical_name,
+        address_local_street_id,
+        street_man,
+        zip_man,
+        city_id,
+    ):
+        """
+        Search if the same address already exists, to avoid creating a new one.
+
+        Pay attention to the case where
+        * the address on the mr does not contain a street; AND
+         * the address on the partner does; AND
+        * the zipcode on the partner and on the mr are the same
+
+        because in this case, the address on the partner is more precise than on the mr,
+        and we do not want to erase it.
+        """
+        address_id = (
+            self.env["address.address"]
+            .sudo()
+            .search([("technical_name", "=", technical_name)], limit=1)
+            .id
+        )
+        if partner_id and (zip_man or city_id):
+            partner = self.env["res.partner"].browse(partner_id)
+            partner_address_id = partner.address_address_id
+            zipcode = zip_man or self.env["res.city"].browse(city_id).zipcode
+            if (
+                partner_address_id
+                and partner_address_id.street
+                and not (address_local_street_id or street_man)
+                and (partner_address_id.zip == zipcode)
+            ):
+                address_id = False
+
+        return address_id
+
+    @api.model
     def _pre_process(self, vals):
         """
         * Try:
@@ -746,12 +787,13 @@ class MembershipRequest(models.Model):
             zip_man,
             country_id,
         )
-        address_id = (
-            address_id
-            or self.env["address.address"]
-            .sudo()
-            .search([("technical_name", "=", technical_name)], limit=1)
-            .id
+        address_id = address_id or self._get_address_id(
+            partner_id,
+            technical_name,
+            address_local_street_id,
+            street_man,
+            zip_man,
+            city_id,
         )
         int_instance_id = self.get_int_instance_id(city_id)
 
