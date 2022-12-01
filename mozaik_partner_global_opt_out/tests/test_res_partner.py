@@ -148,3 +148,16 @@ class TestResPartner(TransactionCase):
         wiz.action_unblacklist_apply()
         self.assertFalse(mb.active)
         self.assertFalse(self.omar_sy.global_opt_out)
+
+    def test_remove_email_unticks_global_opt_out(self):
+        """
+        If email is removed from partner, gloabl opt-out is unticked
+        and email is removed from blacklist
+        """
+        self.omar_sy.write({"global_opt_out": True})
+        mb = self.env["mail.blacklist"].search([("email", "=", "omar.sy@test.com")])
+        self.assertTrue(mb.active)
+
+        self.omar_sy.write({"email": False})
+        self.assertFalse(self.omar_sy.global_opt_out)
+        self.assertFalse(mb.active)

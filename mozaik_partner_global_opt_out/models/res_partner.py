@@ -18,6 +18,12 @@ class ResPartner(models.Model):
         tracking=True,
     )
 
+    def write(self, vals):
+        if not vals.get("email", True):
+            # Forced to call write (instead of update vals) to trigger inverse method
+            self.write({"global_opt_out": False})
+        return super().write(vals)
+
     @api.depends("email")
     def _compute_global_opt_out(self):
         for record in self:
