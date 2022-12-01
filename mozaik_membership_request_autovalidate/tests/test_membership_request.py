@@ -43,7 +43,7 @@ class TestMembershipRequest(TransactionCase):
         )
         mr._auto_validate(False)
         self.assertFalse(mr.partner_id)
-        self.assertEqual("draft", mr.state)
+        self.assertEqual("confirm", mr.state)
 
     def test_no_auto_val_no_email(self):
         """
@@ -64,7 +64,7 @@ class TestMembershipRequest(TransactionCase):
         )
         mr._auto_validate(True)
         self.assertFalse(mr.partner_id)
-        self.assertEqual("draft", mr.state)
+        self.assertEqual("confirm", mr.state)
 
     def test_auto_val_with_city_only(self):
         """
@@ -111,7 +111,7 @@ class TestMembershipRequest(TransactionCase):
         )
         mr._auto_validate(True)
         self.assertFalse(mr.partner_id)
-        self.assertEqual("draft", mr.state)
+        self.assertEqual("confirm", mr.state)
 
     def test_unrecognized_address(self):
         """
@@ -187,7 +187,7 @@ class TestMembershipRequest(TransactionCase):
         mr._auto_validate(True)
         self.assertTrue(mr.partner_id)
         self.assertEqual(thierry, mr.partner_id)
-        self.assertEqual("draft", mr.state)
+        self.assertEqual("confirm", mr.state)
 
     def test_no_autoval_email_not_unique(self):
         """
@@ -214,7 +214,7 @@ class TestMembershipRequest(TransactionCase):
             }
         )
         mr._auto_validate(True)
-        self.assertEqual("draft", mr.state)
+        self.assertEqual("confirm", mr.state)
 
     def test_no_autoeval_with_conflictual_status(self):
         marc = self.env["res.partner"].create(
@@ -246,7 +246,7 @@ class TestMembershipRequest(TransactionCase):
         mr.onchange_partner_component()
         mr._auto_validate(True)
         self.assertTrue(mr.partner_id)
-        self.assertEqual("draft", mr.state)
+        self.assertEqual("confirm", mr.state)
 
     def test_autoval_26993_2_4(self):
         """
@@ -269,7 +269,7 @@ class TestMembershipRequest(TransactionCase):
             {"lastname": "Dujardin", "firstname": "Jordan", "email": "jordan@duj.fr"}
         )
         self.assertEqual(self.federal, jordan.int_instance_id)
-        # We need to explicitely update the DB otherwise
+        # We need to explicitly update the DB otherwise
         # jordan.membership_state_id is not always correctly
         # set on virtual.partner
         jordan.flush()
@@ -314,7 +314,6 @@ class TestMembershipRequest(TransactionCase):
         mr._auto_validate(True)
         self.assertEqual("validate", mr.state)
         self.assertEqual(self.federal.id, jordan.int_instance_id.id)
-        self.assertTrue(mr.address_id)
 
         # Change Jordan's address in Huy, but keep federal instance
         grandplace5 = self.browse_ref("mozaik_address.address_1")

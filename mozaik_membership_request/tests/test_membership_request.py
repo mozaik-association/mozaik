@@ -108,7 +108,7 @@ class TestMembership(TransactionCase):
         output_values = self.mro._pre_process(base_values)
         self.assertEqual(
             output_values.get("int_instance_ids", False),
-            self.rec_partner.int_instance_ids.ids,
+            [(6, 0, self.rec_partner.int_instance_ids.ids)],
             "Instance should be the instance of the partner",
         )
 
@@ -217,27 +217,38 @@ class TestMembership(TransactionCase):
             relations are created
         """
         partner_obj = self.env["res.partner"]
-        congo = self.ref("base.cd")
+        partner = partner_obj.create(
+            {
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "email": "os@test.com",
+                "birthdate_date": date(1980, 1, 12),
+            }
+        )
+        belgium_id = self.ref("base.be")
 
         # 1. partner to update
-        mr = self.rec_mr_update
-        partner = mr.partner_id
-
-        # change some properties
-        vals = {
-            "phone": "444719",
-            "number": "007",
-            "box": "jb",
-            "amount": 7.0,
-            "reference": "+++555/2017/00055+++",
-            "nationality_id": congo,
-        }
+        mr = self.env["membership.request"].create(
+            {
+                "partner_id": partner.id,
+                "lastname": "Ssy",
+                "firstname": "Oomar",
+                "email": "ooss@test.com",
+                "phone": "444719",
+                "force_int_instance_id": self.ref("mozaik_structure.int_instance_02"),
+                "nationality_id": belgium_id,
+            }
+        )
 
         # update the membership request
-        mr.write(vals)
         mr.onchange_other_address_componants()
         mr.onchange_technical_name()
         mr.onchange_phone()
+        mr.write(
+            mr._onchange_partner_id_vals(
+                mr.is_company, mr.request_type, partner.id, mr.technical_name
+            )
+        )
         # validate the membership request
         mr.validate_request()
 
@@ -246,8 +257,6 @@ class TestMembership(TransactionCase):
         self.assertEqual(mr.mobile, partner.mobile)
         self.assertTrue(partner.birthdate_date)
         self.assertEqual(mr.force_int_instance_id.id, partner.int_instance_ids.id)
-        # self.assertEqual(mr.reference, partner.reference) TODO
-        # self.assertEqual(mr.amount, partner.amount)
         self.assertEqual(mr.nationality_id, partner.nationality_id)
 
         # 2. partner to create
@@ -275,7 +284,32 @@ class TestMembership(TransactionCase):
         - If partner has an unpaid membership
         - If partner has a paid membership
         """
-        mr = self.rec_mr_update
+        partner_obj = self.env["res.partner"]
+        partner = partner_obj.create(
+            {
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "email": "os@test.com",
+                "birthdate_date": date(1980, 1, 12),
+            }
+        )
+
+        mr = self.mro.create(
+            {
+                "partner_id": partner.id,
+                "lastname": partner.lastname,
+                "request_type": "m",
+                "force_int_instance_id": self.ref("mozaik_structure.int_instance_03"),
+            }
+        )
+        mr.onchange_other_address_componants()
+        mr.onchange_technical_name()
+        mr.onchange_phone()
+        mr.write(
+            mr._onchange_partner_id_vals(
+                mr.is_company, mr.request_type, partner.id, mr.technical_name
+            )
+        )
         mr2 = mr.copy()
         mr3 = mr.copy()
         partner = mr.partner_id
@@ -484,7 +518,7 @@ class TestMembership(TransactionCase):
             "year": d.year,
             "request_type": "m",
         }
-        mr = mr_obj.with_context(mode="ws").create(vals)
+        mr = mr_obj.with_context(mode="pre_process").create(vals)
         self.assertRaises(ValidationError, mr.validate_request)
 
         d = date.today() - relativedelta(years=minage)
@@ -666,3 +700,102 @@ class TestMembership(TransactionCase):
                     "partner_id": self.partner.id,
                 }
             )
+
+    def test_modify_partial_address(self):
+        """
+        1. A member has a partial address (no street).
+        We make and validate a membership request with another partial address, but from
+        another city (with another instance).
+        City and instance must NOT change.
+
+        2. Same test but the address on the MR is complete.
+        City and instance MUST change.
+        """
+        country_be = self.env.ref("base.be")
+        instance_lg = self.env["int.instance"].create(
+            {
+                "name": "Liège",
+                "power_level_id": self.env.ref(
+                    "mozaik_structure.int_power_level_05"
+                ).id,
+            }
+        )
+        instance_namur = self.env["int.instance"].create(
+            {
+                "name": "Namur",
+                "power_level_id": self.env.ref(
+                    "mozaik_structure.int_power_level_05"
+                ).id,
+            }
+        )
+        city_lg = self.env["res.city"].create(
+            {
+                "name": "Liège",
+                "zipcode": "4000",
+                "country_id": country_be.id,
+                "int_instance_id": instance_lg.id,
+            }
+        )
+        city_namur = self.env["res.city"].create(
+            {
+                "name": "Namur",
+                "zipcode": "5000",
+                "country_id": country_be.id,
+                "int_instance_id": instance_namur.id,
+            }
+        )
+        partial_address = self.env["address.address"].create(
+            {
+                "country_id": country_be.id,
+                "city_id": city_lg.id,
+            }
+        )
+
+        harry = self.env["res.partner"].create(
+            {
+                "lastname": "Potter",
+                "firstname": "Harry",
+                "address_address_id": partial_address.id,
+                "force_int_instance_id": instance_lg.id,
+            }
+        )
+        w = self.env["add.membership"].create(
+            {
+                "partner_id": harry.id,
+                "int_instance_id": instance_lg.id,
+                "price": 20,
+                "state_id": self.env.ref("mozaik_membership.member").id,
+            }
+        )
+        w.action_add()
+        self.assertEqual(harry.membership_state_id.code, "member")
+        self.assertEqual(harry.int_instance_ids, instance_lg)
+
+        # 1.
+        m = self.env["membership.request"].create(
+            {
+                "partner_id": harry.id,
+                "lastname": harry.lastname,
+                "country_id": country_be.id,
+                "city_id": city_namur.id,
+            }
+        )
+        m.write(m._onchange_partner_id_vals(False, False, harry.id, False))
+        m.onchange_city_id()
+        self.assertEqual(m.int_instance_ids, instance_namur)
+        m.validate_request()
+        self.assertEqual(harry.address_address_id, partial_address)
+        self.assertEqual(harry.int_instance_ids, instance_lg)
+
+        # 2.
+        m2 = m.copy()
+        m2.write(
+            {
+                "street_man": "Rue du Puits",
+                "number": "12",
+            }
+        )
+        m2.validate_request()
+        self.assertEqual(harry.address_address_id.city_id, city_namur)
+        self.assertEqual(harry.address_address_id.street, "Rue du Puits 12")
+        self.assertEqual(harry.int_instance_ids, instance_namur)

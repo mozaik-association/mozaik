@@ -22,6 +22,17 @@ class MembershipRequest(models.Model):
             if record.event_registration_id:
                 record.force_autoval = record.event_registration_id.force_autoval
 
+    @api.model
+    def _find_lastname(self, vals):
+        """
+        For events, partner is given in 'associated_partner_id' field, not 'partner_id',
+        hence we give the partner inside the context.
+        """
+        res = super()._find_lastname(vals)
+        if self.env.context.get("mr_partner_id", False):
+            return True
+        return res
+
     def validate_request(self):
         """
         If the membership request is coming from an event registration

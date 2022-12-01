@@ -74,6 +74,7 @@ class AddressAddress(models.Model):
         string="Partners (inactive)",
         domain=[("active", "=", False)],
     )
+    has_street = fields.Boolean(compute="_compute_has_street")
 
     @api.model
     def _get_default_country_code(self):
@@ -239,3 +240,8 @@ class AddressAddress(models.Model):
             value = values[field] or "0"
             technical_value.append(format_value(value))
         return "#".join(technical_value)
+
+    @api.depends("street_man", "street2")
+    def _compute_has_street(self):
+        for address in self:
+            address.has_street = address.street_man or address.street2

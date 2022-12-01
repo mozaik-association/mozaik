@@ -8,7 +8,6 @@
                 <search string="Membership Requests">
                     <field name="partner_id" />
                     <field name="int_instance_ids" />
-                    <field name="address_id" />
                     <field
                     string="Age >= ..."
                     name="age"
@@ -156,7 +155,7 @@
                     <field name="firstname" />
                     <field name="request_type" />
                     <field name="partner_id" />
-                    <field name="int_instance_ids" />
+                    <field name="int_instance_ids" widget="many2many_tags" />
                     <field name="is_company" />
                     <field name="state" />
 
@@ -443,13 +442,6 @@
                                 name="indexation_comments"
                                 attrs="{'invisible':[('is_company', '=', True)]}"
                             />
-                            </page>
-                            <page string="Coordinates" name="coordinates">
-                                <group>
-                                    <group>
-                                        <field name="address_id" readonly="1" />
-                                    </group>
-                                </group>
                             </page>
                             <page string="Payment" name="payment">
                                 <group>

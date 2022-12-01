@@ -83,3 +83,9 @@ class AddressAddress(models.Model):
                 record.street_man = record.address_local_street_id.local_street
                 record.select_alternative_address_local_street = False
             record.street_man = False
+
+    @api.depends("street_man", "street2", "address_local_street_id")
+    def _compute_has_street(self):
+        super()._compute_has_street()
+        for address in self.filtered("address_local_street_id"):
+            address.has_street = True
