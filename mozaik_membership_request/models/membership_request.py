@@ -1343,41 +1343,17 @@ class MembershipRequest(models.Model):
         Make special combinations of domains to try to find
         a unique partner_id
         """
-        partner_obj = self.env["virtual.custom.partner"]
         partner_domains = self._get_partner_domains(recognizable_values)
-        partner_id = False
-        virtual_partner_id = self.persist_search(partner_obj, partner_domains)
-        # because this is not a real partner but a virtual partner
-        if virtual_partner_id:
-            partner_id = virtual_partner_id.partner_id
-        return partner_id
+        for domain in partner_domains:
+            try:
+                safe_domain = safe_eval.safe_eval(domain)
+            except Exception as e:
+                raise ValidationError(_("Invalid Data")) from e
+            res_ids = self.env["res.partner"].search(safe_domain)
+            if len(res_ids) == 1:
+                return res_ids
 
-    def persist_search(self, model_obj, domains):
-        """
-        This method will make a search with a list of domain and return result
-        only if it is a single result
-        :type model_obj: model object into odoo (ex: res.partner)
-        :param model_obj: used to make the research
-        :type domains: []
-        :param domains: contains a list of domains
-        :rparam: result of the search
-        """
-
-        def rec_search(loop_counter):
-            if loop_counter >= len(domains):
-                return False
-            else:
-                try:
-                    domain = safe_eval.safe_eval(domains[loop_counter])
-                except Exception as e:
-                    raise ValidationError(_("Invalid Data")) from e
-                model_ids = model_obj.search(domain)
-                if len(model_ids) == 1:
-                    return model_ids[0]
-                else:
-                    return rec_search(loop_counter + 1)
-
-        return rec_search(0)
+        return False
 
     def get_technical_name(
         self,
@@ -1540,14 +1516,15 @@ class MembershipRequest(models.Model):
                     and mr.int_instance_ids != partner.int_instance_ids
                 )
             ):
-                # If partner is without_membership, no membership line exists on it,
-                # hence the force instance will not be modified.
                 mr._validate_request_membership(mr, partner)
 
             if (
                 mr.result_type_id.code == "without_membership"
                 and mr.force_int_instance_id
             ):
+                # If partner is without_membership, no membership line exists on it,
+                # hence the force instance will not be modified inside
+                # _validate_request_membership, we must do it explicitly
                 partner_values["force_int_instance_id"] = mr.force_int_instance_id
 
             if mr.address_id:
