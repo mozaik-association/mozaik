@@ -1,0 +1,1574 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_committee
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: nl_BE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_selection_committee_form_view
+msgid "#EP"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_selection_committee_form_view
+msgid "#SP"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/models/abstract_selection_committee.py:0
+#, python-format
+msgid "%s (copy)"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
+msgid ""
+"<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
+"                    External Candidatures\n"
+"                </span>"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
+msgid ""
+"<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
+"                    Internal Candidatures\n"
+"                </span>"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
+msgid ""
+"<span class=\"oe_horizontal_separator oe_clear oe_inline\">\n"
+"                    State Candidatures\n"
+"                </span>"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step2
+msgid ""
+"<span name=\"go-wizard\" attrs=\"{'invisible': [('error_lines', '!=', [])]}\">\n"
+"                            or\n"
+"                        </span>"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step1
+msgid ""
+"<span name=\"go-wizard\" attrs=\"{'invisible': [('source_file', '=', False)]}\">\n"
+"                            or\n"
+"                        </span>"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step2
+msgid "<strong>No error detected!</strong>"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/models/abstract_candidature.py:0
+#, python-format
+msgid "A candidature already exists for this partner in this category"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/models/abstract_candidature.py:0
+#, python-format
+msgid ""
+"A decision date is mandatory on the selection committee when electing a "
+"candidature."
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/models/abstract_candidature.py:0
+#, python-format
+msgid ""
+"A decision date is mandatory on the selection committee when non-electing a "
+"candidature."
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__assembly_id
+msgid "Abstract Assembly"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__assembly_category_id
+msgid "Abstract Assembly Category"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_abstract_candidature
+msgid "Abstract Candidature"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__candidature_ids
+msgid "Abstract Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_abstract_mandate
+msgid "Abstract Mandate"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__mandate_ids
+msgid "Abstract Mandates"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_abstract_selection_committee
+msgid "Abstract Selection Committee"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_needaction
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_needaction
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_needaction
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_needaction
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_needaction
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_needaction
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_needaction
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__active
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__active
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__active
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__active
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__active
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__active
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__active
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__active
+msgid "Active"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Add a new Candidature"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/models/abstract_selection_committee.py:0
+#, python-format
+msgid "Add a new candidature"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__months_before_end_of_mandate
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__months_before_end_of_mandate
+msgid "Alert Delay (#Months)"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_search_view
+msgid "All"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "All Candidatures, expired or not"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.ext_selection_committee_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.int_selection_committee_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_selection_committee_form_view
+msgid "All Details"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.ext_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.int_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_search_view
+msgid "Assembly"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_attachment_count
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Back to Declared"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step1
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step2
+msgid "Cancel"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__partner_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__partner_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__partner_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__partner_id
+msgid "Candidate"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Candidate is elected but position non elected (%s) is set"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_mandate__candidature_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__sta_candidature_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_mandate__candidature_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_mandate__candidature_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_mandate__candidature_id
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+msgid "Candidature"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Candidature is not flagged as effective"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Candidature is not flagged as substitute"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+msgid "Candidature:"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Candidature: inconsistent value for column E/S: should be %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_district_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.ext_assembly_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.int_assembly_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.legislature_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.mandate_category_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_assembly_form_view
+msgid "Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__cartel_composition
+msgid "Cartel Composition"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__abstract_selection_committee__state__done
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__ext_selection_committee__state__done
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__int_selection_committee__state__done
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__sta_selection_committee__state__done
+msgid "Closed"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.module.category,name:mozaik_committee.module_category_committee
+msgid "Committee"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__create_date
+msgid "Create Date"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+msgid "Create mandate from candidature: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__create_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__create_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+msgid "Declare"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+msgid "Declare candidature: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__abstract_candidature__state__declared
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__ext_candidature__state__declared
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__int_candidature__state__declared
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__sta_candidature__state__declared
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Declared"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Declared Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Designate"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Designate all candidatures: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_tree_view
+msgid "Designate candidature: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__abstract_candidature__state__designated
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__ext_candidature__state__designated
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__int_candidature__state__designated
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__sta_candidature__state__designated
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Designated"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Designated Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__designation_int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__designation_int_assembly_id
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_search_view
+msgid "Designation Assembly"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__decision_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__decision_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__decision_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__decision_date
+msgid "Designation Date"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_district__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_instance__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__abstract_candidature__state__draft
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__ext_candidature__state__draft
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__int_candidature__state__draft
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__sta_candidature__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__is_effective
+msgid "Effective"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__election_effective_position
+msgid "Effective Position after Election"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__effective_votes
+msgid "Effective Preferential Votes"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Elect"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__abstract_candidature__state__elected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__ext_candidature__state__elected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__int_candidature__state__elected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__sta_candidature__state__elected
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_form_view
+msgid "Elected"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Elected Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_electoral_district
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__electoral_district_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__electoral_district_id
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_selection_committee_search_view
+msgid "Electoral District"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_electoral_results_wizard
+msgid "Electoral Results Wizard"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_electoral_results_wizard_errors
+msgid "Electoral Results Wizard Errors"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_electoral_results_wizard_lines
+msgid "Electoral Results Wizard Lines"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__error_lines
+msgid "Errors"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__expire_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__expire_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__expire_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__expire_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__expire_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__expire_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__expire_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__expire_date
+msgid "Expiration Date"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_search_view
+msgid "Expired"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Expired Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_ext_assembly
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__ext_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__assembly_id
+msgid "External Assembly"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__assembly_category_id
+msgid "External Assembly Category"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_ext_candidature
+msgid "External Candidature"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.actions.act_window,name:mozaik_committee.ext_candidature_action
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_assembly__ext_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__ext_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__ext_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner__ext_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_users__ext_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__ext_candidature_ids
+#: model:ir.ui.menu,name:mozaik_committee.ext_candidature_submenu
+msgid "External Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_assembly__ext_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__ext_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__ext_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner__ext_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_users__ext_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__ext_candidature_inactive_ids
+msgid "External Candidatures (Inactive)"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.actions.server,name:mozaik_committee.ir_cron_ext_candidature_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_committee.ir_cron_ext_candidature
+#: model:ir.cron,name:mozaik_committee.ir_cron_ext_candidature
+msgid "External Candidatures invalidation"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_ext_mandate
+msgid "External Mandate"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__mandate_ids
+msgid "External Mandates"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__file_lines
+msgid "File Lines"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__data
+msgid "File Values"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_follower_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_channel_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_search_view
+msgid "Group By..."
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_mandate__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_district__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_mandate__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_instance__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_mandate__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_mandate__id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_candidature__message_needaction
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_candidature__message_unread
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_selection_committee__message_needaction
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_selection_committee__message_unread
+#: model:ir.model.fields,help:mozaik_committee.field_ext_candidature__message_needaction
+#: model:ir.model.fields,help:mozaik_committee.field_ext_candidature__message_unread
+#: model:ir.model.fields,help:mozaik_committee.field_ext_selection_committee__message_needaction
+#: model:ir.model.fields,help:mozaik_committee.field_ext_selection_committee__message_unread
+#: model:ir.model.fields,help:mozaik_committee.field_int_candidature__message_needaction
+#: model:ir.model.fields,help:mozaik_committee.field_int_candidature__message_unread
+#: model:ir.model.fields,help:mozaik_committee.field_int_selection_committee__message_needaction
+#: model:ir.model.fields,help:mozaik_committee.field_int_selection_committee__message_unread
+#: model:ir.model.fields,help:mozaik_committee.field_sta_candidature__message_needaction
+#: model:ir.model.fields,help:mozaik_committee.field_sta_candidature__message_unread
+#: model:ir.model.fields,help:mozaik_committee.field_sta_selection_committee__message_needaction
+#: model:ir.model.fields,help:mozaik_committee.field_sta_selection_committee__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_candidature__message_has_error
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_candidature__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_selection_committee__message_has_error
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_selection_committee__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_committee.field_ext_candidature__message_has_error
+#: model:ir.model.fields,help:mozaik_committee.field_ext_candidature__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_committee.field_ext_selection_committee__message_has_error
+#: model:ir.model.fields,help:mozaik_committee.field_ext_selection_committee__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_committee.field_int_candidature__message_has_error
+#: model:ir.model.fields,help:mozaik_committee.field_int_candidature__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_committee.field_int_selection_committee__message_has_error
+#: model:ir.model.fields,help:mozaik_committee.field_int_selection_committee__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_committee.field_sta_candidature__message_has_error
+#: model:ir.model.fields,help:mozaik_committee.field_sta_candidature__message_has_sms_error
+#: model:ir.model.fields,help:mozaik_committee.field_sta_selection_committee__message_has_error
+#: model:ir.model.fields,help:mozaik_committee.field_sta_selection_committee__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step2
+msgid "Import"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#: model:ir.actions.act_window,name:mozaik_committee.electoral_results_wizard_step1_action
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step1
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step2
+#, python-format
+msgid "Import Electoral Results"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__abstract_selection_committee__state__draft
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__ext_selection_committee__state__draft
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__int_selection_committee__state__draft
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__sta_selection_committee__state__draft
+msgid "In Progress"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Inconsistent state for candidature: %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Inconsistent value for column E/S: %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_int_assembly
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__int_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__assembly_id
+msgid "Internal Assembly"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__assembly_category_id
+msgid "Internal Assembly Category"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_int_candidature
+msgid "Internal Candidature"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.actions.act_window,name:mozaik_committee.int_candidature_action
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_assembly__int_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__int_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__int_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner__int_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_users__int_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__int_candidature_ids
+#: model:ir.ui.menu,name:mozaik_committee.int_candidature_submenu
+msgid "Internal Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_assembly__int_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__int_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__int_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner__int_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_users__int_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__int_candidature_inactive_ids
+msgid "Internal Candidatures (Inactive)"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.actions.server,name:mozaik_committee.ir_cron_int_candidature_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_committee.ir_cron_int_candidature
+#: model:ir.cron,name:mozaik_committee.ir_cron_int_candidature
+msgid "Internal Candidatures invalidation"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_int_instance
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__int_instance_id
+msgid "Internal Instance"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_int_mandate
+msgid "Internal Mandate"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__mandate_ids
+msgid "Internal Mandates"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Invalidate"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+msgid "Invalidate candidature: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Invalidate committee: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__is_cartel
+msgid "Is Cartel"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_is_follower
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__is_legislative
+msgid "Is Legislative"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__is_selection_committee_active
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__is_selection_committee_active
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__is_selection_committee_active
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__is_selection_committee_active
+msgid "Is Selection Committee Active?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_district____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_instance____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__write_uid
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__write_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__legislature_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__legislature_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__legislature_id
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_selection_committee_search_view
+msgid "Legislature"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__line_number
+msgid "Line Number"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_selection_committee_form_view
+msgid "List"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__listname
+msgid "Listname"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_main_attachment_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:res.groups,name:mozaik_committee.res_groups_committee_manager
+msgid "Manager"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/models/abstract_candidature.py:0
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+#, python-format
+msgid "Mandate"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__mandate_category_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__mandate_category_id
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_search_view
+msgid "Mandate Category"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__mandate_start_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__mandate_start_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__mandate_start_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__mandate_start_date
+msgid "Mandate Start Date"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.ext_assembly_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.int_assembly_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_assembly_form_view
+msgid "Mandates"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__mandate_deadline_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__mandate_deadline_date
+msgid "Mandates Deadline Date"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__mandate_start_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__mandate_start_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__mandate_start_date
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__mandate_start_date
+msgid "Mandates Start Date"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__partner_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__partner_ids
+msgid "Members"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__error_msg
+msgid "Message"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_has_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_has_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_has_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_has_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_has_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_has_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_has_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__name
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__name
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__name
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__name
+msgid "Name"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__sc_has_allowed_events
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_has_allowed_events
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_has_allowed_events
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_has_allowed_events
+msgid "Need action?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Non-Elect"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__abstract_candidature__state__non-elected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__ext_candidature__state__non-elected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__int_candidature__state__non-elected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__sta_candidature__state__non-elected
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_form_view
+msgid "Non-Elected"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Non-Elected Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Note"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__note
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__note
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__note
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__note
+msgid "Notes"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_needaction_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_has_error_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_candidature__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_selection_committee__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_committee.field_ext_candidature__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_committee.field_ext_selection_committee__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_committee.field_int_candidature__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_committee.field_int_selection_committee__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_committee.field_sta_candidature__message_needaction_counter
+#: model:ir.model.fields,help:mozaik_committee.field_sta_selection_committee__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_candidature__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_selection_committee__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_committee.field_ext_candidature__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_committee.field_ext_selection_committee__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_committee.field_int_candidature__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_committee.field_int_selection_committee__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_committee.field_sta_candidature__message_has_error_counter
+#: model:ir.model.fields,help:mozaik_committee.field_sta_selection_committee__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_candidature__message_unread_counter
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_selection_committee__message_unread_counter
+#: model:ir.model.fields,help:mozaik_committee.field_ext_candidature__message_unread_counter
+#: model:ir.model.fields,help:mozaik_committee.field_ext_selection_committee__message_unread_counter
+#: model:ir.model.fields,help:mozaik_committee.field_int_candidature__message_unread_counter
+#: model:ir.model.fields,help:mozaik_committee.field_int_selection_committee__message_unread_counter
+#: model:ir.model.fields,help:mozaik_committee.field_sta_candidature__message_unread_counter
+#: model:ir.model.fields,help:mozaik_committee.field_sta_selection_committee__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Partner"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Position non elected is incompatible with e_s value: %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Position non elected value should be integer: %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__list_effective_position
+msgid "Position on Effectives List"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__list_substitute_position
+msgid "Position on Substitute List"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Position value should be integer: %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Position(%s) and position non elected(%s) can not be set both"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:res.groups,name:mozaik_committee.res_groups_committee_reader
+msgid "Reader"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Refuse all not elected candidatures: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Reject"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_tree_view
+msgid "Reject candidature: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__abstract_candidature__state__rejected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__ext_candidature__state__rejected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__int_candidature__state__rejected
+#: model:ir.model.fields.selection,name:mozaik_committee.selection__sta_candidature__state__rejected
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Rejected"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Rejected Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_button_declare_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_button_declare_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_button_declare_allowed
+msgid "Sc Button Declare Allowed"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_button_designate_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_button_designate_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_button_designate_allowed
+msgid "Sc Button Designate Allowed"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_button_elected_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_button_elected_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_button_elected_allowed
+msgid "Sc Button Elected Allowed"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_button_non_elected_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_button_non_elected_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_button_non_elected_allowed
+msgid "Sc Button Non Elected Allowed"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_button_reject_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_button_reject_allowed
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_button_reject_allowed
+msgid "Sc Button Reject Allowed"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__sc_display_state
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_display_state
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_display_state
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_display_state
+msgid "Sc Display State"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__sc_interpreter
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_interpreter
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_interpreter
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_interpreter
+msgid "Sc Interpreter"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__sc_state
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__sc_state
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__sc_state
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sc_state
+msgid "Sc State"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.actions.act_window,name:mozaik_committee.ext_selection_committee_action
+#: model:ir.actions.act_window,name:mozaik_committee.int_selection_committee_action
+#: model:ir.actions.act_window,name:mozaik_committee.sta_selection_committee_action
+#: model:ir.model,name:mozaik_committee.model_ext_selection_committee
+#: model:ir.model,name:mozaik_committee.model_int_selection_committee
+#: model:ir.model,name:mozaik_committee.model_sta_selection_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__selection_committee_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__selection_committee_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__selection_committee_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__selection_committee_id
+#: model:ir.ui.menu,name:mozaik_committee.ext_selection_committee_submenu
+#: model:ir.ui.menu,name:mozaik_committee.int_selection_committee_submenu
+#: model:ir.ui.menu,name:mozaik_committee.sta_selection_committee_submenu
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_form_view
+msgid "Selection Committee"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_district__selection_committee_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__selection_committee_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__selection_committee_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__selection_committee_ids
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_selection_committee_tree_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.ext_assembly_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.int_assembly_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_assembly_form_view
+msgid "Selection Committees"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__selection_committee_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__selection_committee_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__selection_committee_inactive_ids
+msgid "Selection Committees (Inactive)"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_form_view
+msgid "Set candidature as elected: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.sta_candidature_form_view
+msgid "Set candidature as non-elected: proceed anyway?"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sort_order
+msgid "Sort Order"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard__source_file
+msgid "Source File"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.int_instance_form_view
+msgid "St. Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_sta_assembly
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__sta_assembly_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__assembly_id
+msgid "State Assembly"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__assembly_category_id
+msgid "State Assembly Category"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_sta_candidature
+msgid "State Candidature"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.actions.act_window,name:mozaik_committee.sta_candidature_action
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_assembly__sta_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__sta_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__sta_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_instance__sta_candidature_count
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner__sta_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_users__sta_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__sta_candidature_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__candidature_ids
+#: model:ir.ui.menu,name:mozaik_committee.sta_candidature_submenu
+msgid "State Candidatures"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_assembly__sta_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_assembly__sta_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_assembly__sta_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_partner__sta_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_res_users__sta_candidature_inactive_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_assembly__sta_candidature_inactive_ids
+msgid "State Candidatures (Inactive)"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.actions.server,name:mozaik_committee.ir_cron_sta_candidature_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_committee.ir_cron_sta_candidature
+#: model:ir.cron,name:mozaik_committee.ir_cron_sta_candidature
+msgid "State Candidatures invalidation"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model,name:mozaik_committee.model_sta_mandate
+msgid "State Mandate"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__mandate_ids
+msgid "State Mandates"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__state
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__state
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__state
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__state
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__state
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__state
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__state
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__state
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
+msgid "Status"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__is_substitute
+msgid "Substitute"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__election_substitute_position
+msgid "Substitute Position after Election"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__substitute_votes
+msgid "Substitute Preferential Votes"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.constraint,message:mozaik_committee.constraint_abstract_selection_committee_date_check
+#: model:ir.model.constraint,message:mozaik_committee.constraint_ext_selection_committee_date_check
+#: model:ir.model.constraint,message:mozaik_committee.constraint_int_selection_committee_date_check
+#: model:ir.model.constraint,message:mozaik_committee.constraint_sta_selection_committee_date_check
+msgid "The start date must be anterior to the deadline date."
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__unique_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__unique_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__unique_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__unique_id
+msgid "Unique id"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Unknown candidate: %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Unknown district: %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_unread
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_unread
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_unread
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_unread
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_unread
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_unread
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_unread
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__message_unread_counter
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:res.groups,name:mozaik_committee.res_groups_committee_user
+msgid "User"
+msgstr ""
+
+#. module: mozaik_committee
+#: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step1
+msgid "Validate"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Votes value should be integer: %s"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__website_message_ids
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_candidature__website_message_ids
+#: model:ir.model.fields,help:mozaik_committee.field_abstract_selection_committee__website_message_ids
+#: model:ir.model.fields,help:mozaik_committee.field_ext_candidature__website_message_ids
+#: model:ir.model.fields,help:mozaik_committee.field_ext_selection_committee__website_message_ids
+#: model:ir.model.fields,help:mozaik_committee.field_int_candidature__website_message_ids
+#: model:ir.model.fields,help:mozaik_committee.field_int_selection_committee__website_message_ids
+#: model:ir.model.fields,help:mozaik_committee.field_sta_candidature__website_message_ids
+#: model:ir.model.fields,help:mozaik_committee.field_sta_selection_committee__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_errors__wizard_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_electoral_results_wizard_lines__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: mozaik_committee
+#: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0
+#: code:addons/mozaik_committee/wizards/electoral_results_wizard.py:0
+#, python-format
+msgid "Wrong number of columns(%s), %s expected!"
+msgstr ""
