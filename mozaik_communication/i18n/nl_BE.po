@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-12-05 22:42+0000\n"
+"Last-Translator: Lieven Vanhollemeersch <lieven.vanhollemeersch@groen.be>\n"
 "Language-Team: none\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/distribution_list.py:0
@@ -46,7 +48,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_needaction
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Actie vereist"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__active
@@ -55,25 +57,25 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__active
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__active
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
 msgid "All Distribution Lists, expired or not"
-msgstr ""
+msgstr "Alle distributielijsten, vervallen of geldig"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_search
 msgid "All Filters, expired or not"
-msgstr ""
+msgstr "Alle filters, vervallen of geldig"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__res_partner_ids
@@ -83,14 +85,14 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_mail_template__model_id
 msgid "Applies to"
-msgstr ""
+msgstr "Heeft betrekking op"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_form
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_form
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_form
 msgid "Archived"
-msgstr ""
+msgstr "Gearchiveerd"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_attachment_count
@@ -115,17 +117,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__birth_date
 #, python-format
 msgid "Birth Date"
-msgstr ""
+msgstr "Geboortedatum"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Birth Date < ..."
-msgstr ""
+msgstr "Geboortedatum < ..."
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Birth Date > ..."
-msgstr ""
+msgstr "Geboortedatum > ..."
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/mailing_trace.py:0
@@ -136,12 +138,12 @@ msgstr ""
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_mail_mail_statistics_search
 msgid "Bounced"
-msgstr ""
+msgstr "Bounced"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__export_file
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/distribution_list_mass_function.py:0
@@ -246,7 +248,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__country_id
 #, python-format
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
@@ -270,13 +272,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__create_uid
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Gemaakt door"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__create_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Gemaakt op"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__partner_id
@@ -307,7 +309,7 @@ msgstr ""
 #: model:ir.model,name:mozaik_communication.model_distribution_list
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__distribution_list_id
 msgid "Distribution List"
-msgstr ""
+msgstr "Distributielijst"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_distribution_list_line
@@ -328,7 +330,7 @@ msgstr ""
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #, python-format
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__email_bounce_counter
@@ -359,12 +361,12 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__email_from
 msgid "Email From"
-msgstr ""
+msgstr "Email van"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__mail_template_id
 msgid "Email Template"
-msgstr ""
+msgstr "Email Template"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_email_template_placeholder
@@ -374,7 +376,7 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_mail_template
 msgid "Email Templates"
-msgstr ""
+msgstr "Email Templates"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_email_template_search
@@ -395,7 +397,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__employee
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__employee
 msgid "Employee"
-msgstr ""
+msgstr "Werknemer"
 
 #. module: mozaik_communication
 #: model:ir.actions.act_window,name:mozaik_communication.distribution_list_mass_function_action
@@ -407,30 +409,30 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__expire_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__expire_date
 msgid "Expiration Date"
-msgstr ""
+msgstr "Vervaldatum"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
 msgid "Expired"
-msgstr ""
+msgstr "Vervallen"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
 msgid "Expired Distribution Lists"
-msgstr ""
+msgstr "Vervallen Distributielijsten"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_template_search
 msgid "Expired Filters"
-msgstr ""
+msgstr "Vervallen Filters"
 
 #. module: mozaik_communication
 #: model:ir.actions.act_window,name:mozaik_communication.export_csv_postal_action
 msgid "Export CSV"
-msgstr ""
+msgstr "Exporteer CSV"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_export_csv
@@ -456,7 +458,7 @@ msgstr ""
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #, python-format
 msgid "Extract"
-msgstr ""
+msgstr "Samenvatting"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__export_file
@@ -468,7 +470,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__firstname
 #, python-format
 msgid "Firstname"
-msgstr ""
+msgstr "Voornaam"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_follower_ids
@@ -500,7 +502,7 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__partner_from_id
 msgid "From"
-msgstr ""
+msgstr "Van"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
@@ -508,7 +510,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__gender
 #, python-format
 msgid "Gender"
-msgstr ""
+msgstr "Gender"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.export_csv_wizard
@@ -591,13 +593,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_email_template_search
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
 msgid "Internal Instance"
-msgstr ""
+msgstr "Interne groepen of organen"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__int_instance_id
 msgid "Internal Instance (for search)"
-msgstr ""
+msgstr "Interne groepen of organen (zoeken)"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
@@ -607,18 +609,18 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__internal_instance_id
 msgid "Internal instance"
-msgstr ""
+msgstr "Interne groep of orgaan"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__int_instance_ids
 msgid "Internal instances"
-msgstr ""
+msgstr "Interne groepen of organen"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/mailing_trace.py:0
 #, python-format
 msgid "Invalid Email Address"
-msgstr ""
+msgstr "Ongeldig mailadres"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__involvement_category_id
@@ -645,7 +647,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__lang
 #, python-format
 msgid "Language"
-msgstr ""
+msgstr "Taal"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model____last_update
@@ -665,7 +667,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_res_partner____last_update
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst aangepast op"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_assembly__last_postal_failure_date
@@ -682,20 +684,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__write_uid
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst geüpdatet door"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__write_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_export_csv__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst geüpdatet op"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__lastname
 #, python-format
 msgid "Lastname"
-msgstr ""
+msgstr "Achternaam"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_mass_function_wizard
@@ -774,7 +776,7 @@ msgstr ""
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__membership_state_id
 msgid "Membership State"
-msgstr ""
+msgstr "Status van het lidmaatschap"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_has_error
@@ -794,7 +796,7 @@ msgstr ""
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #, python-format
 msgid "Mobile"
-msgstr ""
+msgstr "Gsm"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__src_model_id
@@ -811,12 +813,12 @@ msgstr ""
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_search
 msgid "My Lists"
-msgstr ""
+msgstr "Mijn lijsten"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.view_email_template_search
 msgid "My Templates"
-msgstr ""
+msgstr "Mijn templates"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
@@ -825,7 +827,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mozaik_communication.selection__distribution_list_mass_function__sort_by__technical_name
 #, python-format
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.virtual_target_search_view
@@ -958,7 +960,7 @@ msgstr ""
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
 #, python-format
 msgid "Phone"
-msgstr ""
+msgstr "Telefoon"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_mass_function__placeholder_id
