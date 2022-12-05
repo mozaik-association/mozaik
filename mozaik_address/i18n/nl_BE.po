@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-12-05 22:42+0000\n"
+"Last-Translator: Lieven Vanhollemeersch <lieven.vanhollemeersch@groen.be>\n"
 "Language-Team: none\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.res_city_form_view
@@ -31,7 +33,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__active
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__active
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_address_address
@@ -41,7 +43,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__address_address_id
 #: model:ir.module.category,name:mozaik_address.module_category_address
 msgid "Address"
-msgstr ""
+msgstr "Adres"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__address
@@ -52,14 +54,14 @@ msgstr ""
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.res_partner_search_view
 msgid "Address contains"
-msgstr ""
+msgstr "Adres bevat"
 
 #. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.address_address_action
 #: model:ir.ui.menu,name:mozaik_address.address_address_menu
 #: model_terms:ir.ui.view,arch_db:mozaik_address.res_city_form_view
 msgid "Addresses"
-msgstr ""
+msgstr "Adressen"
 
 #. module: mozaik_address
 #: code:addons/mozaik_address/models/co_residency.py:0
@@ -83,12 +85,12 @@ msgstr ""
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.address_address_form_view
 msgid "Archive/reactivate address: proceed anyway?"
-msgstr ""
+msgstr "Archiveer/Heractiveer adres: Toch verdergaan?"
 
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.co_residency_form_view
 msgid "Archive/reactivate co-residency: proceed anyway?"
-msgstr ""
+msgstr "Archiveer/Heractiveer samenhuisstatus: Toch verdergaan?"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__message_attachment_count
@@ -111,18 +113,18 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_address.change_address_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_address.create_co_residency_address_wizard
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleer"
 
 #. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.change_address_act_window
 #: model_terms:ir.ui.view,arch_db:mozaik_address.change_address_form_view
 msgid "Change Address"
-msgstr ""
+msgstr "Verander adres"
 
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.view_partner_form
 msgid "Change address"
-msgstr ""
+msgstr "Verander adres"
 
 #. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_change_address
@@ -139,7 +141,7 @@ msgstr ""
 #. module: mozaik_address
 #: model:ir.ui.menu,name:mozaik_address.address_local_zip_menu
 msgid "Cities"
-msgstr ""
+msgstr "Gemeenten"
 
 #. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_res_city
@@ -150,7 +152,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_address.address_address_search_view
 #: model_terms:ir.ui.view,arch_db:mozaik_address.address_address_tree_view
 msgid "City"
-msgstr ""
+msgstr "Gemeente"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__city_id
@@ -172,7 +174,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:mozaik_address.co_residency_action
 #: model:ir.ui.menu,name:mozaik_address.co_residency_menu
 msgid "Co-Residencies"
-msgstr ""
+msgstr "Samenhuizers"
 
 #. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_co_residency
@@ -200,7 +202,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_res_users__country_id
 #: model_terms:ir.ui.view,arch_db:mozaik_address.address_address_search_view
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__country_code
@@ -210,7 +212,7 @@ msgstr ""
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.create_co_residency_address_wizard
 msgid "Create"
-msgstr ""
+msgstr "Maak"
 
 #. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.create_co_residency_address_action
@@ -235,13 +237,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__create_uid
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_change_address__create_date
 #: model:ir.model.fields,field_description:mozaik_address.field_create_co_residency_address__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Gemaakt op"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__display_name
@@ -270,7 +272,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__expire_date
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__expire_date
 msgid "Expiration Date"
-msgstr ""
+msgstr "Vervaldatum"
 
 #. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__message_follower_ids
