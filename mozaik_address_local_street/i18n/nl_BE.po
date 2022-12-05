@@ -1,0 +1,163 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_address_local_street
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: nl_BE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_form_view
+msgid "1040, 4000,..."
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model,name:mozaik_address_local_street.model_address_address
+msgid "Address"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__local_street_alternative
+msgid "Alternative Street"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__disabled
+msgid "Disabled"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_address__display_name
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_address__id
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__identifier
+msgid "Identifier"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_form_view
+msgid "Info"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_address____last_update
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model,name:mozaik_address_local_street.model_address_local_street
+msgid "Local Street"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_form_view
+msgid "Local Street Alternative..."
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_form_view
+msgid "Local Street..."
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_form_view
+msgid "More Info"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_address_search_view
+msgid "Non-standard Streets"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_address_search_view
+msgid "Not standard streets"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_search_view
+msgid "Obsolete Streets"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_address__address_local_street_id
+msgid "Reference Street"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_search_view
+msgid "Street"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.actions.act_window,name:mozaik_address_local_street.address_local_street_action
+#: model:ir.ui.menu,name:mozaik_address_local_street.address_local_street_menu
+msgid "Streets"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: code:addons/mozaik_address_local_street/models/address_local_street.py:0
+#: model:ir.model.constraint,message:mozaik_address_local_street.constraint_address_local_street_check_unicity_street
+#, python-format
+msgid "This local street identifier already exists for this zip code!"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_address__select_alternative_address_local_street
+msgid "Use Alternative Reference Street"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_search_view
+msgid "With Alternative"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_search_view
+msgid "Without Alternative"
+msgstr ""
+
+#. module: mozaik_address_local_street
+#: model:ir.model.fields,field_description:mozaik_address_local_street.field_address_local_street__local_zip
+#: model_terms:ir.ui.view,arch_db:mozaik_address_local_street.address_local_street_search_view
+msgid "Zip"
+msgstr ""
