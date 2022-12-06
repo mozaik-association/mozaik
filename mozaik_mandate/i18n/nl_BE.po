@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-11-17 12:41+0000\n"
-"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"PO-Revision-Date: 2022-12-06 10:42+0000\n"
+"Last-Translator: Lieven Vanhollemeersch <lieven.vanhollemeersch@groen.be>\n"
 "Language-Team: none\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
@@ -59,6 +59,8 @@ msgstr ""
 msgid ""
 "A representative cannot have 2 identical mandates during the same period!"
 msgstr ""
+"Een vertegenwoordiger kan niet twee identieke mandaten hebben tijdens "
+"dezelfde periode!"
 
 #. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_copy_mandate_wizard__assembly_id
@@ -87,7 +89,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mandate.field_copy_int_mandate_wizard__action
 #: model:ir.model.fields,field_description:mozaik_mandate.field_copy_sta_mandate_wizard__action
 msgid "Action"
-msgstr ""
+msgstr "Actie"
 
 #. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_needaction
@@ -96,7 +98,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_needaction
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Actie vereist"
 
 #. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__active
@@ -105,7 +107,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__active
 #: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__active
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #. module: mozaik_mandate
 #: model:ir.model.fields.selection,name:mozaik_mandate.selection__abstract_copy_mandate_wizard__action__add
@@ -139,7 +141,7 @@ msgstr ""
 #: code:addons/mozaik_mandate/models/res_partner.py:0
 #, python-format
 msgid "Add a new mandate"
-msgstr ""
+msgstr "Voeg een nieuw mandaat toe"
 
 #. module: mozaik_mandate
 #: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__alert_date
