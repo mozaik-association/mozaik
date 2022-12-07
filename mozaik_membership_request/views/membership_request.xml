@@ -56,14 +56,12 @@
                     <filter
                     name="state_validated"
                     string="Done"
-                    domain="[('state', '=', 'validate')]"
-                    context="{'active_test': False}"
+                    domain="[('state', '=', 'validate'), '|', ('active','=',False), ('active', '=', True)]"
                 />
                     <filter
                     name="state_cancelled"
                     string="Cancelled"
-                    domain="[('state', '=', 'cancel')]"
-                    context="{'active_test': False}"
+                    domain="[('state', '=', 'cancel'), '|', ('active','=',False), ('active', '=', True)]"
                 />
                     <separator />
                     <filter
@@ -76,8 +74,8 @@
                     <filter
                     name="all"
                     string="All"
-                    context="{'invisible_expire_date': False, 'active_test': False}"
-                    domain="[]"
+                    context="{'invisible_expire_date': False}"
+                    domain="['|', ('active','=',False), ('active', '=', True)]"
                     help="All Requests, expired or not"
                 />
                     <separator />
