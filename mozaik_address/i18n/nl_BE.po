@@ -71,7 +71,6 @@ msgstr ""
 
 #. module: mozaik_address
 #: code:addons/mozaik_address/models/co_residency.py:0
-#: code:addons/mozaik_address/models/co_residency.py:0
 #, python-format
 msgid "All co-resident must share the same address"
 msgstr ""
@@ -298,6 +297,11 @@ msgstr ""
 #. module: mozaik_address
 #: model_terms:ir.ui.view,arch_db:mozaik_address.address_address_search_view
 msgid "Group By..."
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address__has_street
+msgid "Has Street"
 msgstr ""
 
 #. module: mozaik_address
