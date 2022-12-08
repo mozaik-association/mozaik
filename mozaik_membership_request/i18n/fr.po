@@ -82,6 +82,13 @@ msgid "Active"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__address_id
+#, fuzzy
+#| msgid "Current Address"
+msgid "Address"
+msgstr "Adresse actuelle"
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__age
 msgid "Age"
 msgstr ""
@@ -233,11 +240,6 @@ msgid "Contact"
 msgstr ""
 
 #. module: mozaik_membership_request
-#: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
-msgid "Coordinates"
-msgstr "Coordonnées"
-
-#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__country_id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__country_id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__country_id
@@ -256,11 +258,6 @@ msgstr "Date de création"
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__create_uid
 msgid "Created by"
 msgstr "Créé par"
-
-#. module: mozaik_membership_request
-#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__address_id
-msgid "Current Address"
-msgstr "Adresse actuelle"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__membership_state_id
@@ -516,6 +513,11 @@ msgstr "Est une société"
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_is_follower
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__message_is_follower
 msgid "Is Follower"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__is_pre_processed
+msgid "Is Pre Processed"
 msgstr ""
 
 #. module: mozaik_membership_request
@@ -1084,6 +1086,9 @@ msgstr "Code postal"
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__zip
 msgid "Zip Code"
 msgstr "Code postal"
+
+#~ msgid "Coordinates"
+#~ msgstr "Coordonnées"
 
 #, fuzzy
 #~| msgid "The reference already exists"
