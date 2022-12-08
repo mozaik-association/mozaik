@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+    <record forcecreate="True" id="sepa_payment_mode" model="account.payment.mode">
+        <field name="name">SEPA</field>
+        <field
+            name="payment_method_id"
+            ref="account_banking_sepa_direct_debit.sepa_direct_debit"
+        />
+        <field name="bank_account_link">fixed</field>
+        <field name="fixed_journal_id">False</field>
+    </record>
+
+</odoo>

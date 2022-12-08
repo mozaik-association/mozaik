@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_config_settings_form_view">
+        <field
+            name="name"
+        >res.config.settings.form (in mozaik_membership_sepa_direct_debit)</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div id="collect_customer_payment" position="after">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="debit_order_partner_account"
+                >
+                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Debit Order Partner Account</span>
+                        <div class="text-muted">
+                            If set, account to force for move lines from debit order instead of partner receivable account
+                        </div>
+                        <div class="text-muted">
+                            <field name="debit_order_partner_account_id" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>

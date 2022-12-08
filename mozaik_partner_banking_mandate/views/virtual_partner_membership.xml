@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="virtual_partner_membership_tree_view" model="ir.ui.view">
+        <field
+            name="name"
+        >virtual.partner.membership.tree (in mozaik_partner_banking_mandate)</field>
+        <field name="model">virtual.partner.membership</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_membership.virtual_partner_membership_tree_view"
+        />
+        <field name="arch" type="xml">
+            <field name="lang" position="after">
+                <field name="has_valid_mandate" />
+            </field>
+        </field>
+    </record>
+
+    <record id="virtual_partner_membership_search_view" model="ir.ui.view">
+        <field
+            name="name"
+        >virtual.partner.membership.search (in mozaik_partner_banking_mandate)</field>
+        <field name="model">virtual.partner.membership</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_membership.virtual_partner_membership_search_view"
+        />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <separator />
+                <filter
+                    string="Has Valid Mandate"
+                    name="has_valid_mandate"
+                    domain="[('has_valid_mandate', '=', True)]"
+                />
+            </field>
+        </field>
+    </record>
+
+</odoo>
