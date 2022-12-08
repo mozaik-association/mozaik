@@ -186,9 +186,7 @@ class MembershipRequest(models.Model):
         tracking=True,
     )
 
-    address_id = fields.Many2one(
-        comodel_name="address.address", string="Current Address", tracking=True
-    )
+    address_id = fields.Many2one(comodel_name="address.address", string="Address")
     change_ids = fields.One2many(
         comodel_name="membership.request.change",
         inverse_name="membership_request_id",
@@ -259,6 +257,8 @@ class MembershipRequest(models.Model):
     nationality_id = fields.Many2one(
         comodel_name="res.country", string="Nationality", tracking=True
     )
+
+    is_pre_processed = fields.Boolean()
 
     @api.model
     def _get_status_values(self, request_type, date_from=False):
@@ -655,127 +655,51 @@ class MembershipRequest(models.Model):
                     if create_change:
                         chg_obj.create(vals)
 
-    @api.model
-    def _get_address_id(
-        self,
-        partner_id,
-        technical_name,
-        address_local_street_id,
-        street_man,
-        zip_man,
-        city_id,
-    ):
+    def _find_input_partner(self, vals):
         """
-        Search if the same address already exists, to avoid creating a new one.
-
-        Pay attention to the case where
-        * the address on the mr does not contain a street; AND
-         * the address on the partner does; AND
-        * the zipcode on the partner and on the mr are the same
-
-        because in this case, the address on the partner is more precise than on the mr,
-        and we do not want to erase it.
+        Find, if existing, the partner to add on the membership request,
+        and update lastname, firstname and email, if not given.
+        - If 'mr_partner_id' is a key of _context, then take the id given in the context
+        to associate the partner id and DON'T USE partner_id given in vals.
+        - If 'mr_partner_id' is not in the context, use field partner_id given in vals.
         """
-        address_id = (
-            self.env["address.address"]
-            .sudo()
-            .search([("technical_name", "=", technical_name)], limit=1)
-            .id
-        )
-        if partner_id and (zip_man or city_id):
-            partner = self.env["res.partner"].browse(partner_id)
-            partner_address_id = partner.address_address_id
-            zipcode = zip_man or self.env["res.city"].browse(city_id).zipcode
-            if (
-                partner_address_id
-                and partner_address_id.street
-                and not (address_local_street_id or street_man)
-                and (partner_address_id.zip == zipcode)
-            ):
-                address_id = False
+        # If the mr was already created (survey case), the partner may already
+        # be set on the mr.
+        partner = self.partner_id
+        if not partner and "mr_partner_id" in self._context:
+            mr_partner_id = self._context.get("mr_partner_id")
+            if mr_partner_id:
+                partner = self.env["res.partner"].browse(mr_partner_id)
+        elif not partner and vals.get("partner_id", False):
+            partner = self.env["res.partner"].browse(vals["partner_id"])
 
-        return address_id
+        if partner:
+            if "lastname" not in vals or not vals["lastname"]:
+                vals["lastname"] = partner.lastname
+            if ("firstname" not in vals or not vals["firstname"]) and partner.firstname:
+                vals["firstname"] = partner.firstname
+            if "email" not in vals or not vals["email"]:
+                vals["email"] = partner.email
+        return partner
 
-    @api.model
-    def _pre_process(self, vals):
+    def _find_or_create_address(self, vals):
         """
-        * Try:
-        ** to find a zipcode and a country
-        ** to build a birthdate_date
-        ** to find an existing partner
-        ** to find coordinates
+        Find address.address record if existing (based on technical name).
+        Create a new address.address record if not existing.
+        If no address is given (technical_name == EMPTY ADDRESS) return false.
 
-        :rparam vals: updated input values dictionary ready
-                      to create a ``membership_request``
+        :rparam technical_name: the computed technical name
+        :rparam address_id: the address_id, if already existing
+
         """
-        is_company = vals.get("is_company", False)
-        firstname = False if is_company else vals.get("firstname", False)
-        lastname = vals.get("lastname", False)
-        birthdate_date = False if is_company else vals.get("birthdate_date", False)
-        day = False if is_company else vals.get("day", False)
-        month = False if is_company else vals.get("month", False)
-        year = False if is_company else vals.get("year", False)
-        gender = False if is_company else vals.get("gender", False)
-        email = vals.get("email", False)
-        mobile = vals.get("mobile", False)
-        phone = vals.get("phone", False)
-        address_id = vals.get("address_id", False)
         address_local_street_id = vals.get("address_local_street_id", False)
         city_id = vals.get("city_id", False)
         number = vals.get("number", False)
         box = vals.get("box", False)
         city_man = vals.get("city_man", False)
-        country_id = vals.get("country_id", False)
-        zip_man = vals.get("zip_man", False)
         street_man = vals.get("street_man", False)
-
-        partner_id = vals.get("partner_id", False)
-
-        request_type = vals.get("request_type", False)
-
-        zids = False
-        if zip_man and city_man:
-            domain = [
-                ("zipcode", "=", zip_man),
-                ("name", "ilike", city_man),
-            ]
-            zids = self.env["res.city"].search(domain, limit=1)
-        if not zids and zip_man and not city_man and not country_id:
-            domain = [
-                ("zipcode", "=", zip_man),
-            ]
-            zids = self.env["res.city"].search(domain, limit=1)
-        if zids:
-            cnty_id = self.env["res.country"]._country_default_get("BE").id
-            if not country_id or cnty_id == country_id:
-                country_id = cnty_id
-                city_id = zids.id
-                city_man = False
-                zip_man = False
-
-        if not is_company and not birthdate_date:
-            birthdate_date = self.get_birthdate_date(day, month, year)
-        if mobile:
-            mobile = self.get_format_phone_number(mobile)
-        if phone:
-            phone = self.get_format_phone_number(phone)
-        if email:
-            email = self.get_format_email(email)
-
-        recognizable_values = {
-            "is_company": is_company,
-            "birthdate_date": birthdate_date,
-            "lastname": lastname,
-            "firstname": firstname,
-            "email": email,
-            "mobile": mobile,
-            "phone": phone,
-        }
-
-        if not partner_id:
-            partner = self.get_partner_id(recognizable_values)
-            if partner:
-                partner_id = partner.id
+        zip_man = vals.get("zip_man", False)
+        country_id = vals.get("country_id", False)
 
         technical_name = self.get_technical_name(
             address_local_street_id,
@@ -787,30 +711,209 @@ class MembershipRequest(models.Model):
             zip_man,
             country_id,
         )
-        address_id = address_id or self._get_address_id(
-            partner_id,
-            technical_name,
-            address_local_street_id,
-            street_man,
-            zip_man,
-            city_id,
+        if technical_name == EMPTY_ADDRESS:
+            return technical_name, False
+        existing_address = self.env["address.address"].search(
+            [("technical_name", "=", technical_name)], limit=1
         )
-        int_instance_id = self.get_int_instance_id(city_id)
+        if existing_address:
+            return technical_name, existing_address.id
+        else:
+            return (
+                technical_name,
+                self.env["address.address"]
+                .create(
+                    {
+                        "country_id": country_id,
+                        "street_man": street_man,
+                        "zip_man": zip_man,
+                        "city_man": city_man,
+                        "address_local_street_id": address_local_street_id,
+                        "city_id": city_id,
+                        "street2": vals.get("street2", False),
+                        "number": number,
+                        "box": box,
+                        "sequence": vals.get("sequence", False),
+                    }
+                )
+                .id,
+            )
 
-        res = self._onchange_partner_id_vals(
-            is_company, request_type, partner_id, technical_name
+    @api.model
+    def _manage_address_and_instance(self, vals, partner):
+        """
+        1. If address_id is given in vals: it is taken
+        2. Elif no partner is recognized: address (complete or partial) is always taken
+        3. Else, if
+          A. Partner has no address at all -> partial or complete address is always taken
+          B. Partner has an address -> it can be modified only by a
+            complete (with street) address
+
+        The instance is taken on the address if and only if the address from the MR is taken
+        """
+        values = {}
+        mr_address_id = vals.get("address_id", False)
+        if mr_address_id:
+            # 1.
+            address = self.env["address.address"].browse(mr_address_id)
+            values["address_id"] = mr_address_id
+            values["technical_name"] = (
+                self.env["address.address"].browse(mr_address_id).technical_name
+            )
+
+        else:
+            technical_name, address_id = self._find_or_create_address(vals)
+            address = (
+                self.env["address.address"].browse(address_id) if address_id else False
+            )
+            values["technical_name"] = technical_name
+            if not partner:
+                # 2.
+                values["address_id"] = address_id
+
+            else:
+                # 3.
+                if not partner.address_address_id:
+                    values["address_id"] = address_id
+                else:
+                    if address and address.has_street:
+                        values["address_id"] = address_id
+
+        # Manage instances
+        if values.get("address_id", False):
+            int_instance_id = self.get_int_instance_id(address.city_id.id)
+            values["int_instance_ids"] = [(4, int_instance_id)]
+        elif vals.get("int_instance_ids", False):
+            # If no address but an instance is given, take it
+            values["int_instance_ids"] = vals.get("int_instance_ids")
+
+        # Force instance must also be taken
+        values["force_int_instance_id"] = vals.get("force_int_instance_id", False)
+
+        return values
+
+    @api.model
+    def _pre_process(self, input_vals):  # noqa: C901
+        """
+        Try:
+        ** to find a zipcode and a country
+        ** to build a birthdate_date
+        ** to find an existing partner
+
+        :rparam output_vals: input values dictionary ready
+                      to create a ``membership_request``, built from input_vals input dict
+        """
+        partner = self._find_input_partner(input_vals)
+        partner_id = partner.id if partner else False
+        output_vals = {}
+        if "lastname" not in input_vals or not input_vals["lastname"]:
+            # No lastname -> not an interesting request, we do nothing
+            return input_vals
+
+        for key in ["lastname", "firstname"]:
+            val = input_vals.get(key, False)
+            if val:
+                input_vals[key] = val.strip().title()
+        is_company = input_vals.get("is_company", False)
+        lastname = input_vals.get("lastname", False)
+        firstname = False if is_company else input_vals.get("firstname", False)
+        request_type = input_vals.get("request_type", False)
+        email = input_vals.get("email", False)
+        phone = input_vals.get("phone", False)
+        mobile = input_vals.get("mobile", False)
+        birthdate_date = (
+            False if is_company else input_vals.get("birthdate_date", False)
         )
-        vals.update(res)
+        day = False if is_company else input_vals.get("day", False)
+        month = False if is_company else input_vals.get("month", False)
+        year = False if is_company else input_vals.get("year", False)
+        # It may happen that birthdate_date is given, but not day, month and year (coming from a
+        # survey for example). In this case fill the fields.
+        if birthdate_date and isinstance(birthdate_date, date):
+            day = birthdate_date.day
+            month = birthdate_date.month
+            year = birthdate_date.year
 
-        vals.update(
+        gender = False if is_company else input_vals.get("gender", False)
+
+        address_id = input_vals.get("address_id", False)
+        city_id = input_vals.get("city_id", False)
+        city_man = input_vals.get("city_man", False)
+        country_id = input_vals.get("country_id", False)
+        zip_man = input_vals.get("zip_man", False)
+
+        candidate_city = False
+        if not city_id and zip_man and city_man:
+            domain = [
+                ("zipcode", "=", zip_man),
+                ("name", "ilike", city_man),
+            ]
+            candidate_city = self.env["res.city"].search(domain, limit=1)
+        elif city_man and not city_id:
+            domain = [
+                ("name", "ilike", city_man),
+            ]
+            candidate_city = self.env["res.city"].search(domain, limit=2)
+            if len(candidate_city) != 1:
+                # Take the city only if it is unique
+                candidate_city = False
+        if (
+            not candidate_city
+            and not city_id
+            and zip_man
+            and not city_man
+            and not country_id
+        ):
+            domain = [
+                ("zipcode", "=", zip_man),
+            ]
+            candidate_city = self.env["res.city"].search(domain, limit=1)
+        if candidate_city:
+            be_country_id = self.env["res.country"]._country_default_get("BE").id
+            if not country_id or be_country_id == country_id:
+                # Default country is BE.
+                # In this case city_man and zip_man are reset to False
+                country_id = be_country_id
+                city_id = city_id or candidate_city.id
+                city_man = False
+                zip_man = False
+
+        # If city_id but no country, we now have to force the country
+        if city_id and not country_id:
+            country_id = self.env["res.city"].browse(city_id).country_id.id
+
+        if not is_company and not birthdate_date:
+            birthdate_date = self.get_birthdate_date(day, month, year)
+        if mobile:
+            mobile = self.get_format_phone_number(mobile)
+        if phone:
+            phone = self.get_format_phone_number(phone)
+        if email:
+            email = self.get_format_email(email)
+
+        # Try to recognize the partner, if not given in input_vals
+        if not partner:
+            recognizable_values = {
+                "is_company": is_company,
+                "birthdate_date": birthdate_date,
+                "lastname": lastname,
+                "firstname": firstname,
+                "email": email,
+                "mobile": mobile,
+                "phone": phone,
+            }
+            partner = self.get_partner_id(recognizable_values)
+            if partner:
+                partner_id = partner.id
+
+        output_vals.update(
             {
                 "is_company": is_company,
                 "partner_id": partner_id,
                 "lastname": lastname,
                 "firstname": firstname,
+                "request_type": request_type,
                 "birthdate_date": birthdate_date,
-                "int_instance_ids": res.get("int_instance_ids")
-                or [(6, 0, [int_instance_id])],
                 "day": day,
                 "month": month,
                 "year": year,
@@ -823,11 +926,37 @@ class MembershipRequest(models.Model):
                 "country_id": country_id,
                 "zip_man": zip_man,
                 "city_man": city_man,
-                "technical_name": technical_name,
             }
         )
+        # We now check all other keys from input_vals:
+        # if the key is not in output_vals and if it corresponds
+        # to a field from membership.request, we add it to output_vals
+        # It is useful to copy all other address fields.
+        for key in input_vals.keys():
+            if (
+                key not in output_vals
+                and key in self.env["membership.request"].fields_get()
+            ):
+                output_vals[key] = input_vals[key]
 
-        return vals
+        # Manage address and instances.
+        output_vals.update(self._manage_address_and_instance(output_vals, partner))
+
+        res = self._onchange_partner_id_vals(
+            is_company, request_type, partner_id, output_vals["technical_name"]
+        )
+        # Do not manage int_instance_ids separately from address in pre-process
+        res.pop("int_instance_ids", False)
+        output_vals.update(res)
+
+        # Finally manage int_instance: is partner is recognized and no int_instance is set
+        # (due to an address modification), take the partner's instance as a reminder on the MR.
+        if not output_vals.get("int_instance_ids", False) and partner:
+            output_vals["int_instance_ids"] = [(6, 0, partner.int_instance_ids.ids)]
+
+        output_vals["state"] = "confirm"
+        output_vals["is_pre_processed"] = True
+        return output_vals
 
     @api.onchange("country_id")
     def onchange_country_id(self):
@@ -1214,41 +1343,17 @@ class MembershipRequest(models.Model):
         Make special combinations of domains to try to find
         a unique partner_id
         """
-        partner_obj = self.env["virtual.custom.partner"]
         partner_domains = self._get_partner_domains(recognizable_values)
-        partner_id = False
-        virtual_partner_id = self.persist_search(partner_obj, partner_domains)
-        # because this is not a real partner but a virtual partner
-        if virtual_partner_id:
-            partner_id = virtual_partner_id.partner_id
-        return partner_id
+        for domain in partner_domains:
+            try:
+                safe_domain = safe_eval.safe_eval(domain)
+            except Exception as e:
+                raise ValidationError(_("Invalid Data")) from e
+            res_ids = self.env["res.partner"].search(safe_domain)
+            if len(res_ids) == 1:
+                return res_ids
 
-    def persist_search(self, model_obj, domains):
-        """
-        This method will make a search with a list of domain and return result
-        only if it is a single result
-        :type model_obj: model object into odoo (ex: res.partner)
-        :param model_obj: used to make the research
-        :type domains: []
-        :param domains: contains a list of domains
-        :rparam: result of the search
-        """
-
-        def rec_search(loop_counter):
-            if loop_counter >= len(domains):
-                return False
-            else:
-                try:
-                    domain = safe_eval.safe_eval(domains[loop_counter])
-                except Exception as e:
-                    raise ValidationError(_("Invalid Data")) from e
-                model_ids = model_obj.search(domain)
-                if len(model_ids) == 1:
-                    return model_ids[0]
-                else:
-                    return rec_search(loop_counter + 1)
-
-        return rec_search(0)
+        return False
 
     def get_technical_name(
         self,
@@ -1364,19 +1469,10 @@ class MembershipRequest(models.Model):
                 }
             )
 
-            # update_partner values
-            # Passing do_not_track_twice in context the first tracking
-            # evaluation through workflow will produce a notification
-            # the second one out of workflow not (when context will be
-            # pass through workflow this solution will not work anymore)
-            mr = mr.with_context(do_not_track_twice=True)  # TODO does nothing for now?
-            partner_obj = mr.env["res.partner"]  # we need to keep the modified context
-
             partner = mr.partner_id
-
             if not mr.partner_id:
                 mr._get_instance_partner(partner_values)
-                partner = partner_obj.create(partner_values)
+                partner = self.env["res.partner"].create(partner_values)
                 mr_vals["partner_id"] = partner.id
                 partner_values = {}
 
@@ -1387,104 +1483,88 @@ class MembershipRequest(models.Model):
 
             self._validate_request_coordinates(mr, partner_values)
 
+            # Before changing the membership, compute if address must be changed.
+            # If not, erase int_instance_ids, otherwise it will change the instance (without
+            # changing the address, which is unwanted).
+
+            # If the MR was pre-processed, we do not try to re-modify the address
+            if not mr.is_pre_processed:
+                address_vals = {
+                    "address_local_street_id": mr.address_local_street_id.id,
+                    "city_id": mr.city_id.id,
+                    "number": mr.number,
+                    "box": mr.box,
+                    "city_man": mr.city_man,
+                    "street_man": mr.street_man,
+                    "zip_man": mr.zip_man,
+                    "country_id": mr.country_id.id,
+                }
+                res_values = self._manage_address_and_instance(address_vals, partner)
+                mr.address_id = res_values.get("address_id", False)
+                mr.technical_name = res_values["technical_name"]
+            if not mr.address_id:
+                mr.int_instance_ids = [(6, 0, partner.int_instance_ids.ids)]
+
             if (
                 mr.result_type_id != mr.membership_state_id
-                or mr.force_int_instance_id != partner.int_instance_ids
-                or mr.int_instance_ids != partner.int_instance_ids
+                or (
+                    mr.force_int_instance_id
+                    and mr.force_int_instance_id != partner.int_instance_ids
+                )
+                or (
+                    mr.int_instance_ids
+                    and mr.int_instance_ids != partner.int_instance_ids
+                )
             ):
                 mr._validate_request_membership(mr, partner)
-            # address if technical name is empty then means that no address
-            # required
-            mr.technical_name = mr.get_technical_name(
-                mr.address_local_street_id.id,
-                mr.city_id.id,
-                mr.number,
-                mr.box,
-                mr.city_man,
-                mr.street_man,
-                mr.zip_man,
-                mr.country_id.id,
-            )
-            mr.onchange_technical_name()
-            address_id = mr.address_id and mr.address_id.id or False
+
             if (
-                not address_id
-                and mr.technical_name
-                and mr.technical_name != EMPTY_ADDRESS
+                mr.result_type_id.code == "without_membership"
+                and mr.force_int_instance_id
             ):
-                country_id = mr.country_id.id
-                street_man = False if mr.address_local_street_id else mr.street_man
-                zip_man = False if mr.city_id else mr.zip_man
-                city_man = False if mr.city_id else mr.city_man
-                address_local_street_id = (
-                    mr.address_local_street_id
-                    and mr.address_local_street_id.id
-                    or False
-                )
-                city_id = mr.city_id and mr.city_id.id or False
-                street2 = mr.street2
-                number = mr.number
-                box = mr.box
-                sequence = mr.sequence
-                # Partner zip can only be changed if no address
-                # or street is also changed
-                if (
-                    not partner
-                    or not partner.address_address_id
-                    or (not zip_man and not city_id)
-                    or (zip_man or city_id and street_man or address_local_street_id)
-                ):
-                    address_id = self.env["address.address"].search(
-                        [
-                            ("country_id", "=", country_id),
-                            ("street_man", "=", street_man),
-                            ("zip_man", "=", zip_man),
-                            ("city_man", "=", city_man),
-                            ("address_local_street_id", "=", address_local_street_id),
-                            ("city_id", "=", city_id),
-                            ("street2", "=", street2),
-                            ("number", "=", number),
-                            ("box", "=", box),
-                        ],
-                        limit=1,
-                    )
-                    if not address_id:
-                        address_values = {
-                            "country_id": country_id,
-                            "street_man": street_man,
-                            "zip_man": zip_man,
-                            "city_man": city_man,
-                            "address_local_street_id": address_local_street_id,
-                            "city_id": city_id,
-                            "street2": street2,
-                            "number": number,
-                            "box": box,
-                            "sequence": sequence,
-                        }
-                        address_id = self.env["address.address"].create(address_values)
-                    mr_vals["address_id"] = address_id
-                    address_id = address_id.id
-            if address_id:
-                self._partner_write_address(address_id, partner)
+                # If partner is without_membership, no membership line exists on it,
+                # hence the force instance will not be modified inside
+                # _validate_request_membership, we must do it explicitly
+                partner_values["force_int_instance_id"] = mr.force_int_instance_id
+
+            if mr.address_id:
+                # Write the address on the partner, and change the instance.
+                # Only case where the instance must NOT be changed:
+                # force instance is set
+                update_instance = not bool(mr.force_int_instance_id)
+                mr._partner_write_address(mr.address_id, partner, update_instance)
 
             if partner_values:
                 partner.write(partner_values)
 
-        # if request `validate` then object should be invalidate
+        # if request `validate` then object should be invalidated
         mr_vals.update({"state": "validate"})
 
         # superuser_id because of record rules
         self.sudo().action_invalidate(vals=mr_vals)
         return True
 
-    def _partner_write_address(self, address_id, partner):
+    def _partner_write_address(self, address_id, partner, update_instance):
         """
-        Write the address on the partner.
+        Write the address on the partner, only if it is a different one (otherwise trigger
+        unwanted logic, assuming that the address REALLY changes).
+        Use change address wizard.
+        It can happen that the address isn't linked to an instance
+        (if the address has no city_id). In this case don't update instance.
 
         Intended to be extended.
         """
-        if partner:
-            partner.write({"address_address_id": address_id})
+        if partner and (
+            not partner.address_address_id or partner.address_address_id != address_id
+        ):
+            wiz = self.env["change.address"].create(
+                {
+                    "address_id": address_id.id,
+                    "partner_ids": [(4, partner.id)],
+                    "update_instance": update_instance if address_id.city_id else False,
+                }
+            )
+            wiz.doit()
 
     @api.model
     def _validate_request_membership(self, mr, partner):
@@ -1514,10 +1594,10 @@ class MembershipRequest(models.Model):
                         or partner.subscription_product_id.id,
                         "state_id": mr.result_type_id.id,
                     }
-                    if active_memberships.paid and active_memberships.price:
+                    if active_memberships.paid:
                         vals["price"] = 0
                     w = self.env["add.membership"].create(vals)
-                    if not (active_memberships.paid and active_memberships.price):
+                    if not active_memberships.paid:
                         w._onchange_product_id()  # compute the price
                 else:
                     w = self.env["add.membership"].create(
@@ -1694,10 +1774,11 @@ class MembershipRequest(models.Model):
             val = vals.get(key, False)
             if val:
                 vals[key] = val.strip().title()
-        if self.env.context.get("install_mode", False) or self.env.context.get(
-            "mode", True
-        ) in ["ws", "pre_process"]:
-            self._pre_process(vals)
+        if (
+            self.env.context.get("install_mode", False)
+            or self.env.context.get("mode", True) == "pre_process"
+        ):
+            vals = self._pre_process(vals)
 
         # do not pass related fields to the orm
         self._pop_related(vals)
