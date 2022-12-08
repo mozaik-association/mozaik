@@ -1,0 +1,70 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_partner_banking_mandate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model,name:mozaik_partner_banking_mandate.model_account_banking_mandate
+msgid "A generic banking mandate"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model,name:mozaik_partner_banking_mandate.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model,name:mozaik_partner_banking_mandate.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_account_banking_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner_bank__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_virtual_partner_membership__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_abstract_assembly__has_valid_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_ext_assembly__has_valid_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_int_assembly__has_valid_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner__has_valid_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_users__has_valid_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_sta_assembly__has_valid_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_virtual_partner_membership__has_valid_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_banking_mandate.virtual_partner_membership_search_view
+msgid "Has Valid Mandate"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_account_banking_mandate__id
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner__id
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner_bank__id
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_virtual_partner_membership__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_account_banking_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner_bank____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_virtual_partner_membership____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model,name:mozaik_partner_banking_mandate.model_virtual_partner_membership
+msgid "Partner/Membership"
+msgstr ""
