@@ -710,6 +710,16 @@ msgid "Currency"
 msgstr "Devise"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__customer_payment_mode_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__customer_payment_mode_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__customer_payment_mode_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__customer_payment_mode_id
+#, fuzzy
+#| msgid "Customer Payment Terms"
+msgid "Customer Payment Mode"
+msgstr "Conditions de Paiement Client"
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__property_payment_term_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__property_payment_term_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__property_payment_term_id
@@ -964,6 +974,16 @@ msgid ""
 "Field used to store sanitized phone number. Helps speeding up searches and "
 "comparisons."
 msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__valid_mandate_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__valid_mandate_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__valid_mandate_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__valid_mandate_id
+#, fuzzy
+#| msgid "First name"
+msgid "First Valid Mandate"
+msgstr "Prénom"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__firstname
@@ -1954,6 +1974,16 @@ msgid "Number of Actions"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__mandate_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__mandate_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__mandate_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__mandate_count
+#, fuzzy
+#| msgid "Duration of Mandates"
+msgid "Number of Mandates"
+msgstr "Durée des mandats"
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_has_error_counter
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__message_has_error_counter
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__message_has_error_counter
@@ -2348,6 +2378,22 @@ msgid "Secretariats"
 msgstr "Secrétariats"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__customer_payment_mode_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__customer_payment_mode_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__customer_payment_mode_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__customer_payment_mode_id
+msgid "Select the default payment mode for this customer."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__supplier_payment_mode_id
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__supplier_payment_mode_id
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__supplier_payment_mode_id
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__supplier_payment_mode_id
+msgid "Select the default payment mode for this supplier."
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__invoice_warn
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__invoice_warn
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__invoice_warn
@@ -2539,6 +2585,16 @@ msgstr "Structure"
 #: model:ir.ui.menu,name:mozaik_structure.structure_root_menu
 msgid "Structures"
 msgstr "Structures"
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__supplier_payment_mode_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__supplier_payment_mode_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__supplier_payment_mode_id
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__supplier_payment_mode_id
+#, fuzzy
+#| msgid "Payment Method"
+msgid "Supplier Payment Mode"
+msgstr "Méthode de paiement"
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__supplier_rank
