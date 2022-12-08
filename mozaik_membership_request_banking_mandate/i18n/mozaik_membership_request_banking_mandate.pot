@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_membership_request_banking_mandate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_membership_request_banking_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_request_banking_mandate.membership_request_form_view
+msgid "Bank"
+msgstr ""
+
+#. module: mozaik_membership_request_banking_mandate
+#: model:ir.model.fields,field_description:mozaik_membership_request_banking_mandate.field_membership_request__bank_account_number
+msgid "Bank Account Number"
+msgstr ""
+
+#. module: mozaik_membership_request_banking_mandate
+#: code:addons/mozaik_membership_request_banking_mandate/models/membership_request.py:0
+#, python-format
+msgid "Bank account already linked to partner {name} ({id})"
+msgstr ""
+
+#. module: mozaik_membership_request_banking_mandate
+#: code:addons/mozaik_membership_request_banking_mandate/models/membership_request.py:0
+#, python-format
+msgid "Bank account {acc_number} already linked to partner {name} ({id})"
+msgstr ""
+
+#. module: mozaik_membership_request_banking_mandate
+#: model:ir.model.fields,field_description:mozaik_membership_request_banking_mandate.field_membership_request__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_membership_request_banking_mandate
+#: model:ir.model.fields,field_description:mozaik_membership_request_banking_mandate.field_membership_request__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_membership_request_banking_mandate
+#: model:ir.model.fields,field_description:mozaik_membership_request_banking_mandate.field_membership_request____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_membership_request_banking_mandate
+#: model:ir.model,name:mozaik_membership_request_banking_mandate.model_membership_request
+msgid "Membership Request"
+msgstr ""
+
+#. module: mozaik_membership_request_banking_mandate
+#: code:addons/mozaik_membership_request_banking_mandate/models/membership_request.py:0
+#, python-format
+msgid "Membership request must have a partner to link account number"
+msgstr ""
