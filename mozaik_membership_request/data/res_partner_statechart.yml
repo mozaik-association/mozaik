@@ -44,6 +44,8 @@ statechart:
             target: member
           - event: refuse
             target: refused_member_candidate
+          - event: paid
+            target: member_committee
       - name: member
         transitions:
           - guard: self.decline_payment_date != False
