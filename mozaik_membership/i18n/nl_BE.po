@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-05 22:42+0000\n"
+"PO-Revision-Date: 2022-12-09 18:42+0000\n"
 "Last-Translator: Lieven Vanhollemeersch <lieven.vanhollemeersch@groen.be>\n"
 "Language-Team: none\n"
 "Language: nl_BE\n"
@@ -382,7 +382,7 @@ msgstr "Ex-lid (ontslag)"
 #. module: mozaik_membership
 #: model:membership.state,name:mozaik_membership.former_member_committee
 msgid "Former Member Committee"
-msgstr "Ex-lid commissie (3 maanden)"
+msgstr "Terug lid < 3 maand"
 
 #. module: mozaik_membership
 #: model:membership.state,name:mozaik_membership.former_supporter
