@@ -122,10 +122,13 @@ class MembershipRequest(models.Model):
         )
 
     def _get_event_get_partner_preview(self, partner, request_type):
-        former_member = self.env.ref("mozaik_membership.former_member")
+        former_member = self.env.ref("mozaik_membership.former_member").code
+        supporter = self.env.ref("mozaik_membership.supporter").code
+        member_candidate = self.env.ref("mozaik_membership.member_candidate").code
         event = None
         if (
-            partner.membership_state_id == former_member
+            partner.membership_state_id.code
+            in [former_member, supporter, member_candidate]
             and request_type == "m"
             and self.env.context.get("tx_paid")
         ):
