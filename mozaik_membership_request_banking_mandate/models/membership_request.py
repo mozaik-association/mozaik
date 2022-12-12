@@ -62,7 +62,8 @@ class MembershipRequest(models.Model):
             if not partner_bank.mandate_ids.filtered(lambda m: m.state == "valid"):
                 self.env["account.banking.mandate"].create(
                     {
-                        "type": "generic",
+                        "type": "recurrent",
+                        "recurrent_sequence_type": "recurring",
                         "partner_bank_id": partner_bank.id,
                         "signature_date": fields.Date.today(),
                         "state": "valid",
