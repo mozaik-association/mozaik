@@ -55,6 +55,8 @@ class VirtualPartnerMassMailing(models.Model):
     def _get_select(self):
         """
         Build the SELECT of the SQL query
+        For mass mailing subject, as it is a translated field,
+        take the translated value in the ir_translation table.
         :return: str
         """
         select = (
@@ -72,7 +74,11 @@ class VirtualPartnerMassMailing(models.Model):
             mt.clicked,
             mt.state,
             mt.failure_type,
-            mm.subject as mass_mailing_subject"""
+            CASE
+                WHEN t.value IS NOT NULL
+                THEN t.value
+                ELSE mm.subject
+            END as mass_mailing_subject"""
         )
         return select
 
@@ -86,6 +92,7 @@ class VirtualPartnerMassMailing(models.Model):
         mailing_trace as mt
         JOIN res_partner p ON (mt.res_id = p.id)
         LEFT JOIN mailing_mailing mm ON (mm.id = mt.mass_mailing_id)
+        JOIN ir_translation t ON (t.res_id = mm.id)
         """
         return from_query
 
@@ -96,9 +103,20 @@ class VirtualPartnerMassMailing(models.Model):
         :return: str
         """
         return (
-            "WHERE mt.model = 'res.partner' AND p.active = TRUE AND"
-            " p.identifier IS NOT NULL AND p.identifier != '0'"
+            "WHERE mt.model = 'res.partner' "
+            "AND p.active = TRUE "
+            "AND p.identifier IS NOT NULL "
+            "AND p.identifier != '0' "
+            "AND mm.active = TRUE "
+            "AND t.name='mailing.mailing,subject' "
+            "AND t.lang=%(user_lang)s "
         )
+
+    @api.model
+    def _get_query_parameters(self, parameter=False):
+        values = super()._get_query_parameters(parameter)
+        values["user_lang"] = "fr_FR"
+        return values
 
     @api.model
     def _get_order_by(self):
