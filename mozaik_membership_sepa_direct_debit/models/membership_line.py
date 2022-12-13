@@ -14,6 +14,14 @@ class MembershipLine(models.Model):
         string="Payment Lines",
     )
 
+    def write(self, vals):
+        res = super().write(vals)
+        if not vals.get("active", True):
+            self.mapped("payment_line_ids").filtered(
+                lambda pl: pl.state == "draft"
+            ).unlink()
+        return res
+
     @api.model
     def get_draft_sepa_debit_order(self):
         sepa_payment_method = self.env.ref(
