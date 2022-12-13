@@ -395,6 +395,13 @@ msgid "Former member in mass the memberships"
 msgstr ""
 
 #. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__free_state
+#, fuzzy
+#| msgid "State"
+msgid "Free State"
+msgstr "Staat"
+
+#. module: mozaik_membership
 #: model:product.product,name:mozaik_membership.membership_product_free
 #: model:product.template,name:mozaik_membership.membership_product_free_product_template
 msgid "Free Subscription"
@@ -1233,10 +1240,16 @@ msgid "The partner already have an active subscription to this instance"
 msgstr "Partner heeft al een actief lidmaatschap voor die instantie"
 
 #. module: mozaik_membership
+#: model:ir.model.fields,help:mozaik_membership.field_membership_state__free_state
+msgid "The partner is not supposed to pay anything to be in this state."
+msgstr ""
+
+#. module: mozaik_membership
 #: code:addons/mozaik_membership/models/membership_line.py:0
 #, python-format
 msgid ""
-"These partners are excluded but you're trying to add new membership lines without disabled exclusion lines:\n"
+"These partners are excluded but you're trying to add new membership lines "
+"without disabled exclusion lines:\n"
 "- %s"
 msgstr ""
 
