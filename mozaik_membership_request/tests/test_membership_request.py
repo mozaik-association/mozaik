@@ -799,3 +799,44 @@ class TestMembership(TransactionCase):
         self.assertEqual(harry.address_address_id.city_id, city_namur)
         self.assertEqual(harry.address_address_id.street, "Rue du Puits 12")
         self.assertEqual(harry.int_instance_ids, instance_namur)
+
+    def test_supporter_want_to_become_member(self):
+        """
+        A supporter makes a membership request to become a member
+        -> His new membership line as member candidate must not be marked as paid
+        """
+        harry = self.env["res.partner"].create(
+            {
+                "lastname": "Potter",
+                "firstname": "Harry",
+            }
+        )
+        ms = self.env["membership.request"].create(
+            {
+                "partner_id": harry.id,
+                "lastname": harry.lastname,
+                "request_type": "s",
+            }
+        )
+        ms.write(ms._onchange_partner_id_vals(False, ms.request_type, harry.id, False))
+        ms.confirm_request()
+        ms.validate_request()
+        self.assertEqual(harry.membership_state_id.code, "supporter")
+        self.assertTrue(self.env.ref("mozaik_membership.supporter").free_state)
+
+        mm = self.env["membership.request"].create(
+            {
+                "partner_id": harry.id,
+                "lastname": harry.lastname,
+                "request_type": "m",
+            }
+        )
+        mm.write(ms._onchange_partner_id_vals(False, mm.request_type, harry.id, False))
+        mm.confirm_request()
+        mm.validate_request()
+
+        self.assertEqual(harry.membership_state_id.code, "member_candidate")
+        active_line = harry.membership_line_ids.filtered("active")
+        self.assertEqual(len(active_line), 1)
+        self.assertGreater(active_line.price, 0)
+        self.assertFalse(active_line.paid)

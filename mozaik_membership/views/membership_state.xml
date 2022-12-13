@@ -53,6 +53,7 @@
                                 name="code"
                                 attrs="{'readonly': [('id','!=',False)]}"
                             />
+                            <field name="free_state" />
                         </group>
                     </group>
                     <notebook>
