@@ -14,18 +14,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_membership_sepa_direct_debit
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_account_payment_line__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_account_payment_order__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_membership_line__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_membership_sepa_direct_debit
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_account_payment_line__id
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_account_payment_order__id
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_membership_line__id
 msgid "ID"
 msgstr ""
 
 #. module: mozaik_membership_sepa_direct_debit
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_account_payment_line____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_account_payment_order____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_membership_line____last_update
 msgid "Last Modified on"
@@ -33,12 +36,8 @@ msgstr ""
 
 #. module: mozaik_membership_sepa_direct_debit
 #: model:ir.model,name:mozaik_membership_sepa_direct_debit.model_membership_line
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_account_payment_line__membership_line_id
 msgid "Membership Line"
-msgstr ""
-
-#. module: mozaik_membership_sepa_direct_debit
-#: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_account_payment_order__membership_line_ids
-msgid "Membership Lines"
 msgstr ""
 
 #. module: mozaik_membership_sepa_direct_debit
@@ -49,11 +48,12 @@ msgid "Membership: SEPA direct debit"
 msgstr ""
 
 #. module: mozaik_membership_sepa_direct_debit
-#: model:ir.model,name:mozaik_membership_sepa_direct_debit.model_account_payment_order
-msgid "Payment Order"
+#: model:ir.model,name:mozaik_membership_sepa_direct_debit.model_account_payment_line
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_membership_line__payment_line_ids
+msgid "Payment Lines"
 msgstr ""
 
 #. module: mozaik_membership_sepa_direct_debit
-#: model:ir.model.fields,field_description:mozaik_membership_sepa_direct_debit.field_membership_line__payment_order_ids
-msgid "Payment Orders"
+#: model:ir.model,name:mozaik_membership_sepa_direct_debit.model_account_payment_order
+msgid "Payment Order"
 msgstr ""
