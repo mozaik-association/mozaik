@@ -8,9 +8,19 @@ class MembershipLine(models.Model):
 
     _inherit = "membership.line"
 
-    payment_order_ids = fields.Many2many(
-        comodel_name="account.payment.order", string="Payment Orders"
+    payment_line_ids = fields.One2many(
+        comodel_name="account.payment.line",
+        inverse_name="membership_line_id",
+        string="Payment Lines",
     )
+
+    def write(self, vals):
+        res = super().write(vals)
+        if not vals.get("active", True):
+            self.mapped("payment_line_ids").filtered(
+                lambda pl: pl.state == "draft"
+            ).unlink()
+        return res
 
     @api.model
     def get_draft_sepa_debit_order(self):
@@ -46,14 +56,14 @@ class MembershipLine(models.Model):
             FROM membership_line ml
             INNER JOIN res_partner p
                 ON ml.partner_id = p.id
-            LEFT JOIN account_payment_order_membership_line_rel rel
-                ON ml.id = rel.membership_line_id
-            LEFT JOIN account_payment_order po
-                ON po.id = rel.account_payment_order_id
+            LEFT JOIN account_payment_line apl
+                ON apl.membership_line_id = ml.id
+            LEFT JOIN account_payment_order apo
+                ON apl.order_id = apo.id
             WHERE ml.active
             AND NOT ml.paid
             AND p.has_valid_mandate
-            AND (po.id IS NULL OR po.state IN ('uploaded', 'cancel'))
+            AND (apl.id IS NULL OR apo.state IN ('uploaded', 'cancel'))
         """
         self.env.cr.execute(sql)
         return self.search([("id", "in", [ml[0] for ml in self.env.cr.fetchall()])])
@@ -61,8 +71,7 @@ class MembershipLine(models.Model):
     @api.model
     def add_unpaid_memberships_to_debit_order(self):
         debit_order = self.get_draft_sepa_debit_order()
-        unpaid_membership_lines = self.get_unpaid_sepa_membership_lines()
-        for membership_line in unpaid_membership_lines:
+        for membership_line in self.get_unpaid_sepa_membership_lines():
             mandate = membership_line.partner_id.valid_mandate_id
             self.env["account.payment.line"].create(
                 {
@@ -75,6 +84,6 @@ class MembershipLine(models.Model):
                         state=membership_line.state_id.name,
                         date=membership_line.date_from,
                     ),
+                    "membership_line_id": membership_line.id,
                 }
             )
-        unpaid_membership_lines.write({"payment_order_ids": [(4, debit_order.id)]})

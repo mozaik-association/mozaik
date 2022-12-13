@@ -1,6 +1,7 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo import fields
 
 from odoo.addons.account_banking_sepa_direct_debit.tests.test_sdd import TestSDDBase
 
@@ -62,7 +63,13 @@ class TestMembershipLine(TestMembershipLineBase):
                 "state_id": self.membership_state.id,
                 "price": 10.0,
                 "reference": "testref2",
-                "payment_order_ids": [self.debit_order.id],
+            }
+        )
+        self.env["account.payment.line"].create(
+            {
+                "order_id": self.debit_order.id,
+                "partner_id": self.partner_1.id,
+                "membership_line_id": ml_3.id,
             }
         )
         # Found !
@@ -80,7 +87,13 @@ class TestMembershipLine(TestMembershipLineBase):
                 "state_id": self.membership_state.id,
                 "price": 10.0,
                 "reference": "testref3",
-                "payment_order_ids": [canceled_payment_order.id],
+            }
+        )
+        self.env["account.payment.line"].create(
+            {
+                "order_id": canceled_payment_order.id,
+                "partner_id": self.partner_2.id,
+                "membership_line_id": ml_4.id,
             }
         )
         found_membership_lines = self.env[
@@ -104,7 +117,9 @@ class TestMembershipLine(TestMembershipLineBase):
             }
         )
         self.env["membership.line"].add_unpaid_memberships_to_debit_order()
-        self.assertEqual(ml.payment_order_ids.ids, [self.debit_order.id])
+        self.assertEqual(
+            ml.payment_line_ids.mapped("order_id").ids, [self.debit_order.id]
+        )
         self.assertEqual(self.debit_order.payment_line_ids[0].amount_currency, 10.0)
         self.debit_order.draft2open()
         self.debit_order.open2generated()
@@ -112,3 +127,48 @@ class TestMembershipLine(TestMembershipLineBase):
         self.assertTrue(ml.paid)
         self.assertEqual(ml.price_paid, 10.0)
         self.assertEqual([ml.move_id.id], self.debit_order.move_ids.ids)
+
+    def test_inactive_membership_line_unlink_payment_line(self):
+        """
+        When a membership_line is archived, the linked payment_line must be
+        removed if it is in a draft payment_order
+        """
+        ml_1 = self.env["membership.line"].create(
+            {
+                "partner_id": self.partner_1.id,
+                "state_id": self.membership_state.id,
+                "price": 10.0,
+                "reference": "testref",
+            }
+        )
+        self.env["account.payment.line"].create(
+            {
+                "order_id": self.debit_order.id,
+                "partner_id": self.partner_1.id,
+                "membership_line_id": ml_1.id,
+            }
+        )
+        self.assertEqual(len(self.debit_order.payment_line_ids), 1)
+        self.assertTrue(ml_1.payment_line_ids)
+        ml_1.write({"active": False, "date_to": fields.Date.today()})
+        self.assertEqual(len(self.debit_order.payment_line_ids), 0)
+        self.assertFalse(ml_1.payment_line_ids)
+        ml_2 = self.env["membership.line"].create(
+            {
+                "partner_id": self.partner_1.id,
+                "state_id": self.membership_state.id,
+                "price": 10.0,
+                "reference": "testref2",
+            }
+        )
+        self.env["account.payment.line"].create(
+            {
+                "order_id": self.debit_order.id,
+                "partner_id": self.partner_1.id,
+                "membership_line_id": ml_2.id,
+            }
+        )
+        self.debit_order.write({"state": "cancel"})
+        ml_2.write({"active": False, "date_to": fields.Date.today()})
+        self.assertEqual(len(self.debit_order.payment_line_ids), 1)
+        self.assertTrue(ml_2.payment_line_ids)

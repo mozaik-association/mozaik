@@ -9,7 +9,5 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     debit_order_partner_account_id = fields.Many2one(
-        comodel_name="account.account",
-        string="Debit Order Partner Account",
-        domain=[("internal_type", "=", "receivable")],
+        comodel_name="account.account", string="Debit Order Partner Account"
     )
