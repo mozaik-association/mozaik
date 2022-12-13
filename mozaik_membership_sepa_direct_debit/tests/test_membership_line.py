@@ -62,7 +62,13 @@ class TestMembershipLine(TestMembershipLineBase):
                 "state_id": self.membership_state.id,
                 "price": 10.0,
                 "reference": "testref2",
-                "payment_order_ids": [self.debit_order.id],
+            }
+        )
+        self.env["account.payment.line"].create(
+            {
+                "order_id": self.debit_order.id,
+                "partner_id": self.partner_1.id,
+                "membership_line_id": ml_3.id,
             }
         )
         # Found !
@@ -80,7 +86,13 @@ class TestMembershipLine(TestMembershipLineBase):
                 "state_id": self.membership_state.id,
                 "price": 10.0,
                 "reference": "testref3",
-                "payment_order_ids": [canceled_payment_order.id],
+            }
+        )
+        self.env["account.payment.line"].create(
+            {
+                "order_id": canceled_payment_order.id,
+                "partner_id": self.partner_2.id,
+                "membership_line_id": ml_4.id,
             }
         )
         found_membership_lines = self.env[
@@ -104,7 +116,9 @@ class TestMembershipLine(TestMembershipLineBase):
             }
         )
         self.env["membership.line"].add_unpaid_memberships_to_debit_order()
-        self.assertEqual(ml.payment_order_ids.ids, [self.debit_order.id])
+        self.assertEqual(
+            ml.payment_line_ids.mapped("order_id").ids, [self.debit_order.id]
+        )
         self.assertEqual(self.debit_order.payment_line_ids[0].amount_currency, 10.0)
         self.debit_order.draft2open()
         self.debit_order.open2generated()
