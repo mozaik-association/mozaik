@@ -19,6 +19,9 @@ class MembershipState(models.Model):
     sequence = fields.Integer(
         default=10,
     )
+    free_state = fields.Boolean(
+        help="The partner is not supposed to pay anything to be in this state."
+    )
 
     @api.model
     def _get_default_state(self, default_state=False):

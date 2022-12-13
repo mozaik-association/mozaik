@@ -4,7 +4,7 @@
     "name": "Mozaik: Membership",
     "summary": """
         Manage memberships""",
-    "version": "14.0.1.1.0",
+    "version": "14.0.1.1.1",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",

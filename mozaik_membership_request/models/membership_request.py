@@ -1597,7 +1597,13 @@ class MembershipRequest(models.Model):
                     if active_memberships.paid:
                         vals["price"] = 0
                     w = self.env["add.membership"].create(vals)
-                    if not active_memberships.paid:
+                    if (
+                        not active_memberships.paid
+                        or active_memberships.state_id.free_state
+                    ):
+                        # If we were in a free state, it is marked as paid by default, but
+                        # the next paid membership must not be marked as paid (without
+                        # registering a payment).
                         w._onchange_product_id()  # compute the price
                 else:
                     w = self.env["add.membership"].create(

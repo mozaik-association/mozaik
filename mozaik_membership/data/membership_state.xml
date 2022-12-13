@@ -4,6 +4,7 @@
     <record forcecreate="True" id="without_membership" model="membership.state">
         <field name="name">Without Status</field>
         <field name="code">without_membership</field>
+        <field name="free_state" eval="True" />
         <field name="sequence" eval="100" />
     </record>
     <record forcecreate="True" id="member_candidate" model="membership.state">
@@ -29,6 +30,7 @@
     <record forcecreate="True" id="supporter" model="membership.state">
         <field name="name">Supporter</field>
         <field name="code">supporter</field>
+        <field name="free_state" eval="True" />
         <field name="sequence" eval="60" />
     </record>
     <record forcecreate="True" id="member" model="membership.state">
@@ -44,6 +46,7 @@
     <record forcecreate="True" id="former_supporter" model="membership.state">
         <field name="name">Former Supporter</field>
         <field name="code">former_supporter</field>
+        <field name="free_state" eval="True" />
         <field name="sequence" eval="20" />
     </record>
     <record forcecreate="True" id="expulsion_former_member" model="membership.state">
