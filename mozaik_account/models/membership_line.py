@@ -151,8 +151,27 @@ class MembershipLine(models.Model):
             self.write(vals)
         return self
 
+    @api.model
     def _get_new_member_free_renew_state(self):
-        return self.env.ref("mozaik_membership.member")
+        return self.env.ref("mozaik_membership.member_committee")
+
+    @api.model
+    def _get_free_condition(self, nb_exemption_months, partner, date_from):
+        new_membership = self.env["membership.line"].search_count(
+            [
+                ("state_id", "in", self._get_new_member_free_renew_state().ids),
+                ("partner_id", "=", partner.id),
+                (
+                    "date_from",
+                    ">=",
+                    fields.Date.from_string(date_from)
+                    - relativedelta(months=nb_exemption_months),
+                ),
+            ]
+        )
+        return new_membership and all(
+            m.paid for m in partner.membership_line_ids if m.date_from < date_from
+        )
 
     def _update_membership_values(self, partner, instance, state, date_from):
         self.ensure_one()
@@ -161,22 +180,8 @@ class MembershipLine(models.Model):
                 "membership.nb_month_exemption", default="2"
             )
         )
-
-        older_membership = self.env["membership.line"].search_count(
-            [
-                ("state_id", "in", self._get_new_member_free_renew_state().ids),
-                ("partner_id", "=", partner.id),
-                (
-                    "date_from",
-                    "<",
-                    fields.Date.from_string(date_from) - relativedelta(months=nb_month),
-                ),
-            ]
-        )
         vals = super()._update_membership_values(partner, instance, state, date_from)
-        if not older_membership and all(
-            m.paid for m in partner.membership_line_ids if m.date_from < date_from
-        ):
+        if self._get_free_condition(nb_month, partner, date_from):
             vals["paid"] = True
             vals["price"] = 0
         return vals
