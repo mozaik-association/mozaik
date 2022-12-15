@@ -14,7 +14,7 @@ class MembershipRequest(models.Model):
     def _check_auto_validate(self, auto_val):
         self.ensure_one()
         auto_val, failure_reason = super()._check_auto_validate(auto_val)
-        if auto_val and self.bank_account_number and self.partner_id:
+        if auto_val and self.bank_account_number:
             partner_bank = self.env["res.partner.bank"].search(
                 [
                     ("acc_number", "=ilike", self.bank_account_number),
