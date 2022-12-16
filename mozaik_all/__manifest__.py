@@ -4,7 +4,7 @@
     "name": "Mozaik: All Modules Loader",
     "summary": """
         Loads all Mozaik modules""",
-    "version": "14.0.1.1.9",
+    "version": "14.0.1.1.10",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
