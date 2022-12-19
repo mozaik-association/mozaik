@@ -2,12 +2,41 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
 
+from openupgradelib import openupgrade
+
 from odoo import SUPERUSER_ID, api
 
 _logger = logging.getLogger(__name__)
 
 
+@openupgrade.migrate()
 def migrate(cr, version):
+
+    _logger.info("Delete table postal_coordinate and all related constraints")
+    openupgrade.logged_query(cr, "DROP TABLE IF EXISTS postal_mail_log")
+    openupgrade.logged_query(cr, "DROP VIEW IF EXISTS duplicate_analysis_report")
+    openupgrade.logged_query(
+        cr,
+        "ALTER TABLE event_event "
+        "DROP CONSTRAINT IF EXISTS event_event_postal_coordinate_id_fkey",
+    )
+    openupgrade.logged_query(
+        cr,
+        "ALTER TABLE int_mandate "
+        "DROP CONSTRAINT IF EXISTS int_mandate_postal_coordinate_id_fkey",
+    )
+    openupgrade.logged_query(
+        cr,
+        "ALTER TABLE ext_mandate "
+        "DROP CONSTRAINT IF EXISTS ext_mandate_postal_coordinate_id_fkey",
+    )
+    openupgrade.logged_query(
+        cr,
+        "ALTER TABLE sta_mandate "
+        "DROP CONSTRAINT IF EXISTS sta_mandate_postal_coordinate_id_fkey",
+    )
+    openupgrade.logged_query(cr, "DROP TABLE IF EXISTS postal_coordinate")
+
     _logger.info(
         "Clean addresses having city but no city_id and no city_man: "
         "Copy 'city' field in 'city_man' column"
@@ -127,7 +156,7 @@ def migrate(cr, version):
             wiz.doit()
             env["base"].flush()
 
-        # Delete addresses
+        # Delete addresses.
         cr.execute(
             """
             DELETE FROM address_address

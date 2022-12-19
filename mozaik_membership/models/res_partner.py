@@ -368,19 +368,6 @@ class ResPartner(models.Model):
             self.env["ir.rule"].clear_caches()
         return res
 
-    def _open_co_residency(self):
-        """
-        When excluding or resigning a member open its co-residency,
-        maybe some infos have to be accordingly changed
-        """
-        res = None
-        if self.ids and len(self.ids) == 1:
-            # go directly to the co-residency form if any
-            coord = self.postal_coordinate_id
-            if coord and coord.co_residency_id:
-                res = coord.co_residency_id.get_formview_action()
-        return res
-
     def _write(self, vals):
         """
         Update additional flags together with the recomputing
