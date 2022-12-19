@@ -11,7 +11,10 @@ class ChangeAddress(models.TransientModel):
 
     address_id = fields.Many2one(comodel_name="address.address", ondelete="cascade")
     partner_ids = fields.Many2many(comodel_name="res.partner", ondelete="cascade")
-    move_co_residency = fields.Boolean()
+    move_co_residency = fields.Boolean(
+        help="Move all partners that are in the same co-residencies. "
+        "Pay attention: do not move partners that are not into a co-residency."
+    )
     have_co_residency = fields.Boolean(compute="_compute_have_co_residency")
 
     @api.model
