@@ -445,6 +445,13 @@ msgid "Move Co Residency"
 msgstr ""
 
 #. module: mozaik_address
+#: model:ir.model.fields,help:mozaik_address.field_change_address__move_co_residency
+msgid ""
+"Move all partners that are in the same co-residencies. Pay attention: do not "
+"move partners that are not into a co-residency."
+msgstr ""
+
+#. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_address_address__number
 msgid "Number"
 msgstr ""
