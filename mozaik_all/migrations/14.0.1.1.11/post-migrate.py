@@ -10,8 +10,8 @@ _logger = logging.getLogger(__name__)
 
 
 @openupgrade.migrate()
-def migrate(cr, version):
-
+def migrate(env, version):
+    cr = env.cr
     _logger.info("Delete table postal_coordinate and all related constraints")
     openupgrade.logged_query(cr, "DROP TABLE IF EXISTS postal_mail_log")
     openupgrade.logged_query(cr, "DROP VIEW IF EXISTS duplicate_analysis_report")
