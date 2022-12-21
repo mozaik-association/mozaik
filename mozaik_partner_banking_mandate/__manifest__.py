@@ -10,5 +10,5 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
     "depends": ["account_banking_mandate", "mozaik_virtual_partner_membership"],
-    "data": ["views/virtual_partner_membership.xml"],
+    "data": ["views/virtual_partner_membership.xml", "views/res_partner.xml"],
 }
