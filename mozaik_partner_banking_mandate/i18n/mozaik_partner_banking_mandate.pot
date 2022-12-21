@@ -24,6 +24,11 @@ msgid "Bank Accounts"
 msgstr ""
 
 #. module: mozaik_partner_banking_mandate
+#: model_terms:ir.ui.view,arch_db:mozaik_partner_banking_mandate.res_partner_form_view
+msgid "Bank Mandates"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
 #: model:ir.model,name:mozaik_partner_banking_mandate.model_res_partner
 msgid "Contact"
 msgstr ""
