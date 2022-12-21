@@ -21,7 +21,7 @@ class AccountBankingMandate(models.Model):
         return res
 
     def write(self, vals):
-        if any(f in vals for f in ["partner_id", "partner_bank_id"]):
+        if any(f in vals for f in ["partner_id", "partner_bank_id", "state"]):
             old_partners = self.mapped("partner_id")
             res = super().write(vals)
             new_partners = self.mapped("partner_id")
