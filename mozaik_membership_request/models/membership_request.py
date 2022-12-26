@@ -1505,18 +1505,7 @@ class MembershipRequest(models.Model):
             if not mr.address_id:
                 mr.int_instance_ids = [(6, 0, partner.int_instance_ids.ids)]
 
-            if (
-                mr.result_type_id != mr.membership_state_id
-                or (
-                    mr.force_int_instance_id
-                    and mr.force_int_instance_id != partner.int_instance_ids
-                )
-                or (
-                    mr.int_instance_ids
-                    and mr.int_instance_ids != partner.int_instance_ids
-                )
-            ):
-                mr._validate_request_membership(mr, partner)
+            mr._validate_request_membership_with_checks(mr, partner)
 
             if (
                 mr.result_type_id.code == "without_membership"
@@ -1565,6 +1554,18 @@ class MembershipRequest(models.Model):
                 }
             )
             wiz.doit()
+
+    @api.model
+    def _validate_request_membership_with_checks(self, mr, partner):
+        if (
+            mr.result_type_id != mr.membership_state_id
+            or (
+                mr.force_int_instance_id
+                and mr.force_int_instance_id != partner.int_instance_ids
+            )
+            or (mr.int_instance_ids and mr.int_instance_ids != partner.int_instance_ids)
+        ):
+            self._validate_request_membership(mr, partner)
 
     @api.model
     def _validate_request_membership(self, mr, partner):
