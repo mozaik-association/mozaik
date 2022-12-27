@@ -196,6 +196,48 @@ class TestResPartner(TransactionCase):
 
         return
 
+    def test_res_partner_address_duplicate(self):
+        """
+        Create two partners with same complete address
+        -> They must be duplicates.
+
+        Create two partners with same partial address
+        -> They must NOT be duplicates.
+        """
+        country = self.env.ref("base.be")
+        city = self.env.ref("mozaik_address.res_city_1")
+        complete_address = self.env["address.address"].create(
+            {
+                "country_id": country.id,
+                "city_id": city.id,
+                "street_man": "Rue du Puits",
+                "number": "12",
+            }
+        )
+        partial_address = self.env["address.address"].create(
+            {"country_id": country.id, "city_id": city.id}
+        )
+
+        # Complete address
+        p1 = self.env["res.partner"].create(
+            {"name": "Partner 1", "address_address_id": complete_address.id}
+        )
+        p2 = self.env["res.partner"].create(
+            {"name": "Partner 2", "address_address_id": complete_address.id}
+        )
+        self.assertTrue(p1.is_duplicate_detected)
+        self.assertTrue(p2.is_duplicate_detected)
+
+        # Partial address
+        p3 = self.env["res.partner"].create(
+            {"name": "Partner 3", "address_address_id": partial_address.id}
+        )
+        p4 = self.env["res.partner"].create(
+            {"name": "Partner 4", "address_address_id": partial_address.id}
+        )
+        self.assertFalse(p3.is_duplicate_detected)
+        self.assertFalse(p4.is_duplicate_detected)
+
     def test_invalidate_active_relation(self):
         """
         Test invalidation of active relations (not inherited

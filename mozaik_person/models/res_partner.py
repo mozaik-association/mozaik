@@ -242,14 +242,20 @@ class ResPartner(models.Model):
     def _get_duplicates(self, value, discriminant_field):
         """
         Get duplicates
+        * If discriminant_field is address and if address is not complete
+        -> partial address must not be a discriminant field. Return no duplicate
         * If one of these duplicates has no ``birthdate_date`` return all
           duplicates
         * Otherwise return duplicates with the same ``birthdate_date``
           and reset all others
-        :param value: discriminant field value
+        :param value: discriminant field values (dict with all discriminant fields)
         :return: self recordset
         """
         duplicates = super()._get_duplicates(value, discriminant_field)
+        if discriminant_field == "address_address_id":
+            address = self.env["address.address"].browse(value[discriminant_field])
+            if not address.has_street:
+                return self.browse()
         if duplicates.filtered(lambda s: not s.birthdate_date):
             return duplicates
 
