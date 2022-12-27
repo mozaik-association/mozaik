@@ -4,7 +4,7 @@
     "name": "Mozaik: Persons",
     "summary": """
         Manage duplicates, add several names and identifier""",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
@@ -22,6 +22,7 @@
         "mozaik_duplicate",
         "mozaik_partner_assembly",
         "mozaik_address",
+        "mozaik_address_local_street",
     ],
     "data": [
         "data/ir_sequence.xml",
