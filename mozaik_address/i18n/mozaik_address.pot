@@ -162,6 +162,11 @@ msgid "City (Text)"
 msgstr ""
 
 #. module: mozaik_address
+#: model:ir.model.fields,help:mozaik_address.field_res_city__formatted_name
+msgid "City name without space, hyphens and in lower case"
+msgstr ""
+
+#. module: mozaik_address
 #: model:ir.model.fields,field_description:mozaik_address.field_res_partner__city_id
 #: model:ir.model.fields,field_description:mozaik_address.field_res_users__city_id
 msgid "City of Address"
@@ -290,6 +295,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_address.field_co_residency__message_partner_ids
 #: model:ir.model.fields,field_description:mozaik_address.field_res_city__message_partner_ids
 msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_res_city__formatted_name
+msgid "Formatted Name"
 msgstr ""
 
 #. module: mozaik_address
