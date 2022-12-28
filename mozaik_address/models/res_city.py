@@ -3,6 +3,8 @@
 
 from odoo import api, fields, models
 
+from odoo.addons.mozaik_tools.tools import format_value
+
 
 class ResCity(models.Model):
 
@@ -12,6 +14,11 @@ class ResCity(models.Model):
     _unicity_keys = "zipcode, name, country_id"
 
     sequence = fields.Integer(default=16)
+    formatted_name = fields.Char(
+        compute="_compute_formatted_name",
+        help="City name without space, hyphens and in lower case",
+        store=True,
+    )
 
     # fields redefinition
     zipcode = fields.Char(required=True)
@@ -19,6 +26,11 @@ class ResCity(models.Model):
         default=lambda s: s._default_country_id(),
         domain=[("enforce_cities", "=", True)],
     )
+
+    @api.depends("name")
+    def _compute_formatted_name(self):
+        for city in self:
+            city.formatted_name = format_value(city.name, remove_blanks=True)
 
     @api.model
     def _default_country_id(self):
