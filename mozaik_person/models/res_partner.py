@@ -255,6 +255,10 @@ class ResPartner(models.Model):
         if discriminant_field == "address_address_id":
             address = self.env["address.address"].browse(value[discriminant_field])
             if not address.has_street:
+                values_write = self._get_fields_to_update_duplicate(
+                    "reset", "address_address_id"
+                )
+                duplicates.with_context(escape_detection=True).write(values_write)
                 return self.browse()
         if duplicates.filtered(lambda s: not s.birthdate_date):
             return duplicates

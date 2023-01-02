@@ -89,3 +89,9 @@ class AddressAddress(models.Model):
         super()._compute_has_street()
         for address in self.filtered("address_local_street_id"):
             address.has_street = True
+
+    @api.model
+    def _get_partial_address_domain(self):
+        res = super()._get_partial_address_domain()
+        res.append(("address_local_street_id", "=", False))
+        return res
