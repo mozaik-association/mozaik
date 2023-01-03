@@ -74,7 +74,9 @@ class AddressAddress(models.Model):
         string="Partners (inactive)",
         domain=[("active", "=", False)],
     )
-    has_street = fields.Boolean(compute="_compute_has_street")
+    has_street = fields.Boolean(
+        compute="_compute_has_street", search="_search_has_street"
+    )
 
     @api.model
     def _get_default_country_code(self):
@@ -245,3 +247,27 @@ class AddressAddress(models.Model):
     def _compute_has_street(self):
         for address in self:
             address.has_street = address.street_man or address.street2
+
+    @api.model
+    def _get_partial_address_domain(self):
+        return [("street_man", "=", False), ("street2", "=", False)]
+
+    def _search_has_street(self, operator, value):
+        """
+        Cases supported are
+        * operator in ['=', '!=']
+        * value is a boolean
+        """
+        if operator not in [
+            "=",
+            "!=",
+        ] or not isinstance(value, bool):
+            raise ValueError(_("This operator/value is not supported"))
+        if operator == "!=":
+            value = not value
+        partial_addresses = self.env["address.address"].search(
+            self._get_partial_address_domain()
+        )
+        if value:
+            return [("id", "not in", partial_addresses.ids)]
+        return [("id", "in", partial_addresses.ids)]
