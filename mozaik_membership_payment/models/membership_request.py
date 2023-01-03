@@ -78,31 +78,31 @@ class MembershipRequest(models.Model):
         """
         return [self.env.ref("mozaik_membership.former_member")]
 
-    @api.model
-    def _validate_request_membership_with_checks(self, mr, partner):
-        paid_transactions = mr.transaction_ids.filtered(lambda s: s.state == "done")
+    def _validate_request_membership_with_checks(self, partner):
+        self.ensure_one()
+        paid_transactions = self.transaction_ids.filtered(lambda s: s.state == "done")
         save_state = (
             paid_transactions
             and partner.membership_state_id in self._get_states_to_save()
-            and mr.request_type == "m"
+            and self.request_type == "m"
         )
         result_type_id = None
         if save_state:
-            result_type_id = mr.result_type_id
-            mr.result_type_id = mr.membership_state_id
+            result_type_id = self.result_type_id
+            self.result_type_id = self.membership_state_id
 
         res = super(MembershipRequest, self)._validate_request_membership_with_checks(
-            mr, partner
+            partner
         )
 
         if save_state:
-            mr.result_type_id = result_type_id
+            self.result_type_id = result_type_id
 
-        if mr.transaction_ids:
+        if self.transaction_ids:
             active_memberships = partner.membership_line_ids.filtered(
                 lambda s: s.active
             )
-            active_memberships.transaction_ids = mr.transaction_ids
+            active_memberships.transaction_ids = self.transaction_ids
             if paid_transactions:
                 paid_transactions._mark_membership_as_paid(
                     paid_transactions.acquirer_reference
