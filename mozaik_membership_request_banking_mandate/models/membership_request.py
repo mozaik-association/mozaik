@@ -31,34 +31,47 @@ class MembershipRequest(models.Model):
                 )
         return auto_val, failure_reason
 
+    def _get_partner_bank_domain(self):
+        return [("acc_number", "=ilike", self.bank_account_number)]
+
+    def _get_partner_bank(self):
+        """
+        Returns the partner_bank record if it exists, or create it.
+        Raise an error if a partner bank record exists with
+        the same bank account for another partner.
+        """
+        self.ensure_one()
+        if not self.partner_id:
+            raise ValidationError(
+                _("Membership request must have a partner to link account number")
+            )
+        partner_bank = self.env["res.partner.bank"].search(
+            self._get_partner_bank_domain()
+        )
+        if not partner_bank:
+            partner_bank = self.env["res.partner.bank"].create(
+                {
+                    "acc_number": self.bank_account_number,
+                    "partner_id": self.partner_id.id,
+                }
+            )
+        elif partner_bank.partner_id != self.partner_id:
+            raise ValidationError(
+                _(
+                    "Bank account {acc_number} already linked "
+                    "to partner {name} ({id})"
+                ).format(
+                    acc_number=partner_bank.acc_number,
+                    name=partner_bank.partner_id.name,
+                    id=partner_bank.partner_id.id,
+                )
+            )
+        return partner_bank
+
     def validate_request(self):
         res = super().validate_request()
         for mr in self.filtered("bank_account_number"):
-            if not mr.partner_id:
-                raise ValidationError(
-                    _("Membership request must have a partner to link account number")
-                )
-            partner_bank = self.env["res.partner.bank"].search(
-                [("acc_number", "=ilike", mr.bank_account_number)]
-            )
-            if not partner_bank:
-                partner_bank = self.env["res.partner.bank"].create(
-                    {
-                        "acc_number": mr.bank_account_number,
-                        "partner_id": mr.partner_id.id,
-                    }
-                )
-            elif partner_bank.partner_id != mr.partner_id:
-                raise ValidationError(
-                    _(
-                        "Bank account {acc_number} already linked "
-                        "to partner {name} ({id})"
-                    ).format(
-                        acc_number=partner_bank.acc_number,
-                        name=partner_bank.partner_id.name,
-                        id=partner_bank.partner_id.id,
-                    )
-                )
+            partner_bank = mr._get_partner_bank()
             if not partner_bank.mandate_ids.filtered(lambda m: m.state == "valid"):
                 self.env["account.banking.mandate"].create(
                     {
