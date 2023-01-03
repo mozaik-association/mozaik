@@ -1505,7 +1505,7 @@ class MembershipRequest(models.Model):
             if not mr.address_id:
                 mr.int_instance_ids = [(6, 0, partner.int_instance_ids.ids)]
 
-            mr._validate_request_membership_with_checks(mr, partner)
+            mr._validate_request_membership_with_checks(partner)
 
             if (
                 mr.result_type_id.code == "without_membership"
@@ -1555,35 +1555,38 @@ class MembershipRequest(models.Model):
             )
             wiz.doit()
 
-    @api.model
-    def _validate_request_membership_with_checks(self, mr, partner):
+    def _validate_request_membership_with_checks(self, partner):
+        self.ensure_one()
         if (
-            mr.result_type_id != mr.membership_state_id
+            self.result_type_id != self.membership_state_id
             or (
-                mr.force_int_instance_id
-                and mr.force_int_instance_id != partner.int_instance_ids
+                self.force_int_instance_id
+                and self.force_int_instance_id != partner.int_instance_ids
             )
-            or (mr.int_instance_ids and mr.int_instance_ids != partner.int_instance_ids)
+            or (
+                self.int_instance_ids
+                and self.int_instance_ids != partner.int_instance_ids
+            )
         ):
-            self._validate_request_membership(mr, partner)
+            self._validate_request_membership(partner)
 
-    @api.model
-    def _validate_request_membership(self, mr, partner):
+    def _validate_request_membership(self, partner):
+        self.ensure_one()
         active_memberships = partner.membership_line_ids.filtered(lambda s: s.active)
-        if mr.force_int_instance_id:
+        if self.force_int_instance_id:
             # we want only one instance
             active_memberships.filtered(
-                lambda s, i=mr.force_int_instance_id: s.int_instance_id != i
+                lambda s, i=self.force_int_instance_id: s.int_instance_id != i
             )._close(force=True)
 
-        for instance in mr.force_int_instance_id or mr.int_instance_ids:
+        for instance in self.force_int_instance_id or self.int_instance_ids:
             membership_instance = active_memberships.filtered(
                 lambda s, i=instance: s.int_instance_id == i
             )
             update_amount_membership_line = self.env["membership.line"].browse()
-            if mr.result_type_id.code != "without_membership" and (
+            if self.result_type_id.code != "without_membership" and (
                 not membership_instance
-                or membership_instance.state_id != mr.result_type_id
+                or membership_instance.state_id != self.result_type_id
             ):
                 if active_memberships:
                     active_memberships._close(force=True)
@@ -1593,7 +1596,7 @@ class MembershipRequest(models.Model):
                         "partner_id": partner.id,
                         "product_id": membership_instance.product_id.id
                         or partner.subscription_product_id.id,
-                        "state_id": mr.result_type_id.id,
+                        "state_id": self.result_type_id.id,
                     }
                     if active_memberships.paid:
                         vals["price"] = 0
@@ -1612,13 +1615,13 @@ class MembershipRequest(models.Model):
                             "int_instance_id": instance.id,
                             "partner_id": partner.id,
                             "product_id": partner.subscription_product_id.id,
-                            "state_id": mr.result_type_id.id,
+                            "state_id": self.result_type_id.id,
                         }
                     )
                     w._onchange_product_id()  # compute the price
                 update_amount_membership_line = w.action_add()
 
-            elif mr.result_type_id.code in ("member", "member_candidate"):
+            elif self.result_type_id.code in ("member", "member_candidate"):
                 update_amount_membership_line = partner.membership_line_ids.filtered(
                     lambda m, i=instance: m.int_instance_id == i
                     and m.active
@@ -1626,19 +1629,19 @@ class MembershipRequest(models.Model):
                 )
 
             # save membership amount
-            if mr.amount > 0.0 or mr.reference:
+            if self.amount > 0.0 or self.reference:
                 product = self.env["product.product"].search(
                     [
                         ("membership", "=", True),
-                        ("list_price", "=", mr.amount),
+                        ("list_price", "=", self.amount),
                     ],
                     limit=1,
                 )
                 vals = {}
-                if mr.reference:
-                    vals["reference"] = mr.reference
-                if mr.amount:
-                    vals["price"] = mr.amount
+                if self.reference:
+                    vals["reference"] = self.reference
+                if self.amount:
+                    vals["price"] = self.amount
                 if product:
                     vals["product_id"] = product.id
                 for membership in update_amount_membership_line:
@@ -1647,21 +1650,21 @@ class MembershipRequest(models.Model):
                         + "<br/><ul class='o_Message_trackingValues'>"
                     )
                     arrow = "<div class='fa fa-long-arrow-right'></div>"
-                    if mr.reference:
+                    if self.reference:
                         body += _(
                             "<li>Reference: %(previous)s %(arrow)s %(after)s</li>"
                         ) % {
                             "previous": membership.reference,
                             "arrow": arrow,
-                            "after": mr.reference,
+                            "after": self.reference,
                         }
-                    if mr.amount:
+                    if self.amount:
                         body += _(
                             "<li>Price: %(previous)s %(arrow)s %(after)s</li>"
                         ) % {
                             "previous": membership.price,
                             "arrow": arrow,
-                            "after": mr.amount,
+                            "after": self.amount,
                         }
                     if product:
                         body += _(
