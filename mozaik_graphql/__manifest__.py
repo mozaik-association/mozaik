@@ -21,6 +21,7 @@
         "mozaik_mandate_partner_fields",
         "mozaik_mandate_show_website",
         "mozaik_membership",
+        "mozaik_membership_card",
         "mozaik_membership_mandate",
         "mozaik_partner_fields",
         "mozaik_person_deceased",
