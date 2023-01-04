@@ -8,15 +8,11 @@ class AccountPaymentOrder(models.Model):
 
     _inherit = "account.payment.order"
 
-    def _create_reconcile_move(self, hashcode, blines):
-        res = super()._create_reconcile_move(hashcode, blines)
-        for order in self:
-            for move_line in order.mapped("move_ids.line_ids"):
-                membership_lines = move_line.bank_payment_line_id.mapped(
-                    "payment_line_ids.membership_line_id"
-                )
-                for membership_line in membership_lines:
-                    membership_line._mark_as_paid(
-                        membership_line.price, move_line.move_id
-                    )
+    def generated2uploaded(self):
+        res = super().generated2uploaded()
+        for payment in self.mapped("payment_ids"):
+            for membership_line in payment.mapped(
+                "payment_line_ids.membership_line_id"
+            ):
+                membership_line._mark_as_paid(membership_line.price, payment.move_id.id)
         return res
