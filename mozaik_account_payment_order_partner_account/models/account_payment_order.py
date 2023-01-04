@@ -8,12 +8,11 @@ class AccountPaymentOrder(models.Model):
 
     _inherit = "account.payment.order"
 
-    def _prepare_move_line_partner_account(self, bank_line):
-        res_vals = super()._prepare_move_line_partner_account(bank_line).copy()
-        if (
-            not bank_line.payment_line_ids[0].move_line_id
-            and self.payment_type == "inbound"
-            and self.env.company.debit_order_partner_account_id
-        ):
-            res_vals["account_id"] = self.env.company.debit_order_partner_account_id.id
-        return res_vals
+    def generated2uploaded(self):
+        if self.env.company.debit_order_partner_account_id:
+            self.filtered(lambda o: o.payment_type == "inbound").mapped(
+                "payment_ids.move_id.line_ids"
+            ).filtered(lambda ml: ml.credit > 0).write(
+                {"account_id": self.env.company.debit_order_partner_account_id.id}
+            )
+        return super().generated2uploaded()
