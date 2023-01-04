@@ -255,10 +255,17 @@ class ResPartner(models.Model):
         if discriminant_field == "address_address_id":
             address = self.env["address.address"].browse(value[discriminant_field])
             if not address.has_street:
+                # It is possible that we need to reset the values,
+                # but in most cases this is unnecessary. To save some time
+                # and avoid writing on multiple lines at the same time,
+                # locking the table, we filter the partners.
                 values_write = self._get_fields_to_update_duplicate(
                     "reset", "address_address_id"
                 )
-                duplicates.with_context(escape_detection=True).write(values_write)
+                duplicates.filtered(
+                    lambda p: p.is_address_duplicate_detected
+                    or p.is_address_duplicate_allowed_compute
+                ).with_context(escape_detection=True).write(values_write)
                 return self.browse()
         if duplicates.filtered(lambda s: not s.birthdate_date):
             return duplicates
@@ -419,7 +426,7 @@ class ResPartner(models.Model):
             domain.append([("phone", "ilike", self.phone)])
         if self.mobile:
             domain.append([("mobile", "ilike", self.mobile)])
-        if self.address_address_id:
+        if self.address_address_id and self.address_address_id.has_street:
             domain.append([("address_address_id", "=", self.address_address_id.id)])
         duplicate_form["domain"] = OR(domain)
         return duplicate_form
