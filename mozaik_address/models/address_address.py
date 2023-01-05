@@ -243,14 +243,14 @@ class AddressAddress(models.Model):
             technical_value.append(format_value(value))
         return "#".join(technical_value)
 
-    @api.depends("street_man", "street2")
+    @api.depends("street_man")
     def _compute_has_street(self):
         for address in self:
-            address.has_street = address.street_man or address.street2
+            address.has_street = address.street_man
 
     @api.model
     def _get_partial_address_domain(self):
-        return [("street_man", "=", False), ("street2", "=", False)]
+        return [("street_man", "=", False)]
 
     def _search_has_street(self, operator, value):
         """

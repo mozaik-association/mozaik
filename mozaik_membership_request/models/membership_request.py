@@ -717,26 +717,25 @@ class MembershipRequest(models.Model):
             [("technical_name", "=", technical_name)], limit=1
         )
         if existing_address:
-            return technical_name, existing_address.id
+            return existing_address.technical_name, existing_address.id
         else:
+            address = self.env["address.address"].create(
+                {
+                    "country_id": country_id,
+                    "street_man": street_man,
+                    "zip_man": zip_man,
+                    "city_man": city_man,
+                    "address_local_street_id": address_local_street_id,
+                    "city_id": city_id,
+                    "street2": vals.get("street2", False),
+                    "number": number,
+                    "box": box,
+                    "sequence": vals.get("sequence", False),
+                }
+            )
             return (
-                technical_name,
-                self.env["address.address"]
-                .create(
-                    {
-                        "country_id": country_id,
-                        "street_man": street_man,
-                        "zip_man": zip_man,
-                        "city_man": city_man,
-                        "address_local_street_id": address_local_street_id,
-                        "city_id": city_id,
-                        "street2": vals.get("street2", False),
-                        "number": number,
-                        "box": box,
-                        "sequence": vals.get("sequence", False),
-                    }
-                )
-                .id,
+                address.technical_name,
+                address.id,
             )
 
     @api.model
@@ -868,7 +867,7 @@ class MembershipRequest(models.Model):
                 ("zipcode", "=", zip_man),
             ]
             candidate_city = self.env["res.city"].search(domain, limit=1)
-        if candidate_city:
+        if candidate_city or city_id:
             be_country_id = self.env["res.country"]._country_default_get("BE").id
             if not country_id or be_country_id == country_id:
                 # Default country is BE.
@@ -1487,19 +1486,20 @@ class MembershipRequest(models.Model):
             # If not, erase int_instance_ids, otherwise it will change the instance (without
             # changing the address, which is unwanted).
 
-            # If the MR was pre-processed, we do not try to re-modify the address
-            if not mr.is_pre_processed:
-                address_vals = {
-                    "address_local_street_id": mr.address_local_street_id.id,
-                    "city_id": mr.city_id.id,
-                    "number": mr.number,
-                    "box": mr.box,
-                    "city_man": mr.city_man,
-                    "street_man": mr.street_man,
-                    "zip_man": mr.zip_man,
-                    "country_id": mr.country_id.id,
-                }
-                res_values = self._manage_address_and_instance(address_vals, partner)
+            address_vals = {
+                "address_local_street_id": mr.address_local_street_id.id,
+                "city_id": mr.city_id.id,
+                "number": mr.number,
+                "box": mr.box,
+                "city_man": mr.city_man,
+                "street_man": mr.street_man,
+                "zip_man": mr.zip_man,
+                "country_id": mr.country_id.id,
+            }
+            res_values = self._manage_address_and_instance(address_vals, partner)
+            old_technical_name = mr.is_pre_processed and mr.address_id.technical_name
+            new_technical_name = res_values.get("technical_name", False)
+            if not mr.is_pre_processed or old_technical_name != new_technical_name:
                 mr.address_id = res_values.get("address_id", False)
                 mr.technical_name = res_values["technical_name"]
             if not mr.address_id:
