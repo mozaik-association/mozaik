@@ -74,7 +74,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_res_users__global_opt_out
 #: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_sta_assembly__global_opt_out
 msgid "Global opt-out"
-msgstr "Bad email address"
+msgstr "Global opt-out"
 
 #. module: mozaik_partner_global_opt_out
 #: model:ir.model.fields,field_description:mozaik_partner_global_opt_out.field_distribution_list_mass_function__id
