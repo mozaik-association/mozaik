@@ -12,11 +12,13 @@ class ChangeAddress(models.TransientModel):
 
     def doit(self):
         res = super(ChangeAddress, self).doit()
+        default_instance = self.env["int.instance"]._get_default_int_instance()
         for wizard in self:
             if wizard.update_instance:
                 w = self.env["change.instance"].create(
                     {
-                        "instance_id": wizard.address_id.city_id.int_instance_id.id,
+                        "instance_id": wizard.address_id.city_id.int_instance_id.id
+                        or default_instance.id,
                         "partner_ids": wizard.partner_ids.ids,
                     }
                 )
