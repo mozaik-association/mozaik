@@ -36,7 +36,7 @@ msgstr ""
 #. module: mozaik_membership_request_autovalidate
 #: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
 #, python-format
-msgid "Firstname and lastname do not correspond"
+msgid "Firstname and lastname do not correspond (case insensitive check)"
 msgstr ""
 
 #. module: mozaik_membership_request_autovalidate
