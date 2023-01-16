@@ -1286,9 +1286,9 @@ class MembershipRequest(models.Model):
                 "[('membership_state_id', '!=', False),"
                 "('is_company', '=', False),"
                 "('birthdate_date','=', '%s'),"
-                "('email', '=', '%s'),"
-                "('firstname', 'ilike', \"%s\"),"
-                "('lastname', 'ilike', \"%s\")]"
+                "('email', '=ilike', '%s'),"
+                "('firstname', '=ilike', \"%s\"),"
+                "('lastname', '=ilike', \"%s\")]"
                 % (birthdate_date, email, firstname, lastname)
             )
         if not is_company and birthdate_date and email:
@@ -1296,44 +1296,44 @@ class MembershipRequest(models.Model):
                 "[('membership_state_id', '!=', False),"
                 "('is_company', '=', False),"
                 "('birthdate_date','=', '%s'),"
-                "('email', '=', '%s')]" % (birthdate_date, email)
+                "('email', '=ilike', '%s')]" % (birthdate_date, email)
             )
         if not is_company and email and firstname and lastname:
             partner_domains.append(
                 "[('membership_state_id', '!=', False),"
                 "('is_company', '=', False),"
-                "('email', '=', '%s'),"
-                "('firstname', 'ilike', \"%s\"),"
-                "('lastname', 'ilike', \"%s\")]" % (email, firstname, lastname)
+                "('email', '=ilike', '%s'),"
+                "('firstname', '=ilike', \"%s\"),"
+                "('lastname', '=ilike', \"%s\")]" % (email, firstname, lastname)
             )
         if not is_company and email:
             partner_domains.append(
                 "[('membership_state_id', '!=', False),"
                 "('is_company', '=', False),"
-                "('email', '=','%s')]" % (email)
+                "('email', '=ilike','%s')]" % (email)
             )
         if is_company and email:
             partner_domains.append(
-                "[('is_company', '=', True)," "('email', '=','%s')]" % (email)
+                "[('is_company', '=', True)," "('email', '=ilike','%s')]" % (email)
             )
         if lastname:
             if not is_company and firstname:
                 partner_domains.append(
                     "[('membership_state_id','!=',False),"
                     "('is_company', '=', False),"
-                    "('firstname', 'ilike', \"%s\"),"
-                    "('lastname', 'ilike', \"%s\")]" % (firstname, lastname)
+                    "('firstname', '=ilike', \"%s\"),"
+                    "('lastname', '=ilike', \"%s\")]" % (firstname, lastname)
                 )
             elif not is_company:
                 partner_domains.append(
                     "[('membership_state_id', '!=', False),"
                     "('is_company', '=', False),"
-                    '("lastname", \'ilike\', "%s")]' % (lastname)
+                    "('lastname', '=ilike', \"%s\")]" % (lastname)
                 )
             else:
                 partner_domains.append(
                     "[('is_company', '=', True),"
-                    "('lastname', 'ilike', \"%s\")]" % (lastname)
+                    "('lastname', '=ilike', \"%s\")]" % (lastname)
                 )
         return partner_domains
 
@@ -1474,6 +1474,21 @@ class MembershipRequest(models.Model):
                 partner = self.env["res.partner"].create(partner_values)
                 mr_vals["partner_id"] = partner.id
                 partner_values = {}
+            else:
+                # Do not update firstname and lastname if the only modifications
+                # are upper/lower case changes
+                if (
+                    partner.lastname
+                    and mr.lastname
+                    and partner.lastname.lower() == mr.lastname.lower()
+                ):
+                    partner_values.pop("lastname", False)
+                if (
+                    partner.firstname
+                    and mr.firstname
+                    and partner.firstname.lower() == mr.firstname.lower()
+                ):
+                    partner_values.pop("firstname", False)
 
             # create new involvements
             self._validate_request_involvement(mr, partner)
@@ -1732,8 +1747,10 @@ class MembershipRequest(models.Model):
 
     @api.model
     def _validate_request_coordinates(self, mr, partner_values):
-        # case of email
-        if mr.email:
+        # case of email: do not change email if only difference is lower/upper case
+        if mr.email and (
+            not mr.partner_id.email or mr.email.lower() != mr.partner_id.email.lower()
+        ):
             partner_values["email"] = mr.email
         # case of phone
         if mr.phone:

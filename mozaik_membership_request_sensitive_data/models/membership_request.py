@@ -149,7 +149,7 @@ class MembershipRequest(models.Model):
                         # Just formatting phone/mobile number is
                         # not considered as a sensitive change
                         if (
-                            key not in ["lastname", "firstname"]
+                            key not in ["lastname", "firstname", "email"]
                             or mr_value.lower() != partner_value.lower()
                         ):
                             # Just changing lower/upper letters is not a sensitive change

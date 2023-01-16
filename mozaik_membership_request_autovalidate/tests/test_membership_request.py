@@ -335,3 +335,37 @@ class TestMembershipRequest(TransactionCase):
         mr._auto_validate(True)
         self.assertEqual(self.federal, jordan.int_instance_id)
         self.assertEqual("validate", mr.state)
+
+    def test_autoval_firstname_lastname(self):
+        """
+        1. Do not autovalidate if lastname or firstname is different.
+
+        2. But ignore case changes
+        """
+        guillaume = self.env["res.partner"].create(
+            {"lastname": "van Damme", "firstname": "Guillaume", "email": "gvd@test.com"}
+        )
+        # 1.
+        mr = self.mr_model.create(
+            {
+                "lastname": "Dupont",
+                "firstname": "Guillaume",
+                "partner_id": guillaume.id,
+                "email": "gvd@test.com",
+            }
+        )
+        mr._auto_validate(True)
+        self.assertEqual(mr.state, "confirm")
+        _, failure_reason = mr._check_auto_validate(True)
+        self.assertIn("Firstname and lastname do not correspond", failure_reason)
+
+        # 2.
+        mr = self.mr_model.create(
+            {"lastname": "Van Damme", "firstname": "Guillaume", "email": "gvd@test.com"}
+        )
+        mr.onchange_partner_component()
+        self.assertEqual(mr.partner_id, guillaume)
+        self.assertEqual(mr.lastname, "Van Damme")
+        mr._auto_validate(True)
+        self.assertEqual(mr.state, "validate")
+        self.assertEqual(guillaume.lastname, "van Damme")

@@ -89,13 +89,23 @@ class MembershipRequest(models.Model):
 
         # 26993/2.3.2 (second part)
         if auto_val and self.partner_id:
-            # for existing partner, names must be equal
+            # for existing partner, names must be equal (ignore upper/lower letter changes)
+            lower_mr_firstname = self.firstname and self.firstname.lower()
+            lower_partner_firstname = (
+                self.partner_id.firstname and self.partner_id.firstname.lower()
+            )
+            lower_mr_lastname = self.lastname and self.lastname.lower()
+            lower_partner_lastname = (
+                self.partner_id.lastname and self.partner_id.lastname.lower()
+            )
             auto_val = (
-                self.partner_id.firstname == self.firstname
-                and self.partner_id.lastname == self.lastname
+                lower_partner_lastname == lower_mr_lastname
+                and lower_partner_firstname == lower_mr_firstname
             )
             if not auto_val:
-                failure_reason = _("Firstname and lastname do not correspond")
+                failure_reason = _(
+                    "Firstname and lastname do not correspond (case insensitive check)"
+                )
 
         if auto_val:
             auto_val, failure_reason = self._check_auto_validation_with_emails(auto_val)

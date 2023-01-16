@@ -840,3 +840,161 @@ class TestMembership(TransactionCase):
         self.assertEqual(len(active_line), 1)
         self.assertGreater(active_line.price, 0)
         self.assertFalse(active_line.paid)
+
+    def test_recognize_partner_email(self):
+        """
+        Create a membership request for a partner having:
+        1. the same email -> The onchange must associate this partner.
+        2. almost the same email (up to a capital letter)
+           -> The onchange must associate this partner.
+        """
+        hermione = self.env["res.partner"].create(
+            {"lastname": "Granger", "firstname": "Hermione", "email": "hg@test.com"}
+        )
+        # 1.
+        mr = self.env["membership.request"].create(
+            {"lastname": "Granger", "firstname": "Hermione", "email": "hg@test.com"}
+        )
+        mr.onchange_partner_component()
+        self.assertEqual(mr.partner_id, hermione)
+
+        # 2.
+        mr2 = self.env["membership.request"].create(
+            {"lastname": "Granger", "firstname": "Hermione", "email": "HG@test.com"}
+        )
+        mr2.onchange_partner_component()
+        self.assertEqual(mr2.partner_id, hermione)
+
+    def test_validate_request_and_write_firstname_lastname(self):
+        """
+        Create a membership request linked to an existing partner. Change firstname and lastname
+        (but only some capital letters).
+        -> When validating the MR, no change was done
+        """
+        emilie = self.env["res.partner"].create(
+            {"lastname": "Dupuis", "firstname": "Emilie"}
+        )
+        mr = self.env["membership.request"].create(
+            {"lastname": "Dupuis", "firstname": "Emilie", "partner_id": emilie.id}
+        )
+        # must remove capital letters in write because there is a check in the create method
+        mr.write({"lastname": "dupuis", "firstname": "emilie"})
+        mr.validate_request()
+        self.assertEqual(emilie.firstname, "Emilie")
+        self.assertEqual(emilie.lastname, "Dupuis")
+
+    def test_validate_request_and_write_email(self):
+        """
+        When validating the membership request:
+        1. When creating a new partner, always write email
+        2. When writing the same email on a matched partner, don't write it effectively.
+        3. When writing the same email (up to capital letters) on a matched partner,
+           don't write it effectively.
+        4. When changing the email of a matched partner, write it.
+        """
+        # 1.
+        mr = self.env["membership.request"].create(
+            {
+                "lastname": "Dubois",
+                "firstname": "Simon",
+                "email": "simon.dubois@test.com",
+            }
+        )
+        mr.onchange_partner_component()
+        self.assertFalse(mr.partner_id)
+        mr.write(
+            mr._onchange_partner_id_vals(
+                mr.is_company, mr.request_type, False, mr.technical_name
+            )
+        )
+        mr.validate_request()
+        partner = mr.partner_id
+        self.assertEqual(partner.email, mr.email)
+
+        # 2.
+        mr2 = self.env["membership.request"].create(
+            {
+                "lastname": "Dubois",
+                "firstname": "Simon",
+                "email": "simon.dubois@test.com",
+            }
+        )
+        mr2.onchange_partner_component()
+        self.assertEqual(mr2.partner_id, partner)
+        partner_values = {}
+        mr2._validate_request_coordinates(mr2, partner_values)
+        self.assertNotIn("email", partner_values)
+
+        # 3.
+        mr3 = self.env["membership.request"].create(
+            {
+                "lastname": "Dubois",
+                "firstname": "Simon",
+                "email": "Simon.Dubois@test.com",
+            }
+        )
+        mr3.onchange_partner_component()
+        self.assertEqual(mr3.partner_id, partner)
+        mr3.write(
+            mr3._onchange_partner_id_vals(
+                mr3.is_company, mr3.request_type, mr3.partner_id.id, mr3.technical_name
+            )
+        )
+        partner_values = {}
+        mr3._validate_request_coordinates(mr3, partner_values)
+        self.assertNotIn("email", partner_values)
+        mr3.validate_request()
+        self.assertEqual(partner.email, "simon.dubois@test.com")
+
+        # 4.
+        mr4 = self.env["membership.request"].create(
+            {
+                "lastname": "Dubois",
+                "firstname": "Simon",
+                "email": "simon.dubois@newemail.com",
+            }
+        )
+        mr4.onchange_partner_component()
+        self.assertEqual(mr4.partner_id, partner)
+        mr4.write(
+            mr4._onchange_partner_id_vals(
+                mr4.is_company, mr4.request_type, mr4.partner_id.id, mr4.technical_name
+            )
+        )
+        partner_values = {}
+        mr4._validate_request_coordinates(mr4, partner_values)
+        self.assertIn("email", partner_values)
+        mr4.validate_request()
+        self.assertEqual(partner.email, "simon.dubois@newemail.com")
+
+    def test_recognize_partner_name(self):
+        """
+        Create a membership request for a partner having:
+        1. The same lastname and firstname -> The onchange must associate this partner.
+        2. Almost the same lastname and firstname (up to capital letters)
+           -> The onchange must associate this partner.
+        3. A sub-string as firstname -> The onchange must NOT associate this partner.
+        """
+        # 1.
+        partner = self.env["res.partner"].create(
+            {"lastname": "Dupont", "firstname": "Marie-Claire"}
+        )
+        mr = self.env["membership.request"].create(
+            {"lastname": "Dupont", "firstname": "Marie-Claire"}
+        )
+        mr.onchange_partner_component()
+        self.assertEqual(mr.partner_id, partner)
+
+        # 2.
+        mr2 = self.env["membership.request"].create(
+            {"lastname": "dupont", "firstname": "marie-claire"}
+        )
+        mr2.onchange_partner_component()
+        self.assertEqual(mr2.partner_id, partner)
+
+        # 3.
+        mr3 = self.env["membership.request"].create(
+            {"lastname": "Dupont", "firstname": "Marie"}
+        )
+        mr3.onchange_partner_component()
+        self.assertFalse(mr3.partner_id)
