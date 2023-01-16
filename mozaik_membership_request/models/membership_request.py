@@ -1474,6 +1474,21 @@ class MembershipRequest(models.Model):
                 partner = self.env["res.partner"].create(partner_values)
                 mr_vals["partner_id"] = partner.id
                 partner_values = {}
+            else:
+                # Do not update firstname and lastname if the only modifications
+                # are upper/lower case changes
+                if (
+                    partner.lastname
+                    and mr.lastname
+                    and partner.lastname.lower() == mr.lastname.lower()
+                ):
+                    partner_values.pop("lastname", False)
+                if (
+                    partner.firstname
+                    and mr.firstname
+                    and partner.firstname.lower() == mr.firstname.lower()
+                ):
+                    partner_values.pop("firstname", False)
 
             # create new involvements
             self._validate_request_involvement(mr, partner)

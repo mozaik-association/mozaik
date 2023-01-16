@@ -865,6 +865,24 @@ class TestMembership(TransactionCase):
         mr2.onchange_partner_component()
         self.assertEqual(mr2.partner_id, hermione)
 
+    def test_validate_request_and_write_firstname_lastname(self):
+        """
+        Create a membership request linked to an existing partner. Change firstname and lastname
+        (but only some capital letters).
+        -> When validating the MR, no change was done
+        """
+        emilie = self.env["res.partner"].create(
+            {"lastname": "Dupuis", "firstname": "Emilie"}
+        )
+        mr = self.env["membership.request"].create(
+            {"lastname": "Dupuis", "firstname": "Emilie", "partner_id": emilie.id}
+        )
+        # must remove capital letters in write because there is a check in the create method
+        mr.write({"lastname": "dupuis", "firstname": "emilie"})
+        mr.validate_request()
+        self.assertEqual(emilie.firstname, "Emilie")
+        self.assertEqual(emilie.lastname, "Dupuis")
+
     def test_validate_request_and_write_email(self):
         """
         When validating the membership request:
