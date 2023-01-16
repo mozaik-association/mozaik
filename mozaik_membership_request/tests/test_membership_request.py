@@ -840,3 +840,59 @@ class TestMembership(TransactionCase):
         self.assertEqual(len(active_line), 1)
         self.assertGreater(active_line.price, 0)
         self.assertFalse(active_line.paid)
+
+    def test_recognize_partner_email(self):
+        """
+        Create a membership request for a partner having:
+        1. the same email -> The onchange must associate this partner.
+        2. almost the same email (up to a capital letter)
+           -> The onchange must associate this partner.
+        """
+        hermione = self.env["res.partner"].create(
+            {"lastname": "Granger", "firstname": "Hermione", "email": "hg@test.com"}
+        )
+        # 1.
+        mr = self.env["membership.request"].create(
+            {"lastname": "Granger", "firstname": "Hermione", "email": "hg@test.com"}
+        )
+        mr.onchange_partner_component()
+        self.assertEqual(mr.partner_id, hermione)
+
+        # 2.
+        mr2 = self.env["membership.request"].create(
+            {"lastname": "Granger", "firstname": "Hermione", "email": "HG@test.com"}
+        )
+        mr2.onchange_partner_component()
+        self.assertEqual(mr2.partner_id, hermione)
+
+    def test_recognize_partner_name(self):
+        """
+        Create a membership request for a partner having:
+        1. The same lastname and firstname -> The onchange must associate this partner.
+        2. Almost the same lastname and firstname (up to capital letters)
+           -> The onchange must associate this partner.
+        3. A sub-string as firstname -> The onchange must NOT associate this partner.
+        """
+        # 1.
+        partner = self.env["res.partner"].create(
+            {"lastname": "Dupont", "firstname": "Marie-Claire"}
+        )
+        mr = self.env["membership.request"].create(
+            {"lastname": "Dupont", "firstname": "Marie-Claire"}
+        )
+        mr.onchange_partner_component()
+        self.assertEqual(mr.partner_id, partner)
+
+        # 2.
+        mr2 = self.env["membership.request"].create(
+            {"lastname": "dupont", "firstname": "marie-claire"}
+        )
+        mr2.onchange_partner_component()
+        self.assertEqual(mr2.partner_id, partner)
+
+        # 3.
+        mr3 = self.env["membership.request"].create(
+            {"lastname": "Dupont", "firstname": "Marie"}
+        )
+        mr3.onchange_partner_component()
+        self.assertFalse(mr3.partner_id)
