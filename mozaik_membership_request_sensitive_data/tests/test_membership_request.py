@@ -55,17 +55,21 @@ class MembershipRequestTest(TransactionCase):
         Define the following sensitive data:
         "[lastname, firstname, email, birthdate_date, phone, mobile]"
 
-        FIRST MEMBERSHIP REQUEST
+        1.
         Change his firstname -> sensitive
         Add a phone -> not sensitive since was empty
         Add a birthdate -> not sensitive since was empty
 
-        SECOND MEMBERSHIP REQUEST
+        2.
         Change phone to format it -> not sensitive
         Add mobile and email -> not sensitive
 
-        THIRD MEMBERSHIP REQUEST
+        3.
         Changing phone number -> sensitive
+
+        4.
+        Change firstname, lastname and email, but only capital letters
+        -> not sensitive hence no message in the chatter.
         """
         # We set specific sensitive data.
         self.env["ir.config_parameter"].sudo().set_param(
@@ -73,7 +77,7 @@ class MembershipRequestTest(TransactionCase):
             "[lastname, firstname, email, birthdate_date, phone, mobile]",
         )
 
-        # 1st membership request
+        # 1.
         mr_obj = self.env["membership.request"]
         phone = "0479123456"
         birthdate = date(1972, 6, 19)
@@ -91,7 +95,7 @@ class MembershipRequestTest(TransactionCase):
         self.assertEqual(self.jean.phone, phone, "Phone was set")
         self.assertEqual(self.jean.birthdate_date, birthdate, "Birthdate was set")
 
-        # 2nd membership request
+        # 2.
         phone = mr_obj.get_format_phone_number("0479123456")
         mobile = "123456"
         email = "test@test.com"
@@ -115,7 +119,7 @@ class MembershipRequestTest(TransactionCase):
             self.jean.email, email, "Adding new mobile should be permitted"
         )
 
-        # 3rd membership request
+        # 3.
         phone = "0123456789"
         mr = mr_obj.create(
             {
@@ -129,6 +133,22 @@ class MembershipRequestTest(TransactionCase):
             self.jean.phone,
             mr_obj.get_format_phone_number("0479123456"),
             "Phone shouldn't be changed",
+        )
+
+        # 4.
+        self.jean.email = "jd@test.com"
+        mr = mr_obj.create(
+            {
+                "partner_id": self.jean.id,
+                "lastname": "dujardin",
+                "firstname": "jean",
+                "email": "JD@test.com",
+            }
+        )
+        mr.validate_request()
+        # We should not have 'Sensitive data not modified' message in the chatter
+        self.assertFalse(
+            mr.message_ids.filtered(lambda message: "Sensitive data" in message.body)
         )
 
     def test_sensitive_data_address(self):

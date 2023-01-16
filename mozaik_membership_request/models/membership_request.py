@@ -1732,8 +1732,10 @@ class MembershipRequest(models.Model):
 
     @api.model
     def _validate_request_coordinates(self, mr, partner_values):
-        # case of email
-        if mr.email:
+        # case of email: do not change email if only difference is lower/upper case
+        if mr.email and (
+            not mr.partner_id.email or mr.email.lower() != mr.partner_id.email.lower()
+        ):
             partner_values["email"] = mr.email
         # case of phone
         if mr.phone:
