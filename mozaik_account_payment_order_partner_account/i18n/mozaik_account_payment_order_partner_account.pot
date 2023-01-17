@@ -15,7 +15,9 @@ msgstr ""
 
 #. module: mozaik_account_payment_order_partner_account
 #: model_terms:ir.ui.view,arch_db:mozaik_account_payment_order_partner_account.res_config_settings_form_view
-msgid "<span class=\"o_form_label\">Debit Order Partner Account</span>"
+msgid ""
+"<span class=\"o_form_label\">Debit Order Partner Account</span>\n"
+"                        <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
 
 #. module: mozaik_account_payment_order_partner_account
