@@ -200,6 +200,11 @@ msgid "Partners/Membership"
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__price
+msgid "Price"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__reference
 msgid "Reference"
 msgstr ""
