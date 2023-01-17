@@ -1,8 +1,7 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models
 
 
 class ResPartner(models.Model):
@@ -37,11 +36,8 @@ class ResPartner(models.Model):
         if not skip:
             for record in self:
                 if record.global_opt_out:
-                    if not record.email:
-                        raise ValidationError(
-                            _("Cannot tick global opt-out without a valid email.")
-                        )
-                    self.env["mail.blacklist"]._add(record.email)
+                    if record.email:
+                        self.env["mail.blacklist"]._add(record.email)
                 else:
                     mb = self.env["mail.blacklist"].search(
                         [("email", "=", record.email)]

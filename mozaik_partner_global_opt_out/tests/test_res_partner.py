@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -17,28 +16,6 @@ class TestResPartner(TransactionCase):
                 "email": "omar.sy@test.com",
             }
         )
-
-    def test_create_partner_without_email(self):
-        """
-        Create or write on a partner without email but with blacklist -> error
-        """
-        with self.assertRaises(ValidationError):
-            self.env["res.partner"].create(
-                {
-                    "lastname": "Dumoulin",
-                    "firstname": "Jean",
-                    "global_opt_out": True,
-                }
-            )
-
-        jean_dupont = self.env["res.partner"].create(
-            {
-                "lastname": "Dupont",
-                "firstname": "Jean",
-            }
-        )
-        with self.assertRaises(ValidationError):
-            jean_dupont.write({"global_opt_out": True})
 
     def test_create_partner_with_opt_out(self):
         """
