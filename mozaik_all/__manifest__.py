@@ -87,6 +87,7 @@
         "mozaik_membership_mandate",
         "mozaik_membership_price",
         "mozaik_membership_request",
+        "mozaik_membership_request_address",
         "mozaik_membership_request_autovalidate",
         "mozaik_membership_request_from_registration",
         "mozaik_membership_request_protected_values",

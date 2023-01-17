@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="ir_cron_delete_unused_addresses" model="ir.cron">
+        <field name="name">Delete unused addresses</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field
+            name="nextcall"
+            eval="(DateTime.today() + relativedelta(days=1)).strftime('%Y-%m-%d 00:30:00')"
+        />
+        <field
+            name="model_id"
+            ref="mozaik_membership_request_address.model_address_address"
+        />
+        <field name="code">model._delete_unused_addresses()</field>
+    </record>
+
+</odoo>
