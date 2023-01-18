@@ -998,3 +998,46 @@ class TestMembership(TransactionCase):
         )
         mr3.onchange_partner_component()
         self.assertFalse(mr3.partner_id)
+
+    def test_membership_request_change_amount(self):
+        """
+        Take a member with an unpaid membership line.
+        Create a membership request of type 'm' to change the amount.
+        Validate the request.
+        -> The amount has been changed on the membership line.
+        """
+        harry = self.env["res.partner"].create(
+            {"lastname": "Potter", "firstname": "Harry", "email": "hp@test.com"}
+        )
+        member_state = self.env["membership.state"].search(
+            [("code", "=", "member")], limit=1
+        )
+        w = self.env["add.membership"].create(
+            {
+                "int_instance_id": harry.force_int_instance_id.id,
+                "partner_id": harry.id,
+                "price": 25,
+                "state_id": member_state.id,
+            }
+        )
+        w.action_add()
+        self.assertEqual(harry.membership_state_code, "member")
+        self.assertEqual(harry.membership_line_ids.filtered("active")[0].price, 25)
+
+        mr = self.env["membership.request"].create(
+            {
+                "lastname": harry.lastname,
+                "firstname": harry.firstname,
+                "partner_id": harry.id,
+                "request_type": "m",
+                "amount": 10,
+            }
+        )
+        mr.write(
+            mr._onchange_partner_id_vals(
+                mr.is_company, mr.request_type, mr.partner_id.id, mr.technical_name
+            )
+        )
+        mr.validate_request()
+
+        self.assertEqual(harry.membership_line_ids.filtered("active")[0].price, 10)
