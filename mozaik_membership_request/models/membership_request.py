@@ -948,7 +948,7 @@ class MembershipRequest(models.Model):
         res.pop("int_instance_ids", False)
         output_vals.update(res)
 
-        # Finally manage int_instance: is partner is recognized and no int_instance is set
+        # Finally manage int_instance: if partner is recognized and no int_instance is set
         # (due to an address modification), take the partner's instance as a reminder on the MR.
         if not output_vals.get("int_instance_ids", False) and partner:
             output_vals["int_instance_ids"] = [(6, 0, partner.int_instance_ids.ids)]
@@ -1572,6 +1572,7 @@ class MembershipRequest(models.Model):
 
     def _validate_request_membership_with_checks(self, partner):
         self.ensure_one()
+        active_lines = partner.membership_line_ids.filtered(lambda m: m.active)
         if (
             self.result_type_id != self.membership_state_id
             or (
@@ -1582,6 +1583,7 @@ class MembershipRequest(models.Model):
                 self.int_instance_ids
                 and self.int_instance_ids != partner.int_instance_ids
             )
+            or (active_lines and active_lines[0].price != self.amount)
         ):
             self._validate_request_membership(partner)
 
