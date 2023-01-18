@@ -76,6 +76,10 @@ class MembershipLine(models.Model):
                 [("stored_reference", "=", reference)]
             )
             membership = first(partner.membership_line_ids.filtered(lambda s: s.active))
+        elif not membership.active:
+            membership = first(
+                membership.partner_id.membership_line_ids.filtered(lambda s: s.active)
+            )
         min_date_from = self._get_min_reconciliation_date()
         if (
             membership
