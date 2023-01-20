@@ -77,7 +77,7 @@ def partner_add_values(mr, partner_values):
 class MembershipRequest(models.Model):
 
     _name = "membership.request"
-    _inherit = ["mozaik.abstract.model"]
+    _inherit = ["mozaik.abstract.model", "mozaik.lowered.email.mixin"]
     _description = "Membership Request"
     _inactive_cascade = True
     _terms = ["interest_ids", "competency_ids"]

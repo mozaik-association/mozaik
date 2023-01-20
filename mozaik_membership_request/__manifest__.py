@@ -19,6 +19,7 @@
         "mozaik_tools",
         "mozaik_account",
         "statechart",
+        "mozaik_email_lowered",
         # 'mozaik_involvement',
     ],
     "data": [
