@@ -570,6 +570,11 @@ msgid "Local Zip"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__lowered_email
+msgid "Lowered Email"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "MM"
 msgstr ""
