@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_email_lowered
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_email_lowered
+#: model:ir.model,name:mozaik_email_lowered.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_email_lowered
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_mozaik_lowered_email_mixin__display_name
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_email_lowered
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_mozaik_lowered_email_mixin__email
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_res_partner__email
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_res_users__email
+msgid "Email"
+msgstr ""
+
+#. module: mozaik_email_lowered
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_mozaik_lowered_email_mixin__id
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_email_lowered
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_mozaik_lowered_email_mixin____last_update
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_email_lowered
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_mozaik_lowered_email_mixin__lowered_email
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_res_partner__lowered_email
+#: model:ir.model.fields,field_description:mozaik_email_lowered.field_res_users__lowered_email
+msgid "Lowered Email"
+msgstr ""
+
+#. module: mozaik_email_lowered
+#: model:ir.model,name:mozaik_email_lowered.model_mozaik_lowered_email_mixin
+msgid "Mozaik Lowered Email Mixin"
+msgstr ""
