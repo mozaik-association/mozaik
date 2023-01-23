@@ -1673,6 +1673,14 @@ msgid "LinkedIn Account"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__lowered_email
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__lowered_email
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__lowered_email
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__lowered_email
+msgid "Lowered Email"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_main_attachment_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__message_main_attachment_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__message_main_attachment_id
