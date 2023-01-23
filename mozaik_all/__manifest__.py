@@ -28,6 +28,7 @@
         "mozaik_committee",
         "mozaik_duplicate",
         "mozaik_dynamical_time_filter",
+        "mozaik_email_lowered",
         "mozaik_event_chatter",
         "mozaik_event_description",
         "mozaik_event_export",
