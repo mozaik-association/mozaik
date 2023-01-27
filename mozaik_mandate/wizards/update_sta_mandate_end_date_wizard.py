@@ -10,4 +10,4 @@ class UpdateStaMandateEndDateWizard(models.TransientModel):
     _name = "update.sta.mandate.end.date.wizard"
     _description = "Update Sta Mandate End Date Wizard"
 
-    mandate_id = fields.Many2one(comodel_name="sta.mandate")
+    mandate_ids = fields.Many2many(comodel_name="sta.mandate")

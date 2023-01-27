@@ -10,9 +10,7 @@ class UpdateIntMandateEndDateWizard(models.TransientModel):
     _name = "update.int.mandate.end.date.wizard"
     _description = "Update Int Mandate End Date Wizard"
 
-    mandate_id = fields.Many2one(
-        comodel_name="int.mandate", string="Mandate", readonly=True
-    )
+    mandate_ids = fields.Many2many(comodel_name="int.mandate")
 
     @api.model
     def default_get(self, fields_list):
@@ -38,7 +36,7 @@ class UpdateIntMandateEndDateWizard(models.TransientModel):
         )
 
         if mode == "reactivate":
-            mandate = self.env[model].browse(ids[0])
-            if not mandate.int_assembly_id.active:
-                res["message"] = _("Assembly is no longer active!")
+            mandate_ids = self.env[model].browse(ids)
+            if any(not m.int_assembly_id.active for m in mandate_ids):
+                res["message"] = _("Some of the assemblies are no longer active!")
         return res

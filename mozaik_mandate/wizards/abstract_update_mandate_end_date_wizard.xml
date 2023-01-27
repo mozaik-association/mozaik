@@ -11,7 +11,12 @@
         <field name="arch" type="xml">
             <form>
                 <group name="data_1">
-                    <field name="mandate_id" />
+                    <field name="mandate_ids">
+                        <tree>
+                            <field name="partner_id" />
+                            <field name="mandate_category_id" />
+                        </tree>
+                    </field>
                     <field
                         name="mandate_end_date"
                         required="context.get('mode','x') == 'end_date'"

@@ -102,7 +102,9 @@ class TestUpdateMandateEndDateWizard:
         wiz_id = wizard_object.with_context(context).create(
             {"mandate_deadline_date": next_month}
         )
-        self.assertEqual(wiz_id.message, "The selected mandate is already active!")
+        self.assertEqual(
+            wiz_id.message, "Some of the selected mandates are already active!"
+        )
 
 
 class TestUpdateStaMandateEndDateWizard(TestUpdateMandateEndDateWizard, SavepointCase):
