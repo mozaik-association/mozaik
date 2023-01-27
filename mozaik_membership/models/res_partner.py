@@ -104,7 +104,10 @@ class ResPartner(models.Model):
 
     @api.model
     def _default_force_int_instance_id(self):
-        return first(self.env.user.partner_id.int_instance_m2m_ids)
+        return (
+            first(self.env.user.partner_id.int_instance_m2m_ids)
+            or self.env["int.instance"]._get_default_int_instance()
+        )
 
     @api.onchange("address_address_id")
     def _onchange_address_address_id(self):
