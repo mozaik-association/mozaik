@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <data>
+        <!-- Main survey layout -->
+        <template
+            id="mozaik_survey_background_image_layout"
+            name="Survey Layout"
+            inherit_id="survey.layout"
+        >
+
+            <xpath expr="//div[@id='wrapwrap']" position="attributes">
+                <attribute
+                    name="t-att-style"
+                    replace="'height: 100%; overflow: auto;'"
+                />
+            </xpath>
+
+        </template>
+    </data>
+</odoo>
