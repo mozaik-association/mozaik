@@ -22,8 +22,16 @@ class MembershipRequest(models.Model):
         copy=False,
     )
     transaction_state = fields.Selection(
+        [
+            ("draft", "Draft"),
+            ("pending", "Pending"),
+            ("authorized", "Authorized"),
+            ("done", "Done"),
+            ("cancel", "Canceled"),
+            ("error", "Error"),
+        ],
         string="Transaction State",
-        related="latest_transaction.state",
+        compute="_compute_transaction_state",
         store=True,
         copy=False,
     )
@@ -46,6 +54,11 @@ class MembershipRequest(models.Model):
                 "date", reverse=True
             )
             mr.latest_transaction = first(transactions)
+
+    @api.depends("latest_transaction", "latest_transaction.state")
+    def _compute_transaction_state(self):
+        for mr in self:
+            mr.transaction_state = mr.latest_transaction.state or False
 
     @api.depends("amount", "partner_id", "reference", "request_type", "state")
     def _compute_payment_link(self):
