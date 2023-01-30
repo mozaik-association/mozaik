@@ -212,13 +212,6 @@ msgid "Assembly category"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/update_ext_mandate_end_date_wizard.py:0
-#: code:addons/mozaik_mandate/wizards/update_int_mandate_end_date_wizard.py:0
-#, python-format
-msgid "Assembly is no longer active!"
-msgstr ""
-
-#. module: mozaik_mandate
 #: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 msgid "Assets Declaration"
 msgstr ""
@@ -382,13 +375,15 @@ msgstr ""
 #. module: mozaik_mandate
 #: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
-msgid "End date must be greater or equal than start date!"
+msgid ""
+"End date must be greater or equal than start date on all selectedmandates!"
 msgstr ""
 
 #. module: mozaik_mandate
 #: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
 #, python-format
-msgid "End date must be lower or equal than deadline date!"
+msgid ""
+"End date must be lower or equal than deadline date on all selectedmandates!"
 msgstr ""
 
 #. module: mozaik_mandate
@@ -816,10 +811,6 @@ msgid "Manager"
 msgstr ""
 
 #. module: mozaik_mandate
-#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__mandate_id
-#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__mandate_id
 #: model:ir.module.category,name:mozaik_mandate.module_category_mandate
 #: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
 msgid "Mandate"
@@ -880,12 +871,10 @@ msgid "Mandate period is inconsistent with legislature period!"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
-#, python-format
-msgid "Mandate will be invalidated by setting its end date!"
-msgstr ""
-
-#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_update_mandate_end_date_wizard__mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_ext_mandate_end_date_wizard__mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_int_mandate_end_date_wizard__mandate_ids
+#: model:ir.model.fields,field_description:mozaik_mandate.field_update_sta_mandate_end_date_wizard__mandate_ids
 #: model:ir.ui.menu,name:mozaik_mandate.mandates_root_menu
 #: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_search_view
 #: model_terms:ir.ui.view,arch_db:mozaik_mandate.legislature_form_view
@@ -1149,6 +1138,43 @@ msgid "Set end date, proceed anyway?"
 msgstr ""
 
 #. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
+#, python-format
+msgid "Some mandates will be invalidated by setting their end date!"
+msgstr ""
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizards/update_ext_mandate_end_date_wizard.py:0
+#: code:addons/mozaik_mandate/wizards/update_int_mandate_end_date_wizard.py:0
+#, python-format
+msgid "Some of the assemblies are no longer active!"
+msgstr ""
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
+#, python-format
+msgid "Some of the designation assemblies are no longer active!"
+msgstr ""
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
+#, python-format
+msgid "Some of the mandate categories are no longer active!"
+msgstr ""
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
+#, python-format
+msgid "Some of the representatives are no longer active!"
+msgstr ""
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
+#, python-format
+msgid "Some of the selected mandates are already active!"
+msgstr ""
+
+#. module: mozaik_mandate
 #: model_terms:ir.ui.view,arch_db:mozaik_mandate.int_instance_form_view
 msgid "St. Mandates"
 msgstr ""
@@ -1238,35 +1264,11 @@ msgid "State Power Level"
 msgstr ""
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
-#, python-format
-msgid "The designation assembly is no longer active!"
-msgstr ""
-
-#. module: mozaik_mandate
 #: model:ir.model.constraint,message:mozaik_mandate.constraint_abstract_mandate_date_check2
 #: model:ir.model.constraint,message:mozaik_mandate.constraint_ext_mandate_date_check2
 #: model:ir.model.constraint,message:mozaik_mandate.constraint_int_mandate_date_check2
 #: model:ir.model.constraint,message:mozaik_mandate.constraint_sta_mandate_date_check2
 msgid "The end date must be between start date and deadline date."
-msgstr ""
-
-#. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
-#, python-format
-msgid "The mandate category is no longer active!"
-msgstr ""
-
-#. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
-#, python-format
-msgid "The representative is no longer active!"
-msgstr ""
-
-#. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizards/abstract_update_mandate_end_date_wizard.py:0
-#, python-format
-msgid "The selected mandate is already active!"
 msgstr ""
 
 #. module: mozaik_mandate
