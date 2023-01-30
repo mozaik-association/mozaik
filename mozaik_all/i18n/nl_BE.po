@@ -17,6 +17,11 @@ msgstr ""
 "X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_all
+#: model_terms:ir.ui.view,arch_db:mozaik_all.res_partner_invoicing_form_view
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: mozaik_all
 #: model_terms:ir.ui.view,arch_db:mozaik_all.res_partner_base_form_view
 msgid "Social Media"
 msgstr "Sociale media"
