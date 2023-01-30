@@ -98,6 +98,7 @@
         "mozaik_petition_question_involvement_category",
         "mozaik_petition_thesaurus",
         "mozaik_retrocession_mode",
+        "mozaik_survey_background_image",
         "mozaik_survey_chatter",
         "mozaik_survey_involvement_category",
         "mozaik_survey_export_csv",
