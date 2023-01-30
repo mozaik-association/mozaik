@@ -69,6 +69,13 @@ class MembershipLine(models.Model):
         return self.search([("id", "in", [ml[0] for ml in self.env.cr.fetchall()])])
 
     @api.model
+    def _get_communication(self, membership_line):
+        return "{state} - {date}".format(
+            state=membership_line.state_id.name,
+            date=membership_line.date_from,
+        )
+
+    @api.model
     def add_unpaid_memberships_to_debit_order(self):
         debit_order = self.get_draft_sepa_debit_order()
         for membership_line in self.get_unpaid_sepa_membership_lines():
@@ -80,10 +87,7 @@ class MembershipLine(models.Model):
                     "partner_id": membership_line.partner_id.id,
                     "mandate_id": mandate.id,
                     "partner_bank_id": mandate.partner_bank_id.id,
-                    "communication": "{state} - {date}".format(
-                        state=membership_line.state_id.name,
-                        date=membership_line.date_from,
-                    ),
+                    "communication": self._get_communication(membership_line),
                     "membership_line_id": membership_line.id,
                 }
             )
