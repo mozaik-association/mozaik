@@ -85,7 +85,19 @@
             <xpath expr="//page[@name='internal_notes']" position="attributes">
                 <attribute name="autofocus">autofocus</attribute>
             </xpath>
+        </field>
+    </record>
 
+    <record id="res_partner_invoicing_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form.invoicing (in mozaik_all)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <group name="banks" position="after">
+                <group string="Fiscal Position">
+                    <field name="property_account_position_id" position="move" />
+                </group>
+            </group>
         </field>
     </record>
 
