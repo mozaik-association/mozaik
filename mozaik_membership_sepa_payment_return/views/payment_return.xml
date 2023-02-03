@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="payment_return_form_view">
+        <field
+            name="name"
+        >payment.return.form (in mozaik_membership_sepa_payment_return)</field>
+        <field name="model">payment.return</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,done"
+                    />
+                    <button
+                        name="confirm_manually_processed"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('state', '=', 'done')]}"
+                        string="Set to done"
+                        type="object"
+                        confirm="Setting this payment return to done means
+                        that you have processed it manually and that
+                        the notification email can be sent to the member."
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date" />
+                            <field name="amount" />
+                            <field name="account_number" />
+                            <field name="partner_name" />
+                        </group>
+                        <group>
+                            <field name="partner_id" />
+                            <field name="error_message" />
+                        </group>
+                    </group>
+                </sheet>
+                <div name="chat" class="oe_chatter">
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="mozaik_abstract_model.res_groups_follower_manager"
+                    />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="payment_return_search_view">
+        <field
+            name="name"
+        >payment.return.search (in mozaik_membership_sepa_payment_return)</field>
+        <field name="model">payment.return</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_name" />
+                <field name="account_number" />
+                <field name="date" />
+                <field name="partner_id" />
+                <separator />
+                <filter
+                    name="partner_recognized"
+                    string="Partner Recognized"
+                    domain="[('partner_id', '!=', False)]"
+                />
+                <filter
+                    name="partner_not_recognized"
+                    string="Partner Not Recognized"
+                    domain="[('partner_id', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="payment_return_tree_view">
+        <field
+            name="name"
+        >payment.return.tree (in mozaik_membership_sepa_payment_return)</field>
+        <field name="model">payment.return</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state=='error'" decoration-muted="state=='done'">
+                <field name="date" />
+                <field name="amount" />
+                <field name="account_number" />
+                <field name="partner_name" />
+                <field name="partner_id" />
+                <field name="state" />
+                <field name="error_message" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_recognize_partner" model="ir.actions.server">
+        <field name="name">Recognize Partner</field>
+        <field
+            name="model_id"
+            ref="mozaik_membership_sepa_payment_return.model_payment_return"
+        />
+        <field
+            name="binding_model_id"
+            ref="mozaik_membership_sepa_payment_return.model_payment_return"
+        />
+        <field name="state">code</field>
+        <field name="code">records._recognize_partners()</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="payment_return_act_window">
+        <field name="name">Payment Returns</field>
+        <field name="res_model">payment.return</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="payment_return_menu">
+        <field name="name">Payment Returns</field>
+        <field name="parent_id" ref="account.menu_finance_receivables" />
+        <field name="action" ref="payment_return_act_window" />
+        <field name="sequence" eval="55" />
+    </record>
+
+</odoo>
