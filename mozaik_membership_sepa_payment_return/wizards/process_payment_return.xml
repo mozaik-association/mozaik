@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="process_payment_return_wizard_form">
+        <field
+            name="name"
+        >process.payment.return.wizard.form (in mozaik_membership_sepa_payment_return)</field>
+        <field name="model">process.payment.return</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <span>
+                        Are you sure you want to proceed?
+                    </span>
+                </group>
+                <footer>
+                    <button
+                        name="process_payment_return"
+                        string="Process"
+                        class="btn-primary"
+                        type="object"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="process_payment_return_act_window">
+        <field name="name">Process the SEPA direct debit refusal</field>
+        <field name="res_model">process.payment.return</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="process_payment_return_wizard_form" />
+        <field
+            name="binding_model_id"
+            ref="mozaik_membership_sepa_payment_return.model_payment_return"
+        />
+    </record>
+
+
+
+</odoo>
