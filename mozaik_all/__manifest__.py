@@ -112,6 +112,9 @@
         "mozaik_membership_payment",
         "mozaik_membership_payment_stripe",
         # "mass_mail_queue_job",
+        # OCA/survey
+        "survey_multiple_choice_max_answers",
+        "survey_text_question_validation_length",
     ],
     "data": [
         # 'views/mail_followers.xml',
