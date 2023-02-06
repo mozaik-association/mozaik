@@ -20,6 +20,8 @@
         "mozaik_web_image_route",
         "extendable",
         "pydantic",
+        # OCA/survey
+        "survey_multiple_choice_max_answer",
     ],
     "data": [],
     "demo": [],
