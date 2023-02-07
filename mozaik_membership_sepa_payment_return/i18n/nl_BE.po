@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-06 17:24+0000\n"
+"PO-Revision-Date: 2023-02-07 11:24+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: nl_BE\n"
@@ -285,13 +285,13 @@ msgstr "Betalingsweigering"
 #. module: mozaik_membership_sepa_payment_return
 #: model:res.groups,name:mozaik_membership_sepa_payment_return.group_payment_return_user
 msgid "Payment Return User"
-msgstr ""
+msgstr "Betalingsweigering : gebruiker"
 
 #. module: mozaik_membership_sepa_payment_return
 #: model:ir.actions.act_window,name:mozaik_membership_sepa_payment_return.payment_return_act_window
 #: model:ir.ui.menu,name:mozaik_membership_sepa_payment_return.payment_return_menu
 msgid "Payment Returns"
-msgstr ""
+msgstr "Domiciliëringsweigeringen"
 
 #. module: mozaik_membership_sepa_payment_return
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_sepa_payment_return.process_payment_return_wizard_form
