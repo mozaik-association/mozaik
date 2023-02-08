@@ -2265,6 +2265,14 @@ msgid "Sanitized Number"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__secondary_email
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__secondary_email
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__secondary_email
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__secondary_email
+msgid "Secondary Email"
+msgstr ""
+
+#. module: mozaik_structure
 #: model_terms:ir.ui.view,arch_db:mozaik_structure.sta_instance_search_view
 msgid "Secondary Parent"
 msgstr ""
