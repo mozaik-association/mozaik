@@ -38,6 +38,7 @@
                 expr="//group[@name='personal_information_group_02']"
                 position="inside"
             >
+                <field name="secondary_email" position="move" />
                 <field name="website" position="move" />
                 <field name="secondary_website" position="move" />
                 <field name="social_twitter" position="move" />
