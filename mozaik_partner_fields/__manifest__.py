@@ -18,6 +18,7 @@
         "partner_contact_nationality",
     ],
     "data": [
+        "security/groups.xml",
         "views/res_partner.xml",
     ],
     "installable": True,
