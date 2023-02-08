@@ -137,6 +137,17 @@ msgid "Notes"
 msgstr ""
 
 #. module: mozaik_partner_fields
+#: model:res.groups,name:mozaik_partner_fields.group_partner_see_secondary_email
+msgid "Partner: can see secondary email"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__secondary_email
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__secondary_email
+msgid "Secondary Email"
+msgstr ""
+
+#. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__secondary_website
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__secondary_website
 msgid "Secondary Website"
