@@ -1,0 +1,6 @@
+site_name: Mozaik Documentation
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tags.sticky
