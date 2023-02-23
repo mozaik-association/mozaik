@@ -10,7 +10,5 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 
- markdown_extensions:
-  - attr_list
-  - md_in_html
+
 
