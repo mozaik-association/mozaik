@@ -5,7 +5,8 @@ The structure module allows you to create the organic structure of your country 
 ## State level
 
 You can create all the instances related to your state. You can name the instances created and give them a power. For each instance created you can give the parent instance of this instance. For example, the federal instance will be the parent instance of the regional instance.
-Each instance can be re-elected at meetings. For example, the national instance will have a House of Representatives - a Federal Government - a Senate
+Each instance can be re-elected at meetings. For example, the national instance will have a House of Representatives - a Federal Government - a Senate.
+
 /!\ SCREENSHOT/!\ 
 
 ## Interne level
