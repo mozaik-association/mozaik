@@ -19,7 +19,7 @@ Various information is collected when a contact of a physical and moral person i
 
 ???+ tip
 
-To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
+    To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
  /!\ SCREENSHOT/!\ 
 
