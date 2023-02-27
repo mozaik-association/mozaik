@@ -12,10 +12,16 @@ Various information is collected when a contact of a physical and moral person i
 - A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party (emailing campaign). However, the contact will still receive the usual emails
 - The current professional and health situation (disabled or not) is also requested. This two pieces of information are important because they can change the price of the membership fee for the member → if desired by the party.
 - The different social networks of the contact can also be registered.
-- A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list . Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action" (1) 
+- A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list . Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action" (1).
 { .annotate } 
 
 1.  click on action --> authorize+name of the authorisation.
+
+Lorem ipsum dolor sit amet, (1) consectetur adipiscing elit.
+{ .annotate }
+
+1.  :man_raising_hand: I'm an annotation! I can contain `code`, __formatted
+    text__, images, ... basically anything that can be expressed in Markdown.
 
  /!\ SCREENSHOT/!\ 
 
@@ -95,10 +101,10 @@ The member system depends on each company/party. There are several generic statu
     * Former member who pays dues
 Noted that additional status specific to the needs of each party can be added as needed and through wich the contact will pass. /!\ SCREENSHOT/!\
 
-<b>Workflow of an adhésion</b>
+<b>^^Workflow of an adhésion :^^</b>
 /!\ SCREENSHOT/!\
 
-<b>Workflow of a first contribution for a member</b>
+<b>^^Workflow of a first contribution for a member: ^^</b>
 /!\ SCREENSHOT/!\
 
 When reapplying for membership, the officer will check:
@@ -106,7 +112,7 @@ When reapplying for membership, the officer will check:
  - Does the person aldready exist or not ?
  - Linking of interrests with thesaurus
 
- ## Cotisatoin and amout of the fee
+ ## Cotisation and amout of the fee
 
  As far as dues rates are concerned, these are simple Odoo items. Membership rates vary based on several rules:
 - First membership 
@@ -118,6 +124,9 @@ When reapplying for membership, the officer will check:
 Each Political party can have its own rule
 /!\ SCREENSHOT/!\
 
-## Membership renewal workflow
+## Membership renewal 
+Mass renewal of subscriptions for the following year. Mass generation of structured communication. Sending of a personalized letter (explanation of amounts, payment slips, structured communication). Receipt of payments. Using the "mass closure" button → Mass cancellation of unpaid invoices (automatic switch to "old" status).
 /!\ SCREENSHOT/!\
 
+<b>^^Membership renewal workflow : ^^</b>
+/!\ SCREENSHOT/!\
