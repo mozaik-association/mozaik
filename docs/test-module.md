@@ -93,5 +93,31 @@ The member system depends on each company/party. There are several generic statu
     * In breacj : disinterest of a former member (membership fee)
 - Commission (Alumni) member
     * Former member who pays dues
-Noted tahat additional status specific to the needs of each party can be added as needed and through wich the contact will pass. /!\ SCREENSHOT/!\
+Noted that additional status specific to the needs of each party can be added as needed and through wich the contact will pass. /!\ SCREENSHOT/!\
+
+<b>Workflow of an adhésion</b>
+/!\ SCREENSHOT/!\
+
+<b>Workflow of a first contribution for a member</b>
+/!\ SCREENSHOT/!\
+
+When reapplying for membership, the officer will check:
+ - Contact informations
+ - Does the person aldready exist or not ?
+ - Linking of interrests with thesaurus
+
+ ## Cotisatoin and amout of the fee
+
+ As far as dues rates are concerned, these are simple Odoo items. Membership rates vary based on several rules:
+- First membership 
+- With a disability 
+- Unemployed 
+- Parent teacher
+- Contact over 63 years old 
+- If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form 
+Each Political party can have its own rule
+/!\ SCREENSHOT/!\
+
+## Membership renewal workflow
+/!\ SCREENSHOT/!\
 
