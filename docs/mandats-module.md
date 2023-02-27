@@ -1,4 +1,4 @@
-# mandats module
+# Mandats module
 
 There are three types of mandates: political, internal and external. These three types of mandates are managed in a similar way. Only the data changes.
 
