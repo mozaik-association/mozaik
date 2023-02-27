@@ -1,4 +1,4 @@
-# Module contacts
+# Contacts Module
 
 ## Contacts: people management (physiscal or corporrate)
 
@@ -13,7 +13,7 @@ Various information is collected when a contact of a physical and moral person i
 - The current professional and health situation (disabled or not) is also requested. This two pieces of information are important because they can change the price of the membership fee for the member → if desired by the party.
 - The different social networks of the contact can also be registered.
 
- ## Co-résidences
+## Co-résidences
 
 A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list . Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action".
 
@@ -21,7 +21,7 @@ A duplicate check system based on name, phone, mobile, email and address detect 
 
     To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
- /!\ SCREENSHOT/!\ 
+/!\ SCREENSHOT/!\ 
 
 When two people have the same address, the system detects a duplicate (screenshot above). Once detected we have the possibility to create a co-chair between these two people by selecting the members you wish to co-reside (screenshot 1), by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" (screenshot 2). It is also possible to add a contact directly to an existing co-presidency in the contact form. The co-chair system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. It is also possible to do the same thing with two people having the same email address. /!\ SCREENSHOT/!\ 
 
@@ -97,10 +97,10 @@ The member system depends on each company/party. There are several generic statu
     * Former member who pays dues
 Noted that additional status specific to the needs of each party can be added as needed and through wich the contact will pass. /!\ SCREENSHOT/!\
 
-__^^Workflow of an adhésion :^^__
+__Workflow of an adhésion :__
 /!\ SCREENSHOT/!\
 
-__^^Workflow of a first contribution for a member: ^^__
+__Workflow of a first contribution for a member:__
 /!\ SCREENSHOT/!\
 
 When reapplying for membership, the officer will check:
@@ -124,5 +124,5 @@ Each Political party can have its own rule
 Mass renewal of subscriptions for the following year. Mass generation of structured communication. Sending of a personalized letter (explanation of amounts, payment slips, structured communication). Receipt of payments. Using the "mass closure" button → Mass cancellation of unpaid invoices (automatic switch to "old" status).
 /!\ SCREENSHOT/!\
 
-<b>^^Membership renewal workflow : ^^</b>
+__^^Membership renewal workflow :__
 /!\ SCREENSHOT/!\
