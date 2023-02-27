@@ -61,7 +61,11 @@ A membership can be created by selecting an instance and a statuts for the membe
 
 ## Member Statuts
 
-The member system depends on each company/party. There are several generic statuses through which contacts will pass depending on certain cases (the white bubbles are the reasons why a contact can go through this status):
+The member system depends on each company/party. There are several generic statuses through which contacts will pass depending on certain cases:
+
+!!! info inline end "information"
+
+    Sub points are the reasons why a contact can go through this status
 
 - No statut
 - Candidat member
