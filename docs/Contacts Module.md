@@ -9,7 +9,7 @@ Various information is collected when a contact of a physical and moral person i
 - A name and an acronym possible only for a moral person.
 - Adresse Format : postal code + street. For each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion, to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (details of co-residence will be explained later). If the addresses are not exactly the same, the system will not detect duplicates. That's why the postal code and city list system is interesting. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name, streets with a translation in another language. 
 
-![screenshot 1](/docs/img/screen-1.png){ align=right }
+![screenshot 1](screen-1.png){ align=left }
 
 According to their address, each contact belonging to a political party is associated with a local group/instance. For example, a contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. Example: a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur. it is possible to force the choice of the instance → More details in the explanation of the "structure" module.  
 
