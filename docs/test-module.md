@@ -13,14 +13,13 @@ Various information is collected when a contact of a physical and moral person i
 - The current professional and health situation (disabled or not) is also requested. This two pieces of information are important because they can change the price of the membership fee for the member → if desired by the party.
 - The different social networks of the contact can also be registered.
 
-
-
  ## Co-résidences
 
- A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list . Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action" (1).
- { .annotate } 
+ A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list . Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action".
 
-1. click on action --> authorize+name of the authorisation.
+???+ tip
+
+To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
  /!\ SCREENSHOT/!\ 
 
@@ -98,10 +97,10 @@ The member system depends on each company/party. There are several generic statu
     * Former member who pays dues
 Noted that additional status specific to the needs of each party can be added as needed and through wich the contact will pass. /!\ SCREENSHOT/!\
 
-<b>^^Workflow of an adhésion :^^</b>
+__^^Workflow of an adhésion :^^__
 /!\ SCREENSHOT/!\
 
-<b>^^Workflow of a first contribution for a member: ^^</b>
+__^^Workflow of a first contribution for a member: ^^__
 /!\ SCREENSHOT/!\
 
 When reapplying for membership, the officer will check:
