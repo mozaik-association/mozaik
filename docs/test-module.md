@@ -12,10 +12,14 @@ Various information is collected when a contact of a physical and moral person i
 - A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party (emailing campaign). However, the contact will still receive the usual emails
 - The current professional and health situation (disabled or not) is also requested. This two pieces of information are important because they can change the price of the membership fee for the member → if desired by the party.
 - The different social networks of the contact can also be registered.
-- A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list . Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action" --> "authorize". :material-information-outline:{ title="click on action --> authorize+name of the authorisation" }
+- A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list . Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action" (1) { .annotate } 
+1. click on action --> authorize+name of the authorisation.
+
  /!\ SCREENSHOT/!\ 
 
  ## Co-résidences 
+
+When two people have the same address, the system detects a duplicate (screenshot above). Once detected we have the possibility to create a co-chair between these two people by selecting the members you wish to co-reside (screenshot 1), by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" (screenshot 2). It is also possible to add a contact directly to an existing co-presidency in the contact form. The co-chair system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. It is also possible to do the same thing with two people having the same email address.
 
 
 
