@@ -4,7 +4,9 @@ As with the standard Odoo module that allows to create mailing lists, the Mozaik
 
 ## Include filtres
 
-Within a distribution list, it is possible to add filters that will allow you to find a list of contacts that meet these filters that should be included in the distribution list.
+Within a distribution list, it is possible to add filters that will allow you to find a list of contacts that meet these filters that should be included in the distribution list. filters can be created and saved as a template to be used for other distribution lists. Once the different filters are added, it is possible to see the list of all the contacts found by applying the different filters 
+
+/!\ SCREENSHOT/!\ 
 
 ## Exclude filters
 
