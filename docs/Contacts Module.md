@@ -10,7 +10,7 @@ Various information is collected when a contact of a physical and moral person i
 - Adresse Format : postal code + street. For each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion, to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (details of co-residence will be explained later). If the addresses are not exactly the same, the system will not detect duplicates. That's why the postal code and city list system is interesting. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name, streets with a translation in another language. 
 
 <figure markdown>
- ![screenshot 1](img/screen1.png) { align=left }
+ ![screenshot 1](img/screen1.png)
   <figcaption>Creation of an address</figcaption>
 </figure>
 
@@ -30,19 +30,19 @@ A duplicate check system based on name, phone, mobile, email and address detect 
     To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
 <figure markdown>
- ![screenshot 2](img/screen2.png) { align=left }
+ ![screenshot 2](img/screen2.png)
   <figcaption>Duplicate detection</figcaption>
 </figure>
 
 When two people have the same address, the system detects a duplicate (screenshot above). Once detected we have the possibility to create a co-chair between these two people by selecting the members you wish to co-reside (screenshot 1), by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" (screenshot 2). It is also possible to add a contact directly to an existing co-presidency in the contact form. The co-chair system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. It is also possible to do the same thing with two people having the same email address. 
 
 <figure markdown>
- ![screenshot 3](img/screen3.png) { align=left }
+ ![screenshot 3](img/screen3.png)
   <figcaption>list of contacts with a common field</figcaption>
 </figure>
 
 <figure markdown>
- ![screenshot 4](img/screen4.png) { align=left }
+ ![screenshot 4](img/screen4.png)
   <figcaption>Creation of a co-résidence</figcaption>
 </figure>
 
@@ -51,11 +51,12 @@ When two people have the same address, the system detects a duplicate (screensho
 A member working for the political party can be designated as a user using the "action" --> "turn into user" button. He is given an ID, a role and an internal instance. Depending on his role and internal instance the user will be granted access to certain functionalities in Odoo. For example, a user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
 
 
- ![screenshot 5](img/screen5.png) { align=left }
+ ![screenshot 5](img/screen5.png)
 <figure markdown>
- ![screenshot 6](img/screen6.png) { align=left }
+ ![screenshot 6](img/screen6.png)
   <figcaption>creation of a user</figcaption>
 </figure>
+
 
 ## Indexation
 
