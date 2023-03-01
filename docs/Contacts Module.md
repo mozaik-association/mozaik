@@ -137,7 +137,9 @@ When reapplying for membership, the officer will check:
 - Parent teacher
 - Contact over 63 years old 
 - If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form 
-Each Political party can have its own rule
+!!! info
+
+    Each Political party can have its own rule
 ![screenshot 12](img/screen12.png)
 
 ## Membership renewal 
