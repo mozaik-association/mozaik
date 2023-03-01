@@ -10,7 +10,7 @@ Various information is collected when a contact of a physical and moral person i
 - Adresse Format : postal code + street. For each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion, to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (details of co-residence will be explained later). If the addresses are not exactly the same, the system will not detect duplicates. That's why the postal code and city list system is interesting. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name, streets with a translation in another language. 
 
 
-<img src="screen-1.png alt="screenshot of the creation of an address">
+<img src="screen-1.png" alt="screenshot of the creation of an address">
 
 <figure markdown>
    ![screenshot 1](mozaik-association/mozaik/docs/img/screen-1.png){ align=left }

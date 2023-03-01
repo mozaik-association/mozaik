@@ -2,12 +2,12 @@
 
 As with the standard Odoo module that allows to create mailing lists, the Mozaik distribution list module allows to create distribution lists. Its advantage compared to the standard Odoo module is that it is much more complete and powerful. The module first allows you to create a distribution list. You have to give a name to this list and you can also write a free note to this list. This module will be very useful for <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">the marketing email module</a>. 
 
-## Include filters
-
-Within a distribution list, it is possible to add filters that will allow you to find a list of contacts that meet these filters that should be included in the distribution list. filters can be created and saved as a template to be used for other distribution lists. Once the different filters are added, it is possible to see the list of all the contacts found by applying the different filters. It is here that we can see the usefulness and the power of these filters because they are dynamic. That is to say that when a new person meets the criteria of the filters, this person will be automatically added in the distribution list.
 !!! warning inline end "Warning"
 
     To be included in these lists, it is mandatory that the object has at least one email or postal address defined. Otherwise, the contact will appear in the "unreachable" tab accessible from the mailing list form.
+## Include filters
+
+Within a distribution list, it is possible to add filters that will allow you to find a list of contacts that meet these filters that should be included in the distribution list. filters can be created and saved as a template to be used for other distribution lists. Once the different filters are added, it is possible to see the list of all the contacts found by applying the different filters. It is here that we can see the usefulness and the power of these filters because they are dynamic. That is to say that when a new person meets the criteria of the filters, this person will be automatically added in the distribution list.
 
 /!\SCREENSHOT/!\ 
 
