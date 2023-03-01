@@ -18,7 +18,7 @@ As with the include filters, the exclude filters work in the same way. Simply cr
 
 /!\SCREENSHOT/!\ 
 
-???+ tip
+??? tip
 
     By clicking on the "list result" button at the top right of the form, you can access the list of contacts that are part of the distribution list once the filters are active.
 

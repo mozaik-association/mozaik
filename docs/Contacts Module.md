@@ -21,7 +21,7 @@ According to their address, each contact belonging to a political party is assoc
 
 A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action".
 
-???+ tip
+??? tip
 
     To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
@@ -36,7 +36,7 @@ When two people have the same address, the system detects a duplicate (screensho
 
 A member working for the political party can be designated as a user. He is given an ID, a role and an internal instance. Depending on his role and internal instance the user will be granted access to certain functionalities in Odoo. For example, a user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
 
-!!! info inline left "information"
+??? tip "information"
 
     to turn a contact into a user, clikc on the "action" button then click on "transform into user"
 
@@ -50,6 +50,7 @@ Contacts (members, supporters, other contacts) can be linked to interests and co
 ![screenshot 7](img/screen7.png)
 
 Interests and competencies can:
+
 - Be added manually by contacts during their registration (ex: I am interested by the themes of 'nuclear energy' and 'sports')
 - Automatically when a member registers for a specific event / survey or petition (if the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party
 - Those interests and competencies are present for information purposes, but also to achieve specific targeting with the communication / mass mailings (ex: I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
@@ -139,7 +140,7 @@ When reapplying for membership, the officer will check:
 - Contact over 63 years old 
 - If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form 
 
-!!! note "information"
+??? note "information"
 
     Each Political party can have its own rule
 ![screenshot 12](img/screen12.png)
