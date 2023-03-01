@@ -18,7 +18,7 @@ Once the application is filed, the candidate has the status "declared". He can t
 
     All the current and expired political mandates are available in the "state" tab --> "political mandates"
 
-## Invalidatoin of mandates
+## Invalidation of mandates
 
 The mandates are characterized by three dates: beginning of mandates, end and expiration. It is possible to invalidate the mandate, end it:
 - Automatically on the expiry date
