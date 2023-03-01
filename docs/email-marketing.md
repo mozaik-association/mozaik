@@ -29,3 +29,14 @@ In the mailing configurations, it is possible to select the option "recurrent se
 
 ## Follow-up of the mails
 
+The marketing emailmodule allow youtu folluw-up the stage of your differents emails in progress. The different items are displayed in a kanban view and automatically move from one stage to another depending on whether they are still in project, pending, being sent or sent. 
+
+## Management of failure
+
+All communication failures must be recorded in the application. This information is visible on the record of each contact. If a contact does not receive an email sent, a communication failure will be recorded on his card. 
+
+- Postal returns: must be manually encoded 
+- Electronic returns: records are automatic
+- Unsuccessful phone calls: must be manually entered 
+
+![screenshot 23](img/screen23.png)
