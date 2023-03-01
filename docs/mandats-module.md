@@ -2,7 +2,7 @@
 
 There are three types of mandates: political, internal and external. These three types of mandates are managed in a similar way. Only the data changes.
 
-## Selection commitéé
+## Selection committee
 
 In order to select a person for a term of office, the first step is to create a selection committee. It is created with a name, a state assembly, the legislature for selection, an appointment assembly, an appointment date, a term of office category and a start and end date of the term. /!\SCREENSHOT/!\
 
@@ -27,7 +27,7 @@ It is also possible to renew for the same person of an expired mandate; starting
 
 /!\SCREENSHOT/!\
 
-It is possible to create and retrieve all categories of mandates for political mandates - internal and external ( configurations --> categories of mandates)
+It is possible to create and retrieve all categories of mandates for political mandates - internal and external (configurations --> categories of mandates)
 
 /!\SCREENSHOT/!\
 

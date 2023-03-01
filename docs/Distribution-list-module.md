@@ -8,6 +8,10 @@ Within a distribution list, it is possible to add filters that will allow you to
 
 /!\ SCREENSHOT/!\ 
 
+!!! warning inline end "Warning"
+
+    To be included in these lists, it is mandatory that the object has at least one email or postal address defined. Otherwise, the contact will appear in the "unreachable" tab accessible from the mailing list form.
+
 ## Exclude filters
 
 As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
