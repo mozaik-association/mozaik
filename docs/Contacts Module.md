@@ -11,7 +11,7 @@ Various information is collected when a contact of a physical and moral person i
 
 
 <figure markdown>
-   ![screenshot 1](/docs/img/screen-1.png){ align=left }
+   ![screenshot 1](mozaik-association/mozaik/docs/img/screen-1.png){ align=left }
   <figcaption>Creation of an address</figcaption>
 </figure>
 
