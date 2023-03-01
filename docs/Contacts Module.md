@@ -124,11 +124,12 @@ __Workflow of a first contribution for a member:__
 ![screenshot 11](img/screen11.png)
 
 When reapplying for membership, the officer will check:
+
  - Contact informations
  - Does the person aldready exist or not ?
  - Linking of interrests with thesaurus
 
- ## Cotisation and amout of the fee
+## Cotisation and amout of the fee
 
  As far as dues rates are concerned, these are simple Odoo items. Membership rates vary based on several rules:
 - First membership 
@@ -137,6 +138,7 @@ When reapplying for membership, the officer will check:
 - Parent teacher
 - Contact over 63 years old 
 - If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form 
+
 !!! info
 
     Each Political party can have its own rule
