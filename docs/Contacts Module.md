@@ -2,7 +2,7 @@
 
 The contact module is one of the most important module of Mozaik. It allows to manage all the contacts of the political party.  It will give access to: 
 
-- All the general information about each contact
+- All the general informations about each contact
 - The management of the co-residences
 - The authorizations
 - The indexations 
@@ -55,7 +55,7 @@ A member working for the political party can be designated as a user. He is give
 
 ??? tip
 
-    to turn a contact into a user, click on the "action" button then click on "transform into user"
+    To turn a contact into a user, click on the "action" button then click on "transform into user"
 
 ![screenshot 5](img/screen5.png)
 ![screenshot 6](img/screen6.png)
@@ -164,7 +164,7 @@ When reapplying for membership, the officer will check:
 
 !!! note "information"
 
-    Each Political party can have its own rule
+    Each political party can have its own rule
 ![screenshot 12](img/screen12.png)
 
 ## Membership renewal 
