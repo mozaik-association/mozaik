@@ -1,6 +1,6 @@
 # Distribution list module
 
-As with the standard Odoo module that allows to create mailing lists, the Mozaik distribution list module allows to create distribution lists. Its advantage compared to the standard Odoo module is that it is much more complete and powerful. The module first allows you to create a distribution list. You have to give a name to this list and you can also write a free note to this list
+As with the standard Odoo module that allows to create mailing lists, the Mozaik distribution list module allows to create distribution lists. Its advantage compared to the standard Odoo module is that it is much more complete and powerful. The module first allows you to create a distribution list. You have to give a name to this list and you can also write a free note to this list. This module will be very useful for the marketing email module. 
 
 ## Include filters
 
@@ -17,3 +17,4 @@ As with the include filters, the exclude filters work in the same way. Simply cr
 ???+ tip
 
     By clicking on the "list result" button at the top right of the form, you can access the list of contacts that are part of the distribution list once the filters are active.
+
