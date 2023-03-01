@@ -95,6 +95,8 @@ The system uses an algorithm to check which people are not receiving emails sent
 
 The same goes for letters sent to the home address that come back. For maiing, failures are entered manually in the member's record in Odoo "failed letters".
 
+![screenshot 23](img/screen23.png)
+
 ## Membership 
 
 A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member.
