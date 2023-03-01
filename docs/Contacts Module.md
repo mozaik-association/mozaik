@@ -1,5 +1,21 @@
 # Contacts Module
 
+The contact module is one of the most important module of Mozaik. It allows to manage all the contacts of the political party.  It will give access to: 
+
+- All the general information about each contact
+- The management of the co-residences
+- The authorizations
+- The indexations 
+- The participations of each contact
+- Internal notes
+- Information about the communication
+- Memberships
+- Management of the statutes of each member
+- membership fees
+- membership renewals
+
+This module is the starting point of many modules and creates a link between many Mozaik modules. For example, you will be able to use the contact list to create your <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" tagret="_blank"> and then send your <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing emails</a>.
+
 ## Contacts: people management (physiscal or corporate)
 
 This module allows you to create and modify contacts using the personal information of the members/subscribers of the political party.
@@ -133,6 +149,7 @@ When reapplying for membership, the officer will check:
 ## Cotisation and amout of the fee
 
  As far as dues rates are concerned, these are simple Odoo items. Membership rates vary based on several rules:
+
 - First membership 
 - With a disability 
 - Unemployed 

@@ -16,14 +16,19 @@ Within a distribution list, it is possible to add filters that will allow you to
 
 As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
 
-/!\SCREENSHOT/!\ 
 
 ??? tip
 
     By clicking on the "list result" button at the top right of the form, you can access the list of contacts that are part of the distribution list once the filters are active.
-    ![screenshot 16](img/screen16.png)
+    ![screenshot 21](img/screen21.png)
 
 
 ## Exporting
 
 The module provides users with a tool that allows them to export a whole series of information from the contacts in the distribution list. This tool can generate a structured file (CSV) for an external printing tool (printing of membership cards)
+
+![screenshot 22](img/screen22.png)
+
+??? tip
+
+    You can access to this fonctionnality by clikcing on the "mass fonctionality" button in every distribution list form

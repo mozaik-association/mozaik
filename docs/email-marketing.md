@@ -27,3 +27,5 @@ In the mailing configurations, it is possible to select the option "recurrent se
     To do this you will have to create a distribution list that includes, thanks to the filters, the people who participated in an event in the last three days. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 3 days
 
 
+## Follow-up of the mails
+
