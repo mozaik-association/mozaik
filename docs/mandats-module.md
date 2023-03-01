@@ -12,7 +12,11 @@ This whole part is an option offered by Mozaikl to better track the election of 
 
 ## Statuts of the canddiates
 
-Once the application is filed, the candidate has the status "declared". He can then be nominated or rejected. If he is nominated he can be elected or not elected. If the candidate is elected, then a new mandate is created. All the current and expired political mandates are available in the "state" tab --> "political mandates"
+Once the application is filed, the candidate has the status "declared". He can then be nominated or rejected. If he is nominated he can be elected or not elected. If the candidate is selected, then a new mandate is created. 
+
+!!!+ tip
+
+    All the current and expired political mandates are available in the "state" tab --> "political mandates"
 
 ## Invalidatoin of mandates
 
