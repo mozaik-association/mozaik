@@ -11,7 +11,7 @@ Various information is collected when a contact of a physical and moral person i
 
 ![screenshot 1](img/screen1.png)
 
-According to their address, each contact belonging to a political party is associated with a local group/instance. For example, a contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. Example: a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur. it is possible to force the choice of the instance → More details in the explanation of the <a href="https://mozaik-association.github.io/mozaik/Structure%20Module/" target="_blank">structure" module</a>.  
+According to their address, each contact belonging to a political party is associated with a local group/instance. For example, a contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. Example: a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur. it is possible to force the choice of the instance. More details in the explanation of the <a href="https://mozaik-association.github.io/mozaik/Structure%20Module/" target="_blank">structure module</a>.  
 
 - A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party (emailing campaign). However, the contact will still receive the usual emails
 - The current professional and health situation (disabled or not) is also requested. This two pieces of information are important because they can change the price of the membership fee for the member → if desired by the party.
@@ -34,19 +34,25 @@ When two people have the same address, the system detects a duplicate (screensho
 
 ## Autorizations
 
-A member working for the political party can be designated as a user using the "action" --> "turn into user" button. He is given an ID, a role and an internal instance. Depending on his role and internal instance the user will be granted access to certain functionalities in Odoo. For example, a user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
+A member working for the political party can be designated as a user. He is given an ID, a role and an internal instance. Depending on his role and internal instance the user will be granted access to certain functionalities in Odoo. For example, a user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
+
+!!! info inline left "information"
+
+    to turn a contact into a user, clikc on the "action" button then click on "transform into user"
 
 ![screenshot 5](img/screen5.png)
 ![screenshot 6](img/screen6.png)
 
 ## Indexation
 
-Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms (called Thesaurus terms in Odoo (screenshot) that can be completed / adapted for each political party. /!\ SCREENSHOT/!\ 
+Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms (called Thesaurus terms in Odoo (screenshot) that can be completed / adapted for each political party. 
+
+![screenshot 7](img/screen7.png)
 
 Interests and competencies can:
-be added manually by contacts during their registration (ex: I am interested by the themes of 'nuclear energy' and 'sports')
-Automatically when a member registers for a specific event / survey or petition (if the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party
-Those interests and competencies are present for information purposes, but also to achieve specific targeting with the communication / mass mailings (ex: I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. More information about how to target members / contacts based on those informations in the chapter about 'Distribution lists / mass Mailing'
+- Be added manually by contacts during their registration (ex: I am interested by the themes of 'nuclear energy' and 'sports')
+- Automatically when a member registers for a specific event / survey or petition (if the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party
+- Those interests and competencies are present for information purposes, but also to achieve specific targeting with the communication / mass mailings (ex: I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
 
 ## Participations
@@ -69,7 +75,9 @@ The same goes for letters sent to the home address that come back. For maiing, f
 
 ## Membership 
 
-A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member. /!\ SCREENSHOT/!\
+A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member.
+
+![screenshot 8](img/screen8.png)
 
 ## Member Statuts
 
@@ -105,13 +113,15 @@ The member system depends on each company/party. There are several generic statu
     * In breacj : disinterest of a former member (membership fee)
 - Commission (Alumni) member
     * Former member who pays dues
-Noted that additional status specific to the needs of each party can be added as needed and through wich the contact will pass. /!\ SCREENSHOT/!\
+Noted that additional status specific to the needs of each party can be added as needed and through wich the contact will pass. 
+
+![screenshot 9](img/screen9.png)
 
 __Workflow of an adhésion :__
-/!\ SCREENSHOT/!\
+![screenshot 10](img/screen10.png)
 
 __Workflow of a first contribution for a member:__
-/!\ SCREENSHOT/!\
+![screenshot 11](img/screen11.png)
 
 When reapplying for membership, the officer will check:
  - Contact informations
@@ -128,11 +138,10 @@ When reapplying for membership, the officer will check:
 - Contact over 63 years old 
 - If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form 
 Each Political party can have its own rule
-/!\ SCREENSHOT/!\
+![screenshot 12](img/screen12.png)
 
 ## Membership renewal 
 Mass renewal of subscriptions for the following year. Mass generation of structured communication. Sending of a personalized letter (explanation of amounts, payment slips, structured communication). Receipt of payments. Using the "mass closure" button → Mass cancellation of unpaid invoices (automatic switch to "old" status).
-/!\ SCREENSHOT/!\
 
 __Membership renewal workflow :__
-/!\ SCREENSHOT/!\
+![screenshot 13](img/screen13.png)
