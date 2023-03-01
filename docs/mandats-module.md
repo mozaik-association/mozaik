@@ -8,7 +8,7 @@ In order to select a person for a term of office, the first step is to create a 
 
 ![screenshot 15](img/screen15.png)
 
-Once the selection committee is created, you can add a candidate tp thos committee by choossing the candidate and hi spositoin on the list.
+Once the selection committee is created, you can add a candidate tp thos committee by choosing the candidate and hi spositoin on the list.
 
 ![screenshot 16](img/screen16.png)
 
