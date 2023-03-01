@@ -8,18 +8,18 @@ The contact module is one of the most important module of Mozaik. It allows to m
 - The indexations 
 - The participations of each contact
 - Internal notes
-- Information about the communication
+- Informations about the communication
 - Memberships
 - Management of the statutes of each member
-- membership fees
-- membership renewals
+- Membership fees
+- Membership renewals
 
-This module is the starting point of many modules and creates a link between many Mozaik modules. For example, you will be able to use the contact list to create your <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" tagret="_blank"> and then send your <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing emails</a>.
+This module is the starting point of many modules and creates a link between many Mozaik modules. For example, you will be able to use the contact list to create your <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" tagret="_blank">distribution lists</a> and then send your <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing emails</a>.
 
 ## Contacts: people management (physiscal or corporate)
 
 This module allows you to create and modify contacts using the personal information of the members/subscribers of the political party.
-Various information is collected when a contact of a physical and moral person is registered. The usual personal information name, first name, date of birth, age, phones, address.
+Various informations are collected when a contact of a physical and moral person is registered. The usual personal informations name, first name, date of birth, age, phones, address.
 
 - Two names pssible for one person (official and cusomary) only for a physical person. The customary name can be useful to name a contact by a name (other than his official name) that he is used to being called 
 - A name and an acronym possible only for a moral person.
@@ -27,11 +27,11 @@ Various information is collected when a contact of a physical and moral person i
 
 ![screenshot 1](img/screen1.png)
 
-According to their address, each contact belonging to a political party is associated with a local group/instance. For example, a contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. Example: a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur. it is possible to force the choice of the instance. More details in the explanation of the <a href="https://mozaik-association.github.io/mozaik/Structure%20Module/" target="_blank">structure module</a>.  
+According to their address, each contact belonging to a political party is associated with a local group/instance. For example, a contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. Example: a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur. It is possible to force the choice of the instance. More details in the explanation of the <a href="https://mozaik-association.github.io/mozaik/Structure%20Module/" target="_blank">structure module</a>.  
 
-- A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party (emailing campaign). However, the contact will still receive the usual emails
-- The current professional and health situation (disabled or not) is also requested. This two pieces of information are important because they can change the price of the membership fee for the member → if desired by the party.
-- The different social networks of the contact can also be registered.
+- A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party. However, the contact will still receive the usual emails
+- The current professional and health situation (disabled or not) are also requested. This two pieces of informations are important because they can change the price of the membership fee for the member (if desired by the party()
+- The different social networks of the contact can also be registered in the conctact form.
 
 ## Co-résidences
 
@@ -42,11 +42,12 @@ A duplicate check system based on name, phone, mobile, email and address detect 
     To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
 ![screenshot 2](img/screen2.png)
+![screenshot 4](img/screen4.png)
 
-When two people have the same address, the system detects a duplicate (screenshot above). Once detected we have the possibility to create a co-chair between these two people by selecting the members you wish to co-reside (screenshot 1), by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" (screenshot 2). It is also possible to add a contact directly to an existing co-presidency in the contact form. The co-chair system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. It is also possible to do the same thing with two people having the same email address. 
+When two people have the same address, the system detects a duplicate (screenshot above). Once detected we have the possibility to create a co-chair between these two people by selecting the members you wish to co-reside by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" . It is also possible to add a contact directly to an existing co-presidency in the contact form. The co-chair system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. It is also possible to do the same thing with two people having the same email address. 
 
 ![screenshot 3](img/screen3.png)
-![screenshot 4](img/screen4.png)
+
 
 ## Autorizations
 
@@ -61,7 +62,11 @@ A member working for the political party can be designated as a user. He is give
 
 ## Indexation
 
-Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms (called Thesaurus terms in Odoo (screenshot) that can be completed / adapted for each political party. 
+Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Odoo, that can be completed / adapted for each political party. 
+
+!!! info
+
+    Every party can adapte his own thesaurus terms in the module.
 
 ![screenshot 7](img/screen7.png)
 
