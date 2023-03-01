@@ -36,9 +36,9 @@ When two people have the same address, the system detects a duplicate (screensho
 
 A member working for the political party can be designated as a user. He is given an ID, a role and an internal instance. Depending on his role and internal instance the user will be granted access to certain functionalities in Odoo. For example, a user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
 
-??? tip "information"
+??? tip
 
-    to turn a contact into a user, clikc on the "action" button then click on "transform into user"
+    to turn a contact into a user, click on the "action" button then click on "transform into user"
 
 ![screenshot 5](img/screen5.png)
 ![screenshot 6](img/screen6.png)
@@ -140,7 +140,7 @@ When reapplying for membership, the officer will check:
 - Contact over 63 years old 
 - If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form 
 
-??? note "information"
+!!! note "information"
 
     Each Political party can have its own rule
 ![screenshot 12](img/screen12.png)

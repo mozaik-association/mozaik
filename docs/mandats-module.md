@@ -4,7 +4,9 @@ There are three types of mandates: political, internal and external. These three
 
 ## Selection committee
 
-In order to select a person for a term of office, the first step is to create a selection committee. It is created with a name, a state assembly, the legislature for selection, an appointment assembly, an appointment date, a term of office category and a start and end date of the term. /!\SCREENSHOT/!\
+In order to select a person for a term of office, the first step is to create a selection committee. It is created with a name, a state assembly, the legislature for selection, an appointment assembly, an appointment date, a term of office category and a start and end date of the term. 
+
+![screenshot 15](img/screen15.png)
 
 Once the selection committee is created, you can add a candidate tp thos committee by choossing the candidate and hi spositoin on the list./!\SCREENSHOT/!\
 
