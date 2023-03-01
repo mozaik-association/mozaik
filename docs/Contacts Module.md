@@ -25,7 +25,7 @@ According to their address, each contact belonging to a political party is assoc
 
 A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action".
 
-!!!+ tip
+???+ tip
 
     To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
