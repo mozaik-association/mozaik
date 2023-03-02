@@ -33,8 +33,7 @@ The marketing email module allow you to folluw-up the stage of your differents e
 
 ## Management of failure
 
-All communication failures must be recorded in the application. This information is visible on the record of each contact. If a contact does not receive an email sent, a communication failure will be recorded on his card. 
-
+All communication failures must be recorded in the application. This information is visible on the record of each contact. If a contact does not receive an email sent, a communication failure will be recorded on his card.
 !!! info inline end "Info"
 
     After a certain number of errors, the contact can be placed in a blacklist in order to not continue to send him emails, letters or calls that he will not receive.
