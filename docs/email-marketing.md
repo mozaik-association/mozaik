@@ -29,7 +29,7 @@ In the mailing configurations, it is possible to select the option "recurrent se
 
 ## Follow-up of the mails
 
-The marketing emailmodule allow youtu folluw-up the stage of your differents emails in progress. The different items are displayed in a kanban view and automatically move from one stage to another depending on whether they are still in project, pending, being sent or sent. 
+The marketing email module allow you to folluw-up the stage of your differents emails in progress. The differents items are displayed in a kanban view and automatically move from one stage to another depending on whether they are still in project, pending, being sent or sent. 
 
 ## Management of failure
 
@@ -40,3 +40,10 @@ All communication failures must be recorded in the application. This information
 - Unsuccessful phone calls: must be manually entered 
 
 ![screenshot 23](img/screen23.png)
+
+## Reporting
+
+The email marketing module offers analysis of different mailings over time. It is also possible to see the details of different information such as the opening rate or the click rate of each mailing.
+
+
+![screenshot 26](img/screen26.png)

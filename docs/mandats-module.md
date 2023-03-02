@@ -18,7 +18,7 @@ Once the selection committee is created, you can add a candidate tp thos committ
 
 ![screenshot 16](img/screen16.png)
 
-This whole part is an option offered by Mozaikl to better track the election of proxies. However, it is possible to directly create a mandate without going through these steps
+This whole part is an option offered by Mozaik to better track the election of proxies. However, it is possible to directly create a mandate without going through these steps.
 
 ## Statuts of the canddiates
 
@@ -31,13 +31,14 @@ Once the application is filed, the candidate has the status "declared". He can t
 ## Invalidation of mandates
 
 The mandates are characterized by three dates: beginning of mandates, end and expiration. It is possible to invalidate the mandate, end it:
+
 - Automatically on the expiry date
 - Manually by setting an end date before the expiration date
 
 ## Renewal of mandates
 
-It is not possible to create two same mandates at the same time for the same person. However it is possible to create another mandate for the same Person, same assembly, same period but another position (e.g.: mandate of vice-Chairman at the end of a mandate of director)
-It is also possible to renew for the same person of an expired mandate; starting date will be positioned the day after the expiry date. → no need for an application in this case. In the mandate form it is possible to add an alert delay in number of months. This allows you to be notified when a mandate is about to expire.
+It is not possible to create two same mandates at the same time for the same person. However it is possible to create another mandate for the same person, same assembly, same period but another position (EX.: mandate of vice-Chairman in addition of a mandate of director)
+It is also possible to renew for the same person of an expired mandate; starting date will be positioned the day after the expiry date → no need for an application in this case. In the mandate form it is possible to add an alert delay in number of months. This allows you to be notified when a mandate is about to expire.
 
 ![screenshot 17](img/screen17.png)
 
