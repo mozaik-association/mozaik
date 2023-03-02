@@ -79,7 +79,12 @@ Interests and competencies can:
     I am interested by the themes of 'nuclear energy' and 'sports'
 
 - Automatically when a member registers for a specific event / survey or petition (if the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party
-Those interests and competencies are present for information purposes, but also to achieve specific targeting with the communication / mass mailings (ex: I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
+Those interests and competencies are present for information purposes, but also to achieve specific targeting with the communication / mass mailings.
+!!! example
+
+    I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
+    
+More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
 
 ## Participations
