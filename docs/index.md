@@ -1,24 +1,22 @@
-# Welcome to MkDocs
+# Welcome to the Mozaik documentation
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+The Mozaik documentation is a tool to understand and learn the functionalities of the Mozaik project. 
 
-## Commands
+## introduction to Mozaik
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Mozaik is a suite of open source Odoo modules created in 2013. MOzaik is a management software for political parties. Mozaik includes a set of modules created to meet the requirements of political parties. 
 
-## Project layout
+The Mozaik modules allow the administrative management of a political party:
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+- Members 
+- Sympathizers, contacts ...
+- Memberships (contributions) / renewals
+- Mandates (political, internal, external)
+- Party structure (political / internal / external)
+- Committees / elections
+- Interests / competences / participations
+- Retrocessions
 
+This documentation contains all the modules of the Mozaik project explained one by one 
 
-## Section 2
-
-..
-
-test 
+![logo acsone](img/logoacsone.png)

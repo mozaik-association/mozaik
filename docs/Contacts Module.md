@@ -94,7 +94,7 @@ A participation can be added via a membership form created by the party, via the
 Possible to find all the participations of all the contacts for each event in the tab"participations" --> "participations". 
 Possible to find all the events in tab "participations" → "catégories des participations".
 
-## internal notes/introduction
+## Internal notes/introduction
 
 Possibility to add a free text in the "notes internes" tab of a member's file
 Possibility to add an introduction of the member with a free text on its card by clicking on the tab "introduction".
@@ -128,7 +128,7 @@ The member system depends on each company/party. There are several generic statu
     * Sympathizer who applies for membership 
     * Rejected person applying for membership
 - Candidate member refused
-    * applicatoin rejected
+    * application rejected
 - Commission (futur) members
     * Dues paid by a person who has never been a member before
 - Member : pay a fee and has the right to vote, has a greater importance, participates mare in the life of the party.
@@ -142,11 +142,12 @@ The member system depends on each company/party. There are several generic statu
 - Previous member
     * Renewal of unpais dues
     * Exclusion
-    * innoportune : exlcusion of a member (membership fee)
+    * Innoportune : exlcusion of a member (membership fee)
     * Resignation : member shows disinterest
     * In breacj : disinterest of a former member (membership fee)
 - Commission (Alumni) member
     * Former member who pays dues
+    
 Noted that additional status specific to the needs of each party can be added as needed and through wich the contact will pass. 
 
 ![screenshot 9](img/screen9.png)
