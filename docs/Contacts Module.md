@@ -33,9 +33,9 @@ According to their address, each contact belonging to a political party is assoc
 - The current professional and health situation (disabled or not) are also requested. This two pieces of informations are important because they can change the price of the membership fee for the member (if desired by the party()
 - The different social networks of the contact can also be registered in the conctact form.
 
-## <h1 id="core">Co-résidences</h1>
+## <h2 id="core">Co-résidences</h2>
 
-A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. Once detected you can  allow duplicates for name - email - mobile – phone – address by clicking on "action".
+A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. Once detected you can  allow duplicates for name - email - mobile – phone – address.
 
 ??? tip
 
@@ -62,7 +62,7 @@ A member working for the political party can be designated as a user. He is give
 
 ## Indexation
 
-Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Odoo, that can be completed / adapted for each political party. 
+Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Odoo.
 
 !!! info
 
@@ -72,7 +72,12 @@ Contacts (members, supporters, other contacts) can be linked to interests and co
 
 Interests and competencies can:
 
-- Be added manually by contacts during their registration (ex: I am interested by the themes of 'nuclear energy' and 'sports')
+- Be added manually by contacts during their registration.
+
+!!! example
+
+    I am interested by the themes of 'nuclear energy' and 'sports'
+
 - Automatically when a member registers for a specific event / survey or petition (if the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party
 Those interests and competencies are present for information purposes, but also to achieve specific targeting with the communication / mass mailings (ex: I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
