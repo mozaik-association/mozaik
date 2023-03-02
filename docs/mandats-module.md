@@ -1,4 +1,10 @@
 # Mandats module
+This module covers the various important points concerning the management of political mandates. Several points will be discussed:
+
+- Selection comittee
+- Statuts of the mandates
+- Invalidation of mandates
+- Renewal of mandates
 
 There are three types of mandates: political, internal and external. These three types of mandates are managed in a similar way. Only the data changes.
 
@@ -28,7 +34,7 @@ The mandates are characterized by three dates: beginning of mandates, end and ex
 - Automatically on the expiry date
 - Manually by setting an end date before the expiration date
 
-## Renewal of a mandat
+## Renewal of mandates
 
 It is not possible to create two same mandates at the same time for the same person. However it is possible to create another mandate for the same Person, same assembly, same period but another position (e.g.: mandate of vice-Chairman at the end of a mandate of director)
 It is also possible to renew for the same person of an expired mandate; starting date will be positioned the day after the expiry date. → no need for an application in this case. In the mandate form it is possible to add an alert delay in number of months. This allows you to be notified when a mandate is about to expire.
