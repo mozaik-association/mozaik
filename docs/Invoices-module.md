@@ -19,3 +19,12 @@ When creating a membership, you will be asked to fill in a field with a bank acc
 ![screenshot 24](img/screen24.png)
 
 ## Management tool for direct debit refusals
+
+For the payment of memberships, it is possible to create a payment link that redirects to an Odoo payment page in order to make the payment with a payment intermediary compatible with Odoo.
+
+in the case where, for an unknown reason, a contact is refused his annual collection, a refusal management tool is activated. 
+
+- An email is sent to the contact asking him to pay his membership since it has not been paid
+- The direct debit is stopped (the mandate is cancelled) 
+- A new membership line is opened
+
