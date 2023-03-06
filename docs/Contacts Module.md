@@ -2,13 +2,13 @@
 
 The contact module is one of the most important module of Mozaik. It allows to manage all the contacts of the political party.  It will give access to: 
 
-- All the general informations about each contact
+- All the general information about each contact
 - The management of the co-residences
 - The authorizations
 - The indexations 
 - The participations of each contact
 - Internal notes
-- Informations about the communication
+- Information about the communication
 - Memberships
 - Management of the statutes of each member
 - Membership fees
