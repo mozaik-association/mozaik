@@ -4,7 +4,7 @@ The Mozaik documentation is a tool to understand and learn the functionalities o
 
 ## introduction to Mozaik
 
-Mozaik is a suite of open source Odoo modules created in 2013. MOzaik is a management software for political parties. Mozaik includes a set of modules created to meet the requirements of political parties. 
+Mozaik is a suite of open source Odoo modules created in 2013 and is used as a management software for political parties. Mozaik includes a set of modules created to meet the requirements of political parties. 
 
 The Mozaik modules allow the administrative management of a political party:
 
