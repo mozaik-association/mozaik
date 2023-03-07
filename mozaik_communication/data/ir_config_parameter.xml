@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <record id="communication_forwarding_error_recipient" model="ir.config_parameter">
+        <field name="key">communication.forwarding_error_recipient_ids</field>
+        <field name="value" />
+    </record>
+</odoo>
