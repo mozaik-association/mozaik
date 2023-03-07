@@ -1,6 +1,6 @@
 # Contacts Module
 
-The contact module is one of the most important module of Mozaik. It allows to manage all the contacts of the political party.  It will give access to: 
+The contact allows to manage all the contacts of the political party.  It will give access to: 
 
 - All the general information about each contact
 - The management of the co-residences
@@ -23,7 +23,7 @@ Various informations are collected when a contact of a physical and moral person
 
 - Two names possible for one person (official and cusomary) only for a physical person. The customary name can be useful to name a contact by a name (other than his official name) that he is used to being called 
 - A name and an acronym possible only for a moral person.
-- Adresse : for each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion, to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (<a href="#core">details of co-residence</a>). If the addresses are not exactly the same, the system will not detect duplicates. That's why the postal code and city list system is interesting. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name or streets with a translation in another language. 
+- Adresse : for each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion. This allows to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (<a href="#core">details of co-residence</a>). If the addresses are not exactly the same, the system will not detect duplicates. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name or streets with a translation in another language. 
 
 !!! info
 
@@ -101,7 +101,7 @@ A participation can be added via a membership form created by the party, via the
 
 !!! info
 
-    - Possible to find all the participations of all the contacts for each event in the tab"participations" --> "participations". 
+    - Possible to find all the participations of all the contacts for each event in the tab"participations" → "participations". 
     - Possible to find all the events in tab "participations" → "catégories des participations".
 
 ## Internal notes/introduction

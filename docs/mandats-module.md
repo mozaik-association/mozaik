@@ -39,7 +39,7 @@ The mandates are characterized by three dates: beginning of mandates, end and ex
 
 It is not possible to create two same mandates at the same time for the same person. However it is possible to create another mandate for the same person, same assembly, same period but another position.
 
-!!example
+!!!example
 
     Create a mandate of vice-Chairman in addition of a mandate of director
 
