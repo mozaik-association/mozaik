@@ -32,6 +32,7 @@
         "email_template_configurator",
     ],
     "data": [
+        "data/ir_config_parameter.xml",
         "views/membership_request.xml",
         "security/communication_security.xml",
         "security/ir.model.access.csv",

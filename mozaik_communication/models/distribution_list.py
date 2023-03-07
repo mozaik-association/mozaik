@@ -184,12 +184,20 @@ class DistributionList(models.Model):
             "<p>Sender: %s</p>"
             "<p>Failure Reason: %s</p>"
         ) % (name, email_from, reason)
+        recipient_ids = self.res_users_ids.mapped("partner_id").ids
+        extra_recipient_ids = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("communication.forwarding_error_recipient_ids")
+        )
+        if extra_recipient_ids:
+            recipient_ids += [
+                int(i) for i in extra_recipient_ids.replace(" ", "").split(",") if i
+            ]
         vals = {
             "parent_id": False,
             "use_active_domain": False,
-            "partner_ids": [
-                (6, 0, self.res_users_ids.mapped("partner_id").ids),
-            ],
+            "partner_ids": [(6, 0, recipient_ids)],
             "notify": False,
             "model": self._name,
             "record_name": self.name,
