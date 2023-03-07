@@ -11,7 +11,12 @@ Thanks to the <a href="https://mozaik-association.github.io/mozaik/Distribution-
 
 When creating a mailing you will need to fill in some important information:
 
-- A subject and an overview of the text. Example: New discount on all t-shirts - find out before it's too late
+- A subject and an overview of the text. 
+
+!!! example
+
+    New discount on all t-shirts - find out before it's too late
+
 - A recipient : In this field you have the possibility to choose between several types of recipients such as a list, a distribution list that you will have to choose among the one you have created beforehand or a set of contacts that you select directly when creating the mailing thanks to filters 
 
 Once the subject and the preview of the text are written and the recipient is chosen, you have the possibility to choose to create a mail from an Odoo template or to write a mail with a simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized camps as the name or address of each recipient.

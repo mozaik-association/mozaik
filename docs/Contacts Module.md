@@ -23,14 +23,18 @@ Various informations are collected when a contact of a physical and moral person
 
 - Two names possible for one person (official and cusomary) only for a physical person. The customary name can be useful to name a contact by a name (other than his official name) that he is used to being called 
 - A name and an acronym possible only for a moral person.
-- Adresse Format : postal code + street. For each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion, to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (<a href="#core">details of co-residence</a>). If the addresses are not exactly the same, the system will not detect duplicates. That's why the postal code and city list system is interesting. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name, streets with a translation in another language. 
+- Adresse : for each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion, to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (<a href="#core">details of co-residence</a>). If the addresses are not exactly the same, the system will not detect duplicates. That's why the postal code and city list system is interesting. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name or streets with a translation in another language. 
+
+!!! info
+
+    Adresse format = postal code + name of the street
 
 ![screenshot 1](img/screen1.png)
 
 According to their address, each contact belonging to a political party is associated with a local group/instance. For example, a contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. Example: a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur. It is possible to force the choice of the instance. More details in the explanation of the <a href="https://mozaik-association.github.io/mozaik/Structure%20Module/" target="_blank">structure module</a>.  
 
 - A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party. However, the contact will still receive the usual emails
-- The current professional and health situation (disabled or not) are also requested. This two pieces of informations are important because they can change the price of the membership fee for the member (if desired by the party()
+- The current professional and health situation (disabled or not) are also requested. This two pieces of informations are important because they can change the price of the membership fee for the member (if desired by the party)
 - The different social networks of the contact can also be registered in the conctact form.
 
 ## <h2 id="core">Co-résidences</h2>
@@ -44,9 +48,12 @@ A duplicate check system based on name, phone, mobile, email and address detect 
 ![screenshot 2](img/screen2.png)
 ![screenshot 4](img/screen4.png)
 
-When two people have the same address, the system detects a duplicate (screenshot above). Once detected we have the possibility to create a co-chair between these two people by selecting the members you wish to co-reside by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" . It is also possible to add a contact directly to an existing co-presidency in the contact form. The co-chair system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. It is also possible to do the same thing with two people having the same email address. 
+When two people have the same address, the system detects a duplicate (screenshot above). Once detected we have the possibility to create a co-chair between these two people by selecting the members you wish to co-reside . It is also possible to add a contact directly to an existing co-presidency in the contact form. The co-chair system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. It is also possible to do the same thing with two people having the same email address. 
 
-![screenshot 3](img/screen3.png)
+??? tip
+
+    You can create a co-residence by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" 
+    ![screenshot 3](img/screen3.png)
 
 
 ## Autorizations
@@ -91,8 +98,11 @@ More informations about how to target contacts based on those informations in th
 
 It is possible to identify and add on the contact form the interactions between the political party and the member. We can for example see if a member participated in an event, a donation, a petition of the political party. Participation allows you to pull and search for the mailing.
 A participation can be added via a membership form created by the party, via the signature of a petition or a donation, or manually directly on the contact page of the contact.
-Possible to find all the participations of all the contacts for each event in the tab"participations" --> "participations". 
-Possible to find all the events in tab "participations" → "catégories des participations".
+
+!!! info
+
+    - Possible to find all the participations of all the contacts for each event in the tab"participations" --> "participations". 
+    - Possible to find all the events in tab "participations" → "catégories des participations".
 
 ## Internal notes/introduction
 

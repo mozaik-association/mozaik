@@ -14,7 +14,7 @@ In order to select a person for a term of office, the first step is to create a 
 
 ![screenshot 15](img/screen15.png)
 
-Once the selection committee is created, you can add a candidate tp thos committee by choosing the candidate and hi spositoin on the list.
+Once the selection committee is created, you can add a candidate to this committee by choosing the candidate and his position on the list.
 
 ![screenshot 16](img/screen16.png)
 
@@ -37,11 +37,15 @@ The mandates are characterized by three dates: beginning of mandates, end and ex
 
 ## Renewal of mandates
 
-It is not possible to create two same mandates at the same time for the same person. However it is possible to create another mandate for the same person, same assembly, same period but another position (EX.: mandate of vice-Chairman in addition of a mandate of director)
+It is not possible to create two same mandates at the same time for the same person. However it is possible to create another mandate for the same person, same assembly, same period but another position.
+
+!!example
+
+    Create a mandate of vice-Chairman in addition of a mandate of director
+
 It is also possible to renew for the same person of an expired mandate; starting date will be positioned the day after the expiry date → no need for an application in this case. In the mandate form it is possible to add an alert delay in number of months. This allows you to be notified when a mandate is about to expire.
 
 ![screenshot 17](img/screen17.png)
-
 ??? tip
 
     It is possible to create and retrieve all categories of mandates for political mandates - internal and external by clicking on "configurations" then "categories of mandates"
