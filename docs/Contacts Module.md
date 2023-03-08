@@ -104,7 +104,7 @@ Interests and competencies can:
 
 This functionality enables you to add all the interactions between your organization and its members / supporters. The types of interactions can be defined by each organization according to their needs (signature of a petition, participation to a volontary action...)
 
-!!!abstract "goel of the fonctionnality"
+!!!abstract "Goal of the fonctionnality"
 
     Entries allow you to get to know your contacts better / categorise them / keep track of all interactions with a particular contact over the years. These entries can be used to make targeted communication with contacts with certain entries
     !!!example
@@ -119,8 +119,12 @@ How to add them :
 !!! info
 
     - Possible to find all the participations of all the contacts for each event in the tab"participations" → "participations". 
-    - Possible to find all the events in tab "participations" → "catégories des participations".
+    - Possible to find all the events in tab "participations" → "participations categories".
 
+<figure markdown>
+[screenshot 28](img/screen28.png)
+<figcaption>Example of a contact form with a participation</figcaption>
+</figure>
 
 ## Communication
 
