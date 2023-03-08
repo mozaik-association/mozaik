@@ -20,7 +20,7 @@ Various informations are collected when a contact of a physical and moral person
 
 !!! abstract "Adresse"
 
-    The encoding of addresses on the contact form is facilitated by the auto-completion system that the system provides. this system allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and also to detect duplicates. 
+    The encoding of addresses on the contact form is facilitated by the auto-completion fonctinnnality that the system provides. This fonctionnnality allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and also to detect duplicates. 
     Depending on their address, the organisation's contacts are associated with a local group/instance. When the address changes, the instance of the contact will also change.
     !!! example
     
@@ -56,7 +56,7 @@ When two people have the same address, the system detects a duplicate (screensho
     ![screenshot 3](img/screen3.png)
 
 
-## Autorizations
+## Access Rules
 
 A member working for the political party can be designated as a user. He is given an ID, a role and an internal instance. Depending on his role and internal instance the user will be granted access to certain functionalities in Odoo. For example, a user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
 
@@ -69,13 +69,7 @@ A member working for the political party can be designated as a user. He is give
 
 ## Indexation
 
-Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaïk.
-
-!!! info
-
-    Every party can adapte his own thesaurus terms in the module.
-
-![screenshot 7](img/screen7.png)
+Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaïk and can be adapted according to the needs of each organisation.
 
 Interests and competencies can:
 
@@ -87,8 +81,9 @@ Interests and competencies can:
 
 - Automatically when a member registers for a specific event / survey or petition 
 
-A mettre dans EXAMPLE:
-(if the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party
+!!!example
+
+    If the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party.
 
 Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication / mass mailings.
 
@@ -98,6 +93,10 @@ Those interests and competencies are present for information purposes (to better
     
 More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
+<figure markdown>
+![screenshot 7](img/screen7.png)
+<figcaption>Example of a contact form with Thesaurus terms</figcaption>
+</figure>
 
 ## Participations
 
