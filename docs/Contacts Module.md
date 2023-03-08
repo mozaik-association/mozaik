@@ -71,7 +71,7 @@ A member working for the political party can be designated as a user. He is give
 
 Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaïk and can be adapted according to the needs of each organisation.
 
-!!! The goal of Thesaurus terms    
+!!! info "The goal of Thesaurus terms" 
     
     Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication / mass mailings.
     !!! example
@@ -79,7 +79,7 @@ Contacts (members, supporters, other contacts) can be linked to interests and co
         I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
         ???tip
 
-        More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
+            More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
 Interests and competencies can:
 
