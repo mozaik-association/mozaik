@@ -1,28 +1,24 @@
 # Contacts Module
 
-The contact allows to manage all the contacts of the political party.  It will give access to: 
+The contact module - which is a central module in Mozaïk - allows to manage all the contacts related to your organization / political party.  It will give you access to: 
 
-- All the general information about each contact
-- The management of the co-residences
-- The authorizations
-- The indexations 
-- The participations of each contact
-- Internal notes
-- Information about the communication
-- Memberships
-- Management of the statutes of each member
+- All the general information about each contact (members, supporters, all other contacts)
+- Memberships lines
 - Membership fees
 - Membership renewals
+- The interests & competencies of each contact
+- The participations of each member (interactions with the organization)
+- The management of the adresses & co-residencies
+- Communication preferences (opt in / opt out)
 
-This module is the starting point of many modules and creates a link between many Mozaik modules. For example, you will be able to use the contact list to create your <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" tagret="_blank">distribution lists</a> and then send your <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing emails</a>.
 
-## Contacts: people management (physiscal or corporate)
 
-This module allows you to create and modify contacts using the personal informations of the members/subscribers of the political party.
-Various informations are collected when a contact of a physical and moral person is registered. The usual personal informations name, first name, date of birth, age, phones, address.
+## Contacts: People management (physical or corporate)
 
-- Two names possible for one person (official and cusomary) only for a physical person. The customary name can be useful to name a contact by a name (other than his official name) that he is used to being called 
-- A name and an acronym possible only for a moral person.
+This functionality allows you to create and modify contacts using the personal informations of the members/subscribers of the political party.
+Various informations are collected when a contact of a physical and moral person is registered. The usual personal informations name, first name, phones, address.
+
+
 - Adresse : for each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion. This allows to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (<a href="#core">details of co-residence</a>). If the addresses are not exactly the same, the system will not detect duplicates. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name or streets with a translation in another language. 
 
 !!! info
@@ -69,7 +65,7 @@ A member working for the political party can be designated as a user. He is give
 
 ## Indexation
 
-Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Odoo.
+Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaïk.
 
 !!! info
 
@@ -85,8 +81,13 @@ Interests and competencies can:
 
     I am interested by the themes of 'nuclear energy' and 'sports'
 
-- Automatically when a member registers for a specific event / survey or petition (if the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party
-Those interests and competencies are present for information purposes, but also to achieve specific targeting with the communication / mass mailings.
+- Automatically when a member registers for a specific event / survey or petition 
+
+A mettre dans EXAMPLE:
+(if the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party
+
+Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication / mass mailings.
+
 !!! example
 
     I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
@@ -96,8 +97,22 @@ More informations about how to target contacts based on those informations in th
 
 ## Participations
 
-It is possible to identify and add on the contact form the interactions between the political party and the member. We can for example see if a member participated in an event, a donation, a petition of the political party. Participation allows you to pull and search for the mailing.
-A participation can be added via a membership form created by the party, via the signature of a petition or a donation, or manually directly on the contact page of the contact.
+This functionality enables you to add all the interactions between your organization and its members / supporters. The types of interactions can be defined by each organization according to their needs (signature of a petition, participation to a volontary action...)
+
+
+A mettre dans un example (à ré-écrire aussi): A member made a donation on 31/03/2023 and signed a petition about 'ce thème' one week later. 
+We can for example see if a member participated in an event, a donation, a petition of the political party. 
+
+But du module:
+
+Permet de mieux connaître tes contacts / de les catégoriser / de garder une trace de toutes les interactions qu'il ya  eu avec un contact en particulier au fil des années
+Peut être utilisé pour communiquer in a targeted manner with your contacts
+
+Comment on les ajoute:
+
+A participation can be added manually on a contact page 
+via a membership form created by the party,
+ via the signature of a petition or a donation
 
 !!! info
 
