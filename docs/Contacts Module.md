@@ -18,12 +18,6 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 This functionality allows you to create and modify contacts using the personal informations of the members/subscribers of the political party.
 Various informations are collected when a contact of a physical and moral person is registered. The usual information as name, first name, phones, address and some personal information as the age, the gender, the healt situation, the social networks. 
 
-
-<figure markdown>
-  ![screenshot 27](img/screen27.png)
-  <figcaption>Contact form with general and personal information </figcaption>
-</figure>
-
 !!! abstract "Adresse"
 
     The encoding of addresses on the contact form is facilitated by the auto-completion system that the system provides. this system allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and also to detect duplicates. 
@@ -32,6 +26,12 @@ Various informations are collected when a contact of a physical and moral person
     
         A contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. If a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur.
         
+
+<figure markdown>
+  ![screenshot 27](img/screen27.png)
+  <figcaption>Contact form with general and personal information </figcaption>
+</figure>
+
 <figure markdown>
 ![screenshot 1](img/screen1.png)
 <figcaption>Creation of an adresse with the auto-completion</figcaption>
