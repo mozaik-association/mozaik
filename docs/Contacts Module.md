@@ -1,6 +1,6 @@
 # Contacts Module
 
-The contact module - which is a central module in Mozaïk - allows to manage all the contacts related to your organization / political party.  It will give you access to: 
+The contact module - which is a central module in Mozaïk - allows to manage all the contacts related to your organization / political party.  It will give you access to:
 
 - All the general information about each contact (members, supporters, all other contacts)
 - Memberships lines
@@ -16,24 +16,20 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 ## Contacts: People management (physical or corporate)
 
 This functionality allows you to create and modify contacts using the personal informations of the members/subscribers of the political party.
-Various informations are collected when a contact of a physical and moral person is registered. The usual personal informations name, first name, phones, address.
+Various informations are collected when a contact of a physical and moral person is registered. The usualinformations name, first name, phones, address and some personal information as the age, the gender, the healt situation, the social networks. 
 
+!!! abstract "Adresse"
 
-- Adresse : for each country it is possible to choose if, when registering a new contact on the site or directly in the backend, the postal code and city should be selected from a list stored in the application or if this information should be entered manually. The selection of the postal code and city from a stored list allows to facilitate the choice of the address thanks to the autocompletion. This allows to reduce the errors of address and to avoid the duplicates for the co-residences. If two people live under the same address, they can be put in co-residence (<a href="#core">details of co-residence</a>). If the addresses are not exactly the same, the system will not detect duplicates. The reference street can also be chosen from a list of streets stored in the application. A street 2 is also available for streets with a long name or streets with a translation in another language. 
-
-!!! info
-
-    Adresse format = postal code + name of the street
+    The encoding of addresses on the contact form is facilitated by the auto-completion system that the system provides. this system allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and also to detect duplicates. 
+    Depending on their address, the organisation's contacts are associated with a local group/instance. When the address changes, the instance of the contact will also change.
+    !!! example
+    
+        A contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. If a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur.
+        
 
 ![screenshot 1](img/screen1.png)
 
-According to their address, each contact belonging to a political party is associated with a local group/instance. For example, a contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. Example: a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur. It is possible to force the choice of the instance. More details in the explanation of the <a href="https://mozaik-association.github.io/mozaik/Structure%20Module/" target="_blank">structure module</a>.  
-
-- A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party. However, the contact will still receive the usual emails
-- The current professional and health situation (disabled or not) are also requested. This two pieces of informations are important because they can change the price of the membership fee for the member (if desired by the party)
-- The different social networks of the contact can also be registered in the conctact form.
-
-## <h2 id="core">Co-résidences</h2>
+## Co-résidences
 
 A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. Once detected you can  allow duplicates for name - email - mobile – phone – address.
 
@@ -119,10 +115,6 @@ via a membership form created by the party,
     - Possible to find all the participations of all the contacts for each event in the tab"participations" → "participations". 
     - Possible to find all the events in tab "participations" → "catégories des participations".
 
-## Internal notes/introduction
-
-Possibility to add a free text in the "notes internes" tab of a member's file
-Possibility to add an introduction of the member with a free text on its card by clicking on the tab "introduction".
 
 ## Communication
 

@@ -21,6 +21,10 @@ When creating a mailing you will need to fill in some important information:
 
 Once the subject and the preview of the text are written and the recipient is chosen, you have the possibility to choose to create a mail from an Odoo template or to write a mail with a simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized camps as the name or address of each recipient.
 
+!!!note 
+
+    A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party. However, the contact will still receive the usual emails
+
 ![screenshot 19](img/screen19.png)
 
 In the mailing configurations, it is possible to select the option "recurrent sending" which allows to send a mail every X time. Thanks to the filters of the distribution lists and to this functionality, you can for example automatically send an email to all the people who participated in an event in the last three days. 
