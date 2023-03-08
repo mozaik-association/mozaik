@@ -122,7 +122,7 @@ How to add them :
     - Possible to find all the events in tab "participations" → "participations categories".
 
 <figure markdown>
-[screenshot 28](img/screen28.png)
+![screenshot 28](img/screen28.png)
 <figcaption>Example of a contact form with a participation</figcaption>
 </figure>
 
