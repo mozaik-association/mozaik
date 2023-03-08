@@ -94,14 +94,7 @@ Interests and competencies can:
 !!!example
 
     If the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party.
-
-Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication / mass mailings.
-
-!!! example
-
-    I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
-    
-
+     é
 <figure markdown>
 ![screenshot 7](img/screen7.png)
 <figcaption>Example of a contact form with Thesaurus terms</figcaption>
@@ -111,20 +104,17 @@ Those interests and competencies are present for information purposes (to better
 
 This functionality enables you to add all the interactions between your organization and its members / supporters. The types of interactions can be defined by each organization according to their needs (signature of a petition, participation to a volontary action...)
 
+!!!abstract "goel of the fonctionnality"
 
-A mettre dans un example (à ré-écrire aussi): A member made a donation on 31/03/2023 and signed a petition about 'ce thème' one week later. 
-We can for example see if a member participated in an event, a donation, a petition of the political party. 
+    Entries allow you to get to know your contacts better / categorise them / keep track of all interactions with a particular contact over the years. These entries can be used to make targeted communication with contacts with certain entries
+    !!!example
+        A member made a donation on 31/03/2023 and signed a petition about 'ce thème' one week later. This participation will appear in his contact form and it will be possible to send an email to all the people who participated in the signature of this petition
 
-But du module:
+How to add them :
 
-Permet de mieux connaître tes contacts / de les catégoriser / de garder une trace de toutes les interactions qu'il ya  eu avec un contact en particulier au fil des années
-Peut être utilisé pour communiquer in a targeted manner with your contacts
-
-Comment on les ajoute:
-
-A participation can be added manually on a contact page 
-via a membership form created by the party,
- via the signature of a petition or a donation
+- A participation can be added manually on a contact page 
+- Via a membership form created by the party,
+- Via the signature of a petition or a donation
 
 !!! info
 
