@@ -62,10 +62,10 @@ This fonctionnality allow you to transform a conctatc who is working for the org
 
 !!! abstract "The goal of access rules"
 
-   This feature allows you to give different access to your user contacts in Mozaik depending on the internal instance they receive when they are transformed into a user.
-    !!!example
+    This feature allows you to give different access to your user contacts in Mozaik depending on the internal instance they receive when they are transformed into a user
+    !!! example
     
-        A user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
+        A user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group
 
 ??? tip
 
