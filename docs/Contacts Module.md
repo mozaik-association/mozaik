@@ -44,7 +44,7 @@ Various informations are collected when a contact of a physical and moral person
 
 A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. Once detected you can  allow duplicates for name - email - mobile – phone – address.
 
-??? tip "How to transform a contact into a user ?"
+??? tip "How to allow duplicates ?"
 
     To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
@@ -70,7 +70,7 @@ Thanks to this fonctionnality you can transform a contact who is working for the
     
         A user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group
 
-??? tip
+??? tip "How to transform a contact into a user ?
 
     To turn a contact into a user, click on the "action" button then click on "transform into user"
 
