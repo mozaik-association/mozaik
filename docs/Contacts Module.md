@@ -184,13 +184,6 @@ This tab allows you to manage the communication preferences of all contacts in t
 
             It is then possible to blacklist all contacts with X emails or postal bounced
 
-
-
-
-The system uses an algorithm to check which people are not receiving emails sent from Odoo. After a certain number of bugs counted for a member (depending on your choice), the member is blacklisted from the mailing list so that he/she does not continue to send mails to people who do not receive them. failed emails.
-
-The same goes for letters sent to the home address that come back. For maiing, failures are entered manually in the member's record in Odoo "failed letters".
-
 <figure markdown>
 ![screenshot 23](img/screen23.png)
 <figcaption>Example of a contact form with Thesaurus terms</figcaption>
