@@ -49,7 +49,7 @@ Various informations can be collected for each contact (companies or individuals
 
 ## Co-résidences
 
-A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “show all duplicates” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. 
+A duplicate check system based on the name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “show all duplicates” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. 
 
 
 !!! abstract "The goal of co-résidences"
@@ -67,8 +67,9 @@ A duplicate check system based on name, phone, mobile, email and address detect 
     ??? question "How to allow duplicates ?"
 
         To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
+    !!! info
 
-
+        Once you have create a co-résidence or you allowed the duplicates, the "show all duplicates" button will disappear.
 
 <figure markdown>
 ![screenshot 2](img/screen2.png)
