@@ -44,23 +44,32 @@ Various informations can be collected for each contact (companies or individuals
 
 <figure markdown>
 ![screenshot 1](img/screen1.png)
-<figcaption>Creation of an address with the auto-completion fonction</figcaption>
+<figcaption>Creation of an address with the auto-completion function</figcaption>
 </figure>
 
 ## Co-résidences
 
-A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “show all duplicates” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. Once detected you can  allow duplicates for name - email - mobile – phone – address.
+A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “show all duplicates” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. 
 
-??? tip
 
-    To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
+!!! abstract "The goal of co-résidences"
 
-When two people have the same address, the system detects a duplicate (screenshot above). Once detected we have the possibility to create a co-chair between these two people by selecting the members you wish to co-reside . It is also possible to add a contact directly to an existing co-residence in the contact form. The co-chair system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. It is also possible to do the same thing with two people having the same email address. 
+    This fonctionnality allows you to manage duplicate contacts
+    Once a duplicate is detected you hacve two possibilities :
 
-??? tip
+    - You can create a co-residence  between these two people by selecting the members you wish to co-reside . It is also possible to add a contact directly to an existing co-residence in the contact form. The co-residence system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. This fonctionnality works also if two people have the same email address.
 
-    You can create a co-residence by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" 
-    ![screenshot 3](img/screen3.png)
+    ??? question "How to create a co-residence ?" 
+
+        You can create a co-residence by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" 
+        ![screenshot 3](img/screen3.png)
+    
+    - You can  allow duplicates for name - email - mobile – phone – address.
+    ??? question "How to allow duplicates ?"
+
+        To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
+
+
 
 <figure markdown>
 ![screenshot 2](img/screen2.png)
