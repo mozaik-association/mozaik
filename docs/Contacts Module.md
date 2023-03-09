@@ -21,7 +21,7 @@ Various informations are collected when a contact of a physical and moral person
 !!! abstract "Adresse"
 
     The encoding of addresses on the contact form is facilitated by the auto-completion fonctinnnality that the system provides. This fonctionnnality allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and also to detect duplicates. 
-    Depending on their address, the organisation's contacts are associated with a local group/instance. When the address changes, the instance of the contact will also change.
+    Depending on their address, the organization's contacts are associated with a local group/instance. When the address changes, the instance of the contact will also change.
     !!! example
     
         A contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. If a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur.
@@ -58,14 +58,28 @@ When two people have the same address, the system detects a duplicate (screensho
 
 ## Access Rules
 
-A member working for the political party can be designated as a user. He is given an ID, a role and an internal instance. Depending on his role and internal instance the user will be granted access to certain functionalities in Odoo. For example, a user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
+This fonctionnality allow you to transform a conctatc who is working for the organizatoin into a user of Mozaik. He is given an ID, a role and an internal instance. 
+
+!!! abstract "The goal of access rules"
+
+   This feature allows you to give different access to your user contacts in Mozaik depending on the internal instance they receive when they are transformed into a user.
+    !!!example
+    
+        A user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group.
 
 ??? tip
 
     To turn a contact into a user, click on the "action" button then click on "transform into user"
 
+<figure markdown>
 ![screenshot 5](img/screen5.png)
+<figcaption>Transformation of a contact into a user</figcaption>
+</figure>
+
+<figure markdown>
 ![screenshot 6](img/screen6.png)
+<figcaption>Information of a contact user on the contact form</figcaption>
+</figure>
 
 ## Indexation
 
