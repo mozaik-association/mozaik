@@ -190,12 +190,12 @@ This tab allows you to manage the communication preferences of all contacts in t
 A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member.
 
 <figure markdown>
-![screenshot 8](img/screen8.png)
+![screenshot 31](img/screen31.png)
 <figcaption>Creation of an adhesion</figcaption>
 </figure>
 
 <figure markdown>
-![screenshot 31](img/screen31.png)
+![screenshot 8](img/screen8.png)
 <figcaption>New adhesion line on the contact form</figcaption>
 </figure>
 
