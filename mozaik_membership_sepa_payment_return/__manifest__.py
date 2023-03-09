@@ -8,7 +8,7 @@
         direct debit orders. It allows to match the payment return line
         with a partner, to delete the banking mandate and mark the
         membership line as unpaid.""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
