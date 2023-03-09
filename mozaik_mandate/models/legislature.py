@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from datetime import datetime
 
-from odoo import _, api, models
+from odoo import _, models
 from odoo.exceptions import ValidationError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
@@ -11,7 +11,6 @@ class Legislature(models.Model):
 
     _inherit = "legislature"
 
-    @api.model
     def write(self, vals):
         new_deadline_date = vals.get("deadline_date", False)
         if new_deadline_date:
