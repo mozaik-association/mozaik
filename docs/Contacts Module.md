@@ -49,7 +49,7 @@ Various informations can be collected for each contact (companies or individuals
 
 ## Co-résidences
 
-A duplicate check system based on the name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button allows to display the list with contacts with one or more identical fields.
+A duplicate check system based on the name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button allows to display the list of contacts with one or more identical fields.
 
 
 !!! abstract "The goal of co-résidences"
@@ -73,7 +73,7 @@ A duplicate check system based on the name, phone, mobile, email and address det
 
 <figure markdown>
 ![screenshot 2](img/screen2.png)
-<figcaption>appearance of the button "show all duplicates</figcaption>
+<figcaption>appearance of the button "show all duplicates"</figcaption>
 </figure>
 <figure markdown>
 ![screenshot 4](img/screen4.png)
@@ -160,13 +160,43 @@ How to add them :
 <figcaption>Example of a contact form with a participation</figcaption>
 </figure>
 
-## Communication
+## Communication preferences
+
+This feature allows you to manage the communication preferences of all contacts in the organisation. It also allows you to handle communication breakdowns with contacts thanks to an algorithm that detects people who do not receive communication from the organisation (emails and post).
+
+!!! abstract "The goal of communication preferences"
+
+    Thanks to this fonctionnality, contacts can explicitly state that they wish to receive particular newsletters or that they do not wish to receive specific newsletters at all.
+    !!! example
+
+        This contact reported that:
+
+        - He explicitly wishes to receive the human rights newsletter
+        ![screenshot 29](img/screen29.png)
+
+        - He does not wish to receive any newsletter concerning new technologies
+        ![screenshot 30](img/screen30.png)
+    
+    This fonctionnality also allows you to see the number of emails or mails that have not been received by a contact.
+    !!! example
+
+        The system recorded 3 emails returned for this contact
+        ![screenshot 31](img/screen31.png)
+        !!!tip
+
+            It is then possible to blacklist all contacts with X emails or postal bounced
+
+
+
 
 The system uses an algorithm to check which people are not receiving emails sent from Odoo. After a certain number of bugs counted for a member (depending on your choice), the member is blacklisted from the mailing list so that he/she does not continue to send mails to people who do not receive them. failed emails.
 
 The same goes for letters sent to the home address that come back. For maiing, failures are entered manually in the member's record in Odoo "failed letters".
 
+<figure markdown>
 ![screenshot 23](img/screen23.png)
+<figcaption>Example of a contact form with Thesaurus terms</figcaption>
+</figure>
 
 ## Membership 
 
