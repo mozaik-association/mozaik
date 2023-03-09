@@ -54,8 +54,9 @@ A duplicate check system based on name, phone, mobile, email and address detect 
 
 !!! abstract "The goal of co-résidences"
 
-    This fonctionnality allows you to manage duplicate contacts
-    Once a duplicate is detected you hacve two possibilities :
+    This fonctionnality allows you to manage duplicate contacts.
+
+    Once a duplicate is detected you have two possibilities :
 
     - You can create a co-residence  between these two people by selecting the members you wish to co-reside . It is also possible to add a contact directly to an existing co-residence in the contact form. The co-residence system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. This fonctionnality works also if two people have the same email address.
 
