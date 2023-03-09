@@ -193,8 +193,9 @@ A membership can be created by selecting an instance and a statuts for the membe
 ![screenshot 8](img/screen8.png)
 <figcaption>Creation of an adhesion</figcaption>
 </figure>
+
 <figure markdown>
-![screenshot 8](img/screen8.png)
+![screenshot 31](img/screen31.png)
 <figcaption>New adhesion line on the contact form</figcaption>
 </figure>
 
