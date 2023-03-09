@@ -70,7 +70,7 @@ Thanks to this fonctionnality you can transform a contact who is working for the
     
         A user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group
 
-??? tip "How to transform a contact into a user ?
+??? tip "How to transform a contact into a user ?"
 
     To turn a contact into a user, click on the "action" button then click on "transform into user"
 
@@ -111,7 +111,7 @@ Interests and competencies can:
 !!!example
 
     If the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can be added as 'Interests' for this member manually by the backoffice of the political party.
-     é
+
 <figure markdown>
 ![screenshot 7](img/screen7.png)
 <figcaption>Example of a contact form with Thesaurus terms</figcaption>
