@@ -34,6 +34,7 @@ Various informations can be collected for each contact (companies or individuals
 !!! abstract "The goal of people managment"
 
     This feature allows you : 
+
     - To manage all the information about your contacts. 
     - Information can be used for the adhesions
 
@@ -183,11 +184,6 @@ This tab allows you to manage the communication preferences of all contacts in t
         ???tip
 
             It is then possible to blacklist all contacts with X emails or postal bounced
-
-<figure markdown>
-![screenshot 23](img/screen23.png)
-<figcaption>Example of a contact form with Thesaurus terms</figcaption>
-</figure>
 
 ## Membership 
 
