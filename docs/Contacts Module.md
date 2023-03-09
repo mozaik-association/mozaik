@@ -18,14 +18,17 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 This functionality allows you to create and modify contacts using the personal informations of the members/subscribers of the political party.
 Various informations are collected when a contact of a physical and moral person is registered. The usual information as name, first name, phones, address and some personal information as the age, the gender, the healt situation, the social networks. 
 
-!!! abstract "Adresse"
+!!! info "Adress"
 
     The encoding of addresses on the contact form is facilitated by the auto-completion fonctinnnality that the system provides. This fonctionnnality allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and also to detect duplicates. 
     Depending on their address, the organization's contacts are associated with a local group/instance. When the address changes, the instance of the contact will also change.
     !!! example
     
         A contact whose address is located in Huy will belong to the Huy local group if the address of a party member is changed, a function can be selected to automatically change the local group member. If a member moves from Brussels to Namur. Then his local group will change from Brussels to Namur.
-        
+
+!!! abstract "The goal of people managment"
+
+    This feature allow you to have an easy acces to all the general and personnal informations of all your physical and corporate contacs. 
 
 <figure markdown>
   ![screenshot 27](img/screen27.png)
@@ -41,7 +44,7 @@ Various informations are collected when a contact of a physical and moral person
 
 A duplicate check system based on name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate contact is detected, a button “doublon détecté” appears on the card of the duplicate members, allowing to display the contact(s) with one or more identical fields. Duplicate contacts appear in yellow in the contacts list. Once detected you can  allow duplicates for name - email - mobile – phone – address.
 
-??? tip
+??? tip "How to transform a contact into a user ?"
 
     To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
 
@@ -58,7 +61,7 @@ When two people have the same address, the system detects a duplicate (screensho
 
 ## Access Rules
 
-This fonctionnality allow you to transform a conctatc who is working for the organizatoin into a user of Mozaik. He is given an ID, a role and an internal instance. 
+Thanks to this fonctionnality you can transform a contact who is working for the organization into a user of Mozaik. He is given an login, a role and an internal instance. 
 
 !!! abstract "The goal of access rules"
 
@@ -85,13 +88,13 @@ This fonctionnality allow you to transform a conctatc who is working for the org
 
 Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaïk and can be adapted according to the needs of each organisation.
 
-!!! info "The goal of Thesaurus terms" 
+!!! abstract "The goal of Thesaurus terms" 
     
     Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication / mass mailings.
     !!! example
 
         I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
-        ???tip
+        ???tip "How to target specific contacts ?"
 
             More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
@@ -114,11 +117,11 @@ Interests and competencies can:
 <figcaption>Example of a contact form with Thesaurus terms</figcaption>
 </figure>
 
-## Participations
+## Involvements
 
 This functionality enables you to add all the interactions between your organization and its members / supporters. The types of interactions can be defined by each organization according to their needs (signature of a petition, participation to a volontary action...)
 
-!!!abstract "Goal of the fonctionnality"
+!!!abstract "Goal of the involvements"
 
     Entries allow you to get to know your contacts better / categorise them / keep track of all interactions with a particular contact over the years. These entries can be used to make targeted communication with contacts with certain entries
     !!!example
@@ -126,11 +129,11 @@ This functionality enables you to add all the interactions between your organiza
 
 How to add them :
 
-- A participation can be added manually on a contact page 
+- An involvement can be added manually on a contact page 
 - Via a membership form created by the party,
 - Via the signature of a petition or a donation
 
-!!! info
+??? info
 
     - Possible to find all the participations of all the contacts for each event in the tab"participations" → "participations". 
     - Possible to find all the events in tab "participations" → "participations categories".
