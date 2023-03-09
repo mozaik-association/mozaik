@@ -162,19 +162,17 @@ How to add them :
 
 ## Communication preferences
 
-This feature allows you to manage the communication preferences of all contacts in the organisation. It also allows you to handle communication breakdowns with contacts thanks to an algorithm that detects people who do not receive communication from the organisation (emails and post).
+This tab allows you to manage the communication preferences of all contacts in the organisation. It also allows you to handle communication breakdowns with contacts thanks to an algorithm that detects people who do not receive communication from the organisation (emails and post).
 
 !!! abstract "The goal of communication preferences"
 
     Thanks to this fonctionnality, contacts can explicitly state that they wish to receive particular newsletters or that they do not wish to receive specific newsletters at all.
     !!! example
 
-        This contact reported that:
-
-        - He explicitly wishes to receive the human rights newsletter
+        - This contact reported that he explicitly wishes to receive the human rights newsletter
         ![screenshot 29](img/screen29.png)
 
-        - He does not wish to receive any newsletter concerning new technologies
+        - This contact reported that he does not wish to receive any newsletter concerning new technologies
         ![screenshot 30](img/screen30.png)
     
     This fonctionnality also allows you to see the number of emails or mails that have not been received by a contact.
@@ -182,7 +180,7 @@ This feature allows you to manage the communication preferences of all contacts 
 
         The system recorded 3 emails returned for this contact
         ![screenshot 31](img/screen31.png)
-        !!!tip
+        ???tip
 
             It is then possible to blacklist all contacts with X emails or postal bounced
 
