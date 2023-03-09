@@ -16,9 +16,9 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 ## Contacts: People management (physical or corporate)
 
 This functionality allows you to create and modify contacts using the personal informations of the members/subscribers of the political party.
-Various informations are collected when a contact of a physical and moral person is registered. The usual information as name, first name, phones, address and some personal information as the age, the gender, the healt situation, the social networks. 
+Various informations are collected when a contact of a physical and moral person is registered. The usual information as name, first name, phone, address and some personal information as the age, the gender, the healt situation, the social networks. 
 
-!!! info "Adress"
+!!! info "Address"
 
     The encoding of addresses on the contact form is facilitated by the auto-completion fonctinnnality that the system provides. This fonctionnnality allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and also to detect duplicates. 
     Depending on their address, the organization's contacts are associated with a local group/instance. When the address changes, the instance of the contact will also change.
@@ -70,7 +70,7 @@ Thanks to this fonctionnality you can transform a contact who is working for the
     
         A user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group
 
-??? tip "How to transform a contact into a user ?"
+??? question "How to transform a contact into a user ?"
 
     To turn a contact into a user, click on the "action" button then click on "transform into user"
 
@@ -94,7 +94,7 @@ Contacts (members, supporters, other contacts) can be linked to interests and co
     !!! example
 
         I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
-        ???tip "How to target specific contacts ?"
+        ???question "How to target specific contacts ?"
 
             More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
