@@ -62,10 +62,6 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='personal_information_group']" position="inside">
                 <field name="marital" />
-                <field
-                    name="secondary_email"
-                    groups="mozaik_partner_fields.group_partner_see_secondary_email"
-                />
                 <field name="secondary_website" />
                 <field name="social_twitter" />
                 <field name="social_facebook" />

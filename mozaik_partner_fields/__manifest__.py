@@ -17,10 +17,7 @@
         "partner_contact_gender",
         "partner_contact_nationality",
     ],
-    "data": [
-        "security/groups.xml",
-        "views/res_partner.xml",
-    ],
+    "data": ["views/res_partner.xml"],
     "installable": True,
     "pre_init_hook": "pre_init_hook",
     "post_init_hook": "post_init_hook",
