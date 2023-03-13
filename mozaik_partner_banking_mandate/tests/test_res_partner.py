@@ -79,3 +79,28 @@ class TestResPartner(TransactionCase):
         self.bank_account_1.write({"partner_id": self.partner_2.id})
         self.assertFalse(self.partner_1.has_valid_mandate)
         self.assertTrue(self.partner_2.has_valid_mandate)
+
+    def test_merge_partners(self):
+        """
+        1st partner has a valid banking mandate.
+        Merge both partners into 2nd partner -> 2nd partner now has a valid mandate
+
+        NB: We must update Demo Data add them a force instance
+        since they have no membership line (hence no instance).
+        """
+        instance_id = self.ref("mozaik_structure.int_instance_01")
+        (self.partner_1 | self.partner_2).write({"force_int_instance_id": instance_id})
+        self.env["account.banking.mandate"].create(
+            {
+                "partner_bank_id": self.bank_account_1.id,
+                "signature_date": "2015-01-01",
+                "state": "valid",
+            }
+        )
+        self.env["base.partner.merge.automatic.wizard"].create(
+            {
+                "partner_ids": [self.partner_1.id, self.partner_2.id],
+                "dst_partner_id": self.partner_2.id,
+            }
+        ).action_merge()
+        self.assertTrue(self.partner_2.has_valid_mandate)
