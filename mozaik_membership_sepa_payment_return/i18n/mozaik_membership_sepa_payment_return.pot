@@ -38,7 +38,7 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
-#: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__active_membership_line_id
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__to_process_membership_line_id
 msgid "Active Membership Line"
 msgstr ""
 

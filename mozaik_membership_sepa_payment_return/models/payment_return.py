@@ -29,7 +29,11 @@ class PaymentReturn(models.Model):
         tracking=True,
     )
     error_message = fields.Text(tracking=True)
-    active_membership_line_id = fields.Many2one("membership.line")
+    to_process_membership_line_id = fields.Many2one("membership.line")
+    is_former_member = fields.Boolean(
+        help="If ticked, the partner is in a 'special' former member state "
+        "(resignation, expulsion,...)"
+    )
 
     def name_get(self):
         res = []
@@ -90,78 +94,116 @@ class PaymentReturn(models.Model):
             }
         )
 
-    def _filter_payment_returns(self):
+    def _get_membership_line_to_process(self, partner_id):
         """
-        Check conditions to process automatically. If a condition is not checked,
+        If partner state is member -> line to process is active line
+        If partner is in a special former member state -> line to process
+        is the previous one, that should be member, or False otherwise.
+        """
+        if partner_id.membership_state_code == "member":
+            return partner_id.membership_line_ids.filtered("active")
+        if partner_id.membership_state_code in [
+            "break_former_member",
+            "resignation_former_member",
+            "inappropriate_former_member",
+            "refused_former_member",
+            "expulsion_former_member",
+        ]:
+            self.is_former_member = True
+            m_lines = partner_id.membership_line_ids.sorted("date_from", reverse=True)
+            previous_line = m_lines[1] if len(m_lines) > 1 else False
+            if previous_line and previous_line.state_id.code == "member":
+                return previous_line
+        return False
+
+    def _filter_single_payment_return(self):
+        """
+        Take a single payment return and verify all conditions.
+        Set former_member = True on payment return if the partner is in one
+        of the "special" former member states: resignation, break,
+         expulsion, inappropriate, refused.
+
+        If a condition is not checked,
         go into error state and fill the error_message field.
-        :return: a recordset with payment returns that check all conditions.
+
+        :return: True if the payment return must be processed automatically,
+        False otherwise
 
         Conditions to check:
         1. payment return state is not 'done'
         2. partner_id is set on the payment.return
-        3. partner_id has a single active membership line
-        4. this membership line has 'member' code
-        5. this active membership line is paid
-        6. amount on this membership line corresponds to the amount of the
+        3. partner_id has a single line to process: active line if
+        the partner is member, or the line before if the partner
+        is a special former member
+        4. this active membership line is paid
+        5. amount on this membership line corresponds to the amount of the
         payment return
+
+        """
+        self.ensure_one()
+        if self.state == "done":
+            return False
+        if not self.partner_id:
+            self._set_to_error(_("Partner must be set on the payment return."))
+            return False
+        partner_id = self.partner_id
+        membership_line = self._get_membership_line_to_process(partner_id)
+        if not membership_line:
+            self._set_to_error(
+                _(
+                    "No membership line to process found automatically. "
+                    "Please process this line manually."
+                )
+            )
+            return False
+        if len(membership_line) > 1:
+            self._set_to_error(
+                _(
+                    "Several membership lines to process found automatically. "
+                    "Please process this line manually."
+                )
+            )
+            return False
+        if not membership_line.paid:
+            self._set_to_error(
+                _(
+                    "Selected membership line is not paid. "
+                    "Please process this line manually."
+                )
+            )
+            return False
+        if not abs(self.amount) == membership_line.price:
+            self._set_to_error(
+                _(
+                    "Amount on membership line doesn't correspond, "
+                    "please process this line manually."
+                )
+            )
+            return False
+        self.to_process_membership_line_id = membership_line
+        return True
+
+    def _filter_payment_returns(self):
+        """
+        Check conditions to process automatically.
+        Process every payment return individually because the checks are
+        different for active members and former members.
+
+        :return: a recordset with payment returns that check all conditions.
         """
         recs = self.browse()
         for payment_return in self:
-            if payment_return.state == "done":
-                continue
-            if not payment_return.partner_id:
-                payment_return._set_to_error(
-                    _("Partner must be set on the payment return.")
-                )
-                continue
-            partner_id = payment_return.partner_id
-            membership_line = partner_id.membership_line_ids.filtered("active")
-            if len(membership_line) > 1:
-                payment_return._set_to_error(
-                    _(
-                        "Several active membership lines. Please process this line manually."
-                    )
-                )
-                continue
-            if not membership_line:
-                payment_return._set_to_error(
-                    _("No active membership line. Please process this line manually.")
-                )
-                continue
-            if membership_line.state_id.code != "member":
-                payment_return._set_to_error(
-                    _(
-                        "Active membership line is not in 'Member' state. "
-                        "Please process this line manually."
-                    )
-                )
-                continue
-            if not membership_line.paid:
-                payment_return._set_to_error(
-                    _(
-                        "Active membership line is not paid. Please process this line manually."
-                    )
-                )
-                continue
-            if not abs(payment_return.amount) == membership_line.price:
-                payment_return._set_to_error(
-                    _(
-                        "Amount on membership line doesn't correspond, "
-                        "please process this line manually."
-                    )
-                )
-                continue
-            # Set the active membership line on the record and add it
-            # to the recordset
-            payment_return.active_membership_line_id = membership_line
-            recs |= payment_return
+            to_process = payment_return._filter_single_payment_return()
+            if to_process:
+                recs |= payment_return
         return recs
 
     def _send_notification_email(self):
         mail_template_id = self.env.ref(
-            "mozaik_membership_sepa_payment_return.mail_template_partner_payment_refusal"
+            "mozaik_membership_sepa_payment_return"
+            ".mail_template_partner_payment_refusal"
         )
-        for payment_return in self:
+        for payment_return in self.filtered(lambda pr: not pr.is_former_member):
             mail_template_id.send_mail(payment_return.id)
 
     def _process_refusal(self):
@@ -171,10 +213,15 @@ class PaymentReturn(models.Model):
         1. Mark active membership lines as unpaid
         2. Delete banking mandates after having checked that they are linked
            to the correct partner.
-        3. Email the partner
-        4. Set the state 'Done'
+        3. Email the partner if he is a member
+        (skip this stage for former members)
+        4. Set the state to 'Done'
+
+        If former member = True, the active membership line is not really
+        the active one but the one that is going to be processed (with
+        member state).
         """
-        self.mapped("active_membership_line_id").mark_as_unpaid()
+        self.mapped("to_process_membership_line_id").mark_as_unpaid()
 
         for payment_return in self:
             mandates = self.env["account.banking.mandate"].search(
@@ -193,7 +240,6 @@ class PaymentReturn(models.Model):
                 mandate.message_post(
                     body=_("Mandate cancelled due to a payment return.")
                 )
-
         self._send_notification_email()
         self.write({"state": "done", "error_message": False})
 
@@ -201,6 +247,9 @@ class PaymentReturn(models.Model):
         """
         Filter payment returns and call _process_refusal on the
         ones that can be processed automatically.
+
+        Filter a second time on resignation, inappropriate and expulsion
+        former members and process them apart.
         """
         self._filter_payment_returns()._process_refusal()
 

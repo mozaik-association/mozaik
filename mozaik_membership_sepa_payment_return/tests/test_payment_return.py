@@ -1,6 +1,8 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import fields
 from odoo.tests.common import TransactionCase
 
@@ -99,7 +101,7 @@ class TestMembership(TransactionCase):
 
     def test_auto_process_failed_no_membership_line(self):
         """
-        Try to process automatically the payment return, but no active membership line
+        Try to process automatically the payment return, but no membership line
         on partner_id
         -> Failed
         """
@@ -114,13 +116,14 @@ class TestMembership(TransactionCase):
         self.assertEqual(pay_ret.state, "error")
         self.assertEqual(
             pay_ret.error_message,
-            "No active membership line. Please process this line manually.",
-        )
+            "No membership line to process found automatically. "
+            "Please process this line manually.",
+        ),
 
     def test_auto_process_failed_membership_line_not_member(self):
         """
-        Try to process automatically the payment return, but active membership line
-        is not a 'member' line
+        Try to process automatically the payment return, but partner is not
+        a member nor a 'special' former member
         -> Failed
         """
         self.env["add.membership"].create(
@@ -143,7 +146,77 @@ class TestMembership(TransactionCase):
         self.assertEqual(pay_ret.state, "error")
         self.assertEqual(
             pay_ret.error_message,
-            "Active membership line is not in 'Member' state. "
+            "No membership line to process found automatically. "
+            "Please process this line manually.",
+        )
+
+    def test_auto_process_membership_line_former_member_break(self):
+        """
+        Make Harry a former member (break) with a member state before (another day)
+        -> Process the payment return normally.
+        """
+        self.env["add.membership"].create(
+            {
+                "partner_id": self.harry.id,
+                "int_instance_id": self.env["int.instance"]
+                ._get_default_int_instance()
+                .id,
+                "state_id": self.ref("mozaik_membership.member"),
+                "date_from": fields.Date.today() - relativedelta(days=1),
+            }
+        ).action_add()
+        self.harry.membership_line_ids.filtered("active").paid = True
+        self.env["add.membership"].create(
+            {
+                "partner_id": self.harry.id,
+                "int_instance_id": self.env["int.instance"]
+                ._get_default_int_instance()
+                .id,
+                "state_id": self.ref("mozaik_membership.break_former_member"),
+            }
+        ).action_add()
+        pay_ret = self.env["payment.return"].create(
+            {
+                "account_number": self.harry_bank.acc_number,
+                "partner_name": "Harry Potter",
+                "partner_id": self.harry.id,
+            }
+        )
+        pay_ret._filter_and_process_refusal()
+        self.assertEqual(pay_ret.state, "done")
+        self.assertEqual(self.mandate.state, "cancel")
+        self.assertFalse(
+            self.harry.membership_line_ids.filtered(
+                lambda ml: ml.state_id.code == "member"
+            ).paid
+        )
+
+    def test_auto_process_membership_line_former_member_break_not_member_before(self):
+        """
+        Make Harry a former member (break) with no member state before
+        -> Failed
+        """
+        self.env["add.membership"].create(
+            {
+                "partner_id": self.harry.id,
+                "int_instance_id": self.env["int.instance"]
+                ._get_default_int_instance()
+                .id,
+                "state_id": self.ref("mozaik_membership.break_former_member"),
+            }
+        ).action_add()
+        pay_ret = self.env["payment.return"].create(
+            {
+                "account_number": self.harry_bank.acc_number,
+                "partner_name": "Harry Potter",
+                "partner_id": self.harry.id,
+            }
+        )
+        pay_ret._filter_and_process_refusal()
+        self.assertEqual(pay_ret.state, "error")
+        self.assertEqual(
+            pay_ret.error_message,
+            "No membership line to process found automatically. "
             "Please process this line manually.",
         )
 
@@ -174,7 +247,8 @@ class TestMembership(TransactionCase):
         self.assertEqual(pay_ret.state, "error")
         self.assertEqual(
             pay_ret.error_message,
-            "Active membership line is not paid. Please process this line manually.",
+            "Selected membership line is not paid. "
+            "Please process this line manually.",
         )
 
     def test_auto_process_failed_amount_dont_correspond(self):
@@ -206,7 +280,8 @@ class TestMembership(TransactionCase):
         self.assertEqual(pay_ret.state, "error")
         self.assertEqual(
             pay_ret.error_message,
-            "Amount on membership line doesn't correspond, please process this line manually.",
+            "Amount on membership line doesn't correspond, "
+            "please process this line manually.",
         )
 
     def test_auto_process_succeed(self):
