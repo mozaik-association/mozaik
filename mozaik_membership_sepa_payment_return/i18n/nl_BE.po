@@ -23,7 +23,8 @@ msgid ""
 "            Hello ${object.partner_name},\n"
 "\n"
 "\n"
-"            Your SEPA Direct Debit for account ${object.account_number} was refused.\n"
+"            Your SEPA Direct Debit for account ${object.account_number} was "
+"refused.\n"
 "        "
 msgstr ""
 
@@ -42,27 +43,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__message_needaction
 msgid "Action Needed"
 msgstr ""
-
-#. module: mozaik_membership_sepa_payment_return
-#: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__to_process_membership_line_id
-msgid "Active Membership Line"
-msgstr "Actief lidmaatschaplijn"
-
-#. module: mozaik_membership_sepa_payment_return
-#: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
-#, python-format
-msgid ""
-"Active membership line is not in 'Member' state. Please process this line "
-"manually."
-msgstr ""
-"Actieve lidmaatschapslijn zit niet in 'Lid' staat. Verwerk deze lijn "
-"handmatig."
-
-#. module: mozaik_membership_sepa_payment_return
-#: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
-#, python-format
-msgid "Active membership line is not paid. Please process this line manually."
-msgstr "Actieve lidmaatschapslijn is niet betaald. Verwerk deze lijn handmatig."
 
 #. module: mozaik_membership_sepa_payment_return
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__amount
@@ -171,8 +151,20 @@ msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
+#: model:ir.model.fields,help:mozaik_membership_sepa_payment_return.field_payment_return__is_former_member
+msgid ""
+"If ticked, the partner is in a 'special' former member state (resignation, "
+"expulsion,...)"
+msgstr ""
+
+#. module: mozaik_membership_sepa_payment_return
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__message_is_follower
 msgid "Is Follower"
+msgstr ""
+
+#. module: mozaik_membership_sepa_payment_return
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__is_former_member
+msgid "Is Former Member"
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
@@ -221,9 +213,14 @@ msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
 #: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
-#, python-format
-msgid "No active membership line. Please process this line manually."
-msgstr "Geen actieve lidmaatschaplijn. Verwerk deze lijn handmatig."
+#, fuzzy, python-format
+#| msgid ""
+#| "Active membership line is not paid. Please process this line manually."
+msgid ""
+"No membership line to process found automatically. Please process this line "
+"manually."
+msgstr ""
+"Actieve lidmaatschapslijn is niet betaald. Verwerk deze lijn handmatig."
 
 #. module: mozaik_membership_sepa_payment_return
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__message_needaction_counter
@@ -319,6 +316,16 @@ msgid "Sanitized Account Number"
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
+#: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
+#, fuzzy, python-format
+#| msgid ""
+#| "Active membership line is not paid. Please process this line manually."
+msgid ""
+"Selected membership line is not paid. Please process this line manually."
+msgstr ""
+"Actieve lidmaatschapslijn is niet betaald. Verwerk deze lijn handmatig."
+
+#. module: mozaik_membership_sepa_payment_return
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_sepa_payment_return.payment_return_form_view
 msgid "Set to done"
 msgstr "Manueel verwerken"
@@ -327,8 +334,8 @@ msgstr "Manueel verwerken"
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_sepa_payment_return.payment_return_form_view
 msgid ""
 "Setting this payment return to done means                         that you "
-"have processed it manually and that                         the notification"
-" email can be sent to the member."
+"have processed it manually and that                         the notification "
+"email can be sent to the member."
 msgstr ""
 "Deze betalingsweigering in 'verwerkt' staat zetten "
 "betekent                       dat alles manueel verwerkt is en "
@@ -337,8 +344,11 @@ msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
 #: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
-#, python-format
-msgid "Several active membership lines. Please process this line manually."
+#, fuzzy, python-format
+#| msgid "Several active membership lines. Please process this line manually."
+msgid ""
+"Several membership lines to process found automatically. Please process this "
+"line manually."
 msgstr ""
 "Verschillende actieve lidmaatschaplijnen gevonden. Verwerk deze lijn "
 "handmatig."
@@ -347,6 +357,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__state
 msgid "State"
 msgstr "Staat"
+
+#. module: mozaik_membership_sepa_payment_return
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__to_process_membership_line_id
+#, fuzzy
+#| msgid "Active Membership Line"
+msgid "To Process Membership Line"
+msgstr "Actief lidmaatschaplijn"
 
 #. module: mozaik_membership_sepa_payment_return
 #: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
@@ -404,3 +421,13 @@ msgstr ""
 #: model:mail.template,subject:mozaik_membership_sepa_payment_return.mail_template_partner_payment_refusal
 msgid "Your SEPA Direct Debit Refusal"
 msgstr "Uw SEPA domiciliëringsweigering"
+
+#~ msgid ""
+#~ "Active membership line is not in 'Member' state. Please process this line "
+#~ "manually."
+#~ msgstr ""
+#~ "Actieve lidmaatschapslijn zit niet in 'Lid' staat. Verwerk deze lijn "
+#~ "handmatig."
+
+#~ msgid "No active membership line. Please process this line manually."
+#~ msgstr "Geen actieve lidmaatschaplijn. Verwerk deze lijn handmatig."
