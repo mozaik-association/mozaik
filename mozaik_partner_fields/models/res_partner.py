@@ -42,7 +42,6 @@ class ResPartner(models.Model):
         ],
         tracking=True,
     )
-    secondary_email = fields.Char()
     secondary_website = fields.Char(
         tracking=True,
     )
