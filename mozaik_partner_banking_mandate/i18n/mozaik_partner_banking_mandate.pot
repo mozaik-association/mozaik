@@ -35,6 +35,7 @@ msgstr ""
 
 #. module: mozaik_partner_banking_mandate
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_account_banking_mandate__display_name
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_base_partner_merge_automatic_wizard__display_name
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner__display_name
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner_bank__display_name
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_virtual_partner_membership__display_name
@@ -55,6 +56,7 @@ msgstr ""
 
 #. module: mozaik_partner_banking_mandate
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_account_banking_mandate__id
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_base_partner_merge_automatic_wizard__id
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner__id
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner_bank__id
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_virtual_partner_membership__id
@@ -63,10 +65,16 @@ msgstr ""
 
 #. module: mozaik_partner_banking_mandate
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_account_banking_mandate____last_update
+#: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_base_partner_merge_automatic_wizard____last_update
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner____last_update
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_res_partner_bank____last_update
 #: model:ir.model.fields,field_description:mozaik_partner_banking_mandate.field_virtual_partner_membership____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_partner_banking_mandate
+#: model:ir.model,name:mozaik_partner_banking_mandate.model_base_partner_merge_automatic_wizard
+msgid "Merge Partner Wizard"
 msgstr ""
 
 #. module: mozaik_partner_banking_mandate
