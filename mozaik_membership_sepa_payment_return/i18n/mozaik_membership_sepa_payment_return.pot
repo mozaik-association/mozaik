@@ -38,25 +38,6 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
-#: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__to_process_membership_line_id
-msgid "Active Membership Line"
-msgstr ""
-
-#. module: mozaik_membership_sepa_payment_return
-#: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
-#, python-format
-msgid ""
-"Active membership line is not in 'Member' state. Please process this line "
-"manually."
-msgstr ""
-
-#. module: mozaik_membership_sepa_payment_return
-#: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
-#, python-format
-msgid "Active membership line is not paid. Please process this line manually."
-msgstr ""
-
-#. module: mozaik_membership_sepa_payment_return
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__amount
 msgid "Amount"
 msgstr ""
@@ -161,8 +142,20 @@ msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
+#: model:ir.model.fields,help:mozaik_membership_sepa_payment_return.field_payment_return__is_former_member
+msgid ""
+"If ticked, the partner is in a 'special' former member state (resignation, "
+"expulsion,...)"
+msgstr ""
+
+#. module: mozaik_membership_sepa_payment_return
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__message_is_follower
 msgid "Is Follower"
+msgstr ""
+
+#. module: mozaik_membership_sepa_payment_return
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__is_former_member
+msgid "Is Former Member"
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
@@ -212,7 +205,9 @@ msgstr ""
 #. module: mozaik_membership_sepa_payment_return
 #: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
 #, python-format
-msgid "No active membership line. Please process this line manually."
+msgid ""
+"No membership line to process found automatically. Please process this line "
+"manually."
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
@@ -309,6 +304,13 @@ msgid "Sanitized Account Number"
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
+#: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
+#, python-format
+msgid ""
+"Selected membership line is not paid. Please process this line manually."
+msgstr ""
+
+#. module: mozaik_membership_sepa_payment_return
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_sepa_payment_return.payment_return_form_view
 msgid "Set to done"
 msgstr ""
@@ -324,12 +326,19 @@ msgstr ""
 #. module: mozaik_membership_sepa_payment_return
 #: code:addons/mozaik_membership_sepa_payment_return/models/payment_return.py:0
 #, python-format
-msgid "Several active membership lines. Please process this line manually."
+msgid ""
+"Several membership lines to process found automatically. Please process this"
+" line manually."
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
 #: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__state
 msgid "State"
+msgstr ""
+
+#. module: mozaik_membership_sepa_payment_return
+#: model:ir.model.fields,field_description:mozaik_membership_sepa_payment_return.field_payment_return__to_process_membership_line_id
+msgid "To Process Membership Line"
 msgstr ""
 
 #. module: mozaik_membership_sepa_payment_return
