@@ -159,7 +159,7 @@ Each member in odoo is linked to a unique member number. The member number can b
 
 !!! abstract "The goal of memberships lines"
 
-   Membership rows allow you to track the membership status of each contact as well as membership dates. The membership rows also allow you to see the type of membership the contact has and whether or not the membership has been paid for by the contact. Finally, the membership lines allow you to see the internal instance related to the membership.
+    Membership rows allow you to track the membership status of each contact as well as membership dates. The membership rows also allow you to see the type of membership the contact has and whether or not the membership has been paid for by the contact. Finally, the membership lines allow you to see the internal instance related to the membership.
 
 <figure markdown>
 ![screenshot 8](img/screen8.png)
