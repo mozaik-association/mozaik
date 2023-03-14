@@ -185,9 +185,13 @@ This tab allows you to manage the communication preferences of all contacts in t
 
             It is then possible to blacklist all contacts with X emails or postal bounced
 
-## Membership 
+## Memberships lines
 
 A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member.
+
+!!! abstract "The goal of memberships lines"
+
+    The membership lines allow to follow the evolution of the membership status of each contact as well as their membership dates. The membership lines also allow you to see what type of membership the contact has and whether the membership has been paid for or not by the contact.
 
 <figure markdown>
 ![screenshot 31](img/screen31.png)
@@ -197,6 +201,23 @@ A membership can be created by selecting an instance and a statuts for the membe
 <figure markdown>
 ![screenshot 8](img/screen8.png)
 <figcaption>New adhesion line on the contact form</figcaption>
+</figure>
+
+## Memberships fees
+
+Each organisation can choose its own membership rates depending on the individual's situation.  When creating a membership, the type of membership and therefore the price will be adapted to the individual.
+
+!!! abstract "The goal of memberships fees"
+
+        the purpose of this feature is to be able to assign a membership type and a price according to selected rules
+        !!! example
+
+            The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from this membership.
+
+
+ <figure markdown>
+![screenshot 32](img/screen32.png)
+<figcaption>Creation of different types of subscriptions</figcaption>
 </figure>
 
 ## Member Statuts
