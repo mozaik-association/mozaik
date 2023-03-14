@@ -105,64 +105,35 @@ How to add them :
 <figcaption>Example of a contact form with a participation</figcaption>
 </figure>
 
-## Duplicates and co-residencies
+## Duplicates
 
-A duplicate check system based on the name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button allows to display the list of contacts with one or more identical fields.
+A very elaborated duplicate check system - based on the name, phone, mobile, email and address - helps you identify, manage and merge possible duplicates within your contacts database. 
+
+!!! info
+
+    When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button allows to display the list of contacts with one or more identical fields.
+    <figure markdown>
+    ![screenshot 2](img/screen2.png)
+    <figcaption>Appearance of the button "Show all duplicates"</figcaption>
+    </figure>
 
 
-!!! abstract "The goal of co-résidences"
+## Co-residencies
 
-    This fonctionnality allows you to manage duplicate contacts. Once a duplicate is detected you have two possibilities:
+When two people have the same address, they can be placed in co-residence. It is also possible to add a contact directly to an existing co-residence in the contact form
 
-    - You can create a co-residence  between these two people by selecting the members you wish to co-reside . It is also possible to add a contact directly to an existing co-residence in the contact form. The co-residence system will avoid duplicates in the list of contacts and will also avoid sending several letters to several contacts with the same address. This fonctionnality works also if two people have the same email address.
+Co-residences allow you to :
+- Avoid duplication
+- Link people from the same family to each other
+- Avoid sending two letters to the same address 
 
     ??? question "How to create a co-residence ?" 
 
         You can create a co-residence by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" 
         ![screenshot 3](img/screen3.png)
-    
-    - You can  allow duplicates for name - email - mobile – phone – address.
-    ??? question "How to allow duplicates ?"
+        !!! info
 
-        To allow duplicates click on the "action" button at the top of the contact form then click on authorize + "name of the authorisation"
-    !!! info
-
-        Once you have created a co-résidence or allowed the duplicates, the "show all duplicates" button will disappear.
-
-<figure markdown>
-![screenshot 2](img/screen2.png)
-<figcaption>appearance of the button "show all duplicates"</figcaption>
-</figure>
-<figure markdown>
-![screenshot 4](img/screen4.png)
-<figcaption>list that appears when you click on "show all duplicates"</figcaption>
-</figure>
-
-## Access Rules
-
-Thanks to this fonctionnality you can transform a contact who is working for the organization into a user of Mozaik. He is given an login, a role and an internal instance. 
-
-!!! abstract "The goal of access rules"
-
-    This feature allows you to give different access to your user contacts in Mozaik depending on the internal instance they receive when they are transformed into a user
-    !!! example
-    
-        A user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group
-
-??? question "How to transform a contact into a user ?"
-
-    To turn a contact into a user, click on the "action" button then click on "transform into user"
-
-<figure markdown>
-![screenshot 5](img/screen5.png)
-<figcaption>Transformation of a contact into a user</figcaption>
-</figure>
-
-<figure markdown>
-![screenshot 6](img/screen6.png)
-<figcaption>Information of a contact user on the contact form</figcaption>
-</figure>
-
+            Once you have created a co-residence or allowed the duplicates, the "show all duplicates" button will disappear.
 
 
 ## Communication preferences
