@@ -5,7 +5,7 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 - All the general information about each contact (members, supporters, all other contacts)
 - The interests & competencies of each contact
 - The participations of each member (interactions with the organization)
-- The management of co-residencies
+- The management of duplicates and co-residencies
 - Memberships lines
 - Membership fees
 - Membership renewals
@@ -105,7 +105,7 @@ How to add them :
 <figcaption>Example of a contact form with a participation</figcaption>
 </figure>
 
-## Co-residencies
+## Duplicates and co-residencies
 
 A duplicate check system based on the name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button allows to display the list of contacts with one or more identical fields.
 
