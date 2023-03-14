@@ -215,7 +215,7 @@ Each organisation can choose its own membership rates depending on the individua
             The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from this membership.
 
 
- <figure markdown>
+<figure markdown>
 ![screenshot 32](img/screen32.png)
 <figcaption>Creation of different types of subscriptions</figcaption>
 </figure>
