@@ -6,6 +6,7 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 - Memberships lines
 - Membership fees
 - Membership renewals
+- Membership states
 - The interests & competencies of each contact
 - The participations of each member (interactions with the organization)
 - The management of the adresses & co-residencies
@@ -209,10 +210,10 @@ Each organisation can choose its own membership rates depending on the individua
 
 !!! abstract "The goal of memberships fees"
 
-        the purpose of this feature is to be able to assign a membership type and a price according to selected rules
+        The purpose of this feature is to be able to assign a membership type and a price according to selected rules
         !!! example
 
-            The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from this membership.
+            The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from the 5€ membership.
 
 
 <figure markdown>
