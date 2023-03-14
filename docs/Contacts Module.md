@@ -3,13 +3,13 @@
 The contact module - which is a central module in Mozaïk - allows to manage all the contacts related to your organization / political party.  It will give you access to:
 
 - All the general information about each contact (members, supporters, all other contacts)
+- The interests & competencies of each contact
+- The participations of each member (interactions with the organization)
+- The management of co-residencies
 - Memberships lines
 - Membership fees
 - Membership renewals
 - Membership states
-- The interests & competencies of each contact
-- The participations of each member (interactions with the organization)
-- The management of the adresses & co-residencies
 - Communication preferences (opt in / opt out)
 
 
@@ -18,26 +18,27 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 
 This functionality allows you to create, modify and manage all the contacts (members/subscribers/other contacts) related to your organization.
 
-Various informations can be collected for each contact (companies or individuals). 
+Various informations can be collected for each contact (companies or individuals): 
 
-- The standad information of a contact : name, first name, phone, address...
+- The standard information of a contact : name, first name, phone, address...
 - Some personal information: age, gender, disability, social networks... 
 
 !!! info "Address"
 
     The encoding of addresses on the contact form is facilitated by the auto-completion fonctionnality that the system provides. This fonctionnality allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and helps detect duplicates. 
 
-    Depending on their address, the contacts are associated with a local group/instance. When the address changes, the instance of the contact can also be updated. (expliquer instance/local group en 2 mots)
+    /!\ Depending on their address, the contacts are associated with a local group/instance. When the address changes, the instance of the contact can also be updated. (expliquer instance/local group en 2 mots)
     !!! example
     
         A contact whose address is located in Brussels will belong to the Brussels local group of the organization. If a member moves from Brussels to Antwerp, this member will now be related to the local group linked to the city of Antwerp.
 
-!!! abstract "The goal of people managment"
+!!! abstract "The goal of people management"
 
     This feature allows you : 
 
     - To manage all the information about your contacts
-    - Information can be used for the adhesions
+    - To get to know your members and supporters better
+    - To use personal information of your members for membership purposes (membership fee)
 
 <figure markdown>
   ![screenshot 27](img/screen27.png)
@@ -49,7 +50,62 @@ Various informations can be collected for each contact (companies or individuals
 <figcaption>Creation of an address with the auto-completion function</figcaption>
 </figure>
 
-## Co-résidences
+## Indexation
+
+Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaïk and can be adapted according to the needs of each organisation.
+
+!!! abstract "The goal of Thesaurus terms" 
+    
+    Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication tools / mass mailings.
+    !!! example
+
+        I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
+        ???question "How to target specific contacts ?"
+
+            More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
+
+Interests and competencies can:
+
+- Be added manually by contacts during their registration.
+
+!!! example
+
+    I am interested by the themes of 'nuclear energy' and 'sports'
+
+- Automatically when a member registers for a specific event / survey or petition 
+
+!!!example
+
+    If the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can automatically be added as 'Interest' for this member.
+
+<figure markdown>
+![screenshot 7](img/screen7.png)
+<figcaption>Example of a contact form with Thesaurus terms</figcaption>
+</figure>
+
+## Involvements
+
+This functionality enables you to add all the interactions between your organization and its members / supporters. The types of interactions can be defined by each organization according to their needs (signature of a petition, participation to a volontary action...)
+
+!!!abstract "Goal of the involvements"
+
+    Involvements allow you to get to know your contacts better / categorize them / keep track of all interactions with a particular contact over the years. These entries can be used to send mailings to your contacts in a verry targeted manner.
+    !!!example
+        A member made a donation on 31/03/2023 and signed a petition about 'ce thème' one week later. This participations will appear on his contacts form and can be used in future mailings (send an email to all donors who have signed a petition in the last 2 months)
+How to add them :
+
+- An involvement can be added manually on a contact page 
+- An involvement can be added automatically through a membership form.
+- An involvement can be added automatically through the signature of a petition, the completion of a survey or the participatin to an event
+
+
+
+<figure markdown>
+![screenshot 28](img/screen28.png)
+<figcaption>Example of a contact form with a participation</figcaption>
+</figure>
+
+## Co-residencies
 
 A duplicate check system based on the name, phone, mobile, email and address detect possible duplicate contacts. When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button allows to display the list of contacts with one or more identical fields.
 
@@ -107,60 +163,7 @@ Thanks to this fonctionnality you can transform a contact who is working for the
 <figcaption>Information of a contact user on the contact form</figcaption>
 </figure>
 
-## Indexation
 
-Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaïk and can be adapted according to the needs of each organisation.
-
-!!! abstract "The goal of Thesaurus terms" 
-    
-    Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication tools / mass mailings.
-    !!! example
-
-        I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
-        ???question "How to target specific contacts ?"
-
-            More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
-
-Interests and competencies can:
-
-- Be added manually by contacts during their registration.
-
-!!! example
-
-    I am interested by the themes of 'nuclear energy' and 'sports'
-
-- Automatically when a member registers for a specific event / survey or petition 
-
-!!!example
-
-    If the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can automatically be added as 'Interest' for this member.
-
-<figure markdown>
-![screenshot 7](img/screen7.png)
-<figcaption>Example of a contact form with Thesaurus terms</figcaption>
-</figure>
-
-## Involvements
-
-This functionality enables you to add all the interactions between your organization and its members / supporters. The types of interactions can be defined by each organization according to their needs (signature of a petition, participation to a volontary action...)
-
-!!!abstract "Goal of the involvements"
-
-    Involvements allow you to get to know your contacts better / categorize them / keep track of all interactions with a particular contact over the years. These entries can be used to send mailings to your contacts in a verry targeted manner.
-    !!!example
-        A member made a donation on 31/03/2023 and signed a petition about 'ce thème' one week later. This participations will appear on his contacts form and can be used in future mailings (send an email to all donors who have signed a petition in the last 2 months)
-How to add them :
-
-- An involvement can be added manually on a contact page 
-- An involvement can be added automatically through a membership form.
-- An involvement can be added automatically through the signature of a petition, the completion of a survey or the participatin to an event
-
-
-
-<figure markdown>
-![screenshot 28](img/screen28.png)
-<figcaption>Example of a contact form with a participation</figcaption>
-</figure>
 
 ## Communication preferences
 
