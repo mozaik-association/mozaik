@@ -60,9 +60,8 @@ Contacts (members, supporters, other contacts) can be linked to interests and co
     !!! example
 
         I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
-        ???question "How to target specific contacts ?"
-
-            More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
+        
+        More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
 Interests and competencies can:
 
@@ -70,7 +69,7 @@ Interests and competencies can:
 
 !!! example
 
-    I am interested by the themes of 'nuclear energy' and 'sports'
+    I am interested by the themes of 'nuclear energy' and 'human right'
 
 - Automatically when a member registers for a specific event / survey or petition 
 
@@ -91,11 +90,11 @@ This functionality enables you to add all the interactions between your organiza
 
     Involvements allow you to get to know your contacts better / categorize them / keep track of all interactions with a particular contact over the years. These entries can be used to send mailings to your contacts in a verry targeted manner.
     !!!example
-        A member made a donation on 31/03/2023 and signed a petition about 'ce thème' one week later. This participations will appear on his contacts form and can be used in future mailings (send an email to all donors who have signed a petition in the last 2 months)
+        A member made a donation on 31/03/2023 and signed a petition about disarmement one week later. These participations will appear on his contact form and can be used in future mailings (send an email to all donors who have signed a petition in the last 2 months)
 How to add them :
 
-- An involvement can be added manually on a contact page 
-- An involvement can be added automatically through a membership form.
+- An involvement can be added manually on a contact page
+- An involvement can be added automatically through a membership form
 - An involvement can be added automatically through the signature of a petition, the completion of a survey or the participatin to an event
 
 
@@ -107,7 +106,13 @@ How to add them :
 
 ## Duplicates
 
-A very elaborated duplicate check system - based on the name, phone, mobile, email and address - helps you identify, manage and merge possible duplicates within your contacts database. 
+A very elaborated duplicate check system based on 
+
+- The name
+- Phone
+- Mobile
+- Email and address
+Helps you identify, manage and merge possible duplicates within your contacts database. 
 
 !!! info
 
@@ -120,55 +125,35 @@ A very elaborated duplicate check system - based on the name, phone, mobile, ema
 
 ## Co-residencies
 
-When two people have the same address, they can be placed in co-residence. It is also possible to add a contact directly to an existing co-residence in the contact form
+When two or more people share the same address, they can be grouped into a co-residency. This idicates that those people are no duplicates but simply share the same adress.
 
-!!! abstract "The goal of teh co-residencies"
-    
-    Co-residencies allow you to :
+Co-residencies allow you to :
 
     - Avoid duplicates within your contacts database
     - Link people from the same family to each other
-    - Avoid sending two letters to the same address 
+    - Avoid sending 2 letters to the same address 
 
 ??? question "How to create a co-residence ?" 
 
-    You can create a co-residence by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" 
+    You can create a co-residency by clicking on "action"--> "create a co-residency address” and entering the name of the co-residents in "line 1 and 2" 
     <figure markdown>        
     ![screenshot 2](img/screen2.png)
     <figcaption>Creation of a co-residence</figcaption>
     </figure>
     !!! info
 
-        Once you have created a co-residence or allowed the duplicates, the "show all duplicates" button will disappear.
+        Once you have created a co-residency or allowed the duplicates, the "show all duplicates" button will disappear.
+
+<figure markdown>
+![screenshot 32](img/screen32.png)
+<figcaption>Example of a contact with a co-residency</figcaption>
+</figure>
 
 
-## Communication preferences
-
-This tab allows you to manage the communication preferences of all contacts in the organisation. It also allows you to handle communication breakdowns with contacts thanks to an algorithm that detects people who do not receive communication from the organisation (emails and post).
-
-!!! abstract "The goal of communication preferences"
-
-    Thanks to this fonctionnality, contacts can explicitly state that they wish to receive particular newsletters or that they do not wish to receive specific newsletters at all.
-    !!! example
-
-        - This contact reported that he explicitly wishes to receive the human rights newsletter
-        ![screenshot 29](img/screen29.png)
-
-        - This contact reported that he does not wish to receive any newsletter concerning new technologies
-        ![screenshot 30](img/screen30.png)
-    
-    This fonctionnality also allows you to see the number of emails or mails that have not been received by a contact.
-    !!! example
-
-        The system recorded 3 emails returned for this contact
-        ![screenshot 31](img/screen31.png)
-        ???tip
-
-            It is then possible to blacklist all contacts with X emails or postal bounced
 
 ## Memberships lines
 
-A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member.
+A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member. (parler du num de membre --> chauqe membre dans odoo est lié à un numéro de membre unique. Le num de membre peut etre retrouvé sur la fiche contact (screen))
 
 !!! abstract "The goal of memberships lines"
 
