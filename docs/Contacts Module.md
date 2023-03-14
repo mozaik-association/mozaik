@@ -123,17 +123,21 @@ A very elaborated duplicate check system - based on the name, phone, mobile, ema
 When two people have the same address, they can be placed in co-residence. It is also possible to add a contact directly to an existing co-residence in the contact form
 
 Co-residences allow you to :
+
 - Avoid duplication
 - Link people from the same family to each other
 - Avoid sending two letters to the same address 
 
-    ??? question "How to create a co-residence ?" 
+??? question "How to create a co-residence ?" 
 
-        You can create a co-residence by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" 
-        ![screenshot 3](img/screen3.png)
-        !!! info
+    You can create a co-residence by clicking on "action"--> "create a co-residence address” and entering the name of the co-residents in "line 1 and 2" 
+    <figure markdown>        
+    ![screenshot 2](img/screen2.png)
+    <figcaption>Creation of a co-residence</figcaption>
+    </figure>
+    !!! info
 
-            Once you have created a co-residence or allowed the duplicates, the "show all duplicates" button will disappear.
+        Once you have created a co-residence or allowed the duplicates, the "show all duplicates" button will disappear.
 
 
 ## Communication preferences
