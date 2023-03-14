@@ -153,16 +153,13 @@ Co-residencies allow you to :
 
 ## Memberships lines
 
-A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member. (parler du num de membre --> chauqe membre dans odoo est lié à un numéro de membre unique. Le num de membre peut etre retrouvé sur la fiche contact (screen))
+A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member. 
+
+Each member in odoo is linked to a unique member number. The member number can be found on the contact form (screen)
 
 !!! abstract "The goal of memberships lines"
 
-    The membership lines allow to follow the evolution of the membership status of each contact as well as their membership dates. The membership lines also allow you to see what type of membership the contact has and whether the membership has been paid for or not by the contact.
-
-<figure markdown>
-![screenshot 31](img/screen31.png)
-<figcaption>Creation of an adhesion</figcaption>
-</figure>
+   Membership rows allow you to track the membership status of each contact as well as membership dates. The membership rows also allow you to see the type of membership the contact has and whether or not the membership has been paid for by the contact. Finally, the membership lines allow you to see the internal instance related to the membership.
 
 <figure markdown>
 ![screenshot 8](img/screen8.png)
