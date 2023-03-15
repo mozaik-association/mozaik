@@ -202,7 +202,9 @@ Each contact is linked to a status and each organisation can have its own member
 </figure>
 
 ## Membership renewal 
-Mass renewal of subscriptions for the following year. Mass generation of structured communication. Sending of a personalized letter (explanation of amounts, payment slips, structured communication). Receipt of payments. Using the "mass closure" button → Mass cancellation of unpaid invoices (automatic switch to "old" status).
+Each year a call for membership renewal is made. For this purpose, a structured communication is generated en masse and a personalised letter is sent with the explanation of the amount, the structured communication to be used.
+
+In the middle of the year, by using the "mass closure" button, we can cancel all the unpaid invoices by the contacts and automatically change their status to "old".
 
 <figure markdown>
 ![screenshot 13](img/screen13.png)
