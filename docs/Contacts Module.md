@@ -202,7 +202,7 @@ Each contact is linked to a status and each organisation can have its own member
 </figure>
 
 ## Memberships renewals
-Each year a call for membership renewal is made. For this purpose, a structured communication is generated en masse and a personalised letter is sent with the explanation of the amount, the structured communication to be used.
+Each year a call for membership renewal is send by the organization. This is done by generating a mass structural communication and sending a personalised letter with the explanation of the amount, the structured communication to be used.
 
 In the middle of the year, by using the "mass closure" button, we can cancel all the unpaid invoices by the contacts and automatically change their status to "old".
 
