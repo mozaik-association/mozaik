@@ -155,7 +155,7 @@ Co-residencies allow you to :
 
 A membership can be created by selecting an instance and a statuts for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave. To reinstate a member, a new membership is required for that member. 
 
-Each member in odoo is linked to a unique member number. The member number can be found on the contact form (screen)
+Each member in odoo is linked to a unique member number. The member number can be found on the contact form.
 
 !!! abstract "The goal of memberships lines"
 
@@ -175,7 +175,7 @@ Each organisation can choose its own membership rates depending on the individua
         The purpose of this feature is to be able to assign a membership type and a price according to selected rules
         !!! example
 
-            The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from the 5€ membership.
+            The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from the 5€ membership
 
 
 <figure markdown>
