@@ -140,9 +140,10 @@ Co-residencies allow you to :
     ![screenshot 3](img/screen3.png)
     <figcaption>Creation of a co-residency</figcaption>
     </figure>
-    !!! info
 
-        Once you have created a co-residency or allowed the duplicates, the "show all duplicates" button will disappear.
+!!! info
+
+     Once you have created a co-residency or allowed the duplicates, the "show all duplicates" button will disappear.
 
 <figure markdown>
 ![screenshot 33](img/screen33.png)
