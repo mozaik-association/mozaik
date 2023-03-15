@@ -27,7 +27,7 @@ Various informations can be collected for each contact (companies or individuals
 
     The encoding of addresses on the contact form is facilitated by the auto-completion fonctionnality that the system provides. This fonctionnality allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and helps detect duplicates. 
 
-    /!\ Depending on their address, the contacts are associated with a local group/instance. When the address changes, the instance of the contact can also be updated. (expliquer instance/local group en 2 mots)
+    :warning: Depending on their address, the contacts are associated with a local group/instance. When the address changes, the instance of the contact can also be updated. (expliquer instance/local group en 2 mots)
     !!! example
     
         A contact whose address is located in Brussels will belong to the Brussels local group of the organization. If a member moves from Brussels to Antwerp, this member will now be related to the local group linked to the city of Antwerp.
@@ -209,8 +209,8 @@ In the middle of the year, by using the "mass closure" button, we can cancel all
 !!!info
 
     As with the statutes, each organisation can have its own membership renewal workflow.
-    
+
 <figure markdown>
 ![screenshot 13](img/screen13.png)
-<figcaption>Membership renewal workflow</figcaption>
+<figcaption>Example of a membership renewal workflow</figcaption>
 </figure>
