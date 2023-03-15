@@ -139,7 +139,7 @@ Co-residencies allow you to :
 
     You can create a co-residency by clicking on "action"--> "create a co-residency address” and entering the name of the co-residents in "line 1 and 2" 
     <figure markdown>        
-    ![screenshot 2](img/screen2.png)
+    ![screenshot 3](img/screen3.png)
     <figcaption>Creation of a co-residence</figcaption>
     </figure>
     !!! info
@@ -147,7 +147,7 @@ Co-residencies allow you to :
         Once you have created a co-residency or allowed the duplicates, the "show all duplicates" button will disappear.
 
 <figure markdown>
-![screenshot 32](img/screen32.png)
+![screenshot 33](img/screen33.png)
 <figcaption>Example of a contact with a co-residency</figcaption>
 </figure>
 
@@ -179,8 +179,7 @@ Each organisation can choose its own membership rates depending on the individua
 
             The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from the 5€ membership.
 
-            If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form.
-
+            If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of filling in the contact information correctly.
 
 
 <figure markdown>
@@ -188,56 +187,19 @@ Each organisation can choose its own membership rates depending on the individua
 <figcaption>Creation of different types of subscriptions</figcaption>
 </figure>
 
-## Member Statuts
+## Member Statuses
 
-The member system depends on each company/party. There are several generic statuses through which contacts will pass depending on certain cases:
+Each contact is linked to a status and each organisation can have its own membership status. Members of the organisation will move from one status to another over time according to certain rules. The different statuses depend on a workflow that can be set up according to the needs of each organisation.
 
-!!! info inline end "information"
-
-    Sub points are the reasons why a contact can go through this status.
-
-- No statut
-- Candidat member
-    * Validation of a membership application (first membership):
-    * New member  
-    * Sympathizer who applies for membership 
-    * Rejected person applying for membership
-- Candidate member refused
-    * application rejected
-- Commission (futur) members
-    * Dues paid by a person who has never been a member before
-- Member : pay a fee and has the right to vote, has a greater importance, participates mare in the life of the party.
-    * Dues paid (renewal)
-- Sympathizer : does not pay a fee but has no right to vote. He can still participate in events.
-    * Application for membership as a supporter
-    * Membership application not paid in time
-    * Membership refused by the membership comittee but accepeted as a supporter
-- Old sympathizer
-    * Sympathizer who knows disinterest
-- Previous member
-    * Renewal of unpais dues
-    * Exclusion
-    * Innoportune : exlcusion of a member (membership fee)
-    * Resignation : member shows disinterest
-    * In breacj : disinterest of a former member (membership fee)
-- Commission (Alumni) member
-    * Former member who pays dues
-    
-Noted that additional status specific to the needs of each party can be added as needed and through wich the contact will pass. 
-
+<figure markdown>
 ![screenshot 9](img/screen9.png)
+<figcaption>Example of the different membership statuses of an organisation</figcaption>
+</figure>
 
-__Workflow of an adhésion :__
+<figure markdown>
 ![screenshot 10](img/screen10.png)
-
-__Workflow of a first contribution for a member:__
-![screenshot 11](img/screen11.png)
-
-When reapplying for membership, the officer will check:
-
- - Contact informations
- - Does the person aldready exist or not ?
- - Linking of interrests with thesaurus
+<figcaption>Workflow of the differents statuses of the organization</figcaption>
+</figure>
 
 ## Membership renewal 
 Mass renewal of subscriptions for the following year. Mass generation of structured communication. Sending of a personalized letter (explanation of amounts, payment slips, structured communication). Receipt of payments. Using the "mass closure" button → Mass cancellation of unpaid invoices (automatic switch to "old" status).
