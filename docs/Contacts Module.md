@@ -7,9 +7,9 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 - The participations of each member (interactions with the organization)
 - The management of duplicates and co-residencies
 - Memberships lines
-- Membership fees
-- Membership renewals
-- Membership states
+- Memberships fees
+- Memberships states
+- Memberships renewals
 - Communication preferences (opt in / opt out)
 
 
@@ -187,7 +187,7 @@ Each organisation can choose its own membership rates depending on the individua
 <figcaption>Creation of different types of subscriptions</figcaption>
 </figure>
 
-## Member Statuses
+## Memberships Statuses
 
 Each contact is linked to a status and each organisation can have its own membership status. Members of the organisation will move from one status to another over time according to certain rules. The different statuses depend on a workflow that can be set up according to the needs of each organisation.
 
@@ -201,11 +201,15 @@ Each contact is linked to a status and each organisation can have its own member
 <figcaption>Workflow of the differents statuses of the organization</figcaption>
 </figure>
 
-## Membership renewal 
+## Memberships renewals
 Each year a call for membership renewal is made. For this purpose, a structured communication is generated en masse and a personalised letter is sent with the explanation of the amount, the structured communication to be used.
 
 In the middle of the year, by using the "mass closure" button, we can cancel all the unpaid invoices by the contacts and automatically change their status to "old".
 
+!!!info
+
+    As with the statutes, each organisation can have its own membership renewal workflow.
+    
 <figure markdown>
 ![screenshot 13](img/screen13.png)
 <figcaption>Membership renewal workflow</figcaption>
