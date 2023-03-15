@@ -25,7 +25,7 @@ Various informations can be collected for each contact (companies or individuals
 
     The encoding of addresses on the contact form is facilitated by the auto-completion fonctionnality that the system provides. This fonctionnality allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and helps detect duplicates. 
 
-    :warning: Depending on their address, the contacts are associated with a local group/instance. When the address changes, the instance of the contact can also be updated.
+    :warning: Depending on their address, the contacts are associated with a local group/instance of the organisation. When the address changes, the instance of the contact can also be updated.
     !!! example
     
         A contact whose address is located in Brussels will belong to the Brussels local group of the organisation. If a member moves from Brussels to Antwerp, this member will now be related to the local group linked to the city of Antwerp.
