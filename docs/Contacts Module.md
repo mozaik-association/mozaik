@@ -204,5 +204,7 @@ Each contact is linked to a status and each organisation can have its own member
 ## Membership renewal 
 Mass renewal of subscriptions for the following year. Mass generation of structured communication. Sending of a personalized letter (explanation of amounts, payment slips, structured communication). Receipt of payments. Using the "mass closure" button → Mass cancellation of unpaid invoices (automatic switch to "old" status).
 
-__Membership renewal workflow :__
+<figure markdown>
 ![screenshot 13](img/screen13.png)
+<figcaption>Membership renewal workflow</figcaption>
+</figure>
