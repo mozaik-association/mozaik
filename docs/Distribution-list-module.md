@@ -15,16 +15,20 @@ A distribution list allows you to add filters that allow you to find a list of c
 
 :warning: To be included in these lists, it is mandatory that the object has at least one email or postal address defined. Otherwise, the contact will appear in the "Without coordinate" tab accessible from the mailing list form.
 
+As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
+
 !!!info
 
     These filters are dynamic, when a new person meets the criteria of the filters, this person will be automatically added in the distribution list.
+    !!!example
 
-As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
+        You want to create a filter that includes all contacts in good standing who have voluntary participation.
+
+        The filter will constantly update the list of relevant contacts, including those in good standing who have voluntary participation and will not take over the others.
 
 ??? tip
 
     By clicking on the "list result" button at the top right of the form, you can access the list of contacts that are part of the distribution list once the filters are active.
-    ![screenshot 21](img/screen21.png)
 
 <figure markdown>
 ![screenshot 18](img/screen18.png)
