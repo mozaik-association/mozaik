@@ -34,9 +34,9 @@ Various informations can be collected for each contact (companies or individuals
 
     This feature allows you : 
 
-    - To manage all the information about your contacts
-    - To get to know your members and supporters better
-    - To use personal information of your members for membership purposes (membership fee)
+    - To manage all the information about your contacts.
+    - To get to know your members and supporters better.
+    - To use personal information of your members for membership purposes (membership fee).
 
 <figure markdown>
   ![screenshot 27](img/screen27.png)
