@@ -15,7 +15,7 @@ A distribution list allows you to add filters that allow you to find a list of c
 
 As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
 
-:warning: To be included in these lists, it is mandatory that the object has at least one email or postal address defined. Otherwise, the contact will appear in the "Without coordinate" tab accessible from the mailing list form.
+:warning: To be included in these lists, it is mandatory that the contact has at least one email or postal address defined. Otherwise, the contact will appear in the "Without coordinate" tab accessible from the mailing list form.
 
 !!!info
 
