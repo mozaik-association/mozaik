@@ -106,12 +106,14 @@ How to add them :
 
 ## Duplicates
 
-A very elaborated duplicate check system based on 
+A very elaborated duplicate check system based on :
 
-- The name
+- Name
 - Phone
 - Mobile
-- Email and address
+- Email 
+- Address
+
 Helps you identify, manage and merge possible duplicates within your contacts database. 
 
 !!! info
@@ -129,9 +131,9 @@ When two or more people share the same address, they can be grouped into a co-re
 
 Co-residencies allow you to :
 
-    - Avoid duplicates within your contacts database
-    - Link people from the same family to each other
-    - Avoid sending 2 letters to the same address 
+- Avoid duplicates within your contacts database
+- Link people from the same family to each other
+- Avoid sending 2 letters to the same address 
 
 ??? question "How to create a co-residence ?" 
 
@@ -159,7 +161,7 @@ Each member in odoo is linked to a unique member number. The member number can b
 
 !!! abstract "The goal of memberships lines"
 
-    Membership rows allow you to track the membership status of each contact as well as membership dates. The membership rows also allow you to see the type of membership the contact has and whether or not the membership has been paid for by the contact. Finally, the membership lines allow you to see the internal instance related to the membership.
+    Membership lines allow you to track the membership status of each contact as well as membership dates. Thanks to the& membership lines you are able to see the type of membership the contact has and whether or not the membership has been paid for by the contact. Finally, the membership lines allow you to see the internal instance related to the membership.
 
 <figure markdown>
 ![screenshot 8](img/screen8.png)
@@ -172,10 +174,13 @@ Each organisation can choose its own membership rates depending on the individua
 
 !!! abstract "The goal of memberships fees"
 
-        The purpose of this feature is to be able to assign a membership type and a price according to selected rules
+        The purpose of this feature is to be able to assign a membership type and a price according to selected rules.
         !!! example
 
-            The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from the 5€ membership
+            The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from the 5€ membership.
+
+            If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form.
+
 
 
 <figure markdown>
@@ -189,7 +194,7 @@ The member system depends on each company/party. There are several generic statu
 
 !!! info inline end "information"
 
-    Sub points are the reasons why a contact can go through this status
+    Sub points are the reasons why a contact can go through this status.
 
 - No statut
 - Candidat member
@@ -233,22 +238,6 @@ When reapplying for membership, the officer will check:
  - Contact informations
  - Does the person aldready exist or not ?
  - Linking of interrests with thesaurus
-
-## Cotisation and amout of the fee
-
- As far as dues rates are concerned, these are simple Odoo items. Membership rates vary based on several rules:
-
-- First membership 
-- With a disability 
-- Unemployed 
-- Parent teacher
-- Contact over 63 years old 
-- If the contact does not meet any of these rules, then the normal rate applies. Hence the importance of completing the information in the contact form 
-
-!!! note "information"
-
-    Each political party can have its own rule
-![screenshot 12](img/screen12.png)
 
 ## Membership renewal 
 Mass renewal of subscriptions for the following year. Mass generation of structured communication. Sending of a personalized letter (explanation of amounts, payment slips, structured communication). Receipt of payments. Using the "mass closure" button → Mass cancellation of unpaid invoices (automatic switch to "old" status).
