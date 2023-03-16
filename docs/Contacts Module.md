@@ -221,7 +221,10 @@ graph LR
   A -->|Member demande| C[Member candidate];
   C -->|refusal to pay| B;
   B --> |Want to become member| C;
-  
+  B --> D[Former supporter];
+  D --> B;
+  B --> |payement| E[Member Committee];
+  C --> |payement| E;
 ```
 
 ## Membership renewals
