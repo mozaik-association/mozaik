@@ -220,6 +220,8 @@ graph LR
   A[Without membership] -->|Supporter demande| B[Supporter];
   A -->|Member demande| C[Member candidate];
   C -->|refusal to pay| B;
+  B --> |Want to become member| C;
+  
 ```
 
 ## Membership renewals
