@@ -155,13 +155,13 @@ Co-residencies allow you to :
 ## Memberships
 It is possible to track the membership history of a member from the membership tab of a contact. There is a whole list of information:
 
-- Internal instance to which the member is linked through membership
-- Membership status to which he/she belongs (former member, new member...)
-- Type of membership fee paid (suppertaires, job seeker, disabled)
-- Structured communication reference (possible to work with a structured communication)
-- Price of the subscription 
-- Member in or out of membership 
-- Start and end date of membership
+- Internal instance to which the member is linked through membership.
+- Membership status to which he/she belongs (former member, new member...).
+- Type of membership fee paid (suppertaires, job seeker, disabled).
+- Structured communication reference (possible to work with a structured communication).
+- Price of the subscription.
+- Member in or out of membership.
+- Start and end date of membership.
 
 You can easily add or change memberships in this tab. A member can also be excluded or leave the organisation. You can see for each contact if the membership card has been sent or not yet.
  
@@ -170,14 +170,14 @@ Each member in odoo is linked to a unique member number. The member number can b
 
 !!! abstract "The goal of membership lines"
 
-    Membership lines allow you to track the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local group, type of memershi (price), dates ,...
+    Membership lines allow you to track the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local groups, type of memerships (prices), dates ,...
 <figure markdown>
 ![screenshot 8](img/screen8.png)
 <figcaption>New adhesion line on the contact form & unique member number</figcaption>
 </figure>
 
 ## Membership fees
-several membership types can be added in Mozaik. Each organisation can difine its own membership types and link each type to a specific price and rule. Members who fit this rule will have to pay the price of the membership type to become a member.
+Several membership types can be added in Mozaik. Each organisation can difine its own membership types and link each type to a specific price and rule. Members who fit this rule will have to pay the price of the membership type to become a member.
 
 !!! example
 
@@ -214,6 +214,13 @@ A all membership wrokflow has been implemented in mozaik. Members are linked to 
 ![screenshot 10](img/screen10.png)
 <figcaption>Mozaik membership workflow</figcaption>
 </figure>
+
+``` mermaid
+graph LR
+  A[Without membership] -->|Supporter demande| B[Supporter];
+  A -->|Member demande| C[Member candidate];
+  C -->|refusal to pay| B;
+```
 
 ## Membership renewals
 Each year, a call for membership renewal can be send by the organisation. member who didn't paye the previous year are transfor in old member . Members in good standing will receive an email or letter with a structure comminication or a link to pay online.
