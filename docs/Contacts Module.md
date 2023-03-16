@@ -104,7 +104,7 @@ How to add them :
 
 ## Duplicates
 
-A very elaborated duplicate check system based on :
+A very elaborated duplicate check system has been implemented. It is based on :
 
 - Name
 - Phone
@@ -112,7 +112,7 @@ A very elaborated duplicate check system based on :
 - Email 
 - Address
 
-Helps you identify, manage and merge possible duplicates within your contacts database. 
+It Helps you identify, manage and merge possible duplicates within your contacts database. 
 
 !!! info
 
@@ -125,7 +125,7 @@ Helps you identify, manage and merge possible duplicates within your contacts da
 
 ## Co-residencies
 
-When two or more people share the same address, they can be grouped into a co-residency. This idicates that those people are no duplicates but simply share the same adress.
+When two or more people share the same address, they can be grouped into a co-residency. This idicates that those people are no duplicates but simply live in the same acomodation.
 
 Co-residencies allow you to :
 
@@ -135,7 +135,7 @@ Co-residencies allow you to :
 
 ??? question "How to create a co-residency ?" 
 
-    You can create a co-residency by clicking on "action"--> "create a co-residency address” and entering the name of the co-residents in "line 1 and 2" 
+    You can create a co-residency by selecting your contacts, clicking on "action"--> "create a co-residency address” and entering the name of the co-residents in "line 1 and 2" 
     <figure markdown>        
     ![screenshot 3](img/screen3.png)
     <figcaption>Creation of a co-residency</figcaption>
@@ -152,34 +152,42 @@ Co-residencies allow you to :
 
 
 
-## Membership lines
+## Memberships
+It is possible to track the membership history of a member from the membership tab of a contact. There is a whole list of information:
 
-A membership can be created by selecting an instance and a status for the member and the start date.  Once the membership is added, it is possible to update the status of the member and to see the evolution of the status over the time. A member can also be fired or can leave the organisation. To reinstate a member into the organisation, a new membership is required for that member. 
+- Internal instance to which the member is linked through membership
+- Membership status to which he/she belongs (former member, new member...)
+- Type of membership fee paid (suppertaires, job seeker, disabled)
+- Structured communication reference (possible to work with a structured communication)
+- Price of the subscription 
+- Member in or out of membership 
+- Start and end date of membership
 
-Each member in odoo is linked to a unique member number. The member number can be found on the contact form.
+You can easily add or change memberships in this tab. A member can also be excluded or leave the organisation. You can see for each contact if the membership card has been sent or not yet.
+ 
 
-!!! abstract "The goal of memberships lines"
+Each member in odoo is linked to a unique member number. The member number can be found on the contact form next to the contacts name and the membership states.
 
-    Membership lines allow you to track the membership status of each contact as well as membership dates. Thanks to the membership lines you are able to see the type of membership the contact has and whether or not the membership has been paid for by the contact. Finally, the membership lines allow you to see the internal instance related to the membership.
+!!! abstract "The goal of membership lines"
 
+    Membership lines allow you to track the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local group, type of memershi (price), dates ,...
 <figure markdown>
 ![screenshot 8](img/screen8.png)
-<figcaption>New adhesion line on the contact form + unique member number</figcaption>
+<figcaption>New adhesion line on the contact form & unique member number</figcaption>
 </figure>
 
 ## Membership fees
+several membership types can be added in Mozaik. Each organisation can difine its own membership types and link each type to a specific price and rule. Members who fit this rule will have to pay the price of the membership type to become a member.
 
-Each organisation can choose its own membership prices depending on the individual's situation.  When creating a membership, the type of membership and therefore the price will be adapted to the individual.
+!!! example
+
+    1. the price for a first year membership is 5€ and for all the next year the price will be 10€.
+    2. People with disability can benefit of a reduction membership (example 5€)
 
 !!! abstract "The goal of memberships fees"
 
         The purpose of this feature is to be able to assign a membership type and a price according to selected rules.
-        !!! example
-
-            The price of a normal membership is 10€ and the price of a membership for people with disabilities is 5€. Contacts who are in a disability situation will benefit from the 5€ membership.
-
-            If the contact does not meet any of the special conditions, then the normal rate applies. Hence the importance of filling in the contact information correctly.
-
+        
 
 <figure markdown>
 ![screenshot 32](img/screen32.png)
@@ -188,27 +196,32 @@ Each organisation can choose its own membership prices depending on the individu
 
 ## Membership Statuses
 
-Each contact is linked to a status and each organisation can have its own membership status. Members of the organisation will move from one status to another over time according to certain rules. The different statuses depend on a workflow that can be set up according to the needs of each organisation.
+A all membership wrokflow has been implemented in mozaik. Members are linked to a status and these can evolve over time according to the workflows. Members of the organisation will move from one status to another over time according to certain rules.
+
+!!! info
+
+    This workflow can be easily adapted if it does not meet the exact needs of the organisation.
 
 <figure markdown>
 ![screenshot 9](img/screen9.png)
 <figcaption>Example of the different membership statuses of an organisation</figcaption>
 </figure>
+!!! example "Example of workflow"
 
+    - A supporter who resigns will have the status "former supporter".
+    - A member who declines to pay the membership fee will be given the status "former member".
 <figure markdown>
 ![screenshot 10](img/screen10.png)
-<figcaption>Workflow of the differents statuses of the organisation</figcaption>
+<figcaption>Mozaik membership workflow</figcaption>
 </figure>
 
 ## Membership renewals
-Each year a call for membership renewal is send by the organisation. This is done by generating a mass structural communication and sending a personalised letter with the explanation of the amount, the structured communication to be used.
+Each year, a call for membership renewal can be send by the organisation. member who didn't paye the previous year are transfor in old member . Members in good standing will receive an email or letter with a structure comminication or a link to pay online.
 
-In the middle of the year, by using the "mass closure" button, we can cancel all the unpaid invoices by the contacts and automatically change their status to "old".
 
 !!!info
 
-    As with the statuses, each organisation can have its own membership renewal workflow.
-
+    In the middle of the year, by using the "mass closure" button, we can cancel all the unpaid invoices by the contacts and automatically change their status to "old".
 <figure markdown>
 ![screenshot 13](img/screen13.png)
 <figcaption>Example of a membership renewal workflow</figcaption>
