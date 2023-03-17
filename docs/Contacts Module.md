@@ -184,7 +184,7 @@ Several membership types can be added in Mozaik. Each organisation can define it
 !!! example
 
     1. It is possible to set a lower price for the first year of membership compared to subsequent years.
-    2. It is possible to put a different price for people with disabilities (example: 5$ instead of 10€)
+    2. It is possible to put a different price for people with disabilities (example: 5€ instead of 10€)
 
 !!! abstract "The goal of memberships fees"
 
