@@ -153,40 +153,42 @@ Co-residencies allow you to :
 
 
 ## Memberships
-It is possible to track the membership history of a member from the memberships tab of a contact. There is a whole list of information:
+It is possible to track the membership history of a member from the memberships tab of a contact. In this tab, you can find a whole list of information:
 
-- Internal instance to which the member is linked through membership.
+- Internal instance to which the member is linked his through membership.
 - Membership status to which the contact belongs (former member, new member...).
-- Type of membership fee paid (suppertaires, job seeker, disabled).
-- Structured communication reference (possible to work with a structured communication).
+- Type of membership fee paid (normal membership, reduce price (job seeker, disabled)).
 - Price of the subscription.
-- Member in or out of membership.
-- Start and end date of membership.
+- Structured communication reference (possible to work with a structured communication).
+- Payement link (possible to pay the membership online with Stripe...)
+- Member in good standing or not (modifier)
+- Start and end date of the membership.
 
-You can easily add or change memberships in this tab. A member can also be excluded or leave the organisation. You can see for each contact if the membership card has been sent or not yet.
+This tab allows you to easily manage or modify memberships. 
+
+Mozaik allows you to manage the membership cards of the organisation, to see who has already received their card and who has yet to receive it.
  
-
-Each member in odoo is linked to a unique member number. The member number can be found on the contact form next to the contacts name and the membership states.
+Each member in Odoo is linked to a unique member number. The member number can be found on the contact form next to the contacts name and the membership state.
 
 !!! abstract "The goal of membership lines"
 
-    Membership lines allow you to track the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local groups, type of memerships (prices), dates ,...
+    Membership lines allow you to track the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local groups, type of memberships (prices), dates ,...
 <figure markdown>
 ![screenshot 8](img/screen8.png)
-<figcaption>New adhesion line on the contact form & unique member number</figcaption>
+<figcaption>New memberhsip line on the contact form & unique member number</figcaption>
 </figure>
 
 ## Membership fees
-Several membership types can be added in Mozaik. Each organisation can difine its own membership types and link each type to a specific price and rule. Members who fit this rule will have to pay the price of the membership type to become a member.
+Several membership types can be added in Mozaik. Each organisation can define its own membership types and link each type to a specific price and rule. Members will have to pay a certain price according to these rules.
 
 !!! example
 
-    1. The price for a first year membership is 5€ and for all the next year the price will be 10€.
-    2. People with disability can benefit of a reduction membership (example 5€ instead of 10€)
+    1. It is possible to set a lower price for the first year of membership compared to subsequent years.
+    2. It is possible to put a different price for people with disabilities (example: 5$ instead of 10€)
 
 !!! abstract "The goal of memberships fees"
 
-        The purpose of this feature is to be able to assign a membership type and a price according to selected rules.
+    The purpose of this feature is to allow prices and membership types to be adapted to the specificities of the organisation's contacts.
         
 
 <figure markdown>
@@ -196,11 +198,10 @@ Several membership types can be added in Mozaik. Each organisation can difine it
 
 ## Membership Statuses
 
-A all membership wrokflow has been implemented in mozaik. Members are linked to a status and these can evolve over time according to the workflows. Members of the organisation will move from one status to another over time according to certain rules.
-
+A complete membership workflow has been implemented in Mozaik. Members are linked to a membership status that evolves over time according to certain rules.
 !!! info
 
-    This workflow can be easily adapted if it does not meet the exact needs of the organisation.
+    This workflow can easily be adapted if it does not meet the exact needs of the organisation.
 
 <figure markdown>
 ![screenshot 9](img/screen9.png)
@@ -208,7 +209,7 @@ A all membership wrokflow has been implemented in mozaik. Members are linked to 
 </figure>
 !!! example "Example of workflow"
 
-    - A supporter who resigns will have the status "former supporter".
+    - A member who resigns changes from a "member" to a "former resigning member".
     - A member who declines to pay the membership fee will be given the status "former member".
 <figure markdown>
 ![screenshot 10](img/screen10.png)
@@ -217,12 +218,16 @@ A all membership wrokflow has been implemented in mozaik. Members are linked to 
 
 
 ## Membership renewals
-Each year, a call for membership renewal can be send by the organisation. Member who didn't paye the previous year are transfor in old member . Members in good standing will receive an email or letter with a structure comminication or a link to pay online.
+Each year, the organisation may issue a call for membership renewal. Members who have not paid the previous year become " former members ". 
 
+Members in good standing will receive:
+
+- An email with link to pay online. 
+- A letter with a structured communication to pay.
 
 !!!info
 
-    In the middle of the year, by using the "mass closure" button, we can cancel all the unpaid invoices by the contacts and automatically change their status to "old".
+    It is possible to change the status of all members who have not paid their membership fee before the deadline to "former member fee".
 <figure markdown>
 ![screenshot 13](img/screen13.png)
 <figcaption>Example of a membership renewal workflow</figcaption>
