@@ -184,7 +184,7 @@ Several membership types can be added in Mozaik. Each organisation can define it
 !!! example
 
     1. It is possible to set a lower price for the first year of membership compared to subsequent years.
-    2. It is possible to put a different price for people with disabilities (example: 5€ instead of 10€)
+    2. It is possible to put a different price for people with disabilities (example: 1€ instead of 10€)
 
 !!! abstract "The goal of memberships fees"
 
@@ -209,7 +209,7 @@ A complete membership workflow has been implemented in Mozaik. Members are linke
 </figure>
 !!! example "Example of workflow"
 
-    - A member who resigns changes from a "member" to a "former resigning member".
+    - A member who resigns changes from a "member" to a "resignation former member".
     - A member who declines to pay the membership fee will be given the status "former member".
 <figure markdown>
 ![screenshot 10](img/screen10.png)
@@ -218,7 +218,7 @@ A complete membership workflow has been implemented in Mozaik. Members are linke
 
 
 ## Membership renewals
-Each year, the organisation may issue a call for membership renewal. Members who have not paid the previous year become " former members ". 
+Each year, the organisation may issue a call for membership renewal. Members who did not pay the previous year become " former members ".
 
 Members in good standing will receive:
 
