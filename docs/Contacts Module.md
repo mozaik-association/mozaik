@@ -215,17 +215,6 @@ A all membership wrokflow has been implemented in mozaik. Members are linked to 
 <figcaption>Mozaik membership workflow</figcaption>
 </figure>
 
-``` mermaid
-graph LR
-  A[Without membership] -->|Supporter demande| B[Supporter];
-  A -->|Member demande| C[Member candidate];
-  C -->|refusal to pay| B;
-  B --> |Want to become member| C;
-  B --> D[Former supporter];
-  D --> B;
-  B --> |payement| E[Member Committee];
-  C --> |payement| E;
-```
 
 ## Membership renewals
 Each year, a call for membership renewal can be send by the organisation. member who didn't paye the previous year are transfor in old member . Members in good standing will receive an email or letter with a structure comminication or a link to pay online.
