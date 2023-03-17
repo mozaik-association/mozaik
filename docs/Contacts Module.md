@@ -153,10 +153,10 @@ Co-residencies allow you to :
 
 
 ## Memberships
-It is possible to track the membership history of a member from the membership tab of a contact. There is a whole list of information:
+It is possible to track the membership history of a member from the memberships tab of a contact. There is a whole list of information:
 
 - Internal instance to which the member is linked through membership.
-- Membership status to which he/she belongs (former member, new member...).
+- Membership status to which the contact belongs (former member, new member...).
 - Type of membership fee paid (suppertaires, job seeker, disabled).
 - Structured communication reference (possible to work with a structured communication).
 - Price of the subscription.
@@ -181,8 +181,8 @@ Several membership types can be added in Mozaik. Each organisation can difine it
 
 !!! example
 
-    1. the price for a first year membership is 5€ and for all the next year the price will be 10€.
-    2. People with disability can benefit of a reduction membership (example 5€)
+    1. The price for a first year membership is 5€ and for all the next year the price will be 10€.
+    2. People with disability can benefit of a reduction membership (example 5€ instead of 10€)
 
 !!! abstract "The goal of memberships fees"
 
@@ -217,7 +217,7 @@ A all membership wrokflow has been implemented in mozaik. Members are linked to 
 
 
 ## Membership renewals
-Each year, a call for membership renewal can be send by the organisation. member who didn't paye the previous year are transfor in old member . Members in good standing will receive an email or letter with a structure comminication or a link to pay online.
+Each year, a call for membership renewal can be send by the organisation. Member who didn't paye the previous year are transfor in old member . Members in good standing will receive an email or letter with a structure comminication or a link to pay online.
 
 
 !!!info
