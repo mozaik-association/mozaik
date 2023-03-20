@@ -35,6 +35,12 @@ Various informations can/must be completed on the petition form :
 
 ## Recognition of partner
 
+When a person participates to the petition, the module allows to detect, on the basis of several criteria, if the participant already exists in the list of contacts or not. If the latter does not exist, a contact form is created for him. 
+
+!!! asbtract "The goal of partner recognition"
+
+    This feature allows you to expand your organisation's list of contacts and then recontact them for other petitions, events, surveys...
+
 ## Milestones
 
 The module allows you to add different milestones (target number of signatures) to be reached for each petition.
