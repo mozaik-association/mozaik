@@ -24,7 +24,7 @@ Various informations can/must be completed on the petition form :
     This fonctionnnality allows to :
 
     - Manage the general information of each petition.
-    - Add tags/interests to categorise the different petitions.
+    - Add tags/interests to categorise the different petitions and to add these interests to the form of the contacts who participated to this petition.
     - Add involvement categories to automatically add them to the form of the contacts who participated in the petition.
     - Get access to the lists of all the attendees/signatories of the petition.
 
@@ -35,3 +35,30 @@ Various informations can/must be completed on the petition form :
 
 ## Milestones
 
+The module allows you to add different milestones (number of signatures) to be reached for each petition.
+
+!!! info
+
+    At least one milestone must be added to create the petition. However, they are for information purposes only.
+
+<figure markdown>
+![screenshot 36](img/screen36.png)
+<figcaption>Petition form with general information</figcaption>
+</figure>
+
+## Automated communication
+
+Automatic emails can be added in the "communications" tab by selecting an already created template or by creating a new one. 
+
+!!! abstract "The goal of the the automated communication"
+
+    This feature allows emails to be sent automatically at certain times during the petition.
+    !!! example
+
+        - I would like to send an email 2 days after the end of the petition to all participants to reveal the results of the petition.
+        - I want to send an email to each participant one day after their signing.
+
+<figure markdown>
+![screenshot 35](img/screen35.png)
+<figcaption>Example of automated communications</figcaption>
+</figure>
