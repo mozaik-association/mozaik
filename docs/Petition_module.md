@@ -65,9 +65,9 @@ Automatic emails can be added in the "communications" tab by selecting an alread
 
 ## Questions
 
-The module allows you to add questions in the "questions" tab that participants can or should answer. Answers can be free text, multiple choice or a tickbox.
+The module allows you to add questions in the "questions" tab that participants can or most answer. Answers can be free text, multiple choice or a tickbox.
 
-!!! abstract "the goal of the questions"
+!!! abstract "The goal of the questions"
 
     the questions allow you to learn more about the contacts involved in your petitions. 
 
@@ -75,6 +75,10 @@ The module allows you to add questions in the "questions" tab that participants 
     !!! example 
 
         People answering "yes" to the question "Would you like to stay informed about other human rights petitions?" will receive a category of participation and an interest in this subject.
+        <figure markdown>
+    ![screenshot 38](img/screen38.png)
+    <figcaption>Adding a participation category based on the response</figcaption>
+    </figure>   
 
 
 <figure markdown>
@@ -82,8 +86,5 @@ The module allows you to add questions in the "questions" tab that participants 
 <figcaption>Example of questions</figcaption>
 </figure>
 
-<figure markdown>
-![screenshot 38](img/screen38.png)
-<figcaption>Adding a participation category based on the response</figcaption>
-</figure>
+
 
