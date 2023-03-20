@@ -3,11 +3,11 @@
 The petition module is a non-existent module in the Odoo standard. It allows to manage de petitons of the orgnaisations in the back office. It will provide access to :
 
 - The general information of the petiton
+- The recognition of parters
 - The list of milestones 
 - Automated communications
 - The list of questions
-- The visibility of petitions
-- The recognition of parters
+- The Access limitations
 
 ## General information of the petition
 
@@ -32,6 +32,8 @@ Various informations can/must be completed on the petition form :
 ![screenshot 34](img/screen34.png)
 <figcaption>Petition form with general information</figcaption>
 </figure>
+
+## Recognition of partner
 
 ## Milestones
 
@@ -86,9 +88,8 @@ The module allows you to add questions in the "questions" tab that participants 
 <figcaption>Example of questions</figcaption>
 </figure>
 
-## The visibility of the petition
-
-Thanks to the "security" tab, it is possible to limit the visibility and access of each petition to certain people depending on the selected instance 
+## The Access limitations
+Thanks to the "security" tab, it is possible to limit the visibility and access of each petition to certain people depending on the selected instance. 
 
 !!! example 
 
@@ -96,5 +97,5 @@ Thanks to the "security" tab, it is possible to limit the visibility and access 
 
 <figure markdown>
 ![screenshot 39](img/screen39.png)
-<figcaption>Example of access limitation</figcaption>
+<figcaption>Example of an access limitation</figcaption>
 </figure>
