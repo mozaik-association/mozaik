@@ -1,11 +1,11 @@
 # Petitions module
 
-The petition module is a non-existent module in the Odoo standard. It allows to manage de petitons of the orgnaisations in the back office. It will provide access to :
+The petition module is a non-existent module in the Odoo standard. It allows to manage the petitons of the orgnaisations in the back office. It will provide access to :
 
 - The general information of the petiton
 - The recognition of parters
 - The list of milestones 
-- Automated communications
+- The automated communications
 - The list of questions
 - The Access limitations
 
@@ -16,16 +16,16 @@ This functionality allows you to create, modify and manage all the petitions rel
 Various informations can/must be completed on the petition form :
 
 - The standard information of the petiton (name, responsible, description, dates...).
-- Tags 
+- Tags/interets
 - The involvement Categories
 
-!!! abstract "the goal of petitions management"
+!!! abstract "The goal of petitions management"
 
     This fonctionnnality allows to :
 
     - Manage the general information of each petition.
     - Add tags/interests to categorise the different petitions and to add these interests to the form of the contacts who participated to this petition.
-    - Add involvement categories to automatically add them to the form of the contacts who participated in the petition.
+    - Add involvement categories to automatically add them to the form of the contacts who participated to the petition.
     - Get access to the lists of all the attendees/signatories of the petition.
 
 <figure markdown>
@@ -35,15 +35,15 @@ Various informations can/must be completed on the petition form :
 
 ## Recognition of partner
 
-When a person participates to the petition, the module allows to detect, on the basis of several criteria, if the participant already exists in the list of contacts or not. If the latter does not exist, a contact form is created for him. 
+When a person participates to the petition, the module allows to detect, on the basis of several criterias, if the participant already exists in the list of contacts or not. If the latter does not exist, a contact form is created for him. 
 
-!!! asbtract "The goal of partner recognition"
+!!! abstract "The goal of partner recognition"
 
     This feature allows you to expand your organisation's list of contacts and then recontact them for other petitions, events, surveys...
 
 ## Milestones
 
-The module allows you to add different milestones (target number of signatures) to be reached for each petition.
+The fonctionnality allows you to add different milestones (target number of signatures) to be reached for each petition.
 
 !!! info
 
