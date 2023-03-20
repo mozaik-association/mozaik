@@ -35,15 +35,15 @@ Various informations can/must be completed on the petition form :
 
 ## Milestones
 
-The module allows you to add different milestones (number of signatures) to be reached for each petition.
+The module allows you to add different milestones (target number of signatures) to be reached for each petition.
 
 !!! info
 
-    At least one milestone must be added to create the petition. However, they are for information purposes only.
+    At least one milestone must be added to create the petition. However, they are for information purposes only. They do not generate/create anything.
 
 <figure markdown>
 ![screenshot 36](img/screen36.png)
-<figcaption>Petition form with general information</figcaption>
+<figcaption>Example of milestones for a petition</figcaption>
 </figure>
 
 ## Automated communication
@@ -62,3 +62,28 @@ Automatic emails can be added in the "communications" tab by selecting an alread
 ![screenshot 35](img/screen35.png)
 <figcaption>Example of automated communications</figcaption>
 </figure>
+
+## Questions
+
+The module allows you to add questions in the "questions" tab that participants can or should answer. Answers can be free text, multiple choice or a tickbox.
+
+!!! abstract "the goal of the questions"
+
+    the questions allow you to learn more about the contacts involved in your petitions. 
+
+    For the selected answers and tickboxes, it is possible to add a participation category and thesaurus themes depending on the answer chosen by the participant.  This information will be displayed on the contact's form.
+    !!! example 
+
+        People answering "yes" to the question "Would you like to stay informed about other human rights petitions?" will receive a category of participation and an interest in this subject.
+
+
+<figure markdown>
+![screenshot 37](img/screen37.png)
+<figcaption>Example of questions</figcaption>
+</figure>
+
+<figure markdown>
+![screenshot 38](img/screen38.png)
+<figcaption>Adding a participation category based on the response</figcaption>
+</figure>
+
