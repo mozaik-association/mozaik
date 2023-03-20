@@ -92,7 +92,7 @@ Thanks to the "security" tab, it is possible to limit the visibility and access 
 
 !!! example 
 
-    I hope that everyone in the Antwerp area can see and access this petition.
+    I want that only people from the Antwerp instance can access the petition.
 
 <figure markdown>
 ![screenshot 39](img/screen39.png)
