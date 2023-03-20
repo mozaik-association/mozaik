@@ -86,5 +86,15 @@ The module allows you to add questions in the "questions" tab that participants 
 <figcaption>Example of questions</figcaption>
 </figure>
 
+## The visibility of the petition
 
+Thanks to the "security" tab, it is possible to limit the visibility and access of each petition to certain people depending on the selected instance 
 
+!!! example 
+
+    I hope that everyone in the Antwerp area can see and access this petition.
+
+<figure markdown>
+![screenshot 39](img/screen39.png)
+<figcaption>Example of access limitation</figcaption>
+</figure>
