@@ -166,7 +166,7 @@ It is possible to track the membership history of a member from the memberships 
 
 This tab allows you to easily manage or modify memberships. 
 
-Mozaik allows you to manage the membership cards of the organisation, to see who has already received their card and who has yet to receive it.
+Mozaik allows you to manage the membership cards of the organisation, to see who has already received his card and who has yet to receive it.
  
 Each member in Odoo is linked to a unique member number. The member number can be found on the contact form next to the contacts name and the membership state.
 
@@ -184,7 +184,7 @@ Several membership types can be added in Mozaik. Each organisation can define it
 !!! example
 
     1. It is possible to set a lower price for the first year of membership compared to subsequent years.
-    2. It is possible to put a different price for people with disabilities (example: 1€ instead of 10€)
+    2. It is possible to put a different price for people with disabilities (example: 5€ instead of 10€)
 
 !!! abstract "The goal of memberships fees"
 
