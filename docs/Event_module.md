@@ -1,4 +1,4 @@
-# Events module
+# Events
 
 The event module uses the odoo standard and adds specific features for organisations linked to mozaik. It allows to manage the events of the orgnaisations. It will provide access to :
 

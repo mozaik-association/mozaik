@@ -1,4 +1,4 @@
-# Invoices Module
+# Invoices
 
 The Mozaik invoicing module includes most of the features of the standard Odoo module. This module is designed to simplify invoicing in order to get paid faster. It allows you to automatically invoice based on purchase orders, delivery orders, contracts or generated expense sheets. Odoo Invoicing also allows :
 

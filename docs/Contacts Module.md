@@ -1,4 +1,4 @@
-# Contacts Module
+# Contacts
 
 The contact module - which is a central module in Mozaïk - allows to manage all the contacts related to your organisation / political party.  It will give you access to:
 

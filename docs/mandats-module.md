@@ -1,4 +1,4 @@
-# Mandats module
+# Mandats
 This module covers the various important points concerning the management of political mandates. Several points will be discussed:
 
 - Selection comittee
