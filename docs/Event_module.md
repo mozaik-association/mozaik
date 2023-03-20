@@ -26,11 +26,26 @@ Various informations can/must be completed on the petition form :
     - Manage the general information of each event.
     - Add tags/interests to categorise the different events and to add these interests to the form of the contacts who participated to this event.
     - Add involvement categories to automatically add them to the form of the contacts who participated to the event.
-    - Get access to the lists of all the attendees and sponsors of the event.
-
+    - Get access to the lists of all the attendees and sponsors of each event.
 
 
 <figure markdown>
 ![screenshot 40](img/screen40.png)
 <figcaption>Event form with general information</figcaption>
 </figure>
+
+## Management of tickets
+
+The fonctionnality allows to create differents types of tickets for an event. Tickets can have differents prices and different maximum number of entries. 
+
+
+<figure markdown>
+![screenshot 41](img/screen41.png)
+<figcaption>Example of tickets for an event</figcaption>
+</figure>
+
+## Automated communication
+
+Automatic emails can be added in the "communications" tab by selecting an already created template or by creating a new one. 
+
+!!! abstract "The goal of the the automated communication"
