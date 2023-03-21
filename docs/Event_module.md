@@ -95,6 +95,18 @@ A voting domain can be registered in the "voting domain" tab by adding filters t
         I want only people who are in order to pay and who are donors to vote.
         <figure markdown>
         ![screenshot 45](img/screen45.png)
-        <figcaption>Example of questions</figcaption>
+        <figcaption>Example of voting domain</figcaption>
         </figure>
 
+## The access limitations
+
+Thanks to the "security" tab, it is possible to limit the visibility and access of each event to certain people depending on the selected instance. 
+
+!!! example 
+
+    I want that only people from the Antwerp instance can access the event.
+
+<figure markdown>
+![screenshot 46](img/screen46.png)
+<figcaption>Example of an access limitation</figcaption>
+</figure>
