@@ -35,7 +35,7 @@ Various informations can/must be completed on the survey form :
 
 The different questions of the survey can be added and arranged in the desired order. For each question, it is possible to propose a different type of answer (free text, multiple choices, date...).
 
-!!info 
+!!!info 
 
     It is possible to add participation categories and interests according to the answers chosen by the participants. 
     <figure markdown>
