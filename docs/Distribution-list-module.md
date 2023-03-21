@@ -37,7 +37,7 @@ As with the include filters, the exclude filters work in the same way. Simply cr
 
 !!!info
 
-    These filters are dynamic, when a new person meets the criteria of the filters, this person will be automatically added in the distribution list.
+    These filters are dynamic, when a new person meets the criterias of the filters, this person will be automatically added in the distribution list.
     !!!example
 
         You want to create a filter that includes all contacts in good standing who have voluntary participation.
@@ -52,14 +52,17 @@ As with the include filters, the exclude filters work in the same way. Simply cr
 
 <figure markdown>
 ![screenshot 18](img/screen18.png)
- <figcaption>Creation of a filter</figcaption>
+<figcaption>Creation of a filter</figcaption>
 </figure>
 
 ## Exporting
 
 The module provides users with a tool that allows them to export a whole series of information from the contacts in the distribution list. This tool can generate a structured file (CSV) for an external printing tool (printing of membership cards).
 
+<figure markdown>
 ![screenshot 22](img/screen22.png)
+ <figcaption>Exporting of the distribution list</figcaption>
+</figure>
 
 ??? tip
 
