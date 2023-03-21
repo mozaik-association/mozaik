@@ -23,7 +23,9 @@ class SurveyMembershipRequest(Survey):
             return {"error": access_data["validity_code"]}
         answer_sudo = access_data["answer_sudo"]
 
-        self._fill_membership_request(answer_sudo)
+        # Fill and validate the MR only if we reached the last question/page.
+        if answer_sudo.state == "done":
+            self._fill_membership_request(answer_sudo)
 
         return response
 
