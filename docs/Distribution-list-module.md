@@ -6,7 +6,6 @@ It will provide access to :
 
 - The general information of the distribution list
 - The inclusion and exclusion filters
-- Opt-in/opt-out preferences
 - The exporting
 
 ## Distribution list
