@@ -1,15 +1,31 @@
 # Distribution lists
 
-As with the standard Odoo module that allows to create mailing lists, the Mozaik distribution list module provide you to create distribution lists. Its advantage compared to the standard Odoo module is that it is much more complete and powerful.
+As with the standard Odoo module that allows to create mailing lists, the Mozaik distribution list module provide you to manage distribution lists of the organisaiton. Its advantage compared to the standard Odoo module is that it is much more complete and powerful.
 
-This module will give you the opportunity to:
+It will provide access to :
 
-- Create distribution lists
-- Create inclusion and exclusion filters
-- Export information
+- The general informations of the distribution list
+- The inclusion and exclusion filters
+- Opt-in/opt-out preferences
+- The exporting
 
 ## Distribution list
-You can create a distribution list by giving a name to this list. The distribution list will create a list of specific contacts based on filters you created and will be used to target specific targets based on the following criteria and then send emails to these targets using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">the marketing email module</a>. 
+
+This functionality allows you to create, modify and manage all the events related to your organisation.
+
+Various informations can/must be completed on the petition form :
+
+- General information of the distribution list (name, note...).
+- The list of contacts included in the distribution list.
+
+!!! abstract "The goald of the distibution list" 
+
+    You can create a distribution list by giving a name to this list. The distribution list will create a list of specific contacts based on filters you created and will be used to target specific targets based on the following criteria and then send emails to these targets using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">the marketing email module</a>. 
+
+<figure markdown>
+![screenshot 51](img/screen51.png)
+ <figcaption>Distribution list form with general information</figcaption>
+</figure>
 
 
 ## Include and exclude filters
