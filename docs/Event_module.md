@@ -44,8 +44,41 @@ The fonctionnality allows to create differents types of tickets for an event. Ti
 <figcaption>Example of tickets for an event</figcaption>
 </figure>
 
-## Automated communication
+## Automated communications
 
 Automatic emails can be added in the "communications" tab by selecting an already created template or by creating a new one. 
 
 !!! abstract "The goal of the the automated communication"
+
+     This feature allows emails to be sent automatically at certain times during the event.
+    !!! example
+
+        - I would like to send a registration email immediately after each registration.
+        - I would like to send a reminder email 5 days before the event. 
+
+<figure markdown>
+![screenshot 42](img/screen42.png)
+<figcaption>Example of tickets for an event</figcaption>
+</figure>
+
+## Questions
+
+The module allows you to add questions in the "questions" tab that participants can or must answer. Answers can be free text, multiple choice or a tickbox.
+
+!!! abstract "The goal of the questions"
+
+    The questions allow you to learn more about the contacts involved to your event. 
+
+    For the selected answers and tickboxes, it is possible to add a participation category and thesaurus themes depending on the answer chosen by the participant.  This information will be displayed on the contact's form.
+    !!! example 
+
+        People answering "yes" to the question "Would you like to stay informed about other human rights petitions?" will receive a category of participation and an interest in this subject.
+        <figure markdown>
+        ![screenshot 43](img/screen43.png)
+        <figcaption>Adding a participation category and an interest based on the response</figcaption>
+        </figure>
+
+<figure markdown>
+![screenshot 44](img/screen44.png)
+<figcaption>Example of questions</figcaption>
+</figure>

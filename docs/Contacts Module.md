@@ -112,7 +112,7 @@ A very elaborated duplicate check system has been implemented. It is based on :
 - Email 
 - Address
 
-It Helps you identify, manage and merge possible duplicates within your contacts database. 
+It helps you identify, manage and merge possible duplicates within your contacts database. 
 
 !!! info
 
@@ -161,7 +161,7 @@ It is possible to track the membership history of a member from the memberships 
 - Price of the subscription.
 - Structured communication reference (possible to work with a structured communication).
 - Payement link (possible to pay the membership online with Stripe...)
-- Member in good standing or not (modifier)
+- Check whether the member is in good standing or not.
 - Start and end date of the membership.
 
 This tab allows you to easily manage or modify memberships. 
@@ -179,7 +179,7 @@ Each member in Odoo is linked to a unique member number. The member number can b
 </figure>
 
 ## Membership fees
-Several membership types can be added in Mozaik. Each organisation can define its own membership types and link each type to a specific price and rule. Members will have to pay a certain price according to these rules.
+Several membership types can be added in Mozaik. Each organisation can define its own membership types and link each type to a specific price and rule. Members will have to pay a specific price according to these rules.
 
 !!! example
 
@@ -213,7 +213,7 @@ A complete membership workflow has been implemented in Mozaik. Members are linke
     - A member who declines to pay the membership fee will be given the status "former member".
 <figure markdown>
 ![screenshot 10](img/screen10.png)
-<figcaption>Mozaik membership workflow</figcaption>
+<figcaption>Mozaik memberships workflow</figcaption>
 </figure>
 
 
@@ -222,7 +222,7 @@ Each year, the organisation may issue a call for membership renewal. Members who
 
 Members in good standing will receive:
 
-- An email with link to pay online. 
+- An email with a link to pay online. 
 - A letter with a structured communication to pay.
 
 !!!info

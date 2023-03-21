@@ -1,10 +1,10 @@
 # Welcome to the Mozaik documentation
 
-The Mozaik documentation is a tool to understand and learn the functionalities of Mozaik, a tool to manage political parties and large organizations. 
+The Mozaik documentation is a tool to understand and learn the functionalities of Mozaik, a tool to manage political parties and large organisations. 
 
 ## Introduction to Mozaik
 
-Mozaik is a suite of open source Odoo modules created in 2013 and used as a management software for political parties and large organizations. Mozaik includes a whole set of modules developed to meet the specific needs of those organizations in terms of communication and administrative management: 
+Mozaik is a suite of open source Odoo modules created in 2013 and used as a management software for political parties and large organisations. Mozaik includes a whole set of modules developed to meet the specific needs of those organisations in terms of communication and administrative management: 
 
 - Members
 - Sympathizers, contacts ...

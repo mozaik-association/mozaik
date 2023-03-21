@@ -2,7 +2,7 @@
 
 The petition module is a non-existent module in the Odoo standard. It allows to manage the petitons of the orgnaisations in the back office. It will provide access to :
 
-- The general information of the petiton
+- The general information of the petitions
 - The recognition of parters
 - The list of milestones 
 - The automated communications
@@ -16,8 +16,8 @@ This functionality allows you to create, modify and manage all the petitions rel
 Various informations can/must be completed on the petition form :
 
 - The standard information of the petiton (name, responsible, description, dates...).
-- Tags/interets
-- The involvement Categories
+- Tags/interets.
+- The involvement Categories.
 
 !!! abstract "The goal of petitions management"
 
@@ -54,11 +54,11 @@ The fonctionnality allows you to add different milestones (target number of sign
 <figcaption>Example of milestones for a petition</figcaption>
 </figure>
 
-## Automated communication
+## Automated communications
 
 Automatic emails can be added in the "communications" tab by selecting an already created template or by creating a new one. 
 
-!!! abstract "The goal of the the automated communication"
+!!! abstract "The goal of the the automated communications"
 
     This feature allows emails to be sent automatically at certain times during the petition.
     !!! example
