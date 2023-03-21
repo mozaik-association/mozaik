@@ -16,8 +16,8 @@ This functionality allows you to create, modify and manage all the petitions rel
 Various informations can/must be completed on the petition form :
 
 - The standard information of the petiton (name, responsible, description, dates...).
-- Tags/interets.
-- The involvement Categories.
+- Tags/interets related to the petition.
+- The involvement Categories related to the petition.
 
 !!! abstract "The goal of petitions management"
 
