@@ -16,10 +16,10 @@ This functionality allows you to create, modify and manage all the events relate
 Various informations can/must be completed on the petition form :
 
 - The standard inforation of the event (name, dates, organizer...)
-- The interests
-- The involvement Categories
+- The interests related to the petition.
+- The involvement categories related to the petition.
 
-!!! abstract "The goal of petitions management"
+!!! abstract "The goal of event management"
 
     This fonctionnnality allows to :
 

@@ -1,8 +1,10 @@
 # Marketing emails
 
-Thanks to the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" tagret="_blank">distribution list module</a>, Mazaik's email marketing module allows you to send emails to an exact predefined target at the exact moment. In this module, we will talk about :
+As with the standard Odoo module that allows to create mailing lists, the Mozaik the marketing email of module - wich is more powerfull and complete than the Odoo standard - provide you to manage the marketing emails of the organisaiton.
 
-- The creation of a mailing
+It will provide access to :
+
+- The general information of the distribution list
 - The follow-up of the different emails in progress
 - Management of failures
 - Reporting

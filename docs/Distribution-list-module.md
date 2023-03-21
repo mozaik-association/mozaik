@@ -14,7 +14,7 @@ This functionality allows you to create, modify and manage all the events relate
 
 The distribution list provides access to general information:
 
-- TheGeneral information of the distribution list (name, note...).
+- The general information of the distribution list (name, note...).
 - The list of contacts included in the distribution list.
 
 !!! abstract "The goald of the distibution list" 
