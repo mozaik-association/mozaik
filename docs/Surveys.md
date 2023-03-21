@@ -55,3 +55,24 @@ The different questions of the survey can be added and arranged in the desired o
 <figcaption>Example of questions for the survey</figcaption>
 </figure>
 
+## Recognition of partner
+
+When a person participates to the survey, the module allows to detect, on the basis of several criterias, if the participant already exists in the list of contacts or not. If the latter does not exist, a contact form is created for him. 
+
+!!! abstract "The goal of partner recognition"
+
+    This feature allows you to expand your organisation's list of contacts and then recontact them for other survey, petitions, events...
+
+## The access limitations
+
+Thanks to the "security" tab, it is possible to limit the visibility and access of each survey to certain people depending on the selected instance. 
+
+!!! example 
+
+    I want that only people from the Antwerp instance can access the survey.
+
+<figure markdown>
+![screenshot 50](img/screen50.png)
+<figcaption>Example of an access limitation</figcaption>
+</figure>
+
