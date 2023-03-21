@@ -13,9 +13,9 @@ It will provide access to :
 
 This functionality allows you to create, modify and manage all the events related to your organisation.
 
-Various informations can/must be completed on the petition form :
+The distribution list provides access to general information:
 
-- General information of the distribution list (name, note...).
+- TheGeneral information of the distribution list (name, note...).
 - The list of contacts included in the distribution list.
 
 !!! abstract "The goald of the distibution list" 
@@ -31,11 +31,9 @@ Various informations can/must be completed on the petition form :
 ## Include and exclude filters
 
     
-A distribution list allows you to add filters that allow you to find a list of contacts that meet these filters and that will be included or exclude of the distribution list. Filters can be created and saved as a template to be used for other distribution lists. Once the different filters are added, it is possible to see the list of all the contacts found by applying the different filters. 
+A distribution list allows you to add filters that allow you to find a list of contacts that meet these filters and that will be included or exclude of the distribution list. Filters can be created and saved as a template to be used for other distribution lists.
 
 As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
-
-:warning: To be included in these lists, it is mandatory that the contact has at least one email or postal address defined. Otherwise, the contact will appear in the "Without coordinate" tab accessible from the mailing list form.
 
 !!!info
 
@@ -48,7 +46,9 @@ As with the include filters, the exclude filters work in the same way. Simply cr
 
 ??? tip
 
-    By clicking on the "list result" button at the top right of the form, you can access the list of contacts that are part of the distribution list once the filters are active.
+    By clicking on the "result" button next to the filter you created, you can access the list of contacts that are part of the filters.
+
+    :warning: To be included in these lists, it is mandatory that the contact has at least one email or postal address defined. Otherwise, the contact will appear in the "Without coordinate" tab accessible from the mailing list form.
 
 <figure markdown>
 ![screenshot 18](img/screen18.png)
