@@ -39,7 +39,7 @@ The different questions of the survey can be added and arranged in the desired o
 
     It is possible to add participation categories and interests according to the answers chosen by the participants. 
     <figure markdown>
-    ![screenshot 48](img/screen478.png)
+    ![screenshot 48](img/screen48.png)
     <figcaption>Adding involvement & interest</figcaption>
     </figure>
 
