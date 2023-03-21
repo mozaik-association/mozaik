@@ -82,3 +82,19 @@ The module allows you to add questions in the "questions" tab that participants 
 ![screenshot 44](img/screen44.png)
 <figcaption>Example of questions</figcaption>
 </figure>
+
+## The voting domain
+
+A voting domain can be registered in the "voting domain" tab by adding filters to select only certain people based on the filter rules. 
+
+!!! abstract "The goal of the voting domain"
+
+    This feature allows you to add votes to the event only for certain people (the contacts listed in the filters). Depending on whether he/she is included in the list of voting areas, he/she will have the right to vote or not.  This information will be displayed when a person arrives at the event organised by the organisation and their barcode is scanned.
+    !!! example 
+
+        I want only people who are in order to pay and who are donors to vote.
+        <figure markdown>
+        ![screenshot 45](img/screen45.png)
+        <figcaption>Example of questions</figcaption>
+        </figure>
+
