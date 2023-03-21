@@ -32,3 +32,26 @@ Various informations can/must be completed on the survey form :
 </figure>
 
 ## The managment of the questions
+
+The different questions of the survey can be added and arranged in the desired order. For each question, it is possible to propose a different type of answer (free text, multiple choices, date...).
+
+!!info 
+
+    It is possible to add participation categories and interests according to the answers chosen by the participants. 
+    <figure markdown>
+    ![screenshot 48](img/screen478.png)
+    <figcaption>Adding involvement & interest</figcaption>
+    </figure>
+
+!!! abstract "The goal of the questions"
+
+    The questions have differets roles:
+    
+    - To find out the participants' opinions on the questions asked.
+    - To get to know more about the participants in the survey through the interests and then benefit from them in the communications sent to the organisation's contacts 
+
+<figure markdown>
+![screenshot 49](img/screen49.png)
+<figcaption>Example of questions for the survey</figcaption>
+</figure>
+
