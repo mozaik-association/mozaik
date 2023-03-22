@@ -23,14 +23,11 @@ The demails marekting provides access to general information:
 
     This feature allows you to :
     
-    - Create an email with a subject and a preview text
-    - Include contacts even if they have a communication opt-out 
-    - Choose to create a mail from an Odoo template or to write a mail with a simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized camps as the name or address of each recipient.
+    - Create an email with a subject and a preview text.
+    - Include contacts even if they have a communication opt-out.
+    - Choose to create an email from an Odoo template or to write a mail with a simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized camps as the name or address of each recipient.
 
-- A recipient : In this field you have the possibility to choose between several types of recipients such as a list, a distribution list that you will have to choose among the one you have created beforehand or a set of contacts that you select directly when creating the mailing thanks to filters 
-
-
-!! info 
+!!! info 
 
     A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party. However, the contact will still receive the usual emails
 
