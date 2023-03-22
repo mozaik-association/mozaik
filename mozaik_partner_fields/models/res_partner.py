@@ -91,6 +91,9 @@ class ResPartner(models.Model):
 
     is_user = fields.Boolean(compute="_compute_is_user", store=True)
 
+    birthdate_day = fields.Integer(compute="_compute_birthdate_day_month", store=True)
+    birthdate_month = fields.Integer(compute="_compute_birthdate_day_month", store=True)
+
     @api.depends("user_ids")
     def _compute_is_user(self):
         for record in self.with_context(active_test=False):
@@ -99,7 +102,7 @@ class ResPartner(models.Model):
     @api.depends("birthdate_date")
     def _compute_age(self):
         """
-        Compute age of partner depending of the birth date
+        Compute age of partner depending on the birthdate
         """
         for partner in self:
             partner.age = compute_age(partner.birthdate_date)
@@ -114,3 +117,11 @@ class ResPartner(models.Model):
         birth_date = datetime.strftime(birth_date, DEFAULT_SERVER_DATE_FORMAT)
         op = operator.translate(inverse_operators)
         return [("birthdate_date", op, birth_date)]
+
+    @api.depends("birthdate_date")
+    def _compute_birthdate_day_month(self):
+        self.birthdate_day = 0
+        self.birthdate_month = 0
+        for partner in self.filtered("birthdate_date"):
+            partner.birthdate_day = partner.birthdate_date.day
+            partner.birthdate_month = partner.birthdate_date.month

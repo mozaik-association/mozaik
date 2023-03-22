@@ -21,6 +21,7 @@
         "mozaik_address",
         "mozaik_structure",
         "mozaik_involvement",
+        "mozaik_partner_fields",
         "mozaik_person",
         "mozaik_membership",
         "mozaik_membership_request",

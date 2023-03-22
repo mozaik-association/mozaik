@@ -32,6 +32,8 @@ class AbstractVirtualModel(models.AbstractModel):
         group_operator="min",
     )
     birth_date = fields.Date()
+    birthdate_day = fields.Integer()
+    birthdate_month = fields.Integer()
     # Load dynamically selection values
     # If it doesn't work, better way is maybe the related (if selection
     # value come from the related)
@@ -217,6 +219,8 @@ class AbstractVirtualModel(models.AbstractModel):
             p.is_company AS is_company,
             p.identifier AS identifier,
             p.birthdate_date AS birth_date,
+            p.birthdate_day,
+            p.birthdate_month,
             p.gender AS gender,
             p.lang AS lang,
             p.employee AS employee,
