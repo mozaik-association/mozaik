@@ -77,6 +77,11 @@ How to encode failures on the  contact's form ? :
 
 ## Reporting
 
-The email marketing module offers analysis of different mailings over time. It is also possible to see the details of different information such as the opening rate or the click rate of each mailing.
+The module offers :
+- A reporting tab to get an analysis of the different mails with several measures over the time (number of sendings, returns, openings...).
+- An individual report for each mail sent with different information such as the opening rate, the click rate, the return rate ....
 
+<figure markdown>
 ![screenshot 26](img/screen26.png)
+ <figcaption>Example of individual report</figcaption>
+</figure>  
