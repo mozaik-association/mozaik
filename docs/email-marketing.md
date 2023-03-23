@@ -57,22 +57,23 @@ In the mailing configurations, it is possible to select the option "recurrent se
  <figcaption>Example of recurrent mailing</figcaption>
 </figure>  
 
-## Follow-up of the mails
-
-The marketing email module allow you to folluw-up the stage of your differents emails in progress. The differents items are displayed in a kanban view and automatically move from one stage to another depending on whether they are still in project, pending, being sent or sent. 
-
 ## Management of failure
 
-All communication failures must be recorded in the application. This information is visible on the record of each contact. If a contact does not receive an email sent, a communication failure will be recorded on his card.
-!!! info inline end "Info"
+All communication failures must be recorded in the application. This information is visible on the record of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
+!!! abstract "The goal of failure management"
 
-    After a certain number of errors, the contact can be placed in a blacklist in order to not continue to send him emails that he will not receive.
+    This fonctionnnality allows you to blacklist a contact after a certain number of failure to stop sending him emails or letters that he will not receive.
+
+How to encode failures on the  contact's form ? :
 
 - Postal returns: must be manually encoded 
 - Electronic returns: records are automatic
-- Unsuccessful phone calls: must be manually entered 
+- Unsuccessful phone calls: must be manually entered --> pas certain 
 
+<figure markdown>
 ![screenshot 23](img/screen23.png)
+ <figcaption>Example of encoded failures</figcaption>
+</figure>  
 
 ## Reporting
 
