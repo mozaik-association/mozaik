@@ -39,11 +39,13 @@ The demails marekting provides access to general information:
 
 ## Recurrent sending
 
-In the mailing configurations, it is possible to select the option "recurrent sending" by selecting the date of the next mailing and the time interval between mailings  
+In the mailing configurations, it is possible to select the option "recurrent sending" by selecting the date of the next mailing and the time interval between mailings.
 
-!!! abstract "The goal of recorrent mailing"
+!!! abstract "The goal of recurrent mailing"
 
-    This fonctionnnality allows you to send a mailing evey X hour/day/week/month. Thanks to the filters of the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to dynamic filters.
+    This fonctionnnality allows you to send a mailing evey X hour/day/week/month. 
+    
+    Thanks to the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to dynamic filters.
     !!!example 
 
         I want to send automatically an email to all the people who participated in an event in the last three days. 
