@@ -1,10 +1,11 @@
 # Marketing emails
 
-As with the standard Odoo module that allows to create mailing lists, the Mozaik the marketing email of module - wich is more powerfull and complete than the Odoo standard - provide you to manage the marketing emails of the organisaiton.
+As with the standard Odoo module that allows to create mailing lists, the Mozaik module - wich is more powerfull and complete than the Odoo standard - provide you to manage the marketing emails of the organisation.
 
 It will provide access to :
 
 - The general information of the distribution list
+- The recurrent sending
 - The follow-up of the different emails in progress
 - Management of failures
 - Reporting
@@ -15,8 +16,8 @@ This functionality allows you to create, modify and manage all the emails marekt
 
 The demails marekting provides access to general information:
 
-- The general informations of the email marketing (Subject, preview text, recipients...).
-- Include opt-out contact or not.
+- The general informations of the email marketing (subject, preview text, recipients...).
+- The inclusion of opt-out contacts or not.
 - The use of the mail template or not. 
 
 !!! abstract "The goal of email management"
@@ -24,14 +25,18 @@ The demails marekting provides access to general information:
     This feature allows you to :
     
     - Create an email with a subject and a preview text.
-    - Include contacts even if they have a communication opt-out.
-    - Choose to create an email from an Odoo template or to write a mail with a simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized camps as the name or address of each recipient.
+    - Include contacts even if they have an op-out communication preference.
+    - Choose to create an email from an Odoo template or to write a mail with a simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized fields as the name or address of each recipient.
 
 !!! info 
 
-    A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the party. However, the contact will still receive the usual emails
-
+    A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the organisation. However, the contact will still receive the usual emails
+<figure markdown>
 ![screenshot 19](img/screen19.png)
+ <figcaption>Marketing email form with general information</figcaption>
+</figure>
+
+## Recurrent sending
 
 In the mailing configurations, it is possible to select the option "recurrent sending" which allows to send a mail every X time. Thanks to the filters of the distribution lists and to this functionality, you can for example automatically send an email to all the people who participated in an event in the last three days. 
 
