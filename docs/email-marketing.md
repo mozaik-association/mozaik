@@ -4,17 +4,16 @@ As with the standard Odoo module that allows to create mailing lists, the Mozaik
 
 It will provide access to :
 
-- The general information of the distribution list
+- The general information of the marketing email
 - The recurrent sending
-- The follow-up of the different emails in progress
-- Management of failures
-- Reporting
+- The management of failures
+- The Reporting
 
 ## General information
 
 This functionality allows you to create, modify and manage all the emails marekting.
 
-The demails marekting provides access to general information:
+The emails marekting provides access to general information:
 
 - The general informations of the email marketing (subject, preview text, recipients...).
 - The inclusion of opt-out contacts or not.

@@ -1,7 +1,7 @@
 
 # Access Rules
 
-Thanks to this fonctionnality you can transform a contact who is working for the organization into a user of Mozaik. He is given an login, a role and an internal instance. 
+Thanks to this fonctionnality you can transform a contact who is working for the organisation into a user of Mozaik. He is given an login, a role and an internal instance. 
 
 !!! abstract "The goal of access rules"
 
@@ -12,7 +12,7 @@ Thanks to this fonctionnality you can transform a contact who is working for the
 
 ??? question "How to transform a contact into a user ?"
 
-    To turn a contact into a user, click on the "action" button then click on "transform into user"
+    To turn a contact into a user, go to the contact's form of a contact, click on the "action" button then click on "transform into user"
 
 <figure markdown>
 ![screenshot 5](img/screen5.png)

@@ -1,12 +1,16 @@
 # Mandats
-This module covers the various important points concerning the management of political mandates. Several points will be discussed:
+This module covers the various important points concerning the management of political mandates.
+
+It will give you access to :
 
 - Selection comittee
 - Statuts of the mandates
 - Invalidation of mandates
 - Renewal of mandates
 
-There are three types of mandates: political, internal and external. These three types of mandates are managed in a similar way. Only the data changes.
+!!!info
+
+    There are three types of mandates: political, internal and external. These three types of mandates are managed in a similar way. Only the data changes.
 
 ## Selection committee
 
