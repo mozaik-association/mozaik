@@ -36,7 +36,9 @@ Various informations can/must be completed on the petition form :
 
 ## Management of tickets
 
-The fonctionnality allows to create differents types of tickets for an event. Tickets can have differents prices and different maximum number of entries. 
+!!!abstract ""The goald of this fonctionality"
+
+    The fonctionnality allows to create differents types of tickets for an event. Tickets can have differents prices, different maximum number of entries and different start and end dates of the sale. 
 
 
 <figure markdown>
