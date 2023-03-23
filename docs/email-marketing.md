@@ -31,6 +31,7 @@ The demails marekting provides access to general information:
 !!! info 
 
     A "global opt-out" box can be checked on a member's form to be blacklisted from receiving mass communications from the organisation. However, the contact will still receive the usual emails
+
 <figure markdown>
 ![screenshot 19](img/screen19.png)
  <figcaption>Marketing email form with general information</figcaption>
@@ -38,14 +39,21 @@ The demails marekting provides access to general information:
 
 ## Recurrent sending
 
-In the mailing configurations, it is possible to select the option "recurrent sending" which allows to send a mail every X time. Thanks to the filters of the distribution lists and to this functionality, you can for example automatically send an email to all the people who participated in an event in the last three days. 
+In the mailing configurations, it is possible to select the option "recurrent sending" by selecting the date of the next mailing and the time interval between mailings  
 
+!!! abstract "The goal of recorrent mailing"
+
+    This fonctionnnality allows you to send a mailing evey X hour/day/week/month. Thanks to the filters of the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to dynamic filters.
+    !!!example 
+
+        I want to send automatically an email to all the people who participated in an event in the last three days. 
+
+        To do this you will have to create a distribution list that includes, thanks to the filters, the people who participated in an event in the last three days. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 3 days.
+
+<figure markdown>
 ![screenshot 20](img/screen20.png)
-
-??? tip
-
-    To do this you will have to create a distribution list that includes, thanks to the filters, the people who participated in an event in the last three days. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 3 days
-
+ <figcaption>Example of recurrent mailing</figcaption>
+</figure>  
 
 ## Follow-up of the mails
 
