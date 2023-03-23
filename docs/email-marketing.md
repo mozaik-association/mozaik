@@ -78,6 +78,7 @@ How to encode failures on the  contact's form ? :
 ## Reporting
 
 The module offers :
+
 - A reporting tab to get an analysis of the different mails with several measures over the time (number of sendings, returns, openings...).
 - An individual report for each mail sent with different information such as the opening rate, the click rate, the return rate ....
 
