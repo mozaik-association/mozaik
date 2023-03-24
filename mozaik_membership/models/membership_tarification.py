@@ -52,6 +52,13 @@ class MembershipTarification(models.Model):
             "user": self.env.user,
             "self": self,
             "today": fields.Date.today(),
+            "membership_request": (
+                self.env.context.get("membership_request_id")
+                and self.env["membership.request"].search(
+                    [("id", "=", self.env.context.get("membership_request_id"))]
+                )
+            )
+            or False,
         }
         return values
 

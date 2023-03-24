@@ -1612,7 +1612,9 @@ class MembershipRequest(models.Model):
                         "int_instance_id": instance.id,
                         "partner_id": partner.id,
                         "product_id": membership_instance.product_id.id
-                        or partner.subscription_product_id.id,
+                        or partner.with_context(
+                            membership_request_id=self.id
+                        ).subscription_product_id.id,
                         "state_id": self.result_type_id.id,
                     }
                     if active_memberships.paid:
@@ -1631,7 +1633,9 @@ class MembershipRequest(models.Model):
                         {
                             "int_instance_id": instance.id,
                             "partner_id": partner.id,
-                            "product_id": partner.subscription_product_id.id,
+                            "product_id": partner.with_context(
+                                membership_request_id=self.id
+                            ).subscription_product_id.id,
                             "state_id": self.result_type_id.id,
                         }
                     )
