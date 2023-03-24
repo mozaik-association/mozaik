@@ -7,3 +7,4 @@ from . import res_partner
 from . import virtual_master_partner
 from . import virtual_custom_partner
 from . import membership_line
+from . import product_template
