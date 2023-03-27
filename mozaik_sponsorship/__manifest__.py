@@ -12,6 +12,7 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
     "depends": [
+        "mozaik_membership",
         "mozaik_membership_request",
     ],
     "data": [
