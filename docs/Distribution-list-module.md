@@ -1,6 +1,6 @@
 # Distribution lists
 
-As the standard Odoo module that allows to create mailing lists, the Mozaik distribution list module - wich is more powerfull and complete than the Odoo standard - provide you to manage distribution lists of the organisaiton.
+As the standard Odoo module that allows to create mailing lists, the Mozaik distribution list module - wich is more powerfull and complete than the Odoo standard - provide you to manage distribution lists of the organisation.
 
 It will provide access to :
 
