@@ -1,16 +1,31 @@
 # Sructure
 
-The structure module allows you to create the organic structure of your country and  your political party. This module is a module that is configured only once, at the beginning of the use of Mozaik. Once the structure of yout organisation is configured it is not necessary to touch it anymore, except in case of change of the ornasiation's structure. The informations configured in this module can then be reused in other module.
+The structure module allows you to create the organic structure of your country and  your political party. This module is a module that is configured only once, at the beginning of the use of Mozaik. Once the structure of your organisation is configured it is not necessary to touch it anymore, except in case of change of the ornasiation's structure. The informations configured will be usefull in other modules (contacts, mandats...)
+
+The structure module is divided into 3 categories:
+
+- The country structure
+- Internal structure 
+- External structure 
+All three categories work in the same way 
+
+This module allows you to get acces to : 
+
+- The instancies
+- The assembles
+- The electoral districts
+- The legislatures
+
+## The instancies
+
+
 
 ## State level
 
-You can create all the instances related to your state. You can name the instances created and give them a power. For each instance created you can give the parent instance of this instance. For example, the federal instance will be the parent instance of the regional instance.
-Each instance can be re-elected at meetings. For example, the national instance will have a House of Representatives - a Federal Government - a Senate.
+You can create all the instances related to your state. You can name the instances created and give them a power. For each instance created you can give the parent instance of this instance. For example, the East flanders province is the parent sinstance of the commune of Ghent.
 
 ![screenshot 14](img/screen14.png)
 
 ## Interne level
 
-The internal structure works in the same way as the state structure. The internal structure is composed of instances with levels of power. Each instance has several assemblies according to their level of power
-
-
+The internal structure works in the same way as the state structure. The internal structure is composed of instances with levels of power. Each instance has several assemblies according to their level of power.
