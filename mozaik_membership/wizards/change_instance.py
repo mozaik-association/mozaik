@@ -30,7 +30,7 @@ class ChangeInstance(models.TransientModel):
     def doit(self):
         for wizard in self:
             for partner in wizard.partner_ids:
-                if partner.int_instance_id != wizard.instance_id:
+                if wizard.instance_id not in partner.int_instance_ids:
                     if partner.membership_line_ids:
                         state = partner.membership_state_id
                         active_memberships = partner.membership_line_ids.filtered(
