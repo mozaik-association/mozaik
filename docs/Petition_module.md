@@ -1,6 +1,6 @@
 # Petitions
 
-The petition module is a non-existent module in the Odoo standard. It allows to manage the petitons of the orgnaisations in the back office. It will provide access to :
+The petition module is a non-existent module in the Odoo standard. It allows to manage the petitons of the organisation in the back office. It will provide access to :
 
 - The general information of the petitions
 - The recognition of parters

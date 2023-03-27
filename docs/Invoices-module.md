@@ -1,13 +1,16 @@
 # Invoices
 
-The Mozaik invoicing module includes most of the features of the standard Odoo module. This module is designed to simplify invoicing in order to get paid faster. It allows you to automatically invoice based on purchase orders, delivery orders, contracts or generated expense sheets. Odoo Invoicing also allows :
+The Mozaik invoicing module includes most of the features of the standard Odoo module. This module is designed to simplify invoicing in order to get paid faster. It allows you to :
 
+- Automatically invoice based on purchase orders
+- Delivery orders, contracts
+- Generated expense sheets
 - Accept online payments.
 - Eliminate the hassle of reminders for late payments.
 - Simplify the configuration of automatic follow-up.
 - Keep track of bank account movements and invoice status.
 
-Mozaik offers some additional features :
+Mozaik does however offer some additional functionality suitable for organisations :
 
 - Creation of SEPA mandates
 - Management tool for direct debit refusals
@@ -16,7 +19,10 @@ Mozaik offers some additional features :
 
 When creating a membership, you will be asked to fill in a field with a bank account number. Once this bank account is completed and the membership created, a SEPA mandate is automatically created.
 
+<figure markdown>
 ![screenshot 24](img/screen24.png)
+<figcaption>Example of a SEPA mandate</figcaption>
+</figure>
 
 ## Management tool for direct debit refusals
 

@@ -1,6 +1,8 @@
 # Events
 
-The event module uses the odoo standard and adds specific features for organisations linked to mozaik. It allows to manage the events of the orgnaisations. It will provide access to :
+The event module uses the odoo standard and adds specific features for organisations linked to mozaik. It allows to manage the events of the orgnaisations.
+
+It will provide access to :
 
 - The general information of the event
 - The management of tickets
@@ -15,9 +17,9 @@ This functionality allows you to create, modify and manage all the events relate
 
 Various informations can/must be completed on the petition form :
 
-- The standard inforation of the event (name, dates, organizer...)
+- The standard information of the event (name, dates, organizer...)
 - The interests related to the petition.
-- The involvement categories related to the petition.
+- The involvement categories related to the event.
 
 !!! abstract "The goal of event management"
 
@@ -38,7 +40,7 @@ Various informations can/must be completed on the petition form :
 
 !!!abstract "The goal of this fonctionality"
 
-    The fonctionnality allows to create differents types of tickets for an event. Tickets can have differents prices, different maximum number of entries and different start and end dates of the sale. 
+    The fonctionality allows to create differents types of tickets for an event. Tickets can have differents prices, different maximum number of entries and different start and end dates of the sale. 
 
 
 <figure markdown>
@@ -60,7 +62,7 @@ Automatic emails can be added in the "communications" tab by selecting an alread
 
 <figure markdown>
 ![screenshot 42](img/screen42.png)
-<figcaption>Example of tickets for an event</figcaption>
+<figcaption>Example of automated communications</figcaption>
 </figure>
 
 ## Questions
@@ -71,7 +73,7 @@ The module allows you to add questions in the "questions" tab that participants 
 
     The questions allow you to learn more about the contacts involved to your event. 
 
-    For the selected answers and tickboxes, it is possible to add a participation category and thesaurus themes depending on the answer chosen by the participant.  This information will be displayed on the contact's form.
+    For the selected answers and tickboxes, it is possible to add a participation category and thesaurus therms depending on the answer chosen by the participant. This information will be displayed on the contact's form.
     !!! example 
 
         People answering "yes" to the question "Would you like to stay informed about other human rights petitions?" will receive a category of participation and an interest in this subject.
@@ -106,7 +108,7 @@ Thanks to the "security" tab, it is possible to limit the visibility and access 
 
 !!! example 
 
-    I want that only people from the Antwerp instance can access the event.
+    I want that only people from the Antwerp instance can access to the event.
 
 <figure markdown>
 ![screenshot 46](img/screen46.png)

@@ -1,6 +1,6 @@
 # Surveys
 
-The survey module uses the odoo standard and adds specific features for organisations linked to mozaik. It allows to manage the surveys of the orgnaisations. It will provide access to :
+The survey module uses the odoo standard and adds specific features for organisations linked to Mozaik. It allows to manage the surveys of the organisation. It will provide access to :
 
 - The general information of the survey.
 - The management of the questions
@@ -15,7 +15,7 @@ Various informations can/must be completed on the survey form :
 
 - The standard information of the survey (name, descirption...).
 - The interests related to the survey.
-- the involvements category related to the survey.
+- The involvements categories related to the survey.
 
 !!! abstract "The goal of survey management"
 
@@ -33,7 +33,7 @@ Various informations can/must be completed on the survey form :
 
 ## The managment of the questions
 
-The different questions of the survey can be added and arranged in the desired order. For each question, it is possible to propose a different type of answer (free text, multiple choices, date...).
+The different questions of the survey can be added and arranged in the desired order. For each question, it is possible to propose differents types of answers (free text, multiple choices, date...).
 
 !!!info 
 
@@ -45,7 +45,7 @@ The different questions of the survey can be added and arranged in the desired o
 
 !!! abstract "The goal of the questions"
 
-    The questions have differets roles:
+    The questions have differents roles:
     
     - To find out the participants' opinions on the questions asked.
     - To get to know more about the participants in the survey through the interests and then benefit from them in the communications sent to the organisation's contacts 
