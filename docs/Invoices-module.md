@@ -31,11 +31,15 @@ When creating a membership, you will be asked to fill in a field with a bank acc
 
 For the payment of memberships, it is possible to create a payment link that redirects to an Odoo payment page in order to make the payment with a payment intermediary compatible with Odoo.
 
+!!!info 
+
+    In the case where, for an unknown reason, a contact is refused his annual collection, a refusal management workflow is activated. 
+
+    - An email is sent to the contact asking him to pay his membership since it has not been paid
+    - The direct debit is stopped (the SEPA mandate is cancelled) 
+    - A new membership line is opened
+
+<figure markdown>
 ![screenshot 25](img/screen25.png)
-
-In the case where, for an unknown reason, a contact is refused his annual collection, a refusal management workflow is activated. 
-
-- An email is sent to the contact asking him to pay his membership since it has not been paid
-- The direct debit is stopped (the SEPA mandate is cancelled) 
-- A new membership line is opened
-
+<figcaption>Example of a membership line with the payement link</figcaption>
+</figure>
