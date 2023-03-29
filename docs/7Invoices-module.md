@@ -33,11 +33,11 @@ For the payment of memberships, it is possible to create a payment link that red
 
 !!!info 
 
-    In the case where, for an unknown reason, a contact is refused his annual collection, a refusal management workflow is activated. 
+    In case the annual payment of a contact is refused, a refusal management workflow is activated. 
 
-    - An email is sent to the contact asking him to pay his membership since it has not been paid
-    - The direct debit is stopped (the SEPA mandate is cancelled) 
-    - A new membership line is opened
+    - An email is sent to the contact asking him to pay his membership since it has not been paid.
+    - The direct debit is stopped (the SEPA mandate is cancelled).
+    - A new membership line is opened. 
 
 <figure markdown>
 ![screenshot 25](img/screen25.png)

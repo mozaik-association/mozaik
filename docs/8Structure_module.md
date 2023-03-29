@@ -7,7 +7,7 @@ The structure module allows you to manage :
 - The country structure
 - The internal structure 
 - The external structure 
-All three categories work in the same way 
+All three categories work in the same way.
 
 This module allows you to get acces to : 
 
