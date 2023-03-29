@@ -18,7 +18,7 @@ This module allows you to get acces to :
 
 ## Instancies
 
-You can create all the instances related to your state by giving a name a level of power. For each instance created you can give the parent instance of this instance. For example, the East flanders province is the parent instance of the commune of Ghent.
+You can create the instances related to your state by giving a name a level of power. For each instance created you can give the parent instance of this instance. For example, the East flanders province is the parent instance of the commune of Ghent.
 
 <figure markdown>
 ![screenshot 14](img/screen14.png)
@@ -26,8 +26,7 @@ You can create all the instances related to your state by giving a name a level 
 </figure>
 
 ## Assemblies
-
-Categories of assemblies can be associated with each instance according to their level of power. 
+Each instance can be associated with assemblies according the their level of power. 
 
 !!!example
 

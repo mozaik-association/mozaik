@@ -12,7 +12,7 @@ The contact module - which is a central module in Mozaik - allows to manage the 
 - Membership renewals
 
 
-## Contacts: People management (physical or corporate)
+## Contacts: People management (individuals & companies)
 
 This functionality allows you to create, modify and manage the contacts (members/subscribers/other contacts) related to your organisation.
 

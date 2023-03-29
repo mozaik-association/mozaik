@@ -1,10 +1,5 @@
 # Mandates
-The mandate module allows you to manage all the mandates related to your organisation. Different categories of mandates are possible:
-
-- The states mandates
-- The internal mandates 
-- The external mandates
-
+The mandate module allows you to manage the mandates (political/internal/external) related to your organisation. Different categories of mandates are possible.
 These three types of mandates are managed in a similar way. Only the data changes.
 
 Each gategory of mandate give you access to :
@@ -16,9 +11,9 @@ Each gategory of mandate give you access to :
 
 ## Selection committee
 
-In order to select a person for a term of office, the first step is to create a selection committee. It is created with the information previously created in the Mozaik structure module (Legislature, designation assembly...).
+In order to elect a person for a mandate, the first step is to create a selection committee. It is created with the information previously created in the Mozaik structure module (Legislature, designation assembly...).
 
-Once the selection committee is created, you can add a candidate to this committee by choosing the candidate on the new candidate form.
+Once the selection committee is created, you can add candidates to this committee by clikcing on the "add a new candidature" button.
 
 !!!info
 
@@ -41,11 +36,12 @@ Once a new canddiate is declared, he must be nominated then elected to create a 
 
 ``` mermaid
 graph LR
-  A[Declared status] --> B[Rejected];
+  A[Declared candidate] --> B[Rejected];
   A --> C[Nominated];
   C --> D[Not elected];
   C --> E[Elected];
 ```
+ <figcaption>Workflow of an election</figcaption>
 
 <figure markdown>
 ![screenshot 57](img/screen57.png)
@@ -54,10 +50,18 @@ graph LR
 
 ## Invalidation of mandates
 
-The mandates are characterized by three dates: beginning of mandates, end date and expiration date. It is possible to invalidate the mandate, end it:
+The mandates are characterized by three dates: 
 
-- Automatically on the expiry date.
-- Manually by setting an end date before the expiration date.
+- The beginning of mandates.
+- The end of the mandates.
+- The experition of madantes.
+
+!!! absract "The goal of this fonctionnality"
+
+    The feature allows to invalidate a mandate :
+
+    - Automatically on the expiry date.
+    - Manually by setting an end date before the expiration date.
 
 ## Renewal of mandates
 The module allows you to renew a mandate by clicking on the "renew" button in the "State Mandates" tab.
@@ -68,9 +72,7 @@ The module allows you to renew a mandate by clicking on the "renew" button in th
     - This fonctionnality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
     !!!example
 
-        I want to create a mandate of sénator in addition of a mandate of minister for the same persoon. 
-
-![screenshot 17](img/screen17.png)
+        I want to create a mandate of senator in addition of a mandate of minister for the same persoon. 
 
 ??? tip
 

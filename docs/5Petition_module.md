@@ -11,7 +11,7 @@ The petitions module is a non-existent module in the Odoo standard. It allows to
 
 ## General information of the petition
 
-This functionality allows you to create, modify and manage all the petitions related to your organisation.
+This functionality allows you to create, modify and manage the petitions related to your organisation.
 
 Various informations can/must be completed on the petition form :
 
@@ -21,7 +21,7 @@ Various informations can/must be completed on the petition form :
 
 !!! abstract "The goal of petitions management"
 
-    This fonctionnnality allows to :
+    This fonctionnnality provides you to :
 
     - Manage the general information of each petition.
     - Add tags/interests to categorise the different petitions and to add these interests to the form of the contacts who participated to this petition.
@@ -39,7 +39,7 @@ When a person participates to the petition, the module allows to detect, on the 
 
 !!! abstract "The goal of partner recognition"
 
-    This feature allows you to expand your organisation's list of contacts and then recontact them for other petitions, events, surveys...
+    Thansk tonthis feature you can expand your organisation's list of contacts and then recontact them for other petitions, events, surveys...
 
 ## Milestones
 
