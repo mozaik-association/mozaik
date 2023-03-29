@@ -4,18 +4,18 @@ As the standard Odoo module that allows to create mailing lists, the Mozaik modu
 
 It will provide access to :
 
-- The general information of the marketing email
-- The recurrent sending
+- The general information of the marketing emails
+- The recurrent mailings
 - The management of failures
-- The Reporting
+- The reporting
 
 ## General information
 
-This functionality allows you to create, modify and manage all the emails marketing.
+This functionality allows you to create, modify and manage all the emails marketing of your organisation.
 
 The emails marketing provides access to general information:
 
-- The general information of the email marketing (subject, preview text, recipients...).
+- The general information of the emails marketing (subject, preview text, recipients...).
 - The inclusion of opt-out contacts or not.
 - The use of the mail template or not. 
 
@@ -25,7 +25,7 @@ The emails marketing provides access to general information:
     
     - Create an email with a subject and a preview text.
     - Include contacts even if they have an op-out communication preference.
-    - Choose to create an email from an Odoo template or to write a mail with a simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized fields as the name or address of each recipient.
+    - Choose to create an email from an Odoo template or to write a mail with the simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized fields as the name or address of each recipient.
 
 !!! info 
 
@@ -36,13 +36,13 @@ The emails marketing provides access to general information:
  <figcaption>Marketing email form with general information</figcaption>
 </figure>
 
-## Recurrent sending
+## Recurrent mailings
 
-In the mailing configurations, it is possible to select the option "recurrent sending" by selecting the date of the next mailing and the time interval between mailings.
+In the mailing configurations, it is possible to select the "recurrent sending" option by selecting the date of the next mailing and the time interval between mailings.
 
 !!! abstract "The goal of recurrent mailing"
 
-    This fonctionnnality allows you to send a mailing evey X hour/day/week/month. 
+    This fonctionnnality allows you to send a mailing evey X hour/day/week/month/year. 
     
     Thanks to the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to dynamic filters.
     !!!example 
@@ -67,7 +67,6 @@ How to encode failures on the  contact's form ? :
 
 - Postal returns: must be manually encoded 
 - Electronic returns: records are automatic
-- Unsuccessful phone calls: must be manually entered --> pas certain 
 
 <figure markdown>
 ![screenshot 23](img/screen23.png)

@@ -4,7 +4,7 @@ As the standard Odoo module that allows to create mailing lists, the Mozaik dist
 
 It will provide access to :
 
-- The general information of the distribution list
+- The general information of the distribution lists
 - The inclusion and exclusion filters
 - The exporting
 
@@ -19,7 +19,7 @@ The distribution list module provides access to general information:
 
 !!! abstract "The goald of the distibution list" 
 
-    You can create a distribution list by giving a name to this list. The distribution list will create a list of specific contacts based on filters you created and will be used to target specific targets based on the following criteria and then send emails to these targets using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">the marketing email module</a>. 
+    You can create a distribution list by giving a name to this list. The distribution list will create a list of specific contacts based on filters you created. It will be used to target specific targets based on the following criteria and then send emails to these targets using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing email module</a>. 
 
 <figure markdown>
 ![screenshot 51](img/screen51.png)
@@ -39,9 +39,9 @@ As with the include filters, the exclude filters work in the same way. Simply cr
     These filters are dynamic, when a new person meets the criterias of the filters, this person will be automatically added in the distribution list.
     !!!example
 
-        You want to create a filter that includes all contacts in good standing who have voluntary participation.
+        You want to create a filter that includes all contacts in good standing who have a voluntary participation.
 
-        The filter will constantly update the list of relevant contacts, including those in good standing who have voluntary participation and will not take over the others.
+        The filter will constantly update the list of relevant contacts, including those in good standing who have a voluntary participation and will not take over the others.
 
 ??? tip
 
@@ -53,7 +53,10 @@ As with the include filters, the exclude filters work in the same way. Simply cr
 ![screenshot 18](img/screen18.png)
 <figcaption>Creation of a filter</figcaption>
 </figure>
-
+<figure markdown>
+![screenshot 56](img/screen56.png)
+<figcaption>Distribution list form with a filter</figcaption>
+</figure>
 
 ## Exporting
 
@@ -66,4 +69,4 @@ The module provides users with a tool that allows them to export a whole series 
 
 ??? tip
 
-    You can access to this fonctionnality by clikcing on the "mass fonctionality" button in a distribution list form.
+    You can access to this fonctionnality by clikcing on the "mass action" button in a distribution list form below the "edit" button

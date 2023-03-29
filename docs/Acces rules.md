@@ -1,14 +1,14 @@
 
 # Access Rules
 
-Thanks to this fonctionnality you can transform a contact who is working for the organisation into a user of Mozaik. He is given an login, a role and an internal instance. 
+Thanks to this fonctionnality you can transform a contact who is working for the organisation into a user of Mozaik. The user receives a login, a role and an internal instance.
 
 !!! abstract "The goal of access rules"
 
-    This feature allows you to give different access to your user contacts in Mozaik depending on the internal instance they receive when they are transformed into a user
+    This feature allows you to give different access to your user contacts in Mozaik depending on the internal instance they receive when they are transformed into a user.
     !!! example
     
-        A user who is part of the national committee will have access to all contacts. A user who was part of a local committee will only have access to the contacts of his local group
+        A user who is part of the national instance will have access to all contacts of the organisation. A user who was part of a local instance will only have access to the contacts of his local group.
 
 ??? question "How to transform a contact into a user ?"
 
