@@ -1,8 +1,8 @@
 # Contacts
 
-The contact module - which is a central module in Mozaïk - allows to manage all the contacts related to your organisation / political party.  It will give you access to:
+The contact module - which is a central module in Mozaik - allows to manage the contacts related to your organisation / political party.  It will give you access to:
 
-- All the general information about each contact (members, supporters, all other contacts)
+- The general information about each contact (members, supporters, all other contacts)
 - The interests & competencies of each contact
 - The participations of each member (interactions with the organisation)
 - The management of duplicates and co-residencies
@@ -14,9 +14,9 @@ The contact module - which is a central module in Mozaïk - allows to manage all
 
 ## Contacts: People management (physical or corporate)
 
-This functionality allows you to create, modify and manage all the contacts (members/subscribers/other contacts) related to your organisation.
+This functionality allows you to create, modify and manage the contacts (members/subscribers/other contacts) related to your organisation.
 
-Various informations can be collected for each contact (companies or individuals): 
+Various informations can be collected for each contact (individuals or companies): 
 
 - The standard information of a contact : name, first name, phone, address...
 - Some personal information: age, gender, disability, social networks... 
@@ -34,7 +34,7 @@ Various informations can be collected for each contact (companies or individuals
 
     This feature allows you : 
 
-    - To manage all the information about your contacts.
+    - To manage the information about your contacts.
     - To get to know your members and supporters better.
     - To use personal information of your members for membership purposes (membership fee).
 
@@ -57,7 +57,7 @@ Contacts (members, supporters, other contacts) can be linked to interests and co
     Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication tools / mass mailings.
     !!! example
 
-        I would like to send a newsletter around 'Nuclear energy' to all members who are interested by this topic. 
+        I would like to send a newsletter around 'Nuclear energy' to members who are interested by this topic. 
         
         More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.
 
@@ -86,7 +86,7 @@ This functionality enables you to add all the interactions between your organisa
 
 !!!abstract "Goal of the involvements"
 
-    Involvements allow you to get to know your contacts better / categorize them / keep track of all interactions with a particular contact over the years. These entries can be used to send mailings to your contacts in a very targeted manner.
+    Involvements allow you to get to know your contacts better / categorize them / keep a record of interactions with a particular contact over the years. These entries can be used to send mailings to your contacts in a very targeted manner.
     !!!example
         A member made a donation on 31/03/2023 and signed a petition about disarmement one week later. These participations will appear on his contact form and can be used in future mailings (send an email to all donors who have signed a petition in the last 2 months)
 How to add them :
@@ -116,7 +116,7 @@ It helps you identify, manage and merge possible duplicates within your contacts
 
 !!! info
 
-    When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button allows to display the list of contacts with one or more identical fields.
+    When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button provides you to display the list of contacts with one or more identical fields.
     <figure markdown>
     ![screenshot 2](img/screen2.png)
     <figcaption>Appearance of the button "Show all duplicates"</figcaption>
@@ -150,10 +150,8 @@ Co-residencies allow you to :
 <figcaption>Example of a contact with a co-residency</figcaption>
 </figure>
 
-
-
 ## Memberships
-It is possible to track the membership history of a member from the memberships tab of a contact. In this tab, you can find a whole list of information:
+It is possible to follow-up the membership history of a member from the memberships tab of a contact. In this tab, you can find a whole list of information:
 
 - Internal instance to which the member is linked his through membership.
 - Membership status to which the contact belongs (former member, new member...).
@@ -164,15 +162,15 @@ It is possible to track the membership history of a member from the memberships 
 - Check whether the member is in good standing or not.
 - Start and end date of the membership.
 
-This tab allows you to easily manage or modify memberships. 
+This tab provides you to easily manage or modify memberships. 
 
-Mozaik allows you to manage the membership cards of the organisation, to see who has already received his card and who has yet to receive it.
+Mozaik allows you to manage the membership cards of the organisation, to see who has already received his card and who has not yet received it.
  
 Each member in Odoo is linked to a unique member number. The member number can be found on the contact form next to the contacts name and the membership state.
 
 !!! abstract "The goal of membership lines"
 
-    Membership lines allow you to track the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local groups, type of memberships (prices), dates ,...
+    Membership lines provides you to follow-up the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local groups, type of memberships (prices), dates ,...
 <figure markdown>
 ![screenshot 8](img/screen8.png)
 <figcaption>New memberhsip line on the contact form & unique member number</figcaption>

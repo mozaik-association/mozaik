@@ -7,7 +7,7 @@ The mandate module allows you to manage all the mandates related to your organis
 
 These three types of mandates are managed in a similar way. Only the data changes.
 
-Each gatery of mandate give you access to :
+Each gategory of mandate give you access to :
 
 - The selection comittee
 - The statuts of the mandates
@@ -22,7 +22,7 @@ Once the selection committee is created, you can add a candidate to this committ
 
 !!!info
 
-    This whole part is an option offered by Mozaik to better track the election of proxies. However, it is possible to directly create a mandate without going through these steps.
+    This whole part is an option offered by Mozaik to better follow-up the election of proxies. However, it is possible to directly create a mandate without going through these steps.
 
 <figure markdown>
 ![screenshot 15](img/screen15.png)
@@ -54,23 +54,26 @@ graph LR
 
 ## Invalidation of mandates
 
-The mandates are characterized by three dates: beginning of mandates, end and expiration. It is possible to invalidate the mandate, end it:
+The mandates are characterized by three dates: beginning of mandates, end date and expiration date. It is possible to invalidate the mandate, end it:
 
-- Automatically on the expiry date
-- Manually by setting an end date before the expiration date
+- Automatically on the expiry date.
+- Manually by setting an end date before the expiration date.
 
 ## Renewal of mandates
+The module allows you to renew a mandate by clicking on the "renew" button in the "State Mandates" tab.
 
-It is not possible to create two same mandates at the same time for the same person. However it is possible to create another mandate for the same person, same assembly, same period but another position.
+!!! abstract "The goal of this fonctionnnality"
 
-!!!example
+    - This fonctionnnality allows you to renew a mandate automatically without going through the election phase.
+    - This fonctionnality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
+    !!!example
 
-    Create a mandate of vice-Chairman in addition of a mandate of director
-
-It is also possible to renew for the same person of an expired mandate; starting date will be positioned the day after the expiry date → no need for an application in this case. In the mandate form it is possible to add an alert delay in number of months. This allows you to be notified when a mandate is about to expire.
+        I want to create a mandate of sénator in addition of a mandate of minister for the same persoon. 
 
 ![screenshot 17](img/screen17.png)
+
 ??? tip
 
     It is possible to create and retrieve all categories of mandates for political mandates - internal and external by clicking on "configurations" then "categories of mandates"
 
+## Retrocessions

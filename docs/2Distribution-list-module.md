@@ -1,12 +1,11 @@
 # Distribution lists
 
-As the standard Odoo module that allows to create mailing lists, the Mozaik distribution list module - wich is more powerfull and complete than the Odoo standard - provide you to manage distribution lists of the organisation.
-
+The Mozaik distribution lists module complet fonctionnalities of the Odoo strandard module. The module provide you to manage distribution lists of your organisation.
 It will provide access to :
 
 - The general information of the distribution lists
 - The inclusion and exclusion filters
-- The exporting
+- The export
 
 ## Distribution list
 
@@ -58,7 +57,7 @@ As with the include filters, the exclude filters work in the same way. Simply cr
 <figcaption>Distribution list form with a filter</figcaption>
 </figure>
 
-## Exporting
+## The export
 
 The module provides users with a tool that allows them to export a whole series of information from the contacts in the distribution list. This tool can generate a structured file (CSV) for an external printing tool (printing of membership cards).
 

@@ -7,7 +7,7 @@ The Mozaik invoicing module includes most of the features of the standard Odoo m
 - Generated expense sheets
 - Accept online payments.
 - Simplify the configuration of automatic follow-up.
-- Keep track of bank account movements and invoice status.
+- Keep a eye of bank account movements and invoice status.
 
 Mozaik does however offer some additional functionality suitable for organisations :
 

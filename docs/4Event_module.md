@@ -89,7 +89,7 @@ The module allows you to add questions in the "questions" tab that participants 
 
 ## The voting domain
 
-A voting domain can be registered in the "voting domain" tab by adding filters to select only certain people based on the filter rules. 
+A voting domain can be registered in the "voting domain" tab by adding filters to select only certain people according to their information.
 
 !!! abstract "The goal of the voting domain"
 
