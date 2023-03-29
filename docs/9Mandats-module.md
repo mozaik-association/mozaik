@@ -1,25 +1,24 @@
 # Mandates
-This module covers the various important points concerning the management of political mandates.
-
-The mandates module allows you to manage :
+The mandate module allows you to manage all the mandates related to your organisation. Different categories of mandates are possible:
 
 - The states mandates
 - The internal mandates 
 - The external mandates
+
 These three types of mandates are managed in a similar way. Only the data changes.
 
-It will give you access to :
+Each gatery of mandate give you access to :
 
-- Selection comittee
-- Statuts of the mandates
-- Invalidation of mandates
-- Renewal of mandates
+- The selection comittee
+- The statuts of the mandates
+- The invalidation of mandates
+- The renewal of mandates
 
 ## Selection committee
 
-In order to select a person for a term of office, the first step is to create a selection committee. It is created with a name, a state assembly, the legislature for selection, an appointment assembly, an appointment date, a term of office category and a start and end date of the term. 
+In order to select a person for a term of office, the first step is to create a selection committee. It is created with the information previously created in the Mozaik structure module (Legislature, designation assembly...).
 
-Once the selection committee is created, you can add a candidate to this committee by choosing the candidate and his position on the list.
+Once the selection committee is created, you can add a candidate to this committee by choosing the candidate on the new candidate form.
 
 !!!info
 
@@ -47,10 +46,10 @@ graph LR
   C --> D[Not elected];
   C --> E[Elected];
 ```
-
-??? tip
-
-    All the current and expired political mandates are available in the "state" tab --> "political mandates"
+<figure markdown>
+![screenshot 16](img/screen16.png)
+ <figcaption>Management of the status of the candidates</figcaption>
+</figure>
 
 ## Invalidation of mandates
 
