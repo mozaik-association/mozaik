@@ -46,6 +46,7 @@ graph LR
   C --> D[Not elected];
   C --> E[Elected];
 ```
+
 <figure markdown>
 ![screenshot 16](img/screen16.png)
  <figcaption>Management of the status of the candidates</figcaption>
