@@ -1,5 +1,12 @@
-# Mandats
+# Mandates
 This module covers the various important points concerning the management of political mandates.
+
+The mandates module allows you to manage :
+
+- The states mandates
+- The internal mandates 
+- The external mandates
+These three types of mandates are managed in a similar way. Only the data changes.
 
 It will give you access to :
 
@@ -7,10 +14,6 @@ It will give you access to :
 - Statuts of the mandates
 - Invalidation of mandates
 - Renewal of mandates
-
-!!!info
-
-    There are three types of mandates: political, internal and external. These three types of mandates are managed in a similar way. Only the data changes.
 
 ## Selection committee
 
@@ -24,9 +27,18 @@ Once the selection committee is created, you can add a candidate to this committ
 
 This whole part is an option offered by Mozaik to better track the election of proxies. However, it is possible to directly create a mandate without going through these steps.
 
-## Statuts of the canddiates
+## Status of the canddiates
 
 Once the application is filed, the candidate has the status "declared". He can then be nominated or rejected. If he is nominated he can be elected or not elected. If the candidate is selected, then a new mandate is created. 
+
+``` mermaid
+graph LR
+  A[Declared status] --> B[Rejected];
+  A --> C[Nominated];
+  C --> D[Not elected];
+  C --> E[Elected];
+```
+
 
 ??? tip
 
