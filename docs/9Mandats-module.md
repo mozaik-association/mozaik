@@ -48,7 +48,7 @@ graph LR
 ```
 
 <figure markdown>
-![screenshot 16](img/screen16.png)
+![screenshot 57](img/screen57.png)
  <figcaption>Management of the status of the candidates</figcaption>
 </figure>
 
