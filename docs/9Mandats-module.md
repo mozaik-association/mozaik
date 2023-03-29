@@ -19,17 +19,26 @@ It will give you access to :
 
 In order to select a person for a term of office, the first step is to create a selection committee. It is created with a name, a state assembly, the legislature for selection, an appointment assembly, an appointment date, a term of office category and a start and end date of the term. 
 
-![screenshot 15](img/screen15.png)
-
 Once the selection committee is created, you can add a candidate to this committee by choosing the candidate and his position on the list.
 
-![screenshot 16](img/screen16.png)
+!!!info
 
-This whole part is an option offered by Mozaik to better track the election of proxies. However, it is possible to directly create a mandate without going through these steps.
+    This whole part is an option offered by Mozaik to better track the election of proxies. However, it is possible to directly create a mandate without going through these steps.
+
+<figure markdown>
+![screenshot 15](img/screen15.png)
+ <figcaption>Creation of a committee</figcaption>
+</figure>
+
+<figure markdown>
+![screenshot 16](img/screen16.png)
+ <figcaption>Adding new candidates</figcaption>
+</figure>
+
 
 ## Status of the canddiates
 
-Once the application is filed, the candidate has the status "declared". He can then be nominated or rejected. If he is nominated he can be elected or not elected. If the candidate is selected, then a new mandate is created. 
+Once a new canddiate is declared, he must be nominated then elected to create a new mandate. 
 
 ``` mermaid
 graph LR
@@ -38,7 +47,6 @@ graph LR
   C --> D[Not elected];
   C --> E[Elected];
 ```
-
 
 ??? tip
 
