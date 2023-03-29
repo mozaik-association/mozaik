@@ -24,6 +24,6 @@ This documentation contains all the modules of the Mozaik project, explained one
 
 !!! info 
 
-    Mozaik modules are based on Odoo 14.0
+    Mozaik modules are based on the version 14 of Odoo.
 
 ![logo acsone](img/logoacsone.png)

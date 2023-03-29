@@ -1,13 +1,8 @@
 # Sructure
 
-The structure module allows you to create the organic structure of your country and  your political party. This module is a module that is configured only once, at the beginning of the use of Mozaik. Once the structure of your organisation is configured it is not necessary to touch it anymore, except in case of change of the ornasiation's structure. The information configured will be usefull in other modules (contacts, mandats...)
+The structure module allows you to create the organic structure you organisation (political/internal/external). This module is a module that is configured only once, at the beginning of the use of Mozaik. Once the structure of your organisation is configured it is not necessary to touch it anymore, except in case of change of the ornasiation's structure. The information configured will be usefull in other modules (contacts, mandats...)
 
-The structure module allows you to manage :
-
-- The country structure
-- The internal structure 
-- The external structure 
-All three categories work in the same way.
+These three types of strctures are managed in a similar way. Only the data changes.
 
 This module allows you to get acces to : 
 
@@ -53,7 +48,7 @@ The electoral districts can be register in the "electoral districts" tab of the 
 
 <figure markdown>
 ![screenshot 55](img/screen55.png)
-<figcaption>Example of a legislature</figcaption>
+<figcaption>Example of a electoral district</figcaption>
 </figure>
 
 ## Legislature (only for the structure of the state)
