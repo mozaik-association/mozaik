@@ -1,6 +1,6 @@
 # Petitions
 
-The petition module is a non-existent module in the Odoo standard. It allows to manage the petitons of the organisation in the back office. It will provide access to :
+The petitions module is a non-existent module in the Odoo standard. It allows to manage the petitons of the organisations in the back office of Mozaik. It will provide access to :
 
 - The general information of the petitions
 - The recognition of parters
@@ -15,9 +15,9 @@ This functionality allows you to create, modify and manage all the petitions rel
 
 Various informations can/must be completed on the petition form :
 
-- The standard information of the petiton (name, responsible, description, dates...).
+- The standard information of the petition (name, responsible, description, dates...).
 - Tags/interets related to the petition.
-- The involvement Categories related to the petition.
+- The involvement categories related to the petition.
 
 !!! abstract "The goal of petitions management"
 

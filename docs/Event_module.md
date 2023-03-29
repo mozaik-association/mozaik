@@ -1,24 +1,24 @@
 # Events
 
-The event module uses the odoo standard and adds specific features for organisations linked to mozaik. It allows to manage the events of the organisations.
+The events module uses the odoo standard and adds specific features for the organisations linked to mozaik. It allows you to manage the events of your organisation.
 
 It will provide access to :
 
-- The general information of the event
+- The general information of the events
 - The management of tickets
 - The automated communications
 - The list of questions
 - The voting domain
 - The access limitations
 
-## General information of the event
+## General information of the events
 
 This functionality allows you to create, modify and manage all the events related to your organisation.
 
-Various informations can/must be completed on the petition form :
+Various informations can/must be completed on a event form :
 
 - The standard information of the event (name, dates, organizer...)
-- The interests related to the petition.
+- The interests related to the event.
 - The involvement categories related to the event.
 
 !!! abstract "The goal of event management"
@@ -76,7 +76,7 @@ The module allows you to add questions in the "questions" tab that participants 
     For the selected answers and tickboxes, it is possible to add a participation category and thesaurus therms depending on the answer chosen by the participant. This information will be displayed on the contact's form.
     !!! example 
 
-        People answering "yes" to the question "Would you like to stay informed about other human rights petitions?" will receive a category of participation and an interest in this subject.
+        People answering "yes" to the question "Would you like to stay informed about the other events about pensions?" will receive a category of participation and an interest in this subject.
         <figure markdown>
         ![screenshot 43](img/screen43.png)
         <figcaption>Adding a participation category and an interest based on the response</figcaption>
