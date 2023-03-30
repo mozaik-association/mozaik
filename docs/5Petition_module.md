@@ -7,7 +7,7 @@ The petitions module is a non-existent module in the Odoo standard. It allows to
 - The list of milestones 
 - The automated communications
 - The list of questions
-- The Access limitations
+- The access limitations
 
 ## General information of the petition
 
@@ -16,7 +16,7 @@ This functionality allows you to create, modify and manage the petitions related
 Various informations can/must be completed on the petition form :
 
 - The standard information of the petition (name, responsible, description, dates...).
-- Tags/interets related to the petition.
+- Interets related to the petition.
 - The involvement categories related to the petition.
 
 !!! abstract "The goal of petitions management"
@@ -24,7 +24,7 @@ Various informations can/must be completed on the petition form :
     This fonctionnnality provides you to :
 
     - Manage the general information of each petition.
-    - Add tags/interests to categorise the different petitions and to add these interests to the form of the contacts who participated to this petition.
+    - Add interests to categorise the different petitions and to add these interests to the form of the contacts who participated to this petition.
     - Add involvement categories to automatically add them to the form of the contacts who participated to the petition.
     - Get access to the lists of all the attendees/signatories of the petition.
 

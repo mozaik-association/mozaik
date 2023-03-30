@@ -1,6 +1,6 @@
 # Events
 
-The events module uses the odoo standard and adds specific features for the organisations linked to mozaik. It allows you to manage the events of your organisation.
+The events module uses the odoo standard and adds specific features for the organisations linked to Mozaik. It allows you to manage the events of your organisation.
 
 It will provide access to :
 
@@ -15,7 +15,7 @@ It will provide access to :
 
 This functionality allows you to create, modify and manage all the events related to your organisation.
 
-Various informations can/must be completed on a event form :
+Various information can/must be completed on a event form :
 
 - The standard information of the event (name, dates, organizer...)
 - The interests related to the event.
@@ -26,7 +26,7 @@ Various informations can/must be completed on a event form :
     This fonctionnnality allows to :
 
     - Manage the general information of each event.
-    - Add tags/interests to categorise the different events and to add these interests to the form of the contacts who participated to this event.
+    - Add tags/interests to categorise the different events and add these interests to the form of the contacts who attended to this event.
     - Add involvement categories to automatically add them to the form of the contacts who participated to the event.
     - Get access to the lists of all the attendees and sponsors of each event.
 

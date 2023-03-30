@@ -23,7 +23,7 @@ Various informations can be collected for each contact (individuals or companies
 
 !!! info "Address"
 
-    The encoding of addresses on the contact form is facilitated by the auto-completion fonctionnality that the system provides. This fonctionnality allows you to choose the city and the street from a list of predefined choices. This system allows to avoid encoding errors and helps detect duplicates. 
+    The encoding of addresses on the contact form is facilitated by the auto-completion fonctionnality that the system provides. This fonctionnality allows you to choose the city and the street from a list of predefined choices. It is use to avoid encoding errors and helps detect duplicates. 
 
     :warning:Depending on their address, the contacts are associated with a local group/instance of the organisation. When the address changes, the instance of the contact can also be updated.
     !!! example
@@ -50,7 +50,7 @@ Various informations can be collected for each contact (individuals or companies
 
 ## Indexation
 
-Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaïk and can be adapted according to the needs of each organisation.
+Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaik and can be adapted according to the needs of each organisation.
 
 !!! abstract "The goal of Thesaurus terms" 
     
@@ -153,18 +153,18 @@ Co-residencies allow you to :
 ## Memberships
 It is possible to follow-up the membership history of a member from the memberships tab of a contact. In this tab, you can find a whole list of information:
 
-- Internal instance to which the member is linked his through membership.
+- Internal instance to which the member is linked by its membership.
 - Membership status to which the contact belongs (former member, new member...).
 - Type of membership fee paid (normal membership, reduce price (job seeker, disabled)).
 - Price of the subscription.
 - Structured communication reference (possible to work with a structured communication).
-- Payement link (possible to pay the membership online with Stripe...)
+- Payement link (possible to pay the membership online with Stripe, Adyen...)
 - Check whether the member is in good standing or not.
 - Start and end date of the membership.
 
 This tab provides you to easily manage or modify memberships. 
 
-Mozaik allows you to manage the membership cards of the organisation, to see who has already received his card and who has not yet received it.
+Mozaik provides you to manage the membership cards of the organisation, to see who has already received his card and who has not yet received it.
  
 Each member in Odoo is linked to a unique member number. The member number can be found on the contact form next to the contacts name and the membership state.
 

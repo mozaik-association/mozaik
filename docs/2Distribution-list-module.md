@@ -1,6 +1,6 @@
 # Distribution lists
 
-The Mozaik distribution lists module complet fonctionnalities of the Odoo strandard module. The module provide you to manage distribution lists of your organisation.
+The Mozaik distribution list module offers additional functionality to complement the Odoo standard. The module provide you to manage distribution lists of your organisation.
 It will provide access to :
 
 - The general information of the distribution lists
@@ -32,6 +32,8 @@ The distribution list module provides access to general information:
 A distribution list allows you to add filters that allow you to find a list of contacts that meet these filters and that will be included or exclude of the distribution list. Filters can be created and saved as a template to be used for other distribution lists.
 
 As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
+
+Several filters can be added to a distribution list in order to refine the distribution list as much as possible.
 
 !!!info
 

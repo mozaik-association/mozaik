@@ -13,7 +13,7 @@ Each gategory of mandate give you access to :
 
 In order to elect a person for a mandate, the first step is to create a selection committee. It is created with the information previously created in the Mozaik structure module (Legislature, designation assembly...).
 
-Once the selection committee is created, you can add candidates to this committee by clikcing on the "add a new candidature" button.
+Once the selection committee is created, you can add candidates to this committee by clicking on the "add a new candidature" button.
 
 !!!info
 
@@ -56,7 +56,7 @@ The mandates are characterized by three dates:
 - The end of the mandates.
 - The experition of madantes.
 
-!!! absract "The goal of this fonctionnality"
+!!! abstract "The goal of this fonctionnality"
 
     The feature allows to invalidate a mandate :
 
@@ -72,7 +72,7 @@ The module allows you to renew a mandate by clicking on the "renew" button in th
     - This fonctionnality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
     !!!example
 
-        I want to create a mandate of senator in addition of a mandate of minister for the same persoon. 
+        I want to create a mandate of senator in addition of a mandate of minister for the same persoon at the same period. 
 
 ??? tip
 

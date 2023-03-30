@@ -1,10 +1,9 @@
 # Marketing emails
-
-As the standard Odoo module that allows to create mailing lists, the Mozaik module - wich is more powerfull and complete than the Odoo standard - provide you to manage the marketing emails of the organisation.
+The emails marketing module offers additional functionalities to complement the Odoo standard. The module provides you to manage the marketing emails of your organisation.
 
 It will provide access to :
 
-- The general information of the marketing emails
+- The general information of your marketing emails
 - The recurrent mailings
 - The management of failures
 - The reporting
@@ -61,12 +60,12 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 All communication failures must be recorded in the application. This information is visible on the record of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
 !!! abstract "The goal of failure management"
 
-    This fonctionnnality allows you to blacklist a contact after a certain number of failure to stop sending him emails or letters that he will not receive.
+    This fonctionnnality allows you to blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
 
 How to encode failures on the  contact's form ? :
 
-- Postal returns: must be manually encoded 
-- Electronic returns: records are automatic
+- Postal bounced: must be manually encoded 
+- Email bounced: records are automatic
 
 <figure markdown>
 ![screenshot 23](img/screen23.png)
@@ -82,5 +81,5 @@ The module offers :
 
 <figure markdown>
 ![screenshot 26](img/screen26.png)
- <figcaption>Example of individual report</figcaption>
+ <figcaption>Example of an individual report</figcaption>
 </figure>  

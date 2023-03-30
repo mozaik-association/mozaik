@@ -37,3 +37,14 @@ For the payment of memberships, it is possible to create a payment link that red
 </figure>
 
 ## Reporting on membership payments
+
+The invoicies module of Mozaik offers the possibility to do analytical analysis on the accounting entries corresponding to the payment of contributions.
+
+!!!abstract "The goal of the reporting"
+
+    This feature allows you to create reports with different measures on the payment of membership fees. 
+
+    - Average price
+    - Product quantity
+    - Untaxed total
+    - Count

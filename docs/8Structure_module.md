@@ -2,7 +2,7 @@
 
 The structure module allows you to create the organic structure you organisation (political/internal/external). This module is a module that is configured only once, at the beginning of the use of Mozaik. Once the structure of your organisation is configured it is not necessary to touch it anymore, except in case of change of the ornasiation's structure. The information configured will be usefull in other modules (contacts, mandats...)
 
-These three types of strctures are managed in a similar way. Only the data changes.
+These three types of structures are managed in a similar way. Only the data changes.
 
 This module allows you to get acces to : 
 
@@ -13,7 +13,7 @@ This module allows you to get acces to :
 
 ## Instancies
 
-You can create the instances related to your state by giving a name a level of power. For each instance created you can give the parent instance of this instance. For example, the East flanders province is the parent instance of the commune of Ghent.
+You can create the instances related to your state by giving a name and a level of power. For each instance created you can give the parent instance of this instance. For example, the East flanders province is the parent instance of the commune of Ghent.
 
 <figure markdown>
 ![screenshot 14](img/screen14.png)
