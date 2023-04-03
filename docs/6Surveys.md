@@ -1,15 +1,15 @@
 # Surveys
 
-The survey module uses the Odoo standard and adds specific features for organisations linked to Mozaik. It allows to manage the surveys of the organisation. It will provide access to :
+The surveys module uses the Odoo standard and adds specific features for organisations linked to Mozaik. It allows to manage the surveys of the organisation. It will provide access to :
 
-- The general information of the survey
+- The general information of the surveys
 - The management of the questions
 - The recognition of parters
 - The Access limitations
 
 ## General informations of the survey
 
-This functionality allows you to create, modify and manage all the surveys related to your organisation.
+This functionality allows you to create, modify and manage the surveys related to your organisation.
 
 Various informations can/must be completed on the survey form :
 

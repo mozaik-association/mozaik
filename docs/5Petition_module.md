@@ -11,7 +11,7 @@ The petitions module is a non-existent module in the Odoo standard. It allows to
 
 ## General information of the petition
 
-This functionality allows you to create, modify and manage the petitions related to your organisation.
+This functionality provide you to create, modify and manage the petitions related to your organisation.
 
 Various informations can/must be completed on the petition form :
 
