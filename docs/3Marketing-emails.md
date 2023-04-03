@@ -1,7 +1,7 @@
 # Marketing emails
 The emails marketing module offers additional functionalities to complement the Odoo standard. The module provides you to manage the marketing emails of your organisation.
 
-It will provide access to :
+It will provide access to:
 
 - The general information of your marketing emails
 - The recurrent mailings
@@ -10,7 +10,7 @@ It will provide access to :
 
 ## General information
 
-This functionality allows you to create, modify and manage all the emails marketing of your organisation.
+This functionality allows you to create, modify and manage the emails marketing of your organisation.
 
 The emails marketing provides access to general information:
 
@@ -20,11 +20,11 @@ The emails marketing provides access to general information:
 
 !!! abstract "The goal of email management"
 
-    This feature allows you to :
+    This feature allows you :
     
-    - Create an email with a subject and a preview text.
-    - Include contacts even if they have an op-out communication preference.
-    - Choose to create an email from an Odoo template or to write a mail with the simplified mail editor. For the simplified mail editor, you also have the possibility to create mail templates in advance and simply select the one you need when creating a mailing. Thereafter, with the Odoo standard, you have the possibility to customize the content of the mail by adding personalized fields as the name or address of each recipient.
+    - To create an email with the general informations needed as subject and a preview text.
+    - To include contacts even if they have an op-out communication preference.
+    - To choose to create an email from the Odoo template or to write a mail with the simplified mail editor of Mozaik. The simplified mail editor allows you also to create mail templates in advance and simply select the one you need when creating a mailing.
 
 !!! info 
 
@@ -60,7 +60,7 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 All communication failures must be recorded in the application. This information is visible on the record of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
 !!! abstract "The goal of failure management"
 
-    This fonctionnnality allows you to blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
+    This fonctionnality allows you to register the communication failures of each contact. Thanks to this fonctionnality you can blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
 
 How to encode failures on the  contact's form ? :
 
