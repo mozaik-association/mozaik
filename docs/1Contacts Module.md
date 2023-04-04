@@ -40,7 +40,7 @@ Various informations can be collected for each contact (individuals or companies
 
 <figure markdown>
   ![screenshot 27](img/screen27.png)
-  <figcaption>Contact form with general and personal information </figcaption>
+  <figcaption>Contact form with general & personal information </figcaption>
 </figure>
 
 <figure markdown>
@@ -125,7 +125,7 @@ It helps you identify, manage and merge possible duplicates within your contacts
 
 ## Co-residencies
 
-When two or more people share the same address, they can be grouped into a co-residency. This idicates that those people are no duplicates but simply live in the same acomodation.
+When two or more people share the same address, they can be grouped into a co-residency. This idicates that those people are no duplicates but simply live in the same accomodation.
 
 Co-residencies allow you to :
 

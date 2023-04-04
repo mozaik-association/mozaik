@@ -43,7 +43,7 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 
     This functionality allows you to send a mailing evey X hour/day/week/month/year. 
     
-    Thanks to the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to dynamic filters.
+    Thanks to the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
     !!!example 
 
         I want to send automatically an email to all the people who participated in an event in the last three days. 

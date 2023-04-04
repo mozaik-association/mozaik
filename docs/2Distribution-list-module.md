@@ -18,7 +18,7 @@ The distribution list module provides access to general information:
 
 !!! abstract "The goald of the distibution list" 
 
-    You can create a distribution list by giving a name to this list. The distribution list will create a list of specific contacts based on filters you created. It will be used to target specific targets based on the following criteria and then send emails to these targets using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing email module</a>. 
+    Distribution lists are used to create lists of contacts that meet specific criteria defined by filters created beforehand. These distribution lists can then be selected when creating marketing emails to target specific contacts using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing email module</a>. 
 
 <figure markdown>
 ![screenshot 51](img/screen51.png)
@@ -38,7 +38,7 @@ Several filters can be added to a distribution list in order to refine the list 
 
 !!!info
 
-    These filters are dynamic, when a new person meets the criterias of the filters, this person will be automatically added in the distribution list.
+    These filters are dynamic, In case one or more new contacts meet the criteria of a filter, these new contacts will automatically be added to the distribution list. 
     !!!example
 
         You want to create a filter that includes all contacts in good standing who have a voluntary participation.

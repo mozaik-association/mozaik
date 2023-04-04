@@ -1,6 +1,6 @@
 # Invoices
 
-The Mozaik invoicing module offer some additional functionalities suitable for the organisations / political parties to complete the Odoo standard :
+The Mozaik invoicing module offer some additional functionalities suitable for the organisations/political parties to complete the Odoo standard :
 
 - The creation of SEPA mandates
 - The management tool for direct debit refusals
