@@ -22,7 +22,7 @@ The emails marketing provides access to general information:
 
     This feature allows you :
     
-    - To create an email with the general informations needed as subject and a preview text.
+    - To create an email with the general informations needed as the subject and a preview text.
     - To include contacts even if they have an op-out communication preference.
     - To choose to create an email from the Odoo template or to write a mail with the simplified mail editor of Mozaik. The simplified mail editor allows you also to create mail templates in advance and simply select the one you need when creating a mailing.
 
@@ -41,7 +41,7 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 
 !!! abstract "The goal of recurrent mailing"
 
-    This fonctionality allows you to send a mailing evey X hour/day/week/month/year. 
+    This functionality allows you to send a mailing evey X hour/day/week/month/year. 
     
     Thanks to the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to dynamic filters.
     !!!example 
@@ -57,10 +57,10 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 
 ## Management of failures
 
-All communication failures must be recorded in the application. This information is visible on the record of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
+All communication failures must be recorded in the application. This information is visible on the contact's form of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
 !!! abstract "The goal of failure management"
 
-    This fonctionality allows you to register the communication failures of each contact. Thanks to this fonctionality you can blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
+    This functionality allows you to register the communication failures of each contact. Thanks to this functionality you can blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
 
 How to encode failures on the  contact's form ? :
 

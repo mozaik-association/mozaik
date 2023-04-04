@@ -1,7 +1,7 @@
 
 # Access Rules
 
-Thanks to this fonctionality you can transform a contact who is working for the organisation into a user of Mozaik. The user receives a login, a role and an internal instance.
+Thanks to this functionality you can transform a contact who is working for the organisation into a user of Mozaik. The user receives a login, a role and an internal instance.
 
 !!! abstract "The goal of access rules"
 

@@ -13,7 +13,7 @@ It will provide access to :
 
 ## General information of the events
 
-This functionality allows you to create, modify and manage all the events related to your organisation.
+This functionality allows you to create, modify and manage the events related to your organisation.
 
 Various information can/must be completed on a event form :
 
@@ -23,7 +23,7 @@ Various information can/must be completed on a event form :
 
 !!! abstract "The goal of event management"
 
-    This fonctionality allows to :
+    This functionality allows to :
 
     - Manage the general information of each event.
     - Add tags/interests to categorise the different events and add these interests to the form of the contacts who attended to this event.
@@ -38,9 +38,9 @@ Various information can/must be completed on a event form :
 
 ## Management of tickets
 
-!!!abstract "The goal of this fonctionality"
+!!!abstract "The goal of this functionality"
 
-    The fonctionality allows to create differents types of tickets for an event. Tickets can have differents prices, different maximum number of entries and different start and end dates of the sale. 
+    The functionality allows to create differents types of tickets for an event. Tickets can have differents prices, different maximum number of entries and different start and end dates of the sale. 
 
 
 <figure markdown>

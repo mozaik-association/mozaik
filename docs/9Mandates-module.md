@@ -56,7 +56,7 @@ The mandates are characterized by three dates:
 - The end of the mandates.
 - The experition of mandates.
 
-!!! abstract "The goal of this fonctionality"
+!!! abstract "The goal of this functionality"
 
     The feature allows to invalidate a mandate :
 
@@ -66,10 +66,10 @@ The mandates are characterized by three dates:
 ## Renewal of mandates
 The module allows you to renew a mandate by clicking on the "renew" button in the "State Mandates" tab.
 
-!!! abstract "The goal of this fonctionality"
+!!! abstract "The goal of this functionality"
 
-    - This fonctionality allows you to renew a mandate automatically without going through the election phase.
-    - This fonctionality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
+    - This functionality allows you to renew a mandate automatically without going through the election phase.
+    - This functionality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
     !!!example
 
         I want to create a mandate of senator in addition of a mandate of minister for the same persoon at the same period. 

@@ -5,7 +5,7 @@ The surveys module uses the Odoo standard and adds specific features for organis
 - The general information of the surveys
 - The management of the questions
 - The recognition of parters
-- The Access limitations
+- The access limitations
 
 ## General informations of the survey
 
@@ -19,7 +19,7 @@ Various informations can/must be completed on the survey form :
 
 !!! abstract "The goal of survey management"
 
-    This fonctionality allows to :
+    This functionality allows to :
 
     - Manage the general information of each survey.
     - Add interests to categorise the different survey and to add these interests to the form of the contacts who participated to this survey.
@@ -47,7 +47,7 @@ The different questions of the survey can be added and arranged in the desired o
 
     The questions have differents roles:
     
-    - To find out the participants' opinions on the questions asked.
+    - To find out the participant's opinion on the questions asked.
     - To get to know more about the participants in the survey through the interests and then benefit from them in the communications sent to the organisation's contacts 
 
 <figure markdown>
@@ -61,7 +61,7 @@ When a person participates to the survey, the module allows to detect, on the ba
 
 !!! abstract "The goal of partner recognition"
 
-    This feature allows you to expand your organisation's list of contacts and then recontact them for other survey, petitions, events...
+    This feature allows you to expand your organisation's list of contacts and then recontact them for other surveys, petitions, events...
 
 ## The access limitations
 

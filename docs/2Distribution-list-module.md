@@ -69,6 +69,6 @@ The module provides users with a tool that allows them to export a whole series 
  <figcaption>Exporting of the distribution list</figcaption>
 </figure>
 
-??? tip
+??? question "How to use this functionality ?"
 
-    You can access to this fonctionality by clikcing on the "mass action" button in a distribution list form below the "edit" button
+    You can access to this functionality by clikcing on the "mass action" button in a distribution list form below the "edit" button

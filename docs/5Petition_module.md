@@ -1,6 +1,6 @@
 # Petitions
 
-The petitions module allows to manage the different petitons of the organisations in the back office of Mozaik. This module will provide access to :
+The petitions module allows to manage the different petitions of the organisations in the back office of Mozaik. This module will provide access to :
 
 - The general information of the petitions
 - The recognition of parters
@@ -21,7 +21,7 @@ Various informations can/must be completed on the petition form :
 
 !!! abstract "The goal of petitions management"
 
-    This fonctionality provides you to :
+    This functionality provides you to :
 
     - Manage the general information of each petition.
     - Add interests to categorise the different petitions and to add these interests to the form of the contacts who participated to this petition.
@@ -39,11 +39,11 @@ When a person participates to the petition, the module allows to detect, on the 
 
 !!! abstract "The goal of partner recognition"
 
-    Thansk tonthis feature you can expand your organisation's list of contacts and then recontact them for other petitions, events, surveys...
+    Thanks to this feature you can expand your organisation's list of contacts and then recontact them for other petitions, events, surveys...
 
 ## Milestones
 
-The fonctionality allows you to add different milestones (target number of signatures) to be reached for each petition.
+The functionality allows you to add different milestones (target number of signatures) to be reached for each petition.
 
 !!! info
 
@@ -73,7 +73,7 @@ Automatic emails can be added in the "communications" tab by selecting an alread
 
 ## Questions
 
-The module allows you to add questions in the "questions" tab that participants can or must answer. Answers can be free text, multiple choice or a tickbox.
+The module allows you to add questions in the "questions" tab that participants can or must answer. Answers can be free text, multiple choices or a tickbox.
 
 !!! abstract "The goal of the questions"
 
