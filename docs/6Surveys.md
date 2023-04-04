@@ -19,7 +19,7 @@ Various informations can/must be completed on the survey form :
 
 !!! abstract "The goal of survey management"
 
-    This fonctionnnality allows to :
+    This fonctionality allows to :
 
     - Manage the general information of each survey.
     - Add interests to categorise the different survey and to add these interests to the form of the contacts who participated to this survey.

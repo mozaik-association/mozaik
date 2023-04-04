@@ -1,5 +1,5 @@
 # Mandates
-The mandate module allows you to manage the mandates (political/internal/external) related to your organisation. Different categories of mandates are possible.
+The mandates module allows you to manage the mandates (political/internal/external) related to your organisation. Different categories of mandates are possible.
 These three types of mandates are managed in a similar way. Only the data changes.
 
 Each gategory of mandate give you access to :
@@ -30,9 +30,9 @@ Once the selection committee is created, you can add candidates to this committe
 </figure>
 
 
-## Status of the canddiates
+## Status of the candidates
 
-Once a new canddiate is declared, he must be nominated then elected to create a new mandate. 
+Once a new candidate is declared, he must be nominated then elected to create a new mandate. 
 
 ``` mermaid
 graph LR
@@ -54,9 +54,9 @@ The mandates are characterized by three dates:
 
 - The beginning of mandates.
 - The end of the mandates.
-- The experition of madantes.
+- The experition of mandates.
 
-!!! abstract "The goal of this fonctionnality"
+!!! abstract "The goal of this fonctionality"
 
     The feature allows to invalidate a mandate :
 
@@ -66,10 +66,10 @@ The mandates are characterized by three dates:
 ## Renewal of mandates
 The module allows you to renew a mandate by clicking on the "renew" button in the "State Mandates" tab.
 
-!!! abstract "The goal of this fonctionnnality"
+!!! abstract "The goal of this fonctionality"
 
-    - This fonctionnnality allows you to renew a mandate automatically without going through the election phase.
-    - This fonctionnality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
+    - This fonctionality allows you to renew a mandate automatically without going through the election phase.
+    - This fonctionality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
     !!!example
 
         I want to create a mandate of senator in addition of a mandate of minister for the same persoon at the same period. 
@@ -77,5 +77,3 @@ The module allows you to renew a mandate by clicking on the "renew" button in th
 ??? tip
 
     It is possible to create and retrieve all categories of mandates for political mandates - internal and external by clicking on "configurations" then "categories of mandates"
-
-## Retrocessions

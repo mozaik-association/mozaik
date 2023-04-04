@@ -71,4 +71,4 @@ The module provides users with a tool that allows them to export a whole series 
 
 ??? tip
 
-    You can access to this fonctionnality by clikcing on the "mass action" button in a distribution list form below the "edit" button
+    You can access to this fonctionality by clikcing on the "mass action" button in a distribution list form below the "edit" button

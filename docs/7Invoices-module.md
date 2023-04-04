@@ -1,6 +1,6 @@
 # Invoices
 
-The Mozaik invoicing module offer some additional fonctionnality suitable for the organisations / political parties to complete the Odoo standard :
+The Mozaik invoicing module offer some additional fonctionalities suitable for the organisations / political parties to complete the Odoo standard :
 
 - The creation of SEPA mandates
 - The management tool for direct debit refusals
@@ -38,7 +38,7 @@ For the payment of memberships, it is possible to create a payment link that red
 
 ## Reporting on membership payments
 
-The invoicies module of Mozaik offers the possibility to do analytical analysis on the accounting entries corresponding to the payment of contributions.
+The invoicies module of Mozaik offers the possibility to do analytical analysis on the accounting entries corresponding to the payment of memberships.
 
 !!!abstract "The goal of the reporting"
 

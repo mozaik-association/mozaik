@@ -41,7 +41,7 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 
 !!! abstract "The goal of recurrent mailing"
 
-    This fonctionnnality allows you to send a mailing evey X hour/day/week/month/year. 
+    This fonctionality allows you to send a mailing evey X hour/day/week/month/year. 
     
     Thanks to the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to dynamic filters.
     !!!example 
@@ -60,7 +60,7 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 All communication failures must be recorded in the application. This information is visible on the record of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
 !!! abstract "The goal of failure management"
 
-    This fonctionnality allows you to register the communication failures of each contact. Thanks to this fonctionnality you can blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
+    This fonctionality allows you to register the communication failures of each contact. Thanks to this fonctionality you can blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
 
 How to encode failures on the  contact's form ? :
 

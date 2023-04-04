@@ -23,7 +23,7 @@ Various information can/must be completed on a event form :
 
 !!! abstract "The goal of event management"
 
-    This fonctionnnality allows to :
+    This fonctionality allows to :
 
     - Manage the general information of each event.
     - Add tags/interests to categorise the different events and add these interests to the form of the contacts who attended to this event.
