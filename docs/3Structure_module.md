@@ -1,4 +1,4 @@
-# Sructure
+# Structure
 
 The structure module allows you to create the organic structure you organisation (political/internal/external). This module is a module that is configured only once, at the beginning of the use of Mozaik. Once the structure of your organisation is configured it is not necessary to touch it anymore, except in case of change of the organisation's structure. The information configured will be usefull in other modules (contacts, mandats...)
 
