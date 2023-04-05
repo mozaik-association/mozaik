@@ -400,6 +400,26 @@ msgid "Birthdate"
 msgstr "Date de naissance"
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__birthdate_day
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__birthdate_day
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__birthdate_day
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__birthdate_day
+#, fuzzy
+#| msgid "Birthdate"
+msgid "Birthdate Day"
+msgstr "Date de naissance"
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__birthdate_month
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__birthdate_month
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__birthdate_month
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__birthdate_month
+#, fuzzy
+#| msgid "Birthdate"
+msgid "Birthdate Month"
+msgstr "Date de naissance"
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__is_blacklisted
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__is_blacklisted
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__is_blacklisted
