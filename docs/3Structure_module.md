@@ -10,7 +10,7 @@ Those structures are configurable in Mozaïk, they can easily be adapted to the 
 
 In the structure module, you will encounter the following terms: 
 
-- Power levels (A EXPLIQUER)
+- Power levels
 - Instances
 - Assemblies
 - Electoral districts (political structure only)
