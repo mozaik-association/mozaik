@@ -1395,6 +1395,13 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
+msgid ""
+"membership_request => Membership request being validated (if relevant), "
+"false otherwise"
+msgstr ""
+
+#. module: mozaik_membership
+#: model_terms:ir.ui.view,arch_db:mozaik_membership.membership_tarification_form_view
 msgid "partner => Partner whose tarification is evaluated"
 msgstr ""
 
