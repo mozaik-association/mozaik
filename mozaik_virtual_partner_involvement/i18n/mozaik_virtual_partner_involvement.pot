@@ -39,6 +39,16 @@ msgid "Birth Date > ..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__birthdate_day
+msgid "Birthdate Day"
+msgstr ""
+
+#. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__birthdate_month
+msgid "Birthdate Month"
+msgstr ""
+
+#. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__common_id
 msgid "Common ID"
 msgstr ""
