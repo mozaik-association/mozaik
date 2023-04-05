@@ -46,9 +46,14 @@ class MembershipRequest(models.Model):
         """
         Write the sponsor on the partner
         """
+        # Must check can_be_sponsored boolean before validation, otherwise
+        # the membership state of the partner change.
+        mr_can_be_sponsored = self.filtered("can_be_sponsored")
+
         res = super().validate_request()
-        for mr in self.filtered(
-            lambda mr: mr.partner_id and mr.can_be_sponsored and mr.sponsor_id
+
+        for mr in mr_can_be_sponsored.filtered(
+            lambda mr: mr.partner_id and mr.sponsor_id
         ):
             mr.partner_id.sponsor_id = mr.sponsor_id
         return res
