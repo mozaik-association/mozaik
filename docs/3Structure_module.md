@@ -1,25 +1,33 @@
 # Structure
 
-The structure module enables you to create the organisational structure of you organisation:
+The structure module enables you to define how you organisation is organized by creating three types of structures:
 
-- Internal structure
-- Political structure
+- Internal structure of the organisation
+- Political structure of the country (for political parties)
 - External structure
 
-This module is a module that is configured only once, at the beginning of the use of Mozaik. Once the structure of your organisation is configured it is not necessary to touch it anymore, except in case of change of the organisation's structure. The information configured will be usefull in other modules (contacts, mandats...)
+Those structures are configurable in Mozaïk, they can easily be adapted to the needs of any organisation (parent levels, power levels & assemblies can easily be added etc...). The structures are used in most of the other modules of Mozaïk (contacts, mandates, access rules...).
 
-These three types of structures are managed in a similar way. Only the data changes.
+In the structure module, you will encounter the following terms: 
 
-This module allows you to get acces to : 
+- Power levels (A EXPLIQUER)
+- Instances
+- Assemblies
+- Electoral districts (political structure only)
+- Legislatures (political structure only)
 
-- The instances
-- The assemblies
-- The electoral districts
-- The legislatures
+## Power levels
 
-## Instancies
+A EXPLIQUER EN UNE PHRASE OU DEUX
 
-You can create the instances related to your state by giving a name and a level of power. For each instance created you can give the parent instance of this instance. For example, the East flanders province is the parent instance of the commune of Ghent.
+## Instances
+
+D'ABORD EXPLIQUER A QUOI CORRESPOND UNE INSTANCE
+
+
+Instances are always linked to a name and to a power level. They can also be linked to a parent instance, in order to create a hierarchical structure. For example, the Procince of East Flanders in Belgium is the parent instance of the city of Ghent.
+
+METTRE LE SCREENSHOT EN ANGLAIS  (commune à mettre comme CITY)
 
 <figure markdown>
 ![screenshot 14](img/screen14.png)
@@ -27,11 +35,18 @@ You can create the instances related to your state by giving a name and a level 
 </figure>
 
 ## Assemblies
-Each instance can be associated with assemblies according the their level of power. 
+
+A EXPLIQUER CE QU'EST UNE ASSEMBLEE et surtout une assembly category
+
+Each instance can be associated to an assembly category of the same power level. This combination is generating assemblies.
+
+
+METTRE AUSSI UN EXEMPLE POUR LA STRUCTURE INTERNE (avant la structure politique)
+
 
 !!!example
 
-    The Ghent instance is associated with 4 categories of assemblies:
+    In the political structure of Belgium, the city of Ghent (power level = city) could be associated with the following categories of assemblies:
 
     - The college of mayors and aldermen 
     - The communal council
@@ -40,7 +55,7 @@ Each instance can be associated with assemblies according the their level of pow
 
 <figure markdown>
 ![screenshot 52](img/screen52.png)
-<figcaption>Example of an instance with related assemblies</figcaption>
+<figcaption>Example of an instance with its related category assemblies</figcaption>
 </figure>
 
 <figure markdown>
@@ -48,7 +63,11 @@ Each instance can be associated with assemblies according the their level of pow
 <figcaption>Example of assemblies</figcaption>
 </figure>
 
+METTRE LES SCREENSHOTS EN ANGLAIS 
+
 ## Electoral districts (only for the structure of the state)
+
+DEFINITION D'UN DISTRICT ELECTORAL 
 
 The electoral districts can be register in the "electoral districts" tab of the state structure.
 
@@ -57,11 +76,19 @@ The electoral districts can be register in the "electoral districts" tab of the 
 <figcaption>Example of a electoral district</figcaption>
 </figure>
 
+METTRE LE SCREENSHOT EN ANGLAIS (power level = city)
+
 ## Legislature (only for the structure of the state)
 
+DEFINITION D'UNE LEGISLATURE 
+
 This feature allows you to add/modify/delete the different legislatures of the country.
+
+COMMENT EST-CE LIE AUX AUTRES ELEMENTS?
 
 <figure markdown>
 ![screenshot 54](img/screen54.png)
 <figcaption>Example of a legislature</figcaption>
 </figure>
+
+METTRE EN ANGLAIS + reprendre un exemple avec power level = city (donc ELections communales de 2024 par exemple)

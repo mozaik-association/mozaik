@@ -9,7 +9,7 @@ In the membership tab of a contact, you can find all the membership lines of a c
 - Structured communication reference (possible to work with a structured communication).
 - Payement link (possible to pay the membership online with Stripe, Adyen or any other payment acquirer...).
 - Check whether the membership has been paid or not for the current year.
-- Internal instance (< internal structure of the organization) to which the member is linked by its membership.
+- Internal instance (< internal structure of the organisation) to which the member is linked by its membership.
 - Start and end date of the membership.
 
 You can easily handle and/or modify memberships in this tab. Membership cards can also be managed from there: you can check who has already received his membership card and to which new members it still needs to be sent.
@@ -77,7 +77,7 @@ Members who paid their previous membership can receive:
 !!!info
 
     During the membership renewals, members who didn't pay their previous membership will automatically be transformed into 'former members'. This action can be triggered at any moment during the year.
-    
+
 <figure markdown>
 ![screenshot 13](img/screen13.png)
 <figcaption>Example of a membership renewal workflow</figcaption>
