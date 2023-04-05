@@ -3,4 +3,3 @@ freezegun
 graphene
 openupgradelib
 phonenumbers
-sismic

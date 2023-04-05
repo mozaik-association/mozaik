@@ -37,5 +37,5 @@
         "demo/membership_request.xml",
     ],
     "installable": True,
-    "external_dependencies": {"python": ["openupgradelib", "sismic"]},
+    "external_dependencies": {"python": ["openupgradelib"]},
 }
