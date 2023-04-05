@@ -132,6 +132,12 @@ msgid "Automatic membership state change"
 msgstr "Demande d'adhésion / modification"
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_product_product__advance_workflow_as_paid
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_product_template__advance_workflow_as_paid
+msgid "Automatically create the following membership line"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__birthdate_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__birthdate_date
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__birthdate_date
@@ -285,9 +291,11 @@ msgid "Decline Payment Date"
 msgstr "Date du refus de paiement"
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_add_membership__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_product_template__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__display_name
@@ -409,9 +417,11 @@ msgid "Group By..."
 msgstr "Regrouper par..."
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_add_membership__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__id
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_product_template__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__id
@@ -531,9 +541,11 @@ msgid "Is a Company"
 msgstr "Est une société"
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_add_membership____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_line____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_product_template____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner____last_update
@@ -848,6 +860,11 @@ msgid "Phone"
 msgstr "Téléphone"
 
 #. module: mozaik_membership_request
+#: model:ir.model,name:mozaik_membership_request.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__reference
 msgid "Reference"
 msgstr "Référence"
@@ -991,6 +1008,14 @@ msgid "The required age for a membership request is %s"
 msgstr "L'âge minimum pour une adhésion est %s"
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,help:mozaik_membership_request.field_product_product__advance_workflow_as_paid
+#: model:ir.model.fields,help:mozaik_membership_request.field_product_template__advance_workflow_as_paid
+msgid ""
+"Tick for free subscriptions, e.g. sponsored ones. The workflow will advance "
+"as it does for paid subscriptions when partner pays"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_custom_partner__type
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_virtual_master_partner__type
 msgid "Type"
@@ -1055,6 +1080,11 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request__website_message_ids
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request_change__website_message_ids
 msgid "Website communication history"
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model,name:mozaik_membership_request.model_add_membership
+msgid "Wizard to create a new membership"
 msgstr ""
 
 #. module: mozaik_membership_request
