@@ -50,6 +50,22 @@ msgid "Birthdate"
 msgstr "Date de naissance"
 
 #. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__birthdate_day
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__birthdate_day
+#, fuzzy
+#| msgid "Birthdate"
+msgid "Birthdate Day"
+msgstr "Date de naissance"
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__birthdate_month
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__birthdate_month
+#, fuzzy
+#| msgid "Birthdate"
+msgid "Birthdate Month"
+msgstr "Date de naissance"
+
+#. module: mozaik_partner_fields
 #: model:ir.model,name:mozaik_partner_fields.model_res_partner
 msgid "Contact"
 msgstr "Contact"
