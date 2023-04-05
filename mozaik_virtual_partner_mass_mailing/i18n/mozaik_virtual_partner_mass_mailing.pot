@@ -39,6 +39,16 @@ msgid "Birth Date > ..."
 msgstr ""
 
 #. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__birthdate_day
+msgid "Birthdate Day"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__birthdate_month
+msgid "Birthdate Month"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__bounced
 #: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__state__bounced
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_mass_mailing.virtual_partner_mass_mailing_search_view
