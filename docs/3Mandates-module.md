@@ -9,20 +9,35 @@ The mandates module allows you to easily manage the different mandates and manda
 Several functionalities are available in the mandates module:
 
 - Mandates management (consult, create, remove, edit)
-- selection committees
-- Applicants
+- selection committees and applicants
 - The invalidation of mandates
 - The renewal of mandates
 
-## Selection committee
 
-In order to elect a person for a mandate, the first step is to create a selection committee. It is created with the information previously created in the Mozaik structure module (Legislature, designation assembly...).
 
-Once the selection committee is created, you can add candidates to this committee by clicking on the "add a new candidature" button.
+PARLER QUELQUE PART DES CHAMPS A REMPLIR SUR UN MANDAT / FAIRE UN LIEN AVEC LA STRUCTURE
+
+## Selection committees
+
+Selection committees can be created in Mozaïk in order to manage the results of elections (political elections, internal elections):
+
+- Follow-up of candidates
+- Results of elections
+    - Elected candidates
+    - Substitutes
+    - Non-elected candidates
+- Automatic creation of mandates
+
+Mozaïk doesn't have a function yet to organise elections / votes. Only the follow-up of candidates and the result of the votes can be handled in Mozaïk. 
+
+Once a candidate is elected/selected, a (political/internal) mandate will automatically be created for this candidate. Selection committees are not mandatary, as mandates can directly be created in Mozaïk (without working with candidates and elections).
+
 
 !!!info
 
-    This whole part is an option offered by Mozaik to better follow-up the election of proxies. However, it is possible to directly create a mandate without going through these steps.
+     Once a selection committee is created, you can easily add candidates to this committee by clicking on the "add a new candidature" button.
+
+METTRE LES CHAMPS EN ANGLAIS SUR LES SCREENSHOTS ( COMMUNE, COMMUNAL COUNCIL, LEGISLATURE, DESIGNATION COUNCIL, MANDATE CATEGORY)
 
 <figure markdown>
 ![screenshot 15](img/screen15.png)
@@ -34,10 +49,8 @@ Once the selection committee is created, you can add candidates to this committe
  <figcaption>Adding new candidates</figcaption>
 </figure>
 
-
-## Status of the candidates
-
-Once a new candidate is declared, he must be nominated then elected to create a new mandate. 
+A small workflow has been added in Mozaïk to proceed to the follow-up of candidates. 
+Once a new applicant is declared, he must first be nominated (= accepted in the short-list), before being eventually elected. 
 
 ``` mermaid
 graph LR
@@ -46,34 +59,26 @@ graph LR
   C --> D[Not elected];
   C --> E[Elected];
 ```
- <figcaption>Workflow of an election</figcaption>
+ <figcaption>Workflow of an applicant</figcaption>
 
-<figure markdown>
-![screenshot 57](img/screen57.png)
- <figcaption>Management of the status of the candidates</figcaption>
-</figure>
 
 ## Invalidation of mandates
 
-The mandates are characterized by three dates: 
+Mandates are characterized by three dates: 
 
-- The beginning of mandates.
-- The end of the mandates.
-- The experition of mandates.
+- Start date
+- End date (effective end date)
+- Deadline date (theoretical end date)
 
-!!! abstract "The goal of this functionality"
+In Mozaïk, mandates are automatically closed once the deadline date has been reached. Mandates can also be terminated prematurely by filling in the effective end date manually on a mandate.
 
-    The feature allows to invalidate a mandate :
-
-    - Automatically on the expiry date.
-    - Manually by setting an end date before the expiration date.
 
 ## Renewal of mandates
-The module allows you to renew a mandate by clicking on the "renew" button in the "State Mandates" tab.
+Mandates can easily be extended by selecting the 'Renew button' on the contract.
 
 !!! abstract "The goal of this functionality"
 
-    - This functionality allows you to renew a mandate automatically without going through the election phase.
+    - This functionality allows you to renew a mandate automatically without going through a new election phase.
     - This functionality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
     !!!example
 
@@ -81,4 +86,4 @@ The module allows you to renew a mandate by clicking on the "renew" button in th
 
 ??? tip
 
-    It is possible to create and retrieve all categories of mandates for political mandates - internal and external by clicking on "configurations" then "categories of mandates"
+    It is possible to create and retrieve all categories of mandates for political, internal and external mandates by navigating in the 'Mandates --> Configurations' menu.
