@@ -48,6 +48,20 @@ msgid "Birth Date > ..."
 msgstr "Date de naissance > ..."
 
 #. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__birthdate_day
+#, fuzzy
+#| msgid "Birth Date"
+msgid "Birthdate Day"
+msgstr "Date de naissance"
+
+#. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__birthdate_month
+#, fuzzy
+#| msgid "Birth Date"
+msgid "Birthdate Month"
+msgstr "Date de naissance"
+
+#. module: mozaik_virtual_partner_relation
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__common_id
 msgid "Common ID"
 msgstr ""
