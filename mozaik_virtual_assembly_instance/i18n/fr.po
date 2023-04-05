@@ -48,6 +48,20 @@ msgid "Birth Date"
 msgstr "Date de naissance"
 
 #. module: mozaik_virtual_assembly_instance
+#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__birthdate_day
+#, fuzzy
+#| msgid "Birth Date"
+msgid "Birthdate Day"
+msgstr "Date de naissance"
+
+#. module: mozaik_virtual_assembly_instance
+#: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__birthdate_month
+#, fuzzy
+#| msgid "Birth Date"
+msgid "Birthdate Month"
+msgstr "Date de naissance"
+
+#. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__common_id
 msgid "Common ID"
 msgstr ""
