@@ -176,3 +176,5 @@ class TestMembershipRequest(SavepointCase):
         self.assertTrue(not_active_line.paid)
         self.assertEqual(active_line.price, 0)
         self.assertEqual(not_active_line.price, 0)
+
+        self.assertEqual(self.harry.sponsor_id, self.ron)
