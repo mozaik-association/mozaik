@@ -1041,3 +1041,69 @@ class TestMembership(TransactionCase):
         mr.validate_request()
 
         self.assertEqual(harry.membership_line_ids.filtered("active")[0].price, 10)
+
+    def test_membership_request_free_product_advance_workflow(self):
+        """
+        Create a free product and tick 'Advance Workflow as Paid'.
+        The partner's state is 'Member Committee' because the 'Member Candidate'
+        line was automatically validated, as he has nothing to pay.
+        """
+        # Create a product for Sponsored Memberships and a membership tarification
+        self.env["product.template"].create(
+            {
+                "name": "Sponsored Membership",
+                "membership": True,
+                "categ_id": self.ref("mozaik_membership.membership_product_category"),
+                "lst_price": 0,
+                "advance_workflow_as_paid": True,
+            }
+        )
+        sponsor_mt = self.env["membership.tarification"].create(
+            {
+                "name": "Sponsored Membership",
+                "product_id": self.env["product.product"]
+                .search(
+                    [("product_tmpl_id.name", "=", "Sponsored Membership")], limit=1
+                )
+                .id,
+                "sequence": 0,
+                "code": "True",
+            }
+        )
+        # Assert that the sponsored membership tarification appears first
+        mt = self.env["membership.tarification"].search([], limit=1)
+        self.assertEqual(mt, sponsor_mt)
+
+        mr = self.env["membership.request"].create(
+            {
+                "request_type": "m",
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "partner_id": self.partner.id,
+            }
+        )
+
+        # Validate the request
+        mr.write(
+            mr._onchange_partner_id_vals(
+                mr.is_company, mr.request_type, mr.partner_id.id, mr.technical_name
+            )
+        )
+        mr.validate_request()
+
+        # Harry has two membership lines: member candidate (free and paid, inactive)
+        # and member committee (free and paid, active)
+        self.assertEqual(self.partner.membership_state_code, "member_committee")
+        self.assertEqual(2, len(self.partner.membership_line_ids))
+        active_line = self.partner.membership_line_ids.filtered("active")
+        not_active_line = self.partner.membership_line_ids.filtered(
+            lambda ml: not ml.active
+        )
+        self.assertTrue(active_line)
+        self.assertTrue(not_active_line)
+        self.assertEqual(active_line.state_id.code, "member_committee")
+        self.assertEqual(not_active_line.state_id.code, "member_candidate")
+        self.assertTrue(active_line.paid)
+        self.assertTrue(not_active_line.paid)
+        self.assertEqual(active_line.price, 0)
+        self.assertEqual(not_active_line.price, 0)

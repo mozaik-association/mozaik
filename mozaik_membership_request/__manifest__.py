@@ -29,6 +29,7 @@
         "data/ir_config_parameter.xml",
         "data/ir_cron_membership.xml",
         "data/ir_cron_supporter.xml",
+        "views/product_template.xml",
         "views/membership_request.xml",
         "views/res_partner.xml",
     ],
@@ -36,5 +37,5 @@
         "demo/membership_request.xml",
     ],
     "installable": True,
-    "external_dependencies": {"python": ["openupgradelib"]},
+    "external_dependencies": {"python": ["openupgradelib", "sismic"]},
 }

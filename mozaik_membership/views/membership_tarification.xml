@@ -28,6 +28,11 @@
                             colspan="2"
                             string="partner => Partner whose tarification is evaluated"
                         />
+                        <label
+                            for="code"
+                            colspan="2"
+                            string="membership_request => Membership request being validated (if relevant), false otherwise"
+                        />
                         <label for="code" colspan="2" string="uid => Current user id" />
                         <label for="code" colspan="2" string="user => Current user" />
                         <label

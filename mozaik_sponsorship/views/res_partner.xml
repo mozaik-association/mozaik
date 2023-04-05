@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form (in mozaik_sponsorship)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="sponsorship" string="Sponsorship">
+                    <group>
+                        <field name="sponsor_id" />
+                        <field name="sponsor_godchild_ids" widget="many2many">
+                             <tree>
+                                <field name="identifier" />
+                                <field name="firstname" />
+                                <field name="lastname" />
+                                <field name="birthdate_date" />
+                                <field name="email" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="membership_request_form_view">
+        <field name="name">membership.request.form (in mozaik_sponsorship)</field>
+        <field name="model">membership.request</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_membership_request.membership_request_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='payment']" position="inside">
+                <group name="sponsor" string="Sponsorship">
+                    <group>
+                        <field
+                            name="sponsor_id"
+                            options="{'no_create_edit': True, 'no_create': True}"
+                        />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
