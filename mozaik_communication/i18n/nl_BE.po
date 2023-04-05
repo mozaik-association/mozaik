@@ -130,6 +130,22 @@ msgid "Birth Date > ..."
 msgstr "Geboortedatum > ..."
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__birthdate_day
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__birthdate_day
+#, fuzzy
+#| msgid "Birth Date"
+msgid "Birthdate Day"
+msgstr "Geboortedatum"
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__birthdate_month
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__birthdate_month
+#, fuzzy
+#| msgid "Birth Date"
+msgid "Birthdate Month"
+msgstr "Geboortedatum"
+
+#. module: mozaik_communication
 #: code:addons/mozaik_communication/models/mailing_trace.py:0
 #, python-format
 msgid "Bounce Details"
@@ -1119,7 +1135,6 @@ msgstr ""
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
-#: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
 #, python-format
 msgid "This operator is not supported"
 msgstr ""
@@ -1229,13 +1244,11 @@ msgstr ""
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
-#: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
 #, python-format
 msgid "value should be a list"
 msgstr ""
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
 #: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
 #, python-format
 msgid "value should be a string"
