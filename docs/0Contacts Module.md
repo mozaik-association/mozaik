@@ -1,4 +1,4 @@
-# Contacts Fact
+# Contacts Enrichment
 
 The contact module - which is a central module in Mozaik - allows to manage the contacts related to your organisation / political party.  It will give you access to:
 

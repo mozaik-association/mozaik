@@ -1,26 +1,24 @@
-# Membership
+# Memberships
 
-## Membership line
-It is possible to follow-up the membership history of a member from the memberships tab of a contact. In this tab, you can find a whole list of information:
+## Membership lines
+In the membership tab of a contact, you can find all the membership lines of a certain member. This enables you to easily retrieve  the complete membership history of this member. On those membership lines, you can find a whole list of information:
 
-- Internal instance to which the member is linked by its membership.
 - Membership status to which the contact belongs (former member, new member...).
-- Type of membership fee paid (normal membership, reduce price (job seeker, disabled)).
+- Type of membership fee (normal membership, reduced price (job seeker, disabled)).
 - Price of the subscription.
 - Structured communication reference (possible to work with a structured communication).
-- Payement link (possible to pay the membership online with Stripe, Adyen...)
-- Check whether the member is in good standing or not.
+- Payement link (possible to pay the membership online with Stripe, Adyen or any other payment acquirer...).
+- Check whether the membership has been paid or not for the current year.
+- Internal instance (< internal structure of the organization) to which the member is linked by its membership.
 - Start and end date of the membership.
 
-This tab provides you to easily manage or modify memberships. 
-
-Mozaik provides you to manage the membership cards of the organisation, to see who has already received his card and who has not yet received it.
+You can easily handle and/or modify memberships in this tab. Membership cards can also be managed from there: you can check who has already received his membership card and to which new members it still needs to be sent.
  
 Each member in Odoo is linked to a unique member number. The member number can be found on the contact form next to the contacts name and the membership state.
 
 !!! abstract "The goal of membership lines"
 
-    Membership lines provides you to follow-up the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local groups, type of memberships (prices), dates ,...
+    Membership lines enable you to do the follow-up the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local groups, type of memberships (prices), dates ,...
 <figure markdown>
 ![screenshot 8](img/screen8.png)
 <figcaption>New memberhsip line on the contact form & unique member number</figcaption>
@@ -33,6 +31,7 @@ Several membership types can be added in Mozaik. Each organisation can define it
 
     1. It is possible to set a lower price for the first year of membership compared to subsequent years.
     2. It is possible to put a different price for people with disabilities (example: 5€ instead of 10€)
+    3. Etc.
 
 !!! abstract "The goal of memberships fees"
 
@@ -66,16 +65,19 @@ A complete membership workflow has been implemented in Mozaik. Members are linke
 
 
 ## Membership renewals
-Each year, the organisation may issue a call for membership renewal. Members who did not pay the previous year become " former members ".
+Each year, the organisation may issue a call for membership renewal. 
 
-Members in good standing will receive:
+Members who paid their previous membership can receive:
 
-- An email with a link to pay online. 
-- A letter with a structured communication to pay.
+- An email with a link to pay online (Sips, Adyen... or any other payment acquirer). 
+- An email with a form to fill in a bank mandate, in order to pay their membership fee with a direct debit transfer (SEPA)
+- A letter with a structured communication (bank transfer).
+
 
 !!!info
 
-    It is possible to change the status of all members who have not paid their membership fee before the deadline to "former member fee".
+    During the membership renewals, members who didn't pay their previous membership will automatically be transformed into 'former members'. This action can be triggered at any moment during the year.
+    
 <figure markdown>
 ![screenshot 13](img/screen13.png)
 <figcaption>Example of a membership renewal workflow</figcaption>
