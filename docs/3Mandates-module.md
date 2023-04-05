@@ -1,11 +1,15 @@
 # Mandates
-The mandates module allows you to manage the mandates (political/internal/external) related to your organisation. Different categories of mandates are possible.
-These three types of mandates are managed in a similar way. Only the data changes.
 
-Each gategory of mandate give you access to :
+The mandates module allows you to easily manage the different mandates and mandate categories related to your organisation:
+- Political mandates (mandates related to your policial structure: Mayor, Federal Minister, Senator...)
+- Internal mandates (functions occupied within the organisation-internal structure: Chief Secretary, Financial Officer ...  )
+- External mandates (functions within an external organisation-external structure: Board Member of another organisation ...)
 
-- The selection comittee
-- The statuts of the mandates
+Several functionalities are available in the mandates module:
+
+- Mandates management (consult, create, remove, edit)
+- The selection committee
+- The status of the mandates
 - The invalidation of mandates
 - The renewal of mandates
 
