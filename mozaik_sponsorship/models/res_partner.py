@@ -1,7 +1,8 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
@@ -15,3 +16,9 @@ class ResPartner(models.Model):
         string="Sponsor Godchildren",
         domain=[("active", "=", True)],
     )
+
+    @api.constrains("sponsor_id")
+    def check_parent_different_from_self(self):
+        for rec in self:
+            if rec.sponsor_id == rec:
+                raise ValidationError(_("A partner cannot be sponsored by itself"))

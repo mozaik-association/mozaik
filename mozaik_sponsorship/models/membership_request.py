@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class MembershipRequest(models.Model):
@@ -10,6 +11,12 @@ class MembershipRequest(models.Model):
 
     can_be_sponsored = fields.Boolean(compute="_compute_can_be_sponsored")
     sponsor_id = fields.Many2one("res.partner")
+
+    @api.constrains("sponsor_id", "partner_id")
+    def check_parent_different_from_self(self):
+        for mr in self:
+            if mr.sponsor_id and mr.sponsor_id == mr.partner_id:
+                raise ValidationError(_("A partner cannot be sponsored by itself"))
 
     @api.depends("partner_id", "partner_id.membership_state_id")
     def _compute_can_be_sponsored(self):
