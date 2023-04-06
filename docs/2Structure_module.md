@@ -20,7 +20,14 @@ In the structure module, you will encounter the following terms:
 
 A level of power refers to the different decision-making and governance bodies within the organisation. Each level of authority is responsible for managing specific functions or activities.
 
-In Belgium, the level of power is represented by the distribution of competences between the federated entities: the Regions, the Communities and the Federal State
+!!! example "Examples"
+
+    In Belgium, the level of power is represented by the distribution of competences between the federated entities:
+
+    - The Regions
+    - The Communities
+    - The provinces
+    - The Federal State
 
 ## Instances
 
@@ -50,7 +57,7 @@ Each instance can be associated to an assembly category of the same power level.
     In the political structure of Belgium, the city of Ghent (power level = city) could be associated with the following categories of assemblies:
 
     - The college of mayors and aldermen 
-    - The communal council
+    - The local council
     - The police council
     - The social action council
 

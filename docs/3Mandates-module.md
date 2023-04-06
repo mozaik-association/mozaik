@@ -13,10 +13,6 @@ Several functionalities are available in the mandates module:
 - The invalidation of mandates
 - The renewal of mandates
 
-
-
-PARLER QUELQUE PART DES CHAMPS A REMPLIR SUR UN MANDAT / FAIRE UN LIEN AVEC LA STRUCTURE
-
 ## Selection committees
 
 Selection committees can be created in Mozaïk in order to manage the results of elections (political elections, internal elections):
@@ -28,16 +24,17 @@ Selection committees can be created in Mozaïk in order to manage the results of
     - Non-elected candidates
 - Automatic creation of mandates
 
+When creating a selection committee, you must select the legislature and the designation assembly that you have previously created in the structure module.
+
 Mozaïk doesn't have a function yet to organise elections / votes. Only the follow-up of candidates and the result of the votes can be handled in Mozaïk. 
 
 Once a candidate is elected/selected, a (political/internal) mandate will automatically be created for this candidate. Selection committees are not mandatary, as mandates can directly be created in Mozaïk (without working with candidates and elections).
-
 
 !!!info
 
      Once a selection committee is created, you can easily add candidates to this committee by clicking on the "add a new candidature" button.
 
-METTRE LES CHAMPS EN ANGLAIS SUR LES SCREENSHOTS ( COMMUNE, COMMUNAL COUNCIL, LEGISLATURE, DESIGNATION COUNCIL, MANDATE CATEGORY)
+
 
 <figure markdown>
 ![screenshot 15](img/screen15.png)

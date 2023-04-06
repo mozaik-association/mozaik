@@ -1,4 +1,4 @@
-# Welcome to the Mozaik documentation
+# Introduction
 
 The Mozaik documentation is a tool to understand and learn the functionalities of Mozaik, a tool to manage political parties and large organisations. 
 

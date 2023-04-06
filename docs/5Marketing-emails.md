@@ -1,4 +1,4 @@
-# Marketing emails
+# Emails marketing
 The emails marketing module offers additional functionalities to complement the Odoo standard. The module provides you to manage the marketing emails of your organisation.
 
 It will provide access to:
