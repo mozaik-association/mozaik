@@ -28,8 +28,6 @@ An instance is a governance entity responsible for the management of specific fu
 
 Instances are always linked to a name and to a power level. They can also be linked to a parent instance, in order to create a hierarchical structure. For example, the Procince of East Flanders in Belgium is the parent instance of the city of Ghent.
 
-METTRE LE SCREENSHOT EN ANGLAIS  (commune à mettre comme CITY)
-
 <figure markdown>
 ![screenshot 14](img/screen14.png)
 <figcaption>Example of an instance</figcaption>
@@ -41,11 +39,13 @@ The assembly is a collective decision-making instance, which can have a key role
 
 Each instance can be associated to an assembly category of the same power level. This combination is generating assemblies.
 
+!!!example "Examples"
 
-METTRE AUSSI UN EXEMPLE POUR LA STRUCTURE INTERNE (avant la structure politique)
+    In the internal structure of the political party, the city of Ghent (power level = city) could be associated with the following categories of assemblies:
 
-
-!!!example
+    - Local secretary
+    - Local Selection Committee
+    - Local treasury
 
     In the political structure of Belgium, the city of Ghent (power level = city) could be associated with the following categories of assemblies:
 
@@ -55,16 +55,19 @@ METTRE AUSSI UN EXEMPLE POUR LA STRUCTURE INTERNE (avant la structure politique)
     - The social action council
 
 <figure markdown>
+![screenshot 58](img/screen58.png)
+<figcaption>Example of an internal instance with its related category assemblies</figcaption>
+</figure>
+
+<figure markdown>
 ![screenshot 52](img/screen52.png)
-<figcaption>Example of an instance with its related category assemblies</figcaption>
+<figcaption>Example of an political instance with its related category assemblies</figcaption>
 </figure>
 
 <figure markdown>
 ![screenshot 53](img/screen53.png)
 <figcaption>Example of assemblies</figcaption>
 </figure>
-
-METTRE LES SCREENSHOTS EN ANGLAIS 
 
 ## Electoral districts (only for the political structure)
 
@@ -76,8 +79,6 @@ The electoral districts can be register in the "electoral districts" tab of the 
 ![screenshot 55](img/screen55.png)
 <figcaption>Example of a electoral district</figcaption>
 </figure>
-
-METTRE LE SCREENSHOT EN ANGLAIS (power level = city)
 
 ## Legislature (only for the political structure)
 
@@ -91,5 +92,3 @@ When a mandate is created a legislature will be bound to that mandate thanks to 
 ![screenshot 54](img/screen54.png)
 <figcaption>Example of a legislature</figcaption>
 </figure>
-
-METTRE EN ANGLAIS + reprendre un exemple avec power level = city (donc ELections communales de 2024 par exemple)
