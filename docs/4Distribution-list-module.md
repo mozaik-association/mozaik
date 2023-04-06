@@ -33,8 +33,7 @@ A distribution list allows you to add filters that allow you to find a list of c
 
 As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
 
-Several filters can be added to a distribution list in order to refine the list of contacts
- as much as possible.
+Several filters can be added to a distribution list in order to refine the list of contacts as much as possible.
 
 !!!info
 

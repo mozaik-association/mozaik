@@ -93,7 +93,7 @@ A legislature is a period of time during which the members of a legislative body
 
 This feature allows you to add/modify/delete the different legislatures of the country.
 
-When a mandate is created a legislature will be bound to that mandate thanks to the mandates module of Moziak. 
+When a mandate is created a legislature will be bound to that mandate thanks to the mandates module of Mozaik. 
 
 <figure markdown>
 ![screenshot 54](img/screen54.png)

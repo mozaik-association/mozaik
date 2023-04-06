@@ -18,7 +18,7 @@ Each member in Odoo is linked to a unique member number. The member number can b
 
 !!! abstract "The goal of membership lines"
 
-    Membership lines enable you to do the follow-up the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states , local groups, type of memberships (prices), dates ,...
+    Membership lines enable you to do the follow-up the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states, local groups, type of memberships (prices), dates ,...
 <figure markdown>
 ![screenshot 8](img/screen8.png)
 <figcaption>New memberhsip line on the contact form & unique member number</figcaption>

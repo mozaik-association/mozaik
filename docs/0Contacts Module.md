@@ -1,4 +1,4 @@
-# Contacts Enrichment
+# Contacts enrichment
 
 The contact module - which is a central module in Mozaik - allows to manage the contacts related to your organisation / political party.  It will give you access to:
 
@@ -19,7 +19,7 @@ Various informations can be collected for each contact (individuals or companies
 
 !!! info "Address"
 
-    The encoding of addresses on the contact form is facilitated by the auto-completion functionality that the system provides. This functionality allows you to choose the city and the street from a list of predefined choices. It is use to avoid encoding errors and helps detect duplicates. 
+    The encoding of addresses on the contact form is facilitated by the auto-completion functionality that the system provides. This functionality allows you to choose the city and the street from a list of predefined choices. It is used to avoid encoding errors and helps detect duplicates. 
 
     :warning:Depending on their address, the contacts are associated with a local group/instance of the organisation. When the address changes, the instance of the contact can also be updated.
     !!! example
