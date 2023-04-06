@@ -1,7 +1,7 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class MembershipRequest(models.Model):
@@ -56,4 +56,63 @@ class MembershipRequest(models.Model):
             lambda mr: mr.partner_id and mr.sponsor_id
         ):
             mr.partner_id.sponsor_id = mr.sponsor_id
+        return res
+
+    def _validate_request_membership(self, partner):
+        """
+        When validating the MR, if the partner already has an active membership line
+        in the same state as the MR result state, we do not create a new membership
+        line, but we update the existing one (update price, product and reference).
+
+        The problem is that we update the price only if it is > 0
+        (We cannot update a price = 0 otherwise every MR will modify existing
+        membership lines, even if they don't intend to do it, as 0 is the default value).
+        But sponsored memberships are likely to involve free membership products.
+
+        Hence, in the special sponsorship context (if sponsor_id is filled on the MR),
+        we allow to modify the price and the product. We search for the corresponding
+        product based on membership tarification rules. We thus ignore the amount
+        that could have been added on the membership request.
+        """
+        res = super()._validate_request_membership(partner)
+
+        if self.sponsor_id and self.result_type_id.code in (
+            "member",
+            "member_candidate",
+        ):
+            active_memberships = partner.membership_line_ids.filtered("active")
+            product = partner.with_context(
+                membership_request_id=self.id
+            ).subscription_product_id
+            if product:
+                instances = self.force_int_instance_id | self.int_instance_ids
+                membership_instances = active_memberships.filtered(
+                    lambda m: m.int_instance_id in instances and not m.paid
+                )
+                membership_instances.write(
+                    {
+                        "product_id": product.id,
+                        "price": product.list_price,
+                    }
+                )
+
+                # Post the changes
+                for membership in membership_instances:
+                    body = (
+                        _("Membership changed with membership request:")
+                        + "<br/><ul class='o_Message_trackingValues'>"
+                    )
+                    arrow = "<div class='fa fa-long-arrow-right'></div>"
+                    body += _("<li>Price: %(previous)s %(arrow)s %(after)s</li>") % {
+                        "previous": membership.price,
+                        "arrow": arrow,
+                        "after": product.price,
+                    }
+                    body += _("<li>Product: %(previous)s %(arrow)s %(after)s</li>") % {
+                        "previous": membership.product_id.name,
+                        "arrow": arrow,
+                        "after": product.name,
+                    }
+                    membership.partner_id.message_post(body=body)
+
         return res
