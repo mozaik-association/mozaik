@@ -1587,7 +1587,7 @@ class MembershipRequest(models.Model):
         ):
             self._validate_request_membership(partner)
 
-    def _validate_request_membership(self, partner):
+    def _validate_request_membership(self, partner):  # noqa: C901
         self.ensure_one()
         active_memberships = partner.membership_line_ids.filtered(lambda s: s.active)
         if self.force_int_instance_id:
@@ -1640,6 +1640,15 @@ class MembershipRequest(models.Model):
                         }
                     )
                     w._onchange_product_id()  # compute the price
+
+                    # Special case for free products: if the product costs 0 but a price
+                    # is set on the MR, we want to force the membership line price
+                    # BEFORE creating it. Otherwise, it will be created and if
+                    # advance_workflow_as_paid = True on the product, the membership line
+                    # will be marked as paid and a new membership line will be created,
+                    # before updating the price (coming from the MR) in the next lines
+                    if w.product_id and w.product_id.price == 0 and self.amount:
+                        w.price = self.amount
                 update_amount_membership_line = w.action_add()
 
             elif self.result_type_id.code in ("member", "member_candidate"):
