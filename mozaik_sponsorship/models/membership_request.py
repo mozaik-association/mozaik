@@ -51,10 +51,11 @@ class MembershipRequest(models.Model):
 
     def validate_request(self):
         """
-        Write the sponsor on the partner
+        Write the sponsor on the partner and tick the is_sponsored_membership
+        boolean on active ML linked to instances referenced in the MR
         """
         # Must check can_be_sponsored boolean before validation, otherwise
-        # the membership state of the partner change.
+        # the membership state of the partner changes.
         mr_can_be_sponsored = self.filtered("can_be_sponsored")
 
         res = super().validate_request()
@@ -63,6 +64,11 @@ class MembershipRequest(models.Model):
             lambda mr: mr.partner_id and mr.sponsor_id
         ):
             mr.partner_id.sponsor_id = mr.sponsor_id
+            for instance in mr.force_int_instance_id or mr.int_instance_ids:
+                membership_instance = mr.partner_id.membership_line_ids.filtered(
+                    lambda ml, i=instance: ml.active and ml.int_instance_id == i
+                )
+                membership_instance.is_sponsored = True
         return res
 
     def _validate_request_membership(self, partner):  # noqa: C901

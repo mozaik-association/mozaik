@@ -182,6 +182,7 @@ class TestMembershipRequest(SavepointCase):
         self.assertTrue(not_active_line.paid)
         self.assertEqual(active_line.price, 0)
         self.assertEqual(not_active_line.price, 0)
+        self.assertTrue(active_line.is_sponsored)
 
         self.assertEqual(self.harry.sponsor_id, self.ron)
 
@@ -239,6 +240,7 @@ class TestMembershipRequest(SavepointCase):
         self.assertEqual(not_active_line.state_id.code, "member_candidate")
         self.assertEqual(not_active_line.price, 0)
         self.assertEqual(not_active_line.product_id, self.product_sponsored)
+        self.assertTrue(active_line.is_sponsored)
 
     def test_sponsored_membership_not_member_wants_to_pay(self):
         """
@@ -281,5 +283,6 @@ class TestMembershipRequest(SavepointCase):
         self.assertFalse(active_line.paid)
         self.assertEqual(active_line.price, 8)
         self.assertEqual(active_line.product_id, self.product_sponsored)
+        self.assertTrue(active_line.is_sponsored)
 
         self.assertEqual(self.harry.sponsor_id, self.ron)
