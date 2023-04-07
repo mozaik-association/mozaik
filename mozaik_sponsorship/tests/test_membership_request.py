@@ -11,6 +11,35 @@ class TestMembershipRequest(SavepointCase):
         cls.harry = cls.env["res.partner"].create({"name": "Harry Potter"})
         cls.ron = cls.env["res.partner"].create({"name": "Ron Weasley"})
 
+    def setUp(self):
+        super().setUp()
+        self.sponsored_membership = self.env["product.template"].create(
+            {
+                "name": "Sponsored Membership",
+                "membership": True,
+                "categ_id": self.ref("mozaik_membership.membership_product_category"),
+                "lst_price": 0,
+                "advance_workflow_as_paid": True,
+            }
+        )
+        self.product_sponsored = self.env["product.product"].search(
+            [("product_tmpl_id.name", "=", "Sponsored Membership")], limit=1
+        )
+        self.sponsor_mt = self.env["membership.tarification"].create(
+            {
+                "name": "Sponsored Membership",
+                "product_id": self.product_sponsored.id,
+                "sequence": 0,
+                "code": "membership_request"
+                " and membership_request.sponsor_id"
+                " and membership_request.can_be_sponsored",
+            }
+        )
+        self.usual_subscription = self.env.ref(
+            "mozaik_membership.membership_product_isolated"
+        )
+        self.usual_subscription.price = 20.0
+
     def test_membership_request_can_be_sponsored_new_partner(self):
         """
         Create a MR for a new partner.
@@ -108,39 +137,18 @@ class TestMembershipRequest(SavepointCase):
         )
         self.assertFalse(mr.can_be_sponsored)
 
-    def test_free_membership_line(self):
+    def test_free_membership_line_new_member(self):
         """
+        Harry has no membership line yet.
         Create a MR of type 'm' for Harry, setting Ron as sponsor.
         Validate the request.
         Check that Harry became a member committee with a free membership.
         """
         # Create a product for Sponsored Memberships and a membership tarification
-        self.env["product.template"].create(
-            {
-                "name": "Sponsored Membership",
-                "membership": True,
-                "categ_id": self.ref("mozaik_membership.membership_product_category"),
-                "lst_price": 0,
-                "advance_workflow_as_paid": True,
-            }
-        )
-        sponsor_mt = self.env["membership.tarification"].create(
-            {
-                "name": "Sponsored Membership",
-                "product_id": self.env["product.product"]
-                .search(
-                    [("product_tmpl_id.name", "=", "Sponsored Membership")], limit=1
-                )
-                .id,
-                "sequence": 0,
-                "code": "membership_request"
-                " and membership_request.sponsor_id"
-                " and membership_request.can_be_sponsored",
-            }
-        )
+
         # Assert that the sponsored membership tarification appears first
         mt = self.env["membership.tarification"].search([], limit=1)
-        self.assertEqual(mt, sponsor_mt)
+        self.assertEqual(mt, self.sponsor_mt)
 
         mr = self.env["membership.request"].create(
             {
@@ -178,3 +186,50 @@ class TestMembershipRequest(SavepointCase):
         self.assertEqual(not_active_line.price, 0)
 
         self.assertEqual(self.harry.sponsor_id, self.ron)
+
+    def test_free_membership_line_member_candidate(self):
+        """
+        Make Harry become a member candidate first, with a non-free product.
+        Create a MR of type 'm' for Harry, setting Ron as sponsor.
+        Validate the request.
+        Check that Harry's membership line was modified: the price is now 0 and
+        the product is now the sponsored membership.
+        """
+        wiz = self.env["add.membership"].create(
+            {
+                "partner_id": self.harry.id,
+                "int_instance_id": self.harry.int_instance_ids[0].id,
+                "state_id": self.ref("mozaik_membership.member_candidate"),
+                "product_id": self.usual_subscription.id,
+                "price": self.usual_subscription.price,
+            }
+        )
+        wiz.action_add()
+        self.assertEqual(self.harry.membership_state_code, "member_candidate")
+        self.assertEqual(len(self.harry.membership_line_ids), 1)
+        self.assertNotEqual(self.harry.membership_line_ids.price, 0)
+
+        # Create the request
+        mr = self.env["membership.request"].create(
+            {
+                "request_type": "m",
+                "lastname": "Potter",
+                "firstname": "Harry",
+                "partner_id": self.harry.id,
+                "sponsor_id": self.ron.id,
+            }
+        )
+
+        # Validate the request
+        mr.write(
+            mr._onchange_partner_id_vals(
+                mr.is_company, mr.request_type, mr.partner_id.id, mr.technical_name
+            )
+        )
+        mr.validate_request()
+
+        self.assertEqual(len(self.harry.membership_line_ids), 1)
+        self.assertEqual(self.harry.membership_line_ids.price, 0)
+        self.assertEqual(
+            self.harry.membership_line_ids.product_id, self.product_sponsored
+        )
