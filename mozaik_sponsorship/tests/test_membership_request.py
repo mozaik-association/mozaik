@@ -192,6 +192,8 @@ class TestMembershipRequest(SavepointCase):
         Validate the request.
         Check that Harry's membership line was modified: the price is now 0 and
         the product is now the sponsored membership.
+        Check that hence this ML was marked as paid and that Harry now has a second ML
+        as member_committee.
         """
         wiz = self.env["add.membership"].create(
             {
@@ -226,11 +228,17 @@ class TestMembershipRequest(SavepointCase):
         )
         mr.validate_request()
 
-        self.assertEqual(len(self.harry.membership_line_ids), 1)
-        self.assertEqual(self.harry.membership_line_ids.price, 0)
-        self.assertEqual(
-            self.harry.membership_line_ids.product_id, self.product_sponsored
+        self.assertEqual(len(self.harry.membership_line_ids), 2)
+        active_line = self.harry.membership_line_ids.filtered("active")
+        not_active_line = self.harry.membership_line_ids.filtered(
+            lambda ml: not ml.active
         )
+        self.assertTrue(active_line)
+        self.assertTrue(not_active_line)
+        self.assertEqual(active_line.state_id.code, "member_committee")
+        self.assertEqual(not_active_line.state_id.code, "member_candidate")
+        self.assertEqual(not_active_line.price, 0)
+        self.assertEqual(not_active_line.product_id, self.product_sponsored)
 
     def test_sponsored_membership_not_member_wants_to_pay(self):
         """

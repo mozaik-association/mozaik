@@ -108,12 +108,13 @@ class MembershipRequest(models.Model):
                 membership_instances = membership_lines_to_update.filtered(
                     lambda m: m.int_instance_id in instances and not m.paid
                 )
-                membership_instances.write(
-                    {
-                        "product_id": product.id,
-                        "price": product.list_price,
-                    }
-                )
+                vals = {
+                    "product_id": product.id,
+                    "price": product.list_price,
+                }
+                if vals["price"] == 0:
+                    vals["paid"] = True
+                membership_instances.write(vals)
 
                 # Post the changes
                 for membership in membership_instances:
@@ -133,5 +134,8 @@ class MembershipRequest(models.Model):
                         "after": product.name,
                     }
                     membership.partner_id.message_post(body=body)
+
+                    # Advance workflow for membership lines that became free
+                    membership._advance_in_workflow()
 
         return res
