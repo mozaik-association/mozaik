@@ -1,6 +1,7 @@
 # Copyright 2021 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import json
 import logging
 from datetime import timedelta
 
@@ -60,6 +61,32 @@ class MembershipLine(models.Model):
             vals["price"] = amount
         w = self.env["add.membership"].create(vals)
         return w._create_membership_line()
+
+    def _advance_in_workflow(self):
+        self.ensure_one()
+        # The statechart is defined but lives independently of the record
+        # This was not the best way to do that when migrating but
+        # to avoid refactoring the whole code, we force the configuration,
+        # setting the current membership state to trigger the right
+        # computation of sc_<event>_allowed fields.
+        self.sudo().partner_id.sc_state = json.dumps(
+            {"configuration": ["root", self.partner_id.membership_state_id.code]}
+        )
+
+        if (
+            self.product_id.advance_workflow_as_paid
+            and self.partner_id.sc_paid_allowed
+            and self.price == 0
+            and self.paid
+        ):
+            # If creating a free membership line, we want to trigger the
+            # same workflow as when a not free membership line is marked as paid,
+            # i.e. creating the following membership (following the statechart)
+            next_state = self.partner_id.simulate_next_state(event="paid")
+            status_obj = self.env["membership.state"]
+            status = status_obj.search([("code", "=", next_state)], limit=1)
+            if self.state_id != status:
+                self.create_following_membership(status)
 
     def cron_accept_member_committee(self):
         today = fields.Date.today()

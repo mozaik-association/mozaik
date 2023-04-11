@@ -51,10 +51,11 @@ class MembershipRequest(models.Model):
 
     def validate_request(self):
         """
-        Write the sponsor on the partner
+        Write the sponsor on the partner and tick the is_sponsored_membership
+        boolean on active ML linked to instances referenced in the MR
         """
         # Must check can_be_sponsored boolean before validation, otherwise
-        # the membership state of the partner change.
+        # the membership state of the partner changes.
         mr_can_be_sponsored = self.filtered("can_be_sponsored")
 
         res = super().validate_request()
@@ -63,9 +64,14 @@ class MembershipRequest(models.Model):
             lambda mr: mr.partner_id and mr.sponsor_id
         ):
             mr.partner_id.sponsor_id = mr.sponsor_id
+            for instance in mr.force_int_instance_id or mr.int_instance_ids:
+                membership_instance = mr.partner_id.membership_line_ids.filtered(
+                    lambda ml, i=instance: ml.active and ml.int_instance_id == i
+                )
+                membership_instance.is_sponsored = True
         return res
 
-    def _validate_request_membership(self, partner):
+    def _validate_request_membership(self, partner):  # noqa: C901
         """
         When validating the MR, if the partner already has an active membership line
         in the same state as the MR result state, we do not create a new membership
@@ -81,27 +87,40 @@ class MembershipRequest(models.Model):
         product based on membership tarification rules. We thus ignore the amount
         that could have been added on the membership request.
         """
+        # Check which lines are already existing and for which we just have to change
+        # the price. We must avoid to process new membership lines, otherwise
+        # we will reset the price as the default price of the product, but the price
+        # may have been changed on the MR
+        active_memberships = partner.membership_line_ids.filtered("active")
+        membership_lines_to_update = self.env["membership.line"].browse()
+        for membership_instance in active_memberships:
+            if (
+                membership_instance
+                and membership_instance.state_id == self.result_type_id
+            ):
+                membership_lines_to_update |= membership_instance
+
         res = super()._validate_request_membership(partner)
 
         if self.sponsor_id and self.result_type_id.code in (
             "member",
             "member_candidate",
         ):
-            active_memberships = partner.membership_line_ids.filtered("active")
             product = partner.with_context(
                 membership_request_id=self.id
             ).subscription_product_id
             if product:
                 instances = self.force_int_instance_id | self.int_instance_ids
-                membership_instances = active_memberships.filtered(
+                membership_instances = membership_lines_to_update.filtered(
                     lambda m: m.int_instance_id in instances and not m.paid
                 )
-                membership_instances.write(
-                    {
-                        "product_id": product.id,
-                        "price": product.list_price,
-                    }
-                )
+                vals = {
+                    "product_id": product.id,
+                    "price": product.list_price,
+                }
+                if vals["price"] == 0:
+                    vals["paid"] = True
+                membership_instances.write(vals)
 
                 # Post the changes
                 for membership in membership_instances:
@@ -121,5 +140,8 @@ class MembershipRequest(models.Model):
                         "after": product.name,
                     }
                     membership.partner_id.message_post(body=body)
+
+                    # Advance workflow for membership lines that became free
+                    membership._advance_in_workflow()
 
         return res
