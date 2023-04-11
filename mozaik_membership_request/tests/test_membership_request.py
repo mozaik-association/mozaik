@@ -69,6 +69,30 @@ class TestMembership(TransactionCase):
         )
         self.member_state = self.mrs.search([("code", "=", "member")])
 
+    def create_sponsored_membership_tarification(self):
+        # Create a product for Sponsored Memberships and a membership tarification
+        self.env["product.template"].create(
+            {
+                "name": "Sponsored Membership",
+                "membership": True,
+                "categ_id": self.ref("mozaik_membership.membership_product_category"),
+                "lst_price": 0,
+                "advance_workflow_as_paid": True,
+            }
+        )
+        return self.env["membership.tarification"].create(
+            {
+                "name": "Sponsored Membership",
+                "product_id": self.env["product.product"]
+                .search(
+                    [("product_tmpl_id.name", "=", "Sponsored Membership")], limit=1
+                )
+                .id,
+                "sequence": 0,
+                "code": "True",
+            }
+        )
+
     def test_pre_process(self):
         """
         Test that input values to create a ``membership.request``
@@ -1044,32 +1068,11 @@ class TestMembership(TransactionCase):
 
     def test_membership_request_free_product_advance_workflow(self):
         """
-        Create a free product and tick 'Advance Workflow as Paid'.
+        Create a member MR with the product having 'Advance workflow as Paid' ticked.
         The partner's state is 'Member Committee' because the 'Member Candidate'
         line was automatically validated, as he has nothing to pay.
         """
-        # Create a product for Sponsored Memberships and a membership tarification
-        self.env["product.template"].create(
-            {
-                "name": "Sponsored Membership",
-                "membership": True,
-                "categ_id": self.ref("mozaik_membership.membership_product_category"),
-                "lst_price": 0,
-                "advance_workflow_as_paid": True,
-            }
-        )
-        sponsor_mt = self.env["membership.tarification"].create(
-            {
-                "name": "Sponsored Membership",
-                "product_id": self.env["product.product"]
-                .search(
-                    [("product_tmpl_id.name", "=", "Sponsored Membership")], limit=1
-                )
-                .id,
-                "sequence": 0,
-                "code": "True",
-            }
-        )
+        sponsor_mt = self.create_sponsored_membership_tarification()
         # Assert that the sponsored membership tarification appears first
         mt = self.env["membership.tarification"].search([], limit=1)
         self.assertEqual(mt, sponsor_mt)
@@ -1091,7 +1094,7 @@ class TestMembership(TransactionCase):
         )
         mr.validate_request()
 
-        # Harry has two membership lines: member candidate (free and paid, inactive)
+        # Omar has two membership lines: member candidate (free and paid, inactive)
         # and member committee (free and paid, active)
         self.assertEqual(self.partner.membership_state_code, "member_committee")
         self.assertEqual(2, len(self.partner.membership_line_ids))
@@ -1106,4 +1109,55 @@ class TestMembership(TransactionCase):
         self.assertTrue(active_line.paid)
         self.assertTrue(not_active_line.paid)
         self.assertEqual(active_line.price, 0)
+        self.assertEqual(not_active_line.price, 0)
+
+    def test_supporter_becomes_member_with_advance_in_workflow_but_paying(self):
+        """
+        Omar is a supporter.
+        He then becomes a member and takes the first membership tarification
+        (the free sponsored one), but decides to pay 11€.
+        He must become a member candidate with its active membership line unpaid.
+        """
+        self.create_sponsored_membership_tarification()
+        wiz = self.env["add.membership"].create(
+            {
+                "partner_id": self.partner.id,
+                "int_instance_id": self.partner.int_instance_ids[0].id,
+                "state_id": self.ref("mozaik_membership.supporter"),
+            }
+        )
+        wiz.action_add()
+        mr = self.env["membership.request"].create(
+            {
+                "request_type": "m",
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "partner_id": self.partner.id,
+                "amount": 11,
+            }
+        )
+
+        # Validate the request
+        mr.write(
+            mr._onchange_partner_id_vals(
+                mr.is_company, mr.request_type, mr.partner_id.id, mr.technical_name
+            )
+        )
+        mr.validate_request()
+
+        # Omar has two membership lines: supporter (free and paid, inactive)
+        # and member candidate (costing 11€, unpaid, active)
+        self.assertEqual(self.partner.membership_state_code, "member_candidate")
+        self.assertEqual(2, len(self.partner.membership_line_ids))
+        active_line = self.partner.membership_line_ids.filtered("active")
+        not_active_line = self.partner.membership_line_ids.filtered(
+            lambda ml: not ml.active
+        )
+        self.assertTrue(active_line)
+        self.assertTrue(not_active_line)
+        self.assertEqual(active_line.state_id.code, "member_candidate")
+        self.assertEqual(not_active_line.state_id.code, "supporter")
+        self.assertFalse(active_line.paid)
+        self.assertTrue(not_active_line.paid)
+        self.assertEqual(active_line.price, 11)
         self.assertEqual(not_active_line.price, 0)
