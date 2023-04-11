@@ -1626,8 +1626,11 @@ class MembershipRequest(models.Model):
                     ):
                         # If we were in a free state, it is marked as paid by default, but
                         # the next paid membership must not be marked as paid (without
-                        # registering a payment).
-                        w._onchange_product_id()  # compute the price
+                        # registering a payment). Compute the price (on the product or
+                        # on the MR if set).
+                        w._onchange_product_id()
+                        if self.amount:
+                            w.price = self.amount
                 else:
                     w = self.env["add.membership"].create(
                         {
