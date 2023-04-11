@@ -6,7 +6,7 @@ The contact module - which is a central module in Mozaik - allows to manage the 
 - The interests & competencies of each contact
 - The participations of each member (interactions with the organisation)
 - The management of duplicates and co-residencies
-- <a href="https://mozaik-association.github.io/mozaik/1Memberships/" target="_blank">The Membership details</a>.
+- <a href="https://mozaik-association.github.io/mozaik/1Memberships/" target="_blank">The membership management</a>.
 
 ## Contacts: People management (individuals & companies)
 
