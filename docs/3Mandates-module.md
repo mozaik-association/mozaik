@@ -2,7 +2,7 @@
 
 The mandates module allows you to easily manage the different mandates and mandate categories related to your organisation:
 
-- Political mandates (mandates related to your policial structure: Mayor, Federal Minister, Senator...)
+- Political mandates (mandates related to your political structure: Mayor, Federal Minister, Senator...)
 - Internal mandates (functions occupied within the organisation-internal structure: Chief Secretary, Financial Officer ...  )
 - External mandates (functions within an external organisation-external structure: Board Member of another organisation ...)
 
@@ -12,6 +12,9 @@ Several functionalities are available in the mandates module:
 - selection committees and applicants
 - The invalidation of mandates
 - The renewal of mandates
+
+PARLER DES CHAMPS QU'ON TROUVE SUR UN MANDAT / COMMENT LES MANDATS SONT LIES AU RESTE
+
 
 ## Selection committees
 
@@ -24,7 +27,7 @@ Selection committees can be created in Mozaïk in order to manage the results of
     - Non-elected candidates
 - Automatic creation of mandates
 
-When creating a selection committee, you must select the legislature and the designation assembly that you have previously created in the structure module.
+When creating a selection committee, you must select the legislature and the designation assembly that you have previously created in the structure module. --> C'EST FAUX (PAS POUR UN COMITE INTERNE PAR EXEMPLE)
 
 Mozaïk doesn't have a function yet to organise elections / votes. Only the follow-up of candidates and the result of the votes can be handled in Mozaïk. 
 
@@ -67,7 +70,7 @@ Mandates are characterized by three dates:
 - End date (effective end date)
 - Deadline date (theoretical end date)
 
-In Mozaïk, mandates are automatically closed once the deadline date has been reached. Mandates can also be terminated prematurely by filling in the effective end date manually on a mandate.
+In Mozaïk, mandates are automatically closed once the deadline date has been reached. Mandates can also be terminated prematurely by completing the effective end date manually on a mandate.
 
 
 ## Renewal of mandates
