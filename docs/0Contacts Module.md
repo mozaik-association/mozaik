@@ -21,7 +21,7 @@ Various informations can be collected for each contact (individuals or companies
 
     The encoding of addresses on the contact form is facilitated by the auto-completion functionality that the system provides. This functionality allows you to choose the city and the street from a list of predefined choices. It is used to avoid encoding errors and helps detect duplicates. 
 
-    :warning:Depending on their address, the contacts are associated with a local group/instance of the organisation. When the address changes, the instance of the contact can also be updated.
+    :warning:Depending on their address, the contacts are associated with a local group/instance of the organisation. When the address changes, the instance of the contact can also be updated. It is an option, not an obligation.
     !!! example
     
         A contact whose address is located in Brussels will belong to the Brussels local group of the organisation. If a member moves from Brussels to Antwerp, this member will now be related to the local group linked to the city of Antwerp.
@@ -46,7 +46,7 @@ Various informations can be collected for each contact (individuals or companies
 
 ## Indexation
 
-Contacts (members, supporters, other contacts) can be linked to interests and competencies. Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaik and can be adapted according to the needs of each organisation.
+Interests and competencies can be linked to contacts (members, supporters, other contacts). Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaik and can be adapted according to the needs of each organisation.
 
 !!! abstract "The goal of Thesaurus terms" 
     
@@ -108,7 +108,7 @@ A very elaborated duplicate check system has been implemented. It is based on :
 - Email 
 - Address
 
-It helps you identify, manage and merge possible duplicates within your contacts database. 
+It helps you identify possible duplicates within your contacts database. Duplicates can then be easily modified, authorised or merged. 
 
 !!! info
 
@@ -121,7 +121,7 @@ It helps you identify, manage and merge possible duplicates within your contacts
 
 ## Co-residencies
 
-When two or more people share the same address, they can be grouped into a co-residency. This idicates that those people are no duplicates but simply live in the same accomodation.
+When two or more people share the same address, they can be grouped into a co-residency. This indicates that those people are no duplicates but simply live in the same accommodation.
 
 Co-residencies allow you to :
 
@@ -131,7 +131,7 @@ Co-residencies allow you to :
 
 ??? question "How to create a co-residency ?" 
 
-    You can create a co-residency by selecting your contacts, clicking on "action"--> "create a co-residency address” and entering the name of the co-residents in "line 1 and 2" 
+    You can create a co-residency by selecting your contacts, clicking on "action"--> "create a co-residency address” and entering the name of the co-residents in "line 1 and line 2" 
     <figure markdown>        
     ![screenshot 3](img/screen3.png)
     <figcaption>Creation of a co-residency</figcaption>
