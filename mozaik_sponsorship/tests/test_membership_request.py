@@ -286,3 +286,54 @@ class TestMembershipRequest(SavepointCase):
         self.assertTrue(active_line.is_sponsored)
 
         self.assertEqual(self.harry.sponsor_id, self.ron)
+
+    def test_sponsored_membership_already_member_candidate_wants_to_pay(self):
+        """
+        Make Harry become a member candidate first, with a non-free product.
+        Create a MR of type 'm' for Harry, setting Ron as sponsor. But Harry wants to
+        pay 8€ for his membership.
+        Validate the request.
+        Check that Harry's membership line was modified: the price is now 8 and
+        the product is now the sponsored membership. This ML is still active.
+        """
+        wiz = self.env["add.membership"].create(
+            {
+                "partner_id": self.harry.id,
+                "int_instance_id": self.harry.int_instance_ids[0].id,
+                "state_id": self.ref("mozaik_membership.member_candidate"),
+                "product_id": self.usual_subscription.id,
+                "price": self.usual_subscription.price,
+            }
+        )
+        wiz.action_add()
+        self.assertEqual(self.harry.membership_state_code, "member_candidate")
+        self.assertEqual(len(self.harry.membership_line_ids), 1)
+        self.assertNotEqual(self.harry.membership_line_ids.price, 0)
+
+        # Create the request
+        mr = self.env["membership.request"].create(
+            {
+                "request_type": "m",
+                "lastname": "Potter",
+                "firstname": "Harry",
+                "partner_id": self.harry.id,
+                "sponsor_id": self.ron.id,
+                "amount": 8,
+            }
+        )
+
+        # Validate the request
+        mr.write(
+            mr._onchange_partner_id_vals(
+                mr.is_company, mr.request_type, mr.partner_id.id, mr.technical_name
+            )
+        )
+        mr.validate_request()
+
+        self.assertEqual(len(self.harry.membership_line_ids), 1)
+        active_line = self.harry.membership_line_ids[0]
+        self.assertEqual(active_line.state_id.code, "member_candidate")
+        self.assertFalse(active_line.paid)
+        self.assertEqual(active_line.price, 8)
+        self.assertEqual(active_line.product_id, self.product_sponsored)
+        self.assertTrue(active_line.is_sponsored)

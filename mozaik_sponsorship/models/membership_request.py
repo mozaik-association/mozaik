@@ -116,7 +116,7 @@ class MembershipRequest(models.Model):
                 )
                 vals = {
                     "product_id": product.id,
-                    "price": product.list_price,
+                    "price": self.amount or product.list_price,
                 }
                 if vals["price"] == 0:
                     vals["paid"] = True
