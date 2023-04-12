@@ -1,5 +1,6 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+import datetime
 
 from odoo.tests.common import SavepointCase
 
@@ -68,6 +69,7 @@ class TestMembershipRequest(SavepointCase):
         )
         mr.validate_request()
         self.assertEqual(self.ron.sponsor_id, self.harry)
+        self.assertEqual(self.ron.sponsorship_date, datetime.date.today())
 
     def test_membership_request_cannot_be_sponsored_member(self):
         """
