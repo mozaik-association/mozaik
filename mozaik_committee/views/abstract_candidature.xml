@@ -64,9 +64,10 @@
                                 class="oe_inline"
                                 readonly="1"
                             /></h1>
-                        <h2><field
+                        <h2><field name="partner_id_domain" invisible="1" />
+                            <field
                                 name="partner_id"
-                                domain="[('is_company','=',False)]"
+                                domain="partner_id_domain"
                                 attrs="{'readonly': [('id','!=',False)]}"
                                 context="{'default_is_company': False}"
                             /></h2>

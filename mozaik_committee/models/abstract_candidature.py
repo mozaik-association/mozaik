@@ -1,5 +1,6 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+import json
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -31,6 +32,11 @@ class AbstractCandidature(models.Model):
     partner_id = fields.Many2one(
         "res.partner", "Candidate", required=True, index=True, tracking=True
     )
+    partner_id_domain = fields.Char(
+        compute="_compute_partner_id_domain",
+        readonly=True,
+        store=False,
+    )
     state = fields.Selection(
         CANDIDATURE_AVAILABLE_STATES,
         "Status",
@@ -44,6 +50,9 @@ class AbstractCandidature(models.Model):
         required=True,
         index=True,
         tracking=True,
+    )
+    int_instance_id = fields.Many2one(
+        "int.instance", related="selection_committee_id.int_instance_id"
     )
     mandate_start_date = fields.Date(
         related="selection_committee_id.mandate_start_date",
@@ -103,6 +112,16 @@ class AbstractCandidature(models.Model):
                 raise ValidationError(
                     _("A candidature already exists for this partner in this category")
                 )
+
+    # computes
+
+    @api.depends("int_instance_id")
+    def _compute_partner_id_domain(self):
+        for rec in self:
+            domain = [("is_company", "=", False)]
+            if self.int_instance_id:
+                domain.append(("int_instance_ids", "child_of", self.int_instance_id.id))
+            rec.partner_id_domain = json.dumps(domain)
 
     # orm methods
 

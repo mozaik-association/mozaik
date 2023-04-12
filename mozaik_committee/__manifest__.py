@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
-    "depends": ["mozaik_mandate", "statechart"],
+    "depends": ["mozaik_mandate", "statechart", "web_domain_field"],
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",
