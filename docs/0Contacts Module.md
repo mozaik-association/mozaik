@@ -84,7 +84,7 @@ This functionality enables you to add all the interactions between your organisa
 
     Involvements allow you to get to know your contacts better / categorize them / keep a record of interactions with a particular contact over the years. These entries can be used to send mailings to your contacts in a very targeted manner.
     !!!example
-        A member made a donation on 31/03/2023 and signed a petition about disarmement one week later. These participations will appear on his contact form and can be used in future mailings (send an email to all donors who have signed a petition in the last 2 months)
+        A member made a donation on 31/03/2023 and signed a petition about disarmement one week later. These participations will appear on his contact form and can be used in future mailings (send an email to all donors who have signed a given petition in the last 2 months)
 How to add them :
 
 - An involvement can be added manually on a contact page.
@@ -137,11 +137,20 @@ Co-residencies allow you to :
     <figcaption>Creation of a co-residency</figcaption>
     </figure>
 
-!!! info
+!!! info 
 
     Once you have created a co-residency or allowed the duplicates, the "show all duplicates" button will disappear.
+
 
 <figure markdown>
 ![screenshot 33](img/screen33.png)
 <figcaption>Example of a contact with a co-residency</figcaption>
 </figure>
+
+??? tip
+
+    If you want to change the address of a person belonging to a co-residency, a button can be ticked to move the whole co-residency without breaking it.
+    <figure markdown>        
+    ![screenshot 59](img/screen59.png)
+    <figcaption>Check box functionality</figcaption>
+    </figure>

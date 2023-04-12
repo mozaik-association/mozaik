@@ -75,7 +75,7 @@ Each instance can be associated to an assembly category of the same power level.
 
 <figure markdown>
 ![screenshot 52](img/screen52.png)
-<figcaption>Example of an political instance with its related category assemblies</figcaption>
+<figcaption>Example of a political instance with its related category assemblies</figcaption>
 </figure>
 
 <figure markdown>
