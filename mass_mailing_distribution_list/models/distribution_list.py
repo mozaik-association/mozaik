@@ -232,23 +232,13 @@ class DistributionList(models.Model):
         return res
 
     @api.model
-    def message_new(self, msg_dict, custom_values=None):
-        """
-        Override the native mail.thread method to not create a document anymore
-        for distribution list object.
-        New Behavior is to forward the current message `msg_dict` to all
-        recipients of the distribution list
-        :param msg_dict: dict
-        :param custom_values: dict
-        :return: self recordset
-        """
-        custom_values = custom_values or {}
-        dist_list_id = custom_values.get("distribution_list_id")
+    def _manage_mail_forwarding(self, dist_list_id, msg_dict):
         dist_list = self.browse()
         if not dist_list_id:
             param = " for alias %s" % msg_dict.get("to", "")
             _logger.warning(
-                "Mail Forwarding not available: no distribution " "list specified%s",
+                "Message update. Mail Forwarding not available: no distribution "
+                "list specified%s",
                 param,
             )
         else:
@@ -264,13 +254,35 @@ class DistributionList(models.Model):
                 )
         return dist_list
 
+    @api.model
+    def message_new(self, msg_dict, custom_values=None):
+        """
+        Override the native mail.thread method to not create a document anymore
+        for distribution list object.
+        New Behavior is to forward the current message `msg_dict` to all
+        recipients of the distribution list
+        :param msg_dict: dict
+        :param custom_values: dict
+        :return: self recordset
+        """
+        custom_values = custom_values or {}
+        dist_list_id = custom_values.get("distribution_list_id")
+        return self._manage_mail_forwarding(dist_list_id, msg_dict)
+
     def message_update(self, msg_dict, update_vals=None):
         """
-        Do not allow update case of mail forwarding
+        Do not allow update.
+        In some cases, the mail they send for forwarding contains the
+        in-reply-to id of an existing thread, hence it is considered by
+        Odoo as a message update, and not a new message.
+        For distribution lists we will apply the same logic as for message_new
         :param msg_dict: dict
         :param update_vals: dict
         :return: bool
         """
+        update_values = update_vals or {}
+        dist_list_id = update_values.get("distribution_list_id")
+        self._manage_mail_forwarding(dist_list_id, msg_dict)
         return True
 
     def _get_target_from_distribution_list(self):
