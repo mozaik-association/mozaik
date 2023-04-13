@@ -36,6 +36,12 @@ msgid "A partner cannot be sponsored by itself"
 msgstr ""
 
 #. module: mozaik_sponsorship
+#: code:addons/mozaik_sponsorship/models/res_partner.py:0
+#, python-format
+msgid "A partner with a sponsorship date must have a sponsor."
+msgstr ""
+
+#. module: mozaik_sponsorship
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_membership_request__can_be_sponsored
 msgid "Can Be Sponsored"
 msgstr "Peut être parrainé"
@@ -114,4 +120,16 @@ msgstr "Filleuls"
 #: model_terms:ir.ui.view,arch_db:mozaik_sponsorship.membership_request_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_sponsorship.res_partner_form_view
 msgid "Sponsorship"
+msgstr "Parrainage"
+
+#. module: mozaik_sponsorship
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_abstract_assembly__sponsorship_date
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_ext_assembly__sponsorship_date
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_int_assembly__sponsorship_date
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_res_partner__sponsorship_date
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_res_users__sponsorship_date
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_sta_assembly__sponsorship_date
+#, fuzzy
+#| msgid "Sponsorship"
+msgid "Sponsorship Date"
 msgstr "Parrainage"
