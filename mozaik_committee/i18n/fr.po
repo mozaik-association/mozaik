@@ -825,9 +825,13 @@ msgstr ""
 
 #. module: mozaik_committee
 #: model:ir.model,name:mozaik_committee.model_int_instance
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__int_instance_id
 msgid "Internal Instance"
 msgstr "Instance interne"
@@ -1185,6 +1189,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__partner_id_domain
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__partner_id_domain
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__partner_id_domain
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__partner_id_domain
+msgid "Partner Id Domain"
+msgstr ""
 
 #. module: mozaik_committee
 #: code:addons/mozaik_committee/tests/test_electoral_results_wizard.py:0

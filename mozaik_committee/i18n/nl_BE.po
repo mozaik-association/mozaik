@@ -59,7 +59,8 @@ msgstr ""
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step2
 msgid ""
-"<span name=\"go-wizard\" attrs=\"{'invisible': [('error_lines', '!=', [])]}\">\n"
+"<span name=\"go-wizard\" attrs=\"{'invisible': [('error_lines', '!=', "
+"[])]}\">\n"
 "                            or\n"
 "                        </span>"
 msgstr ""
@@ -67,7 +68,8 @@ msgstr ""
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.electoral_results_wizard_step1
 msgid ""
-"<span name=\"go-wizard\" attrs=\"{'invisible': [('source_file', '=', False)]}\">\n"
+"<span name=\"go-wizard\" attrs=\"{'invisible': [('source_file', '=', "
+"False)]}\">\n"
 "                            or\n"
 "                        </span>"
 msgstr ""
@@ -808,9 +810,13 @@ msgstr ""
 
 #. module: mozaik_committee
 #: model:ir.model,name:mozaik_committee.model_int_instance
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_committee.field_abstract_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_committee.field_ext_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_committee.field_int_selection_committee__int_instance_id
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__int_instance_id
 #: model:ir.model.fields,field_description:mozaik_committee.field_sta_selection_committee__int_instance_id
 msgid "Internal Instance"
 msgstr ""
@@ -1167,6 +1173,14 @@ msgstr ""
 #. module: mozaik_committee
 #: model_terms:ir.ui.view,arch_db:mozaik_committee.abstract_candidature_search_view
 msgid "Partner"
+msgstr ""
+
+#. module: mozaik_committee
+#: model:ir.model.fields,field_description:mozaik_committee.field_abstract_candidature__partner_id_domain
+#: model:ir.model.fields,field_description:mozaik_committee.field_ext_candidature__partner_id_domain
+#: model:ir.model.fields,field_description:mozaik_committee.field_int_candidature__partner_id_domain
+#: model:ir.model.fields,field_description:mozaik_committee.field_sta_candidature__partner_id_domain
+msgid "Partner Id Domain"
 msgstr ""
 
 #. module: mozaik_committee
