@@ -12,7 +12,13 @@
     "depends": [
         "mozaik_sponsorship",
         "mozaik_membership_rest",
+        "mozaik_partner_rest",
     ],
     "data": [],
     "demo": [],
+    "external_dependencies": {
+        "python": [
+            "pydantic",
+        ]
+    },
 }
