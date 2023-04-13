@@ -11,7 +11,12 @@
             <xpath expr="//notebook" position="inside">
                 <page name="sponsorship" string="Sponsorship">
                     <group>
-                        <field name="sponsor_id" />
+                        <group>
+                            <field name="sponsor_id" />
+                        </group>
+                        <group>
+                            <field name="sponsorship_date" />
+                        </group>
                         <field name="sponsor_godchild_ids" widget="many2many">
                              <tree>
                                 <field name="identifier" />
