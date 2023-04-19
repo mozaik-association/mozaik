@@ -23,7 +23,7 @@ A power level refers to the different decision-making bodies within an organisat
 
 !!! example "Examples"
 
-    In the internal structure of the political party, the power level is represented by the distribution of competences in the political partyé:
+    In the internal structure of the political party, the power level is represented by the distribution of competences in the political party:
 
     - The cities
     - The provinces
@@ -71,8 +71,6 @@ Each instance can be associated to an assembly category of the same power level.
     - Local treasury
 
     The city of Ghent in the internal structure is therefore associated with a local secretary and a local treasury
-
-    QUEL SERAIT LE RESULTAT AU NIVEAU DE LA CREATION D'ASSEMBLEES (idem pour l'exemple ci-dessous)?
 
     In the political structure of Belgium, the city of Ghent (power level = city) could be associated with the following categories of assemblies:
 
