@@ -1,13 +1,17 @@
 # Distribution lists
 
-The Mozaik distribution list module offers additional functionalities to complement the Odoo standard. The module provides you to manage distribution lists of your organisation.
-It will provide access to :
+The Mozaik distribution list module offers additional functionalities to complement the Odoo standard 'diffusion lists' from the Email marketing module. 
+This module enables to create lists of contacts that meet very specific and detailed criteria. To build this domain, you can:
 
-- The general information of the distribution lists
-- The inclusion and exclusion filters
-- The export
+- Use dynamic filters
+- Build time-related filters
+- Define multi-model domains
+- Include / Exclude specific people (opt in / opt out) from distribution lists 
 
-## Distribution list
+## Distribution lists
+
+REECRIRE CETTE PARTIE POUR QUE CE SOIT PLUS INTERESSANT / DONNE PLUS D'INFOS SUR CE QUE SONT LES LISTES DE DISTRIBUTION OU CE QU'ON TROUVE DANS CE MENU (déjà evoquer ici les filtres inclus / exclus pour introduire la partie 2? )
+
 
 This functionality allows you to create, modify and manage the distribution lists related to your organisation.
 
@@ -26,7 +30,7 @@ The distribution list module provides access to general information:
 </figure>
 
 
-## Include and exclude filters
+## Include and exclude filters (A REFORMULER POUR QUE CE SOIT PLUS PROPRE EN ANGLAIS ET QU'ON COMPRENNE BIEN, BIEN EXPLIQUER COMMENT LES FILTRES SONT CREES CAR ON PART TOUJOURS DES MODELES VIRTUELS QUI RENDENT CELA PLUS SIMPLE + dire qu'on peut mettre des filtres issus de différents modèles (aussi bien des mandats que des adhésions. Un filtre est déjà un ensemble de filtres. Renvoie le fonctionnement des listes de distribution dans Odoo stp pour bien comprendre cette partie))
 
     
 A distribution list allows you to add filters that allow you to find a list of contacts that meet these filters and that will be included or excluded of the distribution list. Filters can be created and saved as a template to be used for other distribution lists.
