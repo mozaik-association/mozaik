@@ -20,9 +20,15 @@ In the structure module, you will encounter the following terms:
 
 A power level refers to the different decision-making bodies within an organisation/country. Each level of authority is responsible for managing specific functions or activities.
 
-RAJOUTER UN EXEMPLE POUR LES NIVEAUX DE POUVOIR DANS STRUCTURE INTERNE 
 
 !!! example "Examples"
+
+    In the internal structure of the political party, the power level is represented by the distribution of competences in the political partyé:
+
+    - The cities
+    - The provinces
+    - The districts
+    - The national
 
     In the political structure of Belgium, the power level is represented by the distribution of competences between the federated entities:
 
@@ -38,13 +44,19 @@ An instance is a governance entity responsible for the management of specific fu
 
 Instances are always linked to a name and to a power level. They can also be linked to a parent instance, in order to create a hierarchical structure. For example, the Province of East Flanders in Belgium is the parent instance of the city of Ghent.
 
-METTRE UN EXEMPLE POUR UNE INSTANCE DANS LA STRUCTURE INTERNE
+In the internal structure of the party, The instance of Antwerp has the district of Antwerp as its parents. 
 
 
 <figure markdown>
 ![screenshot 14](img/screen14.png)
-<figcaption>Example of an instance</figcaption>
+<figcaption>Example of a political instance</figcaption>
 </figure>
+
+<figure markdown>
+![screenshot 60](img/screen60.png)
+<figcaption>Example of an internal instance</figcaption>
+</figure>
+
 
 ## Assemblies
 
@@ -56,8 +68,9 @@ Each instance can be associated to an assembly category of the same power level.
     In the internal structure of the political party, the city of Ghent (power level = city) could be associated with the following categories of assemblies:
 
     - Local secretary
-    - Local Selection Committee
     - Local treasury
+
+    The city of Ghent in the internal structure is therefore associated with a local secretary and a local treasury
 
     QUEL SERAIT LE RESULTAT AU NIVEAU DE LA CREATION D'ASSEMBLEES (idem pour l'exemple ci-dessous)?
 
@@ -67,6 +80,8 @@ Each instance can be associated to an assembly category of the same power level.
     - The local council
     - The police council
     - The social action council
+
+    The city of Ghent in the political structure is associated with a college of mayors and aldermen, a local council, a police council and a social action council. 
 
 <figure markdown>
 ![screenshot 58](img/screen58.png)

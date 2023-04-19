@@ -9,12 +9,15 @@ The mandates module allows you to easily manage the different mandates and manda
 Several functionalities are available in the mandates module:
 
 - Mandates management (consult, create, remove, edit)
-- selection committees and applicants
+- Selection committees and applicants
 - The invalidation of mandates
 - The renewal of mandates
 
-PARLER DES CHAMPS QU'ON TROUVE SUR UN MANDAT / COMMENT LES MANDATS SONT LIES AU RESTE
+For the creation of a mandate severale fields which was previously created in the structure module must be complete as:
 
+- The designation assembly
+- The legislature
+- The state assembly
 
 ## Selection committees
 
@@ -36,8 +39,6 @@ Once a candidate is elected/selected, a (political/internal) mandate will automa
 !!!info
 
      Once a selection committee is created, you can easily add candidates to this committee by clicking on the "add a new candidature" button.
-
-
 
 <figure markdown>
 ![screenshot 15](img/screen15.png)
@@ -61,7 +62,6 @@ graph LR
 ```
  <figcaption>Workflow of an applicant</figcaption>
 
-
 ## Invalidation of mandates
 
 Mandates are characterized by three dates: 
@@ -71,7 +71,6 @@ Mandates are characterized by three dates:
 - Deadline date (theoretical end date)
 
 In Mozaïk, mandates are automatically closed once the deadline date has been reached. Mandates can also be terminated prematurely by completing the effective end date manually on a mandate.
-
 
 ## Renewal of mandates
 Mandates can easily be extended by selecting the 'Renew button' on the contract.
