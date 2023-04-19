@@ -60,7 +60,7 @@ Automatic emails can be added in the "communications" tab by selecting an alread
 
 !!! abstract "The goal of the the automated communications"
 
-    This feature allows emails to be sent automatically at certain times during the petition.
+    This feature allows emails to be sent automatically at certain times during the petition depending on certain triggers.
     !!! example
 
         - I would like to send an email 2 days after the end of the petition to all participants to reveal the results of the petition.

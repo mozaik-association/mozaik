@@ -91,8 +91,6 @@ How to add them :
 - An involvement can be added automatically through a membership form.
 - An involvement can be added automatically through the signature of a petition, the completion of a survey or the participation to an event.
 
-
-
 <figure markdown>
 ![screenshot 28](img/screen28.png)
 <figcaption>Example of a contact form with participations</figcaption>

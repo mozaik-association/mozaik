@@ -32,11 +32,11 @@ A power level refers to the different decision-making bodies within an organisat
 
     In the political structure of Belgium, the power level is represented by the distribution of competences between the federated entities:
 
-    - The Cities
-    - The Regions
-    - The Communities
-    - The Provinces
-    - The Federal State
+    - The cities
+    - The regions
+    - The communities
+    - The provinces
+    - The federal State
 
 ## Instances
 

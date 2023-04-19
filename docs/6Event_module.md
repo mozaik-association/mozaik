@@ -54,7 +54,7 @@ Automatic emails can be added in the "communications" tab by selecting an alread
 
 !!! abstract "The goal of the the automated communication"
 
-     This feature allows emails to be sent automatically at certain times during the event.
+     This feature allows emails to be sent automatically at certain times during the event depending on certain triggers.
     !!! example
 
         - I would like to send a registration email immediately after each registration.
