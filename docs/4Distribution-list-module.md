@@ -10,8 +10,7 @@ This module enables to create lists of contacts that meet very specific and deta
 
 ## Distribution lists
 
-REECRIRE CETTE PARTIE POUR QUE CE SOIT PLUS INTERESSANT / DONNE PLUS D'INFOS SUR CE QUE SONT LES LISTES DE DISTRIBUTION OU CE QU'ON TROUVE DANS CE MENU (déjà evoquer ici les filtres inclus / exclus pour introduire la partie 2? )
-
+REECRIRE CETTE PARTIE POUR QUE CE SOIT PLUS INTERESSANT / DONNE PLUS D'INFOS SUR CE QUE SONT LES LISTES DE DISTRIBUTION OU CE QU'ON TROUVE DANS CE MENU (déjà evoquer ici les filtres inclus / exclus pour introduire la partie 2? ) 
 
 This functionality allows you to create, modify and manage the distribution lists related to your organisation.
 
@@ -22,7 +21,10 @@ The distribution list module provides access to general information:
 
 !!! abstract "The goald of the distibution list" 
 
-    Distribution lists are used to create lists of contacts that meet specific criteria defined by filters created beforehand. These distribution lists can then be selected when creating marketing emails to target specific contacts using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing email module</a>. 
+    Distribution lists are a powerful tool that can help you efficiently communicate with a targeted group of contacts. These lists are created based on a set of predetermined rules established by inclusion or exclusion filters that determine which contacts should be added or removed from the list.
+
+    Once a distribution list has been created, it can be leveraged to target a specific group of contacts for mass communication. This can be especially helpful when using <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing email module</a>, allowing you to send tailored messages to the right people.    
+ 
 
 <figure markdown>
 ![screenshot 51](img/screen51.png)
@@ -33,20 +35,18 @@ The distribution list module provides access to general information:
 ## Include and exclude filters (A REFORMULER POUR QUE CE SOIT PLUS PROPRE EN ANGLAIS ET QU'ON COMPRENNE BIEN, BIEN EXPLIQUER COMMENT LES FILTRES SONT CREES CAR ON PART TOUJOURS DES MODELES VIRTUELS QUI RENDENT CELA PLUS SIMPLE + dire qu'on peut mettre des filtres issus de différents modèles (aussi bien des mandats que des adhésions. Un filtre est déjà un ensemble de filtres. Renvoie le fonctionnement des listes de distribution dans Odoo stp pour bien comprendre cette partie))
 
     
-A distribution list allows you to add filters that allow you to find a list of contacts that meet these filters and that will be included or excluded of the distribution list. Filters can be created and saved as a template to be used for other distribution lists.
+A distribution list enables you to apply filters that help you identify a group of contacts that meet specific criteria and can be added or removed from the list accordingly. You can create filters and save them as templates to use for other distribution lists.
 
-As with the include filters, the exclude filters work in the same way. Simply create one or more new filters that can be saved as a template to be reused later. Once the filters are selected, you can display a list of all the contacts that will NOT be part of the distribution list.
+Similar to the inclusion filters, exclusion filters work in the same manner. All you need to do is create one or more new filters that can be saved as a template for future use. Once the filters are applied, you can view a list of all the contacts that will be excluded from the distribution list.
 
-Several filters can be added to a distribution list in order to refine the list of contacts as much as possible.
+Multiple filters can be use to fine-tune the list of contacts and ensure that only relevant individuals are included in the distribution list.
 
 !!!info
 
-    These filters are dynamic, In case one or more new contacts meet the criteria of a filter, these new contacts will automatically be added to the distribution list. 
+    These filters are constantly changing, meaning that if there are new contacts that match the filter criteria, they will be automatically added to the distribution list.
     !!!example
 
-        You want to create a filter that includes all contacts in good standing who have a voluntary participation.
-
-        The filter will constantly update the list of relevant contacts, including those in good standing who have a voluntary participation and will not take over the others.
+        Suppose you want to create a filter that includes all contacts in good standing who voluntarily participate in a program. As more contacts meet these criteria, they will be added to the distribution list automatically without removing any of the existing contacts.
 
 ??? tip
 

@@ -13,11 +13,14 @@ Several functionalities are available in the mandates module:
 - The invalidation of mandates
 - The renewal of mandates
 
-For the creation of a mandate severale fields which was previously created in the structure module must be complete as:
+For the creation of a mandate severale fields must be completed on the mandate form:
 
+- The representative
 - The designation assembly
-- The legislature
+- The mandate catégory
+- The legislature (only for political mandates)
 - The state assembly
+- The start date and deadline date
 
 ## Selection committees
 
@@ -30,7 +33,7 @@ Selection committees can be created in Mozaïk in order to manage the results of
     - Non-elected candidates
 - Automatic creation of mandates
 
-When creating a selection committee, you must select the legislature and the designation assembly that you have previously created in the structure module. --> C'EST FAUX (PAS POUR UN COMITE INTERNE PAR EXEMPLE)
+When creating a selection committee for the state, you must select the legislature and the designation assembly that you have previously created in the structure module.
 
 Mozaïk doesn't have a function yet to organise elections / votes. Only the follow-up of candidates and the result of the votes can be handled in Mozaïk. 
 
