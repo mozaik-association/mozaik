@@ -10,14 +10,12 @@ This module enables to create lists of contacts that meet very specific and deta
 
 ## Distribution lists
 
-REECRIRE CETTE PARTIE POUR QUE CE SOIT PLUS INTERESSANT / DONNE PLUS D'INFOS SUR CE QUE SONT LES LISTES DE DISTRIBUTION OU CE QU'ON TROUVE DANS CE MENU (déjà evoquer ici les filtres inclus / exclus pour introduire la partie 2? ) 
+This feature enables you to generate, edit, and oversee the distribution lists associated with your organisation.
 
-This functionality allows you to create, modify and manage the distribution lists related to your organisation.
+The distribution list module grants access to essential details, including:
 
-The distribution list module provides access to general information:
-
-- The general information of the distribution list (name, note...).
-- The list of contacts included in the distribution list.
+The distribution list's key information, such as its name and notes.
+The roster of contacts encompassed within the distribution list.
 
 !!! abstract "The goald of the distibution list" 
 
@@ -39,7 +37,7 @@ A distribution list enables you to apply filters that help you identify a group 
 
 Similar to the inclusion filters, exclusion filters work in the same manner. All you need to do is create one or more new filters that can be saved as a template for future use. Once the filters are applied, you can view a list of all the contacts that will be excluded from the distribution list.
 
-Multiple filters can be use to fine-tune the list of contacts and ensure that only relevant individuals are included in the distribution list.
+Multiple filters can be use to fine-tune the list of contacts and ensure that only relevant contacts are included in the distribution list.
 
 !!!info
 
