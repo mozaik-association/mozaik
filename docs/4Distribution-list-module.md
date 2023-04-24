@@ -14,8 +14,8 @@ This feature enables you to generate, edit, and oversee the distribution lists a
 
 The distribution list module grants access to essential details, including:
 
-The distribution list's key information, such as its name and notes.
-The roster of contacts encompassed within the distribution list.
+- The distribution list's key information, such as its name and notes.
+- The roster of contacts encompassed within the distribution list.
 
 !!! abstract "The goald of the distibution list" 
 
@@ -23,28 +23,41 @@ The roster of contacts encompassed within the distribution list.
 
     Once a distribution list has been created, it can be leveraged to target a specific group of contacts for mass communication. This can be especially helpful when using <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing email module</a>, allowing you to send tailored messages to the right people.    
  
-
 <figure markdown>
 ![screenshot 51](img/screen51.png)
  <figcaption>Distribution list form with general information</figcaption>
 </figure>
 
-
-## Include and exclude filters (A REFORMULER POUR QUE CE SOIT PLUS PROPRE EN ANGLAIS ET QU'ON COMPRENNE BIEN, BIEN EXPLIQUER COMMENT LES FILTRES SONT CREES CAR ON PART TOUJOURS DES MODELES VIRTUELS QUI RENDENT CELA PLUS SIMPLE + dire qu'on peut mettre des filtres issus de différents modèles (aussi bien des mandats que des adhésions. Un filtre est déjà un ensemble de filtres. Renvoie le fonctionnement des listes de distribution dans Odoo stp pour bien comprendre cette partie))
-
-    
-A distribution list enables you to apply filters that help you identify a group of contacts that meet specific criteria and can be added or removed from the list accordingly. You can create filters and save them as templates to use for other distribution lists.
+## Include and exclude filters
+ 
+A distribution list enables you to apply inclusion filters that help you identify a group of contacts that meet specific criteria and can be added or removed from the list accordingly. You can create filters and save them as templates to use for other distribution lists.
 
 Similar to the inclusion filters, exclusion filters work in the same manner. All you need to do is create one or more new filters that can be saved as a template for future use. Once the filters are applied, you can view a list of all the contacts that will be excluded from the distribution list.
 
 Multiple filters can be use to fine-tune the list of contacts and ensure that only relevant contacts are included in the distribution list.
 
+In order to create a filter, you must first select a virtual model on which the filter will be based. Filters can be taken from different models: 
+
+- Partner/Ralation 
+- Partner/Instance 
+- Partner/Involvement
+- Partner/Mass Maillings
+- Partners/Membership
+- Partners/Mandates
+- Assembles/instances 
+
+You then have to create the rule(s) that governs the selection of contacts for the filter. To do this, simply select the desired criteria and conditions for the rule. 
+
+!!!example
+
+    In order to create a window to include contacts with voluntary participation, the virtual Partners/Involvement template must be selected. Then create the rule with the criterion "Involvement type" and the condition "= Voluntary work".
+    
 !!!info
 
-    These filters are constantly changing, meaning that if there are new contacts that match the filter criteria, they will be automatically added to the distribution list.
+    These filters are constantly changing/updating, meaning that if there are new contacts that match the filter criteria, they will be automatically added to the distribution list.
     !!!example
 
-        Suppose you want to create a filter that includes all contacts in good standing who voluntarily participate in a program. As more contacts meet these criteria, they will be added to the distribution list automatically without removing any of the existing contacts.
+        Suppose you want to create a filter that includes all contacts in good standing who voluntarily participate in a program. As more contacts meet these criteria, they will be added to the distribution list automatically while removing contacts that no longer meet the filter rule(s).
 
 ??? tip
 

@@ -10,9 +10,9 @@ It will provide access to:
 
 ## General information
 
-This functionality allows you to create, modify and manage the emails marketing of your organisation.
+This functionality allows you to create, modify and manage the emails marketing sended by your organisation.
 
-The emails marketing provides access to general information:
+The emails marketing provides access to general information as:
 
 - The general information of the emails marketing (subject, preview text, recipients...).
 - The inclusion of opt-out contacts or not.
@@ -23,7 +23,7 @@ The emails marketing provides access to general information:
     This feature allows you :
     
     - To create an email with the general informations needed as the subject and a preview text.
-    - To include contacts even if they have an op-out communication preference.
+    - To include contacts even if they have an op-out communication preference on their contact's form.
     - To choose to create an email from the Odoo template or to write a mail with the simplified mail editor of Mozaik. The simplified mail editor allows you also to create mail templates in advance and simply select the one you need when creating a mailing.
 
 !!! info 
@@ -41,14 +41,14 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 
 !!! abstract "The goal of recurrent mailing"
 
-    This functionality allows you to send a mailing evey X hour/day/week/month/year. 
+    This functionality allows you to send automatically an email evey X hour/day/week/month/year. 
     
-    Thanks to the distribution lists module and to this functionality, you can send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
+    added to the distribution list module, the email marketing module allows you to send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
     !!!example 
 
         I want to send automatically an email to all the people who participated in an event in the last three days. 
 
-        To do this you will have to create a distribution list that includes, thanks to the filters, the people who participated in an event in the last three days. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 3 days.
+        To do this you will have to create a distribution list that includes, thanks to the filters, the people who participated in an event in the last three days. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 3 days. Every 3 days only new people who have participated in an event will receive the email.
 
 <figure markdown>
 ![screenshot 20](img/screen20.png)
@@ -57,7 +57,7 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 
 ## Management of failures
 
-All communication failures must be recorded in the application. This information is visible on the contact's form of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
+All communication failures can be recorded in the application. This information is visible on the contact's form of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
 !!! abstract "The goal of failure management"
 
     This functionality allows you to register the communication failures of each contact. Thanks to this functionality you can blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
