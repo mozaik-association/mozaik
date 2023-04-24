@@ -22,6 +22,7 @@ class AbstractMandate(AbstractObject):
     deadline_date = graphene.DateTime(required=True)
     end_date = graphene.DateTime()
     no_show_on_website = graphene.Boolean()
+    notes = graphene.String()
 
     def resolve_partner(root, info):
         return root.partner_id
