@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="update_membership_form_view" model="ir.ui.view">
+        <field name="name">update.membership.form (mozaik_account)</field>
+        <field name="model">update.membership</field>
+        <field name="inherit_id" ref="mozaik_membership.update_membership" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <group attrs="{'invisible': [('update_type', '!=', 'price_paid')]}">
+                    <field
+                        name="price_paid"
+                        attrs="{'required': [('update_type', '=', 'price_paid')]}"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="update_membership_price_paid_action">
+        <field name="name">Update price paid</field>
+        <field name="res_model">update.membership</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'default_update_type': 'price_paid'}</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

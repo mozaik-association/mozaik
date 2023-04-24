@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="res.groups" id="group_can_update_price_paid">
+        <field name="name">Can update price paid</field>
+        <field name="category_id" ref="mozaik_membership.module_category_membership" />
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
+                ref('mozaik_membership.res_groups_membership_user'),
+            ])]"
+        />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+
+</odoo>

@@ -38,6 +38,19 @@
                 >{'invisible': ['|', '|', ('active', '=', False), ('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee']), '&amp;', ('paid', '=', True), ('price', '!=', 0.0)]}</attribute>
             </xpath>
 
+             <xpath
+                expr="//button[@name='%(mozaik_membership.update_membership_product_action)d']"
+                position="after"
+            >
+                 <button
+                    name="%(update_membership_price_paid_action)d"
+                    string="Update price paid"
+                    type="action"
+                    groups="mozaik_account.group_can_update_price_paid"
+                    attrs="{'invisible': ['|', ('active', '=', False), ('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"
+                />
+             </xpath>
+
         </field>
     </record>
 
