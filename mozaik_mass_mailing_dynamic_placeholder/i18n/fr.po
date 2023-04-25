@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-24 14:44+0000\n"
+"PO-Revision-Date: 2023-04-25 16:44+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -53,14 +53,14 @@ msgstr ""
 #. module: mozaik_mass_mailing_dynamic_placeholder
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_dynamic_placeholder.field_mailing_mailing__placeholder_id
 msgid "Placeholder"
-msgstr "Placeholder"
+msgstr "Champ"
 
 #. module: mozaik_mass_mailing_dynamic_placeholder
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_dynamic_placeholder.field_mailing_mailing__placeholder_value
 msgid "Placeholder Value"
-msgstr "Valeur placeholder"
+msgstr "Expression fictive"
 
 #. module: mozaik_mass_mailing_dynamic_placeholder
 #: model:ir.ui.menu,name:mozaik_mass_mailing_dynamic_placeholder.email_template_placeholder_menu_email_marketing
 msgid "Template Placeholders"
-msgstr "Modèle de placeholders"
+msgstr "Modèles de champs"
