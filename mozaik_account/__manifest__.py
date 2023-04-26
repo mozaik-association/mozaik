@@ -22,9 +22,11 @@
         "account_statement_import",
     ],
     "data": [
+        "security/res_groups.xml",
         "security/ir.model.access.csv",
         "data/product_product.xml",
         "data/ir_config_parameter.xml",
+        "wizards/update_membership.xml",
         "views/account_bank_statement.xml",
         "views/product_template.xml",
         "views/res_partner.xml",

@@ -43,6 +43,15 @@
         <field name="model">membership.line</field>
         <field name="inherit_id" ref="mozaik_membership.membership_line_form_view" />
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                 <button
+                    name="%(update_membership_price_paid_action)d"
+                    string="Update price paid"
+                    type="action"
+                    groups="mozaik_account.group_can_update_price_paid"
+                    attrs="{'invisible': ['|', ('active', '=', False), ('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"
+                />
+            </xpath>
             <xpath expr="//field[@name='reference']" position="after">
                 <field
                     name="paid"
