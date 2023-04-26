@@ -19,6 +19,11 @@ msgid "Account move"
 msgstr ""
 
 #. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_update_membership__update_type
+msgid "Action type"
+msgstr ""
+
+#. module: mozaik_account
 #: model_terms:ir.ui.view,arch_db:mozaik_account.view_bank_statement_form
 msgid "Auto-reconcile"
 msgstr ""
@@ -36,6 +41,11 @@ msgstr ""
 #. module: mozaik_account
 #: model:ir.model.fields,field_description:mozaik_account.field_membership_line__bank_account_id
 msgid "Bank account"
+msgstr ""
+
+#. module: mozaik_account
+#: model:res.groups,name:mozaik_account.group_can_update_price_paid
+msgid "Can update price paid"
 msgstr ""
 
 #. module: mozaik_account
@@ -141,6 +151,8 @@ msgstr ""
 
 #. module: mozaik_account
 #: model:ir.model.fields,field_description:mozaik_account.field_membership_line__price_paid
+#: model:ir.model.fields,field_description:mozaik_account.field_update_membership__price_paid
+#: model:ir.model.fields.selection,name:mozaik_account.selection__update_membership__update_type__price_paid
 msgid "Price Paid"
 msgstr ""
 
@@ -182,6 +194,13 @@ msgstr ""
 #. module: mozaik_account
 #: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Unpaid"
+msgstr ""
+
+#. module: mozaik_account
+#: model:ir.actions.act_window,name:mozaik_account.update_membership_price_paid_action
+#: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_form_view
+#: model_terms:ir.ui.view,arch_db:mozaik_account.res_partner_form_view
+msgid "Update price paid"
 msgstr ""
 
 #. module: mozaik_account
