@@ -1,6 +1,9 @@
 # Events
 
-The events module uses the Odoo standard and adds specific features for the organisations linked to Mozaik. It allows you to manage the different events of your organisation.
+The 'Mozaik Events' module uses the Odoo standard and adds specific features for political parties and other organizations. It allows you to manage the different events of your organisation.
+
+
+REECRIRE LA PARTIE 'EVENTS' POUR NE METTRE QUE CE QUI EST DIFFERENT PAR RAPPORT AU STANDARD. ON PEUT METTRE QUELQUES CHOSES GENERALES ICI (CELLES QUI TE SEMBLENT LES PLUS IMPORTANTES), MAIS L'IDEE N'EST PAS DE REFAIRE LA DOCUMENTATION DU STANDARD ODOO MAIS PLUTOT D'INDIQUER CE QUE MOZAIK VIENT AJOUTER
 
 It will provide access to :
 
