@@ -1,5 +1,7 @@
-# Emails marketing
-The emails marketing module offers additional functionalities to complement the Odoo standard. The module provides you to manage the marketing emails of your organisation.
+# Email marketing
+The 'Email marketing' module offers additional functionalities to complement the Odoo standard module. The module enables users to manage the marketing emails of their organisation.
+
+REECRIRE ICI POUR NE METTRE QUE CE QUI CHANGE PAR RAPPORT AU STANDARD. IL N'EST PAS IMPORTANT DE PRECISER ICI LES INFOS GENERALES DU MODULE SI C'EST LA MEME CHOSE QUE LE STANDARD (il faut donc juste parler de la checkbox 'include opt out', de la possibilité de travailler avec des listes de distribution(en plus des listes de diffusion standards d'Odoo) et de la possibilité de travailler avec des modèles mail depuis là aussi (et pas le generateur standard Odoo))
 
 It will provide access to:
 
@@ -10,7 +12,7 @@ It will provide access to:
 
 ## General information
 
-This functionality allows you to create, modify and manage the emails marketing sended by your organisation.
+This functionality allows you to create, modify and manage the emails marketing sent by your organisation.
 
 The emails marketing provides access to general information as:
 
@@ -39,12 +41,18 @@ The emails marketing provides access to general information as:
 
 In the mailing configurations, it is possible to select the "recurrent sending" option by selecting the date of the next mailing and the time interval between mailings.
 
+
+
 !!! abstract "The goal of recurrent mailing"
 
     This functionality allows you to send automatically an email evey X hour/day/week/month/year. 
+
+    IL MANQUE DES MOTS AU DEBUT DE TA PROCHAINE PHRASE. IL FAUT PRECISER ICI QUE LES MAILS NE SONT ENVOYES QU'UNE SEULE FOIS A CHAQUE CONTACT ET QUE L'IDEE EST DONC D'INCLURE LES PROCHAINS QUI CORRESPONDENT A CES CRITERES DANS LE FUTUR. ODOO VERIFIE S'IL Y A DES NOUVELLES PERSONNES QUI CORRESPONDENT AU DOMAINE LORS DE CHAQUE ENVOI.
     
     added to the distribution list module, the email marketing module allows you to send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
     !!!example 
+
+    METTRE UN MEILLEUR EXEMPLE SUR LES ADHESIONS PAR EXEMPLE (TOUS CEUX QUI ONT PAYE LEUR ADHESION DANS LES DERNIERES HEURES POUR LES REMERCIER. ET DEUXIEME EXEMPLE: TOUS CEUX QUI ONT PLUS DE 30 ANS ET QUI ONT SIGNE UNE PETITION DANS LES 24 DERNIERES HEURES)
 
         I want to send automatically an email to all the people who participated in an event in the last three days. 
 
@@ -57,20 +65,23 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
 
 ## Management of failures
 
-All communication failures can be recorded in the application. This information is visible on the contact's form of each contact in the "communication" tab. If a contact does not receive an email or a letter sent, a communication failure will be recorded on his contact's form.
+All communication failures (email / postal) can be recorded in the application. This information is visible on the contact's form of each contact, in the "communication" tab. If a contact does not receive an email (bounce) or a letter, a communication failure can be recorded on his contact's form.
+
 !!! abstract "The goal of failure management"
 
-    This functionality allows you to register the communication failures of each contact. Thanks to this functionality you can blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
+    This functionality allows you to register the communication failures of each contact. Thanks to this functionality, you can automatically blacklist a contact after a certain number of failures to stop sending him emails or letters that he will not receive.
 
-How to encode failures on the  contact's form ? :
+How to encode failures on a contact? 
 
-- Postal bounced: must be manually encoded 
-- Email bounced: records are automatic
+- Postal bounces: must be encoded manually
+- Email bounces: records are updates automatically by Mozaik
 
 <figure markdown>
 ![screenshot 23](img/screen23.png)
  <figcaption>Example of encoded failures</figcaption>
 </figure>  
+
+RAJOUTER UN EMAIL BOUNCE DESCRIPTION (VA VOIR DES EXEMPLES SUR INTERNET POUR TROUVER QQCHOSE D'INTERESSANT)
 
 ## Reporting
 
