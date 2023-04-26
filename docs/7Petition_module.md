@@ -1,5 +1,7 @@
 # Petitions
 
+INDIQUER QUE C'EST UN NOUVEAU MODULE AJOUTE DANS MOZAIK ET DIRE A QUOI IL SERT DèS L'INTRO
+
 The petitions module allows to manage the different petitions of the organisations in the back office of Mozaik. This module will provide access to :
 
 - The general information of the petitions
