@@ -25,10 +25,11 @@ The distribution list module grants access to essential details, including:
     Once a distribution list has been created, it can be leveraged to target a specific group of contacts for mass communication. This can be especially helpful when using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing email module</a>, allowing you to send tailored messages to the right people.    
  
 DEVELOPPER LES 4 POINTS CI-DESSOUS POUR BIEN EXPLIQUER EN QUOI CES LISTES DE DISTRIBUTION SONT INTERESSANTES / MIEUX QUE LE STANDARD:
-Use dynamic filters
-Build time-related filters
-Define multi-model domains
-Include / Exclude specific people (opt in / opt out) from distribution lists
+
+- Use dynamic filters
+- Build time-related filters
+- Define multi-model domains
+- Include / Exclude specific people (opt in / opt out) from distribution lists
 
 <figure markdown>
 ![screenshot 51](img/screen51.png)
