@@ -8,13 +8,6 @@ The Mozaik surveys module differs from the Odoo standard module by several point
 - The management of the questions of the survey in order to collect reusable data from the attendees.
 - The surveys access management in order to limit access to certain people according to the internal instances.
 
-The surveys module uses the Odoo standard and adds specific features for organisations linked to Mozaik. It allows to manage the surveys of the organisation. It will provide access to :
-
-- The general information of the surveys
-- The management of the questions
-- The recognition of parters
-- The access limitations
-
 ## General informations of the survey
 
 This functionality allows you to create, modify and manage the surveys related to your organisation.
