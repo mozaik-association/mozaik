@@ -1,7 +1,11 @@
 # Email marketing
 The 'Email marketing' module offers additional functionalities to complement the Odoo standard module. The module enables users to manage the marketing emails of their organisation.
 
-REECRIRE ICI POUR NE METTRE QUE CE QUI CHANGE PAR RAPPORT AU STANDARD. IL N'EST PAS IMPORTANT DE PRECISER ICI LES INFOS GENERALES DU MODULE SI C'EST LA MEME CHOSE QUE LE STANDARD (il faut donc juste parler de la checkbox 'include opt out', de la possibilité de travailler avec des listes de distribution(en plus des listes de diffusion standards d'Odoo) et de la possibilité de travailler avec des modèles mail depuis là aussi (et pas le generateur standard Odoo))
+The Mozaik email marketing module differs from the Odoo module by several points 
+
+- The module leaves open the possibility to choose to include people who have an op-out communication preference on their contact's form.
+- It offers the possibility to use the distribution lists previously created in the distribution lists module in addition to the distribution lists offered by the Odoo standard.
+- The module allows you to work with email templates that can be created in advance to be reused in different marketing emails.
 
 It will provide access to:
 
@@ -41,22 +45,22 @@ The emails marketing provides access to general information as:
 
 In the mailing configurations, it is possible to select the "recurrent sending" option by selecting the date of the next mailing and the time interval between mailings.
 
-
-
 !!! abstract "The goal of recurrent mailing"
 
     This functionality allows you to send automatically an email evey X hour/day/week/month/year. 
 
-    IL MANQUE DES MOTS AU DEBUT DE TA PROCHAINE PHRASE. IL FAUT PRECISER ICI QUE LES MAILS NE SONT ENVOYES QU'UNE SEULE FOIS A CHAQUE CONTACT ET QUE L'IDEE EST DONC D'INCLURE LES PROCHAINS QUI CORRESPONDENT A CES CRITERES DANS LE FUTUR. ODOO VERIFIE S'IL Y A DES NOUVELLES PERSONNES QUI CORRESPONDENT AU DOMAINE LORS DE CHAQUE ENVOI.
+    Recurring emails are sent only once to each contact on a distribution or mailing list. The idea of this feature is to send a communication only to new people who meet the rules of a distribution list. 
     
-    added to the distribution list module, the email marketing module allows you to send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
-    !!!example 
+    The email marketing module, added to the distribution list module, allows you to send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
+    !!!example "Examples"
 
-    METTRE UN MEILLEUR EXEMPLE SUR LES ADHESIONS PAR EXEMPLE (TOUS CEUX QUI ONT PAYE LEUR ADHESION DANS LES DERNIERES HEURES POUR LES REMERCIER. ET DEUXIEME EXEMPLE: TOUS CEUX QUI ONT PLUS DE 30 ANS ET QUI ONT SIGNE UNE PETITION DANS LES 24 DERNIERES HEURES)
+        I want to automatically send an email to all the people who paid their membership in the last 6 hours to thank them.
 
-        I want to send automatically an email to all the people who participated in an event in the last three days. 
+        To do this you will have to create a distribution list that includes, thanks to the filters, the people who paid their membership in the last 24 hours. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 6 hours. Every 6 hours only new people who have paid their membership will receive the email.
 
-        To do this you will have to create a distribution list that includes, thanks to the filters, the people who participated in an event in the last three days. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 3 days. Every 3 days only new people who have participated in an event will receive the email.
+        I want to automatically send an email to all people who have signed a petition in the last 24 hours and are over 30 years old. 
+
+        To do this you will have to create a distribution list that includes, thanks to the filters, the people who have signed a petiton in the last 24 hours. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 24 hours. Every 24 hours only new people who have signed a petition will receive the email.
 
 <figure markdown>
 ![screenshot 20](img/screen20.png)
@@ -81,7 +85,11 @@ How to encode failures on a contact?
  <figcaption>Example of encoded failures</figcaption>
 </figure>  
 
-RAJOUTER UN EMAIL BOUNCE DESCRIPTION (VA VOIR DES EXEMPLES SUR INTERNET POUR TROUVER QQCHOSE D'INTERESSANT)
+<figure markdown>
+![screenshot 61](img/screen61.png)
+ <figcaption>Email bounced description</figcaption>
+</figure>  
+
 
 ## Reporting
 
