@@ -33,7 +33,6 @@ Various information can/must be completed on a event form :
     - Add involvement categories to automatically add them to the form of the contacts who participated to the event.
     - Get access to the lists of all the attendees and sponsors of each event.
 
-
 <figure markdown>
 ![screenshot 40](img/screen40.png)
 <figcaption>Event form with general information</figcaption>

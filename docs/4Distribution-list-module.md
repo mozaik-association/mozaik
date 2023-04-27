@@ -24,12 +24,22 @@ The distribution list module grants access to essential details, including:
 
     Once a distribution list has been created, it can be leveraged to target a specific group of contacts for mass communication. This can be especially helpful when using the <a href=https://mozaik-association.github.io/mozaik/email-marketing tagret="_blank">marketing email module</a>, allowing you to send tailored messages to the right people.    
  
-DEVELOPPER LES 4 POINTS CI-DESSOUS POUR BIEN EXPLIQUER EN QUOI CES LISTES DE DISTRIBUTION SONT INTERESSANTES / MIEUX QUE LE STANDARD:
+Key points of the distribution lists :
 
-- Use dynamic filters
-- Build time-related filters
+- The filters used in the distribution lists are dynamic. This means that the contacts included in a filter are constantly updated according to the rules used in the filter. 
+!!! example
+
+    If the filter includes contacts over 50, as soon as a contact is over 50, he is removed from the distribution list.   
+
+- The distribution lists module allow you to build time-related filters. Time based query filters are used to filter the value of specific objects between certain periods of time.
+!!!example
+
+    It is possible to create a filter that will include all persons with a registration date before 15 April 2023. People registered before will not be included in this filter.
+
 - Define multi-model domains
-- Include / Exclude specific people (opt in / opt out) from distribution lists
+
+    
+- Specific contacts can be included or excluded from a distribution list using the "opt-in" and "opt-out" tabs on the distribution list form. The contacts selected in these two tabs will be included or excluded regardless of the filters used. 
 
 <figure markdown>
 ![screenshot 51](img/screen51.png)
@@ -58,24 +68,21 @@ Once your filters have been applied on your virtual model, you can easily transf
 
 !!!example
 
-    In order to create a window to include contacts with voluntary participation, the virtual Partners/Involvement template must be selected. Then create the rule with the criterion "Involvement type" and the condition "= Voluntary work".
-    
-    METTRE UN EXEMPLE PLUS COMPLIQUE, ET EN PARLANT PLUTÖT DE CE QUI INTERESSE LE PLUS LES LECTEURS, CAD LES MEMBERSHIPS. DONC PLUTOT REPRENDRE TOUS LES ADHERENTS EN ORDRE DE COTI (DONC PAID = TRUE) QUI ONT ENTRE 30 ET 50 ANS ET QUI SONT LIES A UNE DES 19 COMMUNES DE BXL (DONC LIé A UNE INSTANCE ENFANT D'UNE INSTANCE DE LA REGION DE BXL CAPITALE)
+    In order to create a filter to include contacts in order of contribution who are between 30 and 50 years old and who are linked to one of the 19 communes of Brussels, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid"  and the condition "is set true".
+
 !!!info
 
     These filters are dynamic, meaning that contacts that will match the filter criteria in the future will automatically be added/rejected from the distribution list.
 
-POUR L'EXEMPLE, CONTINUE AVEC L'EXEMPLE CI-DESSOUS EN INDIQUANT PAR EXEMPLE QUE QUELQU'un QUI DEPASSE 50 ANS QUITTERA LA LISTE DE DISTRIBUTION AUTOMATIQUEMENT
     !!!example
 
-        Suppose you want to create a filter that includes all contacts in good standing who voluntarily participate in a program. As more contacts meet these criteria, they will be added to the distribution list automatically while removing contacts that no longer meet the filter rule(s).
+        Suppose that a filter has been created that includes, among others, contacts under the age of 30 and 50. A person who passes the age of 50 will automatically be rejected from the distribution list.
 
 ??? tip
 
     By clicking on the "Result" button on a specific filter or a distribution list, you can access the list of all the contacts that are included in the domain. 
 
     :warning: To be included in the 'Result' list, a contact must have an email address OR a postal address. Otherwise, the contacts will appear in the "Without coordinate" tab accessible on a specific filter or on the distribution list.
-
 
 CHANGER LE SCREENSHOT POUR METTRE UN EXEMPLE PLUS COMPLEXE (REPRENDRE IDEALEMENT CELUI D'AU-DESSUS AVEC LES ADHESIONS)
 <figure markdown>
