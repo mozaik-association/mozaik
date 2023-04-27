@@ -1,15 +1,15 @@
 # Petitions
 
-INDIQUER QUE C'EST UN NOUVEAU MODULE AJOUTE DANS MOZAIK ET DIRE A QUOI IL SERT DèS L'INTRO
+The petition module is a new module fully developed in the context of the Mozaik project. This module offers the possibility to create and manage the petition of your orgaisation from the Odoo back end. 
 
-The petitions module allows to manage the different petitions of the organisations in the back office of Mozaik. This module will provide access to :
+This module will take care of:
 
-- The general information of the petitions
-- The recognition of parters
-- The list of milestones 
-- The automated communications
-- The list of questions
-- The access limitations
+- The management of the petition signatories.
+- The recognition of the new partners having signed the petition in order to create a contact form for them.
+- The management of questions asked to petition signatories in order to learn more about them.
+- The management of the communication in order to automatically send emails according to certain triggers defined during the petition.
+- The petition access management in order to limit access to certain people according to the internal instances.
+- The milestones management to define the milestones to be reached in terms of number of signatures.
 
 ## General information of the petition
 

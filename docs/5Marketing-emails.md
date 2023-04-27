@@ -1,7 +1,7 @@
 # Email marketing
 The 'Email marketing' module offers additional functionalities to complement the Odoo standard module. The module enables users to manage the marketing emails of their organisation.
 
-The Mozaik email marketing module differs from the Odoo module by several points 
+The Mozaik email marketing module differs from the Odoo standard module by several points :
 
 - The module leaves open the possibility to choose to include people who have an op-out communication preference on their contact's form.
 - It offers the possibility to use the distribution lists previously created in the distribution lists module in addition to the distribution lists offered by the Odoo standard.
@@ -54,11 +54,11 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
     The email marketing module, added to the distribution list module, allows you to send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
     !!!example "Examples"
 
-        I want to automatically send an email to all the people who paid their membership in the last 6 hours to thank them.
+       - I want to automatically send an email to all the people who paid their membership in the last 6 hours to thank them.
 
         To do this you will have to create a distribution list that includes, thanks to the filters, the people who paid their membership in the last 24 hours. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 6 hours. Every 6 hours only new people who have paid their membership will receive the email.
 
-        I want to automatically send an email to all people who have signed a petition in the last 24 hours and are over 30 years old. 
+       - I want to automatically send an email to all people who have signed a petition in the last 24 hours and are over 30 years old. 
 
         To do this you will have to create a distribution list that includes, thanks to the filters, the people who have signed a petiton in the last 24 hours. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 24 hours. Every 24 hours only new people who have signed a petition will receive the email.
 

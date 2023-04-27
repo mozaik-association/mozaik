@@ -1,18 +1,13 @@
 # Events
 
-The 'Mozaik Events' module uses the Odoo standard and adds specific features for political parties and other organizations. It allows you to manage the different events of your organisation.
+The Mozaik events module uses the Odoo standard and adds specific features for political parties and other organizations. It allows you to manage the different events of your organisation.
 
+The Mozaik Events module differs from the Odoo standard module by several points :
 
-REECRIRE LA PARTIE 'EVENTS' POUR NE METTRE QUE CE QUI EST DIFFERENT PAR RAPPORT AU STANDARD. ON PEUT METTRE QUELQUES CHOSES GENERALES ICI (CELLES QUI TE SEMBLENT LES PLUS IMPORTANTES), MAIS L'IDEE N'EST PAS DE REFAIRE LA DOCUMENTATION DU STANDARD ODOO MAIS PLUTOT D'INDIQUER CE QUE MOZAIK VIENT AJOUTER
-
-It will provide access to :
-
-- The general information of the events
-- The management of tickets
-- The automated communications
-- The list of questions
-- The voting domain
-- The access limitations
+- The management of the communication in order to automatically send emails according to certain triggers defined during an event.
+- The management of questions asked to attendees in order to learn more about them.
+- The management of the voting domain in order to allow certain people to participate in votes or not during the event.
+- The event access management in order to limit access to certain people according to the internal instances.
 
 ## General information of the events
 
@@ -38,18 +33,6 @@ Various information can/must be completed on a event form :
 <figcaption>Event form with general information</figcaption>
 </figure>
 
-## Management of tickets
-
-!!!abstract "The goal of this functionality"
-
-    The functionality allows to create differents types of tickets for an event. Tickets can have differents prices, different maximum number of entries and different start and end dates of the sale. 
-
-
-<figure markdown>
-![screenshot 41](img/screen41.png)
-<figcaption>Example of tickets for an event</figcaption>
-</figure>
-
 ## Automated communications
 
 Automatic emails can be added in the "communications" tab by selecting an already created template or by creating a new one. 
@@ -73,7 +56,7 @@ The module allows you to add questions in the "questions" tab that participants 
 
 !!! abstract "The goal of the questions"
 
-    The questions allow you to learn more about the contacts involved to your event. 
+    In addition to the simple fact of asking questions to the participants of the event. Mozaik allows to really collect reusable information about the participants.
 
     For the selected answers and tickboxes, it is possible to add a participation category and thesaurus therms depending on the answer chosen by the participant. This information will be displayed on the contact's form.
     !!! example 

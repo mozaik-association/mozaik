@@ -1,5 +1,13 @@
 # Surveys
 
+The Mozaik surveys module uses the Odoo standard and adds specific features for political parties and other organizations. It allows you to manage the different events of your organisation.
+
+The Mozaik surveys module differs from the Odoo standard module by several points :
+
+- The recognition of the new partners who have participated to the the survey in order to create a contact form for them.
+- The management of the questions of the survey in order to collect reusable data from the attendees.
+- The surveys access management in order to limit access to certain people according to the internal instances.
+
 The surveys module uses the Odoo standard and adds specific features for organisations linked to Mozaik. It allows to manage the surveys of the organisation. It will provide access to :
 
 - The general information of the surveys
