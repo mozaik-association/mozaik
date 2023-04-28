@@ -72,13 +72,7 @@ Once your filters have been applied on your virtual model, you can easily transf
 
     In order to create a filter to include contacts between 30 and 50 years, who are linked to one of the 19 municipalities of Brussels and who have already paid their membership, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid"  and the condition "is set true". --> IL MANQUE LE FILTRE SUR LES VILLES, SUR L'AGE ETC... (et je ne sais pas ce que c'est condition is set true) IL FAUT LES AJOUTER SINON L'EXEMPLE NE FAIT PAS DE SENS
 
-!!!info
-
-    These filters are dynamic, meaning that contacts that will match the filter criteria in the future will automatically be added/rejected from the distribution list.
-
-    !!!example
-
-        Suppose that a filter has been created that includes, among others, contacts under the age of 30 and 50. A person who passes the age of 50 will automatically be rejected from the distribution list.
+ 
 
 ??? tip
 
@@ -100,7 +94,6 @@ CHANGER LE SCREENSHOT POUR METTRE UN EXEMPLE PLUS COMPLEXE (REPRENDRE IDEALEMENT
 
 Once a distribution list has been created, users can benefit from a 'mass export' function to easily obtain a structured file (CSV format) with the list of contacts included in the distribution list. This features is particularly interesting for exports from email coordinates and postal coordinates (contacts can be grouped by co-residency). Several filters (internal instance, exclude bounced addresses...) can be applied  to restrict the list of contacts that need to be exported. 
 
-with a tool that allows them to export a whole series of information from the contacts in the distribution list. This tool can generate a structured file (CSV) for an external printing tool (printing of membership cards).
 
 <figure markdown>
 ![screenshot 22](img/screen22.png)
