@@ -29,14 +29,16 @@ Key points of the distribution lists :
 - The filters used in the distribution lists are dynamic. This means that the contacts included in a filter are constantly updated according to the rules used in the filter. 
 !!! example
 
-    If the filter includes contacts over 50, as soon as a contact is over 50, he is removed from the distribution list.   
+    If the filter includes contacts between 30 and 50 years old, as soon as a contact reaches 51 years old, he will be removed from the distribution list.   
 
-- The distribution lists module allow you to build time-related filters. Time based query filters are used to filter the value of specific objects between certain periods of time.
+- The distribution lists module allows you to build time-related filters. Time based query filters are used to filter the value of specific objects between certain periods of time.
 !!!example
+
+TRES MAUVAIS EXEMPLE POUR LE FILTRE DE DATES, CAR TU METS UNE DATE FIXE (ce n'est pas un time related filter complexe ça, vu qu'il est statituqe). IL FAUT PRENDRE UN EXEMPLE LIE A LA DATE DU JOUR  POUR QUE CE SOIT INTERESSANT, SINON CA NE FAIT PAS DE SENS. DONC PAR EXEMPLE TOUS LES ADHERENTS DE PLUS DE 25 ANS QUI ONT PAYE LEUR ADHESION DANS LES X DERNIERS JOURS. OU TOUS LES MANDATAIRES QUI ONT SIGNE UN MANDAT DANS LES 30 DERNIERS JOURS;
 
     It is possible to create a filter that will include all persons with a registration date before 15 April 2023. People registered before will not be included in this filter.
 
-- Define multi-model domains
+- Define multi-model domains --> AJOUTE DU DETAIL STP, QUE VEUX-TU DIRE PAR LA? J'IMAGINE QUE SI TU NE L'AS PAS FAIT, C'EST PARCE QUE TU NE SAIS PAS CE QUE CELA COMPREND LES MULTI MODEL DOMAINS. POSE LA QUESTION A QUENTIN OU MARIE (PENDANT MES CONGES), IL NE FAUT PAS LAISSER CA VIDE
 
     
 - Specific contacts can be included or excluded from a distribution list using the "opt-in" and "opt-out" tabs on the distribution list form. The contacts selected in these two tabs will be included or excluded regardless of the filters used. 
@@ -50,7 +52,7 @@ Key points of the distribution lists :
  
 A distribution list enables you to apply filters that help you define a dynamic domain of contacts that meet specific criteria. Those filters can be added (include filters) or removed (exclude filters) from a distribution list. 
 
-Those filters can be saved as templates, in order to be re-used in the future for other distribution lists. Once the filters are applied on your distribution list, you can view all the contacts that are present in the 'include filters' and that currently don't correspond to any 'exclude filter domain.
+Those filters can be saved as templates, in order to be re-used in the future for other distribution lists. Once the filters are applied on your distribution list, you can view all the contacts that are present in the 'include filters' and that currently don't correspond to any 'exclude filter' domain.
 
 Multiple filters can be use to fine-tune the filter domain and ensure that only relevant contacts are included in the distribution list.
 
@@ -68,7 +70,7 @@ Once your filters have been applied on your virtual model, you can easily transf
 
 !!!example
 
-    In order to create a filter to include contacts in order of contribution who are between 30 and 50 years old and who are linked to one of the 19 communes of Brussels, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid"  and the condition "is set true".
+    In order to create a filter to include contacts between 30 and 50 years, who are linked to one of the 19 municipalities of Brussels and who have already paid their membership, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid"  and the condition "is set true". --> IL MANQUE LE FILTRE SUR LES VILLES, SUR L'AGE ETC... IL FAUT LES AJOUTER SINON L'EXEMPLE NE FAIT PAS DE SENS
 
 !!!info
 
