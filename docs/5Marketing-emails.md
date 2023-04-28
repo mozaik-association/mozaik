@@ -44,14 +44,13 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
     The email marketing module, added to the distribution list module, allows you to send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
     !!!example "Examples"
 
-       - I want to automatically send an email to all the people who paid their membership in the last 6 hours to thank them.
+       - I want to automatically send a 'thank you' email to all the people who paid their membership in the last 24 hours.
 
-        To do this you will have to create a distribution list that includes, thanks to the filters, the people who paid their membership in the last 24 hours. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 6 hours. Every 6 hours only new people who have paid their membership will receive the email.
+        To do this you will have to create a distribution list that includes - thanks to the include filters - the people who paid their membership in the last 24 hours (=time-related filter). The filters being dynamic, the distribution list will be constantly updated. Once the distribution list is created, you can add a reccurence of 24 hours on the mass mailing campaign.
 
-       - I want to automatically send an email to all people who have signed a petition in the last 24 hours and are over 30 years old. 
+       - I want to automatically send an email to all people who have recently signed a peitition, who are ex-members and who are over 30 years old. 
 
-        To do this you will have to create a distribution list that includes, thanks to the filters, the people who have signed a petiton in the last 24 hours. The filters being dynamic, the distribution list will be constantly updated. Once the list is created, in the mailing configuration you will have to select a recurrent mailing every 24 hours. Every 24 hours only new people who have signed a petition will receive the email.
-
+   
 <figure markdown>
 ![screenshot 20](img/screen20.png)
  <figcaption>Example of recurrent mailing</figcaption>
@@ -68,7 +67,7 @@ All communication failures (email / postal) can be recorded in the application. 
 How to encode failures on a contact? 
 
 - Postal bounces: must be encoded manually
-- Email bounces: records are updates automatically by Mozaik
+- Email bounces: records are updated automatically by Mozaik
 
 <figure markdown>
 ![screenshot 23](img/screen23.png)
