@@ -1,10 +1,8 @@
 # Surveys
 
-The Mozaik surveys module uses the Odoo standard and adds specific features for political parties and other organizations. It allows you to manage the different events of your organisation.
+The Odoo standard 'Survey' module enables you to manage the different events of your organisation. The Mozaik module adds a few new features:
 
-The Mozaik surveys module differs from the Odoo standard module by several points :
-
-- The recognition of the new partners who have participated to the the survey in order to create a contact form for them.
+- The automatic recognition of partners
 - The management of the questions of the survey in order to collect reusable data from the attendees.
 - The surveys access management in order to limit access to certain people according to the internal instances.
 
@@ -17,6 +15,8 @@ Various informations can/must be completed on the survey form :
 - The standard information of the survey (name, descirption...).
 - The interests related to the survey.
 - The involvements categories related to the survey.
+
+RETRAVAILLER LA PARTIE CI-DESSUS POUR QUE CE SOIT PLUS CLAIR POUR LA PARTIE INTERESTS ET INVOLVEMENTS (enlève le cadre avec le 'goal du survey management' et mets tout dans le texte ci-dessus)
 
 !!! abstract "The goal of survey management"
 
@@ -35,6 +35,8 @@ Various informations can/must be completed on the survey form :
 ## The managment of the questions
 
 The different questions of the survey can be added and arranged in the desired order. For each question, it is possible to propose differents types of answers (free text, multiple choices, date...).
+
+Enlever le cadre avec 'GOALS DES QUESTIONS' ET METTRE TOUT ICI DANS UN PARAGRAPHE DE TEXTE
 
 !!!info 
 
@@ -59,6 +61,8 @@ The different questions of the survey can be added and arranged in the desired o
 ## Recognition of partner
 
 When a person participates to the survey, the module allows to detect, on the basis of several criterias, if the participant already exists in the list of contacts or not. If the latter does not exist, a contact form is created for him. 
+
+ENLEVER LE CADRE SUR LES OBJECTIFS DU PARTNER RECOGNITION ET TOUT METTRE DANS UN PARAGRAPHE
 
 !!! abstract "The goal of partner recognition"
 
