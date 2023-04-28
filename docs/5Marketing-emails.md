@@ -1,36 +1,26 @@
 # Email marketing
-The 'Email marketing' module offers additional functionalities to complement the Odoo standard module. The module enables users to manage the marketing emails of their organisation.
 
-The Mozaik email marketing module differs from the Odoo standard module by several points :
+TThe email marketing module from Odoo enables users to manage the marketing emails of their organisation.
+Several interesting functionalities have been added by Mozaik to this Odoo standard module:
 
-- The module leaves open the possibility to choose to include people who have an op-out communication preference on their contact's form.
-- It offers the possibility to use the distribution lists previously created in the distribution lists module in addition to the distribution lists offered by the Odoo standard.
-- The module allows you to work with email templates that can be created in advance to be reused in different marketing emails.
+- Distribution lists can be used, in addition to the diffusion lists offered by the Odoo standard
+- You can work with the 'standard Odoo email builder', as well as with the 'Email templates' proposed by Odoo
+- A 'recurring' function has been added on the mass mailings
+- Previous email campaigns can be used to target specific contacts for a new mass mailing campaign
+- You can include opt-out contacts into specific mass mailings
 
-It will provide access to:
 
-- The general information of your marketing emails
-- The recurrent mailings
-- The management of failures
-- The reporting
+
 
 ## General information
 
-This functionality allows you to create, modify and manage the emails marketing sent by your organisation.
+This functionality allows you to create, modify and manage the mass mailings sent by your organisation.
 
-The emails marketing provides access to general information as:
+The email marketing module provides access to general information as:
 
 - The general information of the emails marketing (subject, preview text, recipients...).
-- The inclusion of opt-out contacts or not.
-- The use of the mail template or not. 
-
-!!! abstract "The goal of email management"
-
-    This feature allows you :
-    
-    - To create an email with the general informations needed as the subject and a preview text.
-    - To include contacts even if they have an op-out communication preference on their contact's form.
-    - To choose to create an email from the Odoo template or to write a mail with the simplified mail editor of Mozaik. The simplified mail editor allows you also to create mail templates in advance and simply select the one you need when creating a mailing.
+- The inclusion of opt-out contacts or not. You can decide to include contacts even if they have an op-out communication preference on their contact's form.
+- The use of the mail template or not. The simplified mail editor allows you to create mail templates in advance and simply select the one you need when creating a new mass mailing.
 
 !!! info 
 
