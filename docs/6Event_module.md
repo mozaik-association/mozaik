@@ -4,20 +4,25 @@ The Mozaik events module uses the Odoo standard and adds specific features for p
 
 The Mozaik Events module differs from the Odoo standard module by several points :
 
-- The management of the communication in order to automatically send emails according to certain triggers defined during an event.
-- The management of questions asked to attendees in order to learn more about them.
+- The management of the communication in order to automatically send emails according to certain triggers defined during an event. --> C'EST DU STANDARD CA, DONC PAS DU TOUT SPECIFIQUE
+- The management of questions asked to attendees in order to learn more about them. --> TOUT A FAIT STANDARD AUSSI (CE QUI N'EST PAS STANDARD C'EST LE FAIT DE LIER LES QUESTIONS A DES PARTICIPATIONS OU INTERETS QUI PERMETTENT DE COLLECTER DES INFOS SUR LES CONTACTS QU'ON AJOUTE ENSUITE SUR LEUR FICHE CONTACT )
 - The management of the voting domain in order to allow certain people to participate in votes or not during the event.
-- The event access management in order to limit access to certain people according to the internal instances.
+- The event access management, in order to limit access to certain people according to their access rules (< local instance)
+
+RAJOUTER AUSSI LE LIEN AVEC LES PARTICIPATIONS (ET CE QUE CA RAPPORTE AU PARTI POLITIQUE D'AVOIR CE LIEN)
 
 ## General information of the events
 
+
 This functionality allows you to create, modify and manage the events related to your organisation.
 
-Various information can/must be completed on a event form :
+Various information can be completed on a event form :
 
 - The standard information of the event (name, dates, organizer...)
 - The interests related to the event.
 - The involvement categories related to the event.
+
+--> PLUS D'INFOS SUR CE QUE CELA IMPLIQUE D'AVOIR LES INTEREST ET LES INVOLVEMENTS  SUR LES EVENTS ET SUR LES QUESTIONS D'EVENTS (REPRENDRE CE QUE T'AS MIS DANS GOAL OF THE EVENT MANAGEMENT QUI PEUT ËTRE ENLEVE)
 
 !!! abstract "The goal of event management"
 
@@ -34,6 +39,8 @@ Various information can/must be completed on a event form :
 </figure>
 
 ## Automated communications
+
+C'EST TRES BIEN ECRIT, MAIS C'EST STANDARD NON?
 
 Automatic emails can be added in the "communications" tab by selecting an already created template or by creating a new one. 
 
@@ -54,9 +61,11 @@ Automatic emails can be added in the "communications" tab by selecting an alread
 
 The module allows you to add questions in the "questions" tab that participants can or must answer. Answers can be free text, multiple choice or a tickbox.
 
+LA PARTIE QUI EXPLIQUE COMMENT ON EXPLOITE LES INLVOLEMENTS ET INTEREST N'EST PAS CLAIRE DU TOUT. IL FAUT MIEUX EXPLIQUER CETTE PARTIE-LA
+
 !!! abstract "The goal of the questions"
 
-    In addition to the simple fact of asking questions to the participants of the event. Mozaik allows to really collect reusable information about the participants.
+    In addition to the simple fact of asking questions to the participants of the event, Mozaik allows to really collect reusable information about the participants.
 
     For the selected answers and tickboxes, it is possible to add a participation category and thesaurus therms depending on the answer chosen by the participant. This information will be displayed on the contact's form.
     !!! example 
@@ -74,22 +83,25 @@ The module allows you to add questions in the "questions" tab that participants 
 
 ## The voting domain
 
-A voting domain can be registered in the "voting domain" tab by adding filters to select only certain people according to their information.
+A voting domain can be registered in the "voting domain" tab on an event, to indicate which members are allowed to vote during an event. This information will be displayed when the barcode on the badge of the participant is scanned / when the participant's name is encoded in the system.
 
-!!! abstract "The goal of the voting domain"
-
-    This feature allows you to add votes to the event only for certain people (the contacts listed in the filters). Depending on whether he/she is included in the list of voting areas, he/she will have the right to vote or not.  This information will be displayed when a person arrives at the event organised by the organisation and their barcode is scanned.
     !!! example 
 
-        I want only people who are in order to pay and who are donors to vote.
+        I only want to allow people who are members since more than 5 years to vote.
+
+        METTRE UN SCREENSHOT PLUS PARLANT DU COUP POUR REPONDRE AU CAS DE FIGURE CI-DESSUS QUI ME SEMBLE PLUS INTERESSANT (MEMBRE DEPUIS 5 ANS)
+
         <figure markdown>
         ![screenshot 45](img/screen45.png)
-        <figcaption>Example of voting domain</figcaption>
+        <figcaption>Example of a voting domain</figcaption>
         </figure>
 
 ## The access limitations
 
-Thanks to the "security" tab, it is possible to limit the visibility and access of each event to certain people depending on the selected instance. 
+Thanks to the "security" tab, it is possible to limit the visibility and access of each event to certain people depending on their access rights.
+This access rules are based on the internal structure of the organization. A user linked to a very low internal intance will only be able to access the events linked to his instance. A user linked to the 'regional' internal instance will be able to access all the events of his region etc.
+
+METTRE LE SCREENSHOT EN ANGLAIS (COMMUNE A METTRE EN ANLGAIS STP)
 
 !!! example 
 
