@@ -16,16 +16,14 @@ Various informations can/must be completed on the survey form :
 - The interests related to the survey.
 - The involvements categories related to the survey.
 
-RETRAVAILLER LA PARTIE CI-DESSUS POUR QUE CE SOIT PLUS CLAIR POUR LA PARTIE INTERESTS ET INVOLVEMENTS (enlève le cadre avec le 'goal du survey management' et mets tout dans le texte ci-dessus)
+The interests and involvement categories linked to the surveys allow the organisations to find all the contacts with certain categories of participation or interests in order to send communications in a verry targeted manner.
 
-!!! abstract "The goal of survey management"
+This functionality allows to :
 
-    This functionality allows to :
-
-    - Manage the general information of each survey.
-    - Add interests to categorise the different survey and to add these interests to the form of the contacts who participated to this survey.
-    - Add involvement categories to automatically add them to the form of the contacts who participated to the survey.
-    - Get access to the lists of all the answers of the survey.
+- Manage the general information of each survey.
+- Add interests to categorise the different survey and to add these interests to the form of the contacts who participated to this survey.
+- Add involvement categories to automatically add them to the form of the contacts who participated to the survey.
+- Get access to the lists of all the answers of the survey.
 
 <figure markdown>
 ![screenshot 47](img/screen47.png)
@@ -36,7 +34,10 @@ RETRAVAILLER LA PARTIE CI-DESSUS POUR QUE CE SOIT PLUS CLAIR POUR LA PARTIE INTE
 
 The different questions of the survey can be added and arranged in the desired order. For each question, it is possible to propose differents types of answers (free text, multiple choices, date...).
 
-Enlever le cadre avec 'GOALS DES QUESTIONS' ET METTRE TOUT ICI DANS UN PARAGRAPHE DE TEXTE
+The questions have differents roles:
+    
+- To find out the participant's opinion on the questions asked.
+- To get to know more about the participants in the survey through the interests and then benefit from them in the communications sent to the organisation's contacts 
 
 !!!info 
 
@@ -46,13 +47,6 @@ Enlever le cadre avec 'GOALS DES QUESTIONS' ET METTRE TOUT ICI DANS UN PARAGRAPH
     <figcaption>Adding involvement & interest</figcaption>
     </figure>
 
-!!! abstract "The goal of the questions"
-
-    The questions have differents roles:
-    
-    - To find out the participant's opinion on the questions asked.
-    - To get to know more about the participants in the survey through the interests and then benefit from them in the communications sent to the organisation's contacts 
-
 <figure markdown>
 ![screenshot 49](img/screen49.png)
 <figcaption>Example of questions for the survey</figcaption>
@@ -60,13 +54,10 @@ Enlever le cadre avec 'GOALS DES QUESTIONS' ET METTRE TOUT ICI DANS UN PARAGRAPH
 
 ## Recognition of partner
 
-When a person participates to the survey, the module allows to detect, on the basis of several criterias, if the participant already exists in the list of contacts or not. If the latter does not exist, a contact form is created for him. 
 
-ENLEVER LE CADRE SUR LES OBJECTIFS DU PARTNER RECOGNITION ET TOUT METTRE DANS UN PARAGRAPHE
+When a person participates to a petition, the system will try to detect (based on several criteria) whether this person can be linked to an existing partner in the Odoo database. If this is not the case, a new partner will automatically be created.
 
-!!! abstract "The goal of partner recognition"
-
-    This feature allows you to expand your organisation's list of contacts and then recontact them for other surveys, petitions, events...
+Thanks to this feature, you can expand your organization's list of contacts and then recontact them for future petitions, events, surveys...
 
 ## The access limitations
 
