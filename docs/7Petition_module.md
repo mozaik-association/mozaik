@@ -37,7 +37,7 @@ Thanks to this feature, you can expand your organization's list of contacts and 
 
 ## Milestones
 
-The functionality allows you to add different milestones (target number of signatures) to be reached for each petition.
+The functionality allows you to add different milestones to be reached for each petition.
 
 !!! info
 
