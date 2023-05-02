@@ -53,8 +53,7 @@ The functionality allows you to add different milestones to be reached for each 
 Automatic emails can be added in the "communications" tab by selecting an already created template or by creating a new one. 
 
 This feature allows emails to be sent automatically, based on certain triggers.
-
-    !!! example
+ !!! example
 
         - I would like to send an email 2 days after the end of the petition to all participants
         - I want to send an email to each participant one day after their signing to ask them to share the petition with others
@@ -92,7 +91,7 @@ Thanks to the "security" tab, it is possible to limit the visibility and access 
 
 !!! example 
 
-    I want that only people from the Antwerp instance can access the petition. METTRE "COMMUNE" DANS LE SCREENSHOT EN ANGLAIS
+    I want that only people from the Antwerp instance can access the petition.
 
 <figure markdown>
 ![screenshot 39](img/screen39.png)

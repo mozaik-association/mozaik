@@ -1,10 +1,10 @@
 # Events
 
-The Mozaik events module uses the Odoo standard and adds specific features for political parties and other organizations. It allows you to manage the different events of your organisation.
+The Mozaik events module uses the Odoo standard and adds specific features for political parties and other organisations. It allows you to manage the different events of your organisation.
 
 The Mozaik Events module differs from the Odoo standard module by several points :
 
-- The management of interests and categories of participation linked to the questions asked to the participants to collect information on the contacts participating in the events.
+- The management of interests and categories of participation linked to the questions asked to the participants in order to collect information on the contacts participating in the events.
 - The management of the voting domain in order to allow certain people to participate in votes or not during the event.
 - The event access management, in order to limit access to certain people according to their access rules (< local instance)
 
@@ -19,7 +19,7 @@ Various information can be completed on a event form :
 - The interests related to the event.
 - The involvement categories related to the event.
 
-The interests and involvement categories linked to the events allow the organisation to find all the contacts with certain categories of participation or interests in order to send communications in a verry targeted manner.
+The interests and involvement categories linked to the events allow the organisations to find all the contacts with certain categories of participation or interests in order to send communications in a verry targeted manner.
 
 !!! abstract "The goal of event management"
 
