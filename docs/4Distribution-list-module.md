@@ -34,13 +34,12 @@ Key points of the distribution lists :
 - The distribution lists module allows you to build time-related filters. Time based query filters are used to filter the value of specific objects between certain periods of time.
 !!!example
 
-TRES MAUVAIS EXEMPLE POUR LE FILTRE DE DATES, CAR TU METS UNE DATE FIXE (ce n'est pas un time related filter complexe ça, vu qu'il est statituqe). IL FAUT PRENDRE UN EXEMPLE LIE A LA DATE DU JOUR  POUR QUE CE SOIT INTERESSANT, SINON CA NE FAIT PAS DE SENS. DONC PAR EXEMPLE TOUS LES ADHERENTS DE PLUS DE 25 ANS QUI ONT PAYE LEUR ADHESION DANS LES X DERNIERS JOURS. OU TOUS LES MANDATAIRES QUI ONT SIGNE UN MANDAT DANS LES 30 DERNIERS JOURS;
+    - All members over 25 years of age who have paid their membership fees within the last 25 days.
+    - All proxies who have signed a mandate in the last 30 days.
 
-    It is possible to create a filter that will include all persons with a registration date before 15 April 2023. People registered before will not be included in this filter.
 
 - Define multi-model domains --> AJOUTE DU DETAIL STP, QUE VEUX-TU DIRE PAR LA? J'IMAGINE QUE SI TU NE L'AS PAS FAIT, C'EST PARCE QUE TU NE SAIS PAS CE QUE CELA COMPREND LES MULTI MODEL DOMAINS. POSE LA QUESTION A QUENTIN OU MARIE (PENDANT MES CONGES), IL NE FAUT PAS LAISSER CA VIDE
 
-    
 - Specific contacts can be included or excluded from a distribution list using the "opt-in" and "opt-out" tabs on the distribution list form. The contacts selected in these two tabs will be included or excluded regardless of the filters used. 
 
 <figure markdown>
