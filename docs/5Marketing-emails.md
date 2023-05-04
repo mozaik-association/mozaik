@@ -1,6 +1,6 @@
 # Email marketing
 
-TThe email marketing module from Odoo enables users to manage the marketing emails of their organisation.
+The email marketing module from Odoo enables users to manage the marketing emails of their organisation.
 Several interesting functionalities have been added by Mozaik to this Odoo standard module:
 
 - Distribution lists can be used, in addition to the diffusion lists offered by the Odoo standard
@@ -8,9 +8,6 @@ Several interesting functionalities have been added by Mozaik to this Odoo stand
 - A 'recurring' function has been added on the mass mailings
 - Previous email campaigns can be used to target specific contacts for a new mass mailing campaign
 - You can include opt-out contacts into specific mass mailings
-
-
-
 
 ## General information
 
@@ -42,15 +39,15 @@ In the mailing configurations, it is possible to select the "recurrent sending" 
     Recurring emails are sent only once to each contact on a distribution or mailing list. The idea of this feature is to send a communication only to new people who meet the rules of a distribution list. 
     
     The email marketing module, added to the distribution list module, allows you to send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
+
     !!!example "Examples"
 
-       - I want to automatically send a 'thank you' email to all the people who paid their membership in the last 24 hours.
+        - I want to automatically send a 'thank you' email to all the people who paid their membership in the last 24 hours.
 
         To do this you will have to create a distribution list that includes - thanks to the include filters - the people who paid their membership in the last 24 hours (=time-related filter). The filters being dynamic, the distribution list will be constantly updated. Once the distribution list is created, you can add a reccurence of 24 hours on the mass mailing campaign.
 
        - I want to automatically send an email to all people who have recently signed a peitition, who are ex-members and who are over 30 years old. 
 
-   
 <figure markdown>
 ![screenshot 20](img/screen20.png)
  <figcaption>Example of recurrent mailing</figcaption>

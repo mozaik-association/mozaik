@@ -34,11 +34,10 @@ Key points of the distribution lists :
 - The distribution lists module allows you to build time-related filters. Time based query filters are used to filter the value of specific objects between certain periods of time.
 !!!example
 
-    - All members over 25 years of age who have paid their membership fees within the last 25 days.
+    - All members over 25 years who have paid their membership fees within the last 25 days.
     - All proxies who have signed a mandate in the last 30 days.
 
-
-- Define multi-model domains --> AJOUTE DU DETAIL STP, QUE VEUX-TU DIRE PAR LA? J'IMAGINE QUE SI TU NE L'AS PAS FAIT, C'EST PARCE QUE TU NE SAIS PAS CE QUE CELA COMPREND LES MULTI MODEL DOMAINS. POSE LA QUESTION A QUENTIN OU MARIE (PENDANT MES CONGES), IL NE FAUT PAS LAISSER CA VIDE
+- The distribution lists module use define multi-model domains which allow you to search for contacts on the basis of several domains at once.
 
 - Specific contacts can be included or excluded from a distribution list using the "opt-in" and "opt-out" tabs on the distribution list form. The contacts selected in these two tabs will be included or excluded regardless of the filters used. 
 
@@ -62,16 +61,14 @@ In order to create a filter, you must first select a 'virtual model' (combinatio
 - Partner/Mass Maillings
 - Partner/Involvement
 - Partner/Relation 
-- Partner/Instance 
+- Partner/Instance
 - Assembles/instances 
 
 Once your filters have been applied on your virtual model, you can easily transform (through the 'action' button) those filters into an 'Include' or 'Exclude filter' that will be linked to a distribution list. 
 
 !!!example
 
-    In order to create a filter to include contacts between 30 and 50 years, who are linked to one of the 19 municipalities of Brussels and who have already paid their membership, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid"  and the condition "is set true". --> IL MANQUE LE FILTRE SUR LES VILLES, SUR L'AGE ETC... (et je ne sais pas ce que c'est condition is set true) IL FAUT LES AJOUTER SINON L'EXEMPLE NE FAIT PAS DE SENS
-
- 
+    In order to create a filter to include contacts between 30 and 50 years, who are linked to one of the 19 commune of Brussels and who have already paid their membership, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid"  and the condition "is set true". --> IL MANQUE LE FILTRE SUR LES VILLES, SUR L'AGE ETC... (et je ne sais pas ce que c'est condition is set true) IL FAUT LES AJOUTER SINON L'EXEMPLE NE FAIT PAS DE SENS
 
 ??? tip
 
@@ -79,7 +76,7 @@ Once your filters have been applied on your virtual model, you can easily transf
 
     :warning: To be included in the 'Result' list, a contact must have an email address OR a postal address. Otherwise, the contacts will appear in the "Without coordinate" tab accessible on a specific filter or on the distribution list.
 
-CHANGER LE SCREENSHOT POUR METTRE UN EXEMPLE PLUS COMPLEXE (REPRENDRE IDEALEMENT CELUI D'AU-DESSUS AVEC LES ADHESIONS
+CHANGER LE SCREENSHOT POUR METTRE UN EXEMPLE PLUS COMPLEXE (REPRENDRE IDEALEMENT CELUI D'AU-DESSUS AVEC LES ADHESIONS)
 <figure markdown>
 ![screenshot 18](img/screen18.png)
 <figcaption>Creation of a filter</figcaption>
@@ -92,7 +89,6 @@ CHANGER LE SCREENSHOT POUR METTRE UN EXEMPLE PLUS COMPLEXE (REPRENDRE IDEALEMENT
 ## The mass export function
 
 Once a distribution list has been created, users can benefit from a 'mass export' function to easily obtain a structured file (CSV format) with the list of contacts included in the distribution list. This features is particularly interesting for exports from email coordinates and postal coordinates (contacts can be grouped by co-residency). Several filters (internal instance, exclude bounced addresses...) can be applied  to restrict the list of contacts that need to be exported. 
-
 
 <figure markdown>
 ![screenshot 22](img/screen22.png)
