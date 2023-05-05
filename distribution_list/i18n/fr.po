@@ -1,0 +1,441 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* distribution_list
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-14 19:53+0000\n"
+"PO-Revision-Date: 2022-02-14 11:57+0000\n"
+"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
+
+#. module: distribution_list
+#: code:addons/distribution_list/models/distribution_list.py:0
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copie)"
+
+#. module: distribution_list
+#: code:addons/distribution_list/models/distribution_list_line.py:0
+#, python-format
+msgid ""
+"A filter for the target model %s is not valid.\n"
+"Details: %s"
+msgstr ""
+"Un filtre pour le modèle destination %s est invalide.\n"
+"Détails: %s"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_add_filter
+msgid "Add"
+msgstr "Ajouter"
+
+#. module: distribution_list
+#: model:ir.model,name:distribution_list.model_distribution_list_add_filter
+msgid "Add Filter Wizard"
+msgstr "Assistant d'ajout d'un filtre"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__bridge_field_id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__bridge_field_id
+msgid "Bridge field"
+msgstr "Champ passerelle"
+
+#. module: distribution_list
+#: model:ir.model.fields,help:distribution_list.field_distribution_list_line__bridge_field_id
+msgid ""
+"Bridge field between the source model (of the filter) and the target model "
+"(of the distribution list)"
+msgstr ""
+"Champ passerelle entre le modèle source (du filtre) et le modèle destination "
+"(de la liste de distribution)"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_add_filter
+#: model_terms:ir.ui.view,arch_db:distribution_list.merge_distribution_list_wizard
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: distribution_list
+#: model:ir.model.fields,help:distribution_list.field_distribution_list_add_filter__exclude
+#: model:ir.model.fields,help:distribution_list.field_distribution_list_line__exclude
+msgid "Check this box to exclude the filter result from the distribution list"
+msgstr ""
+"Cocher cette case pour exclure le résultat du filtre de la liste de "
+"distribution"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__company_id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: distribution_list
+#: model:ir.model,name:distribution_list.model_merge_distribution_list
+msgid "Complete Distribution List"
+msgstr "Compléter une liste de distribution"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__create_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__create_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__create_date
+msgid "Create Date"
+msgstr "Date de création"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__create_uid
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__create_uid
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__create_uid
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__create_uid
+#: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__create_date
+#: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__display_name
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__display_name
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__display_name
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__display_name
+#: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: distribution_list
+#: model:ir.model,name:distribution_list.model_distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__distribution_list_id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__distribution_list_id
+#: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__distribution_list_id
+#: model:ir.module.category,name:distribution_list.module_category_distribution_list
+msgid "Distribution List"
+msgstr "Liste de distribution"
+
+#. module: distribution_list
+#: model:ir.model,name:distribution_list.model_distribution_list_line
+msgid "Distribution List Line"
+msgstr "Filtre"
+
+#. module: distribution_list
+#: model:ir.model,name:distribution_list.model_distribution_list_line_template
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__distribution_list_line_tmpl_id
+msgid "Distribution List Line Template"
+msgstr "Template filtre"
+
+#. module: distribution_list
+#: model:ir.actions.act_window,name:distribution_list.distribution_list_action
+#: model:ir.ui.menu,name:distribution_list.distribution_list_menu
+#: model:ir.ui.menu,name:distribution_list.distribution_list_menu_root
+#: model:ir.ui.menu,name:distribution_list.distribution_list_submenu
+msgid "Distribution Lists"
+msgstr "Listes de distribution"
+
+#. module: distribution_list
+#: model:ir.model.fields,help:distribution_list.field_merge_distribution_list__distribution_list_id
+msgid "Distribution list to complete"
+msgstr "Liste de distribution à compléter"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__exclude
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__exclude
+msgid "Exclude"
+msgstr "Exclure"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_search
+msgid "Excluded"
+msgstr "Exclu"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__excluded_distribution_list_line_ids
+#, fuzzy
+#| msgid "Distribution List Line"
+msgid "Excluded Distribution List Lines"
+msgstr "Filtre"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
+msgid "Excluded Lines"
+msgstr "Exclus dans"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__domain
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__domain
+msgid "Expression"
+msgstr "Expression"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
+msgid "Filter"
+msgstr "Filtre"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
+msgid "Filter result"
+msgstr "Filtre"
+
+#. module: distribution_list
+#: model:ir.actions.act_window,name:distribution_list.distribution_list_line_action
+#: model:ir.ui.menu,name:distribution_list.distribution_list_line
+msgid "Filters"
+msgstr "Filtres"
+
+#. module: distribution_list
+#: model:ir.actions.act_window,name:distribution_list.distribution_list_line_template_action
+#: model:ir.ui.menu,name:distribution_list.distribution_list_line_template
+msgid "Filters Templates"
+msgstr "Modèles de filtres"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__to_exclude_distribution_list_line_ids
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
+msgid "Filters to Exclude"
+msgstr "Filtres à exclure"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__to_include_distribution_list_line_ids
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
+msgid "Filters to Include"
+msgstr "Filtres à inclure"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__id
+#: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__id
+msgid "ID"
+msgstr "ID"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_search
+msgid "Included"
+msgstr "Inclus"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__included_distribution_list_line_ids
+msgid "Included Distribution List Lines"
+msgstr "Filtre inclus"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
+msgid "Included Lines"
+msgstr "Inclus dans"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list____last_update
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter____last_update
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line____last_update
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template____last_update
+#: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__write_uid
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__write_uid
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__write_uid
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__write_uid
+#: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__write_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__write_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__write_date
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__write_date
+#: model:ir.model.fields,field_description:distribution_list.field_merge_distribution_list__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
+msgid "List result"
+msgstr "Résultat de la liste"
+
+#. module: distribution_list
+#: model:res.groups,name:distribution_list.res_groups_distribution_list_manager
+msgid "Manager"
+msgstr "Gestionnaire"
+
+#. module: distribution_list
+#: model:ir.actions.act_window,name:distribution_list.merge_distribution_list_action
+msgid "Merge Distribution List(s)"
+msgstr "Fusionner une/des liste(s) de distribution"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__src_model_id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__src_model_id
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_search
+msgid "Model"
+msgstr "Modèle"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__src_model_model
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__src_model_model
+msgid "Model name"
+msgstr "Modèle"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__name
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_add_filter__name
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__name
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line_template__name
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_form_view
+msgid "Name"
+msgstr "Nom"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_add_filter
+msgid "New Filter Name"
+msgstr "Nom du nouveau filtre"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__note
+msgid "Note"
+msgstr "Note"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
+msgid "Notes"
+msgstr "Notes"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.merge_distribution_list_wizard
+msgid "Ok"
+msgstr "Ok"
+
+#. module: distribution_list
+#: code:addons/distribution_list/wizards/merge_distribution_list.py:0
+#, python-format
+msgid "Please select at least one Distribution List!"
+msgstr "Merci d'au moins sélectionner une liste de distribution!"
+
+#. module: distribution_list
+#: model:res.groups,name:distribution_list.res_groups_distribution_list_reader
+msgid "Reader"
+msgstr "Lecteur"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_form
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_template_tree_view
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_line_tree
+msgid "Result"
+msgstr "Résultat"
+
+#. module: distribution_list
+#: code:addons/distribution_list/models/distribution_list.py:0
+#: code:addons/distribution_list/models/distribution_list_line.py:0
+#: code:addons/distribution_list/models/distribution_list_line_template.py:0
+#, python-format
+msgid "Result of %s"
+msgstr "Résultat de %s"
+
+#. module: distribution_list
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list__dst_model_id
+#: model:ir.model.fields,field_description:distribution_list.field_distribution_list_line__trg_model
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_search
+msgid "Target Model"
+msgstr "Modèle destination"
+
+#. module: distribution_list
+#: model:ir.model.constraint,message:distribution_list.constraint_distribution_list_line_template_unique_name_dist_list_line_tmpl
+msgid ""
+"The name of a filter must be unique. A filter with the same name already "
+"exists."
+msgstr ""
+"Le nom d'un filtre doit être unique. Un filtre avec le même nom existe déjà."
+
+#. module: distribution_list
+#: code:addons/distribution_list/models/distribution_list.py:0
+#, python-format
+msgid "The target field %s must be a Many2one"
+msgstr "Le champ destination %s doit être un Many2one"
+
+#. module: distribution_list
+#: code:addons/distribution_list/models/distribution_list.py:0
+#, python-format
+msgid "The target field doesn't exists in the source model"
+msgstr "Le champ destination n'existe pas dans le modèle source"
+
+#. module: distribution_list
+#: code:addons/distribution_list/models/distribution_list.py:0
+#, python-format
+msgid "The target model %s doesn't have a field named %s"
+msgstr "Le modèle destination %s n'a pas de champ %s"
+
+#. module: distribution_list
+#: code:addons/distribution_list/models/distribution_list_line.py:0
+#, python-format
+msgid ""
+"These filters are not valid because the bridge field is not related to the "
+"target model of the distribution list!\n"
+"- %s"
+msgstr ""
+"Ces filtres ne sont pas valides car le champ passerelle ne référence pas le "
+"modèle destination de la liste de distribution!\n"
+"- %s"
+
+#. module: distribution_list
+#: model:ir.model.constraint,message:distribution_list.constraint_distribution_list_constraint_uniq_name
+msgid "This name already exists for this company"
+msgstr "Ce nom existe déjà pour cette société"
+
+#. module: distribution_list
+#: model:res.groups,name:distribution_list.res_groups_distribution_list_user
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_add_filter
+msgid ""
+"Warning! You have to define the filter before to add it into a distribution "
+"list"
+msgstr ""
+"Attention! Vous devez définir le filtre avant de l'ajouter à une liste de "
+"distribution"
+
+#. module: distribution_list
+#: code:addons/distribution_list/wizards/distribution_list_add_filter.py:0
+#, python-format
+msgid "You have to check the entire list to add the current filter"
+msgstr ""
+"Vous devez sélectionner la liste entière pour ajouter le filtre courrant"
+
+#. module: distribution_list
+#: model_terms:ir.ui.view,arch_db:distribution_list.distribution_list_add_filter
+#: model_terms:ir.ui.view,arch_db:distribution_list.merge_distribution_list_wizard
+msgid "or"
+msgstr "ou"
+
+#~ msgid "Email composition wizard"
+#~ msgstr "Assistant de composition de courriel"
+
+#~ msgid "Mass Mailing"
+#~ msgstr "Publipostage"
+
+#~ msgid "Add Current Filter To Distribution List"
+#~ msgstr "Ajouter le filtre courrant à la liste de distribution"
+
+#~ msgid "Define New Expression"
+#~ msgstr "Définir une nouvelle expression"
+
+#~ msgid "Save Expression"
+#~ msgstr "Enregistrer l'expression"

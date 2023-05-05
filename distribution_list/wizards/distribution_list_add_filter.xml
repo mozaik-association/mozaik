@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="distribution_list_add_filter" model="ir.ui.view">
+        <field name="name">distribution.list.add.filter.form</field>
+        <field name="model">distribution.list.add.filter</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <div invisible="not context.get('active_domain')">
+                    <div class="oe_title" name="title">
+                        <h1>
+                            <field
+                                name="name"
+                                nolabel="1"
+                                placeholder="New Filter Name"
+                            />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="distribution_list_id" />
+                        <field name="bridge_field_id" widget="selection" />
+                        <field name="exclude" />
+                    </group>
+                </div>
+                <div invisible="context.get('active_domain')">
+                    Warning! You have to define the filter before to add it into a distribution list
+                </div>
+
+                <footer invisible="not context.get('active_domain')">
+                    <button
+                        name="add_distribution_list_line"
+                        string="Add"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    or
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+                <footer invisible="context.get('active_domain')">
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+
+</odoo>
