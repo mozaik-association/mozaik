@@ -4,21 +4,14 @@ import logging
 import re
 
 from odoo import _, api, exceptions, fields, models
-from odoo.tools import ustr
 
 _logger = logging.getLogger(__name__)
 MATCH_EMAIL = re.compile("<(.*)>", re.IGNORECASE)
 
 
 class DistributionList(models.Model):
-    _name = "distribution.list"
-    _inherit = [
-        "distribution.list",
-        "mail.thread",
-        "mail.alias.mixin",
-    ]
+    _inherit = "distribution.list"
 
-    mail_forwarding = fields.Boolean(default=False)
     newsletter = fields.Boolean(default=False)
     partner_path = fields.Char(
         compute="_compute_partner_path", store=True, readonly=False
@@ -71,90 +64,6 @@ class DistributionList(models.Model):
                     )
                 )
 
-    def get_alias_model_name(self, vals):
-        return "distribution.list"
-
-    @api.model
-    def _build_alias_name(self, name):
-        """
-        Build an alias with the name given in parameter and make it unique
-        :param name: str
-        :return: str
-        """
-        catchall_alias = (
-            self.env["ir.config_parameter"].sudo().get_param("mail.catchall.alias")
-        )
-        if not catchall_alias:
-            raise exceptions.MissingError(
-                _(
-                    "Please contact your Administrator to configure a "
-                    "'catchall' mail alias"
-                )
-            )
-        alias = "%s+%s" % (catchall_alias, name)
-        alias_name = self.env["mail.alias"]._clean_and_check_unique(alias)
-        return alias_name
-
-    def _get_mailing_object(self, email_from, mailing_model=False, email_field="email"):
-        """
-        Get records related to an email (typically partners)
-        :param email_from: str
-        :param mailing_model: str
-        :param email_field: str
-        :return: mailing_model recordset
-        """
-        res = re.findall(MATCH_EMAIL, email_from)
-        if res:
-            email_from = res[0]
-
-        if not mailing_model:
-            mailing_model = self.dst_model_id.model
-
-        mailing_object = self.env[mailing_model]
-        if not email_from:
-            return mailing_object.browse()
-        domain = [(email_field, "=", email_from)]
-        return mailing_object.search(domain)
-
-    def _get_mailing_mailing_vals(self, msg):
-        """
-        Prepare values for a composer from an incomming message
-        :param msg: incomming message str
-        :param mailing_model: str
-        :param email_field: str
-        :return: composer dict
-        """
-        self.ensure_one()
-        # modify the mail to add correctly the images
-        vals = self._message_post_process_attachments(
-            msg.get("attachments", []),
-            False,
-            {
-                "body": msg.get("body", False),
-                "model": "mailing.mailing",
-                "res_id": False,
-            },
-        )
-        attachments = self.env["ir.attachment"].browse(
-            [a[1] for a in vals.get("attachment_ids")]
-        )
-        return (
-            {
-                "email_from": msg.get("email_from", False),
-                "reply_to": msg.get("email_from", False),
-                "reply_to_mode": "email",
-                "subject": msg.get("subject", False),
-                "body_html": vals.get("body", msg.get("body", False)),
-                "distribution_list_id": self.id,
-                "name": "Mass Mailing %s" % self.name,
-                "mailing_model_id": self.env["ir.model"]._get(self._name).id,
-                "attachment_ids": attachments.filtered(
-                    lambda s: not s.access_token
-                ).ids,
-            },
-            attachments,
-        )
-
     def _get_opt_res_ids(self, domain):
         """
         Get destination model opt/in opt/out records
@@ -164,126 +73,6 @@ class DistributionList(models.Model):
         self.ensure_one()
         opt_ids = self.env[self.dst_model_id.model].search(domain)
         return opt_ids
-
-    @api.constrains("mail_forwarding", "alias_name")
-    def _check_forwarding(self):
-        """
-        False if alias_name and mail_forwarding are incompatible
-        True otherwise
-        :return:
-        """
-        if self.filtered(lambda r: r.mail_forwarding != bool(r.alias_name)):
-            raise exceptions.ValidationError(
-                _("An alias is mandatory for mail forwarding, forbidden otherwise")
-            )
-
-    @api.model
-    def create(self, vals):
-        """
-        Define into context:
-        - alias_model_name with current model name
-        - alias_parent_model_name with current model name
-        and pop the mail_forwarding from vals
-        :param vals: dict
-        :return: self recordset
-        """
-        if not vals.get("mail_forwarding"):
-            vals.pop("alias_name", False)
-        dist_model = self.env.ref("distribution_list.model_distribution_list")
-        alias = (
-            self.sudo()
-            .env["mail.alias"]
-            .create(
-                {
-                    "alias_parent_model_id": dist_model.id,
-                    "alias_model_id": dist_model.id,
-                    "alias_name": vals.get("alias_name", False),
-                }
-            )
-        )
-        vals["alias_id"] = alias.id
-        distribution_list = super(DistributionList, self).create(vals)
-        distribution_list.alias_defaults = {
-            "distribution_list_id": distribution_list.id
-        }
-        return distribution_list
-
-    def write(self, vals):
-        """
-
-        :param vals: dict
-        :return: bool
-        """
-        if not vals.get("mail_forwarding", True):
-            vals.update({"alias_name": False})
-
-        # write it first on the mail.alias, because _check_forwarding
-        # constraint doesnt' like it otherwise
-        if "alias_name" in vals:
-            self.mapped("alias_id").write({"alias_name": vals.get("alias_name")})
-        return super().write(vals)
-
-    def unlink(self):
-        # unlink all autogenerated mail.alias not needed anymore
-        mail_aliases = self.mapped("alias_id")
-        res = super(DistributionList, self).unlink()
-        distribution_lists = self.search([("alias_id", "in", mail_aliases.ids)])
-        (mail_aliases - distribution_lists.mapped("alias_id")).unlink()
-        return res
-
-    @api.model
-    def _manage_mail_forwarding(self, dist_list_id, msg_dict):
-        dist_list = self.browse()
-        if not dist_list_id:
-            param = " for alias %s" % msg_dict.get("to", "")
-            _logger.warning(
-                "Message update. Mail Forwarding not available: no distribution "
-                "list specified%s",
-                param,
-            )
-        else:
-            dist_list = self.browse(dist_list_id)
-            if dist_list.mail_forwarding:
-                dist_list._distribution_list_forwarding(msg_dict)
-            else:
-                _logger.warning(
-                    "Mail Forwarding not allowed for distribution list %s: "
-                    'Email "%s" send however a message to it',
-                    dist_list_id,
-                    msg_dict.get("email_from", "??"),
-                )
-        return dist_list
-
-    @api.model
-    def message_new(self, msg_dict, custom_values=None):
-        """
-        Override the native mail.thread method to not create a document anymore
-        for distribution list object.
-        New Behavior is to forward the current message `msg_dict` to all
-        recipients of the distribution list
-        :param msg_dict: dict
-        :param custom_values: dict
-        :return: self recordset
-        """
-        custom_values = custom_values or {}
-        dist_list_id = custom_values.get("distribution_list_id")
-        return self._manage_mail_forwarding(dist_list_id, msg_dict)
-
-    def message_update(self, msg_dict, update_vals=None):
-        """
-        Do not allow update.
-        In some cases, the mail they send for forwarding contains the
-        in-reply-to id of an existing thread, hence it is considered by
-        Odoo as a message update, and not a new message.
-        For distribution lists we will apply the same logic as for message_new
-        :param msg_dict: dict
-        :param update_vals: dict
-        :return: bool
-        """
-        update_values = update_vals or {}
-        dist_list_id = update_values.get("distribution_list_id")
-        self._manage_mail_forwarding(dist_list_id, msg_dict)
-        return True
 
     def _get_target_from_distribution_list(self):
         """
@@ -334,65 +123,3 @@ class DistributionList(models.Model):
             res = self.write(vals)
             return res
         return False
-
-    def _distribution_list_forwarding(self, msg):
-        """
-        Create a 'mail.compose.message' depending of the message msg and then
-        send a mail with this composer to the resulting ids of the
-        distribution list 'dl_id'
-        If the subject message starts with the code define on parameters
-        (key = distribution.list.mass.mailing.test) (case-insensitive),
-        so the dest. email become the sender
-        :param msg:
-        :return: Boolean
-        """
-        target = self._get_mailing_object(msg.get("email_from", ""))
-        if len(target) != 1:
-            _logger.warning(
-                "An unknown or ambiguous email (%s) "
-                "tries to forward a mail through a distribution list",
-                msg.get("email_from"),
-            )
-            return False
-        subject = msg.get("subject")
-        test_code = ustr(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("distribution.list.mass.mailing.test", default="AAAAAA")
-        )
-        self_ctx = self
-        mailing_mailing_vals_and_att = self_ctx._get_mailing_mailing_vals(msg)
-        mail_composer_vals = mailing_mailing_vals_and_att[0]
-        if subject.upper().startswith(test_code.upper()):
-            mail_composer_vals["subject"] = subject[len(test_code) :]
-            self_ctx = self.with_context(
-                active_id=target.id, active_ids=target.ids, active_model=target._name,
-            )
-        else:
-            targets = self._get_target_from_distribution_list()
-            if targets._name != "res.partner":
-                targets = targets.mapped("partner_id")
-            self_ctx = self.with_context(
-                active_ids=targets.ids, active_model="res.partner",
-            )
-        mailing_mailing = self_ctx.env["mailing.mailing"].create(mail_composer_vals)
-        mailing_mailing_vals_and_att[1].write({"res_id": mailing_mailing.id})
-        if mailing_mailing._get_remaining_recipients():
-            mailing_mailing.action_put_in_queue()
-        return True
-
-    @api.onchange("mail_forwarding", "alias_name", "name")
-    def _onchange_mail_forwarding(self):
-        if self.mail_forwarding and not self.alias_name and self.name:
-            self.alias_name = self._build_alias_name(self.name)
-        if self.mail_forwarding and not self.alias_domain:
-            catchall_domain = (
-                self.env["ir.config_parameter"].sudo().get_param("mail.catchall.domain")
-            )
-            if not catchall_domain:
-                raise exceptions.MissingError(
-                    _(
-                        "Please contact your Administrator to configure a "
-                        "'catchall' mail domain"
-                    )
-                )

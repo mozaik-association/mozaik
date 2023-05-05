@@ -11,17 +11,10 @@
         <field name="inherit_id" ref="distribution_list.distribution_list_search" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
-                <field name="alias_name" />
                 <filter
                     name="newsletter"
                     string="Newsletters"
                     domain="[('newsletter','=',True)]"
-                />
-                <separator />
-                <filter
-                    name="mail_forwarding"
-                    string="Mail Forwarding"
-                    domain="[('mail_forwarding','=',True)]"
                 />
             </xpath>
         </field>
@@ -36,7 +29,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <field name="newsletter" />
-                <field name="alias_name" />
             </xpath>
         </field>
     </record>
@@ -50,48 +42,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='dst_model_id']" position="after">
                 <field name="newsletter" />
-            </xpath>
-
-            <xpath expr="//group[@name='data']" position="after">
-                <group name="forward">
-                    <group>
-                        <field name="mail_forwarding" />
-                    </group>
-                    <group name="group_alias">
-                        <label
-                            for="alias_name"
-                            string="Email Alias"
-                            attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}"
-                        />
-                        <div
-                            name="alias_def"
-                            attrs="{'invisible': ['|',('alias_domain', '=', False),('mail_forwarding', '=', False)]}"
-                        >
-                            <!--We have to force to False the required to avoid interface issue (because the field is required but automatically set)-->
-                            <field
-                                name="alias_id"
-                                class="oe_read_only oe_inline"
-                                string="Email Alias"
-                                required="False"
-                            />
-                            <div
-                                class="oe_edit_only oe_inline"
-                                name="edit_alias"
-                                style="display: inline;"
-                            >
-                                <field
-                                    name="alias_name"
-                                    class="oe_inline"
-                                    attrs="{'required': [('mail_forwarding', '=', True)]}"
-                                />@<field
-                                    name="alias_domain"
-                                    class="oe_inline"
-                                    readonly="1"
-                                />
-                            </div>
-                        </div>
-                    </group>
-                </group>
             </xpath>
 
             <xpath expr="//notebook" position="inside">
@@ -123,7 +73,7 @@
                     <group>
                         <field
                             name="partner_path"
-                            attrs="{'invisible': [('mail_forwarding', '=', 'False')], 'required':[('newsletter','=', True)]}"
+                            attrs="{'required':[('newsletter','=', True)]}"
                         />
                     </group>
                 </page>

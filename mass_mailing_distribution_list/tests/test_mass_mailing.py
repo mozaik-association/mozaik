@@ -61,5 +61,6 @@ class TestMassMailing(TransactionCase):
                 "distribution_list_id": self.dist_list,
             }
         )
+        self.mailing._onchange_distribution_list_id()
         self.assertEqual(self.mailing.mailing_model_real, "res.partner")
         self.assertEqual(self.dist_list_line.domain, self.mailing.mailing_domain)

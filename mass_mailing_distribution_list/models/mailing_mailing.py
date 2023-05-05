@@ -16,7 +16,6 @@ class MassMailing(models.Model):
     mailing_model_id = fields.Many2one(
         domain=[("model", "in", MASS_MAILING_BUSINESS_MODELS)]
     )
-
     distribution_list_id = fields.Many2one(
         comodel_name="distribution.list", string="Distribution List",
     )
@@ -28,13 +27,9 @@ class MassMailing(models.Model):
             if record.mailing_model_name == "distribution.list":
                 record.mailing_model_real = "res.partner"
 
-    @api.depends("mailing_model_name", "contact_list_ids", "distribution_list_id")
-    def _compute_mailing_domain(self):
-        super(MassMailing, self)._compute_mailing_domain()
-
-    def _get_default_mailing_domain(self):
-        mailing_domain = super(MassMailing, self)._get_default_mailing_domain()
-
+    @api.onchange("distribution_list_id")
+    def _onchange_distribution_list_id(self):
+        mailing_domain = []
         if self.mailing_model_name == "distribution.list" and self.distribution_list_id:
             # from _get_target_from_distribution_list we get the concerned virtual.target
             # records, but we are interested into the corresponding res.partner records
@@ -44,8 +39,7 @@ class MassMailing(models.Model):
             mailing_domain = expression.AND(
                 [[("id", "in", target_ids.ids,)], mailing_domain]
             )
-
-        return mailing_domain
+        self.mailing_domain = mailing_domain
 
     def update_opt_out(self, email, res_ids, value):
         """
@@ -71,6 +65,6 @@ class MassMailing(models.Model):
                 ("state", "in", ("in_queue", "sending"),),
             ]
         )
-
-        mass_mailings._compute_mailing_domain()
+        for mass_mailing in mass_mailings:
+            mass_mailing._onchange_distribution_list_id()
         super()._process_mass_mailing_queue()

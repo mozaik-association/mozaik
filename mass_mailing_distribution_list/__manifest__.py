@@ -16,7 +16,5 @@
         "views/distribution_list.xml",
         "wizards/merge_distribution_list.xml",
     ],
-    "pre_init_hook": "_create_mail_alias",
     "installable": True,
-    "external_dependencies": {"python": ["openupgradelib"]},
 }
