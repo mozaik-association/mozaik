@@ -10,9 +10,7 @@ class DistributionList(models.Model):
     _description = "Distribution List"
     _order = "name"
 
-    name = fields.Char(
-        required=True,
-    )
+    name = fields.Char(required=True,)
     to_include_distribution_list_line_ids = fields.One2many(
         "distribution.list.line",
         "distribution_list_id",
@@ -28,9 +26,7 @@ class DistributionList(models.Model):
         copy=True,
     )
     company_id = fields.Many2one(
-        "res.company",
-        "Company",
-        default=lambda self: self.env.user.company_id,
+        "res.company", "Company", default=lambda self: self.env.user.company_id,
     )
     dst_model_id = fields.Many2one(
         "ir.model",
@@ -95,11 +91,7 @@ class DistributionList(models.Model):
         """
         self.ensure_one()
         default = default or {}
-        default.update(
-            {
-                "name": _("%s (copy)") % self.name,
-            }
-        )
+        default.update({"name": _("%s (copy)") % self.name})
         result = super(DistributionList, self).copy(default=default)
         return result
 
@@ -155,14 +147,7 @@ class DistributionList(models.Model):
             )
         elif source_records:
             domain = domain or []
-            domain = expression.AND(
-                [
-                    domain,
-                    [
-                        ("id", "in", source_records.ids),
-                    ],
-                ]
-            )
+            domain = expression.AND([domain, [("id", "in", source_records.ids)]])
             values = self.env[source_model].search(domain, order=sort)
             if not values._fields.get(bridge_field):
                 raise exceptions.UserError(
@@ -245,11 +230,7 @@ class DistributionList(models.Model):
         lines = src_lines_include | src_lines_exclude
         for record in self:
             for line in lines:
-                line.copy(
-                    {
-                        "distribution_list_id": record.id,
-                    }
-                )
+                line.copy({"distribution_list_id": record.id})
 
     def action_show_result(self):
         """

@@ -5,9 +5,9 @@
     "summary": """
         Manage distribution lists composed
         with multiple filters (odoo domain)""",
-    "version": "14.0.1.1.0",
+    "version": "13.0.1.0.0",
     "license": "AGPL-3",
-    "author": "ACSONE SA/NV",
+    "author": "ACSONE SA/NV,Mozaik Association",
     "website": "https://github.com/mozaik-association/mozaik",
     "category": "Marketing",
     "depends": ["base", "web", "mail"],

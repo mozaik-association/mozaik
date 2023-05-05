@@ -13,10 +13,7 @@ class TestDistributionListLine(TransactionCase):
         self.mail_template_model = self.env.ref("base.model_res_company")
         self.partner_model = self.env.ref("base.model_res_partner")
         self.dist_list = self.env["distribution.list"].create(
-            {
-                "name": str(uuid4()),
-                "dst_model_id": self.partner_model.id,
-            }
+            {"name": str(uuid4()), "dst_model_id": self.partner_model.id}
         )
         self.partner_id_field = self.env.ref("base.field_res_partner__id")
         self.mail_tmpl_id_field = self.env.ref("base.field_res_company__partner_id")

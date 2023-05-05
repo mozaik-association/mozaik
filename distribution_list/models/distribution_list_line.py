@@ -59,9 +59,7 @@ class DistributionListLine(models.Model):
         ondelete="cascade",
     )
     name = fields.Char(related="distribution_list_line_tmpl_id.name")
-    domain = fields.Text(
-        related="distribution_list_line_tmpl_id.domain",
-    )
+    domain = fields.Text(related="distribution_list_line_tmpl_id.domain",)
     src_model_id = fields.Many2one(
         related="distribution_list_line_tmpl_id.src_model_id"
     )
@@ -146,6 +144,7 @@ class DistributionListLine(models.Model):
         else:
             self.bridge_field_id = fields_available.filtered(lambda s: s.name == "id")
 
+    # pylint: disable=E8103
     def _get_target_recordset(self):
         """
         Get target recordset where the related domain is applied with a OR

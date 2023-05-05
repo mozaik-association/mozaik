@@ -208,16 +208,10 @@ class TestDistributionList(SavepointCase):
         partner_model = self.partner_model
 
         distribution_list1 = distribution_list_obj.create(
-            {
-                "name": str(uuid4()),
-                "dst_model_id": partner_model.id,
-            }
+            {"name": str(uuid4()), "dst_model_id": partner_model.id}
         )
         distribution_list2 = distribution_list_obj.create(
-            {
-                "name": str(uuid4()),
-                "dst_model_id": partner_model.id,
-            }
+            {"name": str(uuid4()), "dst_model_id": partner_model.id}
         )
         will_succeed = distribution_list1 | distribution_list2
         for w in will_succeed:
@@ -239,17 +233,9 @@ class TestDistributionList(SavepointCase):
         dl_line_tmpl_model = self.dist_list_line_tmpl_obj
         dst_model_id = self.partner_model
 
-        src_dist = dl_model.create(
-            {
-                "name": "src",
-                "dst_model_id": dst_model_id.id,
-            }
-        )
+        src_dist = dl_model.create({"name": "src", "dst_model_id": dst_model_id.id})
         tmpl_1 = dl_line_tmpl_model.create(
-            {
-                "name": str(uuid4()),
-                "src_model_id": dst_model_id.id,
-            }
+            {"name": str(uuid4()), "src_model_id": dst_model_id.id}
         )
         dl_line_model.create(
             {
@@ -259,10 +245,7 @@ class TestDistributionList(SavepointCase):
             }
         )
         tmpl_2 = dl_line_tmpl_model.create(
-            {
-                "name": str(uuid4()),
-                "src_model_id": dst_model_id.id,
-            }
+            {"name": str(uuid4()), "src_model_id": dst_model_id.id}
         )
         dl_line_model.create(
             {
@@ -273,17 +256,9 @@ class TestDistributionList(SavepointCase):
             }
         )
 
-        trg_dist = dl_model.create(
-            {
-                "name": "trg",
-                "dst_model_id": dst_model_id.id,
-            }
-        )
+        trg_dist = dl_model.create({"name": "trg", "dst_model_id": dst_model_id.id})
         tmpl_3 = dl_line_tmpl_model.create(
-            {
-                "name": str(uuid4()),
-                "src_model_id": dst_model_id.id,
-            }
+            {"name": str(uuid4()), "src_model_id": dst_model_id.id}
         )
         dl_line_model.create(
             {
@@ -313,60 +288,23 @@ class TestDistributionList(SavepointCase):
         distri_list_line_tmpl_obj = self.dist_list_line_tmpl_obj
 
         p9 = partner_obj.create(
-            {
-                "name": "p9",
-                "company_id": self.browse_ref("base.main_company").id,
-            }
+            {"name": "p9", "company_id": self.browse_ref("base.main_company").id}
         )
         p8 = partner_obj.create(
-            {
-                "name": "p8 more_filter filter_three",
-                "parent_id": p9.id,
-            }
+            {"name": "p8 more_filter filter_three", "parent_id": p9.id}
         )
-        partner_obj.create(
-            {
-                "name": "p7 more_filter filter_three",
-                "parent_id": p8.id,
-            }
-        )
+        partner_obj.create({"name": "p7 more_filter filter_three", "parent_id": p8.id})
 
         p6 = partner_obj.create(
-            {
-                "name": "p6",
-                "company_id": self.browse_ref("base.main_company").id,
-            }
+            {"name": "p6", "company_id": self.browse_ref("base.main_company").id}
         )
         p5 = partner_obj.create(
-            {
-                "name": "p5",
-                "company_id": self.browse_ref("base.main_company").id,
-            }
+            {"name": "p5", "company_id": self.browse_ref("base.main_company").id}
         )
-        p4 = partner_obj.create(
-            {
-                "name": "p4",
-                "parent_id": p5.id,
-            }
-        )
-        partner_obj.create(
-            {
-                "name": "p3 filter_two",
-                "parent_id": p6.id,
-            }
-        )
-        partner_obj.create(
-            {
-                "name": "p2 filter_one",
-                "parent_id": p4.id,
-            }
-        )
-        partner_obj.create(
-            {
-                "name": "p1 filter_one",
-                "parent_id": p4.id,
-            }
-        )
+        p4 = partner_obj.create({"name": "p4", "parent_id": p5.id})
+        partner_obj.create({"name": "p3 filter_two", "parent_id": p6.id})
+        partner_obj.create({"name": "p2 filter_one", "parent_id": p4.id})
+        partner_obj.create({"name": "p1 filter_one", "parent_id": p4.id})
         partner_model = self.partner_model
         dl = distri_list_obj.create(
             {
@@ -438,11 +376,7 @@ class TestDistributionList(SavepointCase):
         )._get_complex_distribution_list_ids()
         self.assertEqual(p9 | p5, mains)
 
-        context.update(
-            {
-                "main_object_domain": [("name", "=", "x23")],
-            }
-        )
+        context.update({"main_object_domain": [("name", "=", "x23")]})
         mains, alternatives = dl.with_context(
             context
         )._get_complex_distribution_list_ids()
@@ -509,10 +443,7 @@ class TestDistributionList(SavepointCase):
         distribution_list_obj = self.dist_list_obj
         partner_model = self.partner_model
         dist_list = distribution_list_obj.create(
-            {
-                "name": str(uuid4()),
-                "dst_model_id": partner_model.id,
-            }
+            {"name": str(uuid4()), "dst_model_id": partner_model.id}
         )
         result = dist_list.action_show_result()
         self.assertEqual(result["type"], "ir.actions.act_window")

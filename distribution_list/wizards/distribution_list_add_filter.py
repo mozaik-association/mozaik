@@ -17,9 +17,7 @@ class DistributionListAddFilter(models.TransientModel):
         required=True,
         ondelete="cascade",
     )
-    name = fields.Char(
-        required=True,
-    )
+    name = fields.Char(required=True,)
     exclude = fields.Boolean(
         help="Check this box to exclude the filter result "
         "from the distribution list",
@@ -47,11 +45,7 @@ class DistributionListAddFilter(models.TransientModel):
             )
         model = self.env["ir.model"].search([("model", "=", active_model)], limit=1)
         template = self.env["distribution.list.line.template"].create(
-            {
-                "name": self.name,
-                "domain": domain,
-                "src_model_id": model.id,
-            }
+            {"name": self.name, "domain": domain, "src_model_id": model.id}
         )
         self.env["distribution.list.line"].create(
             {
@@ -96,8 +90,6 @@ class DistributionListAddFilter(models.TransientModel):
         else:
             self.bridge_field_id = fields_available.filtered(lambda s: s.name == "id")
         result = {
-            "domain": {
-                "bridge_field_id": [("id", "in", fields_available.ids)],
-            },
+            "domain": {"bridge_field_id": [("id", "in", fields_available.ids)]},
         }
         return result
