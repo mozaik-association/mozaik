@@ -21,7 +21,4 @@ class MergeDistributionList(models.TransientModel):
             return all(dist_list.mapped("newsletter"))
         return False
 
-    is_newsletter = fields.Boolean(
-        "Newsletter",
-        default=_default_is_newsletter,
-    )
+    is_newsletter = fields.Boolean("Newsletter", default=_default_is_newsletter,)

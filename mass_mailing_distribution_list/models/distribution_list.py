@@ -18,12 +18,8 @@ class DistributionList(models.Model):
         "mail.alias.mixin",
     ]
 
-    mail_forwarding = fields.Boolean(
-        default=False,
-    )
-    newsletter = fields.Boolean(
-        default=False,
-    )
+    mail_forwarding = fields.Boolean(default=False)
+    newsletter = fields.Boolean(default=False)
     partner_path = fields.Char(
         compute="_compute_partner_path", store=True, readonly=False
     )
@@ -74,6 +70,9 @@ class DistributionList(models.Model):
                         % distribution_list.dst_model_id.name
                     )
                 )
+
+    def get_alias_model_name(self, vals):
+        return "distribution.list"
 
     @api.model
     def _build_alias_name(self, name):
@@ -139,17 +138,22 @@ class DistributionList(models.Model):
         attachments = self.env["ir.attachment"].browse(
             [a[1] for a in vals.get("attachment_ids")]
         )
-        return {
-            "email_from": msg.get("email_from", False),
-            "reply_to": msg.get("email_from", False),
-            "reply_to_mode": "email",
-            "subject": msg.get("subject", False),
-            "body_html": vals.get("body", msg.get("body", False)),
-            "distribution_list_id": self.id,
-            "name": "Mass Mailing %s" % self.name,
-            "mailing_model_id": self.env["ir.model"]._get(self._name).id,
-            "attachment_ids": attachments.filtered(lambda s: not s.access_token).ids,
-        }, attachments
+        return (
+            {
+                "email_from": msg.get("email_from", False),
+                "reply_to": msg.get("email_from", False),
+                "reply_to_mode": "email",
+                "subject": msg.get("subject", False),
+                "body_html": vals.get("body", msg.get("body", False)),
+                "distribution_list_id": self.id,
+                "name": "Mass Mailing %s" % self.name,
+                "mailing_model_id": self.env["ir.model"]._get(self._name).id,
+                "attachment_ids": attachments.filtered(
+                    lambda s: not s.access_token
+                ).ids,
+            },
+            attachments,
+        )
 
     def _get_opt_res_ids(self, domain):
         """
@@ -211,11 +215,7 @@ class DistributionList(models.Model):
         :return: bool
         """
         if not vals.get("mail_forwarding", True):
-            vals.update(
-                {
-                    "alias_name": False,
-                }
-            )
+            vals.update({"alias_name": False})
 
         # write it first on the mail.alias, because _check_forwarding
         # constraint doesnt' like it otherwise
@@ -330,11 +330,7 @@ class DistributionList(models.Model):
             for opt in ["in", "out"]:
                 opt_field = "res_partner_opt_%s_ids" % opt
                 opt_val = [(4 if mode == opt else 3, pid) for pid in partner_ids]
-                vals.update(
-                    {
-                        opt_field: opt_val,
-                    }
-                )
+                vals.update({opt_field: opt_val})
             res = self.write(vals)
             return res
         return False
@@ -370,17 +366,14 @@ class DistributionList(models.Model):
         if subject.upper().startswith(test_code.upper()):
             mail_composer_vals["subject"] = subject[len(test_code) :]
             self_ctx = self.with_context(
-                active_id=target.id,
-                active_ids=target.ids,
-                active_model=target._name,
+                active_id=target.id, active_ids=target.ids, active_model=target._name,
             )
         else:
             targets = self._get_target_from_distribution_list()
             if targets._name != "res.partner":
                 targets = targets.mapped("partner_id")
             self_ctx = self.with_context(
-                active_ids=targets.ids,
-                active_model="res.partner",
+                active_ids=targets.ids, active_model="res.partner",
             )
         mailing_mailing = self_ctx.env["mailing.mailing"].create(mail_composer_vals)
         mailing_mailing_vals_and_att[1].write({"res_id": mailing_mailing.id})

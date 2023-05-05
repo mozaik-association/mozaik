@@ -226,20 +226,12 @@ class TestDistributionList(SavepointCase):
         # Update context to keep mail.mail (then check if mail has been
         # created or not). Otherwise Odoo will delete mail.mail and we can't
         # check
-        context.update(
-            {
-                "default_auto_delete": False,
-                "default_keep_archives": True,
-            }
-        )
+        context.update({"default_auto_delete": False, "default_keep_archives": True})
         self.distri_list_obj.with_context(context).message_new(
             msg_dict, custom_values=custom_values
         )
         mail = self.env["mailing.mailing"].search(
-            [
-                ("distribution_list_id", "=", dist_list.id),
-            ],
-            limit=1,
+            [("distribution_list_id", "=", dist_list.id)], limit=1,
         )
         self.assertTrue(bool(mail), "A mail should have been created to this partner")
         self.assertTrue(bool(mail.attachment_ids), "Mail Should have an attachment")

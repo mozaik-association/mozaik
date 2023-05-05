@@ -18,8 +18,7 @@ class MassMailing(models.Model):
     )
 
     distribution_list_id = fields.Many2one(
-        comodel_name="distribution.list",
-        string="Distribution List",
+        comodel_name="distribution.list", string="Distribution List",
     )
 
     @api.depends("mailing_model_id")
@@ -43,16 +42,7 @@ class MassMailing(models.Model):
             if target_ids._name != "res.partner":
                 target_ids = target_ids.mapped("partner_id")
             mailing_domain = expression.AND(
-                [
-                    [
-                        (
-                            "id",
-                            "in",
-                            target_ids.ids,
-                        )
-                    ],
-                    mailing_domain,
-                ]
+                [[("id", "in", target_ids.ids,)], mailing_domain]
             )
 
         return mailing_domain
@@ -78,11 +68,7 @@ class MassMailing(models.Model):
         mass_mailings = self.search(
             [
                 ("mailing_model_name", "=", "distribution.list"),
-                (
-                    "state",
-                    "in",
-                    ("in_queue", "sending"),
-                ),
+                ("state", "in", ("in_queue", "sending"),),
             ]
         )
 
