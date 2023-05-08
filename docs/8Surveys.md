@@ -1,6 +1,6 @@
 # Surveys
 
-The Odoo standard 'Survey' module enables you to manage the different events of your organisation. The Mozaik module adds a few new features:
+The Odoo standard surveys module enables you to manage the different events of your organisation. The Mozaik module adds a few new features:
 
 - The automatic recognition of partners
 - The management of the questions of the survey in order to collect reusable data from the attendees.
@@ -53,7 +53,6 @@ The questions have differents roles:
 </figure>
 
 ## Recognition of partner
-
 
 When a person participates to a petition, the system will try to detect (based on several criteria) whether this person can be linked to an existing partner in the Odoo database. If this is not the case, a new partner will automatically be created.
 
