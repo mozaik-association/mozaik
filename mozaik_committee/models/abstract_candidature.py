@@ -14,6 +14,13 @@ CANDIDATURE_AVAILABLE_STATES = [
     ("non-elected", "Non-Elected"),
 ]
 
+CANDIDATURE_AVAILABLE_TYPES = [
+    ("sta", "State"),
+    ("int", "Internal"),
+    ("ext", "External"),
+]
+candidature_available_types = dict(CANDIDATURE_AVAILABLE_TYPES)
+
 
 class AbstractCandidature(models.Model):
     _name = "abstract.candidature"
