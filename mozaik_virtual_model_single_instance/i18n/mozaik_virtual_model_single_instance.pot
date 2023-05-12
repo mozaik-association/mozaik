@@ -20,6 +20,7 @@ msgstr ""
 
 #. module: mozaik_virtual_model_single_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_abstract_virtual_model__display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_candidature__display_name
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_mandate__display_name
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_membership__display_name
 msgid "Display Name"
@@ -27,6 +28,7 @@ msgstr ""
 
 #. module: mozaik_virtual_model_single_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_abstract_virtual_model__id
+#: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_candidature__id
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_mandate__id
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_membership__id
 msgid "ID"
@@ -53,6 +55,7 @@ msgstr ""
 
 #. module: mozaik_virtual_model_single_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_abstract_virtual_model____last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_candidature____last_update
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_mandate____last_update
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_membership____last_update
 msgid "Last Modified on"
@@ -75,6 +78,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_partner_relation__partner_int_instance_id
 #: model:ir.model.fields,field_description:mozaik_virtual_model_single_instance.field_virtual_target__partner_int_instance_id
 msgid "Partner Internal Instance"
+msgstr ""
+
+#. module: mozaik_virtual_model_single_instance
+#: model:ir.model,name:mozaik_virtual_model_single_instance.model_virtual_partner_candidature
+msgid "Partner/Candidature"
 msgstr ""
 
 #. module: mozaik_virtual_model_single_instance
