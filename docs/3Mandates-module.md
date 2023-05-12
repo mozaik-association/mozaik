@@ -9,22 +9,25 @@ The mandates module allows you to easily manage the different mandates and manda
 Several functionalities are available in the mandates module:
 
 - Mandates management (consult, create, remove, edit)
-- Selection committees and applicants
+- Selection committees, applicants and elections
 - The invalidation of mandates
 - The renewal of mandates
 
-For the creation of a mandate severale fields must be completed on the mandate form:
+
+
+
+For the creation of a mandate, severale fields must be completed on the mandate form:
 
 - The representative
 - The designation assembly
-- The mandate catégory
+- The mandate category
 - The legislature (only for political mandates)
 - The state assembly
 - The start date and deadline date
 
 ## Selection committees
 
-Selection committees can be created in Mozaïk in order to manage the results of elections (political elections, internal elections):
+Selection committees can be created in Mozaik in order to manage the results of elections (political elections, internal elections):
 
 - Follow-up of candidates
 - Results of elections
@@ -33,11 +36,9 @@ Selection committees can be created in Mozaïk in order to manage the results of
     - Non-elected candidates
 - Automatic creation of mandates
 
-When creating a selection committee for the state, you must select the legislature and the designation assembly that you have previously created in the structure module.
+Mozaik doesn't have a function yet to organise elections / votes. Only the follow-up of candidates and the result of the votes can be handled in Mozaik. 
 
-Mozaïk doesn't have a function yet to organise elections / votes. Only the follow-up of candidates and the result of the votes can be handled in Mozaïk. 
-
-Once a candidate is elected/selected, a (political/internal) mandate will automatically be created for this candidate. Selection committees are not mandatary, as mandates can directly be created in Mozaïk (without working with candidates and elections).
+Once a candidate is elected/selected, a (political/internal) mandate will automatically be created for this candidate. Selection committees are not mandatary, as mandates can directly be created in Mozaik (without working with candidates and elections).
 
 !!!info
 
@@ -53,7 +54,7 @@ Once a candidate is elected/selected, a (political/internal) mandate will automa
  <figcaption>Adding new candidates</figcaption>
 </figure>
 
-A small workflow has been added in Mozaïk to proceed to the follow-up of candidates. 
+A small workflow has been added in Mozaik to proceed to the follow-up of candidates. 
 Once a new applicant is declared, he must first be nominated (= accepted in the short-list), before being eventually elected. 
 
 ``` mermaid
@@ -84,7 +85,7 @@ Mandates can easily be extended by selecting the 'Renew button' on the contract.
     - This functionality allows you to create a second mandate for the same person, for the same assembly, at the same period but for another position.
     !!!example
 
-        I want to create a mandate of senator in addition of a mandate of minister for the same persoon at the same period. 
+        I want to create a mandate of senator in addition to a mandate of minister for the same person. 
 
 ??? tip
 
