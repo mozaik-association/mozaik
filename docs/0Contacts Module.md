@@ -21,7 +21,7 @@ Various informations can be collected for each contact (individuals or companies
 
     The encoding of addresses on the contact form is facilitated by the auto-completion functionality that the system provides. This functionality allows you to choose the city and the street from a list of predefined choices. It is used to avoid encoding errors and helps detect duplicates. 
 
-    :warning:Depending on their address, the contacts are associated with a local group/instance of the organisation. When the address changes, the instance of the contact can also be updated. It is an option, not an obligation.
+    :warning:Depending on their address, the contacts are linked to a local group (<internal structure) of the organisation. When the address changes, the instance of the contact can also be updated. It is an option, not an obligation.
     !!! example
     
         A contact whose address is located in Brussels will belong to the Brussels local group of the organisation. If a member moves from Brussels to Antwerp, this member will now be related to the local group linked to the city of Antwerp.
@@ -32,7 +32,7 @@ Various informations can be collected for each contact (individuals or companies
 
     - To manage the information about your contacts.
     - To get to know your members and supporters better.
-    - To use personal information of your members for membership purposes (membership fee).
+    - To use personal information of your members for membership purposes (ex: membership fees).
 
 <figure markdown>
   ![screenshot 27](img/screen27.png)
@@ -84,8 +84,8 @@ This functionality enables you to add all the interactions between your organisa
 
     Involvements allow you to get to know your contacts better / categorize them / keep a record of interactions with a particular contact over the years. These entries can be used to send mailings to your contacts in a very targeted manner.
     !!!example
-        A member made a donation on 31/03/2023 and signed a petition about disarmement one week later. These participations will appear on his contact form and can be used in future mailings (send an email to all donors who have signed a given petition in the last 2 months)
-How to add them :
+        A member made a donation on 31/03/2023 and signed a petition about disarmement one week later. These participations will appear on his contact form and can be used in future mailings (Ex: send an email to all donors who have signed a given petition in the last 2 months)
+How to add them ?
 
 - An involvement can be added manually on a contact page.
 - An involvement can be added automatically through a membership form.
@@ -98,7 +98,7 @@ How to add them :
 
 ## Duplicates
 
-A very elaborated duplicate check system has been implemented. It is based on :
+A very elaborated duplicate check system has been implemented in Mozaik. It is based on :
 
 - Name
 - Phone
@@ -110,7 +110,7 @@ It helps you identify possible duplicates within your contacts database. Duplica
 
 !!! info
 
-    When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button provides you to display the list of contacts with one or more identical fields.
+    When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button displays the list of contacts with one or more identical fields. You can either merge those contacts or indicate that they are no duplicates.
     <figure markdown>
     ![screenshot 2](img/screen2.png)
     <figcaption>Appearance of the button "Show all duplicates"</figcaption>

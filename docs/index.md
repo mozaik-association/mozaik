@@ -19,7 +19,7 @@ Mozaik is a suite of open source Odoo modules created in 2013 and used as a mana
 - Mass mailing
 - Dynamic distribution lists
 
-This documentation contains the various modules of the Mozaik project, explained one by one.
+This documentation contains the different modules of the Mozaik project, explained one by one.
 
 !!! info 
 
