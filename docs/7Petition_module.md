@@ -93,7 +93,7 @@ Thanks to the "security" tab, it is possible to limit the visibility and access 
 
 !!! example 
 
-    I want that only people from the Antwerp instance can access the petition.
+    I only want users related to the instance of Antwerp (and parent instances) to access the petition.
 
 <figure markdown>
 ![screenshot 39](img/screen39.png)
