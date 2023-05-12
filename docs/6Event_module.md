@@ -1,34 +1,24 @@
 # Events
 
-The Mozaik events module uses the Odoo standard and adds specific features for political parties and other organisations. It allows you to manage the different events of your organisation.
+The Mozaik Events module differs from the Odoo standard module by several points. The following functionalities have been added:
 
-The Mozaik Events module differs from the Odoo standard module by several points :
-
-- The management of interests and categories of participation linked to the questions asked to the participants in order to collect information on the contacts participating in the events.
-- The management of the voting domain in order to allow certain people to participate in votes or not during the event.
+- The automatic collection of informations (interests / participations of members) based on the questions answered during  a specitic event registration.
+- A voting domain, in order to know which members are allowed to vote during an event.
 - The event access management, in order to limit access to certain people according to their access rules (< local instance)
 
-## General information of the events
+## General information on the events
 
 
 This functionality allows you to create, modify and manage the events related to your organisation.
 
-Various information can be completed on a event form :
+Various informations can be completed on an event form :
 
 - The standard information of the event (name, dates, organizer...)
 - The interests related to the event.
 - The involvement categories related to the event.
 
-The interests and involvement categories linked to the events allow the organisations to find all the contacts with certain categories of participation or interests in order to send communications in a verry targeted manner.
+The interests and involvement categories linked to an event will automatically be added to all the contacts registering for this event. Those informations can be used to send communications in a very targetted manner. 
 
-!!! abstract "The goal of event management"
-
-    This functionality allows to :
-
-    - Manage the general information of each event.
-    - Add tags/interests to categorise the different events and add these interests to the form of the contacts who attended to this event.
-    - Add involvement categories to automatically add them to the form of the contacts who participated to the event.
-    - Get access to the lists of all the attendees and sponsors of each event.
 
 <figure markdown>
 ![screenshot 40](img/screen40.png)
@@ -37,17 +27,15 @@ The interests and involvement categories linked to the events allow the organisa
 
 ## Questions
 
-The module allows you to add questions in the "questions" tab that participants can or must answer. Answers can be free text, multiple choice or a tickbox.
+In the Event module from Odoo, questions can be added in order to collect information during the event registration process on your website.
 
-!!! abstract "The goal of the questions"
-
-    Thanks to Mozaik, the answers to the questions asked to the participants of the events can be linked to categories of participation and centres of interest also called thesaurus therms in Mozaik. This feature allows to collect information on the participants according to their answers to the questions. This information will later be displayed on the contact's form of the participants. This information can be reused afterwards to send mailings to your contacts in a very targeted manner.
+In the Mozaik module, the answers to each questions can be linked to interests and participations. This feature allows to collect some very precise information about each contact, based on the answer they provide to each question of the event registration form.
     !!! example 
 
-        People answering "yes" to the question "Would you like to stay informed about the other events about pensions?" will receive a category of participation and an interest in this subject.
+        People answering "yes" to the question "Would you like to stay informed about the other events about pensions?" can be marked as "interested by the 'Pension' subject". They will be included in all mailing lists dealing with this subject.
         <figure markdown>
         ![screenshot 43](img/screen43.png)
-        <figcaption>Adding a participation category and an interest based on the response</figcaption>
+        <figcaption>Adding an interest to a contact, based on his response to a specific question</figcaption>
         </figure>
 
 <figure markdown>
@@ -74,7 +62,7 @@ This access rules are based on the internal structure of the organization. A use
 
 !!! example 
 
-    I want that only people from the Antwerp instance can access to the event.
+    I only want people from the Antwerp instance (and the parent instances of Antwerp) to access this event in Odoo.
 
 <figure markdown>
 ![screenshot 46](img/screen46.png)
