@@ -30,13 +30,13 @@ The interests and involvement categories linked to an event will automatically b
 In the Event module from Odoo, questions can be added in order to collect information during the event registration process on your website.
 
 In the Mozaik module, the answers to each questions can be linked to interests and participations. This feature allows to collect some very precise information about each contact, based on the answer they provide to each question of the event registration form.
-    !!! example 
+!!! example 
 
-        People answering "yes" to the question "Would you like to stay informed about the other events about pensions?" can be marked as "interested by the 'Pension' subject". They will be included in all mailing lists dealing with this subject.
-        <figure markdown>
-        ![screenshot 43](img/screen43.png)
-        <figcaption>Adding an interest to a contact, based on his response to a specific question</figcaption>
-        </figure>
+    People answering "yes" to the question "Would you like to stay informed about the other events about pensions?" can be marked as "interested by the 'Pension' subject". They will be included in all mailing lists dealing with this subject.
+    <figure markdown>
+    ![screenshot 43](img/screen43.png)
+    <figcaption>Adding an interest to a contact, based on his response to a specific question</figcaption>
+    </figure>
 
 <figure markdown>
 ![screenshot 44](img/screen44.png)
@@ -49,11 +49,11 @@ A voting domain can be registered in the "voting domain" tab on an event, to ind
 
 !!! example 
 
-        I only want to allow people who are members since more than 5 years to vote.
-        <figure markdown>
-        ![screenshot 45](img/screen45.png)
-        <figcaption>Example of a voting domain</figcaption>
-        </figure>
+    I only want to allow people who are members since more than 5 years to vote.
+    <figure markdown>
+    ![screenshot 45](img/screen45.png)
+    <figcaption>Example of a voting domain</figcaption>
+    </figure>
 
 ## The access limitations
 
