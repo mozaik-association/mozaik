@@ -10,10 +10,10 @@ This module handles:
 - The questions asked to petition signatories in order to learn more about them
 - The communication management, in order to automatically send emails according to certain triggers defined on the petition
 - The milestones management to define the milestones to be reached in terms of numbers of signatures
-- The petition access rules, in order to limit access to certain people
+- The petition access rules, in order to limit access to certain users
 
 
-## General information of the petition
+## General information on petitions
 
 This functionality enables users to create, modify and manage the different petitions related to their organization / political party.
 
@@ -29,9 +29,11 @@ Various informations can be completed on a petition :
 <figcaption>Petition form with general information</figcaption>
 </figure>
 
+Important to notice: Petitions must be connected to an existing website through an API, as no 'front' screens are currently available in Odoo. Petitions are only managed in the Odoo database (back system).
+
 ## Recognition of partners
 
-When a person participates to a petition, the system will try to detect (based on several criteria) whether this person can be linked to an existing partner in the Odoo database. If this is not the case, a new partner will automatically be created.
+When a person signs a petition, the system will try to detect (based on several criteria) whether this person can be linked to an existing partner in the Odoo database. If this is not the case, a new partner will automatically be created.
 
 Thanks to this feature, you can expand your organization's list of contacts and then recontact them for future petitions, events, surveys...
 
