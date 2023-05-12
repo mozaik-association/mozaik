@@ -180,6 +180,8 @@ class VirtualPartnerMandate(models.Model):
             partner_assembly.id as assembly_id,
             p.identifier as identifier,
             p.birthdate_date as birth_date,
+            p.birthdate_day,
+            p.birthdate_month,
             p.gender as gender,
             p.lang as lang,
             p.is_company as is_company,
