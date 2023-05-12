@@ -16,6 +16,7 @@
         "mozaik_communication",
         "mozaik_single_instance",
         "mozaik_virtual_assembly_instance",
+        "mozaik_virtual_partner_candidature",
         "mozaik_virtual_partner_mandate",
         "mozaik_virtual_partner_mass_mailing",
         "mozaik_virtual_partner_membership",
