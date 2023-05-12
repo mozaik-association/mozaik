@@ -128,13 +128,14 @@ class VirtualPartnerCandidature(models.Model):
             designation_assembly.instance_id AS designation_instance_id,
             partner_assembly.id AS assembly_id,
             %(sta_instance_id)s as sta_instance_id,
-            p.identifier AS identifier,
+            p.is_company,
+            p.identifier,
             p.birthdate_date AS birth_date,
             p.birthdate_day,
             p.birthdate_month,
-            p.gender AS gender,
-            p.lang AS lang,
-            p.employee AS employee,
+            p.gender,
+            p.lang,
+            p.employee,
             CASE
                 WHEN p.email IS NOT NULL OR p.address_address_id IS NOT NULL
                 THEN True
