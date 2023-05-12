@@ -9,8 +9,8 @@ Mozaik is a suite of open source Odoo modules created in 2013 and used as a mana
 - Members
 - Sympathizers, contacts ...
 - Membership management (fees, renewals, worflow...)
-- Party structure (political / internal / external)
-- Mandates (political, internal, external)
+- Structure of the organisation (political, internal & external structure)
+- Mandates (political, internal & external mandates)
 - Committees / elections
 - Interests / competencies / involvements
 - Petitions
@@ -19,7 +19,7 @@ Mozaik is a suite of open source Odoo modules created in 2013 and used as a mana
 - Mass mailing
 - Dynamic distribution lists
 
-This documentation contains all the modules of the Mozaik project, explained one by one.
+This documentation contains the various modules of the Mozaik project, explained one by one.
 
 !!! info 
 
