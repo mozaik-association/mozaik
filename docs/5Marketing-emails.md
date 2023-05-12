@@ -34,9 +34,9 @@ In the mass mailing configurations, a "recurrent sending" option has been added.
 
 !!! abstract "The goal of recurrent mailing"
 
-    This functionality allows you to send automatically an email evey X hour/day/week/month/year. 
+    This functionality allows you to send automatically a new email at eacht time interval (defined in éhour/day/week/month or year). 
 
-    Recurring emails are sent only once to each contact on a distribution or mailing list. The idea of this feature is to send a communication only to new people who meet the rules of a distribution list. 
+    Recurring emails are sent only once to each contact. The idea of this feature is to send a communication only to new people who meet the rules of a distribution list. 
     
     The email marketing module, added to the distribution list module, allows you to send a recurring email to a specific distribution list that is constantly updated thanks to the dynamic filters.
 
@@ -44,7 +44,7 @@ In the mass mailing configurations, a "recurrent sending" option has been added.
 
         - I want to automatically send a 'thank you' email to all the people who paid their membership in the last 24 hours.
 
-        To do this you will have to create a distribution list that includes - thanks to the include filters - the people who paid their membership in the last 24 hours (=time-related filter). The filters being dynamic, the distribution list will be constantly updated. Once the distribution list is created, you can add a reccurence of 24 hours on the mass mailing campaign.
+        To do this you will have to create a distribution list that includes the people who paid their membership in the last 24 hours (=time-related filter). The filters being dynamic, the distribution list will be constantly updated. Once the distribution list is created, you can add a reccurence of 24 hours on the mass mailing campaign.
 
        - I want to automatically send an email to all people who have recently signed a peitition, who are ex-members and who are over 30 years old. 
 
@@ -64,7 +64,7 @@ All communication failures (email / postal) can be recorded in the application. 
 How to encode failures on a contact? 
 
 - Postal bounces: must be encoded manually
-- Email bounces: records are updated automatically by Mozaik
+- Email bounces: records can be updated automatically by Mozaik
 
 <figure markdown>
 ![screenshot 23](img/screen23.png)
@@ -81,8 +81,8 @@ How to encode failures on a contact?
 
 The module offers :
 
-- A reporting tab to get a global analysis of the different mails with several measures over the time (number of sendings, returns, openings...).
-- An individual report for each mail sent with different information such as the opening rate, the click rate, the return rate ....
+- A reporting tab to get a global analysis of the different mails with several measures over time (number of sendings, bounces, opening rate, click rate...).
+- An individual report for each mail sent with several KPIs.
 
 <figure markdown>
 ![screenshot 26](img/screen26.png)
