@@ -1,47 +1,34 @@
 # Surveys
 
-The Odoo standard surveys module enables you to manage the different events of your organisation. The Mozaik module adds a few new features:
+The Odoo standard survey module enables you to manage the different surveys of your organisation. The Mozaik module adds a few new features:
 
 - The automatic recognition of partners
-- The management of the questions of the survey in order to collect reusable data from the attendees.
-- The surveys access management in order to limit access to certain people according to the internal instances.
+- The collection of reusable data about attendees, based on their responses.
+- The surveys access management, in order to limit access to certain users.
 
-## General informations of the survey
+## General informations on Mozaik surveys
 
 This functionality allows you to create, modify and manage the surveys related to your organisation.
 
 Various informations can/must be completed on the survey form :
 
-- The standard information of the survey (name, descirption...).
+- The standard information of the survey (name, description, questions...).
 - The interests related to the survey.
 - The involvements categories related to the survey.
 
-The interests and involvement categories linked to the surveys allow the organisations to find all the contacts with certain categories of participation or interests in order to send communications in a verry targeted manner.
-
-This functionality allows to :
-
-- Manage the general information of each survey.
-- Add interests to categorise the different survey and to add these interests to the form of the contacts who participated to this survey.
-- Add involvement categories to automatically add them to the form of the contacts who participated to the survey.
-- Get access to the lists of all the answers of the survey.
 
 <figure markdown>
 ![screenshot 47](img/screen47.png)
 <figcaption>Survey form with general information</figcaption>
 </figure>
 
-## The managment of the questions
+## The survey questions
 
-The different questions of the survey can be added and arranged in the desired order. For each question, it is possible to propose differents types of answers (free text, multiple choices, date...).
+Surveys are composed of questions, that can be arranged in a desired order. For each question, differents types of answers are available (free text, multiple choices, date...).
 
-The questions have differents roles:
-    
-- To find out the participant's opinion on the questions asked.
-- To get to know more about the participants in the survey through the interests and then benefit from them in the communications sent to the organisation's contacts 
+For some of those answer types, Mozaik makes it possible to reuse the answers encoded by the participant to gather general information about the contact. This functionality can be used to collect interests and involvements (such as for the events or petitions), but general information can be collected as well from the responses of the participant. For instance: the contact's name, email, address, birthdate etc...
 
-!!!info 
-
-    It is possible to add participation categories and interests according to the answers chosen by the participants. 
+ 
     <figure markdown>
     ![screenshot 48](img/screen48.png)
     <figcaption>Adding involvement & interest</figcaption>
@@ -52,19 +39,19 @@ The questions have differents roles:
 <figcaption>Example of questions for the survey</figcaption>
 </figure>
 
-## Recognition of partner
+## Partner recognition
 
-When a person participates to a petition, the system will try to detect (based on several criteria) whether this person can be linked to an existing partner in the Odoo database. If this is not the case, a new partner will automatically be created.
+When a person fills in a survey, the system will try to detect (based on several criteria) whether this person can be linked to an existing partner in the Odoo database. If this is not the case, a new partner will automatically be created.
 
 Thanks to this feature, you can expand your organization's list of contacts and then recontact them for future petitions, events, surveys...
 
 ## The access limitations
 
-Thanks to the "security" tab, it is possible to limit the visibility and access of each survey to certain people depending on the selected instance. 
+In the "security" tab, you can decide to limit the visibility of a specific survey to the users linked to an internal instance (and its parent instances).
 
 !!! example 
 
-    I want that only people from the Antwerp instance can access the survey.
+    I only want people from a certain instance (and its parent instances) to access the survey.
 
 <figure markdown>
 ![screenshot 50](img/screen50.png)
