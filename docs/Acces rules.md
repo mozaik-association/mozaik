@@ -1,25 +1,18 @@
 
-# Access Rules
+# Access rights
 
-Thanks to this functionality you can transform a contact who is working for the organisation into a user of Mozaik. The user receives a login, a role and an internal instance.
+Each user in Odoo can be linked to general access rights (standard feature in Odoo) and to one or several internal instances (Mozaik feature). Every user in Mozaik can be linked to a certain level in the internal structure of the organisation or political party, which will grant the user access to more or less data in Odoo. 
 
-!!! abstract "The goal of access rules"
-
-    This feature allows you to give and control the different access of your user contacts in Mozaik depending on the internal instance they receive when they are transformed into a user. It provides you to manage the access of the users of Mozaik. 
     !!! example
     
-        A user who is part of the national instance will have access to all contacts of the organisation. A user who was part of a local instance will only have access to the contacts of his local group.
-
-??? question "How to transform a contact into a user ?"
-
-    To turn a contact into a user, go to the contact's form of a contact, click on the "action" button then click on "transform into user"
-
-<figure markdown>
-![screenshot 5](img/screen5.png)
-<figcaption>Transformation of a contact into a user</figcaption>
-</figure>
+        A user who is part of the 'highest' internal instance will have access to all contacts/events etc... of the organisation. A user who is linked to a 'low' internal instance (ex: a specific city) will only have access to the contacts / events etc... of this specific city.
+        A user who is linked to a regional instance (ex: region of Brussels in Belgium) will have access to all the contacts / events etc... related to the region of Brussels and all the instances who are 'below' the region of Brussels in the internal structure of the organisation (ex: the contacts/events etc... from the 19 municipalities of Brussels who are part of the region of Brussels).
+    
 
 <figure markdown>
 ![screenshot 6](img/screen6.png)
 <figcaption>Information of a contact user on the contact's form</figcaption>
 </figure>
+
+
+Most features of Mozaik are regulated by those specific access rules (ex: contacts, distribution lists, mass mailings, events, surveys, petitions, participations, mandates etc...).
