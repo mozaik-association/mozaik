@@ -25,13 +25,14 @@ Each member in Odoo is linked to a unique member number. The member number can b
 </figure>
 
 ## Membership fees
-Several membership types can be added in Mozaik. Each organisation can define its own membership types and link each type to a specific price and rule. Members will have to pay a specific price according to these rules.
+Several membership types can be added in Mozaik. Each organisation can define its own membership types and link each type to a price and rule. Members will have to pay a specific price according to these rules.
 
 !!! example
 
-    1. It is possible to set a lower price for the first year of membership compared to subsequent years.
-    2. It is possible to put a different price for people with disabilities (example: 5€ instead of 10€)
-    3. Etc.
+    1. It is possible to set a lower price for the first year of membership (compared to subsequent years)
+    2. It is possible to set a different price for people with disabilities (example: 5€ instead of 10€)
+    3. It is possible to set a different price for members above a certain age (example: members who are older than 60 years receive a 10 euro reduction)
+    4. Etc...
 
 !!! abstract "The goal of memberships fees"
 
@@ -56,8 +57,9 @@ A complete membership workflow has been implemented in Mozaik. Members are linke
 </figure>
 !!! example "Example of workflow"
 
-    - A member who resigns changes from a "member" to a "resignation former member".
-    - A member who declines to pay the membership fee will be given the status "former member".
+    - A member who resigns changes from a "member" to a "resignation former member" status.
+    - A member who declines to pay the membership fee will be moved to the "former member" status after a few months.
+
 <figure markdown>
 ![screenshot 10](img/screen10.png)
 <figcaption>Mozaik memberships workflow</figcaption>
@@ -69,7 +71,7 @@ Each year, the organisation may issue a call for membership renewal.
 
 Members who paid their previous membership can receive:
 
-- An email with a link to pay online (Sips, Adyen... or any other payment acquirer). 
+- An email with a link to pay online (Sips, Adyen... or any other Odoo payment acquirer). 
 - An email with a form to fill in a bank mandate, in order to pay their membership fee with a direct debit transfer (SEPA)
 - A letter with a structured communication (bank transfer).
 
