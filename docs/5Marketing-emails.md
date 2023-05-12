@@ -13,11 +13,11 @@ Several interesting functionalities have been added by Mozaik to this Odoo stand
 
 This functionality allows you to create, modify and manage the mass mailings sent by your organisation.
 
-The email marketing module provides access to general information as:
+The email marketing module provides access to general information such as:
 
-- The general information of the emails marketing (subject, preview text, recipients...).
-- The inclusion of opt-out contacts or not. You can decide to include contacts even if they have an op-out communication preference on their contact's form.
-- The use of the mail template or not. The simplified mail editor allows you to create mail templates in advance and simply select the one you need when creating a new mass mailing.
+- The general information of your mass mailing campaigns (subject, preview text, recipients...).
+- The inclusion of opt-out contacts. You can force opt-out contacts as recipients of a mass mailing campaign, even if they have an op-out communication preference on their contact's form.
+- The use of mail templates. The simplified mail editor allows you to create mail templates in advance and simply select the one you need when creating a new mass mailing.
 
 !!! info 
 
@@ -25,12 +25,12 @@ The email marketing module provides access to general information as:
 
 <figure markdown>
 ![screenshot 19](img/screen19.png)
- <figcaption>Marketing email form with general information</figcaption>
+ <figcaption> Mass mailing form with general information</figcaption>
 </figure>
 
 ## Recurrent mailings
 
-In the mailing configurations, it is possible to select the "recurrent sending" option by selecting the date of the next mailing and the time interval between mailings.
+In the mass mailing configurations, a "recurrent sending" option has been added.
 
 !!! abstract "The goal of recurrent mailing"
 
