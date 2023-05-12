@@ -1,13 +1,13 @@
 # Memberships
 
 ## Membership lines
-In the membership tab of a contact, you can find all the membership lines of a certain member/sympathizer . This enables you to easily retrieve  the complete membership history of this member/sympathizer . On those membership lines, you can find a whole list of information:
+In the membership tab of a contact, you can find all the membership lines of a certain member/sympathizer . This enables you to easily retrieve  the complete membership history of this member/sympathizer. On those membership lines, you can find a whole list of information:
 
-- Membership status to which the contact belongs (former member, new member...).
-- Type of membership fee (normal membership, reduced price ("job seeker", "disabled")).
+- Membership status to which the contact belongs (former member, active member...).
+- Type of membership fee (normal membership, reduced price (ex: "job seeker" or "disabled")).
 - Price of the subscription.
-- Structured communication reference (possible to work with a structured communication).
-- Payement link (possible to pay the membership online with Stripe, Adyen or any other payment acquirer...).
+- Communication reference (it is possible to work with structured communications).
+- Payment link (it is possible to pay the membership online with Stripe, Adyen or any other payment acquirer...).
 - Check whether the membership has been paid or not for the current year.
 - Internal instance (< internal structure of the organisation) to which the member is linked by its membership.
 - Start and end date of the membership.
@@ -18,7 +18,7 @@ Each member in Odoo is linked to a unique member number. The member number can b
 
 !!! abstract "The goal of membership lines"
 
-    Membership lines enable you to do the follow-up of the membership status of each contact as well as membership dates. You can easilly do some reporting by organising your members by membership states, local groups, type of memberships (prices), dates ,...
+    Membership lines enable you to do the follow-up of the membership status of each contact, as well as its membership dates. You can easilly do some reporting by organising your members by membership states, local groups, type of memberships (prices), dates etc...
 <figure markdown>
 ![screenshot 8](img/screen8.png)
 <figcaption>New memberhsip line on the contact form & unique member number</figcaption>
