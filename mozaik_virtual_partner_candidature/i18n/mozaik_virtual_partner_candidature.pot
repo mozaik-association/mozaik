@@ -1,0 +1,303 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_virtual_partner_candidature
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__active
+msgid "Active"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__active_candidature
+msgid "Active candidature"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Active candidatures"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.actions.act_window,name:mozaik_virtual_partner_candidature.add_filter_from_relation_action
+msgid "Add Filter To Distribution List"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__assembly_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Assembly"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__birth_date
+msgid "Birth Date"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Birth Date < ..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Birth Date > ..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__birthdate_day
+msgid "Birthdate Day"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__birthdate_month
+msgid "Birthdate Month"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__common_id
+msgid "Common ID"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Designated by descendants of..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Designated by non descendants of..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Designated to descendants of..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Designated to non descendants of..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__designation_int_assembly_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Designation Assembly"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__designation_instance_id
+msgid "Designation Instance"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_distribution_list_line_template__display_name
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model,name:mozaik_virtual_partner_candidature.model_distribution_list_line_template
+msgid "Distribution List Line Template"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__employee
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Employee"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__ext_candidature_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "External Candidature"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Female"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "French"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__gender
+msgid "Gender"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "German"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_distribution_list_line_template__id
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__interest_ids
+msgid "Interests"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__int_candidature_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Internal Candidature"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__int_instance_id
+msgid "Internal Instance (for search)"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__int_instance_ids
+msgid "Internal Instances"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__is_company
+msgid "Is a Company"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__lang
+msgid "Language"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_distribution_list_line_template____last_update
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Male"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__mandate_category_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Mandate Category"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Mandate Start Date < ..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Mandate Start Date > ..."
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__model
+msgid "Model"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Not Employee"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__identifier
+msgid "Number"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__partner_interest_group_ids
+msgid "Partner Interest Groups"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__partner_instance_ids
+msgid "Partner Internal Instances"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model,name:mozaik_virtual_partner_candidature.model_virtual_partner_candidature
+msgid "Partner/Candidature"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.actions.act_window,name:mozaik_virtual_partner_candidature.virtual_partner_candidature_act_window
+#: model:ir.ui.menu,name:mozaik_virtual_partner_candidature.virtual_partner_candidature_menu
+msgid "Partners/Candidatures"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__result_id
+msgid "Result"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__sta_candidature_id
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "State Candidature"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__sta_instance_id
+msgid "State Instance"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: code:addons/mozaik_virtual_partner_candidature/models/virtual_partner_candidature.py:0
+#, python-format
+msgid "This operator is not supported"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__competency_ids
+msgid "Topics"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__key_id
+msgid "Unique String key for Candidatures"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_candidature.virtual_partner_candidature_search_view
+msgid "Without Coordinate"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: code:addons/mozaik_virtual_partner_candidature/models/virtual_partner_candidature.py:0
+#, python-format
+msgid "value should be a list"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
+#: code:addons/mozaik_virtual_partner_candidature/models/virtual_partner_candidature.py:0
+#, python-format
+msgid "value should be a string"
+msgstr ""
