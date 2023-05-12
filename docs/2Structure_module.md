@@ -6,7 +6,9 @@ The structure module enables you to define how you organisation is organized by 
 - Political structure of the country (for political parties)
 - External structure
 
-Those structures are configurable in Mozaïk, they can easily be adapted to the needs of any organisation (parent levels, power levels & assemblies can easily be added etc...). The structures are used in most of the other modules of Mozaïk (contacts, mandates, access rules...).
+Those structures are entirely configurable in Mozaik, they can easily be adapted to the needs of any organisation (parent levels, power levels & assemblies can easily be added etc...). 
+
+Those structures are used in most of the other modules of Mozaïk (contacts, mandates, access rules...).
 
 In the structure module, you will encounter the following terms: 
 
@@ -23,12 +25,12 @@ A power level refers to the different decision-making bodies within an organisat
 
 !!! example "Examples"
 
-    In the internal structure of the political party, the power level is represented by the distribution of competences in the political party:
+    In the internal structure of a political party, the power level is represented by the distribution of competences in the political party:
 
     - The cities
-    - The provinces
-    - The districts
-    - The national
+    - The district in each city
+    - A group of cities
+    - National level
 
     In the political structure of Belgium, the power level is represented by the distribution of competences between the federated entities:
 
@@ -42,9 +44,13 @@ A power level refers to the different decision-making bodies within an organisat
 
 An instance is a governance entity responsible for the management of specific functions or activities. It may be composed of elected or appointed members, and is responsible for making important decisions for the organisation.
 
-Instances are always linked to a name and to a power level. They can also be linked to a parent instance, in order to create a hierarchical structure. For example, the Province of East Flanders in Belgium is the parent instance of the city of Ghent.
+Instances are always linked to a name and to a power level. They can also be linked to a parent instance, in order to create a hierarchical structure.
 
-In the internal structure of the party, The instance of Antwerp has the district of Antwerp as its parents. 
+For example:
+
+The Province of East Flanders in Belgium is the parent instance of the city of Ghent.
+
+In the internal structure of the party, the internal instance of Antwerp may be linked to a parent level 'District of Antwerp'. 
 
 
 <figure markdown>
