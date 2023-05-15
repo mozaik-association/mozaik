@@ -71,15 +71,13 @@ Once your filters have been applied on your virtual model, you can easily transf
 
 !!!example
 
-    In order to create a filter to include contacts between 30 and 50 years, who are linked to one of the 19 municipalities of Brussels and who have already paid their membership, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid"  and the condition "is set true". --> IL MANQUE LE FILTRE SUR LES VILLES, SUR L'AGE ETC... (et je ne sais pas ce que c'est condition is set true) IL FAUT LES AJOUTER SINON L'EXEMPLE NE FAIT PAS DE SENS
-
+    In order to create a filter to include contacts between 30 and 50 years, who are linked to one of the 19 municipalities of Brussels and who have already paid their membership, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid is true". A second filter with people aged between 30 and 50 and a final filter with all people with an internal instance descending from the city of Brussels must be created.
 ??? tip
 
     By clicking on the "Result" button on a specific filter or a distribution list, you can access the list of all the contacts that are included in the domain. 
 
     :warning: To be included in the 'Result' list, a contact must have an email address OR a postal address. Otherwise, the contacts will appear in the "Without coordinate" tab accessible on a specific filter or on the distribution list.
 
-CHANGER LE SCREENSHOT POUR METTRE UN EXEMPLE PLUS COMPLEXE (REPRENDRE IDEALEMENT CELUI D'AU-DESSUS AVEC LES ADHESIONS)
 <figure markdown>
 ![screenshot 18](img/screen18.png)
 <figcaption>Creation of a filter</figcaption>
