@@ -1490,9 +1490,6 @@ class MembershipRequest(models.Model):
                 ):
                     partner_values.pop("firstname", False)
 
-            # create new involvements
-            self._validate_request_involvement(mr, partner)
-
             self._validate_voluntaries(mr, partner)
 
             self._validate_request_coordinates(mr, partner_values)
@@ -1537,6 +1534,9 @@ class MembershipRequest(models.Model):
                 # force instance is set
                 update_instance = not bool(mr.force_int_instance_id)
                 mr._partner_write_address(mr.address_id, partner, update_instance)
+
+            # create new involvements
+            self._validate_request_involvement(mr, partner)
 
             if partner_values:
                 partner.write(partner_values)
