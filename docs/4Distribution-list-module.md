@@ -71,7 +71,7 @@ Once your filters have been applied on your virtual model, you can easily transf
 
 !!!example
 
-    In order to create a filter to include contacts between 30 and 50 years, who are linked to one of the 19 municipalities of Brussels and who have already paid their membership, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid is true". A second filter with people aged between 30 and 50 and a final filter with all people with an internal instance descending from the city of Brussels must be created.
+    In order to create a filter to include contacts between 30 and 50 years, who are linked to one of the 19 municipalities of Brussels and who have already paid their membership, the virtual Partners/Membership template must be selected. Then create the rules with the criterion "Paid is true". Two filters with people over 30 and under 50 years of age  and a final filter with all people with an internal instance descending from the city of Brussels must be created.
 ??? tip
 
     By clicking on the "Result" button on a specific filter or a distribution list, you can access the list of all the contacts that are included in the domain. 
