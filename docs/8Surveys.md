@@ -28,11 +28,10 @@ Surveys are composed of questions, that can be arranged in a desired order. For 
 
 For some of those answer types, Mozaik makes it possible to reuse the answers encoded by the participant to gather general information about the contact. This functionality can be used to collect interests and involvements (such as for the events or petitions), but general information can be collected as well from the responses of the participant. For instance: the contact's name, email, address, birthdate etc...
 
- 
-    <figure markdown>
-    ![screenshot 48](img/screen48.png)
-    <figcaption>Adding involvement & interest</figcaption>
-    </figure>
+<figure markdown>
+![screenshot 48](img/screen48.png)
+<figcaption>Adding involvement & interest</figcaption>
+</figure>
 
 <figure markdown>
 ![screenshot 49](img/screen49.png)
