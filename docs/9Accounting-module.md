@@ -23,9 +23,9 @@ In Mozaik, memberships can be paid with a bank mandate (direct debit). Members w
 
 When direct debits (automatic withdrawals) don't succeed (refusal by the member, insufficient funds etc ...), a direct debit refusal document will be issued by the bank. This refusal can be uploaded in Mozaik in order to:
 
-    - Mark the current membership as unpaid
-    - Cancel the existing direct debit SEPA mandate
-    - Send an automatic email to the member to indicate that the membership is still open and ask him to
+- Mark the current membership as unpaid
+- Cancel the existing direct debit SEPA mandate
+- Send an automatic email to the member to indicate that the membership is still open and ask him to
         - pay the membership online (with Paypal, Sips or any other payment acquirer proposed by Odoo)
         - pay by bank transfer
         - create a new bank mandate
