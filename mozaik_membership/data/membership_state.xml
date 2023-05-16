@@ -15,6 +15,7 @@
     <record forcecreate="True" id="former_member" model="membership.state">
         <field name="name">Former Member</field>
         <field name="code">former_member</field>
+        <field name="free_state" eval="True" />
         <field name="sequence" eval="80" />
     </record>
     <record forcecreate="True" id="member_committee" model="membership.state">
