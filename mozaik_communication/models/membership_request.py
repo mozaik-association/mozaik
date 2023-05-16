@@ -64,20 +64,21 @@ class MembershipRequest(models.Model):
         """
         Update opt-in / opt-out subscriptions on distribution lists.
         """
-        self.ensure_one()
         res = super(MembershipRequest, self).validate_request()
-        self.distribution_list_ids.write(
-            {
-                "res_partner_opt_in_ids": [(4, self.partner_id.id)],
-                "res_partner_opt_out_ids": [(3, self.partner_id.id)],
-            }
-        )
-        self.distribution_list_ids_opt_out.write(
-            {
-                "res_partner_opt_out_ids": [(4, self.partner_id.id)],
-                "res_partner_opt_in_ids": [(3, self.partner_id.id)],
-            }
-        )
+        for mr in self:
+            partner_id = self.partner_id.id
+            mr.distribution_list_ids.write(
+                {
+                    "res_partner_opt_in_ids": [(4, partner_id)],
+                    "res_partner_opt_out_ids": [(3, partner_id)],
+                }
+            )
+            mr.distribution_list_ids_opt_out.write(
+                {
+                    "res_partner_opt_out_ids": [(4, partner_id)],
+                    "res_partner_opt_in_ids": [(3, partner_id)],
+                }
+            )
         return res
 
     @api.model
