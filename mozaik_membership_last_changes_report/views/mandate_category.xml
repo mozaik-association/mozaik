@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mandate_category_form_view">
+        <field
+            name="name"
+        >mandate.category.form (in mozaik_membership_last_changes_report)</field>
+        <field name="model">mandate.category</field>
+        <field name="inherit_id" ref="mozaik_mandate.mandate_category_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='with_remuneration']" position="before">
+                <field
+                    name="summary_mails_recipient"
+                    attrs="{'invisible': [('type','!=','int')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mandate_category_search_view">
+        <field
+            name="name"
+        >mandate.category.search (in mozaik_membership_last_changes_report)</field>
+        <field name="model">mandate.category</field>
+        <field name="inherit_id" ref="mozaik_mandate.mandate_category_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='without_remuneration']" position="before">
+                <filter
+                    name="summary_mails_recipient"
+                    string="Summary mails recipient"
+                    domain="[('summary_mails_recipient','=',True)]"
+                    invisible="context.get('default_type', False)!='int'"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
