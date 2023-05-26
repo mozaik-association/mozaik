@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="0">
+
+        <record
+        forcecreate="1"
+        id="reference_data_changes_email_template"
+        model="mail.template"
+    >
+            <field name="name">Reference data changes</field>
+            <field name="auto_delete" eval="0" />
+            <field
+            name="partner_to"
+        >${ object.partner_id.id },${ object.instance_id.parent_id and object.instance_id.parent_id.get_secretariat() and object.instance_id.parent_id.get_secretariat().partner_id.id or 0 }</field>
+            <field name="subject">SUBJECT: TODO</field>
+            <field name="model_id" ref="mozaik_structure.model_int_assembly" />
+            <field name="lang">${ object.partner_id.lang }</field>
+            <field name="body_html">TODO</field>
+            <field name="res_users_ids" eval="[(4, ref('base.user_admin'))]" />
+        </record>
+</odoo>

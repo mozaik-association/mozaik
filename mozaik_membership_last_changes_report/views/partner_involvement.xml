@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2017 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="partner_involvement_form_view">
+        <field
+            name="name"
+        >partner.involvement.form (in mozaik_membership_last_changes_report)</field>
+        <field name="model">partner.involvement</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='effective_time']" position="after">
+                <field name="include_in_summary" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="partner_involvement_search_view">
+        <field
+            name="name"
+        >partner.involvement.search (in mozaik_membership_last_changes_report)</field>
+        <field name="model">partner.involvement</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_search_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='without_type']" position="after">
+                <separator />
+                <filter
+                    name="include_in_summary"
+                    string="To include in summary"
+                    domain="[('include_in_summary','=',True)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

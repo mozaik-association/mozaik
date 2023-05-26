@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+       <record id="membership_line_search_view" model="ir.ui.view">
+            <field
+            name="name"
+        >membership.line.search (in mozaik_membership_last_changes_report)</field>
+            <field name="model">membership.line</field>
+            <field
+            name="inherit_id"
+            ref="mozaik_membership.membership_line_search_view"
+        />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <filter
+                    name="with_changes"
+                    string="With Changes"
+                    domain="[('last_changes','!=',False)]"
+                />
+                    <separator />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="membership_line_form_view" model="ir.ui.view">
+            <field
+            name="name"
+        >membership.line.form (in mozaik_membership_last_changes_report)</field>
+            <field name="model">membership.line</field>
+            <field
+            name="inherit_id"
+            ref="mozaik_membership.membership_line_form_view"
+        />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Last Changes">
+                            <field name="last_changes" />
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>
