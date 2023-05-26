@@ -1,0 +1,305 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_membership_last_changes_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line__last_changes_sequence
+msgid "Change Sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,help:mozaik_membership_last_changes_report.field_partner_involvement_category__include_in_summary
+msgid "Check to include new involvements in the weekly summary"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model,name:mozaik_membership_last_changes_report.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_int_assembly__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_int_instance__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_mandate_category__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement_category__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid ""
+"Has joined your instance following its move or following its request to join"
+" it"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Has left your instance"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_int_assembly__id
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_int_instance__id
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_mandate_category__id
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line__id
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement__id
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement_category__id
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement__include_in_summary
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement_category__include_in_summary
+msgid "Include In Summary"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model,name:mozaik_membership_last_changes_report.model_int_assembly
+msgid "Internal Assembly"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model,name:mozaik_membership_last_changes_report.model_int_instance
+msgid "Internal Instance"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/membership_line.py:0
+#, python-format
+msgid "Last Change"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line__last_changes
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.membership_line_form_view
+msgid "Last Changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_int_assembly____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_int_instance____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_mandate_category____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement_category____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Local voluntary: [%s]"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.actions.server,name:mozaik_membership_last_changes_report.ir_cron_last_changes_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_membership_last_changes_report.ir_cron_last_changes
+#: model:ir.cron,name:mozaik_membership_last_changes_report.ir_cron_last_changes
+msgid "Mail Last Changes to Internal Instances"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model,name:mozaik_membership_last_changes_report.model_mandate_category
+msgid "Mandate Category"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model,name:mozaik_membership_last_changes_report.model_membership_line
+msgid "Membership Line"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "National voluntary: [%s]"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/partner_involvement.py:0
+#, python-format
+msgid "New involvement %(name)s%(note)s"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model,name:mozaik_membership_last_changes_report.model_partner_involvement
+msgid "Partner Involvement"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model,name:mozaik_membership_last_changes_report.model_partner_involvement_category
+msgid "Partner Involvement Category"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Please note that the person accept to receive emails."
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Please note that the person does not wish to receive any more emails."
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Regional voluntary: [%s]"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:mail.template,subject:mozaik_membership_last_changes_report.reference_data_changes_email_template
+msgid "SUBJECT: TODO"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Status has been changed: %(previous)s → %(after)s"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_mandate_category__summary_mails_recipient
+msgid "Summary Mails Recipient"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.mandate_category_search_view
+msgid "Summary mails recipient"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:mail.template,body_html:mozaik_membership_last_changes_report.reference_data_changes_email_template
+msgid "TODO"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Thanks to note the new address"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Thanks to note the new email"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "The person becomes a member in full"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid ""
+"The person becomes a supporter following a proposal of voluntary or a "
+"donation"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid ""
+"The person did not renew its subscription or its status has been "
+"reinitialized"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "The person has renewed its subscription"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid ""
+"The person has renewed its subscription. \n"
+"Without opposite opinion of the instance the person will become member in one month"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "The person is no longer member of {party_name}"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.partner_involvement_category_form_view
+msgid ""
+"This note will be included in the weekly summary sent to internal instances"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.partner_involvement_category_search_view
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.partner_involvement_search_view
+msgid "To include in summary"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "Types of voluntaries has changed, formerly it was: %s"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.membership_line_search_view
+msgid "With Changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid ""
+"Without opposite opinion of the instance the person will become member in "
+"one month"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/membership_line.py:0
+#, python-format
+msgid "[%s] Local voluntary"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/membership_line.py:0
+#, python-format
+msgid "[%s] National voluntary"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/membership_line.py:0
+#, python-format
+msgid "[%s] Regional voluntary"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
+#, python-format
+msgid "your organization"
+msgstr ""
