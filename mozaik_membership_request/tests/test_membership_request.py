@@ -727,12 +727,12 @@ class TestMembership(TransactionCase):
 
     def test_modify_partial_address(self):
         """
-        1. A member has a partial address (no street).
+        1. A member has a partial address in Liège (no street).
         We make and validate a membership request with another partial address, but from
-        another city (with another instance).
+        another city (with another instance): Namur.
         City and instance must NOT change.
 
-        2. Same test but the address on the MR is complete.
+        2. Same test but the address (in Namur) on the MR is complete.
         City and instance MUST change.
         """
         country_be = self.env.ref("base.be")
@@ -819,6 +819,7 @@ class TestMembership(TransactionCase):
                 "number": "12",
             }
         )
+        m2.onchange_city_id()
         m2.validate_request()
         self.assertEqual(harry.address_address_id.city_id, city_namur)
         self.assertEqual(harry.address_address_id.street, "Rue du Puits 12")

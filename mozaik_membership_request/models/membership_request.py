@@ -1516,6 +1516,12 @@ class MembershipRequest(models.Model):
                 mr.technical_name = res_values["technical_name"]
             if not mr.address_id:
                 mr.int_instance_ids = [(6, 0, partner.int_instance_ids.ids)]
+            if mr.address_id:
+                # Write the address on the partner, and change the instance.
+                # Only case where the instance must NOT be changed:
+                # force instance is set
+                update_instance = not bool(mr.force_int_instance_id)
+                mr._partner_write_address(mr.address_id, partner, update_instance)
 
             mr._validate_request_membership_with_checks(partner)
 
@@ -1527,13 +1533,6 @@ class MembershipRequest(models.Model):
                 # hence the force instance will not be modified inside
                 # _validate_request_membership, we must do it explicitly
                 partner_values["force_int_instance_id"] = mr.force_int_instance_id
-
-            if mr.address_id:
-                # Write the address on the partner, and change the instance.
-                # Only case where the instance must NOT be changed:
-                # force instance is set
-                update_instance = not bool(mr.force_int_instance_id)
-                mr._partner_write_address(mr.address_id, partner, update_instance)
 
             # create new involvements
             self._validate_request_involvement(mr, partner)
