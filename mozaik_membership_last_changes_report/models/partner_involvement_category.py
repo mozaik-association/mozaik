@@ -9,7 +9,6 @@ class PartnerInvolvementCategory(models.Model):
     _inherit = "partner.involvement.category"
 
     include_in_summary = fields.Boolean(
-        default=True,
         tracking=True,
         help="Check to include new involvements in the weekly summary",
     )

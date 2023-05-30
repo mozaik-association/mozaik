@@ -57,31 +57,36 @@ class TestMembership(SavepointCase):
         nbl = 1
 
         # add an involvement
-        vals = {
-            "name": "Organisation Euro 2020",
-            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
-        }
-        ic = self.env["partner.involvement.category"].create(vals)
-        vals = {
-            "partner_id": partner.id,
-            "involvement_category_id": ic.id,
-        }
-        self.env["partner.involvement"].create(vals)
+        ic = self.env["partner.involvement.category"].create(
+            {
+                "name": "Organisation Euro 2020",
+                "include_in_summary": True,
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
+            }
+        )
+        self.env["partner.involvement"].create(
+            {
+                "partner_id": partner.id,
+                "involvement_category_id": ic.id,
+            }
+        )
         nbl += 1
         self.assertEqual(len(ml1.last_changes.split("\n")), nbl)
 
         # add an involvement (not logged)
-        vals = {
-            "name": "Organisation Euro 2024",
-            "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
-        }
-        ic = self.env["partner.involvement.category"].create(vals)
-        vals = {
-            "partner_id": partner.id,
-            "involvement_category_id": ic.id,
-            "include_in_summary": False,
-        }
-        self.env["partner.involvement"].create(vals)
+
+        ic = self.env["partner.involvement.category"].create(
+            vals={
+                "name": "Organisation Euro 2024",
+                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
+            }
+        )
+        self.env["partner.involvement"].create(
+            {
+                "partner_id": partner.id,
+                "involvement_category_id": ic.id,
+            }
+        )
         nbl += 0
         self.assertEqual(len(ml1.last_changes.split("\n")), nbl)
 

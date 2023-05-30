@@ -8,7 +8,7 @@ class PartnerInvolvement(models.Model):
 
     _inherit = "partner.involvement"
 
-    include_in_summary = fields.Boolean(default=True, tracking=True)
+    include_in_summary = fields.Boolean(tracking=True)
 
     def _notes_to_summary(self):
         self.ensure_one()
