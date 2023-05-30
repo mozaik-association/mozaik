@@ -27,6 +27,7 @@
         "views/partner_involvement_category.xml",
         "data/mail_template.xml",
         "data/ir_cron.xml",
+        "data/ir_config_parameter.xml",
     ],
     "demo": [],
 }
