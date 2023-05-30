@@ -241,7 +241,7 @@ class ResPartner(models.Model):
                     "national_voluntary" in vals,
                 ]
             ):
-                change = self._get_voluntary_change(  # TODO
+                change = self._get_voluntary_change(
                     vals.get("local_voluntary"),
                     vals.get("regional_voluntary"),
                     vals.get("national_voluntary"),

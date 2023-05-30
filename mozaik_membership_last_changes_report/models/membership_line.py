@@ -11,7 +11,7 @@ class MembershipLine(models.Model):
     last_changes = fields.Text(copy=False)
     last_changes_sequence = fields.Integer(
         string="Change Sequence", index=True, copy=False, default=999
-    )  # TODO: mig script for Ecolo, as field name changed
+    )
 
     @api.model
     def create(self, vals):
