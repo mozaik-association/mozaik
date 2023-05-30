@@ -17,71 +17,196 @@ class ResPartner(models.Model):
         * Keys are significant changes: state changes, instance changes, renewals, ...
         * Values are tuples of length 2: a code, and a char sentence,
         giving more details on the change
+
+        Each change is added to the dict only if it was activated in the
+        res config settings.
         """
         party_name = (
             self.env["ir.config_parameter"]
             .sudo()
             .get_param("party_name", default=_("your organization"))
         )
-        return {
-            "renewal": (200, _("The person has renewed its subscription")),
-            "member": (210, _("The person becomes a member in full")),
-            "former_member": (
-                300,
+        states = {}
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_renewal")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.renewal_seq", 200)
+            )
+            states["renewal"] = (seq, _("The person has renewed its subscription"))
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_member")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.member_seq", 210)
+            )
+            states["member"] = (seq, _("The person becomes a member in full"))
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_former_member")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.former_member_seq", 300)
+            )
+            states["former_member"] = (
+                seq,
                 _(
                     "The person did not renew its subscription "
                     "or its status has been reinitialized"
                 ),
-            ),
-            "former_member_committee": (
-                230,
+            )
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_former_member_committee")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.former_member_committee_seq", 230)
+            )
+            states["former_member_committee"] = (
+                seq,
                 _(
                     "The person has renewed its "
                     "subscription. \nWithout opposite "
                     "opinion of the instance the person "
                     "will become member in one month"
                 ),
-            ),
-            "break_former_member": (
-                400,
+            )
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_break_former_member")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.break_former_member_seq", 400)
+            )
+            states["break_former_member"] = (
+                seq,
                 _("The person is no longer member of {party_name}").format(
                     party_name=party_name
                 ),
-            ),
-            "expulsion_former_member": (
-                410,
+            )
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_expulsion_former_member")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.expulsion_former_member_seq", 410)
+            )
+            states["expulsion_former_member"] = (
+                seq,
                 _("The person is no longer member of {party_name}").format(
                     party_name=party_name
                 ),
-            ),
-            "inappropriate_former_member": (
-                420,
+            )
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_inappropriate_former_member")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.inappropriate_former_member_seq", 420)
+            )
+            states["inappropriate_former_member"] = (
+                seq,
                 _("The person is no longer member of {party_name}").format(
                     party_name=party_name
                 ),
-            ),
-            "resignation_former_member": (
-                430,
+            )
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_resignation_former_member")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.resignation_former_member_seq", 430)
+            )
+            states["resignation_former_member"] = (
+                seq,
                 _("The person is no longer member of {party_name}").format(
                     party_name=party_name
                 ),
-            ),
-            "member_committee": (
-                160,
+            )
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_member_committee")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.member_committee_seq", 160)
+            )
+            states["member_committee"] = (
+                seq,
                 _(
                     "Without opposite opinion of the instance the "
                     "person will become member in one month"
                 ),
-            ),
-            "former_supporter": (310, ""),
-            "supporter": (
-                120,
+            )
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_former_supporter")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.former_supporter_seq", 310)
+            )
+            states["former_supporter"] = (seq, _(""))
+
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_supporter")
+        ):
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.supporter_seq", 120)
+            )
+            states["supporter"] = (
+                seq,
                 _(
                     "The person becomes a supporter following a proposal "
                     "of voluntary or a donation"
                 ),
-            ),
-        }
+            )
+
+        return states
 
     def _get_state_change(self, state_id, instance_id, paid):
         self.ensure_one()
@@ -105,8 +230,8 @@ class ResPartner(models.Model):
                 and previous_state.code == "member"
                 and previous_instance.id == instance_id
             ):
-                seq, msg = state_changes["renewal"]
-                return seq, _(msg)
+                seq, msg = state_changes.get("renewal", (UNKNOWN_STAGE_SEQ, ""))
+                return seq, msg
             return (999, "")
         ms_obj = self.env["membership.state"]
         state = ms_obj.browse(state_id)
@@ -117,7 +242,7 @@ class ResPartner(models.Model):
                 "after": state.name,
             }
         seq, msg = state_changes.get(state.code, (UNKNOWN_STAGE_SEQ, ""))
-        change = f"{change}. {_(msg)}"
+        change = f"{change}. {msg}"
         return seq, change
 
     @api.model
@@ -164,11 +289,21 @@ class ResPartner(models.Model):
                 "date_from", reverse=True
             )[0].int_instance_id
         if (
-            membership_vals.get("int_instance_id")
+            bool(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.log_instance_left")
+            )
+            and membership_vals.get("int_instance_id")
             and membership_vals.get("int_instance_id") != previous_instance.id
         ):
             change = _("Has left your instance")
-            self._add_change_to_partner(change, 520)
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.instance_left_seq", 520)
+            )
+            self._add_change_to_partner(change, seq)
             instance_change = True
         return {
             "instance_change": instance_change,
@@ -188,12 +323,24 @@ class ResPartner(models.Model):
         if state_seq != UNKNOWN_STAGE_SEQ and state_change:
             self._add_change_to_partner(state_change, state_seq)
 
-        if instance_change:
+        if (
+            bool(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.log_instance_join")
+            )
+            and instance_change
+        ):
             change = _(
                 "Has joined your instance following its move "
                 "or following its request to join it"
             )
-            self._add_change_to_partner(change, 100)
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.instance_join_seq", 100)
+            )
+            self._add_change_to_partner(change, seq)
 
     def _get_voluntary_change(
         self, local_voluntary, regional_voluntary, national_voluntary
@@ -224,6 +371,96 @@ class ResPartner(models.Model):
             )
         return changes
 
+    def _voluntaries_changes_check(self, vals):
+        self.ensure_one()
+        if bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.log_voluntaries_changes")
+        ) and any(
+            [
+                "local_voluntary" in vals,
+                "regional_voluntary" in vals,
+                "national_voluntary" in vals,
+            ]
+        ):
+            change = self._get_voluntary_change(
+                vals.get("local_voluntary"),
+                vals.get("regional_voluntary"),
+                vals.get("national_voluntary"),
+            )
+            if change:
+                seq = int(
+                    self.env["ir.config_parameter"]
+                    .sudo()
+                    .get_param("changes_report.voluntaries_changes_seq", 220)
+                )
+                self._add_change_to_partner(change, seq)
+
+    def _email_changes_check(self, vals):
+        self.ensure_one()
+
+        if (
+            bool(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.log_email_changes")
+            )
+            and "email" in vals
+            and vals["email"] != self.email
+        ):
+            change = _("Thanks to note the new email")
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.email_changes_seq", 500)
+            )
+            self._add_change_to_partner(change, seq)
+
+    def _postal_changes_check(self, vals):
+        self.ensure_one()
+        if (
+            bool(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.log_postal_changes")
+            )
+            and "address_address_id" in vals
+            and vals["address_address_id"] != self.address_address_id.id
+        ):
+            change = _("Thanks to note the new address")
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.address_changes_seq", 510)
+            )
+            self._add_change_to_partner(change, seq)
+
+    def _global_opt_out_changes_check(self, vals):
+        self.ensure_one()
+        if (
+            bool(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.log_global_opt_out_changes")
+            )
+            and "global_opt_out" in vals
+            and vals["global_opt_out"] != self.global_opt_out
+        ):
+            if vals.get("global_opt_out"):
+                change = _(
+                    "Please note that the person does not wish"
+                    " to receive any more emails."
+                )
+            else:
+                change = _("Please note that the person accept to receive emails.")
+            seq = int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("changes_report.global_opt_out_changes_seq", "515")
+            )
+            self._add_change_to_partner(change, seq)
+
     def write(self, vals):
         """
         Log some changes on partner data on the active membership line,
@@ -234,39 +471,8 @@ class ResPartner(models.Model):
         * Global opt out
         """
         for partner in self.filtered("active"):
-            if any(
-                [
-                    "local_voluntary" in vals,
-                    "regional_voluntary" in vals,
-                    "national_voluntary" in vals,
-                ]
-            ):
-                change = self._get_voluntary_change(
-                    vals.get("local_voluntary"),
-                    vals.get("regional_voluntary"),
-                    vals.get("national_voluntary"),
-                )
-                if change:
-                    partner._add_change_to_partner(change, 220)
-            if "email" in vals and vals["email"] != partner.email:
-                change = _("Thanks to note the new email")
-                partner._add_change_to_partner(change, 500)
-            if (
-                "address_address_id" in vals
-                and vals["address_address_id"] != partner.address_address_id.id
-            ):
-                change = _("Thanks to note the new address")
-                partner._add_change_to_partner(change, 510)
-            if (
-                "global_opt_out" in vals
-                and vals["global_opt_out"] != partner.global_opt_out
-            ):
-                if vals.get("global_opt_out"):
-                    change = _(
-                        "Please note that the person does not wish"
-                        " to receive any more emails."
-                    )
-                else:
-                    change = _("Please note that the person accept to receive emails.")
-                partner._add_change_to_partner(change, 515)
+            partner._voluntaries_changes_check(vals)
+            partner._email_changes_check(vals)
+            partner._postal_changes_check(vals)
+            partner._global_opt_out_changes_check(vals)
         return super().write(vals)

@@ -21,6 +21,7 @@
         "mozaik_structure",
     ],
     "data": [
+        "views/res_config_settings.xml",
         "views/membership_line.xml",
         "views/mandate_category.xml",
         "views/partner_involvement.xml",
