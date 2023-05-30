@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+      <record id="party_name" model="ir.config_parameter">
+          <field name="key">party_name</field>
+          <field name="value">Your organization</field>
+      </record>
+
+
+</odoo>
