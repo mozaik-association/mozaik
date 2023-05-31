@@ -14,6 +14,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Code sequence</span>"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__address_changes_seq
+msgid "Address changes sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line__last_changes_sequence
 msgid "Change Sequence"
 msgstr ""
@@ -21,6 +31,11 @@ msgstr ""
 #. module: mozaik_membership_last_changes_report
 #: model:ir.model.fields,help:mozaik_membership_last_changes_report.field_partner_involvement_category__include_in_summary
 msgid "Check to include new involvements in the weekly summary"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model,name:mozaik_membership_last_changes_report.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
@@ -35,8 +50,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement_category__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_partner__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__email_changes_seq
+msgid "Email changes sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__global_opt_out_changes_seq
+msgid "Global opt-out changes sequence"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
@@ -60,6 +86,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line__id
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement__id
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement_category__id
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__id
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_partner__id
 msgid "ID"
 msgstr ""
@@ -68,6 +95,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement__include_in_summary
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement_category__include_in_summary
 msgid "Include In Summary"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__instance_join_seq
+msgid "Instance join sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__instance_leave_seq
+msgid "Instance leave sequence"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
@@ -99,6 +136,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_membership_line____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_partner_involvement_category____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -107,6 +145,180 @@ msgstr ""
 #: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
 #, python-format
 msgid "Local voluntary: [%s]"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_address_changes
+msgid "Log address changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_email_changes
+msgid "Log email changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_global_opt_out_changes
+msgid "Log global opt-out changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if partner email address changed"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if partner global opt-out status changed"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if partner postal address changed"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner became a break former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid ""
+"Log on a membership line if the partner became a expulsion former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner became a former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid ""
+"Log on a membership line if the partner became a former member committee"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner became a former supporter"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid ""
+"Log on a membership line if the partner became a inappropriate former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner became a member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner became a member committee"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid ""
+"Log on a membership line if the partner became a resignation former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner became a supporter"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner joined an instance"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner left an instance"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if the partner renewed his subscription"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Log on a membership line if voluntaries statuses changed"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_voluntaries_changes
+msgid "Log voluntaries changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_break_former_member
+msgid "Log when partner becomes a break former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_former_member
+msgid "Log when partner becomes a former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_former_member_committee
+msgid "Log when partner becomes a former member committee"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_former_supporter
+msgid "Log when partner becomes a former supporter"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_member
+msgid "Log when partner becomes a member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_member_committee
+msgid "Log when partner becomes a member committee"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_resignation_former_member
+msgid "Log when partner becomes a resignation former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_supporter
+msgid "Log when partner becomes a supporter"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_expulsion_former_member
+msgid "Log when partner becomes an expulsion former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_inappropriate_former_member
+msgid "Log when partner becomes an inappropriate former member"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_instance_join
+msgid "Log when partner joins an instance"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_instance_leave
+msgid "Log when partner leaves an instance"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__log_renewal
+msgid "Log when partner renews his subscription"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
@@ -127,15 +339,85 @@ msgid "Membership Line"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Memberships"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Memberships - Log instance moves"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Memberships - Log partner updates"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Memberships - Log state changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
 #: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
 #, python-format
 msgid "National voluntary: [%s]"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__break_former_member_seq
+msgid "New break former member sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__expulsion_former_member_seq
+msgid "New expulsion former member sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__former_member_committee_seq
+msgid "New former member committee sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__former_member_seq
+msgid "New former member sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__former_supporter_seq
+msgid "New former supporter sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__inappropriate_former_member_seq
+msgid "New inappropriate former member sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
 #: code:addons/mozaik_membership_last_changes_report/models/partner_involvement.py:0
 #, python-format
 msgid "New involvement %(name)s%(note)s"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__member_committee_seq
+msgid "New member committee sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__member_seq
+msgid "New member sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__resignation_former_member_seq
+msgid "New resignation former member sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__supporter_seq
+msgid "New supporter sequence"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
@@ -167,8 +449,104 @@ msgid "Regional voluntary: [%s]"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__renewal_seq
+msgid "Renewal sequence"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
 #: model:mail.template,subject:mozaik_membership_last_changes_report.reference_data_changes_email_template
 msgid "SUBJECT: TODO"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for address changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for email changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for global opt-out changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for instance joins"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for instance leaves"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new break former members"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new expulsion former members"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new former member committees"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new former members"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new former supporters"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new inappropriate former members"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new member committees"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new members"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new resignation former members"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for new supporters"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for renewals"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Sequence code for voluntaries statuses changes"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.actions.act_window,name:mozaik_membership_last_changes_report.action_memberships_configuration
+#: model:ir.ui.menu,name:mozaik_membership_last_changes_report.menu_membership_global_settings
+msgid "Settings"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
@@ -265,6 +643,11 @@ msgstr ""
 #: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
 #, python-format
 msgid "Types of voluntaries has changed, formerly it was: %s"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__voluntaries_changes_seq
+msgid "Voluntaries changes sequence"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
