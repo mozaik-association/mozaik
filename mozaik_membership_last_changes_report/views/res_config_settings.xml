@@ -734,14 +734,5 @@
                 name="context"
             >{'module' : 'mozaik_membership_last_changes_report', 'bin_size': False}</field>
         </record>
-
-        <menuitem
-            id="menu_membership_global_settings"
-            name="Settings"
-            parent="contacts.res_partner_menu_config"
-            sequence="0"
-            action="action_memberships_configuration"
-            groups="base.group_system"
-        />
     </data>
 </odoo>
