@@ -3,3 +3,4 @@
 
 from . import test_accounting
 from . import test_donation
+from . import test_membership
