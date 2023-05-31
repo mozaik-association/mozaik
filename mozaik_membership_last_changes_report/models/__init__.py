@@ -1,3 +1,4 @@
+from . import res_config_settings
 from . import membership_line
 from . import res_partner
 from . import mandate_category

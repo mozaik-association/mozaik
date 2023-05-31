@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field
+                name="name"
+            >res.config.settings.view.form (in mozaik_membership_last_changes_report)</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div
+                        class="app_settings_block"
+                        data-string="Memberships"
+                        string="Memberships"
+                        data-key="memberships"
+                        groups="mozaik_membership.res_groups_membership_manager"
+                    >
+                        <h2>Memberships - Log instance moves</h2>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="instance_join_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="instance_join_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_instance_join" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_instance_join" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner joined an instance
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="instance_join_seq"
+                                attrs="{'invisible': [('log_instance_join', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for instance joins
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="instance_join_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="instance_join_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="instance_leave_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="instance_leave_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_instance_leave" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_instance_leave" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner left an instance
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="instance_leave_seq"
+                                attrs="{'invisible': [('log_instance_leave', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for instance leaves
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="instance_leave_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="instance_leave_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Memberships - Log state changes</h2>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="supporter_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="supporter_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_supporter" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_supporter" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a supporter
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="supporter_seq"
+                                attrs="{'invisible': [('log_supporter', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new supporters
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="supporter_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="supporter_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="member_committee_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="member_committee_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_member_committee" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_member_committee" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a member committee
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="member_committee_seq"
+                                attrs="{'invisible': [('log_member_committee', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new member committees
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="member_committee_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="member_committee_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="renewal_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="renewal_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_renewal" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_renewal" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner renewed his subscription
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="renewal_seq"
+                                attrs="{'invisible': [('log_renewal', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for renewals
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="renewal_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="renewal_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="member_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="member_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_member" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_member" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a member
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="member_seq"
+                                attrs="{'invisible': [('log_member', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new members
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="member_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="member_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="former_member_committee_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="former_member_committee_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_former_member_committee" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_former_member_committee" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a former member committee
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="former_member_committee_seq"
+                                attrs="{'invisible': [('log_former_member_committee', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new former member committees
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="former_member_committee_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="former_member_committee_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="former_member_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="former_member_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_former_member" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_former_member" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a former member
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="former_member_seq"
+                                attrs="{'invisible': [('log_former_member', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new former members
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="former_member_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="former_member_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="former_supporter_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="former_supporter_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_former_supporter" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_former_supporter" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a former supporter
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="former_supporter_seq"
+                                attrs="{'invisible': [('log_former_supporter', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new former supporters
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="former_supporter_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="former_supporter_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="break_former_member_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="break_former_member_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_break_former_member" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_break_former_member" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a break former member
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="break_former_member_seq"
+                                attrs="{'invisible': [('log_break_former_member', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new break former members
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="break_former_member_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="break_former_member_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="expulsion_former_member_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="expulsion_former_member_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_expulsion_former_member" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_expulsion_former_member" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a expulsion former member
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="expulsion_former_member_seq"
+                                attrs="{'invisible': [('log_expulsion_former_member', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new expulsion former members
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="expulsion_former_member_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="expulsion_former_member_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="inappropriate_former_member_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="inappropriate_former_member_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_inappropriate_former_member" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_inappropriate_former_member" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a inappropriate former member
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="inappropriate_former_member_seq"
+                                attrs="{'invisible': [('log_inappropriate_former_member', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new inappropriate former members
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="inappropriate_former_member_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field
+                                                name="inappropriate_former_member_seq"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="resignation_former_member_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="resignation_former_member_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_resignation_former_member" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_resignation_former_member" />
+                                    <div class="text-muted">
+                                        Log on a membership line if the partner became a resignation former member
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="resignation_former_member_seq"
+                                attrs="{'invisible': [('log_resignation_former_member', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for new resignation former members
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="resignation_former_member_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field
+                                                name="resignation_former_member_seq"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Memberships - Log partner updates</h2>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="voluntaries_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="voluntaries_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_voluntaries_changes" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_voluntaries_changes" />
+                                    <div class="text-muted">
+                                        Log on a membership line if voluntaries statuses changed
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="email_changes_seq"
+                                attrs="{'invisible': [('log_voluntaries_changes', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for voluntaries statuses changes
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="voluntaries_changes_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="voluntaries_changes_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt16 o_settings_container" name="email_changes">
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="email_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_email_changes" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_email_changes" />
+                                    <div class="text-muted">
+                                        Log on a membership line if partner email address changed
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="email_changes_seq"
+                                attrs="{'invisible': [('log_email_changes', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for email changes
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="email_changes_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="email_changes_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="address_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="address_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_address_changes" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_address_changes" />
+                                    <div class="text-muted">
+                                        Log on a membership line if partner postal address changed
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="address_changes_seq"
+                                attrs="{'invisible': [('log_address_changes', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for address changes
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="address_changes_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="address_changes_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="global_opt_out_changes"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="global_opt_out_changes"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="log_global_opt_out_changes" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="log_global_opt_out_changes" />
+                                    <div class="text-muted">
+                                        Log on a membership line if partner global opt-out status changed
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="global_opt_out_changes_seq"
+                                attrs="{'invisible': [('log_global_opt_out_changes', '=', False)]}"
+                            >
+                                <div class="o_setting_left_pane" />
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Code sequence</span>
+                                    <div class="text-muted">
+                                        Sequence code for global opt-out changes
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="global_opt_out_changes_seq"
+                                                class="col-lg-4 o_light_label"
+                                            />
+                                            <field name="global_opt_out_changes_seq" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_memberships_configuration" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field
+                name="context"
+            >{'module' : 'mozaik_membership_last_changes_report', 'bin_size': False}</field>
+        </record>
+
+        <menuitem
+            id="menu_membership_global_settings"
+            name="Settings"
+            parent="contacts.res_partner_menu_config"
+            sequence="0"
+            action="action_memberships_configuration"
+            groups="base.group_system"
+        />
+    </data>
+</odoo>

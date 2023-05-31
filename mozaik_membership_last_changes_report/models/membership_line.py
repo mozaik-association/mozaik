@@ -3,6 +3,8 @@
 
 from odoo import _, api, fields, models
 
+from .res_partner import UNKNOWN_STAGE_SEQ
+
 
 class MembershipLine(models.Model):
 
@@ -24,10 +26,13 @@ class MembershipLine(models.Model):
     def write(self, vals):
         res = super().write(vals)
         if vals.get("paid"):
-            sequence, change = self.env["res.partner"]._get_state_changes_dict()[
-                "renewal"
-            ]
-            self.partner_id._add_change_to_partner(change, sequence)
+            sequence, change = (
+                self.env["res.partner"]
+                ._get_state_changes_dict()
+                .get("renewal", (UNKNOWN_STAGE_SEQ, ""))
+            )
+            if sequence != UNKNOWN_STAGE_SEQ and change:
+                self.partner_id._add_change_to_partner(change, sequence)
         return res
 
     def _add_change(self, change, sequence):

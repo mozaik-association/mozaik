@@ -16,6 +16,31 @@ class TestMembership(SavepointCase):
         )
         return [c[5:] for c in sorted(changes)]
 
+    def setUp(self):
+        super().setUp()
+        # Activate all the change types
+        system_param_keys = [
+            "changes_report.log_instance_join",
+            "changes_report.log_instance_left",
+            "changes_report.log_supporter",
+            "changes_report.log_member_committee",
+            "changes_report.log_renewal",
+            "changes_report.log_member",
+            "changes_report.log_former_member_committee",
+            "changes_report.log_former_member",
+            "changes_report.log_former_supporter",
+            "changes_report.log_break_former_member",
+            "changes_report.log_expulsion_former_member",
+            "changes_report.log_inappropriate_former_member",
+            "changes_report.log_resignation_former_member",
+            "changes_report.log_voluntaries_changes",
+            "changes_report.log_email_changes",
+            "changes_report.log_postal_changes",
+            "changes_report.log_global_opt_out_changes",
+        ]
+        for key in system_param_keys:
+            self.env["ir.config_parameter"].sudo().set_param(key, "True")
+
     def test_notifications(self):
         """
         Check for last changes reported to locale instance
