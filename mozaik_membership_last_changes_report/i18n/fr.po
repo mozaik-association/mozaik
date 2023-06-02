@@ -72,8 +72,8 @@ msgstr ""
 #: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
 #, python-format
 msgid ""
-"Has joined your instance following its move or following its request to join"
-" it"
+"Has joined your instance following its move or following its request to join "
+"it"
 msgstr ""
 "A rejoint votre locale suite à son déménagement ou suite à sa demande d'y "
 "être rattaché"
@@ -618,18 +618,19 @@ msgstr "La personne a renouvelé sa cotisation"
 
 #. module: mozaik_membership_last_changes_report
 #: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "The person has renewed its subscription. \n"
+#| "Without opposite opinion of the instance the person will become member in "
+#| "one month"
 msgid ""
-"The person has renewed its subscription. \n"
-"Without opposite opinion of the instance the person will become member in one month"
+"The person has renewed its subscription. Without opposite opinion of the "
+"instance the person will become member in one month"
 msgstr ""
 "La personne a renouvelé sa cotisation. Sauf avis contraire de la locale, "
 "elle deviendra membre dans un mois"
 
 #. module: mozaik_membership_last_changes_report
-#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
-#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
-#: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
 #: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
 #, python-format
 msgid "The person is no longer member of {party_name}"
