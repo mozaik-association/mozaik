@@ -84,7 +84,7 @@ class ResPartner(models.Model):
                 seq,
                 _(
                     "The person has renewed its "
-                    "subscription. \nWithout opposite "
+                    "subscription. Without opposite "
                     "opinion of the instance the person "
                     "will become member in one month"
                 ),
