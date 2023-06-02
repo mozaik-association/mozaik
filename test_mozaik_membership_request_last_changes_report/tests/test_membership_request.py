@@ -14,7 +14,7 @@ class TestMembershipRequest(SavepointCase):
         # Activate all the change types
         system_param_keys = [
             "changes_report.log_instance_join",
-            "changes_report.log_instance_left",
+            "changes_report.log_instance_leave",
             "changes_report.log_supporter",
             "changes_report.log_member_committee",
             "changes_report.log_renewal",

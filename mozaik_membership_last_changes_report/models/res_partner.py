@@ -292,7 +292,7 @@ class ResPartner(models.Model):
             bool(
                 self.env["ir.config_parameter"]
                 .sudo()
-                .get_param("changes_report.log_instance_left")
+                .get_param("changes_report.log_instance_leave")
             )
             and membership_vals.get("int_instance_id")
             and membership_vals.get("int_instance_id") != previous_instance.id
