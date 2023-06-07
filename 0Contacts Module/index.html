@@ -1,0 +1,844 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../1Memberships/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>Contacts enrichment - Mozaik Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contacts-enrichment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mozaik Documentation" class="md-header__button md-logo" aria-label="Mozaik Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mozaik Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contacts enrichment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Introduction
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      Contacts enrichment
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../1Memberships/" class="md-tabs__link">
+      Memberships
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../2Structure_module/" class="md-tabs__link">
+      Structure
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../3Mandates-module/" class="md-tabs__link">
+      Mandates
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../4Distribution-list-module/" class="md-tabs__link">
+      Distribution lists
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../5Marketing-emails/" class="md-tabs__link">
+      Email marketing
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../6Event_module/" class="md-tabs__link">
+      Events
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../7Petition_module/" class="md-tabs__link">
+      Petitions
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../8Surveys/" class="md-tabs__link">
+      Surveys
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../9Accounting-module/" class="md-tabs__link">
+      Accounting
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../Acces%20rules/" class="md-tabs__link">
+      Access rights
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mozaik Documentation" class="md-nav__button md-logo" aria-label="Mozaik Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Mozaik Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Contacts enrichment
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Contacts enrichment
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contacts-people-management-individuals-companies" class="md-nav__link">
+    Contacts: People management (individuals &amp; companies)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexation" class="md-nav__link">
+    Indexation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#involvements" class="md-nav__link">
+    Involvements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duplicates" class="md-nav__link">
+    Duplicates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-residencies" class="md-nav__link">
+    Co-residencies
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1Memberships/" class="md-nav__link">
+        Memberships
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2Structure_module/" class="md-nav__link">
+        Structure
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3Mandates-module/" class="md-nav__link">
+        Mandates
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4Distribution-list-module/" class="md-nav__link">
+        Distribution lists
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5Marketing-emails/" class="md-nav__link">
+        Email marketing
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6Event_module/" class="md-nav__link">
+        Events
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7Petition_module/" class="md-nav__link">
+        Petitions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8Surveys/" class="md-nav__link">
+        Surveys
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9Accounting-module/" class="md-nav__link">
+        Accounting
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Acces%20rules/" class="md-nav__link">
+        Access rights
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contacts-people-management-individuals-companies" class="md-nav__link">
+    Contacts: People management (individuals &amp; companies)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexation" class="md-nav__link">
+    Indexation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#involvements" class="md-nav__link">
+    Involvements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duplicates" class="md-nav__link">
+    Duplicates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-residencies" class="md-nav__link">
+    Co-residencies
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="contacts-enrichment">Contacts enrichment</h1>
+<p>The contact module - which is a central module in Mozaik - allows to manage the contacts related to your organisation / political party.  It will give you access to:</p>
+<ul>
+<li>The general information about each contact (members, supporters, all other contacts)</li>
+<li>The interests &amp; competencies of each contact</li>
+<li>The participations of each member (interactions with the organisation)</li>
+<li>The management of duplicates and co-residencies</li>
+<li><a href="https://mozaik-association.github.io/mozaik/1Memberships/" target="_blank">The membership management</a>.</li>
+</ul>
+<h2 id="contacts-people-management-individuals-companies">Contacts: People management (individuals &amp; companies)</h2>
+<p>This functionality allows you to create, modify and manage the contacts (members/subscribers/other contacts) related to your organisation.</p>
+<p>Various informations can be collected for each contact (individuals or companies): </p>
+<ul>
+<li>The standard information of a contact : name, first name, phone, address...</li>
+<li>Some personal information: age, gender, disability, social networks... </li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Address</p>
+<p>The encoding of addresses on the contact form is facilitated by the auto-completion functionality that the system provides. This functionality allows you to choose the city and the street from a list of predefined choices. It is used to avoid encoding errors and helps detect duplicates. </p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/26a0.svg" title=":warning:" />Depending on their address, the contacts are linked to a local group (&lt;internal structure) of the organisation. When the address changes, the instance of the contact can also be updated. It is an option, not an obligation.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>A contact whose address is located in Brussels will belong to the Brussels local group of the organisation. If a member moves from Brussels to Antwerp, this member will now be related to the local group linked to the city of Antwerp.</p>
+</div>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">The goal of people management</p>
+<p>This feature allows you : </p>
+<ul>
+<li>To manage the information about your contacts.</li>
+<li>To get to know your members and supporters better.</li>
+<li>To use personal information of your members for membership purposes (ex: membership fees).</li>
+</ul>
+</div>
+<p><figure markdown>
+  <img alt="screenshot 27" src="../img/screen27.png" />
+<br />
+<figcaption>Contact form with general & personal information </figcaption></p>
+</figure>
+<figure>
+<p><img alt="screenshot 1" src="../img/screen1.png" /></p>
+<figcaption>Creation of an address with the auto-completion function</figcaption>
+</figure>
+<h2 id="indexation">Indexation</h2>
+<p>Interests and competencies can be linked to contacts (members, supporters, other contacts). Those interests and competencies are chosen from a list of terms, called Thesaurus terms in Mozaik and can be adapted according to the needs of each organisation.</p>
+<div class="admonition abstract">
+<p class="admonition-title">The goal of Thesaurus terms</p>
+<p>Those interests and competencies are present for information purposes (to better know your members and supporters), but also to achieve specific targeting with the communication tools / mass mailings.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>I would like to send a newsletter around 'Nuclear energy' to members who are interested by this topic. </p>
+<p>More informations about how to target contacts based on those informations in the chapter about the <a href="https://mozaik-association.github.io/mozaik/Distribution-list-module/" target="_blank">distribution list module</a>.</p>
+</div>
+</div>
+<p>Interests and competencies can:</p>
+<ul>
+<li>Be added manually by contacts during their registration.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>I am interested by the themes of 'nuclear energy' and 'human right'</p>
+</div>
+<ul>
+<li>Automatically when a member registers for a specific event / survey or petition </li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>If the petition that is signed by a member concerns 'nuclear energy', the related 'Thesaurus term' can automatically be added as 'Interest' for this member.</p>
+</div>
+<figure>
+<p><img alt="screenshot 7" src="../img/screen7.png" /></p>
+<figcaption>Example of a contact form with Thesaurus terms</figcaption>
+</figure>
+<h2 id="involvements">Involvements</h2>
+<p>This functionality enables you to add all the interactions between your organisation and its members / supporters. The types of interactions can be defined by each organisation according to their needs (signature of a petition, participation to a volontary action...)</p>
+<div class="admonition abstract">
+<p class="admonition-title">Goal of the involvements</p>
+<p>Involvements allow you to get to know your contacts better / categorize them / keep a record of interactions with a particular contact over the years. These entries can be used to send mailings to your contacts in a very targeted manner.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>A member made a donation on 31/03/2023 and signed a petition about disarmement one week later. These participations will appear on his contact form and can be used in future mailings (Ex: send an email to all donors who have signed a given petition in the last 2 months)</p>
+</div>
+</div>
+<p>How to add them ?</p>
+<ul>
+<li>An involvement can be added manually on a contact page.</li>
+<li>An involvement can be added automatically through a membership form.</li>
+<li>An involvement can be added automatically through the signature of a petition, the completion of a survey or the participation to an event.</li>
+</ul>
+<figure>
+<p><img alt="screenshot 28" src="../img/screen28.png" /></p>
+<figcaption>Example of a contact form with participations</figcaption>
+</figure>
+<h2 id="duplicates">Duplicates</h2>
+<p>A very elaborated duplicate check system has been implemented in Mozaik. It is based on :</p>
+<ul>
+<li>Name</li>
+<li>Phone</li>
+<li>Mobile</li>
+<li>Email </li>
+<li>Address</li>
+</ul>
+<p>It helps you identify possible duplicates within your contacts database. Duplicates can then be easily modified, authorised or merged. </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>When a duplicate is detected, a button “show all duplicates” appears on the contact form of the duplicate members. This button displays the list of contacts with one or more identical fields. You can either merge those contacts or indicate that they are no duplicates.
+<figure markdown>
+<img alt="screenshot 2" src="../img/screen2.png" />
+<figcaption>Appearance of the button "Show all duplicates"</figcaption>
+</figure></p>
+</div>
+<h2 id="co-residencies">Co-residencies</h2>
+<p>When two or more people share the same address, they can be grouped into a co-residency. This indicates that those people are no duplicates but simply live in the same accommodation.</p>
+<p>Co-residencies allow you to :</p>
+<ul>
+<li>Avoid duplicates within your contacts database.</li>
+<li>Link people from the same family to each other.</li>
+<li>Avoid sending 2 letters to the same address.</li>
+</ul>
+<details class="question">
+<summary>How to create a co-residency ?</summary>
+<p>You can create a co-residency by selecting your contacts, clicking on "action"--&gt; "create a co-residency address” and entering the name of the co-residents in "line 1 and line 2" 
+<figure markdown>      <br />
+<img alt="screenshot 3" src="../img/screen3.png" />
+<figcaption>Creation of a co-residency</figcaption>
+</figure></p>
+</details>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Once you have created a co-residency or allowed the duplicates, the "show all duplicates" button will disappear.</p>
+</div>
+<figure>
+<p><img alt="screenshot 33" src="../img/screen33.png" /></p>
+<figcaption>Example of a contact with a co-residency</figcaption>
+</figure>
+<details class="tip">
+<summary>Tip</summary>
+<p>If you want to change the address of a person belonging to a co-residency, a button can be ticked to move the whole co-residency without breaking it.
+<figure markdown>      <br />
+<img alt="screenshot 59" src="../img/screen59.png" />
+<figcaption>Check box functionality</figcaption>
+</figure></p>
+</details>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tags.sticky"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+    
+  </body>
+</html>
