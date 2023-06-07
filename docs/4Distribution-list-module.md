@@ -18,7 +18,7 @@ The distribution list module grants access to essential details, including:
 - The multiple 'include' and 'exclude filters' linked to each distribution list
 - The roster of contacts encompassed within the distribution list.
 
-!!! abstract "The goald of distibution lists" 
+!!! abstract "The goals of distibution lists" 
 
     Distribution lists are a very powerful tool that can help communicate more efficiently with targeted groups of contacts. These lists are created based on a set of predetermined rules established by inclusion or exclusion filters that determine which contacts should be added or removed from every list.
 
