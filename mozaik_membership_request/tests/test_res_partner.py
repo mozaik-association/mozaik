@@ -22,6 +22,10 @@
 #
 ##############################################################################
 
+from datetime import date
+
+from dateutil.relativedelta import relativedelta
+
 from odoo.tests.common import TransactionCase
 
 
@@ -171,3 +175,38 @@ class TestPartner(TransactionCase):
         self.assertFalse(mr.local_only)
         self.assertFalse(mr.national_voluntary)
         self.assertEqual(mr.nationality_id, partner.nationality_id)
+
+    def test_accept_member_committee(self):
+        """
+        Testing ir_cron_accept_membership_committee cron.
+
+        1. Harry is a member committee, date_from is yesterday.
+        -> Run the "Accept member committee" cron: nothing happens
+        2. Change date_from, it is now 2 months ago. But tick
+        suspend_member_auto_validation
+        -> Run the "Accept member committee" cron: nothing happens
+        3. Untick suspend_member_auto_validation
+        -> Run the "Accept member committee" cron: Harry became a member
+        """
+        harry = self.env["res.partner"].create({"name": "Harry Potter"})
+        self.env["add.membership"].create(
+            {
+                "partner_id": harry.id,
+                "int_instance_id": self.env.ref("mozaik_structure.int_instance_01").id,
+                "state_id": self.env.ref("mozaik_membership.member_committee").id,
+                "date_from": date.today() - relativedelta(days=1),
+            }
+        ).action_add()
+        self.assertEqual(harry.membership_state_code, "member_committee")
+        # 1.
+        self.env["membership.line"].cron_accept_member_committee()
+        self.assertEqual(harry.membership_state_code, "member_committee")
+        # 2.
+        harry.suspend_member_auto_validation = True
+        harry.membership_line_ids[0].date_from = date.today() - relativedelta(months=2)
+        self.env["membership.line"].cron_accept_member_committee()
+        self.assertEqual(harry.membership_state_code, "member_committee")
+        # 3.
+        harry.suspend_member_auto_validation = False
+        self.env["membership.line"].cron_accept_member_committee()
+        self.assertEqual(harry.membership_state_code, "member")

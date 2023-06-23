@@ -22,6 +22,11 @@ class ResPartner(models.Model):
     resignation_date = fields.Date()
     exclusion_date = fields.Date()
 
+    suspend_member_auto_validation = fields.Boolean(
+        help="If ticked, the scheduled action will not automatically validate "
+        "the Member membership line of this partner."
+    )
+
     def simulate_next_state(self, event=None):
         self.ensure_one()
         self.sudo().sc_state = json.dumps(

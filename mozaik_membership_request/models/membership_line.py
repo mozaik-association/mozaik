@@ -103,7 +103,9 @@ class MembershipLine(models.Model):
                 ("active", "=", True),
             ]
         )
-        memberships.mapped("partner_id").action_accept()
+        memberships.mapped("partner_id").filtered(
+            lambda p: not p.suspend_member_auto_validation
+        ).action_accept()
 
     def cron_member_candidate_to_supporter(self):
         today = fields.Date.today()

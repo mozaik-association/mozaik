@@ -48,6 +48,16 @@
                     context="{'search_default_partner_id': active_id, 'search_default_all': True}"
                 />
                 </xpath>
+                <div name="state_management" position="after">
+                    <group>
+                        <group>
+                            <field
+                            name="suspend_member_auto_validation"
+                            groups="mozaik_membership_request.group_membership_request_can_suspend_member_autoval"
+                        />
+                        </group>
+                    </group>
+                </div>
 
             </field>
         </record>
