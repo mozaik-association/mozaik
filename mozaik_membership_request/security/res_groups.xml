@@ -18,4 +18,10 @@
         />
     </record>
 
+    <record model="res.groups" id="group_membership_request_can_suspend_member_autoval">
+        <field name="name">Can suspend member auto-validations</field>
+         <field name="users" eval="[(4, ref('base.user_root'))]" />
+    </record>
+
+
 </odoo>
