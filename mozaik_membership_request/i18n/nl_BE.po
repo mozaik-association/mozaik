@@ -147,6 +147,11 @@ msgid "Box"
 msgstr "Postbus"
 
 #. module: mozaik_membership_request
+#: model:res.groups,name:mozaik_membership_request.group_membership_request_can_suspend_member_autoval
+msgid "Can suspend member auto-validations"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Cancel"
 msgstr "Annuleren"
@@ -443,6 +448,18 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request_change__message_has_error
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request_change__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,help:mozaik_membership_request.field_abstract_assembly__suspend_member_auto_validation
+#: model:ir.model.fields,help:mozaik_membership_request.field_ext_assembly__suspend_member_auto_validation
+#: model:ir.model.fields,help:mozaik_membership_request.field_int_assembly__suspend_member_auto_validation
+#: model:ir.model.fields,help:mozaik_membership_request.field_res_partner__suspend_member_auto_validation
+#: model:ir.model.fields,help:mozaik_membership_request.field_res_users__suspend_member_auto_validation
+#: model:ir.model.fields,help:mozaik_membership_request.field_sta_assembly__suspend_member_auto_validation
+msgid ""
+"If ticked, the scheduled action will not automatically validate the Member "
+"membership line of this partner."
 msgstr ""
 
 #. module: mozaik_membership_request
@@ -973,6 +990,16 @@ msgstr "Straat 2"
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_search_view
 msgid "Supporter"
 msgstr "Ambassadeur"
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_abstract_assembly__suspend_member_auto_validation
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_ext_assembly__suspend_member_auto_validation
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_int_assembly__suspend_member_auto_validation
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner__suspend_member_auto_validation
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_res_users__suspend_member_auto_validation
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__suspend_member_auto_validation
+msgid "Suspend Member Auto Validation"
+msgstr ""
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__technical_name
