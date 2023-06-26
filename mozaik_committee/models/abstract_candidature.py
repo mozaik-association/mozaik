@@ -163,8 +163,8 @@ class AbstractCandidature(models.Model):
                     "|",
                     "|",
                     ("partner_id", operator, name),
-                    ("partner_id", "in", partner_ids),
-                    ("mandate_category_id", "in", category_ids),
+                    ("partner_id", "in", partner_ids.ids),
+                    ("mandate_category_id", "in", category_ids.ids),
                 ]
                 + args,
                 limit=limit,
