@@ -95,9 +95,9 @@ class StaSelectionCommittee(models.Model):
                     "|",
                     "|",
                     ("name", operator, name),
-                    ("electoral_district_id", "in", district_ids),
+                    ("electoral_district_id", "in", district_ids.ids),
                     "&",
-                    ("assembly_id", "in", assembly_ids),
+                    ("assembly_id", "in", assembly_ids.ids),
                     ("electoral_district_id", "=", False),
                 ]
                 + args,

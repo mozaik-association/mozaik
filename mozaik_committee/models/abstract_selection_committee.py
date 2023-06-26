@@ -123,7 +123,7 @@ class AbstractSelectionCommittee(models.Model):
                 [("name", operator, name)]
             )
             records = self.search(
-                ["|", ("name", operator, name), ("assembly_id", "in", assembly_ids)]
+                ["|", ("name", operator, name), ("assembly_id", "in", assembly_ids.ids)]
                 + args,
                 limit=limit,
             )
