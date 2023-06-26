@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-06-21 12:56+0000\n"
+"PO-Revision-Date: 2023-06-26 12:48+0000\n"
 "Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -1003,7 +1003,7 @@ msgstr "Sympathisant"
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_users__suspend_member_auto_validation
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__suspend_member_auto_validation
 msgid "Suspend Member Auto Validation"
-msgstr ""
+msgstr "Suspendre l'acceptation automatique des 'Cmb membres'"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__technical_name
