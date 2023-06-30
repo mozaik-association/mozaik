@@ -41,6 +41,43 @@ class MembershipLine(models.Model):
     price_paid = fields.Float(copy=False)
     regularization_date = fields.Date(readonly=True)
 
+    can_update_price_paid = fields.Boolean(
+        compute="_compute_can_update_price_paid",
+    )
+
+    @api.model
+    def _get_states_can_update_price_paid(self):
+        """
+        Return the list of states for which the price paid can be updated
+        on the membership line, if it is active.
+        """
+        return [
+            "member",
+            "member_candidate",
+            "former_member_committee",
+            "member_committee",
+        ]
+
+    @api.depends("active", "state_code")
+    def _compute_can_update_price_paid(self):
+        """
+        Domain to define when the button "Update price paid" must
+        be visible in the membership.line tree view in res.partner form view.
+        """
+        allowed_states = self._get_states_can_update_price_paid()
+        for rec in self:
+            rec.can_update_price_paid = rec.active and rec.state_code in allowed_states
+
+    @api.depends("active", "state_code", "price", "paid")
+    def _compute_can_update_product(self):
+        """
+        We cannot update the product / price if the line was already paid
+        (and wasn't free).
+        """
+        super()._compute_can_update_product()
+        for rec in self.filtered(lambda ml: ml.price and ml.paid):
+            rec.can_update_product = False
+
     def _get_reference(self):
         self.ensure_one()
         res = super(MembershipLine, self)._get_reference()
