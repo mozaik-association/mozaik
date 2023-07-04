@@ -301,6 +301,46 @@ class TestMembership(TransactionCase):
         )
         self.assertEqual(len(address_ids), 1)
 
+    def test_validate_request_attachment(self):
+        """
+        Test that mr attachemnts are transfered to the partner
+        """
+        mr = self.rec_mr_update
+        partner = self.rec_mr_update.partner_id
+        self.env["ir.attachment"].create(
+            {
+                "datas": "bWlncmF0aW9uIHRlc3Q=",
+                "name": "license2kill.doc",
+                "res_model": "membership.request",
+                "res_id": mr.id,
+            }
+        )
+        self.assertEqual(
+            len(
+                self.env["ir.attachment"].search(
+                    [("res_model", "=", "membership.request"), ("res_id", "=", mr.id)]
+                )
+            ),
+            1,
+        )
+        mr.validate_request()
+        self.assertEqual(
+            len(
+                self.env["ir.attachment"].search(
+                    [("res_model", "=", "membership.request"), ("res_id", "=", mr.id)]
+                )
+            ),
+            0,
+        )
+        self.assertEqual(
+            len(
+                self.env["ir.attachment"].search(
+                    [("res_model", "=", "res.partner"), ("res_id", "=", partner.id)]
+                )
+            ),
+            1,
+        )
+
     def test_membership_subscription(self):
         """
         Test the validate process with an update of subscription amount
