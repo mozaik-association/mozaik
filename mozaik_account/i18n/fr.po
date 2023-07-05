@@ -48,6 +48,13 @@ msgid "Bank account"
 msgstr "Compte bancaire"
 
 #. module: mozaik_account
+#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__can_update_price_paid
+#, fuzzy
+#| msgid "Price Paid"
+msgid "Can Update Price Paid"
+msgstr "Montant payé"
+
+#. module: mozaik_account
 #: model:res.groups,name:mozaik_account.group_can_update_price_paid
 msgid "Can update price paid"
 msgstr ""
