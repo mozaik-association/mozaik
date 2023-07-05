@@ -4,8 +4,15 @@
 from datetime import datetime
 from typing import List
 
+import pydantic
 from extendable_pydantic import ExtendableModelMeta
 from pydantic import BaseModel
+
+
+class MembershipRequestAttachment(BaseModel, metaclass=ExtendableModelMeta):
+    name: str
+    mimetype: str
+    content: str = pydantic.Field(..., title="Content encoded in base64")
 
 
 class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
@@ -53,3 +60,4 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     force_auto_validate: bool = False
     auto_generate_reference: bool = False
     auto_validate_after_payment: bool = False
+    attachments: List[MembershipRequestAttachment] = []

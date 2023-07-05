@@ -181,6 +181,19 @@ class MembershipRequestService(Component):
                 protected_values[field_name] = field_value[0][2]
         return protected_values
 
+    def _create_membership_request_attachments(self, mr, attachments):
+        for attachment in attachments:
+            self.env["ir.attachment"].sudo().create(
+                {
+                    "name": attachment["name"],
+                    "type": "binary",
+                    "mimetype": attachment["mimetype"],
+                    "datas": attachment["content"],
+                    "res_model": "membership.request",
+                    "res_id": mr.id,
+                }
+            )
+
     def _create_membership_request(self, membership_request):
         vals = self._validate_membership_request_input(membership_request)
         protected_values = self._get_protected_values(vals)
@@ -197,6 +210,9 @@ class MembershipRequestService(Component):
             .with_context(mode="pre_process", protected_values=protected_values)
             .create(vals)
         )
+        attachments = membership_request.dict().get("attachments", False)
+        if attachments:
+            self._create_membership_request_attachments(mr, attachments)
         # We validate the request if asked, and force auto-validation if asked
         mr._auto_validate_may_be_forced(membership_request.auto_validate)
         return mr
