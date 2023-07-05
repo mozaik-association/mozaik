@@ -53,6 +53,26 @@ class AddMembership(models.TransientModel):
         readonly=True,
     )
 
+    can_display_product_price = fields.Boolean(
+        compute="_compute_can_display_product_price"
+    )
+
+    @api.model
+    def _get_states_can_display_product_price(self):
+        """
+        Return the list of states for which the price and product
+        can be set on the membership line.
+        This corresponds to states for which the product/price can be updated
+        via the button on the membership line, once created.
+        """
+        return self.env["membership.line"]._get_states_can_update_product()
+
+    @api.depends("state_code")
+    def _compute_can_display_product_price(self):
+        allowed_states = self._get_states_can_display_product_price()
+        for wiz in self:
+            wiz.can_display_product_price = self.state_code in allowed_states
+
     @api.model
     def _get_state_domain(self):
         """

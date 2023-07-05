@@ -23,17 +23,15 @@
                         <field name="state_id" widget="selection" />
                         <field name="date_from" />
                     </group>
-                    <group>
+                    <field name="can_display_product_price" invisible="1" />
+                    <group
+                        attrs="{'invisible': [('can_display_product_price', '=', False)]}"
+                    >
                         <field
                             name="product_id"
                             options="{'no_create_edit': True, 'no_create': True}"
-                            attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"
                         />
-                        <field
-                            name="price"
-                            attrs="{'invisible': [('state_code', 'not in', ['member', 'member_candidate', 'former_member_committee', 'member_committee'])]}"
-                        />
-                        <field name="state_code" invisible="1" />
+                        <field name="price" />
                     </group>
                 </group>
                 <footer>

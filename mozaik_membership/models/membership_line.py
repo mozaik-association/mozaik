@@ -64,6 +64,10 @@ class MembershipLine(models.Model):
         readonly=True,
     )
 
+    can_update_product = fields.Boolean(
+        compute="_compute_can_update_product",
+    )
+
     _sql_constraints = [
         ("unique_ref", "unique(reference)", "This reference is already used"),
     ]
@@ -149,6 +153,29 @@ class MembershipLine(models.Model):
                 % details
             )
             raise exceptions.ValidationError(message)
+
+    @api.model
+    def _get_states_can_update_product(self):
+        """
+        Return the list of states for which the product can be updated
+        on the membership line, if it is active.
+        """
+        return [
+            "member",
+            "member_candidate",
+            "former_member_committee",
+            "member_committee",
+        ]
+
+    @api.depends("active", "state_code")
+    def _compute_can_update_product(self):
+        """
+        Domain to define when the button "Update product/price" must
+        be visible in the membership.line tree view in res.partner form view.
+        """
+        allowed_states = self._get_states_can_update_product()
+        for rec in self:
+            rec.can_update_product = rec.active and rec.state_code in allowed_states
 
     @api.model
     def _default_int_instance_id(self):
