@@ -1540,6 +1540,9 @@ class MembershipRequest(models.Model):
             if partner_values:
                 partner.write(partner_values)
 
+            # Transfer attachments to the partner
+            mr._validate_request_attachment(partner)
+
         # if request `validate` then object should be invalidated
         mr_vals.update({"state": "validate"})
 
@@ -1568,6 +1571,12 @@ class MembershipRequest(models.Model):
                 }
             )
             wiz.doit()
+
+    def _validate_request_attachment(self, partner):
+        self.ensure_one()
+        self.env["ir.attachment"].sudo().search(
+            [("res_model", "=", "membership.request"), ("res_id", "=", self.id)]
+        ).write({"res_model": "res.partner", "res_id": partner.id})
 
     def _validate_request_membership_with_checks(self, partner):
         self.ensure_one()
