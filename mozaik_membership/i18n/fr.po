@@ -115,6 +115,20 @@ msgid "Available variables"
 msgstr "Variables disponibles"
 
 #. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_add_membership__can_display_product_price
+#, fuzzy
+#| msgid "Product/Price"
+msgid "Can Display Product Price"
+msgstr "Article/Montant"
+
+#. module: mozaik_membership
+#: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__can_update_product
+#, fuzzy
+#| msgid "Update product/price"
+msgid "Can Update Product"
+msgstr "Changement d'article/montant"
+
+#. module: mozaik_membership
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.add_membership_form
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.change_instance_form_view
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.mass_membership_close_form_view
