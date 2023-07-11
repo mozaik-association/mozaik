@@ -1662,7 +1662,10 @@ class MembershipRequest(models.Model):
                         w.price = self.amount
                 update_amount_membership_line = w.action_add()
 
-            elif self.result_type_id.code in ("member", "member_candidate"):
+            elif (
+                self.result_type_id.code
+                in self.env["membership.line"]._get_states_update_price_via_mr()
+            ):
                 update_amount_membership_line = partner.membership_line_ids.filtered(
                     lambda m, i=instance: m.int_instance_id == i
                     and m.active
