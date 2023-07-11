@@ -15,6 +15,15 @@ class MembershipLine(models.Model):
     _inherit = "membership.line"
 
     @api.model
+    def _get_states_update_price_via_mr(self):
+        """
+        Return the list of states for which if the price is set
+        on the MR, it will update the price on the active ML
+        of the partner.
+        """
+        return ["member", "member_candidate"]
+
+    @api.model
     def _get_states_put_amount_on_membership(self):
         """
         For some membership states, we want to set the amount on the
