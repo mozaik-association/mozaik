@@ -10,8 +10,10 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        "event_rest_api",
+        "base_rest",
+        "base_rest_pydantic",
         "event_sale",
+        "extendable",
         "mozaik_address",
         "mozaik_ama_indexed_on_website",
         "mozaik_event_image",

@@ -4,24 +4,26 @@
 from typing import List
 
 import pydantic
-
-from odoo.addons.event_rest_api.pydantic_models.event_registration_request import (
-    EventRegistrationRequest as BaseEventRegistrationRequest,
-)
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
 from .event_question_answer import EventQuestionAnswer
 
 
-class EventRegistrationRequest(
-    BaseEventRegistrationRequest, extends=BaseEventRegistrationRequest
-):
-    # firstname, lastname and email are not mandatory anymore since we
-    # can give registered_partner_id
+class EventRegistrationRequest(BaseModel, metaclass=ExtendableModelMeta):
+
     firstname: str = None
     lastname: str = None
     email: str = None
-
+    phone: str = None
+    mobile: str = None
+    event_ticket_id: int = None
     registered_partner_id: int = None
     zip: str = None
     answers: List[EventQuestionAnswer] = pydantic.Field([])
     force_autoval: bool = False
+
+
+class EventRegistrationRequestList(BaseModel, metaclass=ExtendableModelMeta):
+
+    event_registration_requests: List[EventRegistrationRequest] = []
