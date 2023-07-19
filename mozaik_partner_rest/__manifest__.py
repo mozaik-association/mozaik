@@ -9,8 +9,11 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/OCA/mozaik",
     "depends": [
-        "partner_rest_api",
+        "base_rest",
+        "base_rest_pydantic",
+        "extendable",
         "mozaik_address",
+        "mozaik_country_rest",
         "mozaik_involvement_rest",
         "mozaik_membership",
         "mozaik_membership_rest",

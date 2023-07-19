@@ -18,7 +18,7 @@ from odoo.addons.mozaik_involvement_rest.pydantic_models.involvement_category_in
 from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import (
     ThesaurusTermInfo,
 )
-from odoo.addons.partner_rest_api.pydantic_models.partner_info import PartnerInfo
+from odoo.addons.mozaik_partner_rest.pydantic_models.partner_info import PartnerInfo
 from odoo.addons.pydantic import utils
 
 

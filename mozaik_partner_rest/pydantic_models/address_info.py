@@ -7,7 +7,7 @@ import pydantic
 from extendable_pydantic import ExtendableModelMeta
 from pydantic import BaseModel
 
-from odoo.addons.partner_rest_api.pydantic_models.country import CountryInfo
+from odoo.addons.mozaik_country_rest.pydantic_models.country_info import CountryInfo
 from odoo.addons.pydantic import utils
 
 
