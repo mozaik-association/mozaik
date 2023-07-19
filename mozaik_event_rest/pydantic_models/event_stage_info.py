@@ -2,10 +2,22 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 
-from odoo.addons.event_rest_api.pydantic_models.event_stage_info import (
-    EventStageInfo as BaseEventStageInfo,
-)
+from datetime import datetime
+
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
+
+from odoo.addons.pydantic import utils
 
 
-class EventStageInfo(BaseEventStageInfo, extends=BaseEventStageInfo):
+class EventStageInfo(BaseModel, metaclass=ExtendableModelMeta):
+    id: int
+    name: str
+    sequence: int = None
+    pipe_end: bool = None
+    write_date: datetime
     draft_stage: bool
+
+    class Config:
+        orm_mode = True
+        getter_dict = utils.GenericOdooGetter
