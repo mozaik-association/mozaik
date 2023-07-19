@@ -5,7 +5,7 @@ from typing import List
 
 import pydantic
 
-from odoo.addons.partner_rest_api.pydantic_models.partner_info import (
+from odoo.addons.mozaik_partner_rest.pydantic_models.partner_info import (
     PartnerInfo as BasePartnerInfo,
     PartnerShortInfo as BasePartnerShortInfo,
 )

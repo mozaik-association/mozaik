@@ -4,12 +4,18 @@
 from datetime import date
 from typing import List
 
-from odoo.addons.partner_rest_api.pydantic_models.partner_info_update import (
-    PartnerInfoUpdate as BasePartnerInfoUpdate,
-)
+from extendable_pydantic import ExtendableModelMeta
+from pydantic import BaseModel
 
 
-class PartnerInfoUpdate(BasePartnerInfoUpdate, extends=BasePartnerInfoUpdate):
+class PartnerInfoUpdate(BaseModel, metaclass=ExtendableModelMeta):
+
+    email: str = None
+    city: str = None
+    zip: str = None
+    state_id: int = None
+    phone: str = None
+    mobile: str = None
     firstname: str = None
     lastname: str = None
     birthdate_date: date = None
