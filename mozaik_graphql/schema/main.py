@@ -9,6 +9,12 @@
 
 import graphene
 
+from .types.candidature import (
+    int_candidatures,
+    resolve_int_candidatures,
+    resolve_sta_candidatures,
+    sta_candidatures,
+)
 from .types.city import cities, resolve_cities
 from .types.electoral_district import electoral_districts, resolve_electoral_districts
 from .types.environment import Environment
@@ -29,6 +35,12 @@ from .types.representative import (
     resolve_sta_representatives,
     sta_representatives,
 )
+from .types.selection_committee import (
+    int_selection_committees,
+    resolve_int_selection_committees,
+    resolve_sta_selection_committees,
+    sta_selection_committees,
+)
 
 
 class Query(graphene.ObjectType):
@@ -41,6 +53,10 @@ class Query(graphene.ObjectType):
     int_representatives = int_representatives
     ext_representatives = ext_representatives
     sta_representatives = sta_representatives
+    int_candidatures = int_candidatures
+    sta_candidatures = sta_candidatures
+    int_selection_committees = int_selection_committees
+    sta_selection_committees = sta_selection_committees
     electoral_districts = electoral_districts
     cities = cities
     partners = partners
@@ -57,6 +73,18 @@ class Query(graphene.ObjectType):
 
     def resolve_sta_representatives(root, info, limit=None, offset=0):
         return resolve_sta_representatives(info, limit, offset)
+
+    def resolve_int_candidatures(root, info, limit=None, offset=0):
+        return resolve_int_candidatures(info, limit, offset)
+
+    def resolve_sta_candidatures(root, info, limit=None, offset=0):
+        return resolve_sta_candidatures(info, limit, offset)
+
+    def resolve_int_selection_committees(root, info, limit=None, offset=0):
+        return resolve_int_selection_committees(info, limit, offset)
+
+    def resolve_sta_selection_committees(root, info, limit=None, offset=0):
+        return resolve_sta_selection_committees(info, limit, offset)
 
     def resolve_int_power_levels(root, info, ids=None, name=None, limit=None, offset=0):
         return resolve_int_power_levels(info, ids, name, limit, offset)

@@ -15,6 +15,7 @@
         # Mozaik
         "mozaik_account",
         "mozaik_address",
+        "mozaik_committee",
         "mozaik_mandate",
         "mozaik_mandate_category_sequence",
         "mozaik_mandate_female_label",
