@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="barcode_scanner_form_view">
+        <field
+            name="name"
+        >barcode.scanner.form (in mozaik_event_barcode_question)</field>
+        <field name="model">barcode.scanner</field>
+        <field name="inherit_id" ref="mozaik_event_barcode.barcode_scanner_form_view" />
+        <field name="arch" type="xml">
+            <group name="confirmation_and_voting" position="after">
+                <group name="registration_answers">
+                    <field name="registration_answers" widget="html" />
+                </group>
+            </group>
+        </field>
+    </record>
+
+
+
+</odoo>

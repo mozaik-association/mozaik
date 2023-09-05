@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="event_question_form_view">
+        <field
+            name="name"
+        >event.question.form (in mozaik_event_barcode_question)</field>
+        <field name="model">event.question</field>
+        <field
+            name="inherit_id"
+            ref="website_event_questions.event_question_view_form"
+        />
+        <field name="arch" type="xml">
+            <field name="question_type" position="after">
+                <field name="must_appear_at_scanning" />
+            </field>
+        </field>
+    </record>
+
+
+
+</odoo>

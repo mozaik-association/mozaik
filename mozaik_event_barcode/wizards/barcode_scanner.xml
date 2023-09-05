@@ -8,10 +8,10 @@
         <field name="model">barcode.scanner</field>
         <field name="arch" type="xml">
             <form string="Barcode Scanner">
-                <group>
+                <group name="barcode">
                     <field name="barcode" />
                 </group>
-                <group>
+                <group name="confirmation_and_voting">
                     <field name="event_registration_id" invisible="1" />
                     <field name="lastname" />
                     <field name="firstname" />

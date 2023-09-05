@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="event_event_form_view">
+        <field name="name">event.event.form (in mozaik_event_barcode_question)</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="website_event_questions.event_event_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='question_ids']/tree/field[@name='answer_ids']"
+                position="before"
+            >
+                <field name="must_appear_at_scanning" />
+            </xpath>
+            <xpath
+                expr="//field[@name='question_ids']/form//field[@name='question_type']"
+                position="after"
+            >
+                <field name="must_appear_at_scanning" />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
