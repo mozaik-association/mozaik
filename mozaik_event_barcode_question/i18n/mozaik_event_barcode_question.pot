@@ -1,0 +1,59 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_event_barcode_question
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_event_barcode_question
+#: model:ir.model,name:mozaik_event_barcode_question.model_barcode_scanner
+msgid "Barcode Scanner Wizard"
+msgstr ""
+
+#. module: mozaik_event_barcode_question
+#: model:ir.model.fields,field_description:mozaik_event_barcode_question.field_barcode_scanner__display_name
+#: model:ir.model.fields,field_description:mozaik_event_barcode_question.field_event_question__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_event_barcode_question
+#: model:ir.model,name:mozaik_event_barcode_question.model_event_question
+msgid "Event Question"
+msgstr ""
+
+#. module: mozaik_event_barcode_question
+#: model:ir.model.fields,field_description:mozaik_event_barcode_question.field_barcode_scanner__id
+#: model:ir.model.fields,field_description:mozaik_event_barcode_question.field_event_question__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_event_barcode_question
+#: model:ir.model.fields,help:mozaik_event_barcode_question.field_event_question__must_appear_at_scanning
+msgid ""
+"If ticked, the question and its answer will be displayed when scanning the "
+"event registration barcode."
+msgstr ""
+
+#. module: mozaik_event_barcode_question
+#: model:ir.model.fields,field_description:mozaik_event_barcode_question.field_barcode_scanner____last_update
+#: model:ir.model.fields,field_description:mozaik_event_barcode_question.field_event_question____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_event_barcode_question
+#: model:ir.model.fields,field_description:mozaik_event_barcode_question.field_event_question__must_appear_at_scanning
+msgid "Must Appear At Scanning"
+msgstr ""
+
+#. module: mozaik_event_barcode_question
+#: model:ir.model.fields,field_description:mozaik_event_barcode_question.field_barcode_scanner__registration_answers
+msgid "Registration Answers"
+msgstr ""
