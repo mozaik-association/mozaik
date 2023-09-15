@@ -131,6 +131,7 @@ msgid "Minimum number of recipients for sending control"
 msgstr ""
 
 #. module: mozaik_mass_mailing_sending_control
+#: model:ir.model,name:mozaik_mass_mailing_sending_control.model_mozaik_mass_mailing_sending_control
 #: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
 msgid "Mozaik Mass Mailing Sending Control"
 msgstr ""
@@ -164,9 +165,4 @@ msgstr ""
 #. module: mozaik_mass_mailing_sending_control
 #: model:ir.actions.act_window,name:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_act_window
 msgid "Sending Control"
-msgstr ""
-
-#. module: mozaik_mass_mailing_sending_control
-#: model:ir.model,name:mozaik_mass_mailing_sending_control.model_mozaik_mass_mailing_sending_control
-msgid "mozaik.mass.mailing.sending.control"
 msgstr ""
