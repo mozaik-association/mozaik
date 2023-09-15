@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 class MozaikMassMailingSendingControl(models.TransientModel):
 
     _name = "mozaik.mass.mailing.sending.control"
+    _description = "Mozaik Mass Mailing Sending Control"
 
     mailing_id = fields.Many2one("mailing.mailing", required=True)
     number_recipients = fields.Integer(readonly=True)
