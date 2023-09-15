@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_config_settings_form_view">
+        <field
+            name="name"
+        >res.config.settings.form (in mozaik_mass_mailing_sending_control)</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="mass_mailing.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[@name='managa_mail_campaigns_setting_container']"
+                position="after"
+            >
+                <div
+                    class="row mt16 o_settings_container"
+                    name="mass_mailing_sending_control"
+                >
+                    <div class="col-lg-6 o_setting_box col-12">
+                        <div class="o_setting_left_pane">
+                            <field name="mass_mailing_sending_control" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="mass_mailing_sending_control" />
+                            <div class="text-muted">
+                                Enable mass mailing sending control
+                            </div>
+                            <span
+                                class="o_form_label"
+                                attrs="{'invisible': [('mass_mailing_sending_control', '=', False)]}"
+                            >Minimum number of recipients for sending control</span>
+                            <field
+                                name="mass_mailing_sending_control_number"
+                                attrs="{'invisible': [('mass_mailing_sending_control', '=', False)]}"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

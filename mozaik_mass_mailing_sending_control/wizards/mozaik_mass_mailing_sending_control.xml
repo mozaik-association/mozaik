@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mozaik_mass_mailing_sending_control_form_view">
+        <field
+            name="name"
+        >mozaik.mass.mailing.sending.control.form (in mozaik_mass_mailing_sending_control)</field>
+        <field name="model">mozaik.mass.mailing.sending.control</field>
+        <field name="arch" type="xml">
+            <form string="Mozaik Mass Mailing Sending Control">
+                <span>
+                    This mass mailing will be sent to
+                </span>
+                <field name="number_recipients" style="font-weight:bold;" />
+                <span>
+                    recipients. To confirm, please copy the number of recipients below.
+                </span>
+                <group>
+                    <field name="number_control" />
+                </group>
+                <footer>
+                    <button
+                        name="doit"
+                        string="Confirm"
+                        class="btn-primary"
+                        type="object"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record
+        model="ir.actions.act_window"
+        id="mozaik_mass_mailing_sending_control_act_window"
+    >
+        <field name="name">Sending Control</field>
+        <field name="res_model">mozaik.mass.mailing.sending.control</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>
