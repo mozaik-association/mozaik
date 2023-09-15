@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+     <record model="ir.ui.view" id="mailing_mailing_form_view">
+        <field
+            name="name"
+        >mailing.mailing.form (in mozaik_mass_mailing_sending_control)</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+        <field name="arch" type="xml">
+            <!-- Remove standard buttons and create new ones, to include the control pop-up-->
+            <button name="action_put_in_queue" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="action_schedule" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="action_put_in_queue" position="after">
+                <button
+                    name="action_put_in_queue_with_control"
+                    type="object"
+                    attrs="{'invisible': ['|', ('state', 'in', ('in_queue', 'sending', 'done')), ('mailing_type', '!=', 'mail')]}"
+                    class="oe_highlight"
+                    string="Send"
+                />
+                <button
+                    name="action_schedule_with_control"
+                    type="object"
+                    attrs="{'invisible': [('state', 'in', ('in_queue', 'sending', 'done'))]}"
+                    class="btn-secondary"
+                    string="Schedule"
+                />
+            </button>
+        </field>
+    </record>
+
+
+
+</odoo>

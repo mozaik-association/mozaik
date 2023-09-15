@@ -51,6 +51,7 @@
         "mozaik_mass_mailing_int_instance",
         "mozaik_mass_mailing_mail_creation",
         "mozaik_mass_mailing_multi_sending",
+        "mozaik_mass_mailing_sending_control",
         "mozaik_mass_mailing_sending_cron",
         "mozaik_mass_mailing_template",
         "mozaik_membership",

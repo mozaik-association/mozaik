@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="mozaik_mass_mailing_sending_control_access" model="ir.model.access">
+        <field name="name">mozaik.mass.mailing.sending.control access</field>
+        <field
+            name="model_id"
+            ref="mozaik_mass_mailing_sending_control.model_mozaik_mass_mailing_sending_control"
+        />
+        <field name="group_id" ref="mass_mailing.group_mass_mailing_user" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+</odoo>
