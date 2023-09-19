@@ -162,7 +162,7 @@ class PartnerService(Component):
         return values
 
     def _prepare_update_values(self, values, partner):
-        res = super()._prepare_update_values(values, partner)
+        res = values.copy()
         if "subordinate_ids" in res:
             res["subordinate_ids"] = [(6, 0, res["subordinate_ids"])]
         if any(
