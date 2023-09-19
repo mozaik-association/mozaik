@@ -41,7 +41,6 @@
         "mozaik_event_partner_firstname",
         "mozaik_event_publish_date",
         "mozaik_event_registration_partner_fields",
-        "mozaik_event_registration_add_zip",
         "mozaik_event_rest",
         "mozaik_event_security",
         "mozaik_event_stage_draft",
