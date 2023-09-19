@@ -1,5 +1,7 @@
 # generated from manifests external_dependencies
+extendable_pydantic
 freezegun
 graphene
 openupgradelib
 phonenumbers
+pydantic

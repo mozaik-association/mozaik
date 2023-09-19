@@ -77,17 +77,13 @@ class SurveyService(Component):
                 errors.append(
                     ValueError(_("The key %s does not correspond to a question.") % key)
                 )
-            if (
-                question.question_type
-                in [
-                    "text_box",
-                    "char_box",
-                    "numerical_box",
-                    "date",
-                    "datetime",
-                ]
-                and not isinstance(lines[key], str)
-            ):
+            if question.question_type in [
+                "text_box",
+                "char_box",
+                "numerical_box",
+                "date",
+                "datetime",
+            ] and not isinstance(lines[key], str):
                 errors.append(
                     ValueError(
                         _("Type of answer to question with id %d should be a string")
