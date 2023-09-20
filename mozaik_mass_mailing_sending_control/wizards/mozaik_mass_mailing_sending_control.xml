@@ -11,7 +11,11 @@
         <field name="arch" type="xml">
             <form string="Mozaik Mass Mailing Sending Control">
                 <span>
-                    This mass mailing will be sent to
+                    This mass mailing will be sent from
+                </span>
+                <field name="email_from" style="font-weight:bold;" />
+                <span>
+                     to
                 </span>
                 <field name="number_recipients" style="font-weight:bold;" />
                 <span>

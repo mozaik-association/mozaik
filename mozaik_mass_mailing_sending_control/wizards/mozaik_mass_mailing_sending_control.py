@@ -11,6 +11,7 @@ class MozaikMassMailingSendingControl(models.TransientModel):
     _description = "Mozaik Mass Mailing Sending Control"
 
     mailing_id = fields.Many2one("mailing.mailing", required=True)
+    email_from = fields.Char(readonly=True)
     number_recipients = fields.Integer(readonly=True)
     number_control = fields.Integer()
 
