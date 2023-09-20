@@ -26,9 +26,30 @@ msgstr ""
 
 #. module: mozaik_mass_mailing_sending_control
 #: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
+#, fuzzy
+#| msgid ""
+#| "<span>\n"
+#| "                    This mass mailing will be sent to\n"
+#| "                </span>"
 msgid ""
 "<span>\n"
-"                    This mass mailing will be sent to\n"
+"                     to\n"
+"                </span>"
+msgstr ""
+"<span>\n"
+"                    Ce publipostage va être envoyé à\n"
+"                </span>"
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
+#, fuzzy
+#| msgid ""
+#| "<span>\n"
+#| "                    This mass mailing will be sent to\n"
+#| "                </span>"
+msgid ""
+"<span>\n"
+"                    This mass mailing will be sent from\n"
 "                </span>"
 msgstr ""
 "<span>\n"
@@ -39,7 +60,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
 msgid ""
 "<span>\n"
-"                    recipients. To confirm, please copy the number of recipients below.\n"
+"                    recipients. To confirm, please copy the number of "
+"recipients below.\n"
 "                </span>"
 msgstr ""
 "<span>\n"
@@ -82,6 +104,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__display_name
 #: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_res_config_settings__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__email_from
+msgid "Email From"
 msgstr ""
 
 #. module: mozaik_mass_mailing_sending_control
