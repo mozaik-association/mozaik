@@ -37,6 +37,7 @@ class MailingMailing(models.Model):
                 "res_model": "mozaik.mass.mailing.sending.control",
                 "context": {
                     "default_mailing_id": self.id,
+                    "default_email_from": self.email_from,
                     "sending_operation": "put_in_queue",
                     "default_number_recipients": recipient_number,
                 },
@@ -56,6 +57,7 @@ class MailingMailing(models.Model):
                 "res_model": "mozaik.mass.mailing.sending.control",
                 "context": {
                     "default_mailing_id": self.id,
+                    "default_email_from": self.email_from,
                     "sending_operation": "schedule",
                     "default_number_recipients": recipient_number,
                 },
