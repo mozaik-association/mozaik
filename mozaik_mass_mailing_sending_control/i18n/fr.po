@@ -1,0 +1,169 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_mass_mailing_sending_control
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.res_config_settings_form_view
+msgid ""
+"<span class=\"o_form_label\" attrs=\"{'invisible': "
+"[('mass_mailing_sending_control', '=', False)]}\">Minimum number of "
+"recipients for sending control</span>"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
+msgid ""
+"<span>\n"
+"                    This mass mailing will be sent to\n"
+"                </span>"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
+msgid ""
+"<span>\n"
+"                    recipients. To confirm, please copy the number of recipients below.\n"
+"                </span>"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_res_config_settings__mass_mailing_sending_control
+msgid "Add control option for big sendings"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model,name:mozaik_mass_mailing_sending_control.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
+msgid "Confirm"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mailing_mailing__display_name
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__display_name
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,help:mozaik_mass_mailing_sending_control.field_res_config_settings__mass_mailing_sending_control
+msgid "Enable a second control for big mass mailing sendings"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.res_config_settings_form_view
+msgid "Enable mass mailing sending control"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,help:mozaik_mass_mailing_sending_control.field_res_config_settings__mass_mailing_sending_control_number
+msgid ""
+"For mass mailings having more than this number of recipients, enable a "
+"control before sending."
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mailing_mailing__id
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__id
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mailing_mailing____last_update
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control____last_update
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_res_config_settings____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__mailing_id
+msgid "Mailing"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model,name:mozaik_mass_mailing_sending_control.model_mailing_mailing
+msgid "Mass Mailing"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_res_config_settings__mass_mailing_sending_control_number
+msgid "Minimum number of recipients for sending control"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model,name:mozaik_mass_mailing_sending_control.model_mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_form_view
+msgid "Mozaik Mass Mailing Sending Control"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__number_control
+msgid "Number Control"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.model.fields,field_description:mozaik_mass_mailing_sending_control.field_mozaik_mass_mailing_sending_control__number_recipients
+msgid "Number Recipients"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: code:addons/mozaik_mass_mailing_sending_control/wizards/mozaik_mass_mailing_sending_control.py:0
+#, python-format
+msgid "Please enter the correct number of recipients"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mailing_mailing_form_view
+msgid "Schedule"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model_terms:ir.ui.view,arch_db:mozaik_mass_mailing_sending_control.mailing_mailing_form_view
+msgid "Send"
+msgstr ""
+
+#. module: mozaik_mass_mailing_sending_control
+#: model:ir.actions.act_window,name:mozaik_mass_mailing_sending_control.mozaik_mass_mailing_sending_control_act_window
+msgid "Sending Control"
+msgstr ""
