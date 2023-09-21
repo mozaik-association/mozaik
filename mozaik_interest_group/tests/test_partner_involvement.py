@@ -7,7 +7,7 @@ from odoo.tests.common import SavepointCase
 class TestPartnerInvolvement(SavepointCase):
     def setUp(self):
         super().setUp()
-        self.paul = self.browse_ref("mozaik_involvement.res_partner_bocuse")
+        self.paul = self.env["res.partner"].create({"name": "Paul Bocuse"})
         self.ig = self.env["interest.group"].create({"name": "Youths"})
         self.ic = self.env["partner.involvement.category"].create(
             {

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2018 ACSONE SA/NV
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-<odoo>
-    <record model="res.partner" id="res_partner_bocuse">
-        <field name="name">Bocuse Paul</field>
-    </record>
-</odoo>

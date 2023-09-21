@@ -14,7 +14,7 @@ from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT, mute_logger
 class TestPartnerInvolvement(SavepointCase):
     def setUp(self):
         super().setUp()
-        self.paul = self.browse_ref("mozaik_involvement.res_partner_bocuse")
+        self.paul = self.env["res.partner"].create({"name": "Paul Bocuse"})
         self.ic_1 = self.browse_ref(
             "mozaik_involvement.partner_involvement_category_demo_1"
         )
