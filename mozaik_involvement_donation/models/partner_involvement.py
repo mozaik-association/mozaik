@@ -11,8 +11,9 @@ class PartnerInvolvement(models.Model):
     amount = fields.Float(digits="Product Price", copy=False, tracking=True)
     reference = fields.Char(copy=False, tracking=True)
     promise = fields.Boolean(
-        string="Just a promise", compute="_compute_promise", store=True
+        string="Just a promise", compute="_compute_promise", store=True, copy=False
     )
+    payment_date = fields.Date(copy=False)
 
     _sql_constraints = [
         (
@@ -23,11 +24,10 @@ class PartnerInvolvement(models.Model):
         ),
     ]
 
-    @api.depends("effective_time", "reference", "involvement_type")
+    @api.depends("payment_date", "involvement_type")
     def _compute_promise(self):
         for involvement in self:
             involvement.promise = (
                 involvement.involvement_type == "donation"
-                and involvement.reference
-                and not involvement.effective_time
+                and not involvement.payment_date
             )

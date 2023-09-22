@@ -55,11 +55,8 @@ class TestPartnerInvolvement(SavepointCase):
                 "effective_time": fields.Datetime.now(),
             }
         )
-        # Just a promise? no it's a real donation
-        self.assertFalse(inv.promise)
-        inv.reference = "MaBonneFoi"
-        # Just a promise? no it's also a real donation
-        self.assertFalse(inv.promise)
-        inv.effective_time = False
-        # Just a promise? yes
+        # Just a promise? yes, he doesn't pay yet
         self.assertTrue(inv.promise)
+        inv.payment_date = fields.Datetime.today()
+        # Just a promise? no, he paid
+        self.assertFalse(inv.promise)
