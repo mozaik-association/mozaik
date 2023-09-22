@@ -4,4 +4,3 @@ from . import test_structure
 from . import test_res_partner
 from . import test_product
 from . import test_membership_line
-from . import test_partner_involvement

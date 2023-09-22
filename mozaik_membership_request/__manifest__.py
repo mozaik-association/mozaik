@@ -20,7 +20,7 @@
         "mozaik_account",
         "statechart",
         "mozaik_email_lowered",
-        # 'mozaik_involvement',
+        "mozaik_involvement_donation",
     ],
     "data": [
         "security/ir.model.access.csv",

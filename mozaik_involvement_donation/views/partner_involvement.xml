@@ -3,6 +3,86 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
+    <record id="partner_involvement_search_view" model="ir.ui.view">
+        <field
+            name="name"
+        >partner.involvement.search (in mozaik_involvement_donation)</field>
+        <field name="model">partner.involvement</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_search_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='without_type']" position="after">
+                <separator />
+                <filter
+                    name="promise"
+                    string="Promise"
+                    domain="[('promise', '=', True)]"
+                />
+                <filter
+                    name="donation"
+                    string="Donation"
+                    domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="partner_involvement_tree_view" model="ir.ui.view">
+        <field
+            name="name"
+        >partner.involvement.tree (in mozaik_involvement_donation)</field>
+        <field name="model">partner.involvement</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_tree_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='creation_time']" position="after">
+                <field name="amount" sum="1" />
+                <field name="promise" invisible="1" />
+            </xpath>
+
+            <xpath expr="//tree" position="attributes">
+                <attribute
+                    name="decoration-danger"
+                    translation="off"
+                >promise==True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="partner_involvement_form_view" model="ir.ui.view">
+        <field
+            name="name"
+        >partner.involvement.form (in mozaik_involvement_donation)</field>
+        <field name="model">partner.involvement</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement.partner_involvement_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page
+                    name="payment"
+                    string="Payment"
+                    attrs="{'invisible': [('involvement_type', 'not in', ['donation'])]}"
+                    autofocus="autofocus"
+                >
+                    <group>
+                        <group name="payment1">
+                            <field name="amount" />
+                            <field name="promise" />
+                        </group>
+                        <group name="payment2">
+                            <field name="reference" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
 
     <record id="partner_involvement_donation_act_window" model="ir.actions.act_window">
         <field name="name">Donations</field>
@@ -13,7 +93,7 @@
         <field name="domain">[('involvement_type', '=', 'donation')]</field>
         <field
             name="context"
-        >{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1}</field>
+        >{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1, 'search_default_donation': 1}</field>
     </record>
 
 </odoo>

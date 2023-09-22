@@ -13,7 +13,7 @@
     "depends": [
         "product",
         "account",
-        # "mozaik_involvement",
+        "mozaik_involvement_donation",
         "mozaik_membership",
         "l10n_generic_coa",
         # OCA/account-reconcile
