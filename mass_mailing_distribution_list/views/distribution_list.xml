@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="distribution_list_search" model="ir.ui.view">
+        <field
+            name="name"
+        >distribution.list.search (mass_mailing_distribution_list)</field>
+        <field name="model">distribution.list</field>
+        <field name="inherit_id" ref="distribution_list.distribution_list_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <filter
+                    name="newsletter"
+                    string="Newsletters"
+                    domain="[('newsletter','=',True)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="distribution_list_tree" model="ir.ui.view">
+        <field
+            name="name"
+        >distribution.list.tree (mass_mailing_distribution_list)</field>
+        <field name="model">distribution.list</field>
+        <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="newsletter" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="distribution_list_form" model="ir.ui.view">
+        <field
+            name="name"
+        >distribution.list.form (mass_mailing_distribution_list)</field>
+        <field name="model">distribution.list</field>
+        <field name="inherit_id" ref="distribution_list.distribution_list_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='dst_model_id']" position="after">
+                <field name="newsletter" />
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page
+                    name="optin"
+                    string="Opt-In"
+                    attrs="{'invisible': [('newsletter', '=', False)]}"
+                >
+                    <field name="res_partner_opt_in_ids">
+                        <tree>
+                            <field name="display_name" />
+                            <field name="email" />
+                        </tree>
+                    </field>
+                </page>
+                <page
+                    name="opout"
+                    string="Opt-Out"
+                    attrs="{'invisible': [('newsletter', '=', False)]}"
+                >
+                    <field name="res_partner_opt_out_ids">
+                        <tree>
+                            <field name="display_name" />
+                            <field name="email" />
+                        </tree>
+                    </field>
+                </page>
+                <page name="technical" string="Technical">
+                    <group>
+                        <field
+                            name="partner_path"
+                            attrs="{'required':[('newsletter','=', True)]}"
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

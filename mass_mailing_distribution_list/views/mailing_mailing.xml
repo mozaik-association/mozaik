@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="view_mail_mass_mailing_search">
+        <field
+            name="name"
+        >mailing.mailing.search (mass_mailing_distribution_list)</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter
+                    string="Distribution List"
+                    name="distribution_list"
+                    context="{'group_by': 'distribution_list_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mail_mass_mailing_form" model="ir.ui.view">
+        <field name="name">mailing.mailing.form (mass_mailing_distribution_list)</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[@name='mailing_model_id_container']/div/div"
+                position="after"
+            >
+                <div
+                    attrs="{'invisible': [('mailing_model_name', '!=', 'distribution.list')]}"
+                    class="col-xs-12 col-md-9 pt-1"
+                >
+                    <label
+                        for="distribution_list_id"
+                        string="Select distribution list:"
+                        class="oe_edit_only"
+                    />
+                    <field
+                        name="distribution_list_id"
+                        options="{'create': False, 'create_and_edit': False}"
+                        placeholder="Select distribution list..."
+                        class="oe_inline"
+                        attrs="{'required':[('mailing_model_name','=','distribution.list')],'readonly': [('state', 'in', ('sending', 'done'))] }"
+                    />
+                </div>
+            </xpath>
+            <xpath expr="//div[field[@name='mailing_domain']]" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('mailing_model_name', 'in', ['mailing.list', 'distribution.list'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
