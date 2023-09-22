@@ -4,7 +4,7 @@
 <odoo>
 
    <record id="res_partner_search_view" model="ir.ui.view">
-        <field name="name">res.partner.search (in mozaik_person)</field>
+        <field name="name">res.partner.search (in mozaik_involvement)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
@@ -12,8 +12,6 @@
                 <field name="partner_involvement_ids" />
             </xpath>
             <xpath expr="//separator[position()=last()]" position="before">
-                <separator />
-                <filter string="Donor" name="donor" domain="[('is_donor','=',True)]" />
                 <separator />
                 <filter
                     string="Volunteer"
@@ -42,19 +40,8 @@
                                       'default_partner_id': id,
                                       'search_default_all': True}"
                     />
-                    <button
-                        string="Donations"
-                        class="oe_stat_button oe_right"
-                        icon="fa-thumbs-up"
-                        name="%(partner_involvement_donation_act_window)d"
-                        type="action"
-                        attrs="{'invisible': [('id','=',False)]}"
-                    />
-                    <group name="donor-volunteer">
-                        <group>
-                            <field name="is_donor" />
-                        </group>
-                        <group>
+                    <group name="volunteer">
+                        <group name="is_volunteer">
                             <field name="is_volunteer" />
                         </group>
                     </group>

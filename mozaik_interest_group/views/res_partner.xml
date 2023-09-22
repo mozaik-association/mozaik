@@ -10,7 +10,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="mozaik_involvement.res_partner_form_view" />
         <field name="arch" type="xml">
-            <group name="donor-volunteer" position="after">
+            <group name="volunteer" position="after">
                 <group>
                     <field
                         name="interest_group_ids"

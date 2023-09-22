@@ -12,6 +12,7 @@
         "distribution_list",
         "mozaik_partner_assembly",
         "mozaik_involvement",
+        "mozaik_involvement_donation",
         "mozaik_communication",
         "mozaik_membership",
         "mozaik_thesaurus",

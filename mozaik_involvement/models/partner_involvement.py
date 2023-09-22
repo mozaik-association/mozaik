@@ -7,6 +7,10 @@ from psycopg2.extensions import AsIs
 
 from odoo import _, api, exceptions, fields, models
 
+from .partner_involvement_category import CATEGORY_TYPE
+
+CATEGORY_TYPE_CODES = [elem[0] for elem in CATEGORY_TYPE]
+
 _logger = logging.getLogger(__name__)
 
 
@@ -64,14 +68,21 @@ class PartnerInvolvement(models.Model):
         related="involvement_category_id.importance_level", store=True
     )
 
-    _sql_constraints = [
-        (
-            "multi_or_not",
-            "CHECK (active IS FALSE OR allow_multi IS FALSE OR "
-            "involvement_type IN ('donation') OR effective_time IS NOT NULL)",
-            "Effective time is mandatory " "for this kind of involvement !",
-        ),
-    ]
+    @api.constrains("effective_time")
+    def _check_effective_time_set(self):
+        for rec in self:
+            if (
+                rec.active
+                and rec.allow_multi
+                and (
+                    not rec.involvement_type
+                    or rec.involvement_type in CATEGORY_TYPE_CODES
+                )
+                and not rec.effective_time
+            ):
+                raise exceptions.UserError(
+                    _("Effective time is mandatory for this kind of involvement !")
+                )
 
     @api.depends("effective_time")
     def _compute_creation_time(self):
@@ -131,6 +142,8 @@ class PartnerInvolvement(models.Model):
         ndx1 = "%s_unique_1_idx" % self._table
         create_index(def1, ndx1)
 
+        # NB: donation involvements were moved to mozaik_involvement_donation
+        # but we keep this index AsIs because it would be too complex to refactor it
         def2 = (
             "CREATE UNIQUE INDEX %(table)s_unique_2_idx "
             "ON %(table)s USING btree "
@@ -174,7 +187,9 @@ class PartnerInvolvement(models.Model):
             ic = self.env["partner.involvement.category"].browse(
                 vals["involvement_category_id"]
             )
-            if ic.allow_multi and ic.involvement_type not in ["donation"]:
+            if ic.allow_multi and (
+                not ic.involvement_type or ic.involvement_type in CATEGORY_TYPE_CODES
+            ):
                 vals["effective_time"] = fields.Datetime.now()
         res = super(PartnerInvolvement, self).create(vals)
         terms = res.involvement_category_id.interest_ids
@@ -195,7 +210,8 @@ class PartnerInvolvement(models.Model):
     def _onchange_allow_multi(self):
         if (
             self.allow_multi
-            and self.involvement_type not in ["donation"]
+            and not self.involvement_type
+            or self.involvement_type in CATEGORY_TYPE_CODES
             and not self.effective_time
         ):
             self.effective_time = fields.Datetime.now()

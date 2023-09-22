@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+
+    <record id="partner_involvement_donation_act_window" model="ir.actions.act_window">
+        <field name="name">Donations</field>
+        <field name="res_model">partner.involvement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="partner_involvement_tree_view" />
+        <field name="search_view_id" ref="partner_involvement_search_view" />
+        <field name="domain">[('involvement_type', '=', 'donation')]</field>
+        <field
+            name="context"
+        >{'default_partner_id': active_id, 'search_default_partner_id': active_id, 'search_default_creation_time_year': 1}</field>
+    </record>
+
+</odoo>
