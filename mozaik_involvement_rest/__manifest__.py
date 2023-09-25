@@ -15,6 +15,7 @@
         "extendable",
         "mozaik_automatic_supporter",
         "mozaik_involvement",
+        "mozaik_involvement_donation",
         "pydantic",
     ],
     "data": [],
