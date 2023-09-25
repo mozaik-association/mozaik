@@ -14,6 +14,7 @@ from .involvement_category_info import InvolvementCategoryInfo
 
 class InvolvementInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int
+    partner_id: int
     involvement_category: InvolvementCategoryInfo = pydantic.Field(
         ..., alias="involvement_category_id"
     )
