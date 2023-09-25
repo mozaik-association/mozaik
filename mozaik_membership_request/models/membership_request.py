@@ -13,6 +13,7 @@ from psycopg2.extensions import AsIs
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.fields import first
+from odoo.osv import expression
 from odoo.tools import safe_eval
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
@@ -83,6 +84,23 @@ class MembershipRequest(models.Model):
     _terms = ["interest_ids", "competency_ids"]
     _order = "id desc"
     _unicity_keys = "N/A"
+
+    @api.model
+    def _get_involvement_category_domain(self):
+        res = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("involvement_categories_from_mr")
+        )
+        allowed_types = []
+        if len(res) > 2:
+            allowed_types = res[1:-1].split(", ")
+        domain = [("involvement_type", "in", allowed_types)]
+        if safe_eval.safe_eval(
+            self.env["ir.config_parameter"].sudo().get_param("allow_no_ic_from_mr")
+        ):
+            domain = expression.OR([domain, [("involvement_type", "=", False)]])
+        return domain
 
     identifier = fields.Char(related="partner_id.identifier", string="Identifier")
     is_company = fields.Boolean("Is a Company", default=False)
@@ -246,6 +264,7 @@ class MembershipRequest(models.Model):
         column1="request_id",
         column2="category_id",
         string="Involvement Categories",
+        domain=_get_involvement_category_domain,
     )
 
     indexation_comments = fields.Text("Indexation comments")
@@ -275,6 +294,26 @@ class MembershipRequest(models.Model):
             vals["accepted_date"] = date_from or fields.Date.today()
             vals["free_member"] = request_type == "s"
         return vals
+
+    @api.constrains("involvement_category_ids")
+    def _check_involvement_category(self):
+        """
+        Ensure that no forbidden involvement can be added on a MR.
+        Otherwise, the partner.involvement is created and then there is
+        a psycopg2 CheckViolation error on partner.involvement model (Odoo bug)
+        """
+        domain = self._get_involvement_category_domain()
+        allowed_ic_ids = set(
+            self.env["partner.involvement.category"].search(domain).ids
+        )
+        for rec in self:
+            if not set(rec.involvement_category_ids.ids).issubset(allowed_ic_ids):
+                raise UserError(
+                    _(
+                        "You are adding an involvement category "
+                        "that is not allowed because of its involvement type."
+                    )
+                )
 
     @api.constrains("birthdate_date", "is_company", "state")
     def _check_age(self):
@@ -1765,13 +1804,6 @@ class MembershipRequest(models.Model):
                 "effective_time": mr.effective_time,
                 "involvement_category_id": ic.id,
             }
-            if ic.involvement_type == "donation":
-                vals.update(
-                    {
-                        "reference": mr.reference,
-                        "amount": mr.amount,
-                    }
-                )
             self.env["partner.involvement"].create(vals)
 
     @api.model

@@ -27,7 +27,7 @@ from uuid import uuid4
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tests.common import TransactionCase
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
@@ -68,6 +68,21 @@ class TestMembership(TransactionCase):
             }
         )
         self.member_state = self.mrs.search([("code", "=", "member")])
+
+        self.ic_newsletter = self.env["partner.involvement.category"].create(
+            {"name": "Newsletter Category", "involvement_type": "newsletter"}
+        )
+        self.ic_no_type = self.env["partner.involvement.category"].create(
+            {
+                "name": "No type category",
+            }
+        )
+        self.ic_voluntary = self.env["partner.involvement.category"].create(
+            {
+                "name": "Voluntary category",
+                "involvement_type": "voluntary",
+            }
+        )
 
     def create_sponsored_membership_tarification(self):
         # Create a product for Sponsored Memberships and a membership tarification
@@ -1202,3 +1217,87 @@ class TestMembership(TransactionCase):
         self.assertTrue(not_active_line.paid)
         self.assertEqual(active_line.price, 11)
         self.assertEqual(not_active_line.price, 0)
+
+    def test_allow_only_ic_newsletter(self):
+        """
+        Allow only involvement categories of type 'newsletter'
+        """
+        self.env["ir.config_parameter"].set_param(
+            "involvement_categories_from_mr", "[newsletter]"
+        )
+        self.env["ir.config_parameter"].set_param("allow_no_ic_from_mr", "False")
+        with self.assertRaisesRegex(
+            UserError,
+            "You are adding an involvement category "
+            "that is not allowed because of its involvement type.",
+        ):
+            self.env["membership.request"].create(
+                {
+                    "lastname": "Sy",
+                    "involvement_category_ids": [(4, self.ic_voluntary.id)],
+                }
+            )
+        with self.assertRaisesRegex(
+            UserError,
+            "You are adding an involvement category "
+            "that is not allowed because of its involvement type.",
+        ):
+            self.env["membership.request"].create(
+                {
+                    "lastname": "Sy",
+                    "involvement_category_ids": [(4, self.ic_no_type.id)],
+                }
+            )
+
+        mr = self.env["membership.request"].create(
+            {"lastname": "Sy", "involvement_category_ids": [(4, self.ic_newsletter.id)]}
+        )
+        self.assertTrue(mr)
+
+    def test_allow_only_ic_newsletter_or_no_type(self):
+        """
+        Allow only involvement categories of type 'newsletter' or without involvement type.
+        """
+        self.env["ir.config_parameter"].set_param(
+            "involvement_categories_from_mr", "[newsletter]"
+        )
+        self.env["ir.config_parameter"].set_param("allow_no_ic_from_mr", "True")
+        with self.assertRaisesRegex(
+            UserError,
+            "You are adding an involvement category "
+            "that is not allowed because of its involvement type.",
+        ):
+            self.env["membership.request"].create(
+                {
+                    "lastname": "Sy",
+                    "involvement_category_ids": [(4, self.ic_voluntary.id)],
+                }
+            )
+        mr = self.env["membership.request"].create(
+            {"lastname": "Sy", "involvement_category_ids": [(4, self.ic_no_type.id)]}
+        )
+        self.assertTrue(mr)
+        mr = self.env["membership.request"].create(
+            {"lastname": "Sy", "involvement_category_ids": [(4, self.ic_newsletter.id)]}
+        )
+        self.assertTrue(mr)
+
+    def test_allow_no_ic(self):
+        """
+        Allow no involvement type.
+        """
+        self.env["ir.config_parameter"].set_param(
+            "involvement_categories_from_mr", "[]"
+        )
+        self.env["ir.config_parameter"].set_param("allow_no_ic_from_mr", "False")
+        with self.assertRaisesRegex(
+            UserError,
+            "You are adding an involvement category "
+            "that is not allowed because of its involvement type.",
+        ):
+            self.env["membership.request"].create(
+                {
+                    "lastname": "Sy",
+                    "involvement_category_ids": [(4, self.ic_newsletter.id)],
+                }
+            )
