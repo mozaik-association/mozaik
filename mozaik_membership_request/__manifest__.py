@@ -21,6 +21,9 @@
         "mozaik_account",
         "mozaik_email_lowered",
         "mozaik_involvement",
+        # OCA/partner-contact
+        "partner_contact_gender",
+        "partner_contact_nationality",
     ],
     "data": [
         "security/ir.model.access.csv",
