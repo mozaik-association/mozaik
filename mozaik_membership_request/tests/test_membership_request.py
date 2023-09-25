@@ -28,56 +28,53 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 MR_REQUIRED_AGE_KEY = "mr_required_age"
 
 
-class TestMembership(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.env.clear()
-        self.partner_obj = self.env["res.partner"]
+class TestMembership(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env.clear()
+        cls.partner_obj = cls.env["res.partner"]
 
-        self.mro = self.env["membership.request"]
-        self.mrco = self.env["membership.request.change"]
-        self.mrs = self.env["membership.state"]
-        self.tt = self.env["thesaurus.term"]
+        cls.mro = cls.env["membership.request"]
+        cls.mrs = cls.env["membership.state"]
 
-        self.rec_partner = self.browse_ref("mozaik_address.res_partner_thierry")
-        self.rec_partner_pauline = self.browse_ref(
+        cls.rec_partner = cls.env.ref("mozaik_address.res_partner_thierry")
+        cls.rec_partner_pauline = cls.env.ref(
             "mozaik_membership_request.res_partner_pauline"
         )
-        self.rec_partner_jacques = self.browse_ref(
-            "mozaik_membership.res_partner_jacques"
-        )
-        self.rec_address = self.browse_ref("mozaik_address.address_2")
+        cls.rec_partner_jacques = cls.env.ref("mozaik_membership.res_partner_jacques")
+        cls.rec_address = cls.env.ref("mozaik_address.address_2")
 
-        self.rec_mr_update = self.browse_ref(
+        cls.rec_mr_update = cls.env.ref(
             "mozaik_membership_request.membership_request_mp"
         )
-        self.rec_mr_create = self.browse_ref(
+        cls.rec_mr_create = cls.env.ref(
             "mozaik_membership_request.membership_request_eh"
         )
-        self.federal = self.browse_ref("mozaik_structure.int_instance_01")
-        self.partner = self.env["res.partner"].create(
+        cls.federal = cls.env.ref("mozaik_structure.int_instance_01")
+        cls.partner = cls.env["res.partner"].create(
             {
                 "lastname": "Sy",
                 "firstname": "Omar",
             }
         )
-        self.member_state = self.mrs.search([("code", "=", "member")])
+        cls.member_state = cls.mrs.search([("code", "=", "member")])
 
-        self.ic_newsletter = self.env["partner.involvement.category"].create(
+        cls.ic_newsletter = cls.env["partner.involvement.category"].create(
             {"name": "Newsletter Category", "involvement_type": "newsletter"}
         )
-        self.ic_no_type = self.env["partner.involvement.category"].create(
+        cls.ic_no_type = cls.env["partner.involvement.category"].create(
             {
                 "name": "No type category",
             }
         )
-        self.ic_voluntary = self.env["partner.involvement.category"].create(
+        cls.ic_voluntary = cls.env["partner.involvement.category"].create(
             {
                 "name": "Voluntary category",
                 "involvement_type": "voluntary",

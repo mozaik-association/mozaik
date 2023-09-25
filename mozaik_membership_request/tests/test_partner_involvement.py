@@ -6,7 +6,7 @@ from odoo.tests.common import TransactionCase
 
 
 class TestInvolvement(TransactionCase):
-    def test_involvment(self):
+    def test_involvement(self):
         """
         Check for creation of involvement when validating
         """
