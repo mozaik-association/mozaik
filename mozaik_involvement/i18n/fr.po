@@ -148,23 +148,8 @@ msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: mozaik_involvement
-#: model:ir.actions.act_window,name:mozaik_involvement.partner_involvement_donation_act_window
-#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
-msgid "Donations"
-msgstr "Dons"
-
-#. module: mozaik_involvement
-#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__involvement_type__donation
-msgid "Donations Campaign"
-msgstr "Compagne de dons"
-
-#. module: mozaik_involvement
-#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_search_view
-msgid "Donor"
-msgstr "Donateur"
-
-#. module: mozaik_involvement
-#: model:ir.model.constraint,message:mozaik_involvement.constraint_partner_involvement_multi_or_not
+#: code:addons/mozaik_involvement/models/partner_involvement.py:0
+#, python-format
 msgid "Effective time is mandatory for this kind of involvement !"
 msgstr "L'heure effective est obligatoire pour ce type de particpation !"
 
@@ -308,16 +293,6 @@ msgstr "Participations dont je suis propriétaire de la catégorie"
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_is_follower
 msgid "Is Follower"
 msgstr ""
-
-#. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__is_donor
-msgid "Is a donor"
-msgstr "Est un donateur"
 
 #. module: mozaik_involvement
 #: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__is_volunteer
@@ -578,6 +553,18 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_search_view
 msgid "Without Type"
 msgstr "Sans type"
+
+#~ msgid "Donations"
+#~ msgstr "Dons"
+
+#~ msgid "Donations Campaign"
+#~ msgstr "Compagne de dons"
+
+#~ msgid "Donor"
+#~ msgstr "Donateur"
+
+#~ msgid "Is a donor"
+#~ msgstr "Est un donateur"
 
 #~ msgid "Archive/reactivate category: proceed anyway?"
 #~ msgstr "Poursuivre l'archivage/réactivation de la catégorie ?"
