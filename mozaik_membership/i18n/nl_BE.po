@@ -95,11 +95,6 @@ msgid "All (non-inverse + inverse) relations between partners"
 msgstr "Alle (gelijkgestelde + omgekeerde) relaties tussen partners"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__amount
-msgid "Amount"
-msgstr "Bedrag"
-
-#. module: mozaik_membership
 #: model:ir.model.fields.selection,name:mozaik_membership.selection__res_partner__kind__a
 msgid "Assembly"
 msgstr ""
@@ -287,11 +282,6 @@ msgid "Display Name"
 msgstr "Weergave naam"
 
 #. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_search_view
-msgid "Donation"
-msgstr "Donatie"
-
-#. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_mass_membership_close__date_from
 msgid "End date of membership lines to close"
 msgstr "Einddatum van lidmaatschappen die moet worden"
@@ -350,11 +340,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
-
-#. module: mozaik_membership
-#: model:ir.model.constraint,message:mozaik_membership.constraint_partner_involvement_donation
-msgid "For a donation amount must be positive !"
-msgstr "Voor een donatie moet het bedrag positief zijn!"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly__force_int_instance_id
@@ -586,11 +571,6 @@ msgstr ""
 "Het is niet mogelijk om een lidmaatschapslijn aan te maken voor een "
 "rechtspersoon:\n"
 "- %s"
-
-#. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__promise
-msgid "Just a promise"
-msgstr "Enkel een belofte"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_abstract_assembly__previous_membership_state_id
@@ -956,11 +936,6 @@ msgid "Partner wishing to be contacted only by the local"
 msgstr "Partner die alleen gecontacteerd wil worden door de lokale groep"
 
 #. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_form_view
-msgid "Payment"
-msgstr "Betaling"
-
-#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly__previous_membership_state_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly__previous_membership_state_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly__previous_membership_state_id
@@ -998,11 +973,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:mozaik_membership.selection__update_membership__update_type__product
 msgid "Product/Price"
 msgstr ""
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_search_view
-msgid "Promise"
-msgstr "Belofte"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_membership_tarification__code
@@ -1046,7 +1016,6 @@ msgstr "Gereduceerd lidmaatschap"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__reference
-#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__reference
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__reference
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "Reference"
@@ -1464,3 +1433,21 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "⇒ Pay Attention"
 msgstr "⇒ Opletten"
+
+#~ msgid "Amount"
+#~ msgstr "Bedrag"
+
+#~ msgid "Donation"
+#~ msgstr "Donatie"
+
+#~ msgid "For a donation amount must be positive !"
+#~ msgstr "Voor een donatie moet het bedrag positief zijn!"
+
+#~ msgid "Just a promise"
+#~ msgstr "Enkel een belofte"
+
+#~ msgid "Payment"
+#~ msgstr "Betaling"
+
+#~ msgid "Promise"
+#~ msgstr "Belofte"

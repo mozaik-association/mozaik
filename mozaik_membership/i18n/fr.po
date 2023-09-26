@@ -94,11 +94,6 @@ msgid "All (non-inverse + inverse) relations between partners"
 msgstr "Toutes les relations (non-inverse et inverse) entre partenaires"
 
 #. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__amount
-msgid "Amount"
-msgstr "Montant"
-
-#. module: mozaik_membership
 #: model:ir.model.fields.selection,name:mozaik_membership.selection__res_partner__kind__a
 msgid "Assembly"
 msgstr "Assemblée"
@@ -288,11 +283,6 @@ msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_search_view
-msgid "Donation"
-msgstr "Don"
-
-#. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_mass_membership_close__date_from
 msgid "End date of membership lines to close"
 msgstr "Date de fin des nouvelles adhésions"
@@ -351,11 +341,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
-
-#. module: mozaik_membership
-#: model:ir.model.constraint,message:mozaik_membership.constraint_partner_involvement_donation
-msgid "For a donation amount must be positive !"
-msgstr "Pour un don le montant doit être positif !"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly__force_int_instance_id
@@ -586,11 +571,6 @@ msgid ""
 msgstr ""
 "Il n'est pas permis de créer une adhésion pour une personne morale:\n"
 "- %s"
-
-#. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__promise
-msgid "Just a promise"
-msgstr "Juste une promesse"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_abstract_assembly__previous_membership_state_id
@@ -956,11 +936,6 @@ msgid "Partner wishing to be contacted only by the local"
 msgstr "Partenaire souhaitant être uniquement contacté par la locale"
 
 #. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_form_view
-msgid "Payment"
-msgstr "Paiement"
-
-#. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_abstract_assembly__previous_membership_state_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_ext_assembly__previous_membership_state_id
 #: model:ir.model.fields,field_description:mozaik_membership.field_int_assembly__previous_membership_state_id
@@ -998,11 +973,6 @@ msgstr "Modèle d'article"
 #: model:ir.model.fields.selection,name:mozaik_membership.selection__update_membership__update_type__product
 msgid "Product/Price"
 msgstr "Article/Montant"
-
-#. module: mozaik_membership
-#: model_terms:ir.ui.view,arch_db:mozaik_membership.partner_involvement_search_view
-msgid "Promise"
-msgstr "Promesse"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_membership_tarification__code
@@ -1048,7 +1018,6 @@ msgstr "Cotisation réduite"
 
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__reference
-#: model:ir.model.fields,field_description:mozaik_membership.field_partner_involvement__reference
 #: model:ir.model.fields,field_description:mozaik_membership.field_update_membership__reference
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "Reference"
@@ -1476,6 +1445,24 @@ msgstr "user => utilisateur courant"
 #: model_terms:ir.ui.view,arch_db:mozaik_membership.res_partner_form_view
 msgid "⇒ Pay Attention"
 msgstr "⇒ Précaution à prendre"
+
+#~ msgid "Amount"
+#~ msgstr "Montant"
+
+#~ msgid "Donation"
+#~ msgstr "Don"
+
+#~ msgid "For a donation amount must be positive !"
+#~ msgstr "Pour un don le montant doit être positif !"
+
+#~ msgid "Just a promise"
+#~ msgstr "Juste une promesse"
+
+#~ msgid "Payment"
+#~ msgstr "Paiement"
+
+#~ msgid "Promise"
+#~ msgstr "Promesse"
 
 #~ msgid "Non Local Voluntary"
 #~ msgstr "Volontaire non local"
