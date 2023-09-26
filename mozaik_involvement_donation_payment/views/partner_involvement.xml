@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="partner_involvement_form_view">
+        <field
+            name="name"
+        >partner.involvement.form (in mozaik_involvement_donation_payment)</field>
+        <field name="model">partner.involvement</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_involvement_donation.partner_involvement_form_view"
+        />
+        <field name="arch" type="xml">
+            <page name="payment" position="inside">
+                <group name="payment_link">
+                    <field name="payment_link" widget="CopyClipboardChar" />
+                </group>
+            </page>
+        </field>
+    </record>
+
+
+
+</odoo>
