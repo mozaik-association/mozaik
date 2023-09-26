@@ -26,26 +26,15 @@ from datetime import date
 
 from dateutil.relativedelta import relativedelta
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class TestPartner(TransactionCase):
-    def setUp(self):
-        super().setUp()
-
-        self.mr_obj = self.env["membership.request"]
-        self.partner_obj = self.env["res.partner"]
-        self.ms_obj = self.env["membership.state"]
-        self.ml_obj = self.env["membership.line"]
-        self.prd_obj = self.env["product.template"]
-        self.imd_obj = self.env["ir.model.data"]
-
-        self.partner1 = self.browse_ref("mozaik_address.res_partner_thierry")
-
-        self.partner2 = self.browse_ref("mozaik_membership.res_partner_fgtb")
-
-        self.user_model = self.env["res.users"]
-        self.partner_jacques_id = self.ref("mozaik_membership.res_partner_jacques")
+class TestPartner(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.mr_obj = cls.env["membership.request"]
+        cls.partner1 = cls.env.ref("mozaik_address.res_partner_thierry")
 
     def test_button_modification_request(self):
         """

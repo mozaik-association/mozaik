@@ -13,4 +13,14 @@
         <field name="key">number_days_member_candidate_to_supporter</field>
         <field name="value">90</field>
     </record>
+
+    <record id="involvement_categories_from_mr" model="ir.config_parameter">
+        <field name="key">involvement_categories_from_mr</field>
+        <field name="value">[petition, voluntary, newsletter, notification]</field>
+    </record>
+
+    <record id="allow_no_ic_from_mr" model="ir.config_parameter">
+        <field name="key">allow_no_ic_from_mr</field>
+        <field name="value">True</field>
+    </record>
     </odoo>

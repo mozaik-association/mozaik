@@ -10,7 +10,8 @@
     "website": "https://github.com/mozaik-association/mozaik",
     "category": "Political Association",
     "depends": [
-        "base",
+        "statechart",
+        # Mozaik
         "mozaik_abstract_model",
         "mozaik_structure",
         "mozaik_membership",
@@ -18,9 +19,11 @@
         "mozaik_thesaurus",
         "mozaik_tools",
         "mozaik_account",
-        "statechart",
         "mozaik_email_lowered",
-        # 'mozaik_involvement',
+        "mozaik_involvement",
+        # OCA/partner-contact
+        "partner_contact_gender",
+        "partner_contact_nationality",
     ],
     "data": [
         "security/ir.model.access.csv",

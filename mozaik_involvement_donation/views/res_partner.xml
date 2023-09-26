@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="res_partner_search_view" model="ir.ui.view">
+        <field name="name">res.partner.search (in mozaik_involvement_donation)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mozaik_involvement.res_partner_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='volunteer']" position="before">
+                <separator />
+                <filter string="Donor" name="donor" domain="[('is_donor','=',True)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form (in mozaik_involvement_donation)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mozaik_involvement.res_partner_form_view" />
+        <field name="arch" type="xml">
+            <button
+                name="%(mozaik_involvement.partner_involvement_act_window)d"
+                position="after"
+            >
+                <button
+                    string="Donations"
+                    class="oe_stat_button oe_right"
+                    icon="fa-thumbs-up"
+                    name="%(partner_involvement_donation_act_window)d"
+                    type="action"
+                    attrs="{'invisible': [('id','=',False)]}"
+                />
+            </button>
+            <group name="is_volunteer" position="before">
+                <group>
+                    <field name="is_donor" />
+                </group>
+            </group>
+        </field>
+    </record>
+
+
+
+</odoo>

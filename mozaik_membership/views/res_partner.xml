@@ -91,15 +91,6 @@
                     </span>
                 </span>
             </xpath>
-<!--TODO-->
-<!--            <xpath expr="//field[@name='partner_involvement_ids']/tree" position="inside">-->
-<!--                <field name="amount" sum="1"/>-->
-<!--                <field name="promise" invisible="1"/>-->
-<!--            </xpath>-->
-
-<!--            <xpath expr="//field[@name='partner_involvement_ids']/tree" position="attributes">-->
-<!--                <attribute name="decoration-danger" translation="off">promise==True</attribute>-->
-<!--            </xpath>-->
 
             <xpath expr="//page[@name='user']" position="inside">
                 <group name="user" attrs="{'invisible': [('user_ids','=',[])]}">

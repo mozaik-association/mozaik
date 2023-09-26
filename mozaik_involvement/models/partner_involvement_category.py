@@ -9,7 +9,6 @@ from odoo import _, api, fields, models
 
 CATEGORY_TYPE = [
     ("petition", "Petition"),
-    ("donation", "Donations Campaign"),
     ("voluntary", "Voluntary Work"),
     ("newsletter", "Newsletter"),
     ("notification", "Notification"),
@@ -155,4 +154,4 @@ class PartnerInvolvementCategory(models.Model):
 
     @api.onchange("involvement_type")
     def _onchange_involvement_type(self):
-        self.allow_multi = self.involvement_type == "donation"
+        self.allow_multi = False

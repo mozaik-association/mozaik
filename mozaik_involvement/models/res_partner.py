@@ -8,15 +8,9 @@ class ResPartner(models.Model):
 
     _inherit = "res.partner"
 
-    is_donor = fields.Boolean(
-        string="Is a donor",
-        compute="_compute_involvement_bools",
-        store=True,
-        compute_sudo=True,
-    )
     is_volunteer = fields.Boolean(
         string="Is a volunteer",
-        compute="_compute_involvement_bools",
+        compute="_compute_is_volunteer",
         store=True,
         compute_sudo=True,
     )
@@ -57,12 +51,8 @@ class ResPartner(models.Model):
         "partner_involvement_ids",
         "partner_involvement_ids.active",
         "partner_involvement_ids.involvement_type",
-        "partner_involvement_inactive_ids",
-        "partner_involvement_inactive_ids.active",
-        "partner_involvement_inactive_ids.involvement_type",
     )
-    def _compute_involvement_bools(self):
+    def _compute_is_volunteer(self):
         for partner in self:
             types = partner.partner_involvement_ids.mapped("involvement_type")
-            partner.is_donor = "donation" in types
             partner.is_volunteer = "voluntary" in types

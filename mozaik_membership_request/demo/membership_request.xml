@@ -8,7 +8,7 @@
     <!-- in reference to Marois Pauline -->
     <record id="membership_request_mp" model="membership.request">
         <field name="lastname">MAROIS</field>
-        <field name="firstname">Paulinne</field>
+        <field name="firstname">Pauline</field>
         <field name="gender">female</field>
         <field name="email">pauline_marois@gmail.com</field>
         <field name="request_type">m</field>

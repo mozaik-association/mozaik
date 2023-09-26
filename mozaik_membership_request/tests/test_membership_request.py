@@ -27,47 +27,59 @@ from uuid import uuid4
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
-from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+from odoo.exceptions import UserError, ValidationError
+from odoo.tests.common import SavepointCase
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 MR_REQUIRED_AGE_KEY = "mr_required_age"
 
 
-class TestMembership(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.env.clear()
-        self.partner_obj = self.env["res.partner"]
+class TestMembership(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env.clear()
+        cls.partner_obj = cls.env["res.partner"]
 
-        self.mro = self.env["membership.request"]
-        self.mrco = self.env["membership.request.change"]
-        self.mrs = self.env["membership.state"]
-        self.tt = self.env["thesaurus.term"]
+        cls.mro = cls.env["membership.request"]
+        cls.mrs = cls.env["membership.state"]
 
-        self.rec_partner = self.browse_ref("mozaik_address.res_partner_thierry")
-        self.rec_partner_pauline = self.browse_ref(
+        cls.rec_partner = cls.env.ref("mozaik_address.res_partner_thierry")
+        cls.rec_partner_pauline = cls.env.ref(
             "mozaik_membership_request.res_partner_pauline"
         )
-        self.rec_partner_jacques = self.browse_ref(
-            "mozaik_membership.res_partner_jacques"
-        )
-        self.rec_address = self.browse_ref("mozaik_address.address_2")
+        cls.rec_partner_jacques = cls.env.ref("mozaik_membership.res_partner_jacques")
+        cls.rec_address = cls.env.ref("mozaik_address.address_2")
 
-        self.rec_mr_update = self.browse_ref(
+        cls.rec_mr_update = cls.env.ref(
             "mozaik_membership_request.membership_request_mp"
         )
-        self.rec_mr_create = self.browse_ref(
+        cls.rec_mr_create = cls.env.ref(
             "mozaik_membership_request.membership_request_eh"
         )
-        self.federal = self.browse_ref("mozaik_structure.int_instance_01")
-        self.partner = self.env["res.partner"].create(
+        cls.federal = cls.env.ref("mozaik_structure.int_instance_01")
+        cls.partner = cls.env["res.partner"].create(
             {
                 "lastname": "Sy",
                 "firstname": "Omar",
             }
         )
-        self.member_state = self.mrs.search([("code", "=", "member")])
+        cls.member_state = cls.mrs.search([("code", "=", "member")])
+
+        cls.ic_newsletter = cls.env["partner.involvement.category"].create(
+            {"name": "Newsletter Category", "involvement_type": "newsletter"}
+        )
+        cls.ic_no_type = cls.env["partner.involvement.category"].create(
+            {
+                "name": "No type category",
+            }
+        )
+        cls.ic_voluntary = cls.env["partner.involvement.category"].create(
+            {
+                "name": "Voluntary category",
+                "involvement_type": "voluntary",
+            }
+        )
 
     def create_sponsored_membership_tarification(self):
         # Create a product for Sponsored Memberships and a membership tarification
@@ -1202,3 +1214,87 @@ class TestMembership(TransactionCase):
         self.assertTrue(not_active_line.paid)
         self.assertEqual(active_line.price, 11)
         self.assertEqual(not_active_line.price, 0)
+
+    def test_allow_only_ic_newsletter(self):
+        """
+        Allow only involvement categories of type 'newsletter'
+        """
+        self.env["ir.config_parameter"].set_param(
+            "involvement_categories_from_mr", "[newsletter]"
+        )
+        self.env["ir.config_parameter"].set_param("allow_no_ic_from_mr", "False")
+        with self.assertRaisesRegex(
+            UserError,
+            "You are adding an involvement category "
+            "that is not allowed because of its involvement type.",
+        ):
+            self.env["membership.request"].create(
+                {
+                    "lastname": "Sy",
+                    "involvement_category_ids": [(4, self.ic_voluntary.id)],
+                }
+            )
+        with self.assertRaisesRegex(
+            UserError,
+            "You are adding an involvement category "
+            "that is not allowed because of its involvement type.",
+        ):
+            self.env["membership.request"].create(
+                {
+                    "lastname": "Sy",
+                    "involvement_category_ids": [(4, self.ic_no_type.id)],
+                }
+            )
+
+        mr = self.env["membership.request"].create(
+            {"lastname": "Sy", "involvement_category_ids": [(4, self.ic_newsletter.id)]}
+        )
+        self.assertTrue(mr)
+
+    def test_allow_only_ic_newsletter_or_no_type(self):
+        """
+        Allow only involvement categories of type 'newsletter' or without involvement type.
+        """
+        self.env["ir.config_parameter"].set_param(
+            "involvement_categories_from_mr", "[newsletter]"
+        )
+        self.env["ir.config_parameter"].set_param("allow_no_ic_from_mr", "True")
+        with self.assertRaisesRegex(
+            UserError,
+            "You are adding an involvement category "
+            "that is not allowed because of its involvement type.",
+        ):
+            self.env["membership.request"].create(
+                {
+                    "lastname": "Sy",
+                    "involvement_category_ids": [(4, self.ic_voluntary.id)],
+                }
+            )
+        mr = self.env["membership.request"].create(
+            {"lastname": "Sy", "involvement_category_ids": [(4, self.ic_no_type.id)]}
+        )
+        self.assertTrue(mr)
+        mr = self.env["membership.request"].create(
+            {"lastname": "Sy", "involvement_category_ids": [(4, self.ic_newsletter.id)]}
+        )
+        self.assertTrue(mr)
+
+    def test_allow_no_ic(self):
+        """
+        Allow no involvement type.
+        """
+        self.env["ir.config_parameter"].set_param(
+            "involvement_categories_from_mr", "[]"
+        )
+        self.env["ir.config_parameter"].set_param("allow_no_ic_from_mr", "False")
+        with self.assertRaisesRegex(
+            UserError,
+            "You are adding an involvement category "
+            "that is not allowed because of its involvement type.",
+        ):
+            self.env["membership.request"].create(
+                {
+                    "lastname": "Sy",
+                    "involvement_category_ids": [(4, self.ic_newsletter.id)],
+                }
+            )
