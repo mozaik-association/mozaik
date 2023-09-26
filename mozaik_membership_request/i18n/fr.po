@@ -1134,6 +1134,14 @@ msgstr "Oui"
 #: code:addons/mozaik_membership_request/models/membership_request.py:0
 #, python-format
 msgid ""
+"You are adding an involvement category that is not allowed because of its "
+"involvement type."
+msgstr ""
+
+#. module: mozaik_membership_request
+#: code:addons/mozaik_membership_request/models/membership_request.py:0
+#, python-format
+msgid ""
 "You didn't set a partner and the reference already exists on another "
 "membership request."
 msgstr ""
