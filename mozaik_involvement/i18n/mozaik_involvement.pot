@@ -143,23 +143,8 @@ msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_involvement
-#: model:ir.actions.act_window,name:mozaik_involvement.partner_involvement_donation_act_window
-#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_form_view
-msgid "Donations"
-msgstr ""
-
-#. module: mozaik_involvement
-#: model:ir.model.fields.selection,name:mozaik_involvement.selection__partner_involvement_category__involvement_type__donation
-msgid "Donations Campaign"
-msgstr ""
-
-#. module: mozaik_involvement
-#: model_terms:ir.ui.view,arch_db:mozaik_involvement.res_partner_search_view
-msgid "Donor"
-msgstr ""
-
-#. module: mozaik_involvement
-#: model:ir.model.constraint,message:mozaik_involvement.constraint_partner_involvement_multi_or_not
+#: code:addons/mozaik_involvement/models/partner_involvement.py:0
+#, python-format
 msgid "Effective time is mandatory for this kind of involvement !"
 msgstr ""
 
@@ -300,16 +285,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_is_follower
 #: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_is_follower
 msgid "Is Follower"
-msgstr ""
-
-#. module: mozaik_involvement
-#: model:ir.model.fields,field_description:mozaik_involvement.field_abstract_assembly__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_ext_assembly__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_int_assembly__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_partner__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_res_users__is_donor
-#: model:ir.model.fields,field_description:mozaik_involvement.field_sta_assembly__is_donor
-msgid "Is a donor"
 msgstr ""
 
 #. module: mozaik_involvement
