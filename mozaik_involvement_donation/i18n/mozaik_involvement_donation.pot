@@ -1,0 +1,116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_involvement_donation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement__amount
+msgid "Amount"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model,name:mozaik_involvement_donation.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement__display_name
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement_category__display_name
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement_donation.partner_involvement_search_view
+msgid "Donation"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.actions.act_window,name:mozaik_involvement_donation.partner_involvement_donation_act_window
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement_donation.res_partner_form_view
+msgid "Donations"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields.selection,name:mozaik_involvement_donation.selection__partner_involvement_category__involvement_type__donation
+msgid "Donations Campaign"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement_donation.res_partner_search_view
+msgid "Donor"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.constraint,message:mozaik_involvement_donation.constraint_partner_involvement_donation
+msgid "For a donation amount must be positive !"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement__id
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement_category__id
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_abstract_assembly__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_ext_assembly__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_int_assembly__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_res_partner__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_res_users__is_donor
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_sta_assembly__is_donor
+msgid "Is a donor"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement__promise
+msgid "Just a promise"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement____last_update
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement_category____last_update
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model,name:mozaik_involvement_donation.model_partner_involvement
+msgid "Partner Involvement"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model,name:mozaik_involvement_donation.model_partner_involvement_category
+msgid "Partner Involvement Category"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement_donation.partner_involvement_form_view
+msgid "Payment"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model_terms:ir.ui.view,arch_db:mozaik_involvement_donation.partner_involvement_search_view
+msgid "Promise"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement__reference
+msgid "Reference"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement_category__involvement_type
+msgid "Type"
+msgstr ""
