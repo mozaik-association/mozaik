@@ -99,9 +99,7 @@ class TestDonation(object):
         for line in statement.line_ids:
             self.assertTrue(line.journal_entry_id.id)
 
-        # now without seconds
-        about_now = fields.Datetime.now()[0:16]
-        self.assertEqual(about_now, self.involvement.effective_time[0:16])
+        self.assertEqual(fields.Date.today(), self.involvement.payment_date)
         self.assertEqual(12.0, self.involvement.amount)
         self.assertEqual(statement.line_ids.amount, self.involvement.amount)
 
@@ -118,9 +116,7 @@ class TestDonation(object):
 
         statement.process_reconciliation(move_dicts)
 
-        # now without seconds
-        about_now = fields.Datetime.now()[0:16]
-        self.assertEqual(about_now, self.involvement.effective_time[0:16])
+        self.assertEqual(fields.Date.today(), self.involvement.payment_date)
         self.assertEqual(12.0 + 20.0, self.involvement.amount)
         self.assertEqual(statement.line_ids.amount, self.involvement.amount)
 

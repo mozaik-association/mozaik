@@ -53,7 +53,7 @@ class AccountBankStatementLine(models.Model):
             )
             if involvements:
                 vals = {
-                    "effective_time": self.date,
+                    "payment_date": self.date,
                     "amount": amount_paid,
                 }
                 involvements.write(vals)
