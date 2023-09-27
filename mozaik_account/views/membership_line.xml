@@ -75,11 +75,6 @@
                     attrs="{'invisible': [('bank_account_id', '=', False)]}"
                 />
             </xpath>
-            <xpath expr="//notebook" position="inside">
-                <page name="donations" string="Donations">
-                    <field name="donation_move_ids" />
-                </page>
-            </xpath>
         </field>
     </record>
 

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="0">
+
+
+    <record id="membership_line_form_view" model="ir.ui.view">
+        <field name="name">membership.line.form (mozaik_account_donation)</field>
+        <field name="model">membership.line</field>
+        <field name="inherit_id" ref="mozaik_membership.membership_line_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="donations" string="Donations">
+                    <field name="donation_move_ids" />
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
