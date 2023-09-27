@@ -14,10 +14,13 @@
         "payment",
         # Mozaik
         "mozaik_involvement_donation",
+        "mozaik_payment",
     ],
     "data": [
+        "views/assets.xml",
         "views/partner_involvement.xml",
         "views/partner_involvement_category.xml",
+        "views/payment_templates.xml",
     ],
     "demo": [],
 }

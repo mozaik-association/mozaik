@@ -9,6 +9,7 @@ class PartnerInvolvement(models.Model):
     _inherit = "partner.involvement"
 
     payment_link = fields.Char(compute="_compute_payment_link")
+    payment_transaction_ids = fields.One2many("payment.transaction", "involvement_id")
 
     @api.depends(
         "involvement_category_id",

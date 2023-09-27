@@ -17,6 +17,9 @@
                 <group name="payment_link">
                     <field name="payment_link" widget="CopyClipboardChar" />
                 </group>
+                <group name="payment_transactions">
+                    <field name="payment_transaction_ids" readonly="1" />
+                </group>
             </page>
         </field>
     </record>
