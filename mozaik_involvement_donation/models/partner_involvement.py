@@ -14,6 +14,7 @@ class PartnerInvolvement(models.Model):
         string="Just a promise", compute="_compute_promise", store=True, copy=False
     )
     payment_date = fields.Date(copy=False)
+    is_paid = fields.Boolean(string="Paid", compute="_compute_is_paid")
 
     _sql_constraints = [
         (
@@ -31,3 +32,8 @@ class PartnerInvolvement(models.Model):
                 involvement.involvement_type == "donation"
                 and not involvement.payment_date
             )
+
+    @api.depends("promise")
+    def _compute_is_paid(self):
+        for inv in self:
+            inv.is_paid = not inv.promise
