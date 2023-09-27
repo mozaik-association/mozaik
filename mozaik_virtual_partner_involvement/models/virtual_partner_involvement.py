@@ -13,9 +13,7 @@ class VirtualPartnerInvolvement(models.Model):
     regional_voluntary = fields.Boolean()
     national_voluntary = fields.Boolean()
     local_only = fields.Boolean()
-    is_donor = fields.Boolean(
-        string="Is a donor",
-    )
+
     is_volunteer = fields.Boolean(
         string="Is a volunteer",
     )
@@ -36,7 +34,6 @@ class VirtualPartnerInvolvement(models.Model):
     effective_time = fields.Datetime(
         "Involvement Date",
     )
-    promise = fields.Boolean()
 
     @api.model
     def _get_select(self):
@@ -51,14 +48,12 @@ class VirtualPartnerInvolvement(models.Model):
             p.regional_voluntary,
             p.national_voluntary,
             p.local_only,
-            p.is_donor,
             p.is_volunteer,
             p.nationality_id,
             pi.id as partner_involvement_id,
             pi.involvement_category_id,
             pi.involvement_type,
-            pi.effective_time AS effective_time,
-            pi.promise AS promise"""
+            pi.effective_time AS effective_time"""
         )
         return select
 

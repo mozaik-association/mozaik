@@ -78,6 +78,7 @@
         "mozaik_virtual_partner_candidature",
         "mozaik_virtual_partner_mandate",
         "mozaik_virtual_partner_involvement",
+        "mozaik_virtual_partner_involvement_donation",
         "mozaik_virtual_partner_instance",
         "mozaik_virtual_partner_mass_mailing",
         "mozaik_virtual_partner_membership",
