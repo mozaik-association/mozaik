@@ -85,16 +85,6 @@ msgid "Distribution List Line Template"
 msgstr "Filtre"
 
 #. module: mozaik_virtual_partner_involvement
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
-msgid "Donation"
-msgstr "Don"
-
-#. module: mozaik_virtual_partner_involvement
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
-msgid "Donor"
-msgstr "Donateur"
-
-#. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__employee
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Employee"
@@ -175,11 +165,6 @@ msgstr "Années de participation"
 #, fuzzy
 #| msgid "Is a donor"
 msgid "Is a Company"
-msgstr "Est un donateur"
-
-#. module: mozaik_virtual_partner_involvement
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__is_donor
-msgid "Is a donor"
 msgstr "Est un donateur"
 
 #. module: mozaik_virtual_partner_involvement
@@ -298,12 +283,6 @@ msgid "Partners/Involvements"
 msgstr "Partenaires/Participations"
 
 #. module: mozaik_virtual_partner_involvement
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__promise
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
-msgid "Promise"
-msgstr "Promesse"
-
-#. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__regional_voluntary
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Regional Voluntary"
@@ -323,6 +302,18 @@ msgstr "Volontaire"
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
+
+#~ msgid "Donation"
+#~ msgstr "Don"
+
+#~ msgid "Donor"
+#~ msgstr "Donateur"
+
+#~ msgid "Is a donor"
+#~ msgstr "Est un donateur"
+
+#~ msgid "Promise"
+#~ msgstr "Promesse"
 
 #~ msgid "Internal Instance descending of..."
 #~ msgstr "Instance Interne descendant de..."
