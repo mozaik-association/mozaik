@@ -21,7 +21,10 @@
                 >
                     <group>
                         <group>
-                            <field name="payment_acquirer_id" />
+                            <field
+                                name="payment_acquirer_id"
+                                attrs="{'required': [('involvement_type', '=', 'donation')]}"
+                            />
                         </group>
                     </group>
                 </page>
