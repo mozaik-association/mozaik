@@ -33,7 +33,10 @@ class PartnerInvolvement(models.Model):
                 and not involvement.payment_date
             )
 
-    @api.depends("promise")
+    @api.depends("promise", "involvement_type")
     def _compute_is_paid(self):
         for inv in self:
-            inv.is_paid = not inv.promise
+            if inv.involvement_type == "donation":
+                inv.is_paid = not inv.promise
+            else:
+                inv.is_paid = False
