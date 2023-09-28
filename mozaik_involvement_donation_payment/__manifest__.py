@@ -21,6 +21,7 @@
         "views/partner_involvement.xml",
         "views/partner_involvement_category.xml",
         "views/payment_templates.xml",
+        "views/res_config_settings.xml",
     ],
     "demo": [],
 }

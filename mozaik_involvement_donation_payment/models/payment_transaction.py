@@ -38,4 +38,18 @@ class PaymentTransaction(models.Model):
         res = super().write(vals)
         if "involvement_id" in vals or "state" in vals:
             self._update_involvement_payment_date()
+        if "payment_id" in vals:
+            # Normally we should always write a given account.payment on a single transaction.
+            if len(self) == 1 and self.involvement_id:
+                # Update the account set on the related credit account move line.
+                # The account to take is configured by the user.
+                credit_line = (
+                    self.env["account.payment"]
+                    .browse(vals["payment_id"])
+                    .mapped("move_id.line_ids")
+                    .filtered(lambda t: t.credit > 0)
+                )
+                donation_account = self.env.user.company_id.donation_account_id
+                if donation_account:
+                    credit_line.account_id = donation_account
         return res
