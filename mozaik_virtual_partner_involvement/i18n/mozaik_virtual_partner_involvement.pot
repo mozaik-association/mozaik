@@ -75,16 +75,6 @@ msgid "Distribution List Line Template"
 msgstr ""
 
 #. module: mozaik_virtual_partner_involvement
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
-msgid "Donation"
-msgstr ""
-
-#. module: mozaik_virtual_partner_involvement
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
-msgid "Donor"
-msgstr ""
-
-#. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__employee
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Employee"
@@ -161,11 +151,6 @@ msgstr ""
 #. module: mozaik_virtual_partner_involvement
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__is_company
 msgid "Is a Company"
-msgstr ""
-
-#. module: mozaik_virtual_partner_involvement
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__is_donor
-msgid "Is a donor"
 msgstr ""
 
 #. module: mozaik_virtual_partner_involvement
@@ -277,12 +262,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:mozaik_virtual_partner_involvement.virtual_partner_involvement_action
 #: model:ir.ui.menu,name:mozaik_virtual_partner_involvement.virtual_partner_involvement_menu
 msgid "Partners/Involvements"
-msgstr ""
-
-#. module: mozaik_virtual_partner_involvement
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__promise
-#: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
-msgid "Promise"
 msgstr ""
 
 #. module: mozaik_virtual_partner_involvement
