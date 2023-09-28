@@ -76,18 +76,6 @@ msgid "Display Name"
 msgstr ""
 
 #. module: mozaik_account
-#: model:product.product,name:mozaik_account.product_template_donation
-#: model:product.template,name:mozaik_account.product_template_donation_product_template
-msgid "Donation"
-msgstr ""
-
-#. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__donation_move_ids
-#: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_form_view
-msgid "Donations"
-msgstr ""
-
-#. module: mozaik_account
 #: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Free"
 msgstr ""
@@ -188,12 +176,6 @@ msgstr ""
 #: code:addons/mozaik_account/models/membership_line.py:0
 #, python-format
 msgid "The membership you want to reconcile is too old"
-msgstr ""
-
-#. module: mozaik_account
-#: model:product.product,uom_name:mozaik_account.product_template_donation
-#: model:product.template,uom_name:mozaik_account.product_template_donation_product_template
-msgid "Units"
 msgstr ""
 
 #. module: mozaik_account
