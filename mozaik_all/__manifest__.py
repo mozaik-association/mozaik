@@ -51,6 +51,7 @@
         "mozaik_involvement_donation",
         "mozaik_involvement_followup",
         "mozaik_involvement_rest",
+        "mozaik_involvement_donation_rest",
         "mozaik_mail_rest",
         "mozaik_mass_mailing_access_rights",
         "mozaik_mass_mailing_automation",
