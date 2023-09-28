@@ -82,18 +82,6 @@ msgid "Display Name"
 msgstr "Nom"
 
 #. module: mozaik_account
-#: model:product.product,name:mozaik_account.product_template_donation
-#: model:product.template,name:mozaik_account.product_template_donation_product_template
-msgid "Donation"
-msgstr "Don"
-
-#. module: mozaik_account
-#: model:ir.model.fields,field_description:mozaik_account.field_membership_line__donation_move_ids
-#: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_form_view
-msgid "Donations"
-msgstr "Dons"
-
-#. module: mozaik_account
 #: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Free"
 msgstr "Gratuit"
@@ -196,12 +184,6 @@ msgid "The membership you want to reconcile is too old"
 msgstr "L'adhésion que vous souhaitez réconcilier est trop ancienne"
 
 #. module: mozaik_account
-#: model:product.product,uom_name:mozaik_account.product_template_donation
-#: model:product.template,uom_name:mozaik_account.product_template_donation_product_template
-msgid "Units"
-msgstr "Unités"
-
-#. module: mozaik_account
 #: model_terms:ir.ui.view,arch_db:mozaik_account.membership_line_search_view
 msgid "Unpaid"
 msgstr "Impayé"
@@ -217,6 +199,15 @@ msgstr ""
 #: model:ir.model,name:mozaik_account.model_add_membership
 msgid "Wizard to create a new membership"
 msgstr "Wizard pour créer une nouvelle adhésion"
+
+#~ msgid "Donation"
+#~ msgstr "Don"
+
+#~ msgid "Donations"
+#~ msgstr "Dons"
+
+#~ msgid "Units"
+#~ msgstr "Unités"
 
 #~ msgid "You must first select a partner!"
 #~ msgstr "Vous devez selectionner un partenaire !"
