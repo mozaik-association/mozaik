@@ -11,5 +11,3 @@ class Involvement(BaseModel, metaclass=ExtendableModelMeta):
     partner_id: int
     involvement_category_id: int
     effective_time: datetime = None
-    amount: float = None
-    reference: str = None
