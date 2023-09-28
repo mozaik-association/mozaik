@@ -14,5 +14,6 @@
     ],
     "data": [
         "views/assets.xml",
+        "views/payment_portal_templates.xml",
     ],
 }

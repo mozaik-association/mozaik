@@ -1,7 +1,7 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class PaymentTransaction(models.Model):
@@ -16,7 +16,6 @@ class PaymentTransaction(models.Model):
         string="Membership Requests",
         comodel_name="membership.request",
     )
-    display_reference = fields.Char(compute="_compute_display_reference")
 
     def write(self, vals):
         if vals.get("state") == "done" and self.membership_ids:
@@ -46,21 +45,23 @@ class PaymentTransaction(models.Model):
                     )
         return res
 
-    @api.depends("reference", "membership_ids", "membership_ids.reference")
+    def _compute_display_reference_depends(self):
+        res = super()._compute_display_reference_depends()
+        return res + ("membership_ids", "membership_ids.reference")
+
     def _compute_display_reference(self):
+        super()._compute_display_reference()
         for tx in self:
-            reference = tx.reference
             if tx.membership_ids and tx.membership_ids.mapped("reference"):
-                reference = tx.membership_ids.mapped("reference")[
+                tx.display_reference = tx.membership_ids.mapped("reference")[
                     0
                 ]  # should be only one
             elif tx.membership_request_ids and tx.membership_request_ids.mapped(
                 "reference"
             ):
-                reference = tx.membership_request_ids.mapped("reference")[
+                tx.display_reference = tx.membership_request_ids.mapped("reference")[
                     0
                 ]  # should be only one
-            tx.display_reference = reference
 
     def _mark_membership_as_paid(self, acquirer_reference=False):
         for pt in self:
