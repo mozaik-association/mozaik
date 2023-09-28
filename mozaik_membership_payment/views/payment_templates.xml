@@ -10,16 +10,4 @@
         </xpath>
     </template>
 
-    <template id="pay" inherit_id="payment.pay">
-        <xpath expr="//t[@t-esc='reference']" position="attributes">
-            <attribute name="t-esc">display_reference</attribute>
-        </xpath>
-    </template>
-
-    <template id="confirm" inherit_id="payment.confirm">
-        <xpath expr="//span[@t-esc='tx.reference']" position="attributes">
-            <attribute name="t-esc">tx.display_reference</attribute>
-        </xpath>
-    </template>
-
 </odoo>

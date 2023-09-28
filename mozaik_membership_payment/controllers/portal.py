@@ -9,6 +9,13 @@ from odoo.addons.payment.controllers.portal import PaymentProcessing, WebsitePay
 
 
 class WebsitePaymentMozaik(WebsitePayment):
+    def _filter_membership_acquirers(self, acquirers):
+        membership_acquirers = []
+        for acquirer in acquirers:
+            if acquirer.can_be_used_for_membership:
+                membership_acquirers.append(acquirer)
+        return membership_acquirers
+
     @http.route()
     def pay(
         self,
@@ -39,6 +46,10 @@ class WebsitePaymentMozaik(WebsitePayment):
                 "membership_request_id": kw.get("membership_request_id"),
             }
         )
+        if kw.get("membership_id") or kw.get("membership_request_id"):
+            res.qcontext["acquirers"] = self._filter_membership_acquirers(
+                res.qcontext.get("acquirers", [])
+            )
         if kw.get("membership_id"):
             membership = (
                 request.env["membership.line"]

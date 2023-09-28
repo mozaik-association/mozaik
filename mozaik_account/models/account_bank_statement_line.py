@@ -26,7 +26,6 @@ class AccountBankStatementLine(models.Model):
                 "field": "stored_reference",
             },
             "membership.line": {"mode": "membership", "map": "partner_id"},
-            "partner.involvement": {"mode": "donation", "map": "partner_id"},
         }
 
     @api.model
@@ -53,39 +52,17 @@ class AccountBankStatementLine(models.Model):
 
         return False, False
 
-    def _create_donation_move(self, reference):
+    def _execute_specific_mode_actions(
+        self, mode, partner, reference, amount_paid, vals
+    ):
         """
-        Create an account move related to a donation
+        Depending on mode, execute specific actions
         """
-        self.ensure_one()
-        line_count = self.search_count([("payment_ref", "=", reference)])
-        if line_count > 1:
-            # do not auto reconcile if reference has already been used
-            return
-
-        prod_id = self.env.ref("mozaik_account.product_template_donation")
-
-        account = prod_id.product_tmpl_id._get_product_accounts().get("income")
-        if account:
-            move_dicts = [
-                {
-                    "account_id": account.id,
-                    "debit": 0,
-                    "credit": self.amount,
-                    "name": reference,
-                }
-            ]
-            self.process_reconciliation(new_aml_dicts=move_dicts)
-
-    def _propagate_payment(self, vals):
-        self.ensure_one()
-        memb_obj = self.env["membership.line"]
-        amount_paid = vals.get("credit") or 0.0
-        reference = vals.get("name") or ""
-        mode, partner = self._get_info_from_reference(reference)
         if mode == "membership":
             move_id = vals.get("move_id", False)
-            membership = memb_obj._get_membership_line_by_ref(reference)
+            membership = self.env["membership.line"]._get_membership_line_by_ref(
+                reference
+            )
             bank_account_id = self.partner_bank_id.id
             membership._mark_as_paid(amount_paid, move_id, bank_account_id)
         if mode == "partner":
@@ -93,20 +70,13 @@ class AccountBankStatementLine(models.Model):
             bank_account_id = self.partner_bank_id.id
             partner.pay_membership(amount_paid, move_id, bank_account_id)
 
-        if mode == "donation":
-            involvements = self.env["partner.involvement"].search(
-                [
-                    ("partner_id", "=", partner.id),
-                    ("reference", "=", reference),
-                    ("active", "<=", True),
-                ]
-            )
-            if involvements:
-                vals = {
-                    "effective_time": self.date,
-                    "amount": amount_paid,
-                }
-                involvements.write(vals)
+    def _propagate_payment(self, vals):
+        self.ensure_one()
+        memb_obj = self.env["membership.line"]
+        amount_paid = vals.get("credit") or 0.0
+        reference = vals.get("name") or ""
+        mode, partner = self._get_info_from_reference(reference)
+        self._execute_specific_mode_actions(mode, partner, reference, amount_paid, vals)
 
         # try to find if a membership have the same amount for the partner
         partner_id = vals.get("partner_id")
@@ -209,8 +179,7 @@ class AccountBankStatementLine(models.Model):
         subscription_accounts = subscription_product.mapped(
             "property_subscription_account"
         )
-        donation_p = self.env.ref("mozaik_account.product_template_donation")
-        return subscription_accounts | donation_p.property_account_income_id
+        return subscription_accounts
 
     def process_reconciliation(
         self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None
@@ -246,8 +215,6 @@ class AccountBankStatementLine(models.Model):
                 )
             elif mode == "partner":
                 bank_line._create_membership_move_from_former(bank_line.payment_ref)
-            elif mode == "donation":
-                bank_line._create_donation_move(bank_line.payment_ref)
             elif not mode:
                 bank_line._create_membership_move_from_partner(raise_exception=False)
             if bank_line.is_reconciled:

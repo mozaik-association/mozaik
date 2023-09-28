@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="virtual_partner_involvement_tree_view" model="ir.ui.view">
+        <field name="name">virtual.partner.involvement.tree</field>
+        <field name="model">virtual.partner.involvement</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_involvement.virtual_partner_involvement_tree_view"
+        />
+        <field name="arch" type="xml">
+            <field name="is_volunteer" position="before">
+                <field name="is_donor" />
+            </field>
+        </field>
+    </record>
+
+    <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
+        <field name="name">virtual.partner.involvement.search</field>
+        <field name="model">virtual.partner.involvement</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view"
+        />
+        <field name="arch" type="xml">
+            <filter name="volunteer" position="before">
+                <filter string="Donor" name="donor" domain="[('is_donor','=',True)]" />
+                <separator />
+            </filter>
+            <filter name="without_type" position="after">
+                <separator />
+                <filter
+                    name="promise"
+                    string="Promise"
+                    domain="[('promise', '=', True)]"
+                />
+                <filter
+                    name="donation"
+                    string="Donation"
+                    domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"
+                />
+            </filter>
+        </field>
+    </record>
+
+</odoo>

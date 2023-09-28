@@ -17,7 +17,6 @@
                 <field name="involvement_type" />
             </field>
             <field name="lang" position="after">
-                <field name="is_donor" />
                 <field name="is_volunteer" />
             </field>
         </field>
@@ -85,8 +84,6 @@
                     domain="[('gender','=','female')]"
                 />
                 <separator />
-                <filter string="Donor" name="donor" domain="[('is_donor','=',True)]" />
-                <separator />
                 <filter
                     string="Volunteer"
                     name="volunteer"
@@ -108,17 +105,6 @@
                     name="without_type"
                     string="Involvement Without Type"
                     domain="[('involvement_type', '=', False)]"
-                />
-                <separator />
-                <filter
-                    name="promise"
-                    string="Promise"
-                    domain="[('promise', '=', True)]"
-                />
-                <filter
-                    name="donation"
-                    string="Donation"
-                    domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"
                 />
                 <separator />
                 <filter

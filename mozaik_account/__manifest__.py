@@ -4,8 +4,8 @@
 {
     "name": "Mozaik: Account",
     "summary": """
-        Manage membership and donation reconciliation""",
-    "version": "14.0.1.0.2",
+        Manage membership reconciliation""",
+    "version": "14.0.2.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
@@ -13,7 +13,6 @@
     "depends": [
         "product",
         "account",
-        "mozaik_involvement_donation",
         "mozaik_membership",
         "l10n_generic_coa",
         # OCA/account-reconcile
@@ -24,7 +23,6 @@
     "data": [
         "security/res_groups.xml",
         "security/ir.model.access.csv",
-        "data/product_product.xml",
         "data/ir_config_parameter.xml",
         "wizards/update_membership.xml",
         "views/account_bank_statement.xml",

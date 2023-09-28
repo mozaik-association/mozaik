@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="payment_acquirer_form_view">
+        <field name="name">payment.acquirer.form (in mozaik_membership_payment)</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form" />
+        <field name="arch" type="xml">
+            <group name="payment_followup" position="after">
+                <group name="membership" string="Memberships">
+                    <field name="can_be_used_for_membership" />
+                </group>
+            </group>
+
+        </field>
+    </record>
+
+</odoo>

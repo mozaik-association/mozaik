@@ -10,10 +10,13 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
     "depends": [
+        # Mozaik
         "mozaik_membership",
         "mozaik_membership_request",
         "mozaik_membership_request_autovalidate",
         "mozaik_account",
+        "mozaik_payment",
+        # Odoo
         "account",
         "payment",
     ],
@@ -22,6 +25,7 @@
         "wizards/payment_link_wizard.xml",
         "views/payment_templates.xml",
         "views/membership_line.xml",
+        "views/payment_acquirer.xml",
         "views/assets.xml",
     ],
     "demo": [],
