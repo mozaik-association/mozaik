@@ -37,15 +37,13 @@ msgid "Autovalidation after payment failed. Reason of failure: %s"
 msgstr ""
 
 #. module: mozaik_membership_payment
-#: model:ir.model.fields.selection,name:mozaik_membership_payment.selection__membership_request__transaction_state__cancel
-msgid "Canceled"
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_acquirer__can_be_used_for_membership
+msgid "Can Be Used For Membership"
 msgstr ""
 
 #. module: mozaik_membership_payment
-#. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#, python-format
-msgid "Cannot setup the payment"
+#: model:ir.model.fields.selection,name:mozaik_membership_payment.selection__membership_request__transaction_state__cancel
+msgid "Canceled"
 msgstr ""
 
 #. module: mozaik_membership_payment
@@ -57,15 +55,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_account_payment__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__display_name
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_acquirer__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_link_wizard__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_res_partner__display_name
 msgid "Display Name"
-msgstr ""
-
-#. module: mozaik_membership_payment
-#: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction__display_reference
-msgid "Display Reference"
 msgstr ""
 
 #. module: mozaik_membership_payment
@@ -97,6 +91,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_account_payment__id
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__id
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request__id
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_acquirer__id
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_link_wizard__id
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction__id
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_res_partner__id
@@ -104,9 +99,15 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_membership_payment
+#: model:ir.model.fields,help:mozaik_membership_payment.field_payment_acquirer__can_be_used_for_membership
+msgid "If ticked, this payment acquirer can be used to pay memberships"
+msgstr ""
+
+#. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_account_payment____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_request____last_update
+#: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_acquirer____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_link_wizard____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction____last_update
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_res_partner____last_update
@@ -145,14 +146,13 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_payment_transaction__membership_ids
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_payment.payment_acquirer_form_view
 msgid "Memberships"
 msgstr ""
 
 #. module: mozaik_membership_payment
-#. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#, python-format
-msgid "No payment method selected"
+#: model:ir.model,name:mozaik_membership_payment.model_payment_acquirer
+msgid "Payment Acquirer"
 msgstr ""
 
 #. module: mozaik_membership_payment
@@ -177,20 +177,6 @@ msgid "Pending"
 msgstr ""
 
 #. module: mozaik_membership_payment
-#. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#, python-format
-msgid "Please select a payment method."
-msgstr ""
-
-#. module: mozaik_membership_payment
-#. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#, python-format
-msgid "Server Error"
-msgstr ""
-
-#. module: mozaik_membership_payment
 #: model:ir.model.fields,field_description:mozaik_membership_payment.field_membership_line__transaction_ids
 msgid "Transaction"
 msgstr ""
@@ -211,35 +197,7 @@ msgid "Transactions"
 msgstr ""
 
 #. module: mozaik_membership_payment
-#. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#, python-format
-msgid "We are not able to add your payment method at the moment."
-msgstr ""
-
-#. module: mozaik_membership_payment
-#. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#, python-format
-msgid "We are not able to redirect you to the payment form."
-msgstr ""
-
-#. module: mozaik_membership_payment
-#. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#, python-format
-msgid "We're unable to process your payment."
-msgstr ""
-
-#. module: mozaik_membership_payment
 #: model:ir.model.fields,help:mozaik_membership_payment.field_membership_request__auto_validate_after_payment
 msgid ""
 "When transaction state is done, try to auto-validate the membership request"
-msgstr ""
-
-#. module: mozaik_membership_payment
-#. openerp-web
-#: code:addons/mozaik_membership_payment/static/src/js/payment_form.js:0
-#, python-format
-msgid "e.g. Your credit card details are wrong. Please verify."
 msgstr ""
