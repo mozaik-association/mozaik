@@ -25,6 +25,7 @@
         "wizards/payment_link_wizard.xml",
         "views/payment_templates.xml",
         "views/membership_line.xml",
+        "views/payment_acquirer.xml",
         "views/assets.xml",
     ],
     "demo": [],
