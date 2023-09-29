@@ -21,14 +21,14 @@
         "mozaik_structure",
     ],
     "data": [
+        "data/mail_template.xml",
+        "data/ir_cron.xml",
+        "data/ir_config_parameter.xml",
         "views/res_config_settings.xml",
         "views/membership_line.xml",
         "views/mandate_category.xml",
         "views/partner_involvement.xml",
         "views/partner_involvement_category.xml",
-        "data/mail_template.xml",
-        "data/ir_cron.xml",
-        "data/ir_config_parameter.xml",
     ],
     "demo": [],
 }
