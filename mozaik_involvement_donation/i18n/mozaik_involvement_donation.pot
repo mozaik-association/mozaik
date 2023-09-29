@@ -86,6 +86,11 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement__is_paid
+msgid "Paid"
+msgstr ""
+
+#. module: mozaik_involvement_donation
 #: model:ir.model,name:mozaik_involvement_donation.model_partner_involvement
 msgid "Partner Involvement"
 msgstr ""
@@ -98,6 +103,11 @@ msgstr ""
 #. module: mozaik_involvement_donation
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement_donation.partner_involvement_form_view
 msgid "Payment"
+msgstr ""
+
+#. module: mozaik_involvement_donation
+#: model:ir.model.fields,field_description:mozaik_involvement_donation.field_partner_involvement__payment_date
+msgid "Payment Date"
 msgstr ""
 
 #. module: mozaik_involvement_donation
