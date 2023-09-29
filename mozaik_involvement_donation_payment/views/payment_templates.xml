@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="payment_tokens_list" inherit_id="payment.payment_tokens_list">
+        <xpath expr="//form" position="attributes">
+            <attribute name="t-att-data-involvement-id">involvement_id or ''</attribute>
+        </xpath>
+    </template>
+
+</odoo>

@@ -41,14 +41,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='creation_time']" position="after">
                 <field name="amount" sum="1" />
-                <field name="promise" invisible="1" />
-            </xpath>
-
-            <xpath expr="//tree" position="attributes">
-                <attribute
-                    name="decoration-danger"
-                    translation="off"
-                >promise==True</attribute>
+                <field
+                    name="is_paid"
+                    attrs="{'invisible': [('involvement_type', '!=', 'donation')]}"
+                />
             </xpath>
         </field>
     </record>
@@ -77,6 +73,8 @@
                         </group>
                         <group name="payment2">
                             <field name="reference" />
+                            <field name="payment_date" />
+                            <field name="is_paid" />
                         </group>
                     </group>
                 </page>

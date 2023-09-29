@@ -55,11 +55,33 @@ class TestPartnerInvolvement(SavepointCase):
                 "effective_time": fields.Datetime.now(),
             }
         )
-        # Just a promise? no it's a real donation
-        self.assertFalse(inv.promise)
-        inv.reference = "MaBonneFoi"
-        # Just a promise? no it's also a real donation
-        self.assertFalse(inv.promise)
-        inv.effective_time = False
-        # Just a promise? yes
+        # Just a promise? yes, he doesn't pay yet
         self.assertTrue(inv.promise)
+        inv.payment_date = fields.Datetime.today()
+        # Just a promise? no, he paid
+        self.assertFalse(inv.promise)
+
+    def test_is_paid(self):
+        cat = self.env["partner.involvement.category"].create(
+            {
+                "name": "Semeur, vaillants du rêve...",
+                "involvement_type": "newsletter",
+            }
+        )
+        inv = self.env["partner.involvement"].create(
+            {
+                "partner_id": self.paul.id,
+                "involvement_category_id": cat.id,
+            }
+        )
+        self.assertFalse(inv.is_paid)
+        inv.payment_date = fields.Date.today()
+        self.assertFalse(inv.is_paid)
+
+        inv.payment_date = False
+        cat.involvement_type = "donation"
+        self.assertTrue(inv.promise)
+        self.assertFalse(inv.is_paid)
+        inv.payment_date = fields.Date.today()
+        self.assertFalse(inv.promise)
+        self.assertTrue(inv.is_paid)
