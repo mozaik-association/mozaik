@@ -28,6 +28,25 @@ class EventRegistration(models.Model):
                     _("The partner didn't answer to all mandatory tickbox questions.")
                 )
 
+    def _get_involvement_and_interests(self):
+        """
+        Getting involvement and interests from tickbox questions:
+        If the tickbox question is ticked, add the involvement
+        """
+        command_ic, command_interests = super()._get_involvement_and_interests()
+
+        for answer in self.registration_answer_ids.filtered(
+            lambda r: r.question_type == "tickbox" and r.value_tickbox
+        ):
+            if answer.question_id.involvement_category_id:
+                command_ic += [(4, answer.question_id.involvement_category_id.id)]
+                command_interests += [
+                    (4, interest.id)
+                    for interest in answer.question_id.involvement_category_id.interest_ids
+                ]
+
+        return command_ic, command_interests
+
 
 class EventRegistrationAnswer(models.Model):
 

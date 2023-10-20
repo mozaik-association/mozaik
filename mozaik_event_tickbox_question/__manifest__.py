@@ -13,6 +13,7 @@
     "depends": [
         "mozaik_event_export",
         "mozaik_event_question_event_type",
+        "mozaik_event_membership_request_involvement",
     ],
     "data": [
         "views/event_question.xml",
