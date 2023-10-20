@@ -287,6 +287,14 @@ class TestEventRegistration(TransactionCase):
                     "value_tickbox": True,
                 },
             ),
+            (
+                0,
+                0,
+                {
+                    "question_id": question_4.id,
+                    "value_tickbox": False,
+                },
+            ),
         ]
         self.signatory_partner = self.env["petition.registration"].create(
             {
