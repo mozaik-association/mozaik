@@ -64,17 +64,14 @@ class EventRegistration(models.Model):
             self._add_involvements_to_membership_request(request)
             request._auto_validate_may_be_forced(self.event_id.auto_accept_membership)
 
-    def _add_involvements_to_membership_request(self, request):
+    def _get_involvement_and_interests(self):
         """
-        Adds to the membership request:
+        Return two x2m commands lists. For involvement categories, add:
         # 1 the involvement category of the event itself, if set
         # 2 for select questions: all involvement categories
             set on answers that were chosen by the attendee
-        # 3 for other types of questions where an involvement category
-            is set on the question itself
-            (neither select questions, nor text input questions): the involvement category
+
         For every involvement category added, adds the corresponding interests
-          on the membership request.
         """
         self.ensure_one()
         command_ic = []
@@ -97,16 +94,15 @@ class EventRegistration(models.Model):
                 for interest in answer.involvement_category_id.interest_ids
             ]
 
-        # 3
-        for question in self.registration_answer_ids.question_id.filtered(
-            lambda s: s.involvement_category_id
-        ):
-            command_ic += [(4, question.involvement_category_id.id)]
-            command_interests += [
-                (4, interest.id)
-                for interest in question.involvement_category_id.interest_ids
-            ]
+        return command_ic, command_interests
 
+    def _add_involvements_to_membership_request(self, request):
+        """
+        Adds to the membership request the involvement categories and linked interests
+        that are configured on the event and on the event questions.
+        """
+        self.ensure_one()
+        command_ic, command_interests = self._get_involvement_and_interests()
         command_ic = list(set(command_ic))  # removing duplicates
         command_interests = list(set(command_interests))
         request.write(

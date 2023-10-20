@@ -119,3 +119,67 @@ class TestEventRegistration(TransactionCase):
         attendee = self.env["event.registration"].create(values)
         self.assertEqual(attendee.lastname, "Dupont")
         self.assertEqual(len(attendee.registration_answer_ids), 3)
+
+    def test_event_registration_involvement(self):
+        """
+        Register to an event, answering a tickbox question with an involvement category
+        but not ticking it.
+        -> Check that the involvement was not added on the membership request.
+
+        Tick the checkbox
+        -> Check that involvement was added on the membership request.
+        """
+        # Remove mandatory constraint as it is useless for this test
+        self.mand_tick_1.is_mandatory = False
+        self.mand_tick_2.is_mandatory = False
+        # Add an involvement
+        involvement_category = self.env["partner.involvement.category"].create(
+            {"name": "IC"}
+        )
+        self.not_mand_tick.involvement_category_id = involvement_category
+        # Register to the event
+        attendee = self.env["event.registration"].create(
+            {
+                "firstname": "Jean",
+                "lastname": "Dupont",
+                "event_id": self.event.id,
+                "registration_answer_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "question_id": self.not_mand_tick.id,
+                            "question_type": self.not_mand_tick.question_type,
+                            "value_tickbox": False,
+                        },
+                    )
+                ],
+            }
+        )
+        self.assertTrue(attendee.membership_request_id)
+        self.assertFalse(attendee.membership_request_id.involvement_category_ids)
+
+        # Register again, ticking the question
+        attendee = self.env["event.registration"].create(
+            {
+                "firstname": "Jean",
+                "lastname": "Dupont",
+                "event_id": self.event.id,
+                "registration_answer_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "question_id": self.not_mand_tick.id,
+                            "question_type": self.not_mand_tick.question_type,
+                            "value_tickbox": True,
+                        },
+                    )
+                ],
+            }
+        )
+        self.assertTrue(attendee.membership_request_id)
+        self.assertEqual(
+            attendee.membership_request_id.involvement_category_ids.ids,
+            [involvement_category.id],
+        )

@@ -46,9 +46,9 @@ class PetitionRegistration(models.Model):
         # 1 the involvement category of the petition itself, if set
         # 2 for select questions: all involvement categories
             set on answers that were chosen by the signatory
-        # 3 for other types of questions where an involvement category
-            is set on the question itself
-            (neither select questions, nor text input questions): the involvement category
+        # 3 for tickbox questions (where an involvement category
+            is set on the question itself): add the involvement category if the question
+            is ticked.
         For every involvement category added, adds the corresponding interests
           on the membership request.
         """
@@ -74,14 +74,15 @@ class PetitionRegistration(models.Model):
             ]
 
         # 3
-        for question in self.registration_answer_ids.question_id.filtered(
-            lambda s: s.involvement_category_id
+        for answer in self.registration_answer_ids.filtered(
+            lambda r: r.question_type == "tickbox" and r.value_tickbox
         ):
-            command_ic += [(4, question.involvement_category_id.id)]
-            command_interests += [
-                (4, interest.id)
-                for interest in question.involvement_category_id.interest_ids
-            ]
+            if answer.question_id.involvement_category_id:
+                command_ic += [(4, answer.question_id.involvement_category_id.id)]
+                command_interests += [
+                    (4, interest.id)
+                    for interest in answer.question_id.involvement_category_id.interest_ids
+                ]
 
         command_ic = list(set(command_ic))  # removing duplicates
         command_interests = list(set(command_interests))
