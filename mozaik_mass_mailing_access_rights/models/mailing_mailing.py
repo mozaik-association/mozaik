@@ -12,6 +12,7 @@ class MassMailing(models.Model):
         comodel_name="res.users",
         string="Sending user",
         default=lambda self: self.env.user,
+        copy=False,
     )
 
     def action_put_in_queue(self):
