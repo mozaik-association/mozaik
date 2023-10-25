@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="survey_invite_form_view">
+        <field name="name">survey.invite.form (in survey_distribution_list)</field>
+        <field name="model">survey.invite</field>
+        <field name="inherit_id" ref="survey.survey_invite_view_form" />
+        <field name="arch" type="xml">
+            <field name="emails" position="after">
+                <field name="distribution_list_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
