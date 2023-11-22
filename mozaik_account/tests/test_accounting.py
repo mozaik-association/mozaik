@@ -42,7 +42,7 @@ class TestAccounting(object):
         else:
             amount = random.uniform(10, 100)
         if not self.partner.membership_line_ids.filtered(
-            lambda l: l.reference == reference
+            lambda line: line.reference == reference
         ):
             values = self.partner.membership_line_ids._build_membership_values(
                 self.partner,

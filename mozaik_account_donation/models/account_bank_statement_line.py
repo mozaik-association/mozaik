@@ -67,7 +67,7 @@ class AccountBankStatementLine(models.Model):
     def _auto_reconcile(self):
         reconciled_lines = super()._auto_reconcile()
         for bank_line in self.filtered(
-            lambda l: not (not l.partner_id or l.is_reconciled)
+            lambda line: not (not line.partner_id or line.is_reconciled)
         ):
             mode, __ = bank_line._get_info_from_reference(bank_line.payment_ref)
             if mode == "donation":

@@ -140,7 +140,7 @@ class ResPartner(models.Model):
     )
     def _compute_reference(self):
         for record in self:
-            memberships = record.membership_line_ids.filtered(lambda l: l.active)
+            memberships = record.membership_line_ids.filtered("active")
             if memberships and first(memberships).reference:
                 membership = first(memberships)  # should only be one
                 record.reference = membership._get_reference()
@@ -174,10 +174,12 @@ class ResPartner(models.Model):
         all_excl_states = state_obj._get_all_exclusion_states()
         for record in self:
             if any(record.membership_line_ids.mapped("active")):
-                memberships = record.membership_line_ids.filtered(lambda l: l.active)
+                memberships = record.membership_line_ids.filtered("active")
             else:
                 memberships = first(
-                    record.membership_line_ids.sorted(lambda l: l.date_to, reverse=True)
+                    record.membership_line_ids.sorted(
+                        lambda line: line.date_to, reverse=True
+                    )
                 )
             instances = memberships.mapped("int_instance_id")
             if not instances and record.force_int_instance_id:
@@ -212,7 +214,9 @@ class ResPartner(models.Model):
                 memberships = self.membership_line_ids.filtered("active")
             else:
                 memberships = first(
-                    self.membership_line_ids.sorted(lambda l: l.date_to, reverse=True)
+                    self.membership_line_ids.sorted(
+                        lambda line: line.date_to, reverse=True
+                    )
                 )
             states = memberships.mapped("state_id")
             # Get the highest priority of state
@@ -328,7 +332,7 @@ class ResPartner(models.Model):
         """
         partners = self.filtered(lambda s: not s.is_company)
         # We have to renew every (active) membership lines of the partner
-        partners.mapped("membership_line_ids").filtered(lambda l: l.active)._renew(
+        partners.mapped("membership_line_ids").filtered("active")._renew(
             date_from=date_from
         )
 

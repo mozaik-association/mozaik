@@ -17,7 +17,7 @@ class AccountBankStatement(models.Model):
             context.pop("default_journal_id")
             self_ctx = self.with_context(context)
         lines = self_ctx.line_ids.filtered(
-            lambda l: not (not l.partner_id or l.is_reconciled)
+            lambda line: not (not line.partner_id or line.is_reconciled)
         )
         if not lines:
             return False
