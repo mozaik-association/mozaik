@@ -176,7 +176,7 @@ class EventExportXls(models.TransientModel):
 
         for question in event_registration.event_id.question_ids:
             lines = event_registration.registration_answer_ids.filtered(
-                lambda l: l.question_id == question
+                lambda line: line.question_id == question
             )
             answers.append(self._compute_answer(lines))
 

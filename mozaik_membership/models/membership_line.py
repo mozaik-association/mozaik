@@ -140,7 +140,7 @@ class MembershipLine(models.Model):
         # more than 1 active line
         bad_records = self.filtered(
             lambda r: r.partner_id.is_excluded
-            and len(r.partner_id.membership_line_ids.filtered(lambda l: l.active)) > 1
+            and len(r.partner_id.membership_line_ids.filtered("active")) > 1
         )
         if bad_records:
             details = "\n- ".join(bad_records.mapped("partner_id.display_name"))
@@ -250,11 +250,11 @@ class MembershipLine(models.Model):
         partners = self.env["res.partner"].browse(partner_ids)
         if not line_id:
             lines = partners.mapped("membership_line_ids").filtered(
-                lambda l: not l.date_to
+                lambda line: not line.date_to
             )
             if int_instance_id:
                 lines = lines.filtered(
-                    lambda l: l.int_instance_id.id == int_instance_id
+                    lambda line: line.int_instance_id.id == int_instance_id
                 )
         else:
             lines = self.browse(line_id)
@@ -264,7 +264,7 @@ class MembershipLine(models.Model):
             state_obj = self.env["membership.state"]
             all_excl_states = state_obj._get_all_exclusion_states()
             lines |= partners.mapped("membership_line_ids").filtered(
-                lambda l: l.active and l.state_id in all_excl_states
+                lambda line: line.active and line.state_id in all_excl_states
             )
         if lines:
             return lines.action_invalidate(
@@ -566,7 +566,7 @@ class MembershipLine(models.Model):
             lines = self
         else:
             lines = self.filtered(
-                lambda l: fields.Date.from_string(l.date_from) <= limit_date
+                lambda line: fields.Date.from_string(line.date_from) <= limit_date
             )
         if lines:
             values = {
@@ -642,7 +642,7 @@ class MembershipLine(models.Model):
         membership_lines = self
         if not force:
             membership_lines = self.filtered(
-                lambda l: fields.Date.from_string(l.date_from) <= limit_date
+                lambda line: fields.Date.from_string(line.date_from) <= limit_date
             )
         # Save which membership line are created/updated
         membership_altered = membership_line_obj.browse()

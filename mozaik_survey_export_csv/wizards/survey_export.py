@@ -369,7 +369,7 @@ class SurveyExport(models.TransientModel):
 
         for question in user_input.survey_id.question_ids:
             lines = user_input.user_input_line_ids.filtered(
-                lambda l: l.question_id == question
+                lambda line: line.question_id == question
             )
             if question.question_type in SIMPLE_QUESTION_TYPES:
                 answers += self._compute_answer_simple_question_types(lines)

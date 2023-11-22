@@ -122,7 +122,7 @@ class MassMailing(models.Model):
         mass_mailings._compute_mailing_domain()
 
         super()._process_mass_mailing_queue()
-        for mailing in mass_mailings.filtered(lambda l: l.automation):
+        for mailing in mass_mailings.filtered("automation"):
             next_execution = fields.Datetime.now()
             next_execution = next_execution.replace(
                 hour=mailing.next_execution.hour,

@@ -114,7 +114,7 @@ class DistributionListLine(models.Model):
         fields_available = self._get_valid_bridge_fields()
         # Available fields
         bad_dist_list_lines = self.filtered(
-            lambda l: l.bridge_field_id not in fields_available.get(l)
+            lambda line: line.bridge_field_id not in fields_available.get(line)
         )
         if bad_dist_list_lines:
             details = "\n- ".join(bad_dist_list_lines.mapped("name"))
