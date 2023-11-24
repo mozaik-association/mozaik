@@ -44,6 +44,6 @@ class CountryService(Component):
     def search(self, country_search_filter: CountrySearchFilter) -> List[CountryInfo]:
         domain = self._get_search_domain(country_search_filter)
         res: List[CountryInfo] = []
-        for c in self.env["res.country"].sudo().search(domain):
+        for c in self.env["res.country"].search(domain):
             res.append(CountryInfo.from_orm(c))
         return res
