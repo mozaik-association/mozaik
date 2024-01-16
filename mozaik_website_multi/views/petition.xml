@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="petition_form_view">
+        <field name="model">petition.petition</field>
+        <field name="name">petition.petition.form.view (in mozaik_multi_website)</field>
+        <field name="inherit_id" ref="mozaik_petition.petition_petition_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='additional_information']" position="inside">
+                <field name="website_domain_ids" widget="many2many_tags" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
