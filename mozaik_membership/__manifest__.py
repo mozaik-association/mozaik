@@ -20,6 +20,9 @@
         "mozaik_structure",
         "mozaik_person",
         "mozaik_involvement",
+        # TODO remove
+        "pydantic",
+        "extendable",
     ],
     "data": [
         "wizards/create_user_from_partner.xml",
@@ -56,5 +59,7 @@
         "demo/res_city.xml",
     ],
     "installable": True,
-    "external_dependencies": {"python": ["openupgradelib"]},
+    "external_dependencies": {
+        "python": ["openupgradelib", "pydantic<2.0.0", "extendable_pydantic==0.0.6"]
+    },
 }
