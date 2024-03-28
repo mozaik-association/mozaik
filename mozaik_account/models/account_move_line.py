@@ -15,7 +15,7 @@ class AccountMoveLine(models.Model):
                 mode, partner = self.env[
                     "account.bank.statement.line"
                 ]._get_info_from_reference(vals.get("name", False))
-                if mode == "membership" and partner:
+                if mode in ["partner", "membership"] and partner:
                     vals["partner_id"] = partner.id
         return super().create(vals_list)
 

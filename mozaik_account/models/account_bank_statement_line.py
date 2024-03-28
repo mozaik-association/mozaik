@@ -40,10 +40,10 @@ class AccountBankStatementLine(models.Model):
         for model in models_mode:
             domain = [
                 (models_mode.get(model, {}).get("field", "reference"), "=", reference),
-                ("active", "<=", True),
             ]
             obj = (
                 self.env[model]
+                .with_context(active_test=False)
                 .search(domain)
                 .mapped(models_mode.get(model, {}).get("map"))
             )
