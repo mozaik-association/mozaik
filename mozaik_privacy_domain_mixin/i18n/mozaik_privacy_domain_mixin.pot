@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_privacy_domain_mixin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_privacy_domain_mixin
+#: model:ir.model.fields,help:mozaik_privacy_domain_mixin.field_mozaik_privacy_domain_mixin__domain
+msgid "Add a domain on partners model to limit the access to this record."
+msgstr ""
+
+#. module: mozaik_privacy_domain_mixin
+#: model:ir.model.fields,field_description:mozaik_privacy_domain_mixin.field_mozaik_privacy_domain_mixin__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mozaik_privacy_domain_mixin
+#: model:ir.model.fields,field_description:mozaik_privacy_domain_mixin.field_mozaik_privacy_domain_mixin__domain_is_set
+msgid "Domain is set"
+msgstr ""
+
+#. module: mozaik_privacy_domain_mixin
+#: model:ir.model.fields,field_description:mozaik_privacy_domain_mixin.field_mozaik_privacy_domain_mixin__id
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_privacy_domain_mixin
+#: model:ir.model.fields,field_description:mozaik_privacy_domain_mixin.field_mozaik_privacy_domain_mixin____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mozaik_privacy_domain_mixin
+#: model:ir.model,name:mozaik_privacy_domain_mixin.model_mozaik_privacy_domain_mixin
+msgid "Mixin adding privacy domain"
+msgstr ""
+
+#. module: mozaik_privacy_domain_mixin
+#: model:ir.model.fields,field_description:mozaik_privacy_domain_mixin.field_mozaik_privacy_domain_mixin__domain
+msgid "Target partners domain"
+msgstr ""
+
+#. module: mozaik_privacy_domain_mixin
+#: code:addons/mozaik_privacy_domain_mixin/models/mozaik_privacy_domain_mixin.py:0
+#, python-format
+msgid "This operator/value is not supported"
+msgstr ""
