@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mozaik_document_form_view">
+        <field name="name">mozaik.document.form (in mozaik_document)</field>
+        <field name="model">mozaik.document</field>
+        <field name="arch" type="xml">
+            <form string="Documents">
+                <header />
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <field name="active" invisible="1" />
+                        <label for="name" class="oe_edit_only" string="Document Name" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="main_group">
+                            <field
+                                name="folder_id"
+                                options="{'no_create': 1, 'no_edit': 1}"
+                            />
+                            <field
+                                name="domain"
+                                widget="domain"
+                                options="{'model': 'res.partner'}"
+                            />
+                        </group>
+                        <group name="content">
+                            <field name="content" filename="content_filename" />
+                            <field name="content_filename" invisible="1" />
+                            <field name="url" widget="url" />
+                        </group>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mozaik_document_tree_view">
+        <field name="name">mozaik.document.tree (in mozaik_document)</field>
+        <field name="model">mozaik.document</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="folder_id" options="{'no_create': 1, 'no_update': 1}" />
+                <field name="create_date" />
+                <field name="write_date" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mozaik_document_search_view">
+        <field name="name">mozaik.document.search (in mozaik_document)</field>
+        <field name="model">mozaik.document</field>
+        <field name="arch" type="xml">
+            <search string="Search Document">
+                <field name="name" filter_domain="[('name', 'ilike', self)]" />
+                <field name="folder_id" />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="mozaik_document_action" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="res_model">mozaik.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="mozaik_document_search_view" />
+    </record>
+
+
+</odoo>

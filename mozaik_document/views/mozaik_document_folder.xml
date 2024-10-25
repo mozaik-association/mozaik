@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mozaik_document_folder_form_view">
+        <field name="name">mozaik.document.folder.form (in mozaik_document)</field>
+        <field name="model">mozaik.document.folder</field>
+        <field name="arch" type="xml">
+            <form string="Folders">
+                <header />
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Folder Name" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="main_group">
+                            <field
+                                name="parent_id"
+                                options="{'no_create': 1, 'no_edit': 1}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mozaik_document_folder_tree_view">
+        <field name="name">mozaik.document.folder.tree (in mozaik_document)</field>
+        <field name="model">mozaik.document.folder</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="parent_id" options="{'no_create': 1, 'no_update': 1}" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="mozaik_document_folder_action" model="ir.actions.act_window">
+        <field name="name">Folders</field>
+        <field name="res_model">mozaik.document.folder</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>
