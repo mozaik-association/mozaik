@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <menuitem
+        id="document_menu_root"
+        name="Documents"
+        web_icon="mozaik_document,static/src/img/icon.png"
+        groups="mozaik_document.group_document_reader"
+        sequence="80"
+    >
+        <menuitem id="document_menu" action="mozaik_document_action" sequence="1" />
+        <menuitem id="configuration_menu" name="Configuration" sequence="10">
+            <menuitem
+                id="folder_configuration"
+                action="mozaik_document_folder_action"
+            />
+        </menuitem>
+    </menuitem>
+
+</odoo>
