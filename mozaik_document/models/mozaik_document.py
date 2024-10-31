@@ -1,7 +1,7 @@
 # Copyright 2024 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class MozaikDocument(models.Model):
@@ -16,6 +16,21 @@ class MozaikDocument(models.Model):
     )
     content = fields.Binary()
     content_filename = fields.Char()
+    content_filesize = fields.Integer(compute="_compute_content_filesize")
     url = fields.Char()
 
     active = fields.Boolean(default=True)
+
+    @api.depends("content")
+    def _compute_content_filesize(self):
+        for doc in self:
+            if not doc.content:
+                doc.content_filesize = 0
+            attachment = self.env["ir.attachment"].search(
+                [
+                    ("res_field", "=", "content"),
+                    ("res_model", "=", "mozaik.document"),
+                    ("res_id", "=", doc.id),
+                ]
+            )
+            doc.content_filesize = attachment.file_size
