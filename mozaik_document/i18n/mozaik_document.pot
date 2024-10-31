@@ -50,6 +50,11 @@ msgid "Content Filename"
 msgstr ""
 
 #. module: mozaik_document
+#: model:ir.model.fields,field_description:mozaik_document.field_mozaik_document__content_filesize
+msgid "Content Filesize"
+msgstr ""
+
+#. module: mozaik_document
 #: model:ir.model.fields,field_description:mozaik_document.field_mozaik_document__create_uid
 #: model:ir.model.fields,field_description:mozaik_document.field_mozaik_document_folder__create_uid
 msgid "Created by"
