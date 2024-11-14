@@ -9,6 +9,7 @@ class ExtMandate(models.Model):
     _description = "External Mandate"
     _inherit = ["abstract.mandate"]
     _order = "partner_id, ext_assembly_id, start_date, mandate_category_id"
+    _rec_name = "mandate_category_id"
 
     _undo_redirect_action = "mozaik_mandate.ext_mandate_action"
     _unique_id_sequence = 400000000

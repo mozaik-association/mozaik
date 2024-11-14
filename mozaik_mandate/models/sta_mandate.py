@@ -14,6 +14,7 @@ class StaMandate(models.Model):
     _undo_redirect_action = "mozaik_mandate.sta_mandate_action"
     _unique_id_sequence = 200000000
     _unicity_keys = "N/A"
+    _rec_name = "mandate_category_id"
 
     mandate_category_id = fields.Many2one(domain=[("type", "=", "sta")])
     legislature_id = fields.Many2one(
