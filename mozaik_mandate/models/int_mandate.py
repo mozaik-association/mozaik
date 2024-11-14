@@ -9,6 +9,7 @@ class IntMandate(models.Model):
     _name = "int.mandate"
     _description = "Internal Mandate"
     _inherit = ["abstract.mandate"]
+    _rec_name = "mandate_category_id"
 
     _undo_redirect_action = "mozaik_mandate.int_mandate_action"
     _unique_id_sequence = 0
