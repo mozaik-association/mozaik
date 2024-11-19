@@ -1,0 +1,26 @@
+# Copyright 2018 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+{
+    "name": "MOZAIK: Dummy",
+    "summary": """
+        Dummy test to resolve pydantic dependencies""",
+    "version": "14.0.1.0.0",
+    "license": "AGPL-3",
+    "author": "ACSONE SA/NV",
+    "website": "https://github.com/mozaik-association/mozaik",
+    "category": "Political Association",
+    "depends": [
+        "base_rest",
+        "base_rest_pydantic",
+        "extendable",
+        "pydantic",
+    ],
+    "data": [],
+    "installable": True,
+    "external_dependencies": {
+        "python": [
+            "extendable_pydantic<1",
+            "pydantic<2",
+        ],
+    },
+}
