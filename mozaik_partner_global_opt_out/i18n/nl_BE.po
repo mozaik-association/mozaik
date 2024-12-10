@@ -20,8 +20,8 @@ msgstr ""
 #: code:addons/mozaik_partner_global_opt_out/models/mailing_mailing.py:0
 #, python-format
 msgid ""
-"'Include opt-out contacts' cannot be True if mailing model is different from"
-" 'Contact' or 'Distribution List'."
+"'Include opt-out contacts' cannot be True if mailing model is different from "
+"'Contact', 'Distribution List' or 'Mailing List'."
 msgstr ""
 
 #. module: mozaik_partner_global_opt_out
