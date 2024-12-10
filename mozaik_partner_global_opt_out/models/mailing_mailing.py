@@ -25,6 +25,7 @@ class MailingMailing(models.Model):
         if not self.mailing_model_id or self.mailing_model_id.model not in [
             "res.partner",
             "distribution.list",
+            "mailing.list",
         ]:
             self.include_opt_out_contacts = False
 
@@ -39,12 +40,13 @@ class MailingMailing(models.Model):
                 record.include_opt_out_contacts
                 and record.mailing_model_id
                 and record.mailing_model_id.model
-                not in ["res.partner", "distribution.list"]
+                not in ["res.partner", "distribution.list", "mailing.list"]
             ):
                 raise ValidationError(
                     _(
                         "'Include opt-out contacts' cannot be True "
-                        "if mailing model is different from 'Contact' or 'Distribution List'."
+                        "if mailing model is different from 'Contact', "
+                        "'Distribution List' or 'Mailing List'."
                     )
                 )
 
