@@ -18,7 +18,7 @@
     "demo": [],
     "external_dependencies": {
         "python": [
-            "pydantic",
+            "pydantic<2",  # pylint:disable=missing-return
         ]
     },
 }

@@ -26,8 +26,8 @@
     "data": [],
     "external_dependencies": {
         "python": [
-            "extendable_pydantic",
-            "pydantic",
+            "extendable_pydantic<1",  # pylint:disable=missing-return
+            "pydantic<2",  # pylint:disable=missing-return
         ]
     },
 }

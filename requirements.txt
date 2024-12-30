@@ -1,7 +1,7 @@
 # generated from manifests external_dependencies
-extendable_pydantic
+extendable_pydantic<1
 freezegun
 graphene
 openupgradelib
 phonenumbers
-pydantic
+pydantic<2
