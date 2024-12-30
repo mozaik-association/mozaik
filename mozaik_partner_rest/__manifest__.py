@@ -14,7 +14,6 @@
         "extendable",
         "mozaik_address",
         "mozaik_country_rest",
-        "mozaik_involvement_rest",
         "mozaik_membership",
         "mozaik_membership_rest",
         "mozaik_partner_disabled",
@@ -22,6 +21,7 @@
         "mozaik_partner_global_opt_out",
         "mozaik_partner_unemployed",
         "partner_firstname",
+        "pydantic",
     ],
     "data": [],
     "external_dependencies": {

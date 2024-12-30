@@ -12,9 +12,6 @@ from odoo.addons.mozaik_country_rest.pydantic_models.country_info import Country
 from odoo.addons.mozaik_country_rest.pydantic_models.country_state_info import (
     CountryStateInfo,
 )
-from odoo.addons.mozaik_involvement_rest.pydantic_models.involvement_info import (
-    InvolvementInfo,
-)
 from odoo.addons.mozaik_membership_rest.pydantic_models.membership_line_info import (
     MembershipLineInfo,
 )
@@ -62,9 +59,6 @@ class PartnerInfo(PartnerShortInfo):
     subordinate_ids: List[int] = []
     membership_lines: List[MembershipLineInfo] = pydantic.Field(
         [], alias="membership_line_ids"
-    )
-    involvements: List[InvolvementInfo] = pydantic.Field(
-        [], alias="partner_involvement_ids"
     )
     global_opt_out: bool = None
     reference: str = None

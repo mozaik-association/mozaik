@@ -16,6 +16,7 @@
         "mozaik_automatic_supporter",
         "mozaik_involvement",
         "mozaik_involvement_donation",
+        "mozaik_partner_rest",
         "pydantic",
     ],
     "data": [],
