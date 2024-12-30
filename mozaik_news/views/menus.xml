@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <menuitem
+        id="news_menu_root"
+        name="News"
+        web_icon="mozaik_news,static/src/img/icon.png"
+        groups="mozaik_news.group_news_reader"
+        sequence="80"
+    >
+        <menuitem id="news_menu" action="mozaik_news_action" sequence="1" />
+    </menuitem>
+
+</odoo>
