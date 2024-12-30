@@ -20,14 +20,18 @@ class MembershipRequestCase(BaseRestCase, ExtendableMixin):
             request=request,
         )
         cls.service = cls.services_env.component(usage="membership_request")
-        cls.setUpExtendable()
+        cls.init_extendable_registry()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.reset_extendable_registry()
+        super().tearDownClass()
 
     # pylint: disable=W8106
     def setUp(self):
         # resolve an inheritance issue (common.TransactionCase does not call
         # super)
         BaseRestCase.setUp(self)
-        ExtendableMixin.setUp(self)
 
     def test_post_membership_request(self):
         vals = {

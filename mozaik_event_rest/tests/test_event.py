@@ -29,14 +29,18 @@ class EventCase(BaseRestCase, ExtendableMixin):
                 "date_end": datetime.now(),
             }
         )
-        cls.setUpExtendable()
+        cls.init_extendable_registry()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.reset_extendable_registry()
+        super().tearDownClass()
 
     # pylint: disable=W8106
     def setUp(self):
         # resolve an inheritance issue (common.TransactionCase does not call
         # super)
         BaseRestCase.setUp(self)
-        ExtendableMixin.setUp(self)
 
     def test_get_event(self):
         res = self.service.dispatch("get", self.event.id)
