@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mozaik_news_form_view">
+        <field name="name">mozaik.news.form (in mozaik_news)</field>
+        <field name="model">mozaik.news</field>
+        <field name="arch" type="xml">
+            <form string="News">
+                <header />
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <field name="active" invisible="1" />
+                        <label for="name" class="oe_edit_only" string="Title" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="main_group">
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field
+                                name="domain"
+                                widget="domain"
+                                options="{'model': 'res.partner'}"
+                            />
+                        </group>
+                        <group name="image_group">
+                            <field name="image" widget="image" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="content" string="Content">
+                            <field name="content" widget="html" />
+                        </page>
+                    </notebook>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mozaik_news_tree_view">
+        <field name="name">mozaik.news.tree (in mozaik_news)</field>
+        <field name="model">mozaik.news</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="start_date" />
+                <field name="end_date" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mozaik_news_search_view">
+        <field name="name">mozaik.news.search (in mozaik_news)</field>
+        <field name="model">mozaik.news</field>
+        <field name="arch" type="xml">
+            <search string="Search Document">
+                <field name="name" filter_domain="[('name', 'ilike', self)]" />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="mozaik_news_action" model="ir.actions.act_window">
+        <field name="name">News</field>
+        <field name="res_model">mozaik.news</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="mozaik_news_search_view" />
+    </record>
+
+
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.module.category" id="module_category_news">
+        <field name="name">News</field>
+        <field name="parent_id" ref="base.module_category_political_association" />
+        <field name="sequence" eval="110" />
+    </record>
+
+    <record model="res.groups" id="group_news_reader">
+        <field name="name">Reader</field>
+        <field name="category_id" ref="module_category_news" />
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
+            ref('base.group_user'),
+        ])]"
+        />
+    </record>
+
+    <record model="res.groups" id="group_news_user">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_news" />
+        <field
+            name="implied_ids"
+            eval="[(6, 0, [
+            ref('group_news_reader'),
+        ])]"
+        />
+          <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+
+</odoo>
