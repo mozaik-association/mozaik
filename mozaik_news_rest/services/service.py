@@ -13,10 +13,13 @@ class BaseNewsService(AbstractComponent):
     _collection = "news.rest.services"
     _expose_model = None
 
-    def _get(self, _id):
+    def _get(self, _id, partner_id):
+        if not partner_id:
+            raise MissingError(_("Please provide the partner."))
         domain = [("id", "=", _id)]
         record = self.env[self._expose_model].search(domain)
-        if not record:
+        record_with_access = record._filter_allowed_for_partner(partner_id)
+        if not record_with_access:
             raise MissingError(
                 _("The record %(model)s %(id)s does not exist")
                 % {"model": self._expose_model, "id": _id}

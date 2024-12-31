@@ -11,6 +11,7 @@ from odoo.addons.component.core import Component
 
 from ..pydantic_models.news_info import NewsInfo
 from ..pydantic_models.news_input_filter import NewsInputFilter
+from ..pydantic_models.partner_input import PartnerInput
 
 
 class NewsService(Component):
@@ -22,10 +23,11 @@ class NewsService(Component):
 
     @restapi.method(
         routes=[(["/<int:_id>"], "GET")],
+        input_param=PydanticModel(PartnerInput),
         output_param=PydanticModel(NewsInfo),
     )
-    def get(self, _id: int) -> NewsInfo:
-        news = self._get(_id)
+    def get(self, _id: int, partner_input: PartnerInput) -> NewsInfo:
+        news = self._get(_id, partner_input.partner_id)
         return NewsInfo.from_orm(news)
 
     def _search_filter_news(self, filters: NewsInputFilter):
