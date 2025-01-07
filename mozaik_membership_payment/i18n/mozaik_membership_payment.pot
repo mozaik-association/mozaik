@@ -78,7 +78,7 @@ msgstr ""
 
 #. module: mozaik_membership_payment
 #: model:ir.model,name:mozaik_membership_payment.model_payment_link_wizard
-msgid "Generate Payment Link"
+msgid "Generate Sales Payment Link"
 msgstr ""
 
 #. module: mozaik_membership_payment
