@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mozaik_membership_rest
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_membership_rest
+#: code:addons/mozaik_membership_rest/services/membership_request.py:0
+#, python-format
+msgid "City_id is mandatory on addresses with 'enforce_cities' country"
+msgstr ""
+
+#. module: mozaik_membership_rest
+#: code:addons/mozaik_membership_rest/services/membership_request.py:0
+#, python-format
+msgid "City_id's country must be equal to address' country"
+msgstr ""
+
+#. module: mozaik_membership_rest
+#: code:addons/mozaik_membership_rest/services/service.py:0
+#, python-format
+msgid "The record %s %s does not exist"
+msgstr ""
