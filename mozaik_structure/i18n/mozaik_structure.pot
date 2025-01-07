@@ -1763,6 +1763,14 @@ msgid "Message for Invoice"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__sale_warn_msg
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__sale_warn_msg
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__sale_warn_msg
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__sale_warn_msg
+msgid "Message for Sales Order"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__message_ids
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__message_ids
@@ -2257,11 +2265,35 @@ msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__sale_order_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__sale_order_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__sale_order_count
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__sale_order_count
+msgid "Sale Order Count"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__sale_order_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__sale_order_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__sale_order_ids
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__sale_order_ids
+msgid "Sales Order"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__team_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__team_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__team_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__team_id
 msgid "Sales Team"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__sale_warn
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__sale_warn
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__sale_warn
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__sale_warn
+msgid "Sales Warnings"
 msgstr ""
 
 #. module: mozaik_structure
@@ -2321,9 +2353,13 @@ msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__invoice_warn
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__sale_warn
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__invoice_warn
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__sale_warn
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__invoice_warn
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__sale_warn
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__invoice_warn
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__sale_warn
 msgid ""
 "Selecting the \"Warning\" option will notify user with the message, "
 "Selecting \"Blocking Message\" will throw an exception with the message and "
