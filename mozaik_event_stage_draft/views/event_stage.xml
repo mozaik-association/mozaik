@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="event_stage_form_view">
+        <field name="name">event.stage.form (in mozaik_event_stage_draft)</field>
+        <field name="model">event.stage</field>
+        <field name="inherit_id" ref="event.event_stage_view_form" />
+        <field name="arch" type="xml">
+            <field name="pipe_end" position="after">
+                <field name="draft_stage" />
+            </field>
+        </field>
+    </record>
+
+
+
+</odoo>
