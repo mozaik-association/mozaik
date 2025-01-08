@@ -30,6 +30,7 @@
             <tree>
                 <field name="name" />
                 <field name="note" />
+                <field name="create_date" optional="hide" />
                 <button
                     name="action_show_result"
                     type="object"
