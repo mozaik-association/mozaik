@@ -156,6 +156,7 @@
                     <field name="request_type" />
                     <field name="partner_id" />
                     <field name="int_instance_ids" widget="many2many_tags" />
+                    <field name="create_date" optional="hide" />
                     <field name="is_company" />
                     <field name="state" />
 
