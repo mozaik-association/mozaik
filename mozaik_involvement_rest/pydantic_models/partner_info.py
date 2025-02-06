@@ -12,7 +12,7 @@ from odoo.addons.mozaik_partner_rest.pydantic_models.partner_info import (
 from .involvement_info import InvolvementInfo
 
 
-class PartnerInfo(BasePartnerInfo):
+class PartnerInfo(BasePartnerInfo, extends=BasePartnerInfo):
     involvements: List[InvolvementInfo] = pydantic.Field(
         [], alias="partner_involvement_ids"
     )

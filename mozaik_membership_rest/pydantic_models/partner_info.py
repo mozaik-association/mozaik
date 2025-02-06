@@ -13,7 +13,7 @@ from .membership_line_info import MembershipLineInfo
 from .subscription_info import SubscriptionInfo
 
 
-class PartnerInfo(BasePartnerInfo):
+class PartnerInfo(BasePartnerInfo, extends=BasePartnerInfo):
     membership_lines: List[MembershipLineInfo] = pydantic.Field(
         [], alias="membership_line_ids"
     )
