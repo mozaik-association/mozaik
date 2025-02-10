@@ -74,7 +74,6 @@
         "mozaik_structure",
         # 'mozaik_subscription_price',
         "mozaik_thesaurus",
-        "mozaik_thesaurus_api",
         "mozaik_tools",
         "mozaik_virtual_assembly_instance",
         "mozaik_virtual_partner_candidature",
