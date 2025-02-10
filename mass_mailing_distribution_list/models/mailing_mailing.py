@@ -88,3 +88,20 @@ class MassMailing(models.Model):
 
         mass_mailings._compute_mailing_domain()
         super()._process_mass_mailing_queue()
+
+    def _parse_mailing_domain(self):
+        """
+        Override default Odoo method to replace literal_eval by eval.
+        literal_eval raises an exception if mailing_domain is too long.
+        With distribution lists this may happen frequently as self.mailing_domain
+        contains a domain of type [('id', 'in', id_list)], where id_list can be of length
+        30.000 or more.
+        """
+        self.ensure_one()
+        try:
+            mailing_domain = eval(  # pylint: disable=eval-used, eval-referenced
+                self.mailing_domain
+            )
+        except Exception:
+            mailing_domain = [("id", "in", [])]
+        return mailing_domain
