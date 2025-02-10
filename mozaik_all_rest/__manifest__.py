@@ -13,6 +13,7 @@
         "mozaik_country_rest",
         "mozaik_distribution_list_rest",
         "mozaik_event_rest",
+        "mozaik_event_stage_draft",
         "mozaik_involvement_rest",
         "mozaik_involvement_donation_rest",
         "mozaik_mail_rest",
