@@ -21,6 +21,7 @@
         "mozaik_partner_rest",
         "mozaik_petition_rest",
         "mozaik_survey_rest",
+        "mozaik_thesaurus_api",
     ],
     "installable": True,
 }
