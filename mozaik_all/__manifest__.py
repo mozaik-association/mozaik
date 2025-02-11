@@ -10,6 +10,7 @@
     "website": "https://github.com/mozaik-association/mozaik",
     "category": "Political Association",
     "depends": [
+        # Mozaik addons: no REST / GraphQL addons here
         # 'disable_tracking_installation',
         # 'disable_user_welcome_message',
         "inherit_abstract_view",
@@ -42,7 +43,6 @@
         "mozaik_event_security",
         "mozaik_event_thesaurus",
         "mozaik_event_tickbox_question",
-        "mozaik_graphql",
         "mozaik_involvement",
         "mozaik_involvement_donation",
         "mozaik_involvement_followup",
