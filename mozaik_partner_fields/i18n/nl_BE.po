@@ -65,6 +65,12 @@ msgid "Birthdate Month"
 msgstr "Geboortedatum"
 
 #. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_bluesky
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_bluesky
+msgid "Bluesky Account"
+msgstr ""
+
+#. module: mozaik_partner_fields
 #: model:ir.model,name:mozaik_partner_fields.model_res_partner
 msgid "Contact"
 msgstr "Contact"
@@ -170,6 +176,18 @@ msgstr "Uit elkaar"
 #: model:ir.model.fields.selection,name:mozaik_partner_fields.selection__res_partner__marital__single
 msgid "Single"
 msgstr "Alleenstaand"
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_thread
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_thread
+msgid "Thread Account"
+msgstr ""
+
+#. module: mozaik_partner_fields
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_tiktok
+#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__social_tiktok
+msgid "TikTok Account"
+msgstr ""
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__social_twitter
