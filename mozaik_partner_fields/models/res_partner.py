@@ -65,6 +65,18 @@ class ResPartner(models.Model):
         "Instagram Account",
         tracking=True,
     )
+    social_tiktok = fields.Char(
+        "TikTok Account",
+        tracking=True,
+    )
+    social_bluesky = fields.Char(
+        "Bluesky Account",
+        tracking=True,
+    )
+    social_thread = fields.Char(
+        "Thread Account",
+        tracking=True,
+    )
     age = fields.Integer(
         compute="_compute_age",
         search="_search_age",
