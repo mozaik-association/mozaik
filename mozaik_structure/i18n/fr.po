@@ -444,6 +444,14 @@ msgid "Blacklisted Phone is Phone"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_bluesky
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_bluesky
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_bluesky
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__social_bluesky
+msgid "Bluesky Account"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_bounce
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__message_bounce
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__message_bounce
@@ -2837,6 +2845,22 @@ msgid ""
 msgstr ""
 "Cette liste de prix sera utilisée, à la place de la liste par défaut, pour "
 "les ventes faites au partenaire actuel."
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_thread
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_thread
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_thread
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__social_thread
+msgid "Thread Account"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_tiktok
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_tiktok
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_tiktok
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__social_tiktok
+msgid "TikTok Account"
+msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__tz
