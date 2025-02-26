@@ -45,6 +45,9 @@
                 <field name="social_youtube" position="move" />
                 <field name="social_linkedin" position="move" />
                 <field name="social_instagram" position="move" />
+                <field name="social_tiktok" position="move" />
+                <field name="social_bluesky" position="move" />
+                <field name="social_thread" position="move" />
             </xpath>
 
             <xpath expr="//page[@name='personal_information_page']" position="after">
@@ -61,6 +64,9 @@
                         <field name="social_youtube" />
                         <field name="social_linkedin" />
                         <field name="social_instagram" />
+                        <field name="social_tiktok" />
+                        <field name="social_bluesky" />
+                        <field name="social_thread" />
                     </group>
                 </page>
             </xpath>
