@@ -444,7 +444,9 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request__message_has_error
+#: model:ir.model.fields,help:mozaik_membership_request.field_membership_request__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request_change__message_has_error
+#: model:ir.model.fields,help:mozaik_membership_request.field_membership_request_change__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -919,6 +921,12 @@ msgstr "Type aanvraag"
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_sta_assembly__resignation_date
 msgid "Resignation Date"
 msgstr "Ontslag datum"
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_change__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_res_partner__sc_display_state
