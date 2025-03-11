@@ -388,7 +388,9 @@ msgstr ""
 
 #. module: mozaik_petition
 #: model:ir.model.fields,help:mozaik_petition.field_petition_petition__message_has_error
+#: model:ir.model.fields,help:mozaik_petition.field_petition_petition__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_petition.field_petition_registration__message_has_error
+#: model:ir.model.fields,help:mozaik_petition.field_petition_registration__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -793,6 +795,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__activity_user_id
 #: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__activity_user_id
 msgid "Responsible User"
+msgstr ""
+
+#. module: mozaik_petition
+#: model:ir.model.fields,field_description:mozaik_petition.field_petition_petition__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_petition.field_petition_registration__message_has_sms_error
+msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mozaik_petition
