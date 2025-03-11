@@ -29,6 +29,14 @@ class MassMailing(models.Model):
             if record.mailing_model_name == "distribution.list":
                 record.mailing_model_real = "res.partner"
 
+    @api.depends("mailing_model_id")
+    def _compute_reply_to_mode(self):
+        super()._compute_reply_to_mode()
+        distribution_list_mailings = self.filtered(
+            lambda mailing: mailing.mailing_model_id.model == "distribution.list"
+        )
+        distribution_list_mailings.reply_to_mode = "email"
+
     @api.depends("mailing_model_name", "contact_list_ids", "distribution_list_id")
     def _compute_mailing_domain(self):
         super(MassMailing, self)._compute_mailing_domain()

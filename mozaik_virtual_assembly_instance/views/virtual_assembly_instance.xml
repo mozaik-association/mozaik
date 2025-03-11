@@ -31,7 +31,7 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
-                <!-- pylint: disable=duplicate-xml-fields -->
+                <!-- pylint: oca-disable=duplicate-xml-fields -->
                 <field name="int_instance_id" />
                 <field
                     name="int_instance_id"

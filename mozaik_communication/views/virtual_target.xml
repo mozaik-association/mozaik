@@ -25,7 +25,7 @@
         <field name="arch" type="xml">
             <search>
                 <field name="identifier" />
-                <!-- pylint: disable=duplicate-xml-fields -->
+                <!-- pylint: oca-disable=duplicate-xml-fields -->
                 <field
                     string="Birth Date > ..."
                     name="birth_date"
@@ -43,8 +43,7 @@
                     name="int_instance_id"
                     string="Internal Instance descending of..."
                     operator="child_of"
-                />
-
+                /> <!--                pylint: disable=duplicate-xml-fields-->
                 <filter
                     string="Natural Persons"
                     name="type_person"
