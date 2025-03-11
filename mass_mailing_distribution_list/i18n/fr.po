@@ -154,6 +154,7 @@ msgstr "Si coché, certains messages nécessitent votre attention."
 
 #. module: mass_mailing_distribution_list
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_has_error
+#: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si coché, certaines messages ont une erreur d'envoi."
 
@@ -363,6 +364,11 @@ msgid "Record Thread ID"
 msgstr "ID de l'enregistrement du fil"
 
 #. module: mass_mailing_distribution_list
+#: model:ir.model.fields,field_description:mass_mailing_distribution_list.field_distribution_list__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erreur lors de l'envoi SMS"
+
+#. module: mass_mailing_distribution_list
 #: model_terms:ir.ui.view,arch_db:mass_mailing_distribution_list.view_mail_mass_mailing_form
 msgid "Select distribution list..."
 msgstr "Compléter une liste de distribution..."
@@ -431,9 +437,6 @@ msgstr ""
 #: model:ir.model.fields,help:mass_mailing_distribution_list.field_distribution_list__website_message_ids
 msgid "Website communication history"
 msgstr ""
-
-#~ msgid "SMS Delivery error"
-#~ msgstr "Erreur lors de l'envoi SMS"
 
 #~ msgid "Email composition wizard"
 #~ msgstr "Assistant de composition de courriel"
