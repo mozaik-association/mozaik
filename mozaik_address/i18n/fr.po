@@ -355,8 +355,11 @@ msgstr ""
 
 #. module: mozaik_address
 #: model:ir.model.fields,help:mozaik_address.field_address_address__message_has_error
+#: model:ir.model.fields,help:mozaik_address.field_address_address__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_address.field_co_residency__message_has_error
+#: model:ir.model.fields,help:mozaik_address.field_co_residency__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_address.field_res_city__message_has_error
+#: model:ir.model.fields,help:mozaik_address.field_res_city__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -555,6 +558,13 @@ msgstr "Coordonnées postales"
 #. module: mozaik_address
 #: model:res.groups,name:mozaik_address.res_groups_address_reader
 msgid "Reader"
+msgstr ""
+
+#. module: mozaik_address
+#: model:ir.model.fields,field_description:mozaik_address.field_address_address__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_address.field_co_residency__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_address.field_res_city__message_has_sms_error
+msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mozaik_address
