@@ -30,7 +30,7 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="before">
                 <field name="identifier" />
-                <!-- pylint: disable=duplicate-xml-fields -->
+                <!-- pylint: oca-disable=duplicate-xml-fields -->
                 <field
                     string="Birth Date > ..."
                     name="birth_date"
