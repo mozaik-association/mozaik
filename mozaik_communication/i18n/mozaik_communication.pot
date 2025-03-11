@@ -568,8 +568,11 @@ msgstr ""
 
 #. module: mozaik_communication
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list__message_has_error
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_has_error
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_has_error
+#: model:ir.model.fields,help:mozaik_communication.field_distribution_list_line_template__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -1045,6 +1048,13 @@ msgstr ""
 #: code:addons/mozaik_communication/models/distribution_list_line_template.py:0
 #, python-format
 msgid "Result of %s without coordinate"
+msgstr ""
+
+#. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_has_sms_error
+msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mozaik_communication
