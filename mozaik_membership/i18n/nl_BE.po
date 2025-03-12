@@ -474,9 +474,7 @@ msgstr "Indien aangevinkt, vereisen nieuwe berichten jouw aandacht."
 
 #. module: mozaik_membership
 #: model:ir.model.fields,help:mozaik_membership.field_membership_line__message_has_error
-#: model:ir.model.fields,help:mozaik_membership.field_membership_line__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_membership.field_membership_state__message_has_error
-#: model:ir.model.fields,help:mozaik_membership.field_membership_state__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Indien aangevinkt, dan hebben sommige berichten een afleveringsfout."
 
@@ -1090,12 +1088,6 @@ msgstr "Ontslag"
 #. module: mozaik_membership
 #: model:ir.model.fields,field_description:mozaik_membership.field_res_partner_relation__right_partner_instance_ids
 msgid "Right Partner Internal Instances"
-msgstr ""
-
-#. module: mozaik_membership
-#: model:ir.model.fields,field_description:mozaik_membership.field_membership_line__message_has_sms_error
-#: model:ir.model.fields,field_description:mozaik_membership.field_membership_state__message_has_sms_error
-msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mozaik_membership
