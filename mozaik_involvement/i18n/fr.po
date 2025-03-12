@@ -227,7 +227,9 @@ msgstr ""
 
 #. module: mozaik_involvement
 #: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_has_error
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_has_error
+#: model:ir.model.fields,help:mozaik_involvement.field_partner_involvement_category__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -487,6 +489,12 @@ msgstr "Pétition"
 #: model:res.groups,name:mozaik_involvement.res_groups_involvement_reader
 msgid "Reader"
 msgstr "Lecteur"
+
+#. module: mozaik_involvement
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_involvement.field_partner_involvement_category__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
 
 #. module: mozaik_involvement
 #: model_terms:ir.ui.view,arch_db:mozaik_involvement.partner_involvement_category_form_view
