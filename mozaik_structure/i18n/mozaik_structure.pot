@@ -153,6 +153,14 @@ msgid "Activity Type Icon"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__additional_info
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__additional_info
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__additional_info
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__additional_info
+msgid "Additional info"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__address_address_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__address_address_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__address_address_id
@@ -392,6 +400,22 @@ msgid "Blacklist"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__mobile_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__mobile_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__mobile_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__mobile_blacklisted
+msgid "Blacklisted Phone Is Mobile"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__phone_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__phone_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__phone_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__phone_blacklisted
+msgid "Blacklisted Phone is Phone"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__social_bluesky
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__social_bluesky
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__social_bluesky
@@ -562,6 +586,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__company_type
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__company_type
 msgid "Company Type"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__partner_gid
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__partner_gid
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__partner_gid
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__partner_gid
+msgid "Company database ID"
 msgstr ""
 
 #. module: mozaik_structure
@@ -914,6 +946,16 @@ msgid "Facebook Account"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__phone_sanitized
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__phone_sanitized
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__phone_sanitized
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__phone_sanitized
+msgid ""
+"Field used to store sanitized phone number. Helps speeding up searches and "
+"comparisons."
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__valid_mandate_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__valid_mandate_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__valid_mandate_id
@@ -1170,21 +1212,37 @@ msgstr ""
 
 #. module: mozaik_structure
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_category__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly_category__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_instance__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_instance__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_abstract_power_level__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_power_level__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_electoral_district__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_electoral_district__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_category__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly_category__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_int_assembly_category__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly_category__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_int_instance__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_int_instance__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_int_power_level__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_int_power_level__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_legislature__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_legislature__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_category__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly_category__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_sta_instance__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_sta_instance__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_structure.field_sta_power_level__message_has_error
+#: model:ir.model.fields,help:mozaik_structure.field_sta_power_level__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -1206,6 +1264,16 @@ msgstr ""
 msgid ""
 "If the email address is on the blacklist, the contact won't receive mass "
 "mailing anymore, from any list"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__phone_sanitized_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__phone_sanitized_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__phone_sanitized_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__phone_sanitized_blacklisted
+msgid ""
+"If the sanitized phone number is on the blacklist, the contact won't receive"
+" mass mailing sms anymore, from any list"
 msgstr ""
 
 #. module: mozaik_structure
@@ -1246,6 +1314,28 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__image_512
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__image_512
 msgid "Image 512"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__mobile_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__mobile_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__mobile_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__mobile_blacklisted
+msgid ""
+"Indicates if a blacklisted sanitized phone number is a mobile number. Helps "
+"distinguish which number is blacklisted             when there is both a "
+"mobile and phone field in a model."
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,help:mozaik_structure.field_abstract_assembly__phone_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_ext_assembly__phone_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_int_assembly__phone_blacklisted
+#: model:ir.model.fields,help:mozaik_structure.field_sta_assembly__phone_blacklisted
+msgid ""
+"Indicates if a blacklisted sanitized phone number is a phone number. Helps "
+"distinguish which number is blacklisted             when there is both a "
+"mobile and phone field in a model."
 msgstr ""
 
 #. module: mozaik_structure
@@ -2020,6 +2110,14 @@ msgid "Phone"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__phone_sanitized_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__phone_sanitized_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__phone_sanitized_blacklisted
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__phone_sanitized_blacklisted
+msgid "Phone Blacklisted"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__power_level_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__power_level_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_electoral_district__power_level_id
@@ -2155,6 +2253,26 @@ msgid "SEO optimized"
 msgstr ""
 
 #. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly_category__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_instance__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_power_level__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_electoral_district__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly_category__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly_category__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_instance__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_power_level__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_legislature__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly_category__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_instance__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_power_level__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: mozaik_structure
 #: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__sale_order_count
 #: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__sale_order_count
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__sale_order_count
@@ -2192,6 +2310,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__user_id
 #: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__user_id
 msgid "Salesperson"
+msgstr ""
+
+#. module: mozaik_structure
+#: model:ir.model.fields,field_description:mozaik_structure.field_abstract_assembly__phone_sanitized
+#: model:ir.model.fields,field_description:mozaik_structure.field_ext_assembly__phone_sanitized
+#: model:ir.model.fields,field_description:mozaik_structure.field_int_assembly__phone_sanitized
+#: model:ir.model.fields,field_description:mozaik_structure.field_sta_assembly__phone_sanitized
+msgid "Sanitized Number"
 msgstr ""
 
 #. module: mozaik_structure
