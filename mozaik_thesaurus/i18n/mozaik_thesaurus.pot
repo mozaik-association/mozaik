@@ -119,7 +119,6 @@ msgstr ""
 
 #. module: mozaik_thesaurus
 #: model:ir.model.fields,help:mozaik_thesaurus.field_thesaurus_term__message_has_error
-#: model:ir.model.fields,help:mozaik_thesaurus.field_thesaurus_term__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -224,11 +223,6 @@ msgstr ""
 #. module: mozaik_thesaurus
 #: model:res.groups,name:mozaik_thesaurus.thesaurus_reader
 msgid "Reader"
-msgstr ""
-
-#. module: mozaik_thesaurus
-#: model:ir.model.fields,field_description:mozaik_thesaurus.field_thesaurus_term__message_has_sms_error
-msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mozaik_thesaurus
