@@ -223,6 +223,7 @@ msgstr ""
 
 #. module: mozaik_person
 #: model:ir.model.fields,help:mozaik_person.field_res_partner__message_has_error
+#: model:ir.model.fields,help:mozaik_person.field_res_partner__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -495,6 +496,11 @@ msgstr "Motif"
 #: model:ir.cron,name:mozaik_person.reset_res_partner_identifiers_ir_cron
 msgid "Reset sequence 'Partner Identifier Sequence'"
 msgstr "Réinitialisation de la séquence 'Partner Identifier Sequence'"
+
+#. module: mozaik_person
+#: model:ir.model.fields,field_description:mozaik_person.field_res_partner__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
 
 #. module: mozaik_person
 #: model:ir.model.fields,field_description:mozaik_person.field_abstract_assembly__select_name
