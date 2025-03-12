@@ -113,7 +113,6 @@ msgstr ""
 
 #. module: mozaik_duplicate
 #: model:ir.model.fields,help:mozaik_duplicate.field_abstract_duplicate__message_has_error
-#: model:ir.model.fields,help:mozaik_duplicate.field_abstract_duplicate__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -193,11 +192,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_duplicate.allow_duplicate_form_view
 msgid "Ok"
 msgstr "Ok"
-
-#. module: mozaik_duplicate
-#: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr ""
 
 #. module: mozaik_duplicate
 #: model:ir.model.fields,field_description:mozaik_duplicate.field_abstract_duplicate__message_unread
