@@ -604,10 +604,15 @@ msgstr ""
 
 #. module: mozaik_mandate
 #: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_abstract_mandate__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_ext_mandate__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_int_mandate__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_mandate_category__message_has_sms_error
 #: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_has_error
+#: model:ir.model.fields,help:mozaik_mandate.field_sta_mandate__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -1120,6 +1125,15 @@ msgstr ""
 #. module: mozaik_mandate
 #: model_terms:ir.ui.view,arch_db:mozaik_mandate.abstract_mandate_form_view
 msgid "Revenue"
+msgstr ""
+
+#. module: mozaik_mandate
+#: model:ir.model.fields,field_description:mozaik_mandate.field_abstract_mandate__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_ext_mandate__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_int_mandate__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_mandate_category__message_has_sms_error
+#: model:ir.model.fields,field_description:mozaik_mandate.field_sta_mandate__message_has_sms_error
+msgid "SMS Delivery error"
 msgstr ""
 
 #. module: mozaik_mandate
