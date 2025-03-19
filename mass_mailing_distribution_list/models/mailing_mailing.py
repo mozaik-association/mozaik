@@ -7,14 +7,14 @@ from odoo.addons.mass_mailing.models.mailing import (
     MASS_MAILING_BUSINESS_MODELS as BASE_MASS_MAILING_BUSINESS_MODELS,
 )
 
-MASS_MAILING_BUSINESS_MODELS = BASE_MASS_MAILING_BUSINESS_MODELS + ["distribution.list"]
+BASE_MASS_MAILING_BUSINESS_MODELS.append("distribution.list")
 
 
 class MassMailing(models.Model):
     _inherit = "mailing.mailing"
 
     mailing_model_id = fields.Many2one(
-        domain=[("model", "in", MASS_MAILING_BUSINESS_MODELS)]
+        domain=[("model", "in", BASE_MASS_MAILING_BUSINESS_MODELS)]
     )
 
     distribution_list_id = fields.Many2one(
