@@ -5,9 +5,9 @@
     "name": "Mozaik Sponsorship",
     "summary": """
         Adds a sponsorship system (sponsors and godchildren) between partners.
-        Specifying a sponsor on a membership request can offer a free membership
+        Specifying a sponsor on a membership request can offer a free/reduced membership
         to the godchild.""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
@@ -19,6 +19,6 @@
         "views/res_partner.xml",
         "views/membership_request.xml",
         "views/membership_line.xml",
+        "views/product_template.xml",
     ],
-    "demo": [],
 }
