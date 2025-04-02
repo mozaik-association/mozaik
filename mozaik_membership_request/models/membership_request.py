@@ -270,6 +270,11 @@ class MembershipRequest(models.Model):
     indexation_comments = fields.Text("Indexation comments")
 
     amount = fields.Float(digits="Product Price", copy=False)
+    force_product_id = fields.Many2one(
+        "product.product",
+        domain=[("membership", "=", True)],
+        help="If set, the subscription product will be forced.",
+    )
     reference = fields.Char(copy=False)
     effective_time = fields.Datetime(copy=False, string="Involvement Date")
 
@@ -1636,6 +1641,7 @@ class MembershipRequest(models.Model):
 
     def _validate_request_membership(self, partner):  # noqa: C901
         self.ensure_one()
+
         active_memberships = partner.membership_line_ids.filtered(lambda s: s.active)
         if self.force_int_instance_id:
             # we want only one instance
@@ -1683,7 +1689,8 @@ class MembershipRequest(models.Model):
                         {
                             "int_instance_id": instance.id,
                             "partner_id": partner.id,
-                            "product_id": partner.with_context(
+                            "product_id": self.force_product_id.id
+                            or partner.with_context(
                                 membership_request_id=self.id
                             ).subscription_product_id.id,
                             "state_id": self.result_type_id.id,
@@ -1697,7 +1704,14 @@ class MembershipRequest(models.Model):
                     # advance_workflow_as_paid = True on the product, the membership line
                     # will be marked as paid and a new membership line will be created,
                     # before updating the price (coming from the MR) in the next lines
-                    if w.product_id and w.product_id.price == 0 and self.amount:
+                    if (
+                        w.product_id
+                        and self.env["membership.line"]._get_subscription_price(
+                            w.product_id
+                        )
+                        == 0
+                        and self.amount
+                    ):
                         w.price = self.amount
                 update_amount_membership_line = w.action_add()
 
@@ -1712,8 +1726,8 @@ class MembershipRequest(models.Model):
                 )
 
             # save membership amount
-            if self.amount > 0.0 or self.reference:
-                product = self.env["product.product"].search(
+            if self.amount > 0.0 or self.reference or self.force_product_id:
+                product = self.force_product_id or self.env["product.product"].search(
                     [
                         ("membership", "=", True),
                         ("list_price", "=", self.amount),
@@ -1723,10 +1737,17 @@ class MembershipRequest(models.Model):
                 vals = {}
                 if self.reference:
                     vals["reference"] = self.reference
-                if self.amount:
+                if self.force_product_id:
+                    # Force the price on the MR if different from the product
+                    vals["price"] = self.amount or self.env[
+                        "membership.line"
+                    ]._get_subscription_price(self.force_product_id)
+                elif self.amount:
                     vals["price"] = self.amount
                 if product:
                     vals["product_id"] = product.id
+                if vals["price"] == 0:
+                    vals["paid"] = True
                 for membership in update_amount_membership_line:
                     body = (
                         _("Membership changed with membership request:")
@@ -1758,7 +1779,15 @@ class MembershipRequest(models.Model):
                             "after": product.name,
                         }
                     membership.partner_id.message_post(body=body)
+
+                not_paid_updated_membership_lines = (
+                    update_amount_membership_line.filtered(lambda ml: not ml.paid)
+                )
                 update_amount_membership_line.write(vals)
+
+                for membership in not_paid_updated_membership_lines:
+                    # Advance workflow for membership lines if they became free
+                    membership._advance_in_workflow()
 
     @api.model
     def _validate_voluntaries(self, mr, partner):
