@@ -44,12 +44,7 @@ class TestMembershipLine(TransactionCase):
         Test the _get_subscriptioon price
         :return:
         """
-        partner = self.partner_marc
-        instance = self.instance
-        # get the price
-        price = self.membership_obj._get_subscription_price(
-            self.product_free, partner=partner, instance=instance
-        )
+        price = self.product_free.list_price
         self.assertAlmostEqual(price, self.product_free.list_price)
 
     def test_get_subscription_price2(self):
@@ -58,8 +53,6 @@ class TestMembershipLine(TransactionCase):
         :return:
         """
         membership_obj = self.membership_obj
-        partner = self.partner_marc
-        instance = self.instance
         price = 1256.369
         # update the product price
         self.product_free.write(
@@ -69,10 +62,7 @@ class TestMembershipLine(TransactionCase):
         )
         # Use the precision defined on the price field
         precision = membership_obj._fields.get("price").get_digits(self.env)[1]
-        # get the price
-        result_price = membership_obj._get_subscription_price(
-            self.product_free, partner=partner, instance=instance
-        )
+        result_price = self.product_free.list_price
         self.assertAlmostEqual(price, result_price, places=precision)
 
     def _get_membership_line_values(

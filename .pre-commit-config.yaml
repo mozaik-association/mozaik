@@ -15,7 +15,6 @@ exclude: |
   ^mozaik_retrocession/|
   ^mozaik_sample_accounting/|
   ^mozaik_sample_customization/|
-  ^mozaik_subscription_price/|
   ^mozaik_virtual_model/|
   ^res_bank_reconcile/|
   # END NOT INSTALLABLE ADDONS

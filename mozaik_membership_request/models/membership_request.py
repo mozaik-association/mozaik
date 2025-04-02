@@ -1704,14 +1704,7 @@ class MembershipRequest(models.Model):
                     # advance_workflow_as_paid = True on the product, the membership line
                     # will be marked as paid and a new membership line will be created,
                     # before updating the price (coming from the MR) in the next lines
-                    if (
-                        w.product_id
-                        and self.env["membership.line"]._get_subscription_price(
-                            w.product_id
-                        )
-                        == 0
-                        and self.amount
-                    ):
+                    if w.product_id and w.product_id.list_price == 0 and self.amount:
                         w.price = self.amount
                 update_amount_membership_line = w.action_add()
 
@@ -1739,9 +1732,7 @@ class MembershipRequest(models.Model):
                     vals["reference"] = self.reference
                 if self.force_product_id:
                     # Force the price on the MR if different from the product
-                    vals["price"] = self.amount or self.env[
-                        "membership.line"
-                    ]._get_subscription_price(self.force_product_id)
+                    vals["price"] = self.amount or self.force_product_id.list_price
                 elif self.amount:
                     vals["price"] = self.amount
                 if product:

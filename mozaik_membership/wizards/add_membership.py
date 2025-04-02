@@ -133,13 +133,7 @@ class AddMembership(models.TransientModel):
         if the product is set, find the default price
         :return:
         """
-        if self.product_id:
-            price = self.env["membership.line"]._get_subscription_price(
-                self.product_id, partner=self.partner_id, instance=self.int_instance_id
-            )
-            self.price = price
-        else:
-            self.price = 0
+        self.price = self.product_id.list_price if self.product_id else 0
 
     def action_add(self):
         """
