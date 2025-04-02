@@ -133,12 +133,7 @@ class UpdateMembership(models.TransientModel):
         :return:
         """
         if self.product_id:
-            price = self.membership_line_id._get_subscription_price(
-                self.product_id,
-                instance=self.membership_line_id.int_instance_id,
-                partner=self.membership_line_id.partner_id,
-            )
-            self.price = price
+            self.price = self.product_id.list_price
 
     @api.onchange("price")
     def _onchange_price(self):

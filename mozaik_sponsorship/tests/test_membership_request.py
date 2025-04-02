@@ -247,9 +247,7 @@ class TestMembershipRequest(SavepointCase):
                 "int_instance_id": self.harry.int_instance_ids[0].id,
                 "state_id": self.ref("mozaik_membership.member_candidate"),
                 "product_id": self.usual_subscription.id,
-                "price": self.env["membership.line"]._get_subscription_price(
-                    self.usual_subscription
-                ),
+                "price": self.usual_subscription.list_price,
             }
         )
         wiz.action_add()
@@ -306,9 +304,7 @@ class TestMembershipRequest(SavepointCase):
                 "int_instance_id": self.harry.int_instance_ids[0].id,
                 "state_id": self.ref("mozaik_membership.member_candidate"),
                 "product_id": self.usual_subscription.id,
-                "price": self.env["membership.line"]._get_subscription_price(
-                    self.usual_subscription
-                ),
+                "price": self.usual_subscription.list_price,
             }
         )
         wiz.action_add()
@@ -402,9 +398,7 @@ class TestMembershipRequest(SavepointCase):
                 "int_instance_id": self.harry.int_instance_ids[0].id,
                 "state_id": self.ref("mozaik_membership.member_candidate"),
                 "product_id": self.usual_subscription.id,
-                "price": self.env["membership.line"]._get_subscription_price(
-                    self.usual_subscription
-                ),
+                "price": self.usual_subscription.list_price,
             }
         )
         wiz.action_add()
