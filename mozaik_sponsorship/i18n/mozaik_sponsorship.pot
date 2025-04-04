@@ -15,18 +15,6 @@ msgstr ""
 
 #. module: mozaik_sponsorship
 #: code:addons/mozaik_sponsorship/models/membership_request.py:0
-#, python-format
-msgid "<li>Price: %(previous)s %(arrow)s %(after)s</li>"
-msgstr ""
-
-#. module: mozaik_sponsorship
-#: code:addons/mozaik_sponsorship/models/membership_request.py:0
-#, python-format
-msgid "<li>Product: %(previous)s %(arrow)s %(after)s</li>"
-msgstr ""
-
-#. module: mozaik_sponsorship
-#: code:addons/mozaik_sponsorship/models/membership_request.py:0
 #: code:addons/mozaik_sponsorship/models/res_partner.py:0
 #, python-format
 msgid "A partner cannot be sponsored by itself"
@@ -51,6 +39,7 @@ msgstr ""
 #. module: mozaik_sponsorship
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_membership_line__display_name
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_membership_request__display_name
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_product_template__display_name
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_res_partner__display_name
 msgid "Display Name"
 msgstr ""
@@ -58,6 +47,7 @@ msgstr ""
 #. module: mozaik_sponsorship
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_membership_line__id
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_membership_request__id
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_product_template__id
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_res_partner__id
 msgid "ID"
 msgstr ""
@@ -68,8 +58,15 @@ msgid "Is Sponsored"
 msgstr ""
 
 #. module: mozaik_sponsorship
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_product_product__is_sponsorship_product
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_product_template__is_sponsorship_product
+msgid "Is Sponsorship Subscription"
+msgstr ""
+
+#. module: mozaik_sponsorship
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_membership_line____last_update
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_membership_request____last_update
+#: model:ir.model.fields,field_description:mozaik_sponsorship.field_product_template____last_update
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -87,7 +84,20 @@ msgstr ""
 #. module: mozaik_sponsorship
 #: code:addons/mozaik_sponsorship/models/membership_request.py:0
 #, python-format
-msgid "Membership changed with membership request:"
+msgid ""
+"Please configure a sponsorship product by ticking 'Is sponsorship "
+"subscription' checkbox"
+msgstr ""
+
+#. module: mozaik_sponsorship
+#: code:addons/mozaik_sponsorship/models/product_template.py:0
+#, python-format
+msgid "Please configure max. 1 sponsorship subscription."
+msgstr ""
+
+#. module: mozaik_sponsorship
+#: model:ir.model,name:mozaik_sponsorship.model_product_template
+msgid "Product Template"
 msgstr ""
 
 #. module: mozaik_sponsorship
@@ -125,4 +135,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_res_users__sponsorship_date
 #: model:ir.model.fields,field_description:mozaik_sponsorship.field_sta_assembly__sponsorship_date
 msgid "Sponsorship Date"
+msgstr ""
+
+#. module: mozaik_sponsorship
+#: model:product.product,name:mozaik_sponsorship.membership_product_sponsorship
+#: model:product.template,name:mozaik_sponsorship.membership_product_sponsorship_product_template
+msgid "Sponsorship Product"
+msgstr ""
+
+#. module: mozaik_sponsorship
+#: model:ir.model.fields,help:mozaik_sponsorship.field_product_product__is_sponsorship_product
+#: model:ir.model.fields,help:mozaik_sponsorship.field_product_template__is_sponsorship_product
+msgid "This product will be given if the partner is sponsored."
+msgstr ""
+
+#. module: mozaik_sponsorship
+#: model:product.product,uom_name:mozaik_sponsorship.membership_product_sponsorship
+#: model:product.template,uom_name:mozaik_sponsorship.membership_product_sponsorship_product_template
+msgid "Units"
 msgstr ""
