@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record
+        model="membership.tarification"
+        id="membership_tarification_sponsorship_rule"
+    >
+        <field name="sequence" eval="1" />
+        <field name="name">Sponsorship</field>
+        <field
+            name="code"
+        >membership_request and membership_request.sponsor_id and membership_request.can_be_sponsored</field>
+        <field name="product_id" ref="membership_product_sponsorship" />
+    </record>
+
+</odoo>

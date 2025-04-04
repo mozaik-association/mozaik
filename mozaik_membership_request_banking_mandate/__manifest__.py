@@ -10,6 +10,10 @@
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
-    "depends": ["account_banking_mandate", "mozaik_membership_request_autovalidate"],
+    "depends": [
+        "account_banking_mandate",
+        "account_banking_sepa_direct_debit",
+        "mozaik_membership_request_autovalidate",
+    ],
     "data": ["views/membership_request.xml"],
 }

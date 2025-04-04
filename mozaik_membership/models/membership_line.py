@@ -357,9 +357,15 @@ class MembershipLine(models.Model):
         :param partner: res.partner recordset
         :param int.instance: int.instance recordset
         :return: float
+
+        THIS METHOD IS DEPRECATED. PLEASE DIRECTLY USE product.list_price
         """
+        logger.warning(
+            "_get_subscription_price method is deprecated. "
+            "Please directly use product.list_price instead"
+        )
         product.ensure_one()
-        return product.price or product.list_price
+        return product.list_price
 
     @api.model
     def _generate_membership_reference(self, partner, instance, ref_date=""):
@@ -410,9 +416,7 @@ class MembershipLine(models.Model):
         date_from = date_from or fields.Date.today()
         # If the price is not given, we have to compute it
         if price is None:
-            price = self._get_subscription_price(
-                product, partner=partner, instance=instance
-            )
+            price = product.list_price
         if price > 0 and reference is None:
             reference = self._generate_membership_reference(
                 partner, instance, ref_date=date_from

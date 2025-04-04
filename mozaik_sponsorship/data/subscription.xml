@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+    <record id="membership_product_sponsorship" model="product.product">
+        <field name="name">Sponsorship Product</field>
+        <field name="categ_id" ref="mozaik_membership.membership_product_category" />
+        <field name="membership" eval="True" />
+        <field name="is_sponsorship_product" eval="True" />
+        <field name="type">service</field>
+        <field name="list_price" eval="0.0" />
+        <field name="advance_workflow_as_paid" eval="True" />
+    </record>
+
+</odoo>
