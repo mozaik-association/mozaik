@@ -11,30 +11,11 @@ class TestMembershipRequest(SavepointCase):
         super().setUpClass()
         cls.harry = cls.env["res.partner"].create({"name": "Harry Potter"})
         cls.ron = cls.env["res.partner"].create({"name": "Ron Weasley"})
-        cls.sponsored_membership = cls.env["product.template"].create(
-            {
-                "name": "Sponsored Membership",
-                "membership": True,
-                "categ_id": cls.env.ref(
-                    "mozaik_membership.membership_product_category"
-                ).id,
-                "lst_price": 0,
-                "advance_workflow_as_paid": True,
-                "is_sponsorship_product": True,
-            }
+        cls.product_sponsored = cls.env.ref(
+            "mozaik_sponsorship.membership_product_sponsorship"
         )
-        cls.product_sponsored = cls.env["product.product"].search(
-            [("product_tmpl_id.name", "=", "Sponsored Membership")], limit=1
-        )
-        cls.sponsor_mt = cls.env["membership.tarification"].create(
-            {
-                "name": "Sponsored Membership",
-                "product_id": cls.product_sponsored.id,
-                "sequence": 0,
-                "code": "membership_request"
-                " and membership_request.sponsor_id"
-                " and membership_request.can_be_sponsored",
-            }
+        cls.sponsor_mt = cls.env.ref(
+            "mozaik_sponsorship.membership_tarification_sponsorship_rule"
         )
         cls.usual_subscription = cls.env.ref(
             "mozaik_membership.membership_product_isolated"

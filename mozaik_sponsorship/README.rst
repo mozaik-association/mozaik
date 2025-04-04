@@ -6,14 +6,8 @@ This addon adds a mechanism to offer sponsored memberships. These ones can be fr
 
 Configuration
 =============
-Please follows these steps:
-
-1. Create a sponsorship subscription product (Contacts > Configuration > Subscriptions).
-Pay attention to tick "Is Sponsorship Subscription" (only 1 sponsorship product is currently allowed) and "Automatically create the following membership line" if your sponsorship product is free.
-
-2. Create a membership tarification for this product (Contacts > Configuration > Membership tarification).
-The python code specifying the applicable domain should be something like `membership_request and membership_request.sponsor_id and membership_request.can_be_sponsored`.
-Link the membership tarification to the sponsorship product.
+A sponsorship product and tarification were created. If you want to offer free sponsorships, everything it set up for you.
+If you want to offer paying sponsorships, please change the price on the subscription product and untick "Automatically create the following membership line".
 
 Usage
 =====

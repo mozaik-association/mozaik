@@ -16,6 +16,8 @@
         "mozaik_membership_request",
     ],
     "data": [
+        "data/subscription.xml",
+        "data/tarification.xml",
         "views/res_partner.xml",
         "views/membership_request.xml",
         "views/membership_line.xml",
