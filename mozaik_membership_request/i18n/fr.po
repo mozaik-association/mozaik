@@ -402,6 +402,11 @@ msgid "Followers (Partners)"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__force_product_id
+msgid "Force Product"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_abstract_assembly__free_member
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_ext_assembly__free_member
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_int_assembly__free_member
@@ -452,6 +457,11 @@ msgstr ""
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request_change__message_has_error
 #: model:ir.model.fields,help:mozaik_membership_request.field_membership_request_change__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mozaik_membership_request
+#: model:ir.model.fields,help:mozaik_membership_request.field_membership_request__force_product_id
+msgid "If set, the subscription product will be forced."
 msgstr ""
 
 #. module: mozaik_membership_request
