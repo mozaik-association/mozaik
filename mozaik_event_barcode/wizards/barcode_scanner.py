@@ -17,6 +17,7 @@ CONFIRMATION_MSGS = [
 VOTING_MSGS = [
     ("yes", "Partner can vote."),
     ("no", "Partner cannot vote."),
+    ("not_applicable", "No voting domain configured for this event."),
 ]
 
 
@@ -84,6 +85,9 @@ class BarcodeScanner(models.TransientModel):
         Set the voting_msg: if the partner on the associated registration
         has the boolean can_vote=True, then it can vote.
         """
+        if not self.event_id.is_voting_domain_required:
+            self.voting_msg = "not_applicable"
+            return
         if not (
             self.event_registration_id
             and self.event_registration_id.associated_partner_id
