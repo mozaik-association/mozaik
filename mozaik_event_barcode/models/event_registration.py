@@ -22,17 +22,42 @@ class EventRegistration(models.Model):
     barcode = fields.Char(
         default=_get_random_token, readonly=True, copy=False, index=True
     )
+    is_voting_domain_required = fields.Boolean(
+        related="event_id.is_voting_domain_required"
+    )
     can_vote = fields.Boolean(
-        string="Can vote", compute="_compute_can_vote", store=True
+        string="Can vote",
+        compute="_compute_can_vote",
+        store=True,
+        help="If voting domain required boolean is ticked on the event, "
+        "this boolean shows if the partner can vote or not. "
+        "NB: If the voting domain is not activated on the event, "
+        "all registrations will have can_vote=False, "
+        "this being to avoid long computations.",
     )
 
-    @api.depends("associated_partner_id", "event_id.voting_domain")
+    @api.depends(
+        "associated_partner_id",
+        "event_id.voting_domain",
+        "event_id.is_voting_domain_required",
+    )
     def _compute_can_vote(self):
+        """
+        This computation is quite long because the only way is to apply the
+        voting domain on the virtual.partner.membership model, then retrieving
+        the related partners.
+        The is_voting_domain_required inactivates this functionality when
+        it's not needed on the event.
+        :return:
+        """
+        reg_voting_domain_required = self.filtered("is_voting_domain_required")
+        reg_no_voting_domain = self - reg_voting_domain_required
+        reg_no_voting_domain.can_vote = False
         # Compute voting partners once
         voting_partners_dict = {}
-        for event in list(set(self.mapped("event_id"))):
+        for event in list(set(reg_voting_domain_required.mapped("event_id"))):
             voting_partners_dict[event.id] = event._get_voting_partners()
-        for record in self:
+        for record in reg_voting_domain_required:
             if not record.associated_partner_id:
                 record.can_vote = False
             else:

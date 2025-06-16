@@ -19,21 +19,32 @@
             </xpath>
             <page name="event_notes" position="before">
                 <page name="voting_domain" string="Voting Domain">
-                    <p>
+                    <group>
+                        <field name="is_voting_domain_required" />
+                    </group>
+                    <p
+                        attrs="{'invisible': [('is_voting_domain_required', '=', False)]}"
+                    >
                         Please enter a domain valid on the virtual model 'Partner/Membership'. <br
                         />
                         Note that each time this domain is modified, it launches the re-computation of
                         all 'Can Vote' booleans that are present on form views of event registrations.
                         This may take a few seconds.
                     </p>
-                    <group name="voting_domain">
+                    <group
+                        name="voting_domain"
+                        attrs="{'invisible': [('is_voting_domain_required', '=', False)]}"
+                    >
                         <field
                             name="voting_domain"
                             widget="domain"
                             options="{'model': 'virtual.partner.membership'}"
                         />
                     </group>
-                    <group name="trigger_recompute_voting_domain">
+                    <group
+                        name="trigger_recompute_voting_domain"
+                        attrs="{'invisible': [('is_voting_domain_required', '=', False)]}"
+                    >
                         <button
                             name="trigger_recompute_voting_domain"
                             type="object"

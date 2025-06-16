@@ -10,7 +10,11 @@
         <field name="arch" type="xml">
             <field name="mobile" position="after">
                 <field name="barcode" />
-                <field name="can_vote" />
+                <field name="is_voting_domain_required" invisible="1" />
+                <field
+                    name="can_vote"
+                    attrs="{'invisible': [('is_voting_domain_required', '=', False)]}"
+                />
             </field>
         </field>
     </record>
