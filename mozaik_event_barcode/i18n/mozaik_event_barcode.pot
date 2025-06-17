@@ -151,8 +151,23 @@ msgid "ID"
 msgstr ""
 
 #. module: mozaik_event_barcode
+#: model:ir.model.fields,help:mozaik_event_barcode.field_event_registration__can_vote
+msgid ""
+"If voting domain required boolean is ticked on the event, this boolean shows"
+" if the partner can vote or not. NB: If the voting domain is not activated "
+"on the event, all registrations will have can_vote=False, this being to "
+"avoid long computations."
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields,field_description:mozaik_event_barcode.field_barcode_scanner__confirmation_msg
 msgid "Information"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_event__is_voting_domain_required
+#: model:ir.model.fields,field_description:mozaik_event_barcode.field_event_registration__is_voting_domain_required
+msgid "Is Voting Domain Required"
 msgstr ""
 
 #. module: mozaik_event_barcode
@@ -175,6 +190,11 @@ msgstr ""
 #. module: mozaik_event_barcode
 #: model_terms:ir.ui.view,arch_db:mozaik_event_barcode.barcode_scanner_form_view
 msgid "Next Scan"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__voting_msg__not_applicable
+msgid "No voting domain configured for this event."
 msgstr ""
 
 #. module: mozaik_event_barcode
@@ -214,6 +234,12 @@ msgstr ""
 #. module: mozaik_event_barcode
 #: model:ir.model.fields.selection,name:mozaik_event_barcode.selection__barcode_scanner__confirmation_msg__draft
 msgid "Registration wasn't confirmed. Do you want to validate the attendance?"
+msgstr ""
+
+#. module: mozaik_event_barcode
+#: model:ir.model.fields,help:mozaik_event_barcode.field_event_event__is_voting_domain_required
+#: model:ir.model.fields,help:mozaik_event_barcode.field_event_registration__is_voting_domain_required
+msgid "Tick if you want to activate domain for voting partners."
 msgstr ""
 
 #. module: mozaik_event_barcode
