@@ -4,28 +4,30 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class TestEventRegistration(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.event_test = self.env["event.event"].create(
+class TestEventRegistration(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.event_test = cls.env["event.event"].create(
             {
                 "name": "Test Event",
                 "date_begin": fields.Datetime.now() - relativedelta(hours=4),
                 "date_end": fields.Datetime.now() + relativedelta(days=3),
+                "is_voting_domain_required": True,
                 "voting_domain": "[['partner_id.firstname', '=', 'Jean']]",
             }
         )
-        self.partner_jean = self.env["res.partner"].create(
+        cls.partner_jean = cls.env["res.partner"].create(
             {
                 "lastname": "Dupont",
                 "firstname": "Jean",
                 "email": "j.d@test.com",
             }
         )
-        self.partner_marc = self.env["res.partner"].create(
+        cls.partner_marc = cls.env["res.partner"].create(
             {
                 "lastname": "Lavoine",
                 "firstname": "Marc",
@@ -33,37 +35,37 @@ class TestEventRegistration(TransactionCase):
             }
         )
         # Add a membership.line to the partners
-        self.member_state = self.browse_ref("mozaik_membership.member")
-        int_structure_05 = self.browse_ref("mozaik_structure.int_instance_05")
-        wizard = self.env["add.membership"].create(
+        cls.member_state = cls.env.ref("mozaik_membership.member")
+        int_structure_05 = cls.env.ref("mozaik_structure.int_instance_05")
+        wizard = cls.env["add.membership"].create(
             {
-                "partner_id": self.partner_jean.id,
+                "partner_id": cls.partner_jean.id,
                 "int_instance_id": int_structure_05.id,
-                "state_id": self.member_state.id,
+                "state_id": cls.member_state.id,
                 "date_from": fields.Date.today(),
             }
         )
         wizard.action_add()
-        wizard = self.env["add.membership"].create(
+        wizard = cls.env["add.membership"].create(
             {
-                "partner_id": self.partner_marc.id,
+                "partner_id": cls.partner_marc.id,
                 "int_instance_id": int_structure_05.id,
-                "state_id": self.member_state.id,
+                "state_id": cls.member_state.id,
                 "date_from": fields.Date.today(),
             }
         )
         wizard.action_add()
         # Register the partners
-        self.reg_jean = self.env["event.registration"].create(
+        cls.reg_jean = cls.env["event.registration"].create(
             {
-                "associated_partner_id": self.partner_jean.id,
-                "event_id": self.event_test.id,
+                "associated_partner_id": cls.partner_jean.id,
+                "event_id": cls.event_test.id,
             }
         )
-        self.reg_marc = self.env["event.registration"].create(
+        cls.reg_marc = cls.env["event.registration"].create(
             {
-                "associated_partner_id": self.partner_marc.id,
-                "event_id": self.event_test.id,
+                "associated_partner_id": cls.partner_marc.id,
+                "event_id": cls.event_test.id,
             }
         )
 
@@ -73,6 +75,25 @@ class TestEventRegistration(TransactionCase):
         """
         self.assertEqual(self.partner_jean.membership_state_id.id, self.member_state.id)
         self.assertEqual(self.partner_marc.membership_state_id.id, self.member_state.id)
+
+    def test_no_voting_domain_required(self):
+        event_2 = self.env["event.event"].create(
+            {
+                "name": "Test Event",
+                "date_begin": fields.Datetime.now() - relativedelta(hours=4),
+                "date_end": fields.Datetime.now() + relativedelta(days=3),
+                "voting_domain": "[['partner_id.firstname', '=', 'Jean']]",
+            }
+        )
+        reg_jean = self.env["event.registration"].create(
+            {
+                "associated_partner_id": self.partner_jean.id,
+                "event_id": event_2.id,
+            }
+        )
+        self.assertFalse(reg_jean.can_vote)
+        event_2.is_voting_domain_required = True
+        self.assertTrue(reg_jean.can_vote)
 
     def test_create_new_registration(self):
         """

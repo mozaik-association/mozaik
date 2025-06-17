@@ -11,6 +11,7 @@
         "distribution_list",
         "mozaik_account",
         "mozaik_communication",
+        "mozaik_involvement_donation",
         "mozaik_membership",
         "mozaik_thesaurus",
     ],

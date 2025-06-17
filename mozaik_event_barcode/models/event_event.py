@@ -15,6 +15,9 @@ class EventEvent(models.Model):
 
     _inherit = "event.event"
 
+    is_voting_domain_required = fields.Boolean(
+        help="Tick if you want to activate domain for voting partners."
+    )
     voting_domain = fields.Text(
         string="Domain for voting partners",
         help="Add a domain on virtual.partner.membership model "
