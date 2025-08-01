@@ -1,6 +1,7 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import _, api, fields, models
+from odoo.osv.expression import AND
 from odoo.tools.safe_eval import safe_eval
 
 DEFAULT_DOMAIN = "[]"
@@ -50,10 +51,8 @@ class PrivacyDomainMixin(models.AbstractModel):
         """
         allowed_records = self.browse()
         for rec in self:
-            if (
-                not rec.domain_is_set
-                or partner_id
-                in self.env["res.partner"].search(safe_eval(rec.domain)).ids
+            if not rec.domain_is_set or self.env["res.partner"].search(
+                AND([[("id", "=", partner_id)], safe_eval(rec.domain)])
             ):
                 allowed_records |= rec
         return allowed_records
