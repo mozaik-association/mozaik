@@ -23,14 +23,19 @@ class MozaikDocument(models.Model):
 
     @api.depends("content")
     def _compute_content_filesize(self):
-        for doc in self:
-            if not doc.content:
-                doc.content_filesize = 0
-            attachment = self.env["ir.attachment"].search(
+        attachments = (
+            self.env["ir.attachment"]
+            .sudo()
+            .search(
                 [
                     ("res_field", "=", "content"),
                     ("res_model", "=", "mozaik.document"),
-                    ("res_id", "=", doc.id),
+                    ("res_id", "in", self.ids),
                 ]
             )
-            doc.content_filesize = attachment.file_size
+        )
+        file_size_by_doc_id = {
+            attachment.res_id: attachment.file_size for attachment in attachments
+        }
+        for doc in self:
+            doc.content_filesize = file_size_by_doc_id.get(doc.id, 0)
