@@ -37,7 +37,7 @@ class MembershipRequest(models.Model):
         #  If 'zip' is given in vals (as coming from an event for example),
         #  add it also in zip_man
         if "zip" in vals and "zip_man" not in vals:
-            vals["zip_man"] = vals["zip"]
+            vals = dict(vals, zip_man=vals["zip"])
         if self._find_lastname(vals):
             request = self.with_context(mode="pre_process").create(vals)
             return request

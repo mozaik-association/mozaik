@@ -1882,6 +1882,7 @@ class MembershipRequest(models.Model):
         # Automatically correct case errors in firstname and lastname
         # Will not be corrected in write() so user can bypass
         # this modification.
+        vals = vals.copy()
         for key in ["lastname", "firstname"]:
             val = vals.get(key, False)
             if val:
