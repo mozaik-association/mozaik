@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="membership_request_search_view">
+        <field name="name">membership.request.search</field>
+        <field name="model">membership.request</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_membership_request.membership_request_search_view"
+        />
+        <field name="arch" type="xml">
+            <filter name="state_validated" position="after">
+                 <filter
+                    name="state_light_autoval"
+                    string="Lightly autovalidated"
+                    domain="[('state', '=', 'light_autoval'), '|', ('active','=',False), ('active', '=', True)]"
+                />
+            </filter>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="membership_request_form_view">
+        <field name="name">membership.request.form</field>
+        <field name="model">membership.request</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_membership_request.membership_request_form_view"
+        />
+        <field name="arch" type="xml">
+            <field name="request_type" position="after">
+                <field name="autovalidation_type" />
+            </field>
+        </field>
+    </record>
+
+
+</odoo>
