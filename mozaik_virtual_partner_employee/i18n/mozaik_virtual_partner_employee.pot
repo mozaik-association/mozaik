@@ -68,13 +68,17 @@ msgstr ""
 
 #. module: mozaik_virtual_partner_employee
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_employee.field_virtual_partner_employee__employee
-#: model:ir.model.fields,field_description:mozaik_virtual_partner_employee.field_virtual_partner_employee__employee_id
 msgid "Employee"
 msgstr ""
 
 #. module: mozaik_virtual_partner_employee
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_employee.field_virtual_partner_employee__gender
 msgid "Gender"
+msgstr ""
+
+#. module: mozaik_virtual_partner_employee
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_employee.field_virtual_partner_employee__employee_id
+msgid "HR Employee"
 msgstr ""
 
 #. module: mozaik_virtual_partner_employee
