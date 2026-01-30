@@ -11,7 +11,7 @@ class VirtualPartnerEmployee(models.Model):
 
     employee_id = fields.Many2one(
         comodel_name="hr.employee",
-        string="Employee",
+        string="HR Employee",
     )
     department_id = fields.Many2one(
         comodel_name="hr.department",
