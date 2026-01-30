@@ -86,7 +86,6 @@ msgstr ""
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__gender
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__gender
 msgid "Gender"
 msgstr ""
 
@@ -132,7 +131,6 @@ msgstr ""
 
 #. module: mozaik_partner_fields
 #: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_partner__marital
-#: model:ir.model.fields,field_description:mozaik_partner_fields.field_res_users__marital
 msgid "Marital"
 msgstr ""
 
