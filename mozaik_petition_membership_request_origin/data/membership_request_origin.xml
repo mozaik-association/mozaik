@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="membership_request_origin_petition" model="membership.request.origin">
+        <field name="name">Petition</field>
+        <field name="restrict_delete">1</field>
+    </record>
+</odoo>
