@@ -159,3 +159,9 @@ class ResConfigSettings(models.TransientModel):
         default=515,
         config_parameter="changes_report.global_opt_out_changes_seq",
     )
+
+    # send_last_changes Mail settings
+    mail_no_auto_thread = fields.Boolean(
+        "Disable auto-threading for changes report emails",
+        config_parameter="changes_report.mail_no_auto_thread",
+    )
