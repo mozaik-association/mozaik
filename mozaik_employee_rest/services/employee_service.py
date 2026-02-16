@@ -63,7 +63,6 @@ class EmployeeService(Component):
         routes=[(["/get"], "GET")],
         input_param=PydanticModel(EmployeeSearchFilter),
         output_param=PydanticModel(EmployeeListResponse),
-        auth="user",
     )
     def get(self, filters: EmployeeSearchFilter) -> EmployeeListResponse:
         # Pagination defaults
@@ -100,7 +99,6 @@ class EmployeeService(Component):
     @restapi.method(
         routes=[(["/get/<int:_id>"], "GET")],
         output_param=PydanticModel(EmployeeDetail),
-        auth="user",
     )
     def get_by_id(self, _id: int) -> EmployeeDetail:
         emp = self._get(_id)
