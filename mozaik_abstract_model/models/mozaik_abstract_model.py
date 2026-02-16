@@ -247,16 +247,24 @@ class MozaikAbstractModel(models.AbstractModel):
         if invalidates:
             rels_dict = self.env["ir.model"]._get_active_relations(invalidates)
             if rels_dict:
+                forbidden_invalidation = False
+                keep_active_models = self.env.context.get(
+                    "invalidate_keep_active_models"
+                )
                 for k, v in rels_dict.items():
+                    if v in keep_active_models.split(","):
+                        continue
+                    forbidden_invalidation = True
                     _logger.info(
                         "Remaining active m2o for %s(%s): %s", self._name, k, v
                     )
-                raise ValidationError(
-                    _(
-                        "Invalidation not allowed: at least "
-                        "one dependency is still active"
+                if forbidden_invalidation:
+                    raise ValidationError(
+                        _(
+                            "Invalidation not allowed: at least "
+                            "one dependency is still active"
+                        )
                     )
-                )
 
     def _invalidate_active_relations(self):
         """
@@ -264,14 +272,23 @@ class MozaikAbstractModel(models.AbstractModel):
         """
         if self:
             ignore_relations = ["mail.followers", "mail.notification"]
+            keep_active_relations = []
+            keep_active_relations = self.env.context.get(
+                "invalidate_keep_active_models", ""
+            ).split(",")
             rels_dict = self.env["ir.model"]._get_active_relations(self, with_ids=True)
             for relation_models in rels_dict.values():
                 for relation, relation_ids in relation_models.items():
                     relation_object = self.env.get(relation)
-                    if hasattr(relation_object, "action_invalidate"):
+                    if (
+                        hasattr(relation_object, "action_invalidate")
+                        and relation not in keep_active_relations
+                    ):
                         relation_ids.action_invalidate()
                     elif relation in ignore_relations:
                         # Unlink obsolete followers. Sudo rights are required.
                         relation_ids.sudo().unlink()
-                    elif hasattr(relation_object, "active"):
+                    elif relation not in keep_active_relations and hasattr(
+                        relation_object, "active"
+                    ):
                         relation_ids.write({"active": False})
