@@ -6,21 +6,22 @@ from odoo.addons.survey.tests import test_survey_flow
 
 
 class TestSurveyUserInput(test_survey_flow.TestSurveyFlow):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         """
         We create a survey with 4 questions having a bridge field:
         lastname, firstname, birthdate, email.
         """
-        super().setUp()
+        super().setUpClass()
 
-        self.ic = self.env["partner.involvement.category"].create(
+        cls.ic = cls.env["partner.involvement.category"].create(
             {
                 "name": "Test involvement category",
                 "interest_ids": [(0, 0, {"name": "Test interest"})],
-                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
+                "res_users_ids": [(4, cls.env.ref("base.user_admin").id)],
             }
         )
-        self.survey = self.env["survey.survey"].create(
+        cls.survey = cls.env["survey.survey"].create(
             {
                 "title": "Test Survey",
                 "access_mode": "public",
@@ -31,66 +32,66 @@ class TestSurveyUserInput(test_survey_flow.TestSurveyFlow):
                 "access_token": "b137640d-14d4-4748-9ef6-344caaaaaae",
             }
         )
-        self.page_0 = self.env["survey.question"].create(
+        cls.page_0 = cls.env["survey.question"].create(
             {
                 "is_page": True,
                 "sequence": 1,
                 "title": "Page1: Your Data",
-                "survey_id": self.survey.id,
+                "survey_id": cls.survey.id,
             }
         )
-        self.question_lastname = self._add_question(
-            self.page_0,
+        cls.question_lastname = cls._add_question(
+            cls.page_0,
             "Please enter your lastname.",
             "char_box",
             comments_allowed=False,
             constr_mandatory=False,
-            survey_id=self.survey.id,
-            bridge_field_id=self.env["ir.model.fields"]
+            survey_id=cls.survey.id,
+            bridge_field_id=cls.env["ir.model.fields"]
             .search([("model", "=", "membership.request"), ("name", "=", "lastname")])
             .id,
         )
-        self.question_firstname = self._add_question(
-            self.page_0,
+        cls.question_firstname = cls._add_question(
+            cls.page_0,
             "Please enter your firstname.",
             "char_box",
             comments_allowed=False,
             constr_mandatory=False,
-            survey_id=self.survey.id,
-            bridge_field_id=self.env["ir.model.fields"]
+            survey_id=cls.survey.id,
+            bridge_field_id=cls.env["ir.model.fields"]
             .search([("model", "=", "membership.request"), ("name", "=", "firstname")])
             .id,
         )
-        self.question_birthdate = self._add_question(
-            self.page_0,
+        cls.question_birthdate = cls._add_question(
+            cls.page_0,
             "Please enter your birthdate.",
             "date",
             comments_allowed=False,
             constr_mandatory=False,
-            survey_id=self.survey.id,
-            bridge_field_id=self.env["ir.model.fields"]
+            survey_id=cls.survey.id,
+            bridge_field_id=cls.env["ir.model.fields"]
             .search(
                 [("model", "=", "membership.request"), ("name", "=", "birthdate_date")]
             )
             .id,
         )
-        self.question_email = self._add_question(
-            self.page_0,
+        cls.question_email = cls._add_question(
+            cls.page_0,
             "Please enter your email.",
             "char_box",
             comments_allowed=False,
             constr_mandatory=False,
-            survey_id=self.survey.id,
-            bridge_field_id=self.env["ir.model.fields"]
+            survey_id=cls.survey.id,
+            bridge_field_id=cls.env["ir.model.fields"]
             .search([("model", "=", "membership.request"), ("name", "=", "email")])
             .id,
         )
         # Default answer_data
-        self.answer_data = {
-            self.question_lastname.id: {"value": ["Dupont"]},
-            self.question_firstname.id: {"value": ["Jean"]},
-            self.question_birthdate.id: {"value": ["1985-07-09"]},
-            self.question_email.id: {"value": ["jd@test.com"]},
+        cls.answer_data = {
+            cls.question_lastname.id: {"value": ["Dupont"]},
+            cls.question_firstname.id: {"value": ["Jean"]},
+            cls.question_birthdate.id: {"value": ["1985-07-09"]},
+            cls.question_email.id: {"value": ["jd@test.com"]},
         }
 
     def public_user_answers(self, answer_data):
