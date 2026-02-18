@@ -3,20 +3,36 @@
 
 from datetime import datetime
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class TestEventRegistration(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.ic = self.env["partner.involvement.category"].create(
+class TestEventRegistration(SavepointCase):
+    def _search_mr_linked_to_registration(
+        self, lastname=None, firstname=None, email=None, active=True
+    ):
+        domain = []
+        if lastname:
+            domain.append(("lastname", "=", lastname))
+        if firstname:
+            domain.append(("firstname", "=", firstname))
+        if email:
+            domain.append(("email", "=", email))
+        if not active:
+            domain.append(("active", "=", False))
+        mr = self.env["membership.request"].search(domain)
+        return mr
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.ic = cls.env["partner.involvement.category"].create(
             {
                 "name": "Test involvement category",
                 "interest_ids": [(0, 0, {"name": "Test interest"})],
-                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
+                "res_users_ids": [(4, cls.env.ref("base.user_admin").id)],
             }
         )
-        self.event = self.env["event.event"].create(
+        cls.event = cls.env["event.event"].create(
             {
                 "name": "Test Event",
                 "date_begin": datetime(2021, 11, 8, 12, 00, 00),
@@ -24,24 +40,22 @@ class TestEventRegistration(TransactionCase):
                 "auto_accept_membership": False,
             }
         )
-        self.attendee = self.env["event.registration"].create(
+        cls.attendee = cls.env["event.registration"].create(
             {
                 "lastname": "Dupont",
                 "firstname": "Jean",
                 "email": "test@example.com",
-                "event_id": self.event.id,
+                "event_id": cls.event.id,
             }
         )
+        cls.mr = cls._search_mr_linked_to_registration(
+            firstname=cls.attendee.firstname,
+            lastname=cls.attendee.lastname,
+            email=cls.attendee.email,
+        )
 
-        domain = [
-            ("lastname", "=", self.attendee.lastname),
-            ("firstname", "=", self.attendee.firstname),
-            ("email", "=", self.attendee.email),
-        ]
-        self.mr = self.env["membership.request"].search(domain)
-
-        ms = self.env["membership.state"].search([("code", "=", "without_membership")])
-        self.partner = self.env["res.partner"].create(
+        ms = cls.env["membership.state"].search([("code", "=", "without_membership")])
+        cls.partner = cls.env["res.partner"].create(
             {
                 "lastname": "Rouve",
                 "firstname": "Paul",
@@ -98,10 +112,7 @@ class TestEventRegistration(TransactionCase):
                 "event_id": self.event.id,
             }
         )
-        domain = [
-            ("email", "=", "eric@duj.fr"),
-        ]
-        mr = self.env["membership.request"].search(domain)
+        mr = self._search_mr_linked_to_registration(email="eric@duj.fr")
         self.assertEqual(mr.firstname, "Éric-André Olivier Vincent")
         self.assertEqual(mr.lastname, "Duj'Ar.Dïn")
 
@@ -128,12 +139,11 @@ class TestEventRegistration(TransactionCase):
             event=self.event,
         )
         # Find the created membership request
-        domain = [
-            ("lastname", "=", self.attendee_partner.lastname),
-            ("firstname", "=", self.attendee_partner.firstname),
-            ("email", "=", self.attendee_partner.email),
-        ]
-        self.mr_partner = self.env["membership.request"].search(domain)
+        self.mr_partner = self._search_mr_linked_to_registration(
+            lastname=self.attendee_partner.lastname,
+            firstname=self.attendee_partner.firstname,
+            email=self.attendee_partner.email,
+        )
         # Validate this request
         self.mr_partner.validate_request()
 
@@ -302,11 +312,10 @@ class TestEventRegistration(TransactionCase):
             }
         )
         # Search for the associated mr.
-        domain = [
-            ("lastname", "=", self.partner.lastname),
-            ("firstname", "=", self.partner.firstname),
-        ]
-        mr = self.env["membership.request"].search(domain)
+        mr = self._search_mr_linked_to_registration(
+            lastname=self.partner.lastname,
+            firstname=self.partner.firstname,
+        )
         self.assertEqual(len(mr), 1)
 
         mr.validate_request()
@@ -345,13 +354,12 @@ class TestEventRegistration(TransactionCase):
             }
         )
         # Searching for the mr: since validate, active = False
-        domain = [
-            ("active", "=", False),
-            ("lastname", "=", omar_sy.lastname),
-            ("firstname", "=", omar_sy.firstname),
-            ("email", "=", omar_sy.email),
-        ]
-        mr = self.env["membership.request"].search(domain)
+        mr = self._search_mr_linked_to_registration(
+            lastname=omar_sy.lastname,
+            firstname=omar_sy.firstname,
+            email=omar_sy.email,
+            active=False,
+        )
         self.assertEqual(len(mr), 1)
         self.assertEqual(mr.state, "validate")
         self.assertIn("Autovalidation failed", self.mr.message_ids.mapped("subject"))
