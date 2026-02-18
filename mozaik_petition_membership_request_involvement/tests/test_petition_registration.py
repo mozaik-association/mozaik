@@ -3,47 +3,63 @@
 
 from datetime import date
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class TestEventRegistration(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.ic = self.env["partner.involvement.category"].create(
+class TestPetitionRegistration(SavepointCase):
+    @classmethod
+    def _search_mr_linked_to_registration(
+        cls, lastname=None, firstname=None, email=None, active=True
+    ):
+        domain = []
+        if lastname:
+            domain.append(("lastname", "=", lastname))
+        if firstname:
+            domain.append(("firstname", "=", firstname))
+        if email:
+            domain.append(("email", "=", email))
+        if not active:
+            domain.append(("active", "=", False))
+        mr = cls.env["membership.request"].search(domain)
+        return mr
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.ic = cls.env["partner.involvement.category"].create(
             {
                 "name": "Test involvement category",
                 "interest_ids": [(0, 0, {"name": "Test interest"})],
-                "res_users_ids": [(4, self.env.ref("base.user_admin").id)],
+                "res_users_ids": [(4, cls.env.ref("base.user_admin").id)],
             }
         )
-        self.milestone = self.env["petition.milestone"].create({"value": 1})
-        self.petition = self.env["petition.petition"].create(
+        cls.milestone = cls.env["petition.milestone"].create({"value": 1})
+        cls.petition = cls.env["petition.petition"].create(
             {
                 "title": "Test Petition",
                 "date_begin": date(2021, 11, 8),
                 "date_end": date(2021, 11, 13),
-                "milestone_ids": [(6, 0, self.milestone.id)],
+                "milestone_ids": [(6, 0, cls.milestone.id)],
                 "auto_accept_membership": False,
             }
         )
 
-        self.signatory = self.env["petition.registration"].create(
+        cls.signatory = cls.env["petition.registration"].create(
             {
                 "lastname": "Dupont",
                 "firstname": "Jean",
                 "email": "test@example.com",
-                "petition_id": self.petition.id,
+                "petition_id": cls.petition.id,
             }
         )
-        domain = [
-            ("lastname", "=", self.signatory.lastname),
-            ("firstname", "=", self.signatory.firstname),
-            ("email", "=", self.signatory.email),
-        ]
-        self.mr = self.env["membership.request"].search(domain)
+        cls.mr = cls._search_mr_linked_to_registration(
+            lastname=cls.signatory.lastname,
+            firstname=cls.signatory.firstname,
+            email=cls.signatory.email,
+        )
 
-        ms = self.env["membership.state"].search([("code", "=", "without_membership")])
-        self.partner = self.env["res.partner"].create(
+        ms = cls.env["membership.state"].search([("code", "=", "without_membership")])
+        cls.partner = cls.env["res.partner"].create(
             {
                 "lastname": "Rouve",
                 "firstname": "Paul",
@@ -109,12 +125,11 @@ class TestEventRegistration(TransactionCase):
             petition=self.petition,
         )
         # Find the created membership request
-        domain = [
-            ("lastname", "=", self.signatory_partner.lastname),
-            ("firstname", "=", self.signatory_partner.firstname),
-            ("email", "=", self.signatory_partner.email),
-        ]
-        self.mr_partner = self.env["membership.request"].search(domain)
+        self.mr_partner = self._search_mr_linked_to_registration(
+            lastname=self.signatory_partner.lastname,
+            firstname=self.signatory_partner.firstname,
+            email=self.signatory_partner.email,
+        )
         # Validate this request
         self.mr_partner.validate_request()
 
@@ -357,13 +372,12 @@ class TestEventRegistration(TransactionCase):
             }
         )
         # Searching for the mr: since validate, active = False
-        domain = [
-            ("active", "=", False),
-            ("lastname", "=", omar_sy.lastname),
-            ("firstname", "=", omar_sy.firstname),
-            ("email", "=", omar_sy.email),
-        ]
-        mr = self.env["membership.request"].search(domain)
+        mr = self._search_mr_linked_to_registration(
+            lastname=omar_sy.lastname,
+            firstname=omar_sy.firstname,
+            email=omar_sy.email,
+            active=False,
+        )
         self.assertEqual(len(mr), 1)
         self.assertEqual(mr.state, "validate")
         self.assertIn("Autovalidation failed", self.mr.message_ids.mapped("subject"))
