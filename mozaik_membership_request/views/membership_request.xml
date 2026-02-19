@@ -173,12 +173,10 @@
             <field name="model">membership.request</field>
             <field name="arch" type="xml">
                 <form string="Membership Request">
-                    <header
-                    attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                >
+                    <header>
                             <button
                         name="confirm_request"
-                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        attrs="{'invisible': ['|', '|', ('id', '=', False), ('active', '=',False), ('state', '!=', 'draft')]}"
                         string="Confirm"
                         type="object"
                         confirm="Confirm Membership Request: proceed anyway?"
@@ -186,7 +184,7 @@
 
                             <button
                         name="validate_request"
-                        attrs="{'invisible': [('state', '!=', 'confirm')]}"
+                        attrs="{'invisible': ['|', '|', ('id', '=', False), ('active', '=',False),('state', '!=', 'confirm')]}"
                         string="Validate"
                         type="object"
                         confirm="Validate Membership Request: proceed anyway?"
@@ -195,7 +193,7 @@
                             <button
                         name="cancel_request"
                         string="Cancel"
-                        attrs="{'invisible': [('state', '!=', 'confirm')]}"
+                        attrs="{'invisible': ['|', '|', ('id', '=', False), ('active', '=',False),('state', '!=', 'confirm')]}"
                         type="object"
                         confirm="Cancel Membership Request: proceed anyway?"
                         groups="mozaik_membership_request.res_groups_membership_request_officer"
