@@ -719,6 +719,26 @@
                                 </div>
                             </div>
                         </div>
+                        <h2>Memberships - Mail settings</h2>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="mail_no_auto_thread"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="mail_no_auto_thread"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="mail_no_auto_thread" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="mail_no_auto_thread" />
+                                    <div class="text-muted">
+                                        Disable auto-threading for changes report emails.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </xpath>
             </field>

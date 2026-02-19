@@ -32,6 +32,11 @@ class IntAssembly(models.Model):
         template_id = self.env.ref(
             "mozaik_membership_last_changes_report.reference_data_changes_email_template"
         )
+        no_auto_thread = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("changes_report.mail_no_auto_thread", default=False)
+        )
         for assembly in self:
             partners = assembly._get_summary_recipients()
             if not partners:
@@ -47,6 +52,8 @@ class IntAssembly(models.Model):
                 "partner_ids": [(6, 0, partners.ids)],
                 "notify": True,
             }
+            if no_auto_thread:
+                vals["no_auto_thread"] = True
             new_composer = composer.with_context(ctx).create(vals)
             values = new_composer.onchange_template_id(
                 template_id.id, "mass_mail", self._name, False
