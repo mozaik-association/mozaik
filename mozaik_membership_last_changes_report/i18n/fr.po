@@ -47,6 +47,16 @@ msgid "Contact"
 msgstr ""
 
 #. module: mozaik_membership_last_changes_report
+#: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_res_config_settings__mail_no_auto_thread
+msgid "Disable auto-threading for changes report emails"
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+msgid "Disable auto-threading for changes report emails."
+msgstr ""
+
+#. module: mozaik_membership_last_changes_report
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_int_assembly__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_int_instance__display_name
 #: model:ir.model.fields,field_description:mozaik_membership_last_changes_report.field_mandate_category__display_name
@@ -362,6 +372,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
 msgid "Memberships - Log state changes"
 msgstr ""
+
+#. module: mozaik_membership_last_changes_report
+#: model_terms:ir.ui.view,arch_db:mozaik_membership_last_changes_report.res_config_settings_view_form
+#, fuzzy
+#| msgid "Membership Line"
+msgid "Memberships - Mail settings"
+msgstr "Ligne d'adhésion"
 
 #. module: mozaik_membership_last_changes_report
 #: code:addons/mozaik_membership_last_changes_report/models/res_partner.py:0
