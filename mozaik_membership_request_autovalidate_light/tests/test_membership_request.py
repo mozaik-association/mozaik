@@ -378,40 +378,6 @@ class TestMembershipRequest(SavepointCase):
         self.assertEqual(mr.state, "confirm")
         self.assertFalse(mr.light_mr_id)
 
-    def test_light_autoval_matched_partner_has_address_mr_partial_address(self):
-        """
-        Matched partner has an address and MR has partial address
-        -> No change but light auto-validation succeeded
-        """
-        # TODO: shouldn't we block if zip/city on the partner and on the MR are different?
-        self.omar_sy.address_address_id = self.env["address.address"].create(
-            {
-                "country_id": self.belgium.id,
-                "city_id": self.city_namur.id,
-                "address_local_street_id": self.local_street_namur.id,
-                "number": "15",
-            }
-        )
-        self.assertEqual(self.omar_sy.address_address_id.city_id, self.city_namur)
-        # Partial address on MR
-        mr = self.mr_model.create(
-            {
-                "autovalidation_type": "light",
-                "lastname": "Sy",
-                "firstname": "Omar",
-                "email": "omarsy@test.com",
-                "gender": "male",
-                "zip_man": "4000",
-                "city_id": self.city_lg.id,
-                "request_type": "m",
-            }
-        )
-        failure_reason = mr._auto_validate(True)
-        self.assertFalse(failure_reason)
-        self.assertTrue(mr.light_mr_id)
-        self.assertEqual(mr.light_mr_id.state, "validate")
-        self.assertEqual(self.omar_sy.address_address_id.city_id, self.city_namur)
-
     def test_matched_partner_name_differs(self):
         """
         If matched partner but names differs, don't change name.
@@ -461,3 +427,75 @@ class TestMembershipRequest(SavepointCase):
         )
         self.assertEqual(mr.state, "confirm")
         self.assertFalse(mr.light_mr_id)
+
+    def test_matched_partner_zip_differs(self):
+        """
+        Matched partner has an address, MR has a partial address, but zips differ.
+        -> Light auto-validation fails.
+        """
+        self.omar_sy.address_address_id = self.env["address.address"].create(
+            {
+                "country_id": self.belgium.id,
+                "city_id": self.city_namur.id,
+                "address_local_street_id": self.local_street_namur.id,
+                "number": "15",
+            }
+        )
+        self.assertEqual(self.omar_sy.address_address_id.city_id, self.city_namur)
+        mr = self.mr_model.create(
+            {
+                "autovalidation_type": "light",
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "email": "omarsy@test.com",
+                "gender": "male",
+                "zip_man": "4000",
+                "city_id": self.city_lg.id,
+                "request_type": "m",
+            }
+        )
+        failure_reason = mr._auto_validate(mr)
+        self.assertEqual(
+            failure_reason,
+            f"Zip on the matched partner (ID: {self.omar_sy.id}) "
+            f"and zip on the membership request differ. "
+            f"Light autovalidation failed.",
+        )
+        self.assertEqual(mr.state, "confirm")
+        self.assertFalse(mr.light_mr_id)
+
+    def test_matched_partner_same_zip(self):
+        """
+        Matched partner has an address, MR has a partial address, but zips are equal.
+        -> Light auto-validation succeeds.
+        """
+        self.omar_sy.address_address_id = self.env["address.address"].create(
+            {
+                "country_id": self.belgium.id,
+                "city_id": self.city_namur.id,
+                "address_local_street_id": self.local_street_namur.id,
+                "number": "15",
+            }
+        )
+        self.assertEqual(self.omar_sy.address_address_id.city_id, self.city_namur)
+        mr = self.mr_model.create(
+            {
+                "autovalidation_type": "light",
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "email": "omarsy@test.com",
+                "gender": "male",
+                "zip_man": "5000",
+                "city_id": self.city_namur.id,
+                "request_type": "m",
+            }
+        )
+        failure_reason = mr._auto_validate(mr)
+        self.assertFalse(failure_reason)
+        self.assertEqual(mr.state, "light_autoval")
+        self.assertTrue(mr.light_mr_id)
+        self.assertEqual(mr.light_mr_id.state, "validate")
+        # Address wasn't copied on light MR:
+        self.assertFalse(mr.light_mr_id.zip_man)
+        self.assertFalse(mr.light_mr_id.city_id)
+        self.assertFalse(mr.light_mr_id.country_id)

@@ -120,6 +120,27 @@ class MembershipRequest(models.Model):
             return res
         if len(matched_partners) == 1:
             res["partner"] = matched_partners
+        if matched_partners.address_address_id.zip and (
+            (
+                self.local_zip
+                and matched_partners.address_address_id.zip != self.local_zip
+            )
+            or (
+                self.zip_man
+                and matched_partners.address_address_id.zip_man != self.zip_man
+            )
+        ):
+            res.update(
+                {
+                    "auto_val": False,
+                    "failure_reason": _(
+                        "Zip on the matched partner (ID: %s) "
+                        "and zip on the membership request differ. "
+                        "Light autovalidation failed." % matched_partners.id
+                    ),
+                }
+            )
+            return res
         return res
 
     def _has_full_address(self):
