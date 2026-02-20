@@ -93,6 +93,25 @@ class MembershipRequest(models.Model):
             return res
         if len(matched_partners) == 1:
             res["partner"] = matched_partners
+        if any(
+            (
+                self.address_local_street_id,
+                self.street_man,
+                self.street2,
+                self.number,
+                self.box,
+            )
+        ):
+            res.update(
+                {
+                    "auto_val": False,
+                    "failure_reason": _(
+                        "Some address fields have to be checked manually. "
+                        "Light autovalidation failed. "
+                    ),
+                }
+            )
+            return res
         return res
 
     def _has_full_address(self):
@@ -114,34 +133,19 @@ class MembershipRequest(models.Model):
         Rules for copying address from the MR to the light MR are the following:
         - Matched partner & only city and/or zip on MR & no address on matched partner
           -> copy city and/or zip
-        - No matched partner: copy full address from MR
+        - No matched partner: copy only zip and/or city from MR
         - Other cases: don't copy any address field.
 
         """
         self.ensure_one()
-        if (
-            matched_partner
-            and not matched_partner.address_address_id
-            and not self._has_full_address()
+        if not matched_partner or (
+            not matched_partner.address_address_id and not self._has_full_address()
         ):
             return {
                 "country_id": self.country_id.id,
                 "zip_man": self.zip_man,
                 "city_man": self.city_man,
                 "city_id": self.city_id.id,
-            }
-        if not matched_partner:
-            return {
-                "country_id": self.country_id.id,
-                "zip_man": self.zip_man,
-                "city_man": self.city_man,
-                "city_id": self.city_id.id,
-                "address_local_street_id": self.address_local_street_id.id,
-                "street_man": self.street_man,
-                "street2": self.street2,
-                "number": self.number,
-                "box": self.box,
-                "sequence": self.sequence,
             }
         return {}
 
