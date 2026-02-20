@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+     <record model="ir.ui.view" id="petition_petition_form_view">
+        <field name="name">petition.petition.form</field>
+        <field name="model">petition.petition</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_petition_membership_request_involvement.petition_petition_form_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='auto_accept_membership']" position="after">
+                <field
+                    name="autovalidation_type"
+                    attrs="{'invisible': [('auto_accept_membership', '=', False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
