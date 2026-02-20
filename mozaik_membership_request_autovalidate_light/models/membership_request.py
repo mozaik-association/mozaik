@@ -77,22 +77,17 @@ class MembershipRequest(models.Model):
                 }
             )
             return res
-        matched_partners = self.env["res.partner"].search(
-            [("email", "=", self.email)], limit=2
-        )
-        if len(matched_partners) > 1:
+        if self.partner_id.email and self.partner_id.email != self.email:
             res.update(
                 {
                     "auto_val": False,
                     "failure_reason": _(
-                        "Several partners found with email '%s'. Light autovalidation failed."
-                        % self.email
+                        "Email on the matched partner "
+                        "and email on the membership request differ."
                     ),
                 }
             )
             return res
-        if len(matched_partners) == 1:
-            res["partner"] = matched_partners
         if any(
             (
                 self.address_local_street_id,
@@ -112,6 +107,22 @@ class MembershipRequest(models.Model):
                 }
             )
             return res
+        matched_partners = self.partner_id or self.env["res.partner"].search(
+            [("email", "=", self.email)], limit=2
+        )
+        if len(matched_partners) > 1:
+            res.update(
+                {
+                    "auto_val": False,
+                    "failure_reason": _(
+                        "Several partners found with email '%s'. Light autovalidation failed."
+                        % self.email
+                    ),
+                }
+            )
+            return res
+        if len(matched_partners) == 1:
+            res["partner"] = matched_partners
         return res
 
     def _has_full_address(self):
