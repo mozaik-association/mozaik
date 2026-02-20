@@ -278,8 +278,7 @@ class TestMembershipRequest(SavepointCase):
 
     def test_light_autoval_new_partner_full_address_local_street(self):
         """
-        Check that new partner is created with full address
-        (street from address.local.street)
+        Light auto-validation failed because local street was given.
         """
         mr = self.mr_model.create(
             {
@@ -295,21 +294,17 @@ class TestMembershipRequest(SavepointCase):
                 "request_type": "m",
             }
         )
-        last_id = self.env["res.partner"].search([], order="id desc", limit=1).id
         failure_reason = mr._auto_validate(True)
-        self.assertFalse(failure_reason)
-        self.assertTrue(mr.light_mr_id)
-        partner = mr.light_mr_id.partner_id
-        self.assertGreater(partner.id, last_id)
-        self.assertTrue(partner.address_address_id)
-        self.assertEqual(partner.address_address_id.city_id, self.city_lg)
         self.assertEqual(
-            partner.address_address_id.address_local_street_id, self.local_street
+            failure_reason,
+            "Some address fields have to be checked manually. Light autovalidation failed. ",
         )
+        self.assertEqual(mr.state, "confirm")
+        self.assertFalse(mr.light_mr_id)
 
     def test_light_autoval_new_partner_full_address_manual_street(self):
         """
-        Check that new partner is created with full address (manual street)
+        Light auto-validation failed because manual street was given.
         """
         mr = self.mr_model.create(
             {
@@ -325,16 +320,13 @@ class TestMembershipRequest(SavepointCase):
                 "request_type": "m",
             }
         )
-        last_id = self.env["res.partner"].search([], order="id desc", limit=1).id
         failure_reason = mr._auto_validate(True)
-        self.assertFalse(failure_reason)
-        self.assertTrue(mr.light_mr_id)
-        self.assertEqual(mr.light_mr_id.state, "validate")
-        partner = mr.light_mr_id.partner_id
-        self.assertGreater(partner.id, last_id)
-        self.assertTrue(partner.address_address_id)
-        self.assertEqual(partner.address_address_id.city_id, self.city_lg)
-        self.assertEqual(partner.address_address_id.street_man, "Rue du Puits")
+        self.assertEqual(
+            failure_reason,
+            "Some address fields have to be checked manually. Light autovalidation failed. ",
+        )
+        self.assertEqual(mr.state, "confirm")
+        self.assertFalse(mr.light_mr_id)
 
     def test_light_autoval_matched_partner_no_address_mr_partial_address(self):
         """
@@ -362,7 +354,7 @@ class TestMembershipRequest(SavepointCase):
 
     def test_light_autoval_matched_partner_no_address_mr_full_address(self):
         """
-        Matched partner has no address and MR has full address -> No change
+        Matched partner has no address and MR has full address -> Light autovalidation failed
         """
         mr = self.mr_model.create(
             {
@@ -379,15 +371,19 @@ class TestMembershipRequest(SavepointCase):
             }
         )
         failure_reason = mr._auto_validate(True)
-        self.assertFalse(failure_reason)
-        self.assertTrue(mr.light_mr_id)
-        self.assertEqual(mr.light_mr_id.state, "validate")
-        self.assertFalse(self.omar_sy.address_address_id)
+        self.assertEqual(
+            failure_reason,
+            "Some address fields have to be checked manually. Light autovalidation failed. ",
+        )
+        self.assertEqual(mr.state, "confirm")
+        self.assertFalse(mr.light_mr_id)
 
     def test_light_autoval_matched_partner_has_address_mr_partial_address(self):
         """
-        Matched partner has an address and MR has partial address -> No change
+        Matched partner has an address and MR has partial address
+        -> No change but light auto-validation succeeded
         """
+        # TODO: shouldn't we block if zip/city on the partner and on the MR are different?
         self.omar_sy.address_address_id = self.env["address.address"].create(
             {
                 "country_id": self.belgium.id,
@@ -415,30 +411,6 @@ class TestMembershipRequest(SavepointCase):
         self.assertTrue(mr.light_mr_id)
         self.assertEqual(mr.light_mr_id.state, "validate")
         self.assertEqual(self.omar_sy.address_address_id.city_id, self.city_namur)
-        # Full address on MR
-        mr = self.mr_model.create(
-            {
-                "autovalidation_type": "light",
-                "lastname": "Sy",
-                "firstname": "Omar",
-                "email": "omarsy@test.com",
-                "gender": "male",
-                "zip_man": "4000",
-                "city_id": self.city_lg.id,
-                "address_local_street_id": self.local_street.id,
-                "number": "8",
-                "request_type": "m",
-            }
-        )
-        failure_reason = mr._auto_validate(True)
-        self.assertFalse(failure_reason)
-        self.assertTrue(mr.light_mr_id)
-        self.assertEqual(mr.light_mr_id.state, "validate")
-        self.assertEqual(self.omar_sy.address_address_id.city_id, self.city_namur)
-        self.assertEqual(
-            self.omar_sy.address_address_id.address_local_street_id,
-            self.local_street_namur,
-        )
 
     def test_matched_partner_name_differs(self):
         """
