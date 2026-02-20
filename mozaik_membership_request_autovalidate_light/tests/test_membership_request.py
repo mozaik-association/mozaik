@@ -438,3 +438,26 @@ class TestMembershipRequest(SavepointCase):
         self.assertEqual(mr.light_mr_id.firstname, "Omar")
         self.assertEqual(self.omar_sy.lastname, "Sy")
         self.assertEqual(self.omar_sy.firstname, "Omar")
+
+    def test_matched_partner_email_differs(self):
+        """
+        Matched partner comes from partner_id field, but email differs
+        -> Light auto-validation fails
+        """
+        mr = self.mr_model.create(
+            {
+                "autovalidation_type": "light",
+                "lastname": "Sy",
+                "firstname": "Omar",
+                "email": "newemail_omarsy@test.com",
+                "partner_id": self.omar_sy.id,
+                "request_type": "m",
+            }
+        )
+        failure_reason = mr._auto_validate(True)
+        self.assertEqual(
+            failure_reason,
+            "Email on the matched partner and email on the membership request differ.",
+        )
+        self.assertEqual(mr.state, "confirm")
+        self.assertFalse(mr.light_mr_id)
