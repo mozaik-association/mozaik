@@ -13,6 +13,7 @@ from .employee_ref import EmployeeRef
 
 
 class DepartmentInfo(BaseModel, metaclass=ExtendableModelMeta):
+    id: int
     name: str
     manager: Optional[EmployeeRef] = Field(None, alias="manager_id")
     parent: Optional[DepartmentRef] = Field(None, alias="parent_id")
