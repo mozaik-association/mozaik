@@ -21,5 +21,4 @@ A link is added between both membership requests to let the user understand the 
 The info that are copied in the light membership request are the following:
 * Involvements
 * Indexation & comments
-* Payment info
 * Address (under specific cases only, see `_prepare_address_vals_for_light_mr`)

@@ -182,8 +182,6 @@ class MembershipRequest(models.Model):
         """
         Copy part of the values of self to create the light MR.
         """
-        # TODO. Check if commands must be better copied
-        #  + Check if all dependencies are included.
         self.ensure_one()
         vals = {}
         if matched_partner:
@@ -211,8 +209,6 @@ class MembershipRequest(models.Model):
                 "competency_ids": self.competency_ids,
                 "interest_ids": self.interest_ids,
                 "indexation_comments": self.indexation_comments,
-                # Payment
-                "amount": self.amount,  # TODO: other payment fields
             }
         )
         vals.update(self._prepare_address_vals_for_light_mr(matched_partner))

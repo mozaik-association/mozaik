@@ -243,10 +243,6 @@ class TestMembershipRequest(SavepointCase):
         )
         self.assertEqual(self.omar_sy.indexation_comments, "Comment")
 
-    # def test_light_autoval_payment(self):
-    #     # TODO depending on Ecolo's answer
-    #     self.assertTrue(False)
-
     def test_light_autoval_new_partner_partial_address(self):
         """
         Check that new partner is created with partial address
