@@ -51,6 +51,6 @@ class AccountPayment(models.Model):
         )
         for line in self.move_id.line_ids:
             if line.account_id in subscription_accounts:
-                counterpart_lines += line
+                counterpart_lines |= line
 
         return liquidity_lines, counterpart_lines, writeoff_lines
