@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-01-18 17:56+0000\n"
-"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"PO-Revision-Date: 2026-03-03 09:57+0000\n"
+"Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
 #, python-format
 msgid "Auto validation manually set to false"
-msgstr ""
+msgstr "Auto-validation désactivée manuellement"
 
 #. module: mozaik_membership_request_autovalidate
 #: model:ir.model.fields,field_description:mozaik_membership_request_autovalidate.field_membership_request__display_name
@@ -31,13 +31,13 @@ msgstr ""
 #: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
 #, python-format
 msgid "Email used for more than one partner"
-msgstr ""
+msgstr "Email utilisé pour plus d'un partenaire"
 
 #. module: mozaik_membership_request_autovalidate
 #: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
 #, python-format
 msgid "Firstname and lastname do not correspond (case insensitive check)"
-msgstr ""
+msgstr "Prénom et nom ne correspondent pas (check case-insensitive)"
 
 #. module: mozaik_membership_request_autovalidate
 #: model:ir.model.fields,field_description:mozaik_membership_request_autovalidate.field_membership_request__id
@@ -58,23 +58,23 @@ msgstr "Demande d'adhésion"
 #: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
 #, python-format
 msgid "New partner but already known email"
-msgstr ""
+msgstr "Nouveau partenaire, mais adresse email connue"
 
 #. module: mozaik_membership_request_autovalidate
 #: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
 #, python-format
 msgid "No email provided"
-msgstr ""
+msgstr "Pas d'email renseigné"
 
 #. module: mozaik_membership_request_autovalidate
 #: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
 #, python-format
 msgid ""
 "One of the following fields is completed on the membership request: %s, "
-msgstr ""
+msgstr "L'un des champs suivants est rempli sur la demande d'adhésion : %s, "
 
 #. module: mozaik_membership_request_autovalidate
 #: code:addons/mozaik_membership_request_autovalidate/models/membership_request.py:0
 #, python-format
 msgid "Partner membership state is conflictual"
-msgstr ""
+msgstr "Le statut d'adhésion du partenaire est conflictuel"
