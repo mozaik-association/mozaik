@@ -6,39 +6,41 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-03-03 09:57+0000\n"
+"Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields,help:mozaik_membership_request_autovalidate_light.field_membership_request__light_mr_id
 msgid "Associated light auto-validated membership request linked to this MR."
-msgstr ""
+msgstr "Demande d'adhésion auto-validée de façon allégée associée à cette DA."
 
 #. module: mozaik_membership_request_autovalidate_light
 #: code:addons/mozaik_membership_request_autovalidate_light/models/membership_request.py:0
 #, python-format
 msgid "Auto validation manually set to false"
-msgstr ""
+msgstr "Auto-validation désactivée manuellement"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields,field_description:mozaik_membership_request_autovalidate_light.field_membership_request__autovalidation_type
 msgid "Autovalidation Type"
-msgstr ""
+msgstr "Type d'auto-validation"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields.selection,name:mozaik_membership_request_autovalidate_light.selection__membership_request__autovalidation_type__complete
 msgid "Complete"
-msgstr ""
+msgstr "Complète"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields,field_description:mozaik_membership_request_autovalidate_light.field_membership_request__complete_mr_id
 msgid "Complete Membership Request"
-msgstr ""
+msgstr "Demande d'adhésion complète"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields,field_description:mozaik_membership_request_autovalidate_light.field_membership_request__display_name
@@ -49,7 +51,7 @@ msgstr ""
 #: code:addons/mozaik_membership_request_autovalidate_light/models/membership_request.py:0
 #, python-format
 msgid "Email is required for light autovalidation."
-msgstr ""
+msgstr "L'email est requis pour l'auto-validation allégée."
 
 #. module: mozaik_membership_request_autovalidate_light
 #: code:addons/mozaik_membership_request_autovalidate_light/models/membership_request.py:0
@@ -57,6 +59,8 @@ msgstr ""
 msgid ""
 "Email on the matched partner and email on the membership request differ."
 msgstr ""
+"L'email sur le partenaire associé diffère de l'email sur la demande "
+"d'adhésion."
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields,field_description:mozaik_membership_request_autovalidate_light.field_membership_request__id
@@ -71,39 +75,42 @@ msgstr ""
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields.selection,name:mozaik_membership_request_autovalidate_light.selection__membership_request__autovalidation_type__light
 msgid "Light"
-msgstr ""
+msgstr "Allégée"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields,field_description:mozaik_membership_request_autovalidate_light.field_membership_request__light_mr_id
 msgid "Light Membership Request"
-msgstr ""
+msgstr "Demande d'adhésion allégée"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request_autovalidate_light.membership_request_search_view
 msgid "Lightly autovalidated"
-msgstr ""
+msgstr "Auto-validé de façon allégée"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model,name:mozaik_membership_request_autovalidate_light.model_membership_request
 msgid "Membership Request"
-msgstr ""
+msgstr "Demande d'adhésion"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields,help:mozaik_membership_request_autovalidate_light.field_membership_request__complete_mr_id
 msgid "Membership request that lead to the generation of this light MR."
-msgstr ""
+msgstr "Demande d'adhésion qui a mené à la génération de cette DA allégée."
 
 #. module: mozaik_membership_request_autovalidate_light
 #: code:addons/mozaik_membership_request_autovalidate_light/models/membership_request.py:0
 #, python-format
 msgid "No autovalidation (neither complete or partial) selected on the MR."
 msgstr ""
+"Aucune auto-validation (ni complète ni allégée) sélectionnée sur cette DA."
 
 #. module: mozaik_membership_request_autovalidate_light
 #: code:addons/mozaik_membership_request_autovalidate_light/models/membership_request.py:0
 #, python-format
 msgid "Several partners found with email '%s'. Light autovalidation failed."
 msgstr ""
+"Plusieurs partenaires trouvés avec cet email '%s'. L'auto-validation allégée "
+"a échoué."
 
 #. module: mozaik_membership_request_autovalidate_light
 #: code:addons/mozaik_membership_request_autovalidate_light/models/membership_request.py:0
@@ -112,11 +119,13 @@ msgid ""
 "Some address fields have to be checked manually. Light autovalidation "
 "failed. "
 msgstr ""
+"Certains champs de l'adresse doivent être vérifiés manuellement. L'auto-"
+"validation allégée a échoué. "
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields,field_description:mozaik_membership_request_autovalidate_light.field_membership_request__state
 msgid "State"
-msgstr ""
+msgstr "Etat"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request_autovalidate_light.membership_request_form_view
@@ -124,11 +133,13 @@ msgid ""
 "This membership request is the light version of a complete membership "
 "request."
 msgstr ""
+"Cette demande d'adhésion est la version allégée d'une demande d'adhésion "
+"complète."
 
 #. module: mozaik_membership_request_autovalidate_light
 #: model:ir.model.fields.selection,name:mozaik_membership_request_autovalidate_light.selection__membership_request__state__light_autoval
 msgid "Treated via light auto-validation"
-msgstr ""
+msgstr "Traité par auto-validation allégée"
 
 #. module: mozaik_membership_request_autovalidate_light
 #: code:addons/mozaik_membership_request_autovalidate_light/models/membership_request.py:0
@@ -137,3 +148,5 @@ msgid ""
 "Zip on the matched partner (ID: %s) and zip on the membership request "
 "differ. Light autovalidation failed."
 msgstr ""
+"Le code postal sur le partenaire associé (ID : %s) diffère du code postal "
+"sur la demande d'adhésion. L'auto-validation allégée a échoué."
