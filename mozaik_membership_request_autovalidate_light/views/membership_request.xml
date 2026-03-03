@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="membership_request_search_view">
+        <field name="name">membership.request.search</field>
+        <field name="model">membership.request</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_membership_request.membership_request_search_view"
+        />
+        <field name="arch" type="xml">
+            <filter name="state_validated" position="after">
+                 <filter
+                    name="state_light_autoval"
+                    string="Lightly autovalidated"
+                    domain="[('state', '=', 'light_autoval'), '|', ('active','=',False), ('active', '=', True)]"
+                />
+            </filter>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="membership_request_form_view">
+        <field name="name">membership.request.form</field>
+        <field name="model">membership.request</field>
+        <field
+            name="inherit_id"
+            ref="mozaik_membership_request.membership_request_form_view"
+        />
+        <field name="arch" type="xml">
+            <div name="buttons" position="after">
+                <div
+                    class="alert alert-info"
+                    role="alert"
+                    attrs="{'invisible': [('complete_mr_id', '=', False)]}"
+                >
+                    This membership request is the light version of a complete membership request.
+                </div>
+            </div>
+            <field name="request_type" position="after">
+                <field name="autovalidation_type" />
+                <field
+                    name="light_mr_id"
+                    readonly="1"
+                    attrs="{'invisible': [('light_mr_id', '=', False)]}"
+                />
+                <field
+                    name="complete_mr_id"
+                    readonly="1"
+                    attrs="{'invisible': [('complete_mr_id', '=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+
+
+</odoo>
