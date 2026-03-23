@@ -1,4 +1,6 @@
 
+
+# Mozaik
 <!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
 [![Pre-commit Status](https://github.com/mozaik-association/mozaik/actions/workflows/pre-commit.yml/badge.svg?branch=14.0)](https://github.com/mozaik-association/mozaik/actions/workflows/pre-commit.yml?query=branch%3A14.0)
 [![Build Status](https://github.com/mozaik-association/mozaik/actions/workflows/test.yml/badge.svg?branch=14.0)](https://github.com/mozaik-association/mozaik/actions/workflows/test.yml?query=branch%3A14.0)
@@ -6,8 +8,6 @@
 <!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
-
-# Mozaik
 
 ...
 
