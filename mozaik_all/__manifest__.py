@@ -35,6 +35,7 @@
         "mozaik_event_publish_date",
         "mozaik_event_question_involvement_category",
         "mozaik_event_registration_partner_fields",
+        "mozaik_event_registration_partner_identifier",
         "mozaik_event_security",
         "mozaik_event_thesaurus",
         "mozaik_event_tickbox_question",
