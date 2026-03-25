@@ -3,7 +3,7 @@ Mozaik Event Barcode
 ====================
 
 * Adds barcodes on event.registration records.
-* Adds a button from event.event form view to access a page from where the event organizer can scan barcodes to confirm the attendance of the partners.
+* Adds a button from event.event form view to access a page from where the event organizer can scan barcodes to confirm the attendance of the partners. Alternatively, a membership card (attendee's identifier) can be scanned instead of a barcode.
 * Adds the option to activate a **Voting Domain** on event.events, to compute which attendees can vote at the event.
 * Show in the barcode scanner wizard if the partner can vote or not.
 
