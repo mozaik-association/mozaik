@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="event_registration_search_view">
+        <field
+            name="name"
+        >event.registration.search (in mozaik_event_registration_partner_identifier)</field>
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_registration_search" />
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute
+                    name="filter_domain"
+                    operation="domain_add"
+                    join_operator="OR"
+                >
+                    [('partner_identifier', '=', self)]
+                </attribute>
+            </field>
+            <field name="id" position="before">
+                <field name="name" position="move" />
+            </field>
+        </field>
+    </record>
+</odoo>
