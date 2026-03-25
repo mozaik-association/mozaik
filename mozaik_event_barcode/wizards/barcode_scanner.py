@@ -52,7 +52,13 @@ class BarcodeScanner(models.TransientModel):
         self.ensure_one()
         if self.event_id:
             self.event_registration_id = self.env["event.registration"].search(
-                [("barcode", "=", self.barcode), ("event_id", "=", self.event_id.id)]
+                [
+                    ("event_id", "=", self.event_id.id),
+                    "|",
+                    ("barcode", "=", self.barcode),
+                    ("partner_identifier", "=", self.barcode),
+                ],
+                limit=1,
             )
         if self.event_registration_id:
             self._process_event_registration_actions()

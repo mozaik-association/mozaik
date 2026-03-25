@@ -15,6 +15,7 @@
         "event",
         "mozaik_event_membership_request_involvement",
         "mozaik_event_partner_firstname",
+        "mozaik_event_registration_partner_identifier",
         "mozaik_virtual_partner_membership",
     ],
     "data": [
