@@ -26,7 +26,9 @@ class BarcodeScanner(models.TransientModel):
     _name = "barcode.scanner"
     _description = "Barcode Scanner Wizard"
 
-    barcode = fields.Char()
+    barcode = fields.Char(
+        help="Search by registration barcode or attendee's membership number."
+    )
     event_id = fields.Many2one("event.event", string="Associated Event")
     event_registration_id = fields.Many2one("event.registration")
     confirmation_msg = fields.Selection(
@@ -50,7 +52,7 @@ class BarcodeScanner(models.TransientModel):
     @api.onchange("barcode")
     def _onchange_barcode(self):
         self.ensure_one()
-        if self.event_id:
+        if self.barcode and self.event_id:
             self.event_registration_id = self.env["event.registration"].search(
                 [
                     ("event_id", "=", self.event_id.id),
