@@ -31,6 +31,7 @@
         "mozaik_event_export",
         "mozaik_event_involvement_category",
         "mozaik_event_membership_request_involvement",
+        "mozaik_event_membership_request_partner_identifier",
         "mozaik_event_partner_firstname",
         "mozaik_event_publish_date",
         "mozaik_event_question_involvement_category",
