@@ -237,6 +237,11 @@ msgid "Registration wasn't confirmed. Do you want to validate the attendance?"
 msgstr ""
 
 #. module: mozaik_event_barcode
+#: model:ir.model.fields,help:mozaik_event_barcode.field_barcode_scanner__barcode
+msgid "Search by registration barcode or attendee's membership number."
+msgstr ""
+
+#. module: mozaik_event_barcode
 #: model:ir.model.fields,help:mozaik_event_barcode.field_event_event__is_voting_domain_required
 #: model:ir.model.fields,help:mozaik_event_barcode.field_event_registration__is_voting_domain_required
 msgid "Tick if you want to activate domain for voting partners."
