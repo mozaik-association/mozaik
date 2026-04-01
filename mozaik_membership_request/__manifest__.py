@@ -32,6 +32,7 @@
         "data/ir_config_parameter.xml",
         "data/ir_cron_membership.xml",
         "data/ir_cron_supporter.xml",
+        "data/ir_cron_update_membership_state.xml",
         "views/product_template.xml",
         "views/membership_request.xml",
         "views/res_partner.xml",
