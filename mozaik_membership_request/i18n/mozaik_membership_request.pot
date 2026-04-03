@@ -1063,6 +1063,13 @@ msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: mozaik_membership_request
+#: model:ir.actions.server,name:mozaik_membership_request.ir_cron_update_membership_state_ir_actions_server
+#: model:ir.cron,cron_name:mozaik_membership_request.ir_cron_update_membership_state
+#: model:ir.cron,name:mozaik_membership_request.ir_cron_update_membership_state
+msgid "Update Current State on Draft and Confirmed membership requests"
+msgstr ""
+
+#. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
 msgid "Validate"
 msgstr ""
