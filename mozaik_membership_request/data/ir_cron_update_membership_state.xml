@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="0">
+
+    <record id="ir_cron_update_membership_state" model="ir.cron">
+        <field
+            name="name"
+        >Update Current State on Draft and Confirmed membership requests</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field
+            name="nextcall"
+            eval="(DateTime.today() + relativedelta(days=1)).strftime('%Y-%m-%d 02:00:00')"
+        />
+        <field
+            name="model_id"
+            ref="mozaik_membership_request.model_membership_request"
+        />
+        <field name="code">model.cron_update_membership_state()</field>
+    </record>
+
+</odoo>

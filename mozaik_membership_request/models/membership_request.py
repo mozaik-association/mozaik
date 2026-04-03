@@ -1943,3 +1943,12 @@ class MembershipRequest(models.Model):
             )
             res.append((record["id"], display_name))
         return res
+
+    def cron_update_membership_state(self):
+        pending_requests = self.search(
+            [("state", "in", ["draft", "confirm"]), ("partner_id", "!=", False)]
+        )
+        for mr in pending_requests:
+            partner_state_id = mr.partner_id.membership_state_id.id or False
+            if mr.membership_state_id.id != partner_state_id:
+                mr.write({"membership_state_id": partner_state_id})
