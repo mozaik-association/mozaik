@@ -294,6 +294,11 @@ msgid "Result"
 msgstr "Résultat"
 
 #. module: mozaik_virtual_partner_involvement
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_involvement.field_virtual_partner_involvement__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_virtual_partner_involvement
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_involvement.virtual_partner_involvement_search_view
 msgid "Volunteer"
 msgstr "Volontaire"
