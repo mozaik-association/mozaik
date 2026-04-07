@@ -241,6 +241,11 @@ msgid "Subscription"
 msgstr ""
 
 #. module: mozaik_virtual_partner_membership
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_virtual_partner_membership
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_membership.field_virtual_partner_membership__date_to
 msgid "To"
 msgstr ""
