@@ -273,6 +273,11 @@ msgid "State Instance"
 msgstr "Instance de l'état"
 
 #. module: mozaik_virtual_partner_candidature
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_virtual_partner_candidature
 #: code:addons/mozaik_virtual_partner_candidature/models/virtual_partner_candidature.py:0
 #, python-format
 msgid "This operator is not supported"
