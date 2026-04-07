@@ -216,6 +216,11 @@ msgid "Result"
 msgstr "Résultat"
 
 #. module: mozaik_virtual_partner_relation
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_relation.field_virtual_partner_relation__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_virtual_partner_relation
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_relation.virtual_partner_relation_search_view
 msgid "Without Coordinate"
 msgstr "Injoignable"
