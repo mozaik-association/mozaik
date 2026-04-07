@@ -162,6 +162,11 @@ msgid "Result"
 msgstr ""
 
 #. module: mozaik_virtual_partner_employee
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_employee.field_virtual_partner_employee__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_virtual_partner_employee
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_employee.field_virtual_partner_employee__work_email
 msgid "Work Email"
 msgstr ""
