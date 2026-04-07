@@ -260,6 +260,11 @@ msgid "State"
 msgstr ""
 
 #. module: mozaik_virtual_partner_instance
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_instance.field_virtual_partner_instance__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_virtual_partner_instance
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_partner_instance.virtual_partner_instance_search_view
 msgid "Volunteer"
 msgstr ""
