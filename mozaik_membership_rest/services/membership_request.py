@@ -59,22 +59,50 @@ class MembershipRequestService(Component):
         return vals
 
     def _validate_involvement_category(self, vals):
-        if not any(
-            param in vals
-            for param in ("involvement_category_ids", "involvement_category_codes")
-        ):
-            return vals
-        cats = self.env["partner.involvement.category"].browse()
-        if vals["involvement_category_ids"]:
-            cats |= self.env["partner.involvement.category"].search(
-                [("id", "in", vals["involvement_category_ids"])]
-            )
-        if vals["involvement_category_codes"]:
-            cats |= self.env["partner.involvement.category"].search(
-                [("code", "in", vals["involvement_category_codes"])]
-            )
-        vals.pop("involvement_category_codes")
-        vals["involvement_category_ids"] = [(6, 0, cats.ids)]
+        involvements = vals.pop("involvements", [])
+        involvement_category_ids = vals.pop("involvement_category_ids", [])
+        involvement_category_codes = vals.pop("involvement_category_codes", [])
+        if involvements:
+            # New format takes precedence.
+            # Each item is a dict with involvement_category_id and/or
+            # involvement_category_code, and an optional note.
+            lines = []
+            for inv in involvements:
+                cat = self.env["partner.involvement.category"].browse()
+                if inv.get("involvement_category_id"):
+                    cat = self.env["partner.involvement.category"].search(
+                        [("id", "=", inv["involvement_category_id"])]
+                    )
+                if not cat and inv.get("involvement_category_code"):
+                    cat = self.env["partner.involvement.category"].search(
+                        [("code", "=", inv["involvement_category_code"])]
+                    )
+                if cat:
+                    line_vals = {"involvement_category_id": cat.id}
+                    if inv.get("note"):
+                        line_vals["note"] = inv["note"]
+                    lines.append((0, 0, line_vals))
+                else:
+                    _logger.info(
+                        "Unknown involvement category in involvements: %s", inv
+                    )
+            if lines:
+                vals["membership_request_involvement_ids"] = lines
+        elif involvement_category_ids or involvement_category_codes:
+            # DEPRECATED format: backward compatibility, no notes.
+            cats = self.env["partner.involvement.category"].browse()
+            if involvement_category_ids:
+                cats |= self.env["partner.involvement.category"].search(
+                    [("id", "in", involvement_category_ids)]
+                )
+            if involvement_category_codes:
+                cats |= self.env["partner.involvement.category"].search(
+                    [("code", "in", involvement_category_codes)]
+                )
+            if cats:
+                vals["membership_request_involvement_ids"] = [
+                    (0, 0, {"involvement_category_id": cat.id}) for cat in cats
+                ]
         return vals
 
     def _validate_voluntaries(self, vals):

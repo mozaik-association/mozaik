@@ -257,18 +257,19 @@ class MembershipRequest(models.Model):
         tracking=True,
         help="Partner wishing to be contacted only by the local",
     )
-
+    membership_request_involvement_ids = fields.One2many(
+        comodel_name="membership.request.involvement",
+        inverse_name="membership_request_id",
+        string="Involvement Requests",
+    )
     involvement_category_ids = fields.Many2many(
         "partner.involvement.category",
-        relation="membership_request_involvement_category_rel",
-        column1="request_id",
-        column2="category_id",
         string="Involvement Categories",
+        compute="_compute_involvement_category_ids",
+        inverse="_inverse_involvement_category_ids",
         domain=_get_involvement_category_domain,
     )
-
     indexation_comments = fields.Text("Indexation comments")
-
     amount = fields.Float(digits="Product Price", copy=False)
     force_product_id = fields.Many2one(
         "product.product",
@@ -283,6 +284,40 @@ class MembershipRequest(models.Model):
     )
 
     is_pre_processed = fields.Boolean()
+
+    @api.depends("membership_request_involvement_ids.involvement_category_id")
+    def _compute_involvement_category_ids(self):
+        for rec in self:
+            rec.involvement_category_ids = (
+                rec.membership_request_involvement_ids.mapped("involvement_category_id")
+            )
+
+    def _inverse_involvement_category_ids(self):
+        """
+        Inverse method to allow setting involvement_category_ids directly.
+        This maintains backward compatibility (e.g. from REST services or
+        existing code that sets involvement_category_ids directly).
+        When setting via this inverse, notes will be empty.
+        """
+        for rec in self:
+            new_categories = rec.involvement_category_ids
+            existing_lines = rec.membership_request_involvement_ids
+            existing_categories = existing_lines.mapped("involvement_category_id")
+            # Remove lines whose category is no longer in the set
+            to_remove = existing_lines.filtered(
+                lambda line, nc=new_categories: line.involvement_category_id not in nc
+            )
+            # Add lines for new categories
+            to_add = new_categories.filtered(
+                lambda c, ec=existing_categories: c not in ec
+            )
+            commands = []
+            for line in to_remove:
+                commands.append((2, line.id, 0))
+            for cat in to_add:
+                commands.append((0, 0, {"involvement_category_id": cat.id}))
+            if commands:
+                rec.membership_request_involvement_ids = commands
 
     @api.model
     def _get_status_values(self, request_type, date_from=False):
@@ -1819,15 +1854,18 @@ class MembershipRequest(models.Model):
         current_categories = partner.partner_involvement_ids.mapped(
             "involvement_category_id"
         )
-        new_categories = mr.involvement_category_ids.filtered(
-            lambda s, cc=current_categories: s not in cc or s.allow_multi
+        new_lines = mr.membership_request_involvement_ids.filtered(
+            lambda line, cc=current_categories: line.involvement_category_id not in cc
+            or line.involvement_category_id.allow_multi
         )
-        for ic in new_categories:
+        for line in new_lines:
             vals = {
                 "partner_id": partner.id,
                 "effective_time": mr.effective_time,
-                "involvement_category_id": ic.id,
+                "involvement_category_id": line.involvement_category_id.id,
             }
+            if line.note:
+                vals["note"] = line.note
             self.env["partner.involvement"].create(vals)
 
     @api.model

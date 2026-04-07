@@ -15,6 +15,14 @@ class MembershipRequestAttachment(BaseModel, metaclass=ExtendableModelMeta):
     content: str = pydantic.Field(..., title="Content encoded in base64")
 
 
+class MembershipRequestInvolvementParam(BaseModel, metaclass=ExtendableModelMeta):
+    """An involvement category with an optional note."""
+
+    involvement_category_id: int = None
+    involvement_category_code: str = None
+    note: str = None
+
+
 class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     lastname: str
     firstname: str
@@ -41,8 +49,11 @@ class MembershipRequest(BaseModel, metaclass=ExtendableModelMeta):
     distribution_list_ids: List[int] = []
     distribution_list_ids_opt_out: List[int] = []
     is_company: bool = None
+    # DEPRECATED: use 'involvements' instead to be able to specify notes.
     involvement_category_ids: List[int] = []
     involvement_category_codes: List[str] = []
+    # NEW: replaces involvement_category_ids / involvement_category_codes
+    involvements: List[MembershipRequestInvolvementParam] = []
     local_voluntary: str = None
     regional_voluntary: str = None
     national_voluntary: str = None

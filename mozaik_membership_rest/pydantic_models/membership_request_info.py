@@ -22,6 +22,19 @@ from odoo.addons.mozaik_thesaurus_api.pydantic_models.thesaurus_term_info import
 from odoo.addons.pydantic import utils
 
 
+class MembershipRequestInvolvementInfo(BaseModel, metaclass=ExtendableModelMeta):
+    """An involvement line on a membership request, with its optional note."""
+
+    involvement_category: InvolvementCategoryInfo = pydantic.Field(
+        None, alias="involvement_category_id"
+    )
+    note: str = None
+
+    class Config:
+        orm_mode = True
+        getter_dict = utils.GenericOdooGetter
+
+
 class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
     id: int = None
     lastname: str = None
@@ -52,8 +65,13 @@ class MembershipRequestInfo(BaseModel, metaclass=ExtendableModelMeta):
         [], alias="distribution_list_ids_opt_out"
     )
     is_company: bool = False
+    # DEPRECATED: use 'involvements' instead
     involvement_categories: List[InvolvementCategoryInfo] = pydantic.Field(
         [], alias="involvement_category_ids"
+    )
+    # NEW: includes notes
+    involvements: List[MembershipRequestInvolvementInfo] = pydantic.Field(
+        [], alias="membership_request_involvement_ids"
     )
     local_voluntary: str = None
     regional_voluntary: str = None
