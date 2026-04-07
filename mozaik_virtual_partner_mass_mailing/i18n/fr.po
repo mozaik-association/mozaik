@@ -331,6 +331,11 @@ msgid "State"
 msgstr "Statut"
 
 #. module: mozaik_virtual_partner_mass_mailing
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__failure_type__unknown
 msgid "Unknown error"
 msgstr "Erreur inconnue"
