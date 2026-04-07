@@ -1155,6 +1155,12 @@ msgid "Technical Name"
 msgstr "Nom technique"
 
 #. module: mozaik_communication
+#: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__territory_ids
+#: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_communication
 #: model:ir.model.constraint,message:mozaik_communication.constraint_res_partner_email_bounced_check
 msgid "The number of bounced emails has to be non negative."
 msgstr ""
