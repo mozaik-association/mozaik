@@ -335,6 +335,11 @@ msgid "State Mandate Competences"
 msgstr ""
 
 #. module: mozaik_virtual_partner_mandate
+#: model:ir.model.fields,field_description:mozaik_virtual_partner_mandate.field_virtual_partner_mandate__territory_ids
+msgid "Territories"
+msgstr ""
+
+#. module: mozaik_virtual_partner_mandate
 #: code:addons/mozaik_virtual_partner_mandate/models/virtual_partner_mandate.py:0
 #: code:addons/mozaik_virtual_partner_mandate/models/virtual_partner_mandate.py:0
 #, python-format
