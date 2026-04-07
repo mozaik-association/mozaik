@@ -63,6 +63,12 @@ class AbstractVirtualModel(models.AbstractModel):
         compute="_compute_interest_ids",
         search="_search_interest_ids",
     )
+    territory_ids = fields.Many2many(
+        comodel_name="territory",
+        string="Territories",
+        compute="_compute_territory_ids",
+        search="_search_territory_ids",
+    )
     partner_instance_ids = fields.Many2many(
         comodel_name="int.instance",
         string="Partner Internal Instances",
@@ -81,6 +87,9 @@ class AbstractVirtualModel(models.AbstractModel):
 
     def _compute_competency_ids(self):
         self._compute_custom_related("competency_ids", "partner_id.competency_ids")
+
+    def _compute_territory_ids(self):
+        self._compute_custom_related("territory_ids", "partner_id.territory_ids")
 
     def _compute_interest_ids(self):
         self._compute_custom_related("interest_ids", "partner_id.interest_ids")
@@ -149,6 +158,9 @@ class AbstractVirtualModel(models.AbstractModel):
 
     def _search_competency_ids(self, operator, value):
         return self._search_term_ids(operator, value, "competency_ids")
+
+    def _search_territory_ids(self, operator, value):
+        return self._search_term_ids(operator, value, "territory_ids")
 
     @api.model
     def _search_int_instance_id(self, operator, value):

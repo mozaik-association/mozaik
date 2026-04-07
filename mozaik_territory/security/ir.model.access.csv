@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_territory_reader,territory reader,model_territory,group_territory_reader,1,0,0,0
+access_territory_user,territory user,model_territory,group_territory_user,1,0,0,0
+access_territory_manager,territory manager,model_territory,group_territory_manager,1,1,1,1

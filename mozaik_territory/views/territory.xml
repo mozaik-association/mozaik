@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="territory_view_tree" model="ir.ui.view">
+        <field name="name">territory.tree</field>
+        <field name="model">territory</field>
+        <field name="arch" type="xml">
+            <tree string="Territories">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="territory_view_form" model="ir.ui.view">
+        <field name="name">territory.form</field>
+        <field name="model">territory</field>
+        <field name="arch" type="xml">
+            <form string="Territory">
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <group>
+                        <field name="name" />
+                        <field name="active" invisible="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="territory_view_search" model="ir.ui.view">
+        <field name="name">territory.search</field>
+        <field name="model">territory</field>
+        <field name="arch" type="xml">
+            <search string="Territories">
+                <field name="name" string="Territory" />
+                <filter
+                    name="active"
+                    string="Active"
+                    domain="[('active', '=', True)]"
+                />
+                <filter
+                    name="inactive"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="territory_action" model="ir.actions.act_window">
+        <field name="name">Territories</field>
+        <field name="res_model">territory</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_active": 1}</field>
+    </record>
+
+    <menuitem
+        id="menu_territory"
+        name="Territories"
+        parent="contacts.menu_localisation"
+        action="territory_action"
+        groups="group_territory_manager"
+        sequence="30"
+    />
+
+</odoo>
