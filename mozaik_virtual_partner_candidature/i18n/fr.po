@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-30 10:45+0000\n"
-"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"PO-Revision-Date: 2026-04-09 08:51+0000\n"
+"Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -275,7 +275,7 @@ msgstr "Instance de l'état"
 #. module: mozaik_virtual_partner_candidature
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_candidature.field_virtual_partner_candidature__territory_ids
 msgid "Territories"
-msgstr ""
+msgstr "Territoires"
 
 #. module: mozaik_virtual_partner_candidature
 #: code:addons/mozaik_virtual_partner_candidature/models/virtual_partner_candidature.py:0
