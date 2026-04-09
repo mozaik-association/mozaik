@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-01-25 18:56+0000\n"
-"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"PO-Revision-Date: 2026-04-09 08:51+0000\n"
+"Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -333,7 +333,7 @@ msgstr "Statut"
 #. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields,field_description:mozaik_virtual_partner_mass_mailing.field_virtual_partner_mass_mailing__territory_ids
 msgid "Territories"
-msgstr ""
+msgstr "Territoires"
 
 #. module: mozaik_virtual_partner_mass_mailing
 #: model:ir.model.fields.selection,name:mozaik_virtual_partner_mass_mailing.selection__virtual_partner_mass_mailing__failure_type__unknown
