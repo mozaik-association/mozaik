@@ -10,11 +10,15 @@
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
     "depends": [
+        # Mozaik
+        "mozaik_hr_work_address",
+        "mozaik_partner_rest",
         # OCA/rest-framework
         "base_rest",
         "base_rest_pydantic",
         "extendable",
         "pydantic",
+        # Odoo
         "hr",
     ],
     "data": [],

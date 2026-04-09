@@ -4,7 +4,6 @@
 from .employee_ref import EmployeeRef
 from .category_info import CategoryInfo
 from .job_info import JobInfo
-from .partner_min import PartnerMin
 
 # Department models
 from .department_ref import DepartmentRef
