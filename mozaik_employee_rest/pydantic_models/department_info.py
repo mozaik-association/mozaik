@@ -6,11 +6,13 @@ from typing import List, Optional
 from extendable_pydantic import ExtendableModelMeta  # pylint:disable=W7936
 from pydantic import BaseModel, Field  # pylint:disable=W7936
 
+from odoo.addons.mozaik_partner_rest.pydantic_models.partner_info import (
+    PartnerShortInfo,
+)
 from odoo.addons.pydantic import utils
 
 from .department_ref import DepartmentRef
 from .employee_ref import EmployeeRef
-from .partner_min import PartnerMin
 
 
 class DepartmentInfo(BaseModel, metaclass=ExtendableModelMeta):
@@ -19,7 +21,7 @@ class DepartmentInfo(BaseModel, metaclass=ExtendableModelMeta):
     manager: Optional[EmployeeRef] = Field(None, alias="manager_id")
     parent: Optional[DepartmentRef] = Field(None, alias="parent_id")
     children: List[DepartmentRef] = Field(default=[], alias="child_ids")
-    address: Optional[PartnerMin] = Field(None, alias="address_id")
+    address: Optional[PartnerShortInfo] = Field(None, alias="address_id")
 
     class Config:
         orm_mode = True
