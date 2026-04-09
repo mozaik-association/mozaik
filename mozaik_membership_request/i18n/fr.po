@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-26 12:48+0000\n"
-"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"PO-Revision-Date: 2026-04-09 08:51+0000\n"
+"Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -83,10 +83,8 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__address_id
-#, fuzzy
-#| msgid "Current Address"
 msgid "Address"
-msgstr "Adresse actuelle"
+msgstr "Adresse"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__age
@@ -115,10 +113,8 @@ msgstr "Toutes les demandes, expirées ou non"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_involvement__allow_multi
-#, fuzzy
-#| msgid "Involvements"
 msgid "Allow Multiple Involvements"
-msgstr "Participations"
+msgstr "Permettre plusieurs participations"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__amount
@@ -133,10 +129,9 @@ msgstr ""
 
 #. module: mozaik_membership_request
 #: code:addons/mozaik_membership_request/models/membership_line.py:0
-#, fuzzy, python-format
-#| msgid "Membership Request Change"
+#, python-format
 msgid "Automatic membership state change"
-msgstr "Demande d'adhésion / modification"
+msgstr "Changement de statut automatique"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_product_product__advance_workflow_as_paid
@@ -228,10 +223,8 @@ msgstr "Ville (Manuel)"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_involvement__code
-#, fuzzy
-#| msgid "Zip Code"
 msgid "Code"
-msgstr "Code postal"
+msgstr "Code"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__competency_ids
@@ -287,10 +280,8 @@ msgstr "Créé par"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_involvement__create_date
-#, fuzzy
-#| msgid "Created by"
 msgid "Created on"
-msgstr "Créé par"
+msgstr "Créé le"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__membership_state_id
@@ -557,10 +548,8 @@ msgstr "Catégories de participation"
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_involvement__involvement_category_id
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request_involvement__name
-#, fuzzy
-#| msgid "Involvement Categories"
 msgid "Involvement Category"
-msgstr "Catégories de participation"
+msgstr "Catégorie de participation"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__effective_time
@@ -569,10 +558,8 @@ msgstr "Date de participation"
 
 #. module: mozaik_membership_request
 #: model:ir.model.fields,field_description:mozaik_membership_request.field_membership_request__membership_request_involvement_ids
-#, fuzzy
-#| msgid "Involvements"
 msgid "Involvement Requests"
-msgstr "Participations"
+msgstr "Demandes de participations"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
@@ -714,10 +701,8 @@ msgstr "Demande d'adhésion / modification"
 
 #. module: mozaik_membership_request
 #: model:ir.model,name:mozaik_membership_request.model_membership_request_involvement
-#, fuzzy
-#| msgid "Membership Request Change"
 msgid "Membership Request Involvement"
-msgstr "Demande d'adhésion / modification"
+msgstr "Demande de participation"
 
 #. module: mozaik_membership_request
 #: model:ir.actions.act_window,name:mozaik_membership_request.membership_request_action
@@ -1130,10 +1115,10 @@ msgstr ""
 #: model:ir.actions.server,name:mozaik_membership_request.ir_cron_update_membership_state_ir_actions_server
 #: model:ir.cron,cron_name:mozaik_membership_request.ir_cron_update_membership_state
 #: model:ir.cron,name:mozaik_membership_request.ir_cron_update_membership_state
-#, fuzzy
-#| msgid "The required age for a membership request is %s"
 msgid "Update Current State on Draft and Confirmed membership requests"
-msgstr "L'âge minimum pour une adhésion est %s"
+msgstr ""
+"Mise à jour du statut d'adhésion sur les demandes d'adhésion en brouillon et "
+"confirmées"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
