@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-01-19 12:56+0000\n"
-"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"PO-Revision-Date: 2026-04-09 08:51+0000\n"
+"Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -218,7 +218,7 @@ msgstr "Niveau de pouvoir de l'état"
 #. module: mozaik_virtual_assembly_instance
 #: model:ir.model.fields,field_description:mozaik_virtual_assembly_instance.field_virtual_assembly_instance__territory_ids
 msgid "Territories"
-msgstr ""
+msgstr "Territoires"
 
 #. module: mozaik_virtual_assembly_instance
 #: model_terms:ir.ui.view,arch_db:mozaik_virtual_assembly_instance.virtual_assembly_instance_search_view
