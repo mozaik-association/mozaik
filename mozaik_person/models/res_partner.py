@@ -339,7 +339,7 @@ class ResPartner(models.Model):
                 ]
                 else "ilike"
             )
-            ident = int(name) if name.isdigit() else -1
+            ident = name if name.isdigit() else -1
             domain = [
                 "|",
                 "|",
