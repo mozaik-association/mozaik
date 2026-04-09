@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-11 20:58+0000\n"
-"PO-Revision-Date: 2022-05-05 12:50+0000\n"
-"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"PO-Revision-Date: 2026-04-09 08:51+0000\n"
+"Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -1158,7 +1158,7 @@ msgstr "Nom technique"
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__territory_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__territory_ids
 msgid "Territories"
-msgstr ""
+msgstr "Territoires"
 
 #. module: mozaik_communication
 #: model:ir.model.constraint,message:mozaik_communication.constraint_res_partner_email_bounced_check
