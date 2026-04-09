@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-11-15 12:41+0000\n"
-"Last-Translator: Guillaume Vandamme <guillaume.vandamme@acsone.eu>\n"
+"PO-Revision-Date: 2026-04-09 08:51+0000\n"
+"Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: nl_BE\n"
 "MIME-Version: 1.0\n"
@@ -1130,10 +1130,9 @@ msgstr ""
 #: model:ir.actions.server,name:mozaik_membership_request.ir_cron_update_membership_state_ir_actions_server
 #: model:ir.cron,cron_name:mozaik_membership_request.ir_cron_update_membership_state
 #: model:ir.cron,name:mozaik_membership_request.ir_cron_update_membership_state
-#, fuzzy
-#| msgid "The required age for a membership request is %s"
 msgid "Update Current State on Draft and Confirmed membership requests"
-msgstr "De minimuleeftijd om lid te worden bedraagt %s"
+msgstr ""
+"De huidige status van concept- en bevestigde lidmaatschapsaanvragen bijwerken"
 
 #. module: mozaik_membership_request
 #: model_terms:ir.ui.view,arch_db:mozaik_membership_request.membership_request_form_view
