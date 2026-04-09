@@ -7,7 +7,7 @@
         Glue module between 'mozaik_event_membership_request_involvement'
         and 'mozaik_event_registration_partner_identifier'.
     """,
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV",
     "website": "https://github.com/mozaik-association/mozaik",
@@ -17,4 +17,5 @@
         "mozaik_event_registration_partner_identifier",
     ],
     "data": [],
+    "post_init_hook": "post_init_hook",
 }
