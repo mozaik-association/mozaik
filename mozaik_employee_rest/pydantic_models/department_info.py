@@ -10,6 +10,7 @@ from odoo.addons.pydantic import utils
 
 from .department_ref import DepartmentRef
 from .employee_ref import EmployeeRef
+from .partner_min import PartnerMin
 
 
 class DepartmentInfo(BaseModel, metaclass=ExtendableModelMeta):
@@ -18,6 +19,7 @@ class DepartmentInfo(BaseModel, metaclass=ExtendableModelMeta):
     manager: Optional[EmployeeRef] = Field(None, alias="manager_id")
     parent: Optional[DepartmentRef] = Field(None, alias="parent_id")
     children: List[DepartmentRef] = Field(default=[], alias="child_ids")
+    address: Optional[PartnerMin] = Field(None, alias="address_id")
 
     class Config:
         orm_mode = True
