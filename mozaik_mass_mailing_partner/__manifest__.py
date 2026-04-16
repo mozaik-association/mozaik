@@ -17,5 +17,6 @@
         "views/res_partner_views.xml",
         "views/mailing_trace_partner_views.xml",
     ],
+    "pre_init_hook": "pre_init_hook",
     "installable": True,
 }
