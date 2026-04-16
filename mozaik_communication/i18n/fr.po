@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-11 20:58+0000\n"
-"PO-Revision-Date: 2026-04-09 08:51+0000\n"
+"PO-Revision-Date: 2026-04-16 12:37+0000\n"
 "Last-Translator: Marie Lejeune <marie.lejeune@acsone.eu>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -143,18 +143,14 @@ msgstr "Date de naissance"
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__birthdate_day
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__birthdate_day
-#, fuzzy
-#| msgid "Birth Date"
 msgid "Birthdate Day"
-msgstr "Date de naissance"
+msgstr "Jour de naissance"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__birthdate_month
 #: model:ir.model.fields,field_description:mozaik_communication.field_virtual_target__birthdate_month
-#, fuzzy
-#| msgid "Birth Date"
 msgid "Birthdate Month"
-msgstr "Date de naissance"
+msgstr "Mois de naissance"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/mailing_trace.py:0
@@ -289,10 +285,8 @@ msgstr "Code pays"
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__create_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__create_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__create_date
-#, fuzzy
-#| msgid "Created by"
 msgid "Create Date"
-msgstr "Créé par"
+msgstr "Date de création"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_mailing_mailing__create_uid
@@ -441,10 +435,8 @@ msgstr "Exécuter la liste de distribution"
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__expire_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__expire_date
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__expire_date
-#, fuzzy
-#| msgid "Birth Date"
 msgid "Expiration Date"
-msgstr "Date de naissance"
+msgstr "Date d'expiration"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.distribution_list_line_search
@@ -512,7 +504,7 @@ msgstr "Prénom"
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_follower_ids
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Abonnés"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_channel_ids
@@ -650,10 +642,8 @@ msgstr "Instance interne"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__int_instance_ids
-#, fuzzy
-#| msgid "Internal instance"
 msgid "Internal instances"
-msgstr "Instance interne"
+msgstr "Instances internes"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/models/mailing_trace.py:0
@@ -672,7 +662,7 @@ msgstr "Catégorie de participation"
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_is_follower
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Est un abonné"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_abstract_virtual_model__is_company
@@ -849,7 +839,7 @@ msgstr "Mobile"
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__src_model_id
 #: model:ir.model.fields,field_description:mozaik_communication.field_email_template_placeholder__model_id
 msgid "Model"
-msgstr ""
+msgstr "Modèle"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizards/export_csv.py:0
@@ -964,7 +954,7 @@ msgstr "Opt-Out"
 #: model:ir.model.fields.selection,name:mozaik_communication.selection__membership_request__request_type__n
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.membership_request_search_view
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__res_users_ids
@@ -1174,7 +1164,7 @@ msgstr ""
 #: code:addons/mozaik_communication/models/abstract_virtual_model.py:0
 #, python-format
 msgid "This operator is not supported"
-msgstr ""
+msgstr "Cet opérateur n'est pas supporté"
 
 #. module: mozaik_communication
 #: model_terms:ir.ui.view,arch_db:mozaik_communication.export_csv_wizard
@@ -1193,7 +1183,7 @@ msgstr "Civilité"
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line__message_unread
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list_line_template__message_unread
 msgid "Unread Messages"
-msgstr ""
+msgstr "Messages non lus"
 
 #. module: mozaik_communication
 #: model:ir.model.fields,field_description:mozaik_communication.field_distribution_list__message_unread_counter
