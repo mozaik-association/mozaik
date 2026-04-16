@@ -1983,10 +1983,32 @@ class MembershipRequest(models.Model):
         return res
 
     def cron_update_membership_state(self):
+        """
+        Recalculate both the current partner membership state
+        (``membership_state_id``) and the expected result state
+        (``result_type_id``) on all pending (draft / confirm) membership
+        requests that have a partner linked.
+
+        This reuses ``_onchange_partner_id_vals`` so that both fields are
+        recomputed consistently, the same way they would be if the user
+        re-opened and saved the request manually.
+        """
         pending_requests = self.search(
             [("state", "in", ["draft", "confirm"]), ("partner_id", "!=", False)]
         )
         for mr in pending_requests:
-            partner_state_id = mr.partner_id.membership_state_id.id or False
-            if mr.membership_state_id.id != partner_state_id:
-                mr.write({"membership_state_id": partner_state_id})
+            new_vals = mr._onchange_partner_id_vals(
+                mr.is_company,
+                mr.request_type,
+                mr.partner_id.id,
+                mr.technical_name,
+            )
+            # Keep only the two state fields
+            state_vals = {
+                k: new_vals[k]
+                for k in ("membership_state_id", "result_type_id")
+                if k in new_vals
+            }
+            needs_update = any(mr[k].id != (v or False) for k, v in state_vals.items())
+            if needs_update:
+                mr.write(state_vals)
