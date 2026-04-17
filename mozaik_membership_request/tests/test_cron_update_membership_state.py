@@ -135,20 +135,35 @@ class TestCronUpdateMembershipState(SavepointCase):
             "Requests without a partner must be skipped.",
         )
 
-    def test_cron_does_not_touch_result_type_id(self):
+    def test_cron_updates_result_type_id_when_partner_state_changes(self):
         """
-        The cron must only refresh ``membership_state_id`` (current state).
-        ``result_type_id`` (expected state after validation) must remain
-        unchanged.
+        Scenario:
+
+        1. Partner is a member → request created with current=member, result=member
+           (request_type=False, is_update request).
+        2. Partner resigns → partner state becomes former_member.
+        3. Cron runs → both membership_state_id AND result_type_id must be
+           refreshed so that validating the request no longer re-opens a membership.
         """
-        mr = self._create_draft_mr(self.partner, self.without_membership_state)
-        # Manually set a result_type_id to check it is preserved
+        former_member_state = self.mrs.search([("code", "=", "former_member")])
+        self.assertIsNotNone(former_member_state)
+        # Step 1 – partner is member, DA is created
+        self._force_partner_state(self.partner, self.member_state)
+        mr = self._create_draft_mr(self.partner, self.member_state)
         mr.write({"result_type_id": self.member_state.id})
-        result_type_before = mr.result_type_id
-        self._force_partner_state(self.partner, self.supporter_state)
+        # Step 2 – partner resigns
+        self._force_partner_state(self.partner, former_member_state)
+        # Step 3 – cron runs
         self.mro.cron_update_membership_state()
         self.assertEqual(
+            mr.membership_state_id,
+            former_member_state,
+            "membership_state_id must reflect the partner's new state.",
+        )
+        # result_type_id must also have been refreshed (not stay on 'member')
+        self.assertNotEqual(
             mr.result_type_id,
-            result_type_before,
-            "result_type_id must not be modified by the cron.",
+            self.member_state,
+            "result_type_id must be recalculated so validation does not "
+            "reopen a closed membership.",
         )
