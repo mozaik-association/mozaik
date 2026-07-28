@@ -41,6 +41,11 @@
                     string="Donation"
                     domain="[('promise', '=', False), ('involvement_type', 'in', ['donation'])]"
                 />
+                <filter
+                    name="is_paid"
+                    string="Paid"
+                    domain="[('is_paid', '=', True)]"
+                />
             </filter>
         </field>
     </record>
