@@ -10,6 +10,8 @@ class VirtualPartnerInvolvement(models.Model):
         string="Is a donor",
     )
     promise = fields.Boolean()
+    amount = fields.Float(digits="Product Price")
+    is_paid = fields.Boolean(string="Paid")
 
     @api.model
     def _get_select(self):
@@ -21,6 +23,9 @@ class VirtualPartnerInvolvement(models.Model):
             super()._get_select()
             + """,
                 p.is_donor,
-                pi.promise AS promise"""
+                pi.promise AS promise,
+                pi.amount AS amount,
+                CASE WHEN pi.involvement_type = 'donation' THEN NOT pi.promise
+                    ELSE FALSE END AS is_paid"""
         )
         return select
