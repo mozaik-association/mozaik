@@ -20,6 +20,7 @@ class DistributionList(models.Model):
         "owner.mixin",
     ]
     _unicity_keys = "N/A"
+    _inactive_cascade = True
 
     name = fields.Char(
         tracking=True,

@@ -5,6 +5,7 @@ from odoo import api, fields, models
 
 class MassMailing(models.Model):
     _inherit = "mailing.mailing"
+    _allowed_inactive_link_models = ["distribution.list"]
 
     create_uid = fields.Many2one(
         comodel_name="res.users",
