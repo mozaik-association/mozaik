@@ -204,7 +204,7 @@ class MembershipRequest(models.Model):
                 "email": self.email,
                 # Involvements
                 "effective_time": self.effective_time,
-                "involvement_category_ids": self.involvement_category_ids,
+                "membership_request_involvement_ids": self.membership_request_involvement_ids,
                 # Thesaurus
                 "competency_ids": self.competency_ids,
                 "interest_ids": self.interest_ids,

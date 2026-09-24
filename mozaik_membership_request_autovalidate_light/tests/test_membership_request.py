@@ -147,6 +147,7 @@ class TestMembershipRequest(SavepointCase):
     def test_light_autoval_involvements(self):
         """
         Check light auto-validation validates the involvements
+        and keeps the notes
         """
         ic_1 = self.env["partner.involvement.category"].create(
             {
@@ -170,7 +171,24 @@ class TestMembershipRequest(SavepointCase):
                 "zip_man": "4000",
                 "city_id": self.city_lg.id,
                 "request_type": "m",
-                "involvement_category_ids": [(4, ic_1.id), (4, ic_2.id)],
+                "membership_request_involvement_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "involvement_category_id": ic_1.id,
+                            "note": "Note related to IC 1",
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "involvement_category_id": ic_2.id,
+                            "note": "Note related to IC 2",
+                        },
+                    ),
+                ],
                 "effective_time": inv_effective_time,
             }
         )
@@ -196,6 +214,14 @@ class TestMembershipRequest(SavepointCase):
         )
         self.assertEqual(
             self.omar_sy.partner_involvement_ids[1].effective_time, inv_effective_time
+        )
+        inv_ic_1 = self.omar_sy.partner_involvement_ids.filtered(
+            lambda inv: inv.involvement_category_id == ic_1
+        )
+        self.assertEqual(inv_ic_1.note, "Note related to IC 1")
+        self.assertEqual(
+            (self.omar_sy.partner_involvement_ids - inv_ic_1).note,
+            "Note related to IC 2",
         )
 
     def test_light_autoval_indexation_comments(self):
