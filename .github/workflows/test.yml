@@ -36,6 +36,7 @@ jobs:
           persist-credentials: false
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
+      - run: PIPX_HOME=/root/.local/pipx pipx inject pyproject-dependencies "setuptools-scm<10"
       - name: Install addons and dependencies
         run: oca_install_addons
       - name: Check licenses

@@ -6,7 +6,7 @@ from odoo.addons.mozaik_petition_membership_request_involvement.tests import (
 )
 
 
-class TestPetitionRegistration(test_petition_registration.TestEventRegistration):
+class TestPetitionRegistration(test_petition_registration.TestPetitionRegistration):
     def test_membership_request_created(self):
         self.assertEqual(len(self.mr), 1)
         petition_origin = self.env.ref(
