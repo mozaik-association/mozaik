@@ -25,6 +25,11 @@ class EmployeeInfo(BaseModel, metaclass=ExtendableModelMeta):
 
     parent: Optional[EmployeeRef] = Field(None, alias="parent_id")
     mobile_phone: Optional[str] = None
+    work_phone: Optional[str] = None
+    work_email: Optional[str] = None
+    image_1920_url: Optional[str] = None
+    work_location: Optional[str] = None
+    private_email: Optional[str] = None
 
     class Config:
         orm_mode = True

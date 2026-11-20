@@ -15,11 +15,7 @@ from .employee_info import EmployeeInfo
 
 
 class EmployeeDetail(EmployeeInfo, metaclass=ExtendableModelMeta):
-    work_phone: Optional[str] = None
-    work_email: Optional[str] = None
-    image_1920_url: Optional[str] = None
     address: Optional[PartnerShortInfo] = Field(None, alias="address_id")
-    work_location: Optional[str] = None
 
     class Config:
         orm_mode = True
