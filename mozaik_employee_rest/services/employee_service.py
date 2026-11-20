@@ -86,7 +86,11 @@ class EmployeeService(Component):
 
         pages = math.ceil(total / page_size) if page_size else 1
 
-        results = [EmployeeInfo.from_orm(emp) for emp in employees]
+        results = []
+        for emp in employees:
+            info = EmployeeInfo.from_orm(emp)
+            info.image_1920_url = self._image_url(emp.id)
+            results.append(info)
 
         return EmployeeListResponse(
             count=total,
